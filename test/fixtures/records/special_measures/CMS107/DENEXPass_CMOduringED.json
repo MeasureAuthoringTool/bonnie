@@ -1,0 +1,1090 @@
+  {
+    "_id": "595137c7942c6d6d35000047",
+    "birthdate": 495878400,
+    "bundle_id": "546130b069702d0650cf1000",
+    "calc_results": [
+      {
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 1,
+        "NUMER": 0,
+        "NUMEX": 0,
+        "DENEXCEP": 0,
+        "rationale": {
+          "prefix_4a12f530_fa70_40d4_ad9d_8aa89886d4d1_40280381_3d61_56a7_013d_8477cebf702a": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "MeasurePeriod": {
+            "results": [
+              {
+                "id": "undefined",
+                "json": {
+                  "start_time": 1325376000,
+                  "end_time": 1356998340,
+                  "codes": {
+                  }
+                }
+              }
+            ]
+          },
+          "EndsDuring_2EB710AC_D800_4F10_8FD7_E3C9E8F5294D_40280381_3d61_56a7_013d_8477cebf702a": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "GROUP_occAof_qdm_var_SatisfiesAll_9D7CD00E_2E8B_4F18_AA55_2C02F27E37DD_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "occAof_qdm_var_SatisfiesAll_9D7CD00E_2E8B_4F18_AA55_2C02F27E37DD_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "5942e1aeb848467555000222"
+              ]
+            ]
+          },
+          "prefix_2af326c1_3143_4cfe_af0a_18251e1e8346_40280381_3d61_56a7_013d_8477cebf702a": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "Intersection_46B186C2_545E_4BB4_80BA_B8356EA0E4A6_895D063C_BC8D_43B7_B397_76073A1A2EC3": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "5942e1aeb848467555000222"
+              ]
+            ]
+          },
+          "cab84e04_59f1_4be1_93a6_28e23e0cd811_40280381_3d61_56a7_013d_8477cebf702a": false,
+          "Intersection_94CF4041_FE0B_497E_887A_D0F873F132F1_4A0382C8_2F2C_4D28_BB45_085BE92A1B61": false,
+          "precondition_4": true,
+          "Agegrtr_thn_eql_18yearsat_87952A11_F91C_4ED1_A80F_BD58447267E4_930D0F6D_AA95_4430_9BE9_645E9C990FA7": {
+            "results": [
+              {
+              }
+            ],
+            "specifics": [
+              [
+                "5942e1aeb848467555000222"
+              ]
+            ]
+          },
+          "precondition_5": true,
+          "precondition_IPP": true,
+          "IPP": true,
+          "prefix_105183f4_6abd_42aa_9cf7_48e0b6181fb2_40280381_3d61_56a7_013d_8477cebf702a": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "Intersection_7552B5C1_1BAC_4E89_A0FB_6FDECDD023CE_4D6CEAF5_CCE2_4625_9302_59E5761BC9FF": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "5942e1aeb848467555000222"
+              ]
+            ]
+          },
+          "precondition_7": true,
+          "precondition_DENOM": true,
+          "DENOM": true,
+          "ComfortMeasures_InterventionOrder_e1698114_9f7d_44ee_8fad_7c0d3c137ee8": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000226",
+                "json": {
+                  "_id": "5942e1aeb848467555000226",
+                  "anatomical_approach": null,
+                  "anatomical_target": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "133918004"
+                    ]
+                  },
+                  "description": "Intervention, Order: Comfort Measures ",
+                  "end_time": 1349856900,
+                  "health_record_field": null,
+                  "incisionTime": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.45",
+                  "ordinality": null,
+                  "performer_id": null,
+                  "qdm_status": null,
+                  "radiation_dose": null,
+                  "radiation_duration": null,
+                  "reaction": null,
+                  "reason": null,
+                  "source": null,
+                  "specifics": null,
+                  "start_time": 1349856000,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "ordered"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "ComfortMeasures_InterventionPerformed_9f0f8376_2141_4492_8bb2_4845542f4b98": false,
+          "GROUP_qdm_var_Union_9D928599_5D51_4315_B847_5EBF44E89E2D_8876D975_C675_4F0B_A0B4_855C9216E0E1": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000226",
+                "json": {
+                  "_id": "5942e1aeb848467555000226",
+                  "anatomical_approach": null,
+                  "anatomical_target": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "133918004"
+                    ]
+                  },
+                  "description": "Intervention, Order: Comfort Measures ",
+                  "end_time": 1349856900,
+                  "health_record_field": null,
+                  "incisionTime": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.45",
+                  "ordinality": null,
+                  "performer_id": null,
+                  "qdm_status": null,
+                  "radiation_dose": null,
+                  "radiation_duration": null,
+                  "reaction": null,
+                  "reason": null,
+                  "source": null,
+                  "specifics": null,
+                  "start_time": 1349856000,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "ordered"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_33D1F1A1_A17F_4BEC_9D7A_E7ED2E3FC2C3_5EB8A1E6_F575_4F84_9D6D_4A850183CEA0": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000221",
+                "json": {
+                  "_id": "5942e1aeb848467555000221",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "4525004"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Emergency Department Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1349860500,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349856000,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "5942e1aeb848467555000222"
+              ]
+            ]
+          },
+          "StartsDuring_AF6231E1_F948_4A4C_92B4_3759207E47F6_58AA1DF1_3780_4A32_BD69_CA26123D9938": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000226",
+                "json": {
+                  "_id": "5942e1aeb848467555000226",
+                  "anatomical_approach": null,
+                  "anatomical_target": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "133918004"
+                    ]
+                  },
+                  "description": "Intervention, Order: Comfort Measures ",
+                  "end_time": 1349856900,
+                  "health_record_field": null,
+                  "incisionTime": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.45",
+                  "ordinality": null,
+                  "performer_id": null,
+                  "qdm_status": null,
+                  "radiation_dose": null,
+                  "radiation_duration": null,
+                  "reaction": null,
+                  "reason": null,
+                  "source": null,
+                  "specifics": null,
+                  "start_time": 1349856000,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "ordered"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "5942e1aeb848467555000222"
+              ]
+            ]
+          },
+          "StartsDuring_DEBACF74_05CF_4E6A_94D7_A73CDE9F24EC_2FEC6673_CC84_4171_BAE2_BC2B08F1806D": false,
+          "precondition_20": true,
+          "precondition_DENEX": true,
+          "DENEX": true,
+          "GROUP_occAof_qdm_var_SatisfiesAll_9D7CD00E_2E8B_4F18_AA55_2C02F27E37DD_B3AAB19B_02F5_4ED7_B026_7A73670FFE54": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "occAof_qdm_var_SatisfiesAll_9D7CD00E_2E8B_4F18_AA55_2C02F27E37DD_B3AAB19B_02F5_4ED7_B026_7A73670FFE54": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000222",
+                "json": {
+                  "_id": "5942e1aeb848467555000222",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": {
+                    "code_system": "SNOMED-CT",
+                    "code": "10161009",
+                    "title": "Discharge To Home Or Police Custody"
+                  },
+                  "dischargeTime": null,
+                  "end_time": 1350000900,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942e1aeb848467555000223",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1349861400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "qdm_var_Union_9D928599_5D51_4315_B847_5EBF44E89E2D_8876D975_C675_4F0B_A0B4_855C9216E0E1": {
+            "results": [
+              {
+                "id": "5942e1aeb848467555000226",
+                "json": {
+                  "_id": "5942e1aeb848467555000226",
+                  "anatomical_approach": null,
+                  "anatomical_target": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "133918004"
+                    ]
+                  },
+                  "description": "Intervention, Order: Comfort Measures ",
+                  "end_time": 1349856900,
+                  "health_record_field": null,
+                  "incisionTime": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.45",
+                  "ordinality": null,
+                  "performer_id": null,
+                  "qdm_status": null,
+                  "radiation_dose": null,
+                  "radiation_duration": null,
+                  "reaction": null,
+                  "reason": null,
+                  "source": null,
+                  "specifics": null,
+                  "start_time": 1349856000,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "ordered"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "VARIABLES": false
+        },
+        "finalSpecifics": {
+          "IPP": [
+            [
+              "5942e1aeb848467555000222"
+            ]
+          ],
+          "DENOM": [
+            [
+              "5942e1aeb848467555000222"
+            ]
+          ],
+          "DENEX": [
+            [
+              "5942e1aeb848467555000222"
+            ]
+          ]
+        },
+        "measure_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "population_index": 0,
+        "status": "pass"
+      }
+    ],
+    "created_at": "2014-12-03T21:13:22.756Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "59cbf4f0942c6d40640067ce",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency Department Visit",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1349860500,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1349856000,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      },
+      {
+        "_id": "59cbf4f0942c6d40640067cf",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "32485007"
+          ]
+        },
+        "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+        "diagnosis": null,
+        "dischargeDisposition": {
+          "code_system": "SNOMED-CT",
+          "code": "10161009",
+          "title": "Discharge To Home Or Police Custody"
+        },
+        "dischargeTime": null,
+        "end_time": 1350000900,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "principalDiagnosis": {
+          "_id": "59cbf4f0942c6d40640067d0",
+          "code": "111297002",
+          "code_system": "SNOMED-CT",
+          "title": "Ischemic Stroke"
+        },
+        "reason": null,
+        "specifics": null,
+        "start_time": 1349861400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2135-2",
+      "name": "Hispanic Or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 1,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "CMOduringED",
+    "gender": "F",
+    "has_measure_history": true,
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "DENEXPass",
+    "marital_status": null,
+    "measure_ids": [
+      "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "85c18f255e039dbb643bea0266545374",
+    "notes": "Comfort measures in ED visit",
+    "origin_data": [
+
+    ],
+    "procedures": [
+      {
+        "_id": "59cbf4f0942c6d40640067d1",
+        "anatomical_approach": null,
+        "anatomical_target": null,
+        "codes": {
+          "SNOMED-CT": [
+            "133918004"
+          ]
+        },
+        "components": null,
+        "description": "Intervention, Order: Comfort Measures ",
+        "end_time": 1349856900,
+        "facility": null,
+        "health_record_field": null,
+        "incisionTime": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.45",
+        "ordinality": null,
+        "performer_id": null,
+        "qdm_status": null,
+        "radiation_dose": null,
+        "radiation_duration": null,
+        "reaction": null,
+        "reason": null,
+        "result_date_time": null,
+        "source": null,
+        "specifics": null,
+        "start_time": 1349856000,
+        "status_code": {
+          "HL7 ActStatus": [
+            "ordered"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "race": {
+      "code": "2076-8",
+      "name": "Native Hawaiian or Other Pacific Islander",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "results_exceed_storage": false,
+    "results_size": 13875,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "intervention",
+        "status": "ordered",
+        "title": "Comfort Measures ",
+        "description": "Intervention, Order: Comfort Measures ",
+        "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
+        "type": "interventions",
+        "id": "InterventionOrderComfortMeasures",
+        "start_date": 1349856000000,
+        "end_date": 1349856900000,
+        "value": [
+
+        ],
+        "field_values": {
+        },
+        "hqmf_set_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "cms_id": "CMS107v6",
+        "codes": {
+          "SNOMED-CT": [
+            "133918004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59cbf4f0942c6d40640067d1",
+        "code_source": "DEFAULT",
+        "references": null,
+        "criteria_id": "15289033ab1VH"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Emergency Department Visit",
+        "description": "Encounter, Performed: Emergency Department Visit",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+        "type": "encounters",
+        "id": "OccurrenceAEmergencyDepartmentVisit1",
+        "start_date": 1349856000000,
+        "end_date": 1349860500000,
+        "value": [
+
+        ],
+        "field_values": {
+        },
+        "hqmf_set_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "cms_id": "CMS107v6",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59cbf4f0942c6d40640067ce",
+        "code_source": "DEFAULT",
+        "references": null,
+        "criteria_id": "15289033ab1zF"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Non-Elective Inpatient Encounter",
+        "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
+        "type": "encounters",
+        "id": "OccurrenceANonElectiveInpatientEncounter2",
+        "start_date": 1349861400000,
+        "end_date": 1350000900000,
+        "value": [
+
+        ],
+        "field_values": {
+          "DISCHARGE_STATUS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.82",
+            "title": "Discharge To Home Or Police Custody"
+          },
+          "PRINCIPAL_DIAGNOSIS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+            "title": "Ischemic Stroke"
+          }
+        },
+        "hqmf_set_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "cms_id": "CMS107v6",
+        "codes": {
+          "SNOMED-CT": [
+            "32485007"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59cbf4f0942c6d40640067cf",
+        "code_source": "DEFAULT",
+        "references": null,
+        "criteria_id": "15289033ab1bQ"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null,
+        "hqmf_set_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "cms_id": "CMS107v6"
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-09-27T18:58:56.661Z",
+    "user_id": "5785658f6c5d1c3d49000006",
+    "version": 7
+  }
