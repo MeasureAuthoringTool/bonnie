@@ -82,43 +82,36 @@ class Thorax.Models.Measure extends Thorax.Model
     # Defines what is included in the drop down menu in the Bonnie Patient Builder for all
     # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
     # hash in health-data-standards:lib/health-model/data_criteria.rb.
-    globalInclusions = ['reason', 'source', 'health_record_field']
+    # TODO: The QDM spec also lists 'recorder' here as a globally included item.
+    globalInclusions = ['source', 'health_record_field']
 
     # Defines what is included in the drop down menu in the Bonnie Patient Builder for a particular
     # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
-    # hash in health-data-standards:lib/health-model/data_criteria.rb.
+    # hash in health-data-standards:lib/hqmf-model/data_criteria.rb.
     typeInclusions =
-      adverse_events: ['facility', 'severity', 'type'] # TODO: (LDY 9/29/2016) we care about "facility location". this appears to be the same as "facility"
+      adverse_events: ['facility', 'severity', 'type']
       allergies_intolerances: ['severity', 'type']
-      assessments: ['method', 'components']
+      assessments: ['reason', 'method', 'components']
       care_experiences: []
       care_goals: ['target_outcome']
       characteristics: []
       communications: ['category', 'sender', 'recipient', 'medium']
-      conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']
-      devices: ['removal_time', 'anatomical_structure']
-      diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time', 'components']
-      encounters: ['admission_source', 'admit_time', 'discharge_time', 'discharge_disposition', 'facility',
-        'transfer_to', 'transfer_to_time', 
-        'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
+      conditions: ['anatomical_location', 'ordinality', 'severity']
+      devices: ['anatomical_location', 'reason']
+      diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time', 'components', 'reason']
+      encounters: ['admission_source', 'discharge_disposition', 'facility', 'principal_diagnosis', 'diagnosis', 'reason']
       family_history: ['relationship_to_patient']
-      functional_statuses: []
-      immunizations: ['route', 'dose', 'reaction', 'supply', 'active_datetime']
-      interventions: ['anatomical_structure', 'qdm_status']
-      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components', 'method']
-      medications: ['route', 'dispenser_identifier', 'dose', 'reaction', 'supply', 'administration_timing', 'prescriber_identifier', 'refills', 'setting']
+      immunizations: ['route', 'dose', 'reaction', 'supply', 'active_datetime', 'reason']
+      interventions: ['qdm_status', 'reason']
+      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components', 'method', 'reason']
+      medications: ['route', 'dispenser_identifier', 'dose', 'supply', 'administration_timing', 'prescriber_identifier', 'refills', 'setting', 'reason']
       participations: []
-      patient_care_experiences: []
-      physical_exams: ['anatomical_structure', 'components', 'method']
-      preferences: []
-      procedures: ['incision_time', 'anatomical_structure', 'anatomical_location', 'ordinality', 'qdm_status', 'components', 'method']
+      physical_exams: ['anatomical_location', 'components', 'method', 'reason']
+      procedures: ['incision_time', 'anatomical_location', 'ordinality', 'qdm_status', 'components', 'method', 'reason']
       provider_care_experiences: []
       provider_characteristics: []
-      risk_category_assessments: ['severity']
-      substances: ['dose', 'route', 'administration_timing', 'reaction', 'supply', 'refills']
-      symptoms: ['ordinality', 'severity']
-      system_characteristics: []
-      transfers: []
+      substances: ['dose', 'route', 'administration_timing', 'supply', 'refills', 'reason']
+      symptoms: ['severity']
 
     # start with all field values
     fields = Thorax.Models.Measure.logicFields
