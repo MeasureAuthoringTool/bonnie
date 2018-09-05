@@ -7,6 +7,7 @@ Doorkeeper.configure do
     if current_user
       current_user
     else
+      flash[:notice] = "Login to continue authorization."
       store_location_for(:user, request.url)
       redirect_to(new_user_session_path)
     end

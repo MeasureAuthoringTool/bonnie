@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bonnie v<%=Bonnie::Version.current()%> Authorization</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bonnie v<%=Bonnie::Version.current()%></title>
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <% stylesheet_link_tag "doorkeeper/application" %>
+  <%= stylesheet_link_tag :application %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="auth container">
+  <div id="container">
+    <%= yield %>
+  </div>
+</div>
+</body>
+</html>
