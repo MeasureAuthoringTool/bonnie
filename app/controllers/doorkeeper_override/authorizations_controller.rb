@@ -11,7 +11,7 @@ module DoorkeeperOverride
       end
     end
 
-    # Additional functional to support change user button. This logs the user out, stores the page the url
+    # Additional functionality to support change user button. This logs the user out, stores the page the url
     # for authorization for later return, and sends the user to the sign in page.
     def change_user
       sign_out
