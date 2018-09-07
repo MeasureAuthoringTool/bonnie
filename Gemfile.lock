@@ -7,6 +7,46 @@ GIT
       json
 
 GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 20b6f4376cfe10b887e4e410e66fb51373347d42
+  branch: master_bonnie
+  specs:
+    health-data-standards (4.2.0)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongo (~> 2.4.3)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.3)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/bonnie_bundler.git
+  revision: ba80b26d210b7f9ddc97de33b63a50de2c339417
+  branch: master
+  specs:
+    bonnie_bundler (2.2.1)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.2)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.2)
+      rails (~> 4.2)
+      roo (~> 1.13)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/projecttacoma/cqm-converter
   revision: 01da63e0a4c12eb4ec75250babf37d165a2b2885
   branch: master
@@ -85,18 +125,6 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
-    bonnie_bundler (2.2.1)
-      diffy (~> 3.0.0)
-      health-data-standards (~> 4.2)
-      hqmf2js (~> 1.4)
-      hquery-patient-api (~> 1.1)
-      mongoid (~> 5.0)
-      quality-measure-engine (~> 3.2)
-      rails (~> 4.2)
-      roo (~> 1.13)
-      rubyzip (~> 1.2, >= 1.2.1)
-      simplexml_parser (~> 1.0)
-      zip-zip (~> 0.3)
     brakeman (4.0.1)
     browser (2.5.0)
     bson (4.3.0)
@@ -182,22 +210,6 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hashdiff (0.3.0)
-    health-data-standards (4.2.0)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongo (~> 2.4.3)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
     highline (1.7.10)
     hike (1.2.3)
     hqmf2js (1.4.0)
@@ -433,7 +445,7 @@ PLATFORMS
 DEPENDENCIES
   apipie-rails!
   axlsx!
-  bonnie_bundler (~> 2.2.1)
+  bonnie_bundler!
   brakeman
   browser
   bundler-audit
@@ -448,7 +460,7 @@ DEPENDENCIES
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards (~> 4.2.0)
+  health-data-standards!
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails
