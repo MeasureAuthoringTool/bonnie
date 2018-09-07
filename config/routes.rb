@@ -1,9 +1,12 @@
 Bonnie::Application.routes.draw do
   use_doorkeeper do
     skip_controllers :token_info
+    controllers authorizations: 'doorkeeper_override/authorizations'
   end
   # override doorkeeper token info endpoint
   get '/oauth/token/info' => 'doorkeeper_override/token_info#show'
+  # add OAuth change user endpoint
+  post '/oauth/authorize/change_user' => 'doorkeeper_override/authorizations#change_user'
 
   # TODO: Uncomment for Bonnie-v3.0 and on staging
   # apipie
