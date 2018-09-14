@@ -14,7 +14,7 @@ namespace :bonnie do
     # patient_first_name: if a specific patient is desired, include a first_name and last_name.  If all patients are desired, set to nil
     # patient_last_name: if a specific patient is desired, include a first_name and last_name.  If all patients are desired, set to nil
     #
-    # e.g., bundle exec rake bonnie:fixtures:generate_frontend_fixtures[cms,test/fake,bonnie@test.org,CMS68v5,nil,nil]
+    # e.g., bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,test/fake,bonnie@test.org,CMS68v5,nil,nil]
     task :generate_frontend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id, :patient_first_name, :patient_last_name] => [:environment] do |t, args|
       fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
 
@@ -70,7 +70,7 @@ namespace :bonnie do
     # user_email: email of user to export.  Measure and patients exported will be taken from this user account.
     # measure_id: id of measure to export, taken from account of given user.
     #
-    # e.g., bundle exec rake bonnie:fixtures:generate_backend_fixtures[cms,test/fake,bonnie@test.org,CMS68v5]
+    # e.g., bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,test/fake,bonnie@test.org,CMS68v5]
     desc "Exports a set of fixtures that can be loaded for testing purposes"
     task :generate_backend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
       fixtures_path = File.join('test', 'fixtures')
