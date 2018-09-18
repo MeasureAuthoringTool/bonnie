@@ -1,0 +1,263 @@
+{
+  "_id": "5b9fe2ddd7c8acf1740e5c66",
+  "birthdate": -367171200,
+  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "created_at": "2018-09-17T17:22:37.781Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "5b9fe2ddd7c8acf1740e5c68",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "17436001"
+        ],
+        "CPT": [
+          "99241"
+        ]
+      },
+      "description": "Encounter, Performed: Outpatient Consultation",
+      "diagnosis": null,
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1347869700,
+      "facility": null,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1336118400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "442EDEF2-7347-4080-988F-16C9D1998803",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "expired": null,
+  "first": "MethadoneLessThan90MME",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "5b9fe2ddd7c8acf1740e5c69",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "5b9fe2ddd7c8acf1740e5c6a",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199163600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "NUMERFail",
+  "marital_status": null,
+  "measure_ids": [
+    "442EDEF2-7347-4080-988F-16C9D1998803",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "d152573c8e7a7718ec92f179ec1ffe97fa874d8e3a7a06877d188a6f67ad5e24",
+  "medications": [
+    {
+      "_id": "5b9fe2ddd7c8acf1740e5c67",
+      "active_datetime": null,
+      "administrationTiming": {
+        "code_system": "SNOMED-CT",
+        "code": "229797004",
+        "title": "Once daily (qualifier value)"
+      },
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "864978"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Order: Opioid Medications",
+      "dose": {
+        "scalar": "20",
+        "units": "mg"
+      },
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1346660100,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.17",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "refills": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1336118400,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "supply": null,
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    }
+  ],
+  "notes": "methadone 40 mg oral tab does not exceed 90 MME (total daily dose is half a tablet (20 mg) which is 80 MME). Case does not meet NUMER criteria since MME is less than 90.",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "OpioidMedications",
+      "description": "Medication, Order: Opioid Medications",
+      "code_list_id": "2.16.840.1.113883.3.3157.1004.26",
+      "type": "medications",
+      "id": "OpioidMedications_MedicationOrder_9fa72c11_9e0b_481f_a2bb_5ac13e6ddd90_source",
+      "start_date": 1336118400000,
+      "end_date": 1346660100000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+        "FREQUENCY": {
+          "type": "CD",
+          "code_list_id": "drc-e6b5e12d54357f2eff60055d5aa19fbe4c458e863b9a4bb551a5ba5b3c8ca1c5",
+          "field_title": "Frequency",
+          "title": "Once daily (qualifier value)"
+        },
+        "DOSE": {
+          "type": "PQ",
+          "code_list_id": "",
+          "field_title": "Dosage",
+          "value": "20",
+          "unit": "mg"
+        }
+      },
+      "hqmf_set_id": "442EDEF2-7347-4080-988F-16C9D1998803",
+      "cms_id": "CMS460v0",
+      "criteria_id": "165e88ca914NW",
+      "codes": {
+        "RxNorm": [
+          "864978"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "5b9fe2ddd7c8acf1740e5c67",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "OutpatientConsultation",
+      "description": "Encounter, Performed: Outpatient Consultation",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
+      "type": "encounters",
+      "id": "OutpatientConsultation_EncounterPerformed_48dc260e_53e9_4934_91fc_958ce91f1008_source",
+      "start_date": 1336118400000,
+      "end_date": 1347869700000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "442EDEF2-7347-4080-988F-16C9D1998803",
+      "cms_id": "CMS460v0",
+      "criteria_id": "165e88c226dWY",
+      "codes": {
+        "SNOMED-CT": [
+          "17436001"
+        ],
+        "CPT": [
+          "99241"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "5b9fe2ddd7c8acf1740e5c68",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2018-09-17T17:22:37.781Z",
+  "user_id": "501fdba3044a111b98000001"
+}
