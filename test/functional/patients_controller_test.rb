@@ -346,8 +346,8 @@ include Devise::Test::ControllerHelpers
     #Ensure that patients whose expected observ is nil evaluate correctly when value is []
     sheet3 = doc.sheet("3 - Stratification 2")
     s3_r4 = sheet3.row(4)
-    assert_equal nil, s3_r4[3]
-    assert_equal nil, s3_r4[8]
+    assert_equal "[]", s3_r4[3]
+    assert_equal "[]", s3_r4[8]
     
     temp.close()
     temp.unlink()

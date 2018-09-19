@@ -131,7 +131,8 @@ describe 'Continuous Variable Calculations', ->
   it 'can handle multiple episodes observed', ->
     patient = @patients.findWhere(last: '2 ED ', first: 'Visits')
     result = @population.calculate(patient)
-    expect(result.get('values')).toEqual([25, 15])
+    # values are ordered when created by the calculator
+    expect(result.get('values')).toEqual([15, 25])
     expect(result.get('population_relevance')['values']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)

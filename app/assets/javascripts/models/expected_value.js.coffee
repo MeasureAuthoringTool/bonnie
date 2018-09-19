@@ -1,5 +1,13 @@
 class Thorax.Models.ExpectedValue extends Thorax.Model
 
+  initialize: ->
+    # make 'OBSERV' be an empty list if CV measure and 'OBSERV' not set
+    if @has('MSRPOPL') && !@has('OBSERV')
+      @set 'OBSERV', []
+    # sort OBSERV when it is set to make comparison w actuals easier
+    if @has 'OBSERV'
+      @set 'OBSERV', @get('OBSERV').sort()
+
   populationCriteria: ->
     defaults = _(@pick(Thorax.Models.Measure.allPopulationCodes)).keys()
 
@@ -17,8 +25,6 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         @set 'OBSERV', (undefined for val in result.get('values'))
     else
       if result.get('values')?.length
-        @set 'OBSERV', _(@get('OBSERV')).sortBy( (v) -> v)
-        result.set 'values', _(result.get('values')).sortBy( (v) -> v)
         if @get('OBSERV').length - result.get('values').length < 0
           @get('OBSERV').push(undefined) for n in [(@get('OBSERV').length + 1)..result.get('values').length]
 
@@ -28,11 +34,6 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     return true
 
   comparison: (result) ->
-    # sort OBSERV and results before comparing
-    if @has('OBSERV') and @get('OBSERV').length
-      @set 'OBSERV', _(@get('OBSERV')).sortBy( (v) -> v)
-    if result.get('values')?
-      result.set 'values', _(result.get('values')).sortBy( (v) -> v)
 
     for popCrit in @populationCriteria()
       if popCrit.indexOf('OBSERV') != -1
