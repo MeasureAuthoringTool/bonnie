@@ -39,11 +39,11 @@
       # Grab start and end of Measurement Period
       start = @getConvertedTime population.collection.parent.get('measure_period').low.value
       end = @getConvertedTime population.collection.parent.get('measure_period').high.value
-      start_cql = cql.DateTime.fromDate(start, 0) # No timezone offset for start
-      end_cql = cql.DateTime.fromDate(end, 0) # No timezone offset for stop
+      start_cql = cql.DateTime.fromJSDate(start, 0) # No timezone offset for start
+      end_cql = cql.DateTime.fromJSDate(end, 0) # No timezone offset for stop
 
       # Create the execution DateTime that we pass into the engine
-      executionDateTime = cql.DateTime.fromDate(new Date(), '0')
+      executionDateTime = cql.DateTime.fromJSDate(new Date(), '0')
 
       # Construct CQL params
       params = {"Measurement Period": new cql.Interval(start_cql, end_cql)}
