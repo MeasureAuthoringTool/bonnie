@@ -191,9 +191,23 @@ describe 'cqlCalculator', ->
           expect(result5.get('statement_results').PotentialOpioidOveruse['Prescriptions with MME'].pretty).toContain('MME: QUANTITY: 0.13 mg/d')
           expect(result5.get('statement_results').OpioidData.DrugIngredients.pretty).toContain('drugName: "72 HR Fentanyl 0.075 MG/HR Transdermal System"')
 
+         it 'for CMS872 correctly', ->
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS872v0/value_sets.json')
+          measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS872v0/CMS872v0.json'), parse: true
+          patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS872v0/patients.json'), parse: true
+          ratioUnitConversionCorrect = patients.models[0]
+          ratioCorrect = patients.models[1]
+          ratioIncorrect = patients.models[2]
+          ratioUnitConversionCorrectResult = @cql_calculator.calculate(measure.get('populations').first(), ratioUnitConversionCorrect, {doPretty: true})
+          ratioCorrectResult = @cql_calculator.calculate(measure.get('populations').first(), ratioCorrect, {doPretty: true})
+          ratioIncorrect = @cql_calculator.calculate(measure.get('populations').first(), ratioIncorrect, {doPretty: true})
+          expect(ratioUnitConversionCorrectResult.get('statement_results').BonnieTestRatio['Rubella Indicator 1'].final).toEqual('TRUE')
+          expect(ratioCorrectResult.get('statement_results').BonnieTestRatio['Rubella Indicator 1'].final).toEqual('TRUE')
+          expect(ratioIncorrect.get('statement_results').BonnieTestRatio['Rubella Indicator 1'].final).toEqual('FALSE')
+
       describe 'no pretty statement results when not requested', ->
         it 'for CMS107 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
           measure1 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
           patients1 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
           patient1 = patients1.findWhere(last: 'DENEXPass', first: 'CMOduringED')

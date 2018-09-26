@@ -182,6 +182,10 @@ module Measures
           codes = result_value['codes'] || Measures::PatientBuilder.select_codes(oid, value_sets)
           vs = Measures::PatientBuilder.select_value_sets(oid, value_sets)
           derived << CodedResultValue.new({codes:codes, description: vs["display_name"]})
+        elsif result_value['type'] == 'RT'
+          if result_value['numerator_scalar'] && result_value['denominator_scalar']
+            derived << RatioResultValue.new(result_value)
+          end
         elsif result_value['type'] == 'TS'
           # Recycling the use of Range/PhysicalQuantity for TimeStamps
           # converts from milliseconds to seconds for use by CQL_QDM.Helpers.convertDateTime()
@@ -267,12 +271,6 @@ module Measures
       elsif field.type == "ID"
         field_value["value"] = value["root"]
         field_value["namingSystem"] = value["extension"]
-      elsif field.type == "RT"
-        if field.numerator? && field.denominator?
-          field_value = {"numerator"=>field.numerator, "denominator"=>field.denominator}
-        else
-          field_value = nil
-        end
       else
         field_value = field.format
       end

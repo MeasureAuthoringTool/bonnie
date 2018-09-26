@@ -104,8 +104,15 @@
             {{#if start_date}}
               {{start_date}} {{start_time}}
             {{else}}
-              {{value}} {{unit}}
-              {{title}}
+              {{#if numerator_scalar}}
+                {{#if denominator_scalar}}
+                  {{numerator_scalar}}{{numerator_units}}:{{denominator_scalar}}{{denominator_units}}
+                  {{title}}
+                {{else}}
+                  {{value}} {{unit}}
+                  {{title}}
+                {{/if}}
+              {{/if}}
             {{/if}}
               {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
             </span>
@@ -160,9 +167,9 @@
                 {{#if root}}
                   {{root}} {{extension}}
                 {{else}}
-                  {{#if numerator}}
-                    {{#if denominator}}
-                      {{numerator}}/{{denominator}}
+                  {{#if numerator_scalar}}
+                    {{#if denominator_scalar}}
+                      {{numerator_scalar}}{{numerator_units}}:{{denominator_scalar}}{{denominator_units}}
                       {{title}}
                     {{/if}}
                   {{else}}

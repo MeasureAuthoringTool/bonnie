@@ -1,0 +1,780 @@
+[
+  {
+    "_id": "5baa57c0ef33a549c35243b4",
+    "birthdate": 949564800,
+    "bundle_id": "59021a426c5d1c32950008e2",
+    "created_at": "2018-09-25T15:44:00.083Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "Ratio",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5bab75e3ef33a572302782da",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5bab75e3ef33a572302782db",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "Correct",
+    "marital_status": null,
+    "measure_ids": [
+      "86753305-9249-492C-B1DB-5DFAAF24C847",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "404aa3be8126bad1c38d47626d23a20fa95ac44ea5ef8e6f2e69261ddb2d934d",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "procedures": [
+      {
+        "_id": "5bab75e3ef33a572302782d7",
+        "anatomical_approach": null,
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "codes": {
+          "SNOMED-CT": [
+            "10190003"
+          ],
+          "CPT": [
+            "33510"
+          ],
+          "HCPCS": [
+            "S2205"
+          ]
+        },
+        "components": null,
+        "description": "Procedure, Performed: Coronary Artery Bypass Graft",
+        "end_time": 1348560900,
+        "facility": null,
+        "health_record_field": null,
+        "incisionTime": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.6",
+        "ordinality": null,
+        "performer_id": null,
+        "qdm_status": null,
+        "radiation_dose": null,
+        "radiation_duration": null,
+        "reaction": null,
+        "reason": null,
+        "result_date_time": null,
+        "source": null,
+        "specifics": null,
+        "start_time": 1348560000,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "procedure",
+        "status": "performed",
+        "title": "CoronaryArteryBypassGraft",
+        "description": "Procedure, Performed: Coronary Artery Bypass Graft",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.104.12.1002",
+        "type": "procedures",
+        "id": "CoronaryArteryBypassGraft_ProcedurePerformed_1ab54bad_ad25_4734_a9c0_79de251e80be_source",
+        "start_date": 1348560000000,
+        "end_date": 1348560900000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "cms_id": "CMS872v0",
+        "criteria_id": "166115f68d5Fy",
+        "codes": {
+          "SNOMED-CT": [
+            "10190003"
+          ],
+          "CPT": [
+            "33510"
+          ],
+          "HCPCS": [
+            "S2205"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5bab75e3ef33a572302782d7",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "laboratory_test",
+        "status": "performed",
+        "title": "RubellaAntibodyTest(IgGAntibodyTiter)",
+        "description": "Laboratory Test, Performed: Rubella Antibody Test (IgG Antibody Titer)",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1063",
+        "type": "laboratory_tests",
+        "id": "RubellaAntibodyTest_IgGAntibodyTiter__LaboratoryTestPerformed_80a739f9_ab13_4c15_b6d8_c34068cffe73_source",
+        "start_date": 1348560000000,
+        "end_date": 1348560900000,
+        "value": [
+          {
+            "type": "RT",
+            "type_cmp": "CD",
+            "numerator_scalar": "2",
+            "numerator_units": "",
+            "denominator_scalar": "16",
+            "denominator_units": ""
+          }
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "cms_id": "CMS872v0",
+        "criteria_id": "166115f9cad3o",
+        "codes": {
+          "LOINC": [
+            "41763-4"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5bab75e3ef33a572302782d8",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-09-26T12:04:51.514Z",
+    "user_id": "59021a406c5d1c32950008e1",
+    "vital_signs": [
+      {
+        "_id": "5bab75e3ef33a572302782d8",
+        "codes": {
+          "LOINC": [
+            "41763-4"
+          ]
+        },
+        "components": null,
+        "description": "Laboratory Test, Performed: Rubella Antibody Test (IgG Antibody Titer)",
+        "end_time": 1348560900,
+        "health_record_field": null,
+        "interpretation": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.5",
+        "qdm_status": null,
+        "reaction": null,
+        "reason": null,
+        "referenceRange": null,
+        "referenceRangeHigh": null,
+        "referenceRangeLow": null,
+        "result_date_time": null,
+        "specifics": null,
+        "start_time": 1348560000,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null,
+        "values": [
+          {
+            "_id": "5bab75e3ef33a572302782d9",
+            "denominator_scalar": "16",
+            "denominator_units": "",
+            "numerator_scalar": "2",
+            "numerator_units": "",
+            "type": "RT",
+            "type_cmp": "CD"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "5bab76a8ef33a57230278324",
+    "birthdate": -946742400,
+    "bundle_id": "59021a426c5d1c32950008e2",
+    "created_at": "2018-09-26T12:08:08.020Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "RatioUnitConversion",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5bab76a8ef33a57230278328",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5bab76a8ef33a57230278329",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "Correct",
+    "marital_status": null,
+    "measure_ids": [
+      "86753305-9249-492C-B1DB-5DFAAF24C847",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "40831f6be547de6722a3479ee86ad8ac1e21eab333ca98808562923c72d9fa00",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "procedures": [
+      {
+        "_id": "5bab76a8ef33a57230278325",
+        "anatomical_approach": null,
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "codes": {
+          "SNOMED-CT": [
+            "10190003"
+          ],
+          "CPT": [
+            "33510"
+          ],
+          "HCPCS": [
+            "S2205"
+          ]
+        },
+        "components": null,
+        "description": "Procedure, Performed: Coronary Artery Bypass Graft",
+        "end_time": 1348647300,
+        "facility": null,
+        "health_record_field": null,
+        "incisionTime": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.6",
+        "ordinality": null,
+        "performer_id": null,
+        "qdm_status": null,
+        "radiation_dose": null,
+        "radiation_duration": null,
+        "reaction": null,
+        "reason": null,
+        "result_date_time": null,
+        "source": null,
+        "specifics": null,
+        "start_time": 1348646400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "procedure",
+        "status": "performed",
+        "title": "CoronaryArteryBypassGraft",
+        "description": "Procedure, Performed: Coronary Artery Bypass Graft",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.104.12.1002",
+        "type": "procedures",
+        "id": "CoronaryArteryBypassGraft_ProcedurePerformed_1ab54bad_ad25_4734_a9c0_79de251e80be_source",
+        "start_date": 1348646400000,
+        "end_date": 1348647300000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "cms_id": "CMS872v0",
+        "criteria_id": "16615c4be08wG",
+        "codes": {
+          "SNOMED-CT": [
+            "10190003"
+          ],
+          "CPT": [
+            "33510"
+          ],
+          "HCPCS": [
+            "S2205"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5bab76a8ef33a57230278325",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "laboratory_test",
+        "status": "performed",
+        "title": "RubellaAntibodyTest(IgGAntibodyTiter)",
+        "description": "Laboratory Test, Performed: Rubella Antibody Test (IgG Antibody Titer)",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1063",
+        "type": "laboratory_tests",
+        "id": "RubellaAntibodyTest_IgGAntibodyTiter__LaboratoryTestPerformed_80a739f9_ab13_4c15_b6d8_c34068cffe73_source",
+        "start_date": 1348646400000,
+        "end_date": 1348647300000,
+        "value": [
+          {
+            "type": "RT",
+            "numerator_scalar": "1000",
+            "numerator_units": "mg",
+            "denominator_scalar": "8",
+            "denominator_units": "g"
+          }
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "cms_id": "CMS872v0",
+        "criteria_id": "16615c4e06cn7",
+        "codes": {
+          "LOINC": [
+            "41763-4"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5bab76a8ef33a57230278326",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-09-26T12:08:08.020Z",
+    "user_id": "59021a406c5d1c32950008e1",
+    "vital_signs": [
+      {
+        "_id": "5bab76a8ef33a57230278326",
+        "codes": {
+          "LOINC": [
+            "41763-4"
+          ]
+        },
+        "components": null,
+        "description": "Laboratory Test, Performed: Rubella Antibody Test (IgG Antibody Titer)",
+        "end_time": 1348647300,
+        "health_record_field": null,
+        "interpretation": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.5",
+        "qdm_status": null,
+        "reaction": null,
+        "reason": null,
+        "referenceRange": null,
+        "referenceRangeHigh": null,
+        "referenceRangeLow": null,
+        "result_date_time": null,
+        "specifics": null,
+        "start_time": 1348646400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null,
+        "values": [
+          {
+            "_id": "5bab76a8ef33a57230278327",
+            "denominator_scalar": "8",
+            "denominator_units": "g",
+            "numerator_scalar": "1000",
+            "numerator_units": "mg",
+            "type": "RT"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "5bab76bfef33a57230278345",
+    "birthdate": -946742400,
+    "bundle_id": "59021a426c5d1c32950008e2",
+    "created_at": "2018-09-26T12:08:31.818Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "Ratio",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5bab76bfef33a57230278349",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5bab76bfef33a5723027834a",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "Incorrect",
+    "marital_status": null,
+    "measure_ids": [
+      "86753305-9249-492C-B1DB-5DFAAF24C847",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "27f6b87f99385bbae4255570db56924999d4b945efbd05d8b44340921ec6c8d4",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "procedures": [
+      {
+        "_id": "5bab76bfef33a57230278346",
+        "anatomical_approach": null,
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "codes": {
+          "SNOMED-CT": [
+            "10190003"
+          ],
+          "CPT": [
+            "33510"
+          ],
+          "HCPCS": [
+            "S2205"
+          ]
+        },
+        "components": null,
+        "description": "Procedure, Performed: Coronary Artery Bypass Graft",
+        "end_time": 1348647300,
+        "facility": null,
+        "health_record_field": null,
+        "incisionTime": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.6",
+        "ordinality": null,
+        "performer_id": null,
+        "qdm_status": null,
+        "radiation_dose": null,
+        "radiation_duration": null,
+        "reaction": null,
+        "reason": null,
+        "result_date_time": null,
+        "source": null,
+        "specifics": null,
+        "start_time": 1348646400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "procedure",
+        "status": "performed",
+        "title": "CoronaryArteryBypassGraft",
+        "description": "Procedure, Performed: Coronary Artery Bypass Graft",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.104.12.1002",
+        "type": "procedures",
+        "id": "CoronaryArteryBypassGraft_ProcedurePerformed_1ab54bad_ad25_4734_a9c0_79de251e80be_source",
+        "start_date": 1348646400000,
+        "end_date": 1348647300000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "cms_id": "CMS872v0",
+        "criteria_id": "16615c7a9f24r",
+        "codes": {
+          "SNOMED-CT": [
+            "10190003"
+          ],
+          "CPT": [
+            "33510"
+          ],
+          "HCPCS": [
+            "S2205"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5bab76bfef33a57230278346",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "laboratory_test",
+        "status": "performed",
+        "title": "RubellaAntibodyTest(IgGAntibodyTiter)",
+        "description": "Laboratory Test, Performed: Rubella Antibody Test (IgG Antibody Titer)",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1063",
+        "type": "laboratory_tests",
+        "id": "RubellaAntibodyTest_IgGAntibodyTiter__LaboratoryTestPerformed_80a739f9_ab13_4c15_b6d8_c34068cffe73_source",
+        "start_date": 1348646400000,
+        "end_date": 1348647300000,
+        "value": [
+          {
+            "type": "RT",
+            "type_cmp": "CD",
+            "numerator_scalar": "1",
+            "numerator_units": "",
+            "denominator_scalar": "10",
+            "denominator_units": ""
+          }
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "86753305-9249-492C-B1DB-5DFAAF24C847",
+        "cms_id": "CMS872v0",
+        "criteria_id": "16615c7b41d0h",
+        "codes": {
+          "LOINC": [
+            "41763-4"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5bab76bfef33a57230278347",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-09-26T12:08:31.818Z",
+    "user_id": "59021a406c5d1c32950008e1",
+    "vital_signs": [
+      {
+        "_id": "5bab76bfef33a57230278347",
+        "codes": {
+          "LOINC": [
+            "41763-4"
+          ]
+        },
+        "components": null,
+        "description": "Laboratory Test, Performed: Rubella Antibody Test (IgG Antibody Titer)",
+        "end_time": 1348647300,
+        "health_record_field": null,
+        "interpretation": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.5",
+        "qdm_status": null,
+        "reaction": null,
+        "reason": null,
+        "referenceRange": null,
+        "referenceRangeHigh": null,
+        "referenceRangeLow": null,
+        "result_date_time": null,
+        "specifics": null,
+        "start_time": 1348646400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null,
+        "values": [
+          {
+            "_id": "5bab76bfef33a57230278348",
+            "denominator_scalar": "10",
+            "denominator_units": "",
+            "numerator_scalar": "1",
+            "numerator_units": "",
+            "type": "RT",
+            "type_cmp": "CD"
+          }
+        ]
+      }
+    ]
+  }
+]
