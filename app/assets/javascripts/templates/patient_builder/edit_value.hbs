@@ -224,21 +224,28 @@
       {{/ifCond}}
 
       {{#ifCond type '==' 'RT'}}
-        <div class="col-md-4">
-          <label for="numerator_{{@cid}}" class="sr-only">numerator</label>
-          <input type="number" name="numerator_scalar" id="numerator_{{@cid}}" class="form-control" placeholder="Numerator">
-        </div>
-        <div class="col-md-2">
-          <label for="unit_{{@cid}}" class="sr-only">units</label>
-          <input type="text" name="numerator_units" id="numerator_units_{{@cid}}" class="form-control" placeholder="units">
-        </div>
-        <div class="col-md-4">
-          <label for="denominator_{{@cid}}" class="sr-only">denominator</label>
-          <input type="number" name="denominator_scalar" id="denominator_{{@cid}}" class="form-control" placeholder="Denominator">
-        </div>
-        <div class="col-md-2">
-          <label for="unit_{{@cid}}" class="sr-only">units</label>
-          <input type="text" name="denominator_units" id="denominator_units_{{@cid}}" class="form-control" placeholder="units">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-9">
+              <label for="numerator_{{@cid}}" class="sr-only">numerator</label>
+              <input type="number" name="numerator_scalar" id="numerator_{{@cid}}" class="form-control" placeholder="Numerator">
+            </div>
+            <div class="col-md-3">
+              <label for="unit_{{@cid}}" class="sr-only">units</label>
+              <input type="text" name="numerator_units" id="numerator_units_{{@cid}}" class="form-control" placeholder="units">
+            </div>
+          </div>
+          <p></p>
+          <div class="row">
+            <div class="col-md-9">
+              <label for="denominator_{{@cid}}" class="sr-only">denominator</label>
+              <input type="number" name="denominator_scalar" id="denominator_{{@cid}}" class="form-control" placeholder="Denominator">
+            </div>
+            <div class="col-md-3">
+              <label for="unit_{{@cid}}" class="sr-only">units</label>
+              <input type="text" name="denominator_units" id="denominator_units_{{@cid}}" class="form-control" placeholder="units">
+            </div>
+          </div>
         </div>
       {{/ifCond}}
       
