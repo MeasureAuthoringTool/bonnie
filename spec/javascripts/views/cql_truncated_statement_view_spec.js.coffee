@@ -130,7 +130,7 @@ describe 'CqlTruncatedStatementView', ->
       spyOn(@populationLogicView, 'highlightPatientData')
       $(firstADHDMedView.rootClauseView.$el).trigger('mouseover')
       # this is the first medication on the test patient
-      expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5a7dc63db8484620c5183d3b'])
+      expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5babbf765cc9753f21828505'])
 
       # test mouseout functionality
       spyOn(@populationLogicView, 'clearHighlightPatientData')
