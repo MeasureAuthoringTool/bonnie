@@ -8,8 +8,7 @@ Bonnie::Application.routes.draw do
   # add OAuth change user endpoint
   post '/oauth/authorize/change_user' => 'doorkeeper_override/authorizations#change_user'
 
-  # TODO: Uncomment for Bonnie-v3.0 and on staging
-  # apipie
+  apipie
   devise_for :users,:controllers => {:registrations => "registrations"}
 
   devise_scope :user do
