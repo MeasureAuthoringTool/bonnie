@@ -7,35 +7,13 @@ GIT
       json
 
 GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 2fd52c84270e60531b3dafa6fccf814c7bfb38bb
-  branch: bonnie-v3.0
-  specs:
-    health-data-standards (4.2.0)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongo (~> 2.4.3)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 5b9d6866b51b3618a40df18c7ae8049cd2ef01d9
+  revision: 064eefce5120c24803e120fad30f5dc22c3ac4d4
   branch: bonnie-v3.0
   specs:
     bonnie_bundler (2.2.1)
       diffy (~> 3.0.0)
-      health-data-standards (~> 4.2)
+      health-data-standards (~> 4.3.0)
       hqmf2js (~> 1.4)
       hquery-patient-api (~> 1.1)
       mongoid (~> 5.0)
@@ -58,15 +36,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
-  revision: 01da63e0a4c12eb4ec75250babf37d165a2b2885
-  branch: master
+  revision: f0a1ee8e4d93617cd05e7c8d61b0510f767a53ba
+  branch: gem_updates
   specs:
-    cqm-converter (0.3.6)
+    cqm-converter (1.0.beta)
       activesupport
       coffee-script
-      cqm-models (>= 0.8.4)
+      cqm-models (>= 1.0.0)
       execjs
-      health-data-standards (>= 4.1.0)
+      health-data-standards (>= 4.3.0)
       momentjs-rails
       sprockets
 
@@ -174,7 +152,7 @@ GEM
     columnize (0.9.0)
     commonjs (0.2.7)
     concurrent-ruby (1.0.5)
-    cqm-models (0.8.4)
+    cqm-models (1.0.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
@@ -216,6 +194,22 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hashdiff (0.3.0)
+    health-data-standards (4.3.0)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongo (~> 2.4.3)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.3)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
     highline (1.7.10)
     hike (1.2.3)
     hqmf2js (1.4.0)
@@ -466,7 +460,7 @@ DEPENDENCIES
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards!
+  health-data-standards (~> 4.3.0)
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails
