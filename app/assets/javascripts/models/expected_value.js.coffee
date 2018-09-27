@@ -5,7 +5,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     if @has('MSRPOPL') && !@has('OBSERV')
       @set 'OBSERV', []
     # sort OBSERV when it is set to make comparison w actuals easier
-    if @has 'OBSERV'
+    if @has 'OBSERV' and Array.isArray(@get('OBSERV'))
       @set 'OBSERV', @get('OBSERV').sort()
 
   populationCriteria: ->
