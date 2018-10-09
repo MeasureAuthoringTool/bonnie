@@ -97,7 +97,52 @@ class MeasuresController < ApplicationController
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
 
-      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
+      # Unzip measure contents 
+      # Opens the zip and grabs the cql file contents, the ELM contents (XML and JSON) and hqmf_path.
+      Dir.mktmpdir do |dir|
+        Zip::ZipFile.open(params[:measure_file].path) do |zip_file|
+          zip_file.each do |f|  
+            f_path = File.join(dir, f.name)
+            FileUtils.mkdir_p(File.dirname(f_path))
+            f.extract(f_path)            
+          end
+        end
+        current_directory = dir
+        # Detect the root is a single directory (ignore hidden files)
+        if Dir.glob("#{current_directory}/*").count < 3
+          # There is a single root directory, step into it
+          Dir.glob("#{current_directory}/*").each do |file|
+            if File.directory?(file)
+              current_directory = file
+              break
+            end
+          end
+        end
+        # Load in regular measure/composite measure
+        measure = create_measure(current_directory, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+        # If there are components, load in each component
+        if measure.composite
+          create_component_measures(measure, current_directory, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+        end
+      end #end of temp directory
+    end
+    redirect_to "#{root_path}##{params[:redirect_route]}"
+  end
+
+  def self.create_component_measures(measure, current_directory, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+    Dir.glob("#{current_directory}/*").each do |file|
+      if File.directory?(file)
+        #TODO: pass in composite hqmf_set_id to create the child's
+        component_measure = create_measure(file, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+        # Associate each component with the composite
+        measure.components.push(component_measure.hqmf_set_id)
+      end
+    end
+  end
+
+  def self.create_measure(measure_dir, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+    
+    measure = Measures::CqlLoader.load(measure_dir, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
 
       if (!is_update)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
@@ -207,7 +252,7 @@ class MeasuresController < ApplicationController
       patient.update_expected_value_structure!(measure)
     end
 
-    redirect_to "#{root_path}##{params[:redirect_route]}"
+    measure
   end
 
   def destroy
