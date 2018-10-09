@@ -179,7 +179,7 @@ class Record
 
       # delete populations that no longer exist (populations in the expected values that don't exist in the measure)
       removed_populations = expected_value_population_set - measure_population_set
-      if removed_populations.count > 0 && block_given?
+      if removed_populations.count > 0
         # create the structure to yield about these changes
         removed_changes = {"measure_id" => measure.hqmf_set_id, "population_index" => expected_value_set[:population_index]}
         removed_populations.each { |population| removed_changes[population] = expected_value_set[population] }
