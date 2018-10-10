@@ -99,7 +99,7 @@ class MeasuresController < ApplicationController
 
       # Extract measure(s) from zipfile
       # Single measure returned into the array if it is a non-composite measure
-      measures = Measures::CqlLoader.extract_measures(params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+      measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
       
       update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
 
