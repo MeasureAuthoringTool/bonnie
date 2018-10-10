@@ -223,7 +223,7 @@ namespace :bonnie do
               items_changed = true
             end
 
-            # if anything was removed print the final structure 
+            # if anything was removed print the final structure
             if items_changed
               measure_count[:patient_values_changed_count] += 1
               user_count[:patient_values_changed_count] += 1
@@ -365,7 +365,7 @@ namespace :bonnie do
       a locally running CQLTranslationService JAR and updates the code_list_id field on
       data_criteria and source_data_criteria for direct reference codes. This is in run_once
       because once all of the code_list_ids have been updated to use a hash of the parameters
-      in direct reference codes, all code_list_ids for direct reference codes measures uploaded 
+      in direct reference codes, all code_list_ids for direct reference codes measures uploaded
       subsequently will be correct
     $ rake bonnie:patients:rebuild_elm_update_drc_code_list_ids)
     task :rebuild_elm_update_drc_code_list_ids => :environment do
@@ -473,7 +473,7 @@ namespace :bonnie do
         puts "-- #{key}: #{value} --"
       end
     end
-    
+
     def self.set_data_criteria_code_list_ids(json, cql_artifacts)
       # Loop over data criteria to search for data criteria that is using a single reference code.
       # Once found set the Data Criteria's 'code_list_id' to our fake oid. Do the same for source data criteria.
@@ -498,6 +498,25 @@ namespace :bonnie do
         end
       end
       {source_data_criteria: json['source_data_criteria'], data_criteria: json['data_criteria']}
+    end
+
+  end
+
+  namespace :cypress do
+
+    # bundle exec rake bonnie:cypress:associate_measures['eh_2018@mitre.org']
+    desc "Associate each patient with every measure for a specific user (identified by email address)"
+    task :associate_measures, [:user] do |t, args|
+      user = User.where(email: args.user).first
+      measures = CqlMeasure.where(user_id: user.id)
+      all_measure_ids = measures.map{ |m| m.hqmf_set_id } #array of all measure_ids (string) for patient
+      # all_measure_ids << null #should be null terminated array?
+      user.records.each do |patient|
+        #note: this associates *every* patient with every measure,
+        #so any orphaned patients (patients on a measure that has been deleted) will come back
+        patient.measure_ids = all_measure_ids
+        patient.save
+      end
     end
 
   end
