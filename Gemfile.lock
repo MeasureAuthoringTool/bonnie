@@ -8,12 +8,12 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 064eefce5120c24803e120fad30f5dc22c3ac4d4
+  revision: 93b8de7bbad13b148addbd939157bde864369ef1
   branch: bonnie-v3.0
   specs:
-    bonnie_bundler (2.2.1)
+    bonnie_bundler (2.2.2)
       diffy (~> 3.0.0)
-      health-data-standards (~> 4.3.0)
+      health-data-standards (~> 4.3.1)
       hqmf2js (~> 1.4)
       hquery-patient-api (~> 1.1)
       mongoid (~> 5.0)
@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 55f6fc1d213c2942e7bc408b4923bea200b2e5c1
+  revision: 5414231ed69eed7f098484aa2cf87addab5bb040
   branch: bonnie-v3.0
   specs:
     cql_qdm_patientapi (1.2.0)
@@ -36,15 +36,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
-  revision: 43ac39250fb2179f18c5dbe810d0fafe0ec67517
+  revision: 08220939018319c93824416eb690b4fe9ba82510
   branch: gem_updates
   specs:
-    cqm-converter (1.0.beta)
+    cqm-converter (1.0.2)
       activesupport
       coffee-script
       cqm-models (>= 1.0.1)
       execjs
-      health-data-standards (>= 4.3.0)
+      health-data-standards (>= 4.3.1)
       momentjs-rails
       sprockets
 
@@ -194,7 +194,7 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hashdiff (0.3.0)
-    health-data-standards (4.3.0)
+    health-data-standards (4.3.1)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
@@ -460,7 +460,7 @@ DEPENDENCIES
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards (~> 4.3.0)
+  health-data-standards (~> 4.3.1)
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails
