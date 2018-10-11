@@ -152,7 +152,7 @@ describe 'Production_PatientBuilderView', ->
 
       it 'should calculate using direct reference code', ->
         clauseResults = @result.attributes.clause_results.HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis
-        expect(clauseResults[244].raw[0].entry.description).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+        expect(clauseResults[244].raw[0]._description).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         expect(clauseResults[244].final).toBe('TRUE')
 
   describe 'Participation tests', ->
