@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 20b6f4376cfe10b887e4e410e66fb51373347d42
-  branch: master_bonnie
+  revision: c96fa2558f83fbbb6e73258f801d9e8fc47678a7
+  branch: bonnie-prior
   specs:
     health-data-standards (4.2.0)
       activesupport (~> 4.2.0)
@@ -30,8 +30,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: ba80b26d210b7f9ddc97de33b63a50de2c339417
-  branch: master
+  revision: 9d55ad6ac6675a336bb731d97184c38aa8c2bb51
+  branch: bonnie-prior
   specs:
     bonnie_bundler (2.2.1)
       diffy (~> 3.0.0)
@@ -48,10 +48,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
-  revision: 01da63e0a4c12eb4ec75250babf37d165a2b2885
-  branch: master
+  revision: a282c3a34947e418516823f8b5040b91957f501b
+  branch: bonnie-prior
   specs:
-    cqm-converter (0.3.6)
+    cqm-converter (0.3.7)
       activesupport
       coffee-script
       cqm-models (>= 0.8.4)
@@ -168,7 +168,7 @@ GEM
       coffee-rails (~> 4.1)
       rails (~> 4.2)
       sprockets-rails (~> 2.3)
-    cqm-models (0.8.4)
+    cqm-models (1.0.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
@@ -277,7 +277,7 @@ GEM
     net-ssh (2.9.2)
     netrc (0.11.0)
     newrelic_rpm (3.14.3.313)
-    nokogiri (1.8.4)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     non-stupid-digest-assets (1.0.4)
     oj (2.12.11)
