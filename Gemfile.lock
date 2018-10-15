@@ -7,48 +7,6 @@ GIT
       json
 
 GIT
-  remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 93b8de7bbad13b148addbd939157bde864369ef1
-  branch: bonnie-v3.0
-  specs:
-    bonnie_bundler (2.2.2)
-      diffy (~> 3.0.0)
-      health-data-standards (~> 4.3.1)
-      hqmf2js (~> 1.4)
-      hquery-patient-api (~> 1.1)
-      mongoid (~> 5.0)
-      quality-measure-engine (~> 3.2)
-      rails (~> 4.2)
-      roo (~> 1.13)
-      rubyzip (~> 1.2, >= 1.2.1)
-      simplexml_parser (~> 1.0)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 5414231ed69eed7f098484aa2cf87addab5bb040
-  branch: bonnie-v3.0
-  specs:
-    cql_qdm_patientapi (1.2.0)
-      coffee-rails (~> 4.1)
-      rails (~> 4.2)
-      sprockets-rails (~> 2.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-converter
-  revision: 08220939018319c93824416eb690b4fe9ba82510
-  branch: gem_updates
-  specs:
-    cqm-converter (1.0.2)
-      activesupport
-      coffee-script
-      cqm-models (>= 1.0.1)
-      execjs
-      health-data-standards (>= 4.3.1)
-      momentjs-rails
-      sprockets
-
-GIT
   remote: https://github.com/randym/axlsx
   revision: c8ac844572b25fda358cc01d2104720c4c42f450
   branch: master
@@ -113,6 +71,18 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
+    bonnie_bundler (2.2.3)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.3.1)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.2)
+      rails (~> 4.2)
+      roo (~> 1.13)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
     brakeman (4.0.1)
     browser (2.5.0)
     bson (4.3.0)
@@ -152,6 +122,18 @@ GEM
     columnize (0.9.0)
     commonjs (0.2.7)
     concurrent-ruby (1.0.5)
+    cql_qdm_patientapi (1.3.0)
+      coffee-rails (~> 4.1)
+      rails (~> 4.2)
+      sprockets-rails (~> 2.3)
+    cqm-converter (1.0.2)
+      activesupport
+      coffee-script
+      cqm-models (>= 1.0.1)
+      execjs
+      health-data-standards (>= 4.3.1)
+      momentjs-rails
+      sprockets
     cqm-models (1.0.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -445,15 +427,15 @@ PLATFORMS
 DEPENDENCIES
   apipie-rails!
   axlsx!
-  bonnie_bundler!
+  bonnie_bundler (~> 2.2.3)
   brakeman
   browser
   bundler-audit
   capistrano-rails
   coffee-rails
   colorize
-  cql_qdm_patientapi!
-  cqm-converter!
+  cql_qdm_patientapi (~> 1.3.0)
+  cqm-converter (~> 1.0.2)
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
