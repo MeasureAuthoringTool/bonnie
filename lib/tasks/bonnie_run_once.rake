@@ -509,11 +509,13 @@ namespace :bonnie do
     task :associate_measures => :environment do
       user = User.where(email: ENV['EMAIL']).first
       measures = CqlMeasure.where(user_id: user.id)
-      all_measure_ids = measures.map{ |m| m.hqmf_set_id } # array of all measure_ids (string) for patient
+      all_measure_ids = measures.map(&:hqmf_set_id) # array of all measure_ids (string) for patient
       user.records.each do |patient|
         # note: this associates *every* patient with every measure,
         # so any orphaned patients (patients on a measure that has been deleted) will come back
         patient.measure_ids = all_measure_ids
+        # add null entry to end of measure_ids array to match existing bonnie records
+        patient.measure_ids << nil
         patient.save
       end
     end
