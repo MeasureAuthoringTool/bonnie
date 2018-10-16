@@ -215,6 +215,13 @@ describe 'PatientBuilderView', ->
           @patientBuilder.$('select[name=type]:first').val('CD').change()
           @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
           @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
+        @addRatioValue= (numer, numer_units, denom, denom_units, submit=true) ->
+          @patientBuilder.$('select[name=type]:first').val('RT').change()
+          @patientBuilder.$('input[name=numerator_scalar]:first').val(numer).keyup()
+          @patientBuilder.$('input[name=numerator_units]:first').val(numer_units)
+          @patientBuilder.$('input[name=denominator_scalar]:first').val(denom).keyup()
+          @patientBuilder.$('input[name=denominator_units]:first').val(denom_units)
+          @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
 
       it "adds a scalar value", ->
         expect(@firstCriteria.get('value').length).toEqual 0
@@ -231,6 +238,16 @@ describe 'PatientBuilderView', ->
         expect(@firstCriteria.get('value').first().get('type')).toEqual 'CD'
         expect(@firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
         expect(@firstCriteria.get('value').first().get('title')).toEqual 'Ambulatory/ED Visit'
+
+      it "adds a ratio value", ->
+        expect(@firstCriteria.get('value').length).toEqual 0
+        @addRatioValue '1', 'mg', '8', 'g'
+        expect(@firstCriteria.get('value').length).toEqual 1
+        expect(@firstCriteria.get('value').first().get('type')).toEqual 'RT'
+        expect(@firstCriteria.get('value').first().get('numerator_scalar')).toEqual '1'
+        expect(@firstCriteria.get('value').first().get('numerator_units')).toEqual 'mg'
+        expect(@firstCriteria.get('value').first().get('denominator_scalar')).toEqual '8'
+        expect(@firstCriteria.get('value').first().get('denominator_units')).toEqual 'g'
 
       it "only allows for a single result", ->
         expect(@firstCriteria.get('value').length).toEqual 0
@@ -273,6 +290,12 @@ describe 'PatientBuilderView', ->
             @patientBuilder.$('select[name=type]:eq(1)').val('CD').change()
             @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
             @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
+          @addIdFieldValue = (fieldType, id, system, submit=true) ->
+            @patientBuilder.$('select[name=key]').val(fieldType).change()
+            @patientBuilder.$('select[name=type]:eq(1)').val('ID').change()
+            @patientBuilder.$('input[name=root]').val(id).keyup()
+            @patientBuilder.$('input[name=extension]').val(system)
+            @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
 
         it "adds a scalar field value", ->
           expect(@firstCriteria.get('field_values').length).toEqual 0
@@ -291,6 +314,15 @@ describe 'PatientBuilderView', ->
           expect(@firstCriteria.get('field_values').first().get('key')).toEqual 'REASON'
           expect(@firstCriteria.get('field_values').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.102.12.1011'
           expect(@firstCriteria.get('field_values').first().get('title')).toEqual 'Acute Pharyngitis'
+
+        it "adds an ID type field value", ->
+          expect(@firstCriteria.get('field_values').length).toEqual 0
+          @addIdFieldValue 'REASON', 'testId', 'testSystem'
+          expect(@firstCriteria.get('field_values').length).toEqual 1
+          expect(@firstCriteria.get('field_values').first().get('type')).toEqual 'ID'
+          expect(@firstCriteria.get('field_values').first().get('key')).toEqual 'REASON'
+          expect(@firstCriteria.get('field_values').first().get('root')).toEqual 'testId'
+          expect(@firstCriteria.get('field_values').first().get('extension')).toEqual 'testSystem'
 
         it "materializes the patient", ->
           expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()

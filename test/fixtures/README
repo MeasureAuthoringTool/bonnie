@@ -8,3 +8,12 @@ bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.
 CMS879v0 - Components' result as DateTime
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS879,bonnie-fixtures@mitre.org,CMS879v0]
 bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS879v0
+
+# HDS Patients Used (after conversion) in cqm-execution, these patients are selected out of their respective patients.json files in spec/ or test/
+test/fixtures/records/special_measures/CMS107/*
+test/fixtures/records/special_measures/CMS123/*
+test/fixtures/records/special_measures/CMS460/*
+test/fixtures/records/special_measures/CMS529/*
+test/fixtures/records/special_measures/CMS53/*
+test/fixtures/records/special_measures/CMS760/*
+test/fixtures/records/core_measures/CMS134v6/Pass_Numer.json

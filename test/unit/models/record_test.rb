@@ -11,7 +11,8 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   # Runs the update_expected_value_structure! method on the patient and collects the changes it yields.
-  def collect_expected_changes(patient, measure)
+  def collect_expected_changes_and_verify_block_no_block(patient, measure)
+    patient_clone = Marshal.load(Marshal.dump(patient))
     changes = []
     patient.update_expected_value_structure!(measure) do |change_type, change_reason, expected_value_set|
       changes << {
@@ -20,19 +21,22 @@ class RecordTest < ActiveSupport::TestCase
         expected_value_set: expected_value_set
       }
     end
+    patient_clone.update_expected_value_structure!(measure)
+    # always make sure function works the same way whether passed blocks for yielding or not
+    assert_equal patient.expected_values, patient_clone.expected_values
     changes
   end
 
   test "Good Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Good').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 0, changes.count
     assert_equal 1, patient.expected_values.count
   end
 
   test "Duplicate Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Duplicate').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
     # check duplicate population set removal
@@ -51,7 +55,7 @@ class RecordTest < ActiveSupport::TestCase
 
   test "Extra Population Set Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Extra Population Set').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
     # check extra population set removal
@@ -70,7 +74,7 @@ class RecordTest < ActiveSupport::TestCase
 
   test "Extra Population Set Multiple Measure Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Extra Population Set Multiple Measure').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
     # check extra population set removal
@@ -91,7 +95,7 @@ class RecordTest < ActiveSupport::TestCase
 
   test "Garbage and Duplicate Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Garbage and Duplicate').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 2, changes.count
 
     # check garbage data removal
@@ -116,7 +120,7 @@ class RecordTest < ActiveSupport::TestCase
 
   test "Garbage Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Garbage').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
     # check garbage data removal
@@ -134,7 +138,7 @@ class RecordTest < ActiveSupport::TestCase
 
   test "Garbage Empty Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Garbage Empty').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
     # check garbage data removal of a blank set
@@ -152,7 +156,7 @@ class RecordTest < ActiveSupport::TestCase
 
   test "Missing Population Set Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Missing Population Set').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 2, changes.count
 
     # check missing population set addition
@@ -177,7 +181,7 @@ class RecordTest < ActiveSupport::TestCase
 
   test "Missing Population Set With Garbage Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Missing Population Set With Garbage').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 3, changes.count
 
     # check garbage data removal
@@ -208,7 +212,7 @@ class RecordTest < ActiveSupport::TestCase
 
   test "Missing Population Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Missing Population').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
     # check missing population addition
@@ -227,7 +231,7 @@ class RecordTest < ActiveSupport::TestCase
   
   test "Extra Population Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Extra Population').first
-    changes = collect_expected_changes(patient, @measure)
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
     
     # check missing population set addition

@@ -25,20 +25,21 @@ module ExcelExportHelper
     measure.populations.each_with_index do |population, index|
       patients.each do |patient|
         calc_results[index] = {} unless calc_results[index]
-        result_criteria = {}
         result = results[patient.id.to_s]
         if result.nil?
           # if there was no result for a patient (due to error in conversion or calculation), set empty results
           calc_results[index][patient.id.to_s] = {statement_results: {}, criteria: {}}
         else
+          result_criteria = {
+            'values' => []
+          }
           result[population['id']]['extendedData']['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
-              values = []
               result[population['id']]['episode_results']&.each_value do |episode|
-                values.concat episode['values']
+                result_criteria['values'].concat episode['values']
               end
-              result_criteria[population_criteria] = values
+              result_criteria['values'].sort!
             else
               result_criteria[population_criteria] = result[population['id']][population_criteria]
             end
@@ -56,10 +57,14 @@ module ExcelExportHelper
     patient_details = ActiveSupport::HashWithIndifferentAccess.new
     patients.each do |patient|
       next if patient_details[patient.id.to_s]
+      expected_values = patient.expected_values
+      expected_values.each do |ev|
+        ev["OBSERV"] = [] if !ev.key?("OBSERV") || ev["OBSERV"].nil?
+      end
       patient_details[patient.id.to_s] = {
         first: patient.first,
         last: patient.last,
-        expected_values: patient.expected_values,
+        expected_values: expected_values,
         birthdate: patient.birthdate,
         expired: patient.expired,
         deathdate: patient.deathdate,

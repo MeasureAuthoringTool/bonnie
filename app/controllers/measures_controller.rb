@@ -68,13 +68,13 @@ class MeasuresController < ApplicationController
     if !extension || extension != '.zip'
       flash[:error] = {title: "Error Loading Measure",
         summary: "Incorrect Upload Format.",
-        body: 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-prior.healthit.gov">Bonnie-Prior</a>.'.html_safe}
+        body: 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.'.html_safe}
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
       flash[:error] = {title: "Error Uploading Measure",
         summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
-        body: 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-prior.healthit.gov">Bonnie-Prior</a>.'.html_safe}
+        body: 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.'.html_safe}
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
