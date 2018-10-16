@@ -98,13 +98,16 @@ class MeasuresController < ApplicationController
       end
 
       # Extract measure(s) from zipfile
-      # Single measure returned into the array if it is a non-composite measure
+      # Returns hash of measures 
+      #   {measure: measure, component_measures: component_measures}
       measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
       
-      update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+      MeasureHelper.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
 
     rescue Exception => e
-      measure.delete if measure
+      $stdout.puts e.inspect
+      $stdout.puts e.backtrace
+      # TODO: Delete all measures (composite and component) if something is wrong
       errors_dir = Rails.root.join('log', 'load_errors')
       FileUtils.mkdir_p(errors_dir)
       clean_email = File.basename(current_user.email) # Prevent path traversal
@@ -148,82 +151,9 @@ class MeasuresController < ApplicationController
       return
     end
     
-    measures_population_update(measures, is_update)
+    MeasureHelper.measures_population_update(measures, is_update)
 
     redirect_to "#{root_path}##{params[:redirect_route]}"
-  end
-
-  
-
-  def self.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
-    measures.each do |measure|
-      if (!is_update)
-        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
-        if !existing.nil?
-          measure.delete # UPDATE: handle deleting the entire array
-          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
-          redirect_to "#{root_path}##{params[:redirect_route]}"
-          return
-        end
-      else
-        if existing.hqmf_set_id != measure.hqmf_set_id
-          measure.delete# UPDATE: handle deleting the entire array
-          flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
-          redirect_to "#{root_path}##{params[:redirect_route]}"
-          return
-        end
-      end
-
-      # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
-      missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-      if missing_value_sets.length > 0
-        measure.delete # UPDATE: handle deleting the entire array
-        flash[:error] = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      end
-      existing.delete if (existing && is_update)
-    end
-  end
-
-  def measures_population_update(measures, is_update)
-    measures.each do |measure|
-      current_user.measures << measure
-      current_user.save!
-
-      if (is_update)
-        measure.populations.each_with_index do |population, population_index|
-          population['title'] = measure_details['population_titles'][population_index] if (measure_details['population_titles'])
-        end
-        # check if episode ids have changed
-        if (measure.episode_of_care?)
-          keys = measure.data_criteria.values.map {|d| d['source_data_criteria'] if d['specific_occurrence']}.compact.uniq
-        end
-      else
-        measure.needs_finalize = measure.populations.size > 1
-        if measure.populations.size > 1
-          strat_index = 1
-          measure.populations.each do |population|
-            if (population[HQMF::PopulationCriteria::STRAT])
-              population['title'] = "Stratification #{strat_index}"
-              strat_index += 1
-            end
-          end
-        end
-      end
-      measure.save!
-
-      # rebuild the user's patients for the given measure
-      Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).each do |r|
-        Measures::PatientBuilder.rebuild_patient(r)
-        r.save!
-      end
-
-      # ensure expected values on patient match those in the measure's populations
-      Record.where(user_id: current_user.id, measure_ids: measure.hqmf_set_id).each do |patient|
-        patient.update_expected_value_structure!(measure)
-      end
-    end
   end
 
   def destroy
