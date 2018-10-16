@@ -145,7 +145,7 @@ include Devise::Test::ControllerHelpers
       assert_response :redirect
       assert_equal "Error Loading Measure", flash[:error][:title]
       assert_equal "Incorrect Upload Format.", flash[:error][:summary]
-      assert_equal 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-prior.healthit.gov">Bonnie-Prior</a>.', flash[:error][:body]
+      assert_equal 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.', flash[:error][:body]
     end
   end
 
@@ -379,7 +379,7 @@ include Devise::Test::ControllerHelpers
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal "Error Loading Measure", flash[:error][:title]
     assert_equal "Incorrect Upload Format.", flash[:error][:summary]
-    assert_equal 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-prior.healthit.gov">Bonnie-Prior</a>.', flash[:error][:body]
+    assert_equal 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.', flash[:error][:body]
     assert_response :redirect
   end
 
@@ -391,7 +391,7 @@ include Devise::Test::ControllerHelpers
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal "Error Uploading Measure", flash[:error][:title]
     assert_equal "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.", flash[:error][:summary]
-    assert_equal 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-prior.healthit.gov">Bonnie-Prior</a>.', flash[:error][:body]
+    assert_equal 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.', flash[:error][:body]
     assert_response :redirect
   end
 
@@ -425,7 +425,7 @@ include Devise::Test::ControllerHelpers
     assert_includes flash[:error].keys, :title
     assert_includes flash[:error].keys, :summary
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
-    assert_equal 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-prior.healthit.gov">Bonnie-Prior</a>.', flash[:error][:body]
+    assert_equal 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.', flash[:error][:body]
     flash.clear
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
     assert_nil measure
