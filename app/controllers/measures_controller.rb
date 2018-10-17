@@ -98,8 +98,6 @@ class MeasuresController < ApplicationController
       end
 
       # Extract measure(s) from zipfile
-      # Returns hash of measures 
-      #   {measure: measure, component_measures: component_measures}
       measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
       
       MeasureHelper.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
