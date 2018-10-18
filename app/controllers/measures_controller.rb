@@ -99,8 +99,12 @@ class MeasuresController < ApplicationController
 
       # Extract measure(s) from zipfile
       measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
-      
-      MeasureHelper.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+      update_error_message = MeasureHelper.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update, existing)
+      if(!update_error_message.nil?)
+        flash[:error] = update_error_message
+        redirect_to "#{root_path}##{params[:redirect_route]}"
+        return
+      end
 
     rescue Exception => e
       $stdout.puts e.inspect
@@ -148,8 +152,8 @@ class MeasuresController < ApplicationController
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
-    
-    MeasureHelper.measures_population_update(measures, is_update)
+
+    MeasureHelper.measures_population_update(measures, is_update, current_user, measure_details)
 
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end

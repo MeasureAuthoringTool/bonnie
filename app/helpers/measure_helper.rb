@@ -46,38 +46,36 @@ module MeasureHelper
     end
   end
 
-  def self.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update)
+  def self.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update, existing)
     measures.each do |measure|
-      existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
       if (!is_update)
+        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
         if !existing.nil?
-          measure.delete # UPDATE: handle deleting the entire array
-          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
-          redirect_to "#{root_path}##{params[:redirect_route]}"
-          return
+          measures.map {|m| m.delete}
+          error_message = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
+          return error_message
         end
       else
         if existing.hqmf_set_id != measure.hqmf_set_id
-          measure.delete# UPDATE: handle deleting the entire array
-          flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
-          redirect_to "#{root_path}##{params[:redirect_route]}"
-          return
+          measures.map {|m| m.delete}
+          error_message = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
+          return error_message
         end
       end
 
-      # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
+      # Exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
       missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
       if missing_value_sets.length > 0
-        measure.delete # UPDATE: handle deleting the entire array
-        flash[:error] = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
+        measures.map {|m| m.delete}
+        error_message = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
+        return error_message
       end
       existing.delete if (existing && is_update)
     end
+    return nil
   end
-
-  def self.measures_population_update(measures, is_update)
+  
+  def self.measures_population_update(measures, is_update, current_user, measure_details)
     measures.each do |measure|
       current_user.measures << measure
       current_user.save!
@@ -116,4 +114,5 @@ module MeasureHelper
       end
     end
   end
+
 end
