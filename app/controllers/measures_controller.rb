@@ -107,9 +107,7 @@ class MeasuresController < ApplicationController
       end
 
     rescue Exception => e
-      $stdout.puts e.inspect
-      $stdout.puts e.backtrace
-      # TODO: Delete all measures (composite and component) if something is wrong
+      measures.map {|m| m.delete} if measures
       errors_dir = Rails.root.join('log', 'load_errors')
       FileUtils.mkdir_p(errors_dir)
       clean_email = File.basename(current_user.email) # Prevent path traversal
