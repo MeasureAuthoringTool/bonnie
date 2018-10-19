@@ -799,4 +799,66 @@ include Devise::Test::ControllerHelpers
 
   end
 
+  test "upload composite cql with valid VSAC creds" do
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
+    # when the cassette needs to be generated for the first time.
+    VCR.use_cassette("valid_vsac_response_composite") do
+      measure = CqlMeasure.where({hqmf_set_id: "244b4f52-c9ca-45aa-8bdb-2f005da05bfc"}).first
+      assert_nil measure
+
+      # Use VSAC creds from VCR, see vcr_setup.rb
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
+
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
+
+      assert_response :redirect
+      measure = CqlMeasure.where({composite: true}).first
+      assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
+    end
+  end
+
+  test "upload invalid composite measure, missing eCQM file" do
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_missing_file.zip'), 'application/xml')
+    class << measure_file
+      attr_reader :tempfile
+    end
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_equal "Error Uploading Measure", flash[:error][:title]
+    assert_equal "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.", flash[:error][:summary]
+    assert_equal 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.', flash[:error][:body]
+    assert_response :redirect
+  end
+
+  test "upload invalid composite measure, missing component" do
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_missing_component.zip'), 'application/xml')
+    class << measure_file
+      attr_reader :tempfile
+    end
+    VCR.use_cassette("valid_vsac_response_bad_composite") do
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
+    end
+    assert_equal 'Error Loading Measure', flash[:error][:title]
+    assert_equal 'The measure could not be loaded.', flash[:error][:summary]
+    assert_equal 'Bonnie has encountered an error while trying to load the measure.', flash[:error][:body]
+    assert_response :redirect
+  end
+
 end
