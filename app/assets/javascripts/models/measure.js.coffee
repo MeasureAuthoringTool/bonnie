@@ -1,9 +1,15 @@
 class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
+
+  populateComponents: ->
+    return unless @get('composite')
+    @set 'componentMeasures', new Thorax.Collection @get('components').map((hqmfSetId) => bonnie.measures.findWhere({hqmf_set_id: hqmfSetId}))
+
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
     @set 'patients', new Thorax.Collections.Patients [], _fetched: true
     @_localIdCache = {}
+    @isComponentMeasure = @isComponentMeasure()
   parse: (attrs) ->
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populations = new Thorax.Collections.Population [], parent: this
@@ -128,6 +134,9 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # return field values sorted by title
     _(fields).sortBy (field) -> field.title
+
+  isComponentMeasure: ->
+    /&/.test @get('hqmf_set_id')
 
   ###*
   # For CQL measures only. Finds all the localIds in a given statement
