@@ -165,18 +165,20 @@
   .component-measure {
     .component-measure-col {
       font-weight: 800;
-      a {
-        color: #004e82;
-      }
       .component-measure-title {
         .clearfix;
+        a {
+          color: #004e82;
+          .make-md-column(10; 0);
+        }
         background: @gray-lighter;
         padding: 6px 15px 7px;
         margin-left: 15px;
         width: 97%;
-        .component-measure-cms-id {
+        .nqf-listing {
           color: @gray-darkest;
-          float: right;
+          .make-md-column(2; 0);
+          text-align: right;
         }
       }
 

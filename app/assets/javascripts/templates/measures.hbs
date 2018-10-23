@@ -59,7 +59,6 @@
           </a>
         {{/unless}}
       </div>
-    </div>
     {{#if multiplePopulations}}
       {{#collection populations item-view='PopulationView'}}
         <div class="population">
@@ -86,7 +85,7 @@
           <div class="component-measure-col">
             <div class="component-measure-title">
               {{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cms_id}}, Measure Title: </span>{{title}}{{/link}}
-              <span class="sr-only">CMS ID: </span><span class="component-measure-cms-id">{{cms_id}}</span>
+              <span class="sr-only">CMS ID: </span><span class="nqf-listing">{{cms_id}}</span>
             </div>
           </div>
           <div class="expected-col">
@@ -106,5 +105,6 @@
         </div>
       {{/collection}}
     {{/if}}
+    </div>
   {{/unless}}
 {{/collection}}
