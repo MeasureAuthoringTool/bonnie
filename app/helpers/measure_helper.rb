@@ -51,26 +51,40 @@ module MeasureHelper
       if (!is_update)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
         if !existing.nil?
-          measures.map {|m| m.delete}
+          measures.each {|m| m.delete}
           error_message = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
           return error_message
         end
       else
-        if existing.hqmf_set_id != measure.hqmf_set_id
-          measures.map {|m| m.delete}
-          error_message = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
-          return error_message
+        if measure.is_component?
+          if existing.hqmf_set_id != measure.composite_hqmf_set_id
+            measures.each {|m| m.delete}
+            error_message = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
+            return error_message
+          end
+        else 
+          if existing.hqmf_set_id != measure.hqmf_set_id
+            measures.each {|m| m.delete}
+            error_message = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
+            return error_message
+          end
         end
       end
 
       # Exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
       missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
       if missing_value_sets.length > 0
-        measures.map {|m| m.delete}
+        measures.each {|m| m.delete}
         error_message = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
         return error_message
       end
-      existing.delete if (existing && is_update)
+      if (existing && is_update)
+        existing.components.each do |component_hqmf_set_id|
+          component_measure = CqlMeasure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first
+          component_measure.delete
+        end
+        existing.delete
+      end
     end
     return nil
   end
@@ -78,7 +92,6 @@ module MeasureHelper
   def self.measures_population_update(measures, is_update, current_user, measure_details)
     measures.each do |measure|
       current_user.measures << measure
-      current_user.save!
 
       if (is_update)
         measure.populations.each_with_index do |population, population_index|
@@ -113,6 +126,7 @@ module MeasureHelper
         patient.update_expected_value_structure!(measure)
       end
     end
+    current_user.save!
   end
 
 end

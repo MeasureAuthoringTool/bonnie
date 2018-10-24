@@ -642,7 +642,6 @@ include Devise::Test::ControllerHelpers
         hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"
       }
     end
-
     assert_response :redirect
     measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_not_equal measure_id_before, measure._id

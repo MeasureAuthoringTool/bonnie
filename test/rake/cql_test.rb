@@ -19,7 +19,7 @@ class CqlTest < ActiveSupport::TestCase
       vsac_ticket_granting_ticket = api.ticket_granting_ticket
       vsac_options = { measure_defined: true, profile: 'Latest eCQM' }
 
-      Measures::CqlLoader.load(@cql_mat_export_drc, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
+      Measures::CqlLoader.extract_measures(@cql_mat_export_drc, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).each {|measure| measure.save}
       assert_equal 1, CqlMeasure.count
 
       measure = CqlMeasure.where({hqmf_set_id: "E1CB05E0-97D5-40FC-B456-15C5DBF44309"}).first
@@ -52,7 +52,7 @@ class CqlTest < ActiveSupport::TestCase
       vsac_ticket_granting_ticket = api.ticket_granting_ticket
       vsac_options = { measure_defined: true, profile: 'Latest eCQM' }
 
-      Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
+      Measures::CqlLoader.extract_measures(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).each {|measure| measure.save}
       assert_equal 1, CqlMeasure.count
   
       measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
@@ -89,7 +89,7 @@ class CqlTest < ActiveSupport::TestCase
        vsac_ticket_granting_ticket = api.ticket_granting_ticket
        vsac_options = { measure_defined: true, profile: 'Latest eCQM' }
 
-       Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
+       Measures::CqlLoader.extract_measures(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).each {|measure| measure.save}
        assert_equal 1, CqlMeasure.count
     end
 

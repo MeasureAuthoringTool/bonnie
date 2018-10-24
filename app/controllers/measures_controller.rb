@@ -87,16 +87,19 @@ class MeasuresController < ApplicationController
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
-        is_update = true
-        measure_details['type'] = existing.type
-        measure_details['episode_of_care'] = existing.episode_of_care
-        if measure_details['episode_of_care']
-          episodes = params["eoc_#{existing.hqmf_set_id}"]
+        if !existing.nil?
+          is_update = true
+          measure_details['type'] = existing.type
+          measure_details['episode_of_care'] = existing.episode_of_care
+          if measure_details['episode_of_care']
+            episodes = params["eoc_#{existing.hqmf_set_id}"]
+          end
+          measure_details['calculate_sdes'] = existing.calculate_sdes
+          measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1    
+        else
+          raise Exception.new('Update requested, but measure does not exist.')
         end
-        measure_details['calculate_sdes'] = existing.calculate_sdes
-        measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
-
       # Extract measure(s) from zipfile
       measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
       update_error_message = MeasureHelper.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update, existing)
@@ -107,7 +110,7 @@ class MeasuresController < ApplicationController
       end
 
     rescue Exception => e
-      measures.map {|m| m.delete} if measures
+      measures.each {|m| m.delete} if measures
       errors_dir = Rails.root.join('log', 'load_errors')
       FileUtils.mkdir_p(errors_dir)
       clean_email = File.basename(current_user.email) # Prevent path traversal
