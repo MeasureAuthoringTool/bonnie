@@ -818,6 +818,29 @@ include Devise::Test::ControllerHelpers
         measure_type: 'ep',
         calculation_type: 'patient'
       }
+    end
+
+    assert_response :redirect
+    measure = CqlMeasure.where({composite: true}).first
+    assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
+
+    post :destroy, {
+      id: measure.id
+    }
+    assert_response :success
+    assert_equal 0, CqlMeasure.all
+    
+    VCR.use_cassette("valid_vsac_response_composite") do
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
 
       assert_response :redirect
       measure = CqlMeasure.where({composite: true}).first

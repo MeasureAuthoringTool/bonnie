@@ -31,6 +31,7 @@ module ApiV1
       end
 
       def validate(value)
+        require 'pry'; binding.pry
         return false unless value.is_a?(Rack::Test::UploadedFile) || value.is_a?(ActionDispatch::Http::UploadedFile)
         # Understand which sort of measure_file we are retrieving
         extension = File.extname(value.original_filename).downcase if value
@@ -258,6 +259,7 @@ module ApiV1
     end
 
     def load_measure(params, is_update)
+      
       # convert calculate_sde param from string to boolean
       calculate_sdes = params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true'
       measure_details = {
@@ -288,36 +290,51 @@ module ApiV1
         end
 
         measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_resource_owner, measure_details, vsac_options, vsac_tgt_object)
-        update_error_message = MeasureHelper.update_measures(measures, params, current_resource_owner, measure_details, vsac_options, vsac_tgt_object, is_update, existing)
-        if(!update_error_message.nil?)
-          flash[:error] = update_error_message
-          redirect_to "#{root_path}##{params[:redirect_route]}"
-          return
-        end
-        # if !is_update
-        #   existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
-        #   unless existing.nil?
-        #     measure.delete
-        #     render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
-        #            status: :conflict
-        #     return
-        #   end
-        # elsif existing.hqmf_set_id != measure.hqmf_set_id
-        #   measure.delete
-        #   render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-        #          status: :not_found
-        #   return
-        # end
 
-        # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
-        # missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-        # if missing_value_sets.length.positive?
-        #   measure.delete
-        #   render json: {status: "error", messages: "The measure is missing value sets. The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
-        #          status: :bad_request
-        #   return
-        # end
-        # existing.delete if existing && is_update
+        measures.each do |measure|  
+          if !is_update
+            existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
+            unless existing.nil?
+              measures.each {|m| m.delete}
+              render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
+                      status: :conflict
+              return
+            end
+          else
+            if measure.is_component?
+              if existing.hqmf_set_id != measure.composite_hqmf_set_id
+                measures.each {|m| m.delete}
+                render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+                    status: :not_found
+                return
+              end
+            else 
+              if existing.hqmf_set_id != measure.hqmf_set_id
+                measures.each {|m| m.delete}
+                render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+                    status: :not_found
+                return
+              end
+            end
+          end
+  
+          # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
+          missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
+          if missing_value_sets.length.positive?
+            measures.each {|m| m.delete}
+            render json: {status: "error", messages: "The measure is missing value sets. The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
+                    status: :bad_request
+            return
+          end
+          if (existing && is_update)
+            existing.components.each do |component_hqmf_set_id|
+              component_measure = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: component_hqmf_set_id).first
+              component_measure.delete
+            end
+            existing.delete
+          end
+        end
+
       rescue StandardError => e
         measures.each {|m| m.delete} if measures
         errors_dir = Rails.root.join('log', 'load_errors')
@@ -364,8 +381,7 @@ module ApiV1
 
         return
       end
-
-      MeasureHelper.measures_population_update(measures, is_update, current_resource_owner, measure_details)
+      measures_population_update(measures, current_resource_owner, is_update, measure_details)
 
       # current_resource_owner.measures << measure
       # current_resource_owner.save!
@@ -403,63 +419,45 @@ module ApiV1
 
       # Reason for the split is when the measure is a composite. Otherwise, it is regular hqmf set id
       measure_hqmf_set_id = measures[0].hqmf_set_id.split('&')[0]
+      
       render json: {status: "success", url: "/api_v1/measures/#{measure_hqmf_set_id}"},
              status: :ok
     end
 
-    def measures_population_update(measures, is_update, current_resource_owner, measure_details)
-      #TODO: fill out this function
-    end
-
-    def update_measures(measures, params, current_resource_owner, measure_details, vsac_options, vsac_tgt_object, is_update, existing)
-      measures.each do |measure|  
-        if !is_update
-          existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
-          unless existing.nil?
-            measures.each {|m| m.delete}
-            render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
-                    status: :conflict
-            return
+    def measures_population_update(measures, current_resource_owner, is_update, measure_details)
+      measures.each do |measure|
+        current_resource_owner.measures << measure
+  
+        if (is_update)
+          measure.populations.each_with_index do |population, population_index|
+            population['title'] = measure_details['population_titles'][population_index] if (measure_details['population_titles'])
           end
         else
-          if measure.is_component?
-            if existing.hqmf_set_id != measure.composite_hqmf_set_id
-              measures.each {|m| m.delete}
-              render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                  status: :not_found
-              return
-            end
-          else 
-            if existing.hqmf_set_id != measure.hqmf_set_id
-              measures.each {|m| m.delete}
-              render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                  status: :not_found
-              return
+          measure.needs_finalize = measure.populations.size > 1
+          if measure.populations.size > 1
+            strat_index = 1
+            measure.populations.each do |population|
+              if (population[HQMF::PopulationCriteria::STRAT])
+                population['title'] = "Stratification #{strat_index}"
+                strat_index += 1
+              end
             end
           end
-        elsif existing.hqmf_set_id != measure.hqmf_set_id
-          measures.each {|m| m.delete}
-          render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                  status: :not_found
-          return
         end
-
-        # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
-        missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-        if missing_value_sets.length.positive?
-          measures.each {|m| m.delete}
-          render json: {status: "error", messages: "The measure is missing value sets. The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
-                  status: :bad_request
-          return
+        measure.save!
+  
+        # rebuild the user's patients for the given measure
+        Record.by_user_and_hqmf_set_id(current_resource_owner, measure.hqmf_set_id).each do |r|
+          Measures::PatientBuilder.rebuild_patient(r)
+          r.save!
         end
-        if (existing && is_update)
-          existing.components.each do |component_hqmf_set_id|
-            component_measure = CqlMeasure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first
-            component_measure.delete
-          end
-          existing.delete
+  
+        # ensure expected values on patient match those in the measure's populations
+        Record.where(user_id: current_resource_owner.id, measure_ids: measure.hqmf_set_id).each do |patient|
+          patient.update_expected_value_structure!(measure)
         end
       end
+      current_resource_owner.save!
     end
 
     def error_parameter_missing(exception)
