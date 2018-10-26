@@ -807,7 +807,7 @@ include Devise::Test::ControllerHelpers
     assert_equal 0, CqlMeasure.all.count
 
     # Sanity check
-    measure = CqlMeasure.where({hqmf_set_id: "244b4f52-c9ca-45aa-8bdb-2f005da05bfc"}).first
+    measure = CqlMeasure.where({hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite") do

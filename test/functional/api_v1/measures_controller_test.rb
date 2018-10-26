@@ -436,5 +436,123 @@ module ApiV1
         assert_equal false, measure.calculate_sdes
       end
     end
+
+    test "upload composite cql then delete and then upload again" do
+      # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
+      # when the cassette needs to be generated for the first time.
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
+  
+      # Make sure db has only the initial fixture in it
+      assert_equal 1, CqlMeasure.all.count
+  
+      # Sanity check
+      measure = CqlMeasure.where({hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
+      assert_nil measure
+  
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
+      VCR.use_cassette("valid_vsac_response_composite_api") do
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        ticket = api.ticket_granting_ticket[:ticket]
+        post :create, {
+          vsac_query_type: 'profile',
+          vsac_query_profile: 'Latest eCQM',
+          vsac_query_include_draft: 'false',
+          vsac_query_measure_defined: 'true',
+          measure_file: measure_file,
+          measure_type: 'ep',
+          calculation_type: 'patient',
+          vsac_tgt: ticket, 
+          vsac_tgt_expires_at: @ticket_expires_at
+        }, {"Content-Type" => 'multipart/form-data'}
+      end
+      assert_response :success
+      expected_response = { "status" => "success", "url" => "/api_v1/measures/244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}
+      assert_equal expected_response, JSON.parse(response.body)
+  
+      measure = CqlMeasure.where({composite: true}).first
+      assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
+      # This composite measure has 7 components and 1 composite measure + initial fixture
+      assert_equal 9, CqlMeasure.all.count
+      
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
+      VCR.use_cassette("valid_vsac_response_composite_api") do
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        ticket = api.ticket_granting_ticket[:ticket]
+        post :update, {
+          vsac_query_type: 'profile',
+          id: '244B4F52-C9CA-45AA-8BDB-2F005DA05BFC',
+          vsac_query_profile: 'Latest eCQM',
+          vsac_query_include_draft: 'false',
+          vsac_query_measure_defined: 'true',
+          measure_file: measure_file,
+          measure_type: 'ep',
+          calculation_type: 'patient',
+          vsac_tgt: ticket, 
+          vsac_tgt_expires_at: @ticket_expires_at
+        }, {"Content-Type" => 'multipart/form-data'}
+      end
+      assert_response :success
+      expected_response = { "status" => "success", "url" => "/api_v1/measures/244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}
+      assert_equal expected_response, JSON.parse(response.body)
+
+      measure = CqlMeasure.where({composite: true}).first
+      assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
+      # This composite measure has 7 components and 1 composite measure + initial fixture
+      assert_equal 9, CqlMeasure.all.count
+    end
+  
+    test "upload invalid composite measure, missing eCQM file" do
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_missing_file.zip'), 'application/xml')
+      class << measure_file
+        attr_reader :tempfile
+      end
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
+      VCR.use_cassette("valid_vsac_response_bad_composite_api") do
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        ticket = api.ticket_granting_ticket[:ticket]
+        post :create, {
+          vsac_query_type: 'profile',
+          vsac_query_profile: 'Latest eCQM',
+          vsac_query_include_draft: 'false',
+          vsac_query_measure_defined: 'true',
+          measure_file: measure_file,
+          measure_type: 'ep',
+          calculation_type: 'patient',
+          vsac_tgt: ticket, 
+          vsac_tgt_expires_at: @ticket_expires_at
+        }, {"Content-Type" => 'multipart/form-data'}
+      end
+
+      assert_response :bad_request
+      expected_response = {"status"=>"error", "messages"=>"Invalid parameter 'measure_file': Must be a valid MAT Export."}
+      assert_equal expected_response, JSON.parse(response.body)
+    end
+  
+    test "upload invalid composite measure, missing component" do
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_missing_component.zip'), 'application/xml')
+      class << measure_file
+        attr_reader :tempfile
+      end
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
+      VCR.use_cassette("valid_vsac_response_bad_composite_api") do
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        ticket = api.ticket_granting_ticket[:ticket]
+        post :create, {
+          vsac_query_type: 'profile',
+          vsac_query_profile: 'Latest eCQM',
+          vsac_query_include_draft: 'false',
+          vsac_query_measure_defined: 'true',
+          measure_file: measure_file,
+          measure_type: 'ep',
+          calculation_type: 'patient',
+          vsac_tgt: ticket, 
+          vsac_tgt_expires_at: @ticket_expires_at
+        }, {"Content-Type" => 'multipart/form-data'}
+      end
+
+      assert_response :bad_request
+      expected_response = {"status"=>"error", "messages"=>"The measure could not be loaded, there may be an error in the CQL logic."}
+      assert_equal expected_response, JSON.parse(response.body)
+    end
   end
 end

@@ -169,12 +169,12 @@ class MeasuresController < ApplicationController
     end
     if cql_measure
       measure = cql_measure
-      if measure.is_component?
+      if measure.component
         # Throw error since component can't be deleted individually
         render status: :bad_request, json: {error: "Component measures can't be deleted individually."}
       elsif measure.composite
         # If the measure if a composite, delete all the associated components
-        measure.components.each do |component_hqmf_set_id|
+        measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
           CqlMeasure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).destroy
         end
       end

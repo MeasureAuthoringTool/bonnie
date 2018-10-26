@@ -287,7 +287,7 @@ module ApiV1
           # since this is not an update we should default measure_type if it isnt specified
           measure_details['type'] = params.fetch(:measure_type, 'ep')
         end
-
+        
         measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_resource_owner, measure_details, vsac_options, vsac_tgt_object)
 
         measures.each do |measure|  
@@ -300,7 +300,7 @@ module ApiV1
               return
             end
           else
-            if measure.is_component?
+            if measure.component
               if existing.hqmf_set_id != measure.composite_hqmf_set_id
                 measures.each {|m| m.delete}
                 render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
@@ -325,16 +325,16 @@ module ApiV1
                     status: :bad_request
             return
           end
-          if (existing && is_update)
-            existing.components.each do |component_hqmf_set_id|
-              component_measure = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: component_hqmf_set_id).first
-              component_measure.delete
-            end
-            existing.delete
+        end
+        if (existing && is_update)
+          existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
+            component_measure = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: component_hqmf_set_id).first
+            component_measure.delete
           end
+          existing.delete
         end
 
-      rescue StandardError => e
+      rescue StandardError, Exception => e
         measures.each {|m| m.delete} if measures
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)

@@ -56,7 +56,7 @@ module MeasureHelper
           return error_message
         end
       else
-        if measure.is_component?
+        if measurecomponent
           if existing.hqmf_set_id != measure.composite_hqmf_set_id
             measures.each {|m| m.delete}
             error_message = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
@@ -78,13 +78,13 @@ module MeasureHelper
         error_message = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
         return error_message
       end
-      if (existing && is_update)
-        existing.components.each do |component_hqmf_set_id|
-          component_measure = CqlMeasure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first
-          component_measure.delete
-        end
-        existing.delete
+    end
+    if (existing && is_update)
+      existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
+        component_measure = CqlMeasure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first
+        component_measure.delete
       end
+      existing.delete
     end
     return nil
   end
