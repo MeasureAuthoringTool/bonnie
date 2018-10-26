@@ -56,7 +56,7 @@ module MeasureHelper
           return error_message
         end
       else
-        if measurecomponent
+        if measure.component
           if existing.hqmf_set_id != measure.composite_hqmf_set_id
             measures.each {|m| m.delete}
             error_message = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
