@@ -798,16 +798,19 @@ include Devise::Test::ControllerHelpers
 
   end
 
-  test "upload composite cql with valid VSAC creds" do
+  test "upload composite cql then delete and then upload again" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
+
+    # Make sure db is clean
+    assert_equal 0, CqlMeasure.all.count
+
+    # Sanity check
+    measure = CqlMeasure.where({hqmf_set_id: "244b4f52-c9ca-45aa-8bdb-2f005da05bfc"}).first
+    assert_nil measure
+
     VCR.use_cassette("valid_vsac_response_composite") do
-      measure = CqlMeasure.where({hqmf_set_id: "244b4f52-c9ca-45aa-8bdb-2f005da05bfc"}).first
-      assert_nil measure
-
-      # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
-
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
@@ -819,16 +822,18 @@ include Devise::Test::ControllerHelpers
         calculation_type: 'patient'
       }
     end
-
     assert_response :redirect
+
     measure = CqlMeasure.where({composite: true}).first
     assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
+    # This composite measure has 7 components and 1 composite measure
+    assert_equal 8, CqlMeasure.all.count
 
     post :destroy, {
       id: measure.id
     }
     assert_response :success
-    assert_equal 0, CqlMeasure.all
+    assert_equal 0, CqlMeasure.all.count
     
     VCR.use_cassette("valid_vsac_response_composite") do
       post :create, {
@@ -841,11 +846,13 @@ include Devise::Test::ControllerHelpers
         measure_type: 'ep',
         calculation_type: 'patient'
       }
-
-      assert_response :redirect
-      measure = CqlMeasure.where({composite: true}).first
-      assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
     end
+    assert_response :redirect
+    
+    measure = CqlMeasure.where({composite: true}).first
+    assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
+    # This composite measure has 7 components and 1 composite measure
+    assert_equal 8, CqlMeasure.all.count
   end
 
   test "upload invalid composite measure, missing eCQM file" do

@@ -31,7 +31,6 @@ module ApiV1
       end
 
       def validate(value)
-        require 'pry'; binding.pry
         return false unless value.is_a?(Rack::Test::UploadedFile) || value.is_a?(ActionDispatch::Http::UploadedFile)
         # Understand which sort of measure_file we are retrieving
         extension = File.extname(value.original_filename).downcase if value
@@ -383,40 +382,6 @@ module ApiV1
       end
       measures_population_update(measures, current_resource_owner, is_update, measure_details)
 
-      # current_resource_owner.measures << measure
-      # current_resource_owner.save!
-
-      # if is_update
-      #   measure.populations.each_with_index do |population, population_index|
-      #     population['title'] = measure_details['population_titles'][population_index] if measure_details['population_titles']
-      #   end
-      # # Handle population naming. Make default names if none or not enough were provided.
-      # elsif measure.populations.size > 1
-      #   population_titles = params.fetch(:population_titles, [])
-      #   strat_index = 0
-      #   measure.populations.each_with_index do |population, index|
-      #     if population[HQMF::PopulationCriteria::STRAT]
-      #       population['title'] = population_titles.fetch(index, "Stratification #{strat_index + 1}")
-      #       strat_index += 1
-      #     elsif index < population_titles.size
-      #       population['title'] = population_titles.fetch(index)
-      #     end
-      #   end
-      # end
-
-      # measure.save!
-
-      # # rebuild the user's patients for the given measure
-      # Record.by_user_and_hqmf_set_id(current_resource_owner, measure.hqmf_set_id).each do |r|
-      #   Measures::PatientBuilder.rebuild_patient(r)
-      #   r.save!
-      # end
-
-      # # ensure expected values on patient match those in the measure's populations
-      # Record.where(user_id: current_resource_owner.id, measure_ids: measure.hqmf_set_id).each do |patient|
-      #   patient.update_expected_value_structure!(measure)
-      # end
-
       # Reason for the split is when the measure is a composite. Otherwise, it is regular hqmf set id
       measure_hqmf_set_id = measures[0].hqmf_set_id.split('&')[0]
       
@@ -428,30 +393,31 @@ module ApiV1
       measures.each do |measure|
         current_resource_owner.measures << measure
   
-        if (is_update)
+        if is_update
           measure.populations.each_with_index do |population, population_index|
-            population['title'] = measure_details['population_titles'][population_index] if (measure_details['population_titles'])
+            population['title'] = measure_details['population_titles'][population_index] if measure_details['population_titles']
           end
-        else
-          measure.needs_finalize = measure.populations.size > 1
-          if measure.populations.size > 1
-            strat_index = 1
-            measure.populations.each do |population|
-              if (population[HQMF::PopulationCriteria::STRAT])
-                population['title'] = "Stratification #{strat_index}"
-                strat_index += 1
-              end
+        # Handle population naming. Make default names if none or not enough were provided.
+        elsif measure.populations.size > 1
+          population_titles = params.fetch(:population_titles, [])
+          strat_index = 0
+          measure.populations.each_with_index do |population, index|
+            if population[HQMF::PopulationCriteria::STRAT]
+              population['title'] = population_titles.fetch(index, "Stratification #{strat_index + 1}")
+              strat_index += 1
+            elsif index < population_titles.size
+              population['title'] = population_titles.fetch(index)
             end
           end
         end
         measure.save!
-  
+
         # rebuild the user's patients for the given measure
         Record.by_user_and_hqmf_set_id(current_resource_owner, measure.hqmf_set_id).each do |r|
           Measures::PatientBuilder.rebuild_patient(r)
           r.save!
         end
-  
+
         # ensure expected values on patient match those in the measure's populations
         Record.where(user_id: current_resource_owner.id, measure_ids: measure.hqmf_set_id).each do |patient|
           patient.update_expected_value_structure!(measure)
