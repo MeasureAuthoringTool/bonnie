@@ -30,6 +30,7 @@ class PatientsController < ApplicationController
 
   def create
     patient = update_patient(Record.new)
+    populate_measure_ids_if_composite_measures(patient)
     patient.save!
     render :json => patient
   end
@@ -111,7 +112,8 @@ class PatientsController < ApplicationController
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     package = PatientExport.export_excel_cql_file(JSON.parse(params[:calc_results]), 
       JSON.parse(params[:patient_details]), JSON.parse(params[:population_details]),
-      JSON.parse(params[:statement_details]))
+      JSON.parse(params[:statement_details]),
+      params[:measure_hqmf_set_id])
     send_data package.to_stream.read, type: "application/xlsx", filename: "#{params[:file_name]}.xlsx"
   end
 
@@ -150,6 +152,26 @@ private
     patient.rebuild!(params[:payer])
 
     patient
+  end
+
+  # if the patient has any existing measure ids that correspond to component measures, all 'sibling' measure ids will be added
+  def populate_measure_ids_if_composite_measures(patient)
+    # create array of unique parent composite measure ids
+    parent_measure_ids = []
+    patient['measure_ids'].each do |measure_id|
+      # component hqmf set ids are two ids with '&' in between
+      next if measure_id.nil? || !measure_id.include?("&")
+      parent_measure_ids << measure_id.split('&').first
+    end
+    parent_measure_ids.uniq!
+
+    # for each parent measure, get all the child ids and add them to the patient
+    parent_measure_ids.each do |parent_measure_id|
+      parent_measure = CqlMeasure.by_user(current_user).only(:component_hqmf_set_ids).where(hqmf_set_id: parent_measure_id).first
+      patient['measure_ids'].concat parent_measure["component_hqmf_set_ids"]
+      patient['measure_ids'] << parent_measure_id
+    end
+    patient['measure_ids'].uniq!
   end
 
   def convert_to_hash(key, array)
