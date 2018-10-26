@@ -10,7 +10,8 @@ module ApiV1
       dump_database
       users_set = File.join("users", "base_set")
       cms160_fixtures = File.join("cql_measures","core_measures", "CMS160v6"), File.join("records", "core_measures", "CMS160v6"), File.join("health_data_standards_svs_value_sets", "core_measures", "CMS160v6")
-      collection_fixtures(users_set, *cms160_fixtures)
+      composite_measure_fixtures = File.join("cql_measures","special_measures","CMS321"), File.join("health_data_standards_svs_value_sets","special_measures","CMS321"), File.join("records","special_measures","CMS321")
+      collection_fixtures(users_set, *cms160_fixtures, *composite_measure_fixtures)
       @measure = CqlMeasure.where({"cms_id" => "CMS160v6"}).first
       @cms160_hqmf_set_id = @measure.hqmf_set_id
       @user = User.by_email('bonnie@example.com').first
@@ -101,6 +102,33 @@ module ApiV1
 
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
         assert_equal 1.0, doc.sheet("Population 1").row(3)[0]
+      end
+
+      Apipie.configuration.record = apipie_record_configuration
+    end
+
+    test "should calculate result excel sheet with correct expected values for shared patient in component measure" do
+      apipie_record_configuration = Apipie.configuration.record
+      Apipie.configuration.record = false
+
+      measure_id = "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F"
+
+      VCR.use_cassette("backend_calculation_excel_shared_patient") do
+        headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
+        request.headers.merge! headers
+        get :calculated_results, id: measure_id
+        assert_response :success
+        assert_equal 'binary', response.header['Content-Transfer-Encoding']
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
+        filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
+        assert_equal 'CMS238v0.xlsx', filename
+        temp = Tempfile.new(["test", ".xlsx"])
+        temp.write(response.body)
+        temp.rewind
+        doc = Roo::Spreadsheet.open(temp.path)
+
+        assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
+        assert_equal [1,1,0,1,1,1,0,0], doc.sheet("1 - Population Criteria Section").row(3)[0..7]
       end
 
       Apipie.configuration.record = apipie_record_configuration

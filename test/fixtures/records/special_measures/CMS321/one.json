@@ -1,0 +1,169 @@
+{
+  "_id": "5bcf3357bb9215833d25c1ff",
+  "languages": [],
+  "measure_ids": [
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+    null,
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91"
+  ],
+  "first": "ja",
+  "last": "same",
+  "gender": "M",
+  "expired": null,
+  "birthdate": -922377600,
+  "description": null,
+  "description_category": null,
+  "deathdate": null,
+  "notes": "",
+  "is_shared": null,
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "AnnualWellnessVisit",
+      "description": "Encounter, Performed: Annual Wellness Visit",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+      "type": "encounters",
+      "id": "AnnualWellnessVisit_EncounterPerformed_a091ca0a_589d_4add_9570_eb7a7c186059_source",
+      "start_date": 1350979200000,
+      "end_date": 1350980100000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+      "cms_id": "CMS238v0",
+      "criteria_id": "166a231587aih",
+      "codes": {
+        "HCPCS": ["G0438"]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "5bcf68d4bb921510fd419526",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "expected_values": [
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "origin_data": [],
+  "user_id": "5b295659b8484602c98e694f",
+  "bundle_id": "5b29565ab8484602c98e6950",
+  "medical_record_number": "982f50eb3429c1b6af9e0c0b0fb1d17b9bf20f1486352a07cfc76b77f19dfd37",
+  "medical_record_assigner": "Bonnie",
+  "encounters": [
+    {
+      "_id": "5bcf68d4bb921510fd419526",
+      "codes": {
+        "HCPCS": ["G0438"]
+      },
+      "mood_code": "EVN",
+      "_type": "Encounter",
+      "description": "Encounter, Performed: Annual Wellness Visit",
+      "start_time": 1350979200,
+      "end_time": 1350980100,
+      "status_code": {
+        "HL7 ActStatus": ["performed"]
+      },
+      "oid": "2.16.840.1.113883.3.560.1.79"
+    }
+  ],
+  "insurance_providers": [
+    {
+      "_id": "5bcf68d4bb921510fd419527",
+      "codes": {
+        "SOP": ["349"]
+      },
+      "mood_code": "EVN",
+      "_type": "InsuranceProvider",
+      "type": "OT",
+      "member_id": "1234567890",
+      "name": "Other",
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "start_time": 1199163600,
+      "payer": {
+        "_id": "5bcf68d4bb921510fd419528",
+        "name": "Other"
+      }
+    }
+  ]
+}

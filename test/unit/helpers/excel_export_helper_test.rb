@@ -143,7 +143,7 @@ class ExcelExportHelperTest < ActionController::TestCase
     statement_details = ExcelExportHelper.get_statement_details_from_measure(@measure)
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, backend_results_with_failed_patients)
     patient_details = ExcelExportHelper.get_patient_details(@patients)
-    backend_excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+    backend_excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, @measure.hqmf_set_id)
     backend_excel_file = Tempfile.new(['backend-excel-export-failed-patients', '.xlsx'])
     backend_excel_file.write backend_excel_package.to_stream.read
     backend_excel_file.rewind
@@ -153,7 +153,8 @@ class ExcelExportHelperTest < ActionController::TestCase
                        patient_details: @patient_details.to_json,
                        population_details: @population_details.to_json,
                        statement_details: @statement_details.to_json,
-                       file_name: 'frontend-excel-export'
+                       file_name: 'frontend-excel-export',
+                       measure_hqmf_set_id: @measure.hqmf_set_id
 
     frontend_excel_file = Tempfile.new(['frontend-excel-export', '.xlsx'])
     frontend_excel_file.write(response.body)
@@ -171,7 +172,7 @@ class ExcelExportHelperTest < ActionController::TestCase
     statement_details = ExcelExportHelper.get_statement_details_from_measure(@simple_measure)
     population_details = ExcelExportHelper.get_population_details_from_measure(@simple_measure, backend_results_with_failed_patients)
     patient_details = ExcelExportHelper.get_patient_details(@simple_patients)
-    backend_excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+    backend_excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, @simple_measure.hqmf_set_id)
     backend_excel_file = Tempfile.new(['backend-excel-export-failed-patients', '.xlsx'])
     backend_excel_file.write backend_excel_package.to_stream.read
     backend_excel_file.rewind
@@ -181,7 +182,8 @@ class ExcelExportHelperTest < ActionController::TestCase
                        patient_details: @simple_patient_details.to_json,
                        population_details: @simple_population_details.to_json,
                        statement_details: @simple_statement_details.to_json,
-                       file_name: 'frontend-excel-export-failed-patients'
+                       file_name: 'frontend-excel-export-failed-patients',
+                       measure_hqmf_set_id: @simple_measure.hqmf_set_id
 
     frontend_excel_file = Tempfile.new(['frontend-excel-export-failed-patients', '.xlsx'])
     frontend_excel_file.write(response.body)

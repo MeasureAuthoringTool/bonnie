@@ -195,7 +195,7 @@ module ApiV1
         population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
         statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
         filename = "#{@api_v1_measure.cms_id}.xlsx"
-        excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+        excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, hqmf_set_id)
         send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
       rescue StandardError
         # Email the error so we can see more details on what went wrong with the excel creation.
