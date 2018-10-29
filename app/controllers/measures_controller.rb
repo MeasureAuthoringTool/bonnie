@@ -171,6 +171,7 @@ class MeasuresController < ApplicationController
       if measure.component
         # Throw error since component can't be deleted individually
         render status: :bad_request, json: {error: "Component measures can't be deleted individually."}
+        return
       elsif measure.composite
         # If the measure if a composite, delete all the associated components
         measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
