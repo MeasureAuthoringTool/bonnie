@@ -230,7 +230,7 @@ describe 'PatientBuilderView', ->
         expect(@firstCriteria.get('value').first().get('type')).toEqual 'PQ'
         expect(@firstCriteria.get('value').first().get('value')).toEqual '1'
         expect(@firstCriteria.get('value').first().get('unit')).toEqual 'mg'
-        expect(this.patientBuilder.$('.existing-values span').first().text().indexOf("1 mg")).not.toEqual -1
+        expect(@patientBuilder.$('.existing-values span').first().text().indexOf("1 mg")).not.toEqual -1
 
       it "adds a coded value", ->
         expect(@firstCriteria.get('value').length).toEqual 0
