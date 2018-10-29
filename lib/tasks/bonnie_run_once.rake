@@ -500,6 +500,24 @@ namespace :bonnie do
       {source_data_criteria: json['source_data_criteria'], data_criteria: json['data_criteria']}
     end
 
+    namespace :cypress do
+      # bundle exec rake bonnie:cypress:associate_measures EMAIL='raketest@gmail.com'
+      desc "Associate each patient with every measure for a specific user (identified by email address)"
+      task :associate_measures => :environment do
+        user = User.where(email: ENV['EMAIL']).first
+        measures = CqlMeasure.where(user_id: user.id)
+        all_measure_ids = measures.map(&:hqmf_set_id) # array of all measure_ids (string) for patient
+        user.records.each do |patient|
+          # note: this associates *every* patient with every measure,
+          # so any orphaned patients (patients on a measure that has been deleted) will come back
+          patient.measure_ids = all_measure_ids
+          # add null entry to end of measure_ids array to match existing bonnie records
+          patient.measure_ids << nil
+          patient.save
+        end
+      end
+    end
+
   end
 
   task :update_value_set_versions => :environment do

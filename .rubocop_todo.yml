@@ -559,6 +559,8 @@ Metrics/AbcSize:
 # Offense count: 74
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/bonnie_run_once.rake'
   Max: 564
 
 # Offense count: 14
