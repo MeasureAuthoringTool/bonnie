@@ -386,7 +386,7 @@ def export_components(measure, fixtures_path, args, user, path_prefix)
     components_filename = 'components.json'
     components_file = File.join(fixtures_path, path_prefix, args[:path], components_filename)
     components = []
-    measure.components.each do |component_hqmf_set_id|
+    measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
       components.push CqlMeasure.find_by(user_id: user, hqmf_set_id: component_hqmf_set_id)
     end
     components_json = JSON.pretty_generate(JSON.parse(components.to_json, max_nesting: 1000))
