@@ -294,48 +294,43 @@ module ApiV1
           if !is_update
             existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
             unless existing.nil?
-              measures.each {|m| m.delete}
+              measures.each(&:delete)
               render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
-                      status: :conflict
+                     status: :conflict
               return
             end
-          else
-            if measure.component
-              if existing.hqmf_set_id != measure.composite_hqmf_set_id
-                measures.each {|m| m.delete}
-                render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                    status: :not_found
-                return
-              end
-            else 
-              if existing.hqmf_set_id != measure.hqmf_set_id
-                measures.each {|m| m.delete}
-                render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                    status: :not_found
-                return
-              end
+          elsif measure.component
+            if existing.hqmf_set_id != measure.composite_hqmf_set_id
+              measures.each(&:delete)
+              render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+                     status: :not_found
+              return
             end
+          elsif existing.hqmf_set_id != measure.hqmf_set_id
+            measures.each(&:delete)
+            render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+                   status: :not_found
+            return
           end
+
   
           # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
           missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-          if missing_value_sets.length.positive?
-            measures.each {|m| m.delete}
-            render json: {status: "error", messages: "The measure is missing value sets. The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
-                    status: :bad_request
-            return
-          end
+          next unless missing_value_sets.length.positive?
+          measures.each(&:delete)
+          render json: {status: "error", messages: "The measure is missing value sets. The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
+                 status: :bad_request
+          return
         end
-        if (existing && is_update)
+        if existing && is_update
           existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
             component_measure = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: component_hqmf_set_id).first
             component_measure.delete
           end
           existing.delete
         end
-
-      rescue StandardError, Exception => e
-        measures.each {|m| m.delete} if measures
+      rescue StandardError, Measures::MeasureLoadingException => e
+        measures.each(&:delete) if measures
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
         clean_email = File.basename(current_resource_owner.email) # Prevent path traversal

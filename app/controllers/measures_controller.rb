@@ -102,15 +102,14 @@ class MeasuresController < ApplicationController
       end
       # Extract measure(s) from zipfile
       measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
-      update_error_message = MeasureHelper.update_measures(measures, params, current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, is_update, existing)
-      if(!update_error_message.nil?)
+      update_error_message = MeasureHelper.update_measures(measures, current_user, is_update, existing)
+      if (!update_error_message.nil?)
         flash[:error] = update_error_message
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
-
     rescue Exception => e
-      measures.each {|m| m.delete} if measures
+      measures.each(&:delete) if measures
       errors_dir = Rails.root.join('log', 'load_errors')
       FileUtils.mkdir_p(errors_dir)
       clean_email = File.basename(current_user.email) # Prevent path traversal
