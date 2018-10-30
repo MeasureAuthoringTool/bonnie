@@ -476,6 +476,10 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         @$('select[name="code_list_id"]').focus()
       when 'TS'
         @$('input[name="start_date"]').focus()
+      when 'RT'
+        @$('input[name="numerator_scalar"]').focus()
+      when 'ID'
+        @$('input[name="root"]').focus()
       when 'CMP'
         switch @model.get('type_cmp')
           when 'PQ'
@@ -491,6 +495,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     isDisabled = ((attributes.type == 'PQ' || attributes.type_cmp == 'PQ') && !attributes.value) ||
                  ((attributes.type == 'CD' || attributes.type_cmp == 'CD') && !attributes.code_list_id) ||
                  ((attributes.type == 'TS' || attributes.type_cmp == 'TS') && !attributes.value) ||
+                 ((attributes.type == 'RT' || attributes.type_cmp == 'RT') && !attributes.denominator_scalar) ||
+                 ((attributes.type == 'ID' || attributes.type_cmp == 'ID') && (!attributes.root || !attributes.extension)) ||
                  (attributes.key == 'COMPONENT' && (!attributes.code_list_id_cmp)) ||
                  (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
                  (@fieldValue && !attributes.key)

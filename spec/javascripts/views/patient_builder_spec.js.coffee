@@ -295,7 +295,7 @@ describe 'PatientBuilderView', ->
             @patientBuilder.$('select[name=key]').val(fieldType).change()
             @patientBuilder.$('select[name=type]:eq(1)').val('ID').change()
             @patientBuilder.$('input[name=root]').val(id).keyup()
-            @patientBuilder.$('input[name=extension]').val(system)
+            @patientBuilder.$('input[name=extension]').val(system).keyup()
             @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
 
         it "adds a scalar field value", ->
