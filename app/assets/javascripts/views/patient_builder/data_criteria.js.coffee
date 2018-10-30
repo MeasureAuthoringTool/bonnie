@@ -495,7 +495,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     isDisabled = ((attributes.type == 'PQ' || attributes.type_cmp == 'PQ') && !attributes.value) ||
                  ((attributes.type == 'CD' || attributes.type_cmp == 'CD') && !attributes.code_list_id) ||
                  ((attributes.type == 'TS' || attributes.type_cmp == 'TS') && !attributes.value) ||
-                 ((attributes.type == 'RT' || attributes.type_cmp == 'RT') && !attributes.denominator_scalar) ||
+                 ((attributes.type == 'RT' || attributes.type_cmp == 'RT') && (!attributes.denominator_scalar || !attributes.numerator_scalar)) ||
                  ((attributes.type == 'ID' || attributes.type_cmp == 'ID') && (!attributes.root || !attributes.extension)) ||
                  (attributes.key == 'COMPONENT' && (!attributes.code_list_id_cmp)) ||
                  (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
