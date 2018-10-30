@@ -173,7 +173,7 @@ module ApiV1
         @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
         @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
       rescue StandardError => e
-        # email the error so we can see more details on what went wrong with the patient load.
+        # Email the error so we can see more details on what went wrong with the patient load.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error gathering the measure and associated patients and value sets."}, status: :internal_server_error
         return
@@ -183,7 +183,7 @@ module ApiV1
       begin
         calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
       rescue StandardError => e
-        # email the error so we can see more details on what went wrong with the service.
+        # Email the error so we can see more details on what went wrong with the service.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error with the calculation service."}, status: :internal_server_error
         return
@@ -198,7 +198,7 @@ module ApiV1
         excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
         send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
       rescue StandardError
-        # email the error so we can see more details on what went wrong with the excel creation.
+        # Email the error so we can see more details on what went wrong with the excel creation.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
         return
@@ -258,8 +258,7 @@ module ApiV1
     end
 
     def load_measure(params, is_update)
-      
-      # convert calculate_sde param from string to boolean
+      # Convert calculate_sde param from string to boolean
       calculate_sdes = params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true'
       measure_details = {
         'episode_of_care'=>params[:calculation_type] == 'episode',
@@ -267,9 +266,9 @@ module ApiV1
       }
       # If we get to this point, then the measure that is being uploaded is a MAT export of CQL
       begin
-        # check the passed in VSAC params and set the default values
+        # Check the passed in VSAC params and set the default values
         vsac_params = retrieve_vasc_params(params)
-        # parse VSAC options using helper and get ticket_granting_ticket which is always needed
+        # Parse VSAC options using helper and get ticket_granting_ticket which is always needed
         vsac_options = MeasureHelper.parse_vsac_parameters(vsac_params)
 
         # Build ticket_granting_ticket object that VSAC util library expects
@@ -281,10 +280,10 @@ module ApiV1
           measure_details['episode_of_care'] = existing.episode_of_care
           measure_details['calculate_sdes'] = existing.calculate_sdes
           measure_details['population_titles'] = existing.populations.map { |p| p['title'] } if existing.populations.length > 1
-          # if the caller specified the measure_type use their value otherwise use from the existing
+          # If the caller specified the measure_type use their value otherwise use from the existing
           measure_details['type'] = params.fetch(:measure_type, existing.type)
         else
-          # since this is not an update we should default measure_type if it isnt specified
+          # Since this is not an update we should default measure_type if it isnt specified
           measure_details['type'] = params.fetch(:measure_type, 'ep')
         end
         
@@ -313,8 +312,7 @@ module ApiV1
             return
           end
 
-  
-          # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
+          # Exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
           missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
           next unless missing_value_sets.length.positive?
           measures.each(&:delete)
