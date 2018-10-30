@@ -92,3 +92,8 @@ class Thorax.Views.MeasureCoverageView extends Thorax.Views.BonnieView
   identifyCoverage: (e) ->
     $('.toggle-result').hide()
     @showCoverage()
+
+class Thorax.Views.ComponentMeasureView extends Thorax.Views.BonnieView
+
+  initialize: ->
+      @differences = @model.get('displayedPopulation').differencesFromExpected()
