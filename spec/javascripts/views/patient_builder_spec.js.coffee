@@ -230,6 +230,7 @@ describe 'PatientBuilderView', ->
         expect(@firstCriteria.get('value').first().get('type')).toEqual 'PQ'
         expect(@firstCriteria.get('value').first().get('value')).toEqual '1'
         expect(@firstCriteria.get('value').first().get('unit')).toEqual 'mg'
+        expect(@patientBuilder.$('.existing-values span').first().text().indexOf("1 mg")).not.toEqual -1
 
       it "adds a coded value", ->
         expect(@firstCriteria.get('value').length).toEqual 0
@@ -294,7 +295,7 @@ describe 'PatientBuilderView', ->
             @patientBuilder.$('select[name=key]').val(fieldType).change()
             @patientBuilder.$('select[name=type]:eq(1)').val('ID').change()
             @patientBuilder.$('input[name=root]').val(id).keyup()
-            @patientBuilder.$('input[name=extension]').val(system)
+            @patientBuilder.$('input[name=extension]').val(system).keyup()
             @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
 
         it "adds a scalar field value", ->
