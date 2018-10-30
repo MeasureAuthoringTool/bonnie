@@ -106,13 +106,13 @@ module MeasureHelper
       end
       measure.save!
 
-      # rebuild the user's patients for the given measure
+      # Rebuild the user's patients for the given measure
       Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).each do |r|
         Measures::PatientBuilder.rebuild_patient(r)
         r.save!
       end
 
-      # ensure expected values on patient match those in the measure's populations
+      # Ensure expected values on patient match those in the measure's populations
       Record.where(user_id: current_user.id, measure_ids: measure.hqmf_set_id).each do |patient|
         patient.update_expected_value_structure!(measure)
       end
