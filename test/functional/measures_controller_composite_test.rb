@@ -143,7 +143,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     # This composite measure has 7 components and 1 composite measure
     assert_equal 8, CqlMeasure.all.count
 
-    #Update previously loaded measure with a measure that has a different hqmf_set_id
+    # Update previously loaded measure with a measure that has a different hqmf_set_id
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_hqmf_set_id_mismatch.zip'), 'application/xml')
     
     VCR.use_cassette("valid_vsac_response_composite") do
