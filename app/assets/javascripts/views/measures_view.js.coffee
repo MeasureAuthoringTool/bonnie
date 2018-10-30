@@ -26,7 +26,6 @@ class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
   initialize: ->
     # What we display changes for single vs multiple population measures
     @multiplePopulations = @model.get('populations').length > 1
-    @composite = @model.get('composite')
     unless @multiplePopulations
       @differences = @model.get('displayedPopulation').differencesFromExpected()
     @cql = @model.get('cql')?
