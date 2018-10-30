@@ -6,10 +6,10 @@
       {{#if component}}
         <span class="settings-container">
           <div class="measure-settings">
-            <a data-title="Must update via composite" data-toggle="tooltip" data-placement="bottom">
+            <a data-title="Component measures must be updated via their composite measure." data-toggle="tooltip" data-placement="bottom">
               {{#button "updateMeasure" class="btn btn-default update-measure" disabled="true"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
             </a>
-            <a data-title="Must delete via composite" data-toggle="tooltip" data-placement="bottom">
+            <a data-title="Component measures must be deleted via their composite measure." data-toggle="tooltip" data-placement="bottom">
               {{#button "deleteMeasure" class="btn btn-danger delete-measure hide" disabled="true"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
               {{#button "showDelete" class="btn btn-danger-inverse delete-icon" disabled="true"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
             </a>
