@@ -361,8 +361,10 @@ module ApiV1
           render json: {status: "error", messages: "The measure could not be loaded, there may be an error in the CQL logic."},
                  status: :bad_request
         else
-          render json: {status: "error", messages: "The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."},
-                 status: :bad_request
+          error_json = {status: "error", messages: "The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."}
+          error_json[:details] = e.inspect if Rails.env.development?
+          render json: error_json,
+                 status: :internal_server_error
         end
 
         # email the error

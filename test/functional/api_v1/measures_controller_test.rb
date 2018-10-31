@@ -405,7 +405,7 @@ module ApiV1
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}, {"Content-Type" => 'multipart/form-data'}
-        assert_response :bad_request
+        assert_response :internal_server_error
         expected_response = {"status"=>"error", "messages"=>"The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."}
         assert_equal expected_response, JSON.parse(response.body)
       end
