@@ -28,8 +28,7 @@ include Devise::Test::ControllerHelpers
       measure_file = fixture_file_upload(File.join('testplan', 'DischargedOnAntithrombotic_eMeasure.xml'), 'application/xml')
 
       # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
-      post :create, {vsac_date: '06/28/2016', includes_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
-
+      post :create, {vsac_date: '', include_draft: 'true', measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
       assert_response :redirect
       measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
       assert_equal "40280381-3D27-5493-013D-4DCA4B826AE4", measure['hqmf_id']
