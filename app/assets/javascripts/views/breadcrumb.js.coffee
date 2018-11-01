@@ -17,23 +17,32 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
     @model.set
       period: bonnie.measurePeriod
 
-  addMeasure: (measureHierarchy, parentMeasure) ->
+  addMeasure: (measure) ->
+    measureHierarchy = @generateMeasureHierarchy(measure)
     @model.clear silent: true
     @model.set
       period: bonnie.measurePeriod
-      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
+      measureHierarchy: (m.toJSON() for m in measureHierarchy)
 
-  addPatient: (measureHierarchy, patient) ->
+  addPatient: (measure, patient) ->
+    measureHierarchy = @generateMeasureHierarchy(measure)
     patient_name = if patient.get('first') then "#{patient.get('last')} #{patient.get('first')}" else "Create new patient"
     @model.clear silent: true
     @model.set
       period: bonnie.measurePeriod
       patientName: patient_name
-      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
+      measureHierarchy: (m.toJSON() for m in measureHierarchy)
 
-  addBank: (measureHierarchy) ->
+  addBank: (measure) ->
+    measureHierarchy = @generateMeasureHierarchy(measure)
     @model.clear silent: true
     @model.set
       period: bonnie.measurePeriod
       bankView: true
-      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
+      measureHierarchy: (m.toJSON() for m in measureHierarchy)
+
+  generateMeasureHierarchy: (measure) ->
+    measureHierarchy = [measure]
+    if measure.get('component')
+        measureHierarchy.unshift(bonnie.measures.findWhere({ hqmf_set_id: measure.get('hqmf_set_id').split('&')[0] }))
+    return measureHierarchy
