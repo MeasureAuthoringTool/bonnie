@@ -1,4 +1,5 @@
 {{view valueSetCodeCheckerView}}
+{{view compositeSharingWarningView}}
 
 {{#ifPortfolio}}
 <div class="row">
@@ -15,7 +16,9 @@
 
   <div class="col-md-6">
     <div class="timeline-icon pull-left"><i class="fa fa-user fa-fw fa-3x" aria-hidden="true"></i></div>
-    <div class="validation-alerts"><div class="alert alert-danger hidden"></div></div>
+    <div class="validation-alerts">
+      <div class="alert alert-danger hidden"></div>
+    </div>
   </div>
 
   <div class="col-md-4">
@@ -46,7 +49,7 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label for="notes" class="control-label">Patient Description</label>
-          <textarea id="notes" name="notes"class="form-control" placeholder="Patient is..." rows="2" maxlength="250"></textarea>
+          <textarea id="notes" name="notes" class="form-control" placeholder="Patient is..." rows="2" maxlength="250"></textarea>
         </div>
       </div>
 
@@ -55,11 +58,14 @@
           <label for="birthdate" class="control-label">Date of Birth*</label>
           <div class="datetime-control">
             <div>
-              <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" required aria-required="true">
+              <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy"
+                title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false"
+                data-date-autoclose="true" required aria-required="true">
             </div>
             <div>
               <label for="birthtime" class="sr-only">Time of Birth</label>
-              <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM" required aria-required="true">
+              <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --"
+                data-show-inputs="false" data-default-time="8:00 AM" required aria-required="true">
             </div>
           </div>
         </div>
@@ -88,25 +94,29 @@
       <div class="col-sm-6">
 
         <div class="form-group">
-          <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
+          <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of
+            Death{{else}}Living Status{{/if}}</label>
           {{#if expired}}
-            {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
-              <i class="fa fa-times-circle" aria-hidden="true"></i>
-              <span class="sr-only">remove date of death</span>
-            {{/button}}
-            <div class="datetime-control">
-              <div>
-                <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
-              </div>
-              <div>
-                <label for="deathtime" class="sr-only">Time of Death</label>
-                <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
-              </div>
+          {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
+          <i class="fa fa-times-circle" aria-hidden="true"></i>
+          <span class="sr-only">remove date of death</span>
+          {{/button}}
+          <div class="datetime-control">
+            <div>
+              <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy"
+                title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false"
+                data-date-autoclose="true">
             </div>
+            <div>
+              <label for="deathtime" class="sr-only">Time of Death</label>
+              <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --"
+                data-show-inputs="false" data-default-time="8:00 AM">
+            </div>
+          </div>
           {{else}}
-            <div class="checkbox deceased-checkbox">
-                <input type="checkbox" id="expired" name="expired"> Deceased
-            </div>
+          <div class="checkbox deceased-checkbox">
+            <input type="checkbox" id="expired" name="expired"> Deceased
+          </div>
           {{/if}}
         </div>
 
@@ -144,9 +154,9 @@
     <div class="panel-group" id="criteriaElements">
       <h2 class="heading-muted">Elements</h2>
       <div class="scrolling">
-      {{#each dataCriteriaCategories}}
+        {{#each dataCriteriaCategories}}
         {{view "SelectCriteriaView" title=type collection=criteria}}
-      {{/each}}
+        {{/each}}
       </div>
     </div>
   </div>
@@ -160,7 +170,7 @@
 
   <div class="col-right">
     <div id="populationLogic">
-    {{view populationLogicView}}
+      {{view populationLogicView}}
     </div>
   </div>
 

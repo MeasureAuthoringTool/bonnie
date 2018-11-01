@@ -17,23 +17,23 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
     @model.set
       period: bonnie.measurePeriod
 
-  addMeasure: (measure) ->
+  addMeasure: (measureHierarchy, parentMeasure) ->
     @model.clear silent: true
     @model.set
       period: bonnie.measurePeriod
-      measure: measure.toJSON()
+      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
 
-  addPatient: (measure, patient) ->
+  addPatient: (measureHierarchy, patient) ->
     patient_name = if patient.get('first') then "#{patient.get('last')} #{patient.get('first')}" else "Create new patient"
     @model.clear silent: true
     @model.set
       period: bonnie.measurePeriod
       patientName: patient_name
-      measure: measure.toJSON()
+      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
 
-  addBank: (measure) ->
+  addBank: (measureHierarchy) ->
     @model.clear silent: true
     @model.set
       period: bonnie.measurePeriod
       bankView: true
-      measure: measure.toJSON()
+      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
