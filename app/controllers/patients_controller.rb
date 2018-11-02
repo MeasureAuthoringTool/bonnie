@@ -159,7 +159,7 @@ private
     # create array of unique parent composite measure ids
     parent_measure_ids = []
     patient['measure_ids'].each do |measure_id|
-      # composite hqmf set ids are two ids with '&' in between
+      # component hqmf set ids are two ids with '&' in between
       next if measure_id.nil? || !measure_id.include?("&")
       parent_measure_ids << measure_id.split('&').first
     end
