@@ -22,7 +22,7 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
     @model.clear silent: true
     @model.set
       period: bonnie.measurePeriod
-      measureHierarchy: (m.toJSON() for m in measureHierarchy)
+      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
 
   addPatient: (measure, patient) ->
     measureHierarchy = @generateMeasureHierarchy(measure)
@@ -31,7 +31,7 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
     @model.set
       period: bonnie.measurePeriod
       patientName: patient_name
-      measureHierarchy: (m.toJSON() for m in measureHierarchy)
+      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
 
   addBank: (measure) ->
     measureHierarchy = @generateMeasureHierarchy(measure)
@@ -39,7 +39,7 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
     @model.set
       period: bonnie.measurePeriod
       bankView: true
-      measureHierarchy: (m.toJSON() for m in measureHierarchy)
+      measureHierarchy: (measure.toJSON() for measure in measureHierarchy)
 
   generateMeasureHierarchy: (measure) ->
     measureHierarchy = [measure]
