@@ -166,7 +166,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     
     assert_equal 8, CqlMeasure.all.count
   end
-  
+
   test "upload composite cql then try to delete a component" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
