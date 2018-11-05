@@ -169,6 +169,7 @@ private
     parent_measure_ids.each do |parent_measure_id|
       parent_measure = CqlMeasure.by_user(current_user).only(:component_hqmf_set_ids).where(hqmf_set_id: parent_measure_id).first
       patient['measure_ids'].concat parent_measure["component_hqmf_set_ids"]
+      patient['measure_ids'] << parent_measure_id
     end
     patient['measure_ids'].uniq!
   end
