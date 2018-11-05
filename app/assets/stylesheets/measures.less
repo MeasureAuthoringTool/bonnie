@@ -16,6 +16,7 @@
     font-weight: 700;
     line-height: 1.2;
 }
+
 .measure-col {
   .make-xs-column(7);
   position: relative;
@@ -25,7 +26,7 @@
       color: @blue-darkest;
       .make-md-column(10; 0);
     }
-    .nqf-listing {
+    .cms-id {
       .make-md-column(2; 0);
     }
   }
@@ -81,7 +82,7 @@
 
 // Just the list of measures & populations
 .dashboard-data {
-  .measure, .population {
+  .measure, .component-measure, .population {
     min-height: 65px;
     > * {
       margin-top: 40px;
@@ -100,7 +101,7 @@
         margin-left: -15px;
         padding: 6px 15px 7px;
         margin-right: 108px;
-        .nqf-listing {
+        .cms-id {
           color: @gray-darkest;
           padding-left: 5px;
         }
@@ -158,6 +159,30 @@
           &:before { content: @fa-var-times; }
         }
       }
+    }
+  }
+
+  .component-measure {
+    .component-measure-col {
+      font-weight: 800;
+      .component-measure-title {
+        .clearfix;
+        a {
+          color: #004e82;
+          .make-md-column(10; 0);
+        }
+        background: @gray-lighter;
+        padding: 6px 15px 7px;
+        margin-left: 15px;
+        width: 97%;
+        .component-cms-id {
+          color: @gray-darkest;
+          .make-md-column(2; 0);
+          text-align: right;
+        }
+      }
+
+      .make-xs-column(7);
     }
   }
 

@@ -479,6 +479,10 @@ Lint/LiteralInInterpolation:
     - 'lib/tasks/cql.rake'
     - 'test/rake/bonnie_patients_test.rb'
 
+Lint/NonLocalExitFromIterator:
+  Exclude:
+    - 'app/controllers/api_v1/measures_controller.rb'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 Lint/RedundantWithIndex:
@@ -589,6 +593,7 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Exclude:
     - 'app/helpers/excel_export_helper.rb'
+    - 'app/helpers/measure_helper.rb'
 
 # Offense count: 19
 Metrics/PerceivedComplexity:

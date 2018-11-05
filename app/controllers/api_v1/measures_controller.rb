@@ -173,7 +173,7 @@ module ApiV1
         @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
         @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
       rescue StandardError => e
-        # email the error so we can see more details on what went wrong with the patient load.
+        # Email the error so we can see more details on what went wrong with the patient load.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error gathering the measure and associated patients and value sets."}, status: :internal_server_error
         return
@@ -183,7 +183,7 @@ module ApiV1
       begin
         calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
       rescue StandardError => e
-        # email the error so we can see more details on what went wrong with the service.
+        # Email the error so we can see more details on what went wrong with the service.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error with the calculation service."}, status: :internal_server_error
         return
@@ -198,7 +198,7 @@ module ApiV1
         excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
         send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
       rescue StandardError
-        # email the error so we can see more details on what went wrong with the excel creation.
+        # Email the error so we can see more details on what went wrong with the excel creation.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
         return
@@ -258,7 +258,7 @@ module ApiV1
     end
 
     def load_measure(params, is_update)
-      # convert calculate_sde param from string to boolean
+      # Convert calculate_sde param from string to boolean
       calculate_sdes = params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true'
       measure_details = {
         'episode_of_care'=>params[:calculation_type] == 'episode',
@@ -266,9 +266,9 @@ module ApiV1
       }
       # If we get to this point, then the measure that is being uploaded is a MAT export of CQL
       begin
-        # check the passed in VSAC params and set the default values
+        # Check the passed in VSAC params and set the default values
         vsac_params = retrieve_vasc_params(params)
-        # parse VSAC options using helper and get ticket_granting_ticket which is always needed
+        # Parse VSAC options using helper and get ticket_granting_ticket which is always needed
         vsac_options = MeasureHelper.parse_vsac_parameters(vsac_params)
 
         # Build ticket_granting_ticket object that VSAC util library expects
@@ -280,41 +280,55 @@ module ApiV1
           measure_details['episode_of_care'] = existing.episode_of_care
           measure_details['calculate_sdes'] = existing.calculate_sdes
           measure_details['population_titles'] = existing.populations.map { |p| p['title'] } if existing.populations.length > 1
-          # if the caller specified the measure_type use their value otherwise use from the existing
+          # If the caller specified the measure_type use their value otherwise use from the existing
           measure_details['type'] = params.fetch(:measure_type, existing.type)
         else
-          # since this is not an update we should default measure_type if it isnt specified
+          # Since this is not an update we should default measure_type if it isnt specified
           measure_details['type'] = params.fetch(:measure_type, 'ep')
         end
+        
+        measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_resource_owner, measure_details, vsac_options, vsac_tgt_object)
 
-        measure = Measures::CqlLoader.load(params[:measure_file], current_resource_owner, measure_details, vsac_options, vsac_tgt_object)
-
-        if !is_update
-          existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
-          unless existing.nil?
-            measure.delete
-            render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
-                   status: :conflict
+        measures.each do |measure|  
+          if !is_update
+            existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
+            unless existing.nil?
+              measures.each(&:delete)
+              render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
+                     status: :conflict
+              return
+            end
+          elsif measure.component
+            if existing.hqmf_set_id != measure.composite_hqmf_set_id
+              measures.each(&:delete)
+              render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+                     status: :not_found
+              return
+            end
+          elsif existing.hqmf_set_id != measure.hqmf_set_id
+            measures.each(&:delete)
+            render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+                   status: :not_found
             return
           end
-        elsif existing.hqmf_set_id != measure.hqmf_set_id
-          measure.delete
-          render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                 status: :not_found
-          return
-        end
 
-        # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
-        missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-        if missing_value_sets.length.positive?
-          measure.delete
+          # Exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
+          missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
+          next unless missing_value_sets.length.positive?
+          measures.each(&:delete)
           render json: {status: "error", messages: "The measure is missing value sets. The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
                  status: :bad_request
           return
         end
-        existing.delete if existing && is_update
-      rescue StandardError => e
-        measure.delete if measure
+        if existing && is_update
+          existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
+            component_measure = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: component_hqmf_set_id).first
+            component_measure.delete
+          end
+          existing.delete
+        end
+      rescue StandardError, Measures::MeasureLoadingException => e
+        measures.each(&:delete) if measures
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
         clean_email = File.basename(current_resource_owner.email) # Prevent path traversal
@@ -347,8 +361,10 @@ module ApiV1
           render json: {status: "error", messages: "The measure could not be loaded, there may be an error in the CQL logic."},
                  status: :bad_request
         else
-          render json: {status: "error", messages: "The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."},
-                 status: :bad_request
+          error_json = {status: "error", messages: "The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."}
+          error_json[:details] = e.inspect if Rails.env.development?
+          render json: error_json,
+                 status: :internal_server_error
         end
 
         # email the error
@@ -359,43 +375,50 @@ module ApiV1
 
         return
       end
+      measures_population_update(measures, current_resource_owner, is_update, measure_details)
 
-      current_resource_owner.measures << measure
-      current_resource_owner.save!
+      # Reason for the split is when the measure is a composite. Otherwise, it is regular hqmf set id
+      measure_hqmf_set_id = measures[0].hqmf_set_id.split('&')[0]
+      
+      render json: {status: "success", url: "/api_v1/measures/#{measure_hqmf_set_id}"},
+             status: :ok
+    end
 
-      if is_update
-        measure.populations.each_with_index do |population, population_index|
-          population['title'] = measure_details['population_titles'][population_index] if measure_details['population_titles']
-        end
-      # Handle population naming. Make default names if none or not enough were provided.
-      elsif measure.populations.size > 1
-        population_titles = params.fetch(:population_titles, [])
-        strat_index = 0
-        measure.populations.each_with_index do |population, index|
-          if population[HQMF::PopulationCriteria::STRAT]
-            population['title'] = population_titles.fetch(index, "Stratification #{strat_index + 1}")
-            strat_index += 1
-          elsif index < population_titles.size
-            population['title'] = population_titles.fetch(index)
+    def measures_population_update(measures, current_resource_owner, is_update, measure_details)
+      measures.each do |measure|
+        current_resource_owner.measures << measure
+  
+        if is_update
+          measure.populations.each_with_index do |population, population_index|
+            population['title'] = measure_details['population_titles'][population_index] if measure_details['population_titles']
+          end
+        # Handle population naming. Make default names if none or not enough were provided.
+        elsif measure.populations.size > 1
+          population_titles = params.fetch(:population_titles, [])
+          strat_index = 0
+          measure.populations.each_with_index do |population, index|
+            if population[HQMF::PopulationCriteria::STRAT]
+              population['title'] = population_titles.fetch(index, "Stratification #{strat_index + 1}")
+              strat_index += 1
+            elsif index < population_titles.size
+              population['title'] = population_titles.fetch(index)
+            end
           end
         end
+        measure.save!
+
+        # rebuild the user's patients for the given measure
+        Record.by_user_and_hqmf_set_id(current_resource_owner, measure.hqmf_set_id).each do |r|
+          Measures::PatientBuilder.rebuild_patient(r)
+          r.save!
+        end
+
+        # ensure expected values on patient match those in the measure's populations
+        Record.where(user_id: current_resource_owner.id, measure_ids: measure.hqmf_set_id).each do |patient|
+          patient.update_expected_value_structure!(measure)
+        end
       end
-
-      measure.save!
-
-      # rebuild the user's patients for the given measure
-      Record.by_user_and_hqmf_set_id(current_resource_owner, measure.hqmf_set_id).each do |r|
-        Measures::PatientBuilder.rebuild_patient(r)
-        r.save!
-      end
-
-      # ensure expected values on patient match those in the measure's populations
-      Record.where(user_id: current_resource_owner.id, measure_ids: measure.hqmf_set_id).each do |patient|
-        patient.update_expected_value_structure!(measure)
-      end
-
-      render json: {status: "success", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
-             status: :ok
+      current_resource_owner.save!
     end
 
     def error_parameter_missing(exception)

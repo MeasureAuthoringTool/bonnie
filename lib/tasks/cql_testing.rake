@@ -27,6 +27,8 @@ namespace :bonnie do
       create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json, max_nesting: 1000)))
       puts 'exported measure to ' + measure_file
 
+      export_components(measure, fixtures_path, args, user, 'measure_data')
+
       oid_to_vs_map = {}
       value_sets = measure.value_sets.each do |vs|
         if oid_to_vs_map[vs.oid]
@@ -90,7 +92,9 @@ namespace :bonnie do
       measure_hash['_id'] = { '$oid' => measure_hash['_id'] }
       create_fixture_file(measure_file, JSON.pretty_generate(measure_hash))
       puts 'exported measure to ' + measure_file
-      
+
+      export_components(measure, fixtures_path, args, user, 'cql_measures')
+
       #Exports the measure package
       if measure.package
         measure_package_file = File.join(fixtures_path, 'cql_measure_packages', args[:path], measure_name)
@@ -373,5 +377,20 @@ namespace :bonnie do
         end
       end
     end
+  end
+end
+
+def export_components(measure, fixtures_path, args, user, path_prefix)
+  # If the measure is a composite, export all the component measures to components.json
+  if measure.composite
+    components_filename = 'components.json'
+    components_file = File.join(fixtures_path, path_prefix, args[:path], components_filename)
+    components = []
+    measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
+      components.push CqlMeasure.find_by(user_id: user, hqmf_set_id: component_hqmf_set_id)
+    end
+    components_json = JSON.pretty_generate(JSON.parse(components.to_json, max_nesting: 1000))
+    create_fixture_file(components_file, components_json)
+    puts 'exported components to ' + components_file
   end
 end
