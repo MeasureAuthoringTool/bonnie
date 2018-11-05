@@ -235,6 +235,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_response :redirect
 
     measure = CqlMeasure.where({composite: true}).first
+    id = measure['id']
     assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
     # This composite measure has 7 components and 1 composite measure
     assert_equal 8, CqlMeasure.all.count
@@ -256,6 +257,10 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_response :redirect
     measure = CqlMeasure.where({composite: true}).first
     assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
+
+    # Proves that the composite measure has actually been updated
+    assert_not_equal id, measure['id']
+
     # This composite measure has 7 components and 1 composite measure
     assert_equal 8, CqlMeasure.all.count
   end
