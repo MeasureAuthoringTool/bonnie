@@ -128,7 +128,7 @@ module ApiV1
         doc = Roo::Spreadsheet.open(temp.path)
 
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
-        assert_equal [1,1,0,1,1,1,0,0], doc.sheet("1 - Population Criteria Section").row(3)[0..7]
+        assert_equal [0.0, 0.0, 0.0, 0.0, nil, nil, nil, nil], doc.sheet("1 - Population Criteria Section").row(3)[0..7]
       end
 
       Apipie.configuration.record = apipie_record_configuration

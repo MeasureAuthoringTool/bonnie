@@ -185,8 +185,7 @@ class PatientExport
               end
               expected = []
               actual = []
-              patient_expected_vals = patient_details[patient_key]["expected_values"].detect { 
-                |ev| ev["measure_id"]==measure_hqmf_set_id && ev["population_index"]==pop_index }
+              patient_expected_vals = patient_details[patient_key]["expected_values"].detect { |ev| ev["measure_id"]==measure_hqmf_set_id && ev["population_index"]==pop_index }
               population_criteria.each do |criteria|
                 expected.push(patient_expected_vals[criteria])
                 if criteria == "OBSERV"

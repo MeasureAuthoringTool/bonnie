@@ -8,11 +8,13 @@
     </div>
     <div class="patient-data-col">
       {{view "MeasureFractionView" model=differences.summary tag="span"}}
-      <a href="#measures/{{measure_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
-        <i class="fa fa-user" aria-hidden="true"></i>
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        <span class="sr-only">add new patient</span>
-      </a>
+      {{#unless measure_is_composite}}
+        <a href="#measures/{{measure_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          <span class="sr-only">add new patient</span>
+        </a>
+      {{/unless}}
     </div>
   </div>
   {{view coverageView}}
@@ -55,7 +57,9 @@
     <div class="panel-body toggle-result toggle-result-{{patient._id}} patient" style="display: none;">
       {{template "population_calculation_results"}}
       {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}<i class="fa fa-pencil" aria-hidden="true"></i><span class="sr-only">edit patient {{patient.last}} {{patient.first}}</span>{{/link}}
-      {{#button "clonePatient" class="btn btn-primary"}}CLONE<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
+      {{#unless ../measure_is_composite}}
+        {{#button "clonePatient" class="btn btn-primary"}}CLONE<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
+      {{/unless}}
       {{#button "showDelete" class="btn btn-danger-inverse"}}
         <i class="fa fa-minus-circle" aria-hidden="true"></i>
         <span class="sr-only">{{patient.last}} {{patient.first}}, Show Delete</span>

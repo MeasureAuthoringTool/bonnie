@@ -81,7 +81,8 @@ include Devise::Test::ControllerHelpers
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
-                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325"]
+                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"]
     post :create, @patient
     assert_response :success
     assert_equal 1, Record.count
@@ -283,6 +284,31 @@ include Devise::Test::ControllerHelpers
     end
   end
   
+  test "Excel export composite measure" do
+    measure_hqmf_set_id = "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'population_details.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'statement_details.json'))
+
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+    temp = Tempfile.new(["test", ".xlsx"])
+    temp.write(response.body)
+    temp.rewind()
+    doc = Roo::Spreadsheet.open(temp.path)
+
+    assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
+    expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results","backend_calculation_excel_shared_patients_composite.json")))
+    assert_equal expected_rows["row_one"], doc.sheet("1 - Population Criteria Section").row(3)[0..expected_rows["row_one"].length]
+    assert_equal expected_rows["row_two"], doc.sheet("1 - Population Criteria Section").row(4)[0..expected_rows["row_two"].length]
+
+    temp.close()
+    temp.unlink()
+  end
+
   test "Excel export fields check" do
     measure_hqmf_set_id = "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"
     calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'calc_results.json'))
