@@ -60,8 +60,8 @@ class ActiveSupport::TestCase
         begin
           Mongoid.default_client[collection_name].insert_one(fj)
         rescue Mongo::Error::OperationFailure => e
-          # ignore duplicate key errors, could just be inserting the same valueset twice
-          raise unless e.message.starts_with? "E11000 duplicate key error"
+          # ignore duplicate key errors for valuesets, could just be inserting the same valueset twice from different fixtures
+          raise unless (collection_name == 'health_data_standards_svs_value_sets') && e.message.starts_with?('E11000 duplicate key error')
         end
       end
     end

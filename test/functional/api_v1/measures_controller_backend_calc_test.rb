@@ -10,8 +10,7 @@ module ApiV1
       dump_database
       users_set = File.join("users", "base_set")
       cms160_fixtures = File.join("cql_measures","core_measures", "CMS160v6"), File.join("records", "core_measures", "CMS160v6"), File.join("health_data_standards_svs_value_sets", "core_measures", "CMS160v6")
-      composite_measure_fixtures = File.join("cql_measures","special_measures","CMS321"), File.join("health_data_standards_svs_value_sets","special_measures","CMS321"), File.join("records","special_measures","CMS321")
-      collection_fixtures(users_set, *cms160_fixtures, *composite_measure_fixtures)
+      collection_fixtures(users_set, *cms160_fixtures)
       @measure = CqlMeasure.where({"cms_id" => "CMS160v6"}).first
       @cms160_hqmf_set_id = @measure.hqmf_set_id
       @user = User.by_email('bonnie@example.com').first
@@ -108,6 +107,13 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in component measure" do
+
+      composite_measure_fixtures = File.join("cql_measures","special_measures","CMS321"), File.join("health_data_standards_svs_value_sets","special_measures","CMS321"), File.join("records","special_measures","CMS321")
+      collection_fixtures(*composite_measure_fixtures)
+      associate_user_with_measures(@user,CqlMeasure.all)
+      associate_user_with_patients(@user,Record.all)
+      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
 
