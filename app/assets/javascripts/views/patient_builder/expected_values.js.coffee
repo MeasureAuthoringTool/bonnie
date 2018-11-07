@@ -135,14 +135,16 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       @$('.btn-observ-unit-perc').removeClass('btn-default btn-primary').prop('disabled',true)
 
   togglePerc: (e) ->
-    if @model.get('OBSERV_UNIT') == '%'
+    # the btn-primary is used for "active" buttons
+    # if OBSERV_UNIT is % and % button is already pressed, deactivate it. else activate it
+    if this.$('.btn-observ-unit-perc')[0].outerHTML.includes("btn-primary")
       @model.set 'OBSERV_UNIT', ''
     else
       @model.set 'OBSERV_UNIT', '%'
     @updateObserv()
 
   toggleMins: (e) ->
-    if @model.get('OBSERV_UNIT') == ' mins'
+    if this.$('.btn-observ-unit-mins')[0].outerHTML.includes("btn-primary")
        @model.set 'OBSERV_UNIT', ''
     else
       @model.set 'OBSERV_UNIT', ' mins'
