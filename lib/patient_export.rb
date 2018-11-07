@@ -14,7 +14,7 @@ class PatientExport
   end
 
   # calc_results is a map of population/stratifications -> patients -> definitions -> results
-  def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details)
+  def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details, measure_hqmf_set_id)
     Axlsx::Package.new do |package|
       package.workbook do |workbook|        
         styles = workbook.styles
@@ -138,6 +138,11 @@ class PatientExport
             population_details[pop_key]["statement_relevance"].each do |lib_key, statements|
               statements.each do |statement, relevance|
                 if (relevance != "NA")
+                  # Composite measures will have some statement results from the components, but
+                  # the measure won't have statement details (excel headers) for them. 
+                  # Fortunately we want to ignore those results, so we can just skip results that
+                  # dont have corresponding details from the measure.
+                  next if statement_details.dig(lib_key,statement).nil?
                   header_row.push(statement_details[lib_key][statement])
                   statement_to_column[statement] = cur_column
                   cur_column = cur_column + 1
@@ -180,8 +185,9 @@ class PatientExport
               end
               expected = []
               actual = []
+              patient_expected_vals = patient_details[patient_key]["expected_values"].detect { |ev| ev["measure_id"]==measure_hqmf_set_id && ev["population_index"]==pop_index }
               population_criteria.each do |criteria|
-                expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
+                expected.push(patient_expected_vals[criteria])
                 if criteria == "OBSERV"
                   actual.push(calc_results[pop_key][patient_key]['criteria']['values'])
                 else

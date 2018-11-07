@@ -27,7 +27,7 @@ namespace :bonnie do
             statement_details = ExcelExportHelper.get_statement_details_from_measure(measure)
 
             filename = "#{user._id}-#{measure.hqmf_set_id}.xlsx"
-            excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+            excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, measure.hqmf_set_id)
 
             path = File.join Rails.root, 'exports'
             FileUtils.mkdir_p(path) unless File.exist?(path)

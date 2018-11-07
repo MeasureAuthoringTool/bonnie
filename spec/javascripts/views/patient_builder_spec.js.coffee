@@ -553,3 +553,41 @@ describe 'PatientBuilderView', ->
 
       # expect add button to be enabled
       expect(editFieldValueView.$('button[data-call-method=addValue]').prop('disabled')).toEqual(false)
+
+  describe 'Composite Measure', ->
+
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      # preserve atomicity
+      @universalValueSetsByOid = bonnie.valueSetsByOid
+      @bonnie_measures_old = bonnie.measures
+  
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS321/value_sets.json')
+      bonnie.measures = new Thorax.Collections.Measures()
+      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS321/CMS321v0.json'), parse: true
+      bonnie.measures.push(@compositeMeasure)
+
+      @components = getJSONFixture('measure_data/special_measures/CMS321/components.json')
+      @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
+      @components.forEach((component) => bonnie.measures.push(component))
+
+      @compositePatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS321/patients.json'), parse: true
+      @compositeMeasure.populateComponents()
+
+    afterEach ->
+      bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.measures = @bonnie_measures_old
+  
+    it "should display a warning that the patient is shared", ->
+      patientBuilder = new Thorax.Views.PatientBuilder(model: @compositePatients.first(), measure: @components[0])
+      patientBuilder.render()
+
+      expect(patientBuilder.$("div.alert-warning")[0].innerHTML.substr(0,31).trim()).toEqual "Note: This patient is shared"
+
+    it 'should have the breadcrumbs with composite and component measure', ->
+      breadcrumb = new Thorax.Views.Breadcrumb()
+      breadcrumb.addPatient(@components[0], @compositePatients.first())
+      breadcrumb.render()
+
+      expect(breadcrumb.$("a")[1].childNodes[1].textContent).toEqual " CMS321v0 " # parent composite measure
+      expect(breadcrumb.$("a")[2].childNodes[1].textContent).toEqual " CMS231v0 " # the component measure
