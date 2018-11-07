@@ -127,8 +127,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         @$('.btn-observ-unit-mins').removeClass('btn-default').addClass('btn-primary').prop('disabled',false)
         @$('.btn-observ-unit-perc').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
       else
-        @$('.btn-observ-unit-mins').removeClass('btn-default btn-primary').prop('disabled',false)
-        @$('.btn-observ-unit-perc').removeClass('btn-default btn-primary').prop('disabled',false)
+        @$('.btn-observ-unit-perc').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
+        @$('.btn-observ-unit-mins').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
+
     else
       @$('.btn-observ-unit-mins').removeClass('btn-default btn-primary').prop('disabled',true)
       @$('.btn-observ-unit-perc').removeClass('btn-default btn-primary').prop('disabled',true)
