@@ -133,8 +133,14 @@ module ApiV1
         doc = Roo::Spreadsheet.open(temp.path)
 
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
-        assert_equal [1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0], doc.sheet("1 - Population Criteria Section").row(3)[0..7]
-        assert_equal [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], doc.sheet("1 - Population Criteria Section").row(4)[0..7]
+        sheet = doc.sheet("1 - Population Criteria Section")
+        if sheet.row(3)[9] == "doe"
+          jon_doe_row, jane_smith_row = sheet.row(3), sheet.row(4)
+        else
+          jon_doe_row, jane_smith_row = sheet.row(4), sheet.row(3)
+        end
+        assert_equal [1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0], jon_doe_row[0..7]
+        assert_equal [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], jane_smith_row[0..7]
       end
 
       Apipie.configuration.record = apipie_record_configuration
@@ -166,13 +172,20 @@ module ApiV1
         temp.rewind
         doc = Roo::Spreadsheet.open(temp.path)
 
+        sheet = doc.sheet("1 - Population Criteria Section")
+        if sheet.row(3)[9] == "doe"
+          jon_doe_row, jane_smith_row = sheet.row(3), sheet.row(4)
+        else
+          jon_doe_row, jane_smith_row = sheet.row(4), sheet.row(3)
+        end
+
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
         expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results","CMS321v0_shared_patients_composite.json")))
         # there currently seems to be a mismatch in frontend / backend for things like [], 0, [0], etc.
-        expected_rows["row_one"][6] = "[]" #from "[0]"
-        expected_rows["row_two"][6] = "[]" #from "0"
-        assert_equal expected_rows["row_one"], doc.sheet("1 - Population Criteria Section").row(3)[0..expected_rows["row_one"].length]
-        assert_equal expected_rows["row_two"], doc.sheet("1 - Population Criteria Section").row(4)[0..expected_rows["row_two"].length]
+        expected_rows["jon_doe_row"][6] = "[]" #from "[0]"
+        expected_rows["jane_smith_row"][6] = "[]" #from "0"
+        assert_equal expected_rows["jon_doe_row"], jon_doe_row
+        assert_equal expected_rows["jane_smith_row"], jane_smith_row
       end
 
       Apipie.configuration.record = apipie_record_configuration

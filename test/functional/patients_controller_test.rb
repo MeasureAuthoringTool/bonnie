@@ -300,10 +300,17 @@ include Devise::Test::ControllerHelpers
     temp.rewind()
     doc = Roo::Spreadsheet.open(temp.path)
 
+    sheet = doc.sheet("1 - Population Criteria Section")
+    if sheet.row(3)[9] == "doe"
+      jon_doe_row, jane_smith_row = sheet.row(3), sheet.row(4)
+    else
+      jon_doe_row, jane_smith_row = sheet.row(4), sheet.row(3)
+    end
+
     assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
     expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results","CMS321v0_shared_patients_composite.json")))
-    assert_equal expected_rows["row_one"], doc.sheet("1 - Population Criteria Section").row(3)[0..expected_rows["row_one"].length]
-    assert_equal expected_rows["row_two"], doc.sheet("1 - Population Criteria Section").row(4)[0..expected_rows["row_two"].length]
+    assert_equal expected_rows["jon_doe_row"], jon_doe_row
+    assert_equal expected_rows["jane_smith_row"], jane_smith_row
 
     temp.close()
     temp.unlink()
