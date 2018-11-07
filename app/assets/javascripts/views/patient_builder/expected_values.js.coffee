@@ -137,7 +137,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     # the btn-primary is used for "active" buttons
     # if OBSERV_UNIT is % and % button is already pressed, deactivate it. else activate it
     if this.$('.btn-observ-unit-perc')[0].outerHTML.includes("btn-primary")
-        @model.set 'OBSERV_UNIT', ''
+      @model.set 'OBSERV_UNIT', ''
     else
       @model.set 'OBSERV_UNIT', '%'
     @updateObserv()
@@ -199,7 +199,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           @setPopulation('NUMEX', value) unless @isNumbers and @attrs['NUMEX'] < value
         when 'MSRPOPLEX'
           @setPopulation('MSRPOPLEX', value) unless @isNumbers and @attrs['MSRPOPLEX'] < value
-  
+
   setPopulation: (population, value) ->
     if @model.has(population) and @model.get(population)?
       if @isCheckboxes or not @isNumbers and @isMultipleObserv

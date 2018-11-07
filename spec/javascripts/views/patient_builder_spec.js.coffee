@@ -389,6 +389,70 @@ describe 'PatientBuilderView', ->
 
         afterEach -> @patientBuilder.remove()
 
+      describe "setting expected values for CV measure", ->
+        beforeEach ->
+          cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS32/CMS721v0.json'), parse: true
+          bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS32/value_sets.json')
+          patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS32/patients.json'), parse: true
+          @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
+          @patientBuilder.appendTo 'body'
+          @setPopulationVal = (population, value=0, save=true) ->
+            @patientBuilder.$("input[type=number][name=#{population}]:first").val(value).change()
+            @patientBuilder.$("button[data-call-method=save]").click() if save
+
+        it "IPP removal removes membership of all populations in CV measures", ->
+          @setPopulationVal('IPP', 0, true)
+          expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+          expect(expectedValues.get('IPP')).toEqual 0
+          expect(expectedValues.get('MSRPOPL')).toEqual 0
+          expect(expectedValues.get('MSRPOPLEX')).toEqual 0
+          expect(expectedValues.get('OBSERV')).toEqual undefined
+
+        it "MSRPOPLEX addition adds membership to all populations in CV measures", ->
+          # First set IPP to 0 to zero out all population membership
+          @setPopulationVal('IPP', 0, true)
+          @setPopulationVal('MSRPOPLEX', 4, true)
+          expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+          expect(expectedValues.get('IPP')).toEqual 4
+          expect(expectedValues.get('MSRPOPL')).toEqual 4
+          expect(expectedValues.get('MSRPOPLEX')).toEqual 4
+          # 4 MSRPOPLEX and 4 MSRPOPL means there should be no OBSERVs
+          expect(expectedValues.get('OBSERV')).toEqual undefined
+
+        
+        it "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
+          # First set IPP to 0 to zero out all population membership
+          @setPopulationVal('IPP', 0, true)
+          @setPopulationVal('MSRPOPLEX', 3, true)
+          @setPopulationVal('MSRPOPL', 4, true)
+          expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+          expect(expectedValues.get('IPP')).toEqual 4
+          expect(expectedValues.get('MSRPOPL')).toEqual 4
+          expect(expectedValues.get('MSRPOPLEX')).toEqual 3
+          # 4 MSRPOPL and 3 MSRPOPLEX means there should be 1 OBSERVs
+          expect(expectedValues.get('OBSERV').length).toEqual 1
+          @setPopulationVal('MSRPOPL', 6, true)
+          expect(expectedValues.get('IPP')).toEqual 6
+          expect(expectedValues.get('MSRPOPL')).toEqual 6
+          expect(expectedValues.get('MSRPOPLEX')).toEqual 3
+          # 6 MSRPOPL and 3 MSRPOPLEX means there should be 3 OBSERVs
+          expect(expectedValues.get('OBSERV').length).toEqual 3
+          # Should remove all observs
+          @setPopulationVal('MSRPOPLEX', 6, true)
+          expect(expectedValues.get('IPP')).toEqual 6
+          expect(expectedValues.get('MSRPOPL')).toEqual 6
+          expect(expectedValues.get('MSRPOPLEX')).toEqual 6
+          # 6 MSRPOPLEX and 6 MSRPOPL means there should be no OBSERVs
+          expect(expectedValues.get('OBSERV')).toEqual undefined
+          # set IPP to 0, should zero out all populations
+          @setPopulationVal('IPP', 0, true)
+          expect(expectedValues.get('IPP')).toEqual 0
+          expect(expectedValues.get('MSRPOPL')).toEqual 0
+          expect(expectedValues.get('MSRPOPLEX')).toEqual 0
+          expect(expectedValues.get('OBSERV')).toEqual undefined
+
+        afterEach -> @patientBuilder.remove()
+
       describe "modifying living status", ->
         beforeEach ->
           @patientBuilder.appendTo 'body'
@@ -421,7 +485,7 @@ describe 'PatientBuilderView', ->
     afterEach ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
       bonnie.measures = @bonnie_measures_old
-  
+
     it "laboratory test performed should have custom view for components", ->
       bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS347/value_sets.json')
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
