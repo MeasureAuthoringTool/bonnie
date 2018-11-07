@@ -72,7 +72,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     'change input': 'selectPopulations'
     'change input[name="MSRPOPL"]': 'updateObserv'
     'change input[name="MSRPOPLEX"]': 'updateObserv'
-    'rendered': -> 'setObservs'
+    'rendered': 'setObservs'
 
   context: ->
     context = super
@@ -94,7 +94,6 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         displayName: pc
         isEoC: @isNumbers
     unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', '', {silent:true}
-    @updateObserv()
 
   updateObserv: ->
     if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
