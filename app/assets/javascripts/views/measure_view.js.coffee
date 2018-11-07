@@ -170,6 +170,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         population_details: JSON.stringify(population_details)
         statement_details: JSON.stringify(statement_details)
         file_name: file_name
+        measure_hqmf_set_id: @model.get('hqmf_set_id')
       }
 
   # Iterates through the results to remove extraneous fields.

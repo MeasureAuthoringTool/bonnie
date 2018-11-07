@@ -1,0 +1,139 @@
+{
+  "c146": {
+    "title": "Population Criteria Section",
+    "statement_relevance": {
+      "AWATestComposite": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Is In ComponentMeasurePneumococcal Denominator": "TRUE",
+        "Is In ComponentMeasurePneumococcal Numerator": "TRUE",
+        "Is In ComponentMeasureColorectal Numerator": "TRUE",
+        "Is In ComponentMeasureDepression Numerator": "TRUE",
+        "Is In ComponentMeasureFalls Denominator": "TRUE",
+        "Is In ComponentMeasureFalls Numerator": "TRUE",
+        "Is In ComponentMeasureInfluenza Denominator": "TRUE",
+        "Is In ComponentMeasureInfluenza Numerator": "TRUE",
+        "Is In ComponentMeasureOsteoporosis Denominator": "TRUE",
+        "Is In ComponentMeasureOsteoporosis Numerator": "TRUE",
+        "Is In ComponentMeasureColorectal Denominator": "TRUE",
+        "Is In ComponentMeasureDepression Denominator": "TRUE",
+        "Is In ComponentMeasureBreast Denominator": "TRUE",
+        "Is In ComponentMeasureBreast Numerator": "TRUE",
+        "Initial Population": "TRUE",
+        "Measure Population Exclusions": "TRUE",
+        "Measure Population": "TRUE",
+        "Numerator Score": "TRUE",
+        "Denominator Score": "TRUE",
+        "Measure Observation": "TRUE"
+      },
+      "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination": {
+        "Initial Population": "TRUE",
+        "Annual Wellness Visit Encounter": "TRUE",
+        "Denominator": "TRUE",
+        "Denominator Exclusions": "TRUE",
+        "Numerator": "TRUE"
+      },
+      "MATGlobalCommonFunctions": {
+        "CalendarAgeInYearsAt": "TRUE",
+        "ToDate": "TRUE"
+      },
+      "Hospice": {
+        "Has Hospice": "TRUE"
+      },
+      "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer": {
+        "Initial Population": "TRUE",
+        "Annual Wellness Visit Encounter": "TRUE",
+        "Denominator": "TRUE",
+        "Denominator Exclusions": "TRUE",
+        "Malignant Neoplasm": "TRUE",
+        "Total Colectomy Performed": "TRUE",
+        "Numerator": "TRUE",
+        "Colonoscopy Performed": "TRUE",
+        "Fecal Occult Blood Test Performed": "TRUE",
+        "Flexible Sigmoidoscopy Performed": "TRUE",
+        "Fecal Immunochemical Test DNA Performed": "TRUE",
+        "CT Colonography Performed": "TRUE"
+      },
+      "AnnualWellnessAssessmentPreventiveCareScreeningforDepression": {
+        "Initial Population": "TRUE",
+        "Annual Wellness Visit Encounter": "TRUE",
+        "Denominator": "TRUE",
+        "Denominator Exclusions": "TRUE",
+        "Has Diagnosis of Depression": "TRUE",
+        "Has Diagnosis of Bipolar": "TRUE",
+        "Numerator": "TRUE",
+        "Depression Screening Encounter within 12 Months Prior to AWV": "TRUE",
+        "Denominator Exceptions": "TRUE",
+        "Has No Depression Screening Due to Medical Reason": "TRUE",
+        "Has No Depression Screening Due to Patient Refusal": "TRUE"
+      },
+      "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk": {
+        "Initial Population": "TRUE",
+        "Annual Wellness Visit Encounter": "TRUE",
+        "Denominator": "TRUE",
+        "Denominator Exclusions": "TRUE",
+        "Not Ambulatory 12 Months Before or During AWV": "TRUE",
+        "Ambulatory Status Assessed 12 Months Before or During AWV": "TRUE",
+        "Not Ambulatory 12 Months or More Before AWV": "TRUE",
+        "Hospice 12 Months Before or During AWV": "TRUE",
+        "Numerator": "TRUE"
+      },
+      "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination": {
+        "Initial Population": "TRUE",
+        "Annual Wellness Visit Encounter": "TRUE",
+        "Denominator": "TRUE",
+        "Encounter During Influenza Season": "TRUE",
+        "Influenza Season": "TRUE",
+        "Denominator Exceptions": "TRUE",
+        "Patient Declined Influenza Vaccination": "TRUE",
+        "Influenza Season Including August and September of the Prior Year": "TRUE",
+        "Medical Patient or System Reason for Not Performing Influenza Vaccination": "TRUE",
+        "Medical Patient or System Reason for Not Administering Influenza Vaccine": "TRUE",
+        "Diagnosis of Allergy to Egg": "TRUE",
+        "Egg Substance Allergy": "TRUE",
+        "Diagnosis of Allergy to Influenza Vaccine": "TRUE",
+        "Diagnosis of Intolerance to Influenza Vaccine": "TRUE",
+        "Intolerance of Influenza Vaccination Procedure": "TRUE",
+        "Allergy or Intolerance to Influenza Vaccine": "TRUE",
+        "Numerator": "TRUE",
+        "Influenza Vaccination Procedure": "TRUE",
+        "Influenza Immunization Administered": "TRUE",
+        "Patient Reported Previous Receipt of Influenza Vaccine": "TRUE"
+      },
+      "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis": {
+        "Initial Population": "TRUE",
+        "Annual Wellness Visit Encounter": "TRUE",
+        "Denominator": "TRUE",
+        "Denominator Exclusions": "TRUE",
+        "Osteoporosis Diagnosis": "TRUE",
+        "Numerator": "TRUE"
+      },
+      "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer": {
+        "Initial Population": "TRUE",
+        "Annual Wellness Visit Encounter": "TRUE",
+        "Denominator": "TRUE",
+        "Denominator Exclusions": "TRUE",
+        "Unilateral Mastectomy Procedure": "TRUE",
+        "Right Mastectomy": "TRUE",
+        "Left Mastectomy": "TRUE",
+        "History Bilateral Mastectomy": "TRUE",
+        "Bilateral Mastectomy Procedure": "TRUE",
+        "Numerator": "TRUE"
+      },
+      "CompositeFunctions": {
+        "ToScore": "TRUE"
+      }
+    },
+    "criteria": [
+      "IPP",
+      "MSRPOPL",
+      "MSRPOPLEX",
+      "OBSERV",
+      "supplemental_data_elements",
+      "index"
+    ]
+  }
+}
