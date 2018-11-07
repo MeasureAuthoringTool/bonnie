@@ -3,11 +3,12 @@ require 'test_helper'
 class RecordTest < ActiveSupport::TestCase
   setup do
     dump_database
-    measures_set = File.join("cql_measures", "CMS72v5")
+    measures_set = File.join("cql_measures", "CMS72v5"), File.join("cql_measures", "special_measures", "CMS321")
     records_set = File.join("records", "expected_values_set")
-    collection_fixtures(measures_set, records_set)
+    collection_fixtures(*measures_set, records_set)
     @measure_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
     @measure = CqlMeasure.where(hqmf_set_id: @measure_set_id).first
+    @composite_measure = CqlMeasure.where(hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC").first
   end
 
   # Runs the update_expected_value_structure! method on the patient and collects the changes it yields.
@@ -32,6 +33,13 @@ class RecordTest < ActiveSupport::TestCase
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 0, changes.count
     assert_equal 1, patient.expected_values.count
+  end
+
+  test "Multiple Measures Good Expecteds (Composite Measure)" do
+    patient = Record.where(last: 'Measures', first: 'Multiple').first
+    changes = collect_expected_changes_and_verify_block_no_block(patient, @composite_measure)
+    assert_equal 0, changes.count
+    assert_equal 8, patient.expected_values.count
   end
 
   test "Duplicate Expecteds" do
