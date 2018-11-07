@@ -302,9 +302,11 @@ include Devise::Test::ControllerHelpers
 
     sheet = doc.sheet("1 - Population Criteria Section")
     if sheet.row(3)[9] == "doe"
-      jon_doe_row, jane_smith_row = sheet.row(3), sheet.row(4)
+      jon_doe_row = sheet.row(3)
+      jane_smith_row = sheet.row(4)
     else
-      jon_doe_row, jane_smith_row = sheet.row(4), sheet.row(3)
+      jon_doe_row = sheet.row(4)
+      jane_smith_row = sheet.row(3)
     end
 
     assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
