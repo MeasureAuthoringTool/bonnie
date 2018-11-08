@@ -71,7 +71,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
     'change input': 'selectPopulations'
     'change input[name="MSRPOPL"]': 'updateObserv'
-    'rendered': -> 'setObservs'
+    'change input[name="MSRPOPLEX"]': 'updateObserv'
+    'rendered': 'setObservs'
 
   context: ->
     context = super
@@ -92,17 +93,19 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         key: pc
         displayName: pc
         isEoC: @isNumbers
-    unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
+    unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', '', {silent:true}
 
   updateObserv: ->
     if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
+      if @model.has('MSRPOPLEX') and @model.get('MSRPOPLEX')?
+        values = values - @model.get('MSRPOPLEX')
       if @model.get('OBSERV')
         current = @model.get('OBSERV').length
-        if values > current
-          @model.set 'OBSERV', @model.get('OBSERV').concat(0 for n in [(current+1)..values])
-        else if values < current
+        if values < current
           @model.set 'OBSERV', _(@model.get('OBSERV')).first(values)
+        else if values > current
+          @model.set 'OBSERV', @model.get('OBSERV').concat(0 for n in [(current+1)..values])
       else
         @model.set 'OBSERV', (0 for n in [1..values]) if values
       @setObservs()
@@ -117,21 +120,33 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
   toggleUnits: (e) ->
     if @model.has('OBSERV_UNIT') and @model.get('OBSERV')?.length
       if @model.get('OBSERV_UNIT') == '%'
-        @$('.btn-observ-unit-perc').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+        @$('.btn-observ-unit-perc').removeClass('btn-default').addClass('btn-primary').prop('disabled',false)
         @$('.btn-observ-unit-mins').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
-      else
-        @$('.btn-observ-unit-mins').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+      else if @model.get('OBSERV_UNIT') == ' mins'
+        @$('.btn-observ-unit-mins').removeClass('btn-default').addClass('btn-primary').prop('disabled',false)
         @$('.btn-observ-unit-perc').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
+      else
+        @$('.btn-observ-unit-perc').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
+        @$('.btn-observ-unit-mins').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
+
     else
       @$('.btn-observ-unit-mins').removeClass('btn-default btn-primary').prop('disabled',true)
       @$('.btn-observ-unit-perc').removeClass('btn-default btn-primary').prop('disabled',true)
 
-  setPerc: (e) ->
-    @model.set 'OBSERV_UNIT', '%'
+  togglePerc: (e) ->
+    # the btn-primary is used for "active" buttons
+    # if OBSERV_UNIT is % and % button is already pressed, deactivate it. else activate it
+    if this.$('.btn-observ-unit-perc')[0].outerHTML.includes("btn-primary")
+      @model.set 'OBSERV_UNIT', ''
+    else
+      @model.set 'OBSERV_UNIT', '%'
     @updateObserv()
 
-  setMins: (e) ->
-    @model.set 'OBSERV_UNIT', ' mins'
+  toggleMins: (e) ->
+    if this.$('.btn-observ-unit-mins')[0].outerHTML.includes("btn-primary")
+       @model.set 'OBSERV_UNIT', ''
+    else
+      @model.set 'OBSERV_UNIT', ' mins'
     @updateObserv()
 
   selectPopulations: (e) ->
@@ -144,7 +159,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       currentValue = @$(e.target).val()
       increment = currentValue > @attrs[populationCode]
       @handleSelect(populationCode, currentValue, increment)
-    @attrs = @serialize(set: false)
+    @attrs = @serialize(set: true)
 
   handleSelect: (population, value, increment) ->
     if increment
@@ -160,6 +175,10 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         when 'NUMEX'
           @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] >= value
           @handleSelect('NUMER', value, increment)
+        when 'MSRPOPLEX'
+          @setPopulation('MSRPOPLEX', value) unless @isNumbers and @attrs['MSRPOPLEX'] >= value
+          @setPopulation('MSRPOPL', value) unless @isNumbers and @attrs['MSRPOPL'] >= value
+          @handleSelect('MSRPOPL', value, increment)
     else
       switch population
         when 'STRAT'
@@ -173,9 +192,14 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           @setPopulation('DENEX', value) unless @isNumbers and @attrs['DENEX'] < value
           @setPopulation('DENEXCEP', value) unless @isNumbers and @attrs['DENEXCEP'] < value
           @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] < value
+          # Remove expected MSRPOPLEX if MSRPOPL/DENOM less than MSRPOPLEX
+          @setPopulation('MSRPOPLEX', value) unless @isNumbers and @attrs['MSRPOPLEX'] < value
           @handleSelect('NUMER', value, increment)
         when 'NUMER'
           @setPopulation('NUMEX', value) unless @isNumbers and @attrs['NUMEX'] < value
+        when 'MSRPOPLEX'
+          @setPopulation('MSRPOPLEX', value) unless @isNumbers and @attrs['MSRPOPLEX'] < value
+
   setPopulation: (population, value) ->
     if @model.has(population) and @model.get(population)?
       if @isCheckboxes or not @isNumbers and @isMultipleObserv
@@ -185,4 +209,4 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     if @isMultipleObserv
       @serialize()
       $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset the active tab for CV measures
-      @updateObserv() if @isMultipleObserv and population == 'MSRPOPL'
+      @updateObserv() if @isMultipleObserv and (population == 'MSRPOPL' or population == 'MSRPOPLEX')
