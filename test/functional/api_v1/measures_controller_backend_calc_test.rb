@@ -3,7 +3,7 @@ require 'test_helper'
 module ApiV1
   class MeasuresControllerBackendCalcTest < ActionController::TestCase
     tests ApiV1::MeasuresController
-    include Devise::TestHelpers
+    include Devise::Test::ControllerHelpers
     include WebMock::API
 
     def setup_db
@@ -91,7 +91,7 @@ module ApiV1
         get :calculated_results, id: @cms160_hqmf_set_id
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
-        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
         assert_equal 'CMS160v6.xlsx', filename
         temp = Tempfile.new(["test", ".xlsx"])
@@ -124,7 +124,7 @@ module ApiV1
         get :calculated_results, id: measure_id
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
-        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
         assert_equal 'CMS231v0.xlsx', filename
         temp = Tempfile.new(["test", ".xlsx"])
@@ -166,7 +166,7 @@ module ApiV1
         get :calculated_results, id: measure_id
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
-        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
         assert_equal 'CMS321v0.xlsx', filename
         temp = Tempfile.new(["test", ".xlsx"])
@@ -212,7 +212,7 @@ module ApiV1
         get :calculated_results, id: @cms160_hqmf_set_id
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
-        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
         assert_equal 'CMS160v6.xlsx', filename
         temp = Tempfile.new(["test", ".xlsx"])

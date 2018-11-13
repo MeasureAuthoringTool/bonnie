@@ -236,12 +236,12 @@ class RecordTest < ActiveSupport::TestCase
     assert_equal 1, patient.expected_values.count
     assert_equal expected_value_sets, patient.expected_values
   end
-  
+
   test "Extra Population Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Extra Population').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
-    
+
     # check missing population set addition
     assert_equal :population_removal, changes[0][:change_type]
     assert_equal :extra_population, changes[0][:change_reason]

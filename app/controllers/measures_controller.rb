@@ -203,7 +203,6 @@ class MeasuresController < ApplicationController
     redirect_to root_path
   end
 
-
   private
 
   def get_ticket_granting_ticket

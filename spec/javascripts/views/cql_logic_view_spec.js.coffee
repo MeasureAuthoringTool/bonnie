@@ -27,7 +27,7 @@ describe 'CqlLogicView', ->
       #Failing to store and reset the global valueSetsByOid breaks the tests.
       #When integrated with the master branch context switching, this will need to be changed out.
       @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS32/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS32/value_sets.json')
 
     afterEach ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
@@ -105,7 +105,7 @@ describe 'CqlLogicView', ->
 
     it 'sorts logic properly for proportion measure', ->
       measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS160/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
 
       population = measure.get('populations').at(0)
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: measure, highlightPatientDataEnabled: true, population: population)
@@ -165,7 +165,7 @@ describe 'CqlLogicView', ->
       jasmine.getJSONFixtures().clearCache()
       # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMSv9999/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMSv9999/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv9999/CMSv9999.json'), parse: true
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv9999/patients.json'), parse: true
 
@@ -185,9 +185,9 @@ describe 'CqlLogicView', ->
       jasmine.getJSONFixtures().clearCache()
       @universalValueSetsByOid = bonnie.valueSetsByOid
       # TODO: update CQL/CMS146v6 path to CQL/CMS146 when cql-testing-overhaul is merged
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS146v6/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS146v6/CMS146v6.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS146v6/patients.json'), parse: true
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS146/value_sets.json')
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS146/CMS146v6.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS146/patients.json'), parse: true
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @cqlMeasure.get('populations').first())
       @populationLogicView.render()

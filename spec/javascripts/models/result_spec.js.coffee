@@ -6,7 +6,7 @@ describe 'Result', ->
     collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
     @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS160/value_sets.json')
+    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
 
   afterEach ->
     bonnie.valueSetsByOid = @oldBonnieValueSetsByOid

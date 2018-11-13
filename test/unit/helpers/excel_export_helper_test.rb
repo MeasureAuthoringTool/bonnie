@@ -86,7 +86,7 @@ class ExcelExportHelperTest < ActionController::TestCase
 
   test 'backend results are converted with patient that calculates but fails to convert' do
     simple_backend_results = get_results_with_failed_patients(@simple_patients, @simple_backend_results)
-    failed_patient_ids = simple_backend_results['failed_patients'].flatten.map { |r| r[:hds_record].id }
+    failed_patient_ids = simple_backend_results['failed_patients'].flatten.map { |r| r[:hds_record].id.to_s }
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@simple_backend_results, @simple_measure, @simple_patients)
     @simple_calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
       @simple_cid_to_measure_id_map.each_pair do |cid, id|

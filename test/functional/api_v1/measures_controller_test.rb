@@ -2,21 +2,21 @@ require 'test_helper'
 
 module ApiV1
   class MeasuresControllerTest < ActionController::TestCase
-    include Devise::TestHelpers
+    include Devise::Test::ControllerHelpers
 
     setup do
       @error_dir = File.join('log','load_errors')
       FileUtils.rm_r @error_dir if File.directory?(@error_dir)
       dump_database
-      users_set = File.join("users", "base_set")
-      cms347_fixtures = File.join("cql_measures", "CMS347v1"), File.join("records", "CMS347v1")
+      users_set = File.join('users', 'base_set')
+      cms347_fixtures = File.join('cql_measures', 'special_measures', 'CMS347v1'), File.join('records', 'CMS347v1')
       collection_fixtures(users_set, *cms347_fixtures)
       @user = User.by_email('bonnie@example.com').first
       associate_user_with_measures(@user,CqlMeasure.all)
       associate_user_with_patients(@user,Record.all)
       associate_measures_with_patients(CqlMeasure.all, Record.all)
       @num_patients = Record.all.size
-      @measure = CqlMeasure.where({"cms_id" => "CMS347v1"}).first
+      @measure = CqlMeasure.where({'cms_id' => 'CMS347v1'}).first
       @api_v1_measure = @measure.hqmf_set_id
       sign_in @user
       @token = StubToken.new
@@ -90,7 +90,7 @@ module ApiV1
 
     test "should return bad_request when measure_file is not a zip" do
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
-      not_zip_file = fixture_file_upload(File.join('test','fixtures','cql_measure_packages','CMS160v6','CMS160v6.json'))
+      not_zip_file = fixture_file_upload(File.join('test','fixtures','cql_measure_packages','core_measures', 'CMS160v6','CMS160v6.json'))
       post :create, {measure_file: not_zip_file, measure_type: 'eh', calculation_type: 'episode', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}, {format: 'multipart/form-data'}
       assert_response :bad_request
       expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_file': Must be a valid MAT Export." }
