@@ -18,7 +18,7 @@ gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'mongoid5'
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'bonnie-qdm'
 gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'bonnie-qdm'
-gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'vsac_api_update'
+gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'bonnie-qdm'
 gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'bonnie-qdm'
 
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
