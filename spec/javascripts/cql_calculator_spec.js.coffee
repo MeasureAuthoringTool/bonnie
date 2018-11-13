@@ -22,8 +22,8 @@ describe 'cqlCalculator', ->
       bonnie.valueSetsByOidCached = undefined
 
     it 'properly caches refactored bonnie.valueSetsByOid', ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS160/value_sets.json')
-      measure = getJSONFixture('/measure_data/core_measures/CMS160/CMS160v6.json')
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
+      measure = getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json')
       expect(bonnie.valueSetsByOidCached).not.toBeDefined()
       oldRefactoredValueSets = @cql_calculator.valueSetsForCodeService(measure.value_set_oid_version_objects, measure.hqmf_set_id)
       expect(oldRefactoredValueSets).toExist()
@@ -140,7 +140,7 @@ describe 'cqlCalculator', ->
 
       describe 'pretty statement results when requested', ->
         it 'for CMS107 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
           measure1 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
           patients1 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
           patient1 = patients1.findWhere(last: 'DENEXPass', first: 'CMOduringED')
@@ -149,7 +149,7 @@ describe 'cqlCalculator', ->
           expect(result1.get('statement_results').StrokeEducation.Numerator.pretty).toEqual('UNHIT')
 
         it 'for CMS760 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS760/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS760/value_sets.json')
           measure2 = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS760/CMS760v0.json'), parse: true
           patients2 = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS760/patients.json'), parse: true
           patient2 = patients2.models[0]
@@ -157,10 +157,9 @@ describe 'cqlCalculator', ->
           expect(result2.get('statement_results').PD0329.IntervalWithTZOffsets.pretty).toEqual('INTERVAL: 08/01/2012 12:00 AM - 12/31/2012 12:00 AM')
 
         it 'for CMS32 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS32/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS32/value_sets.json')
           measure3 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS32/CMS721v0.json'), parse: true
           patients3 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS32/patients.json'), parse: true
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS32/value_sets.json')
           patient3 = patients3.models[0]
           result3 = @cql_calculator.calculate(measure3.get('populations').first(), patient3, {doPretty: true})
           expect(result3.get('statement_results').Test32['Measure Observation'].pretty).toEqual('FUNCTION')
@@ -168,19 +167,19 @@ describe 'cqlCalculator', ->
           expect(result3.get('statement_results').Test32['Measure Population Exclusions'].pretty).toEqual('FALSE ([])')
 
         it 'for CMS347 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS347/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS347/value_sets.json')
           measure4 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
           patients4 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS347/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS347/value_sets.json')
           patient4 = patients4.models[0]
           result4 = @cql_calculator.calculate(measure4.get('populations').first(), patient4, {doPretty: true})
           expect(result4.get('statement_results').StatinTherapy['In Demographic'].pretty).toEqual('true')
 
          it 'for CMS460 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS460/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS460/value_sets.json')
           measure5 = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
           patients5 = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
-          bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS460/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS460/value_sets.json')
           patient5 = patients5.models[0]
           result5 = @cql_calculator.calculate(measure5.get('populations').first(), patient5, {doPretty: true})
           expect(result5.get('statement_results').DayMonthTimings['Months Containing 29 Days'].pretty).toEqual('[1,\n2,\n3,\n4,\n5,\n6,\n7,\n8,\n9,\n10,\n11,\n12,\n13,\n14,\n15,\n16,\n17,\n18,\n19,\n20,\n21,\n22,\n23,\n24,\n25,\n26,\n27,\n28,\n29]')
@@ -254,11 +253,11 @@ describe 'cqlCalculator', ->
         # there will not be episode_results on the result object
         expect(result.has('episode_results')).toEqual(false)
         # the IPP should be the only relevant population
-        expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, DENEX: false, NUMER: false, DENEXCEP: false})
+        expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, NUMER: false, DENEXCEP: false})
 
     describe 'execution engine using passed in timezone offset', ->
       beforeEach ->
-        bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS760/value_sets.json')
+        bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS760/value_sets.json')
         @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS760/CMS760v0.json'), parse: true
         @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS760/patients.json'), parse: true
 

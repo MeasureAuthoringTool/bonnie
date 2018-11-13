@@ -1,11 +1,11 @@
 require 'test_helper'
 require 'vcr_setup.rb'
 
-class CqlTest < ActiveSupport::TestCase    
+class CqlTest < ActiveSupport::TestCase
   setup do
     dump_database
-    @cql_mat_export = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS32v7_bonnie-fixtures@mitre.org_2018-01-11.zip')
-    @cql_mat_export_drc = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'deprecated_measures', 'CMS26v5_Artifacts_direct_reference_code.zip')
+    @cql_mat_export = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip')
+    @cql_mat_export_drc = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'CMS26v5_Artifacts_direct_reference_code.zip')
     @user = User.new(email: 'test@test.com', first: 'first' , last: 'last',password: 'Test1234!')
     @user.save!
     assert_equal 1, User.count
@@ -54,31 +54,31 @@ class CqlTest < ActiveSupport::TestCase
 
       Measures::CqlLoader.extract_measures(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).each(&:save)
       assert_equal 1, CqlMeasure.count
-  
-      measure = CqlMeasure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
-      assert_equal '40280382-5FA6-FE85-015F-BB40A1CD0B95', measure['hqmf_id']
-      assert_equal 'Median Time from ED Arrival to ED Departure for Discharged ED Patients', measure['title']
+
+      measure = CqlMeasure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
+      assert_equal '40280582-5C27-8179-015C-308B1F99003B', measure['hqmf_id']
+      assert_equal 'Test CMS 134', measure['title']
 
       # Modify some of the measure model
       measure.title = 'foo'
       measure.cql = nil
       measure.elm_annotations = nil
       measure.save
-      # Confirm measure model saved corectly.       
+      # Confirm measure model saved corectly.
       assert_nil measure.cql
       assert_nil measure.elm_annotations
 
       # Run rake task on all cql measures
       Rake::Task['bonnie:cql:rebuild_elm'].execute
-      measure = CqlMeasure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      measure = CqlMeasure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
       # Confirm that measure title did not update.
       assert_equal measure.title, 'foo'
-      
+
       # Confirm that the CQL and ELM annotations were updated.
       assert_not_equal nil, measure.cql
       assert_not_equal nil, measure.elm_annotations
       measure.delete
-    end 
+    end
   end
 
   test 'rebuild elm using translation service' do
@@ -93,8 +93,8 @@ class CqlTest < ActiveSupport::TestCase
        assert_equal 1, CqlMeasure.count
     end
 
-    measure = CqlMeasure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
-    assert_equal '40280382-5FA6-FE85-015F-BB40A1CD0B95', measure['hqmf_id']
+    measure = CqlMeasure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
+    assert_equal '40280582-5C27-8179-015C-308B1F99003B', measure['hqmf_id']
 
     # Modify some of the measure model
     measure.title = 'No mat package'
@@ -113,8 +113,8 @@ class CqlTest < ActiveSupport::TestCase
       # Run rake task on all cql measures
       Rake::Task['bonnie:cql:rebuild_elm'].execute
     end
-    
-    measure = CqlMeasure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+
+    measure = CqlMeasure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
     # Confirm that measure title did not update.
     assert_equal measure.title, 'No mat package'
 

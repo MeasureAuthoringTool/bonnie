@@ -164,7 +164,7 @@ include Devise::Test::ControllerHelpers
     records_set = File.join("records", "core_measures", "CMS134v6")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
-    associate_measures_with_patients([@measure], Record.all)
+    associate_measure_with_patients(@measure, Record.all)
 
     get :qrda_export, hqmf_set_id: @measure.hqmf_set_id, isCQL: 'true'
     assert_response :success

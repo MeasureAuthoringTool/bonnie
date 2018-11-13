@@ -1,0 +1,1042 @@
+[
+  {
+    "_id": "5a15993d5cc9752039b64b8e",
+    "birthdate": 352022400,
+    "bundle_id": "59e902355cc97506a2000001",
+    "created_at": "2017-11-22T15:35:25.552Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5a15993d5cc9752039b64b8f",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1353572100,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1353571200,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 0,
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+          15
+        ]
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 1,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+
+        ]
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 2,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+
+        ]
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 3,
+        "STRAT": 1,
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+          15
+        ]
+      }
+    ],
+    "expired": null,
+    "first": "Visit",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5a15993d5cc9752039b64b90",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5a15993d5cc9752039b64b91",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "1 ED",
+    "marital_status": null,
+    "measure_ids": [
+      "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "e450e7453fe3158b459f8048e17bb7c9ad380b83b5c90930d6bc5b509ca152c4",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter, Performed: Encounter, Performed",
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "code_list_id": "bc7c1c50-5eb2-4907-a1e7-2c3a8328236a",
+        "type": "encounters",
+        "id": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
+        "start_date": 1353571200000,
+        "end_date": 1353572100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "cms_id": "CMS721v0",
+        "criteria_id": "15fe45da730tF",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a15993d5cc9752039b64b8f",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-11-29T14:13:15.616Z",
+    "user_id": "59e902355cc97506a2000000"
+  },
+  {
+    "_id": "5a15a6295cc9752039b64bb0",
+    "birthdate": 1216195200,
+    "bundle_id": "59e902355cc97506a2000001",
+    "created_at": "2017-11-22T16:30:33.658Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5a20544b5cc97509451ab202",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1328171100,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1328169600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      },
+      {
+        "_id": "5a20544b5cc97509451ab203",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1353572100,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1353571200,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 0,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+          15,
+          25
+        ]
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 1,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 2,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 3,
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+          15,
+          25
+        ]
+      }
+    ],
+    "expired": null,
+    "first": "Visits",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5a20544b5cc97509451ab204",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5a20544b5cc97509451ab205",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "2 ED ",
+    "marital_status": null,
+    "measure_ids": [
+      "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "6489d8f71cf63a06e3a98ed228223f113b3d77a3916be46bc90b1f7af00857bf",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter, Performed: Encounter, Performed",
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "code_list_id": "bc7c1c50-5eb2-4907-a1e7-2c3a8328236a",
+        "type": "encounters",
+        "id": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
+        "start_date": 1328169600000,
+        "end_date": 1328171100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "cms_id": "CMS721v0",
+        "criteria_id": "15fe48fc6cakU",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a20544b5cc97509451ab202",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter, Performed: Encounter, Performed",
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "code_list_id": "bc7c1c50-5eb2-4907-a1e7-2c3a8328236a",
+        "type": "encounters",
+        "id": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
+        "start_date": 1353571200000,
+        "end_date": 1353572100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "cms_id": "CMS721v0",
+        "criteria_id": "15fe4903fe9zV",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a20544b5cc97509451ab203",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-11-30T18:56:11.402Z",
+    "user_id": "59e902355cc97506a2000000"
+  },
+  {
+    "_id": "5a1db1de5cc9755e04ca2615",
+    "birthdate": 1216195200,
+    "bundle_id": "59e902355cc97506a2000001",
+    "created_at": "2017-11-28T18:58:38.649Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5a2056095cc97509451ab210",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1328171100,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1328169600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      },
+      {
+        "_id": "5a2056095cc97509451ab211",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "diagnosis": null,
+        "dischargeDisposition": {
+          "code_system": "SNOMED-CT",
+          "code": "371828006",
+          "title": "Patient deceased during stay (discharge status = dead) (finding)"
+        },
+        "dischargeTime": null,
+        "end_time": 1353572100,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1353571200,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 0,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 1,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+          15,
+          25
+        ]
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 1,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 2,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 3,
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 1,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+          15,
+          25
+        ]
+      }
+    ],
+    "expired": null,
+    "first": "Visits 1 Excl",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5a2056095cc97509451ab212",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5a2056095cc97509451ab213",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "2 ED ",
+    "marital_status": null,
+    "measure_ids": [
+      "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "408bb078f0d8801c901875afe5837c0014e598e94efd00e99eb155126b11193d",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter, Performed: Encounter, Performed",
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "code_list_id": "bc7c1c50-5eb2-4907-a1e7-2c3a8328236a",
+        "type": "encounters",
+        "id": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
+        "start_date": 1328169600000,
+        "end_date": 1328171100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "cms_id": "CMS721v0",
+        "criteria_id": "15fe48fc6cakU",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a2056095cc97509451ab210",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter, Performed: Encounter, Performed",
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "code_list_id": "bc7c1c50-5eb2-4907-a1e7-2c3a8328236a",
+        "type": "encounters",
+        "id": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
+        "start_date": 1353571200000,
+        "end_date": 1353572100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+          "DISCHARGE_STATUS": {
+            "type": "CD",
+            "code_list_id": "5877c52b-9df2-42d7-97b6-d62f42638460",
+            "field_title": "Discharge Disposition",
+            "title": "Patient deceased during stay (discharge status = dead) (finding)"
+          }
+        },
+        "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "cms_id": "CMS721v0",
+        "criteria_id": "15fe4903fe9zV",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a2056095cc97509451ab211",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-11-30T19:03:37.482Z",
+    "user_id": "59e902355cc97506a2000000"
+  },
+  {
+    "_id": "5a1dd4eb5cc97563b130896c",
+    "birthdate": 1216195200,
+    "bundle_id": "59e902355cc97506a2000001",
+    "created_at": "2017-11-28T21:28:11.845Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5a2055955cc97509451ab20b",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1328171100,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1328169600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      },
+      {
+        "_id": "5a2055955cc97509451ab20c",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1328178300,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1328171400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      },
+      {
+        "_id": "5a2055955cc97509451ab20d",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "diagnosis": null,
+        "dischargeDisposition": {
+          "code_system": "SNOMED-CT",
+          "code": "371828006",
+          "title": "Patient deceased during stay (discharge status = dead) (finding)"
+        },
+        "dischargeTime": null,
+        "end_time": 1353572100,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1353571200,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 0,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 2,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+          15,
+          25
+        ]
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 1,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 2,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      },
+      {
+        "measure_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "population_index": 3,
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 2,
+        "OBSERV_UNIT": " mins",
+        "OBSERV": [
+          15,
+          25
+        ]
+      }
+    ],
+    "expired": null,
+    "first": "Visits 2 Excl",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5a2055955cc97509451ab20e",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5a2055955cc97509451ab20f",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "2 ED ",
+    "marital_status": null,
+    "measure_ids": [
+      "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "73f9ba31bbf8eb1e13dc59c32b56b528998497b82671d442379da2647b0911bd",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter, Performed: Encounter, Performed",
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "code_list_id": "bc7c1c50-5eb2-4907-a1e7-2c3a8328236a",
+        "type": "encounters",
+        "id": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
+        "start_date": 1328169600000,
+        "end_date": 1328171100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "cms_id": "CMS721v0",
+        "criteria_id": "15fe48fc6cakU",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a2055955cc97509451ab20b",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "EncounterInpatient",
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "code_list_id": "2.16.840.1.113883.3.666.5.307",
+        "type": "encounters",
+        "id": "EncounterInpatient_EncounterPerformed_2f538115_c620_4165_b4d6_3bc2288b93c1_source",
+        "start_date": 1328171400000,
+        "end_date": 1328178300000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "cms_id": "CMS721v0",
+        "criteria_id": "160048758324i",
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a2055955cc97509451ab20c",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter, Performed: Encounter, Performed",
+        "description": "Encounter, Performed: Emergency department patient visit (procedure)",
+        "code_list_id": "bc7c1c50-5eb2-4907-a1e7-2c3a8328236a",
+        "type": "encounters",
+        "id": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
+        "start_date": 1353571200000,
+        "end_date": 1353572100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+          "DISCHARGE_STATUS": {
+            "type": "CD",
+            "code_list_id": "5877c52b-9df2-42d7-97b6-d62f42638460",
+            "field_title": "Discharge Disposition",
+            "title": "Patient deceased during stay (discharge status = dead) (finding)"
+          }
+        },
+        "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+        "cms_id": "CMS721v0",
+        "criteria_id": "15fe4903fe9zV",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a2055955cc97509451ab20d",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-11-30T19:01:41.415Z",
+    "user_id": "59e902355cc97506a2000000"
+  }
+]

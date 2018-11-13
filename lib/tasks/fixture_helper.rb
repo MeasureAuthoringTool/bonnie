@@ -1,31 +1,33 @@
 
 def collection_fixtures(*collection_names)
   collection_names.each do |collection|
-    collection_name = collection.split(File::SEPARATOR)[0]
-    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-      fixture_json = JSON.parse(File.read(json_fixture_file))
-      next if fixture_json.empty?
-      convert_times(fixture_json)
-      insert_mongoid_ids(fixture_json)
-      # The first directory layer after test/fixtures is used to determine what type of fixtures they are.
-      # The directory name is used as the name of the collection being inserted into.
-      Mongoid.default_client[collection_name].insert_one(fixture_json)
-    end
+    Mongoid.default_client[collection].drop
+    add_collection(collection)
   end
 end
 
 def add_collection(collection)
+  # Mongoid names collections based off of the default_client argument.
+  # With nested folders,the collection name is "records/X" (for example).
+  # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+  collection_name = collection.split(File::SEPARATOR)[0]
+
   Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
     fixture_json = JSON.parse(File.read(json_fixture_file))
     next if fixture_json.empty?
-    convert_times(fixture_json)
-    insert_mongoid_ids(fixture_json)
-    fix_binary_data(fixture_json)
-    # Mongoid names collections based off of the default_client argument.
-    # With nested folders,the collection name is "records/X" (for example).
-    # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
-    collection = collection.split(File::SEPARATOR)[0]
-    Mongoid.default_client[collection].insert_one(fixture_json)
+    # Value_sets are arrays of objects, unlike measures etc, so we need to iterate in that case.
+    fixture_json = [fixture_json] unless fixture_json.is_a? Array
+    fixture_json.each do |fj|
+      convert_times(fj)
+      insert_mongoid_ids(fj)
+      fix_binary_data(fj)
+      begin
+        Mongoid.default_client[collection_name].insert_one(fj)
+      rescue Mongo::Error::OperationFailure => e
+        # ignore duplicate key errors for valuesets, could just be inserting the same valueset twice from different fixtures
+        raise unless (collection_name == 'health_data_standards_svs_value_sets') && e.message.starts_with?('E11000 duplicate key error')
+      end
+    end
   end
 end
 
@@ -48,7 +50,7 @@ def insert_mongoid_ids(json)
         insert_mongoid_ids(v)
       end
     elsif %w[_id bundle_id user_id].include?(k)
-      json[k] = BSON::ObjectId.from_string(v)
+      json[k] = BSON::ObjectId.from_string(v) unless v.nil?
     end
   end
 end
@@ -89,6 +91,13 @@ def associate_user_with_patients(user,patients)
   patients.each do |p|
     p.user = user
     p.save
+  end
+end
+
+def associate_user_with_value_sets(user,value_sets)
+  value_sets.each do |vs|
+    vs.user = user
+    vs.save
   end
 end
 
