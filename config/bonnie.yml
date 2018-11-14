@@ -9,6 +9,7 @@ defaults: &defaults
     ticket_url: https://vsac.nlm.nih.gov/vsac/ws/Ticket
     api_url: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets
     profiles_url: https://vsac.nlm.nih.gov/vsac/profiles
+    latest_profile_url: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
     profile: Latest eCQM
   record:
     # This value should not exceed 16000000 as that is the current size limit of a document in MongoDB.
