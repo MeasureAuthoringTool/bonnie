@@ -138,35 +138,32 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
     expect(result.get('episode_results')['5a593ef8942c6d0773593de3']).toEqual(expectedEpisodeResults)
 
-  # TODO: These tests can be added back in when the MSRPOPLEX removal of OBSERVs is added back to cql_calculator in 2.1 release
-  # note: the fixture file was generated with the cql_calculator code commented out, so need to change expectations
-  #       to match and re-export fixture for 2.1 release
-  # it 'can handle multiple episodes observed with one excluded', ->
-  #   patient = @patients.findWhere(last: '2 ED', first: 'Visits 1 Excl')
-  #   result = @population.calculate(patient)
-  #   expect(result.get('values')).toEqual([25])
-  #   expect(result.get('population_relevance')['values']).toBe(true)
-  #   expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
-  #   expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
-  #
-  #   # check the results for the episode
-  #   expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-  #   expect(result.get('episode_results')['5a59405f942c6d0773593e15']).toEqual(expectedEpisodeResults)
-  #   # check the results for the second episode
-  #   expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-  #   expect(result.get('episode_results')['5a59405f942c6d0773593e17']).toEqual(expectedEpisodeResults)
-  #
-  # it 'can handle multiple episodes observed with both excluded', ->
-  #   patient = @patients.findWhere(last: '2 ED', first: 'Visits 2 Excl')
-  #   result = @population.calculate(patient)
-  #   expect(result.get('values')).toEqual([])
-  #   expect(result.get('population_relevance')['values']).toBe(false)
-  #   expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
-  #   expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
-  #
-  #   # check the results for the episode
-  #   expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-  #   expect(result.get('episode_results')['5a5940d8942c6d0c717eeed6']).toEqual(expectedEpisodeResults)
-  #   # check the results for the second episode
-  #   expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-  #   expect(result.get('episode_results')['5a5940d8942c6d0c717eeed8']).toEqual(expectedEpisodeResults)
+  it 'can handle multiple episodes observed with one excluded', ->
+    patient = @patients.findWhere(last: '2 ED', first: 'Visits 1 Excl')
+    result = @population.calculate(patient)
+    expect(result.get('values')).toEqual([25])
+    expect(result.get('population_relevance')['values']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
+
+    # check the results for the episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
+    expect(result.get('episode_results')['5a59405f942c6d0773593e15']).toEqual(expectedEpisodeResults)
+    # check the results for the second episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a59405f942c6d0773593e17']).toEqual(expectedEpisodeResults)
+
+  it 'can handle multiple episodes observed with both excluded', ->
+    patient = @patients.findWhere(last: '2 ED', first: 'Visits 2 Excl')
+    result = @population.calculate(patient)
+    expect(result.get('values')).toEqual([])
+    expect(result.get('population_relevance')['values']).toBe(false)
+    expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
+
+    # check the results for the episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a5940d8942c6d0c717eeed6']).toEqual(expectedEpisodeResults)
+    # check the results for the second episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a5940d8942c6d0c717eeed8']).toEqual(expectedEpisodeResults)

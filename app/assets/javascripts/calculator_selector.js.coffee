@@ -1,8 +1,8 @@
 # Selector class that will choose which calculator to call the functions on.
 @CalculatorSelector = class CalculatorSelector
 
-  calculate: (population, patient) ->
-    bonnie.cql_calculator.calculate population, patient
+  calculate: (population, patient, options = {}) ->
+    bonnie.cql_calculator.calculate population, patient, options
 
   clearResult: (population, patient) ->
     bonnie.cql_calculator.clearResult population, patient

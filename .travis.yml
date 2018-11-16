@@ -2,7 +2,7 @@ language: ruby
 cache:
   - bundler
   - node_modules
-sudo: false
+sudo: required
 addons:
   chrome: stable
 rvm:
@@ -22,12 +22,12 @@ before_script:
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
 script:
+  - bundle exec rake teaspoon
   - bundle exec brakeman -qAzw1
   - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
   - bundle exec rake test
-  - bundle exec rake teaspoon
 notifications:
   email:
     recipients:

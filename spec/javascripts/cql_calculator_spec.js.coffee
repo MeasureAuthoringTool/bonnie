@@ -175,7 +175,7 @@ describe 'cqlCalculator', ->
           result4 = @cql_calculator.calculate(measure4.get('populations').first(), patient4, {doPretty: true})
           expect(result4.get('statement_results').StatinTherapy['In Demographic'].pretty).toEqual('true')
 
-         it 'for CMS460 correctly', ->
+        it 'for CMS460 correctly', ->
           bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS460/value_sets.json')
           measure5 = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
           patients5 = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true

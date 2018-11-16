@@ -231,7 +231,6 @@ Layout/LeadingCommentSpace:
     - 'lib/measures/patient_builder.rb'
     - 'lib/patient_export.rb'
     - 'lib/tasks/cql_testing.rake'
-    - 'spec/teaspoon_env.rb'
     - 'test/functional/patients_controller_test.rb'
 
 # Offense count: 7
@@ -532,6 +531,7 @@ Lint/UnusedMethodArgument:
     - 'app/controllers/application_controller.rb'
     - 'app/controllers/registrations_controller.rb'
     - 'config/initializers/mongoid.rb'
+    - 'spec/teaspoon_env.rb'
 
 # Offense count: 23
 Lint/UselessAssignment:
@@ -692,6 +692,7 @@ Style/ClassAndModuleChildren:
     - 'test/functional/admin_users_controller_test.rb'
     - 'test/simplecov_init.rb'
     - 'test/test_helper.rb'
+    - 'spec/teaspoon_env.rb'
 
 # Offense count: 8
 # Cop supports --auto-correct.

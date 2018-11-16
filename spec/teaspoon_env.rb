@@ -123,6 +123,14 @@ Teaspoon.configure do |config|
   #    https://github.com/modeset/teaspoon/wiki/Using-Capybara-Webkit
   # config.driver = :phantomjs
 
+  # Monkey patch read_timeout of Net::Http used in Selenium Webdriver
+  class Selenium::WebDriver::Remote::Http::Default
+    def initialize(open_timeout: nil, read_timeout: nil)
+      @open_timeout = open_timeout
+      @read_timeout = 180
+    end
+  end
+
   # Teaspoon doesn't allow you to pass client driver options to the Selenium WebDriver. This monkey patch
   # is a temporary fix until this PR is merged: https://github.com/jejacks0n/teaspoon/pull/519.
   require 'teaspoon/driver/selenium'
@@ -150,7 +158,7 @@ Teaspoon.configure do |config|
 
   # Specify additional options for the driver.
   #
-  # PhantomJS:
+  # PhantomJS
   #    https://github.com/modeset/teaspoon/wiki/Using-PhantomJS
   # Selenium Webdriver:
   #    https://github.com/modeset/teaspoon/wiki/Using-Selenium-WebDriver
@@ -163,7 +171,7 @@ Teaspoon.configure do |config|
   # Specify the timeout for the driver. Specs are expected to complete within
   # this time frame or the run will be considered a failure. This is to avoid
   # issues that can arise where tests stall.
-  config.driver_timeout = 180
+  config.driver_timeout = 300
 
   # Specify a server to use with Rack (e.g. thin, mongrel). If nil is provided
   # Rack::Server is used.
@@ -192,7 +200,7 @@ Teaspoon.configure do |config|
   #
   # Available: :dot, :clean, :documentation, :json, :junit, :pride,
   #            :rspec_html, :snowday, :swayze_or_oprah, :tap, :tap_y, :teamcity
-  # config.formatters = [:dot]
+  config.formatters = [:tap_y]
 
   # Specify if you want color output from the formatters.
   # config.color = true
