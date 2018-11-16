@@ -42,33 +42,6 @@ class Thorax.Model.Coverage extends Thorax.Model
           passedClauses += 1
       # Set coverage to the percentage of evaluated clauses to total clauses
       @set coverage: Math.floor( passedClauses * 100 / totalClauses )
-  else
-    allClauses = {}
-    @rationaleCriteria = {}
-    totalClauses = 0
-    passedClauses = 0
-    for patientResults in @clauseResults
-      for libraryName, library of patientResults 
-        for localId, clauseResult of library
-          if !@ignoreClause(clauseResult)
-            key = libraryName.concat('_',localId)
-            # Initialize allClauses list to all false and count number of clauses
-            if !allClauses[key]?
-              totalClauses += 1
-              allClauses[key] = false
-            allClauses[key] = allClauses[key] || @determineCovered(clauseResult)
-            # Build rationaleCriteria structure for coverage highlighting
-            if allClauses[key]
-              if !@rationaleCriteria[libraryName]?
-                @rationaleCriteria[libraryName] = []
-              @rationaleCriteria[libraryName][localId] = clauseResult
-            
-    # Count total number of clauses that evalueated to true
-    for localId of allClauses
-      if allClauses[localId]
-        passedClauses += 1
-    # Set coverage to the percentage of evaluated clauses to total clauses   
-    @set coverage: Math.floor( passedClauses * 100 / totalClauses )
 
   determineCovered: (clause) ->
     if clause.final == "TRUE"

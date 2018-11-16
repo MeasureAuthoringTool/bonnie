@@ -1,53 +1,3 @@
-# TODO: remove once we get rid of PhantomJS:
-# Array.prototype.findIndex Polyfill
-# https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
-# https://tc39.github.io/ecma262/#sec-array.prototype.findindex
-`if (!Array.prototype.findIndex) {
-  Object.defineProperty(Array.prototype, 'findIndex', {
-    value: function(predicate) {
-     // 1. Let O be ? ToObject(this value).
-      if (this == null) {
-        throw new TypeError('"this" is null or not defined');
-      }
-
-      var o = Object(this);
-
-      // 2. Let len be ? ToLength(? Get(O, "length")).
-      var len = o.length >>> 0;
-
-      // 3. If IsCallable(predicate) is false, throw a TypeError exception.
-      if (typeof predicate !== 'function') {
-        throw new TypeError('predicate must be a function');
-      }
-
-      // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
-      var thisArg = arguments[1];
-
-      // 5. Let k be 0.
-      var k = 0;
-
-      // 6. Repeat, while k < len
-      while (k < len) {
-        // a. Let Pk be ! ToString(k).
-        // b. Let kValue be ? Get(O, Pk).
-        // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
-        // d. If testResult is true, return k.
-        var kValue = o[k];
-        if (predicate.call(thisArg, kValue, k, o)) {
-          return k;
-        }
-        // e. Increase k by 1.
-        k++;
-      }
-
-      // 7. Return -1.
-      return -1;
-    },
-    configurable: true,
-    writable: true
-  });
-}`
-
 describe 'PatientBuilderView', ->
 
   beforeEach ->
@@ -56,6 +6,8 @@ describe 'PatientBuilderView', ->
     @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS134/patients.json'), parse: true
     @patient = @patients.models[1]
     bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS134/value_sets.json')
+    @bonnie_measures_old = bonnie.measures
+    bonnie.measures = new Thorax.Collections.Measures()
     bonnie.measures.add @measure
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
     # TODO: don't rely on first() for this. What should the criteria be?
@@ -67,8 +19,10 @@ describe 'PatientBuilderView', ->
     spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
     @$el = @patientBuilder.$el
 
+  afterEach ->
+    bonnie.measures = @bonnie_measures_old
+
   it 'should not open patient builder for non existent measure', ->
-    # TODO: WARNING: missing value sets on this test
     spyOn(bonnie,'showPageNotFound')
     bonnie.showPageNotFound.calls.reset()
     bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
@@ -544,7 +498,7 @@ describe 'PatientBuilderView', ->
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
-      bonnie.measures.add(@cqlMeasure, {parse: true});
+      bonnie.measures.add(@cqlMeasure, {parse: true})
 
     afterEach ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
@@ -578,7 +532,7 @@ describe 'PatientBuilderView', ->
     it "EditCriteriaValueView does not have duplicated codes in dropdown", ->
       bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
-      bonnie.measures.add(cqlMeasure, { parse: true });
+      bonnie.measures.add(cqlMeasure, { parse: true })
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       dataCriteria = patientBuilder.model.get('source_data_criteria').first()
@@ -596,10 +550,10 @@ describe 'PatientBuilderView', ->
       expect(codesInDropdown['Dead']).toBeDefined()
 
     it "EditCriteriaValueView allows for input field validation to happen on change event", ->
-      # TODO: WARNING: missing value set on this test
       bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-      bonnie.measures.add(cqlMeasure, { parse: true });
+      bonnie.measures = new Thorax.Collections.Measures()
+      bonnie.measures.add(cqlMeasure, { parse: true })
       patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       assessmentPerformed = patientBuilder.model.get('source_data_criteria').at(2)
@@ -620,6 +574,22 @@ describe 'PatientBuilderView', ->
 
       # expect add button to be enabled
       expect(editFieldValueView.$('button[data-call-method=addValue]').prop('disabled')).toEqual(false)
+
+    it "missing value sets warning shown under test setup without clearing bonnie.measures", ->
+      # This is sort of a test for coverage sake more than the actual expected
+      # behavior, but can serve as an example of how to reproduce these
+      # conditions for future investigation
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
+      # If bonnie.measures = new Thorax.Collections.Measures() is called here,
+      # no WARNING: missing value set message will be shown
+      bonnie.measures.add(cqlMeasure, { parse: true })
+      patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
+      assessmentPerformed = patientBuilder.model.get('source_data_criteria').at(2)
+      spyOn(console, 'log')
+      editCriteriaView = new Thorax.Views.EditCriteriaView(model: assessmentPerformed, measure: cqlMeasure)
+      expect(console.log).toHaveBeenCalledWith('WARNING: missing value set')
 
   describe 'Composite Measure', ->
 
