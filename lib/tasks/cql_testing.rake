@@ -25,13 +25,13 @@ namespace :bonnie do
       measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
       if (args[:patient_first_name].present? && args[:patient_last_name].present?)
-        records = records.select{ |r| r.first == args[:patient_first_name] && r.last == args[:patient_last_name] }
+        records = records.select { |r| r.first == args[:patient_first_name] && r.last == args[:patient_last_name] }
       end
 
-      fixtureExporter = FixtureExporter.new(user, measure:measure, records: records)
-      fixtureExporter.export_measure_and_any_components(measure_file_path)
-      fixtureExporter.export_value_sets_as_map(measure_file_path)
-      fixtureExporter.export_records_as_array(record_file_path)
+      fixture_exporter = FixtureExporter.new(user, measure: measure, records: records)
+      fixture_exporter.export_measure_and_any_components(measure_file_path)
+      fixture_exporter.export_value_sets_as_map(measure_file_path)
+      fixture_exporter.export_records_as_array(record_file_path)
     end
 
     ###
@@ -61,12 +61,15 @@ namespace :bonnie do
       measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
 
-      fixtureExporter = FixtureExporter.new(user, measure:measure, records: records, 
-        set_user_id_to: bonnie_user_id, preserve_oids: true)
-      fixtureExporter.export_measure_and_any_components(measure_file_path)
-      fixtureExporter.try_export_measure_package(measure_package_path)
-      fixtureExporter.export_value_sets_as_array(value_sets_path)
-      fixtureExporter.export_records_as_individual_files(record_file_path)
+      fixture_exporter = FixtureExporter.new( user, 
+                                              measure: measure, 
+                                              records: records,
+                                              set_user_id_to: bonnie_user_id, 
+                                              preserve_oids: true)
+      fixture_exporter.export_measure_and_any_components(measure_file_path)
+      fixture_exporter.try_export_measure_package(measure_package_path)
+      fixture_exporter.export_value_sets_as_array(value_sets_path)
+      fixture_exporter.export_records_as_individual_files(record_file_path)
     end
 
     ###

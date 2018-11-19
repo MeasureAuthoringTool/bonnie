@@ -5,8 +5,8 @@ class FixtureExporter
     @records = records
     @set_user_id_to = set_user_id_to
     @preserve_oids = preserve_oids
-    
-    @component_measures = get_component_measures()
+
+    @component_measures = find_component_measures
     @measure_and_any_components = @measure.present? ? [@measure] + @component_measures : []
   end
 
@@ -20,7 +20,7 @@ class FixtureExporter
   end
 
   def export_records_as_array(path)
-    records = @records.map{ |r| make_hash_and_apply_transforms(r) }
+    records = @records.map { |r| make_hash_and_apply_transforms(r) }
     record_file = File.join(path, "patients.json")
     create_fixture_file(record_file, JSON.pretty_generate(records))
     puts 'exported patient records to ' + record_file
@@ -36,7 +36,7 @@ class FixtureExporter
   end
 
   def export_components(path)
-    components = @component_measures.map{ |m| make_hash_and_apply_transforms(m) }
+    components = @component_measures.map { |m| make_hash_and_apply_transforms(m) }
     components_file = File.join(path, 'components.json')
     create_fixture_file(components_file, JSON.pretty_generate(components))
     puts 'exported components to ' + components_file
@@ -52,10 +52,10 @@ class FixtureExporter
 
   def export_value_sets_as_array(path)
     vs_export = []
-    for m in @measure_and_any_components
-      m.value_sets.each {|vs| vs_export << make_hash_and_apply_transforms(vs)}
+    @measure_and_any_components.each do |m|
+      m.value_sets.each { |vs| vs_export << make_hash_and_apply_transforms(vs) }
     end
-    vs_export.uniq! {|vs| vs["oid"].to_s + vs["version"].to_s}
+    vs_export.uniq! { |vs| vs["oid"].to_s + vs["version"].to_s }
     value_sets_file = File.join(path, 'value_sets.json')
     create_fixture_file(value_sets_file, JSON.pretty_generate(vs_export))
     puts 'exported value sets (as an array) to ' + value_sets_file
@@ -63,15 +63,13 @@ class FixtureExporter
 
   def export_value_sets_as_map(path)
     oid_to_vs_map = {}
-    for m in @measure_and_any_components
-      add_relevant_value_sets_as_hash_with_transforms(oid_to_vs_map, m)
-    end
+    @measure_and_any_components.each { |m| add_relevant_value_sets_as_hash_with_transforms(oid_to_vs_map, m) }
     value_sets_file = File.join(path, 'value_sets.json')
     create_fixture_file(value_sets_file, JSON.pretty_generate(oid_to_vs_map))
     puts 'exported value sets (as an oid to vs map) to ' + value_sets_file
   end
 
-  def get_component_measures()
+  def find_component_measures
     return [] unless @measure.composite
     component_measures = @measure.component_hqmf_set_ids.map do |component_hqmf_set_id|
       CqlMeasure.find_by(user_id: @user, hqmf_set_id: component_hqmf_set_id)
@@ -98,7 +96,7 @@ class FixtureExporter
     measure.value_sets.each do |vs|
       if oid_to_vs_map[vs.oid]
         # if there are multiple value sets with the same oid for this user, then keep the one with
-        # the Draft- version corresponding to this measure for the fixture.        
+        # the Draft- version corresponding to this measure for the fixture.
         oid_to_vs_map[vs.oid] = { vs.version => vs } if vs.version == relevant_vs_version
       else
         oid_to_vs_map[vs.oid] = { vs.version => vs }
@@ -108,8 +106,8 @@ class FixtureExporter
   end
 
   def add_relevant_value_sets_as_hash_with_transforms(map_to_add_to, measure)
-    extract_relevant_value_sets(measure).each do |oid, versionToVsMap|
-      versionToVsMap.each do |version, valueset|
+    extract_relevant_value_sets(measure).each do |oid, version_to_vs_map|
+      version_to_vs_map.each do |version, valueset|
         if map_to_add_to[oid]
           map_to_add_to[oid][version] = make_hash_and_apply_transforms(valueset)
         else
@@ -123,10 +121,10 @@ class FixtureExporter
     return 'Draft-' + measure.hqmf_set_id.split('&')[1] if measure.component
     return 'Draft-' + measure.hqmf_set_id
   end
-	
+
   def objectid_to_oids(input)
     if input.is_a? Array
-      input.each {|val| objectid_to_oids(val)} 
+      input.each { |val| objectid_to_oids(val) }
     elsif input.is_a? Hash
       input.each do |key, value|
         if value.is_a? BSON::ObjectId
@@ -137,5 +135,5 @@ class FixtureExporter
       end
     end
   end
-  
+
 end
