@@ -283,7 +283,6 @@ GEM
     parallel (1.12.0)
     parser (2.4.0.2)
       ast (~> 2.3)
-    phantomjs (2.1.1.0)
     powerpack (0.1.1)
     protected_attributes (1.0.9)
       activemodel (>= 4.0.1, < 5.0)
@@ -367,6 +366,9 @@ GEM
       capistrano (~> 3.0)
       sshkit (>= 1.2)
     safe_yaml (1.0.4)
+    selenium-webdriver (3.141.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.2, >= 1.2.2)
     sexp_processor (4.10.0)
     simplecov (0.11.2)
       docile (~> 1.1.0)
@@ -467,7 +469,6 @@ DEPENDENCIES
   non-stupid-digest-assets
   oj
   overcommit
-  phantomjs
   protected_attributes
   pry
   pry-byebug
@@ -479,6 +480,7 @@ DEPENDENCIES
   rubocop
   rubyzip (>= 1.2.1)
   rvm1-capistrano3
+  selenium-webdriver
   simplecov
   simplexml_parser (~> 1.0)
   sprockets (~> 2.8)
