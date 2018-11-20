@@ -21,27 +21,28 @@ class Thorax.Model.Coverage extends Thorax.Model
         @rationaleCriteria = {}
         totalClauses = 0
         passedClauses = 0
+        elmAnnotationLibraryNames = Object.keys(@population.collection.parent.get('elm_annotations'))
         for patientResults in @clauseResults
-          for libraryName, library of patientResults 
-            for localId, clauseResult of library
-              if !@ignoreClause(clauseResult)
-                key = libraryName.concat('_',localId)
-                # Initialize allClauses list to all false and count number of clauses
-                if !allClauses[key]?
-                  totalClauses += 1
-                  allClauses[key] = false
-                allClauses[key] = allClauses[key] || @determineCovered(clauseResult)
-                # Build rationaleCriteria structure for coverage highlighting
-                if allClauses[key]
-                  if !@rationaleCriteria[libraryName]?
-                    @rationaleCriteria[libraryName] = []
-                  @rationaleCriteria[libraryName][localId] = clauseResult
-                
+          for libraryName, library of patientResults
+            if elmAnnotationLibraryNames.some((el) -> libraryName is el)
+              for localId, clauseResult of library
+                if !@ignoreClause(clauseResult)
+                  key = libraryName.concat('_',localId)
+                  # Initialize allClauses list to all false and count number of clauses
+                  if !allClauses[key]?
+                    totalClauses += 1
+                    allClauses[key] = false
+                  allClauses[key] = allClauses[key] || @determineCovered(clauseResult)
+                  # Build rationaleCriteria structure for coverage highlighting
+                  if allClauses[key]
+                    if !@rationaleCriteria[libraryName]?
+                      @rationaleCriteria[libraryName] = []
+                    @rationaleCriteria[libraryName][localId] = clauseResult
         # Count total number of clauses that evalueated to true
         for localId of allClauses
           if allClauses[localId]
             passedClauses += 1
-        # Set coverage to the percentage of evaluated clauses to total clauses   
+        # Set coverage to the percentage of evaluated clauses to total clauses
         @set coverage: Math.floor( passedClauses * 100 / totalClauses )
     else
       # Find all unique criteria that evaluated true in the rationale that are also in the measure
@@ -64,8 +65,8 @@ class Thorax.Model.Coverage extends Thorax.Model
   ignoreClause: (clause) ->
     # Ignore value set clauses
     if clause.raw? && clause.raw.name? && clause.raw.name == "ValueSet"
-      return true    
+      return true
     # Ignore clauses that were not used in logic, for example unused defines from an included library
     if clause.final == "NA"
-      return true      
+      return true
     return false
