@@ -3,6 +3,8 @@ cache:
   - bundler
   - node_modules
 sudo: false
+addons:
+  chrome: stable
 rvm:
   - "2.3.7"
 before_install:
