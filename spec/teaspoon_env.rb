@@ -138,31 +138,15 @@ Teaspoon.configure do |config|
         done
       end
     ensure
-      driver.quit if driver
+      driver&.quit
     end
   end
 
   config.driver = :selenium
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu window-size=1920,1440 no-sandbox) }
+    chromeOptions: { args: %w[headless disable-gpu window-size=1920,1440 no-sandbox] }
   )
   config.driver_options = { client_driver: :chrome, desired_capabilities: capabilities }
-
-  # This is the second option. Might be the best option because it has options for Travis
-  # config.driver = :selenium
-  # require 'selenium-webdriver'
-  # browser_options = ::Selenium::WebDriver::Chrome::Options.new
-  # browser_options.args << '--headless'
-  # browser_options.args << '--disable-gpu'
-  # # Required for chrome to work in container based Travis environment
-  # # (see https://docs.travis-ci.com/user/chrome)
-  # browser_options.args << '--no-sandbox'
-  # config.driver_options = {
-  #   client_driver: :chrome,
-  #   client_driver_opts: {
-  #     options: browser_options
-  #   }
-  # }
 
   # Specify additional options for the driver.
   #
