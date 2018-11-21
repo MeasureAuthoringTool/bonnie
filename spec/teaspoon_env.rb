@@ -123,22 +123,20 @@ Teaspoon.configure do |config|
   #    https://github.com/modeset/teaspoon/wiki/Using-Capybara-Webkit
   # config.driver = :phantomjs
 
-
-
   # Teaspoon doesn't allow you to pass client driver options to the Selenium WebDriver. This monkey patch
   # is a temporary fix until this PR is merged: https://github.com/jejacks0n/teaspoon/pull/519.
   require 'teaspoon/driver/selenium'
   Teaspoon::Driver::Selenium.class_eval do
-  def run_specs(runner, url)
-    driver = ::Selenium::WebDriver.for(driver_options[:client_driver], @options.except(:client_driver) || {})
-    driver.navigate.to(url)
-    ::Selenium::WebDriver::Wait.new(driver_options).until do
-      done = driver.execute_script("return window.Teaspoon && window.Teaspoon.finished")
-      driver.execute_script("return window.Teaspoon && window.Teaspoon.getMessages() || []").each do |line|
-        runner.process("#{line}\n")
+    def run_specs(runner, url)
+      driver = ::Selenium::WebDriver.for(driver_options[:client_driver], @options.except(:client_driver) || {})
+      driver.navigate.to(url)
+      ::Selenium::WebDriver::Wait.new(driver_options).until do
+        done = driver.execute_script("return window.Teaspoon && window.Teaspoon.finished")
+        driver.execute_script("return window.Teaspoon && window.Teaspoon.getMessages() || []").each do |line|
+          runner.process("#{line}\n")
+        end
+        done
       end
-      done
-    end
     ensure
       driver.quit if driver
     end
@@ -165,8 +163,6 @@ Teaspoon.configure do |config|
   #     options: browser_options
   #   }
   # }
-
-
 
   # Specify additional options for the driver.
   #
