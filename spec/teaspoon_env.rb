@@ -123,7 +123,7 @@ Teaspoon.configure do |config|
 
   config.driver = :selenium
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu window-size=1920,1440) }
+    chromeOptions: { args: %w(headless disable-gpu window-size=1920,1440 no-sandbox) }
   )
   config.driver_options = { client_driver: :chrome, desired_capabilities: capabilities }
 
@@ -155,7 +155,7 @@ Teaspoon.configure do |config|
 
   # Specify the timeout for the driver. Specs are expected to complete within this time frame or the run will be
   # considered a failure. This is to avoid issues that can arise where tests stall.
-  #config.driver_timeout = 180
+  config.driver_timeout = 180
 
   # Specify a server to use with Rack (e.g. thin, mongrel). If nil is provided Rack::Server is used.
   #config.server = nil
