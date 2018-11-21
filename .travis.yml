@@ -13,9 +13,13 @@ before_install:
 services: mongodb
 bundler_args: --without test development
 before_script:
+  - echo $PATH
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
   - bundle install
+  - wget http://chromedriver.storage.googleapis.com/2.44/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d 
+  - export CHROME_BIN=chromium-browser
 script:
   - bundle exec brakeman -qAzw1
   - bundle exec bundle-audit check --update
