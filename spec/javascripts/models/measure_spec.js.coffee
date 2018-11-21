@@ -27,7 +27,3 @@ describe 'Measure', ->
         expect(results.get('IPP')).toEqual 1
         expect(results.get('NUMER')).toEqual 0
         )
-
-    it 'test ES6', ->
-    foo = [1,2,3]
-    expect(foo.includes(2)).toEqual true

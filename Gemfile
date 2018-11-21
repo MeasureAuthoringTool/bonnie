@@ -84,7 +84,6 @@ group :test, :development do
   gem 'thin'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
-  # gem 'phantomjs'
 end
 
 group :production do
