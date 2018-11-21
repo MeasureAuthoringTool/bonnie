@@ -27,4 +27,3 @@ describe 'Measure', ->
         expect(results.get('IPP')).toEqual 1
         expect(results.get('NUMER')).toEqual 0
         )
-        
