@@ -28,10 +28,10 @@ namespace :bonnie do
         records = records.select { |r| r.first == args[:patient_first_name] && r.last == args[:patient_last_name] }
       end
 
-      fixture_exporter = FixtureExporter.new(user, measure: measure, records: records)
+      fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: records)
       fixture_exporter.export_measure_and_any_components(measure_file_path)
-      fixture_exporter.export_value_sets_as_map(measure_file_path)
-      fixture_exporter.export_records_as_array(record_file_path)
+      fixture_exporter.export_value_sets(measure_file_path)
+      fixture_exporter.export_records(record_file_path)
     end
 
     ###
@@ -47,10 +47,6 @@ namespace :bonnie do
     # e.g., bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,test/fake,bonnie@test.org,CMS68v5]
     desc "Exports a set of fixtures that can be loaded for testing purposes"
     task :generate_backend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
-      #In order to avoid storing details of real users, a test-specific user fixture exists.
-      #This is used to assign the measure to that user.
-      bonnie_user_id = '501fdba3044a111b98000001'
-
       fixtures_path = File.join('test', 'fixtures')
       measure_file_path = File.join(fixtures_path, 'cql_measures', args[:path])
       record_file_path = File.join(fixtures_path, 'records', args[:path])
@@ -61,15 +57,11 @@ namespace :bonnie do
       measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
 
-      fixture_exporter = FixtureExporter.new( user, 
-                                              measure: measure, 
-                                              records: records,
-                                              set_user_id_to: bonnie_user_id, 
-                                              preserve_oids: true)
+      fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: records)
       fixture_exporter.export_measure_and_any_components(measure_file_path)
       fixture_exporter.try_export_measure_package(measure_package_path)
-      fixture_exporter.export_value_sets_as_array(value_sets_path)
-      fixture_exporter.export_records_as_individual_files(record_file_path)
+      fixture_exporter.export_value_sets(value_sets_path)
+      fixture_exporter.export_records(record_file_path)
     end
 
     ###
