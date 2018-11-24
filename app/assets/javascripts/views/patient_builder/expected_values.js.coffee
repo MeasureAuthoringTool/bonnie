@@ -62,7 +62,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           if attr[pc]
             if pc == 'OBSERV'
               attr[pc] = [].concat(attr[pc])
-              attr[pc] = (parseFloat(o) for o in attr[pc])
+              attr[pc] = (@roundToCQLPrecision(parseFloat(o),8) for o in attr[pc])
             else
               attr[pc] = parseFloat(attr[pc])
             # if we're dealing with OBSERV or MSRPOPL, set to undefined for empty value
@@ -210,3 +210,6 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       @serialize()
       $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset the active tab for CV measures
       @updateObserv() if @isMultipleObserv and (population == 'MSRPOPL' or population == 'MSRPOPLEX')
+
+  roundToCQLPrecision: (num) ->
+    Number(Math.round(num + 'e' + 8) + 'e-' + 8);
