@@ -1,8 +1,8 @@
 class FixtureExporter
-  #In order to avoid storing details of real users, a test-specific user fixture exists.
-  @@bonnie_fixtures_user_id = '501fdba3044a111b98000001'
+  # In order to avoid storing details of real users, a test-specific user fixture exists.
+  @bonnie_fixtures_user_id = '501fdba3044a111b98000001'
 
-  def initialize(user, measure: nil, records: nil, set_user_id_to: nil)
+  def initialize(user, measure: nil, records: nil)
     @user = user
     @measure = measure
     @records = records
@@ -80,11 +80,11 @@ class FixtureExporter
 
   def as_transformed_hash(mongoid_doc)
     doc = make_hash_and_apply_any_transforms(mongoid_doc)
-    doc['user_id'] = @@bonnie_fixtures_user_id if doc['user_id'].present?
+    doc['user_id'] = @bonnie_fixtures_user_id if doc['user_id'].present?
     return doc
   end
 
-  def make_hash_and_apply_any_transforms(mongoid_doc)
+  def make_hash_and_apply_any_transforms(_mongoid_doc)
     raise 'this method should be overridden to return the mongoid doc as a hash, with needed transforms'
   end
 
@@ -135,20 +135,18 @@ class FixtureExporter
   end
 end
 
-
 class FrontendFixtureExporter < FixtureExporter
-  alias_method :export_value_sets, :export_value_sets_as_map
-  alias_method :export_records, :export_records_as_array
+  alias export_value_sets export_value_sets_as_map
+  alias export_records export_records_as_array
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
     return JSON.parse(mongoid_doc.to_json, max_nesting: 1000)
   end
 end
 
-
 class BackendFixtureExporter < FixtureExporter
-  alias_method :export_value_sets, :export_value_sets_as_array
-  alias_method :export_records, :export_records_as_individual_files
+  alias export_value_sets export_value_sets_as_array
+  alias export_records export_records_as_individual_files
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
     doc = mongoid_doc.as_json
