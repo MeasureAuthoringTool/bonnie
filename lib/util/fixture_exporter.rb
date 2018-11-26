@@ -1,3 +1,4 @@
+# An abstract class that provides fixture exporting functionality
 class FixtureExporter
   # In order to avoid storing details of real users, a test-specific user fixture exists.
   @bonnie_fixtures_user_id = '501fdba3044a111b98000001'
@@ -13,7 +14,7 @@ class FixtureExporter
 
   def export_measure_and_any_components(path)
     measure = as_transformed_hash(@measure)
-    measure_name = @measure.cms_id + ".json"
+    measure_name = @measure.cms_id + '.json'
     measure_file = File.join(path, measure_name)
     create_fixture_file(measure_file, JSON.pretty_generate(measure))
     puts 'exported measure to ' + measure_file
@@ -22,7 +23,7 @@ class FixtureExporter
 
   def export_records_as_array(path)
     records = @records.map { |r| as_transformed_hash(r) }
-    record_file = File.join(path, "patients.json")
+    record_file = File.join(path, 'patients.json')
     create_fixture_file(record_file, JSON.pretty_generate(records))
     puts 'exported patient records to ' + record_file
   end
@@ -46,7 +47,7 @@ class FixtureExporter
   def try_export_measure_package(path)
     return unless @measure.package
     package = as_transformed_hash(@measure.package)
-    measure_package_file = File.join(path, @measure.cms_id + ".json")
+    measure_package_file = File.join(path, @measure.cms_id + '.json')
     create_fixture_file(measure_package_file, JSON.pretty_generate(package))
     puts 'exported measure package to ' + measure_package_file
   end
@@ -56,7 +57,7 @@ class FixtureExporter
     @measure_and_any_components.each do |m|
       m.value_sets.each { |vs| vs_export << as_transformed_hash(vs) }
     end
-    vs_export.uniq! { |vs| vs["oid"].to_s + vs["version"].to_s }
+    vs_export.uniq! { |vs| vs['oid'].to_s + vs['version'].to_s }
     value_sets_file = File.join(path, 'value_sets.json')
     create_fixture_file(value_sets_file, JSON.pretty_generate(vs_export))
     puts 'exported value sets (as an array) to ' + value_sets_file
@@ -64,7 +65,9 @@ class FixtureExporter
 
   def export_value_sets_as_map(path)
     oid_to_vs_map = {}
-    @measure_and_any_components.each { |m| add_relevant_value_sets_as_hash_with_transforms(oid_to_vs_map, m) }
+    @measure_and_any_components.each do |m|
+      add_relevant_value_sets_as_transformed_hash(oid_to_vs_map, m)
+    end
     value_sets_file = File.join(path, 'value_sets.json')
     create_fixture_file(value_sets_file, JSON.pretty_generate(oid_to_vs_map))
     puts 'exported value sets (as an oid to vs map) to ' + value_sets_file
@@ -85,7 +88,7 @@ class FixtureExporter
   end
 
   def make_hash_and_apply_any_transforms(_mongoid_doc)
-    raise 'this method should be overridden to return the mongoid doc as a hash, with needed transforms'
+    raise 'this method should be overridden to return mongoid_doc as a hash, with needed transforms'
   end
 
   def extract_relevant_value_sets(measure)
@@ -103,7 +106,7 @@ class FixtureExporter
     return oid_to_vs_map
   end
 
-  def add_relevant_value_sets_as_hash_with_transforms(map_to_add_to, measure)
+  def add_relevant_value_sets_as_transformed_hash(map_to_add_to, measure)
     extract_relevant_value_sets(measure).each do |oid, version_to_vs_map|
       version_to_vs_map.each do |version, valueset|
         if map_to_add_to[oid].present?
@@ -135,6 +138,7 @@ class FixtureExporter
   end
 end
 
+# Used to export fixtures for use in frontend tests (where fixtures are not loaded in mongo)
 class FrontendFixtureExporter < FixtureExporter
   alias export_value_sets export_value_sets_as_map
   alias export_records export_records_as_array
@@ -144,6 +148,7 @@ class FrontendFixtureExporter < FixtureExporter
   end
 end
 
+# Used to export fixtures for use in backend tests (where fixtures are loaded into mongo)
 class BackendFixtureExporter < FixtureExporter
   alias export_value_sets export_value_sets_as_array
   alias export_records export_records_as_individual_files

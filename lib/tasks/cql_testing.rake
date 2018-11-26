@@ -275,18 +275,3 @@ namespace :bonnie do
     end
   end
 end
-
-def export_components(measure, fixtures_path, args, user, path_prefix)
-  # If the measure is a composite, export all the component measures to components.json
-  if measure.composite
-    components_filename = 'components.json'
-    components_file = File.join(fixtures_path, path_prefix, args[:path], components_filename)
-    components = []
-    measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
-      components.push CqlMeasure.find_by(user_id: user, hqmf_set_id: component_hqmf_set_id)
-    end
-    components_json = JSON.pretty_generate(JSON.parse(components.to_json, max_nesting: 1000))
-    create_fixture_file(components_file, components_json)
-    puts 'exported components to ' + components_file
-  end
-end
