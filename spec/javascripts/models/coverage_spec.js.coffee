@@ -25,4 +25,3 @@ describe 'Coverage', ->
 
     expect(measure.get('populations').at(0).coverage().get('coverage')).toEqual 22
 
-

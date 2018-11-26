@@ -52,3 +52,4 @@ describe 'Composite Measure Calculations', ->
     expect(result.get('DENEX')).toEqual 0
     expect(result.get('NUMER')).toEqual 1
     expect(result.get('DENEXCEP')).toEqual 0
+    

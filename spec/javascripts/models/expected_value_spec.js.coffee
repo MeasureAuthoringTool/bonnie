@@ -1,6 +1,4 @@
-
-
-  describe 'Expected Actual Comparisons', ->
+  describe 'Expected vs  Actual Comparisons', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @universalValueSetsByOid = bonnie.valueSetsByOid
