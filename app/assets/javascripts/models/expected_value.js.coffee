@@ -61,11 +61,11 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
   prepareObserv: (observ) ->
     if typeof observ == 'number'
-      return @roundToCQLPrecision(observ)
+      return Thorax.Models.ExpectedValue.floorToCQLPrecision(observ)
     return observ
   
-  roundToCQLPrecision: (num) ->
-    Number(Math.round(num + 'e' + 8) + 'e-' + 8);
+  @floorToCQLPrecision: (num) ->
+    Number(Math.floor(num + 'e' + 8) + 'e-' + 8);
 
 class Thorax.Collections.ExpectedValues extends Thorax.Collection
   model: Thorax.Models.ExpectedValue

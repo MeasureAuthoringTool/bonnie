@@ -578,7 +578,7 @@ describe 'PatientBuilderView', ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
       bonnie.measures = @bonnie_measures_old
   
-    it "should round the observ value to at most 8 decimals", ->
+    it "should floor the observ value to at most 8 decimals", ->
       patientBuilder = new Thorax.Views.PatientBuilder(model: @compositePatients.at(1), measure: @compositeMeasure)
       patientBuilder.render()
       expected_vals = patientBuilder.model.get('expected_values').findWhere({measure_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"})
@@ -589,7 +589,7 @@ describe 'PatientBuilderView', ->
 
       patientBuilder.$(':input[name=OBSERV]').val(0.123456786666666)
       patientBuilder.serializeWithChildren()
-      expect(expected_vals.get("OBSERV")[0]).toEqual 0.12345679
+      expect(expected_vals.get("OBSERV")[0]).toEqual 0.12345678
 
       patientBuilder.$(':input[name=OBSERV]').val(1.5)
       patientBuilder.serializeWithChildren()
