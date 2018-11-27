@@ -3,6 +3,8 @@ cache:
   - bundler
   - node_modules
 sudo: false
+addons:
+  chrome: stable
 rvm:
   - "2.3.7"
 before_install:
@@ -16,6 +18,9 @@ before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
   - bundle install
+  - wget http://chromedriver.storage.googleapis.com/2.44/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d /tmp/chromedriver
+  - export PATH=$PATH:/tmp/chromedriver
 script:
   - bundle exec brakeman -qAzw1
   - bundle exec bundle-audit check --update

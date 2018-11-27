@@ -76,6 +76,7 @@ group :test, :development, :ci do
   gem 'bundler-audit'
   gem 'colorize'
   gem 'brakeman'
+  gem 'selenium-webdriver'
 end
 
 group :test, :development do
@@ -83,7 +84,6 @@ group :test, :development do
   gem 'thin'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
-  gem 'phantomjs'
 end
 
 group :production do
