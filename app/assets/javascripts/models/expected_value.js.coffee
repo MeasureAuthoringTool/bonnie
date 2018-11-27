@@ -37,8 +37,8 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
     for popCrit in @populationCriteria()
       if popCrit.indexOf('OBSERV') != -1
-        expected = @prepareObserv(if popCrit == 'OBSERV' then @get('OBSERV')?[0] else @get('OBSERV')?[@observIndex(popCrit)])
-        actual = @prepareObserv(if popCrit == 'OBSERV' then result.get('values')?[0] else result.get('values')?[@observIndex(popCrit)])
+        expected = ExpectedValue.prepareObserv(if popCrit == 'OBSERV' then @get('OBSERV')?[0] else @get('OBSERV')?[@observIndex(popCrit)])
+        actual = ExpectedValue.prepareObserv(if popCrit == 'OBSERV' then result.get('values')?[0] else result.get('values')?[@observIndex(popCrit)])
         unit = @get('OBSERV_UNIT')
         key = 'OBSERV'
       else
@@ -57,15 +57,15 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     observKey.split('_')[1] - 1
 
   compareObservs: (val1, val2) ->
-    return @prepareObserv(val1) == @prepareObserv(val2)
-
-  prepareObserv: (observ) ->
-    if typeof observ == 'number'
-      return Thorax.Models.ExpectedValue.floorToCQLPrecision(observ)
-    return observ
+    return ExpectedValue.prepareObserv(val1) == ExpectedValue.prepareObserv(val2)
   
   @floorToCQLPrecision: (num) ->
     Number(Math.floor(num + 'e' + 8) + 'e-' + 8);
+
+  @prepareObserv: (observ) ->
+    if typeof observ == 'number'
+      return @floorToCQLPrecision(observ)
+    return observ
 
 class Thorax.Collections.ExpectedValues extends Thorax.Collection
   model: Thorax.Models.ExpectedValue
