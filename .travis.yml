@@ -6,7 +6,7 @@ sudo: false
 addons:
   chrome: stable
 rvm:
-  - "2.3.7"
+  - "2.3.8"
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
