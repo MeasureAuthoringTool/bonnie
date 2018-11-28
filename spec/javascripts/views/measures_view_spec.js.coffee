@@ -30,16 +30,16 @@ describe 'MeasuresView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS321/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS321/CMS321v0.json'), parse: true
+      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
       bonnie.measures.push(@compositeMeasure)
 
-      @components = getJSONFixture('measure_data/special_measures/CMS321/components.json')
+      @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
       @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) => bonnie.measures.push(component))
 
-      @compositePatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS321/patients.json'), parse: true
+      @compositePatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
       @compositeMeasure.populateComponents()
       @measuresView = new Thorax.Views.Measures(collection: bonnie.measures.sort(), patients: @compositePatients)
       @measuresView.appendTo 'body'

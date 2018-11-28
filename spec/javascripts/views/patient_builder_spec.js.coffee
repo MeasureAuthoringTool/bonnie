@@ -562,22 +562,39 @@ describe 'PatientBuilderView', ->
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
   
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS321/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS321/CMS321v0.json'), parse: true
+      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
       bonnie.measures.push(@compositeMeasure)
 
-      @components = getJSONFixture('measure_data/special_measures/CMS321/components.json')
+      @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
       @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) => bonnie.measures.push(component))
 
-      @compositePatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS321/patients.json'), parse: true
+      @compositePatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
       @compositeMeasure.populateComponents()
 
     afterEach ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
       bonnie.measures = @bonnie_measures_old
   
+    it "should floor the observ value to at most 8 decimals", ->
+      patientBuilder = new Thorax.Views.PatientBuilder(model: @compositePatients.at(1), measure: @compositeMeasure)
+      patientBuilder.render()
+      expected_vals = patientBuilder.model.get('expected_values').findWhere({measure_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"})
+
+      patientBuilder.$(':input[name=OBSERV]').val(0.123456781111111)
+      patientBuilder.serializeWithChildren()
+      expect(expected_vals.get("OBSERV")[0]).toEqual 0.12345678
+
+      patientBuilder.$(':input[name=OBSERV]').val(0.123456786666666)
+      patientBuilder.serializeWithChildren()
+      expect(expected_vals.get("OBSERV")[0]).toEqual 0.12345678
+
+      patientBuilder.$(':input[name=OBSERV]').val(1.5)
+      patientBuilder.serializeWithChildren()
+      expect(expected_vals.get("OBSERV")[0]).toEqual 1.5
+
     it "should display a warning that the patient is shared", ->
       patientBuilder = new Thorax.Views.PatientBuilder(model: @compositePatients.first(), measure: @components[0])
       patientBuilder.render()
@@ -589,5 +606,5 @@ describe 'PatientBuilderView', ->
       breadcrumb.addPatient(@components[0], @compositePatients.first())
       breadcrumb.render()
 
-      expect(breadcrumb.$("a")[1].childNodes[1].textContent).toEqual " CMS321v0 " # parent composite measure
+      expect(breadcrumb.$("a")[1].childNodes[1].textContent).toEqual " CMS890v0 " # parent composite measure
       expect(breadcrumb.$("a")[2].childNodes[1].textContent).toEqual " CMS231v0 " # the component measure

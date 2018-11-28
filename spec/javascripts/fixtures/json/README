@@ -70,5 +70,5 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 CMS136v7 - Proportion measure with two population sets with Medication Active and Dispensed
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS136,bonnie-fixtures@mitre.org,CMS136v7]
 
-CMS321v0 - Composite Measure
-bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS321,bonnie-fixtures@mitre.org,CMS321v0]
+CMS890v0 - Composite Measure
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS890,bonnie-fixtures@mitre.org,CMS890v0]
