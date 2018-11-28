@@ -16,7 +16,7 @@ describe 'Coverage', ->
     measure.set('patients',@cqlPatients)
     bonnie.measures.add measure      
 
-    expect(measure.get('populations').at(0).coverage().get('coverage')).toEqual 44 #should change with composite coverage calculation PR
+    expect(measure.get('populations').at(0).coverage().get('coverage')).toEqual 72
 
   it 'calculates coverage correctly for a component measure', ->
     measure = new Thorax.Models.Measure @components[0], parse: true
