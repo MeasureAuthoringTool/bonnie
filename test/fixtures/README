@@ -18,8 +18,8 @@ test/fixtures/records/special_measures/CMS53/*
 test/fixtures/records/special_measures/CMS760/*
 test/fixtures/records/core_measures/CMS134v6/Pass_Numer.json
 
-CMS321v0 - Composite Measure
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS321,bonnie-fixtures@mitre.org,CMS321v0]
+CMS890v0 - Composite Measure
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS890,bonnie-fixtures@mitre.org,CMS890v0]
 
 CMS134 - Proportion measure with a single population set
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,core_measures/CMS134v6,bonnie-fixtures@mitre.org,CMS134v6]
