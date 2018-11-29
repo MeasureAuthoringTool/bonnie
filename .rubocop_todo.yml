@@ -1041,6 +1041,7 @@ Style/RedundantReturn:
     - 'lib/patient_export.rb'
     - 'lib/tasks/bonnie.rake'
     - 'lib/version.rb'
+    - 'lib/util/fixture_exporter.rb'
 
 # Offense count: 12
 # Cop supports --auto-correct.
