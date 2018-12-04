@@ -13,14 +13,14 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', '~> 4.3.1'
-gem 'cql_qdm_patientapi', '~> 1.3.0'
+gem 'health-data-standards', '~> 4.3.2'
+gem 'cql_qdm_patientapi', '~> 1.3.1'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
-gem 'bonnie_bundler', '~> 2.2.3'
+gem 'bonnie_bundler', '~> 2.2.4'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
-gem 'cqm-converter', '~> 1.0.2'
+gem 'cqm-converter', '~> 1.0.3'
 
 # gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master_bonnie'
 # gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
@@ -76,6 +76,7 @@ group :test, :development, :ci do
   gem 'bundler-audit'
   gem 'colorize'
   gem 'brakeman'
+  gem 'selenium-webdriver'
 end
 
 group :test, :development do
@@ -83,7 +84,6 @@ group :test, :development do
   gem 'thin'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
-  gem 'phantomjs'
 end
 
 group :production do

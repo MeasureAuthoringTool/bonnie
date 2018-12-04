@@ -47,6 +47,7 @@ Bonnie::Application.routes.draw do
         get 'calculate_code'
       end
     end
+    resources :populations
   end
 
   namespace :vsac_util do

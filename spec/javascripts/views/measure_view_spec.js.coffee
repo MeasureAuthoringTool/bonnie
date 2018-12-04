@@ -1,30 +1,36 @@
-describe 'MeasureView', ->
 
-  describe 'QDM', ->
+  describe 'MeasureView', ->
     beforeEach ->
-      window.bonnieRouterCache.load('base_set')
-      @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
+      jasmine.getJSONFixtures().clearCache()
+      @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
+
+      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
-      @vs1 = @measure.valueSets().findWhere(display_name: 'Annual Wellness Visit')
-      @vs2 = @measure.valueSets().findWhere(display_name: 'Office Visit')
+      @vs1 = @measure.valueSets().findWhere(display_name: 'Bipolar Disorder')
+      @vs2 = @measure.valueSets().findWhere(display_name: 'Dysthymia')
       for n in [1..10]
         @vs1.get('concepts').push { code: "ABC#{n}", display_name: "ABC", code_system_name: "ABC" }
         @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
       @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
       @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
       @measure.set('patients', @patients)
       @patient = @patients.at(0)
       @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
       @measureView = @measureLayoutView.showMeasure()
       @measureView.appendTo 'body'
+      @cqlMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @measure, measure: @measure, patients: @patients)
+      @cqlMeasureValueSetsView.appendTo 'body'
 
     afterEach ->
+      bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
       # Remove the 11 extra codes that were added for value set overlap testing
       @vs1.get('concepts').splice(-11, 11)
       @vs2.get('concepts').splice(-11, 11)
       @measureView.remove()
+      @cqlMeasureValueSetsView.remove()
 
 
     it 'should not open measure view for non existent measure', ->
@@ -55,7 +61,7 @@ describe 'MeasureView', ->
       expect(@measureView.$('.btn-show-coverage')).toBeVisible()
 
     # makes sure the calculation percentage hasn't changed.
-    # should be 33% for CMS156v2 with given test patients as of 1/4/2016
+    # should be 33% for CMS160v6 with given test patients as of 2018-03-29
     describe '...', ->
       beforeEach (done) ->
         result = @measure.get('populations').at(0).calculate(@patient)
@@ -73,7 +79,7 @@ describe 'MeasureView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
       @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
       bonnie.measures.add @cqlMeasure
       @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true

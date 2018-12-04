@@ -2,7 +2,7 @@ require 'test_helper'
 
 module DoorkeeperOverride
   class TokenInfoControllerTest < ActionController::TestCase
-    include Devise::TestHelpers
+    include Devise::Test::ControllerHelpers
 
     setup do
       dump_database

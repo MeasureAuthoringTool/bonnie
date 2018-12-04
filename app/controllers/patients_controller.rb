@@ -1,26 +1,6 @@
 class PatientsController < ApplicationController
   before_filter :authenticate_user!
 
-  # Index method used for patient bank, returning all shared patient records
-  def index
-    records = Record.where(is_shared: true).to_a
-    # Some gymnastics to deal with a 1+N problem, so we don't need additional queries for each
-    # record for cms_id and user_email; prepopulate these values using lookup tables, with lookups
-    # for email by user_id and cms_id by user_id and measure_id
-    user_ids = records.map(&:user_id).uniq
-    users = User.only(:_id, :email).where(:_id.in => user_ids)
-    email_lookup = users.each_with_object({}) { |u, h| h[u.id] = u.email }
-    measure_ids = records.map { |r| r.measure_ids.first }.uniq
-    measures = Measure.only(:_id, :hqmf_set_id, :user_id, :cms_id).where(:hqmf_set_id.in => measure_ids, :user_id.in => user_ids)
-    cms_lookup = measures.each_with_object(Hash.new { |h, k| h[k] = {} }) { |m, h| h[m.user_id][m.hqmf_set_id] = m.cms_id }
-    records = records.select { |r| measures.map(&:hqmf_set_id).include? r.measure_ids.first } # select shared patients with existing measures
-    records.each do |record|
-      record.user_email = email_lookup[record.user_id]
-      record.cms_id = cms_lookup[record.user_id][record.measure_ids.first]
-    end
-    render :json => MultiJson.encode(records.as_json(methods: [:cms_id, :user_email]))
-  end
-
   def update
     patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
     update_patient(patient)
@@ -30,6 +10,7 @@ class PatientsController < ApplicationController
 
   def create
     patient = update_patient(Record.new)
+    populate_measure_ids_if_composite_measures(patient)
     patient.save!
     render :json => patient
   end
@@ -54,11 +35,7 @@ class PatientsController < ApplicationController
       unless current_user.portfolio?
         records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
       end
-      if params[:isCQL]
-        measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
-      else
-        measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
-      end
+      measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
     end
 
     qrda_errors = {}
@@ -87,22 +64,14 @@ class PatientsController < ApplicationController
       end
       # add the summary content if there are results
       if (params[:results] && !params[:patients])
-        if params[:isCQL] == 'true'
-          measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
-        else
-          measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
-        end
+        measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
         zip.puts measure_patients_summary(records, params[:results].values, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     stringio.rewind
-    if params[:isCQL] == 'true'
-      measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
-    else
-      measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
-    end
+    measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
     filename = if params[:hqmf_set_id] then "#{measure.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
@@ -111,7 +80,8 @@ class PatientsController < ApplicationController
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     package = PatientExport.export_excel_cql_file(JSON.parse(params[:calc_results]), 
       JSON.parse(params[:patient_details]), JSON.parse(params[:population_details]),
-      JSON.parse(params[:statement_details]))
+      JSON.parse(params[:statement_details]),
+      params[:measure_hqmf_set_id])
     send_data package.to_stream.read, type: "application/xlsx", filename: "#{params[:file_name]}.xlsx"
   end
 
@@ -152,12 +122,32 @@ private
     patient
   end
 
+  # if the patient has any existing measure ids that correspond to component measures, all 'sibling' measure ids will be added
+  def populate_measure_ids_if_composite_measures(patient)
+    # create array of unique parent composite measure ids
+    parent_measure_ids = []
+    patient['measure_ids'].each do |measure_id|
+      # component hqmf set ids are two ids with '&' in between
+      next if measure_id.nil? || !measure_id.include?("&")
+      parent_measure_ids << measure_id.split('&').first
+    end
+    parent_measure_ids.uniq!
+
+    # for each parent measure, get all the child ids and add them to the patient
+    parent_measure_ids.each do |parent_measure_id|
+      parent_measure = CqlMeasure.by_user(current_user).only(:component_hqmf_set_ids).where(hqmf_set_id: parent_measure_id).first
+      patient['measure_ids'].concat parent_measure["component_hqmf_set_ids"]
+      patient['measure_ids'] << parent_measure_id
+    end
+    patient['measure_ids'].uniq!
+  end
+
   def convert_to_hash(key, array)
     Hash[array.map {|element| [element[key],element.except(key)]}]
   end
 
   def get_associated_measure(patient)
-    Measure.where(hqmf_set_id: patient.measure_ids.first)
+    CqlMeasure.where(hqmf_set_id: patient.measure_ids.first)
   end
 
   def qrda_patient_export(patient, measure)

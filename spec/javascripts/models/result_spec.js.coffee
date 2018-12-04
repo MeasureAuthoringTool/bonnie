@@ -1,21 +1,15 @@
 describe 'Result', ->
 
   beforeEach ->
-    window.bonnieRouterCache.load('base_set')
-    @measure = bonnie.measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
-    collection = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json'), parse: true
-    @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
+    jasmine.getJSONFixtures().clearCache()
+    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+    collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+    @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
+    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
+    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
 
-  it 'correctly handles fixing specific occurrence results', ->
-    result = this.measure.get('populations').at(0).calculate(@patient)
-    waitsForAndRuns( -> result.isPopulated()
-      ,
-      ->
-        specificsRationale = result.specificsRationale()
-        expect(specificsRationale.DENEX.OccurrenceAAcutePharyngitis1_precondition_4).toEqual false
-        expect(specificsRationale.DENEX.GROUP_SBS_CHILDREN_47).toEqual false
-        expect(specificsRationale.NUMER.OccurrenceAAmbulatoryEdVisit3).toEqual false
-        )
+  afterEach ->
+    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
 
   it 'allows for deferring use of results until populated', ->
     result1 = new Thorax.Models.Result({}, population: @measure.get('populations').first(), patient: @patient)
@@ -29,7 +23,7 @@ describe 'Result', ->
     initial_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 1, NUMEX: 1}
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual initial_results
-    
+
   it 'NUMEX membership removed when not a member of NUMER', ->
     initial_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 0, NUMEX: 1}
     expected_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 0, NUMEX: 0}
@@ -46,7 +40,7 @@ describe 'Result', ->
     initial_results = {IPP: 1, DENOM: 1, DENEX: 1, NUMER: 0, NUMEX: 0}
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual initial_results
-    
+
   it 'DENEX membership removed when not a member of DENOM', ->
     initial_results = {IPP: 1, DENOM: 0, DENEX: 1, NUMER: 0, NUMEX: 0}
     expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
@@ -105,12 +99,12 @@ describe 'Continuous Variable Calculations', ->
     @universalValueSetsByOid = bonnie.valueSetsByOid
     jasmine.getJSONFixtures().clearCache()
 
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS32/value_sets.json')
+    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS32/value_sets.json')
     @cql_calculator = new CQLCalculator()
 
-    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS32/CMS721v0.json'), parse: true
+    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
     @population = @measure.get('populations').at(0)
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS32/patients.json'), parse: true
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
 
   afterEach ->
     bonnie.valueSetsByOid = @universalValueSetsByOid
@@ -126,10 +120,10 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
-    expect(result.get('episode_results')['5a15993d5cc9752039b64b8f']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5a593cbd942c6d0773593d50']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed', ->
-    patient = @patients.findWhere(last: '2 ED ', first: 'Visits')
+    patient = @patients.findWhere(last: '2 ED', first: 'Visits')
     result = @population.calculate(patient)
     # values are ordered when created by the calculator
     expect(result.get('values')).toEqual([15, 25])
@@ -139,13 +133,13 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-    expect(result.get('episode_results')['5a20544b5cc97509451ab202']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5a593ef8942c6d0773593de1']).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
-    expect(result.get('episode_results')['5a20544b5cc97509451ab203']).toEqual(expectedEpisodeResults)
-  
+    expect(result.get('episode_results')['5a593ef8942c6d0773593de3']).toEqual(expectedEpisodeResults)
+
   it 'can handle multiple episodes observed with one excluded', ->
-    patient = @patients.findWhere(last: '2 ED ', first: 'Visits 1 Excl')
+    patient = @patients.findWhere(last: '2 ED', first: 'Visits 1 Excl')
     result = @population.calculate(patient)
     expect(result.get('values')).toEqual([25])
     expect(result.get('population_relevance')['values']).toBe(true)
@@ -154,13 +148,13 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-    expect(result.get('episode_results')['5a2056095cc97509451ab210']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5a59405f942c6d0773593e15']).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a2056095cc97509451ab211']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5a59405f942c6d0773593e17']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed with both excluded', ->
-    patient = @patients.findWhere(last: '2 ED ', first: 'Visits 2 Excl')
+    patient = @patients.findWhere(last: '2 ED', first: 'Visits 2 Excl')
     result = @population.calculate(patient)
     expect(result.get('values')).toEqual([])
     expect(result.get('population_relevance')['values']).toBe(false)
@@ -169,7 +163,7 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a2055955cc97509451ab20b']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5a5940d8942c6d0c717eeed6']).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a2055955cc97509451ab20d']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5a5940d8942c6d0c717eeed8']).toEqual(expectedEpisodeResults)

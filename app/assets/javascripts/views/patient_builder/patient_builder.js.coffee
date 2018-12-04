@@ -34,7 +34,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.on 'clearHighlight', =>
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
-    @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
+    unless @measure.get('component')
+      @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
+    if @measure.get('component') or @measure.get('composite')
+      @compositeSharingWarningView = new Thorax.Views.CompositeSharingWarning()
 
   dataCriteriaCategories: ->
     categories = {}
@@ -167,6 +170,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       success: (model) =>
         @patients.add model # make sure that the patient exist in the global patient collection
         @measure?.get('patients').add model # and the measure's patient collection
+        # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids 
+        # field with the ids of the sibling and composite measures, so we need to add this patient to those models.
+        for measure_id in model.get('measure_ids')
+          continue if !measure_id?
+          m = bonnie.measures.findWhere({hqmf_set_id: measure_id})
+          m.get('patients').add(model)
         if bonnie.isPortfolio
           @measures.each (m) -> m.get('patients').add model
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
@@ -198,8 +207,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   removeDeathDate: (e) ->
     e.preventDefault()
-    @model.set 'deathdate', null
     @model.set 'expired', false
+    @model.set 'deathtime', null
+    @model.set 'deathdate', null
     @$('#expired').focus()
 
   setAffix: ->
@@ -250,13 +260,8 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   setPopulation: (population) ->
     population.measure().set('displayedPopulation', population)
     @setModel(population)
+    @setView new Thorax.Views.CqlPatientBuilderLogic(model: population.measure(), population: population)
 
-    #TODO: Better test for cql logic here?
-    if population.measure().has('cql')
-      populationLogicView = new Thorax.Views.CqlPatientBuilderLogic(model: population.measure(), population: population)
-    else
-      populationLogicView = new Thorax.Views.PopulationLogic(model: population)
-    @setView populationLogicView
   showRationale: (patient) ->
     @getView().showRationale(@model.calculate(patient))
   context: ->

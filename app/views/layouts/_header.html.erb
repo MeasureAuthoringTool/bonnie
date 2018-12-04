@@ -10,12 +10,6 @@
       <li><a href="/#"><i class="fa fa-bolt" aria-hidden="true"></i> Dashboard</a></li>
     <% end %>
 
-    <% if current_user.is_dashboard? %>
-      <li class="nav-complexity">
-        <a href="/#complexity"><i class="fa fa-warning" aria-hidden="true"></i> Complexity</a>
-      </li>
-    <% end %>
-
     <% if current_page?(controller: 'registrations', action: 'edit') %>
       <li class="nav-account active"><a href="/users/edit"><i class="fa fa-magic" aria-hidden="true"></i> Account</a></li>
     <% else %>
@@ -31,7 +25,7 @@
       <ul class="dropdown-menu">
         <li><a href="https://oncprojectracking.healthit.gov/support/projects/BONNIE">Report Bug</a></li>
         <li><a href="https://groups.google.com/forum/#!forum/bonnie">User Group</a></li>
-        <li><a href="mailto:bonnie-feedback-list@lists.mitre.org">Contact</a></li>
+        <li><a href="mailto:bonnie-feedback-list@mitre.org">Contact</a></li>
         <li><%= link_to 'User Guide', '/resource/Bonnie_user_guide.pdf' %></li>
         <li><%= link_to 'Integration API Guide', '/resource/Bonnie_Integration_API_Guide_v1.pdf' %></li>
       </ul>

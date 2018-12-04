@@ -1,5 +1,10 @@
 class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
+
+  populateComponents: ->
+    return unless @get('composite')
+    @set 'componentMeasures', new Thorax.Collection @get('component_hqmf_set_ids').map((hqmfSetId) => bonnie.measures.findWhere({hqmf_set_id: hqmfSetId}))
+
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
     @set 'patients', new Thorax.Collections.Patients [], _fetched: true
@@ -136,16 +141,14 @@ class Thorax.Models.Measure extends Thorax.Model
   # @param {string} statementName - The statement name.
   ###
   findAllLocalIdsInStatementByName: (libraryName, statementName) ->
-    # Only do stuff if this is a CQL Based measure.
-    if @has('cql')
-      # if we have this one already in the cache then return the cached result.
-      if @_localIdCache[libraryName]?[statementName]?
-        return @_localIdCache[libraryName][statementName]
-      # if it's not in the cache, build the localId map, put it in the cache and return it.
-      else
-        @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
-        @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@, libraryName, statementName)
-        return @_localIdCache[libraryName][statementName]
+    # if we have this one already in the cache then return the cached result.
+    if @_localIdCache[libraryName]?[statementName]?
+      return @_localIdCache[libraryName][statementName]
+    # if it's not in the cache, build the localId map, put it in the cache and return it.
+    else
+      @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
+      @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@, libraryName, statementName)
+      return @_localIdCache[libraryName][statementName]
 
 
 class Thorax.Collections.Measures extends Thorax.Collection

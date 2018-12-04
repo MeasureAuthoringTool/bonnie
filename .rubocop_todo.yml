@@ -209,7 +209,6 @@ Layout/IndentationConsistency:
     - 'test/functional/admin_users_controller_test.rb'
     - 'test/functional/measures_controller_test.rb'
     - 'test/functional/patients_controller_test.rb'
-    - 'test/unit/randomizer_test.rb'
 
 # Offense count: 9
 # Cop supports --auto-correct.
@@ -222,7 +221,6 @@ Layout/IndentationWidth:
     - 'test/functional/measures_controller_test.rb'
     - 'test/functional/patients_controller_test.rb'
     - 'test/rake/cql_test.rb'
-    - 'test/unit/randomizer_test.rb'
 
 # Offense count: 42
 # Cop supports --auto-correct.
@@ -233,7 +231,6 @@ Layout/LeadingCommentSpace:
     - 'lib/measures/patient_builder.rb'
     - 'lib/patient_export.rb'
     - 'lib/tasks/cql_testing.rake'
-    - 'spec/teaspoon_env.rb'
     - 'test/functional/patients_controller_test.rb'
 
 # Offense count: 7
@@ -399,7 +396,6 @@ Layout/SpaceInsideStringInterpolation:
 Layout/Tab:
   Exclude:
     - 'db/migrate/20131105194201_add_expected_values_to_records.rb'
-    - 'test/unit/randomizer_test.rb'
 
 # Offense count: 13
 # Cop supports --auto-correct.
@@ -419,7 +415,6 @@ Layout/TrailingBlankLines:
     - 'lib/measure_exported_results.rb'
     - 'lib/measures/ade_helper.rb'
     - 'lib/version.rb'
-    - 'test/unit/patient_generator_test.rb'
 
 # Offense count: 137
 # Cop supports --auto-correct.
@@ -479,6 +474,10 @@ Lint/LiteralInInterpolation:
     - 'lib/tasks/cql.rake'
     - 'test/rake/bonnie_patients_test.rb'
 
+Lint/NonLocalExitFromIterator:
+  Exclude:
+    - 'app/controllers/api_v1/measures_controller.rb'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 Lint/RedundantWithIndex:
@@ -532,6 +531,7 @@ Lint/UnusedMethodArgument:
     - 'app/controllers/application_controller.rb'
     - 'app/controllers/registrations_controller.rb'
     - 'config/initializers/mongoid.rb'
+    - 'spec/teaspoon_env.rb'
 
 # Offense count: 23
 Lint/UselessAssignment:
@@ -589,6 +589,7 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Exclude:
     - 'app/helpers/excel_export_helper.rb'
+    - 'app/helpers/measure_helper.rb'
 
 # Offense count: 19
 Metrics/PerceivedComplexity:
@@ -691,6 +692,7 @@ Style/ClassAndModuleChildren:
     - 'test/functional/admin_users_controller_test.rb'
     - 'test/simplecov_init.rb'
     - 'test/test_helper.rb'
+    - 'spec/teaspoon_env.rb'
 
 # Offense count: 8
 # Cop supports --auto-correct.
@@ -1039,6 +1041,7 @@ Style/RedundantReturn:
     - 'lib/patient_export.rb'
     - 'lib/tasks/bonnie.rake'
     - 'lib/version.rb'
+    - 'lib/util/fixture_exporter.rb'
 
 # Offense count: 12
 # Cop supports --auto-correct.

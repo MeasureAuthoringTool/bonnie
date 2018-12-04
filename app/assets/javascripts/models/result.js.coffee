@@ -15,11 +15,7 @@ class Thorax.Models.Result extends Thorax.Model
 
   # Checks to see if a result has been populated
   isPopulated: ->
-    # CQL Measures, we want to check to see if attributes of a result have been populated.
-    if @measure.has('cql')
-      return !(_.isEmpty(@attributes)) # Return true if attributes is populated on result object.
-    else
-      @has('rationale')
+    return !(_.isEmpty(@attributes)) # Return true if attributes is populated on result object.
 
   differenceFromExpected: ->
     expected = @patient.getExpectedValue @population

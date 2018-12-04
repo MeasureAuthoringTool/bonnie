@@ -93,7 +93,7 @@ class Record
     measure_population_count = measure.populations.count
 
     # keep track of the population indexes we have seen so we can reject duplicates
-    population_indexes_found = []
+    population_indexes_found = Hash.new { |h, k| h[k] = [] } # make is so uninitialized keys are set to []
     # delete population sets present on the patient but not in the measure. also get rid of garbage and duplicate data.
     self.expected_values.reject! do |expected_value_set|
       # if there is no measure_id then just clean this up
@@ -109,11 +109,11 @@ class Record
         is_duplicate_population = false
         # if it isn't garbage data or an extra population, check if it's a duplicate and/or add it to the list of seen populations
         if !is_garbage_data && !is_extra_population
-          if population_indexes_found.include? expected_value_set[:population_index]
+          if population_indexes_found[expected_value_set[:measure_id]].include? expected_value_set[:population_index]
             is_duplicate_population = true
           else
             # add this population_index to the list of ones we have already seen
-            population_indexes_found << expected_value_set[:population_index]
+            population_indexes_found[expected_value_set[:measure_id]] << expected_value_set[:population_index]
           end
         end
       end

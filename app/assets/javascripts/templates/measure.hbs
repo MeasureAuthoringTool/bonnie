@@ -3,18 +3,29 @@
     <div class="measure-title">
       {{!-- This really just needs to be bold --}}
       <span class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> Measure details</span>
-      <span class="settings-container">
-        <div class="measure-settings">
-          {{#unless cql}}
-            {{#button "toggleVisualization" class="btn btn-default btn-measure-viz btn-viz-chords"}}<i class="fa fa-sitemap" aria-hidden="true"></i> Chords View{{/button}}
-            {{#button "toggleVisualization" class="btn btn-default btn-measure-viz btn-viz-text"}}<i class="fa fa-list" aria-hidden="true"></i> Text View{{/button}}
-          {{/unless}}
-          {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
-          {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
-          {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
-        </div>
-        {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
-      </span>
+      {{#if component}}
+        <span class="settings-container">
+          <div class="measure-settings">
+            <a data-title="Component measures must be updated via their composite measure." data-toggle="tooltip" data-placement="bottom">
+              {{#button "updateMeasure" class="btn btn-default update-measure" disabled="true"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
+            </a>
+            <a data-title="Component measures must be deleted via their composite measure." data-toggle="tooltip" data-placement="bottom">
+              {{#button "deleteMeasure" class="btn btn-danger delete-measure hide" disabled="true"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
+              {{#button "showDelete" class="btn btn-danger-inverse delete-icon" disabled="true"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
+            </a>
+          </div>
+          {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
+        </span>
+      {{else}}
+        <span class="settings-container">
+          <div class="measure-settings">
+              {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
+              {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
+              {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
+          </div>
+          {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
+        </span>
+      {{/if}}
     </div>
     <div class="measure-dsp">
       <h2 class="full-title">{{title}}</h2>
@@ -41,10 +52,6 @@
 
       {{view complexityView}}
 
-      {{#ifAdmin}}
-        <a href="/measures/{{_id}}/debug" class="btn btn-danger">Debug</a>
-      {{/ifAdmin}}
-
     </div>
 
     {{view logicView}}
@@ -61,9 +68,6 @@
           {{#if cql}}
             {{#button "exportExcelPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}
           {{/if}}
-          {{#unless cql}}
-            {{#link "measures/{{hqmf_set_id}}/patient_bank" expand-tokens=true class="btn btn-primary import-patients"}}<i class="fa fa-group" aria-hidden="true"></i> <i class="fa fa-plus" aria-hidden="true"></i><span class="sr-only">Import patients from patient bank</span>{{/link}}
-          {{/unless}}
         </div>
         {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Patient Options</span>{{/button}}
       </span>

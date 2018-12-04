@@ -5,11 +5,11 @@ class BonniePatientsTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    records_set = File.join("records", "CMS347v1")
+    records_set = File.join("records", "core_measures", "CMS32v7")
     users_set = File.join("users", "base_set")
-    cql_measures_set_1 = File.join("cql_measures", "CMS347v1")
-    cql_measures_set_2 = File.join("cql_measures", "CMS160v6")
-    cql_measures_set_3 = File.join("cql_measures", "CMS72v5")
+    cql_measures_set_1 = File.join("cql_measures", "core_measures", "CMS32v7")
+    cql_measures_set_2 = File.join("cql_measures", "core_measures", "CMS160v6")
+    cql_measures_set_3 = File.join("cql_measures", "core_measures", "CMS177v6")
     collection_fixtures(users_set, records_set)
     add_collection(cql_measures_set_1)
     add_collection(cql_measures_set_2)
@@ -17,9 +17,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     @source_email = 'bonnie@example.com'
     @dest_email = 'user_admin@example.com'
-    @source_hqmf_set_id = '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
-    @dest2_hqmf_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
-    @dest_hqmf_set_id = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    @source_hqmf_set_id = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    @dest2_hqmf_set_id = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    @dest_hqmf_set_id = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
 
     @source_user = User.by_email('bonnie@example.com').first
     @dest_user = User.by_email('user_admin@example.com').first

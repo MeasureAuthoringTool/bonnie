@@ -1,9 +1,9 @@
 describe 'Patient', ->
 
   beforeEach ->
-    window.bonnieRouterCache.load('base_set')
-    collection = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json'), parse: true
-    @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
+    jasmine.getJSONFixtures().clearCache()
+    collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+    @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
 
   it 'has basic attributes available', ->
     expect(@patient.get('gender')).toEqual 'F'

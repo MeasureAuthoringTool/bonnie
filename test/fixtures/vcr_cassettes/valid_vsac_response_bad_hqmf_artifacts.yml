@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: UTF-8
+      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '64'
+      Date:
+      - Thu, 08 Mar 2018 18:40:58 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!LrYFARxK/glcLV3m9OGvBt4MxRMcjmFGScZssnZbh3JgqJqi46e96XIq1FXIEJEpwEMu4W+SoKOOwJo=;
+        expires=Thu, 08-Mar-2018 20:40:58 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: TGT-33652-tiBZoh92XXSuV5lJ0rVJhepICvdNeuQ3JUbne6uRaRAbsg0sc5-cas
+    http_version: 
+  recorded_at: Thu, 08 Mar 2018 18:40:58 GMT
+recorded_with: VCR 3.0.3
