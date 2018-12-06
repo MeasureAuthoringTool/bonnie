@@ -19,7 +19,7 @@ def add_collection(collection)
     fixture_json = [fixture_json] unless fixture_json.is_a? Array
     fixture_json.each do |fj|
       convert_times(fj)
-      insert_mongoid_ids(fj)
+      set_mongoid_ids(fj)
       fix_binary_data(fj)
       begin
         Mongoid.default_client[collection_name].insert_one(fj)
@@ -40,17 +40,16 @@ def convert_times(json)
   end
 end
 
-def insert_mongoid_ids(json)
-  return nil unless json.is_a?(Hash)
-  json.each_pair do |k,v|
-    if v && v.is_a?(Hash)
-      if v["$oid"]
+def set_mongoid_ids(json)
+  if json.kind_of? Array
+    json.each { |val| set_mongoid_ids(val) }
+  elsif json.kind_of?( Hash)
+    json.each_pair do |k,v|
+      if v && v.kind_of?( Hash ) && v["$oid"]
         json[k] = BSON::ObjectId.from_string(v["$oid"])
       else
-        insert_mongoid_ids(v)
+        set_mongoid_ids(v)
       end
-    elsif %w[_id bundle_id user_id].include?(k)
-      json[k] = BSON::ObjectId.from_string(v) unless v.nil?
     end
   end
 end

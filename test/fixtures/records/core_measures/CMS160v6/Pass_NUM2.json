@@ -1,8 +1,12 @@
 {
-  "_id": "5a58f485942c6d5479457a7b",
+  "_id": {
+    "$oid": "5a58f485942c6d5479457a7b"
+  },
   "assessments": [
     {
-      "_id": "5a58f6d9942c6d58e8eb6d4f",
+      "_id": {
+        "$oid": "5aeb7763b848463d625b33d9"
+      },
       "codes": {
         "LOINC": [
           "44261-6"
@@ -28,7 +32,9 @@
       "time": null,
       "values": [
         {
-          "_id": "5a58f6d9942c6d58e8eb6d50",
+          "_id": {
+            "$oid": "5aeb7763b848463d625b33da"
+          },
           "scalar": "10",
           "units": ""
         }
@@ -36,10 +42,14 @@
     }
   ],
   "birthdate": -148924800,
-  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "bundle_id": {
+    "$oid": "5a57e977942c6d1e61d32f14"
+  },
   "conditions": [
     {
-      "_id": "5a58f6d9942c6d58e8eb6d4c",
+      "_id": {
+        "$oid": "5aeb7763b848463d625b33d6"
+      },
       "anatomical_location": null,
       "anatomical_target": null,
       "causeOfDeath": null,
@@ -73,7 +83,9 @@
       "type": null
     },
     {
-      "_id": "5a58f6d9942c6d58e8eb6d4d",
+      "_id": {
+        "$oid": "5aeb7763b848463d625b33d7"
+      },
       "anatomical_location": null,
       "anatomical_target": null,
       "causeOfDeath": null,
@@ -114,7 +126,9 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "5a58f6d9942c6d58e8eb6d4e",
+      "_id": {
+        "$oid": "5aeb7763b848463d625b33d8"
+      },
       "admitTime": null,
       "admitType": null,
       "codes": {
@@ -179,40 +193,6 @@
   "expired": null,
   "first": "Pass",
   "gender": "F",
-  "insurance_providers": [
-    {
-      "_id": "5a58f6d9942c6d58e8eb6d51",
-      "codes": {
-        "SOP": [
-          "349"
-        ]
-      },
-      "description": null,
-      "end_time": null,
-      "financial_responsibility_type": {
-        "code": "SELF",
-        "codeSystem": "HL7 Relationship Code"
-      },
-      "health_record_field": null,
-      "member_id": "1234567890",
-      "mood_code": "EVN",
-      "name": "Other",
-      "negationInd": null,
-      "negationReason": null,
-      "oid": null,
-      "payer": {
-        "_id": "5a58f6d9942c6d58e8eb6d52",
-        "name": "Other"
-      },
-      "reason": null,
-      "relationship": null,
-      "specifics": null,
-      "start_time": 1199145600,
-      "status_code": null,
-      "time": null,
-      "type": "OT"
-    }
-  ],
   "is_shared": null,
   "languages": [
 
@@ -262,7 +242,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a58f6d9942c6d58e8eb6d4e",
+      "coded_entry_id": {
+        "$oid": "5aeb7763b848463d625b33d8"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -288,7 +270,9 @@
           "F33.9"
         ]
       },
-      "coded_entry_id": "5a58f6d9942c6d58e8eb6d4c",
+      "coded_entry_id": {
+        "$oid": "5aeb7763b848463d625b33d6"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -321,7 +305,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a58f6d9942c6d58e8eb6d4f",
+      "coded_entry_id": {
+        "$oid": "5aeb7763b848463d625b33d9"
+      },
       "code_source": "DEFAULT"
     },
     {
@@ -347,7 +333,9 @@
           "81319007"
         ]
       },
-      "coded_entry_id": "5a58f6d9942c6d58e8eb6d4d",
+      "coded_entry_id": {
+        "$oid": "5aeb7763b848463d625b33d7"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -360,6 +348,6 @@
   "test_id": null,
   "title": null,
   "type": null,
-  "updated_at": "2018-01-12T17:56:41.722Z",
-  "user_id": "501fdba3044a111b98000001"
+  "updated_at": "2018-05-03T20:56:03.351Z",
+  "user_id": null
 }

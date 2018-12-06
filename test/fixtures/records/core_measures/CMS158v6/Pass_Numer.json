@@ -1,10 +1,16 @@
 {
-  "_id": "5a58f275942c6d5479457994",
+  "_id": {
+    "$oid": "5a58f275942c6d5479457994"
+  },
   "birthdate": 510998400,
-  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "bundle_id": {
+    "$oid": "5a57e977942c6d1e61d32f14"
+  },
   "conditions": [
     {
-      "_id": "5a58f4c6942c6d5479457a93",
+      "_id": {
+        "$oid": "5aeb77c8b848463d625b5aab"
+      },
       "anatomical_location": null,
       "anatomical_target": null,
       "causeOfDeath": null,
@@ -38,7 +44,9 @@
       "type": null
     },
     {
-      "_id": "5a58f4c6942c6d5479457a94",
+      "_id": {
+        "$oid": "5aeb77c8b848463d625b5aac"
+      },
       "anatomical_location": null,
       "anatomical_target": null,
       "causeOfDeath": null,
@@ -95,40 +103,6 @@
   "expired": null,
   "first": "Pass",
   "gender": "F",
-  "insurance_providers": [
-    {
-      "_id": "5a58f4c6942c6d5479457a99",
-      "codes": {
-        "SOP": [
-          "349"
-        ]
-      },
-      "description": null,
-      "end_time": null,
-      "financial_responsibility_type": {
-        "code": "SELF",
-        "codeSystem": "HL7 Relationship Code"
-      },
-      "health_record_field": null,
-      "member_id": "1234567890",
-      "mood_code": "EVN",
-      "name": "Other",
-      "negationInd": null,
-      "negationReason": null,
-      "oid": null,
-      "payer": {
-        "_id": "5a58f4c6942c6d5479457a9a",
-        "name": "Other"
-      },
-      "reason": null,
-      "relationship": null,
-      "specifics": null,
-      "start_time": 1199145600,
-      "status_code": null,
-      "time": null,
-      "type": "OT"
-    }
-  ],
   "is_shared": null,
   "languages": [
 
@@ -147,7 +121,9 @@
   ],
   "procedures": [
     {
-      "_id": "5a58f4c6942c6d5479457a95",
+      "_id": {
+        "$oid": "5aeb77c8b848463d625b5aad"
+      },
       "anatomical_approach": null,
       "anatomical_location": null,
       "anatomical_target": null,
@@ -186,7 +162,9 @@
       "time": null
     },
     {
-      "_id": "5a58f4c6942c6d5479457a96",
+      "_id": {
+        "$oid": "5aeb77c8b848463d625b5aae"
+      },
       "anatomical_approach": null,
       "anatomical_location": null,
       "anatomical_target": null,
@@ -258,7 +236,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a58f4c6942c6d5479457a97",
+      "coded_entry_id": {
+        "$oid": "5aeb77c8b848463d625b5aaf"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -287,7 +267,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a58f4c6942c6d5479457a95",
+      "coded_entry_id": {
+        "$oid": "5aeb77c8b848463d625b5aad"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -314,7 +296,9 @@
           "102879009"
         ]
       },
-      "coded_entry_id": "5a58f4c6942c6d5479457a93",
+      "coded_entry_id": {
+        "$oid": "5aeb77c8b848463d625b5aab"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -343,7 +327,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a58f4c6942c6d5479457a98",
+      "coded_entry_id": {
+        "$oid": "5aeb77c8b848463d625b5ab0"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -372,7 +358,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a58f4c6942c6d5479457a96",
+      "coded_entry_id": {
+        "$oid": "5aeb77c8b848463d625b5aae"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -399,7 +387,9 @@
           "102879009"
         ]
       },
-      "coded_entry_id": "5a58f4c6942c6d5479457a94",
+      "coded_entry_id": {
+        "$oid": "5aeb77c8b848463d625b5aac"
+      },
       "code_source": "USER_DEFINED"
     },
     {
@@ -412,11 +402,13 @@
   "test_id": null,
   "title": null,
   "type": null,
-  "updated_at": "2018-01-12T17:47:50.301Z",
-  "user_id": "501fdba3044a111b98000001",
+  "updated_at": "2018-05-03T20:57:44.014Z",
+  "user_id": null,
   "vital_signs": [
     {
-      "_id": "5a58f4c6942c6d5479457a97",
+      "_id": {
+        "$oid": "5aeb77c8b848463d625b5aaf"
+      },
       "codes": {
         "LOINC": [
           "5195-3"
@@ -449,7 +441,9 @@
       "time": null
     },
     {
-      "_id": "5a58f4c6942c6d5479457a98",
+      "_id": {
+        "$oid": "5aeb77c8b848463d625b5ab0"
+      },
       "codes": {
         "LOINC": [
           "5195-3"

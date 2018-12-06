@@ -19,12 +19,12 @@ class PatientHelperTest < ActionView::TestCase
     collection_fixtures(cms32_records_set, cms134_records_set, cms158_records_set, cms160_records_set, cms177_records_set)
 
     hds_records = Record.all
-    # make sure we have a total of 12 records and run conversion
-    assert_equal 12, hds_records.count
+    # make sure we have a total of 13 records and run conversion
+    assert_equal 13, hds_records.count
     qdm_records, failed_records = PatientHelper.convert_patient_models(hds_records)
 
-    # 11 of the 12 patient are expected to convert without error
-    assert_equal 11, qdm_records.count
+    # 12 of the 13 patient are expected to convert without error
+    assert_equal 12, qdm_records.count
 
     # Pass Numer from CMS134v6 has a component with a unit "cc". This is not valid UCUM so it will show up in the list of failed records.
     assert_equal 1, failed_records.count

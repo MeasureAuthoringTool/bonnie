@@ -1,7 +1,11 @@
 {
-  "_id": "5a593ff0942c6d0773593dff",
+  "_id": {
+    "$oid": "5a593ff0942c6d0773593dff"
+  },
   "birthdate": 757411200,
-  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "bundle_id": {
+    "$oid": "5a57e977942c6d1e61d32f14"
+  },
   "created_at": "2018-01-12T23:08:32.431Z",
   "deathdate": null,
   "description": null,
@@ -9,7 +13,9 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "5aeb77ccb848463d625b5d4d",
+      "_id": {
+        "$oid": "5aeb77ccb848463d625b5d4d"
+      },
       "admitTime": null,
       "admitType": null,
       "codes": {
@@ -30,7 +36,9 @@
       "oid": "2.16.840.1.113883.3.560.1.79",
       "performer_id": null,
       "principalDiagnosis": {
-        "_id": "5aeb77ccb848463d625b5d4e",
+        "_id": {
+          "$oid": "5aeb77ccb848463d625b5d4e"
+        },
         "code": "10278007",
         "code_system": "SNOMED-CT",
         "title": "Psychiatric/Mental Health Diagnosis"
@@ -46,7 +54,9 @@
       "time": null
     },
     {
-      "_id": "5aeb77ccb848463d625b5d4f",
+      "_id": {
+        "$oid": "5aeb77ccb848463d625b5d4f"
+      },
       "admitTime": null,
       "admitType": null,
       "codes": {
@@ -71,7 +81,9 @@
       "oid": "2.16.840.1.113883.3.560.1.79",
       "performer_id": null,
       "principalDiagnosis": {
-        "_id": "5aeb77ccb848463d625b5d50",
+        "_id": {
+          "$oid": "5aeb77ccb848463d625b5d50"
+        },
         "code": "10278007",
         "code_system": "SNOMED-CT",
         "title": "Psychiatric/Mental Health Diagnosis"
@@ -87,7 +99,9 @@
       "time": null
     },
     {
-      "_id": "5aeb77ccb848463d625b5d51",
+      "_id": {
+        "$oid": "5aeb77ccb848463d625b5d51"
+      },
       "admitTime": null,
       "admitType": null,
       "codes": {
@@ -226,7 +240,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5aeb77ccb848463d625b5d4d",
+      "coded_entry_id": {
+        "$oid": "5aeb77ccb848463d625b5d4d"
+      },
       "code_source": "DEFAULT"
     },
     {
@@ -267,7 +283,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5aeb77ccb848463d625b5d4f",
+      "coded_entry_id": {
+        "$oid": "5aeb77ccb848463d625b5d4f"
+      },
       "code_source": "DEFAULT"
     },
     {
@@ -296,7 +314,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5aeb77ccb848463d625b5d51",
+      "coded_entry_id": {
+        "$oid": "5aeb77ccb848463d625b5d51"
+      },
       "code_source": "DEFAULT"
     },
     {
@@ -310,5 +330,5 @@
   "title": null,
   "type": null,
   "updated_at": "2018-05-03T20:57:48.917Z",
-  "user_id": "501fdba3044a111b98000001"
+  "user_id": null
 }

@@ -1,25 +1,6 @@
 # bonnie-fixtures measures creating using:
 
-## Special Set
-CMS878v0 - Result as DateTime
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS878,bonnie-fixtures@mitre.org,CMS878v0]
-bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS878v0
-
-CMS879v0 - Components' result as DateTime
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS879,bonnie-fixtures@mitre.org,CMS879v0]
-bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS879v0
-
-# HDS Patients Used (after conversion) in cqm-execution, these patients are selected out of their respective patients.json files in spec/ or test/
-test/fixtures/records/special_measures/CMS107/*
-test/fixtures/records/special_measures/CMS123/*
-test/fixtures/records/special_measures/CMS460/*
-test/fixtures/records/special_measures/CMS529/*
-test/fixtures/records/special_measures/CMS53/*
-test/fixtures/records/special_measures/CMS760/*
-test/fixtures/records/core_measures/CMS134v6/Pass_Numer.json
-
-CMS890v0 - Composite Measure
-bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS890,bonnie-fixtures@mitre.org,CMS890v0]
+## Core Set
 
 CMS134 - Proportion measure with a single population set
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,core_measures/CMS134v6,bonnie-fixtures@mitre.org,CMS134v6]
@@ -43,6 +24,28 @@ bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.
 
 NOTE: Move exported packages into the test/fixtures/cql_measure/exports/core_measures/ directory or export them from within
 that directory.
+
+
+## Special Set
+CMS878v0 - Result as DateTime
+bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS878,bonnie-fixtures@mitre.org,CMS878v0]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS878v0
+
+CMS879v0 - Components' result as DateTime
+bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS879,bonnie-fixtures@mitre.org,CMS879v0]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS879v0
+
+# HDS Patients Used (after conversion) in cqm-execution, these patients are selected out of their respective patients.json files in spec/ or test/
+test/fixtures/records/special_measures/CMS107/*
+test/fixtures/records/special_measures/CMS123/*
+test/fixtures/records/special_measures/CMS460/*
+test/fixtures/records/special_measures/CMS529/*
+test/fixtures/records/special_measures/CMS53/*
+test/fixtures/records/special_measures/CMS760/*
+test/fixtures/records/core_measures/CMS134v6/Pass_Numer.json
+
+CMS890v0 - Composite Measure
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS890,bonnie-fixtures@mitre.org,CMS890v0]
 
 ## Special Set
 CMS136 - Proportion measure with two population sets with Medication Active and Dispensed
