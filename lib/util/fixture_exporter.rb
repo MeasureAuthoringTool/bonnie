@@ -1,13 +1,13 @@
 # An abstract class that provides fixture exporting functionality
 class FixtureExporter
-  # In order to avoid storing details of real users, a test-specific user fixture exists.
-  @bonnie_fixtures_user_id = '501fdba3044a111b98000001'
 
   def initialize(user, measure: nil, records: nil)
     @user = user
     @measure = measure
     @records = records
 
+    # In order to avoid storing details of real users, a test-specific user fixture exists.
+    @bonnie_fixtures_user_id = { '$oid': '501fdba3044a111b98000001' }
     @component_measures = find_component_measures
     @measure_and_any_components = @measure.present? ? [@measure] + @component_measures : []
   end
@@ -83,7 +83,7 @@ class FixtureExporter
 
   def as_transformed_hash(mongoid_doc)
     doc = make_hash_and_apply_any_transforms(mongoid_doc)
-    doc['user_id'] = @bonnie_fixtures_user_id if doc['user_id'].present?
+    doc['user_id'] = @bonnie_fixtures_user_id if doc.has_key? 'user_id'
     return doc
   end
 
@@ -142,6 +142,13 @@ end
 class FrontendFixtureExporter < FixtureExporter
   alias export_value_sets export_value_sets_as_map
   alias export_records export_records_as_array
+
+  def initialize(user, measure: nil, records: nil)
+    super(user, measure: measure, records: records)
+    # In order to avoid storing details of real users, a test-specific user fixture exists.
+    # for front end tests this should be just a string
+    @bonnie_fixtures_user_id = '501fdba3044a111b98000001'
+  end
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
     return JSON.parse(mongoid_doc.to_json, max_nesting: 1000)

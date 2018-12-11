@@ -10,7 +10,7 @@
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5a58f529942c6d5479457abc",
+        "_id": "5aeb7763b848463d625b33d2",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -31,7 +31,7 @@
         "oid": "2.16.840.1.113883.3.560.1.79",
         "performer_id": null,
         "principalDiagnosis": {
-          "_id": "5a58f529942c6d5479457abd",
+          "_id": "5aeb7763b848463d625b33d3",
           "code": "14183003",
           "code_system": "SNOMED-CT",
           "title": "Major Depressive Disorder-Active"
@@ -39,8 +39,8 @@
         "reason": null,
         "references": [
           {
-            "_id": "5a58f529942c6d5479457ac1",
-            "referenced_id": "5a58f529942c6d5479457abe",
+            "_id": "5aeb7763b848463d625b33d5",
+            "referenced_id": "5aeb7763b848463d625b33d4",
             "referenced_type": "Procedure",
             "type": "Related To"
           }
@@ -72,40 +72,6 @@
     "expired": null,
     "first": "Pass",
     "gender": "F",
-    "insurance_providers": [
-      {
-        "_id": "5a58f529942c6d5479457abf",
-        "codes": {
-          "SOP": [
-            "349"
-          ]
-        },
-        "description": null,
-        "end_time": null,
-        "financial_responsibility_type": {
-          "code": "SELF",
-          "codeSystem": "HL7 Relationship Code"
-        },
-        "health_record_field": null,
-        "member_id": "1234567890",
-        "mood_code": "EVN",
-        "name": "Other",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": null,
-        "payer": {
-          "_id": "5a58f529942c6d5479457ac0",
-          "name": "Other"
-        },
-        "reason": null,
-        "relationship": null,
-        "specifics": null,
-        "start_time": 1199145600,
-        "status_code": null,
-        "time": null,
-        "type": "OT"
-      }
-    ],
     "is_shared": null,
     "languages": [
 
@@ -124,7 +90,7 @@
     ],
     "procedures": [
       {
-        "_id": "5a58f529942c6d5479457abe",
+        "_id": "5aeb7763b848463d625b33d4",
         "anatomical_approach": null,
         "anatomical_location": null,
         "anatomical_target": null,
@@ -211,7 +177,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5a58f529942c6d5479457abc",
+        "coded_entry_id": "5aeb7763b848463d625b33d2",
         "code_source": "DEFAULT"
       },
       {
@@ -240,7 +206,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5a58f529942c6d5479457abe",
+        "coded_entry_id": "5aeb7763b848463d625b33d4",
         "code_source": "DEFAULT"
       },
       {
@@ -253,8 +219,8 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-01-12T17:49:29.843Z",
-    "user_id": "5a57e975942c6d1e61d32f13"
+    "updated_at": "2018-05-03T20:56:03.305Z",
+    "user_id": "501fdba3044a111b98000001"
   },
   {
     "_id": "5a9eddefb84846563e7d578c",
@@ -267,7 +233,7 @@
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5a9eddfbb84846563e7d5798",
+        "_id": "5aeb77a2b848463d625b4c6e",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -318,40 +284,6 @@
     "expired": null,
     "first": "Fail",
     "gender": "M",
-    "insurance_providers": [
-      {
-        "_id": "5a9eddfbb84846563e7d5799",
-        "codes": {
-          "SOP": [
-            "349"
-          ]
-        },
-        "description": null,
-        "end_time": null,
-        "financial_responsibility_type": {
-          "code": "SELF",
-          "codeSystem": "HL7 Relationship Code"
-        },
-        "health_record_field": null,
-        "member_id": "1234567890",
-        "mood_code": "EVN",
-        "name": "Other",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": null,
-        "payer": {
-          "_id": "5a9eddfbb84846563e7d579a",
-          "name": "Other"
-        },
-        "reason": null,
-        "relationship": null,
-        "specifics": null,
-        "start_time": 1199145600,
-        "status_code": null,
-        "time": null,
-        "type": "OT"
-      }
-    ],
     "is_shared": null,
     "languages": [
 
@@ -404,7 +336,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5a9eddfbb84846563e7d5798",
+        "coded_entry_id": "5aeb77a2b848463d625b4c6e",
         "code_source": "DEFAULT"
       },
       {
@@ -417,7 +349,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-03-06T18:29:15.195Z",
-    "user_id": "5a57e975942c6d1e61d32f13"
+    "updated_at": "2018-05-03T20:57:06.459Z",
+    "user_id": "501fdba3044a111b98000001"
   }
 ]

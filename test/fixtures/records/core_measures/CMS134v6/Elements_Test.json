@@ -1121,7 +1121,9 @@
   "title": null,
   "type": null,
   "updated_at": "2018-08-09T12:11:24.173Z",
-  "user_id": null,
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  },
   "vital_signs": [
     {
       "_id": {

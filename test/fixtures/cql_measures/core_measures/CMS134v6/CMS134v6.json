@@ -14042,7 +14042,9 @@
   "title": "Diabetes: Medical Attention for Nephropathy",
   "type": "ep",
   "updated_at": "2018-02-15T19:54:14.839Z",
-  "user_id": null,
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  },
   "value_set_oid_version_objects": [
     {
       "oid": "2.16.840.1.113762.1.4.1",

@@ -435,7 +435,9 @@
   "title": null,
   "type": null,
   "updated_at": "2018-05-03T20:57:57.485Z",
-  "user_id": null,
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  },
   "vital_signs": [
     {
       "_id": {

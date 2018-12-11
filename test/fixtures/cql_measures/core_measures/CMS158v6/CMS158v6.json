@@ -5076,7 +5076,9 @@
   "title": "Pregnant women that had HBsAg testing",
   "type": "ep",
   "updated_at": "2018-01-11T22:54:47.980Z",
-  "user_id": null,
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  },
   "value_set_oid_version_objects": [
     {
       "oid": "2.16.840.1.113762.1.4.1",
