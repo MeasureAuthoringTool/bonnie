@@ -1,11 +1,11 @@
 {
   "_id": {
-    "$oid": "5b61b638b84846662484a6c1"
+    "$oid": "5b61b693b84846662484a6e4"
   },
   "assessments": [
     {
       "_id": {
-        "$oid": "5b61b638b84846662484a6c2"
+        "$oid": "5b61b693b84846662484a6e5"
       },
       "codes": {
         "LOINC": [
@@ -33,7 +33,7 @@
       "values": [
         {
           "_id": {
-            "$oid": "5b61b638b84846662484a6c5"
+            "$oid": "5b61b693b84846662484a6e8"
           },
           "scalar": 1336032000000,
           "units": "UnixTime"
@@ -45,7 +45,7 @@
   "bundle_id": {
     "$oid": "5a57e977942c6d1e61d32f14"
   },
-  "created_at": "2018-08-01T13:31:36.935Z",
+  "created_at": "2018-08-01T13:33:07.634Z",
   "deathdate": null,
   "description": null,
   "description_category": null,
@@ -61,7 +61,7 @@
       "population_index": 0,
       "IPP": 1,
       "DENOM": 1,
-      "NUMER": 0
+      "NUMER": 1
     }
   ],
   "expired": null,
@@ -70,7 +70,7 @@
   "insurance_providers": [
     {
       "_id": {
-        "$oid": "5b61b638b84846662484a6c6"
+        "$oid": "5b61b693b84846662484a6e9"
       },
       "codes": {
         "SOP": [
@@ -92,7 +92,7 @@
       "oid": null,
       "payer": {
         "_id": {
-          "$oid": "5b61b638b84846662484a6c7"
+          "$oid": "5b61b693b84846662484a6ea"
         },
         "name": "Other"
       },
@@ -109,18 +109,18 @@
   "languages": [
 
   ],
-  "last": "NoNumerator",
+  "last": "Numerator",
   "marital_status": null,
   "measure_ids": [
     "D5355200-50C1-4A79-8983-8617B93FE6C1",
     null
   ],
   "medical_record_assigner": "Bonnie",
-  "medical_record_number": "6f7fa9bdd5fc70b547408d8374fe5b66d446e9160acb57bc101f8ce353712056",
+  "medical_record_number": "a5b1de56a574b5ad0b76cdfac071de678289832fc7518f1fa5540ebc5e235e15",
   "medications": [
     {
       "_id": {
-        "$oid": "5b61b638b84846662484a6c3"
+        "$oid": "5b61b693b84846662484a6e6"
       },
       "active_datetime": null,
       "administrationTiming": null,
@@ -218,7 +218,7 @@
       },
       "negation_code_list_id": "",
       "coded_entry_id": {
-        "$oid": "5b61b638b84846662484a6c2"
+        "$oid": "5b61b693b84846662484a6e5"
       },
       "code_source": "DEFAULT"
     },
@@ -248,7 +248,7 @@
       },
       "negation_code_list_id": "2.16.840.1.113883.3.600.791",
       "coded_entry_id": {
-        "$oid": "5b61b638b84846662484a6c3"
+        "$oid": "5b61b693b84846662484a6e6"
       },
       "code_source": "DEFAULT"
     },
@@ -283,9 +283,9 @@
               "referenceRangeHigh_value": "",
               "referenceRangeHigh_unit": "",
               "title": "Beta Blocker Therapy for LVSD",
-              "start_date": "07/17/2011",
+              "start_date": "07/17/2012",
               "start_time": "8:00 AM",
-              "value": 1310889600000
+              "value": 1342512000000
             }
           ]
         }
@@ -300,7 +300,7 @@
       },
       "negation_code_list_id": "",
       "coded_entry_id": {
-        "$oid": "5b61b638b84846662484a6c4"
+        "$oid": "5b61b693b84846662484a6e7"
       },
       "code_source": "DEFAULT"
     },
@@ -314,14 +314,14 @@
   "test_id": null,
   "title": null,
   "type": null,
-  "updated_at": "2018-08-01T13:31:36.935Z",
+  "updated_at": "2018-08-01T13:33:07.634Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "vital_signs": [
     {
       "_id": {
-        "$oid": "5b61b638b84846662484a6c4"
+        "$oid": "5b61b693b84846662484a6e7"
       },
       "codes": {
         "LOINC": [
@@ -338,7 +338,7 @@
             },
             "result": {
               "units": "UnixTime",
-              "scalar": 1310889600000
+              "scalar": 1342512000000
             },
             "referenceRangeLow": {
               "scalar": "",

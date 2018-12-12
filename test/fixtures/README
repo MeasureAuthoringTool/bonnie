@@ -25,8 +25,20 @@ bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.
 NOTE: Move exported packages into the test/fixtures/cql_measure/exports/core_measures/ directory or export them from within
 that directory.
 
-
 ## Special Set
+
+CMS136 - Proportion measure with two population sets with Medication Active and Dispensed
+bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS136v7,bonnie-fixtures@mitre.org,CMS136v7]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS136v7
+
+CMS146 - Episode of care based measure with Medication Ordered. Includes the the Hospice library.
+bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS146v6,bonnie-fixtures@mitre.org,CMS146v6]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS146v6
+
+CMS720 - Outdated Episode of care observation measure. This is to show warning message on old measures.
+bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS720v0,bonnie-fixtures@mitre.org,CMS720v0]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS720v0
+
 CMS878v0 - Result as DateTime
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS878,bonnie-fixtures@mitre.org,CMS878v0]
 bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS878v0
@@ -44,18 +56,5 @@ test/fixtures/records/special_measures/CMS53/*
 test/fixtures/records/special_measures/CMS760/*
 test/fixtures/records/core_measures/CMS134v6/Pass_Numer.json
 
-CMS890v0 - Composite Measure
+CMS890v0 - Composite Measure TODO: Update this when the composite measure and tests are sorted out.
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS890,bonnie-fixtures@mitre.org,CMS890v0]
-
-## Special Set
-CMS136 - Proportion measure with two population sets with Medication Active and Dispensed
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS136v7,bonnie-fixtures@mitre.org,CMS136v7]
-bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS136v7
-
-CMS146 - Episode of care based measure with Medication Ordered. Includes the the Hospice library.
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS146v6,bonnie-fixtures@mitre.org,CMS146v6]
-bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS146v6
-
-CMS720 - Outdated Episode of care observation measure. This is to show warning message on old measures.
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS720v0,bonnie-fixtures@mitre.org,CMS720v0]
-bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS720v0

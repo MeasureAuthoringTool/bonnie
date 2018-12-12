@@ -1,7 +1,11 @@
 {
-  "_id": "5a7dc67fb8484620c5183d68",
+  "_id": {
+    "$oid": "5a7dc67fb8484620c5183d68"
+  },
   "birthdate": 1107331200,
-  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "bundle_id": {
+    "$oid": "5a57e977942c6d1e61d32f14"
+  },
   "created_at": "2018-02-09T16:04:15.772Z",
   "deathdate": null,
   "description": null,
@@ -9,7 +13,9 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "5a7dc67fb8484620c5183d69",
+      "_id": {
+        "$oid": "5aeb7734b848463d625b203a"
+      },
       "admitTime": null,
       "admitType": null,
       "codes": {
@@ -69,40 +75,6 @@
   "expired": null,
   "first": "Pass",
   "gender": "M",
-  "insurance_providers": [
-    {
-      "_id": "5a7dc67fb8484620c5183d6c",
-      "codes": {
-        "SOP": [
-          "349"
-        ]
-      },
-      "description": null,
-      "end_time": null,
-      "financial_responsibility_type": {
-        "code": "SELF",
-        "codeSystem": "HL7 Relationship Code"
-      },
-      "health_record_field": null,
-      "member_id": "1234567890",
-      "mood_code": "EVN",
-      "name": "Other",
-      "negationInd": null,
-      "negationReason": null,
-      "oid": null,
-      "payer": {
-        "_id": "5a7dc67fb8484620c5183d6d",
-        "name": "Other"
-      },
-      "reason": null,
-      "relationship": null,
-      "specifics": null,
-      "start_time": 1199145600,
-      "status_code": null,
-      "time": null,
-      "type": "OT"
-    }
-  ],
   "is_shared": null,
   "languages": [
 
@@ -117,7 +89,9 @@
   "medical_record_number": "978377cb9abfa822ea7943ce0ac537f2638722c872dcb77b05b86b106367455a",
   "medications": [
     {
-      "_id": "5a7dc67fb8484620c5183d6a",
+      "_id": {
+        "$oid": "5aeb7734b848463d625b203b"
+      },
       "active_datetime": null,
       "administrationTiming": null,
       "allowedAdministrations": null,
@@ -128,8 +102,10 @@
         ]
       },
       "cumulativeMedicationDuration": null,
+      "daysSupplied": null,
       "deliveryMethod": null,
       "description": "Medication, Dispensed: ADHD Medications",
+      "dispenserIdentifier": null,
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
@@ -147,10 +123,13 @@
       "negationReason": null,
       "oid": "2.16.840.1.113883.3.560.1.8",
       "patientInstructions": null,
+      "prescriberIdentifier": null,
       "productForm": null,
       "reaction": null,
       "reason": null,
+      "refills": null,
       "route": null,
+      "setting": null,
       "signed_datetime": null,
       "specifics": null,
       "start_time": 1328774400,
@@ -166,7 +145,9 @@
       "vehicle": null
     },
     {
-      "_id": "5a7dc67fb8484620c5183d6b",
+      "_id": {
+        "$oid": "5aeb7734b848463d625b203c"
+      },
       "active_datetime": null,
       "administrationTiming": null,
       "allowedAdministrations": null,
@@ -177,8 +158,10 @@
         ]
       },
       "cumulativeMedicationDuration": null,
+      "daysSupplied": null,
       "deliveryMethod": null,
       "description": "Medication, Active: ADHD Medications",
+      "dispenserIdentifier": null,
       "dose": null,
       "doseIndicator": null,
       "doseRestriction": null,
@@ -196,10 +179,13 @@
       "negationReason": null,
       "oid": "2.16.840.1.113883.3.560.1.13",
       "patientInstructions": null,
+      "prescriberIdentifier": null,
       "productForm": null,
       "reaction": null,
       "reason": null,
+      "refills": null,
       "route": null,
+      "setting": null,
       "signed_datetime": null,
       "specifics": null,
       "start_time": 1328774400,
@@ -258,7 +244,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a7dc67fb8484620c5183d69",
+      "coded_entry_id": {
+        "$oid": "5aeb7734b848463d625b203a"
+      },
       "code_source": "DEFAULT"
     },
     {
@@ -288,11 +276,13 @@
       },
       "fulfillments": null,
       "dose_value": "",
-      "dose_unit": "capsule(s)",
+      "dose_unit": "{Capsule}",
       "frequency_value": "",
       "frequency_unit": "min",
       "negation_code_list_id": "",
-      "coded_entry_id": "5a7dc67fb8484620c5183d6a",
+      "coded_entry_id": {
+        "$oid": "5aeb7734b848463d625b203b"
+      },
       "code_source": "DEFAULT"
     },
     {
@@ -322,10 +312,12 @@
       },
       "fulfillments": null,
       "dose_value": "",
-      "dose_unit": "capsule(s)",
+      "dose_unit": "{Capsule}",
       "frequency_value": "",
       "frequency_unit": "min",
-      "coded_entry_id": "5a7dc67fb8484620c5183d6b",
+      "coded_entry_id": {
+        "$oid": "5aeb7734b848463d625b203c"
+      },
       "code_source": "DEFAULT"
     },
     {
@@ -338,6 +330,8 @@
   "test_id": null,
   "title": null,
   "type": null,
-  "updated_at": "2018-02-09T16:04:15.772Z",
-  "user_id": "501fdba3044a111b98000001"
+  "updated_at": "2018-05-03T20:55:16.179Z",
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  }
 }
