@@ -36,7 +36,7 @@ class PatientHelperTest < ActionView::TestCase
   test 'Using special_measures set, Correct Number Of Patients Recieved From convert_patient_models' do
     # load all of the special_measures fixture patients
     dump_database
-    cms347_records_set = File.join("records","special_measures","CMS347v1")
+    cms347_records_set = File.join("records","deprecated_measures","CMS347v1")
     collection_fixtures(cms347_records_set)
 
     hds_records = Record.all

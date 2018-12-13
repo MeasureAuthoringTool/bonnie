@@ -9,7 +9,7 @@ module ApiV1
       FileUtils.rm_r @error_dir if File.directory?(@error_dir)
       dump_database
       users_set = File.join('users', 'base_set')
-      cms347_fixtures = File.join('cql_measures', 'special_measures', 'CMS347v1'), File.join('records', 'CMS347v1')
+      cms347_fixtures = File.join('cql_measures', 'deprecated_measures', 'CMS347v1'), File.join('records', 'deprecated_measures', 'CMS347v1')
       collection_fixtures(users_set, *cms347_fixtures)
       @user = User.by_email('bonnie@example.com').first
       associate_user_with_measures(@user,CqlMeasure.all)
