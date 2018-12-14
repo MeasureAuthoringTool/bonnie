@@ -101,3 +101,6 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 cms720 - outdated episode of care observation measure. this is to show warning message on old measures.
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/cms720,bonnie-fixtures@mitre.org,cms720v0]
+
+cms12v0 - outdated measure to test data criteria Allergy/Intolerance: Statin Allergen
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/cms12v0,bonnie-fixtures@mitre.org,cms12v0]
