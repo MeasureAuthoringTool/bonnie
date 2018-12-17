@@ -83,7 +83,7 @@ class FixtureExporter
 
   def as_transformed_hash(mongoid_doc)
     doc = make_hash_and_apply_any_transforms(mongoid_doc)
-    doc['user_id'] = @bonnie_fixtures_user_id if doc.has_key? 'user_id'
+    doc['user_id'] = @bonnie_fixtures_user_id if doc.key? 'user_id'
     return doc
   end
 

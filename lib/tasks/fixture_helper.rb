@@ -16,10 +16,10 @@ def add_collection(collection)
     fixture_json = JSON.parse(File.read(json_fixture_file))
     next if fixture_json.empty?
     # Value_sets are arrays of objects, unlike measures etc, so we need to iterate in that case.
-    fixture_json = [fixture_json] unless fixture_json.is_a? Array
+    fixture_json = [fixture_json] unless fixture_json.is_a?(Array)
     fixture_json.each do |fj|
       convert_times(fj)
-      set_mongoid_ids(fj)
+      convert_mongoid_ids(fj)
       fix_binary_data(fj)
       begin
         Mongoid.default_client[collection_name].insert_one(fj)
@@ -40,15 +40,15 @@ def convert_times(json)
   end
 end
 
-def set_mongoid_ids(json)
-  if json.kind_of? Array
-    json.each { |val| set_mongoid_ids(val) }
-  elsif json.kind_of?( Hash)
+def convert_mongoid_ids(json)
+  if json.is_a?(Array)
+    json.each { |val| convert_mongoid_ids(val) }
+  elsif json.is_a?(Hash)
     json.each_pair do |k,v|
-      if v && v.kind_of?( Hash ) && v["$oid"]
+      if v && v.is_a?(Hash) && v["$oid"]
         json[k] = BSON::ObjectId.from_string(v["$oid"])
       else
-        set_mongoid_ids(v)
+        convert_mongoid_ids(v)
       end
     end
   end
