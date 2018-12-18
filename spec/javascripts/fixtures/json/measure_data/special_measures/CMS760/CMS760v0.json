@@ -1,6 +1,7 @@
 {
-  "_id": "5abd39bf08fa1885ee1896f5",
-  "bundle_id": "5346d238908563511c000001",
+  "_id": "5abe84c5b8484660706240b3",
+  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "calculate_sdes": null,
   "category": "Miscellaneous",
   "cms_id": "CMS760v0",
   "complexity": {
@@ -51,6 +52,11 @@
       }
     ]
   },
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
   "continuous_variable": false,
   "cql": [
     "library PD0329 version '0.0.004'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Medicare Fee For Service\": 'urn:oid:2.16.840.1.113883.3.1240.15.2.4008'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Medicare Fee\":\r\n\t\"Interesting Encounter\" Enc\r\n\t\twith [\"Patient Characteristic Payer\": \"Medicare Fee For Service\"] Fee\r\n\t\t\tsuch that Fee.relevantPeriod overlaps Enc.relevantPeriod\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Medicare Fee\"\r\n\r\ndefine \"Initial Population\":\r\n\tPatient.birthDatetime in \"IntervalWithTZOffsets\"\r\n\r\ndefine \"IntervalWithTZOffsets\":\r\n\tInterval[DateTime(year from start of \"Measurement Period\", 8, 1), DateTime(year from start of \"Measurement Period\", 12, 31)]\r\n"
@@ -104,7 +110,7 @@
       ]
     }
   },
-  "created_at": "2018-03-29T19:08:47.910Z",
+  "created_at": "2018-03-30T18:41:09.210Z",
   "data_criteria": {
     "Payer_PatientCharacteristicPayer_55bd20d0_a8e2_47be_b152_224cf8670f8b": {
       "title": "Payer",
@@ -2512,7 +2518,7 @@
   "hqmf_id": "40280582-624A-D531-0162-72E0C62000B9",
   "hqmf_set_id": "065C9002-603F-46A3-BA0F-E2A9F1732DC3",
   "hqmf_version_number": 0,
-  "id": "5abd39bf08fa1885ee1896f5",
+  "id": "5abe84c5b8484660706240b3",
   "main_cql_library": "PD0329",
   "measure_attributes": [
     {
@@ -3236,7 +3242,7 @@
   },
   "title": "PD0329",
   "type": "ep",
-  "updated_at": "2018-03-29T19:08:47.910Z",
+  "updated_at": "2018-03-30T18:41:09.210Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_oid_version_objects": [
     {

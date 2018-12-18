@@ -1,6 +1,7 @@
 {
   "_id": "5aec6deab848463f1229da15",
   "bundle_id": "5a57e977942c6d1e61d32f14",
+  "calculate_sdes": null,
   "category": "Miscellaneous",
   "cms_id": "CMS761v0",
   "complexity": {
@@ -47,6 +48,11 @@
       }
     ]
   },
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
   "continuous_variable": false,
   "cql": [
     "library BonnieTestParticipation version '0.0.002'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\nvalueset \"Insurance Coverage Type, FPAR\": 'urn:oid:2.16.840.1.113762.1.4.1166.29'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Interesting Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\t\"InParticipationPeriod\"\r\n\r\ndefine \"InParticipationPeriod\":\r\n\texists [\"Participation\": \"Insurance Coverage Type, FPAR\"] P\r\n\t\twhere P.participationPeriod overlaps \"Measurement Period\"\r\n"
@@ -2628,7 +2634,7 @@
   "title": "BonnieTestParticipation",
   "type": "ep",
   "updated_at": "2018-05-04T14:27:54.548Z",
-  "user_id": "5a57e975942c6d1e61d32f13",
+  "user_id": "501fdba3044a111b98000001",
   "value_set_oid_version_objects": [
     {
       "oid": "2.16.840.1.113762.1.4.1",
