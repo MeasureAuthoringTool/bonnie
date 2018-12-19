@@ -12,6 +12,7 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - npm install -g coffeelint
   - npm install -g istanbul
+  - npm install -g codecov
 services: mongodb
 bundler_args: --without test development
 before_script:
@@ -23,6 +24,7 @@ before_script:
   - export PATH=$PATH:/tmp/chromedriver
 script:
   - bundle exec rake teaspoon
+  - codecov
   - bundle exec brakeman -qAzw1
   - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
