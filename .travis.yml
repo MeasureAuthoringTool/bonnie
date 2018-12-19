@@ -23,7 +23,7 @@ before_script:
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
 script:
-  - bundle exec rake teaspoon
+  - bundle exec rake teaspoon USE_COVERAGE=default
   - codecov
   - bundle exec brakeman -qAzw1
   - bundle exec bundle-audit check --update
