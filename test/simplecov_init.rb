@@ -1,4 +1,6 @@
 require 'simplecov'
+require 'codecov'
+
 SimpleCov.start do
   add_filter "test/"
   add_filter "lib/tasks/bonnie_run_once.rake"
@@ -13,14 +15,5 @@ SimpleCov.start do
   add_group "Extensions", "lib/ext"
 end
 
-class SimpleCov::Formatter::QualityFormatter
-  def format(result)
-    SimpleCov::Formatter::HTMLFormatter.new.format(result)
-    File.open("coverage/covered_percent", "w") do |f|
-      f.puts result.source_files.covered_percent.to_f
-    end
-  end
-end
-
-SimpleCov.formatter = SimpleCov::Formatter::QualityFormatter
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
 SimpleCov.minimum_coverage(87.3)

@@ -108,6 +108,10 @@ GEM
       sexp_processor
     codeclimate-engine-rb (0.4.1)
       virtus (~> 1.0)
+    codecov (0.1.14)
+      json
+      simplecov
+      url
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -407,6 +411,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.5)
     unicode-display_width (1.4.0)
+    url (0.3.2)
     uuid (2.3.9)
       macaddr (~> 1.0)
     vcr (3.0.3)
@@ -435,6 +440,7 @@ DEPENDENCIES
   browser
   bundler-audit
   capistrano-rails
+  codecov
   coffee-rails
   colorize
   cql_qdm_patientapi (~> 1.3.1)
@@ -485,4 +491,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   1.16.6
+   1.17.1
