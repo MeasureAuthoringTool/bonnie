@@ -4,8 +4,8 @@ require './app/helpers/patient_helper'
 class PatientHelperTest < ActionView::TestCase
 
   test 'No Patients Sent To convert_patient_models' do
-    qdm_records = PatientHelper.convert_patient_models([])
-    assert_equal [[], []], qdm_records
+    cqm_records = PatientHelper.convert_patient_models([])
+    assert_equal [[], []], cqm_records
   end
 
   test 'Using core_measures set, Correct Number Of Patients Recieved From convert_patient_models with one failed patient' do
@@ -42,10 +42,10 @@ class PatientHelperTest < ActionView::TestCase
     hds_records = Record.all
     # make sure we have a total of 7 records and run converson
     assert_equal 7, hds_records.count
-    qdm_records, failed_records = PatientHelper.convert_patient_models(hds_records)
+    cqm_records, failed_records = PatientHelper.convert_patient_models(hds_records)
 
     # expect all 7 to convert without issue
-    assert_equal 7, qdm_records.count
+    assert_equal 7, cqm_records.count
 
     # expect there to be no failed records
     assert_empty failed_records

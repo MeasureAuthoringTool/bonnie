@@ -196,7 +196,7 @@ class ExcelExportHelperTest < ActionController::TestCase
   def get_results_with_failed_patients(patients, results)
     # If patients can't be converted, the results object will have an extra field: 'failed_patients'
     # mimic the adding of 'failed_patients' by api_v1/measures_controller.rb
-    qdm_patients, failed_patients = PatientHelper.convert_patient_models(patients)
+    cqm_patients, failed_patients = PatientHelper.convert_patient_models(patients)
     results_with_failed_patients = results
     results_with_failed_patients['failed_patients'] = failed_patients
     results_with_failed_patients
