@@ -7,6 +7,7 @@ SimpleCov.start do
   add_filter "lib/tasks/vsac.rake"
   add_filter "lib/tasks/cql_testing.rake"
   add_filter "lib/util/fixture_exporter.rb"
+  add_filter "spec/teaspoon_env.rb"
   add_group "Controllers", "app/controllers"
   add_group "Helpers", "app/helpers"
   add_group "Models", "app/models"
