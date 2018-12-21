@@ -1,0 +1,4959 @@
+{
+  "2.16.840.1.113762.1.4.1": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f253b848466c63f9ada5",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f253b848466c63f9ada6",
+          "black_list": false,
+          "code": "F",
+          "code_system": "2.16.840.1.113883.5.1",
+          "code_system_name": "AdministrativeGender",
+          "code_system_version": "HL7V3.0_2017-07",
+          "display_name": "Female",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f253b848466c63f9ada7",
+          "black_list": false,
+          "code": "M",
+          "code_system": "2.16.840.1.113883.5.1",
+          "code_system_name": "AdministrativeGender",
+          "code_system_version": "HL7V3.0_2017-07",
+          "display_name": "Male",
+          "white_list": false
+        }
+      ],
+      "display_name": "ONC Administrative Sex",
+      "oid": "2.16.840.1.113762.1.4.1",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.114222.4.11.836": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f254b848466c63f9ada8",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f254b848466c63f9ada9",
+          "black_list": false,
+          "code": "1002-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "American Indian or Alaska Native",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adaa",
+          "black_list": false,
+          "code": "2028-9",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Asian",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adab",
+          "black_list": false,
+          "code": "2054-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Black or African American",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adac",
+          "black_list": false,
+          "code": "2076-8",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Native Hawaiian or Other Pacific Islander",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adad",
+          "black_list": false,
+          "code": "2106-3",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "White",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adae",
+          "black_list": false,
+          "code": "2131-1",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Other Race",
+          "white_list": false
+        }
+      ],
+      "display_name": "Race",
+      "oid": "2.16.840.1.114222.4.11.836",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.114222.4.11.837": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f254b848466c63f9adaf",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f254b848466c63f9adb0",
+          "black_list": false,
+          "code": "2135-2",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Hispanic or Latino",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adb1",
+          "black_list": false,
+          "code": "2186-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Not Hispanic or Latino",
+          "white_list": false
+        }
+      ],
+      "display_name": "Ethnicity",
+      "oid": "2.16.840.1.114222.4.11.837",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.114222.4.11.3591": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f254b848466c63f9adb2",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f254b848466c63f9adb3",
+          "black_list": false,
+          "code": "1",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "MEDICARE",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adb4",
+          "black_list": false,
+          "code": "11",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adb5",
+          "black_list": false,
+          "code": "111",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adb6",
+          "black_list": false,
+          "code": "112",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adb7",
+          "black_list": false,
+          "code": "113",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare POS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adb8",
+          "black_list": false,
+          "code": "119",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adb9",
+          "black_list": false,
+          "code": "12",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare (Non-managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adba",
+          "black_list": false,
+          "code": "121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare FFS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adbb",
+          "black_list": false,
+          "code": "122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Drug Benefit",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adbc",
+          "black_list": false,
+          "code": "123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Medical Savings Account (MSA)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adbd",
+          "black_list": false,
+          "code": "129",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Non-managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adbe",
+          "black_list": false,
+          "code": "13",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Hospice",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adbf",
+          "black_list": false,
+          "code": "14",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Dual Eligibility Medicare/Medicaid Organization",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc0",
+          "black_list": false,
+          "code": "19",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc1",
+          "black_list": false,
+          "code": "191",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc2",
+          "black_list": false,
+          "code": "2",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "MEDICAID",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc3",
+          "black_list": false,
+          "code": "21",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc4",
+          "black_list": false,
+          "code": "211",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc5",
+          "black_list": false,
+          "code": "212",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc6",
+          "black_list": false,
+          "code": "213",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid PCCM (Primary Care Case Management)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc7",
+          "black_list": false,
+          "code": "219",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc8",
+          "black_list": false,
+          "code": "22",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid (Non-managed Care Plan)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adc9",
+          "black_list": false,
+          "code": "23",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid/SCHIP",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adca",
+          "black_list": false,
+          "code": "25",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid - Out of State",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adcb",
+          "black_list": false,
+          "code": "26",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid -- Long Term Care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adcc",
+          "black_list": false,
+          "code": "29",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adcd",
+          "black_list": false,
+          "code": "291",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adce",
+          "black_list": false,
+          "code": "299",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adcf",
+          "black_list": false,
+          "code": "3",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add0",
+          "black_list": false,
+          "code": "31",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Department of Defense",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add1",
+          "black_list": false,
+          "code": "311",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE (CHAMPUS)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add2",
+          "black_list": false,
+          "code": "3111",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Prime--HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add3",
+          "black_list": false,
+          "code": "3112",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Extra--PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add4",
+          "black_list": false,
+          "code": "3113",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Standard - Fee For Service",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add5",
+          "black_list": false,
+          "code": "3114",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE For Life--Medicare Supplement",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add6",
+          "black_list": false,
+          "code": "3115",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Reserve Select",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add7",
+          "black_list": false,
+          "code": "3116",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add8",
+          "black_list": false,
+          "code": "3119",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Department of Defense - (other)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9add9",
+          "black_list": false,
+          "code": "312",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Military Treatment Facility",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adda",
+          "black_list": false,
+          "code": "3121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Enrolled Prime--HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9addb",
+          "black_list": false,
+          "code": "3122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Non-enrolled Space Available",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9addc",
+          "black_list": false,
+          "code": "3123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE For Life (TFL)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9addd",
+          "black_list": false,
+          "code": "313",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Dental --Stand Alone",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adde",
+          "black_list": false,
+          "code": "32",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Department of Veterans Affairs",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9addf",
+          "black_list": false,
+          "code": "321",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Veteran care--Care provided to Veterans",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade0",
+          "black_list": false,
+          "code": "3211",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Direct Care--Care provided in VA facilities",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade1",
+          "black_list": false,
+          "code": "3212",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indirect Care--Care provided outside VA facilities",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade2",
+          "black_list": false,
+          "code": "32121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Fee Basis",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade3",
+          "black_list": false,
+          "code": "32122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Foreign Fee/Foreign Medical Program (FMP)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade4",
+          "black_list": false,
+          "code": "32123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Contract Nursing Home/Community Nursing Home",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade5",
+          "black_list": false,
+          "code": "32124",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "State Veterans Home",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade6",
+          "black_list": false,
+          "code": "32125",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Sharing Agreements",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade7",
+          "black_list": false,
+          "code": "32126",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Federal Agency",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade8",
+          "black_list": false,
+          "code": "32127",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Dental Care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ade9",
+          "black_list": false,
+          "code": "32128",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Vision Care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adea",
+          "black_list": false,
+          "code": "322",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Non-veteran care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adeb",
+          "black_list": false,
+          "code": "3221",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adec",
+          "black_list": false,
+          "code": "3222",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Spina Bifida Health Care Program (SB)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9aded",
+          "black_list": false,
+          "code": "3223",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Children of Women Vietnam Veterans (CWVV)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adee",
+          "black_list": false,
+          "code": "3229",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other non-veteran care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adef",
+          "black_list": false,
+          "code": "33",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service or Tribe",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf0",
+          "black_list": false,
+          "code": "331",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service -- Regular",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf1",
+          "black_list": false,
+          "code": "332",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service -- Contract",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf2",
+          "black_list": false,
+          "code": "333",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service - Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf3",
+          "black_list": false,
+          "code": "334",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Tribe - Sponsored Coverage",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf4",
+          "black_list": false,
+          "code": "34",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "HRSA Program",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf5",
+          "black_list": false,
+          "code": "341",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Title V (MCH Block Grant)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf6",
+          "black_list": false,
+          "code": "342",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Migrant Health Program",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf7",
+          "black_list": false,
+          "code": "343",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Ryan White Act",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf8",
+          "black_list": false,
+          "code": "349",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adf9",
+          "black_list": false,
+          "code": "35",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Black Lung",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adfa",
+          "black_list": false,
+          "code": "36",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "State Government",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adfb",
+          "black_list": false,
+          "code": "361",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "State SCHIP program (codes for individual states)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adfc",
+          "black_list": false,
+          "code": "362",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Specific state programs (list/ local code)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adfd",
+          "black_list": false,
+          "code": "369",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "State, not otherwise specified (other state)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adfe",
+          "black_list": false,
+          "code": "37",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Local Government",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9adff",
+          "black_list": false,
+          "code": "371",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Local - Managed care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae00",
+          "black_list": false,
+          "code": "3711",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae01",
+          "black_list": false,
+          "code": "3712",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae02",
+          "black_list": false,
+          "code": "3713",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "POS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae03",
+          "black_list": false,
+          "code": "372",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "FFS/Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae04",
+          "black_list": false,
+          "code": "379",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Local, not otherwise specified (other local, county)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae05",
+          "black_list": false,
+          "code": "38",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Government (Federal, State, Local not specified)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae06",
+          "black_list": false,
+          "code": "381",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified managed care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae07",
+          "black_list": false,
+          "code": "3811",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae08",
+          "black_list": false,
+          "code": "3812",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae09",
+          "black_list": false,
+          "code": "3813",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - POS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae0a",
+          "black_list": false,
+          "code": "3819",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - not specified managed care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae0b",
+          "black_list": false,
+          "code": "382",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - FFS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae0c",
+          "black_list": false,
+          "code": "389",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae0d",
+          "black_list": false,
+          "code": "39",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Federal",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae0e",
+          "black_list": false,
+          "code": "391",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal Employee Health Plan - Use when known",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae0f",
+          "black_list": false,
+          "code": "4",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "DEPARTMENTS OF CORRECTIONS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae10",
+          "black_list": false,
+          "code": "41",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Federal",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae11",
+          "black_list": false,
+          "code": "42",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Corrections State",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae12",
+          "black_list": false,
+          "code": "43",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Local",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae13",
+          "black_list": false,
+          "code": "44",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Unknown Level",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae14",
+          "black_list": false,
+          "code": "5",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "PRIVATE HEALTH INSURANCE",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae15",
+          "black_list": false,
+          "code": "51",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care (Private)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae16",
+          "black_list": false,
+          "code": "511",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae17",
+          "black_list": false,
+          "code": "512",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae18",
+          "black_list": false,
+          "code": "513",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - POS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae19",
+          "black_list": false,
+          "code": "514",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Exclusive Provider Organization",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae1a",
+          "black_list": false,
+          "code": "515",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Gatekeeper PPO (GPPO)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae1b",
+          "black_list": false,
+          "code": "516",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae1c",
+          "black_list": false,
+          "code": "517",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae1d",
+          "black_list": false,
+          "code": "519",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care, Other (non HMO)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae1e",
+          "black_list": false,
+          "code": "52",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Private Health Insurance - Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae1f",
+          "black_list": false,
+          "code": "521",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae20",
+          "black_list": false,
+          "code": "522",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae21",
+          "black_list": false,
+          "code": "523",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare supplemental policy (as second payer)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae22",
+          "black_list": false,
+          "code": "524",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indemnity Insurance - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae23",
+          "black_list": false,
+          "code": "529",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Private health insurance--other commercial Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae24",
+          "black_list": false,
+          "code": "53",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae25",
+          "black_list": false,
+          "code": "54",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Organized Delivery System",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae26",
+          "black_list": false,
+          "code": "55",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Small Employer Purchasing Group",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae27",
+          "black_list": false,
+          "code": "56",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Specialized Stand Alone Plan",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae28",
+          "black_list": false,
+          "code": "561",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae29",
+          "black_list": false,
+          "code": "562",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Vision",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae2a",
+          "black_list": false,
+          "code": "59",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Private Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae2b",
+          "black_list": false,
+          "code": "6",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BLUE CROSS/BLUE SHIELD",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae2c",
+          "black_list": false,
+          "code": "61",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae2d",
+          "black_list": false,
+          "code": "611",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae2e",
+          "black_list": false,
+          "code": "612",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae2f",
+          "black_list": false,
+          "code": "613",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- POS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae30",
+          "black_list": false,
+          "code": "614",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae31",
+          "black_list": false,
+          "code": "619",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae32",
+          "black_list": false,
+          "code": "62",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Insurance Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae33",
+          "black_list": false,
+          "code": "621",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae34",
+          "black_list": false,
+          "code": "622",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae35",
+          "black_list": false,
+          "code": "623",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Medicare Supplemental Plan",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae36",
+          "black_list": false,
+          "code": "629",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Indemnity - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae37",
+          "black_list": false,
+          "code": "7",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae38",
+          "black_list": false,
+          "code": "71",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae39",
+          "black_list": false,
+          "code": "72",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae3a",
+          "black_list": false,
+          "code": "73",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "POS",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae3b",
+          "black_list": false,
+          "code": "79",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae3c",
+          "black_list": false,
+          "code": "8",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae3d",
+          "black_list": false,
+          "code": "81",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Self-pay (Includes applicants for insurance and Medicaid applicants)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae3e",
+          "black_list": false,
+          "code": "82",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "No Charge",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae3f",
+          "black_list": false,
+          "code": "821",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Charity",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae40",
+          "black_list": false,
+          "code": "822",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Professional Courtesy",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae41",
+          "black_list": false,
+          "code": "823",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Research/Clinical Trial",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae42",
+          "black_list": false,
+          "code": "83",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Refusal to Pay/Bad Debt",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae43",
+          "black_list": false,
+          "code": "84",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Hill Burton Free Care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae44",
+          "black_list": false,
+          "code": "85",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Research/Donor",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae45",
+          "black_list": false,
+          "code": "89",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "No Payment, Other",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae46",
+          "black_list": false,
+          "code": "9",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "MISCELLANEOUS/OTHER",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae47",
+          "black_list": false,
+          "code": "91",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Foreign National",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae48",
+          "black_list": false,
+          "code": "92",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other (Non-government)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae49",
+          "black_list": false,
+          "code": "93",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Disability Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae4a",
+          "black_list": false,
+          "code": "94",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Long-term Care Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae4b",
+          "black_list": false,
+          "code": "95",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Compensation",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae4c",
+          "black_list": false,
+          "code": "951",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae4d",
+          "black_list": false,
+          "code": "953",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp Fee-for-Service",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae4e",
+          "black_list": false,
+          "code": "954",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp Other Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae4f",
+          "black_list": false,
+          "code": "959",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp, Other unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae50",
+          "black_list": false,
+          "code": "96",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Auto Insurance (includes no fault)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae51",
+          "black_list": false,
+          "code": "97",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Legal Liability / Liability Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae52",
+          "black_list": false,
+          "code": "98",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae53",
+          "black_list": false,
+          "code": "99",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "No Typology Code available for payment source",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f254b848466c63f9ae54",
+          "black_list": false,
+          "code": "9999",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Unavailable / No Payer Specified / Blank",
+          "white_list": false
+        }
+      ],
+      "display_name": "Payer",
+      "oid": "2.16.840.1.114222.4.11.3591",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.292": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f254b848466c63f9ae55",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f254b848466c63f9ae56",
+          "black_list": false,
+          "code": "4525004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Emergency department patient visit (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Emergency Department Visit",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.207": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f257b848466c63f9aed2",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f257b848466c63f9aed3",
+          "black_list": false,
+          "code": "428371000124100",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Discharge to healthcare facility for hospice care (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharged to Health Care Facility for Hospice Care",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.207",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.209": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f258b848466c63f9af4c",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f258b848466c63f9af4d",
+          "black_list": false,
+          "code": "428361000124107",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Discharge to home for hospice care (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharged to Home for Hospice Care",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.209",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.87": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f258b848466c63f9af48",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f258b848466c63f9af49",
+          "black_list": false,
+          "code": "306701001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Discharge to community hospital (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af4a",
+          "black_list": false,
+          "code": "306703003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Discharge to tertiary referral hospital (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af4b",
+          "black_list": false,
+          "code": "434781000124105",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Discharge to acute care hospital (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharge To Acute Care Facility",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.87",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.309": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f257b848466c63f9aece",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f257b848466c63f9aecf",
+          "black_list": false,
+          "code": "371828006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Patient deceased during stay (discharge status = dead) (finding)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Patient Expired",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.309",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "1.3.6.1.4.1.33895.1.3.0.45": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f255b848466c63f9ae5a",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f255b848466c63f9ae5b",
+          "black_list": false,
+          "code": "133918004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Comfort measures (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae5c",
+          "black_list": false,
+          "code": "182964004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Terminal care (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae5d",
+          "black_list": false,
+          "code": "385736008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Dying care (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae5e",
+          "black_list": false,
+          "code": "385763009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Hospice care (regime/therapy)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Comfort Measures",
+      "oid": "1.3.6.1.4.1.33895.1.3.0.45",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.212": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f258b848466c63f9af4e",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f258b848466c63f9af4f",
+          "black_list": false,
+          "code": "195155004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from carotid siphon and bifurcation (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af50",
+          "black_list": false,
+          "code": "195160000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Intracranial subarachnoid hemorrhage from vertebral artery (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af51",
+          "black_list": false,
+          "code": "195165005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Basal ganglia hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af52",
+          "black_list": false,
+          "code": "195167002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "External capsule hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af53",
+          "black_list": false,
+          "code": "195168007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Intracerebral hemorrhage with intraventricular hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af54",
+          "black_list": false,
+          "code": "195169004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Intracerebral hemorrhage, multiple localized (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af55",
+          "black_list": false,
+          "code": "20908003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subcortical cerebral hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af56",
+          "black_list": false,
+          "code": "230706003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Hemorrhagic cerebral infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af57",
+          "black_list": false,
+          "code": "230707007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Anterior cerebral circulation hemorrhagic infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af58",
+          "black_list": false,
+          "code": "230708002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Posterior cerebral circulation hemorrhagic infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af59",
+          "black_list": false,
+          "code": "230709005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Massive supratentorial cerebral hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af5a",
+          "black_list": false,
+          "code": "230710000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Lobar cerebral hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af5b",
+          "black_list": false,
+          "code": "230711001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Thalamic hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af5c",
+          "black_list": false,
+          "code": "230712008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Lacunar hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af5d",
+          "black_list": false,
+          "code": "23276006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Ventricular hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af5e",
+          "black_list": false,
+          "code": "270907008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Spontaneous intracranial subarachnoid hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af5f",
+          "black_list": false,
+          "code": "274100004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebral hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af60",
+          "black_list": false,
+          "code": "276277008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from multiple aneurysms (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af61",
+          "black_list": false,
+          "code": "276278003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from anterior cerebral artery aneurysm (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af62",
+          "black_list": false,
+          "code": "276280009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from middle cerebral artery aneurysm (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af63",
+          "black_list": false,
+          "code": "276281008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from posterior cerebral artery aneurysm (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af64",
+          "black_list": false,
+          "code": "276282001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from anterior communicating artery aneurysm (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af65",
+          "black_list": false,
+          "code": "276283006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from posterior communicating artery aneurysm (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af66",
+          "black_list": false,
+          "code": "276284000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from basilar artery aneurysm (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af67",
+          "black_list": false,
+          "code": "276285004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from posterior inferior cerebellar artery aneurysm (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af68",
+          "black_list": false,
+          "code": "276286003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Subarachnoid hemorrhage from carotid artery aneurysm (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af69",
+          "black_list": false,
+          "code": "276722003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Intracerebellar and posterior fossa hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af6a",
+          "black_list": false,
+          "code": "28318001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Basilar hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af6b",
+          "black_list": false,
+          "code": "42429001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebromeningeal hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af6c",
+          "black_list": false,
+          "code": "425957003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Non-traumatic intracerebral ventricular hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af6d",
+          "black_list": false,
+          "code": "449020009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Intraparenchymal hemorrhage of brain (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af6e",
+          "black_list": false,
+          "code": "49422009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cortical hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af6f",
+          "black_list": false,
+          "code": "52201006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Internal capsule hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af70",
+          "black_list": false,
+          "code": "73020009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebral hemisphere hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af71",
+          "black_list": false,
+          "code": "75038005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebellar hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af72",
+          "black_list": false,
+          "code": "7713009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Intrapontine hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af73",
+          "black_list": false,
+          "code": "95454007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Brain stem hemorrhage (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af74",
+          "black_list": false,
+          "code": "I60.00",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from unspecified carotid siphon and bifurcation",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af75",
+          "black_list": false,
+          "code": "I60.01",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from right carotid siphon and bifurcation",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af76",
+          "black_list": false,
+          "code": "I60.02",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from left carotid siphon and bifurcation",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af77",
+          "black_list": false,
+          "code": "I60.10",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from unspecified middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af78",
+          "black_list": false,
+          "code": "I60.11",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from right middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af79",
+          "black_list": false,
+          "code": "I60.12",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from left middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af7a",
+          "black_list": false,
+          "code": "I60.2",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from anterior communicating artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af7b",
+          "black_list": false,
+          "code": "I60.30",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from unspecified posterior communicating artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af7c",
+          "black_list": false,
+          "code": "I60.31",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from right posterior communicating artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af7d",
+          "black_list": false,
+          "code": "I60.32",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from left posterior communicating artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af7e",
+          "black_list": false,
+          "code": "I60.4",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from basilar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af7f",
+          "black_list": false,
+          "code": "I60.50",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from unspecified vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af80",
+          "black_list": false,
+          "code": "I60.51",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from right vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af81",
+          "black_list": false,
+          "code": "I60.52",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from left vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af82",
+          "black_list": false,
+          "code": "I60.6",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from other intracranial arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af83",
+          "black_list": false,
+          "code": "I60.7",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage from unspecified intracranial artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af84",
+          "black_list": false,
+          "code": "I60.8",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Other nontraumatic subarachnoid hemorrhage",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af85",
+          "black_list": false,
+          "code": "I60.9",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic subarachnoid hemorrhage, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af86",
+          "black_list": false,
+          "code": "I61.0",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic intracerebral hemorrhage in hemisphere, subcortical",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af87",
+          "black_list": false,
+          "code": "I61.1",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic intracerebral hemorrhage in hemisphere, cortical",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af88",
+          "black_list": false,
+          "code": "I61.2",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic intracerebral hemorrhage in hemisphere, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af89",
+          "black_list": false,
+          "code": "I61.3",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic intracerebral hemorrhage in brain stem",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af8a",
+          "black_list": false,
+          "code": "I61.4",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic intracerebral hemorrhage in cerebellum",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af8b",
+          "black_list": false,
+          "code": "I61.5",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic intracerebral hemorrhage, intraventricular",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af8c",
+          "black_list": false,
+          "code": "I61.6",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic intracerebral hemorrhage, multiple localized",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af8d",
+          "black_list": false,
+          "code": "I61.8",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Other nontraumatic intracerebral hemorrhage",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f258b848466c63f9af8e",
+          "black_list": false,
+          "code": "I61.9",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Nontraumatic intracerebral hemorrhage, unspecified",
+          "white_list": false
+        }
+      ],
+      "display_name": "Hemorrhagic Stroke",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.212",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.247": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f257b848466c63f9aed4",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f257b848466c63f9aed5",
+          "black_list": false,
+          "code": "111297002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Nonparalytic stroke (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aed6",
+          "black_list": false,
+          "code": "116288000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Paralytic stroke (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aed7",
+          "black_list": false,
+          "code": "195185009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebral infarct due to thrombosis of precerebral arteries (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aed8",
+          "black_list": false,
+          "code": "195186005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebral infarction due to embolism of precerebral arteries (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aed9",
+          "black_list": false,
+          "code": "195189003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebral infarction due to thrombosis of cerebral arteries (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aeda",
+          "black_list": false,
+          "code": "195190007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebral infarction due to embolism of cerebral arteries (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aedb",
+          "black_list": false,
+          "code": "195212005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Brainstem stroke syndrome (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aedc",
+          "black_list": false,
+          "code": "195213000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebellar stroke syndrome (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aedd",
+          "black_list": false,
+          "code": "195216008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Left sided cerebral hemisphere cerebrovascular accident (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aede",
+          "black_list": false,
+          "code": "195217004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Right sided cerebral hemisphere cerebrovascular accident (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aedf",
+          "black_list": false,
+          "code": "195230003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebral infarction due to cerebral venous thrombosis, non-pyogenic (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee0",
+          "black_list": false,
+          "code": "230690007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebrovascular accident (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee1",
+          "black_list": false,
+          "code": "230691006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Cerebrovascular accident due to occlusion of cerebral artery (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee2",
+          "black_list": false,
+          "code": "230692004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Infarction - precerebral (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee3",
+          "black_list": false,
+          "code": "230693009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Anterior cerebral circulation infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee4",
+          "black_list": false,
+          "code": "230694003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Total anterior cerebral circulation infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee5",
+          "black_list": false,
+          "code": "230695002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Partial anterior cerebral circulation infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee6",
+          "black_list": false,
+          "code": "230696001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Posterior cerebral circulation infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee7",
+          "black_list": false,
+          "code": "230698000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Lacunar infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee8",
+          "black_list": false,
+          "code": "230699008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Pure motor lacunar infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aee9",
+          "black_list": false,
+          "code": "230700009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Pure sensory lacunar infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aeea",
+          "black_list": false,
+          "code": "230701008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Pure sensorimotor lacunar infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aeeb",
+          "black_list": false,
+          "code": "307363008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Multiple lacunar infarcts (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aeec",
+          "black_list": false,
+          "code": "426107000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Acute lacunar infarction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aeed",
+          "black_list": false,
+          "code": "I63.00",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of unspecified precerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aeee",
+          "black_list": false,
+          "code": "I63.011",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of right vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aeef",
+          "black_list": false,
+          "code": "I63.012",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of left vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef0",
+          "black_list": false,
+          "code": "I63.013",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of bilateral vertebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef1",
+          "black_list": false,
+          "code": "I63.019",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of unspecified vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef2",
+          "black_list": false,
+          "code": "I63.02",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of basilar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef3",
+          "black_list": false,
+          "code": "I63.031",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of right carotid artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef4",
+          "black_list": false,
+          "code": "I63.032",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of left carotid artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef5",
+          "black_list": false,
+          "code": "I63.033",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of bilateral carotid arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef6",
+          "black_list": false,
+          "code": "I63.039",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of unspecified carotid artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef7",
+          "black_list": false,
+          "code": "I63.09",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of other precerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef8",
+          "black_list": false,
+          "code": "I63.10",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of unspecified precerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aef9",
+          "black_list": false,
+          "code": "I63.111",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of right vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aefa",
+          "black_list": false,
+          "code": "I63.112",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of left vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aefb",
+          "black_list": false,
+          "code": "I63.113",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of bilateral vertebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aefc",
+          "black_list": false,
+          "code": "I63.119",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of unspecified vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aefd",
+          "black_list": false,
+          "code": "I63.12",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of basilar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aefe",
+          "black_list": false,
+          "code": "I63.131",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of right carotid artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9aeff",
+          "black_list": false,
+          "code": "I63.132",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of left carotid artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af00",
+          "black_list": false,
+          "code": "I63.133",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of bilateral carotid arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af01",
+          "black_list": false,
+          "code": "I63.139",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of unspecified carotid artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af02",
+          "black_list": false,
+          "code": "I63.19",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of other precerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af03",
+          "black_list": false,
+          "code": "I63.20",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified precerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af04",
+          "black_list": false,
+          "code": "I63.211",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af05",
+          "black_list": false,
+          "code": "I63.212",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af06",
+          "black_list": false,
+          "code": "I63.213",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of bilateral vertebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af07",
+          "black_list": false,
+          "code": "I63.219",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified vertebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af08",
+          "black_list": false,
+          "code": "I63.22",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of basilar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af09",
+          "black_list": false,
+          "code": "I63.231",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right carotid arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af0a",
+          "black_list": false,
+          "code": "I63.232",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left carotid arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af0b",
+          "black_list": false,
+          "code": "I63.233",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of bilateral carotid arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af0c",
+          "black_list": false,
+          "code": "I63.239",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified carotid artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af0d",
+          "black_list": false,
+          "code": "I63.29",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of other precerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af0e",
+          "black_list": false,
+          "code": "I63.30",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of unspecified cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af0f",
+          "black_list": false,
+          "code": "I63.311",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of right middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af10",
+          "black_list": false,
+          "code": "I63.312",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of left middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af11",
+          "black_list": false,
+          "code": "I63.313",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of bilateral middle cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af12",
+          "black_list": false,
+          "code": "I63.319",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of unspecified middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af13",
+          "black_list": false,
+          "code": "I63.321",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of right anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af14",
+          "black_list": false,
+          "code": "I63.322",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of left anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af15",
+          "black_list": false,
+          "code": "I63.323",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of bilateral anterior cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af16",
+          "black_list": false,
+          "code": "I63.329",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of unspecified anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af17",
+          "black_list": false,
+          "code": "I63.331",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of right posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af18",
+          "black_list": false,
+          "code": "I63.332",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of left posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af19",
+          "black_list": false,
+          "code": "I63.333",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of bilateral posterior cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af1a",
+          "black_list": false,
+          "code": "I63.339",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of unspecified posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af1b",
+          "black_list": false,
+          "code": "I63.341",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of right cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af1c",
+          "black_list": false,
+          "code": "I63.342",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of left cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af1d",
+          "black_list": false,
+          "code": "I63.343",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of bilateral cerebellar arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af1e",
+          "black_list": false,
+          "code": "I63.349",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of unspecified cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af1f",
+          "black_list": false,
+          "code": "I63.39",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to thrombosis of other cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af20",
+          "black_list": false,
+          "code": "I63.40",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of unspecified cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af21",
+          "black_list": false,
+          "code": "I63.411",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of right middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af22",
+          "black_list": false,
+          "code": "I63.412",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of left middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af23",
+          "black_list": false,
+          "code": "I63.413",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of bilateral middle cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af24",
+          "black_list": false,
+          "code": "I63.419",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of unspecified middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af25",
+          "black_list": false,
+          "code": "I63.421",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of right anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af26",
+          "black_list": false,
+          "code": "I63.422",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of left anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af27",
+          "black_list": false,
+          "code": "I63.423",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of bilateral anterior cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af28",
+          "black_list": false,
+          "code": "I63.429",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of unspecified anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af29",
+          "black_list": false,
+          "code": "I63.431",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of right posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af2a",
+          "black_list": false,
+          "code": "I63.432",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of left posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af2b",
+          "black_list": false,
+          "code": "I63.433",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of bilateral posterior cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af2c",
+          "black_list": false,
+          "code": "I63.439",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of unspecified posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af2d",
+          "black_list": false,
+          "code": "I63.441",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of right cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af2e",
+          "black_list": false,
+          "code": "I63.442",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of left cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af2f",
+          "black_list": false,
+          "code": "I63.443",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of bilateral cerebellar arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af30",
+          "black_list": false,
+          "code": "I63.449",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of unspecified cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af31",
+          "black_list": false,
+          "code": "I63.49",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to embolism of other cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af32",
+          "black_list": false,
+          "code": "I63.50",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af33",
+          "black_list": false,
+          "code": "I63.511",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af34",
+          "black_list": false,
+          "code": "I63.512",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af35",
+          "black_list": false,
+          "code": "I63.513",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of bilateral middle cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af36",
+          "black_list": false,
+          "code": "I63.519",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified middle cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af37",
+          "black_list": false,
+          "code": "I63.521",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af38",
+          "black_list": false,
+          "code": "I63.522",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af39",
+          "black_list": false,
+          "code": "I63.523",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of bilateral anterior cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af3a",
+          "black_list": false,
+          "code": "I63.529",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified anterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af3b",
+          "black_list": false,
+          "code": "I63.531",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af3c",
+          "black_list": false,
+          "code": "I63.532",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af3d",
+          "black_list": false,
+          "code": "I63.533",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of bilateral posterior cerebral arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af3e",
+          "black_list": false,
+          "code": "I63.539",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified posterior cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af3f",
+          "black_list": false,
+          "code": "I63.541",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af40",
+          "black_list": false,
+          "code": "I63.542",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af41",
+          "black_list": false,
+          "code": "I63.543",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of bilateral cerebellar arteries",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af42",
+          "black_list": false,
+          "code": "I63.549",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified cerebellar artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af43",
+          "black_list": false,
+          "code": "I63.59",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of other cerebral artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af44",
+          "black_list": false,
+          "code": "I63.6",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction due to cerebral venous thrombosis, nonpyogenic",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af45",
+          "black_list": false,
+          "code": "I63.81",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Other cerebral infarction due to occlusion or stenosis of small artery",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af46",
+          "black_list": false,
+          "code": "I63.89",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Other cerebral infarction",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f257b848466c63f9af47",
+          "black_list": false,
+          "code": "I63.9",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2019",
+          "display_name": "Cerebral infarction, unspecified",
+          "white_list": false
+        }
+      ],
+      "display_name": "Ischemic Stroke",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.247",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.473": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f256b848466c63f9aebb",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f256b848466c63f9aebc",
+          "black_list": false,
+          "code": "183932001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Procedure contraindicated (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aebd",
+          "black_list": false,
+          "code": "183964008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Treatment not indicated (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aebe",
+          "black_list": false,
+          "code": "183966005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug treatment not indicated (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aebf",
+          "black_list": false,
+          "code": "266721009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Absent response to treatment (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec0",
+          "black_list": false,
+          "code": "31438003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug resistance (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec1",
+          "black_list": false,
+          "code": "35688006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Complication of medical care (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec2",
+          "black_list": false,
+          "code": "397745006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Medical contraindication (finding)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec3",
+          "black_list": false,
+          "code": "407563006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Treatment not tolerated (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec4",
+          "black_list": false,
+          "code": "410529002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Not needed (qualifier value)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec5",
+          "black_list": false,
+          "code": "410534003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Not indicated (qualifier value)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec6",
+          "black_list": false,
+          "code": "410536001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Contraindicated (qualifier value)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec7",
+          "black_list": false,
+          "code": "416098002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug allergy (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec8",
+          "black_list": false,
+          "code": "419511003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Propensity to adverse reactions to drug (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aec9",
+          "black_list": false,
+          "code": "428024001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Clinical trial participant (person)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeca",
+          "black_list": false,
+          "code": "428119001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Procedure not indicated (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aecb",
+          "black_list": false,
+          "code": "59037007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug intolerance (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aecc",
+          "black_list": false,
+          "code": "62014003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Adverse reaction caused by drug (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aecd",
+          "black_list": false,
+          "code": "79899007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug interaction (finding)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Medical Reason",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.473",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.93": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f256b848466c63f9aea5",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f256b848466c63f9aea6",
+          "black_list": false,
+          "code": "105480006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Refusal of treatment by patient (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aea7",
+          "black_list": false,
+          "code": "182890002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Patient requests alternative treatment (finding)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aea8",
+          "black_list": false,
+          "code": "182895007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug declined by patient (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aea9",
+          "black_list": false,
+          "code": "182896008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug declined by patient - dislikes taste (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeaa",
+          "black_list": false,
+          "code": "182897004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug declined by patient - side effects (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeab",
+          "black_list": false,
+          "code": "182898009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug declined by patient - inconvenient (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeac",
+          "black_list": false,
+          "code": "182900006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug declined by patient - patient beliefs (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aead",
+          "black_list": false,
+          "code": "182901005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug declined by patient - alternative therapy (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeae",
+          "black_list": false,
+          "code": "182903008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Drug declined by patient - reason unknown (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeaf",
+          "black_list": false,
+          "code": "183944003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Procedure refused (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb0",
+          "black_list": false,
+          "code": "183945002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Procedure refused for religious reason (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb1",
+          "black_list": false,
+          "code": "183946001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Procedure refused - uncooperative (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb2",
+          "black_list": false,
+          "code": "183947005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Refused procedure - after thought (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb3",
+          "black_list": false,
+          "code": "183948000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Refused procedure - parent's wish (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb4",
+          "black_list": false,
+          "code": "275936005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Patient noncompliance - general (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb5",
+          "black_list": false,
+          "code": "371138003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Refusal of treatment by parents (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb6",
+          "black_list": false,
+          "code": "406149000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Medication refused (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb7",
+          "black_list": false,
+          "code": "413312003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Patient non-compliant - refused service (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb8",
+          "black_list": false,
+          "code": "416432009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Procedure not wanted (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeb9",
+          "black_list": false,
+          "code": "443390004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Refused (qualifier value)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aeba",
+          "black_list": false,
+          "code": "609589008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Refused by parents of subject (qualifier value)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Patient Refusal",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.93",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.424": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f255b848466c63f9ae57",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f255b848466c63f9ae58",
+          "black_list": false,
+          "code": "183452005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Emergency hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae59",
+          "black_list": false,
+          "code": "32485007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Hospital admission (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Non-Elective Inpatient Encounter",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.424",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.215": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f255b848466c63f9ae5f",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f255b848466c63f9ae60",
+          "black_list": false,
+          "code": "13457-7",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol in LDL [Mass/volume] in Serum or Plasma by calculation",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae61",
+          "black_list": false,
+          "code": "18261-8",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol in LDL [Mass/volume] in Serum or Plasma ultracentrifugate",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae62",
+          "black_list": false,
+          "code": "18262-6",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol in LDL [Mass/volume] in Serum or Plasma by Direct assay",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae63",
+          "black_list": false,
+          "code": "2089-1",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol in LDL [Mass/volume] in Serum or Plasma",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae64",
+          "black_list": false,
+          "code": "43394-6",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol in LDL acylated [Mass/volume] in Serum or Plasma",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae65",
+          "black_list": false,
+          "code": "49132-4",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol in LDL [Mass/volume] in Serum or Plasma by Electrophoresis",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae66",
+          "black_list": false,
+          "code": "50193-2",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol in LDL.narrow density [Mass/volume] in Serum or Plasma",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae67",
+          "black_list": false,
+          "code": "55440-2",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol.in LDL (real) [Mass/volume] in Serum or Plasma by VAP",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae68",
+          "black_list": false,
+          "code": "86911-5",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Cholesterol in LDL goal [Mass/volume] Serum or Plasma",
+          "white_list": false
+        }
+      ],
+      "display_name": "LDL-c",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.215",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.423": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f255b848466c63f9ae69",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f255b848466c63f9ae6a",
+          "black_list": false,
+          "code": "301542",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "rosuvastatin",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae6b",
+          "black_list": false,
+          "code": "36567",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae6c",
+          "black_list": false,
+          "code": "41127",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "fluvastatin",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae6d",
+          "black_list": false,
+          "code": "42463",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Pravastatin",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae6e",
+          "black_list": false,
+          "code": "6472",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Lovastatin",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae6f",
+          "black_list": false,
+          "code": "83367",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "atorvastatin",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f255b848466c63f9ae70",
+          "black_list": false,
+          "code": "861634",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "pitavastatin",
+          "white_list": false
+        }
+      ],
+      "display_name": "Statin Allergen",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.423",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113762.1.4.1110.19": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f256b848466c63f9ae71",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f256b848466c63f9ae72",
+          "black_list": false,
+          "code": "197903",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Lovastatin 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae73",
+          "black_list": false,
+          "code": "197904",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Lovastatin 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae74",
+          "black_list": false,
+          "code": "197905",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Lovastatin 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae75",
+          "black_list": false,
+          "code": "198211",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae76",
+          "black_list": false,
+          "code": "2001254",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "pitavastatin magnesium 1 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae77",
+          "black_list": false,
+          "code": "2001262",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "pitavastatin magnesium 2 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae78",
+          "black_list": false,
+          "code": "2001266",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "pitavastatin magnesium 4 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae79",
+          "black_list": false,
+          "code": "200345",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 80 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae7a",
+          "black_list": false,
+          "code": "259255",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "atorvastatin 80 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae7b",
+          "black_list": false,
+          "code": "310404",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "fluvastatin 20 MG Oral Capsule",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae7c",
+          "black_list": false,
+          "code": "310405",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "fluvastatin 40 MG Oral Capsule",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae7d",
+          "black_list": false,
+          "code": "312961",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae7e",
+          "black_list": false,
+          "code": "312962",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 5 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae7f",
+          "black_list": false,
+          "code": "314231",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae80",
+          "black_list": false,
+          "code": "359731",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "24 HR Lovastatin 40 MG Extended Release Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae81",
+          "black_list": false,
+          "code": "359732",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "24 HR Lovastatin 60 MG Extended Release Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae82",
+          "black_list": false,
+          "code": "360507",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "24 HR fluvastatin 80 MG Extended Release Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae83",
+          "black_list": false,
+          "code": "404011",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 5 MG / atorvastatin 80 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae84",
+          "black_list": false,
+          "code": "404013",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 10 MG / atorvastatin 80 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae85",
+          "black_list": false,
+          "code": "433849",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "24 HR Lovastatin 20 MG Extended Release Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae86",
+          "black_list": false,
+          "code": "476345",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "ezetimibe 10 MG / Simvastatin 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae87",
+          "black_list": false,
+          "code": "476349",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "ezetimibe 10 MG / Simvastatin 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae88",
+          "black_list": false,
+          "code": "476350",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "ezetimibe 10 MG / Simvastatin 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae89",
+          "black_list": false,
+          "code": "476351",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "ezetimibe 10 MG / Simvastatin 80 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae8a",
+          "black_list": false,
+          "code": "597967",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 10 MG / atorvastatin 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae8b",
+          "black_list": false,
+          "code": "597971",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 2.5 MG / atorvastatin 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae8c",
+          "black_list": false,
+          "code": "597974",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 2.5 MG / atorvastatin 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae8d",
+          "black_list": false,
+          "code": "597977",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 5 MG / atorvastatin 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae8e",
+          "black_list": false,
+          "code": "597980",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 5 MG / atorvastatin 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae8f",
+          "black_list": false,
+          "code": "597984",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 5 MG / atorvastatin 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae90",
+          "black_list": false,
+          "code": "597987",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 10 MG / atorvastatin 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae91",
+          "black_list": false,
+          "code": "597990",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 10 MG / atorvastatin 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae92",
+          "black_list": false,
+          "code": "597993",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Amlodipine 2.5 MG / atorvastatin 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae93",
+          "black_list": false,
+          "code": "617310",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "atorvastatin 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae94",
+          "black_list": false,
+          "code": "617311",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "atorvastatin 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae95",
+          "black_list": false,
+          "code": "617312",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "atorvastatin 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae96",
+          "black_list": false,
+          "code": "757702",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 10 MG Disintegrating Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae97",
+          "black_list": false,
+          "code": "757703",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 20 MG Disintegrating Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae98",
+          "black_list": false,
+          "code": "757704",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 40 MG Disintegrating Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae99",
+          "black_list": false,
+          "code": "757705",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Simvastatin 80 MG Disintegrating Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae9a",
+          "black_list": false,
+          "code": "859419",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Rosuvastatin calcium 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae9b",
+          "black_list": false,
+          "code": "859424",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Rosuvastatin calcium 5 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae9c",
+          "black_list": false,
+          "code": "859747",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Rosuvastatin calcium 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae9d",
+          "black_list": false,
+          "code": "859751",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Rosuvastatin calcium 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae9e",
+          "black_list": false,
+          "code": "861643",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "pitavastatin calcium 1 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9ae9f",
+          "black_list": false,
+          "code": "861648",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "pitavastatin calcium 2 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aea0",
+          "black_list": false,
+          "code": "861652",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "pitavastatin calcium 4 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aea1",
+          "black_list": false,
+          "code": "904458",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Pravastatin Sodium 10 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aea2",
+          "black_list": false,
+          "code": "904467",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Pravastatin Sodium 20 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aea3",
+          "black_list": false,
+          "code": "904475",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Pravastatin Sodium 40 MG Oral Tablet",
+          "white_list": false
+        },
+        {
+          "_id": "5c12f256b848466c63f9aea4",
+          "black_list": false,
+          "code": "904481",
+          "code_system": "2.16.840.1.113883.6.88",
+          "code_system_name": "RxNorm",
+          "code_system_version": "2018-07",
+          "display_name": "Pravastatin Sodium 80 MG Oral Tablet",
+          "white_list": false
+        }
+      ],
+      "display_name": "Statin Grouper",
+      "oid": "2.16.840.1.113762.1.4.1110.19",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.308": {
+    "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B": {
+      "_id": "5c12f257b848466c63f9aed0",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5c12f257b848466c63f9aed1",
+          "black_list": false,
+          "code": "445060000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Left against medical advice (finding)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Left Against Medical Advice",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.308",
+      "user_id": null,
+      "version": "Draft-DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B"
+    }
+  }
+}

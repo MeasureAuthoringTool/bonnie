@@ -605,8 +605,8 @@ describe 'PatientBuilderView', ->
       bonnie.measures.push(@compositeMeasure)
 
       @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
-      @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
-      @components.forEach((component) => bonnie.measures.push(component))
+      @components = @components.map((component) -> new Thorax.Models.Measure component, parse: true)
+      @components.forEach((component) -> bonnie.measures.push(component))
 
       @compositePatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
       @compositeMeasure.populateComponents()
@@ -679,4 +679,37 @@ describe 'Direct Reference Code Usage', ->
     statementResults = results.get("statement_results")
     titleOfClauseThatUsesDrc = statementResults[library]['Measure Population Exclusions'].raw[0]._dischargeDisposition.title
     expect(titleOfClauseThatUsesDrc).toBe "Patient deceased during stay (discharge status = dead) (finding)"
+
+describe 'Allergy Intolerance', ->
+  # Originally BONNIE-785
+
+  beforeEach ->
+    jasmine.getJSONFixtures().clearCache()
+    @universalValueSetsByOid = bonnie.valueSetsByOid
+    bonnie.valueSetsByOid = getJSONFixture("measure_data/special_measures/CMS12v0/value_sets.json")
+    @measure = new Thorax.Models.Measure getJSONFixture("measure_data/special_measures/CMS12v0/CMS12v0.json"), parse: true
+    bonnie.measures.add @measure
+    @patients = new Thorax.Collections.Patients getJSONFixture("records/special_measures/CMS12v0/patients.json"), parse: true
+    @patient = @patients.findWhere(first: "MedAllergyEndIP", last: "DENEXCEPPass")
+    @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
+    sourceDataCriteria = @patientBuilder.model.get("source_data_criteria")
+    @allergyIntolerance = sourceDataCriteria.findWhere({definition: "allergy_intolerance"})
+    @patientBuilder.render()
+    @patientBuilder.appendTo('body')
+
+  afterEach ->
+    bonnie.valueSetsByOid = @universalValueSetsByOid
+    @patientBuilder.remove()
+
+  it 'is displayed on Patient Builder Page in Elements section', ->
+    expect(@patientBuilder.$el.find("div#criteriaElements").html()).toContainText "allergies intolerances"
+
+  it 'highlight is triggered by relevant cql clause', ->
+    dataCriteriaIds = ['5c12f47cb848466c63f9afcb']
+    cqlLogicView = @patientBuilder.populationLogicView.getView().cqlLogicView
+    sourceDataCriteria = cqlLogicView.latestResult.patient.get('source_data_criteria')
+    patientDataCriteria = sourceDataCriteria.findWhere(coded_entry_id: dataCriteriaIds[0])
+    spyOn(patientDataCriteria, 'trigger')
+    cqlLogicView.highlightPatientData(dataCriteriaIds)
+    expect(patientDataCriteria.trigger).toHaveBeenCalled()
 

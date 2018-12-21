@@ -1,0 +1,229 @@
+[
+  {
+    "_id": "5c12f47cb848466c63f9afca",
+    "allergies": [
+      {
+        "_id": "5c12f47cb848466c63f9afcb",
+        "codes": {
+          "RxNorm": [
+            "301542"
+          ]
+        },
+        "description": "Allergy/Intolerance: Statin Allergen",
+        "end_time": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.10.20.28.3.119",
+        "reaction": null,
+        "reason": null,
+        "severity": null,
+        "specifics": null,
+        "start_time": 1265011200,
+        "status_code": {
+          "HL7 ActStatus": [
+            null
+          ]
+        },
+        "time": null,
+        "type": null
+      }
+    ],
+    "birthdate": 616233600,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-12-14T00:08:28.314Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5c12f47cb848466c63f9afcc",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1355472900,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "principalDiagnosis": {
+          "_id": "5c12f47cb848466c63f9afcd",
+          "code": "111297002",
+          "code_system": "SNOMED-CT",
+          "title": "Ischemic Stroke"
+        },
+        "reason": null,
+        "specifics": null,
+        "start_time": 1355472000,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0,
+        "DENEXCEP": 0
+      }
+    ],
+    "expired": null,
+    "first": "MedAllergyEndIP",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5c12f47cb848466c63f9afce",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5c12f47cb848466c63f9afcf",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199145600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "DENEXCEPPass",
+    "marital_status": null,
+    "measure_ids": [
+      "DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "5739baa6fa0456c1b69041eeb6fa7d3f9dbfa0b778ac82a0f14641f6e84f326d",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "allergy_intolerance",
+        "title": "Statin Allergen",
+        "description": "Allergy/Intolerance: Statin Allergen",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.423",
+        "type": "allergies_intolerances",
+        "id": "StatinAllergen_Allergy_Intolerance_0465ff33_0f70_4a43_bfa4_e0d58eaf529a_source",
+        "start_date": 1265011200000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B",
+        "cms_id": "CMS12v0",
+        "criteria_id": "167aa0443c5LU",
+        "codes": {
+          "RxNorm": [
+            "301542"
+          ]
+        },
+        "coded_entry_id": "5c12f47cb848466c63f9afcb",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Non-Elective Inpatient Encounter",
+        "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
+        "type": "encounters",
+        "id": "Non_ElectiveInpatientEncounter_EncounterPerformed_2abc795f_73fb_4273_a9da_ae9a84cdca7a_source",
+        "start_date": 1355472000000,
+        "end_date": 1355472900000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+          "PRINCIPAL_DIAGNOSIS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+            "field_title": "Principal Diagnosis",
+            "title": "Ischemic Stroke"
+          }
+        },
+        "hqmf_set_id": "DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B",
+        "cms_id": "CMS12v0",
+        "criteria_id": "167aa0abc42Bv",
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5c12f47cb848466c63f9afcc",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-12-14T00:08:28.314Z",
+    "user_id": null
+  }
+]
