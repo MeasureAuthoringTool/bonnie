@@ -6,8 +6,6 @@ class FixtureExporter
     @measure = measure
     @records = records
 
-    # In order to avoid storing details of real users, a test-specific user fixture exists.
-    @bonnie_fixtures_user_id = { '$oid': '501fdba3044a111b98000001' }
     @component_measures = find_component_measures
     @measure_and_any_components = @measure.present? ? [@measure] + @component_measures : []
   end
@@ -83,7 +81,7 @@ class FixtureExporter
 
   def as_transformed_hash(mongoid_doc)
     doc = make_hash_and_apply_any_transforms(mongoid_doc)
-    doc['user_id'] = @bonnie_fixtures_user_id if doc.key? 'user_id'
+    doc['user_id'] = bonnie_fixtures_user_id if doc.key? 'user_id'
     return doc
   end
 
@@ -145,13 +143,16 @@ class FrontendFixtureExporter < FixtureExporter
 
   def initialize(user, measure: nil, records: nil)
     super(user, measure: measure, records: records)
-    # In order to avoid storing details of real users, a test-specific user fixture exists.
-    # for front end tests this should be just a string
-    @bonnie_fixtures_user_id = '501fdba3044a111b98000001'
   end
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
     return JSON.parse(mongoid_doc.to_json, max_nesting: 1000)
+  end
+
+  def bonnie_fixtures_user_id
+    # In order to avoid storing details of real users, a test-specific user fixture exists.
+    # for front end tests this should be just a string
+    '501fdba3044a111b98000001'
   end
 end
 
@@ -164,5 +165,10 @@ class BackendFixtureExporter < FixtureExporter
     doc = mongoid_doc.as_json
     objectid_to_oids(doc)
     return JSON.parse(doc.to_json, max_nesting: 1000)
+  end
+
+  def bonnie_fixtures_user_id
+    # In order to avoid storing details of real users, a test-specific user fixture exists.
+    { '$oid': '501fdba3044a111b98000001' }
   end
 end
