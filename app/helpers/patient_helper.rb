@@ -1,5 +1,4 @@
 module PatientHelper
-
   # HDS Patient to QDM Patient model translation
   def self.convert_patient_models(hds_records)
     cqm_records = []
