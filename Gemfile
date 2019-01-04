@@ -80,6 +80,7 @@ group :test, :development, :ci do
   gem 'colorize'
   gem 'brakeman'
   gem 'selenium-webdriver'
+  gem 'codecov', :require => false
 end
 
 group :test, :development do
