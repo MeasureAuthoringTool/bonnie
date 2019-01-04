@@ -7,7 +7,7 @@ module PatientHelper
     # Convert all of the HDS Records into QDM Records
     hds_records.each do |hds_record|
       begin
-        cqm_record = CQMConverter.to_qdm(hds_record)
+        cqm_record = CQMConverter.to_cqm(hds_record)
         cqm_record.qdmPatient._id = hds_record._id if hds_record._id? # keep ids consistent
         cqm_records << cqm_record
       rescue ExecJS::ProgramError => e
