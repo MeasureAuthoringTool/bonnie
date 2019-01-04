@@ -1184,3 +1184,7 @@ Style/ZeroLengthPredicate:
 # URISchemes: http, https
 Metrics/LineLength:
   Max: 3564
+
+Lint/UriEscapeUnescape:
+  Exclude:
+    - 'test/vcr_setup.rb'

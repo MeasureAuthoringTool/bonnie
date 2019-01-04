@@ -1671,6 +1671,72 @@
       "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
     }
   },
+  "2.16.840.1.113883.3.117.1.7.1.292": {
+    "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89": {
+      "_id": "5a7ddc60b848463373c607b1",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a7ddc60b848463373c607b2",
+          "black_list": false,
+          "code": "4525004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Emergency department patient visit (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Emergency Department Visit",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    }
+  },
+  "2.16.840.1.113883.3.666.5.307": {
+    "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89": {
+      "_id": "5a7ddc60b848463373c607b3",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a7ddc60b848463373c607b4",
+          "black_list": false,
+          "code": "183452005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Emergency hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5a7ddc60b848463373c607b5",
+          "black_list": false,
+          "code": "32485007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5a7ddc60b848463373c607b6",
+          "black_list": false,
+          "code": "8715000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospital admission, elective (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Encounter Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    }
+  },
   "2.16.840.1.113883.3.117.1.7.1.299": {
     "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89": {
       "_id": "5a7ddc5fb848463373c60054",
@@ -20520,72 +20586,6 @@
       ],
       "display_name": "Psychiatric/Mental Health Diagnosis",
       "oid": "2.16.840.1.113883.3.117.1.7.1.299",
-      "user_id": "501fdba3044a111b98000001",
-      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
-    }
-  },
-  "2.16.840.1.113883.3.117.1.7.1.292": {
-    "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89": {
-      "_id": "5a7ddc60b848463373c607b1",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a7ddc60b848463373c607b2",
-          "black_list": false,
-          "code": "4525004",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Emergency department patient visit (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Emergency Department Visit",
-      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
-      "user_id": "501fdba3044a111b98000001",
-      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
-    }
-  },
-  "2.16.840.1.113883.3.666.5.307": {
-    "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89": {
-      "_id": "5a7ddc60b848463373c607b3",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a7ddc60b848463373c607b4",
-          "black_list": false,
-          "code": "183452005",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Emergency hospital admission (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5a7ddc60b848463373c607b5",
-          "black_list": false,
-          "code": "32485007",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Hospital admission (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5a7ddc60b848463373c607b6",
-          "black_list": false,
-          "code": "8715000",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Hospital admission, elective (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Encounter Inpatient",
-      "oid": "2.16.840.1.113883.3.666.5.307",
       "user_id": "501fdba3044a111b98000001",
       "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
     }

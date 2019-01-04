@@ -152,10 +152,10 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     patient = Record.first
-    assert_equal 2, @user.records.count
+    assert_equal 3, @user.records.count
     delete :destroy, {id: patient.id}
     assert_response :success
-    assert_equal 1, @user.records.count
+    assert_equal 2, @user.records.count
     patient = Record.where({id: patient.id}).first
     assert_nil patient
   end
@@ -177,9 +177,9 @@ include Devise::Test::ControllerHelpers
     zip_path = File.join('tmp', 'test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 2, zip_file.glob(File.join('qrda','**.xml')).length
+      assert_equal 3, zip_file.glob(File.join('qrda','**.xml')).length
       html_files = zip_file.glob(File.join('html', '**.html'))
-      assert_equal 2, html_files.length
+      assert_equal 3, html_files.length
       html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
         doc = Nokogiri::HTML(html_file.get_input_stream.read)
         xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"

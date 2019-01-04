@@ -1671,6 +1671,151 @@
       "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
     }
   },
+  "2.16.840.1.113883.3.117.1.7.1.292": {
+    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
+      "_id": "5a7dc4efb8484620c51832fb",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a7dc4efb8484620c51832fc",
+          "black_list": false,
+          "code": "4525004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Emergency department patient visit (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Emergency Department Visit",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.207": {
+    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
+      "_id": "5a7dc4efb8484620c51832fd",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a7dc4efb8484620c51832fe",
+          "black_list": false,
+          "code": "428371000124100",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Discharge to healthcare facility for hospice care (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharged to Health Care Facility for Hospice Care",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.207",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.209": {
+    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
+      "_id": "5a7dc4f0b8484620c51832ff",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a7dc4f0b8484620c5183300",
+          "black_list": false,
+          "code": "428361000124107",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Discharge to home for hospice care (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharged to Home for Hospice Care",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.209",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
+    }
+  },
+  "2.16.840.1.113883.3.666.5.307": {
+    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
+      "_id": "5a7dc4f0b8484620c5183301",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a7dc4f0b8484620c5183302",
+          "black_list": false,
+          "code": "183452005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Emergency hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5a7dc4f0b8484620c5183303",
+          "black_list": false,
+          "code": "32485007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5a7dc4f0b8484620c5183304",
+          "black_list": false,
+          "code": "8715000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospital admission, elective (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Encounter Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
+    }
+  },
+  "2.16.840.1.113762.1.4.1108.15": {
+    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
+      "_id": "5a7dc4f0b8484620c5183305",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a7dc4f0b8484620c5183306",
+          "black_list": false,
+          "code": "385763009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospice care (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5a7dc4f0b8484620c5183307",
+          "black_list": false,
+          "code": "385765002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospice care management (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Hospice care ambulatory",
+      "oid": "2.16.840.1.113762.1.4.1108.15",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
+    }
+  },
   "2.16.840.1.113883.3.464.1003.102.12.1011": {
     "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
       "_id": "5a7dc4edb8484620c518312f",
@@ -6282,151 +6427,6 @@
       ],
       "display_name": "Ambulatory/ED Visit",
       "oid": "2.16.840.1.113883.3.464.1003.101.12.1061",
-      "user_id": "501fdba3044a111b98000001",
-      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
-    }
-  },
-  "2.16.840.1.113883.3.117.1.7.1.292": {
-    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
-      "_id": "5a7dc4efb8484620c51832fb",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a7dc4efb8484620c51832fc",
-          "black_list": false,
-          "code": "4525004",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Emergency department patient visit (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Emergency Department Visit",
-      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
-      "user_id": "501fdba3044a111b98000001",
-      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
-    }
-  },
-  "2.16.840.1.113883.3.117.1.7.1.207": {
-    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
-      "_id": "5a7dc4efb8484620c51832fd",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a7dc4efb8484620c51832fe",
-          "black_list": false,
-          "code": "428371000124100",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Discharge to healthcare facility for hospice care (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Discharged to Health Care Facility for Hospice Care",
-      "oid": "2.16.840.1.113883.3.117.1.7.1.207",
-      "user_id": "501fdba3044a111b98000001",
-      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
-    }
-  },
-  "2.16.840.1.113883.3.117.1.7.1.209": {
-    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
-      "_id": "5a7dc4f0b8484620c51832ff",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a7dc4f0b8484620c5183300",
-          "black_list": false,
-          "code": "428361000124107",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Discharge to home for hospice care (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Discharged to Home for Hospice Care",
-      "oid": "2.16.840.1.113883.3.117.1.7.1.209",
-      "user_id": "501fdba3044a111b98000001",
-      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
-    }
-  },
-  "2.16.840.1.113883.3.666.5.307": {
-    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
-      "_id": "5a7dc4f0b8484620c5183301",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a7dc4f0b8484620c5183302",
-          "black_list": false,
-          "code": "183452005",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Emergency hospital admission (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5a7dc4f0b8484620c5183303",
-          "black_list": false,
-          "code": "32485007",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Hospital admission (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5a7dc4f0b8484620c5183304",
-          "black_list": false,
-          "code": "8715000",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Hospital admission, elective (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Encounter Inpatient",
-      "oid": "2.16.840.1.113883.3.666.5.307",
-      "user_id": "501fdba3044a111b98000001",
-      "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
-    }
-  },
-  "2.16.840.1.113762.1.4.1108.15": {
-    "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464": {
-      "_id": "5a7dc4f0b8484620c5183305",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a7dc4f0b8484620c5183306",
-          "black_list": false,
-          "code": "385763009",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Hospice care (regime/therapy)",
-          "white_list": false
-        },
-        {
-          "_id": "5a7dc4f0b8484620c5183307",
-          "black_list": false,
-          "code": "385765002",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Hospice care management (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Hospice care ambulatory",
-      "oid": "2.16.840.1.113762.1.4.1108.15",
       "user_id": "501fdba3044a111b98000001",
       "version": "Draft-BEB1C33C-2549-4E7F-9567-05ED38448464"
     }

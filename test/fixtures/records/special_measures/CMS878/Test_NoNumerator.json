@@ -1,8 +1,12 @@
 {
-  "_id": "5b61b47fb848461e81031467",
+  "_id": {
+    "$oid": "5b61b47fb848461e81031467"
+  },
   "assessments": [
     {
-      "_id": "5b61b47fb848461e81031468",
+      "_id": {
+        "$oid": "5b61b47fb848461e81031468"
+      },
       "codes": {
         "LOINC": [
           "72166-2"
@@ -28,7 +32,9 @@
       "time": null,
       "values": [
         {
-          "_id": "5b61b47fb848461e81031469",
+          "_id": {
+            "$oid": "5b61b47fb848461e81031469"
+          },
           "scalar": 1337932800000,
           "units": "UnixTime"
         }
@@ -36,7 +42,9 @@
     }
   ],
   "birthdate": 205305780,
-  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "bundle_id": {
+    "$oid": "5a57e977942c6d1e61d32f14"
+  },
   "created_at": "2018-08-01T13:24:15.648Z",
   "deathdate": null,
   "description": null,
@@ -61,7 +69,9 @@
   "gender": "F",
   "insurance_providers": [
     {
-      "_id": "5b61b47fb848461e8103146a",
+      "_id": {
+        "$oid": "5b61b47fb848461e8103146a"
+      },
       "codes": {
         "SOP": [
           "349"
@@ -81,7 +91,9 @@
       "negationReason": null,
       "oid": null,
       "payer": {
-        "_id": "5b61b47fb848461e8103146b",
+        "_id": {
+          "$oid": "5b61b47fb848461e8103146b"
+        },
         "name": "Other"
       },
       "reason": null,
@@ -147,7 +159,9 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5b61b47fb848461e81031468",
+      "coded_entry_id": {
+        "$oid": "5b61b47fb848461e81031468"
+      },
       "code_source": "DEFAULT"
     },
     {
@@ -161,5 +175,7 @@
   "title": null,
   "type": null,
   "updated_at": "2018-08-01T13:24:15.648Z",
-  "user_id": "501fdba3044a111b98000001"
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  }
 }

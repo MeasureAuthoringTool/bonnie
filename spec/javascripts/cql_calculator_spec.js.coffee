@@ -236,7 +236,7 @@ describe 'cqlCalculator', ->
         result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
 
         # there will be a single result in the episode_results
-        expect(result.get('episode_results')).toEqual({'5a58f529942c6d5479457abc': { IPP: 1, DENOM: 1, NUMER: 1}})
+        expect(result.get('episode_results')).toEqual({'5aeb7763b848463d625b33d2': { IPP: 1, DENOM: 1, NUMER: 1}})
         # NUMER should be the only not relevant population
         expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: true, NUMER: true })
 

@@ -1,7 +1,5 @@
 # An abstract class that provides fixture exporting functionality
 class FixtureExporter
-  # In order to avoid storing details of real users, a test-specific user fixture exists.
-  @bonnie_fixtures_user_id = '501fdba3044a111b98000001'
 
   def initialize(user, measure: nil, records: nil)
     @user = user
@@ -83,7 +81,7 @@ class FixtureExporter
 
   def as_transformed_hash(mongoid_doc)
     doc = make_hash_and_apply_any_transforms(mongoid_doc)
-    doc['user_id'] = @bonnie_fixtures_user_id if doc['user_id'].present?
+    doc['user_id'] = bonnie_fixtures_user_id if doc.key? 'user_id'
     return doc
   end
 
@@ -143,8 +141,18 @@ class FrontendFixtureExporter < FixtureExporter
   alias export_value_sets export_value_sets_as_map
   alias export_records export_records_as_array
 
+  def initialize(user, measure: nil, records: nil)
+    super(user, measure: measure, records: records)
+  end
+
   def make_hash_and_apply_any_transforms(mongoid_doc)
     return JSON.parse(mongoid_doc.to_json, max_nesting: 1000)
+  end
+
+  def bonnie_fixtures_user_id
+    # In order to avoid storing details of real users, a test-specific user fixture exists.
+    # for front end tests this should be just a string
+    '501fdba3044a111b98000001'
   end
 end
 
@@ -157,5 +165,10 @@ class BackendFixtureExporter < FixtureExporter
     doc = mongoid_doc.as_json
     objectid_to_oids(doc)
     return JSON.parse(doc.to_json, max_nesting: 1000)
+  end
+
+  def bonnie_fixtures_user_id
+    # In order to avoid storing details of real users, a test-specific user fixture exists.
+    { '$oid': '501fdba3044a111b98000001' }
   end
 end

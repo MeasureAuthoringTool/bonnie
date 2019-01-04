@@ -1701,45 +1701,25 @@
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
   },
-  "2.16.840.1.113883.3.117.1.7.1.87": {
+  "2.16.840.1.113883.3.117.1.7.1.292": {
     "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133": {
-      "_id": "5a57f077942c6d230492bf05",
+      "_id": "5a57f07b942c6d230492c66f",
       "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5a57f077942c6d230492bf06",
+          "_id": "5a57f07b942c6d230492c670",
           "black_list": false,
-          "code": "306701001",
+          "code": "4525004",
           "code_system": "2.16.840.1.113883.6.96",
           "code_system_name": "SNOMED-CT",
           "code_system_version": "2017-03",
-          "display_name": "Discharge to community hospital (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5a57f077942c6d230492bf07",
-          "black_list": false,
-          "code": "306703003",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-03",
-          "display_name": "Discharge to tertiary referral hospital (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5a57f077942c6d230492bf08",
-          "black_list": false,
-          "code": "434781000124105",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-03",
-          "display_name": "Discharge to acute care hospital (procedure)",
+          "display_name": "Emergency department patient visit (procedure)",
           "white_list": false
         }
       ],
-      "display_name": "Discharge To Acute Care Facility",
-      "oid": "2.16.840.1.113883.3.117.1.7.1.87",
+      "display_name": "Emergency Department Visit",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
       "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
@@ -1783,6 +1763,49 @@
       ],
       "display_name": "Encounter Inpatient",
       "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.87": {
+    "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133": {
+      "_id": "5a57f077942c6d230492bf05",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a57f077942c6d230492bf06",
+          "black_list": false,
+          "code": "306701001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-03",
+          "display_name": "Discharge to community hospital (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5a57f077942c6d230492bf07",
+          "black_list": false,
+          "code": "306703003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-03",
+          "display_name": "Discharge to tertiary referral hospital (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5a57f077942c6d230492bf08",
+          "black_list": false,
+          "code": "434781000124105",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-03",
+          "display_name": "Discharge to acute care hospital (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharge To Acute Care Facility",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.87",
       "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
@@ -20686,29 +20709,6 @@
       ],
       "display_name": "Psychiatric/Mental Health Patient",
       "oid": "2.16.840.1.113883.3.117.1.7.1.299",
-      "user_id": "501fdba3044a111b98000001",
-      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
-    }
-  },
-  "2.16.840.1.113883.3.117.1.7.1.292": {
-    "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133": {
-      "_id": "5a57f07b942c6d230492c66f",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a57f07b942c6d230492c670",
-          "black_list": false,
-          "code": "4525004",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-03",
-          "display_name": "Emergency department patient visit (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Emergency Department Visit",
-      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
       "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }

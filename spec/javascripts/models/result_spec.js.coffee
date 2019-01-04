@@ -120,7 +120,7 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
-    expect(result.get('episode_results')['5a593cbd942c6d0773593d50']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5aeb7763b848463d625b33cf']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed', ->
     patient = @patients.findWhere(last: '2 ED', first: 'Visits')
@@ -133,10 +133,10 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-    expect(result.get('episode_results')['5a593ef8942c6d0773593de1']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5aeb77ccb848463d625b5d48']).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
-    expect(result.get('episode_results')['5a593ef8942c6d0773593de3']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5aeb77ccb848463d625b5d4a']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed with one excluded', ->
     patient = @patients.findWhere(last: '2 ED', first: 'Visits 1 Excl')
@@ -148,10 +148,10 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-    expect(result.get('episode_results')['5a59405f942c6d0773593e15']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5aeb77ccb848463d625b5d4d']).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a59405f942c6d0773593e17']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5aeb77ccb848463d625b5d4f']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed with both excluded', ->
     patient = @patients.findWhere(last: '2 ED', first: 'Visits 2 Excl')
@@ -163,7 +163,7 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a5940d8942c6d0c717eeed6']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5aeb77cdb848463d625b5d52']).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-    expect(result.get('episode_results')['5a5940d8942c6d0c717eeed8']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5aeb77cdb848463d625b5d54']).toEqual(expectedEpisodeResults)
