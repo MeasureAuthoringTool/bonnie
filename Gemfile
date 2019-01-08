@@ -43,6 +43,7 @@ gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch
 # gem 'hquery-patient-api', :path => '../patientapi'
 # gem 'cqm-converter', :path => '../cqm-converter'
 # gem 'cqm-models', :path => '../cqm-models'
+# gem 'cqm-parsers', :path => '../cqm-parsers'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.2.1'
