@@ -13,7 +13,7 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', '~> 4.3.2'
+# gem 'health-data-standards', '~> 4.3.2'
 gem 'cql_qdm_patientapi', '~> 1.3.1'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
@@ -33,7 +33,7 @@ gem 'cqm-converter', '~> 1.0.3'
 # gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'master'
 # gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'master'
 
-# gem 'health-data-standards', :path => '../health-data-standards'
+gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
 # gem 'simplexml_parser', :path => '../simplexml_parser'
 # gem 'hqmf2js', path: '../hqmf2js'
@@ -74,7 +74,7 @@ group :test, :development, :ci do
   gem 'minitest'
   gem 'rails_best_practices'
   gem 'reek'
-  gem 'webmock'
+  gem 'webmock', '~> 2.3.1'
   gem 'vcr'
   gem 'bundler-audit'
   gem 'colorize'
