@@ -14,11 +14,10 @@
 <body>
   <%= render 'layouts/ie8_alert' %>
   <div class="auth container">
-    <div class="alert alert-danger"><p style="text-align: center;"><span style="font-size: 16pt;">
-      <strong>Bonnie-QDM is retiring on June 1, 2019.</strong> For more information, read the <a><%= link_to 'Bonnie Retirement Document', '/resource/Bonnie_v1_retirement.pdf' %></a>.
-    </div>
     <% if current_user %>
       <%= render 'layouts/header' %>
+    <% else %>
+      <%= render 'layouts/qdm_retirement_banner' %>
     <% end %>
     <%= yield %>
   </div>
