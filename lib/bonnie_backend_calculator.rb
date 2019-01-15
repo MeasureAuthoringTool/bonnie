@@ -7,10 +7,12 @@ module BonnieBackendCalculator
   def self.calculate(measure, patients, value_sets_by_oid, options)
     # convert patients to QDM, note that once we switch to the QDM model this will become unnecessary (or maybe optional)
     qdm_patients, failed_patients = PatientHelper.convert_patient_models(patients)
+    cqm_measure = CQM::Converter::BonnieMeasure.measure_and_valuesets_to_cqm(measure, measure.value_sets)
+    cqm_value_sets = cqm_measure.value_sets.as_json(:except => :_id)
     post_data = {
       patients: qdm_patients,
-      measure: measure,
-      valueSetsByOid: value_sets_by_oid,
+      measure: cqm_measure,
+      valueSetsByOid: cqm_value_sets.to_json,
       options: options
     }
     begin
