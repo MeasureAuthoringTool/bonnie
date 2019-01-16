@@ -1,5 +1,5 @@
 ###*
-# Contains helpers that generate useful data for coverage and highlighing. These structures are added to the Result 
+# Contains helpers that generate useful data for coverage and highlighing. These structures are added to the Result
 # object in the CQLCalculator.
 ###
 class CQLResultsHelpers
@@ -83,7 +83,7 @@ class CQLResultsHelpers
   # unless they have already been marked as 'TRUE' for their relevance statue. This function will never be called on
   # statements that are 'NA'.
   # @private
-  # @param {object} cql_statement_dependencies - Dependency map from the measure object. The thing we recurse over 
+  # @param {object} cql_statement_dependencies - Dependency map from the measure object. The thing we recurse over
   #   even though it is flat, it represents a tree.
   # @param {object} statementRelevance - The `statement_relevance` map to mark.
   # @param {string} libraryName - The library name of the statement we are marking.
@@ -213,7 +213,7 @@ class CQLResultsHelpers
             rawResult: clauseResult.raw)
 
           clauseResults[lib][localId] = clauseResult
-  
+
     return { statement_results: statementResults, clause_results: clauseResults }
 
   ###*
@@ -292,7 +292,7 @@ class CQLResultsHelpers
       finalResult = 'NA'
     else if params.statementRelevance[params.lib][params.statementName] == 'FALSE' || !params.rawClauseResults[params.lib]?
       finalResult = 'UNHIT'
-    else if @_doesResultPass(params.rawResult) 
+    else if @_doesResultPass(params.rawResult)
       finalResult = 'TRUE'
     return finalResult
 

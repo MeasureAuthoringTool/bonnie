@@ -17,7 +17,7 @@ gem "non-stupid-digest-assets"
 gem 'cql_qdm_patientapi', '~> 1.3.1'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
-gem 'bonnie_bundler', '~> 2.2.4'
+# gem 'bonnie_bundler', '~> 2.2.4'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
 gem 'cqm-converter', '~> 1.0.3'
@@ -37,7 +37,7 @@ gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
 # gem 'simplexml_parser', :path => '../simplexml_parser'
 # gem 'hqmf2js', path: '../hqmf2js'
-# gem 'bonnie_bundler', :path => '../bonnie_bundler'
+gem 'bonnie_bundler', :path => '../bonnie_bundler'
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
 # gem 'hquery-patient-api', :path => '../patientapi'
 # gem 'cqm-converter', :path => '../cqm-converter'
@@ -55,7 +55,7 @@ gem 'systemu'
 gem 'multi_json'
 
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
-gem 'roo'
+gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
