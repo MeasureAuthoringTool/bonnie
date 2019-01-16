@@ -7,6 +7,46 @@ GIT
       json
 
 GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: ffb19f242c671aed072dfa534b9f1e32c44140cf
+  branch: update_rest_client
+  specs:
+    health-data-standards (4.3.2)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongo (~> 2.4.3)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.3)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 2.0.1)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/bonnie_bundler.git
+  revision: bfb9ff0acb7356d560ac75e5ec525825a2c6f08c
+  branch: roo_update
+  specs:
+    bonnie_bundler (2.2.4)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.3.2)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.2)
+      rails (>= 4.2, < 6.0)
+      roo (~> 2.7)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/randym/axlsx
   revision: c8ac844572b25fda358cc01d2104720c4c42f450
   branch: master
@@ -25,42 +65,6 @@ GIT
     exception_notification (4.2.1)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
-
-PATH
-  remote: ../bonnie_bundler
-  specs:
-    bonnie_bundler (2.2.4)
-      diffy (~> 3.0.0)
-      health-data-standards (~> 4.3.2)
-      hqmf2js (~> 1.4)
-      hquery-patient-api (~> 1.1)
-      mongoid (~> 5.0)
-      quality-measure-engine (~> 3.2)
-      rails (>= 4.2, < 6.0)
-      roo (~> 2.7)
-      rubyzip (~> 1.2, >= 1.2.1)
-      simplexml_parser (~> 1.0)
-      zip-zip (~> 0.3)
-
-PATH
-  remote: ../health-data-standards
-  specs:
-    health-data-standards (4.3.2)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongo (~> 2.4.3)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 2.0.1)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
 
 GEM
   remote: https://rubygems.org/
