@@ -16,6 +16,8 @@
   <div class="auth container">
     <% if current_user %>
       <%= render 'layouts/header' %>
+    <% else %>
+      <%= render 'layouts/qdm_retirement_banner' %>
     <% end %>
     <%= yield %>
   </div>
