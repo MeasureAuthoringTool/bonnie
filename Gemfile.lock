@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 4f802877b8c69b19f616f47fb5f1d74dbfb7bdbc
-  branch: mongoid5
+  revision: 329f67c828b29a22eb1095c83b0543c2c020ef97
+  branch: mongoid5-update-rest-client
   specs:
     health-data-standards (3.7.0)
       activesupport (~> 4.2.0)
@@ -13,9 +13,9 @@ GIT
       mongo (~> 2.4.3)
       mongoid (~> 5.0.0)
       mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
+      nokogiri (~> 1.8.5)
       protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
+      rest-client (~> 2.0.1)
       rubyzip (~> 1.2.1)
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
@@ -222,7 +222,9 @@ GEM
       mini_mime (>= 0.1.1)
     memoist (0.9.3)
     method_source (0.8.2)
-    mime-types (2.99.3)
+    mime-types (3.2.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2018.0812)
     mimemagic (0.3.2)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
@@ -297,10 +299,10 @@ GEM
     ref (2.0.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
-    rest-client (1.8.0)
+    rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     roo (1.13.2)
       nokogiri
       rubyzip
