@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/projecttacoma/bonnie.svg?branch=master)](https://travis-ci.org/projecttacoma/bonnie)
-[![GitHub version](https://badge.fury.io/gh/projecttacoma%2Fbonnie.svg)]
+![GitHub version](https://badge.fury.io/gh/projecttacoma%2Fbonnie.svg)
 
 
 
