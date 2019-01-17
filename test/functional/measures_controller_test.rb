@@ -326,7 +326,7 @@ include Devise::Test::ControllerHelpers
       assert_response :success
       measure_res = JSON.parse(response.body)
       # assert_equal measure.cql_statement_dependencies['Qualifying.Encounters^^p^c'], measure_res['cql_statement_dependencies']['Qualifying.Encounters^^p^c']
-      # TODO: changing to assert_nil to get rid of a DEPRECATED warning, but should this actually be nil?
+      # TODO: changing to assert_nil to get rid of a DEPRECATED warning, but should these both actually be nil?
       assert_nil measure_res['cql_statement_dependencies']['Qualifying.Encounters^^p^c']
     end
   end
