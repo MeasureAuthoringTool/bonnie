@@ -14,7 +14,7 @@ VCR.configure do |c|
 
   # Ensure plain text passwords do not show up during logging
   c.filter_sensitive_data('<VSAC_USERNAME>') {ENV['VSAC_USERNAME']}
-  c.filter_sensitive_data('<VSAC_PASSWORD>') {ENV['VSAC_PASSWORD']}
+  c.filter_sensitive_data('<VSAC_PASSWORD>') {URI.escape ENV['VSAC_PASSWORD']}
   c.default_cassette_options = {record: :once }
 
 end
