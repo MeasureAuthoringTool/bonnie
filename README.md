@@ -26,6 +26,10 @@ bundle exec teaspoon
 bundle exec rake test
 ```
 
+### Issues Reporting
+
+To report issues with the Bonnie code, please submit tickets to [Github](https://github.com/projecttacoma/bonnie/issues). To report issues with the production release of Bonnie, please submit tickets to [JIRA](https://oncprojectracking.healthit.gov/support/projects/BONNIE/)
+
 
 ## Built With
 
