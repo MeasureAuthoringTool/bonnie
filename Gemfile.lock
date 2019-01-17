@@ -126,7 +126,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (6.0.4)
     bcrypt (3.1.11)
     brakeman (3.6.2)
@@ -192,7 +193,7 @@ GEM
       multi_json
       sprockets (>= 2.0.3)
       tilt
-    hashdiff (0.3.0)
+    hashdiff (0.3.8)
     highline (1.7.10)
     hike (1.2.3)
     htmlentities (4.3.4)
@@ -268,6 +269,7 @@ GEM
     pry-byebug (3.2.0)
       byebug (~> 5.0)
       pry (~> 0.10)
+    public_suffix (3.0.3)
     rack (1.6.11)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -362,7 +364,7 @@ GEM
     vcr (3.0.3)
     warden (1.2.7)
       rack (>= 1.0)
-    webmock (2.1.0)
+    webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
