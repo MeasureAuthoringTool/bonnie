@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/projecttacoma/bonnie.svg?branch=master)](https://travis-ci.org/projecttacoma/bonnie)
-[![GitHub version](https://badge.fury.io/gh/projecttacoma>%2Fbonnie.svg)]
-(http://badge.fury.io/gh/projecttacoma%2Fbonnie)
+[![GitHub version](https://badge.fury.io/gh/projecttacoma%2Fbonnie.svg)]
+
 
 
 # Bonnie
@@ -9,7 +9,8 @@ Bonnie is designed to support streamlined and efficient pre-testing of eCQMs, pa
 
 ## Prerequisties and Installation
 
-Please see our [Installation instructions](https://github.com/projecttacoma/bonnie/wiki/Installation-Instructions)
+* Please see our [Installation instructions](https://github.com/projecttacoma/bonnie/wiki/Installation-Instructions)
+* For Development purposes on a Mac, see our [Mac installation instructions](https://github.com/projecttacoma/bonnie/wiki/Mac-Installation-Instructions)
 
 ## Running the tests
 
