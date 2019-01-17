@@ -58,7 +58,7 @@ include Devise::Test::ControllerHelpers
     assert_equal [{"measure_id"=>"E35791DF-5B25-41BB-B260-673337BC44A8", "population_index"=>"0", "IPP"=>"1", "DENOM"=>"0", "NUMER"=>"0", "status"=>"pass"}], r.calc_results, "Checking that calc_status worked."
     assert_equal false, r.has_measure_history
     assert_equal false, r.results_exceed_storage
-    assert_equal nil, r.condensed_calc_results
+    assert_nil r.condensed_calc_results
     assert_equal 128, r.results_size
     json = JSON.parse(response.body)
 
@@ -304,8 +304,8 @@ include Devise::Test::ControllerHelpers
     assert_equal 2, r.history_tracks.count
     assert_equal true, r.results_exceed_storage
     assert_equal 'pass', r.condensed_calc_results[0]['status']
-    assert_equal nil, r.condensed_calc_results[0]['rationale']
-    assert_equal nil, r.condensed_calc_results[0]['finalSpecifics']
+    assert_nil r.condensed_calc_results[0]['rationale']
+    assert_nil r.condensed_calc_results[0]['finalSpecifics']
     assert_equal false, r.calc_results?
 
     @patient['calc_results'] = [{"measure_id"=>@measure.hqmf_set_id, 'population_index'=>0, 'IPP'=>1, 'DENOM'=>0, 'NUMER'=>0, "rationale"=>'X' * (1024), "finalSpecifics"=>'Z' * (1024)}]
