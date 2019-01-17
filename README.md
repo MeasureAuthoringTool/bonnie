@@ -7,10 +7,12 @@
 
 Bonnie is designed to support streamlined and efficient pre-testing of eCQMs, particularly those used in the Centers for Medicare & Medicaid Services (CMS) quality reporting programs.
 
+
 ## Prerequisties and Installation
 
 * Please see our [Installation instructions](https://github.com/projecttacoma/bonnie/wiki/Installation-Instructions)
 * For Development purposes on a Mac, see our [Mac installation instructions](https://github.com/projecttacoma/bonnie/wiki/Mac-Installation-Instructions)
+
 
 ## Running the tests
 
@@ -26,7 +28,8 @@ bundle exec teaspoon
 bundle exec rake test
 ```
 
-### Issues Reporting
+
+## Issues Reporting
 
 To report issues with the Bonnie code, please submit tickets to [Github](https://github.com/projecttacoma/bonnie/issues). To report issues with the production release of Bonnie, please submit tickets to [JIRA](https://oncprojectracking.healthit.gov/support/projects/BONNIE/)
 
@@ -39,9 +42,11 @@ To report issues with the Bonnie code, please submit tickets to [Github](https:/
 * [Jasmine](https://jasmine.github.io/)
 * [MongoDB](https://www.mongodb.com/)
 
+
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see [tags on this repository](https://github.com/projecttacoma/bonnie/tags). 
+
 
 ## License
 
