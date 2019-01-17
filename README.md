@@ -1,12 +1,46 @@
-bonnie
-======
+[![Build Status](https://travis-ci.org/projecttacoma/bonnie.svg?branch=master)](https://travis-ci.org/projecttacoma/bonnie)
+[![GitHub version](https://badge.fury.io/gh/projecttacoma>%2Fbonnie.svg)]
+(http://badge.fury.io/gh/projecttacoma%2Fbonnie)
 
-Clinical Quality Measure Testing Tool
 
-License
-======
+# Bonnie
 
-Copyright 2014 The MITRE Corporation
+Bonnie is designed to support streamlined and efficient pre-testing of eCQMs, particularly those used in the Centers for Medicare & Medicaid Services (CMS) quality reporting programs.
+
+## Prerequisties and Installation
+
+Please see our [Installation instructions](https://github.com/projecttacoma/bonnie/wiki/Installation-Instructions)
+
+## Running the tests
+
+### To run frontend Jasmine tests 
+
+```
+bundle exec teaspoon
+```
+
+### To run backend Ruby tests
+
+```
+bundle exec rake test
+```
+
+
+## Built With
+
+* [Ruby on Rails](https://rubyonrails.org/)
+* [Thorax JS](https://github.com/walmartlabs/thorax)
+* [Bower](https://bower.io/)
+* [Jasmine](https://jasmine.github.io/)
+* [MongoDB](https://www.mongodb.com/)
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see [tags on this repository](https://github.com/projecttacoma/bonnie/tags). 
+
+## License
+
+Copyright 2019 The MITRE Corporation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
