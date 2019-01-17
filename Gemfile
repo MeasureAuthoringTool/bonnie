@@ -85,7 +85,7 @@ end
 
 group :test, :development do
   gem 'pry-byebug'
-  gem 'thin'
+  gem 'thin', '~> 1.7.2'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
 end
