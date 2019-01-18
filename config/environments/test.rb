@@ -41,4 +41,7 @@ Bonnie::Application.configure do
   # Add spec/javascripts to asset paths so that jasmine tests work
   config.assets.paths << Rails.root.join('spec/javascripts')
 
+  # Load npm modules into the asset path
+  config.assets.paths << Rails.root.join('node_modules')
+
 end

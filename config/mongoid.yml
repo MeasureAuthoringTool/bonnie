@@ -1,7 +1,7 @@
 development:
   clients:
     default:
-      database: bonnie_development
+      database: bonnie_production
       hosts:
         - localhost:27017
   options:

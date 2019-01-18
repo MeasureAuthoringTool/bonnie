@@ -21,6 +21,9 @@ Bonnie::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Load npm modules into the asset path
+  config.assets.paths << Rails.root.join('node_modules')
+
   Rails.application.routes.default_url_options[:host] = APP_CONFIG['hostname']
 
   # Defaults to nil and saved in location specified by config.assets.prefix

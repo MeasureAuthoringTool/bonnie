@@ -30,6 +30,8 @@ script:
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
   - bundle exec rake test
+  - yarn install
+  - yarn audit
 notifications:
   email:
     recipients:
