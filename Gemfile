@@ -22,7 +22,7 @@ gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
 gem 'cqm-converter', '~> 0.3.6'
 
-gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'bonnie-prior-ruby-2.4.5-updates'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'bonnie-prior'
 # gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'bonnie-prior'
 # gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'bonnie-prior'
 # gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'bonnie-prior'
