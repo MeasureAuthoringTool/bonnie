@@ -156,7 +156,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
-    colorize (0.7.7)
     columnize (0.9.0)
     commonjs (0.2.7)
     concurrent-ruby (1.1.3)
@@ -250,7 +249,7 @@ GEM
     multi_json (1.12.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.2)
+    net-ssh (5.1.0)
     netrc (0.11.0)
     newrelic_rpm (3.14.3.313)
     nokogiri (1.8.5)
@@ -332,8 +331,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sshkit (1.7.1)
-      colorize (>= 0.7.0)
+    sshkit (1.18.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
@@ -423,4 +421,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   1.16.6
+   1.17.3
