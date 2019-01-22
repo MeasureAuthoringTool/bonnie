@@ -1,10 +1,10 @@
 module PatientHelper
-  # HDS Patient to QDM Patient model translation
+  # HDS Patient to CQM Patient model translation
   def self.convert_patient_models(hds_records)
     cqm_records = []
     failed_records = []
 
-    # Convert all of the HDS Records into QDM Records
+    # Convert all of the HDS Records into CQM Records
     hds_records.each do |hds_record|
       begin
         cqm_record = CQMConverter.to_cqm(hds_record)

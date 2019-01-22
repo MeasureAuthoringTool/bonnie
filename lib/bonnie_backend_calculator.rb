@@ -1,6 +1,6 @@
 
 # Do the measure calculation using the restful calculation microservice,
-# will convert patients to QDM model prior to calculation.
+# will convert patients to CQM model prior to calculation.
 module BonnieBackendCalculator
   CALCULATION_SERVICE_URL = 'http://localhost:8081/calculate'.freeze
 
