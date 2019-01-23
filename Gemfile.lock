@@ -7,31 +7,9 @@ GIT
       json
 
 GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: ffb19f242c671aed072dfa534b9f1e32c44140cf
-  branch: update_rest_client
-  specs:
-    health-data-standards (4.3.2)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongo (~> 2.4.3)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 2.0.1)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: bfb9ff0acb7356d560ac75e5ec525825a2c6f08c
-  branch: roo_update
+  revision: 15172ce93346bce966f3e66b9ccf1f25e829da3b
+  branch: master
   specs:
     bonnie_bundler (2.2.4)
       diffy (~> 3.0.0)
@@ -209,6 +187,22 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hashdiff (0.3.8)
+    health-data-standards (4.3.3)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongo (~> 2.4.3)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.3)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 2.0.1)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
     highline (1.7.10)
     hike (1.2.3)
     hqmf2js (1.4.0)
@@ -463,7 +457,7 @@ DEPENDENCIES
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards!
+  health-data-standards (~> 4.3.3)
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails
@@ -503,4 +497,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
