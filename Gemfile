@@ -31,7 +31,7 @@ gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.g
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
 gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'cqm_measure_converter'
-gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'measure_object_updates_rebase'
+gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
 # gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'master'
 
 # gem 'health-data-standards', :path => '../health-data-standards'

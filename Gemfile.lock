@@ -25,6 +25,26 @@ GIT
       zip-zip (~> 0.3)
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-converter
+  revision: 1977499774c25a7c74a97a65e726b0929bdffa45
+  branch: cqm_measure_converter
+  specs:
+    cqm-converter (1.0.3)
+      activesupport
+      coffee-script
+      execjs
+      health-data-standards (>= 4.3.2)
+      momentjs-rails
+      sprockets
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-models
+  revision: 3b916105ff7f38956cd2fff695cecc73cc3a36fe
+  branch: master
+  specs:
+    cqm-models (1.0.2)
+
+GIT
   remote: https://github.com/randym/axlsx
   revision: c8ac844572b25fda358cc01d2104720c4c42f450
   branch: master
