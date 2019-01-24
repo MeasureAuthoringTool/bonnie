@@ -13,11 +13,11 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', '~> 4.3.2'
+gem 'health-data-standards', '~> 4.3.3'
 gem 'cql_qdm_patientapi', '~> 1.3.1'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
-gem 'bonnie_bundler', '~> 2.2.4'
+# gem 'bonnie_bundler', '~> 2.2.4'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
 gem 'cqm-converter', '~> 1.0.3'
@@ -27,7 +27,7 @@ gem 'cqm-converter', '~> 1.0.3'
 # gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
 # gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 # gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
-# gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
+gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
 # gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'master'
@@ -55,7 +55,7 @@ gem 'systemu'
 gem 'multi_json'
 
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
-gem 'roo'
+gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
@@ -74,7 +74,7 @@ group :test, :development, :ci do
   gem 'minitest'
   gem 'rails_best_practices'
   gem 'reek'
-  gem 'webmock'
+  gem 'webmock', '~> 2.3.1'
   gem 'vcr'
   gem 'bundler-audit'
   gem 'colorize'
@@ -85,7 +85,7 @@ end
 
 group :test, :development do
   gem 'pry-byebug'
-  gem 'thin'
+  gem 'thin', '~> 1.7.2'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
 end

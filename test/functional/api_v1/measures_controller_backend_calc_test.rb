@@ -188,6 +188,11 @@ module ApiV1
         # there currently seems to be a mismatch in frontend / backend for things like [], 0, [0], etc.
         expected_rows["jon_doe_row"][6] = "[]" # from "[0]"
         expected_rows["jane_smith_row"][6] = "[]" # from "0"
+
+        # An update to Roo means that false vs FALSE shows up wrong, but the actual excel export is still OK.
+        jon_doe_row[12] = "FALSE" if jon_doe_row[12] == false
+        jane_smith_row[12] = "FALSE" if jane_smith_row[12] == false
+
         assert_equal expected_rows["jon_doe_row"], jon_doe_row
         assert_equal expected_rows["jane_smith_row"], jane_smith_row
       end
