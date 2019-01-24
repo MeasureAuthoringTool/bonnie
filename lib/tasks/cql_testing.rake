@@ -19,7 +19,7 @@ namespace :bonnie do
     task :generate_frontend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id, :patient_first_name, :patient_last_name] => [:environment] do |t, args|
       fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
       measure_file_path = File.join(fixtures_path, 'measure_data', args[:path])
-      record_file_path = File.join(fixtures_path, 'records', args[:path])
+      record_file_path = File.join(fixtures_path, 'cqm_records', args[:path])
 
       user = User.find_by email: args[:user_email]
       measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
@@ -82,7 +82,7 @@ namespace :bonnie do
       File.new(output, "w+")
       File.write(output, JSON.pretty_generate(dict))
     end
-    
+
     ###
     # Loads a set of back end fixtures into the active database.
     # NOTE: This task will fail if documents in the database with the same ids already exist.
@@ -125,17 +125,6 @@ namespace :bonnie do
       end
     end
 
-    ###
-    # Creates and writes a fixture file.
-    #
-    # file_path: path of file to be written
-    # fixture_json: json to be written
-    def create_fixture_file(file_path, fixture_json)
-      FileUtils.mkdir_p(File.dirname(file_path)) unless Dir.exists? File.dirname(file_path)
-      File.new(file_path, "w+")
-      File.write(file_path, fixture_json)
-    end
-    
   end
 
   namespace :cql do
@@ -144,10 +133,10 @@ namespace :bonnie do
     still be replaced if no clause level annotations are found.
 
     $ bundle exec rake bonnie:cql:add_json_to_package[path/to/package.zip,true]
-  
+
     If you are using a zsh terminal, you need to use 'noglob':
     $ noglob bundle exec rake bonnie:cql:add_json_to_package[path/to/package.zip]}
-    
+
     task :add_json_to_package, [:input_package_path, :keep_elm_xml] => [:environment] do |t, args|
       input_package_path = Pathname.new(args[:input_package_path])
       keep_elm_xml = args.fetch(:keep_elm_xml, false) == 'true'
