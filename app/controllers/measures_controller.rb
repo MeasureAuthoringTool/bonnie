@@ -9,7 +9,7 @@ class MeasuresController < ApplicationController
     # Lookup the measure both in the regular and CQL sets
     # TODO: Can we skip the elm if it's CQL?
     @measure = Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
-    @measure ||= CqlMeasure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
+    @measure ||= CQM::Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
       raw_json = @measure.as_json(except: skippable_fields)
@@ -28,7 +28,7 @@ class MeasuresController < ApplicationController
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
     if true
       value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
-      value_set_oids += CqlMeasure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
+      value_set_oids += CQM::Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
 
       # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
       # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
@@ -83,8 +83,8 @@ class MeasuresController < ApplicationController
     end
 
     measure_details = {
-     'episode_of_care'=>params[:calculation_type] == 'episode',
-     'calculate_sdes'=>params[:calc_sde]
+      'episode_of_care'=>params[:calculation_type] == 'episode',
+      'calculate_sdes'=>params[:calc_sde]
     }
 
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
@@ -103,7 +103,7 @@ class MeasuresController < ApplicationController
 
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
-        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
+        existing = CQM::Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
         if !existing.nil?
           is_update = true
           measure_details['episode_of_care'] = existing.episode_of_care
@@ -187,7 +187,7 @@ class MeasuresController < ApplicationController
 
   def destroy
     qdm_measure = Measure.by_user(current_user).where(id: params[:id]).first
-    cql_measure  = CqlMeasure.by_user(current_user).where(id: params[:id]).first
+    cql_measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
 
     if qdm_measure
       measure = qdm_measure
@@ -202,10 +202,10 @@ class MeasuresController < ApplicationController
       elsif measure.composite
         # If the measure if a composite, delete all the associated components
         measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
-          CqlMeasure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).destroy
+          CQM::Measure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).destroy
         end
       end
-      CqlMeasure.by_user(current_user).find(params[:id]).destroy
+      CQM::Measure.by_user(current_user).find(params[:id]).destroy
     end
     render :json => measure
   end
@@ -213,7 +213,7 @@ class MeasuresController < ApplicationController
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
-      measure = CqlMeasure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
+      measure = CQM::Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
       begin
         measure.populations.each_with_index do |population, population_index|
           population['title'] = data['titles']["#{population_index}"] if (data['titles'])
