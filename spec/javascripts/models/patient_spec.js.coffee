@@ -68,3 +68,11 @@ describe 'Patient', ->
       errors = @errorsForPatientWithout('deathdate', expired: true)
       expect(errors.length).toEqual 1
       expect(errors[0][2]).toEqual 'Deceased patient must have date of death'
+
+describe 'CQM Patient', ->
+
+  it 'can be loaded', ->
+    jasmine.getJSONFixtures().clearCache()
+
+    cqm_patient = new Thorax.Models.Patient getJSONFixture('cqm_records/core_measures/CMS32/patients.json')[0], parse: true
+    expect(cqm_patient.attributes.bundleId).toBe('5a57e977942c6d1e61d32f14')
