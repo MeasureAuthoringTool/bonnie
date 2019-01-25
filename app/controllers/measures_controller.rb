@@ -51,6 +51,30 @@ class MeasuresController < ApplicationController
     end
   end
 
+  def save_measures_array_with_package_and_valuesets_to_user(measures, user)
+    measures.each do |measure|
+      measure.user = user
+      measure.save!
+      if measure.package.present?
+        measure.package.user = user
+        measure.package.save!
+      end
+      measure.value_sets.each do |valueset|
+        valueset.user = user
+        valueset.save!
+      end
+    end
+  end
+
+  def delete_measures_array_with_package_and_valuesets(measures)
+    return if measures.nil?
+    measures.each do |measure|
+      measure.delete
+      measure.package.delete if measure.package.present?
+      measure.value_sets.each { |valueset| valueset.delete }
+    end
+  end
+
   def create
     if !params[:measure_file]
       flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
@@ -59,7 +83,6 @@ class MeasuresController < ApplicationController
     end
 
     measure_details = {
-     'type'=>params[:measure_type],
      'episode_of_care'=>params[:calculation_type] == 'episode',
      'calculate_sdes'=>params[:calc_sde]
     }
@@ -69,12 +92,6 @@ class MeasuresController < ApplicationController
       flash[:error] = {title: "Error Loading Measure",
         summary: "Incorrect Upload Format.",
         body: 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.'.html_safe}
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
-    elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
-      flash[:error] = {title: "Error Uploading Measure",
-        summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
-        body: 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.'.html_safe}
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
@@ -89,7 +106,6 @@ class MeasuresController < ApplicationController
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
         if !existing.nil?
           is_update = true
-          measure_details['type'] = existing.type
           measure_details['episode_of_care'] = existing.episode_of_care
           if measure_details['episode_of_care']
             episodes = params["eoc_#{existing.hqmf_set_id}"]
@@ -101,15 +117,26 @@ class MeasuresController < ApplicationController
         end
       end
       # Extract measure(s) from zipfile
-      measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
+      value_set_loader = Measures::VSACValueSetLoader.new(vsac_options, vsac_ticket_granting_ticket)
+      loader = Measures::CqlLoader.new(params[:measure_file], measure_details, value_set_loader)
+      measures = loader.extract_measures
+      save_measures_array_with_package_and_valuesets_to_user(measures, current_user)
+      # at this point CQM::Measure.count == 8 as expected
+
       update_error_message = MeasureHelper.update_measures(measures, current_user, is_update, existing)
       if (!update_error_message.nil?)
         flash[:error] = update_error_message
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
+    rescue Measures::MeasureLoadingInvalidPackageException => e
+      flash[:error] = {title: "Error Uploading Measure",
+        summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
+        body: 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.'.html_safe}
+      redirect_to "#{root_path}##{params[:redirect_route]}"
+      return
     rescue Exception => e
-      measures.each(&:delete) if measures
+      delete_measures_array_with_package_and_valuesets(measures) if defined? measures
       errors_dir = Rails.root.join('log', 'load_errors')
       FileUtils.mkdir_p(errors_dir)
       clean_email = File.basename(current_user.email) # Prevent path traversal

@@ -7,37 +7,6 @@ GIT
       json
 
 GIT
-  remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 15172ce93346bce966f3e66b9ccf1f25e829da3b
-  branch: master
-  specs:
-    bonnie_bundler (2.2.4)
-      diffy (~> 3.0.0)
-      health-data-standards (~> 4.3.2)
-      hqmf2js (~> 1.4)
-      hquery-patient-api (~> 1.1)
-      mongoid (~> 5.0)
-      quality-measure-engine (~> 3.2)
-      rails (>= 4.2, < 6.0)
-      roo (~> 2.7)
-      rubyzip (~> 1.2, >= 1.2.1)
-      simplexml_parser (~> 1.0)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-converter
-  revision: bc3885c3789bc316428bd47ba2c828c134e166ab
-  branch: master
-  specs:
-    cqm-converter (1.0.3)
-      activesupport
-      coffee-script
-      execjs
-      health-data-standards (>= 4.3.2)
-      momentjs-rails
-      sprockets
-
-GIT
   remote: https://github.com/projecttacoma/cqm-models
   revision: 3b916105ff7f38956cd2fff695cecc73cc3a36fe
   branch: master
@@ -73,6 +42,28 @@ GIT
   branch: master
   specs:
     cqm-models (1.0.2)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-parsers
+  revision: a1081c029a2b632f99c6c4f9b2e9d6b059157c24
+  branch: fixes_for_bonnie_integration
+  specs:
+    cqm-parsers (0.2.1)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      mustache
+      nokogiri (~> 1.8.5)
+      protected_attributes (~> 1.0.5)
+      rubyzip (~> 1.2.2)
+      typhoeus
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
 
 GIT
   remote: https://github.com/randym/axlsx
@@ -187,6 +178,14 @@ GEM
       coffee-rails (~> 4.1)
       rails (>= 4.2, < 6.0)
       sprockets-rails (~> 2.3)
+    cqm-converter (1.0.3)
+      activesupport
+      coffee-script
+      cqm-models (>= 1.0.2)
+      execjs
+      health-data-standards (>= 4.3.2)
+      momentjs-rails
+      sprockets
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
@@ -215,7 +214,9 @@ GEM
       doorkeeper (>= 4.0.0, < 5.0)
     equalizer (0.0.11)
     erubis (2.7.0)
-    eventmachine (1.2.7)
+    ethon (0.12.0)
+      ffi (>= 1.3.0)
+    eventmachine (1.0.7)
     execjs (2.7.0)
     ffi (1.9.24)
     foreman (0.78.0)
@@ -309,6 +310,7 @@ GEM
     mongoid-tree (2.0.1)
       mongoid (>= 4.0, < 6.0)
     multi_json (1.13.1)
+    mustache (1.1.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -449,6 +451,8 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (1.4.1)
+    typhoeus (1.3.1)
+      ethon (>= 0.9.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -491,8 +495,9 @@ DEPENDENCIES
   coffee-rails
   colorize
   cql_qdm_patientapi (~> 1.3.1)
-  cqm-converter!
+  cqm-converter (~> 1.0.3)
   cqm-models!
+  cqm-parsers!
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
