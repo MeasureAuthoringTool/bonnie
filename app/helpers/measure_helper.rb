@@ -1,10 +1,4 @@
 module MeasureHelper
-    # HDS Measure to QDM Measure model translation
-    def self.convert_patient_models(hds_measure)
-      qdm_measure = CQMConverter.to_qdm(hds_measure)
-      qdm_measure
-    end
-
   # Helper method to parse vsac query related paramers into the vsac_options object that gets passed into
   # measure loading.
   def self.parse_vsac_parameters(params)
