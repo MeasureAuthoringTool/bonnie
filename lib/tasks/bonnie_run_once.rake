@@ -17,10 +17,9 @@ namespace :bonnie do
             user = User.find(measure.user_id)
             hqmf_set_id = measure.hqmf_set_id
             @api_v1_patients = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
-            @api_v1_value_sets = measure.value_sets_by_oid
             @calculator_options = { doPretty: true }
 
-            calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+            calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @calculator_options)
             converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, measure, @api_v1_patients)
             patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
             population_details = ExcelExportHelper.get_population_details_from_measure(measure, calculated_results)

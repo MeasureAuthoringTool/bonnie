@@ -171,7 +171,6 @@ module ApiV1
         end
         hqmf_set_id = @api_v1_measure.hqmf_set_id
         @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
-        @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
       rescue StandardError => e
         # Email the error so we can see more details on what went wrong with the patient load.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
@@ -181,7 +180,7 @@ module ApiV1
 
       @calculator_options = { doPretty: true }
       begin
-        calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+        calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @calculator_options)
       rescue StandardError => e
         # Email the error so we can see more details on what went wrong with the service.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
