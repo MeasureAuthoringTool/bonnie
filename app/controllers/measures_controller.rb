@@ -119,7 +119,6 @@ class MeasuresController < ApplicationController
       loader = Measures::CqlLoader.new(params[:measure_file], measure_details, value_set_loader)
       measures = loader.extract_measures
 
-
       update_error_message = MeasureHelper.update_measures(measures, current_user, is_update, existing)
       if (!update_error_message.nil?)
         flash[:error] = update_error_message
@@ -131,7 +130,7 @@ class MeasuresController < ApplicationController
     rescue Measures::MeasureLoadingInvalidPackageException => e
       flash[:error] = {title: "Error Uploading Measure",
         summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
-        body: 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.'.html_safe}
+        body: "Measure loading process encountered error: #{e.message} Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.".html_safe}
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     rescue Exception => e
@@ -164,7 +163,7 @@ class MeasuresController < ApplicationController
         session[:vsac_tgt] = nil if e.is_a?(Util::VSAC::VSACTicketExpiredError)
       elsif e.is_a? Measures::MeasureLoadingException
         operator_error = true
-        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded", body:"There may be an error in the CQL logic."}
+        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: e.message}
       else
         flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Bonnie has encountered an error while trying to load the measure."}
       end
