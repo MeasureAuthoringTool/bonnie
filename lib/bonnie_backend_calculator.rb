@@ -12,7 +12,7 @@ module BonnieBackendCalculator
     post_data = {
       patients: qdm_patients,
       measure: cqm_measure,
-      valueSetsByOid: cqm_value_sets.to_json,
+      valueSetsByOid: cqm_value_sets,
       options: options
     }
     begin
