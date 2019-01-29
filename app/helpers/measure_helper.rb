@@ -49,27 +49,24 @@ module MeasureHelper
   def self.update_measures(measures, current_user, is_update, existing)
     measures.each do |measure|
       if !is_update
-        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
+        existing = CQM::Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
         unless existing.nil?
-          measures.each(&:delete)
           error_message = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
           return error_message
         end
       elsif measure.component
         if existing.hqmf_set_id != measure.composite_hqmf_set_id
-          measures.each(&:delete)
           error_message = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
           return error_message
         end
       elsif existing.hqmf_set_id != measure.hqmf_set_id
-        measures.each(&:delete)
         error_message = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
         return error_message
       end
     end
     if existing && is_update
       existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
-        component_measure = CqlMeasure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first
+        component_measure = CQM::Measure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first
         component_measure.delete
       end
       existing.delete

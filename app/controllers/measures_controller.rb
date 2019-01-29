@@ -106,22 +106,19 @@ class MeasuresController < ApplicationController
         existing = CQM::Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
         if !existing.nil?
           is_update = true
-          measure_details['episode_of_care'] = existing.episode_of_care
-          if measure_details['episode_of_care']
-            episodes = params["eoc_#{existing.hqmf_set_id}"]
-          end
+          measure_details['episode_of_care'] = existing.calculation_method == 'EPISODE_OF_CARE'
           measure_details['calculate_sdes'] = existing.calculate_sdes
-          measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1    
+          measure_details['population_titles'] = existing.population_sets.map {|p| p['title']} if existing.population_sets.length > 1    
         else
           raise Exception.new('Update requested, but measure does not exist.')
         end
       end
+
       # Extract measure(s) from zipfile
       value_set_loader = Measures::VSACValueSetLoader.new(vsac_options, vsac_ticket_granting_ticket)
       loader = Measures::CqlLoader.new(params[:measure_file], measure_details, value_set_loader)
       measures = loader.extract_measures
-      save_measures_array_with_package_and_valuesets_to_user(measures, current_user)
-      # at this point CQM::Measure.count == 8 as expected
+
 
       update_error_message = MeasureHelper.update_measures(measures, current_user, is_update, existing)
       if (!update_error_message.nil?)
@@ -129,6 +126,8 @@ class MeasuresController < ApplicationController
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
+      save_measures_array_with_package_and_valuesets_to_user(measures, current_user)
+
     rescue Measures::MeasureLoadingInvalidPackageException => e
       flash[:error] = {title: "Error Uploading Measure",
         summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
