@@ -156,7 +156,7 @@ class FrontendFixtureExporter < FixtureExporter
     super(path)
   end
 
-  # Alias must be placed after the export_records_as_attay method so super method won't be called first
+  # Alias must be placed after the export_records_as_array method so super method won't be called first
   alias export_records export_records_as_array
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
