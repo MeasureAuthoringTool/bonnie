@@ -23,8 +23,10 @@ GIT
       rubyzip (~> 1.2, >= 1.2.1)
       simplexml_parser (~> 1.0)
       zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/projecttacoma/cqm-converter
-  revision: 1977499774c25a7c74a97a65e726b0929bdffa45
+  revision: b613e1ab9daf1e264fa440fee2e356dd5671c468
   branch: cqm_measure_converter
   specs:
     cqm-converter (1.0.3)
