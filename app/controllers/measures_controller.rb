@@ -213,7 +213,7 @@ class MeasuresController < ApplicationController
     measure_finalize_data.each do |data|
       measure = CQM::Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
       begin
-        measure.populations.each_with_index do |population, population_index|
+        measure.population_sets.each_with_index do |population, population_index|
           population['title'] = data['titles']["#{population_index}"] if (data['titles'])
         end
       rescue Exception => e

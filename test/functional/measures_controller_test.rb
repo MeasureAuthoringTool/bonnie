@@ -14,16 +14,17 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(cql_measures_set, users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, Record.all)
-    associate_user_with_measures(@user, CqlMeasure.all)
-    @measure = CqlMeasure.where({"cms_id" => "CMS32v7"}).first
+    associate_user_with_measures(@user, CQM::Measure.all)
+    @measure = CQM::Measure.where({"cms_id" => "CMS32v7"}).first
     sign_in @user
+    @vcr_options = {match_requests_on: [:method, :uri_no_st]}
   end
 
   test "upload CQL with valid VSAC creds" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("valid_vsac_response") do
-      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
@@ -42,7 +43,7 @@ include Devise::Test::ControllerHelpers
 
       assert_response :redirect
 
-      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_equal "40280382-5FA6-FE85-015F-B5969D1D0264", measure['hqmf_id']
     end
   end
@@ -51,7 +52,7 @@ include Devise::Test::ControllerHelpers
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("profile_query") do
-      measure = CqlMeasure.where({hqmf_set_id: "848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
@@ -69,7 +70,7 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
       assert_equal "40280582-5859-673B-0158-E42103C30732", measure['hqmf_id']
     end
   end
@@ -78,7 +79,7 @@ include Devise::Test::ControllerHelpers
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("release_query") do
-      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
@@ -95,7 +96,7 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
       assert_equal "40280582-5859-673B-0158-E42103C30732", measure['hqmf_id']
     end
   end
@@ -104,7 +105,7 @@ include Devise::Test::ControllerHelpers
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("profile_draft_query") do
-      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
@@ -122,7 +123,7 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
       assert_equal "40280582-5859-673B-0158-E42103C30732", measure['hqmf_id']
     end
   end
@@ -154,7 +155,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("invalid_vsac_response") do
 
       # Ensure measure is not loaded to begin with
-      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_nil measure
 
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
@@ -179,7 +180,7 @@ include Devise::Test::ControllerHelpers
 
   test "upload MAT with no VSAC creds or ticket_granting_ticket in session" do
     # Ensure measure is not loaded to begin with
-    measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+    measure = CQM::Measure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
     assert_nil measure
     session[:vsac_tgt] = nil
 
@@ -204,7 +205,7 @@ include Devise::Test::ControllerHelpers
     skip('Need to find a new package that causes value sets not found error')
     VCR.use_cassette("vsac_not_found") do
       # Ensure measure is not loaded to begin with
-      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
@@ -233,7 +234,7 @@ include Devise::Test::ControllerHelpers
     # Note, do not re-record this because it is a synthetic casette that is hard to reproduce
     VCR.use_cassette("vsac_500_response") do
       # Ensure measure is not loaded to begin with
-      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
@@ -261,7 +262,7 @@ include Devise::Test::ControllerHelpers
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("mat_5_4_valid_vsac_response") do
-      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
@@ -280,7 +281,7 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
       assert_equal "40280582-5C27-8179-015C-308B1F99003B", measure['hqmf_id']
     end
   end
@@ -318,7 +319,7 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_id: "40280582-5801-9EE4-0158-5420363B0639"}).first
+      measure = CQM::Measure.where({hqmf_id: "40280582-5801-9EE4-0158-5420363B0639"}).first
       assert_not_nil measure
 
       # Test that ., ^, ^p, ^c behave properly
@@ -336,10 +337,10 @@ include Devise::Test::ControllerHelpers
     m2.hqmf_id = 'xxx123'
     m2.hqmf_set_id = 'yyy123'
     m2.save!
-    assert_equal 2, CqlMeasure.all.count
+    assert_equal 2, CQM::Measure.all.count
     delete :destroy, {id: m2.id}
     assert_response :success
-    assert_equal 1, CqlMeasure.all.count
+    assert_equal 1, CQM::Measure.all.count
   end
 
   test "measure value sets" do
@@ -364,7 +365,7 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
+    measure = CQM::Measure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
 
     get :value_sets, {id: measure.id, format: :json}
     assert_response :success
@@ -434,7 +435,7 @@ include Devise::Test::ControllerHelpers
       end
 
       # Assert measure is not yet loaded
-      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_nil measure
       post :create, {
         vsac_query_type: 'profile',
@@ -447,7 +448,7 @@ include Devise::Test::ControllerHelpers
         calculation_type: 'patient'
       }
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
+      measure = CQM::Measure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_not_nil measure
     end
     update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
@@ -469,7 +470,7 @@ include Devise::Test::ControllerHelpers
     assert_response :redirect
 
     # Verify measure has not been deleted or modified
-    measure_after = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
+    measure_after = CQM::Measure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
     assert_equal measure, measure_after
 
   end
@@ -515,7 +516,7 @@ include Devise::Test::ControllerHelpers
     assert_response :redirect
 
     # Verify that the initial file remained unchanged
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
   end
 
@@ -566,7 +567,7 @@ include Devise::Test::ControllerHelpers
     p.measure_ids = ["762B1B52-40BF-4596-B34F-4963188E7FF7"]
     p.save
 
-    VCR.use_cassette("initial_response") do
+    VCR.use_cassette("initial_response", @vcr_options) do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
@@ -580,16 +581,12 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
-
+    measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
     assert_equal 15, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
-    assert_equal true, measure.needs_finalize
-    assert_equal true, measure.episode_of_care?
-    assert_equal 'eh', measure.type
-    assert_nil measure.episode_ids
+    assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
     assert_nil measure.calculate_sdes
 
     assert_equal 1, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001'}).count
@@ -597,20 +594,17 @@ include Devise::Test::ControllerHelpers
 
     # Finalize the measure that was just created
     post :finalize, {"t679"=>{"hqmf_id"=>"40280582-5859-673B-0158-DAEF8B750647"}}
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
 
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
     assert_equal 15, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
-    assert_equal false, measure.needs_finalize
-    assert_equal true, measure.episode_of_care?
-    assert_equal 'eh', measure.type
-    assert_nil measure.episode_ids
+    assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
     measure_id_before = measure._id
 
     # Update the measure
-    VCR.use_cassette("update_response") do
+    VCR.use_cassette("update_response", @vcr_options) do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
@@ -623,23 +617,17 @@ include Devise::Test::ControllerHelpers
         hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"
       }
     end
-
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_not_equal measure_id_before, measure._id
-
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
-    assert_equal 26, measure.value_sets.count # new entries for VSs with new versions, which is 11 of them
+    assert_equal 15, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
-    assert_equal false, measure.needs_finalize
-    assert_equal true, measure.episode_of_care?
-    assert_equal 'eh', measure.type
-    assert_nil measure.episode_ids
+    assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
     assert_nil measure.calculate_sdes
 
-    assert_equal 2, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001'}).count
-    assert_equal 745, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001' && vs.version == "MU2 Update 2017-01-06"}).first.concepts.count
+    assert_equal 1, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001'}).count
     assert_equal 516, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001' && vs.version == "eCQM Update 2017-05-05"}).first.concepts.count
   end
 
@@ -651,7 +639,7 @@ include Devise::Test::ControllerHelpers
     end
 
     measure = nil
-    VCR.use_cassette("valid_vsac_response") do
+    VCR.use_cassette("valid_vsac_response", @vcr_options) do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
@@ -664,7 +652,7 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
 
     assert_nil measure
     assert_includes flash[:error].keys, :title
@@ -685,7 +673,7 @@ include Devise::Test::ControllerHelpers
     end
 
     measure = nil
-    VCR.use_cassette("valid_vsac_response") do
+    VCR.use_cassette("valid_vsac_response", @vcr_options) do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
@@ -697,15 +685,13 @@ include Devise::Test::ControllerHelpers
         calculation_type: 'patient'
       }
     end
-
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_id: "40280382-5FA6-FE85-015F-B5969D1D0264"}).first
+    measure = CQM::Measure.where({hqmf_id: "40280382-5FA6-FE85-015F-B5969D1D0264"}).first
     assert_equal "3BBFC929-50C8-44B8-8D34-82BE75C08A70", measure.hqmf_set_id
 
-    assert_equal false, measure.episode_of_care?
-    assert_equal 'ep', measure.type
+    assert_equal false, measure.calculation_method == 'EPISODE_OF_CARE'
 
-    VCR.use_cassette("valid_vsac_response") do
+    VCR.use_cassette("valid_vsac_response", @vcr_options) do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
@@ -717,11 +703,10 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_id: "40280382-5FA6-FE85-015F-B5969D1D0264"}).first
+    measure = CQM::Measure.where({hqmf_id: "40280382-5FA6-FE85-015F-B5969D1D0264"}).first
     assert_equal "3BBFC929-50C8-44B8-8D34-82BE75C08A70", measure.hqmf_set_id
 
-    assert_equal false, measure.episode_of_care?
-    assert_equal 'ep', measure.type
+    assert_equal false, measure.calculation_method == 'EPISODE_OF_CARE'
   end
 
   test "create/finalize/update a measure calculating SDEs" do
@@ -741,7 +726,7 @@ include Devise::Test::ControllerHelpers
     p.measure_ids = ["762B1B52-40BF-4596-B34F-4963188E7FF7"]
     p.save
 
-    VCR.use_cassette("initial_response_calc_SDEs") do
+    VCR.use_cassette("initial_response_calc_SDEs", @vcr_options) do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
@@ -754,14 +739,12 @@ include Devise::Test::ControllerHelpers
         calc_sde: 'true'
       }
     end
-
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_equal true, measure.calculate_sdes
-    assert_equal true, measure.episode_of_care?
-    assert_equal 'eh', measure.type
+    assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
 
     # Update the measure
-    VCR.use_cassette("update_response_calc_SDEs") do
+    VCR.use_cassette("update_response_calc_SDEs", @vcr_options) do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
@@ -773,9 +756,8 @@ include Devise::Test::ControllerHelpers
       }
     end
 
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_equal true, measure.calculate_sdes
-    assert_equal true, measure.episode_of_care?
-    assert_equal 'eh', measure.type
+    assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
   end
 end

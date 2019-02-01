@@ -90,7 +90,7 @@ class Record
   #    change_reason - A symbol describing reason the change was made. e.x. :dup_population
   #    expected_value_set - The set removed, added, or changed.
   def update_expected_value_structure!(measure)
-    measure_population_count = measure.populations.count
+    measure_population_count = measure.population_sets.count
 
     # keep track of the population indexes we have seen so we can reject duplicates
     population_indexes_found = Hash.new { |h, k| h[k] = [] } # make is so uninitialized keys are set to []
@@ -157,7 +157,8 @@ class Record
       next unless expected_value_set["measure_id"] == measure.hqmf_set_id
 
       expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
-      measure_population_set = measure.populations[expected_value_set["population_index"]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+      # measure_population_set = measure.populations[expected_value_set["population_index"]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+      measure_population_set = measure.population_sets[expected_value_set["population_index"]].populations.as_json.keys
 
       # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
       added_populations = measure_population_set - expected_value_population_set
