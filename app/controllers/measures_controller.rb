@@ -24,6 +24,7 @@ class MeasuresController < ApplicationController
   end
 
   def value_sets
+    # binding.pry
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
     if true
@@ -51,30 +52,6 @@ class MeasuresController < ApplicationController
     end
   end
 
-  def save_measures_array_with_package_and_valuesets_to_user(measures, user)
-    measures.each do |measure|
-      measure.user = user
-      measure.save!
-      if measure.package.present?
-        measure.package.user = user
-        measure.package.save!
-      end
-      measure.value_sets.each do |valueset|
-        valueset.user = user
-        valueset.save!
-      end
-    end
-  end
-
-  def delete_measures_array_with_package_and_valuesets(measures)
-    return if measures.nil?
-    measures.each do |measure|
-      measure.delete
-      measure.package.delete if measure.package.present?
-      measure.value_sets.each { |valueset| valueset.delete }
-    end
-  end
-
   def create
     if !params[:measure_file]
       flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
@@ -99,7 +76,7 @@ class MeasuresController < ApplicationController
     begin
       # parse VSAC options using helper and get ticket_granting_ticket which is always needed
       vsac_options = MeasureHelper.parse_vsac_parameters(params)
-      vsac_ticket_granting_ticket = get_ticket_granting_ticket
+      # vsac_ticket_granting_ticket = get_ticket_granting_ticket
 
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
@@ -115,7 +92,7 @@ class MeasuresController < ApplicationController
       end
 
       # Extract measure(s) from zipfile
-      value_set_loader = Measures::VSACValueSetLoader.new(vsac_options, vsac_ticket_granting_ticket)
+      value_set_loader = Measures::VSACValueSetLoader.new(options:vsac_options, username:params[:vsac_username], password:params[:vsac_password])
       loader = Measures::CqlLoader.new(params[:measure_file], measure_details, value_set_loader)
       measures = loader.extract_measures
 
@@ -128,12 +105,14 @@ class MeasuresController < ApplicationController
       save_measures_array_with_package_and_valuesets_to_user(measures, current_user)
 
     rescue Measures::MeasureLoadingInvalidPackageException => e
+      # binding.pry
       flash[:error] = {title: "Error Uploading Measure",
         summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
         body: "Measure loading process encountered error: #{e.message} Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.".html_safe}
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
-    rescue Exception => e
+    rescue StandardError => e
+      # binding.pry
       delete_measures_array_with_package_and_valuesets(measures) if defined? measures
       errors_dir = Rails.root.join('log', 'load_errors')
       FileUtils.mkdir_p(errors_dir)
@@ -230,6 +209,30 @@ class MeasuresController < ApplicationController
 
   private
 
+  def save_measures_array_with_package_and_valuesets_to_user(measures, user)
+    measures.each do |measure|
+      measure.user = user
+      measure.save!
+      if measure.package.present?
+        measure.package.user = user
+        measure.package.save!
+      end
+      measure.value_sets.each do |valueset|
+        valueset.user = user
+        valueset.save!
+      end
+    end
+  end
+
+  def delete_measures_array_with_package_and_valuesets(measures)
+    return if measures.nil?
+    measures.each do |measure|
+      measure.delete
+      measure.package.delete if measure.package.present?
+      measure.value_sets.each { |valueset| valueset.delete }
+    end
+  end
+  
   def get_ticket_granting_ticket
     # Retreive a (possibly) existing ticket granting ticket
     ticket_granting_ticket = session[:vsac_tgt]

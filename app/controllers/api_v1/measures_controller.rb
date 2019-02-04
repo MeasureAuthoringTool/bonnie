@@ -234,6 +234,30 @@ module ApiV1
 
     private
 
+    def save_measures_array_with_package_and_valuesets_to_user(measures, user)
+      measures.each do |measure|
+        measure.user = user
+        measure.save!
+        if measure.package.present?
+          measure.package.user = user
+          measure.package.save!
+        end
+        measure.value_sets.each do |valueset|
+          valueset.user = user
+          valueset.save!
+        end
+      end
+    end
+  
+    def delete_measures_array_with_package_and_valuesets(measures)
+      return if measures.nil?
+      measures.each do |measure|
+        measure.delete
+        measure.package.delete if measure.package.present?
+        measure.value_sets.each { |valueset| valueset.delete }
+      end
+    end
+
     def process_patient_records(selector)
       patients = selector.map(&:as_json)
       patients.each do |p|
@@ -265,6 +289,13 @@ module ApiV1
       }
       # If we get to this point, then the measure that is being uploaded is a MAT export of CQL
       begin
+        if is_update && !params[:id].empty?
+          existing = CQM::Measure.by_user(current_resource_owner).where(hqmf_set_id: params[:id]).first
+          measure_details['episode_of_care'] = existing.episode_of_care
+          measure_details['calculate_sdes'] = existing.calculate_sdes
+          measure_details['population_titles'] = existing.population_sets.map { |p| p['title'] } if existing.population_sets.length > 1
+        end
+
         # Check the passed in VSAC params and set the default values
         vsac_params = retrieve_vasc_params(params)
         # Parse VSAC options using helper and get ticket_granting_ticket which is always needed
@@ -273,24 +304,13 @@ module ApiV1
         # Build ticket_granting_ticket object that VSAC util library expects
         vsac_tgt_object = {ticket: params[:vsac_tgt], expires: Time.at(params[:vsac_tgt_expires_at].to_i)}
 
-        if is_update && !params[:id].empty?
-          existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: params[:id]).first
-          measure_details['type'] = existing.type
-          measure_details['episode_of_care'] = existing.episode_of_care
-          measure_details['calculate_sdes'] = existing.calculate_sdes
-          measure_details['population_titles'] = existing.populations.map { |p| p['title'] } if existing.populations.length > 1
-          # If the caller specified the measure_type use their value otherwise use from the existing
-          measure_details['type'] = params.fetch(:measure_type, existing.type)
-        else
-          # Since this is not an update we should default measure_type if it isnt specified
-          measure_details['type'] = params.fetch(:measure_type, 'ep')
-        end
-        
-        measures = Measures::CqlLoader.extract_measures(params[:measure_file], current_resource_owner, measure_details, vsac_options, vsac_tgt_object)
+        value_set_loader = Measures::VSACValueSetLoader.new(options:vsac_options, ticket_granting_ticket:vsac_tgt_object)
+        loader = Measures::CqlLoader.new(params[:measure_file], measure_details, value_set_loader)
+        measures = loader.extract_measures
 
         measures.each do |measure|  
           if !is_update
-            existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
+            existing = CQM::Measure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
             unless existing.nil?
               measures.each(&:delete)
               render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
@@ -310,24 +330,18 @@ module ApiV1
                    status: :not_found
             return
           end
-
-          # Exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
-          missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-          next unless missing_value_sets.length.positive?
-          measures.each(&:delete)
-          render json: {status: "error", messages: "The measure is missing value sets. The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
-                 status: :bad_request
-          return
         end
         if existing && is_update
           existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
-            component_measure = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: component_hqmf_set_id).first
+            component_measure = CQM::Measure.by_user(current_resource_owner).where(hqmf_set_id: component_hqmf_set_id).first
             component_measure.delete
           end
           existing.delete
         end
+
+      save_measures_array_with_package_and_valuesets_to_user(measures, current_resource_owner)
       rescue StandardError, Measures::MeasureLoadingException => e
-        measures.each(&:delete) if measures
+        delete_measures_array_with_package_and_valuesets(measures) if measures
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
         clean_email = File.basename(current_resource_owner.email) # Prevent path traversal

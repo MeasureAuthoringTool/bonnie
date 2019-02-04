@@ -8,45 +8,49 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: 3b916105ff7f38956cd2fff695cecc73cc3a36fe
+  revision: d9fb3ac1935dfd86ee449493d45a91dd18c18d11
   branch: master
   specs:
     cqm-models (1.0.2)
 
 GIT
-  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 4318dc163f805cca1590640bf1a4b508699e679c
+  remote: https://github.com/randym/axlsx
+  revision: c593a08b2a929dac7aa8dc418b55e26b4c49dc34
   branch: master
   specs:
-    cql_qdm_patientapi (1.3.1)
-      coffee-rails (~> 4.1)
+    axlsx (3.0.0.pre)
+      htmlentities (~> 4.3, >= 4.3.4)
+      mimemagic (~> 0.3)
+      nokogiri (~> 1.8, >= 1.8.2)
+      rubyzip (~> 1.2, >= 1.2.1)
+
+GIT
+  remote: https://github.com/smartinez87/exception_notification.git
+  revision: b40e3a6a1f7816efb1ac660d20617e9f4a7c941d
+  branch: master
+  specs:
+    exception_notification (4.3.0)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
+
+PATH
+  remote: ../bonnie_bundler
+  specs:
+    bonnie_bundler (2.2.4)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.3.2)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.2)
       rails (>= 4.2, < 6.0)
-      sprockets-rails (~> 2.3)
+      roo (~> 2.7)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
 
-GIT
-  remote: https://github.com/projecttacoma/cqm-converter
-  revision: bc3885c3789bc316428bd47ba2c828c134e166ab
-  branch: master
-  specs:
-    cqm-converter (1.0.3)
-      activesupport
-      coffee-script
-      execjs
-      health-data-standards (>= 4.3.2)
-      momentjs-rails
-      sprockets
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-models
-  revision: 3b536e7ce9460400e708bec9879e79254597ba61
-  branch: master
-  specs:
-    cqm-models (1.0.2)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-parsers
-  revision: a1081c029a2b632f99c6c4f9b2e9d6b059157c24
-  branch: fixes_for_bonnie_integration
+PATH
+  remote: ../cqm-parsers
   specs:
     cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
@@ -64,26 +68,6 @@ GIT
       typhoeus
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/randym/axlsx
-  revision: c8ac844572b25fda358cc01d2104720c4c42f450
-  branch: master
-  specs:
-    axlsx (2.1.0.pre)
-      htmlentities (~> 4.3.4)
-      mimemagic (~> 0.3)
-      nokogiri (>= 1.6.6)
-      rubyzip (>= 1.2.1)
-
-GIT
-  remote: https://github.com/smartinez87/exception_notification.git
-  revision: 85a1ae90be438e5a465316e7a02813de9198a29b
-  branch: master
-  specs:
-    exception_notification (4.2.1)
-      actionmailer (>= 4.0, < 6)
-      activesupport (>= 4.0, < 6)
 
 GEM
   remote: https://rubygems.org/
@@ -125,7 +109,7 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (6.0.4)
-    ast (2.3.0)
+    ast (2.4.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -135,22 +119,21 @@ GEM
     browser (2.5.0)
     bson (4.3.0)
     builder (3.2.3)
-    bundler-audit (0.6.0)
-      bundler (~> 1.2)
+    bundler-audit (0.6.1)
+      bundler (>= 1.2.0, < 3)
       thor (~> 0.18)
-    byebug (5.0.0)
-      columnize (= 0.9.0)
-    capistrano (3.4.0)
+    byebug (10.0.2)
+    capistrano (3.11.0)
+      airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
-      sshkit (~> 1.3)
-    capistrano-bundler (1.1.4)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (1.5.0)
       capistrano (~> 3.1)
-      sshkit (~> 1.2)
-    capistrano-rails (1.1.3)
+    capistrano-rails (1.4.0)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    childprocess (0.8.0)
+    childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     code_analyzer (0.4.8)
       sexp_processor
@@ -160,20 +143,19 @@ GEM
       json
       simplecov
       url
-    coderay (1.1.0)
+    coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    coffee-rails (4.1.0)
+    coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.0)
+      railties (>= 4.0.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    colorize (0.7.7)
-    columnize (0.9.0)
+    colorize (0.8.1)
     commonjs (0.2.7)
-    concurrent-ruby (1.1.3)
+    concurrent-ruby (1.1.4)
     cql_qdm_patientapi (1.3.1)
       coffee-rails (~> 4.1)
       rails (>= 4.2, < 6.0)
@@ -198,17 +180,17 @@ GEM
       mongoid-compatibility (>= 0.4.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (4.2.1)
+    devise (4.5.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.1)
+      railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
     diffy (3.0.7)
     docile (1.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
-    doorkeeper (4.4.0)
+    doorkeeper (4.4.3)
       railties (>= 4.2)
     doorkeeper-mongodb (4.1.0)
       doorkeeper (>= 4.0.0, < 5.0)
@@ -216,12 +198,12 @@ GEM
     erubis (2.7.0)
     ethon (0.12.0)
       ffi (>= 1.3.0)
-    eventmachine (1.0.7)
+    eventmachine (1.2.7)
     execjs (2.7.0)
-    ffi (1.9.24)
-    foreman (0.78.0)
+    ffi (1.10.0)
+    foreman (0.85.0)
       thor (~> 0.19.1)
-    globalid (0.4.1)
+    globalid (0.4.2)
       activesupport (>= 4.2.0)
     handlebars_assets (0.16)
       execjs (>= 1.2.9)
@@ -265,17 +247,19 @@ GEM
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     iniparse (1.4.4)
-    jquery-rails (3.1.3)
-      railties (>= 3.0, < 5.0)
+    jaro_winkler (1.5.2)
+    jquery-rails (4.3.3)
+      rails-dom-testing (>= 1, < 3)
+      railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.6)
+    json (2.1.0)
+    kwalify (0.7.2)
     less (2.6.0)
       commonjs (~> 0.2.7)
-    less-rails (2.7.0)
-      actionpack (>= 4.0)
+    less-rails (4.0.0)
+      actionpack (>= 4)
       less (~> 2.6.0)
-      sprockets (> 2, < 4)
-      tilt
+      sprockets (>= 2)
     libv8 (3.16.14.19)
     log4r (1.1.10)
     loofah (2.2.3)
@@ -299,12 +283,12 @@ GEM
       railties (>= 3.1)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
-    mongoid (5.0.2)
+    mongoid (5.2.1)
       activemodel (~> 4.0)
-      mongo (~> 2.1)
-      origin (~> 2.1)
+      mongo (>= 2.4.1, < 3.0.0)
+      origin (~> 2.3)
       tzinfo (>= 0.3.37)
-    mongoid-compatibility (0.5.0)
+    mongoid-compatibility (0.5.1)
       activesupport
       mongoid (>= 2.0)
     mongoid-tree (2.0.1)
@@ -313,30 +297,29 @@ GEM
     mustache (1.1.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.2)
+    net-ssh (5.1.0)
     netrc (0.11.0)
-    newrelic_rpm (3.14.3.313)
+    newrelic_rpm (6.0.0.351)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     non-stupid-digest-assets (1.0.4)
     oj (3.7.6)
     origin (2.3.1)
     orm_adapter (0.5.0)
-    overcommit (0.41.0)
+    overcommit (0.46.0)
       childprocess (~> 0.6, >= 0.6.3)
       iniparse (~> 1.4)
-    parallel (1.12.1)
-    parser (2.4.0.2)
-      ast (~> 2.3)
+    parallel (1.13.0)
+    parser (2.5.3.0)
+      ast (~> 2.4.0)
     powerpack (0.1.2)
     protected_attributes (1.0.9)
       activemodel (>= 4.0.1, < 5.0)
-    pry (0.10.1)
+    pry (0.12.2)
       coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    pry-byebug (3.2.0)
-      byebug (~> 5.0)
+      method_source (~> 0.9.0)
+    pry-byebug (3.6.0)
+      byebug (~> 10.0)
       pry (~> 0.10)
     public_suffix (3.0.3)
     quality-measure-engine (3.2.0)
@@ -366,13 +349,13 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
-    rails_best_practices (1.19.0)
+    rails_best_practices (1.19.4)
       activesupport
       code_analyzer (>= 0.4.8)
       erubis
       i18n
       json
-      require_all
+      require_all (~> 2.0)
       ruby-progressbar
     railties (4.2.11)
       actionpack (= 4.2.11)
@@ -384,8 +367,10 @@ GEM
     rake (12.3.1)
     reek (4.7.3)
       codeclimate-engine-rb (~> 0.4.0)
-      parser (>= 2.4.0.0, < 2.5)
-      rainbow (~> 2.0)
+      kwalify (~> 0.7.0)
+      parser (>= 2.5.0.0, < 2.6, != 2.5.1.1)
+      psych (~> 3.1.0)
+      rainbow (>= 2.0, < 4.0)
     ref (2.0.0)
     require_all (1.4.0)
     responders (2.3.0)
@@ -399,14 +384,14 @@ GEM
       rubyzip (~> 1.1, < 2.0.0)
     rubocop (0.52.1)
       parallel (~> 1.10)
-      parser (>= 2.4.0.2, < 3.0)
+      parser (>= 2.5, != 2.5.1.1)
       powerpack (~> 0.1)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.9.0)
     rubyzip (1.2.2)
-    rvm1-capistrano3 (1.3.2.2)
+    rvm1-capistrano3 (1.4.0)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
     safe_yaml (1.0.4)
@@ -432,8 +417,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sshkit (1.7.1)
-      colorize (>= 0.7.0)
+    sshkit (1.18.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
@@ -461,11 +445,11 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    unicode-display_width (1.4.0)
+    unicode-display_width (1.4.1)
     url (0.3.2)
     uuid (2.3.9)
       macaddr (~> 1.0)
-    vcr (3.0.3)
+    vcr (4.0.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)

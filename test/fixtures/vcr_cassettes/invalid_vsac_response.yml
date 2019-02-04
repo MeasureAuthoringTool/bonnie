@@ -22,90 +22,37 @@ http_interactions:
       code: 401
       message: ''
     headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
       Content-Type:
       - text/plain;charset=utf-8
-      Content-Length:
-      - '0'
+      Transfer-Encoding:
+      - chunked
       Date:
-      - Thu, 08 Mar 2018 16:10:24 GMT
+      - Tue, 29 Jan 2019 21:10:35 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!dyY/zyfqrFEeEWDm9OGvBt4MxRMcjnBRq/yAg41WmDud6QBC33RAapRFk9j/KXEm9l5pFcw1WjpufBI=;
-        expires=Thu, 08-Mar-2018 18:10:24 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!8yQVUX+fmbXq94XNtNHn4GsLooFbU87KLOtjAGJdfcpjqXq9WbBIJdYO1ZSG828Hi073MGGUhbHd8ws=;
+        expires=Tue, 29-Jan-2019 23:10:35 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Thu, 08 Mar 2018 16:10:24 GMT
-- request:
-    method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
-    body:
-      encoding: UTF-8
-      string: username=invaliduser&password=invalidpassword
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Length:
-      - '45'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 401
-      message: ''
-    headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      Content-Type:
-      - text/plain;charset=utf-8
-      Content-Length:
-      - '0'
-      Date:
-      - Thu, 08 Mar 2018 16:10:24 GMT
-      Set-Cookie:
-      - BIGipServervsacweb_p=!DW/yERAX/8Froznm9OGvBt4MxRMcjp0WtEPHvElPuTb247Ee8uqIKfkLoomK5hNl9rSx21iYtjTTl4g=;
-        expires=Thu, 08-Mar-2018 18:10:24 GMT; path=/; Httponly; Secure
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Thu, 08 Mar 2018 16:10:24 GMT
+  recorded_at: Tue, 29 Jan 2019 21:10:35 GMT
 recorded_with: VCR 3.0.3
