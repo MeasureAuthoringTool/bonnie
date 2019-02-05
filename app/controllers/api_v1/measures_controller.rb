@@ -93,7 +93,7 @@ module ApiV1
     formats [:json, :html]
     def index
       # TODO: filter by search parameters, for example an NQF ID or partial description
-      @api_v1_measures = CqlMeasure.by_user(current_resource_owner).only(MEASURE_WHITELIST)
+      @api_v1_measures = CQM::Measure.by_user(current_resource_owner).only(MEASURE_WHITELIST)
       respond_with @api_v1_measures do |format|
         format.json do
           render json: MultiJson.encode(
@@ -115,7 +115,7 @@ module ApiV1
       hash = {}
       http_status = 200
       begin
-        @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by { :updated_at }.first
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by { :updated_at }.first
         hash = @api_v1_measure.as_json
         hash[:id] = @api_v1_measure.hqmf_set_id
         hash.select! { |key,value| MEASURE_WHITELIST.include?(key)&&!value.nil? }
@@ -135,7 +135,7 @@ module ApiV1
     #   http_status = 200
     #   begin
     #     # Get the measure
-    #     @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
+    #     @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
     #     # Extract out the HQMF set id, which we'll use to get related patients
     #     hqmf_set_id = @api_v1_measure.hqmf_set_id
     #     # Get the patients for this measure
@@ -164,7 +164,7 @@ module ApiV1
       end
 
       begin
-        @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
         if @api_v1_measure.nil?
           render json: {status: "error", messages: "No measure found for this HQMF Set ID."}, status: :not_found
           return
@@ -223,7 +223,7 @@ module ApiV1
     error :code => 500, :desc => "A server error occured."
     param_group :measure_upload
     def update
-      existing = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]})
+      existing = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]})
       if existing.count.zero?
         render json: {status: "error", messages: "No measure found for this HQMF Set ID."},
                status: :not_found
@@ -282,16 +282,16 @@ module ApiV1
 
     def load_measure(params, is_update)
       # Convert calculate_sde param from string to boolean
-      calculate_sdes = params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true'
       measure_details = {
         'episode_of_care'=>params[:calculation_type] == 'episode',
-        'calculate_sdes'=>calculate_sdes
+        'calculate_sdes'=>params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true',
+        'population_titles' => params[:population_titles]
       }
       # If we get to this point, then the measure that is being uploaded is a MAT export of CQL
       begin
         if is_update && !params[:id].empty?
           existing = CQM::Measure.by_user(current_resource_owner).where(hqmf_set_id: params[:id]).first
-          measure_details['episode_of_care'] = existing.episode_of_care
+          measure_details['episode_of_care'] = existing.calculation_method == 'EPISODE_OF_CARE'
           measure_details['calculate_sdes'] = existing.calculate_sdes
           measure_details['population_titles'] = existing.population_sets.map { |p| p['title'] } if existing.population_sets.length > 1
         end
@@ -341,6 +341,7 @@ module ApiV1
 
       save_measures_array_with_package_and_valuesets_to_user(measures, current_resource_owner)
       rescue StandardError, Measures::MeasureLoadingException => e
+        binding.pry
         delete_measures_array_with_package_and_valuesets(measures) if measures
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
@@ -369,9 +370,9 @@ module ApiV1
           render json: {status: "error", messages: error_message},
                  status: :bad_request
 
-        elsif e.is_a? Measures::MeasureLoadingException
+        elsif e.is_a? Measures::MeasureLoadingInvalidPackageException
           operator_error = true
-          render json: {status: "error", messages: "The measure could not be loaded, there may be an error in the CQL logic."},
+          render json: {status: "error", messages: "Measure loading process encountered error: #{e.message}"},
                  status: :bad_request
         else
           error_json = {status: "error", messages: "The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."}
@@ -388,11 +389,12 @@ module ApiV1
 
         return
       end
-      measures_population_update(measures, current_resource_owner, is_update, measure_details)
+      MeasureHelper.measures_population_update(measures, is_update, current_resource_owner, measure_details)
+      # measures_population_update(measures, current_resource_owner, is_update, measure_details)
 
       # Reason for the split is when the measure is a composite. Otherwise, it is regular hqmf set id
       measure_hqmf_set_id = measures[0].hqmf_set_id.split('&')[0]
-      
+
       render json: {status: "success", url: "/api_v1/measures/#{measure_hqmf_set_id}"},
              status: :ok
     end

@@ -82,14 +82,15 @@ module MeasureHelper
         measure.population_sets.each_with_index do |population, population_index|
           population['title'] = measure_details['population_titles'][population_index] if measure_details['population_titles']
         end
-      else
-        if measure.population_sets.size > 1
-          strat_index = 1
-          measure.population_sets.each do |population|
-            if population[HQMF::PopulationCriteria::STRAT]
-              population['title'] = "Stratification #{strat_index}"
-              strat_index += 1
-            end
+      elsif measure.population_sets.size > 1
+        population_titles = measure_details['population_titles'] || []
+        strat_index = 1
+        measure.population_sets.each_with_index do |population, index|
+          if population[HQMF::PopulationCriteria::STRAT]
+            population['title'] = population_titles.fetch(index, "Stratification #{strat_index + 1}")
+            strat_index += 1
+          elsif index < population_titles.size
+            population['title'] = population_titles.fetch(index)
           end
         end
       end
