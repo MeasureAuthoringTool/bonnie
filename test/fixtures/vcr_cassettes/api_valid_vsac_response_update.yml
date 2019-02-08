@@ -34,10 +34,10 @@ http_interactions:
       Content-Length:
       - '64'
       Date:
-      - Thu, 07 Feb 2019 20:22:41 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!vMoOocjahgdngIXm9OGvBt4MxRMcjiovh6ifcDZnP6J0AezzIXsCHDglN3e0uBjVhVr4YU3Jha3azlo=;
-        expires=Thu, 07-Feb-2019 22:22:41 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!1FUmGPf7t43/8RXm9OGvBt4MxRMcjk0o4/kctvG1GOy0Weto6vh1rvdi2Nl+z7UtYGYDaJjs93kxYcU=;
+        expires=Thu, 07-Feb-2019 22:32:55 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -46,9 +46,9 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas
+      string: TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:41 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:55 GMT
 - request:
     method: get
     uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
@@ -83,10 +83,10 @@ http_interactions:
       Content-Length:
       - '72'
       Date:
-      - Thu, 07 Feb 2019 20:22:41 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!kAuUjjw51w+u4erm9OGvBt4MxRMcjnUyy52NHLvqEUnVr2Ymqsk/hLRY2XnQXbtUSS8b+qP0Slj7TVY=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!r/2z7EAoF+27ewHm9OGvBt4MxRMcjvPumV1yMlkb1j2p7mPBDXcp/rQxY3laprvp7pUBLJVJ2wUaiVQ=;
+        expires=Thu, 07-Feb-2019 22:32:55 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -95,13 +95,13 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: '{"name":"eCQM Update 2019-05-03","requestTime":"2019-02-07 03:22:42
+      string: '{"name":"eCQM Update 2019-05-03","requestTime":"2019-02-07 03:32:55
         PM"}'
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:55 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -133,108 +133,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!FHVhMlk+PlROcV3NtNHn4GsLooFbU/e+GBuc8HyXfhvaAXUQAAmVfpRneEAvVkeE5Ak1WCH56nzehQQ=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: ST-225121-ZWdMEZ3JTJELdcpqdjcm-cas
-    http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
-- request:
-    method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/plain;charset=utf-8
-      Content-Length:
-      - '34'
-      Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
-      Set-Cookie:
-      - BIGipServervsacweb_p=!GepoAB650ilLf5vNtNHn4GsLooFbU3v6vhJaX6aWnEWm5o2saa08wJ7yKfI7/gYjry2pUxU5Kj4vNk4=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: ST-225119-sljUYvIGXrnzFc4d1iVh-cas
-    http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
-- request:
-    method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/plain;charset=utf-8
-      Content-Length:
-      - '34'
-      Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
-      Set-Cookie:
-      - BIGipServervsacweb_p=!eH5K6jfAHntEIBLNtNHn4GsLooFbU6TD6tBY5jGvntzZqJSJRm9NSN7T9a8x+M9k4pYDcDxkrowMXg0=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!maZc/dgjyJTTzs3m9OGvBt4MxRMcjmbdZpqIwhGmW4wkDWTgMwLfzKL0xkFvD0UxaKlWjKbxrMoc34k=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -243,12 +145,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225127-h2AczD9nLZTtS4aUhSwC-cas
+      string: ST-240467-rydAKxFZN7liDlOOnig4-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -280,10 +182,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!i/TgijPHNd1WbV/m9OGvBt4MxRMcju1CFTXH1raZRin56cEQJI88a42g6Yheu1NR4x2qB4gGBPYbgyU=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!fqn6hkUS3mzLHn/m9OGvBt4MxRMcjh0V54pJw5DgQbGRD49k8QqTVElVcvYGfqxqvc4IX9DxucqPtEQ=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -292,12 +194,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225124-ASwrt4UAGhbbeIiobCfa-cas
+      string: ST-240466-v4mJWXc4yrJHf3ORPlJb-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -329,10 +231,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!K0zp2106ux+s15rNtNHn4GsLooFbU33ron+wkqMF4I2j41OFU+jBWSVIuD77p2lzcaoO2dmKhY+rp88=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!v6EitlhTgCs3OU/NtNHn4GsLooFbU82pF8NCUhOhTNBS6luUc1gwK5mBnnmK4W8vngvBr1HGkgTrpzM=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -341,12 +243,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225123-cgmfK7y5amjyIgxeWCNH-cas
+      string: ST-240470-zOvV4ZrAQ59I7LeeKb5W-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -378,10 +280,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!awXv2EDypOPDg1rm9OGvBt4MxRMcjkgXT6T4ggIdU3sCoA5SQ3KXkg4EaSt+90r7htclfUoE2Omoxj8=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!11vkW6X3d5pf01nNtNHn4GsLooFbU7ROE75GeiYa1bD5R4LklwyvL+tvH7f4zzceccaFXFMKic/oFUk=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -390,12 +292,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225135-Km4tG9waRlKIHacRa6vF-cas
+      string: ST-240472-k4WkXXZGLk6NaKM1bMwl-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -427,10 +329,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!iZ3CdOXcAMJY3I/NtNHn4GsLooFbU/VbGmJQt6eSch50B3J6cCEiC9B4+/J2mTXBRlr538wKW9JC8bg=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!gr6UNs1/3aWGQVPNtNHn4GsLooFbUxEAmRqm4tZQzLastsjHXZbEr/EkRJ9qK1bR6XkFWPWoVkKnJ/4=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -439,12 +341,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225133-EYDPd7sWHNISeYDJOpDN-cas
+      string: ST-240477-476dQBgSMaLIVbqwRM6p-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -476,10 +378,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!Tjc/ldeydoCFdUrm9OGvBt4MxRMcjlIFYWTsKvvXrm/eblvrc8vQPsMEfbkuU2R0hd8BP9tTeYhPLVE=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!uw1wfhapeHWGNZjNtNHn4GsLooFbU/Odu1BI6WRSanvbGoFlF9O4unzugxJeAD/7EsDOWYV8S9ge2/0=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -488,12 +390,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225126-SRnaBNS4QdusFTc99UrR-cas
+      string: ST-240471-9OqI4j5Y5WJJknTxIVuU-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -525,10 +427,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!5Df0juvHQWY0UgrNtNHn4GsLooFbUwbO5BxkVvIyrrKI8ybcETuKgeYGUDfd6HKV5Cdp08y1ASVoZSQ=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!ruwt1nYVBS93tr7NtNHn4GsLooFbUzoRPcGcE+scfZeWW7TJJt2E5/NA0Ou468/pDSUd/VLNWCDg1mw=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -537,12 +439,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225130-dLji67uS7ikasfvagpyD-cas
+      string: ST-240468-cc0IU7Ta45q6JihD4JpG-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -574,10 +476,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!m8Y+xJsrSeACZEXm9OGvBt4MxRMcjt94JD5IxURgH6uLPKjbUl/Qz1nVlQL2VqxHqDklMTz+LpT3sas=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!bgDNpuV7oRk6sAnNtNHn4GsLooFbU/GtpPq1Al4VmioOqAG2U8yTOFP3SzjmTXZA538r5PqUAw+gC+Q=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -586,12 +488,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225132-ccXFZzZV3HiB1NZUlKXs-cas
+      string: ST-240469-H6FV1NGZESgdczmgUJHO-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -623,10 +525,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!+MP/Y1yVdUSEms7m9OGvBt4MxRMcjlUExKRp7AzY2FxlPbNY0nSE13Fa5zvu5BPTCeuETO3Ued5RBAM=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!/tkeDpYPTYPEQI3m9OGvBt4MxRMcjiCABNubhbNcwFmaB+qVx3IP1umT7KYu6TuCHWUm8ZhG2MI0ymU=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -635,12 +537,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225128-M50REDMPIoxQ9CWcQpg4-cas
+      string: ST-240478-wwzLB62EBYGlGL4E3pD7-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -672,10 +574,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!F0ehUg8ZPa3qbdrNtNHn4GsLooFbU3Q+Zix+DG29tyLZlMoR9AwNjEu/q2H7nDtDn+bc4ladnkMu8XQ=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!Mrh/bftZDICoU8jm9OGvBt4MxRMcjpP6voMT7Bwmsr9nhko0Yxab17Rc0+M/nRSGOFCv0yM+EOPoG9M=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -684,12 +586,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225131-C7uNK9NnnCcYNEViecxx-cas
+      string: ST-240474-zTgGycPk9ICvbbFe4bQK-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -721,10 +623,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!5j3bLC3SmFEDWSrm9OGvBt4MxRMcjjtqEgji4YmVaVMtn9JB24+gb9CZqm/kl72fIaQ6sza2by68W6g=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!OC5qEzsE71cNlKnNtNHn4GsLooFbU0JtG1D5FrmgbpK4goAulXyhaMLLgr42rUzrVzcpwEO2nJOgRKs=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -733,12 +635,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225134-pw5hvSrVIgKCbRP9GsG9-cas
+      string: ST-240480-65qXJcwhGgQF9S5gf359-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -770,10 +672,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!+d2yaDnYr0edqT/NtNHn4GsLooFbU+H159o9ZorD/aiin4HS8NqJIp/mn0OngPyhYXK/g2snk79AayQ=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!HO1eYjY5xa2aR5zm9OGvBt4MxRMcjnihEJqeXt6XQVHS/joaGIeYXcWHlzj85RkWwkzT8/M4ibOfNk8=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -782,12 +684,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225129-FeWSsG0NNrUh3CrqMAuZ-cas
+      string: ST-240475-cRVfc2mpKHQ6N9M3uHjN-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:42 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:56 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -819,10 +721,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 07 Feb 2019 20:22:42 GMT
+      - Thu, 07 Feb 2019 20:32:55 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!Au4BrSJx68exgfnm9OGvBt4MxRMcjqNEc4rqLRvmCiibPCxBl+wqhUPd23do3zYDD3KGll1Iu7Uw1e8=;
-        expires=Thu, 07-Feb-2019 22:22:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!q2lSrN6Ub2mDxfjm9OGvBt4MxRMcjlozBYxznmWeHmjvBaWG4K+8mGLL602jNLtrQZ+2m9fnzjGpICI=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -831,12 +733,110 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-225125-7dhEdLpvcV2WUh9JhU6c-cas
+      string: ST-240479-Bcl49bdr7nzzhbNCGyYs-cas
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 07 Feb 2019 20:32:55 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!ouF/vBlCJNsiLZXm9OGvBt4MxRMcjoHmbBgNs8w60cXp0cuoxwdX6/rXZzvJA3CH2Z9MFe/7kAUOuXQ=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-240473-7Tc2upnXX9oOdE7qe34l-cas
+    http_version: 
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-20872-0RcUClkiH4COHs1SYAKaeFSIPyoSdL43h9gWDRdD7Ibb3q4E3f-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 07 Feb 2019 20:32:55 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!0bJFHogGH+APOOXm9OGvBt4MxRMcjtPxbv2JVORCIFm12/OOMBIEuyKWHWQSDe+2ddpXLo8+C5UDZUk=;
+        expires=Thu, 07-Feb-2019 22:32:56 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-240476-S67Jbrs6y1Pe4SqCWfbS-cas
+    http_version: 
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225128-M50REDMPIoxQ9CWcQpg4-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240470-zOvV4ZrAQ59I7LeeKb5W-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -858,9 +858,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!T28itT0SPcI+ZjDNtNHn4GsLooFbUw6q1EDWBS1sxHI/3JY9q6XFYEC8CpmTShocdgVvZ/YLzN/9Le4=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=FFBE65BD5B9C3B15BCE43E7C4703361F;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!48b+mnfm2isnd6Lm9OGvBt4MxRMcjvqs4Kj3oRKe7ymcZSi9MXZJQnyEZ5t4vRWzfeiFCMUy1QVOJt0=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=C28C989CD64D5E9F0A17050A68837788;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -870,13 +870,13 @@ http_interactions:
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '1128'
+      - '1356'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -884,13 +884,13 @@ http_interactions:
       string: |
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.837" displayName="Ethnicity" version="N/A">
+            <ns0:DescribedValueSet ID="2.16.840.1.113762.1.4.1" displayName="ONC Administrative Sex" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="2135-2" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Hispanic or Latino"/>
-                    <ns0:Concept code="2186-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Not Hispanic or Latino"/>
+                    <ns0:Concept code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2018-08" displayName="Female"/>
+                    <ns0:Concept code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2018-08" displayName="Male"/>
                 </ns0:ConceptList>
-                <ns0:Source>Centers for Disease Control National Center for Health Statistics</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
+                <ns0:Source>Office of the National Coordinator for Health Information Technology</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Gender identity restricted to only Male and Female used in administrative situations requiring a restriction to these two categories.),(Data Element Scope: Gender),(Inclusion Criteria: Male and Female only.),(Exclusion Criteria: Any gender identity that is not male or female.)</ns0:Purpose>
                 <ns0:Type>Extensional</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
@@ -898,10 +898,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1048&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225129-FeWSsG0NNrUh3CrqMAuZ-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1004&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240468-cc0IU7Ta45q6JihD4JpG-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -923,88 +923,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!IlylfdjMST/r0q/NtNHn4GsLooFbU73fLj2RznoLKPx8+GZARDV3wujQCUCWOZqz8ofA4Z+YKiN9p+c=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=C4E8AC34C34CDABD4E53B1FCBEB653FC;path=/vsac;HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '4194'
-      Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.101.12.1048" displayName="Face-to-Face Interaction" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="12843005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Subsequent hospital visit by physician (procedure)"/>
-                    <ns0:Concept code="18170008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Subsequent nursing facility visit (procedure)"/>
-                    <ns0:Concept code="185349003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Encounter for check up (procedure)"/>
-                    <ns0:Concept code="185463005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Visit out of hours (procedure)"/>
-                    <ns0:Concept code="185465003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Weekend visit (procedure)"/>
-                    <ns0:Concept code="19681004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Nursing evaluation of patient and report (procedure)"/>
-                    <ns0:Concept code="207195004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="History and physical examination with evaluation and management of nursing facility patient (procedure)"/>
-                    <ns0:Concept code="270427003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Patient-initiated encounter (procedure)"/>
-                    <ns0:Concept code="270430005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Provider-initiated encounter (procedure)"/>
-                    <ns0:Concept code="308335008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Patient encounter procedure (procedure)"/>
-                    <ns0:Concept code="390906007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Follow-up encounter (procedure)"/>
-                    <ns0:Concept code="406547006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Urgent follow-up (procedure)"/>
-                    <ns0:Concept code="439708006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Home visit (procedure)"/>
-                    <ns0:Concept code="87790002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Follow-up inpatient consultation visit (procedure)"/>
-                    <ns0:Concept code="90526000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Initial evaluation and management of healthy individual (procedure)"/>
-                </ns0:ConceptList>
-                <ns0:Source>National Committee for Quality Assurance</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: This value set indentifies patients who have had a face-to-face interaction with a member of their medical care team.),(Data Element Scope: This value set was intended to map to the QDM data type of encounter.),(Inclusion Criteria: Includes both initial and follow up visits. Includes home visits, inpatient and outpatient visits, and nursing facility visits.),(Exclusion Criteria: Excludes visits that are not performed in-person, including telehealth services.)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.464.1003.101.11.1216:Face-to-Face Interaction)</ns0:Definition>
-                <ns0:Type>Grouping</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2019-02-07</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1004&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225119-sljUYvIGXrnzFc4d1iVh-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!TKer6M0jGg6LGILm9OGvBt4MxRMcjqbHwiv7RD0ZnDlr4BOSejC0kD6nkWjlKTj9K2uvpfy0k8z8EiQ=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=751F283A62BBFF165A566025C21D1612;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!tIxL7ED2YTS7IoPm9OGvBt4MxRMcjjLmgJPaTAFIswrIJ37AgUsdgFpIpjgpAjHetMUbGAqbUIRm1h0=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=45BACBAFD5739E747391237380B5F55E;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1016,7 +937,7 @@ http_interactions:
       Content-Length:
       - '3513'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1044,10 +965,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225134-pw5hvSrVIgKCbRP9GsG9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1007&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240479-Bcl49bdr7nzzhbNCGyYs-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1069,9 +990,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!45z8wH+aYmrE60Pm9OGvBt4MxRMcjtsw+ukQPKTVRS4Gtp7QmT7QSecmhh3XtdI2oPWSGKXQSYAZSr4=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=BA314CAA991D2E983AF5ADEE2B995536;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!ZQSbWBV38r/bo4vm9OGvBt4MxRMcjloaz2RZZOkxuqr8gdygyO1Nm70ekz/1VrIVNrPo5RqJnftzsFQ=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=2278AA1314C4467FA26122CE2072A63D;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1081,9 +1002,9 @@ http_interactions:
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '1765'
+      - '1644'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1095,84 +1016,14 @@ http_interactions:
       string: |
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.836" displayName="Race" version="N/A">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.101.12.1007" displayName="Discharge Services - Hospital Inpatient" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="1002-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="American Indian or Alaska Native"/>
-                    <ns0:Concept code="2028-9" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Asian"/>
-                    <ns0:Concept code="2054-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Black or African American"/>
-                    <ns0:Concept code="2076-8" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Native Hawaiian or Other Pacific Islander"/>
-                    <ns0:Concept code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="White"/>
-                    <ns0:Concept code="2131-1" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Other Race"/>
-                </ns0:ConceptList>
-                <ns0:Source>Centers for Disease Control National Center for Health Statistics</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
-                <ns0:Type>Extensional</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2019-02-07</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1002&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225130-dLji67uS7ikasfvagpyD-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!7EDl+2Jrl3bwa2/m9OGvBt4MxRMcjrJy68mnAvArZe6XJ/D84JrHu9IDmBYOpdT9EI6KG06UNIiNrvY=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=3228D88D59CA2980A8386C90D79CBA30;path=/vsac;HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '3706'
-      Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.101.12.1002" displayName="Hospital Observation Care - Initial" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="99218" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Initial observation care, per day, for the evaluation and management of a patient which requires these 3 key components: A detailed or comprehensive history; A detailed or comprehensive examination; and Medical decision making that is straightforward or of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the problem(s) requiring admission to outpatient hospital &quot;observation status&quot; are of low severity. Typically, 30 minutes are spent at the bedside and on the patient's hospital floor or unit."/>
-                    <ns0:Concept code="99219" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Initial observation care, per day, for the evaluation and management of a patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the problem(s) requiring admission to outpatient hospital &quot;observation status&quot; are of moderate severity. Typically, 50 minutes are spent at the bedside and on the patient's hospital floor or unit."/>
-                    <ns0:Concept code="99220" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Initial observation care, per day, for the evaluation and management of a patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the problem(s) requiring admission to outpatient hospital &quot;observation status&quot; are of high severity. Typically, 70 minutes are spent at the bedside and on the patient's hospital floor or unit."/>
+                    <ns0:Concept code="99238" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Hospital discharge day management; 30 minutes or less"/>
+                    <ns0:Concept code="99239" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Hospital discharge day management; more than 30 minutes"/>
                 </ns0:ConceptList>
                 <ns0:Source>National Committee for Quality Assurance</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: This value set contains concepts that represent initial inpatient hospital observation care.),(Data Element Scope: This value set may use Quality Data Model (QDM) datatype related to Encounter, Performed.),(Inclusion Criteria: Includes only relevant concepts associated with initial observation care for the evaluation and management of a patient. This is a grouping of CPT codes.),(Exclusion Criteria: No exclusions.)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.464.1003.101.11.1010:Hospital Observation Care - Initial)</ns0:Definition>
+                <ns0:Purpose>(Clinical Focus: This value set contains concepts that represent inpatient hospital discharge services.),(Data Element Scope: This value set may use Quality Data Model (QDM) datatype related to Encounter, Performed.),(Inclusion Criteria: Includes only relevant concepts associated with identifying hospital discharge day management. This is a grouping of CPT codes.),(Exclusion Criteria: No exclusions.)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.464.1003.101.11.1035:Discharge Services - Hospital Inpatient)</ns0:Definition>
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
@@ -1180,10 +1031,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1006&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225126-SRnaBNS4QdusFTc99UrR-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1006&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240473-7Tc2upnXX9oOdE7qe34l-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1205,9 +1056,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!s6wIm0xGkNbSWEPNtNHn4GsLooFbU4Qt5JuQIfEjOfOFudmXlxpY2JZbMkqrV4z1mzMwYL2/iWum14M=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=CB46B4DF2F080058D689E97ED9DF5DBA;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!UP1zuWUx3rMeyTDm9OGvBt4MxRMcjlzLVRJmadO3V1QRjc4lMQSzt/V/Cx3um99INIIzx0TXEIa2fj8=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=B9DAC77E15AE022261612E546A0C7CA8;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1219,7 +1070,7 @@ http_interactions:
       Content-Length:
       - '3865'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1247,10 +1098,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.526.3.1496&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225123-cgmfK7y5amjyIgxeWCNH-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1002&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240467-rydAKxFZN7liDlOOnig4-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1272,9 +1123,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!Q5eVq+rQ/kOU7ovm9OGvBt4MxRMcjr4uHGynM1uOCFBp9QJAw5PDcF8MUoehWDolgmt52yaRpUiCN74=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=8B82134C5CFE0714EBF2C367DA2F2A2B;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!ohzU86efy84m+irm9OGvBt4MxRMcjvMMLgeDgHymBNfw2l2HuWXyCN6GtQCr4St/X2H7mYY7osaJvCk=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=FE543CEC6070BD90EF9CB46E66E0432A;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1284,9 +1135,9 @@ http_interactions:
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '1470'
+      - '3706'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1298,89 +1149,15 @@ http_interactions:
       string: |
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.526.3.1496" displayName="Psych Visit - Psychotherapy" version="N/A">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.101.12.1002" displayName="Hospital Observation Care - Initial" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="90832" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 30 minutes with patient"/>
-                    <ns0:Concept code="90834" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 45 minutes with patient"/>
-                    <ns0:Concept code="90837" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 60 minutes with patient"/>
-                </ns0:ConceptList>
-                <ns0:Source>PCPI Foundation</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: Under Development),(Data Element Scope: Under Development),(Inclusion Criteria: Under Development),(Exclusion Criteria: Under Development)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.526.2.1927:Psych Visit - Psychotherapy)</ns0:Definition>
-                <ns0:Type>Grouping</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2019-02-07</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1059&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225132-ccXFZzZV3HiB1NZUlKXs-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!JJtmxL4NmH1Ff03NtNHn4GsLooFbU/GRy3m7fU127ML/Jy/I6uAnUG8pKnrO/nzWCor7a8TG1KN1sk8=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=8C16553D360EE7C3AB40771C787E88D9;path=/vsac;HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '3230'
-      Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.101.12.1059" displayName="Detoxification Visit" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="182969009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Dependent drug detoxification (regime/therapy)"/>
-                    <ns0:Concept code="20093000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Alcohol rehabilitation and detoxification (regime/therapy)"/>
-                    <ns0:Concept code="23915005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Combined alcohol and drug rehabilitation and detoxification (regime/therapy)"/>
-                    <ns0:Concept code="414054004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Drug dependence home detoxification (regime/therapy)"/>
-                    <ns0:Concept code="414056002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Drug dependence self detoxification (regime/therapy)"/>
-                    <ns0:Concept code="56876005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Drug rehabilitation and detoxification (regime/therapy)"/>
-                    <ns0:Concept code="61480009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Drug detoxification (regime/therapy)"/>
-                    <ns0:Concept code="64297001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Detoxication psychiatric therapy for alcoholism (regime/therapy)"/>
-                    <ns0:Concept code="67516001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Detoxification therapy (regime/therapy)"/>
-                    <ns0:Concept code="87106005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Combined alcohol and drug detoxification (regime/therapy)"/>
+                    <ns0:Concept code="99218" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Initial observation care, per day, for the evaluation and management of a patient which requires these 3 key components: A detailed or comprehensive history; A detailed or comprehensive examination; and Medical decision making that is straightforward or of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the problem(s) requiring admission to outpatient hospital &quot;observation status&quot; are of low severity. Typically, 30 minutes are spent at the bedside and on the patient's hospital floor or unit."/>
+                    <ns0:Concept code="99219" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Initial observation care, per day, for the evaluation and management of a patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the problem(s) requiring admission to outpatient hospital &quot;observation status&quot; are of moderate severity. Typically, 50 minutes are spent at the bedside and on the patient's hospital floor or unit."/>
+                    <ns0:Concept code="99220" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Initial observation care, per day, for the evaluation and management of a patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the problem(s) requiring admission to outpatient hospital &quot;observation status&quot; are of high severity. Typically, 70 minutes are spent at the bedside and on the patient's hospital floor or unit."/>
                 </ns0:ConceptList>
                 <ns0:Source>National Committee for Quality Assurance</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: This value set contains concepts that represent detoxification visits.),(Data Element Scope: This value set may use Quality Data Model (QDM) datatype related to Encounter, Performed.),(Inclusion Criteria: Includes only relevant concepts associated with identifying alcohol and drug detoxification. This is a grouping of SNOMED CT codes.),(Exclusion Criteria: No exclusions.)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.464.1003.101.11.1228:Detoxification Visit)</ns0:Definition>
+                <ns0:Purpose>(Clinical Focus: This value set contains concepts that represent initial inpatient hospital observation care.),(Data Element Scope: This value set may use Quality Data Model (QDM) datatype related to Encounter, Performed.),(Inclusion Criteria: Includes only relevant concepts associated with initial observation care for the evaluation and management of a patient. This is a grouping of CPT codes.),(Exclusion Criteria: No exclusions.)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.464.1003.101.11.1010:Hospital Observation Care - Initial)</ns0:Definition>
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
@@ -1388,10 +1165,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1007&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225131-C7uNK9NnnCcYNEViecxx-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240476-S67Jbrs6y1Pe4SqCWfbS-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1413,9 +1190,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!h/vCZW6TRl0LdOHNtNHn4GsLooFbU+uyF0loM4KQ4B7cFmrPiLfV1C6lsdSRVPLYlkPD5npQyVan7XE=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=83ACB290794E0C169782786AE40C65DC;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!Zpt2yfpZBFmjVGbNtNHn4GsLooFbU+75pw2QabjkW/+dSkR0Zlv7KCDdQPtGdIvTXo/FjlWNxX6piEI=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=413FCF8EBD74D3F6C897EA781FA143ED;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1425,9 +1202,9 @@ http_interactions:
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '1644'
+      - '1128'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1439,79 +1216,13 @@ http_interactions:
       string: |
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.101.12.1007" displayName="Discharge Services - Hospital Inpatient" version="N/A">
+            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.837" displayName="Ethnicity" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="99238" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Hospital discharge day management; 30 minutes or less"/>
-                    <ns0:Concept code="99239" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Hospital discharge day management; more than 30 minutes"/>
+                    <ns0:Concept code="2135-2" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Hispanic or Latino"/>
+                    <ns0:Concept code="2186-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Not Hispanic or Latino"/>
                 </ns0:ConceptList>
-                <ns0:Source>National Committee for Quality Assurance</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: This value set contains concepts that represent inpatient hospital discharge services.),(Data Element Scope: This value set may use Quality Data Model (QDM) datatype related to Encounter, Performed.),(Inclusion Criteria: Includes only relevant concepts associated with identifying hospital discharge day management. This is a grouping of CPT codes.),(Exclusion Criteria: No exclusions.)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.464.1003.101.11.1035:Discharge Services - Hospital Inpatient)</ns0:Definition>
-                <ns0:Type>Grouping</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2019-02-07</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225125-7dhEdLpvcV2WUh9JhU6c-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!OmadnhvLlqvmUxvNtNHn4GsLooFbU9emI2jsvqft20eGYCvvMTBJmNeEi+pNu4aUlFgYFz2fq6FxiHI=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=D14617171F22978067E6652300A4D057;path=/vsac;HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '1356'
-      Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113762.1.4.1" displayName="ONC Administrative Sex" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2018-08" displayName="Female"/>
-                    <ns0:Concept code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2018-08" displayName="Male"/>
-                </ns0:ConceptList>
-                <ns0:Source>Office of the National Coordinator for Health Information Technology</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: Gender identity restricted to only Male and Female used in administrative situations requiring a restriction to these two categories.),(Data Element Scope: Gender),(Inclusion Criteria: Male and Female only.),(Exclusion Criteria: Any gender identity that is not male or female.)</ns0:Purpose>
+                <ns0:Source>Centers for Disease Control National Center for Health Statistics</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
                 <ns0:Type>Extensional</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
@@ -1519,10 +1230,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1001&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225133-EYDPd7sWHNISeYDJOpDN-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1001&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240475-cRVfc2mpKHQ6N9M3uHjN-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1544,9 +1255,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!swua6Wu5bUWfC6bm9OGvBt4MxRMcjjIogw+A/2uQRZBmSgb0ZzWYiD87dtv3rPkCdyB7ju7NeRDhjYA=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=F02071FD67A46E84E45AB9AF2B776493;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!ruzeuCPizmw0Lq3NtNHn4GsLooFbU15beb/WvCLMcGIGw2hes2vQL7ZF2UYCOxe2l/A10nNR8dFiW30=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=E68E68238448866DCA72EB3298E7D885;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1558,7 +1269,7 @@ http_interactions:
       Content-Length:
       - '9024'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1597,10 +1308,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1005&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225121-ZWdMEZ3JTJELdcpqdjcm-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1005&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240466-v4mJWXc4yrJHf3ORPlJb-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1622,9 +1333,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!yUbv4Zzt4333gV/m9OGvBt4MxRMcjum1PU48rYlgUJtrz2Jtd9w4fVyXoPweRqV4ijabA74P02cdpjM=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=A266D7A0DD6CED5EC4F5B5350A759247;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!NYJHE8EEgUmpXXLNtNHn4GsLooFbUylz9C7dgTkRD1DHdFakJl9m1obJkAhVJgUt9dNf+jCNb1ww7IE=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=F83B91412E0829E2C96EBA19DA765B7D;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1636,7 +1347,7 @@ http_interactions:
       Content-Length:
       - '9323'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1702,10 +1413,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1010&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225135-Km4tG9waRlKIHacRa6vF-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240469-H6FV1NGZESgdczmgUJHO-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1727,9 +1438,298 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!d/8I/LzTcoBYCwPNtNHn4GsLooFbU3bZnATjoaAD9O8rkItMd296IA9RglN/iolixy0sF2x49Y4lbb4=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=FB38924FDE07B71BBEBE6F38794C299A;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!9X7gm/vkFw94Aw/NtNHn4GsLooFbU9ZG/yLYU3MtkaZ618Z9uoH1SXcrvqvdpNBG3xRyR5+g1RTenec=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=59F9F54506873ABF4617223E228843E8;path=/vsac;HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '1765'
+      Date:
+      - Thu, 07 Feb 2019 20:32:57 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.836" displayName="Race" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="1002-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="American Indian or Alaska Native"/>
+                    <ns0:Concept code="2028-9" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Asian"/>
+                    <ns0:Concept code="2054-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Black or African American"/>
+                    <ns0:Concept code="2076-8" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Native Hawaiian or Other Pacific Islander"/>
+                    <ns0:Concept code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="White"/>
+                    <ns0:Concept code="2131-1" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Other Race"/>
+                </ns0:ConceptList>
+                <ns0:Source>Centers for Disease Control National Center for Health Statistics</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
+                <ns0:Type>Extensional</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2019-02-07</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1059&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240471-9OqI4j5Y5WJJknTxIVuU-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!oCN1TELhM2M5R0Hm9OGvBt4MxRMcjkkGaYfAK2GV+slRd+lxvuNmRAQ8MIchQsH5XvVzyZ6j46kAPnA=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=C6304E799987C77126C67390C68BEC55;path=/vsac;HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '3230'
+      Date:
+      - Thu, 07 Feb 2019 20:32:57 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.101.12.1059" displayName="Detoxification Visit" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="182969009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Dependent drug detoxification (regime/therapy)"/>
+                    <ns0:Concept code="20093000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Alcohol rehabilitation and detoxification (regime/therapy)"/>
+                    <ns0:Concept code="23915005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Combined alcohol and drug rehabilitation and detoxification (regime/therapy)"/>
+                    <ns0:Concept code="414054004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Drug dependence home detoxification (regime/therapy)"/>
+                    <ns0:Concept code="414056002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Drug dependence self detoxification (regime/therapy)"/>
+                    <ns0:Concept code="56876005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Drug rehabilitation and detoxification (regime/therapy)"/>
+                    <ns0:Concept code="61480009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Drug detoxification (regime/therapy)"/>
+                    <ns0:Concept code="64297001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Detoxication psychiatric therapy for alcoholism (regime/therapy)"/>
+                    <ns0:Concept code="67516001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Detoxification therapy (regime/therapy)"/>
+                    <ns0:Concept code="87106005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Combined alcohol and drug detoxification (regime/therapy)"/>
+                </ns0:ConceptList>
+                <ns0:Source>National Committee for Quality Assurance</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: This value set contains concepts that represent detoxification visits.),(Data Element Scope: This value set may use Quality Data Model (QDM) datatype related to Encounter, Performed.),(Inclusion Criteria: Includes only relevant concepts associated with identifying alcohol and drug detoxification. This is a grouping of SNOMED CT codes.),(Exclusion Criteria: No exclusions.)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.464.1003.101.11.1228:Detoxification Visit)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2019-02-07</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.526.3.1496&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240477-476dQBgSMaLIVbqwRM6p-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!0msskgsTTsmvuZnm9OGvBt4MxRMcjiCyJUrREHtpysiLL420QS96b80v7yzYtUPy0a0reSfEK0z7wUM=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=6234AFFDE03EB45002E8DD013C152667;path=/vsac;HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '1470'
+      Date:
+      - Thu, 07 Feb 2019 20:32:57 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.526.3.1496" displayName="Psych Visit - Psychotherapy" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="90832" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 30 minutes with patient"/>
+                    <ns0:Concept code="90834" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 45 minutes with patient"/>
+                    <ns0:Concept code="90837" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 60 minutes with patient"/>
+                </ns0:ConceptList>
+                <ns0:Source>PCPI Foundation</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under Development),(Data Element Scope: Under Development),(Inclusion Criteria: Under Development),(Exclusion Criteria: Under Development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.526.2.1927:Psych Visit - Psychotherapy)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2019-02-07</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1048&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240478-wwzLB62EBYGlGL4E3pD7-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!6hmoKd9KJxT0XXvm9OGvBt4MxRMcjlmIGruX+AT2bPW7Jwmm3yUn3b5ehysaRL5WZdl5r/4OsDPmKPE=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=41D3A5D4F128A24FA6ECA7C3115EC458;path=/vsac;HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '4194'
+      Date:
+      - Thu, 07 Feb 2019 20:32:57 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.101.12.1048" displayName="Face-to-Face Interaction" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="12843005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Subsequent hospital visit by physician (procedure)"/>
+                    <ns0:Concept code="18170008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Subsequent nursing facility visit (procedure)"/>
+                    <ns0:Concept code="185349003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Encounter for check up (procedure)"/>
+                    <ns0:Concept code="185463005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Visit out of hours (procedure)"/>
+                    <ns0:Concept code="185465003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Weekend visit (procedure)"/>
+                    <ns0:Concept code="19681004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Nursing evaluation of patient and report (procedure)"/>
+                    <ns0:Concept code="207195004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="History and physical examination with evaluation and management of nursing facility patient (procedure)"/>
+                    <ns0:Concept code="270427003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Patient-initiated encounter (procedure)"/>
+                    <ns0:Concept code="270430005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Provider-initiated encounter (procedure)"/>
+                    <ns0:Concept code="308335008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Patient encounter procedure (procedure)"/>
+                    <ns0:Concept code="390906007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Follow-up encounter (procedure)"/>
+                    <ns0:Concept code="406547006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Urgent follow-up (procedure)"/>
+                    <ns0:Concept code="439708006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Home visit (procedure)"/>
+                    <ns0:Concept code="87790002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Follow-up inpatient consultation visit (procedure)"/>
+                    <ns0:Concept code="90526000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Initial evaluation and management of healthy individual (procedure)"/>
+                </ns0:ConceptList>
+                <ns0:Source>National Committee for Quality Assurance</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: This value set indentifies patients who have had a face-to-face interaction with a member of their medical care team.),(Data Element Scope: This value set was intended to map to the QDM data type of encounter.),(Inclusion Criteria: Includes both initial and follow up visits. Includes home visits, inpatient and outpatient visits, and nursing facility visits.),(Exclusion Criteria: Excludes visits that are not performed in-person, including telehealth services.)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.464.1003.101.11.1216:Face-to-Face Interaction)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2019-02-07</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1010&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240480-65qXJcwhGgQF9S5gf359-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!qkJVr4mWrbNtEpbNtNHn4GsLooFbU2q4VhTe6qzrAzjBxPNitHK9tD7HSm1WqJJk1zT/SXeobmZGNeU=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=3782ED73C8DFA35F543D401578453735;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1741,7 +1741,7 @@ http_interactions:
       Content-Length:
       - '5268'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1772,10 +1772,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225127-h2AczD9nLZTtS4aUhSwC-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240472-k4WkXXZGLk6NaKM1bMwl-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1797,9 +1797,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!vuKJDmqRSlqNdivm9OGvBt4MxRMcjqHpDLN1RPyJ7OXEcwE4vOZYEWjfS3OqkeDWoym0hUngZsjgODY=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=FA3153330761D7B8A26B8F9799F21A9C;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!xPDy2kacclBOq5bNtNHn4GsLooFbU32tSAMF2g2ie6QL/xgm6Etcfskd9sfXswbmeA0VtRkARe1MCFs=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=B91A7981910620C439BE58D325EE64F4;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1811,7 +1811,7 @@ http_interactions:
       Content-Length:
       - '27696'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1997,10 +1997,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:32:57 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1001&includeDraft=yes&profile=eCQM%20Update%202019-05-03&ticket=ST-225124-ASwrt4UAGhbbeIiobCfa-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1001&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-240474-zTgGycPk9ICvbbFe4bQK-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -2022,9 +2022,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!A3yXJuCOaESnT4/m9OGvBt4MxRMcjlPIdXLeMV+wDUsanvqje04vYfmmOLfFKYAoypzGJ3yw5usGEGU=;
-        expires=Thu, 07-Feb-2019 22:22:43 GMT; path=/; Httponly; Secure
-      - JSESSIONID=FD95C58112E99464C083CDBD8E16022D;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!ovHhNjJr9UJuZt3NtNHn4GsLooFbU1GHNjcxPUDc0MvhwMlPFY7pDsu676O+finxY0k2YLQ5QzON/XA=;
+        expires=Thu, 07-Feb-2019 22:32:57 GMT; path=/; Httponly; Secure
+      - JSESSIONID=2BBC4FC0C52E03845D9CCF5674ABE85A;path=/vsac;HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -2036,7 +2036,7 @@ http_interactions:
       Content-Length:
       - '114954'
       Date:
-      - Thu, 07 Feb 2019 20:22:43 GMT
+      - Thu, 07 Feb 2019 20:32:57 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -2625,5 +2625,5 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 07 Feb 2019 20:22:43 GMT
+  recorded_at: Thu, 07 Feb 2019 20:33:00 GMT
 recorded_with: VCR 4.0.0

@@ -4,6 +4,8 @@ module ApiV1
     skip_before_filter :authenticate_user!
     before_action :doorkeeper_authorize! # Require access token for all actions
 
+    include MeasureHelper
+
     class IntegerValidator < Apipie::Validator::BaseValidator
       def initialize(param_description, argument)
         super(param_description)
@@ -212,7 +214,14 @@ module ApiV1
     error :code => 500, :desc => "A server error occured."
     param_group :measure_upload
     def create
-      load_measure(params, false)
+      main_hqmf_set_id = create_measure(measure_file: params[:measure_file], 
+                                        measure_details: retrieve_measure_details(params),
+                                        value_set_loader: build_vs_loader(params, true), 
+                                        user: current_resource_owner)
+
+      render json: {status: "success", url: "/api_v1/measures/#{main_hqmf_set_id}"}, status: :ok
+    rescue StandardError => e
+      render turn_exception_into_shared_error_if_needed(e).back_end_version
     end
 
     api :PUT, '/measures/:id', 'Update an Existing Measure'
@@ -223,39 +232,24 @@ module ApiV1
     error :code => 500, :desc => "A server error occured."
     param_group :measure_upload
     def update
-      existing = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]})
-      if existing.count.zero?
-        render json: {status: "error", messages: "No measure found for this HQMF Set ID."},
-               status: :not_found
-        return
-      end
-      load_measure(params, true)
+      main_hqmf_set_id = update_measure(measure_file: params[:measure_file], 
+                                        target_id: params[:id],
+                                        value_set_loader: build_vs_loader(params, true), 
+                                        user: current_resource_owner)
+
+      render json: {status: "success", url: "/api_v1/measures/#{main_hqmf_set_id}"}, status: :ok
+    rescue StandardError => e
+      render turn_exception_into_shared_error_if_needed(e).back_end_version
     end
 
     private
 
-    def save_measures_array_with_package_and_valuesets_to_user(measures, user)
-      measures.each do |measure|
-        measure.user = user
-        measure.save!
-        if measure.package.present?
-          measure.package.user = user
-          measure.package.save!
-        end
-        measure.value_sets.each do |valueset|
-          valueset.user = user
-          valueset.save!
-        end
-      end
-    end
-  
-    def delete_measures_array_with_package_and_valuesets(measures)
-      return if measures.nil?
-      measures.each do |measure|
-        measure.delete
-        measure.package.delete if measure.package.present?
-        measure.value_sets.each { |valueset| valueset.delete }
-      end
+    def retrieve_measure_details(params)
+      return {
+        'episode_of_care'=>params[:calculation_type] == 'episode',
+        'calculate_sdes'=>params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true',
+        'population_titles' => params[:population_titles]
+      }
     end
 
     def process_patient_records(selector)
@@ -280,162 +274,6 @@ module ApiV1
       patients
     end
 
-    def load_measure(params, is_update)
-      # Convert calculate_sde param from string to boolean
-      measure_details = {
-        'episode_of_care'=>params[:calculation_type] == 'episode',
-        'calculate_sdes'=>params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true',
-        'population_titles' => params[:population_titles]
-      }
-      # If we get to this point, then the measure that is being uploaded is a MAT export of CQL
-      begin
-        if is_update && !params[:id].empty?
-          existing = CQM::Measure.by_user(current_resource_owner).where(hqmf_set_id: params[:id]).first
-          measure_details['episode_of_care'] = existing.calculation_method == 'EPISODE_OF_CARE'
-          measure_details['calculate_sdes'] = existing.calculate_sdes
-          measure_details['population_titles'] = existing.population_sets.map { |p| p['title'] } if existing.population_sets.length > 1
-        end
-
-        # Check the passed in VSAC params and set the default values
-        vsac_params = retrieve_vasc_params(params)
-        # Parse VSAC options using helper and get ticket_granting_ticket which is always needed
-        vsac_options = MeasureHelper.parse_vsac_parameters(vsac_params)
-
-        # Build ticket_granting_ticket object that VSAC util library expects
-        vsac_tgt_object = {ticket: params[:vsac_tgt], expires: Time.at(params[:vsac_tgt_expires_at].to_i)}
-
-        value_set_loader = Measures::VSACValueSetLoader.new(options:vsac_options, ticket_granting_ticket:vsac_tgt_object)
-        loader = Measures::CqlLoader.new(params[:measure_file], measure_details, value_set_loader)
-        measures = loader.extract_measures
-
-        measures.each do |measure|  
-          if !is_update
-            existing = CQM::Measure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
-            unless existing.nil?
-              measures.each(&:delete)
-              render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
-                     status: :conflict
-              return
-            end
-          elsif measure.component
-            if existing.hqmf_set_id != measure.composite_hqmf_set_id
-              measures.each(&:delete)
-              render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                     status: :not_found
-              return
-            end
-          elsif existing.hqmf_set_id != measure.hqmf_set_id
-            measures.each(&:delete)
-            render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                   status: :not_found
-            return
-          end
-        end
-        if existing && is_update
-          existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
-            component_measure = CQM::Measure.by_user(current_resource_owner).where(hqmf_set_id: component_hqmf_set_id).first
-            component_measure.delete
-          end
-          existing.delete
-        end
-
-      save_measures_array_with_package_and_valuesets_to_user(measures, current_resource_owner)
-      rescue StandardError, Measures::MeasureLoadingException => e
-        binding.pry
-        delete_measures_array_with_package_and_valuesets(measures) if measures
-        errors_dir = Rails.root.join('log', 'load_errors')
-        FileUtils.mkdir_p(errors_dir)
-        clean_email = File.basename(current_resource_owner.email) # Prevent path traversal
-
-        # Create the filename for the copied measure upload. We do not use the original extension to avoid malicious user
-        # input being used in file system operations.
-        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.xmlorzip"
-
-        operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
-        File.open(File.join(errors_dir, filename), 'w') do |errored_measure_file|
-          uploaded_file = params[:measure_file].tempfile.open
-          errored_measure_file.write(uploaded_file.read)
-          uploaded_file.close
-        end
-
-        File.chmod(0644, File.join(errors_dir, filename))
-        File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
-          f.write("Original Filename was #{params[:measure_file].original_filename}\n")
-          f.write(e.to_s + "\n" + e.backtrace.join("\n"))
-        end
-        if e.is_a?(Util::VSAC::VSACError)
-          vsac_message = MeasureHelper.build_vsac_error_message(e)
-          error_message = vsac_message[:title] + '. ' + vsac_message[:summary] + ' ' + vsac_message[:body]
-          operator_error = true
-          render json: {status: "error", messages: error_message},
-                 status: :bad_request
-
-        elsif e.is_a? Measures::MeasureLoadingInvalidPackageException
-          operator_error = true
-          render json: {status: "error", messages: "Measure loading process encountered error: #{e.message}"},
-                 status: :bad_request
-        else
-          error_json = {status: "error", messages: "The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."}
-          error_json[:details] = e.inspect if Rails.env.development?
-          render json: error_json,
-                 status: :internal_server_error
-        end
-
-        # email the error
-        if !operator_error && defined? ExceptionNotifier::Notifier
-          params[:error_file] = filename
-          ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
-        end
-
-        return
-      end
-      MeasureHelper.measures_population_update(measures, is_update, current_resource_owner, measure_details)
-      # measures_population_update(measures, current_resource_owner, is_update, measure_details)
-
-      # Reason for the split is when the measure is a composite. Otherwise, it is regular hqmf set id
-      measure_hqmf_set_id = measures[0].hqmf_set_id.split('&')[0]
-
-      render json: {status: "success", url: "/api_v1/measures/#{measure_hqmf_set_id}"},
-             status: :ok
-    end
-
-    def measures_population_update(measures, current_resource_owner, is_update, measure_details)
-      measures.each do |measure|
-        current_resource_owner.measures << measure
-  
-        if is_update
-          measure.populations.each_with_index do |population, population_index|
-            population['title'] = measure_details['population_titles'][population_index] if measure_details['population_titles']
-          end
-        # Handle population naming. Make default names if none or not enough were provided.
-        elsif measure.populations.size > 1
-          population_titles = params.fetch(:population_titles, [])
-          strat_index = 0
-          measure.populations.each_with_index do |population, index|
-            if population[HQMF::PopulationCriteria::STRAT]
-              population['title'] = population_titles.fetch(index, "Stratification #{strat_index + 1}")
-              strat_index += 1
-            elsif index < population_titles.size
-              population['title'] = population_titles.fetch(index)
-            end
-          end
-        end
-        measure.save!
-
-        # rebuild the user's patients for the given measure
-        Record.by_user_and_hqmf_set_id(current_resource_owner, measure.hqmf_set_id).each do |r|
-          Measures::PatientBuilder.rebuild_patient(r)
-          r.save!
-        end
-
-        # ensure expected values on patient match those in the measure's populations
-        Record.where(user_id: current_resource_owner.id, measure_ids: measure.hqmf_set_id).each do |patient|
-          patient.update_expected_value_structure!(measure)
-        end
-      end
-      current_resource_owner.save!
-    end
-
     def error_parameter_missing(exception)
       param_name = exception.is_a?(Apipie::ParamMissing) ? exception.param.name : exception.param
       render json: {status: "error", messages: "Missing parameter: #{param_name}" }, status: :bad_request
@@ -447,23 +285,9 @@ module ApiV1
     end
 
     def current_resource_owner
-      User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
-    end
-
-    def retrieve_vasc_params(params)
-      vsac_params = {}
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'])
-      vsac_params[:vsac_query_type] = params.fetch(:vsac_query_type, 'profile')
-      # If query type is 'release' set the query_release to a value that is passed in, or set it using default
-      # If query type is 'profile' (the default) set the query profile and include_draft options
-      if vsac_params[:vsac_query_type] == 'release'
-        vsac_params[:vsac_query_release] = params.fetch(:vsac_query_release, api.get_program_release_names(APP_CONFIG['vsac']['default_program']).first)
-      else
-        vsac_params[:vsac_query_profile] = params.fetch(:vsac_query_profile, api.get_latest_profile_for_program(APP_CONFIG['vsac']['default_program']))
-        vsac_params[:vsac_query_include_draft] = params.fetch(:vsac_query_include_draft, 'true')
-      end
-      vsac_params[:vsac_query_measure_defined] = params.fetch(:vsac_query_measure_defined, 'false')
-      vsac_params
+      return @current_resource_owner if @current_resource_owner.present?
+      @current_resource_owner = User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+      return @current_resource_owner
     end
 
   end

@@ -1,4 +1,5 @@
 class MeasuresController < ApplicationController
+  include MeasureHelper
 
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
@@ -59,107 +60,22 @@ class MeasuresController < ApplicationController
       return
     end
 
-    measure_details = {
-      'episode_of_care'=>params[:calculation_type] == 'episode',
-      'calculate_sdes'=>params[:calc_sde],
-      'population_titles' => params[:population_titles]
-    }
-
-    extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
-    if !extension || extension != '.zip'
-      flash[:error] = {title: "Error Loading Measure",
-        summary: "Incorrect Upload Format.",
-        body: 'The file you have uploaded does not appear to be a Measure Authoring Tool (MAT) zip export of a measure. Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-qdm.healthit.gov">Bonnie-QDM</a>.'.html_safe}
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
+    if params[:hqmf_set_id].present? # update
+      main_hqmf_set_id = update_measure(measure_file: params[:measure_file], 
+                                        target_id: params[:hqmf_set_id],
+                                        value_set_loader: build_vs_loader(params, false), 
+                                        user: current_user)
+    else
+      main_hqmf_set_id = create_measure(measure_file: params[:measure_file], 
+                                        measure_details: retrieve_measure_details(params),
+                                        value_set_loader: build_vs_loader(params, false), 
+                                        user: current_user)
     end
-    #If we get to this point, then the measure that is being uploaded is a MAT export of CQL
-    begin
-      # parse VSAC options using helper and get ticket_granting_ticket which is always needed
-      vsac_options = MeasureHelper.parse_vsac_parameters(params)
-      # vsac_ticket_granting_ticket = get_ticket_granting_ticket
-
-      is_update = false
-      if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
-        existing = CQM::Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
-        if !existing.nil?
-          is_update = true
-          measure_details['episode_of_care'] = existing.calculation_method == 'EPISODE_OF_CARE'
-          measure_details['calculate_sdes'] = existing.calculate_sdes
-          measure_details['population_titles'] = existing.population_sets.map {|p| p['title']} if existing.population_sets.length > 1    
-        else
-          raise Exception.new('Update requested, but measure does not exist.')
-        end
-      end
-
-      # Extract measure(s) from zipfile
-      value_set_loader = Measures::VSACValueSetLoader.new(options:vsac_options, username:params[:vsac_username], password:params[:vsac_password])
-      loader = Measures::CqlLoader.new(params[:measure_file], measure_details, value_set_loader)
-      measures = loader.extract_measures
-
-      update_error_message = MeasureHelper.update_measures(measures, current_user, is_update, existing)
-      if (!update_error_message.nil?)
-        flash[:error] = update_error_message
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      end
-      save_measures_array_with_package_and_valuesets_to_user(measures, current_user)
-
-    rescue Measures::MeasureLoadingInvalidPackageException => e
-      # binding.pry
-      flash[:error] = {title: "Error Uploading Measure",
-        summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
-        body: "Measure loading process encountered error: #{e.message} Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.".html_safe}
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
-    rescue StandardError => e
-      # binding.pry
-      delete_measures_array_with_package_and_valuesets(measures) if defined? measures
-      errors_dir = Rails.root.join('log', 'load_errors')
-      FileUtils.mkdir_p(errors_dir)
-      clean_email = File.basename(current_user.email) # Prevent path traversal
-
-      # Create the filename for the copied measure upload. We do not use the original extension to avoid malicious user
-      # input being used in file system operations.
-      filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.xmlorzip"
-
-      operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
-      File.open(File.join(errors_dir, filename), 'w') do |errored_measure_file|
-        uploaded_file = params[:measure_file].tempfile.open()
-        errored_measure_file.write(uploaded_file.read());
-        uploaded_file.close()
-      end
-
-      File.chmod(0644, File.join(errors_dir, filename))
-      File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
-        f.write("Original Filename was #{params[:measure_file].original_filename}\n")
-        f.write(e.to_s + "\n" + e.backtrace.join("\n"))
-      end
-      if e.is_a?(Util::VSAC::VSACError)
-        operator_error = true
-        flash[:error] = MeasureHelper.build_vsac_error_message(e)
-
-        # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
-        session[:vsac_tgt] = nil if e.is_a?(Util::VSAC::VSACTicketExpiredError)
-      elsif e.is_a? Measures::MeasureLoadingException
-        operator_error = true
-        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: e.message}
-      else
-        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Bonnie has encountered an error while trying to load the measure."}
-      end
-
-      # email the error
-      if !operator_error && defined? ExceptionNotifier::Notifier
-        params[:error_file] = filename
-        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
-      end
-
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
-    end
-
-    MeasureHelper.measures_population_update(measures, is_update, current_user, measure_details)
-
+    redirect_to "#{root_path}##{params[:redirect_route]}"
+  rescue StandardError => e
+    # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
+    session[:vsac_tgt] = nil if e.is_a?(VSACTicketExpiredError)
+    flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
@@ -210,57 +126,11 @@ class MeasuresController < ApplicationController
 
   private
 
-  def save_measures_array_with_package_and_valuesets_to_user(measures, user)
-    measures.each do |measure|
-      measure.user = user
-      measure.save!
-      if measure.package.present?
-        measure.package.user = user
-        measure.package.save!
-      end
-      measure.value_sets.each do |valueset|
-        valueset.user = user
-        valueset.save!
-      end
-    end
-  end
-
-  def delete_measures_array_with_package_and_valuesets(measures)
-    return if measures.nil?
-    measures.each do |measure|
-      measure.delete
-      measure.package.delete if measure.package.present?
-      measure.value_sets.each { |valueset| valueset.delete }
-    end
-  end
-  
-  def get_ticket_granting_ticket
-    # Retreive a (possibly) existing ticket granting ticket
-    ticket_granting_ticket = session[:vsac_tgt]
-
-    # If the ticket granting ticket doesn't exist (or has expired), get a new one
-    if ticket_granting_ticket.nil?
-      # The user could open a second browser window and remove their ticket_granting_ticket in the session after they
-      # prepeared a measure upload assuming ticket_granting_ticket in the session in the first tab
-
-      # First make sure we have credentials to attempt getting a ticket with. Throw an error if there are no credentials.
-      if params[:vsac_username].nil? || params[:vsac_password].nil?
-        raise Util::VSAC::VSACNoCredentialsError.new
-      end
-
-      # Retrieve a new ticket granting ticket by creating the api class.
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: params[:vsac_username], password: params[:vsac_password])
-      ticket_granting_ticket = api.ticket_granting_ticket
-
-      # Create a new ticket granting ticket session variable
-      session[:vsac_tgt] = ticket_granting_ticket
-      return ticket_granting_ticket
-
-    # If it does exist, let the api test it
-    else
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
-      return api.ticket_granting_ticket
-    end
+  def retrieve_measure_details(params)
+    return {
+      'episode_of_care'=>params[:calculation_type] == 'episode',
+      'calculate_sdes'=>params[:calc_sde]
+    }
   end
 
 end
