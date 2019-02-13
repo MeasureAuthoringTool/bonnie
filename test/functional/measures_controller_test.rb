@@ -551,9 +551,9 @@ include Devise::Test::ControllerHelpers
       }
 
       # Verify that the controller detects the mismatching hqmf_set_id and rejects
-      assert_equal "Error Updating Measure", flash[:error][:title]
-      assert_equal "The update file does not match the measure.", flash[:error][:summary]
-      assert_equal "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure.", flash[:error][:body]
+      assert_equal "Error Loading Measure", flash[:error][:title]
+      assert_equal "Update requested, but measure does not exist.", flash[:error][:summary]
+      assert_equal "You have attempted to update a measure that does not exist.", flash[:error][:body]
       assert_response :redirect
 
       # Verify that the initial file remained unchanged

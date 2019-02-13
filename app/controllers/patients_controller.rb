@@ -35,7 +35,7 @@ class PatientsController < ApplicationController
       unless current_user.portfolio?
         records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
       end
-      measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
+      measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
     end
 
     qrda_errors = {}
@@ -64,14 +64,14 @@ class PatientsController < ApplicationController
       end
       # add the summary content if there are results
       if (params[:results] && !params[:patients])
-        measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+        measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
         zip.puts measure_patients_summary(records, params[:results].values, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     stringio.rewind
-    measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+    measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
     filename = if params[:hqmf_set_id] then "#{measure.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
@@ -135,7 +135,7 @@ private
 
     # for each parent measure, get all the child ids and add them to the patient
     parent_measure_ids.each do |parent_measure_id|
-      parent_measure = CqlMeasure.by_user(current_user).only(:component_hqmf_set_ids).where(hqmf_set_id: parent_measure_id).first
+      parent_measure = CQM::Measure.by_user(current_user).only(:component_hqmf_set_ids).where(hqmf_set_id: parent_measure_id).first
       patient['measure_ids'].concat parent_measure["component_hqmf_set_ids"]
       patient['measure_ids'] << parent_measure_id
     end
@@ -147,7 +147,7 @@ private
   end
 
   def get_associated_measure(patient)
-    CqlMeasure.where(hqmf_set_id: patient.measure_ids.first)
+    CQM::Measure.where(hqmf_set_id: patient.measure_ids.first)
   end
 
   def qrda_patient_export(patient, measure)

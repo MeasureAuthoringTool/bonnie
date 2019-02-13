@@ -22,7 +22,7 @@ module ExcelExportHelper
   # }
   def self.convert_results_for_excel_export(results, measure, patients)
     calc_results = ActiveSupport::HashWithIndifferentAccess.new
-    measure.populations.each_with_index do |population, index|
+    measure.population_sets.each_with_index do |population, index|
       patients.each do |patient|
         calc_results[index] = {} unless calc_results[index]
         result = results[patient.id.to_s]
@@ -33,18 +33,18 @@ module ExcelExportHelper
           result_criteria = {
             'values' => []
           }
-          result[population['id']]['extendedData']['population_relevance'].each_key do |population_criteria|
+          result[population.population_set_id]['extendedData']['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
-              result[population['id']]['episode_results']&.each_value do |episode|
+              result[population.population_set_id]['episode_results']&.each_value do |episode|
                 result_criteria['values'].concat episode['values']
               end
               result_criteria['values'].sort!
             else
-              result_criteria[population_criteria] = result[population['id']][population_criteria]
+              result_criteria[population_criteria] = result[population.population_set_id][population_criteria]
             end
           end
-          calc_results[index][patient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[population['id']]['statement_results']), criteria: result_criteria}
+          calc_results[index][patient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[population.population_set_id]['statement_results']), criteria: result_criteria}
         end
       end
     end
@@ -86,20 +86,17 @@ module ExcelExportHelper
     population_details = ActiveSupport::HashWithIndifferentAccess.new
     return population_details if results.empty?
 
-    measure.populations.each_with_index do |population, pop_index|
+    measure.population_sets.each_with_index do |population, pop_index|
       # Populates the population details
       next if population_details[pop_index]
 
       # the population_details are independent of patient, so index into the first patient in the results.
-      population_details[pop_index] = {title: population[:title], statement_relevance: results.first[1][population['id']]['extendedData']['statement_relevance']}
+      population_details[pop_index] = {title: population[:title], statement_relevance: results.first[1][population.population_set_id]['extendedData']['statement_relevance']}
 
       criteria = []
-      population.each_key do |key|
-        criteria << key if key != "title" && key != "sub_id" && key != "id"
-      end
       # TODO: The front end adds 'index' to this array, but it might be unused. Investigate and remove if possible.
       criteria.push 'index'
-      population_details[pop_index][:criteria] = criteria
+      population_details[pop_index][:criteria] = population.class.embedded_relations.keys
     end
 
     population_details
@@ -109,12 +106,12 @@ module ExcelExportHelper
   def self.get_statement_details_from_measure(measure)
     statement_details = ActiveSupport::HashWithIndifferentAccess.new
 
-    measure.elm_annotations.each do |library_name, library|
+    measure.cql_libraries.each do |library|
       lib_statements = {}
-      library['statements'].each do |statement|
+      library.elm_annotations['statements'].each do |statement|
         lib_statements[statement['define_name']] = parse_annotation_tree(statement['children'])
       end
-      statement_details[library_name] = lib_statements
+      statement_details[library.library_name] = lib_statements
     end
 
     statement_details

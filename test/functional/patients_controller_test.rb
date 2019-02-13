@@ -9,8 +9,8 @@ include Devise::Test::ControllerHelpers
     cql_measures_set = File.join("cql_measures", "**")
     collection_fixtures(cql_measures_set, users_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_measures(@user, CqlMeasure.all)
-    @measure = CqlMeasure.where({"cms_id" => "CMS134v6"}).first
+    associate_user_with_measures(@user, CQM::Measure.all)
+    @measure = CQM::Measure.where({"cms_id" => "CMS134v6"}).first
     sign_in @user
   end
 

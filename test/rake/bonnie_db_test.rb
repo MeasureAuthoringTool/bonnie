@@ -25,17 +25,17 @@ class BonnieDbTest < ActiveSupport::TestCase
 
     @user = User.by_email('bonnie@example.com').first
 
-    associate_user_with_measures(@user, CqlMeasure.where(hqmf_set_id: @hqmf_set_id_1))
-    associate_user_with_measures(@user, CqlMeasure.where(hqmf_set_id: @hqmf_set_id_2))
-    associate_user_with_measures(@user, CqlMeasure.where(hqmf_set_id: @hqmf_set_id_3))
+    associate_user_with_measures(@user, CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1))
+    associate_user_with_measures(@user, CQM::Measure.where(hqmf_set_id: @hqmf_set_id_2))
+    associate_user_with_measures(@user, CQM::Measure.where(hqmf_set_id: @hqmf_set_id_3))
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(@source_user, Record.all)
   end
 
   test "resave measures" do
-    measure_1 = CqlMeasure.where(hqmf_set_id: @hqmf_set_id_1).first
-    measure_2 = CqlMeasure.where(hqmf_set_id: @hqmf_set_id_2).first
-    measure_w_no_user = CqlMeasure.where(hqmf_set_id: @hqmf_set_id_3).first
+    measure_1 = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1).first
+    measure_2 = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_2).first
+    measure_w_no_user = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_3).first
     measure_w_no_user.user = nil
     measure_w_no_user.save!
 
@@ -114,7 +114,7 @@ class BonnieDbTest < ActiveSupport::TestCase
 
     assert(File.exist?('CMS160v6_bonnie@example.com_2018-01-11.zip'))
     file_content = File.binread('CMS160v6_bonnie@example.com_2018-01-11.zip')
-    measure = CqlMeasure.find_by(hqmf_set_id: @hqmf_set_id_2)
+    measure = CQM::Measure.find_by(hqmf_set_id: @hqmf_set_id_2)
     assert_equal(measure.package.file.data, file_content)
     File.delete('CMS160v6_bonnie@example.com_2018-01-11.zip')
 
@@ -128,7 +128,7 @@ class BonnieDbTest < ActiveSupport::TestCase
 
     assert(File.exist?('CMS160v6_bonnie@example.com_2018-01-11.zip'))
     file_content = File.binread('CMS160v6_bonnie@example.com_2018-01-11.zip')
-    measure = CqlMeasure.find_by(cms_id: 'CMS160v6')
+    measure = CQM::Measure.find_by(cms_id: 'CMS160v6')
     assert_equal(measure.package.file.data, file_content)
     File.delete('CMS160v6_bonnie@example.com_2018-01-11.zip')
   end

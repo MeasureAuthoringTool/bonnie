@@ -74,7 +74,7 @@ class FixtureExporter
   def find_component_measures
     return [] unless @measure.composite
     component_measures = @measure.component_hqmf_set_ids.map do |component_hqmf_set_id|
-      CqlMeasure.find_by(user_id: @user, hqmf_set_id: component_hqmf_set_id)
+      CQM::Measure.find_by(user_id: @user, hqmf_set_id: component_hqmf_set_id)
     end
     return component_measures
   end

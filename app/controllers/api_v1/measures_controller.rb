@@ -198,7 +198,7 @@ module ApiV1
         filename = "#{@api_v1_measure.cms_id}.xlsx"
         excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, hqmf_set_id)
         send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
-      rescue StandardError
+      rescue StandardError => e
         # Email the error so we can see more details on what went wrong with the excel creation.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error

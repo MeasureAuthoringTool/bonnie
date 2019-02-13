@@ -25,7 +25,6 @@ class MeasuresController < ApplicationController
   end
 
   def value_sets
-    # binding.pry
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
     if true

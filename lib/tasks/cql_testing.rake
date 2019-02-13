@@ -105,7 +105,7 @@ namespace :bonnie do
       if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
       end
-      CqlMeasure.by_user(user).each do |measure|
+      CQM::Measure.by_user(user).each do |measure|
         if (cms_hqmf.downcase  == 'cms' && measure.cms_id.downcase == measure_id.downcase)
           return measure
         elsif (cms_hqmf.downcase == 'hqmf' && measure.hqmf_set_id.downcase == measure_id.downcase)

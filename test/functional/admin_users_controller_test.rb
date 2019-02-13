@@ -14,7 +14,7 @@ include Devise::Test::ControllerHelpers
     @user_plain = User.by_email('user_plain@example.com').first
     @user_unapproved = User.by_email('user_unapproved@example.com').first
 
-    associate_user_with_measures(@user, CqlMeasure.all)
+    associate_user_with_measures(@user, CQM::Measure.all)
     associate_user_with_patients(@user, Record.all)
 
   end
@@ -180,7 +180,7 @@ include Devise::Test::ControllerHelpers
     assert mail.empty?
     # The following tests greater than 6 months, but 0 measure
     @user_admin.last_sign_in_at = Date.today - 8.months # arbitrary date more than 6 months ago
-    associate_user_with_measures(@user_admin, CqlMeasure.all)
+    associate_user_with_measures(@user_admin, CQM::Measure.all)
     @user_admin.save!
     post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
     assert mail.empty?

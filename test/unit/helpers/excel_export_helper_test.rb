@@ -21,10 +21,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, Record.all)
     associate_user_with_measures(@user, Measure.all)
-    @measure = CqlMeasure.where({'cms_id' => 'CMS32v7'}).first
+    @measure = CQM::Measure.where({'cms_id' => 'CMS32v7'}).first
     @patients = Record.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
 
-    @simple_measure = CqlMeasure.where({'cms_id' => 'CMS134v6'}).first
+    @simple_measure = CQM::Measure.where({'cms_id' => 'CMS134v6'}).first
     @simple_patients = Record.by_user(@user).where({:measure_ids.in => [@simple_measure.hqmf_set_id]})
 
     backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'CMS32-results-stub.json')))

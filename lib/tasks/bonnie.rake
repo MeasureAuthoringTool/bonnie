@@ -132,7 +132,7 @@ namespace :bonnie do
 
     desc 'Re-save all measures, ensuring that all post processing steps (like calculating complexity) are performed again'
     task :resave_measures => :environment do
-      CqlMeasure.each do |m|
+      CQM::Measure.each do |m|
         puts "Re-saving \"#{m.title}\" [#{ m.user ? m.user.email : 'deleted user' }]"
         begin
           m.save
@@ -207,7 +207,7 @@ namespace :bonnie do
 
       unless is_error
         if hqmf_set_id
-          measure = CqlMeasure.find_by(user_id: user.id, hqmf_set_id: hqmf_set_id)
+          measure = CQM::Measure.find_by(user_id: user.id, hqmf_set_id: hqmf_set_id)
           if measure.nil?
             print_error "measure with HQFM set id #{hqmf_set_id} not found for account #{email}"
             is_error = true
@@ -268,7 +268,7 @@ namespace :bonnie do
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to pull patients from
-      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
+      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
 
       # Grab the patients
       patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
@@ -303,7 +303,7 @@ namespace :bonnie do
       # Grab user measure to add patients to
       user_measure = ENV['HQMF_SET_ID']
 
-      raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
+      raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
 
       # Import patient objects from JSON file and save
       puts "Importing patients..."
@@ -381,7 +381,7 @@ namespace :bonnie do
       end
 
       unless is_error
-        source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        source_measure = CQM::Measure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
         if source_measure.nil?
           print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
           is_error = true
@@ -389,7 +389,7 @@ namespace :bonnie do
       end
 
       unless is_error
-        dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        dest_measure = CQM::Measure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
         if dest_measure.nil?
           print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
           is_error = true
@@ -438,7 +438,7 @@ namespace :bonnie do
       end
 
       unless is_error
-        source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        source_measure = CQM::Measure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
         if source_measure.nil?
           print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
           is_error = true
@@ -446,7 +446,7 @@ namespace :bonnie do
       end
 
       unless is_error
-        dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        dest_measure = CQM::Measure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
         if dest_measure.nil?
           print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
           is_error = true
@@ -628,14 +628,14 @@ namespace :bonnie do
 
     # try to find the measure just based off of the CMS id to avoid chance of typos
     # in the title
-    measures = CqlMeasure.where(user_id: user._id, cms_id: measure_id)
+    measures = CQM::Measure.where(user_id: user._id, cms_id: measure_id)
     if measures.count == 0
       print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
     elsif measures.count == 1
       measure = measures.first
     else
       # if there are duplicate CMS ids (CMSv0, for example), use the title as well
-      measures = CqlMeasure.where(user_id: user._id, title: measure_title, cms_id: measure_id)
+      measures = CQM::Measure.where(user_id: user._id, title: measure_title, cms_id: measure_id)
       if measures.count == 0
         print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
       elsif measures.count == 1

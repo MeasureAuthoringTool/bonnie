@@ -100,17 +100,17 @@ class BonnieUsersTest < ActiveSupport::TestCase
     source_user = User.by_email('bonnie@example.com').first
     dest_user = User.by_email('user_admin@example.com').first
 
-    associate_user_with_measures(source_user, CqlMeasure.where(hqmf_set_id: source_hqmf_set_id))
+    associate_user_with_measures(source_user, CQM::Measure.where(hqmf_set_id: source_hqmf_set_id))
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(source_user, Record.all)
 
 
-    measure = CqlMeasure.where(hqmf_set_id: source_hqmf_set_id).first
+    measure = CQM::Measure.where(hqmf_set_id: source_hqmf_set_id).first
 
     # confirm base state
 
-    source_measures = CqlMeasure.where(user_id:source_user.id)
-    dest_measures = CqlMeasure.where(user_id:dest_user.id)
+    source_measures = CQM::Measure.where(user_id:source_user.id)
+    dest_measures = CQM::Measure.where(user_id:dest_user.id)
     source_patients = Record.where(user_id:source_user.id)
     dest_patients = Record.where(user_id:dest_user.id)
 
@@ -189,8 +189,8 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     Rake::Task['bonnie:users:move_measure'].execute
 
-    source_measures = CqlMeasure.where(user_id:source_user.id)
-    dest_measures = CqlMeasure.where(user_id:dest_user.id)
+    source_measures = CQM::Measure.where(user_id:source_user.id)
+    dest_measures = CQM::Measure.where(user_id:dest_user.id)
     source_patients = Record.where(user_id:source_user.id)
     dest_patients = Record.where(user_id:dest_user.id)
 

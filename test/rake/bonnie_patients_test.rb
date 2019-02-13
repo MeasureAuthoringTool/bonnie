@@ -24,9 +24,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
     @source_user = User.by_email('bonnie@example.com').first
     @dest_user = User.by_email('user_admin@example.com').first
 
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @source_hqmf_set_id))
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @dest2_hqmf_set_id))
-    associate_user_with_measures(@dest_user, CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id))
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @source_hqmf_set_id))
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest2_hqmf_set_id))
+    associate_user_with_measures(@dest_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(@source_user, Record.all)
   end
@@ -179,7 +179,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['DEST_HQMF_SET_ID'] = @dest_hqmf_set_id
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_measures = CqlMeasure.where(hqmf_set_id:@dest_hqmf_set_id)
+    dest_measures = CQM::Measure.where(hqmf_set_id:@dest_hqmf_set_id)
     assert_equal dest_measures.length, 1
     dest_measure = dest_measures.first
 
@@ -271,8 +271,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'bad_duplicate_transfers.csv')
 
     # need to associate the last measure with this user account to test duplicate cms ids
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id))
-    measure = CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id).first
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
+    measure = CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id).first
     measure.cms_id = "CMS32v7"
     measure.title = "Median Time from ED Arrival to ED Departure for Discharged ED Patients"
     measure.save
@@ -314,8 +314,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'duplicate_transfers.csv')
 
     # need to associate the last measure with this user account to test duplicate cms ids
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id))
-    measure = CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id).first
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
+    measure = CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id).first
     measure.cms_id = "CMS32v7"
     measure.save
 
@@ -348,8 +348,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     add_collection(measures_set)
     hqmf_set_id =  '3BBFC929-50C8-44B8-8D34-82BE75C08A70'
 
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
-    associate_measures_with_patients(CqlMeasure.where(hqmf_set_id: hqmf_set_id), Record.all)
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: hqmf_set_id))
+    associate_measures_with_patients(CQM::Measure.where(hqmf_set_id: hqmf_set_id), Record.all)
 
     ENV['EMAIL'] = @source_user.email
     ENV['HQMF_SET_ID'] = hqmf_set_id
@@ -372,7 +372,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     collection_fixtures(users_set)
 
     hqmf_set_id =  '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: hqmf_set_id))
 
     ENV['EMAIL'] = @source_user.email
     ENV['HQMF_SET_ID'] = hqmf_set_id
@@ -390,7 +390,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     collection_fixtures(users_set)
 
     hqmf_set_id =  '3FD13096-2C8F-40B5-9297-B714E8DE9133'
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: hqmf_set_id))
     assert_equal 0, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
 
     ENV['EMAIL'] = @source_user.email
