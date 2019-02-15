@@ -24,6 +24,7 @@ class MeasuresController < ApplicationController
     end
   end
 
+  #THIS FUNCTION UPDATED IN A BRANCH BY JB, MAKE SURE ITS MERGED -Cole
   def value_sets
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
@@ -81,28 +82,22 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
+  #TODO: maybe better tests for this, check vs and package are deleted
   def destroy
-    qdm_measure = Measure.by_user(current_user).where(id: params[:id]).first
-    cql_measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
+    measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
 
-    if qdm_measure
-      measure = qdm_measure
-      Measure.by_user(current_user).find(params[:id]).destroy
-    end
-    if cql_measure
-      measure = cql_measure
-      if measure.component
-        # Throw error since component can't be deleted individually
-        render status: :bad_request, json: {error: "Component measures can't be deleted individually."}
-        return
-      elsif measure.composite
-        # If the measure if a composite, delete all the associated components
-        measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
-          CQM::Measure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).destroy
-        end
+    if measure.component
+      # Throw error since component can't be deleted individually
+      render status: :bad_request, json: {error: "Component measures can't be deleted individually."}
+      return
+    elsif measure.composite
+      # If the measure if a composite, delete all the associated components
+      measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
+        CQM::Measure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first.destroy_self_and_child_docs
       end
-      CQM::Measure.by_user(current_user).find(params[:id]).destroy
     end
+    measure.destroy_self_and_child_docs
+
     render :json => measure
   end
 

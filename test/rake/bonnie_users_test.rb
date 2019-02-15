@@ -85,25 +85,18 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "move measure" do
-
-    # setup
-
-    records_set = File.join("records", "core_measures", "CMS32v7")
-    users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
-    collection_fixtures(users_set, records_set, cql_measures_set)
-
     source_email = 'bonnie@example.com'
     dest_email = 'user_admin@example.com'
     source_hqmf_set_id = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
 
+    records_set = File.join("records", "core_measures", "CMS32v7")
+    users_set = File.join("users", "base_set")
+    collection_fixtures(users_set, records_set)
     source_user = User.by_email('bonnie@example.com').first
     dest_user = User.by_email('user_admin@example.com').first
-
-    associate_user_with_measures(source_user, CQM::Measure.where(hqmf_set_id: source_hqmf_set_id))
+    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), source_user)
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(source_user, Record.all)
-
 
     measure = CQM::Measure.where(hqmf_set_id: source_hqmf_set_id).first
 
@@ -154,38 +147,16 @@ class BonnieUsersTest < ActiveSupport::TestCase
     end
     assert_match("asdf not found", err.message)
 
-    # confirm no destination bundle
-
-    ENV['SOURCE_EMAIL'] = source_email
-    ENV['DEST_EMAIL'] = dest_email
-    ENV['CMS_ID'] = "CMS32v7"
-
-    err = assert_raises RuntimeError do
-      Rake::Task['bonnie:users:move_measure'].execute
-    end
-    assert_match("No destination user bundle", err.message)
-
     # confirm behaves as expected
 
     ENV['SOURCE_EMAIL'] = source_email
     ENV['DEST_EMAIL'] = dest_email
     ENV['CMS_ID'] = "CMS32v7"
 
-    # add bundles to both
-    source_user.send('ensure_bundle')
-    source_user.save!
-    dest_user.send('ensure_bundle')
-    dest_user.save!
-
-    # set up the value sets
-    measure.value_set_oid_version_objects.each do |vs_obj|
-      vs = HealthDataStandards::SVS::ValueSet.new(oid: vs_obj[:oid], version: vs_obj[:version])
-      vs.user = source_user
-      vs.bundle = source_user.bundle
-      vs.save!
-    end
-    vs_count = HealthDataStandards::SVS::ValueSet.where(user_id: source_user).count
-    refute_equal(0, vs_count)
+    vs_count_measure = measure.value_sets.count
+    vs_count_user = CQM::ValueSet.where(user_id: source_user).count
+    refute_equal(0, vs_count_measure)
+    refute_equal(0, vs_count_user)
 
     Rake::Task['bonnie:users:move_measure'].execute
 
@@ -201,8 +172,9 @@ class BonnieUsersTest < ActiveSupport::TestCase
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
 
-    assert_equal(vs_count, HealthDataStandards::SVS::ValueSet.where(user_id: source_user).count)
-    assert_equal(vs_count, HealthDataStandards::SVS::ValueSet.where(user_id: dest_user).count)
+    assert_equal(vs_count_measure, dest_measures.first.value_sets.count)
+    assert_equal(vs_count_user, CQM::ValueSet.where(user_id: dest_user).count)
+    assert_equal(0, CQM::ValueSet.where(user_id: source_user).count)
   end
 
 end

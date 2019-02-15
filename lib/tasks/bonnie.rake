@@ -107,22 +107,13 @@ namespace :bonnie do
       if find_measure(dest, "", cms_id, false)
         raise "#{cms_id} already exists in destination account #{dest_email}. Cannot complete move."
       end
+
+
       move_patients(source, dest, measure, measure)
       print_success("Moved patients")
 
-      # Find the value sets we'll be *copying* (not moving!)
-      value_sets = measure.value_sets.map(&:clone) # Clone ensures we save a copy and don't overwrite original
-
-      # Write the value set copies, updating the user id and bundle
-      raise "No destination user bundle" unless dest.bundle
-      copy_value_sets(dest, value_sets)
-      print_success("Copied value sets")
-
-      # Same for the measure
-      measure.user = dest
-      measure.bundle = dest.bundle
-      measure.save
-
+      measure.associate_self_and_child_docs_to_user(dest)
+      measure.save_self_and_child_docs
       print_success "Moved measure"
     end
 
@@ -302,7 +293,7 @@ namespace :bonnie do
 
       # Grab user measure to add patients to
       user_measure = ENV['HQMF_SET_ID']
-
+      binding.pry if CQM::Measure.find_by(user_id: user._id, hqmf_set_id: user_measure).nil?
       raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
 
       # Import patient objects from JSON file and save
@@ -334,7 +325,7 @@ namespace :bonnie do
 
         all_codes = HQMF::PopulationCriteria::ALL_POPULATION_CODES
         all_codes.each do |code|
-          if !patient.expected_values[0][code].nil? && measure.populations[0][code].nil?
+          if !patient.expected_values[0][code].nil? && measure.population_sets[0].populations[code].nil?
             patient.expected_values.each do |expected_value|
               expected_value.delete(code)
             end
@@ -674,23 +665,6 @@ namespace :bonnie do
     puts warning_string
   end
 
-  # Copies value sets to a new user. Only copies the value set if that value set
-  # with that version does not already exist for the user.
-  def copy_value_sets(dest_user, value_sets)
-    user_value_sets = HealthDataStandards::SVS::ValueSet.where({user_id: dest_user.id})
-    value_sets.each do |vs|
-      set = user_value_sets.where({oid: vs.oid, version: vs.version})
-
-      # if value set doesn't exist, copy it and add it
-      if set.count == 0
-        vs = vs.dup
-        vs.user = dest_user
-        vs.bundle = dest_user.bundle
-        vs.save
-      end
-    end
-  end
-
   # Moves patients from src_user and src_measure to dest_user and dest_measure.
   # if copy=false, moves the existing patients. if copy=true, creates copies
   # of the patients to move.
@@ -708,7 +682,6 @@ namespace :bonnie do
 
     records.each do |r|
       r.user = dest_user
-      r.bundle = dest_user.bundle
       r.measure_ids.map! { |x| x == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
       r.expected_values.each do |expected_value|
         if expected_value['measure_id'] == src_measure.hqmf_set_id

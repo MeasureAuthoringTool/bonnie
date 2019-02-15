@@ -115,8 +115,6 @@ private
     patient['origin_data'] << params['origin_data'] if params['origin_data']
 
     patient.user = current_user
-    patient.bundle = current_user.bundle
-
     patient.rebuild!(params[:payer])
 
     patient

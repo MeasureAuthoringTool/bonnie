@@ -174,7 +174,7 @@ module MeasureHelper
     save_and_post_process(measures, user)
     return main_hqmf_set_id
   rescue StandardError => e
-    delete_measures_array_with_package_and_valuesets(measures) if measures
+    measures.each{ |m| m.delete_self_and_child_docs } if measures
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, params[:measure_file], user)
     raise e
@@ -191,7 +191,7 @@ module MeasureHelper
     save_and_post_process(measures, user)
     return main_hqmf_set_id
   rescue StandardError => e
-    delete_measures_array_with_package_and_valuesets(measures) if defined?(measures)
+    measures.each{ |m| m.delete_self_and_child_docs } if measures
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, measure_file, user)
     raise e
@@ -280,7 +280,7 @@ module MeasureHelper
 
   def add_measures_to_user(measures, current_user)
     # what is this for?
-    measures.each{ |measure| current_user.measures << measure }
+    measures.each{ |measure| current_user.cqm_measures << measure }
     current_user.save!
   end
 
@@ -305,7 +305,10 @@ module MeasureHelper
   end
 
   def save_and_post_process(measures, user)
-    save_measures_array_with_package_and_valuesets_to_user(measures, user)
+    measures.each do |measure|
+      measure.associate_self_and_child_docs_to_user(user)
+      measure.save_self_and_child_docs
+    end
     update_related_patient_records(measures, user)
     add_measures_to_user(measures, user)
   end
@@ -333,30 +336,6 @@ module MeasureHelper
     if e.respond_to?(:operator_error) && e.operator_error && defined? ExceptionNotifier::Notifier
       # params[:error_file] = filename  #TODO what is this
       ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
-    end
-  end
-
-  def save_measures_array_with_package_and_valuesets_to_user(measures, user)
-    measures.each do |measure|
-      measure.user = user
-      measure.save!
-      if measure.package.present?
-        measure.package.user = user
-        measure.package.save!
-      end
-      measure.value_sets.each do |valueset|
-        valueset.user = user
-        valueset.save!
-      end
-    end
-  end
-
-  def delete_measures_array_with_package_and_valuesets(measures)
-    return if measures.nil?
-    measures.each do |measure|
-      measure.delete
-      measure.package.delete if measure.package.present?
-      measure.value_sets.each { |valueset| valueset.delete }
     end
   end
 

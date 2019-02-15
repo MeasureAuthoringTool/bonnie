@@ -33,6 +33,7 @@ module ExcelExportHelper
           result_criteria = {
             'values' => []
           }
+
           result[population.population_set_id]['extendedData']['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
@@ -86,17 +87,17 @@ module ExcelExportHelper
     population_details = ActiveSupport::HashWithIndifferentAccess.new
     return population_details if results.empty?
 
-    measure.population_sets.each_with_index do |population, pop_index|
+    measure.population_sets.each_with_index do |population_set, pop_index|
       # Populates the population details
       next if population_details[pop_index]
 
       # the population_details are independent of patient, so index into the first patient in the results.
-      population_details[pop_index] = {title: population[:title], statement_relevance: results.first[1][population.population_set_id]['extendedData']['statement_relevance']}
+      population_details[pop_index] = {title: population_set[:title], statement_relevance: results.first[1][population_set.population_set_id]['extendedData']['statement_relevance']}
 
       criteria = []
       # TODO: The front end adds 'index' to this array, but it might be unused. Investigate and remove if possible.
       criteria.push 'index'
-      population_details[pop_index][:criteria] = population.class.embedded_relations.keys
+      population_details[pop_index][:criteria] = CQM::Measure::ALL_POPULATION_CODES & population_set.populations.attributes.keys
     end
 
     population_details

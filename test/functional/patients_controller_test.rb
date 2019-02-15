@@ -6,10 +6,10 @@ include Devise::Test::ControllerHelpers
   setup do
     dump_database
     users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "**")
-    collection_fixtures(cql_measures_set, users_set)
+    collection_fixtures(users_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_measures(@user, CQM::Measure.all)
+
+    load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
     @measure = CQM::Measure.where({"cms_id" => "CMS134v6"}).first
     sign_in @user
   end
@@ -165,7 +165,6 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measure_with_patients(@measure, Record.all)
-
     get :qrda_export, hqmf_set_id: @measure.hqmf_set_id, isCQL: 'true'
     assert_response :success
     assert_equal 'application/zip', response.header['Content-Type']

@@ -12,7 +12,6 @@ class Record
   field :origin_data, type: Array
 
   belongs_to :user
-  belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
   scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'measure_ids'=>{'$in'=>[hqmf_set_id]} }) }
 

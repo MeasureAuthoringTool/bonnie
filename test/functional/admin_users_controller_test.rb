@@ -7,14 +7,13 @@ include Devise::Test::ControllerHelpers
     dump_database
     records_set = File.join("records", "core_measures", "CMS32v7")
     users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
-    collection_fixtures(users_set, records_set, cql_measures_set)
+    collection_fixtures(users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
     @user_admin = User.by_email('user_admin@example.com').first
     @user_plain = User.by_email('user_plain@example.com').first
     @user_unapproved = User.by_email('user_unapproved@example.com').first
 
-    associate_user_with_measures(@user, CQM::Measure.all)
+    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @user)
     associate_user_with_patients(@user, Record.all)
 
   end
