@@ -5,7 +5,9 @@
 
 # Bonnie
 
-Bonnie is designed to support streamlined and efficient pre-testing of eCQMs, particularly those used in the Centers for Medicare & Medicaid Services (CMS) quality reporting programs.
+Bonnie is a software tool that allows electronic clinical quality measure (eCQM) developers to test and verify the behavior of their eCQM logic. The main goal of the Bonnie application is to reduce the number of defects in eCQMs by providing a robust and automated testing framework. The Bonnie application allows measure developers to independently load measures that they have constructed using the Measure Authoring Tool (MAT). Developers can then use the measure metadata to build a synthetic patient test deck for the measure from the clinical elements defined during the measure construction process. By using measure metadata as a basis for building synthetic patients, developers can quickly and efficiently create a test deck for a measure. The Bonnie application helps measure developers execute the measure logic against the constructed patient test deck and evaluate whether the logic aligns with the intent of the measure. Additionally, Bonnie allows users to export their synthetic patient test deck in the Quality Reporting Document Architecture (QRDA) Category 1 data standard to enable them to more easily test their own systems. 
+
+Bonnie has been designed to integrate with the nationally recognized data standards the Centers for Medicare & Medicaid Services (CMS) quality reporting programs use for expressing eCQM logic for machine-to-machine interoperability. This integration provides enormous value to the eCQM program and federal policy leaders and stakeholders. The Bonnie tool verifies that the new and evolving standards for eCQMs used in the CMS quality reporting programs are flexible and can be implemented in software.
 
 
 ## Prerequisties and Installation
