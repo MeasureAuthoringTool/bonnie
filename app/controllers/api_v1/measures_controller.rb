@@ -16,7 +16,7 @@ module ApiV1
       end
 
       def self.build(param_description, argument, options, block)
-        new(param_description, argument) if [Integer, Fixnum].include? argument
+        new(param_description, argument) if [Integer].include? argument
       end
 
       def description

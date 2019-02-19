@@ -265,6 +265,10 @@ include Devise::Test::ControllerHelpers
 
     assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
     expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results","CMS321v0_shared_patients_composite.json")))
+    # There was a change in how Roo parses "FALSE", but it does not affect the actual excel export.
+    jon_doe_row[12] = "FALSE" if jon_doe_row[12] == false
+    jane_smith_row[12] = "FALSE" if jane_smith_row[12] == false
+
     assert_equal expected_rows["jon_doe_row"], jon_doe_row
     assert_equal expected_rows["jane_smith_row"], jane_smith_row
 
@@ -309,18 +313,22 @@ include Devise::Test::ControllerHelpers
     assert_equal "last_a", row3[9]
     assert_equal "first_a", row3[10]
     assert_equal "02/02/2011", row3[11]
+    # The actual export will show "TRUE", but roo now shows true
+    row3[12] = "TRUE" if row3[12] == true
     assert_equal "TRUE", row3[12]
     assert_equal "10/05/2017", row3[13]
     assert_equal "Not Hispanic or Latino", row3[14]
     assert_equal "Asian", row3[15]
     assert_equal "M", row3[16]
-      
+
     row4 = sheet1.row(4)
     assert_equal 0.0, row4[0]
     assert_equal "test1", row4[8]
     assert_equal "last_b", row4[9]
     assert_equal "first_b", row4[10]
     assert_equal "03/04/1971", row4[11]
+    # The actual export will show "FALSE", but roo now shows false
+    row4[12] = "FALSE" if row4[12] == false
     assert_equal "FALSE", row4[12]
     assert_nil row4[13]
     assert_equal "Not Hispanic or Latino", row4[14]
