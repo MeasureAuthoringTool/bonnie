@@ -146,7 +146,8 @@ class FrontendFixtureExporter < FixtureExporter
   end
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
-    return JSON.parse(mongoid_doc.to_json, max_nesting: 1000)
+    # lets just include all the _types!
+    return JSON.parse(mongoid_doc.as_json(include: :_type, methods: :_type).to_json, max_nesting: 1000)
   end
 
   def bonnie_fixtures_user_id
@@ -162,7 +163,9 @@ class BackendFixtureExporter < FixtureExporter
   alias export_records export_records_as_individual_files
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
-    doc = mongoid_doc.as_json
+    # lets just include all the _types!
+    doc = mongoid_doc.as_json(include: :_type, methods: :_type)
+
     objectid_to_oids(doc)
     return JSON.parse(doc.to_json, max_nesting: 1000)
   end

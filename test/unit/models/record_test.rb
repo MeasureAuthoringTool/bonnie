@@ -3,9 +3,12 @@ require 'test_helper'
 class RecordTest < ActiveSupport::TestCase
   setup do
     dump_database
-    measures_set = File.join("cql_measures", "deprecated_measures", "CMS72v5"), File.join("cql_measures", "special_measures", "CMS321")
     records_set = File.join("records", "expected_values_set"), File.join('records', 'deprecated_measures', 'CMS72v5')
-    collection_fixtures(*measures_set, *records_set)
+    collection_fixtures(*records_set)
+    load_measure_fixtures_from_folder(File.join("measures", "CMS72v7"))
+    load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"))
+
+
     @measure_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
     @measure = CQM::Measure.where(hqmf_set_id: @measure_set_id).first
     @composite_measure = CQM::Measure.where(hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC").first

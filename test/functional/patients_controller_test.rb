@@ -50,6 +50,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "create patient for component measure of composite measure" do
+    load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
     assert_equal 0, Record.count
     @patient = {'first'=> 'Betty',
      'last'=> 'Boop',

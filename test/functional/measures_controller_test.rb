@@ -25,13 +25,14 @@ include Devise::Test::ControllerHelpers
 
 
 
-    # VCR.use_cassette("AA_DELETE_F", @vcr_options) do
+    # VCR.use_cassette("AA_DELETE_I", @vcr_options) do
     #   # measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS134v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
     #   # measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measures', 'CMS32v7', 'CMS32v7_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
+    #   measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measures', 'CMS72v7', 'CMS72v7.zip'), 'application/xml')
+    #   # measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measures', 'CMS890_v5_6', 'CMS890_v5_6.zip'), 'application/xml')
     #   # measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
     #   # measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS177v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
     #   # measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS160v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
-    #   measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMS890_v5_6_Artifacts.zip'), 'application/xml')
     #   post :create, {
     #     vsac_query_type: 'profile',
     #     vsac_query_profile: 'Latest eCQM',
@@ -42,11 +43,13 @@ include Devise::Test::ControllerHelpers
     #     measure_type: 'ep',
     #     calculation_type: 'patient'
     #   }
-    #   measure = CQM::Measure.first #measure = CQM::Measure.all[7]
+    #   measure = CQM::Measure.first 
+    #   # measure = CQM::Measure.all[7]
+    #   binding.pry
     #   fixture_exporter = BackendFixtureExporter.new(@user, measure: measure, records: nil)
 
-    #   binding.pry
-    #   base_path = File.join('test', 'fixtures', 'measures', 'CMS890_v5_6')
+    #   # binding.pry
+    #   base_path = File.join('test', 'fixtures', 'measures', 'CMS72v7')
     #   fixture_exporter.export_measure_and_any_components(File.join(base_path,'cqm_measures'))
     #   fixture_exporter.export_value_sets(File.join(base_path,'cqm_value_sets'))
     #   fixture_exporter.try_export_measure_package(File.join(base_path,'cqm_measure_packages'))

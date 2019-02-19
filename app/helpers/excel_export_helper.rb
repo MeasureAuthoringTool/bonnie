@@ -97,7 +97,7 @@ module ExcelExportHelper
       criteria = []
       # TODO: The front end adds 'index' to this array, but it might be unused. Investigate and remove if possible.
       criteria.push 'index'
-      population_details[pop_index][:criteria] = CQM::Measure::ALL_POPULATION_CODES & population_set.populations.attributes.keys
+      population_details[pop_index][:criteria] = population_set.populations.as_json.keys & CQM::Measure::ALL_POPULATION_CODES
     end
 
     population_details

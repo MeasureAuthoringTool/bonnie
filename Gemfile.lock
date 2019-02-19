@@ -20,13 +20,6 @@ GIT
       sprockets
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-models
-  revision: 9f204b20cad065c25836228fe95a787b15a8bfe8
-  branch: master
-  specs:
-    cqm-models (1.0.2)
-
-GIT
   remote: https://github.com/randym/axlsx
   revision: c593a08b2a929dac7aa8dc418b55e26b4c49dc34
   branch: master
@@ -61,6 +54,11 @@ PATH
       rubyzip (~> 1.2, >= 1.2.1)
       simplexml_parser (~> 1.0)
       zip-zip (~> 0.3)
+
+PATH
+  remote: ../cqm-models
+  specs:
+    cqm-models (1.0.2)
 
 PATH
   remote: ../cqm-parsers

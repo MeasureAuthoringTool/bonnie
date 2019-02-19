@@ -3,20 +3,21 @@ require 'test_helper'
 module ApiV1
   class MeasuresControllerBackendCalcTest < ActionController::TestCase
     tests ApiV1::MeasuresController
-    include Devise::Test::ControllerHelpers
+    include Devise::TestHelpers
     include WebMock::API
 
     def setup_db
       dump_database
       users_set = File.join("users", "base_set")
-      cms160_fixtures = File.join("records", "core_measures", "CMS160v6"), File.join("measures", "CMS160v6", "cqm_value_sets")
-      collection_fixtures(users_set, *cms160_fixtures)
+      record_fixtures = File.join("records", "core_measures", "CMS160v6")
+      collection_fixtures(users_set, record_fixtures)
       @user = User.by_email('bonnie@example.com').first
       load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @user)
-      associate_user_with_patients(@user,Record.all)
-      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
       @measure = CQM::Measure.where({"cms_id" => "CMS160v6"}).first
       @cms160_hqmf_set_id = @measure.hqmf_set_id
+      associate_user_with_patients(@user,Record.all)
+
+      @vcr_options = {match_requests_on: [:method, :uri_no_st]}
     end
 
     setup do
@@ -28,7 +29,6 @@ module ApiV1
       @token.resource_owner_id = @user.id
       @controller.instance_variable_set('@_doorkeeper_token', @token)
       @ticket_expires_at = (Time.now + 8.hours).to_i
-      @vcr_options = {match_requests_on: [:method, :uri_no_st]}
     end
 
     test "should get a 404 for bad measure id" do
@@ -92,13 +92,15 @@ module ApiV1
         get :calculated_results, id: @measure.hqmf_set_id
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
-        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
         assert_equal 'CMS160v6.xlsx', filename
+
         temp = Tempfile.new(["test", ".xlsx"])
         temp.write(response.body)
         temp.rewind
         doc = Roo::Spreadsheet.open(temp.path)
+
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
         assert_equal 1.0, doc.sheet("1 - Population Criteria Section").row(3)[0]
       end
