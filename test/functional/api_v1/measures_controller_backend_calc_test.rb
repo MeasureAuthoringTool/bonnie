@@ -198,10 +198,8 @@ module ApiV1
     test "should get an excel sheet noting no patients" do
       dump_database
       users_set = File.join("users", "base_set")
-      cms160_fixtures = File.join("measures", "CMS160v6", "cqm_value_sets")
-      collection_fixtures(users_set, *cms160_fixtures)
+      collection_fixtures(users_set)
       load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @user)
-      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
 
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
