@@ -1,0 +1,3505 @@
+{
+  "_id": {
+    "$oid": "5c6ef315bb9215d9682d861f"
+  },
+  "calculate_sdes": null,
+  "calculation_method": "PATIENT",
+  "cms_id": "CMS879v0",
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
+  "composite_hqmf_set_id": null,
+  "cql_libraries": [
+    {
+      "_id": {
+        "$oid": "5c6ef315bb9215d9682d8620"
+      },
+      "cql": "library BonnieTestBasic2 version '0.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Laboratory Tests for Hypertension\": 'urn:oid:2.16.840.1.113883.3.600.1482'\r\nvalueset \"Patient Reason refused\": 'urn:oid:2.16.840.1.113883.3.600.791'\r\nvalueset \"Beta Blocker Therapy for LVSD\": 'urn:oid:2.16.840.1.113883.3.526.3.1184'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\texists [\"Medication, Not Ordered\": \"Beta Blocker Therapy for LVSD\"] NoBetaBlocker\r\n\t\twhere NoBetaBlocker.negationRationale in \"Patient Reason refused\"\r\n\r\ndefine \"Initial Assessments\":\r\n\t[\"Assessment, Performed\": \"Laboratory Tests for Hypertension\"] A\r\n\t\twhere A.result as DateTime during \"Measurement Period\"\r\n\r\ndefine \"Foo\":\r\n\t[\"Laboratory Test, Performed\": \"Laboratory Tests for Hypertension\"] Test\r\n\t\twith \"Initial Assessments\" Assessment\r\n\t\t\tsuch that exists ( Test.components Comp\r\n\t\t\t\t\twhere Assessment.result as DateTime < Comp.result as DateTime\r\n\t\t\t)\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Initial Assessments\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Foo\"\r\n",
+      "elm": {
+        "library": {
+          "identifier": {
+            "id": "BonnieTestBasic2",
+            "version": "0.0.001"
+          },
+          "schemaIdentifier": {
+            "id": "urn:hl7-org:elm",
+            "version": "r1"
+          },
+          "usings": {
+            "def": [
+              {
+                "localIdentifier": "System",
+                "uri": "urn:hl7-org:elm-types:r1"
+              },
+              {
+                "localId": "1",
+                "locator": "3:1-3:23",
+                "localIdentifier": "QDM",
+                "uri": "urn:healthit-gov:qdm:v5_3",
+                "version": "5.3"
+              }
+            ]
+          },
+          "parameters": {
+            "def": [
+              {
+                "localId": "11",
+                "locator": "15:1-15:49",
+                "name": "Measurement Period",
+                "accessLevel": "Public",
+                "parameterTypeSpecifier": {
+                  "localId": "10",
+                  "locator": "15:32-15:49",
+                  "type": "IntervalTypeSpecifier",
+                  "pointType": {
+                    "localId": "9",
+                    "locator": "15:41-15:48",
+                    "name": "{urn:hl7-org:elm-types:r1}DateTime",
+                    "type": "NamedTypeSpecifier"
+                  }
+                }
+              }
+            ]
+          },
+          "valueSets": {
+            "def": [
+              {
+                "localId": "2",
+                "locator": "6:1-6:68",
+                "name": "ONC Administrative Sex",
+                "id": "2.16.840.1.113762.1.4.1",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "3",
+                "locator": "7:1-7:53",
+                "name": "Race",
+                "id": "2.16.840.1.114222.4.11.836",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "4",
+                "locator": "8:1-8:58",
+                "name": "Ethnicity",
+                "id": "2.16.840.1.114222.4.11.837",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "5",
+                "locator": "9:1-9:55",
+                "name": "Payer",
+                "id": "2.16.840.1.114222.4.11.3591",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "6",
+                "locator": "10:1-10:84",
+                "name": "Laboratory Tests for Hypertension",
+                "id": "2.16.840.1.113883.3.600.1482",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "7",
+                "locator": "11:1-11:72",
+                "name": "Patient Reason refused",
+                "id": "2.16.840.1.113883.3.600.791",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "8",
+                "locator": "12:1-12:82",
+                "name": "Beta Blocker Therapy for LVSD",
+                "id": "2.16.840.1.113883.3.526.3.1184",
+                "accessLevel": "Public"
+              }
+            ]
+          },
+          "statements": {
+            "def": [
+              {
+                "locator": "17:1-17:15",
+                "name": "Patient",
+                "context": "Patient",
+                "expression": {
+                  "type": "SingletonFrom",
+                  "operand": {
+                    "locator": "17:1-17:15",
+                    "dataType": "{urn:healthit-gov:qdm:v5_3}Patient",
+                    "templateId": "Patient",
+                    "type": "Retrieve"
+                  }
+                }
+              },
+              {
+                "localId": "13",
+                "locator": "19:1-20:50",
+                "name": "SDE Ethnicity",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "13",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"SDE Ethnicity\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "12",
+                          "s": [
+                            {
+                              "value": [
+                                "[",
+                                "\"Patient Characteristic Ethnicity\"",
+                                ": "
+                              ]
+                            },
+                            {
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Ethnicity\""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "]"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "12",
+                  "locator": "20:2-20:50",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicEthnicity",
+                  "codeProperty": "code",
+                  "type": "Retrieve",
+                  "codes": {
+                    "name": "Ethnicity",
+                    "type": "ValueSetRef"
+                  }
+                }
+              },
+              {
+                "localId": "15",
+                "locator": "22:1-23:42",
+                "name": "SDE Payer",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "15",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"SDE Payer\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "14",
+                          "s": [
+                            {
+                              "value": [
+                                "[",
+                                "\"Patient Characteristic Payer\"",
+                                ": "
+                              ]
+                            },
+                            {
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Payer\""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "]"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "14",
+                  "locator": "23:2-23:42",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicPayer",
+                  "codeProperty": "code",
+                  "type": "Retrieve",
+                  "codes": {
+                    "name": "Payer",
+                    "type": "ValueSetRef"
+                  }
+                }
+              },
+              {
+                "localId": "17",
+                "locator": "25:1-26:40",
+                "name": "SDE Race",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "17",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"SDE Race\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "16",
+                          "s": [
+                            {
+                              "value": [
+                                "[",
+                                "\"Patient Characteristic Race\"",
+                                ": "
+                              ]
+                            },
+                            {
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Race\""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "]"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "16",
+                  "locator": "26:2-26:40",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicRace",
+                  "codeProperty": "code",
+                  "type": "Retrieve",
+                  "codes": {
+                    "name": "Race",
+                    "type": "ValueSetRef"
+                  }
+                }
+              },
+              {
+                "localId": "19",
+                "locator": "28:1-29:57",
+                "name": "SDE Sex",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "19",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"SDE Sex\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "18",
+                          "s": [
+                            {
+                              "value": [
+                                "[",
+                                "\"Patient Characteristic Sex\"",
+                                ": "
+                              ]
+                            },
+                            {
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"ONC Administrative Sex\""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "]"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "18",
+                  "locator": "29:2-29:57",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicSex",
+                  "codeProperty": "code",
+                  "type": "Retrieve",
+                  "codes": {
+                    "name": "ONC Administrative Sex",
+                    "type": "ValueSetRef"
+                  }
+                }
+              },
+              {
+                "localId": "28",
+                "locator": "31:1-33:67",
+                "name": "Denominator",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "28",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Denominator\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "27",
+                          "s": [
+                            {
+                              "value": [
+                                "exists "
+                              ]
+                            },
+                            {
+                              "r": "26",
+                              "s": [
+                                {
+                                  "s": [
+                                    {
+                                      "r": "21",
+                                      "s": [
+                                        {
+                                          "r": "20",
+                                          "s": [
+                                            {
+                                              "r": "20",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "[",
+                                                    "\"Medication, Not Ordered\"",
+                                                    ": "
+                                                  ]
+                                                },
+                                                {
+                                                  "s": [
+                                                    {
+                                                      "value": [
+                                                        "\"Beta Blocker Therapy for LVSD\""
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "value": [
+                                                    "]"
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            " ",
+                                            "NoBetaBlocker"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "value": [
+                                    "\n\t\t"
+                                  ]
+                                },
+                                {
+                                  "r": "25",
+                                  "s": [
+                                    {
+                                      "value": [
+                                        "where "
+                                      ]
+                                    },
+                                    {
+                                      "r": "25",
+                                      "s": [
+                                        {
+                                          "r": "23",
+                                          "s": [
+                                            {
+                                              "r": "22",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "NoBetaBlocker"
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "."
+                                              ]
+                                            },
+                                            {
+                                              "r": "23",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "negationRationale"
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            " in "
+                                          ]
+                                        },
+                                        {
+                                          "r": "24",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "\"Patient Reason refused\""
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "27",
+                  "locator": "32:2-33:67",
+                  "type": "Exists",
+                  "operand": {
+                    "localId": "26",
+                    "locator": "32:9-33:67",
+                    "type": "Query",
+                    "source": [
+                      {
+                        "localId": "21",
+                        "locator": "32:9-32:82",
+                        "alias": "NoBetaBlocker",
+                        "expression": {
+                          "localId": "20",
+                          "locator": "32:9-32:68",
+                          "dataType": "{urn:healthit-gov:qdm:v5_3}NegativeMedicationOrder",
+                          "templateId": "NegativeMedicationOrder",
+                          "codeProperty": "code",
+                          "type": "Retrieve",
+                          "codes": {
+                            "name": "Beta Blocker Therapy for LVSD",
+                            "type": "ValueSetRef"
+                          }
+                        }
+                      }
+                    ],
+                    "relationship": [
+
+                    ],
+                    "where": {
+                      "localId": "25",
+                      "locator": "33:3-33:67",
+                      "type": "InValueSet",
+                      "code": {
+                        "localId": "23",
+                        "locator": "33:9-33:39",
+                        "path": "negationRationale",
+                        "scope": "NoBetaBlocker",
+                        "type": "Property"
+                      },
+                      "valueset": {
+                        "localId": "24",
+                        "locator": "33:44-33:67",
+                        "name": "Patient Reason refused"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "localId": "38",
+                "locator": "35:1-37:56",
+                "name": "Initial Assessments",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "38",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Initial Assessments\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "37",
+                          "s": [
+                            {
+                              "s": [
+                                {
+                                  "r": "30",
+                                  "s": [
+                                    {
+                                      "r": "29",
+                                      "s": [
+                                        {
+                                          "r": "29",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "[",
+                                                "\"Assessment, Performed\"",
+                                                ": "
+                                              ]
+                                            },
+                                            {
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "\"Laboratory Tests for Hypertension\""
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "]"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "A"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "\n\t\t"
+                              ]
+                            },
+                            {
+                              "r": "36",
+                              "s": [
+                                {
+                                  "value": [
+                                    "where "
+                                  ]
+                                },
+                                {
+                                  "r": "36",
+                                  "s": [
+                                    {
+                                      "r": "34",
+                                      "s": [
+                                        {
+                                          "r": "32",
+                                          "s": [
+                                            {
+                                              "r": "31",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "A"
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "."
+                                              ]
+                                            },
+                                            {
+                                              "r": "32",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "result"
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            " as "
+                                          ]
+                                        },
+                                        {
+                                          "r": "33",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "DateTime"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "during",
+                                        " "
+                                      ]
+                                    },
+                                    {
+                                      "r": "35",
+                                      "s": [
+                                        {
+                                          "value": [
+                                            "\"Measurement Period\""
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "37",
+                  "locator": "36:2-37:56",
+                  "type": "Query",
+                  "source": [
+                    {
+                      "localId": "30",
+                      "locator": "36:2-36:65",
+                      "alias": "A",
+                      "expression": {
+                        "localId": "29",
+                        "locator": "36:2-36:63",
+                        "dataType": "{urn:healthit-gov:qdm:v5_3}PositiveAssessmentPerformed",
+                        "templateId": "PositiveAssessmentPerformed",
+                        "codeProperty": "code",
+                        "type": "Retrieve",
+                        "codes": {
+                          "name": "Laboratory Tests for Hypertension",
+                          "type": "ValueSetRef"
+                        }
+                      }
+                    }
+                  ],
+                  "relationship": [
+
+                  ],
+                  "where": {
+                    "localId": "36",
+                    "locator": "37:3-37:56",
+                    "type": "In",
+                    "operand": [
+                      {
+                        "localId": "34",
+                        "locator": "37:9-37:28",
+                        "strict": false,
+                        "type": "As",
+                        "operand": {
+                          "localId": "32",
+                          "locator": "37:9-37:16",
+                          "path": "result",
+                          "scope": "A",
+                          "type": "Property"
+                        },
+                        "asTypeSpecifier": {
+                          "localId": "33",
+                          "locator": "37:21-37:28",
+                          "name": "{urn:hl7-org:elm-types:r1}DateTime",
+                          "type": "NamedTypeSpecifier"
+                        }
+                      },
+                      {
+                        "localId": "35",
+                        "locator": "37:37-37:56",
+                        "name": "Measurement Period",
+                        "type": "ParameterRef"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "localId": "58",
+                "locator": "39:1-44:4",
+                "name": "Foo",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "58",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Foo\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "57",
+                          "s": [
+                            {
+                              "s": [
+                                {
+                                  "r": "40",
+                                  "s": [
+                                    {
+                                      "r": "39",
+                                      "s": [
+                                        {
+                                          "r": "39",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "[",
+                                                "\"Laboratory Test, Performed\"",
+                                                ": "
+                                              ]
+                                            },
+                                            {
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "\"Laboratory Tests for Hypertension\""
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "]"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "Test"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "\n\t\t"
+                              ]
+                            },
+                            {
+                              "r": "56",
+                              "s": [
+                                {
+                                  "value": [
+                                    "with "
+                                  ]
+                                },
+                                {
+                                  "r": "42",
+                                  "s": [
+                                    {
+                                      "r": "41",
+                                      "s": [
+                                        {
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "\"Initial Assessments\""
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "Assessment"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "value": [
+                                    "\n\t\t\tsuch that "
+                                  ]
+                                },
+                                {
+                                  "r": "55",
+                                  "s": [
+                                    {
+                                      "value": [
+                                        "exists "
+                                      ]
+                                    },
+                                    {
+                                      "r": "54",
+                                      "s": [
+                                        {
+                                          "value": [
+                                            "( "
+                                          ]
+                                        },
+                                        {
+                                          "r": "54",
+                                          "s": [
+                                            {
+                                              "s": [
+                                                {
+                                                  "r": "44",
+                                                  "s": [
+                                                    {
+                                                      "r": "43",
+                                                      "s": [
+                                                        {
+                                                          "s": [
+                                                            {
+                                                              "value": [
+                                                                "Test",
+                                                                ".",
+                                                                "components"
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "value": [
+                                                        " ",
+                                                        "Comp"
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "\n\t\t\t\t\t"
+                                              ]
+                                            },
+                                            {
+                                              "r": "53",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "where "
+                                                  ]
+                                                },
+                                                {
+                                                  "r": "53",
+                                                  "s": [
+                                                    {
+                                                      "r": "48",
+                                                      "s": [
+                                                        {
+                                                          "r": "46",
+                                                          "s": [
+                                                            {
+                                                              "r": "45",
+                                                              "s": [
+                                                                {
+                                                                  "value": [
+                                                                    "Assessment"
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "value": [
+                                                                "."
+                                                              ]
+                                                            },
+                                                            {
+                                                              "r": "46",
+                                                              "s": [
+                                                                {
+                                                                  "value": [
+                                                                    "result"
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "value": [
+                                                            " as "
+                                                          ]
+                                                        },
+                                                        {
+                                                          "r": "47",
+                                                          "s": [
+                                                            {
+                                                              "value": [
+                                                                "DateTime"
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "value": [
+                                                        " ",
+                                                        "<",
+                                                        " "
+                                                      ]
+                                                    },
+                                                    {
+                                                      "r": "52",
+                                                      "s": [
+                                                        {
+                                                          "r": "50",
+                                                          "s": [
+                                                            {
+                                                              "r": "49",
+                                                              "s": [
+                                                                {
+                                                                  "value": [
+                                                                    "Comp"
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "value": [
+                                                                "."
+                                                              ]
+                                                            },
+                                                            {
+                                                              "r": "50",
+                                                              "s": [
+                                                                {
+                                                                  "value": [
+                                                                    "result"
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "value": [
+                                                            " as "
+                                                          ]
+                                                        },
+                                                        {
+                                                          "r": "51",
+                                                          "s": [
+                                                            {
+                                                              "value": [
+                                                                "DateTime"
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            "\n\t\t\t)"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "57",
+                  "locator": "40:2-44:4",
+                  "type": "Query",
+                  "source": [
+                    {
+                      "localId": "40",
+                      "locator": "40:2-40:73",
+                      "alias": "Test",
+                      "expression": {
+                        "localId": "39",
+                        "locator": "40:2-40:68",
+                        "dataType": "{urn:healthit-gov:qdm:v5_3}PositiveLaboratoryTestPerformed",
+                        "templateId": "PositiveLaboratoryTestPerformed",
+                        "codeProperty": "code",
+                        "type": "Retrieve",
+                        "codes": {
+                          "name": "Laboratory Tests for Hypertension",
+                          "type": "ValueSetRef"
+                        }
+                      }
+                    }
+                  ],
+                  "relationship": [
+                    {
+                      "localId": "56",
+                      "locator": "41:3-44:4",
+                      "alias": "Assessment",
+                      "type": "With",
+                      "expression": {
+                        "localId": "41",
+                        "locator": "41:8-41:28",
+                        "name": "Initial Assessments",
+                        "type": "ExpressionRef"
+                      },
+                      "suchThat": {
+                        "localId": "55",
+                        "locator": "42:14-44:4",
+                        "type": "Exists",
+                        "operand": {
+                          "localId": "54",
+                          "locator": "42:21-44:4",
+                          "type": "Query",
+                          "source": [
+                            {
+                              "localId": "44",
+                              "locator": "42:23-42:42",
+                              "alias": "Comp",
+                              "expression": {
+                                "localId": "43",
+                                "locator": "42:23-42:37",
+                                "path": "components",
+                                "scope": "Test",
+                                "type": "Property"
+                              }
+                            }
+                          ],
+                          "relationship": [
+
+                          ],
+                          "where": {
+                            "localId": "53",
+                            "locator": "43:6-43:66",
+                            "type": "Less",
+                            "operand": [
+                              {
+                                "localId": "48",
+                                "locator": "43:12-43:40",
+                                "strict": false,
+                                "type": "As",
+                                "operand": {
+                                  "localId": "46",
+                                  "locator": "43:12-43:28",
+                                  "path": "result",
+                                  "scope": "Assessment",
+                                  "type": "Property"
+                                },
+                                "asTypeSpecifier": {
+                                  "localId": "47",
+                                  "locator": "43:33-43:40",
+                                  "name": "{urn:hl7-org:elm-types:r1}DateTime",
+                                  "type": "NamedTypeSpecifier"
+                                }
+                              },
+                              {
+                                "localId": "52",
+                                "locator": "43:44-43:66",
+                                "strict": false,
+                                "type": "As",
+                                "operand": {
+                                  "localId": "50",
+                                  "locator": "43:44-43:54",
+                                  "path": "result",
+                                  "scope": "Comp",
+                                  "type": "Property"
+                                },
+                                "asTypeSpecifier": {
+                                  "localId": "51",
+                                  "locator": "43:59-43:66",
+                                  "name": "{urn:hl7-org:elm-types:r1}DateTime",
+                                  "type": "NamedTypeSpecifier"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "localId": "61",
+                "locator": "46:1-47:29",
+                "name": "Initial Population",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "61",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Initial Population\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "60",
+                          "s": [
+                            {
+                              "value": [
+                                "exists "
+                              ]
+                            },
+                            {
+                              "r": "59",
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Initial Assessments\""
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "60",
+                  "locator": "47:2-47:29",
+                  "type": "Exists",
+                  "operand": {
+                    "localId": "59",
+                    "locator": "47:9-47:29",
+                    "name": "Initial Assessments",
+                    "type": "ExpressionRef"
+                  }
+                }
+              },
+              {
+                "localId": "64",
+                "locator": "49:1-50:13",
+                "name": "Numerator",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "64",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Numerator\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "63",
+                          "s": [
+                            {
+                              "value": [
+                                "exists "
+                              ]
+                            },
+                            {
+                              "r": "62",
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Foo\""
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "63",
+                  "locator": "50:2-50:13",
+                  "type": "Exists",
+                  "operand": {
+                    "localId": "62",
+                    "locator": "50:9-50:13",
+                    "name": "Foo",
+                    "type": "ExpressionRef"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "elm_annotations": {
+        "statements": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"SDE Ethnicity\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "[\"Patient Characteristic Ethnicity\": "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Ethnicity\""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "]"
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "Retrieve",
+                    "ref_id": "12"
+                  }
+                ],
+                "ref_id": "13"
+              }
+            ],
+            "define_name": "SDE Ethnicity"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"SDE Payer\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "[\"Patient Characteristic Payer\": "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Payer\""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "]"
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "Retrieve",
+                    "ref_id": "14"
+                  }
+                ],
+                "ref_id": "15"
+              }
+            ],
+            "define_name": "SDE Payer"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"SDE Race\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "[\"Patient Characteristic Race\": "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Race\""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "]"
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "Retrieve",
+                    "ref_id": "16"
+                  }
+                ],
+                "ref_id": "17"
+              }
+            ],
+            "define_name": "SDE Race"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"SDE Sex\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "[\"Patient Characteristic Sex\": "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"ONC Administrative Sex\""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "]"
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "Retrieve",
+                    "ref_id": "18"
+                  }
+                ],
+                "ref_id": "19"
+              }
+            ],
+            "define_name": "SDE Sex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Denominator\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "exists "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "[\"Medication, Not Ordered\": "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "children": [
+                                              {
+                                                "children": [
+                                                  {
+                                                    "text": "\"Beta Blocker Therapy for LVSD\""
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "]"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "node_type": "Retrieve",
+                                        "ref_id": "20"
+                                      }
+                                    ],
+                                    "node_type": "Retrieve",
+                                    "ref_id": "20"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": " NoBetaBlocker"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "ref_id": "21"
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "text": "\n    "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "text": "where "
+                                  }
+                                ]
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "NoBetaBlocker"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "ref_id": "22"
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "."
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "negationRationale"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "ref_id": "23"
+                                      }
+                                    ],
+                                    "ref_id": "23"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": " in "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "\"Patient Reason refused\""
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "ref_id": "24"
+                                  }
+                                ],
+                                "ref_id": "25"
+                              }
+                            ],
+                            "ref_id": "25"
+                          }
+                        ],
+                        "node_type": "Query",
+                        "ref_id": "26"
+                      }
+                    ],
+                    "node_type": "Exists",
+                    "ref_id": "27"
+                  }
+                ],
+                "ref_id": "28"
+              }
+            ],
+            "define_name": "Denominator"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Initial Assessments\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "[\"Assessment, Performed\": "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "\"Laboratory Tests for Hypertension\""
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "]"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "node_type": "Retrieve",
+                                    "ref_id": "29"
+                                  }
+                                ],
+                                "node_type": "Retrieve",
+                                "ref_id": "29"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " A"
+                                  }
+                                ]
+                              }
+                            ],
+                            "ref_id": "30"
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "\n    "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "where "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "A"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "ref_id": "31"
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "."
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "result"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "node_type": "Property",
+                                        "ref_id": "32"
+                                      }
+                                    ],
+                                    "node_type": "Property",
+                                    "ref_id": "32"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": " as "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "DateTime"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "ref_id": "33"
+                                  }
+                                ],
+                                "node_type": "As",
+                                "ref_id": "34"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " during "
+                                  }
+                                ]
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "\"Measurement Period\""
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "node_type": "ParameterRef",
+                                "ref_id": "35"
+                              }
+                            ],
+                            "ref_id": "36"
+                          }
+                        ],
+                        "ref_id": "36"
+                      }
+                    ],
+                    "node_type": "Query",
+                    "ref_id": "37"
+                  }
+                ],
+                "ref_id": "38"
+              }
+            ],
+            "define_name": "Initial Assessments"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Foo\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "[\"Laboratory Test, Performed\": "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "\"Laboratory Tests for Hypertension\""
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "]"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "node_type": "Retrieve",
+                                    "ref_id": "39"
+                                  }
+                                ],
+                                "node_type": "Retrieve",
+                                "ref_id": "39"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " Test"
+                                  }
+                                ]
+                              }
+                            ],
+                            "ref_id": "40"
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "\n    "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "with "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "\"Initial Assessments\""
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "node_type": "ExpressionRef",
+                                "ref_id": "41"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " Assessment"
+                                  }
+                                ]
+                              }
+                            ],
+                            "ref_id": "42"
+                          },
+                          {
+                            "children": [
+                              {
+                                "text": "\n      such that "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "text": "exists "
+                                  }
+                                ]
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "( "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "Test.components"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "node_type": "Property",
+                                                "ref_id": "43"
+                                              },
+                                              {
+                                                "children": [
+                                                  {
+                                                    "text": " Comp"
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "ref_id": "44"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "\n          "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "where "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "children": [
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "Assessment"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ],
+                                                        "ref_id": "45"
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "."
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "result"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ],
+                                                        "node_type": "Property",
+                                                        "ref_id": "46"
+                                                      }
+                                                    ],
+                                                    "node_type": "Property",
+                                                    "ref_id": "46"
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "text": " as "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "DateTime"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ],
+                                                    "ref_id": "47"
+                                                  }
+                                                ],
+                                                "node_type": "As",
+                                                "ref_id": "48"
+                                              },
+                                              {
+                                                "children": [
+                                                  {
+                                                    "text": " < "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "Comp"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ],
+                                                        "ref_id": "49"
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "."
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "result"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ],
+                                                        "node_type": "Property",
+                                                        "ref_id": "50"
+                                                      }
+                                                    ],
+                                                    "node_type": "Property",
+                                                    "ref_id": "50"
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "text": " as "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "DateTime"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ],
+                                                    "ref_id": "51"
+                                                  }
+                                                ],
+                                                "node_type": "As",
+                                                "ref_id": "52"
+                                              }
+                                            ],
+                                            "ref_id": "53"
+                                          }
+                                        ],
+                                        "ref_id": "53"
+                                      }
+                                    ],
+                                    "node_type": "Query",
+                                    "ref_id": "54"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "\n      )"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "node_type": "Query",
+                                "ref_id": "54"
+                              }
+                            ],
+                            "node_type": "Exists",
+                            "ref_id": "55"
+                          }
+                        ],
+                        "ref_id": "56"
+                      }
+                    ],
+                    "node_type": "Query",
+                    "ref_id": "57"
+                  }
+                ],
+                "ref_id": "58"
+              }
+            ],
+            "define_name": "Foo"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Initial Population\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "exists "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Initial Assessments\""
+                              }
+                            ]
+                          }
+                        ],
+                        "node_type": "ExpressionRef",
+                        "ref_id": "59"
+                      }
+                    ],
+                    "node_type": "Exists",
+                    "ref_id": "60"
+                  }
+                ],
+                "ref_id": "61"
+              }
+            ],
+            "define_name": "Initial Population"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Numerator\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "exists "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Foo\""
+                              }
+                            ]
+                          }
+                        ],
+                        "node_type": "ExpressionRef",
+                        "ref_id": "62"
+                      }
+                    ],
+                    "node_type": "Exists",
+                    "ref_id": "63"
+                  }
+                ],
+                "ref_id": "64"
+              }
+            ],
+            "define_name": "Numerator"
+          }
+        ],
+        "identifier": {
+          "id": "BonnieTestBasic2",
+          "version": "0.0.001"
+        }
+      },
+      "is_main_library": true,
+      "library_name": "BonnieTestBasic2",
+      "library_version": "0.0.001",
+      "statement_dependencies": [
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8621"
+          },
+          "statement_name": "Patient"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8622"
+          },
+          "statement_name": "SDE Ethnicity"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8623"
+          },
+          "statement_name": "SDE Payer"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8624"
+          },
+          "statement_name": "SDE Race"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8625"
+          },
+          "statement_name": "SDE Sex"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8626"
+          },
+          "statement_name": "Denominator"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8627"
+          },
+          "statement_name": "Initial Assessments"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8628"
+          },
+          "statement_name": "Foo",
+          "statement_references": [
+            {
+              "_id": {
+                "$oid": "5c6ef315bb9215d9682d8629"
+              },
+              "library_name": "BonnieTestBasic2",
+              "statement_name": "Initial Assessments"
+            }
+          ]
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d862a"
+          },
+          "statement_name": "Initial Population",
+          "statement_references": [
+            {
+              "_id": {
+                "$oid": "5c6ef315bb9215d9682d862b"
+              },
+              "library_name": "BonnieTestBasic2",
+              "statement_name": "Initial Assessments"
+            }
+          ]
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d862c"
+          },
+          "statement_name": "Numerator",
+          "statement_references": [
+            {
+              "_id": {
+                "$oid": "5c6ef315bb9215d9682d862d"
+              },
+              "library_name": "BonnieTestBasic2",
+              "statement_name": "Foo"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "created_at": "2019-02-21T18:51:01.897Z",
+  "data_criteria": {
+    "Payer_PatientCharacteristicPayer_aeb1e349_0674_43bb_9ee3_fa0f6af94854": {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_aeb1e349_0674_43bb_9ee3_fa0f6af94854_source",
+      "variable": false,
+      "inline_code_list": {
+        "SOP": [
+          "1",
+          "11",
+          "111",
+          "112",
+          "113",
+          "119",
+          "12",
+          "121",
+          "122",
+          "123",
+          "129",
+          "13",
+          "14",
+          "19",
+          "191",
+          "2",
+          "21",
+          "211",
+          "212",
+          "213",
+          "219",
+          "22",
+          "23",
+          "25",
+          "26",
+          "29",
+          "291",
+          "299",
+          "3",
+          "31",
+          "311",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "312",
+          "3121",
+          "3122",
+          "3123",
+          "313",
+          "32",
+          "321",
+          "3211",
+          "3212",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126",
+          "32127",
+          "32128",
+          "322",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "33",
+          "331",
+          "332",
+          "333",
+          "334",
+          "34",
+          "341",
+          "342",
+          "343",
+          "349",
+          "35",
+          "36",
+          "361",
+          "362",
+          "369",
+          "37",
+          "371",
+          "3711",
+          "3712",
+          "3713",
+          "372",
+          "379",
+          "38",
+          "381",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "382",
+          "389",
+          "39",
+          "391",
+          "4",
+          "41",
+          "42",
+          "43",
+          "44",
+          "5",
+          "51",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "516",
+          "517",
+          "519",
+          "52",
+          "521",
+          "522",
+          "523",
+          "524",
+          "529",
+          "53",
+          "54",
+          "55",
+          "56",
+          "561",
+          "562",
+          "59",
+          "6",
+          "61",
+          "611",
+          "612",
+          "613",
+          "614",
+          "619",
+          "62",
+          "621",
+          "622",
+          "623",
+          "629",
+          "7",
+          "71",
+          "72",
+          "73",
+          "79",
+          "8",
+          "81",
+          "82",
+          "821",
+          "822",
+          "823",
+          "83",
+          "84",
+          "85",
+          "89",
+          "9",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "951",
+          "953",
+          "954",
+          "959",
+          "96",
+          "97",
+          "98",
+          "99",
+          "9999"
+        ]
+      }
+    },
+    "ONCAdministrativeSex_PatientCharacteristicSex_c6cd0406_3b5a_4b60_9f2f_af7148bd0821": {
+      "title": "ONCAdministrativeSex",
+      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_c6cd0406_3b5a_4b60_9f2f_af7148bd0821_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      }
+    },
+    "Ethnicity_PatientCharacteristicEthnicity_45455da0_619a_49c9_8d55_4690becaef89": {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_45455da0_619a_49c9_8d55_4690becaef89_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDCREC": [
+          "2135-2",
+          "2186-5"
+        ]
+      }
+    },
+    "BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a": {
+      "title": "BetaBlockerTherapyforLVSD",
+      "description": "Medication, Ordered: BetaBlockerTherapyforLVSD",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": true,
+      "source_data_criteria": "BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
+      "variable": false
+    },
+    "Race_PatientCharacteristicRace_f626befd_df2c_4b98_b6e9_efc81ce6abaf": {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_f626befd_df2c_4b98_b6e9_efc81ce6abaf_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDCREC": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      }
+    },
+    "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc": {
+      "title": "LaboratoryTestsforHypertension",
+      "description": "Laboratory Test, Performed: LaboratoryTestsforHypertension",
+      "code_list_id": "2.16.840.1.113883.3.600.1482",
+      "type": "laboratory_tests",
+      "definition": "laboratory_test",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
+      "variable": false
+    },
+    "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc": {
+      "title": "LaboratoryTestsforHypertension",
+      "description": "Assessment, Performed: LaboratoryTestsforHypertension",
+      "code_list_id": "2.16.840.1.113883.3.600.1482",
+      "type": "assessments",
+      "definition": "assessment",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
+      "variable": false
+    },
+    "BetaBlockerTherapyforLVSD_MedicationOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_spoofed": {
+      "title": "BetaBlockerTherapyforLVSD",
+      "description": "Medication, Ordered: BetaBlockerTherapyforLVSD",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "Derived from BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
+      "variable": false
+    }
+  },
+  "description": "Testing of Bonnie",
+  "hqmf_id": "40280382-649C-54C3-0164-EC898A6E15C8",
+  "hqmf_set_id": "D5355200-50C1-4A79-8983-8617B93FE6C1",
+  "hqmf_version_number": "0.0.001",
+  "main_cql_library": "BonnieTestBasic2",
+  "measure_attributes": [
+    {
+      "code": "OTH",
+      "value": "879",
+      "name": "eCQM Identifier (Measure Authoring Tool)",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "eCQM Identifier (Measure Authoring Tool)"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "879",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "OTH",
+      "value": "",
+      "name": "NQF Number",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "NQF Number"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "COPY",
+      "value": "",
+      "name": "Copyright",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "COPY",
+        "title": "Copyright"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DISC",
+      "value": "",
+      "name": "Disclaimer",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DISC",
+        "title": "Disclaimer"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRSCORE",
+      "name": "Measure Scoring",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRSCORE",
+        "title": "Measure Scoring"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.1.11.20367",
+        "code": "PROPOR",
+        "title": "Proportion"
+      }
+    },
+    {
+      "code": "STRAT",
+      "value": "",
+      "name": "Stratification",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "STRAT",
+        "title": "Stratification"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRADJ",
+      "value": "",
+      "name": "Risk Adjustment",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRADJ",
+        "title": "Risk Adjustment"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRAGG",
+      "value": "",
+      "name": "Rate Aggregation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRAGG",
+        "title": "Rate Aggregation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "RAT",
+      "value": "",
+      "name": "Rationale",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "RAT",
+        "title": "Rationale"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "CRS",
+      "value": "",
+      "name": "Clinical Recommendation Statement",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "CRS",
+        "title": "Clinical Recommendation Statement"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IDUR",
+      "value": "",
+      "name": "Improvement Notation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IDUR",
+        "title": "Improvement Notation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DEF",
+      "name": "Definition",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DEF",
+        "title": "Definition"
+      },
+      "value_obj": {
+        "type": "ED",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "GUIDE",
+      "value": "",
+      "name": "Guidance",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "GUIDE",
+        "title": "Guidance"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "TRANF",
+      "value": "",
+      "name": "Transmission Format",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "TRANF",
+        "title": "Transmission Format"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IPOP",
+      "value": "",
+      "name": "Initial Population",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IPOP",
+        "title": "Initial Population"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENOM",
+      "value": "",
+      "name": "Denominator",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENOM",
+        "title": "Denominator"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENEX",
+      "value": "",
+      "name": "Denominator Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENEX",
+        "title": "Denominator Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "NUMER",
+      "value": "",
+      "name": "Numerator",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "NUMER",
+        "title": "Numerator"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "NUMEX",
+      "value": "",
+      "name": "Numerator Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "NUMEX",
+        "title": "Numerator Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENEXCEP",
+      "value": "",
+      "name": "Denominator Exceptions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENEXCEP",
+        "title": "Denominator Exceptions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "SDE",
+      "value": "",
+      "name": "Supplemental Data Elements",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "SDE",
+        "title": "Supplemental Data Elements"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  },
+  "measure_scoring": "PROPORTION",
+  "patient_ids": [
+
+  ],
+  "population_criteria": {
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "hqmf_id": "56CA3D77-7EA4-4009-802A-7EEBD7CEC8F1",
+      "preconditions": [
+        {
+          "id": 2,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "BonnieTestBasic2__Initial_Population__1D56B615_5F25_44C7_BCDB_7A08A0953699"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "conjunction?": true,
+      "type": "DENOM",
+      "hqmf_id": "A8E2B862-4CAE-4F6B-9298-F9698A6AA981",
+      "preconditions": [
+        {
+          "id": 4,
+          "preconditions": [
+            {
+              "id": 3,
+              "reference": "BonnieTestBasic2__Denominator__1D56B615_5F25_44C7_BCDB_7A08A0953699"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "NUMER": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "hqmf_id": "D38BEB3F-3494-449E-AAD8-0AD44B861983",
+      "preconditions": [
+        {
+          "id": 6,
+          "preconditions": [
+            {
+              "id": 5,
+              "reference": "BonnieTestBasic2__Numerator__1D56B615_5F25_44C7_BCDB_7A08A0953699"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    }
+  },
+  "population_sets": [
+    {
+      "_id": {
+        "$oid": "5c6ef315bb9215d9682d862e"
+      },
+      "population_set_id": "PopulationSet_1",
+      "populations": {
+        "DENOM": {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8631"
+          },
+          "library_name": "BonnieTestBasic2",
+          "statement_name": "Denominator"
+        },
+        "IPP": {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8630"
+          },
+          "library_name": "BonnieTestBasic2",
+          "statement_name": "Initial Population"
+        },
+        "NUMER": {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8632"
+          },
+          "library_name": "BonnieTestBasic2",
+          "statement_name": "Numerator"
+        },
+        "_id": {
+          "$oid": "5c6ef315bb9215d9682d862f"
+        },
+        "_type": "CQM::ProportionPopulationMap"
+      },
+      "supplemental_data_elements": [
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8633"
+          },
+          "library_name": "BonnieTestBasic2",
+          "statement_name": "SDE Ethnicity"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8634"
+          },
+          "library_name": "BonnieTestBasic2",
+          "statement_name": "SDE Payer"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8635"
+          },
+          "library_name": "BonnieTestBasic2",
+          "statement_name": "SDE Race"
+        },
+        {
+          "_id": {
+            "$oid": "5c6ef315bb9215d9682d8636"
+          },
+          "library_name": "BonnieTestBasic2",
+          "statement_name": "SDE Sex"
+        }
+      ],
+      "title": "Population Criteria Section"
+    }
+  ],
+  "source_data_criteria": {
+    "Payer_PatientCharacteristicPayer_aeb1e349_0674_43bb_9ee3_fa0f6af94854_source": {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_aeb1e349_0674_43bb_9ee3_fa0f6af94854_source",
+      "variable": false,
+      "inline_code_list": {
+        "SOP": [
+          "1",
+          "11",
+          "111",
+          "112",
+          "113",
+          "119",
+          "12",
+          "121",
+          "122",
+          "123",
+          "129",
+          "13",
+          "14",
+          "19",
+          "191",
+          "2",
+          "21",
+          "211",
+          "212",
+          "213",
+          "219",
+          "22",
+          "23",
+          "25",
+          "26",
+          "29",
+          "291",
+          "299",
+          "3",
+          "31",
+          "311",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "312",
+          "3121",
+          "3122",
+          "3123",
+          "313",
+          "32",
+          "321",
+          "3211",
+          "3212",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126",
+          "32127",
+          "32128",
+          "322",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "33",
+          "331",
+          "332",
+          "333",
+          "334",
+          "34",
+          "341",
+          "342",
+          "343",
+          "349",
+          "35",
+          "36",
+          "361",
+          "362",
+          "369",
+          "37",
+          "371",
+          "3711",
+          "3712",
+          "3713",
+          "372",
+          "379",
+          "38",
+          "381",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "382",
+          "389",
+          "39",
+          "391",
+          "4",
+          "41",
+          "42",
+          "43",
+          "44",
+          "5",
+          "51",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "516",
+          "517",
+          "519",
+          "52",
+          "521",
+          "522",
+          "523",
+          "524",
+          "529",
+          "53",
+          "54",
+          "55",
+          "56",
+          "561",
+          "562",
+          "59",
+          "6",
+          "61",
+          "611",
+          "612",
+          "613",
+          "614",
+          "619",
+          "62",
+          "621",
+          "622",
+          "623",
+          "629",
+          "7",
+          "71",
+          "72",
+          "73",
+          "79",
+          "8",
+          "81",
+          "82",
+          "821",
+          "822",
+          "823",
+          "83",
+          "84",
+          "85",
+          "89",
+          "9",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "951",
+          "953",
+          "954",
+          "959",
+          "96",
+          "97",
+          "98",
+          "99",
+          "9999"
+        ]
+      }
+    },
+    "ONCAdministrativeSex_PatientCharacteristicSex_c6cd0406_3b5a_4b60_9f2f_af7148bd0821_source": {
+      "title": "ONCAdministrativeSex",
+      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_c6cd0406_3b5a_4b60_9f2f_af7148bd0821_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      }
+    },
+    "Ethnicity_PatientCharacteristicEthnicity_45455da0_619a_49c9_8d55_4690becaef89_source": {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_45455da0_619a_49c9_8d55_4690becaef89_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDCREC": [
+          "2135-2",
+          "2186-5"
+        ]
+      }
+    },
+    "BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source": {
+      "title": "BetaBlockerTherapyforLVSD",
+      "description": "Medication, Ordered: BetaBlockerTherapyforLVSD",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": true,
+      "source_data_criteria": "BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
+      "variable": false
+    },
+    "Race_PatientCharacteristicRace_f626befd_df2c_4b98_b6e9_efc81ce6abaf_source": {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_f626befd_df2c_4b98_b6e9_efc81ce6abaf_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDCREC": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      }
+    },
+    "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source": {
+      "title": "LaboratoryTestsforHypertension",
+      "description": "Laboratory Test, Performed: LaboratoryTestsforHypertension",
+      "code_list_id": "2.16.840.1.113883.3.600.1482",
+      "type": "laboratory_tests",
+      "definition": "laboratory_test",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
+      "variable": false
+    },
+    "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source": {
+      "title": "LaboratoryTestsforHypertension",
+      "description": "Assessment, Performed: LaboratoryTestsforHypertension",
+      "code_list_id": "2.16.840.1.113883.3.600.1482",
+      "type": "assessments",
+      "definition": "assessment",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
+      "variable": false
+    },
+    "BetaBlockerTherapyforLVSD_MedicationOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_spoofed_source": {
+      "title": "BetaBlockerTherapyforLVSD",
+      "description": "Medication, Ordered: BetaBlockerTherapyforLVSD",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
+      "type": "medications",
+      "definition": "medication",
+      "status": "ordered",
+      "hard_status": true,
+      "negation": false,
+      "source_data_criteria": "Derived from BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
+      "variable": false
+    }
+  },
+  "title": "Bonnie Test Basic 2",
+  "updated_at": "2019-02-21T18:51:01.897Z",
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  },
+  "value_set_ids": [
+    "5c6ef315bb9215d9682d8617",
+    "5c6ef315bb9215d9682d8618",
+    "5c6ef315bb9215d9682d8619",
+    "5c6ef315bb9215d9682d861a",
+    "5c6ef315bb9215d9682d861b",
+    "5c6ef315bb9215d9682d861c",
+    "5c6ef315bb9215d9682d861d"
+  ]
+}

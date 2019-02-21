@@ -1,0 +1,1807 @@
+[
+  {
+    "_id": {
+      "$oid": "5c6ef23bbb9215d5537fed8c"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedab"
+        },
+        "code": "F",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2018-08",
+        "display_name": "Female"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedac"
+        },
+        "code": "M",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2018-08",
+        "display_name": "Male"
+      }
+    ],
+    "display_name": "ONC Administrative Sex",
+    "oid": "2.16.840.1.113762.1.4.1",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-50901F2E-3715-462B-87C1-2AD9B9B1CDE7"
+  },
+  {
+    "_id": {
+      "$oid": "5c6ef23bbb9215d5537fed8d"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedad"
+        },
+        "code": "1002-5",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "American Indian or Alaska Native"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedae"
+        },
+        "code": "2028-9",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Asian"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedaf"
+        },
+        "code": "2054-5",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Black or African American"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb0"
+        },
+        "code": "2076-8",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Native Hawaiian or Other Pacific Islander"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb1"
+        },
+        "code": "2106-3",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "White"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb2"
+        },
+        "code": "2131-1",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Other Race"
+      }
+    ],
+    "display_name": "Race",
+    "oid": "2.16.840.1.114222.4.11.836",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-50901F2E-3715-462B-87C1-2AD9B9B1CDE7"
+  },
+  {
+    "_id": {
+      "$oid": "5c6ef23bbb9215d5537fed8e"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb3"
+        },
+        "code": "2135-2",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Hispanic or Latino"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb4"
+        },
+        "code": "2186-5",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Not Hispanic or Latino"
+      }
+    ],
+    "display_name": "Ethnicity",
+    "oid": "2.16.840.1.114222.4.11.837",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-50901F2E-3715-462B-87C1-2AD9B9B1CDE7"
+  },
+  {
+    "_id": {
+      "$oid": "5c6ef23bbb9215d5537fed8f"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb5"
+        },
+        "code": "1",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MEDICARE"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb6"
+        },
+        "code": "11",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb7"
+        },
+        "code": "111",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb8"
+        },
+        "code": "112",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedb9"
+        },
+        "code": "113",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedba"
+        },
+        "code": "119",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedbb"
+        },
+        "code": "12",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare (Non-managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedbc"
+        },
+        "code": "121",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedbd"
+        },
+        "code": "122",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Drug Benefit"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedbe"
+        },
+        "code": "123",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Medical Savings Account (MSA)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedbf"
+        },
+        "code": "129",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Non-managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc0"
+        },
+        "code": "13",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Hospice"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc1"
+        },
+        "code": "14",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dual Eligibility Medicare/Medicaid Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc2"
+        },
+        "code": "19",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc3"
+        },
+        "code": "191",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc4"
+        },
+        "code": "2",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MEDICAID"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc5"
+        },
+        "code": "21",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc6"
+        },
+        "code": "211",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc7"
+        },
+        "code": "212",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc8"
+        },
+        "code": "213",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid PCCM (Primary Care Case Management)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedc9"
+        },
+        "code": "219",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedca"
+        },
+        "code": "22",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid (Non-managed Care Plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedcb"
+        },
+        "code": "23",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid/SCHIP"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedcc"
+        },
+        "code": "25",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid - Out of State"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedcd"
+        },
+        "code": "26",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid -- Long Term Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedce"
+        },
+        "code": "29",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedcf"
+        },
+        "code": "291",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd0"
+        },
+        "code": "299",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd1"
+        },
+        "code": "3",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd2"
+        },
+        "code": "31",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Defense"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd3"
+        },
+        "code": "311",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE (CHAMPUS)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd4"
+        },
+        "code": "3111",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd5"
+        },
+        "code": "3112",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Extra--PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd6"
+        },
+        "code": "3113",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Standard - Fee For Service"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd7"
+        },
+        "code": "3114",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE For Life--Medicare Supplement"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd8"
+        },
+        "code": "3115",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Reserve Select"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedd9"
+        },
+        "code": "3116",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedda"
+        },
+        "code": "3119",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Defense - (other)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537feddb"
+        },
+        "code": "312",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Military Treatment Facility"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537feddc"
+        },
+        "code": "3121",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Enrolled Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537feddd"
+        },
+        "code": "3122",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Non-enrolled Space Available"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedde"
+        },
+        "code": "3123",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE For Life (TFL)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537feddf"
+        },
+        "code": "313",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental --Stand Alone"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede0"
+        },
+        "code": "32",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Veterans Affairs"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede1"
+        },
+        "code": "321",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Veteran care--Care provided to Veterans"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede2"
+        },
+        "code": "3211",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Direct Care--Care provided in VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede3"
+        },
+        "code": "3212",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indirect Care--Care provided outside VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede4"
+        },
+        "code": "32121",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Fee Basis"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede5"
+        },
+        "code": "32122",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Foreign Fee/Foreign Medical Program (FMP)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede6"
+        },
+        "code": "32123",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Contract Nursing Home/Community Nursing Home"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede7"
+        },
+        "code": "32124",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State Veterans Home"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede8"
+        },
+        "code": "32125",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Sharing Agreements"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fede9"
+        },
+        "code": "32126",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Federal Agency"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedea"
+        },
+        "code": "32127",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedeb"
+        },
+        "code": "32128",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Vision Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedec"
+        },
+        "code": "322",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537feded"
+        },
+        "code": "3221",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedee"
+        },
+        "code": "3222",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Spina Bifida Health Care Program (SB)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedef"
+        },
+        "code": "3223",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Children of Women Vietnam Veterans (CWVV)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf0"
+        },
+        "code": "3229",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf1"
+        },
+        "code": "33",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service or Tribe"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf2"
+        },
+        "code": "331",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service -- Regular"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf3"
+        },
+        "code": "332",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service -- Contract"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf4"
+        },
+        "code": "333",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service - Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf5"
+        },
+        "code": "334",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Tribe - Sponsored Coverage"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf6"
+        },
+        "code": "34",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HRSA Program"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf7"
+        },
+        "code": "341",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Title V (MCH Block Grant)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf8"
+        },
+        "code": "342",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Migrant Health Program"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedf9"
+        },
+        "code": "343",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Ryan White Act"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedfa"
+        },
+        "code": "349",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedfb"
+        },
+        "code": "35",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Black Lung"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedfc"
+        },
+        "code": "36",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State Government"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedfd"
+        },
+        "code": "361",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State SCHIP program (codes for individual states)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedfe"
+        },
+        "code": "362",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Specific state programs (list/ local code)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fedff"
+        },
+        "code": "369",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State, not otherwise specified (other state)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee00"
+        },
+        "code": "37",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local Government"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee01"
+        },
+        "code": "371",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local - Managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee02"
+        },
+        "code": "3711",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee03"
+        },
+        "code": "3712",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee04"
+        },
+        "code": "3713",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee05"
+        },
+        "code": "372",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "FFS/Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee06"
+        },
+        "code": "379",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local, not otherwise specified (other local, county)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee07"
+        },
+        "code": "38",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Government (Federal, State, Local not specified)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee08"
+        },
+        "code": "381",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee09"
+        },
+        "code": "3811",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee0a"
+        },
+        "code": "3812",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee0b"
+        },
+        "code": "3813",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee0c"
+        },
+        "code": "3819",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee0d"
+        },
+        "code": "382",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee0e"
+        },
+        "code": "389",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee0f"
+        },
+        "code": "39",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee10"
+        },
+        "code": "391",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal Employee Health Plan - Use when known"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee11"
+        },
+        "code": "4",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "DEPARTMENTS OF CORRECTIONS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee12"
+        },
+        "code": "41",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee13"
+        },
+        "code": "42",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections State"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee14"
+        },
+        "code": "43",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Local"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee15"
+        },
+        "code": "44",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Unknown Level"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee16"
+        },
+        "code": "5",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PRIVATE HEALTH INSURANCE"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee17"
+        },
+        "code": "51",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care (Private)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee18"
+        },
+        "code": "511",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee19"
+        },
+        "code": "512",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee1a"
+        },
+        "code": "513",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee1b"
+        },
+        "code": "514",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Exclusive Provider Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee1c"
+        },
+        "code": "515",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Gatekeeper PPO (GPPO)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee1d"
+        },
+        "code": "516",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee1e"
+        },
+        "code": "517",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee1f"
+        },
+        "code": "519",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care, Other (non HMO)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee20"
+        },
+        "code": "52",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Private Health Insurance - Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee21"
+        },
+        "code": "521",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee22"
+        },
+        "code": "522",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee23"
+        },
+        "code": "523",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare supplemental policy (as second payer)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee24"
+        },
+        "code": "524",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indemnity Insurance - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee25"
+        },
+        "code": "529",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Private health insurance--other commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee26"
+        },
+        "code": "53",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee27"
+        },
+        "code": "54",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Organized Delivery System"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee28"
+        },
+        "code": "55",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Small Employer Purchasing Group"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee29"
+        },
+        "code": "56",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Specialized Stand Alone Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee2a"
+        },
+        "code": "561",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee2b"
+        },
+        "code": "562",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Vision"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee2c"
+        },
+        "code": "59",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Private Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee2d"
+        },
+        "code": "6",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BLUE CROSS/BLUE SHIELD"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee2e"
+        },
+        "code": "61",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee2f"
+        },
+        "code": "611",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee30"
+        },
+        "code": "612",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee31"
+        },
+        "code": "613",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee32"
+        },
+        "code": "614",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee33"
+        },
+        "code": "619",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee34"
+        },
+        "code": "62",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Insurance Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee35"
+        },
+        "code": "621",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee36"
+        },
+        "code": "622",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee37"
+        },
+        "code": "623",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Medicare Supplemental Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee38"
+        },
+        "code": "629",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Indemnity - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee39"
+        },
+        "code": "7",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee3a"
+        },
+        "code": "71",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee3b"
+        },
+        "code": "72",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee3c"
+        },
+        "code": "73",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee3d"
+        },
+        "code": "79",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee3e"
+        },
+        "code": "8",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee3f"
+        },
+        "code": "81",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Self-pay (Includes applicants for insurance and Medicaid applicants)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee40"
+        },
+        "code": "82",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Charge"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee41"
+        },
+        "code": "821",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Charity"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee42"
+        },
+        "code": "822",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Professional Courtesy"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee43"
+        },
+        "code": "823",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Research/Clinical Trial"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee44"
+        },
+        "code": "83",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Refusal to Pay/Bad Debt"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee45"
+        },
+        "code": "84",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Hill Burton Free Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee46"
+        },
+        "code": "85",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Research/Donor"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee47"
+        },
+        "code": "89",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Payment, Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee48"
+        },
+        "code": "9",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MISCELLANEOUS/OTHER"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee49"
+        },
+        "code": "91",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Foreign National"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee4a"
+        },
+        "code": "92",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other (Non-government)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee4b"
+        },
+        "code": "93",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Disability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee4c"
+        },
+        "code": "94",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Long-term Care Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee4d"
+        },
+        "code": "95",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Compensation"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee4e"
+        },
+        "code": "951",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee4f"
+        },
+        "code": "953",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp Fee-for-Service"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee50"
+        },
+        "code": "954",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee51"
+        },
+        "code": "959",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp, Other unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee52"
+        },
+        "code": "96",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Auto Insurance (includes no fault)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee53"
+        },
+        "code": "97",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Legal Liability / Liability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee54"
+        },
+        "code": "98",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee55"
+        },
+        "code": "99",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Typology Code available for payment source"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee56"
+        },
+        "code": "9999",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Unavailable / No Payer Specified / Blank"
+      }
+    ],
+    "display_name": "Payer",
+    "oid": "2.16.840.1.114222.4.11.3591",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-50901F2E-3715-462B-87C1-2AD9B9B1CDE7"
+  },
+  {
+    "_id": {
+      "$oid": "5c6ef23bbb9215d5537fed90"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee57"
+        },
+        "code": "72166-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "Tobacco smoking status NHIS"
+      },
+      {
+        "_id": {
+          "$oid": "5c6ef23cbb9215d5537fee58"
+        },
+        "code": "88031-0",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "Smokeless tobacco status"
+      }
+    ],
+    "display_name": "Tobacco Use Status",
+    "oid": "2.16.840.1.113762.1.4.1110.27",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-50901F2E-3715-462B-87C1-2AD9B9B1CDE7"
+  }
+]

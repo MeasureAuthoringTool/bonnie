@@ -93,7 +93,7 @@ module ApiV1
 
     test "should return bad_request when measure_file is not a zip" do
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
-      not_zip_file = fixture_file_upload(File.join('test','fixtures','cql_measure_packages','core_measures', 'CMS160v6','CMS160v6.json'))
+      not_zip_file = fixture_file_upload(File.join('test','fixtures','measures','core_measures', 'CMS160v6','cqm_measures','CMS160v6.json'))
       post :create, {measure_file: not_zip_file, calculation_type: 'episode', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}, {format: 'multipart/form-data'}
       assert_response :bad_request
       expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_file': Must be a valid MAT Export." }
