@@ -51,4 +51,22 @@ module CQM
     end
     
   end
+
+  class PopulationSet
+    def bonnie_result_criteria_names()
+      criteria = self.populations.as_json.keys
+      criteria << 'OBSERV' if self.observations.present?
+      return CQM::Measure::ALL_POPULATION_CODES & criteria # do this last to ensure ordering
+    end
+  end
+
+  class Stratification
+    def bonnie_result_criteria_names()
+      criteria = self.population_set.bonnie_result_criteria_names + ['STRAT']
+      return CQM::Measure::ALL_POPULATION_CODES & criteria # do this last to ensure ordering
+    end
+  end
+
 end
+
+

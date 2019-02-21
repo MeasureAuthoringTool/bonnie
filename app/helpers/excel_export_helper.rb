@@ -64,13 +64,13 @@ module ExcelExportHelper
     arr = measure.population_sets.map do |ps|
       { id: ps.population_set_id, 
         title: ps.title,
-        criteria: ps.populations.as_json.keys & CQM::Measure::ALL_POPULATION_CODES }
+        criteria: ps.bonnie_result_criteria_names }
     end
     arr += measure.population_sets.flat_map do |ps|
       ps.stratifications.map do |st| 
         { id: st.stratification_id, 
           title: st.title,
-          criteria: ps.populations.as_json.keys & CQM::Measure::ALL_POPULATION_CODES }
+          criteria: st.bonnie_result_criteria_names }
       end
     end
     return arr
@@ -119,7 +119,7 @@ module ExcelExportHelper
       population_details[pop_index] = {title: pop_set_or_strat[:title], statement_relevance: results.first[1][pop_set_or_strat[:id]]['extendedData']['statement_relevance']}
 
       # TODO: The front end adds 'index' to this array, but it might be unused. Investigate and remove if possible.
-      population_details[pop_index][:criteria] = ['index'] + pop_set_or_strat[:criteria]
+      population_details[pop_index][:criteria] = pop_set_or_strat[:criteria] + ['index']
     end
 
     population_details

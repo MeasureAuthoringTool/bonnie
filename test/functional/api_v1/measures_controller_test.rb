@@ -217,10 +217,10 @@ module ApiV1
 
         assert_equal "Population Criteria Section", measure.population_sets[0].title
         assert_equal "Population Criteria Section", measure.population_sets[1].title
-        assert_equal "PopulationCriteria1: Stratification 1", measure.population_sets[0].stratifications[0].title
-        assert_equal "PopulationCriteria1: Stratification 2", measure.population_sets[0].stratifications[1].title
-        assert_equal "PopulationCriteria2: Stratification 1", measure.population_sets[1].stratifications[0].title
-        assert_equal "PopulationCriteria2: Stratification 2", measure.population_sets[1].stratifications[1].title
+        assert_equal "PopSet1 Stratification 1", measure.population_sets[0].stratifications[0].title
+        assert_equal "PopSet1 Stratification 2", measure.population_sets[0].stratifications[1].title
+        assert_equal "PopSet2 Stratification 1", measure.population_sets[1].stratifications[0].title
+        assert_equal "PopSet2 Stratification 2", measure.population_sets[1].stratifications[1].title
       end
     end
 

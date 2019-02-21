@@ -157,7 +157,7 @@ class Record
 
       pop_idx = expected_value_set["population_index"]
       expected_value_population_set = expected_value_set.keys & CQM::Measure::ALL_POPULATION_CODES
-      measure_population_set = measure.population_sets[pop_idx].populations.as_json.keys & CQM::Measure::ALL_POPULATION_CODES
+      measure_population_set = measure.population_sets[pop_idx].bonnie_result_criteria_names
 
       # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
       added_populations = measure_population_set - expected_value_population_set

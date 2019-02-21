@@ -119,11 +119,7 @@ class PatientExport
         pop_index = 0
         calc_results.each do |pop_key, patients|
           
-          begin
-            population_criteria = CQM::Measure::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
-          rescue
-            binding.pry
-          end
+          population_criteria = CQM::Measure::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
 
           # Set worksheet titles based on population title length. If population title is more than 31 characters, use "Population [index]"
           worksheet_title = if population_details[pop_key]['title'].blank? || "#{pop_index + 1} - #{population_details[pop_key]['title']}".length > 31
