@@ -165,6 +165,7 @@ private
     html_exporter.export(patient, measure, value_sets)
   end
 
+  # TODO: update this once we are using new patient model, change to point to something from cqm-reports
   def measure_patients_summary(records, results, qrda_errors, html_errors, measure)
     # restructure differences for output
     results.each do |r|

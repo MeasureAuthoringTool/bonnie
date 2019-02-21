@@ -9,16 +9,8 @@ module ApiV1
       FileUtils.rm_r @error_dir if File.directory?(@error_dir)
       dump_database
       users_set = File.join('users', 'base_set')
-      # cms347_fixtures = File.join('cql_measures', 'deprecated_measures', 'CMS347v1'), File.join('records', 'deprecated_measures', 'CMS347v1')
-      # collection_fixtures(users_set, *cms347_fixtures)
       collection_fixtures(users_set)
       @user = User.by_email('bonnie@example.com').first
-      # associate_user_with_measures(@user,CQM::Measure.all)
-      # associate_user_with_patients(@user,Record.all)
-      # associate_measures_with_patients(CQM::Measure.all, Record.all)
-      # @num_patients = Record.all.size
-      # @measure = CQM::Measure.where({'cms_id' => 'CMS347v1'}).first
-      # @api_v1_measure = @measure.hqmf_set_id
       sign_in @user
       @token = StubToken.new
       @token.resource_owner_id = @user.id
@@ -29,59 +21,40 @@ module ApiV1
     end
 
     test "should get index as html" do
-      #TODO: replace the measure loading part with a fixture
-      measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','core_measures','CMS134v6_bonnie-fixtures@mitre.org_2018-01-11.zip'),'application/zip')
-      VCR.use_cassette("api_valid_vsac_cms134", @vcr_options) do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
-        assert_response :ok
+      load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
 
-        get :index
-        assert_response :success
-        assert_equal response.content_type, 'text/html'
-        assert_not_nil assigns(:api_v1_measures)
-      end
+      get :index
+      assert_response :success
+      assert_equal response.content_type, 'text/html'
+      assert_not_nil assigns(:api_v1_measures)
     end
 
     test "should get index as json" do
-      #TODO: replace the measure loading part with a fixture
-      measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','core_measures','CMS134v6_bonnie-fixtures@mitre.org_2018-01-11.zip'),'application/zip')
-      VCR.use_cassette("api_valid_vsac_cms134", @vcr_options) do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
-        assert_response :ok
+      load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
 
-        get :index, :format => "json"
-        assert_response :success
-        assert_equal response.content_type, 'application/json'
-        json = JSON.parse(response.body)
-        assert_equal 1, json.size
-        assert_equal [], (json.map { |x| x['cms_id'] } - ['CMS134v6'])
-        assert_not_nil assigns(:api_v1_measures)
-      end
+      get :index, :format => "json"
+      assert_response :success
+      assert_equal response.content_type, 'application/json'
+      json = JSON.parse(response.body)
+      assert_equal 1, json.size
+      assert_equal [], (json.map { |x| x['cms_id'] } - ['CMS134v6'])
+      assert_not_nil assigns(:api_v1_measures)
     end
 
     test "should show api_v1_measure" do
-      #TODO: replace the measure loading part with a fixture
-      measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','core_measures','CMS134v6_bonnie-fixtures@mitre.org_2018-01-11.zip'),'application/zip')
-      VCR.use_cassette("api_valid_vsac_cms134", @vcr_options) do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
-        ticket = api.ticket_granting_ticket[:ticket]
-        post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
-        assert_response :ok
+      load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
 
-        get :show, id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"
-        assert_response :success
-        assert_equal response.content_type, 'application/json'
-        json = JSON.parse(response.body)
-        assert_equal 'CMS134v6', json['cms_id']
-        assert_not_nil assigns(:api_v1_measure)
-      end
+      get :show, id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"
+      assert_response :success
+      assert_equal response.content_type, 'application/json'
+      json = JSON.parse(response.body)
+      assert_equal 'CMS134v6', json['cms_id']
+      assert_not_nil assigns(:api_v1_measure)
     end
 
     test "should not show unknown measure" do
+      load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
+
       get :show, id: 'foo'
       assert_response :missing
     end
