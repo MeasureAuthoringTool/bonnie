@@ -24,34 +24,34 @@ class MeasuresController < ApplicationController
     end
   end
 
-  #THIS FUNCTION UPDATED IN A BRANCH BY JB, MAKE SURE ITS MERGED -Cole
-  def value_sets
-    # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
-    # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
-    if true
-      value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
-      value_set_oids += CQM::Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
+  # #THIS FUNCTION UPDATED IN A BRANCH BY JB, MAKE SURE ITS MERGED -Cole
+  # def value_sets
+  #   # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
+  #   # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
+  #   if true
+  #     value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
+  #     value_set_oids += CQM::Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
 
-      # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
-      # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
-      # value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
-      # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
-      value_sets = Mongoid::Clients.default[HealthDataStandards::SVS::ValueSet.collection_name].find({oid: { '$in' => value_set_oids }, user_id: current_user.id}, {'concepts.code_system' => 0, 'concepts.code_system_version' => 0})
+  #     # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
+  #     # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
+  #     # value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
+  #     # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
+  #     value_sets = Mongoid::Clients.default[HealthDataStandards::SVS::ValueSet.collection_name].find({oid: { '$in' => value_set_oids }, user_id: current_user.id}, {'concepts.code_system' => 0, 'concepts.code_system_version' => 0})
 
-      value_set_map = {}
-      value_sets.each do |vs|
-        if !value_set_map.key?(vs['oid'])
-          value_set_map[vs['oid']] = {}
-        end
-        value_set_map[vs['oid']][vs['version']] = vs
-      end
-      @value_sets_by_oid_json = MultiJson.encode value_set_map
+  #     value_set_map = {}
+  #     value_sets.each do |vs|
+  #       if !value_set_map.key?(vs['oid'])
+  #         value_set_map[vs['oid']] = {}
+  #       end
+  #       value_set_map[vs['oid']][vs['version']] = vs
+  #     end
+  #     @value_sets_by_oid_json = MultiJson.encode value_set_map
 
-      respond_with @value_sets_by_oid_json do |format|
-        format.json { render json: @value_sets_by_oid_json }
-      end
-    end
-  end
+  #     respond_with @value_sets_by_oid_json do |format|
+  #       format.json { render json: @value_sets_by_oid_json }
+  #     end
+  #   end
+  # end
 
   def create
     if !params[:measure_file]

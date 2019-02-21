@@ -148,13 +148,17 @@ private
     CQM::Measure.where(hqmf_set_id: patient.measure_ids.first)
   end
 
+  # todo: update this once we are using new patient model
   def qrda_patient_export(patient, measure)
-    start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
-    end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
-    qrda_exporter = HealthDataStandards::Export::Cat1.new 'r5'
-    qrda_exporter.export(patient, measure, start_time, end_time, nil, 'r5')
+    options = {
+      start_time: Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1),
+      end_time: Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
+    }
+    qrda_exporter = Qrda1R5.new(patient, measure, options)
+    qrda_exporter.render
   end
 
+  # todo: update this once we are using new patient model, change to point to something from cqm-reports
   def html_patient_export(patient, measure)
     value_sets = measure.map(&:value_sets).flatten unless measure.empty?
     html_exporter = HealthDataStandards::Export::HTML.new

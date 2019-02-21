@@ -22,7 +22,8 @@ module ExcelExportHelper
   # }
   def self.convert_results_for_excel_export(results, measure, patients)
     calc_results = ActiveSupport::HashWithIndifferentAccess.new
-    measure.population_sets.each_with_index do |population, index|
+    pop_set_ids = get_all_population_set_ids_followed_by_all_stratification_ids(measure)
+    pop_set_ids.each_with_index do |population_set_id, index|
       patients.each do |patient|
         calc_results[index] = {} unless calc_results[index]
         result = results[patient.id.to_s]
@@ -34,23 +35,45 @@ module ExcelExportHelper
             'values' => []
           }
 
-          result[population.population_set_id]['extendedData']['population_relevance'].each_key do |population_criteria|
+          result[population_set_id]['extendedData']['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
-              result[population.population_set_id]['episode_results']&.each_value do |episode|
+              result[population_set_id]['episode_results']&.each_value do |episode|
                 result_criteria['values'].concat episode['values']
               end
               result_criteria['values'].sort!
             else
-              result_criteria[population_criteria] = result[population.population_set_id][population_criteria]
+              result_criteria[population_criteria] = result[population_set_id][population_criteria]
             end
           end
-          calc_results[index][patient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[population.population_set_id]['statement_results']), criteria: result_criteria}
+          calc_results[index][patient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[population_set_id]['statement_results']), criteria: result_criteria}
         end
       end
     end
 
     calc_results
+  end
+
+  def self.get_all_population_set_ids_followed_by_all_stratification_ids(measure)
+    pop_set_ids = measure.population_sets.map { |ps| ps.population_set_id }
+    strat_ids = measure.population_sets.flat_map { |ps| ps.stratifications.map {|strat| strat.stratification_id}}
+    return pop_set_ids + strat_ids
+  end
+
+  def self.get_population_sets_and_strat_info_merged_like_old_style(measure)
+    arr = measure.population_sets.map do |ps|
+      { id: ps.population_set_id, 
+        title: ps.title,
+        criteria: ps.populations.as_json.keys & CQM::Measure::ALL_POPULATION_CODES }
+    end
+    arr += measure.population_sets.flat_map do |ps|
+      ps.stratifications.map do |st| 
+        { id: st.stratification_id, 
+          title: st.title,
+          criteria: ps.populations.as_json.keys & CQM::Measure::ALL_POPULATION_CODES }
+      end
+    end
+    return arr
   end
 
   # Extract the fields from the patients that are used in the exported excel file. Ignore unused fields.
@@ -87,17 +110,16 @@ module ExcelExportHelper
     population_details = ActiveSupport::HashWithIndifferentAccess.new
     return population_details if results.empty?
 
-    measure.population_sets.each_with_index do |population_set, pop_index|
+    pop_sets_and_strats = get_population_sets_and_strat_info_merged_like_old_style(measure)
+    pop_sets_and_strats.each_with_index do |pop_set_or_strat, pop_index|
       # Populates the population details
       next if population_details[pop_index]
 
       # the population_details are independent of patient, so index into the first patient in the results.
-      population_details[pop_index] = {title: population_set[:title], statement_relevance: results.first[1][population_set.population_set_id]['extendedData']['statement_relevance']}
+      population_details[pop_index] = {title: pop_set_or_strat[:title], statement_relevance: results.first[1][pop_set_or_strat[:id]]['extendedData']['statement_relevance']}
 
-      criteria = []
       # TODO: The front end adds 'index' to this array, but it might be unused. Investigate and remove if possible.
-      criteria.push 'index'
-      population_details[pop_index][:criteria] = population_set.populations.as_json.keys & CQM::Measure::ALL_POPULATION_CODES
+      population_details[pop_index][:criteria] = ['index'] + pop_set_or_strat[:criteria]
     end
 
     population_details

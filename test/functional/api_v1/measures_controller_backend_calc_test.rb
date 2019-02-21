@@ -109,11 +109,10 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in component measure" do
-      composite_measure_fixtures = File.join("health_data_standards_svs_value_sets","special_measures","CMS321"), File.join("records","special_measures","CMS321")
-      collection_fixtures(*composite_measure_fixtures)
-      load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
+      composite_measure_records = File.join("records","special_measures","CMS321")
+      collection_fixtures(composite_measure_records)
       associate_user_with_patients(@user,Record.all)
-      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+      load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
 
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
@@ -151,11 +150,10 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in composite measure" do
-      composite_measure_fixtures = File.join("health_data_standards_svs_value_sets","special_measures","CMS321"), File.join("records","special_measures","CMS321")
-      collection_fixtures(*composite_measure_fixtures)
-      load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
+      composite_measure_records = File.join("records","special_measures","CMS321")
+      collection_fixtures(composite_measure_records)
       associate_user_with_patients(@user,Record.all)
-      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+      load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
 
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false

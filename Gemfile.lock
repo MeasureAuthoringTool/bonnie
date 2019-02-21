@@ -80,6 +80,19 @@ PATH
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
 
+PATH
+  remote: ../cqm-reports
+  specs:
+    cqm-reports (1.0.0.0)
+      erubis (~> 2.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid-tree (~> 2.0.0)
+      mustache
+      nokogiri (~> 1.8.5)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -489,13 +502,13 @@ DEPENDENCIES
   cqm-converter!
   cqm-models!
   cqm-parsers!
+  cqm-reports!
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards (~> 4.3.3)
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails

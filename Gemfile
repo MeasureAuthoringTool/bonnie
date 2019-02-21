@@ -44,6 +44,7 @@ gem 'bonnie_bundler', :path => '../bonnie_bundler'
 # gem 'cqm-converter', :path => '../cqm-converter'
 gem 'cqm-parsers', :path => '../cqm-parsers'
 gem 'cqm-models', :path => '../cqm-models'
+gem 'cqm-reports', :path => '../cqm-reports'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.2.1'
