@@ -7,8 +7,6 @@ class MeasuresController < ApplicationController
 
   def show
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
-    # Lookup the measure both in the regular and CQL sets
-    # TODO: Can we skip the elm if it's CQL?
     @measure = CQM::Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
