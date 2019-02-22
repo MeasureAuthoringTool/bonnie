@@ -42,9 +42,8 @@ gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
 # gem 'hquery-patient-api', :path => '../patientapi'
 # gem 'cqm-converter', :path => '../cqm-converter'
-# gem 'cqm-parsers', :path => '../cqm-parsers'
 # gem 'cqm-models', :path => '../cqm-models'
-# gem 'cqm-reports', :path => '../cqm-reports'
+# gem 'cqm-parsers', :path => '../cqm-parsers'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.2.1'
