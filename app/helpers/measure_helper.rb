@@ -1,17 +1,16 @@
 module MeasureHelper
-
-
   class SharedError < StandardError
     attr_reader :front_end_version, :back_end_version, :operator_error
     def initialize(msg: "Error", front_end_version:, back_end_version:, operator_error: false)
       @front_end_version = front_end_version
       @back_end_version = back_end_version
+      @operator_error = operator_error
       super(msg)
     end
   end
 
   class MeasureUpdateMeasureNotFound < SharedError
-    def initialize()
+    def initialize
       front_end_version = {
         title: "Error Loading Measure",
         summary: "Update requested, but measure does not exist.",
@@ -21,7 +20,7 @@ module MeasureHelper
         json: {status: "error", messages: "No measure found for this HQMF Set ID."},
         status: :not_found
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
 
@@ -36,12 +35,12 @@ module MeasureHelper
         json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure_hqmf_set_id}"},
         status: :conflict
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
 
   class MeasureLoadingUpdatingWithMismatchedMeasure < SharedError
-    def initialize()
+    def initialize
       front_end_version = {
         title: "Error Updating Measure",
         summary: "The update file does not match the measure.",
@@ -51,7 +50,7 @@ module MeasureHelper
         json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
         status: :not_found
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
 
@@ -66,7 +65,7 @@ module MeasureHelper
         json: {status: "error", messages: "Measure loading process encountered error: #{loading_exception_message}"},
         status: :bad_request
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
 
@@ -85,7 +84,7 @@ module MeasureHelper
         back_end_version[:json][:details] = details
         front_end_version[:body] += " Details: #{details}"
       end
-      super(front_end_version:front_end_version, back_end_version:back_end_version)
+      super(front_end_version: front_end_version, back_end_version: back_end_version)
     end
   end
 
@@ -100,12 +99,12 @@ module MeasureHelper
         json: {status: "error", messages: "VSAC value set (#{oid}) not found or is empty. Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets."},
         status: :bad_request
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
 
   class VSACInvalidCredentialsError < SharedError
-    def initialize()
+    def initialize
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC credentials were invalid.",
@@ -115,12 +114,12 @@ module MeasureHelper
         json: {status: "error", messages: "VSAC credentials were invalid."},
         status: :bad_request
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
 
   class VSACTicketExpiredError < SharedError
-    def initialize()
+    def initialize
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC session expired.",
@@ -130,12 +129,12 @@ module MeasureHelper
         json: {status: "error", messages: "VSAC session expired. Please try again."},
         status: :bad_request
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
 
   class VSACNoCredentialsError < SharedError
-    def initialize()
+    def initialize
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "No VSAC credentials provided.",
@@ -145,7 +144,7 @@ module MeasureHelper
         json: {status: "error", messages: "No VSAC credentials provided."},
         status: :bad_request
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
   
@@ -160,12 +159,9 @@ module MeasureHelper
         json: {status: "error", messages: "Error loading valuesets from VSAC: #{message}"},
         status: :bad_request
       }
-      super(front_end_version:front_end_version, back_end_version:back_end_version, operator_error: true)
+      super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
-
-
-
 
   def create_measure(measure_file:, measure_details:, value_set_loader:, user:)
     measures, main_hqmf_set_id = extract_measures!(measure_file, measure_details, value_set_loader)
@@ -174,7 +170,7 @@ module MeasureHelper
     save_and_post_process(measures, user)
     return main_hqmf_set_id
   rescue StandardError => e
-    measures.each{ |m| m.delete_self_and_child_docs } if measures
+    measures&.each(&:delete_self_and_child_docs)
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, params[:measure_file], user)
     raise e
@@ -182,31 +178,31 @@ module MeasureHelper
 
   def update_measure(measure_file:, target_id:, value_set_loader:, user:)
     existing = CQM::Measure.by_user(user).where({:hqmf_set_id=> target_id}).first
-    raise MeasureUpdateMeasureNotFound.new() if existing.nil?
+    raise MeasureUpdateMeasureNotFound.new if existing.nil?
     measure_details = extract_measure_details_from_measure(existing)
 
     measures, main_hqmf_set_id = extract_measures!(measure_file, measure_details, value_set_loader)
-    raise MeasureLoadingUpdatingWithMismatchedMeasure.new() if main_hqmf_set_id != existing.hqmf_set_id
+    raise MeasureLoadingUpdatingWithMismatchedMeasure.new if main_hqmf_set_id != existing.hqmf_set_id
     delete_for_update(existing, user)
     save_and_post_process(measures, user)
     return main_hqmf_set_id
   rescue StandardError => e
-    measures.each{ |m| m.delete_self_and_child_docs } if measures
+    measures&.each(&:delete_self_and_child_docs)
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, measure_file, user)
     raise e
   end
 
-  def turn_exception_into_shared_error_if_needed(e)
-    return e if e.is_a?(SharedError)
-    return MeasureLoadingOther.new(Rails.env.development? ? e.inspect : nil)
+  def turn_exception_into_shared_error_if_needed(error)
+    return error if error.is_a?(SharedError)
+    return MeasureLoadingOther.new(Rails.env.development? ? error.inspect : nil)
   end
 
   def extract_measure_details_from_measure(measure)
     return {
       'episode_of_care' => measure.calculation_method == 'EPISODE_OF_CARE',
-      'calculate_sdes'=> measure.calculate_sdes,
-      'population_titles' => measure.population_sets.map(&:title) + measure.population_sets.flat_map{|ps| ps.stratifications.map(&:title)}
+      'calculate_sdes' => measure.calculate_sdes,
+      'population_titles' => measure.population_sets.map(&:title) + measure.population_sets.flat_map { |ps| ps.stratifications.map(&:title) }
     }
   end
 
@@ -216,17 +212,19 @@ module MeasureHelper
     # If query type is 'release' set the query_release to a value that is passed in, or set it using default
     # If query type is 'profile' (the default) set the query profile and include_draft options
     if params[:vsac_query_type] == 'release'
-      if get_defaults_from_vsac
-        vsac_options[:release] = params.fetch(:vsac_query_release, api.get_program_release_names(APP_CONFIG['vsac']['default_program']).first)
-      else
-        vsac_options[:release] = params[:vsac_query_release]
-      end
+      vsac_options[:release] =
+        if get_defaults_from_vsac
+          params.fetch(:vsac_query_release, api.get_program_release_names(APP_CONFIG['vsac']['default_program']).first)
+        else
+          params[:vsac_query_release]
+        end
     else
-      if get_defaults_from_vsac
-        vsac_options[:profile] = params.fetch(:vsac_query_profile, api.get_latest_profile_for_program(APP_CONFIG['vsac']['default_program']))
-      else
-        vsac_options[:profile] = params[:vsac_query_profile]
-      end
+      vsac_options[:profile] = 
+        if get_defaults_from_vsac
+          params.fetch(:vsac_query_profile, api.get_latest_profile_for_program(APP_CONFIG['vsac']['default_program']))
+        else
+          params[:vsac_query_profile]
+        end
       vsac_options[:include_draft] = true if params.fetch(:vsac_query_include_draft, 'true') == 'true'
     end
     vsac_options[:measure_defined] = true if params.fetch(:vsac_query_measure_defined, 'false') == 'true'
@@ -234,11 +232,7 @@ module MeasureHelper
   end
 
   def build_vs_loader(params, get_defaults_from_vsac)
-    if params[:vsac_tgt].present? && params[:vsac_tgt_expires_at].present?
-      vsac_tgt_object = {ticket: params[:vsac_tgt], expires: Time.at(params[:vsac_tgt_expires_at].to_i)}
-    else
-      vsac_tgt_object = nil
-    end
+    vsac_tgt_object = {ticket: params[:vsac_tgt], expires: Time.at(params[:vsac_tgt_expires_at].to_i)} if params[:vsac_tgt].present? && params[:vsac_tgt_expires_at].present?
 
     return Measures::VSACValueSetLoader.new(
       options: retrieve_vasc_options(params, get_defaults_from_vsac),
@@ -249,17 +243,17 @@ module MeasureHelper
   end
 
   # Helper method to build a flash error given a VSACError.
-  def convert_vsac_error_into_shared_error(e)
-    if e.is_a?(Util::VSAC::VSNotFoundError) || e.is_a?(Util::VSAC::VSEmptyError)
-      return VSACVSLoadingError.new(e.oid)
-    elsif e.is_a?(Util::VSAC::VSACInvalidCredentialsError)
-      return VSACInvalidCredentialsError.new()
-    elsif e.is_a?(Util::VSAC::VSACTicketExpiredError)
-      return VSACTicketExpiredError.new()
-    elsif e.is_a?(Util::VSAC::VSACNoCredentialsError)
-      return VSACNoCredentialsError.new()
+  def convert_vsac_error_into_shared_error(error)
+    if error.is_a?(Util::VSAC::VSNotFoundError) || error.is_a?(Util::VSAC::VSEmptyError) # rubocop:disable Style/GuardClause
+      return VSACVSLoadingError.new(error.oid)
+    elsif error.is_a?(Util::VSAC::VSACInvalidCredentialsError)
+      return VSACInvalidCredentialsError.new
+    elsif error.is_a?(Util::VSAC::VSACTicketExpiredError)
+      return VSACTicketExpiredError.new
+    elsif error.is_a?(Util::VSAC::VSACNoCredentialsError)
+      return VSACNoCredentialsError.new
     else
-      return VSACError.new(e.message)
+      return VSACError.new(error.message)
     end
   end
 
@@ -280,12 +274,12 @@ module MeasureHelper
 
   def add_measures_to_user(measures, current_user)
     # what is this for?
-    measures.each{ |measure| current_user.cqm_measures << measure }
+    measures.each { |measure| current_user.cqm_measures << measure }
     current_user.save!
   end
 
   def delete_for_update(existing, user)
-    #TODO: make sure this is good.
+    # TODO: make sure this is good.
     existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
       component_measure = CQM::Measure.by_user(user).where(hqmf_set_id: component_hqmf_set_id).first
       component_measure.delete
@@ -313,7 +307,7 @@ module MeasureHelper
     add_measures_to_user(measures, user)
   end
 
-  def log_measure_loading_error(e, measure_file, user)
+  def log_measure_loading_error(error, measure_file, user)
     errors_dir = Rails.root.join('log', 'load_errors')
     FileUtils.mkdir_p(errors_dir)
     clean_email = File.basename(user.email) # Prevent path traversal
@@ -327,16 +321,15 @@ module MeasureHelper
       errored_measure_file.write(uploaded_file.read)
       uploaded_file.close
     end
-    File.chmod(0644, File.join(errors_dir, filename))
+    File.chmod(0o644, File.join(errors_dir, filename))
     File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
       f.write("Original Filename was #{measure_file.original_filename}\n")
-      f.write(e.to_s + "\n" + (e.backtrace||[]).join("\n"))
+      f.write(error.to_s + "\n" + (error.backtrace||[]).join("\n"))
     end
     # email the error
-    if e.respond_to?(:operator_error) && e.operator_error && defined? ExceptionNotifier::Notifier
+    if error.respond_to?(:operator_error) && error.operator_error && defined? ExceptionNotifier::Notifier # rubocop:disable Style/GuardClause
       # params[:error_file] = filename  #TODO what is this
-      ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
+      ExceptionNotifier::Notifier.exception_notification(env, error).deliver_now
     end
   end
-
 end

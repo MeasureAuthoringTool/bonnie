@@ -108,7 +108,6 @@ namespace :bonnie do
         raise "#{cms_id} already exists in destination account #{dest_email}. Cannot complete move."
       end
 
-
       move_patients(source, dest, measure, measure)
       print_success("Moved patients")
 
@@ -116,7 +115,6 @@ namespace :bonnie do
       measure.save_self_and_child_docs
       print_success "Moved measure"
     end
-
   end
 
   namespace :db do
@@ -778,7 +776,7 @@ def update_facilities_and_diagnoses_on_patient(patient)
 
             # Reassign
             new_source_data_criterium_field_values['FACILITY_LOCATION'] = new_facility_location
-          elsif !(field_value_key == 'FACILITY_LOCATION_ARRIVAL_DATETIME' || field_value_key == 'FACILITY_LOCATION_DEPARTURE_DATETIME')
+          elsif !(field_value_key.in? ['FACILITY_LOCATION_ARRIVAL_DATETIME','FACILITY_LOCATION_DEPARTURE_DATETIME'])
             # add unaltered field value to new structure, unless it's a time we already used above
             new_source_data_criterium_field_values[field_value_key] = field_value_value
           else

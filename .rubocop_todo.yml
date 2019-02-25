@@ -39,6 +39,7 @@ Layout/AlignHash:
   Exclude:
     - 'app/controllers/measures_controller.rb'
     - 'app/mailers/admin/users_mailer.rb'
+    - 'config/environments/production.rb'
     - 'lib/measures/ade_helper.rb'
     - 'test/functional/patients_controller_test.rb'
     - 'test/functional/populations_controller_test.rb'
@@ -77,6 +78,9 @@ Layout/CommentIndentation:
   Exclude:
     - 'app/models/user.rb'
     - 'lib/measures/patient_builder.rb'
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
 
 # Offense count: 6
 # Cop supports --auto-correct.
@@ -152,6 +156,14 @@ Layout/EmptyLinesAroundModuleBody:
     - 'app/helpers/application_helper.rb'
     - 'lib/bonnie_backend_measure_javascript.rb'
     - 'lib/bonnie_measure_javascript.rb'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyleAlignWith, AutoCorrect.
+# SupportedStylesAlignWith: keyword, variable, start_of_line
+Layout/EndAlignment:
+  Exclude:
+    - 'test/functional/valuesets_controller_test.rb'
 
 # Offense count: 23
 # Cop supports --auto-correct.
@@ -453,14 +465,6 @@ Lint/DeprecatedClassMethods:
     - 'lib/tasks/cql_testing.rake'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith, AutoCorrect.
-# SupportedStylesAlignWith: keyword, variable, start_of_line
-Lint/EndAlignment:
-  Exclude:
-    - 'test/functional/valuesets_controller_test.rb'
-
-# Offense count: 1
 Lint/LiteralAsCondition:
   Exclude:
     - 'app/controllers/measures_controller.rb'
@@ -544,6 +548,7 @@ Lint/UselessAssignment:
     - 'lib/tasks/cql.rake'
     - 'lib/tasks/cql_testing.rake'
     - 'test/functional/measures_controller_test.rb'
+    - 'test/functional/api_v1/measures_controller_backend_calc_test.rb'
     - 'app/controllers/api_v1/measures_controller.rb'
     - 'test/unit/helpers/excel_export_helper_test.rb'
 
@@ -1024,13 +1029,7 @@ Style/RedundantParentheses:
 # Cop supports --auto-correct.
 # Configuration parameters: AllowMultipleReturnValues.
 Style/RedundantReturn:
-  Exclude:
-    - 'app/controllers/registrations_controller.rb'
-    - 'lib/measure_exported_results.rb'
-    - 'lib/patient_export.rb'
-    - 'lib/tasks/bonnie.rake'
-    - 'lib/version.rb'
-    - 'lib/util/fixture_exporter.rb'
+  Enabled: false
 
 # Offense count: 12
 # Cop supports --auto-correct.

@@ -43,7 +43,6 @@ module ApiV1
 
     test "should show api_v1_measure" do
       load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
-
       get :show, id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"
       assert_response :success
       assert_equal response.content_type, 'application/json'
@@ -162,7 +161,6 @@ module ApiV1
         assert_response :success
         expected_response = { "status" => "success", "url" => "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"}
         assert_equal expected_response, JSON.parse(response.body)
-
 
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :conflict

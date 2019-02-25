@@ -1,5 +1,7 @@
 #  -*- coding: utf-8 -*-
+
 namespace :bonnie do
+
   namespace :cql do
 
     desc %{Recreates the JSON elm stored on CQL measures using an instance of

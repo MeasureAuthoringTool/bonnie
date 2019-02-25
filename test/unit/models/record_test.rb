@@ -8,7 +8,6 @@ class RecordTest < ActiveSupport::TestCase
     load_measure_fixtures_from_folder(File.join("measures", "CMS72v7"))
     load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"))
 
-
     @measure_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
     @measure = CQM::Measure.where(hqmf_set_id: @measure_set_id).first
     @composite_measure = CQM::Measure.where(hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC").first

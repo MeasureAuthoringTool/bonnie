@@ -10,36 +10,36 @@ module CQM
       where user_id: record.user_id, hqmf_set_id: { '$in' => record.measure_ids }
     end
 
-    def save_self_and_child_docs()
-      self.save!
-      self.package.save! if self.package.present?
-      self.value_sets.each{ |vs| vs.save! }
+    def save_self_and_child_docs
+      save!
+      package.save! if package.present?
+      value_sets.each(&:save!)
     end
 
     def associate_self_and_child_docs_to_user(user)
       self.user = user
-      self.package.user = user if self.package.present?
-      self.value_sets.each{ |vs| vs.user = user }
+      package.user = user if package.present?
+      value_sets.each { |vs| vs.user = user }
     end
 
     # note that this method doesn't change the _id of embedded documents, but that should be fine
-    def get_fresh_duplicate()
+    def make_fresh_duplicate
       m2 = dup_and_remove_user(self)
-      m2.package = dup_and_remove_user(self.package) if self.package.present?
-      m2.value_sets = self.value_sets.map{ |vs| dup_and_remove_user(vs) }
+      m2.package = dup_and_remove_user(package) if package.present?
+      m2.value_sets = value_sets.map { |vs| dup_and_remove_user(vs) }
       return m2
     end
 
-    def delete_self_and_child_docs()
-      self.package.delete if self.package.present?
-      self.value_sets.each{ |vs| vs.delete }
-      self.delete
+    def delete_self_and_child_docs
+      package.delete if package.present?
+      value_sets.each(&:delete)
+      delete
     end
 
-    def destroy_self_and_child_docs()
-      self.package.destroy if self.package.present?
-      self.value_sets.each{ |vs| vs.destroy }
-      self.destroy
+    def destroy_self_and_child_docs
+      package.destroy if package.present?
+      value_sets.each(&:destroy)
+      destroy
     end
 
     private
@@ -53,20 +53,17 @@ module CQM
   end
 
   class PopulationSet
-    def bonnie_result_criteria_names()
-      criteria = self.populations.as_json.keys
-      criteria << 'OBSERV' if self.observations.present?
+    def bonnie_result_criteria_names
+      criteria = populations.as_json.keys
+      criteria << 'OBSERV' if observations.present?
       return CQM::Measure::ALL_POPULATION_CODES & criteria # do this last to ensure ordering
     end
   end
 
   class Stratification
-    def bonnie_result_criteria_names()
-      criteria = self.population_set.bonnie_result_criteria_names + ['STRAT']
+    def bonnie_result_criteria_names
+      criteria = population_set.bonnie_result_criteria_names + ['STRAT']
       return CQM::Measure::ALL_POPULATION_CODES & criteria # do this last to ensure ordering
     end
   end
-
 end
-
-

@@ -111,7 +111,7 @@ class PatientExport
         needs_fix = styles.add_style(:sz => 14,
                                      :bg_color => "FFFFFFF",
                                      :border => { :style => :thin,
-                                                  :color =>"DDDDDD",
+                                                  :color => "DDDDDD",
                                                   :edges => [:bottom] },
                                      :fg_color => "FF0000",
                                      :alignment => { :wrap_text => true })

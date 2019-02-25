@@ -1,4 +1,3 @@
-
 def collection_fixtures(*collection_names)
   collection_names.each do |collection|
     Mongoid.default_client[collection].drop # I think this rarely drops anything since collection_name hasnt been split out of the file name -Cole
@@ -6,16 +5,15 @@ def collection_fixtures(*collection_names)
   end
 end
 
-def load_measure_fixtures_from_folder(fixture_path, user=nil)
+def load_measure_fixtures_from_folder(fixture_path, user = nil)
   path = File.join(Rails.root, 'test', 'fixtures', fixture_path)
   Pathname.new(path).children.select(&:directory?).each do |sub_folder|
     mongo_collection_name = sub_folder.basename.to_s
-    sub_folder.children.select{|f| f.extname == ".json"}.each do |fixture_file|
+    sub_folder.children.select { |f| f.extname == ".json" }.each do |fixture_file|
       load_fixture_file(fixture_file, mongo_collection_name, user)
     end
   end
 end
-
 
 def add_collection(collection)
   # Mongoid names collections based off of the default_client argument.
@@ -28,7 +26,7 @@ def add_collection(collection)
   end
 end
 
-def load_fixture_file(file, collection_name, user=nil)
+def load_fixture_file(file, collection_name, user = nil)
   fixture_json = JSON.parse(File.read(file))
   return if fixture_json.empty?
   # Value_sets are arrays of objects, unlike measures etc, so we need to iterate in that case.
@@ -61,8 +59,8 @@ def convert_mongoid_ids(json)
     json.each { |val| convert_mongoid_ids(val) }
   elsif json.is_a?(Hash)
     json.each_pair do |k,v|
-      if v && v.is_a?(Hash) && v["$oid"]
-        json[k] = BSON::ObjectId.from_string(v["$oid"])
+      if v.is_a?(Hash) && v['$oid']
+        json[k] = BSON::ObjectId.from_string(v['$oid'])
       else
         convert_mongoid_ids(v)
       end

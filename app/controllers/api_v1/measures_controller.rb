@@ -117,7 +117,7 @@ module ApiV1
       hash = {}
       http_status = 200
       begin
-        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by { :updated_at }.first
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).min_by { |m| m[:updated_at] }
         hash = @api_v1_measure.as_json
         hash[:id] = @api_v1_measure.hqmf_set_id
         hash.select! { |key,value| MEASURE_WHITELIST.include?(key)&&!value.nil? }
@@ -166,7 +166,7 @@ module ApiV1
       end
 
       begin
-        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).min_by(&:updated_at)
         if @api_v1_measure.nil?
           render json: {status: "error", messages: "No measure found for this HQMF Set ID."}, status: :not_found
           return
@@ -246,8 +246,8 @@ module ApiV1
 
     def retrieve_measure_details(params)
       return {
-        'episode_of_care'=>params[:calculation_type] == 'episode',
-        'calculate_sdes'=>params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true',
+        'episode_of_care' => params[:calculation_type] == 'episode',
+        'calculate_sdes' => params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true',
         'population_titles' => params[:population_titles]
       }
     end

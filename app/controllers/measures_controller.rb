@@ -57,17 +57,18 @@ class MeasuresController < ApplicationController
     measure_file = params[:measure_file]
     measure_file = measure_file.tempfile if measure_file.is_a?(ActionDispatch::Http::UploadedFile)
 
-    if params[:hqmf_set_id].present? # update
-      main_hqmf_set_id = update_measure(measure_file: measure_file,
-                                        target_id: params[:hqmf_set_id],
-                                        value_set_loader: build_vs_loader(params, false),
-                                        user: current_user)
-    else
-      main_hqmf_set_id = create_measure(measure_file: measure_file,
-                                        measure_details: retrieve_measure_details(params),
-                                        value_set_loader: build_vs_loader(params, false),
-                                        user: current_user)
-    end
+    main_hqmf_set_id = 
+      if params[:hqmf_set_id].present?
+        update_measure(measure_file: measure_file,
+                       target_id: params[:hqmf_set_id],
+                       value_set_loader: build_vs_loader(params, false),
+                       user: current_user)
+      else
+        create_measure(measure_file: measure_file,
+                       measure_details: retrieve_measure_details(params),
+                       value_set_loader: build_vs_loader(params, false),
+                       user: current_user)
+      end
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
     # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError

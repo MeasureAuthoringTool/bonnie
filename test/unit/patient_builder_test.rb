@@ -25,7 +25,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
 
     @p2 = Record.find_by(last: 'Denex', first: 'Fail_Hospice_Not_Performed')
     vs_oids = @p2.source_data_criteria.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
-    @@p2_oid_to_vs_hash =  Hash[*CQM::ValueSet.in({oid: vs_oids, user_id: @p2.user_id}).collect { |vs| [vs.oid,vs] }.flatten]
+    @p2_oid_to_vs_hash =  Hash[*CQM::ValueSet.in({oid: vs_oids, user_id: @p2.user_id}).collect { |vs| [vs.oid,vs] }.flatten]
     @p2_intervention_order_sdc = @p2.source_data_criteria.find { |dc| dc['description'] == 'Intervention, Order: Hospice care ambulatory' }
 
     @coded_source_data_critria = {
@@ -171,16 +171,16 @@ class PatientBuilderTest < ActiveSupport::TestCase
   end
 
   test "derive negation" do
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@p2_intervention_order_sdc, @@p2_oid_to_vs_hash)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@p2_intervention_order_sdc, @p2_oid_to_vs_hash)
     assert  !entry.negation_ind, "entry negation should be false before call to derive_negation"
     assert entry.negation_reason.nil?, "negation should have no codes before call to derive_negation"
 
     # get first concept from fixture
     negation_code_list_id = @p2_intervention_order_sdc['negation_code_list_id']
-    vs_emergency_department_visit = @@p2_oid_to_vs_hash.select { |key,_value| key==negation_code_list_id }.first[1]
+    vs_emergency_department_visit = @p2_oid_to_vs_hash.select { |key,_value| key==negation_code_list_id }.first[1]
     the_concept = vs_emergency_department_visit['concepts'][0]
 
-    Measures::PatientBuilder.derive_negation(entry,@p2_intervention_order_sdc,@@p2_oid_to_vs_hash)
+    Measures::PatientBuilder.derive_negation(entry,@p2_intervention_order_sdc,@p2_oid_to_vs_hash)
     assert entry.negation_ind, "entry negation should be true after call to derive_negation"
     code ={code_system: the_concept['code_system_name'] , code: the_concept['code']}
     assert_equal code, entry.negation_reason, "Negation codes should have been auto selected"
