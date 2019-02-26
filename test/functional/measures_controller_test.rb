@@ -200,16 +200,14 @@ include Devise::Test::ControllerHelpers
   end
 
   test "upload MAT with that cause value sets not found error" do
-    skip('Need to find a new package that causes value sets not found error')
     VCR.use_cassette("vsac_not_found", @vcr_options) do
       # Ensure measure is not loaded to begin with
       measure = CQM::Measure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS32v7_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measures', 'CMS32v7', 'CMS32_v5_4_Artifacts_bad_valueset_oids.zip'), 'application/xml')
 
-      # As of 4/18/18 the 'eCQM Update 2018-05-04' release will cause 404 for 2.16.840.1.113762.1.4.1
       post :create, {
         vsac_query_type: 'release',
         vsac_query_profile: 'Latest eCQM',
@@ -223,7 +221,7 @@ include Devise::Test::ControllerHelpers
 
       assert_response :redirect
       assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
-      assert_equal "VSAC value set (2.16.840.1.113762.1.4.1) not found or is empty.", flash[:error][:summary]
+      assert_equal "VSAC value set (2.16.840.1.113762.1.4.151561) not found or is empty.", flash[:error][:summary]
       assert flash[:error][:body].starts_with?("Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets.")
     end
   end

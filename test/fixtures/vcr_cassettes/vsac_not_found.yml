@@ -1,0 +1,868 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: UTF-8
+      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin18.2.0 x86_64) ruby/2.4.5p335
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Host:
+      - vsac.nlm.nih.gov
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '65'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!ibUAwhljQZSQC13m9OGvBt4MxRMcjkVNApQf5e5+F46MyFOPL8v2A0dUZvxgCPdtJ6DYKfedAbF2oxE=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!I4cns3vau8H5pS7NtNHn4GsLooFbU00tKAeMk7vXvv3V41qwpr7cQ/f+3Mqri3gKeDd0CTNCDi9NETQ=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-173021-Vue5k9ZQukOTsZdQL9c4-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!2FfowjynAQ2sd53m9OGvBt4MxRMcjp+kJZB3nxn8uxYi7FM3WDEA5gHqkKC/8ltx8qIxSn606Cx8ZZA=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-173023-cRssYAJTQ0hcRQSY0syL-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!jqGODMAEED6qHBfNtNHn4GsLooFbUy67BURZvciIL6dibOZb3a4/ccMGLpIZXz7AooavUiaBxy4S6gA=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-173022-WIQCVnANUUwGG6vcyubG-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!XzyGI3UpmxRoTQbm9OGvBt4MxRMcjmMJDzPbjY4vhTySj19ANo/XDmU9cA5A3Do4pVOTPYyc2/5imwE=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-173026-FoHrYcTtJjrouhPn6kdq-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!7M0+vMJo7wMBnxLm9OGvBt4MxRMcjjO+qlQjUp88Oro4D5TWiQjwHJB6l/ZaI64EBbmBC5u9ESBWsOg=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-173027-qFpLWEHSi7ybPd0JYuXn-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!v7FZQwRSGkn3havNtNHn4GsLooFbU/t6Slwcd1ydhlMKl5Fe+/jymu52TTccp1CzL6CBnxTGu45v0Y8=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-173028-0chTPMADj1lia14HumxL-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!vkc3Y0VQnjY9feLNtNHn4GsLooFbU/C6kxcxzOBMoPgonSzFnrgJq4Keq2BFQh9hVYX701Ju/0IAuG4=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-173025-uPYx3lseaSey9fLqdaxa-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-165401-LdQcfOrr3DSxkdaqIfqVa5KuCsHv62FxDo63JMLtpZngN26UPf-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!Ap369IjCLNFcRlHm9OGvBt4MxRMcjm6OwBFKqD8wkQyBlB8tZqsaC8hycWuBY+gf73gjQzSD8KpC/NU=;
+        expires=Tue, 26-Feb-2019 21:54:43 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-173024-tL0WWpg0D3kRDsEFxOlD-cas
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:43 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.22287&release=eCQM%20Update%202018-05-04&ticket=ST-173021-Vue5k9ZQukOTsZdQL9c4-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!zh37NNAXpXuFSgfNtNHn4GsLooFbUzyeRlEEBuTGLWG7RVp/PpekUb4/kX3Ov1trKPqSRLBBvXdZcv8=;
+        expires=Tue, 26-Feb-2019 21:54:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=59BCF5C921FEB5DEC87D32C558E16C1D; Path=/vsac; HttpOnly;Secure
+      Warning:
+      - '111 NAV: Unknown value set'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:44 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.29123412&release=eCQM%20Update%202018-05-04&ticket=ST-173023-cRssYAJTQ0hcRQSY0syL-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!hV/Z7vAduneQWWnm9OGvBt4MxRMcjuv7LI7A9CEIGctGDDTd75kAY8pB6la0jplG21xXI2vM5b2N/hQ=;
+        expires=Tue, 26-Feb-2019 21:54:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=73A7318B3EFA6282C493C61C8B886BBE; Path=/vsac; HttpOnly;Secure
+      Warning:
+      - '111 NAV: Unknown value set'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:44 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.8363331&release=eCQM%20Update%202018-05-04&ticket=ST-173028-0chTPMADj1lia14HumxL-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!jjoBqBDsDtB5kkzm9OGvBt4MxRMcjqvq38uE9lrTBp2N3Zi4EHGtGKCIgEx6as4+IjRINjL4Ba7FdGs=;
+        expires=Tue, 26-Feb-2019 21:54:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=97C7AC3B8F93E52F57566654CDA920E4; Path=/vsac; HttpOnly;Secure
+      Warning:
+      - '111 NAV: Unknown value set'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:44 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.151561&release=eCQM%20Update%202018-05-04&ticket=ST-173026-FoHrYcTtJjrouhPn6kdq-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!SJ/Qk/vjo/F3FpXNtNHn4GsLooFbUwq4GcU0w4liynS3tmecRLxmSedZR45Hb9yCyJjldNiGyXT0b2I=;
+        expires=Tue, 26-Feb-2019 21:54:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=56BF2AC27CB810C26AA704668CDBD024; Path=/vsac; HttpOnly;Secure
+      Warning:
+      - '111 NAV: Unknown value set'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:44 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.8312347&release=eCQM%20Update%202018-05-04&ticket=ST-173025-uPYx3lseaSey9fLqdaxa-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!t3bapT+LKpiBJXXNtNHn4GsLooFbUycp8+O/ed4hRPA5hrvmc8lAP+C+wJtE5cvTJBUf9qzl4d20V/A=;
+        expires=Tue, 26-Feb-2019 21:54:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=0B68581D3C4E97C1D756AA8D993BFA6C; Path=/vsac; HttpOnly;Secure
+      Warning:
+      - '111 NAV: Unknown value set'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:44 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.666.5.3161707&release=eCQM%20Update%202018-05-04&ticket=ST-173022-WIQCVnANUUwGG6vcyubG-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!keZiTFIEd2X/mOnm9OGvBt4MxRMcjh3VR881GDzjlwVZW6mSY4+CQtONWtrp/sU/1h4iNTTLWaBPCHs=;
+        expires=Tue, 26-Feb-2019 21:54:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=0A61CC62EA4E8592A4A7FDA1D02CA0B6; Path=/vsac; HttpOnly;Secure
+      Warning:
+      - '111 NAV: Unknown value set'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:44 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3551591&release=eCQM%20Update%202018-05-04&ticket=ST-173027-qFpLWEHSi7ybPd0JYuXn-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!djI8o+6mfEDhcXLNtNHn4GsLooFbU3akLRiz5tHI3RTGJbfj4L35IdybvQFFqDErHb3wv7bFSdTcPUU=;
+        expires=Tue, 26-Feb-2019 21:54:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=F7E520DEF659D682D0113702BED8AA87; Path=/vsac; HttpOnly;Secure
+      Warning:
+      - '111 NAV: Unknown value set'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:44 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.2912349&release=eCQM%20Update%202018-05-04&ticket=ST-173024-tL0WWpg0D3kRDsEFxOlD-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!jsNXqKOFfXtvAh3m9OGvBt4MxRMcjg7eJJZ7xfr+DHChc0U1G2Fn7LrgF63k6dDX/lAeGaSJxNgLI+s=;
+        expires=Tue, 26-Feb-2019 21:54:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=1F185363D3638D7D46FB2FC83374EC5B; Path=/vsac; HttpOnly;Secure
+      Warning:
+      - '111 NAV: Unknown value set'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 26 Feb 2019 19:54:43 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 26 Feb 2019 19:54:44 GMT
+recorded_with: VCR 4.0.0
