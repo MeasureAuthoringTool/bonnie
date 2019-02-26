@@ -601,9 +601,15 @@ include Devise::Test::ControllerHelpers
     assert_equal 745, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001' && vs.version == "MU2 Update 2017-01-06"}).first.concepts.count
 
     # Finalize the measure that was just created
-    post :finalize, {"t679"=>{"hqmf_id"=>"40280582-5859-673B-0158-DAEF8B750647"}}
+    post :finalize, {"t679"=>{"hqmf_id"=>"40280582-5859-673B-0158-DAEF8B750647", "titles" => ['ps1','ps2','ps1strat1','ps1strat2','ps2strat1','ps2strat2']}}
     measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
 
+    assert_equal 'ps1', measure.population_sets[0].title
+    assert_equal 'ps2', measure.population_sets[1].title
+    assert_equal 'ps1strat1', measure.population_sets[0].stratifications[0].title
+    assert_equal 'ps1strat2', measure.population_sets[0].stratifications[1].title
+    assert_equal 'ps2strat1', measure.population_sets[1].stratifications[0].title
+    assert_equal 'ps2strat2', measure.population_sets[1].stratifications[1].title
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
     assert_equal 15, measure.value_sets.count
     assert_equal @user.id, measure.user_id

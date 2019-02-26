@@ -202,7 +202,7 @@ module MeasureHelper
     return {
       'episode_of_care' => measure.calculation_method == 'EPISODE_OF_CARE',
       'calculate_sdes' => measure.calculate_sdes,
-      'population_titles' => measure.population_sets.map(&:title) + measure.population_sets.flat_map { |ps| ps.stratifications.map(&:title) }
+      'population_titles' => measure.population_sets.map(&:title) + measure.all_stratifications.map(&:title)
     }
   end
 

@@ -291,7 +291,6 @@ namespace :bonnie do
 
       # Grab user measure to add patients to
       user_measure = ENV['HQMF_SET_ID']
-      binding.pry if CQM::Measure.find_by(user_id: user._id, hqmf_set_id: user_measure).nil?
       raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
 
       # Import patient objects from JSON file and save

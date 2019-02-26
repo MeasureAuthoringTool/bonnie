@@ -101,9 +101,9 @@ class MeasuresController < ApplicationController
     measure_finalize_data.each do |data|
       measure = CQM::Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
       begin
-        measure.population_sets.each_with_index do |population, population_index|
-          population['title'] = data['titles']["#{population_index}"] if (data['titles'])
-        end
+        # TODO: should this do the same for component measures?
+        Measures::CqlLoader.update_population_set_and_strat_titles(measure, data['titles'])
+        measure.save!
       rescue Exception => e
         operator_error = true
         flash[:error] = {title: "Error Loading Measure", summary: "Error Finalizing Measure", body: "An unexpected error occurred while finalizing this measure.  Please delete the measure, re-package and re-export the measure from the MAT, and re-upload the measure."}
@@ -124,5 +124,4 @@ class MeasuresController < ApplicationController
       'calculate_sdes'=>params[:calc_sde]
     }
   end
-
 end

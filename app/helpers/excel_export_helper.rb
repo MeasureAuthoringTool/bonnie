@@ -60,12 +60,10 @@ module ExcelExportHelper
         title: ps.title,
         criteria: ps.bonnie_result_criteria_names }
     end
-    arr += measure.population_sets.flat_map do |ps|
-      ps.stratifications.map do |st| 
-        { id: st.stratification_id, 
-          title: st.title,
-          criteria: st.bonnie_result_criteria_names }
-      end
+    arr += measure.all_stratifications.map do |strat|
+      { id: strat.stratification_id, 
+        title: strat.title,
+        criteria: strat.bonnie_result_criteria_names }
     end
     return arr
   end
