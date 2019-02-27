@@ -228,34 +228,32 @@ include Devise::Test::ControllerHelpers
 
 
   # UNABLE TO GET WORKING
-  # test "upload MAT with that cause value sets 500 error" do
-  #   # Note, do not re-record this because it is a synthetic casette that is hard to reproduce
-  #   VCR.use_cassette("vsac_500_response", @vcr_options) do
-  #     # Ensure measure is not loaded to begin with
-  #     measure = CQM::Measure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
-  #     assert_nil measure
+  test "upload MAT with that cause value sets 500 error" do
+    VCR.use_cassette("vsac_500_response", @vcr_options) do
+      # Ensure measure is not loaded to begin with
+      measure = CQM::Measure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      assert_nil measure
 
-  #     # Use VSAC creds from VCR, see vcr_setup.rb
-  #     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip'), 'application/xml')
+      # Use VSAC creds from VCR, see vcr_setup.rb
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'Authoring_Permissions_Needed.zip'), 'application/xml')
 
-  #     post :create, {
-  #       vsac_query_type: 'profile',
-  #       vsac_query_profile: 'Latest eCQM',
-  #       vsac_query_include_draft: 'true',
-  #       vsac_query_measure_defined: 'false',
-  #       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
-  #       measure_file: measure_file,
-  #       measure_type: 'ep',
-  #       calculation_type: 'patient'
-  #     }
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'true',
+        vsac_query_measure_defined: 'false',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
 
-  #     assert_response :redirect
-  #     binding.pry
-  #     assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
-  #     assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
-  #     assert flash[:error][:body].ends_with?("This may be due to lack of VSAC authoring permissions if you are requesting draft value sets. Please confirm you have the appropriate authoring permissions.")
-  #   end
-  # end
+      assert_response :redirect
+      assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
+      assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
+      assert flash[:error][:body].ends_with?("This may be due to lack of VSAC authoring permissions if you are requesting draft value sets. Please confirm you have the appropriate authoring permissions.")
+    end
+  end
 
   test "upload MAT 5.4 with valid VSAC creds" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
