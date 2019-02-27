@@ -378,35 +378,33 @@ include Devise::Test::ControllerHelpers
     end
   end
 
-  # REENABLE AND FIX THIS TEST ONCE NEW VS ENDPOINT CODE MERGED
-  # test "measure value sets" do
-  #   sign_in @user
-  #   measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
-  #   class << measure_file
-  #     attr_reader :tempfile
-  #   end
+  test "measure value sets" do
+    sign_in @user
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
+    class << measure_file
+      attr_reader :tempfile
+    end
 
-  #   measure = nil
-  #   VCR.use_cassette("valid_vsac_response", @vcr_options) do
-  #     post :create, {
-  #       vsac_query_type: 'profile',
-  #       vsac_query_profile: 'Latest eCQM',
-  #       vsac_query_include_draft: 'false',
-  #       vsac_query_measure_defined: 'true',
-  #       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
-  #       measure_file: measure_file,
-  #       measure_type: 'ep',
-  #       calculation_type: 'patient'
-  #     }
-  #   end
+    measure = nil
+    VCR.use_cassette("valid_vsac_response", @vcr_options) do
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
+    end
 
-  #   assert_response :redirect
-  #   measure = CQM::Measure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
-  #   get :value_sets, {id: measure.id, format: :json}
-  #   assert_response :success
-  #   binding.pry
-  #   assert_equal 9, JSON.parse(response.body).keys.count
-  # end
+    assert_response :redirect
+    hqmf_set_id = '3BBFC929-50C8-44B8-8D34-82BE75C08A70'
+    get :value_sets, { format: :json }
+    assert_response :success
+    assert_equal 9, JSON.parse(response.body)[hqmf_set_id].count
+  end
 
   test "upload invalid file format" do
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'deprecated_measures', 'measure_invalid_extension.foo'), 'application/zip')
