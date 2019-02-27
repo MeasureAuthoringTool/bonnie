@@ -21,7 +21,6 @@
 #= require underscore/underscore-min
 #= require backbone/backbone-min
 #= require backbone.paginator/lib/backbone.paginator.min
-#= require mongoose/lib/bundle
 #= require cqm-models/dist/browser
 #= require thorax/thorax
 #= require moment/min/moment.min

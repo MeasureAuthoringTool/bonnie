@@ -114,11 +114,9 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
-    "postinstall": "./node_modules/.bin/browserify -u '**/mongodb/**' -o node_modules/mongoose/lib/bundle.js node_modules/mongoose/lib/browser.js && echo '(function (global){ mongoose.model = function() {}; });' >> node_modules/mongoose/lib/bundle.js"
   },
   "dependencies": {
     "browserify": "^16.2.3",
-    "cqm-models": "https://github.com/projecttacoma/cqm-models.git",
-    "mongoose": "^5.4.14"
+    "cqm-models": "https://github.com/projecttacoma/cqm-models.git"
   }
 }
