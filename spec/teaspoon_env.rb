@@ -245,7 +245,7 @@ Teaspoon.configure do |config|
     # Assets to be ignored when generating coverage reports. Accepts an array
     # of filenames or regular expressions. The default excludes assets from
     # vendor, gems and support libraries.
-    coverage.ignore = [%r{spec/}, %r{app/assets/javascripts/templates},
+    coverage.ignore = [%r{node_modules/}, %r{spec/}, %r{app/assets/javascripts/templates},
                        %r{vendor/}, %r{gems/}]
 
     # Various thresholds requirements can be defined, and those thresholds will
