@@ -118,7 +118,7 @@
   },
   "dependencies": {
     "browserify": "^16.2.3",
-    "cqm-models": "https://github.com/projecttacoma/cqm-models#split-schema-and-model-exports",
-    "mongoose": "^5.4.6"
+    "cqm-models": "https://github.com/projecttacoma/cqm-models.git",
+    "mongoose": "^5.4.14"
   }
 }
