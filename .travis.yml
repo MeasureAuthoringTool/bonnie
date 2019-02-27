@@ -8,6 +8,8 @@ addons:
 rvm:
   - "2.4.5"
 before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.13.0
+  - export PATH="$HOME/.yarn/bin:$PATH"
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - npm install -g coffeelint
@@ -30,6 +32,8 @@ script:
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
   - bundle exec rake test
+  - yarn install
+  - yarn audit
 notifications:
   email:
     recipients:
