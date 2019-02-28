@@ -1,12 +1,12 @@
 # An abstract class that provides fixture exporting functionality
 class FixtureExporter
 
-  def initialize(user, measure: nil, records: nil)
+  def initialize(user, measure: nil, records: nil, component_measures: nil)
     @user = user
     @measure = measure
     @records = records
 
-    @component_measures = find_component_measures
+    @component_measures = component_measures.present? ? component_measures : find_component_measures
     @measure_and_any_components = @measure.present? ? [@measure] + @component_measures : []
   end
 
@@ -141,9 +141,9 @@ class FrontendFixtureExporter < FixtureExporter
   alias export_value_sets export_value_sets_as_map
   alias export_records export_records_as_array
 
-  def initialize(user, measure: nil, records: nil)
-    super(user, measure: measure, records: records)
-  end
+  # def initialize(user, measure: nil, records: nil)
+  #   super(user, measure: measure, records: records)
+  # end
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
     return JSON.parse(mongoid_doc.as_json(include: :_type, methods: :_type).to_json, max_nesting: 1000)

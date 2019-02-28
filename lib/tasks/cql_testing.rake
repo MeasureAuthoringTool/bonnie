@@ -101,6 +101,30 @@ namespace :bonnie do
       collection_fixtures(measure_collection, cql_measure_collection, value_sets_collection, records_collection, users_collection)
     end
 
+    desc %{Export fixtures based from package files. Uses vsac credentials from environmental vars.
+    Must set up folder in test/fixtures/measures/MEASURE_NAME containing MEASURE_NAME.zip and loading_params.json.
+    example: bundle exec rake bonnie:fixtures:export_fixtures_from_packages[CMS890_v5_6]}
+    task :export_fixtures_from_packages, [:name] => [:environment] do |t, args|
+      name = args[:name]
+      fixture_path = File.join('test', 'fixtures', 'measures', name)
+      loading_params = HashWithIndifferentAccess.new(JSON.parse(File.read(File.join(fixture_path, "loading_params.json"))))
+      loading_params[:vsac_username] = ENV['VSAC_USERNAME']
+      loading_params[:vsac_password] =  ENV['VSAC_PASSWORD']
+      measure_file = File.new File.join(fixture_path, name + '.zip')
+
+      # We use the MeasuresController persist method with a dummy user to make use of the existing measure loading code
+      user = User.new
+      def user.save!
+        nil
+      end
+      measures, main_hqmf_set_id = MeasuresController.new.send :persist_measure, measure_file, loading_params, user
+
+      fixture_exporter = BackendFixtureExporter.new(nil, measure: measures.reject(&:component)[0], component_measures: measures.select(&:component))
+      fixture_exporter.export_measure_and_any_components(File.join(fixture_path,'cqm_measures'))
+      fixture_exporter.export_value_sets(File.join(fixture_path,'cqm_value_sets'))
+      fixture_exporter.try_export_measure_package(File.join(fixture_path,'cqm_measure_packages'))
+    end
+
     def get_cql_measure(user, cms_hqmf, measure_id)
       if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')

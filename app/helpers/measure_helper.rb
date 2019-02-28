@@ -168,11 +168,11 @@ module MeasureHelper
     existing = CQM::Measure.by_user(user).where(hqmf_set_id: main_hqmf_set_id).first
     raise MeasureLoadingMeasureAlreadyExists.new(main_hqmf_set_id) unless existing.nil?
     save_and_post_process(measures, user)
-    return main_hqmf_set_id
+    return measures, main_hqmf_set_id
   rescue StandardError => e
     measures&.each(&:delete_self_and_child_docs)
     e = turn_exception_into_shared_error_if_needed(e)
-    log_measure_loading_error(e, params[:measure_file], user)
+    log_measure_loading_error(e, measure_file, user)
     raise e
   end
 
@@ -185,7 +185,7 @@ module MeasureHelper
     raise MeasureLoadingUpdatingWithMismatchedMeasure.new if main_hqmf_set_id != existing.hqmf_set_id
     delete_for_update(existing, user)
     save_and_post_process(measures, user)
-    return main_hqmf_set_id
+    return measures, main_hqmf_set_id
   rescue StandardError => e
     measures&.each(&:delete_self_and_child_docs)
     e = turn_exception_into_shared_error_if_needed(e)

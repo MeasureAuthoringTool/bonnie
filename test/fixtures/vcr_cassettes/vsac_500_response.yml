@@ -1,0 +1,1108 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: UTF-8
+      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin17.7.0 x86_64) ruby/2.4.5p335
+      Content-Length:
+      - '44'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Host:
+      - vsac.nlm.nih.gov
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '65'
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!4X2QwUC5ct5cEczm9OGvBt4MxRMcjsRlVS1IsxykNnoo188gk4wGdIiO7WFpmLbFFlfGGAOirAkJx94=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.112 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!lSpTiuJkF+id1S7m9OGvBt4MxRMcjvvpOibPqvVAmQykbTIdQSAix81iG4rXlszIOkI2Y+Izm3+8v/M=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.112 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912424-MuVkKr7Qa7QjXWBrt5aN-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!UaJIKEtyo34cac7NtNHn4GsLooFbU+LHp6WX7tyWOW/YLJTOkQ+sUh/M2/wVDO9Htir0Z31wIBZjWNk=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.112 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912423-vDM4leJImOwo5gi9RR3Z-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:50 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!uY20cdH0Ag0Es0DNtNHn4GsLooFbUyM25UMx5Mk9lYLP0cTWZHBfFYrLnA8LEiTd//Ypqd5yG4wpFew=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912430-RevprvdMyzpI01uOKSci-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!dH8Iw6P9mgkRPmnNtNHn4GsLooFbUwT6ep8dc5uA13twlvmaAzwFsSBEyZWUVkOTrT9TOWqckZkqiYE=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.112 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912425-hNhbvFJntaLhrqNSlE0y-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:50 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!IVGzJzjIxqYicHvm9OGvBt4MxRMcjkxqS1h1rBWR+B2UZNG7b+eVsJf9WA0xtZ1XZIvqVaRt6YcpGV8=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912428-ngcQx0vKgOU5nYCjzX1f-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:50 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!ruxqAB9eFXgbeEPm9OGvBt4MxRMcjjIOLsrgOwIdxeNxnRZrrSmJqdvM6McIMqf03+xWqBIYgOWi3tU=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912429-nLwwz9WoI5iQnRB1F9XT-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:50 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!cEd2/XIsabVtUGjNtNHn4GsLooFbUzjiGzJKZRNNeLVUNbjOCLqGA197VtpgIKlmYsQUoUmJ4Fbvaog=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912427-FVwAlbQ9FlNdA4m7nD2a-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:50 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!J4HiIfUBB1PkIyrNtNHn4GsLooFbUzHp4vLDBPc+LshB+SY6SZu0u1yMt827ek2uojCWaWvA0eGDAMA=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912426-bz900BU4bRUoCVUiK1sl-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-692100-AHSemefF1efBiRDsz5keeoIMw1kSHJ7nGicu29qNjwCk5r3WAJ-cas?service=http://umlsks.nlm.nih.gov
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Thu, 28 Feb 2019 02:19:50 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!iyLHa++atV1iVKTNtNHn4GsLooFbU76ozJfReAx5ZFe3F9reqzvdAaotOCKnoFFmQCdPLHVIrcWSd0k=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-912431-gZMilwKuYjnuxEbhZmNI-cas
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.105.12.1154&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912431-gZMilwKuYjnuxEbhZmNI-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - BIGipServervsacweb_p=!BseKyN+twwC+lpbm9OGvBt4MxRMcjkrSGmDMVsAC/zTDjI+pnsaN44xdsdxMzUscZ1xfGXY78JAWVNs=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.112 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"timestamp":"2019-02-28T02:19:51.959+0000","status":500,"error":"Internal
+        Server Error","message":"org.springframework.web.util.NestedServletException:
+        Request processing failed; nested exception is java.lang.NullPointerException","path":"/vsac/svs/RetrieveMultipleValueSets"}'
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1074&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912425-hNhbvFJntaLhrqNSlE0y-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - BIGipServervsacweb_p=!QV4IJegybfEZWpLNtNHn4GsLooFbUyNejUviax5q2cAdkTpkya2ZxPI5B+W1rv760NzaJwf+ZUX96pM=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.112 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"timestamp":"2019-02-28T02:19:51.953+0000","status":500,"error":"Internal
+        Server Error","message":"org.springframework.web.util.NestedServletException:
+        Request processing failed; nested exception is java.lang.NullPointerException","path":"/vsac/svs/RetrieveMultipleValueSets"}'
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.105.12.1153&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912427-FVwAlbQ9FlNdA4m7nD2a-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - BIGipServervsacweb_p=!+JtRrKwbw3U+01nm9OGvBt4MxRMcjn8OOKF671b23zep2dYFdbp2hobNmq08IyahEgObuNoT8r2OQPg=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"timestamp":"2019-02-28T02:19:51.963+0000","status":500,"error":"Internal
+        Server Error","message":"org.springframework.web.util.NestedServletException:
+        Request processing failed; nested exception is java.lang.NullPointerException","path":"/vsac/svs/RetrieveMultipleValueSets"}'
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.105.12.1151&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912424-MuVkKr7Qa7QjXWBrt5aN-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - BIGipServervsacweb_p=!gules/HRH8ZjnjXm9OGvBt4MxRMcjmSFw0/WpfFSLOPr3xJRd3+FfoiFJ5Ht6XZZnVHTB2thrU4wYuc=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"timestamp":"2019-02-28T02:19:51.967+0000","status":500,"error":"Internal
+        Server Error","message":"org.springframework.web.util.NestedServletException:
+        Request processing failed; nested exception is java.lang.NullPointerException","path":"/vsac/svs/RetrieveMultipleValueSets"}'
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.105.12.1158&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912426-bz900BU4bRUoCVUiK1sl-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - BIGipServervsacweb_p=!5XSQEmC3S4nB7ojm9OGvBt4MxRMcjrQwJZoEp+ORAGAUk8rxhJ8EHYNM5n1w1uZnQ+4QixZRz3cEnOM=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"timestamp":"2019-02-28T02:19:51.965+0000","status":500,"error":"Internal
+        Server Error","message":"org.springframework.web.util.NestedServletException:
+        Request processing failed; nested exception is java.lang.NullPointerException","path":"/vsac/svs/RetrieveMultipleValueSets"}'
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.105.12.1019&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912429-nLwwz9WoI5iQnRB1F9XT-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - BIGipServervsacweb_p=!zcXddKC5icfoXTbNtNHn4GsLooFbU9h3DVrMSYXZE+YUtfgtZ8XhPWmijMeQXtUOn6k4sBiTAIuhC1A=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"timestamp":"2019-02-28T02:19:51.966+0000","status":500,"error":"Internal
+        Server Error","message":"org.springframework.web.util.NestedServletException:
+        Request processing failed; nested exception is java.lang.NullPointerException","path":"/vsac/svs/RetrieveMultipleValueSets"}'
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1004.1418&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912428-ngcQx0vKgOU5nYCjzX1f-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - BIGipServervsacweb_p=!iAMjpOkFsjvW22/NtNHn4GsLooFbU6sXXzoCClRs1mVBRtEkwTsIC18p37td8ZfQbSA9ehiTI/38RMw=;
+        expires=Thu, 28-Feb-2019 04:19:51 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"timestamp":"2019-02-28T02:19:51.963+0000","status":500,"error":"Internal
+        Server Error","message":"org.springframework.web.util.NestedServletException:
+        Request processing failed; nested exception is java.lang.NullPointerException","path":"/vsac/svs/RetrieveMultipleValueSets"}'
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:51 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.105.12.1152&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912423-vDM4leJImOwo5gi9RR3Z-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!d/KZixvq1tTf687NtNHn4GsLooFbU98u0UtxneST8YkoaKM7CUbahX1UM7LVUS8p56FFfzINIEiSSAo=;
+        expires=Thu, 28-Feb-2019 04:19:52 GMT; path=/; Httponly; Secure
+      - JSESSIONID=9E3C9F77CE773EC3177A4479F736F160; Path=/vsac; HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '5968'
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.112 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1003.105.12.1152" displayName="Pervasive Developmental Disorder" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="191689008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Active infantile autism (disorder)"/>
+                    <ns0:Concept code="191690004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Residual infantile autism (disorder)"/>
+                    <ns0:Concept code="231536004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Atypical autism (disorder)"/>
+                    <ns0:Concept code="299.00" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Autistic disorder, current or active state"/>
+                    <ns0:Concept code="299.01" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Autistic disorder, residual state"/>
+                    <ns0:Concept code="299.10" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Childhood disintegrative disorder, current or active state"/>
+                    <ns0:Concept code="299.11" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Childhood disintegrative disorder, residual state"/>
+                    <ns0:Concept code="299.80" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Other specified pervasive developmental disorders, current or active state"/>
+                    <ns0:Concept code="299.81" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Other specified pervasive developmental disorders, residual state"/>
+                    <ns0:Concept code="299.90" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Unspecified pervasive developmental disorder, current or active state"/>
+                    <ns0:Concept code="299.91" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Unspecified pervasive developmental disorder, residual state"/>
+                    <ns0:Concept code="35919005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Pervasive developmental disorder (disorder)"/>
+                    <ns0:Concept code="373618009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Autistic spectrum disorder with isolated skills (disorder)"/>
+                    <ns0:Concept code="39951000119105" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Pervasive developmental disorder of residual state (disorder)"/>
+                    <ns0:Concept code="408856003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Autistic disorder (disorder)"/>
+                    <ns0:Concept code="408857007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Infantile autism (disorder)"/>
+                    <ns0:Concept code="43614003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Autistic disorder of childhood onset (disorder)"/>
+                    <ns0:Concept code="442314000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Active but odd autism (disorder)"/>
+                    <ns0:Concept code="71961003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Childhood disintegrative disorder (disorder)"/>
+                    <ns0:Concept code="F84.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Autistic disorder"/>
+                    <ns0:Concept code="F84.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Other childhood disintegrative disorder"/>
+                    <ns0:Concept code="F84.8" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Other pervasive developmental disorders"/>
+                    <ns0:Concept code="F84.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Pervasive developmental disorder, unspecified"/>
+                </ns0:ConceptList>
+                <ns0:Source>National Committee for Quality Assurance</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: This value set contains concepts that represent a diagnosis of autistic disorder, other childhood disintegrative disorder or other pervasive developmental disorder.),(Data Element Scope: This value set may use the Quality Data Model (QDM) category related to Diagnosis. ),(Inclusion Criteria: Includes only relevant concepts associated with identifying patients with a diagnosis of autistic disorder, other childhood disintegrative disorder or other pervasive developmental disorder. This is a grouping of ICD-9-CM, ICD-10-CM and SNOMED CT concepts.),(Exclusion Criteria: No exclusions.)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.464.1003.105.11.1178:Pervasive Developmental Disorder),(2.16.840.1.113883.3.464.1003.105.11.1179:Pervasive Developmental Disorder),(2.16.840.1.113883.3.464.1003.105.11.1180:Pervasive Developmental Disorder)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2019-02-27</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:52 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.67.1.101.1.128&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-912430-RevprvdMyzpI01uOKSci-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!jq7UhcWCKawcVJHm9OGvBt4MxRMcjli8SGIn9Mk87h/otOv1N3zswu2uJSJrG99832ozCWehx0nxMlE=;
+        expires=Thu, 28-Feb-2019 04:19:52 GMT; path=/; Httponly; Secure
+      - JSESSIONID=9D020443357761C1E38B751680CE874B; Path=/vsac; HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '38428'
+      Date:
+      - Thu, 28 Feb 2019 02:19:51 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.67.1.101.1.128" displayName="Bipolar Disorder" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="10875004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe mixed bipolar I disorder with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="10981006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe mixed bipolar I disorder with psychotic features (disorder)"/>
+                    <ns0:Concept code="111485001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar I disorder in full remission (disorder)"/>
+                    <ns0:Concept code="1196001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Chronic bipolar II disorder, most recent episode major depressive (disorder)"/>
+                    <ns0:Concept code="12969000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar II disorder, most recent episode major depressive, in full remission (disorder)"/>
+                    <ns0:Concept code="13313007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild bipolar disorder (disorder)"/>
+                    <ns0:Concept code="13581000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar I disorder, single manic episode with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="13746004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar disorder (disorder)"/>
+                    <ns0:Concept code="14495005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar I disorder, single manic episode without psychotic features (disorder)"/>
+                    <ns0:Concept code="1499003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, single manic episode with postpartum onset (disorder)"/>
+                    <ns0:Concept code="162004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe manic bipolar I disorder without psychotic features (disorder)"/>
+                    <ns0:Concept code="16295005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar II disorder, most recent episode major depressive (disorder)"/>
+                    <ns0:Concept code="16506000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="17782008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode manic with catatonic features (disorder)"/>
+                    <ns0:Concept code="191618007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, current episode manic (disorder)"/>
+                    <ns0:Concept code="191620005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, currently manic, mild (disorder)"/>
+                    <ns0:Concept code="191621009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, currently manic, moderate (disorder)"/>
+                    <ns0:Concept code="191623007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, currently manic, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="191625000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, currently manic, in full remission (disorder)"/>
+                    <ns0:Concept code="191627008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, current episode depression (disorder)"/>
+                    <ns0:Concept code="191629006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, currently depressed, mild (disorder)"/>
+                    <ns0:Concept code="191630001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, currently depressed, moderate (disorder)"/>
+                    <ns0:Concept code="191632009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-03" displayName="Bipolar affective disorder, currently depressed, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="191634005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, currently depressed, in full remission (disorder)"/>
+                    <ns0:Concept code="191636007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar affective disorder (disorder)"/>
+                    <ns0:Concept code="191638008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar affective disorder, mild (disorder)"/>
+                    <ns0:Concept code="191639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar affective disorder, moderate (disorder)"/>
+                    <ns0:Concept code="191641004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar affective disorder, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="191643001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar affective disorder, in full remission (disorder)"/>
+                    <ns0:Concept code="192362008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar affective disorder, current episode mixed (disorder)"/>
+                    <ns0:Concept code="19300006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar II disorder, most recent episode major depressive with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="20960007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar II disorder, most recent episode major depressive with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="21900002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode depressed with catatonic features (disorder)"/>
+                    <ns0:Concept code="22121000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Depressed bipolar I disorder in full remission (disorder)"/>
+                    <ns0:Concept code="22407005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar II disorder, most recent episode major depressive with catatonic features (disorder)"/>
+                    <ns0:Concept code="26203008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe depressed bipolar I disorder with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="26530004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar disorder with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="28663008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe manic bipolar I disorder with psychotic features (disorder)"/>
+                    <ns0:Concept code="28884001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate bipolar I disorder, single manic episode (disorder)"/>
+                    <ns0:Concept code="296.00" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, single manic episode, unspecified"/>
+                    <ns0:Concept code="296.01" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, single manic episode, mild"/>
+                    <ns0:Concept code="296.02" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, single manic episode, moderate"/>
+                    <ns0:Concept code="296.03" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, single manic episode, severe, without mention of psychotic behavior"/>
+                    <ns0:Concept code="296.04" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, single manic episode, severe, specified as with psychotic behavior"/>
+                    <ns0:Concept code="296.05" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, single manic episode, in partial or unspecified remission"/>
+                    <ns0:Concept code="296.06" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, single manic episode, in full remission"/>
+                    <ns0:Concept code="296.10" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Manic affective disorder, recurrent episode, unspecified"/>
+                    <ns0:Concept code="296.11" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Manic affective disorder, recurrent episode, mild"/>
+                    <ns0:Concept code="296.12" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Manic affective disorder, recurrent episode, moderate"/>
+                    <ns0:Concept code="296.13" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Manic affective disorder, recurrent episode, severe, without mention of psychotic behavior"/>
+                    <ns0:Concept code="296.14" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Manic affective disorder, recurrent episode, severe, specified as with psychotic behavior"/>
+                    <ns0:Concept code="296.15" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Manic affective disorder, recurrent episode, in partial or unspecified remission"/>
+                    <ns0:Concept code="296.16" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Manic affective disorder, recurrent episode, in full remission"/>
+                    <ns0:Concept code="296.40" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) manic, unspecified"/>
+                    <ns0:Concept code="296.41" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) manic, mild"/>
+                    <ns0:Concept code="296.42" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) manic, moderate"/>
+                    <ns0:Concept code="296.43" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) manic, severe, without mention of psychotic behavior"/>
+                    <ns0:Concept code="296.44" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) manic, severe, specified as with psychotic behavior"/>
+                    <ns0:Concept code="296.45" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) manic, in partial or unspecified remission"/>
+                    <ns0:Concept code="296.46" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) manic, in full remission"/>
+                    <ns0:Concept code="296.50" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) depressed, unspecified"/>
+                    <ns0:Concept code="296.51" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) depressed, mild"/>
+                    <ns0:Concept code="296.52" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) depressed, moderate"/>
+                    <ns0:Concept code="296.53" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) depressed, severe, without mention of psychotic behavior"/>
+                    <ns0:Concept code="296.54" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) depressed, severe, specified as with psychotic behavior"/>
+                    <ns0:Concept code="296.55" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) depressed, in partial or unspecified remission"/>
+                    <ns0:Concept code="296.56" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) depressed, in full remission"/>
+                    <ns0:Concept code="296.60" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) mixed, unspecified"/>
+                    <ns0:Concept code="296.61" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) mixed, mild"/>
+                    <ns0:Concept code="296.62" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) mixed, moderate"/>
+                    <ns0:Concept code="296.63" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) mixed, severe, without mention of psychotic behavior"/>
+                    <ns0:Concept code="296.64" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) mixed, severe, specified as with psychotic behavior"/>
+                    <ns0:Concept code="296.65" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) mixed, in partial or unspecified remission"/>
+                    <ns0:Concept code="296.66" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) mixed, in full remission"/>
+                    <ns0:Concept code="296.7" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar I disorder, most recent episode (or current) unspecified"/>
+                    <ns0:Concept code="296.80" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Bipolar disorder, unspecified"/>
+                    <ns0:Concept code="296.81" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Atypical manic disorder"/>
+                    <ns0:Concept code="296.82" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Atypical depressive disorder"/>
+                    <ns0:Concept code="296.89" codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD9CM" codeSystemVersion="2013" displayName="Other bipolar disorders"/>
+                    <ns0:Concept code="29929003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode depressed with atypical features (disorder)"/>
+                    <ns0:Concept code="30520009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar II disorder, most recent episode major depressive with psychotic features (disorder)"/>
+                    <ns0:Concept code="30687003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar II disorder, most recent episode major depressive with postpartum onset (disorder)"/>
+                    <ns0:Concept code="30935000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Manic bipolar I disorder in full remission (disorder)"/>
+                    <ns0:Concept code="31446002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode hypomanic (disorder)"/>
+                    <ns0:Concept code="33380008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe manic bipolar I disorder with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="34315001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar II disorder, most recent episode major depressive with melancholic features (disorder)"/>
+                    <ns0:Concept code="3530005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, single manic episode, in full remission (disorder)"/>
+                    <ns0:Concept code="35481005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar I disorder in remission (disorder)"/>
+                    <ns0:Concept code="35722002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar II disorder, most recent episode major depressive, in remission (disorder)"/>
+                    <ns0:Concept code="35846004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate bipolar II disorder, most recent episode major depressive (disorder)"/>
+                    <ns0:Concept code="36583000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mixed bipolar I disorder in partial remission (disorder)"/>
+                    <ns0:Concept code="371596008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="371599001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="371600003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar disorder (disorder)"/>
+                    <ns0:Concept code="371604007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar II disorder (disorder)"/>
+                    <ns0:Concept code="40926005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate mixed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="41552001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild bipolar I disorder, single manic episode (disorder)"/>
+                    <ns0:Concept code="41832009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar I disorder, single manic episode with psychotic features (disorder)"/>
+                    <ns0:Concept code="41836007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar disorder in full remission (disorder)"/>
+                    <ns0:Concept code="43568002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar II disorder, most recent episode major depressive with atypical features (disorder)"/>
+                    <ns0:Concept code="43769008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild mixed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="4441000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar disorder with psychotic features (disorder)"/>
+                    <ns0:Concept code="45479006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Manic bipolar I disorder in remission (disorder)"/>
+                    <ns0:Concept code="46229002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe mixed bipolar I disorder without psychotic features (disorder)"/>
+                    <ns0:Concept code="48937005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar II disorder, most recent episode hypomanic (disorder)"/>
+                    <ns0:Concept code="49468007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Depressed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="49512000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Depressed bipolar I disorder in partial remission (disorder)"/>
+                    <ns0:Concept code="51637008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Chronic bipolar I disorder, most recent episode depressed (disorder)"/>
+                    <ns0:Concept code="53049002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar disorder without psychotic features (disorder)"/>
+                    <ns0:Concept code="53607008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Depressed bipolar I disorder in remission (disorder)"/>
+                    <ns0:Concept code="54761006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe depressed bipolar I disorder with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="55516002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode manic with postpartum onset (disorder)"/>
+                    <ns0:Concept code="5703000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar disorder in partial remission (disorder)"/>
+                    <ns0:Concept code="59617007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe depressed bipolar I disorder with psychotic features (disorder)"/>
+                    <ns0:Concept code="61403008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe depressed bipolar I disorder without psychotic features (disorder)"/>
+                    <ns0:Concept code="63249007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Manic bipolar I disorder in partial remission (disorder)"/>
+                    <ns0:Concept code="64731001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe mixed bipolar I disorder with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="65042007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode mixed with postpartum onset (disorder)"/>
+                    <ns0:Concept code="66631006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate depressed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="67002003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar II disorder, most recent episode major depressive, in partial remission (disorder)"/>
+                    <ns0:Concept code="68569003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Manic bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="70546001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar disorder with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="71294008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild bipolar II disorder, most recent episode major depressive (disorder)"/>
+                    <ns0:Concept code="71984005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild manic bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="73471000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode mixed with catatonic features (disorder)"/>
+                    <ns0:Concept code="74686005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild depressed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="75360000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, single manic episode, in remission (disorder)"/>
+                    <ns0:Concept code="75752004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode depressed with melancholic features (disorder)"/>
+                    <ns0:Concept code="78269000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, single manic episode, in partial remission (disorder)"/>
+                    <ns0:Concept code="78640000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe manic bipolar I disorder with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="79584002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate bipolar disorder (disorder)"/>
+                    <ns0:Concept code="81319007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar II disorder, most recent episode major depressive without psychotic features (disorder)"/>
+                    <ns0:Concept code="82998009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate manic bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="83225003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar II disorder (disorder)"/>
+                    <ns0:Concept code="85248005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar disorder in remission (disorder)"/>
+                    <ns0:Concept code="86058007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe bipolar I disorder, single manic episode with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="87203005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, most recent episode depressed with postpartum onset (disorder)"/>
+                    <ns0:Concept code="87950005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, single manic episode with catatonic features (disorder)"/>
+                    <ns0:Concept code="9340000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bipolar I disorder, single manic episode (disorder)"/>
+                    <ns0:Concept code="F30.10" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Manic episode without psychotic symptoms, unspecified"/>
+                    <ns0:Concept code="F30.11" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Manic episode without psychotic symptoms, mild"/>
+                    <ns0:Concept code="F30.12" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Manic episode without psychotic symptoms, moderate"/>
+                    <ns0:Concept code="F30.13" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Manic episode, severe, without psychotic symptoms"/>
+                    <ns0:Concept code="F30.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Manic episode, severe with psychotic symptoms"/>
+                    <ns0:Concept code="F30.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Manic episode in partial remission"/>
+                    <ns0:Concept code="F30.4" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Manic episode in full remission"/>
+                    <ns0:Concept code="F30.8" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Other manic episodes"/>
+                    <ns0:Concept code="F30.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Manic episode, unspecified"/>
+                    <ns0:Concept code="F31.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode hypomanic"/>
+                    <ns0:Concept code="F31.10" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode manic without psychotic features, unspecified"/>
+                    <ns0:Concept code="F31.11" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode manic without psychotic features, mild"/>
+                    <ns0:Concept code="F31.12" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode manic without psychotic features, moderate"/>
+                    <ns0:Concept code="F31.13" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode manic without psychotic features, severe"/>
+                    <ns0:Concept code="F31.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode manic severe with psychotic features"/>
+                    <ns0:Concept code="F31.30" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode depressed, mild or moderate severity, unspecified"/>
+                    <ns0:Concept code="F31.31" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode depressed, mild"/>
+                    <ns0:Concept code="F31.32" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode depressed, moderate"/>
+                    <ns0:Concept code="F31.4" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode depressed, severe, without psychotic features"/>
+                    <ns0:Concept code="F31.5" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode depressed, severe, with psychotic features"/>
+                    <ns0:Concept code="F31.60" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode mixed, unspecified"/>
+                    <ns0:Concept code="F31.61" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode mixed, mild"/>
+                    <ns0:Concept code="F31.62" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode mixed, moderate"/>
+                    <ns0:Concept code="F31.63" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode mixed, severe, without psychotic features"/>
+                    <ns0:Concept code="F31.64" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, current episode mixed, severe, with psychotic features"/>
+                    <ns0:Concept code="F31.70" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, currently in remission, most recent episode unspecified"/>
+                    <ns0:Concept code="F31.71" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, in partial remission, most recent episode hypomanic"/>
+                    <ns0:Concept code="F31.72" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, in full remission, most recent episode hypomanic"/>
+                    <ns0:Concept code="F31.73" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, in partial remission, most recent episode manic"/>
+                    <ns0:Concept code="F31.74" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, in full remission, most recent episode manic"/>
+                    <ns0:Concept code="F31.75" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, in partial remission, most recent episode depressed"/>
+                    <ns0:Concept code="F31.76" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, in full remission, most recent episode depressed"/>
+                    <ns0:Concept code="F31.77" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, in partial remission, most recent episode mixed"/>
+                    <ns0:Concept code="F31.78" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, in full remission, most recent episode mixed"/>
+                    <ns0:Concept code="F31.81" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar II disorder"/>
+                    <ns0:Concept code="F31.89" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Other bipolar disorder"/>
+                    <ns0:Concept code="F31.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Bipolar disorder, unspecified"/>
+                </ns0:ConceptList>
+                <ns0:Source>MN Community Measurement</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: This value set contains concepts that represent diagnoses related to bipolar disorder.),(Data Element Scope: This value set may use the Quality Data Model (QDM) category related to Diagnosis.),(Inclusion Criteria: Includes only relevant concepts associated with all relevant diagnoses associated with bipolar disorder. This is a grouping of SNOMED CT, ICD-9-CM, and ICD-10-CM codes.),(Exclusion Criteria: No exclusions.)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.67.1.101.1.43:Bipolar Disorder),(2.16.840.1.113883.3.67.1.101.1.44:Bipolar Disorder),(2.16.840.1.113883.3.67.1.101.1.45:Bipolar Disorder)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2019-02-27</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 02:19:52 GMT
+recorded_with: VCR 4.0.0

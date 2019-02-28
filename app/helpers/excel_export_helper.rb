@@ -120,8 +120,7 @@ module ExcelExportHelper
   # Builds a map of define statement name to the statement's text from a measure.
   def self.get_statement_details_from_measure(measure)
     statement_details = ActiveSupport::HashWithIndifferentAccess.new
-
-    measure.cql_libraries.each do |library|
+    measure.cql_libraries.select(&:is_top_level).each do |library|
       lib_statements = {}
       library.elm_annotations['statements'].each do |statement|
         lib_statements[statement['define_name']] = parse_annotation_tree(statement['children'])
