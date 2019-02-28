@@ -3,6 +3,7 @@ require 'simplecov'
 SimpleCov.start do
   add_filter "test/"
   add_filter "lib/tasks/bonnie_run_once.rake"
+  add_filter "lib/tasks/rebuild_package.rake"
   add_filter "lib/tasks/vsac.rake"
   add_filter "lib/tasks/cql_testing.rake"
   add_filter "lib/util/fixture_exporter.rb"
