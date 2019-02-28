@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: dc6921c7b3baf4f17dddbdc73ab0f3b65df38539
-  branch: fixes_for_bonnie_integration
+  revision: 661ea30f582afe4dfc03e52bd233b0c2098bac22
+  branch: master
   specs:
     bonnie_bundler (2.2.4)
       diffy (~> 3.0.0)
@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: f757139a02d98244b70b8f4bfd6e032a43f0a588
+  revision: 02074f5cef404f9b0d260568f4f982b34ab413ea
   branch: fixes_for_bonnie_integration
   specs:
     cqm-parsers (0.2.1)
