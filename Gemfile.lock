@@ -7,28 +7,6 @@ GIT
       json
 
 GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 0fb14470bb8e916b4d93baafa6fa90eb7372c46b
-  branch: master_bonnie
-  specs:
-    health-data-standards (4.3.3)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongo (~> 2.4.3)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 2.0.1)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
   revision: dc6921c7b3baf4f17dddbdc73ab0f3b65df38539
   branch: fixes_for_bonnie_integration
@@ -45,6 +23,16 @@ GIT
       rubyzip (~> 1.2, >= 1.2.1)
       simplexml_parser (~> 1.0)
       zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
+  revision: 4318dc163f805cca1590640bf1a4b508699e679c
+  branch: master
+  specs:
+    cql_qdm_patientapi (1.3.1)
+      coffee-rails (~> 4.1)
+      rails (>= 4.2, < 6.0)
+      sprockets-rails (~> 2.3)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
@@ -197,10 +185,6 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.4)
-    cql_qdm_patientapi (1.3.1)
-      coffee-rails (~> 4.1)
-      rails (>= 4.2, < 6.0)
-      sprockets-rails (~> 2.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
@@ -244,6 +228,22 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hashdiff (0.3.8)
+    health-data-standards (4.3.3)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongo (~> 2.4.3)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.3)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 2.0.1)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
     highline (1.7.10)
     hike (1.2.3)
     hqmf2js (1.4.0)
@@ -497,7 +497,7 @@ DEPENDENCIES
   codecov
   coffee-rails
   colorize
-  cql_qdm_patientapi (~> 1.3.1)
+  cql_qdm_patientapi!
   cqm-converter!
   cqm-models!
   cqm-parsers!
@@ -507,7 +507,7 @@ DEPENDENCIES
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards!
+  health-data-standards (~> 4.3.3)
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails
