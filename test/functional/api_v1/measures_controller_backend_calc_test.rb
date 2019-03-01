@@ -3,7 +3,7 @@ require 'test_helper'
 module ApiV1
   class MeasuresControllerBackendCalcTest < ActionController::TestCase
     tests ApiV1::MeasuresController
-    include Devise::TestHelpers
+    include Devise::Test::ControllerHelpers
     include WebMock::API
 
     def setup_db

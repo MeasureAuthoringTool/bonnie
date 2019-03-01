@@ -141,10 +141,6 @@ class FrontendFixtureExporter < FixtureExporter
   alias export_value_sets export_value_sets_as_map
   alias export_records export_records_as_array
 
-  # def initialize(user, measure: nil, records: nil)
-  #   super(user, measure: measure, records: records)
-  # end
-
   def make_hash_and_apply_any_transforms(mongoid_doc)
     return JSON.parse(mongoid_doc.as_json(include: :_type, methods: :_type).to_json, max_nesting: 1000)
   end
