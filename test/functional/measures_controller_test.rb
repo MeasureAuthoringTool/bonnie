@@ -626,6 +626,7 @@ include Devise::Test::ControllerHelpers
       }
     end
     assert_response :redirect
+    assert_equal 1, CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).size
     measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_not_equal measure_id_before, measure._id
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id

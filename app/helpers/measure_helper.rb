@@ -272,14 +272,7 @@ module MeasureHelper
     end
   end
 
-  def add_measures_to_user(measures, current_user)
-    # what is this for?
-    measures.each { |measure| current_user.cqm_measures << measure }
-    current_user.save!
-  end
-
   def delete_for_update(existing, user)
-    # TODO: make sure this is good.
     existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
       component_measure = CQM::Measure.by_user(user).where(hqmf_set_id: component_hqmf_set_id).first
       component_measure.delete
@@ -304,7 +297,6 @@ module MeasureHelper
       measure.save_self_and_child_docs
     end
     update_related_patient_records(measures, user)
-    add_measures_to_user(measures, user)
   end
 
   def log_measure_loading_error(error, measure_file, user)

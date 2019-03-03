@@ -247,7 +247,7 @@ module ApiV1
     def retrieve_measure_details(params)
       return {
         'episode_of_care' => params[:calculation_type] == 'episode',
-        'calculate_sdes' => params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true',
+        'calculate_sdes' => params[:calculate_sdes].to_s == 'true',
         'population_titles' => params[:population_titles]
       }
     end

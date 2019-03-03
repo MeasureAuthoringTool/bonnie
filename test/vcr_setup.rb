@@ -25,10 +25,10 @@ end
 
 def remove_service_ticket_from_uri(uri)
   uri = String.new(uri)
-  st = uri[/(&ticket=.*)&|(&ticket=.*)$/,0]
-  if st.present?
-    st.chop! if st.end_with? '&'
-    uri[st] = ''
+  service_ticket = uri[/(&ticket=.*)&|(&ticket=.*)$/,0]
+  if service_ticket.present?
+    service_ticket.chop! if service_ticket.end_with? '&'
+    uri[service_ticket] = ''
   end
   return uri
 end

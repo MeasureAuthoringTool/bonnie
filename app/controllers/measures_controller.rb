@@ -59,7 +59,6 @@ class MeasuresController < ApplicationController
     measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
 
     if measure.component
-      # Throw error since component can't be deleted individually
       render status: :bad_request, json: {error: "Component measures can't be deleted individually."}
       return
     elsif measure.composite
