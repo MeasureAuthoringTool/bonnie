@@ -2,6 +2,8 @@ namespace :bonnie do
   namespace :cql do
     desc %(Rebuilds the JSON and XML ELM for a MAT package or extracted directory. Saves as a new zip file with '_rebuilt' appened to
       the file name next to the input path.
+      - DOES NOT work with composite measures
+      - MUST have cql-to-elm cqlTranslationServer JAR running on local machine
       
       $ bundle exec rake bonnie:cql:rebuild_package[path/to/package.zip]
       or
@@ -19,7 +21,7 @@ namespace :bonnie do
         puts "Rebuilding ELM of measure package at #{args[:input_package_or_dir_path]}"
         measure_path = Pathname.new(File.join('tmp', 'package_temp'))
         FileUtils.rm_rf(measure_path) if measure_path.exist?
-        measure_path.mkdir
+        FileUtils.mkdir_p(measure_path)
 
         base_zip_directory = nil
         # extract human_readable and determine base directory name if there is one
