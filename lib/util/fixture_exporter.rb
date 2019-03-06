@@ -51,11 +51,8 @@ class FixtureExporter
   end
 
   def export_value_sets_as_array(path)
-    vs_export = []
-    @measure_and_any_components.each do |m|
-      m.value_sets.each { |vs| vs_export << as_transformed_hash(vs) }
-    end
-    vs_export.uniq! { |vs| vs['oid'].to_s + vs['version'].to_s }
+    value_sets = @measure_and_any_components.flat_map(&:value_sets).uniq(&:_id)
+    vs_export = value_sets.map { |vs| as_transformed_hash(vs) }
     value_sets_file = File.join(path, 'value_sets.json')
     create_fixture_file(value_sets_file, JSON.pretty_generate(vs_export))
     puts 'exported value sets (as an array) to ' + value_sets_file

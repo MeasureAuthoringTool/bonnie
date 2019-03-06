@@ -142,8 +142,7 @@ module ApiV1
           jon_doe_row = sheet.row(4)
           jane_smith_row = sheet.row(3)
         end
-        # TODO: investigate what is causing this to fail
-        # assert_equal [1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0], jon_doe_row[0..7]
+        assert_equal [1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0], jon_doe_row[0..7]
         assert_equal [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], jane_smith_row[0..7]
       end
 
