@@ -218,7 +218,7 @@ namespace :bonnie do
       unless is_error
         if measure.package
           filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date}.zip"
-          file = open(filename, 'wb')
+          file = File.open(filename, 'wb')
           file.write(measure.package.file.data)
           file.close
           print_success "Successfully wrote #{measure.cms_id}_#{email}_#{measure.package.created_at.to_date}.zip"
