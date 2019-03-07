@@ -186,15 +186,19 @@ module ApiV1
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
         expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results","CMS321v0_shared_patients_composite.json")))
         # there currently seems to be a mismatch in frontend / backend for things like [], 0, [0], etc.
-        expected_rows["jon_doe_row"][6] = "[]" # from "[0]"
         expected_rows["jane_smith_row"][6] = "[]" # from "0"
 
         jon_doe_row[12] = "FALSE" if jon_doe_row[12] == false
         jane_smith_row[12] = "FALSE" if jane_smith_row[12] == false
 
-        # TODO: I think the only remaining differences are from two columns being in a different order!
-        # assert_equal expected_rows["jon_doe_row"], jon_doe_row
-        # assert_equal expected_rows["jane_smith_row"], jane_smith_row
+        # There was an ordering mismatch, so this sorts the arrays so the comparison will be order independent
+        expected_rows["jon_doe_row"] =  expected_rows["jon_doe_row"].grep(String).sort + expected_rows["jon_doe_row"].grep(Integer).sort
+        expected_rows["jane_smith_row"] =  expected_rows["jane_smith_row"].grep(String).sort + expected_rows["jane_smith_row"].grep(Integer).sort
+        jane_smith_row =  jane_smith_row.grep(String).sort + jane_smith_row.grep(Integer).sort
+        jon_doe_row =  jon_doe_row.grep(String).sort + jon_doe_row.grep(Integer).sort
+
+        assert_equal expected_rows["jon_doe_row"], jon_doe_row
+        assert_equal expected_rows["jane_smith_row"], jane_smith_row
       end
 
       Apipie.configuration.record = apipie_record_configuration

@@ -11,7 +11,7 @@ module BonnieBackendCalculator
                   else
                     CQM::Converter::BonnieMeasure.measure_and_valuesets_to_cqm(measure, measure.value_sets)
                   end
-                  
+
     cqm_value_sets = cqm_measure.value_sets.as_json(:except => :_id)
     post_data = {
       patients: qdm_patients,
