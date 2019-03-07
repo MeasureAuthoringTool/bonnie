@@ -196,10 +196,10 @@ module ApiV1
         assert_equal expected_rows["jane_smith_row"][0..7], jane_smith_row[0..7]
 
         # There was an ordering mismatch, so this sorts the remainder of the arrays so the comparison will be order independent
-        expected_cql_results_jon =  expected_rows["jon_doe_row"][8..-1].grep(String).sort + expected_rows["jon_doe_row"][8..-1].grep(Integer).sort
-        expected_cql_results_jane =  expected_rows["jane_smith_row"][8..-1].grep(String).sort + expected_rows["jane_smith_row"][8..-1].grep(Integer).sort
-        jane_smith_cql =  jane_smith_row[8..-1].grep(String).sort + jane_smith_row[8..-1].grep(Integer).sort
-        jon_doe_cql =  jon_doe_row[8..-1].grep(String).sort + jon_doe_row[8..-1].grep(Integer).sort
+        expected_cql_results_jon = expected_rows["jon_doe_row"][8..-1].grep(String).sort + expected_rows["jon_doe_row"][8..-1].grep(Integer).sort
+        expected_cql_results_jane = expected_rows["jane_smith_row"][8..-1].grep(String).sort + expected_rows["jane_smith_row"][8..-1].grep(Integer).sort
+        jane_smith_cql = jane_smith_row[8..-1].grep(String).sort + jane_smith_row[8..-1].grep(Integer).sort
+        jon_doe_cql = jon_doe_row[8..-1].grep(String).sort + jon_doe_row[8..-1].grep(Integer).sort
 
         assert_equal expected_cql_results_jon, jon_doe_cql
         assert_equal expected_cql_results_jane, jane_smith_cql
