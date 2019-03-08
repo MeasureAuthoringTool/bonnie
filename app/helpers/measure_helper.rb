@@ -319,8 +319,7 @@ module MeasureHelper
       f.write(error.to_s + "\n" + (error.backtrace||[]).join("\n"))
     end
     # email the error
-    if error.respond_to?(:operator_error) && error.operator_error && defined? ExceptionNotifier::Notifier # rubocop:disable Style/GuardClause
-      # params[:error_file] = filename  #TODO: what is this? I want to delete it.
+    if error.respond_to?(:operator_error) && error.operator_error && defined? ExceptionNotifier::Notifier # rubocop:disable Style/GuardClause, Style/IfUnlessModifier
       ExceptionNotifier::Notifier.exception_notification(env, error).deliver_now
     end
   end
