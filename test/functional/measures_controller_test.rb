@@ -306,7 +306,7 @@ include Devise::Test::ControllerHelpers
       assert_equal measure.title, shown['title']
       assert_equal measure.hqmf_id, shown['hqmf_id']
       assert_equal measure.hqmf_set_id, shown['hqmf_set_id']
-      # TODO: FIX THIS ?? assert_equal measure.cms_id, shown['cms_id']
+      assert_equal measure.cms_id, shown['cms_id']
       assert_nil shown['record_ids']
       assert_nil shown['measure_attributes']
     end
@@ -371,10 +371,16 @@ include Devise::Test::ControllerHelpers
         calculation_type: 'patient'
       }
 
-      assert_equal 2, CQM::Measure.all.count
-      delete :destroy, {id: CQM::Measure.first.id}
+      assert_equal 2, CQM::Measure.count
+      assert_equal 2, CQM::MeasurePackage.count
+      assert_equal 35, CQM::ValueSet.count
+
+      delete :destroy, {id: CQM::Measure.where({cms_id: "CMS134v5"}).first.id}
       assert_response :success
-      assert_equal 1, CQM::Measure.all.count
+
+      assert_equal 1, CQM::Measure.count
+      assert_equal 1, CQM::MeasurePackage.count
+      assert_equal 7, CQM::ValueSet.count
     end
   end
 

@@ -42,10 +42,7 @@ class MeasuresController < ApplicationController
       return
     end
 
-    measure_file = params[:measure_file]
-    measure_file = measure_file.tempfile if measure_file.is_a?(ActionDispatch::Http::UploadedFile)
-
-    measures, main_hqmf_set_id = persist_measure(measure_file, params, current_user)
+    measures, main_hqmf_set_id = persist_measure(params[:measure_file], params, current_user)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
     # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
@@ -54,7 +51,6 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
-  #TODO: maybe better tests for this, check vs and package are deleted
   def destroy
     measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
 
@@ -94,15 +90,15 @@ class MeasuresController < ApplicationController
 
   private
 
-  def persist_measure(measure_file, params, user)
+  def persist_measure(uploaded_file, params, user)
     measures, main_hqmf_set_id =
       if params[:hqmf_set_id].present?
-        update_measure(measure_file: measure_file,
+        update_measure(uploaded_file: uploaded_file,
                       target_id: params[:hqmf_set_id],
                       value_set_loader: build_vs_loader(params, false),
                       user: user)
       else
-        create_measure(measure_file: measure_file,
+        create_measure(uploaded_file: uploaded_file,
                       measure_details: retrieve_measure_details(params),
                       value_set_loader: build_vs_loader(params, false),
                       user: user)

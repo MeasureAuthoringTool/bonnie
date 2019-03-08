@@ -163,8 +163,8 @@ module MeasureHelper
     end
   end
 
-  def create_measure(measure_file:, measure_details:, value_set_loader:, user:)
-    measures, main_hqmf_set_id = extract_measures!(measure_file, measure_details, value_set_loader)
+  def create_measure(uploaded_file:, measure_details:, value_set_loader:, user:)
+    measures, main_hqmf_set_id = extract_measures!(uploaded_file.tempfile, measure_details, value_set_loader)
     existing = CQM::Measure.by_user(user).where(hqmf_set_id: main_hqmf_set_id).first
     raise MeasureLoadingMeasureAlreadyExists.new(main_hqmf_set_id) unless existing.nil?
     save_and_post_process(measures, user)
@@ -172,16 +172,16 @@ module MeasureHelper
   rescue StandardError => e
     measures&.each(&:delete_self_and_child_docs)
     e = turn_exception_into_shared_error_if_needed(e)
-    log_measure_loading_error(e, measure_file, user)
+    log_measure_loading_error(e, uploaded_file, user)
     raise e
   end
 
-  def update_measure(measure_file:, target_id:, value_set_loader:, user:)
+  def update_measure(uploaded_file:, target_id:, value_set_loader:, user:)
     existing = CQM::Measure.by_user(user).where({:hqmf_set_id=> target_id}).first
     raise MeasureUpdateMeasureNotFound.new if existing.nil?
     measure_details = extract_measure_details_from_measure(existing)
 
-    measures, main_hqmf_set_id = extract_measures!(measure_file, measure_details, value_set_loader)
+    measures, main_hqmf_set_id = extract_measures!(uploaded_file.tempfile, measure_details, value_set_loader)
     raise MeasureLoadingUpdatingWithMismatchedMeasure.new if main_hqmf_set_id != existing.hqmf_set_id
     delete_for_update(existing, user)
     save_and_post_process(measures, user)
@@ -189,7 +189,7 @@ module MeasureHelper
   rescue StandardError => e
     measures&.each(&:delete_self_and_child_docs)
     e = turn_exception_into_shared_error_if_needed(e)
-    log_measure_loading_error(e, measure_file, user)
+    log_measure_loading_error(e, uploaded_file, user)
     raise e
   end
 
@@ -299,7 +299,7 @@ module MeasureHelper
     update_related_patient_records(measures, user)
   end
 
-  def log_measure_loading_error(error, measure_file, user)
+  def log_measure_loading_error(error, uploaded_file, user)
     errors_dir = Rails.root.join('log', 'load_errors')
     FileUtils.mkdir_p(errors_dir)
     clean_email = File.basename(user.email) # Prevent path traversal
@@ -309,18 +309,18 @@ module MeasureHelper
     filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.xmlorzip"
 
     File.open(File.join(errors_dir, filename), 'w') do |errored_measure_file|
-      uploaded_file = measure_file.tempfile.open
+      uploaded_file.open
       errored_measure_file.write(uploaded_file.read)
       uploaded_file.close
     end
     File.chmod(0o644, File.join(errors_dir, filename))
     File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
-      f.write("Original Filename was #{measure_file.original_filename}\n")
+      f.write("Original Filename was #{uploaded_file.original_filename}\n")
       f.write(error.to_s + "\n" + (error.backtrace||[]).join("\n"))
     end
     # email the error
     if error.respond_to?(:operator_error) && error.operator_error && defined? ExceptionNotifier::Notifier # rubocop:disable Style/GuardClause
-      # params[:error_file] = filename  #TODO what is this
+      # params[:error_file] = filename  #TODO: what is this? I want to delete it.
       ExceptionNotifier::Notifier.exception_notification(env, error).deliver_now
     end
   end
