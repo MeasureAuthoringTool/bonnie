@@ -7,14 +7,13 @@ include Devise::Test::ControllerHelpers
     dump_database
     records_set = File.join("records", "core_measures", "CMS32v7")
     users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
-    collection_fixtures(users_set, records_set, cql_measures_set)
+    collection_fixtures(users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
     @user_admin = User.by_email('user_admin@example.com').first
     @user_plain = User.by_email('user_plain@example.com').first
     @user_unapproved = User.by_email('user_unapproved@example.com').first
 
-    associate_user_with_measures(@user, CqlMeasure.all)
+    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @user)
     associate_user_with_patients(@user, Record.all)
 
   end
@@ -180,7 +179,7 @@ include Devise::Test::ControllerHelpers
     assert mail.empty?
     # The following tests greater than 6 months, but 0 measure
     @user_admin.last_sign_in_at = Date.today - 8.months # arbitrary date more than 6 months ago
-    associate_user_with_measures(@user_admin, CqlMeasure.all)
+    associate_user_with_measures(@user_admin, CQM::Measure.all)
     @user_admin.save!
     post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
     assert mail.empty?

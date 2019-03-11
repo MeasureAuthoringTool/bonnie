@@ -1,0 +1,102 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: US-ASCII
+      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '66'
+      Date:
+      - Fri, 08 Feb 2019 02:54:03 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!grnQBdTA7pgpZrTm9OGvBt4MxRMcjlySA+PMxwATMJQBYQBaVLmo+LIg5HcstwGsVhxt+/2Cgsj9tH4=;
+        expires=Fri, 08-Feb-2019 04:54:03 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: TGT-1845800-aJdlhRg0YwbX6rfwI6YyAeO3DT2PfMUlRw3ZbDnQiUFxiR9oIr-cas
+    http_version: 
+  recorded_at: Fri, 08 Feb 2019 02:54:03 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '72'
+      Date:
+      - Fri, 08 Feb 2019 02:54:03 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!FJZqYqpZ2KtM5bTm9OGvBt4MxRMcjjlxEfQymJwXSBzh58U+Xpi6m+1V3JpylHnnet2m/R7pa7OJ8w4=;
+        expires=Fri, 08-Feb-2019 04:54:03 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.110 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"name":"eCQM Update 2019-05-03","requestTime":"2019-02-07 09:54:03
+        PM"}'
+    http_version: 
+  recorded_at: Fri, 08 Feb 2019 02:54:03 GMT
+recorded_with: VCR 4.0.0

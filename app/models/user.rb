@@ -68,10 +68,8 @@ class User
 
   field :crosswalk_enabled,  type:Boolean, default: false
   
-  has_many :measures
-  has_many :cql_measures
+  has_many :cqm_measures, class_name: 'CQM::Measure'
   has_many :records
-  belongs_to :bundle, class_name: 'HealthDataStandards::CQM::Bundle'
 
   scope :by_email, ->(email) { where({email: email}) }
 
@@ -88,9 +86,6 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
-
-   #make sure that the use has a bundle associated with them
-  after_create :ensure_bundle
 
   def is_admin?
     admin || false
@@ -151,23 +146,12 @@ class User
   # Measure and patient counts can be pre-populated or just retrieved
   attr_writer :measure_count
   def measure_count
-    @measure_count || cql_measures.count
+    @measure_count || cqm_measures.count
   end
 
   attr_writer :patient_count
   def patient_count
     @patient_count || records.count
-  end
-
-  protected
-  
-  def ensure_bundle
-    unless self.bundle 
-      b = HealthDataStandards::CQM::Bundle.new(title: "Bundle for user #{self.id}", version: "1")
-      b.save
-      self.bundle=b
-      self.save
-    end
   end
 
 end

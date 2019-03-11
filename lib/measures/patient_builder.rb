@@ -16,7 +16,6 @@ module Measures
 
     CODE_SOURCE = {
       DEFAULT: 'DEFAULT',
-      WHITE_LIST: 'WHITE_LIST',
       USER_DEFINED: 'USER_DEFINED'
     }
 
@@ -25,7 +24,7 @@ module Measures
       patient.medical_record_assigner ||= "Bonnie"
       vs_oids = patient.source_data_criteria.collect{|dc| get_vs_oids(dc)}.flatten.uniq
 
-      value_sets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: patient.user_id}).collect{|vs| [vs.oid,vs]}.flatten]
+      oid_to_vs_hash =  Hash[*CQM::ValueSet.in({oid: vs_oids, user_id: patient.user_id}).collect{|vs| [vs.oid,vs]}.flatten]
       sections = {}
       entries = {}
       patient.source_data_criteria.each  do |source_criteria|
@@ -37,7 +36,7 @@ module Measures
           #unsupported data criteria.
           puts $!
         end
-        entry = Measures::PatientBuilder.derive_entry(data_criteria, source_criteria, value_sets)
+        entry = Measures::PatientBuilder.derive_entry(data_criteria, source_criteria, oid_to_vs_hash)
 
         # if its a thing like result, condition, encounter it will have an entry otherwise
         # its most likely a characteristic
@@ -46,9 +45,9 @@ module Measures
             entries[source_criteria["criteria_id"]] = entry
           end
 
-          derive_values(entry, source_criteria['value'] ,value_sets)
-          derive_negation(entry, source_criteria, value_sets)
-          derive_field_values(entry, source_criteria['field_values'],value_sets)
+          derive_values(entry, source_criteria['value'] ,oid_to_vs_hash)
+          derive_negation(entry, source_criteria, oid_to_vs_hash)
+          derive_field_values(entry, source_criteria['field_values'],oid_to_vs_hash)
 
           entry_type = HQMF::Generator.classify_entry(data_criteria['patient_api_function'].to_sym)
           section_name = (entry_type == "lab_results") ? "results" : entry_type
@@ -57,11 +56,7 @@ module Measures
 
           source_criteria['codes'] = entry['codes']
           if source_criteria['code_source'] != CODE_SOURCE[:USER_DEFINED]
-            source_criteria['code_source'] = if Measures::PatientBuilder.white_list_black_list?(source_criteria['code_list_id'], value_sets)
-                                               CODE_SOURCE[:WHITE_LIST]
-                                             else
-                                               CODE_SOURCE[:DEFAULT]
-                                             end
+            source_criteria['code_source'] = CODE_SOURCE[:DEFAULT]
           end
 
           # Add the updated section to this patient.
@@ -144,9 +139,9 @@ module Measures
     # @param [data_criteria]  The data_criteria object to create the entry for
     # @param [Range] time The period of time during which the entry happens.
     # @param [source_criteria] the hash that represents the patients sopurce_data_criteria
-    # @param [Hash] value_sets The value sets that this data criteria references.
+    # @param [Hash] oid_to_vs_hash The value sets that this data criteria references.
     # @return A coded entry with basic data defined by this data criteria.
-    def self.derive_entry(data_criteria,source_criteria, value_sets)
+    def self.derive_entry(data_criteria,source_criteria, oid_to_vs_hash)
 
       return nil if data_criteria.nil? || (data_criteria['type'] == 'characteristic' && data_criteria['patient_api_function'].nil?)
       time = derive_time_range(source_criteria)
@@ -156,11 +151,9 @@ module Measures
       entry.start_time = time.low.to_seconds if time.low
       entry.end_time = time.high.to_seconds if time.high
       entry.status = source_criteria['status']
-      # If there are no source criteria codes or a white list is used, select new codes, otherwise use existing codes
-      if source_criteria['codes'].blank? ||
-         (Measures::PatientBuilder.white_list_black_list?(source_criteria['code_list_id'], value_sets) &&
-          source_criteria['code_source'] != CODE_SOURCE[:USER_DEFINED])
-        entry.codes = Measures::PatientBuilder.select_codes(source_criteria['code_list_id'], value_sets)
+      # If there are no source criteria codes, select new codes, otherwise use existing codes
+      if source_criteria['codes'].blank?
+        entry.codes = Measures::PatientBuilder.select_codes(source_criteria['code_list_id'], oid_to_vs_hash)
       else
         entry.codes = source_criteria['codes']
       end
@@ -171,7 +164,7 @@ module Measures
 
 
     # derive the values for the source data criteria
-    def self.derive_values(entry, values, value_sets)
+    def self.derive_values(entry, values, oid_to_vs_hash)
       return if values.nil? || values.empty?
       derived = []
       result_vals = values
@@ -179,8 +172,8 @@ module Measures
       result_vals.each do |result_value|
         if result_value['type'] == 'CD'
           oid = result_value['code_list_id']
-          codes = result_value['codes'] || Measures::PatientBuilder.select_codes(oid, value_sets)
-          vs = Measures::PatientBuilder.select_value_sets(oid, value_sets)
+          codes = result_value['codes'] || Measures::PatientBuilder.select_codes(oid, oid_to_vs_hash)
+          vs = Measures::PatientBuilder.select_value_sets(oid, oid_to_vs_hash)
           derived << CodedResultValue.new({codes:codes, description: vs["display_name"]})
         elsif result_value['type'] == 'RT'
           if result_value['numerator_scalar'] && result_value['denominator_scalar']
@@ -200,9 +193,9 @@ module Measures
     end
 
     # derive the negation for the source_data_criteria entry if it is negated
-    def self.derive_negation(entry,value,value_sets)
+    def self.derive_negation(entry,value,oid_to_vs_hash)
       if value['negation']
-        codes = Measures::PatientBuilder.select_code(value['negation_code_list_id'], value_sets)
+        codes = Measures::PatientBuilder.select_code(value['negation_code_list_id'], oid_to_vs_hash)
         entry.negation_ind = true
         entry.negation_reason = codes
       end
@@ -210,7 +203,7 @@ module Measures
     
     # This is the recursive helper function to the self.derive_field_values function it is recursive to support
     # field values that may contain other field values
-    def self.recursive_field_value_derivation(value, value_sets, name, entry)
+    def self.recursive_field_value_derivation(value, oid_to_vs_hash, name, entry)
       return if value.nil?
       if value['type'] == 'TS'
         converted_time = Time.at(value['value']/1000).utc.strftime('%Y%m%d%H%M%S')
@@ -229,11 +222,11 @@ module Measures
           field_value = value["code"]
         else
           # No codes specified, default to first possible code
-          field_value = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+          field_value = Measures::PatientBuilder.select_code(field.code_list_id, oid_to_vs_hash)
         end
-        field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
+        field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, oid_to_vs_hash)["display_name"] if field_value
       elsif field.type == "CMP"
-        field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+        field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, oid_to_vs_hash)
         cmp_type = value["type_cmp"]
         field_value["result"] = {}
         if cmp_type == "TS"
@@ -241,8 +234,8 @@ module Measures
           # converts from milliseconds to seconds for use by CQL_QDM.Helpers.convertDateTime()
           field_value["result"]["scalar"] = value['value']/1000
         elsif cmp_type == "CD"
-          field_value["result"]["code"] = Measures::PatientBuilder.select_code(field.code_list_id_cmp, value_sets)
-          field_value["result"]["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id_cmp, value_sets)["display_name"]
+          field_value["result"]["code"] = Measures::PatientBuilder.select_code(field.code_list_id_cmp, oid_to_vs_hash)
+          field_value["result"]["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id_cmp, oid_to_vs_hash)["display_name"]
         else
           field_value["result"] = {"scalar"=>value["value"], "units"=>value["unit"]}
         end
@@ -252,7 +245,7 @@ module Measures
           field_value["referenceRangeHigh"] = {"scalar"=>value["referenceRangeHigh_value"], "units"=>value["referenceRangeHigh_unit"]}
         end
       elsif field.type == "FAC"
-        field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+        field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, oid_to_vs_hash)
         field_value["display"] = field.title
         field_value["locationPeriodLow"] = value["locationPeriodLow"]
         field_value["locationPeriodHigh"] = value["locationPeriodHigh"]
@@ -263,7 +256,7 @@ module Measures
         values = []
         value["values"].each do |val| 
           # TODO name will have to be reset to name of embeded value if there are ever recursive collections or collections of mixed types
-          field_val, field_acc = self.recursive_field_value_derivation(val, value_sets, name, entry)
+          field_val, field_acc = self.recursive_field_value_derivation(val, oid_to_vs_hash, name, entry)
           values.push field_val
         end
         field_value = {"type"=> "COL", "values" => values}
@@ -305,12 +298,12 @@ module Measures
     # Add this data criteria's field related data to a coded entry.
     # @param [Entry] entry The coded entry that this data criteria is modifying.
     # @param [Array] values An array of values to create entries for
-    # @param [Hash] value_sets The value sets that this data criteria references.
+    # @param [Hash] oid_to_vs_hash The value sets that this data criteria references.
     # @return The modified coded entry.
-    def self.derive_field_values(entry, values, value_sets)
+    def self.derive_field_values(entry, values, oid_to_vs_hash)
       return if values.nil?
       values.each do |name, value|
-        field_value, field_accessor = recursive_field_value_derivation(value, value_sets, name, entry)
+        field_value, field_accessor = recursive_field_value_derivation(value, oid_to_vs_hash, name, entry)
         # Add field to entry, catagorized by the QDM human readable name->coded_entry_method defined in health-data-standards/lib/hqmf-model/data_criteria.rb
         begin
           field_accessor ||= HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
@@ -331,35 +324,28 @@ module Measures
     # The hash will be of this format: { "code_set_identified" => [code] }
     #
     # @param [String] oid The target value set.
-    # @param [Hash] value_sets Value sets that might contain the OID for which we're searching.
+    # @param [Hash] oid_to_vs_hash Value sets that might contain the OID for which we're searching.
     # @return A Hash of code sets corresponding to the given oid, each containing one randomly selected code.
-    def self.select_codes(oid, value_sets)
+    def self.select_codes(oid, oid_to_vs_hash)
       default_code_sets = {}
       listed_sets = {}
-      vs = value_sets[oid]
+      vs = oid_to_vs_hash[oid]
       vs.concepts.each do |concept|
-        default_code_sets[concept.code_system_name] ||= [concept.code] unless concept.black_list
-        listed_sets[concept.code_system_name] ||= [concept.code] if concept.white_list
+        default_code_sets[concept.code_system_name] ||= [concept.code]
       end if vs
       (listed_sets.empty? ? default_code_sets : listed_sets)
-    end
-
-    def self.white_list_black_list?(oid, value_sets)
-      if value_sets[oid]
-        value_sets[oid].concepts.any? { |x| x.white_list || x.black_list }
-      end
     end
 
 
     # Filter through a list of value sets and choose only the ones marked with a given OID.
     #
     # @param [String] oid The OID being used for filtering.
-    # @param [Array] value_sets A pool of available value sets
+    # @param [Array] oid_to_vs_hash A pool of available value sets
     # @return The value set from the list with the requested OID.
-    def self.select_value_sets(oid, value_sets)
+    def self.select_value_sets(oid, oid_to_vs_hash)
       # Pick the value set for this DataCriteria. If it can't be found, it is an error from the value set source. We'll add the entry without codes for now.
-      vs = value_sets[oid]
-      vs = vs || HealthDataStandards::SVS::ValueSet.new({ "concepts" => [] })
+      vs = oid_to_vs_hash[oid]
+      vs = vs || CQM::ValueSet.new(concepts: [])
       vs
     end
 
@@ -367,15 +353,15 @@ module Measures
     # The hash will be of this format: { "codeSystem" => "code_set_identified", "code" => code }
     #
     # @param [String] oid The target value set.
-    # @param [Hash] value_sets Value sets that might contain the OID for which we're searching.
+    # @param [Hash] oid_to_vs_hash Value sets that might contain the OID for which we're searching.
     # @return A Hash including a code and code system containing one randomly selected code.
-    def self.select_code(oid, value_sets)
-      codes = select_codes(oid, value_sets)
+    def self.select_code(oid, oid_to_vs_hash)
+      codes = select_codes(oid, oid_to_vs_hash)
       code_system = codes.keys[0]
       return nil if code_system.nil?
       {
-        'code_system' => code_system,
-        'code' => codes[code_system][0]
+        code_system: code_system,
+        code: codes[code_system][0]
       }
     end
 

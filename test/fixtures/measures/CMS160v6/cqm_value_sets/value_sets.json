@@ -1,0 +1,5330 @@
+[
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd00"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd6f"
+        },
+        "code": "F",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2018-08",
+        "display_name": "Female"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd70"
+        },
+        "code": "M",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2018-08",
+        "display_name": "Male"
+      }
+    ],
+    "display_name": "ONC Administrative Sex",
+    "oid": "2.16.840.1.113762.1.4.1",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd01"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd71"
+        },
+        "code": "1002-5",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "American Indian or Alaska Native"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd72"
+        },
+        "code": "2028-9",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Asian"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd73"
+        },
+        "code": "2054-5",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Black or African American"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd74"
+        },
+        "code": "2076-8",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Native Hawaiian or Other Pacific Islander"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd75"
+        },
+        "code": "2106-3",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "White"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd76"
+        },
+        "code": "2131-1",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Other Race"
+      }
+    ],
+    "display_name": "Race",
+    "oid": "2.16.840.1.114222.4.11.836",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd02"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd77"
+        },
+        "code": "2135-2",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Hispanic or Latino"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd78"
+        },
+        "code": "2186-5",
+        "code_system_name": "CDCREC",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Not Hispanic or Latino"
+      }
+    ],
+    "display_name": "Ethnicity",
+    "oid": "2.16.840.1.114222.4.11.837",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd03"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd79"
+        },
+        "code": "1",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MEDICARE"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd7a"
+        },
+        "code": "11",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd7b"
+        },
+        "code": "111",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd7c"
+        },
+        "code": "112",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd7d"
+        },
+        "code": "113",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd7e"
+        },
+        "code": "119",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd7f"
+        },
+        "code": "12",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare (Non-managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd80"
+        },
+        "code": "121",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd81"
+        },
+        "code": "122",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Drug Benefit"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd82"
+        },
+        "code": "123",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Medical Savings Account (MSA)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd83"
+        },
+        "code": "129",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Non-managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd84"
+        },
+        "code": "13",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Hospice"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd85"
+        },
+        "code": "14",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dual Eligibility Medicare/Medicaid Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd86"
+        },
+        "code": "19",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd87"
+        },
+        "code": "191",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd88"
+        },
+        "code": "2",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MEDICAID"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd89"
+        },
+        "code": "21",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd8a"
+        },
+        "code": "211",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd8b"
+        },
+        "code": "212",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd8c"
+        },
+        "code": "213",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid PCCM (Primary Care Case Management)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd8d"
+        },
+        "code": "219",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd8e"
+        },
+        "code": "22",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid (Non-managed Care Plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd8f"
+        },
+        "code": "23",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid/SCHIP"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd90"
+        },
+        "code": "25",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid - Out of State"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd91"
+        },
+        "code": "26",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid -- Long Term Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd92"
+        },
+        "code": "29",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd93"
+        },
+        "code": "291",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd94"
+        },
+        "code": "299",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd95"
+        },
+        "code": "3",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd96"
+        },
+        "code": "31",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Defense"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd97"
+        },
+        "code": "311",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE (CHAMPUS)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd98"
+        },
+        "code": "3111",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd99"
+        },
+        "code": "3112",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Extra--PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd9a"
+        },
+        "code": "3113",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Standard - Fee For Service"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd9b"
+        },
+        "code": "3114",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE For Life--Medicare Supplement"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd9c"
+        },
+        "code": "3115",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Reserve Select"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd9d"
+        },
+        "code": "3116",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd9e"
+        },
+        "code": "3119",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Defense - (other)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cd9f"
+        },
+        "code": "312",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Military Treatment Facility"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda0"
+        },
+        "code": "3121",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Enrolled Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda1"
+        },
+        "code": "3122",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Non-enrolled Space Available"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda2"
+        },
+        "code": "3123",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE For Life (TFL)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda3"
+        },
+        "code": "313",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental --Stand Alone"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda4"
+        },
+        "code": "32",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Veterans Affairs"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda5"
+        },
+        "code": "321",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Veteran care--Care provided to Veterans"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda6"
+        },
+        "code": "3211",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Direct Care--Care provided in VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda7"
+        },
+        "code": "3212",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indirect Care--Care provided outside VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda8"
+        },
+        "code": "32121",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Fee Basis"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cda9"
+        },
+        "code": "32122",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Foreign Fee/Foreign Medical Program (FMP)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdaa"
+        },
+        "code": "32123",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Contract Nursing Home/Community Nursing Home"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdab"
+        },
+        "code": "32124",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State Veterans Home"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdac"
+        },
+        "code": "32125",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Sharing Agreements"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdad"
+        },
+        "code": "32126",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Federal Agency"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdae"
+        },
+        "code": "32127",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdaf"
+        },
+        "code": "32128",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Vision Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb0"
+        },
+        "code": "322",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb1"
+        },
+        "code": "3221",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb2"
+        },
+        "code": "3222",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Spina Bifida Health Care Program (SB)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb3"
+        },
+        "code": "3223",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Children of Women Vietnam Veterans (CWVV)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb4"
+        },
+        "code": "3229",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb5"
+        },
+        "code": "33",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service or Tribe"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb6"
+        },
+        "code": "331",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service -- Regular"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb7"
+        },
+        "code": "332",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service -- Contract"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb8"
+        },
+        "code": "333",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service - Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdb9"
+        },
+        "code": "334",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Tribe - Sponsored Coverage"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdba"
+        },
+        "code": "34",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HRSA Program"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdbb"
+        },
+        "code": "341",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Title V (MCH Block Grant)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdbc"
+        },
+        "code": "342",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Migrant Health Program"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdbd"
+        },
+        "code": "343",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Ryan White Act"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdbe"
+        },
+        "code": "349",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdbf"
+        },
+        "code": "35",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Black Lung"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc0"
+        },
+        "code": "36",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State Government"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc1"
+        },
+        "code": "361",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State SCHIP program (codes for individual states)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc2"
+        },
+        "code": "362",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Specific state programs (list/ local code)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc3"
+        },
+        "code": "369",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State, not otherwise specified (other state)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc4"
+        },
+        "code": "37",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local Government"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc5"
+        },
+        "code": "371",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local - Managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc6"
+        },
+        "code": "3711",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc7"
+        },
+        "code": "3712",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc8"
+        },
+        "code": "3713",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdc9"
+        },
+        "code": "372",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "FFS/Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdca"
+        },
+        "code": "379",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local, not otherwise specified (other local, county)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdcb"
+        },
+        "code": "38",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Government (Federal, State, Local not specified)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdcc"
+        },
+        "code": "381",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdcd"
+        },
+        "code": "3811",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdce"
+        },
+        "code": "3812",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdcf"
+        },
+        "code": "3813",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd0"
+        },
+        "code": "3819",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd1"
+        },
+        "code": "382",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd2"
+        },
+        "code": "389",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd3"
+        },
+        "code": "39",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd4"
+        },
+        "code": "391",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal Employee Health Plan - Use when known"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd5"
+        },
+        "code": "4",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "DEPARTMENTS OF CORRECTIONS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd6"
+        },
+        "code": "41",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd7"
+        },
+        "code": "42",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections State"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd8"
+        },
+        "code": "43",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Local"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdd9"
+        },
+        "code": "44",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Unknown Level"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdda"
+        },
+        "code": "5",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PRIVATE HEALTH INSURANCE"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cddb"
+        },
+        "code": "51",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care (Private)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cddc"
+        },
+        "code": "511",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cddd"
+        },
+        "code": "512",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdde"
+        },
+        "code": "513",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cddf"
+        },
+        "code": "514",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Exclusive Provider Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde0"
+        },
+        "code": "515",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Gatekeeper PPO (GPPO)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde1"
+        },
+        "code": "516",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde2"
+        },
+        "code": "517",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde3"
+        },
+        "code": "519",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care, Other (non HMO)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde4"
+        },
+        "code": "52",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Private Health Insurance - Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde5"
+        },
+        "code": "521",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde6"
+        },
+        "code": "522",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde7"
+        },
+        "code": "523",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare supplemental policy (as second payer)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde8"
+        },
+        "code": "524",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indemnity Insurance - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cde9"
+        },
+        "code": "529",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Private health insurance--other commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdea"
+        },
+        "code": "53",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdeb"
+        },
+        "code": "54",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Organized Delivery System"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdec"
+        },
+        "code": "55",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Small Employer Purchasing Group"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cded"
+        },
+        "code": "56",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Specialized Stand Alone Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdee"
+        },
+        "code": "561",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdef"
+        },
+        "code": "562",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Vision"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf0"
+        },
+        "code": "59",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Private Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf1"
+        },
+        "code": "6",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BLUE CROSS/BLUE SHIELD"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf2"
+        },
+        "code": "61",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf3"
+        },
+        "code": "611",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf4"
+        },
+        "code": "612",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf5"
+        },
+        "code": "613",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf6"
+        },
+        "code": "614",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf7"
+        },
+        "code": "619",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf8"
+        },
+        "code": "62",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Insurance Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdf9"
+        },
+        "code": "621",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdfa"
+        },
+        "code": "622",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdfb"
+        },
+        "code": "623",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Medicare Supplemental Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdfc"
+        },
+        "code": "629",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Indemnity - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdfd"
+        },
+        "code": "7",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdfe"
+        },
+        "code": "71",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cdff"
+        },
+        "code": "72",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce00"
+        },
+        "code": "73",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce01"
+        },
+        "code": "79",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce02"
+        },
+        "code": "8",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce03"
+        },
+        "code": "81",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Self-pay (Includes applicants for insurance and Medicaid applicants)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce04"
+        },
+        "code": "82",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Charge"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce05"
+        },
+        "code": "821",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Charity"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce06"
+        },
+        "code": "822",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Professional Courtesy"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce07"
+        },
+        "code": "823",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Research/Clinical Trial"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce08"
+        },
+        "code": "83",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Refusal to Pay/Bad Debt"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce09"
+        },
+        "code": "84",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Hill Burton Free Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce0a"
+        },
+        "code": "85",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Research/Donor"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce0b"
+        },
+        "code": "89",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Payment, Other"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce0c"
+        },
+        "code": "9",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MISCELLANEOUS/OTHER"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce0d"
+        },
+        "code": "91",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Foreign National"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce0e"
+        },
+        "code": "92",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other (Non-government)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce0f"
+        },
+        "code": "93",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Disability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce10"
+        },
+        "code": "94",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Long-term Care Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce11"
+        },
+        "code": "95",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Compensation"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce12"
+        },
+        "code": "951",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce13"
+        },
+        "code": "953",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp Fee-for-Service"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce14"
+        },
+        "code": "954",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce15"
+        },
+        "code": "959",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp, Other unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce16"
+        },
+        "code": "96",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Auto Insurance (includes no fault)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce17"
+        },
+        "code": "97",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Legal Liability / Liability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce18"
+        },
+        "code": "98",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce19"
+        },
+        "code": "99",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Typology Code available for payment source"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce1a"
+        },
+        "code": "9999",
+        "code_system_name": "SOP",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Unavailable / No Payer Specified / Blank"
+      }
+    ],
+    "display_name": "Payer",
+    "oid": "2.16.840.1.114222.4.11.3591",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd04"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce1b"
+        },
+        "code": "10875004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe mixed bipolar I disorder with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce1c"
+        },
+        "code": "10981006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe mixed bipolar I disorder with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce1d"
+        },
+        "code": "111485001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar I disorder in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce1e"
+        },
+        "code": "1196001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Chronic bipolar II disorder, most recent episode major depressive (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce1f"
+        },
+        "code": "12969000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar II disorder, most recent episode major depressive, in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce20"
+        },
+        "code": "13313007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild bipolar disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce21"
+        },
+        "code": "13581000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar I disorder, single manic episode with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce22"
+        },
+        "code": "13746004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce23"
+        },
+        "code": "14495005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar I disorder, single manic episode without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce24"
+        },
+        "code": "1499003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, single manic episode with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce25"
+        },
+        "code": "162004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe manic bipolar I disorder without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce26"
+        },
+        "code": "16295005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar II disorder, most recent episode major depressive (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce27"
+        },
+        "code": "16506000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce28"
+        },
+        "code": "17782008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode manic with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce29"
+        },
+        "code": "191618007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, current episode manic (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce2a"
+        },
+        "code": "191620005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, currently manic, mild (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce2b"
+        },
+        "code": "191621009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, currently manic, moderate (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce2c"
+        },
+        "code": "191623007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, currently manic, severe, with psychosis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce2d"
+        },
+        "code": "191625000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, currently manic, in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce2e"
+        },
+        "code": "191627008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, current episode depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce2f"
+        },
+        "code": "191629006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, currently depressed, mild (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce30"
+        },
+        "code": "191630001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, currently depressed, moderate (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce31"
+        },
+        "code": "191632009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-03",
+        "display_name": "Bipolar affective disorder, currently depressed, severe, with psychosis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce32"
+        },
+        "code": "191634005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, currently depressed, in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce33"
+        },
+        "code": "191636007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar affective disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce34"
+        },
+        "code": "191638008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar affective disorder, mild (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce35"
+        },
+        "code": "191639000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar affective disorder, moderate (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce36"
+        },
+        "code": "191641004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar affective disorder, severe, with psychosis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce37"
+        },
+        "code": "191643001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar affective disorder, in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce38"
+        },
+        "code": "192362008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar affective disorder, current episode mixed (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce39"
+        },
+        "code": "19300006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar II disorder, most recent episode major depressive with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce3a"
+        },
+        "code": "20960007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar II disorder, most recent episode major depressive with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce3b"
+        },
+        "code": "21900002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode depressed with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce3c"
+        },
+        "code": "22121000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Depressed bipolar I disorder in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce3d"
+        },
+        "code": "22407005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar II disorder, most recent episode major depressive with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce3e"
+        },
+        "code": "26203008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe depressed bipolar I disorder with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce3f"
+        },
+        "code": "26530004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar disorder with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce40"
+        },
+        "code": "28663008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe manic bipolar I disorder with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce41"
+        },
+        "code": "28884001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate bipolar I disorder, single manic episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce42"
+        },
+        "code": "296.00",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, single manic episode, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce43"
+        },
+        "code": "296.01",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, single manic episode, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce44"
+        },
+        "code": "296.02",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, single manic episode, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce45"
+        },
+        "code": "296.03",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, single manic episode, severe, without mention of psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce46"
+        },
+        "code": "296.04",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, single manic episode, severe, specified as with psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce47"
+        },
+        "code": "296.05",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, single manic episode, in partial or unspecified remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce48"
+        },
+        "code": "296.06",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, single manic episode, in full remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce49"
+        },
+        "code": "296.10",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Manic affective disorder, recurrent episode, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce4a"
+        },
+        "code": "296.11",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Manic affective disorder, recurrent episode, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce4b"
+        },
+        "code": "296.12",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Manic affective disorder, recurrent episode, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce4c"
+        },
+        "code": "296.13",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Manic affective disorder, recurrent episode, severe, without mention of psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce4d"
+        },
+        "code": "296.14",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Manic affective disorder, recurrent episode, severe, specified as with psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce4e"
+        },
+        "code": "296.15",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Manic affective disorder, recurrent episode, in partial or unspecified remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce4f"
+        },
+        "code": "296.16",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Manic affective disorder, recurrent episode, in full remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce50"
+        },
+        "code": "296.40",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) manic, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce51"
+        },
+        "code": "296.41",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) manic, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce52"
+        },
+        "code": "296.42",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) manic, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce53"
+        },
+        "code": "296.43",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) manic, severe, without mention of psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce54"
+        },
+        "code": "296.44",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) manic, severe, specified as with psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce55"
+        },
+        "code": "296.45",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) manic, in partial or unspecified remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce56"
+        },
+        "code": "296.46",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) manic, in full remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce57"
+        },
+        "code": "296.50",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) depressed, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce58"
+        },
+        "code": "296.51",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) depressed, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce59"
+        },
+        "code": "296.52",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) depressed, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce5a"
+        },
+        "code": "296.53",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) depressed, severe, without mention of psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce5b"
+        },
+        "code": "296.54",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) depressed, severe, specified as with psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce5c"
+        },
+        "code": "296.55",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) depressed, in partial or unspecified remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce5d"
+        },
+        "code": "296.56",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) depressed, in full remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce5e"
+        },
+        "code": "296.60",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) mixed, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce5f"
+        },
+        "code": "296.61",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) mixed, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce60"
+        },
+        "code": "296.62",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) mixed, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce61"
+        },
+        "code": "296.63",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) mixed, severe, without mention of psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce62"
+        },
+        "code": "296.64",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) mixed, severe, specified as with psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce63"
+        },
+        "code": "296.65",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) mixed, in partial or unspecified remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce64"
+        },
+        "code": "296.66",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) mixed, in full remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce65"
+        },
+        "code": "296.7",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar I disorder, most recent episode (or current) unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce66"
+        },
+        "code": "296.80",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Bipolar disorder, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce67"
+        },
+        "code": "296.81",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Atypical manic disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce68"
+        },
+        "code": "296.82",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Atypical depressive disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce69"
+        },
+        "code": "296.89",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Other bipolar disorders"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce6a"
+        },
+        "code": "29929003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode depressed with atypical features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce6b"
+        },
+        "code": "30520009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar II disorder, most recent episode major depressive with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce6c"
+        },
+        "code": "30687003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar II disorder, most recent episode major depressive with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce6d"
+        },
+        "code": "30935000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Manic bipolar I disorder in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce6e"
+        },
+        "code": "31446002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode hypomanic (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce6f"
+        },
+        "code": "33380008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe manic bipolar I disorder with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce70"
+        },
+        "code": "34315001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar II disorder, most recent episode major depressive with melancholic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce71"
+        },
+        "code": "3530005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, single manic episode, in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce72"
+        },
+        "code": "35481005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar I disorder in remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce73"
+        },
+        "code": "35722002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar II disorder, most recent episode major depressive, in remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce74"
+        },
+        "code": "35846004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate bipolar II disorder, most recent episode major depressive (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce75"
+        },
+        "code": "36583000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mixed bipolar I disorder in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce76"
+        },
+        "code": "371596008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce77"
+        },
+        "code": "371599001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce78"
+        },
+        "code": "371600003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce79"
+        },
+        "code": "371604007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar II disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce7a"
+        },
+        "code": "40926005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate mixed bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce7b"
+        },
+        "code": "41552001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild bipolar I disorder, single manic episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce7c"
+        },
+        "code": "41832009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar I disorder, single manic episode with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce7d"
+        },
+        "code": "41836007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar disorder in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce7e"
+        },
+        "code": "43568002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar II disorder, most recent episode major depressive with atypical features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce7f"
+        },
+        "code": "43769008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild mixed bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce80"
+        },
+        "code": "4441000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar disorder with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce81"
+        },
+        "code": "45479006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Manic bipolar I disorder in remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce82"
+        },
+        "code": "46229002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe mixed bipolar I disorder without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce83"
+        },
+        "code": "48937005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar II disorder, most recent episode hypomanic (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce84"
+        },
+        "code": "49468007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Depressed bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce85"
+        },
+        "code": "49512000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Depressed bipolar I disorder in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce86"
+        },
+        "code": "51637008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Chronic bipolar I disorder, most recent episode depressed (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce87"
+        },
+        "code": "53049002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar disorder without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce88"
+        },
+        "code": "53607008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Depressed bipolar I disorder in remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce89"
+        },
+        "code": "54761006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe depressed bipolar I disorder with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce8a"
+        },
+        "code": "55516002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode manic with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce8b"
+        },
+        "code": "5703000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar disorder in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce8c"
+        },
+        "code": "59617007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe depressed bipolar I disorder with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce8d"
+        },
+        "code": "61403008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe depressed bipolar I disorder without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce8e"
+        },
+        "code": "63249007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Manic bipolar I disorder in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce8f"
+        },
+        "code": "64731001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe mixed bipolar I disorder with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce90"
+        },
+        "code": "65042007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode mixed with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce91"
+        },
+        "code": "66631006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate depressed bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce92"
+        },
+        "code": "67002003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar II disorder, most recent episode major depressive, in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce93"
+        },
+        "code": "68569003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Manic bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce94"
+        },
+        "code": "70546001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar disorder with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce95"
+        },
+        "code": "71294008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild bipolar II disorder, most recent episode major depressive (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce96"
+        },
+        "code": "71984005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild manic bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce97"
+        },
+        "code": "73471000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode mixed with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce98"
+        },
+        "code": "74686005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild depressed bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce99"
+        },
+        "code": "75360000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, single manic episode, in remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce9a"
+        },
+        "code": "75752004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode depressed with melancholic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce9b"
+        },
+        "code": "78269000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, single manic episode, in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce9c"
+        },
+        "code": "78640000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe manic bipolar I disorder with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce9d"
+        },
+        "code": "79584002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate bipolar disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce9e"
+        },
+        "code": "81319007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar II disorder, most recent episode major depressive without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ce9f"
+        },
+        "code": "82998009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate manic bipolar I disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea0"
+        },
+        "code": "83225003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar II disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea1"
+        },
+        "code": "85248005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar disorder in remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea2"
+        },
+        "code": "86058007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe bipolar I disorder, single manic episode with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea3"
+        },
+        "code": "87203005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, most recent episode depressed with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea4"
+        },
+        "code": "87950005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, single manic episode with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea5"
+        },
+        "code": "9340000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bipolar I disorder, single manic episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea6"
+        },
+        "code": "F30.10",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Manic episode without psychotic symptoms, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea7"
+        },
+        "code": "F30.11",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Manic episode without psychotic symptoms, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea8"
+        },
+        "code": "F30.12",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Manic episode without psychotic symptoms, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cea9"
+        },
+        "code": "F30.13",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Manic episode, severe, without psychotic symptoms"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceaa"
+        },
+        "code": "F30.2",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Manic episode, severe with psychotic symptoms"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceab"
+        },
+        "code": "F30.3",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Manic episode in partial remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceac"
+        },
+        "code": "F30.4",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Manic episode in full remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cead"
+        },
+        "code": "F30.8",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Other manic episodes"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceae"
+        },
+        "code": "F30.9",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Manic episode, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceaf"
+        },
+        "code": "F31.0",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode hypomanic"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb0"
+        },
+        "code": "F31.10",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode manic without psychotic features, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb1"
+        },
+        "code": "F31.11",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode manic without psychotic features, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb2"
+        },
+        "code": "F31.12",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode manic without psychotic features, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb3"
+        },
+        "code": "F31.13",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode manic without psychotic features, severe"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb4"
+        },
+        "code": "F31.2",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode manic severe with psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb5"
+        },
+        "code": "F31.30",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode depressed, mild or moderate severity, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb6"
+        },
+        "code": "F31.31",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode depressed, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb7"
+        },
+        "code": "F31.32",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode depressed, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb8"
+        },
+        "code": "F31.4",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode depressed, severe, without psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceb9"
+        },
+        "code": "F31.5",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode depressed, severe, with psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceba"
+        },
+        "code": "F31.60",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode mixed, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cebb"
+        },
+        "code": "F31.61",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode mixed, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cebc"
+        },
+        "code": "F31.62",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode mixed, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cebd"
+        },
+        "code": "F31.63",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode mixed, severe, without psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cebe"
+        },
+        "code": "F31.64",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, current episode mixed, severe, with psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cebf"
+        },
+        "code": "F31.70",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, currently in remission, most recent episode unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec0"
+        },
+        "code": "F31.71",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, in partial remission, most recent episode hypomanic"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec1"
+        },
+        "code": "F31.72",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, in full remission, most recent episode hypomanic"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec2"
+        },
+        "code": "F31.73",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, in partial remission, most recent episode manic"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec3"
+        },
+        "code": "F31.74",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, in full remission, most recent episode manic"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec4"
+        },
+        "code": "F31.75",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, in partial remission, most recent episode depressed"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec5"
+        },
+        "code": "F31.76",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, in full remission, most recent episode depressed"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec6"
+        },
+        "code": "F31.77",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, in partial remission, most recent episode mixed"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec7"
+        },
+        "code": "F31.78",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, in full remission, most recent episode mixed"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec8"
+        },
+        "code": "F31.81",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar II disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cec9"
+        },
+        "code": "F31.89",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Other bipolar disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceca"
+        },
+        "code": "F31.9",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Bipolar disorder, unspecified"
+      }
+    ],
+    "display_name": "Bipolar Disorder",
+    "oid": "2.16.840.1.113883.3.67.1.101.1.128",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd05"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cecb"
+        },
+        "code": "209099002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History and physical examination with management of domiciliary or rest home patient (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cecc"
+        },
+        "code": "210098006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Domiciliary or rest home patient evaluation and management (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cecd"
+        },
+        "code": "99324",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 20 minutes are spent with the patient and/or family or caregiver."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cece"
+        },
+        "code": "99325",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent with the patient and/or family or caregiver."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cecf"
+        },
+        "code": "99326",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent with the patient and/or family or caregiver."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced0"
+        },
+        "code": "99327",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of high severity. Typically, 60 minutes are spent with the patient and/or family or caregiver."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced1"
+        },
+        "code": "99328",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the patient is unstable or has developed a significant new problem requiring immediate physician attention. Typically, 75 minutes are spent with the patient and/or family or caregiver."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced2"
+        },
+        "code": "99334",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused interval history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self-limited or minor. Typically, 15 minutes are spent with the patient and/or family or caregiver."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced3"
+        },
+        "code": "99335",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused interval history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 25 minutes are spent with the patient and/or family or caregiver."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced4"
+        },
+        "code": "99336",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed interval history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent with the patient and/or family or caregiver."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced5"
+        },
+        "code": "99337",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive interval history; A comprehensive examination; Medical decision making of moderate to high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. The patient may be unstable or may have developed a significant new problem requiring immediate physician attention. Typically, 60 minutes are spent with the patient and/or family or caregiver."
+      }
+    ],
+    "display_name": "Care Services in Long-Term Residential Facility",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1014",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd06"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced6"
+        },
+        "code": "19694002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Late onset dysthymia (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced7"
+        },
+        "code": "2506003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Early onset dysthymia (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced8"
+        },
+        "code": "3109008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Secondary dysthymia early onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ced9"
+        },
+        "code": "36170009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Secondary dysthymia late onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceda"
+        },
+        "code": "38451003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Primary dysthymia early onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cedb"
+        },
+        "code": "67711008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Primary dysthymia late onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cedc"
+        },
+        "code": "78667006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Dysthymia (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cedd"
+        },
+        "code": "83176005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Primary dysthymia (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cede"
+        },
+        "code": "85080004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Secondary dysthymia (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cedf"
+        },
+        "code": "F34.1",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Dysthymic disorder"
+      }
+    ],
+    "display_name": "Dysthymia",
+    "oid": "2.16.840.1.113883.3.67.1.101.1.254",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd07"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee0"
+        },
+        "code": "185349003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Encounter for check up (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee1"
+        },
+        "code": "185463005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Visit out of hours (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee2"
+        },
+        "code": "185465003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Weekend visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee3"
+        },
+        "code": "19681004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Nursing evaluation of patient and report (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee4"
+        },
+        "code": "207195004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History and physical examination with evaluation and management of nursing facility patient (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee5"
+        },
+        "code": "270427003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Patient-initiated encounter (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee6"
+        },
+        "code": "270430005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Provider-initiated encounter (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee7"
+        },
+        "code": "308335008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Patient encounter procedure (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee8"
+        },
+        "code": "390906007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Follow-up encounter (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cee9"
+        },
+        "code": "406547006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Urgent follow-up (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceea"
+        },
+        "code": "439708006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Home visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceeb"
+        },
+        "code": "90526000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Initial evaluation and management of healthy individual (procedure)"
+      }
+    ],
+    "display_name": "Face to Face Interaction - No ED",
+    "oid": "2.16.840.1.113762.1.4.1080.1",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd08"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceec"
+        },
+        "code": "10811121000119102",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depressive disorder in mother complicating childbirth (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceed"
+        },
+        "code": "10811161000119107",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depressive disorder in mother complicating pregnancy (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceee"
+        },
+        "code": "14183003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Chronic major depressive disorder, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceef"
+        },
+        "code": "15193003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe recurrent major depression with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef0"
+        },
+        "code": "15639000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate major depression, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef1"
+        },
+        "code": "16265951000119109",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild major depressive disorder co-occurrent with anxiety single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef2"
+        },
+        "code": "16266831000119100",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate major depressive disorder co-occurrent with anxiety single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef3"
+        },
+        "code": "16266991000119108",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depressive disorder co-occurrent with anxiety single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef4"
+        },
+        "code": "18818009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef5"
+        },
+        "code": "191601008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Single major depressive episode, mild (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef6"
+        },
+        "code": "191602001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Single major depressive episode, moderate (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef7"
+        },
+        "code": "191604000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Single major depressive episode, severe, with psychosis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef8"
+        },
+        "code": "191606003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Single major depressive episode, in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cef9"
+        },
+        "code": "191610000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depressive episodes, mild (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cefa"
+        },
+        "code": "191611001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depressive episodes, moderate (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cefb"
+        },
+        "code": "191613003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depressive episodes, severe, with psychosis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cefc"
+        },
+        "code": "191615005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-03",
+        "display_name": "Recurrent major depressive episodes, in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cefd"
+        },
+        "code": "19527009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Single episode of major depression in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cefe"
+        },
+        "code": "20250007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression, single episode, with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846ceff"
+        },
+        "code": "231499006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Endogenous depression first episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf00"
+        },
+        "code": "251000119105",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf01"
+        },
+        "code": "25922000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depressive disorder, single episode with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf02"
+        },
+        "code": "2618002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Chronic recurrent major depressive disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf03"
+        },
+        "code": "268620009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Single major depressive episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf04"
+        },
+        "code": "268621008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depressive episodes (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf05"
+        },
+        "code": "274948002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Endogenous depression - recurrent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf06"
+        },
+        "code": "281000119103",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf07"
+        },
+        "code": "28475009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe recurrent major depression with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf08"
+        },
+        "code": "300706003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Endogenous depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf09"
+        },
+        "code": "30605009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depression in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf0a"
+        },
+        "code": "319768000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depressive disorder with melancholic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf0b"
+        },
+        "code": "320751009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depression, melancholic type (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf0c"
+        },
+        "code": "321717001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Involutional depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf0d"
+        },
+        "code": "33078009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe recurrent major depression with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf0e"
+        },
+        "code": "33135002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depression in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf0f"
+        },
+        "code": "33736005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf10"
+        },
+        "code": "36474008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe recurrent major depression without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf11"
+        },
+        "code": "36923009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depression, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf12"
+        },
+        "code": "370143000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depressive disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf13"
+        },
+        "code": "38694004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depressive disorder with atypical features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf14"
+        },
+        "code": "39809009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depressive disorder with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf15"
+        },
+        "code": "40379007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf16"
+        },
+        "code": "42810003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depression in remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf17"
+        },
+        "code": "42925002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depressive disorder, single episode with atypical features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf18"
+        },
+        "code": "430852001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression, single episode, with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf19"
+        },
+        "code": "450714000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf1a"
+        },
+        "code": "46244001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depression in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf1b"
+        },
+        "code": "60099002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf1c"
+        },
+        "code": "63412003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depression in full remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf1d"
+        },
+        "code": "63778009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depressive disorder, single episode with melancholic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf1e"
+        },
+        "code": "66344007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf1f"
+        },
+        "code": "68019004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depression in remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf20"
+        },
+        "code": "69392006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depressive disorder, single episode with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf21"
+        },
+        "code": "70747007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depression single episode, in partial remission (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf22"
+        },
+        "code": "71336009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Recurrent major depressive disorder with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf23"
+        },
+        "code": "719592004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderately severe major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf24"
+        },
+        "code": "720451004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Minimal recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf25"
+        },
+        "code": "720452006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderately severe recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf26"
+        },
+        "code": "720453001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderately severe major depression single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf27"
+        },
+        "code": "720454007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Minimal major depression single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf28"
+        },
+        "code": "720455008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Minimal major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf29"
+        },
+        "code": "726772006",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Major depression with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf2a"
+        },
+        "code": "73867007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf2b"
+        },
+        "code": "75084000",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf2c"
+        },
+        "code": "76441001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression, single episode, without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf2d"
+        },
+        "code": "77911002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Severe major depression, single episode, with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf2e"
+        },
+        "code": "79298009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild major depression, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf2f"
+        },
+        "code": "832007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Moderate major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf30"
+        },
+        "code": "87512008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mild major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf31"
+        },
+        "code": "F32.0",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, single episode, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf32"
+        },
+        "code": "F32.1",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, single episode, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf33"
+        },
+        "code": "F32.2",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, single episode, severe without psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf34"
+        },
+        "code": "F32.3",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, single episode, severe with psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf35"
+        },
+        "code": "F32.4",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, single episode, in partial remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf36"
+        },
+        "code": "F32.5",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, single episode, in full remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf37"
+        },
+        "code": "F32.9",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, single episode, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf38"
+        },
+        "code": "F33.0",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, recurrent, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf39"
+        },
+        "code": "F33.1",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, recurrent, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf3a"
+        },
+        "code": "F33.2",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, recurrent severe without psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf3b"
+        },
+        "code": "F33.3",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, recurrent, severe with psychotic symptoms"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf3c"
+        },
+        "code": "F33.40",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, recurrent, in remission, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf3d"
+        },
+        "code": "F33.41",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, recurrent, in partial remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf3e"
+        },
+        "code": "F33.42",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, recurrent, in full remission"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf3f"
+        },
+        "code": "F33.9",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Major depressive disorder, recurrent, unspecified"
+      }
+    ],
+    "display_name": "Major Depression Including Remission",
+    "oid": "2.16.840.113883.3.67.1.101.3.2444",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd09"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf40"
+        },
+        "code": "185463005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Visit out of hours (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf41"
+        },
+        "code": "185464004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Out of hours visit - not night visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf42"
+        },
+        "code": "185465003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Weekend visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf43"
+        },
+        "code": "30346009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-03",
+        "display_name": "Evaluation and management of established outpatient in office or other outpatient facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf44"
+        },
+        "code": "3391000175108",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Office visit for pediatric care and assessment (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf45"
+        },
+        "code": "37894004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-03",
+        "display_name": "Evaluation and management of new outpatient in office or other outpatient facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf46"
+        },
+        "code": "439740005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Postoperative follow-up visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf47"
+        },
+        "code": "99201",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf48"
+        },
+        "code": "99202",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 20 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf49"
+        },
+        "code": "99203",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf4a"
+        },
+        "code": "99204",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf4b"
+        },
+        "code": "99205",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf4c"
+        },
+        "code": "99212",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf4d"
+        },
+        "code": "99213",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 15 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf4e"
+        },
+        "code": "99214",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 25 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf4f"
+        },
+        "code": "99215",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent face-to-face with the patient and/or family."
+      }
+    ],
+    "display_name": "Office Visit",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1001",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd0a"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf50"
+        },
+        "code": "103735009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Palliative care (regime/therapy)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf51"
+        },
+        "code": "133918004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Comfort measures (regime/therapy)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf52"
+        },
+        "code": "182964004",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Terminal care (regime/therapy)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf53"
+        },
+        "code": "305284002",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Admission by palliative care physician (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf54"
+        },
+        "code": "305381007",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Admission to palliative care department (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf55"
+        },
+        "code": "305981001",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Referral by palliative care physician (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf56"
+        },
+        "code": "306237005",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Referral to palliative care service (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf57"
+        },
+        "code": "306288008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Referral to palliative care physician (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf58"
+        },
+        "code": "385736008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Dying care (regime/therapy)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf59"
+        },
+        "code": "385763009",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Hospice care (regime/therapy)"
+      }
+    ],
+    "display_name": "Palliative or Hospice Care",
+    "oid": "2.16.840.1.113883.3.600.1.1579",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd0b"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf5a"
+        },
+        "code": "20010003",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Borderline personality disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf5b"
+        },
+        "code": "301.13",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Cyclothymic disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf5c"
+        },
+        "code": "301.50",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Histrionic personality disorder, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf5d"
+        },
+        "code": "301.51",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Chronic factitious illness with physical symptoms"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf5e"
+        },
+        "code": "301.83",
+        "code_system_name": "ICD9CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Borderline personality disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf5f"
+        },
+        "code": "55341008",
+        "code_system_name": "SNOMEDCT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Histrionic personality disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf60"
+        },
+        "code": "F34.0",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Cyclothymic disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf61"
+        },
+        "code": "F60.3",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Borderline personality disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf62"
+        },
+        "code": "F60.4",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Histrionic personality disorder"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf63"
+        },
+        "code": "F68.10",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Factitious disorder imposed on self, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf64"
+        },
+        "code": "F68.11",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Factitious disorder imposed on self, with predominantly psychological signs and symptoms"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf65"
+        },
+        "code": "F68.12",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Factitious disorder imposed on self, with predominantly physical signs and symptoms"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf66"
+        },
+        "code": "F68.13",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Factitious disorder imposed on self, with combined psychological and physical signs and symptoms"
+      }
+    ],
+    "display_name": "Personality Disorder",
+    "oid": "2.16.840.1.113883.3.67.1.101.1.246",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd0c"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf67"
+        },
+        "code": "44261-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]"
+      }
+    ],
+    "display_name": "PHQ-9 Tool",
+    "oid": "2.16.840.1.113883.3.67.1.101.11.723",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd0d"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf68"
+        },
+        "code": "90791",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Psychiatric diagnostic evaluation"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf69"
+        },
+        "code": "90792",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Psychiatric diagnostic evaluation with medical services"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf6a"
+        },
+        "code": "90832",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Psychotherapy, 30 minutes with patient"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf6b"
+        },
+        "code": "90834",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Psychotherapy, 45 minutes with patient"
+      },
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf6c"
+        },
+        "code": "90837",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Psychotherapy, 60 minutes with patient"
+      }
+    ],
+    "display_name": "Psych Visit",
+    "oid": "2.16.840.113883.3.67.1.101.3.2445",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd0e"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf6d"
+        },
+        "code": "Z51.5",
+        "code_system_name": "ICD10CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Encounter for palliative care"
+      }
+    ],
+    "display_name": "Palliative care encounter",
+    "oid": "2.16.840.1.113883.3.600.1.1575",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
+  },
+  {
+    "_id": {
+      "$oid": "5c670dc1bb9215802846cd0f"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5c670dc1bb9215802846cf6e"
+        },
+        "code": "419099009",
+        "code_system_name": "SNOMEDCT:2016-03",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "urn:hl7:version:2016-03",
+        "display_name": "Dead"
+      }
+    ],
+    "display_name": "Dead",
+    "oid": "drc-3ee5ba7ddd8bfac5cb22c29244cd54a527f164cb7dd709b1967c997264705d3d",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": ""
+  }
+]

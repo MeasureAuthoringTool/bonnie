@@ -12,7 +12,6 @@ class Record
   field :origin_data, type: Array
 
   belongs_to :user
-  belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
   scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'measure_ids'=>{'$in'=>[hqmf_set_id]} }) }
 
@@ -90,7 +89,7 @@ class Record
   #    change_reason - A symbol describing reason the change was made. e.x. :dup_population
   #    expected_value_set - The set removed, added, or changed.
   def update_expected_value_structure!(measure)
-    measure_population_count = measure.populations.count
+    measure_population_count = measure.population_sets.count
 
     # keep track of the population indexes we have seen so we can reject duplicates
     population_indexes_found = Hash.new { |h, k| h[k] = [] } # make is so uninitialized keys are set to []
@@ -156,13 +155,14 @@ class Record
       # ignore if it's not related to the measure (can happen for portfolio users)
       next unless expected_value_set["measure_id"] == measure.hqmf_set_id
 
-      expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
-      measure_population_set = measure.populations[expected_value_set["population_index"]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+      pop_idx = expected_value_set["population_index"]
+      expected_value_population_set = expected_value_set.keys & CQM::Measure::ALL_POPULATION_CODES
+      measure_population_set = measure.population_sets[pop_idx].bonnie_result_criteria_names
 
       # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
       added_populations = measure_population_set - expected_value_population_set
       # create the structure to yield about these changes
-      added_changes = {"measure_id" => measure.hqmf_set_id, "population_index" => expected_value_set["population_index"]}
+      added_changes = {"measure_id" => measure.hqmf_set_id, "population_index" => pop_idx}
       if added_populations.count > 0
         added_populations.each do |population|
           if population == 'OBSERV'
@@ -181,7 +181,7 @@ class Record
       removed_populations = expected_value_population_set - measure_population_set
       if removed_populations.count > 0
         # create the structure to yield about these changes
-        removed_changes = {"measure_id" => measure.hqmf_set_id, "population_index" => expected_value_set[:population_index]}
+        removed_changes = {"measure_id" => measure.hqmf_set_id, "population_index" => pop_idx}
         removed_populations.each { |population| removed_changes[population] = expected_value_set[population] }
 
         expected_value_set.except!(*removed_populations)

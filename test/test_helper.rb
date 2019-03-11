@@ -3,7 +3,7 @@ require_relative "./simplecov_init"
 require_relative "./vcr_setup"
 require_relative '../lib/tasks/fixture_helper'
 ENV["APIPIE_RECORD"] = "examples"
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require './lib/ext/record'
 require 'rake'

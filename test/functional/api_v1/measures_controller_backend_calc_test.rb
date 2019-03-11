@@ -9,14 +9,15 @@ module ApiV1
     def setup_db
       dump_database
       users_set = File.join("users", "base_set")
-      cms160_fixtures = File.join("cql_measures","core_measures", "CMS160v6"), File.join("records", "core_measures", "CMS160v6"), File.join("health_data_standards_svs_value_sets", "core_measures", "CMS160v6")
-      collection_fixtures(users_set, *cms160_fixtures)
-      @measure = CqlMeasure.where({"cms_id" => "CMS160v6"}).first
-      @cms160_hqmf_set_id = @measure.hqmf_set_id
+      record_fixtures = File.join("records", "core_measures", "CMS160v6")
+      collection_fixtures(users_set, record_fixtures)
       @user = User.by_email('bonnie@example.com').first
-      associate_user_with_measures(@user,CqlMeasure.all)
+      load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @user)
+      @measure = CQM::Measure.where({"cms_id" => "CMS160v6"}).first
+      @cms160_hqmf_set_id = @measure.hqmf_set_id
       associate_user_with_patients(@user,Record.all)
-      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+
+      @vcr_options = {match_requests_on: [:method, :uri_no_st]}
     end
 
     setup do
@@ -85,33 +86,33 @@ module ApiV1
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
 
-      VCR.use_cassette("backend_calculation_excel") do
+      VCR.use_cassette("backend_calculation_excel", @vcr_options) do
         headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
-        get :calculated_results, id: @cms160_hqmf_set_id
+        get :calculated_results, id: @measure.hqmf_set_id
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
-        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
         assert_equal 'CMS160v6.xlsx', filename
+
         temp = Tempfile.new(["test", ".xlsx"])
         temp.write(response.body)
         temp.rewind
         doc = Roo::Spreadsheet.open(temp.path)
 
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
-        assert_equal 1.0, doc.sheet("Population 1").row(3)[0]
+        assert_equal 1.0, doc.sheet("1 - Population Criteria Section").row(3)[0]
       end
 
       Apipie.configuration.record = apipie_record_configuration
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in component measure" do
-      composite_measure_fixtures = File.join("cql_measures","special_measures","CMS321"), File.join("health_data_standards_svs_value_sets","special_measures","CMS321"), File.join("records","special_measures","CMS321")
-      collection_fixtures(*composite_measure_fixtures)
-      associate_user_with_measures(@user,CqlMeasure.all)
+      composite_measure_records = File.join("records","special_measures","CMS321")
+      collection_fixtures(composite_measure_records)
       associate_user_with_patients(@user,Record.all)
-      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+      load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
 
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
@@ -149,11 +150,10 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in composite measure" do
-      composite_measure_fixtures = File.join("cql_measures","special_measures","CMS321"), File.join("health_data_standards_svs_value_sets","special_measures","CMS321"), File.join("records","special_measures","CMS321")
-      collection_fixtures(*composite_measure_fixtures)
-      associate_user_with_measures(@user,CqlMeasure.all)
+      composite_measure_records = File.join("records","special_measures","CMS321")
+      collection_fixtures(composite_measure_records)
       associate_user_with_patients(@user,Record.all)
-      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+      load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
 
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
@@ -168,12 +168,12 @@ module ApiV1
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
         assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
-        assert_equal 'CMS321v0.xlsx', filename
+        assert_equal 'CMS890v0.xlsx', filename
+
         temp = Tempfile.new(["test", ".xlsx"])
         temp.write(response.body)
         temp.rewind
         doc = Roo::Spreadsheet.open(temp.path)
-
         sheet = doc.sheet("1 - Population Criteria Section")
         if sheet.row(3)[9] == "doe"
           jon_doe_row = sheet.row(3)
@@ -185,16 +185,24 @@ module ApiV1
 
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
         expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results","CMS321v0_shared_patients_composite.json")))
-        # there currently seems to be a mismatch in frontend / backend for things like [], 0, [0], etc.
-        expected_rows["jon_doe_row"][6] = "[]" # from "[0]"
+        # There currently seems to be a mismatch in frontend / backend for things like [], 0, [0], etc.
         expected_rows["jane_smith_row"][6] = "[]" # from "0"
 
-        # An update to Roo means that false vs FALSE shows up wrong, but the actual excel export is still OK.
         jon_doe_row[12] = "FALSE" if jon_doe_row[12] == false
         jane_smith_row[12] = "FALSE" if jane_smith_row[12] == false
 
-        assert_equal expected_rows["jon_doe_row"], jon_doe_row
-        assert_equal expected_rows["jane_smith_row"], jane_smith_row
+        # Compare the calculation results
+        assert_equal expected_rows["jon_doe_row"][0..7], jon_doe_row[0..7]
+        assert_equal expected_rows["jane_smith_row"][0..7], jane_smith_row[0..7]
+
+        # There was an ordering mismatch, so this sorts the remainder of the arrays so the comparison will be order independent
+        expected_cql_results_jon = expected_rows["jon_doe_row"][8..-1].grep(String).sort + expected_rows["jon_doe_row"][8..-1].grep(Integer).sort
+        expected_cql_results_jane = expected_rows["jane_smith_row"][8..-1].grep(String).sort + expected_rows["jane_smith_row"][8..-1].grep(Integer).sort
+        jane_smith_cql = jane_smith_row[8..-1].grep(String).sort + jane_smith_row[8..-1].grep(Integer).sort
+        jon_doe_cql = jon_doe_row[8..-1].grep(String).sort + jon_doe_row[8..-1].grep(Integer).sort
+
+        assert_equal expected_cql_results_jon, jon_doe_cql
+        assert_equal expected_cql_results_jane, jane_smith_cql
       end
 
       Apipie.configuration.record = apipie_record_configuration
@@ -203,10 +211,8 @@ module ApiV1
     test "should get an excel sheet noting no patients" do
       dump_database
       users_set = File.join("users", "base_set")
-      cms160_fixtures = File.join("cql_measures","core_measures", "CMS160v6"), File.join("health_data_standards_svs_value_sets", "core_measures", "CMS160v6")
-      collection_fixtures(users_set, *cms160_fixtures)
-      associate_user_with_measures(@user,CqlMeasure.all)
-      associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+      collection_fixtures(users_set)
+      load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @user)
 
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false

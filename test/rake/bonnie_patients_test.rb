@@ -7,13 +7,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     records_set = File.join("records", "core_measures", "CMS32v7")
     users_set = File.join("users", "base_set")
-    cql_measures_set_1 = File.join("cql_measures", "core_measures", "CMS32v7")
-    cql_measures_set_2 = File.join("cql_measures", "core_measures", "CMS160v6")
-    cql_measures_set_3 = File.join("cql_measures", "core_measures", "CMS177v6")
     collection_fixtures(users_set, records_set)
-    add_collection(cql_measures_set_1)
-    add_collection(cql_measures_set_2)
-    add_collection(cql_measures_set_3)
 
     @source_email = 'bonnie@example.com'
     @dest_email = 'user_admin@example.com'
@@ -24,9 +18,10 @@ class BonniePatientsTest < ActiveSupport::TestCase
     @source_user = User.by_email('bonnie@example.com').first
     @dest_user = User.by_email('user_admin@example.com').first
 
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @source_hqmf_set_id))
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @dest2_hqmf_set_id))
-    associate_user_with_measures(@dest_user, CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id))
+    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @source_user) # '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @source_user) # 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    load_measure_fixtures_from_folder(File.join("measures", "CMS177v6"), @dest_user) # '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
+
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(@source_user, Record.all)
   end
@@ -179,7 +174,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['DEST_HQMF_SET_ID'] = @dest_hqmf_set_id
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_measures = CqlMeasure.where(hqmf_set_id:@dest_hqmf_set_id)
+    dest_measures = CQM::Measure.where(hqmf_set_id:@dest_hqmf_set_id)
     assert_equal dest_measures.length, 1
     dest_measure = dest_measures.first
 
@@ -271,8 +266,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'bad_duplicate_transfers.csv')
 
     # need to associate the last measure with this user account to test duplicate cms ids
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id))
-    measure = CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id).first
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
+    measure = CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id).first
     measure.cms_id = "CMS32v7"
     measure.title = "Median Time from ED Arrival to ED Departure for Discharged ED Patients"
     measure.save
@@ -314,8 +309,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'duplicate_transfers.csv')
 
     # need to associate the last measure with this user account to test duplicate cms ids
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id))
-    measure = CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id).first
+    associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
+    measure = CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id).first
     measure.cms_id = "CMS32v7"
     measure.save
 
@@ -344,12 +339,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
   end
 
   test "successful export of patients" do
-    measures_set = File.join("cql_measures", "core_measures", "CMS158v6")
-    add_collection(measures_set)
+    load_measure_fixtures_from_folder(File.join("measures", "CMS158v6"), @source_user)
     hqmf_set_id =  '3BBFC929-50C8-44B8-8D34-82BE75C08A70'
-
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
-    associate_measures_with_patients(CqlMeasure.where(hqmf_set_id: hqmf_set_id), Record.all)
+    associate_measures_with_patients(CQM::Measure.where(hqmf_set_id: hqmf_set_id), Record.all)
 
     ENV['EMAIL'] = @source_user.email
     ENV['HQMF_SET_ID'] = hqmf_set_id
@@ -367,12 +359,11 @@ class BonniePatientsTest < ActiveSupport::TestCase
   test "successful import of patients"  do
     dump_database
     users_set = File.join("users", "base_set")
-    measures_set = File.join("cql_measures", "core_measures", "CMS177v6")
-    add_collection(measures_set)
     collection_fixtures(users_set)
 
     hqmf_set_id =  '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
+    load_measure_fixtures_from_folder(File.join("measures", "CMS177v6"), @source_user)
+
 
     ENV['EMAIL'] = @source_user.email
     ENV['HQMF_SET_ID'] = hqmf_set_id
@@ -385,12 +376,10 @@ class BonniePatientsTest < ActiveSupport::TestCase
   test "importing patient updates facility and diagnosis"  do
     dump_database
     users_set = File.join("users", "base_set")
-    measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
-    add_collection(measures_set)
     collection_fixtures(users_set)
 
     hqmf_set_id =  '3FD13096-2C8F-40B5-9297-B714E8DE9133'
-    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
+    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @source_user)
     assert_equal 0, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
 
     ENV['EMAIL'] = @source_user.email

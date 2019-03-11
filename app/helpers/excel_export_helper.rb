@@ -22,7 +22,8 @@ module ExcelExportHelper
   # }
   def self.convert_results_for_excel_export(results, measure, patients)
     calc_results = ActiveSupport::HashWithIndifferentAccess.new
-    measure.populations.each_with_index do |population, index|
+    pop_sets_and_strats = get_population_sets_and_strat_info_merged_like_old_style(measure)
+    pop_sets_and_strats.each_with_index do |pop_set_or_strat, index|
       patients.each do |patient|
         calc_results[index] = {} unless calc_results[index]
         result = results[patient.id.to_s]
@@ -33,23 +34,38 @@ module ExcelExportHelper
           result_criteria = {
             'values' => []
           }
-          result[population['id']]['extendedData']['population_relevance'].each_key do |population_criteria|
+
+          result[pop_set_or_strat[:id]]['extendedData']['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
-              result[population['id']]['episode_results']&.each_value do |episode|
+              result[pop_set_or_strat[:id]]['episode_results']&.each_value do |episode|
                 result_criteria['values'].concat episode['values']
               end
               result_criteria['values'].sort!
             else
-              result_criteria[population_criteria] = result[population['id']][population_criteria]
+              result_criteria[population_criteria] = result[pop_set_or_strat[:id]][population_criteria]
             end
           end
-          calc_results[index][patient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[population['id']]['statement_results']), criteria: result_criteria}
+          calc_results[index][patient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[pop_set_or_strat[:id]]['statement_results']), criteria: result_criteria}
         end
       end
     end
 
     calc_results
+  end
+
+  def self.get_population_sets_and_strat_info_merged_like_old_style(measure)
+    arr = measure.population_sets.map do |ps|
+      { id: ps.population_set_id, 
+        title: ps.title,
+        criteria: ps.bonnie_result_criteria_names }
+    end
+    arr += measure.all_stratifications.map do |strat|
+      { id: strat.stratification_id, 
+        title: strat.title,
+        criteria: strat.bonnie_result_criteria_names }
+    end
+    return arr
   end
 
   # Extract the fields from the patients that are used in the exported excel file. Ignore unused fields.
@@ -86,20 +102,16 @@ module ExcelExportHelper
     population_details = ActiveSupport::HashWithIndifferentAccess.new
     return population_details if results.empty?
 
-    measure.populations.each_with_index do |population, pop_index|
+    pop_sets_and_strats = get_population_sets_and_strat_info_merged_like_old_style(measure)
+    pop_sets_and_strats.each_with_index do |pop_set_or_strat, pop_index|
       # Populates the population details
       next if population_details[pop_index]
 
       # the population_details are independent of patient, so index into the first patient in the results.
-      population_details[pop_index] = {title: population[:title], statement_relevance: results.first[1][population['id']]['extendedData']['statement_relevance']}
+      population_details[pop_index] = {title: pop_set_or_strat[:title], statement_relevance: results.first[1][pop_set_or_strat[:id]]['extendedData']['statement_relevance']}
 
-      criteria = []
-      population.each_key do |key|
-        criteria << key if key != "title" && key != "sub_id" && key != "id"
-      end
       # TODO: The front end adds 'index' to this array, but it might be unused. Investigate and remove if possible.
-      criteria.push 'index'
-      population_details[pop_index][:criteria] = criteria
+      population_details[pop_index][:criteria] = pop_set_or_strat[:criteria] + ['index']
     end
 
     population_details
@@ -108,13 +120,12 @@ module ExcelExportHelper
   # Builds a map of define statement name to the statement's text from a measure.
   def self.get_statement_details_from_measure(measure)
     statement_details = ActiveSupport::HashWithIndifferentAccess.new
-
-    measure.elm_annotations.each do |library_name, library|
+    measure.cql_libraries.select(&:is_top_level).each do |library|
       lib_statements = {}
-      library['statements'].each do |statement|
+      library.elm_annotations['statements'].each do |statement|
         lib_statements[statement['define_name']] = parse_annotation_tree(statement['children'])
       end
-      statement_details[library_name] = lib_statements
+      statement_details[library.library_name] = lib_statements
     end
 
     statement_details
@@ -143,11 +154,7 @@ module ExcelExportHelper
     results.each_key do |lib_key|
       ret[lib_key] = {}
       results[lib_key].each_key do |statement_key|
-        ret[lib_key][statement_key] = if results[lib_key][statement_key]['pretty']
-                                        results[lib_key][statement_key]['pretty']
-                                      else
-                                        results[lib_key][statement_key]['final']
-                                      end
+        ret[lib_key][statement_key] = results[lib_key][statement_key]['pretty'] || results[lib_key][statement_key]['final']
       end
     end
     ret

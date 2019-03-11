@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
     users = User.asc(:email).all.to_a # Need to convert to array so counts stick
     map = "function() { emit(this.user_id, 1); }"
     reduce = "function(user_id, counts) { return Array.sum(counts); }"
-    measure_counts = CqlMeasure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     patient_counts = Record.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     users.each do |u|
       u.measure_count = measure_counts[u.id] || 0
@@ -82,7 +82,7 @@ class Admin::UsersController < ApplicationController
 
   def measures
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(JSON.parse(user.cql_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
+    send_data JSON.pretty_generate(JSON.parse(user.cqm_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
   end
 
   def log_in_as

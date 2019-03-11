@@ -11,7 +11,7 @@ namespace :bonnie do
       # To run, put a space dilimeted list of emails from which you would like to download the excel exports from
       ACCOUNTS = %w().freeze
       ACCOUNTS.each do |account|
-        user_measures = CqlMeasure.by_user(User.find_by(email: account))
+        user_measures = CQM::Measure.by_user(User.find_by(email: account))
         user_measures.each do |measure|
           begin
             user = User.find(measure.user_id)
@@ -70,7 +70,7 @@ namespace :bonnie do
         hqmf_set_id = patient.measure_ids[0]
 
         begin
-          measure = CqlMeasure.find_by(hqmf_set_id: patient.measure_ids[0], user_id: patient[:user_id])
+          measure = CQM::Measure.find_by(hqmf_set_id: patient.measure_ids[0], user_id: patient[:user_id])
         rescue Mongoid::Errors::DocumentNotFound => e
           print_warning("#{first} #{last} #{email} Unable to find measure")
           warnings += 1
@@ -205,7 +205,7 @@ namespace :bonnie do
         user_count = {email: user.email, total_patients_count: 0, patient_values_changed_count: 0, measure_counts: []}
 
         # loop through measures
-        CqlMeasure.by_user(user).each do |measure|
+        CQM::Measure.by_user(user).each do |measure|
           measure_count = {cms_id: measure.cms_id, title: measure.title, total_patients_count: 0, patient_values_changed_count: 0}
 
           # loop through each patient in the measure
@@ -372,7 +372,7 @@ namespace :bonnie do
       update_fails = 0
       orphans = 0
       fields_diffs = Hash.new(0)
-      CqlMeasure.all.each do |measure|
+      CQM::Measure.all.each do |measure|
         begin
           # Grab the user, we need this to output the name of the user who owns
           # this measure. Also comes in handy when detecting measures uploaded
@@ -504,7 +504,7 @@ namespace :bonnie do
       desc "Associate each patient with every measure for a specific user (identified by email address)"
       task :associate_measures => :environment do
         user = User.where(email: ENV['EMAIL']).first
-        measures = CqlMeasure.where(user_id: user.id)
+        measures = CQM::Measure.where(user_id: user.id)
         all_measure_ids = measures.map(&:hqmf_set_id) # array of all measure_ids (string) for patient
         user.records.each do |patient|
           # note: this associates *every* patient with every measure,
@@ -523,7 +523,7 @@ namespace :bonnie do
     User.all.each do |user|
       puts "Updating value sets for user " + user.email
       begin
-        measures = CqlMeasure.where(user_id: user.id)
+        measures = CQM::Measure.where(user_id: user.id)
 
         measures.each do |measure|
           elms = measure.elm

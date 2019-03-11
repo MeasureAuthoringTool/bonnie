@@ -1,12 +1,12 @@
 # An abstract class that provides fixture exporting functionality
 class FixtureExporter
 
-  def initialize(user, measure: nil, records: nil)
+  def initialize(user, measure: nil, records: nil, component_measures: nil)
     @user = user
     @measure = measure
     @records = records
 
-    @component_measures = find_component_measures
+    @component_measures = component_measures.present? ? component_measures : find_component_measures
     @measure_and_any_components = @measure.present? ? [@measure] + @component_measures : []
   end
 
@@ -51,11 +51,8 @@ class FixtureExporter
   end
 
   def export_value_sets_as_array(path)
-    vs_export = []
-    @measure_and_any_components.each do |m|
-      m.value_sets.each { |vs| vs_export << as_transformed_hash(vs) }
-    end
-    vs_export.uniq! { |vs| vs['oid'].to_s + vs['version'].to_s }
+    value_sets = @measure_and_any_components.flat_map(&:value_sets).uniq(&:_id)
+    vs_export = value_sets.map { |vs| as_transformed_hash(vs) }
     value_sets_file = File.join(path, 'value_sets.json')
     create_fixture_file(value_sets_file, JSON.pretty_generate(vs_export))
     puts 'exported value sets (as an array) to ' + value_sets_file
@@ -74,7 +71,7 @@ class FixtureExporter
   def find_component_measures
     return [] unless @measure.composite
     component_measures = @measure.component_hqmf_set_ids.map do |component_hqmf_set_id|
-      CqlMeasure.find_by(user_id: @user, hqmf_set_id: component_hqmf_set_id)
+      CQM::Measure.find_by(user_id: @user, hqmf_set_id: component_hqmf_set_id)
     end
     return component_measures
   end
@@ -141,12 +138,8 @@ class FrontendFixtureExporter < FixtureExporter
   alias export_value_sets export_value_sets_as_map
   alias export_records export_records_as_array
 
-  def initialize(user, measure: nil, records: nil)
-    super(user, measure: measure, records: records)
-  end
-
   def make_hash_and_apply_any_transforms(mongoid_doc)
-    return JSON.parse(mongoid_doc.to_json, max_nesting: 1000)
+    return JSON.parse(mongoid_doc.as_json(include: :_type, methods: :_type).to_json, max_nesting: 1000)
   end
 
   def bonnie_fixtures_user_id
@@ -162,7 +155,8 @@ class BackendFixtureExporter < FixtureExporter
   alias export_records export_records_as_individual_files
 
   def make_hash_and_apply_any_transforms(mongoid_doc)
-    doc = mongoid_doc.as_json
+    doc = mongoid_doc.as_json(include: :_type, methods: :_type)
+
     objectid_to_oids(doc)
     return JSON.parse(doc.to_json, max_nesting: 1000)
   end

@@ -7,11 +7,10 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
 
   setup do
     dump_database
-    measures_set = File.join("cql_measures", "core_measures", "CMS160v6")
     records_set = File.join("records", "core_measures", "CMS160v6")
-    value_sets = File.join("health_data_standards_svs_value_sets", "core_measures", "CMS160v6")
-    collection_fixtures(measures_set, records_set, value_sets)
-    @measure = CqlMeasure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs
+    collection_fixtures(records_set)
+    load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"))
+    @measure = CQM::Measure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs
   end
 
   test "calculation completes test" do

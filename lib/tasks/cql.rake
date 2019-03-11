@@ -1,5 +1,7 @@
 #  -*- coding: utf-8 -*-
+
 namespace :bonnie do
+
   namespace :cql do
 
     desc %{Recreates the JSON elm stored on CQL measures using an instance of
@@ -11,7 +13,7 @@ namespace :bonnie do
       update_fails = 0
       orphans = 0
       fields_diffs = Hash.new(0)
-      CqlMeasure.all.each do |measure|
+      CQM::Measure.all.each do |measure|
         begin
           # Grab the user, we need this to output the name of the user who owns
           # this measure. Also comes in handy when detecting measures uploaded
@@ -125,7 +127,7 @@ namespace :bonnie do
 
       # Collect user info from CQL measures
       users = {}
-      CqlMeasure.all.each do |m|
+      CQM::Measure.all.each do |m|
         users[m.user_id.to_s] = [] unless users.key? m.user_id.to_s
         users[m.user_id.to_s].push({cms_id: m.cms_id, title: m.title})
       end
