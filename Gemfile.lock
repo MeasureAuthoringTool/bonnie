@@ -18,12 +18,13 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
-  revision: d2d22ad13eb8c566b0d773a263c8eadb5f4fbd97
+  revision: 96ff2897221e9cce04bce23fe5feb1848137579f
   branch: bonnie-patch
   specs:
     cqm-converter (1.0.3)
       activesupport
       coffee-script
+      cqm-models (>= 1.0.2)
       execjs
       health-data-standards (>= 4.3.2)
       momentjs-rails
@@ -145,6 +146,7 @@ GEM
     columnize (0.9.0)
     commonjs (0.2.7)
     concurrent-ruby (1.1.3)
+    cqm-models (1.0.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
