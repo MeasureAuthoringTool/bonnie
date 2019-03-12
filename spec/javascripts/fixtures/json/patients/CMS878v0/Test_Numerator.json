@@ -1,0 +1,216 @@
+{
+  "_id": "5b61b4d5b84846662484a5b7",
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "50901F2E-3715-462B-87C1-2AD9B9B1CDE7",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "NUMER": 1
+    }
+  ],
+  "familyName": "Numerator",
+  "givenNames": [
+    "Test"
+  ],
+  "notes": "",
+  "qdmPatient": {
+    "_id": "5c880144d7c8ac4c3e10678b",
+    "birthDatetime": "1987-03-04T12:55:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": "5c880144d7c8ac4c3e10678c",
+        "authorDatetime": "2012-07-30T08:00:00.000+00:00",
+        "components": [
+
+        ],
+        "dataElementCodes": [
+          {
+            "codeSystem": "LOINC",
+            "code": "72166-2"
+          }
+        ],
+        "description": "Assessment, Performed: Tobacco Use Status",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
+        "id": {
+          "_id": "5c880144d7c8ac4c3e10678d",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5b61b4d5b84846662484a5b8"
+        },
+        "method": null,
+        "negationRationale": null,
+        "qdmCategory": "assessment",
+        "qdmStatus": "performed",
+        "qdmVersion": "5.4",
+        "reason": null,
+        "result": "44468-09-14T08:00:00.000+00:00",
+        "_type": "QDM::AssessmentPerformed"
+      },
+      {
+        "_id": "5c880144d7c8ac4c3e106786",
+        "birthDatetime": "1987-03-04T12:55:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "codeSystem": "LOINC",
+            "descriptor": null,
+            "codeSystemOid": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "id": {
+          "_id": "5c880144d7c8ac4c3e10678e",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880144d7c8ac4c3e106786"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": "5c880144d7c8ac4c3e106787",
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "id": {
+          "_id": "5c880144d7c8ac4c3e10678f",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880144d7c8ac4c3e106787"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": "5c880144d7c8ac4c3e106788",
+        "dataElementCodes": [
+          {
+            "code": "2054-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "Black or African American",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "id": {
+          "_id": "5c880144d7c8ac4c3e106790",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880144d7c8ac4c3e106788"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": "5c880144d7c8ac4c3e106789",
+        "dataElementCodes": [
+          {
+            "code": "M",
+            "codeSystem": "AdministrativeGender",
+            "descriptor": "M",
+            "codeSystemOid": "2.16.840.1.113883.5.1",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "id": {
+          "_id": "5c880144d7c8ac4c3e106791",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880144d7c8ac4c3e106789"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "measure_ids": [
+        "50901F2E-3715-462B-87C1-2AD9B9B1CDE7",
+        null
+      ],
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "assessment",
+          "status": "performed",
+          "title": "TobaccoUseStatus",
+          "description": "Assessment, Performed: Tobacco Use Status",
+          "code_list_id": "2.16.840.1.113762.1.4.1110.27",
+          "type": "assessments",
+          "id": "TobaccoUseStatus_AssessmentPerformed_de11e623_3d10_4076_a28d_4430d015a1f1_source",
+          "start_date": 1343635200000,
+          "value": [
+            {
+              "type": "TS",
+              "type_cmp": "CD",
+              "start_date": "07/01/2012",
+              "start_time": "8:00 AM",
+              "value": 1341129600000
+            }
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "50901F2E-3715-462B-87C1-2AD9B9B1CDE7",
+          "cms_id": "CMS878v0",
+          "criteria_id": "164f5a88e6b64",
+          "codes": {
+            "LOINC": [
+              "72166-2"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": {
+            "$oid": "5b61b4d5b84846662484a5b8"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "812ef3ac9a6a82749eb010e6750878d88de799903b269b1e87e7c44226c04238",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[{\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
+    },
+    "qdmVersion": "5.4"
+  }
+}

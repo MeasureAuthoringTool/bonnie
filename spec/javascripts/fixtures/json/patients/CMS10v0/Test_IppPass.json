@@ -1,0 +1,239 @@
+{
+  "_id": "5bfef119b84846254735f78e",
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "familyName": "IppPass",
+  "givenNames": [
+    "Test"
+  ],
+  "notes": "",
+  "qdmPatient": {
+    "_id": "5c880145d7c8ac4c3e1067c7",
+    "birthDatetime": "1990-03-02T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": "5c880145d7c8ac4c3e1067c8",
+        "admissionSource": null,
+        "authorDatetime": "2012-07-12T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "codeSystem": "SNOMED-CT",
+            "code": "10197000"
+          },
+          {
+            "codeSystem": "CPT",
+            "code": "59400"
+          },
+          {
+            "codeSystem": "HCPCS",
+            "code": "G0101"
+          }
+        ],
+        "description": "Encounter, Performed: Medications Encounter Code Set",
+        "diagnoses": [
+
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+
+        ],
+        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "id": {
+          "_id": "5c880145d7c8ac4c3e1067c9",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5bfef119b84846254735f78f"
+        },
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "principalDiagnosis": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmVersion": "5.4",
+        "relevantPeriod": {
+          "low": "2012-07-12T08:00:00.000+00:00",
+          "high": "2012-07-12T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5c880145d7c8ac4c3e1067c2",
+        "birthDatetime": "1990-03-02T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "codeSystem": "LOINC",
+            "descriptor": null,
+            "codeSystemOid": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "id": {
+          "_id": "5c880145d7c8ac4c3e1067ca",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880145d7c8ac4c3e1067c2"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": "5c880145d7c8ac4c3e1067c3",
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "id": {
+          "_id": "5c880145d7c8ac4c3e1067cb",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880145d7c8ac4c3e1067c3"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": "5c880145d7c8ac4c3e1067c4",
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "id": {
+          "_id": "5c880145d7c8ac4c3e1067cc",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880145d7c8ac4c3e1067c4"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": "5c880145d7c8ac4c3e1067c5",
+        "dataElementCodes": [
+          {
+            "code": "M",
+            "codeSystem": "AdministrativeGender",
+            "descriptor": "M",
+            "codeSystemOid": "2.16.840.1.113883.5.1",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "id": {
+          "_id": "5c880145d7c8ac4c3e1067cd",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880145d7c8ac4c3e1067c5"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "measure_ids": [
+        "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+        null
+      ],
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "Medications Encounter Code Set",
+          "description": "Encounter, Performed: Medications Encounter Code Set",
+          "code_list_id": "2.16.840.1.113883.3.600.1.1834",
+          "type": "encounters",
+          "id": "MedicationsEncounterCodeSet_EncounterPerformed_0a3e8996_7fcb_4ff8_be65_0739cba27409_source",
+          "start_date": 1342080000000,
+          "end_date": 1342080900000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+          "cms_id": "CMS10v0",
+          "criteria_id": "1675bdd0864DE",
+          "codes": {
+            "SNOMED-CT": [
+              "10197000"
+            ],
+            "CPT": [
+              "59400"
+            ],
+            "HCPCS": [
+              "G0101"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": {
+            "$oid": "5bfef119b84846254735f78f"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "2e3ea4d102b19bfcf87b8874283c0958613ad23896bb7ccec1f24daedd53a3d6",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[{\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
+    },
+    "qdmVersion": "5.4"
+  }
+}

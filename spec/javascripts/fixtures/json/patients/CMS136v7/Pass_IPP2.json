@@ -1,0 +1,378 @@
+{
+  "_id": "5a7dc67fb8484620c5183d68",
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+      "population_index": 1,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0
+    }
+  ],
+  "familyName": "IPP2",
+  "givenNames": [
+    "Pass"
+  ],
+  "notes": "",
+  "qdmPatient": {
+    "_id": "5c88013ed7c8ac4c3e1066a9",
+    "birthDatetime": "2005-02-02T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": "5c88013ed7c8ac4c3e1066aa",
+        "admissionSource": null,
+        "authorDatetime": "2012-02-09T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "codeSystem": "SNOMED-CT",
+            "code": "185463005"
+          },
+          {
+            "codeSystem": "CPT",
+            "code": "99201"
+          }
+        ],
+        "description": "Encounter, Performed: Office Visit",
+        "diagnoses": [
+
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+
+        ],
+        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e1066ab",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5aeb7734b848463d625b203a"
+        },
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "principalDiagnosis": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmVersion": "5.4",
+        "relevantPeriod": {
+          "low": "2012-02-09T08:00:00.000+00:00",
+          "high": "2012-02-09T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e1066ac",
+        "authorDatetime": "2012-02-09T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "codeSystem": "RxNorm",
+            "code": "1006608"
+          }
+        ],
+        "daysSupplied": null,
+        "description": "Medication, Dispensed: ADHD Medications",
+        "dispenserId": null,
+        "dosage": null,
+        "frequency": null,
+        "hqmfOid": "2.16.840.1.113883.3.560.1.8",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e1066ad",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5aeb7734b848463d625b203b"
+        },
+        "negationRationale": null,
+        "prescriberId": null,
+        "qdmCategory": "medication",
+        "qdmStatus": "dispensed",
+        "qdmVersion": "5.4",
+        "refills": null,
+        "relevantPeriod": {
+          "low": "2012-02-09T08:00:00.000+00:00",
+          "high": "2012-02-09T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "route": null,
+        "supply": null,
+        "_type": "QDM::MedicationDispensed"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e1066ae",
+        "dataElementCodes": [
+          {
+            "codeSystem": "RxNorm",
+            "code": "1006608"
+          }
+        ],
+        "description": "Medication, Active: ADHD Medications",
+        "dosage": null,
+        "frequency": null,
+        "hqmfOid": "2.16.840.1.113883.3.560.1.13",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e1066af",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5aeb7734b848463d625b203c"
+        },
+        "qdmCategory": "medication",
+        "qdmStatus": "active",
+        "qdmVersion": "5.4",
+        "relevantPeriod": {
+          "low": "2012-02-09T08:00:00.000+00:00",
+          "high": "2012-12-09T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "route": null,
+        "_type": "QDM::MedicationActive"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e1066a4",
+        "birthDatetime": "2005-02-02T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "codeSystem": "LOINC",
+            "descriptor": null,
+            "codeSystemOid": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e1066b0",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c88013ed7c8ac4c3e1066a4"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e1066a5",
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e1066b1",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c88013ed7c8ac4c3e1066a5"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e1066a6",
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e1066b2",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c88013ed7c8ac4c3e1066a6"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e1066a7",
+        "dataElementCodes": [
+          {
+            "code": "M",
+            "codeSystem": "AdministrativeGender",
+            "descriptor": "M",
+            "codeSystemOid": "2.16.840.1.113883.5.1",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e1066b3",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c88013ed7c8ac4c3e1066a7"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "measure_ids": [
+        "703CC49B-B653-4885-80E8-245A057F5AE9",
+        null
+      ],
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "OfficeVisit",
+          "description": "Encounter, Performed: Office Visit",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+          "type": "encounters",
+          "id": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_62e0524536ae_source",
+          "start_date": 1328774400000,
+          "end_date": 1328775300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+          "cms_id": "CMS136v7",
+          "criteria_id": "1617b4f2f27a5",
+          "codes": {
+            "SNOMED-CT": [
+              "185463005"
+            ],
+            "CPT": [
+              "99201"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": {
+            "$oid": "5aeb7734b848463d625b203a"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "medication",
+          "status": "dispensed",
+          "title": "ADHDMedications",
+          "description": "Medication, Dispensed: ADHD Medications",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1171",
+          "type": "medications",
+          "id": "ADHDMedications_MedicationDispensed_40280381_3d61_56a7_013e_62e0524536a7_source",
+          "start_date": 1328774400000,
+          "end_date": 1328775300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+          "cms_id": "CMS136v7",
+          "criteria_id": "1617b4f4941uT",
+          "codes": {
+            "RxNorm": [
+              "1006608"
+            ]
+          },
+          "fulfillments": null,
+          "dose_value": "",
+          "dose_unit": "{Capsule}",
+          "frequency_value": "",
+          "frequency_unit": "min",
+          "negation_code_list_id": "",
+          "coded_entry_id": {
+            "$oid": "5aeb7734b848463d625b203b"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "medication",
+          "status": "active",
+          "title": "ADHDMedications",
+          "description": "Medication, Active: ADHD Medications",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1171",
+          "type": "medications",
+          "id": "ADHDMedications_MedicationActive_40280381_3d61_56a7_013e_62e0524536a7_source",
+          "start_date": 1328774400000,
+          "end_date": 1355040900000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+          "cms_id": "CMS136v7",
+          "criteria_id": "1617b4f5d84zD",
+          "codes": {
+            "RxNorm": [
+              "1006608"
+            ]
+          },
+          "fulfillments": null,
+          "dose_value": "",
+          "dose_unit": "{Capsule}",
+          "frequency_value": "",
+          "frequency_unit": "min",
+          "coded_entry_id": {
+            "$oid": "5aeb7734b848463d625b203c"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "978377cb9abfa822ea7943ce0ac537f2638722c872dcb77b05b86b106367455a",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[]"
+    },
+    "qdmVersion": "5.4"
+  }
+}
