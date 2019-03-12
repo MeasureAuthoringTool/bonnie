@@ -22,7 +22,7 @@ namespace :bonnie do
       record_file_path = File.join(fixtures_path, 'records', args[:path])
 
       user = User.find_by email: args[:user_email]
-      measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
+      measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
       if (args[:patient_first_name].present? && args[:patient_last_name].present?)
         records = records.select { |r| r.first == args[:patient_first_name] && r.last == args[:patient_last_name] }
@@ -54,7 +54,7 @@ namespace :bonnie do
       value_sets_path = File.join(fixtures_path, 'health_data_standards_svs_value_sets', args[:path])
 
       user = User.find_by email: args[:user_email]
-      measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
+      measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
 
       fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: records)
@@ -126,6 +126,20 @@ namespace :bonnie do
     end
 
     def get_cql_measure(user, cms_hqmf, measure_id)
+      if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
+        throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
+      end
+      CqlMeasure.by_user(user).each do |measure|
+        if (cms_hqmf.downcase  == 'cms' && measure.cms_id.downcase == measure_id.downcase)
+          return measure
+        elsif (cms_hqmf.downcase == 'hqmf' && measure.hqmf_set_id.downcase == measure_id.downcase)
+          return measure
+        end
+      end
+      throw('Argument: "' + cms_hqmf + ': ' + measure_id +'" does not match any measure id associated with user: "'+user.email+'"')
+    end
+
+    def get_cqm_measure(user, cms_hqmf, measure_id)
       if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
       end
