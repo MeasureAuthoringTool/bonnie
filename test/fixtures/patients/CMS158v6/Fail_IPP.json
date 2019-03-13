@@ -1,0 +1,260 @@
+{
+  "_id": {
+    "$oid": "5a9ee161b84846563e7d57e3"
+  },
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "3BBFC929-50C8-44B8-8D34-82BE75C08A70",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "familyName": "IPP",
+  "givenNames": [
+    "Fail"
+  ],
+  "notes": "",
+  "qdmPatient": {
+    "_id": {
+      "$oid": "5c880139d7c8ac4c3e1065d7"
+    },
+    "birthDatetime": "1984-06-21T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": {
+          "$oid": "5c880139d7c8ac4c3e1065d8"
+        },
+        "anatomicalLocationSite": null,
+        "authorDatetime": "2012-03-06T08:00:00.000+00:00",
+        "components": [
+
+        ],
+        "dataElementCodes": [
+          {
+            "codeSystem": "SNOMED-CT",
+            "code": "10745001"
+          },
+          {
+            "codeSystem": "ICD-10-PCS",
+            "code": "10D00Z0"
+          },
+          {
+            "codeSystem": "CPT",
+            "code": "59400"
+          }
+        ],
+        "description": "Procedure, Performed: Delivery - Procedure",
+        "hqmfOid": "2.16.840.1.113883.3.560.1.6",
+        "id": {
+          "_id": {
+            "$oid": "5c880139d7c8ac4c3e1065d9"
+          },
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5aeb77a2b848463d625b4c6f"
+        },
+        "incisionDatetime": null,
+        "method": null,
+        "negationRationale": null,
+        "ordinality": null,
+        "qdmCategory": "procedure",
+        "qdmStatus": "performed",
+        "qdmVersion": "5.4",
+        "reason": null,
+        "relevantPeriod": {
+          "low": "2012-03-06T08:00:00.000+00:00",
+          "high": "2012-03-06T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "result": null,
+        "status": null,
+        "_type": "QDM::ProcedurePerformed"
+      },
+      {
+        "_id": {
+          "$oid": "5c880139d7c8ac4c3e1065d2"
+        },
+        "birthDatetime": "1984-06-21T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "codeSystem": "LOINC",
+            "descriptor": null,
+            "codeSystemOid": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "id": {
+          "_id": {
+            "$oid": "5c880139d7c8ac4c3e1065da"
+          },
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880139d7c8ac4c3e1065d2"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": {
+          "$oid": "5c880139d7c8ac4c3e1065d3"
+        },
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "id": {
+          "_id": {
+            "$oid": "5c880139d7c8ac4c3e1065db"
+          },
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880139d7c8ac4c3e1065d3"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": {
+          "$oid": "5c880139d7c8ac4c3e1065d4"
+        },
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "id": {
+          "_id": {
+            "$oid": "5c880139d7c8ac4c3e1065dc"
+          },
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880139d7c8ac4c3e1065d4"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": {
+          "$oid": "5c880139d7c8ac4c3e1065d5"
+        },
+        "dataElementCodes": [
+          {
+            "code": "F",
+            "codeSystem": "AdministrativeGender",
+            "descriptor": "F",
+            "codeSystemOid": "2.16.840.1.113883.5.1",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "id": {
+          "_id": {
+            "$oid": "5c880139d7c8ac4c3e1065dd"
+          },
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c880139d7c8ac4c3e1065d5"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "measure_ids": [
+        "3BBFC929-50C8-44B8-8D34-82BE75C08A70",
+        null
+      ],
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "procedure",
+          "status": "performed",
+          "title": "Delivery-Procedure",
+          "description": "Procedure, Performed: Delivery - Procedure",
+          "code_list_id": "2.16.840.1.113762.1.4.1078.5",
+          "type": "procedures",
+          "id": "Delivery_Procedure_ProcedurePerformed_d55d2514_1421_44fb_98ca_195188229890_source",
+          "start_date": 1331020800000,
+          "end_date": 1331021700000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "3BBFC929-50C8-44B8-8D34-82BE75C08A70",
+          "cms_id": "CMS158v6",
+          "criteria_id": "161fc9fdd71rb",
+          "codes": {
+            "SNOMED-CT": [
+              "10745001"
+            ],
+            "ICD-10-PCS": [
+              "10D00Z0"
+            ],
+            "CPT": [
+              "59400"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": {
+            "$oid": "5aeb77a2b848463d625b4c6f"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "9aa4af6addb9684b2dcb0d69b248031bdbea049c7cd8e8c7105417ab9dd6765e",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[]"
+    },
+    "qdmVersion": "5.4"
+  }
+}
