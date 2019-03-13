@@ -127,7 +127,7 @@ namespace :bonnie do
 
     desc %{Export patient fixtures for a given account. Uses vsac credentials from environmental vars.
       Exports into test/fixtures/patients/<CMS_ID> and spec/javascripts/fixtures/json/patients/<CMS_ID>
-      example: bundle exec rake bonnie:fixtures:export_fixtures_from_packages[bonnie-fixtures@mitre.org]}
+      example: bundle exec rake bonnie:fixtures:generate_cqm_patient_fixtures_from_cql_patients[bonnie-fixtures@mitre.org]}
     task :generate_cqm_patient_fixtures_from_cql_patients, [:email] => [:environment] do |task, args|
       email = args[:email]
       user = User.find_by email: args[:email]
