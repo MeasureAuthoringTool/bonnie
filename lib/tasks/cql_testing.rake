@@ -145,7 +145,7 @@ namespace :bonnie do
 
             frontend_fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: [patient])
             frontend_fixture_path = File.join('spec', 'javascripts', 'fixtures', 'json', 'patients', measure.cms_id)
-            frontend_fixture_exporter.export_records_as_individual_files(frontend_fixture_path)
+            frontend_fixture_exporter.export_records_as_array(frontend_fixture_path)
           rescue StandardError => e
             failed_exports << "measure.hqmf_set_id: #{measure.hqmf_set_id}\n\trecord._id: #{record._id}\n\terror: #{e}"
           end
