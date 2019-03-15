@@ -16,7 +16,7 @@ namespace :bonnie do
           begin
             user = User.find(measure.user_id)
             hqmf_set_id = measure.hqmf_set_id
-            @api_v1_patients = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+            @api_v1_patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
             @calculator_options = { doPretty: true }
 
             calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @calculator_options)
@@ -54,7 +54,7 @@ namespace :bonnie do
       warnings = 0
       errors = 0
 
-      Record.all.each do |patient|
+      CQM::Patient.all.each do |patient|
         p_hqmf_set_ids_updated = 0
 
         first = patient.first
@@ -161,7 +161,7 @@ namespace :bonnie do
 
     desc "Update missing HQMF OIDS in patient record entries"
     task :update_missing_hqmf_oids => :environment do
-      Record.each do |r|
+      CQM::Patient.each do |r|
         conditions_without_oids = r.conditions.select { |cc| cc.oid.nil? }
         if conditions_without_oids.size > 0
           puts "Trying to update OIDs for #{r.first} #{r.last} (#{r.user.try(:email)})"
@@ -209,7 +209,7 @@ namespace :bonnie do
           measure_count = {cms_id: measure.cms_id, title: measure.title, total_patients_count: 0, patient_values_changed_count: 0}
 
           # loop through each patient in the measure
-          Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |patient|
+          CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |patient|
             user_count[:total_patients_count] += 1
             measure_count[:total_patients_count] += 1
             total_patients_count += 1
@@ -283,7 +283,7 @@ namespace :bonnie do
       $ bundle exec rake bonnie:patients:fix_non_ucum_dose_and_quantity_dispensed}
     task :fix_non_ucum_dose_and_quantity_dispensed => :environment do
       count = 0
-      Record.all.each do |patient|
+      CQM::Patient.all.each do |patient|
         # this first patient is skipped because this is a fatal error
         #
         # CMS122v7 in account epecqmncqa@gmail.com patient named IPPFail EncInMPInvldCustCode with an
@@ -331,7 +331,7 @@ namespace :bonnie do
       $ bundle exec rake bonnie:patients:tabulate_dose_and_quantity_dispensed_units}
     task :tabulate_dose_and_quantity_dispensed_units => :environment do
       unique_units = {}
-      Record.all.each do |patient|
+      CQM::Patient.all.each do |patient|
         if patient.source_data_criteria
           patient.source_data_criteria.each do |sdc|
             if sdc['dose_unit']
