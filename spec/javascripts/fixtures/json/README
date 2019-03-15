@@ -10,7 +10,7 @@
 # Contents of patients.json were generated using:
 
   measure_hqmf_set_ids = Measure.in(measure_id: ['0002', '0022']).map(&:hqmf_set_id)
-  patients = Record.in('source_data_criteria.hqmf_set_id' => measure_hqmf_set_ids).map do |patient|
+  patients = CQM::Patient.in('source_data_criteria.hqmf_set_id' => measure_hqmf_set_ids).map do |patient|
     patient.source_data_criteria.select! { |sdc| measure_hqmf_set_ids.include? sdc['hqmf_set_id'] }
     patient
   end
