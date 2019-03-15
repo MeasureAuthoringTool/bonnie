@@ -23,7 +23,7 @@ namespace :bonnie do
 
       user = User.find_by email: args[:user_email]
       measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
-      records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      records = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
       if (args[:patient_first_name].present? && args[:patient_last_name].present?)
         records = records.select { |r| r.first == args[:patient_first_name] && r.last == args[:patient_last_name] }
       end
@@ -55,7 +55,7 @@ namespace :bonnie do
 
       user = User.find_by email: args[:user_email]
       measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
-      records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      records = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
 
       fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: records)
       fixture_exporter.export_measure_and_any_components(measure_file_path)
@@ -134,7 +134,7 @@ namespace :bonnie do
       cms_ids = {}
       failed_exports = []
       CqlMeasure.by_user(user).each do |measure|
-        Record.where(measure_ids: measure.hqmf_set_id, user_id: BSON::ObjectId.from_string(user.id)).each do |record|
+        CQM::Patient.where(measure_ids: measure.hqmf_set_id, user_id: BSON::ObjectId.from_string(user.id)).each do |record|
           begin
             patient = CQMConverter.to_cqm(record)
             patient._id = record._id if record._id
