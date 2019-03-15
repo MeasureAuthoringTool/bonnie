@@ -9,10 +9,10 @@ include Devise::Test::ControllerHelpers
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
     users_set = File.join("users", "base_set")
-    records_set = File.join("records","core_measures", "CMS32v7")
+    records_set = File.join('cqm_patients', 'CMS32v7')
     collection_fixtures(users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_patients(@user, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
     sign_in @user
 
     @vcr_options = {match_requests_on: [:method, :uri_no_st]}
@@ -571,7 +571,7 @@ include Devise::Test::ControllerHelpers
 
     measure = nil
     # associate a patient with the measure about to be created so the patient will be rebuilt
-    p = Record.by_user(@user).first
+    p = CQM::Patient.by_user(@user).first
     p.measure_ids = ["762B1B52-40BF-4596-B34F-4963188E7FF7"]
     p.save
 
@@ -737,7 +737,7 @@ include Devise::Test::ControllerHelpers
 
     measure = nil
     # associate a patient with the measure about to be created so the patient will be rebuilt
-    p = Record.by_user(@user).first
+    p = CQM::Patient.by_user(@user).first
     p.measure_ids = ["762B1B52-40BF-4596-B34F-4963188E7FF7"]
     p.save
 

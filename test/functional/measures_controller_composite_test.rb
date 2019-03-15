@@ -11,10 +11,10 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     dump_database
     users_set = File.join("users", "base_set")
     measures_set = File.join("draft_measures", "base_set")
-    records_set = File.join("records","base_set")
+    records_set = File.join('cqm_patients','CMS32v7')
     collection_fixtures(measures_set, users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_patients(@user, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
     associate_user_with_measures(@user, Measure.all)
     @measure = Measure.where({"cms_id" => "CMS138v2"}).first
     sign_in @user

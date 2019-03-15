@@ -15,7 +15,7 @@ class PatientBuilderFunctionalTest < ActionController::TestCase
     load_measure_fixtures_from_folder(File.join('measures', 'CMS878v0'), @user)
     associate_user_with_patients(@user, CQM::Patient.all)
 
-    record = Record.where(last: 'NoNumerator').first
+    record = CQM::Patient.where(last: 'NoNumerator').first
     # clear calculated value from fixture
     record.assessments[0]['values'][0]['scalar'] = '0'
     Measures::PatientBuilder.rebuild_patient(record)
