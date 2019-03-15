@@ -149,7 +149,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "destroy" do
-    records_set = File.join("records","core_measures", "CMS134v6")
+    records_set = File.join('cqm_patients', 'CMS134v6')
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     patient = Record.first

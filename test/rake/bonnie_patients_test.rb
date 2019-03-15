@@ -18,16 +18,16 @@ class BonniePatientsTest < ActiveSupport::TestCase
     @source_user = User.by_email('bonnie@example.com').first
     @dest_user = User.by_email('user_admin@example.com').first
 
-    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @source_user) # '3FD13096-2C8F-40B5-9297-B714E8DE9133'
-    load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @source_user) # 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
-    load_measure_fixtures_from_folder(File.join("measures", "CMS177v6"), @dest_user) # '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @source_user) # '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @source_user) # 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS177v6'), @dest_user) # '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
 
-    # these patients are already associated with the source measure in the json file
-    associate_user_with_patients(@source_user, Record.all)
+    associate_user_with_patients(@source_user, CQM::Patient.all)
+    associate_measure_with_patients(CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id), CQM::Patient.all)
   end
 
 
-  test "move_measure_patients bad environment variables" do
+  test 'move_measure_patients bad environment variables' do
     # Bad source email
     ENV['SOURCE_EMAIL'] = 'asdf@example.com'
     ENV['DEST_EMAIL'] = @dest_email
@@ -61,7 +61,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_output("\e[#{31}m#{"[Error]"}\e[0m\t\tmeasure with HQFM set id A4B9763C-847E-4E02-BB7E-ACC596E9zzzz not found for account user_admin@example.com\n") { Rake::Task['bonnie:patients:move_measure_patients'].execute }
   end
 
-  test "copy_measure_patients bad environment variables" do
+  test 'copy_measure_patients bad environment variables' do
     # Bad source email
     ENV['SOURCE_EMAIL'] = 'asdf@example.com'
     ENV['DEST_EMAIL'] = @dest_email
@@ -338,8 +338,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
   end
 
-  test "successful export of patients" do
-    load_measure_fixtures_from_folder(File.join("measures", "CMS158v6"), @source_user)
+  test 'successful export of patients' do
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS158v6'), @source_user)
     hqmf_set_id =  '3BBFC929-50C8-44B8-8D34-82BE75C08A70'
     associate_measures_with_patients(CQM::Measure.where(hqmf_set_id: hqmf_set_id), Record.all)
 
@@ -351,18 +351,18 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert File.exist? File.expand_path'cms104v2_export_patients_test.json'
 
     # Open up the file and assert the file contains 4 lines, one for each patient.
-    f = File.open('cms104v2_export_patients_test.json', "r")
+    f = File.open('cms104v2_export_patients_test.json', 'r')
     assert_equal 4, f.readlines.size
     File.delete('cms104v2_export_patients_test.json') if File.exist?('cms104v2_export_patients_test.json')
   end
 
-  test "successful import of patients"  do
+  test 'successful import of patients'  do
     dump_database
-    users_set = File.join("users", "base_set")
+    users_set = File.join('users', 'base_set')
     collection_fixtures(users_set)
 
     hqmf_set_id =  '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
-    load_measure_fixtures_from_folder(File.join("measures", "CMS177v6"), @source_user)
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS177v6'), @source_user)
 
 
     ENV['EMAIL'] = @source_user.email
@@ -370,45 +370,45 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['FILENAME'] = File.join('test','fixtures','patient_export','cms104v2_export_patients_test.json')
     Rake::Task['bonnie:patients:import_patients'].execute
     # Confirm that there are 7 patients now associated with this measure.
-    assert_equal 7, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
+    assert_equal 7, CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id:  hqmf_set_id), user_id: @source_user._id).count
   end
 
-  test "importing patient updates facility and diagnosis"  do
+  test 'importing patient updates facility and diagnosis'  do
     dump_database
-    users_set = File.join("users", "base_set")
+    users_set = File.join('users', 'base_set')
     collection_fixtures(users_set)
 
     hqmf_set_id =  '3FD13096-2C8F-40B5-9297-B714E8DE9133'
-    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @source_user)
-    assert_equal 0, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @source_user)
+    assert_equal 0, CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id:  hqmf_set_id), user_id: @source_user._id).count
 
     ENV['EMAIL'] = @source_user.email
     ENV['HQMF_SET_ID'] = hqmf_set_id
     ENV['FILENAME'] = File.join('test','fixtures','patient_export','Diagnosis_Facility_Patients.json')
     Rake::Task['bonnie:patients:import_patients'].execute
     # Confirm that there are 3 patients now associated with this measure.
-    assert_equal 3, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
+    assert_equal 3, CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id:  hqmf_set_id), user_id: @source_user._id).count
 
     # This patient should no longer have arrival, departure, or facility in field_values
-    deletion_patient = Record.find_by(first: 'EDDuringMPeriod')
+    deletion_patient = CQM::Patient.find_by(first: 'EDDuringMPeriod')
     assert_equal 0, deletion_patient.source_data_criteria[0]['field_values'].length
 
     # This patient should have new form of diagnosis
-    diagnosis_patient = Record.find_by(first: 'LivebornInHospital')
+    diagnosis_patient = CQM::Patient.find_by(first: 'LivebornInHospital')
     assert_equal 'COL', diagnosis_patient.source_data_criteria[0]['field_values']['DIAGNOSIS']['type']
 
     # This patient should have new form of facility
-    facility_patient = Record.find_by(first: '3Encs<=30AftADHDMeds')
+    facility_patient = CQM::Patient.find_by(first: '3Encs<=30AftADHDMeds')
     assert_equal 'COL', facility_patient.source_data_criteria[4]['field_values']['FACILITY_LOCATION']['type']
 
   end
 
-  test "materialize all of patients" do
+  test 'materialize all of patients' do
     ENV['EMAIL'] = @source_user.email
     assert_output(/Materialized 4 of 4/) { Rake::Task['bonnie:patients:materialize_all'].execute }
   end
 
-  test "materialize all of patients for user with no patients" do
+  test 'materialize all of patients for user with no patients' do
     ENV['EMAIL'] = @dest_user.email
     assert_output(/Materialized 0 of 0/) { Rake::Task['bonnie:patients:materialize_all'].execute }
   end

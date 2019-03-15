@@ -7,7 +7,7 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
 
   setup do
     dump_database
-    records_set = File.join("records", "core_measures", "CMS160v6")
+    records_set = File.join('cqm_patients', 'CMS160v6')
     collection_fixtures(records_set)
     load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"))
     @measure = CQM::Measure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs

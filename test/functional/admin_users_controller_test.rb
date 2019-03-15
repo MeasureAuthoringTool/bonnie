@@ -5,21 +5,21 @@ include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
-    records_set = File.join("records", "core_measures", "CMS32v7")
-    users_set = File.join("users", "base_set")
-    collection_fixtures(users_set, records_set)
+    patients_set = File.join('cqm_patients', 'CMS32v7')
+    users_set = File.join('users', 'base_set')
+    collection_fixtures(users_set, patients_set)
     @user = User.by_email('bonnie@example.com').first
     @user_admin = User.by_email('user_admin@example.com').first
     @user_plain = User.by_email('user_plain@example.com').first
     @user_unapproved = User.by_email('user_unapproved@example.com').first
 
-    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @user)
-    associate_user_with_patients(@user, Record.all)
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    associate_user_with_patients(@user, CQM::Patient.all)
 
   end
 
 
-  test "approve not as admin" do
+  test 'approve not as admin' do
     sign_in @user_plain
     not_authorized = assert_raises(RuntimeError) do
       get :index, {format: :json}
@@ -27,7 +27,7 @@ include Devise::Test::ControllerHelpers
     assert_equal "User #{@user_plain.email} requesting resource requiring admin access", not_authorized.message
   end
 
-  test "get index json" do
+  test 'get index json' do
     sign_in @user_admin
     get :index, {format: :json}
     assert_response :success
@@ -43,7 +43,7 @@ include Devise::Test::ControllerHelpers
     assert_equal 0, index_json[3]['patient_count']
   end
 
-  test "approve user" do
+  test 'approve user' do
     sign_in @user_admin
     assert_equal false, @user_unapproved.approved?
     post :approve, {id: @user_unapproved.id, format: :json}
@@ -54,10 +54,10 @@ include Devise::Test::ControllerHelpers
     mail = ActionMailer::Base.deliveries.last
     assert_equal @user_unapproved.email, mail.to.first
     assert_equal APP_CONFIG['bonnie_email'], mail.from.first
-    assert_equal "Welcome to Bonnie", mail.subject
+    assert_equal 'Welcome to Bonnie', mail.subject
   end
 
-  test "disable user" do
+  test 'disable user' do
     sign_in @user_admin
     assert_equal true, @user_plain.approved?
     post :disable, {id: @user_plain.id, format: :json}
@@ -66,7 +66,7 @@ include Devise::Test::ControllerHelpers
     assert_equal false, @user_plain.approved?
   end
 
-  test "delete user" do
+  test 'delete user' do
     sign_in @user_admin
     assert_equal 4, User.all.count
     assert_equal 1, User.where({id: @user_plain.id}).count
@@ -76,17 +76,17 @@ include Devise::Test::ControllerHelpers
     assert_equal 0, User.where({id: @user_plain.id}).count
   end
 
-  test "update user" do
+  test 'update user' do
     sign_in @user_admin
 
-    assert_equal "user_plain@example.com", @user_plain.email
+    assert_equal 'user_plain@example.com', @user_plain.email
     assert_equal false, @user_plain.is_admin?
     assert_equal false, @user_plain.is_portfolio?
     put :update, {id: @user_plain.id, email: 'plain2@example.com', admin: true, portfolio: false, format: :json}
     assert_response :success
 
     @user_plain.reload
-    assert_equal "plain2@example.com", @user_plain.email
+    assert_equal 'plain2@example.com', @user_plain.email
     assert_equal true, @user_plain.is_admin?
     assert_equal false, @user_plain.is_portfolio?
 
@@ -94,27 +94,27 @@ include Devise::Test::ControllerHelpers
     assert_response :success
 
     @user_plain.reload
-    assert_equal "plain2@example.com", @user_plain.email
+    assert_equal 'plain2@example.com', @user_plain.email
     assert_equal false, @user_plain.is_admin?
     assert_equal true, @user_plain.is_portfolio?
 
   end
 
-  test "patients download" do
+  test 'patients download' do
     sign_in @user_admin
     get :patients, {id: @user.id}
     assert_response :success
     assert_equal 4, JSON.parse(response.body).length
   end
 
-  test "measures download" do
+  test 'measures download' do
     sign_in @user_admin
     get :measures, {id: @user.id}
     assert_response :success
     assert_equal 1, JSON.parse(response.body).length
   end
 
-  test "sign in as" do
+  test 'sign in as' do
      sign_in @user_admin
      pre_count = @user_plain.sign_in_count
      post :log_in_as, {id: @user_plain.id}
@@ -123,13 +123,13 @@ include Devise::Test::ControllerHelpers
      assert_equal pre_count + 1, @user_plain.sign_in_count
   end
 
-  test "email all" do
+  test 'email all' do
     ActionMailer::Base.deliveries = [] # reset the list of email deliveries to ensure clean slate
     mail = ActionMailer::Base.deliveries
     sign_in @user
     assert_not @user.admin?
     not_authorized = assert_raises RuntimeError do
-      post :email_all, {subject: "Test Email All Subject", body: "email all body", format: :json}
+      post :email_all, {subject: 'Test Email All Subject', body: 'email all body', format: :json}
     end
     assert_equal "User #{@user.email} requesting resource requiring admin access", not_authorized.message
     assert mail.empty?
@@ -137,7 +137,7 @@ include Devise::Test::ControllerHelpers
 
     sign_in @user_admin
     assert @user_admin.admin?
-    post :email_all, {subject: "Test Email All Subject", body: "email all body", format: :json}
+    post :email_all, {subject: 'Test Email All Subject', body: 'email all body', format: :json}
     users_sent_emails = 0
     User.each do |user|
       if mail.any? {|email|  email.to.first == user.email}
@@ -147,7 +147,7 @@ include Devise::Test::ControllerHelpers
     assert_equal users_sent_emails, User.count()
   end
 
-  test "email active" do
+  test 'email active' do
     # Make sure each user's last sign in is greater than 6 months
     User.each do |user|
       user.last_sign_in_at = Date.today - 8.months
@@ -158,7 +158,7 @@ include Devise::Test::ControllerHelpers
     sign_in @user
     assert_not @user.admin?
     not_authorized = assert_raises RuntimeError do
-      post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
+      post :email_active, {subject: 'Example Subject for Testing', body: 'test body of email', format: :json}
     end
     assert_equal "User #{@user.email} requesting resource requiring admin access", not_authorized.message
     assert mail.empty?
@@ -170,25 +170,25 @@ include Devise::Test::ControllerHelpers
     @user_admin.last_sign_in_at = Date.today - 8.months
     @user_admin.measure_count = 0
     @user_admin.save! # update the database with the test values
-    post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
+    post :email_active, {subject: 'Example Subject for Testing', body: 'test body of email', format: :json}
     assert mail.empty?
     # The following tests fewer than 6 months, but 0 measures
     @user_admin.last_sign_in_at = Date.today - 1.months
     @user_admin.save!
-    post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
+    post :email_active, {subject: 'Example Subject for Testing', body: 'test body of email', format: :json}
     assert mail.empty?
     # The following tests greater than 6 months, but 0 measure
     @user_admin.last_sign_in_at = Date.today - 8.months # arbitrary date more than 6 months ago
     associate_user_with_measures(@user_admin, CQM::Measure.all)
     @user_admin.save!
-    post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
+    post :email_active, {subject: 'Example Subject for Testing', body: 'test body of email', format: :json}
     assert mail.empty?
     # The following tests fewer than 6 months, and 1 measures, so we should recieve an  email
     @user_admin.last_sign_in_at = Date.today - 1.months
     @user_admin.save!
-    post :email_active, {subject: "Email Sent!", body: "test body of email", format: :json}
+    post :email_active, {subject: 'Email Sent!', body: 'test body of email', format: :json}
     assert_equal 1, mail.last.to.length # ensure that only one email was sent
-    assert_equal "Email Sent!", mail.last.subject # This test should pass because the user has more than 0 measures, and is younger than 6 months
+    assert_equal 'Email Sent!', mail.last.subject # This test should pass because the user has more than 0 measures, and is younger than 6 months
     assert_equal @user_admin.email, mail.last.to.first
   end
 end

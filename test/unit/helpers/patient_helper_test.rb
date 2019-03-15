@@ -11,11 +11,11 @@ class PatientHelperTest < ActionView::TestCase
   test 'Using core_measures set, Correct Number Of Patients Recieved From convert_patient_models with one failed patient' do
     # load all of the core_measures fixture patients
     dump_database
-    cms32_records_set = File.join("records","core_measures","CMS32v7")
-    cms134_records_set = File.join("records","core_measures","CMS134v6")
-    cms158_records_set = File.join("records","core_measures","CMS158v6")
-    cms160_records_set = File.join("records","core_measures","CMS160v6")
-    cms177_records_set = File.join("records","core_measures","CMS177v6")
+    cms32_records_set = File.join('records','core_measures','CMS32v7')
+    cms134_records_set = File.join('records','core_measures','CMS134v6')
+    cms158_records_set = File.join('records','core_measures','CMS158v6')
+    cms160_records_set = File.join('records','core_measures','CMS160v6')
+    cms177_records_set = File.join('records','core_measures','CMS177v6')
     collection_fixtures(cms32_records_set, cms134_records_set, cms158_records_set, cms160_records_set, cms177_records_set)
 
     hds_records = Record.all
@@ -28,15 +28,15 @@ class PatientHelperTest < ActionView::TestCase
 
     # Pass Numer from CMS134v6 has a component with a unit "cc". This is not valid UCUM so it will show up in the list of failed records.
     assert_equal 1, failed_records.count
-    assert_equal "Pass", failed_records[0][:hds_record].first
-    assert_equal "Numer", failed_records[0][:hds_record].last
+    assert_equal 'Pass', failed_records[0][:hds_record].first
+    assert_equal 'Numer', failed_records[0][:hds_record].last
     assert_equal "Error: 'cc' is not a valid UCUM unit.", failed_records[0][:error_message]
   end
 
   test 'Using special_measures set, Correct Number Of Patients Recieved From convert_patient_models' do
     # load all of the special_measures fixture patients
     dump_database
-    cms347_records_set = File.join("records","deprecated_measures","CMS347v1")
+    cms347_records_set = File.join('records','deprecated_measures','CMS347v1')
     collection_fixtures(cms347_records_set)
 
     hds_records = Record.all
