@@ -260,13 +260,13 @@ module MeasureHelper
   def update_related_patient_records(measures, current_user)
     measures.each do |measure|
       # Rebuild the user's patients for the given measure
-      Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).each do |r|
+      CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).each do |r|
         Measures::PatientBuilder.rebuild_patient(r)
         r.save!
       end
 
       # Ensure expected values on patient match those in the measure's populations
-      Record.where(user_id: current_user.id, measure_ids: measure.hqmf_set_id).each do |patient|
+      CQM::Patient.where(user_id: current_user.id, measure_ids: measure.hqmf_set_id).each do |patient|
         patient.update_expected_value_structure!(measure)
       end
     end
