@@ -17,7 +17,7 @@ end
 
 def add_collection(collection)
   # Mongoid names collections based off of the default_client argument.
-  # With nested folders,the collection name is "records/X" (for example).
+  # With nested folders,the collection name is "patients/X" (for example).
   # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
   collection_name = collection.split(File::SEPARATOR)[0]
 
@@ -104,15 +104,16 @@ end
 
 def associate_measure_with_patients(measure,patients)
   patients.each do |p|
-    p.measure_ids = [measure.hqmf_set_id]
+    p.measures << measure
     p.save
   end
 end
 
 def associate_measures_with_patients(measures,patients)
-  measure_ids = measures.map(&:hqmf_set_id)
   patients.each do |p|
-    p.measure_ids = measure_ids
+    measures.each do |m|
+    p.measures << m
+    end
     p.save
   end
 end
