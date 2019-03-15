@@ -2,36 +2,36 @@ class PatientsController < ApplicationController
   before_filter :authenticate_user!
 
   def update
-    patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
+    patient = CQM::Patient.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
     update_patient(patient)
     patient.save!
     render :json => patient
   end
 
   def create
-    patient = update_patient(Record.new)
+    patient = update_patient(CQM::Patient.new)
     populate_measure_ids_if_composite_measures(patient)
     patient.save!
     render :json => patient
   end
 
   def materialize
-    patient = update_patient(Record.new) # Always materialize a patient from scratch
+    patient = update_patient(CQM::Patient.new) # Always materialize a patient from scratch
     render :json => patient
   end
 
   def destroy
-    patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
-    Record.by_user(current_user).find(params[:id]).destroy
+    patient = CQM::Patient.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
+    CQM::Patient.by_user(current_user).find(params[:id]).destroy
     render :json => patient
   end
 
   def qrda_export
     if params[:patients]
       # if patients are given, they're from the patient bank; use those patients
-      records = Record.where(is_shared: true).find(params[:patients])
+      records = CQM::Patient.where(is_shared: true).find(params[:patients])
     else
-      records = Record.by_user(current_user)
+      records = CQM::Patient.by_user(current_user)
       unless current_user.portfolio?
         records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
       end

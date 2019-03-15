@@ -141,7 +141,7 @@ module ApiV1
     #     # Extract out the HQMF set id, which we'll use to get related patients
     #     hqmf_set_id = @api_v1_measure.hqmf_set_id
     #     # Get the patients for this measure
-    #     @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+    #     @api_v1_patients = CQM::Patient.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
     #     @api_v1_patients = process_patient_records(@api_v1_patients)
     #   rescue StandardError
     #     http_status = 404
@@ -172,7 +172,7 @@ module ApiV1
           return
         end
         hqmf_set_id = @api_v1_measure.hqmf_set_id
-        @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+        @api_v1_patients = CQM::Patient.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
       rescue StandardError => e
         # Email the error so we can see more details on what went wrong with the patient load.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
