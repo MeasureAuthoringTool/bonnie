@@ -240,7 +240,7 @@ namespace :bonnie do
       printf "| %-35s", "ACCOUNT"
       puts "| MEASURE ID"
       puts "-"*157
-      Record.all.each do |patient|
+      CQM::Patient.all.each do |patient|
         update_facilities_and_diagnoses_on_patient(patient)
       end
     end
@@ -260,9 +260,9 @@ namespace :bonnie do
       raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
 
       # Grab the patients
-      patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
-        .or(Record.where(user_id: user._id, :measure_ids => measure.hqmf_id))
-        .or(Record.where(user_id: user._id, measure_id: measure.hqmf_id))
+      patients = CQM::Patient.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
+        .or(CQM::Patient.where(user_id: user._id, :measure_ids => measure.hqmf_id))
+        .or(CQM::Patient.where(user_id: user._id, measure_id: measure.hqmf_id))
 
       # Write patient objects to file in JSON format
       puts "Exporting patients..."
@@ -298,7 +298,7 @@ namespace :bonnie do
       raise "FILENAME not specified" unless input_file = ENV['FILENAME']
       File.foreach(File.join(Rails.root, input_file)) do |p|
         next if p.blank?
-        patient = Record.new.from_json p.strip
+        patient = CQM::Patient.new.from_json p.strip
 
         patient['user_id'] = user._id
 
@@ -515,7 +515,7 @@ namespace :bonnie do
     desc "Materialize all patients"
     task :materialize_all => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
-      records = user ? user.records : Record.all
+      records = user ? user.records : CQM::Patient.all
       count = 0
       records.each do |r|
         puts "Materializing #{r.last} #{r.first}"
@@ -532,7 +532,7 @@ namespace :bonnie do
     desc 'Reset expected_values hash.'
     task :reset_expected_values => :environment do
       puts "Resetting expected_values hash for all patients to []"
-      Record.each do |patient|
+      CQM::Patient.each do |patient|
         patient.expected_values = []
         patient.save
         puts "\tReset expected_values for patient #{patient.first} #{patient.last}."
@@ -556,7 +556,7 @@ namespace :bonnie do
       direction.downcase == 'backward' ? dir = -1 : dir = 1
       seconds, minutes, hours, days, weeks, months, years = dir * seconds.to_i, dir * minutes.to_i, dir * hours.to_i, dir * days.to_i, dir * weeks.to_i, dir * months.to_i, dir * years.to_i
       timestamps = ['FACILITY_LOCATION_ARRIVAL_DATETIME','FACILITY_LOCATION_DEPARTURE_DATETIME','DISCHARGE_DATETIME','ADMISSION_DATETIME','START_DATETIME','STOP_DATETIME','INCISION_DATETIME','REMOVAL_DATETIME', 'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME']
-      Record.by_user(user).each do |patient|
+      CQM::Patient.by_user(user).each do |patient|
         patient.birthdate = ( Time.at( patient.birthdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
         if patient.expired
           patient.deathdate = ( Time.at( patient.deathdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
@@ -593,7 +593,7 @@ namespace :bonnie do
     task :resave_patient_records => :environment do
       STDOUT.sync = true
       index = 0
-      Record.each do |r|
+      CQM::Patient.each do |r|
         r.save
         index += 1
         print '.' if index % 500 == 0
@@ -669,7 +669,7 @@ namespace :bonnie do
   # pass in the same user information for both src_user and dest_user.
   def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
     records = []
-    src_user.records.where(measure_ids: src_measure.hqmf_set_id).each do |r|
+    src_user.patients.where(measure_ids: src_measure.hqmf_set_id).each do |r|
       if copy
         records.push(r.dup)
       else
