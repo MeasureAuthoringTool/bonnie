@@ -89,14 +89,14 @@ class BonnieUsersTest < ActiveSupport::TestCase
     dest_email = 'user_admin@example.com'
     source_hqmf_set_id = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
 
-    records_set = File.join("records", "core_measures", "CMS32v7")
+    records_set = File.join('cqm_patients', 'CMS32v7')
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set, records_set)
     source_user = User.by_email('bonnie@example.com').first
     dest_user = User.by_email('user_admin@example.com').first
     load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), source_user)
     # these patients are already associated with the source measure in the json file
-    associate_user_with_patients(source_user, Record.all)
+    associate_user_with_patients(source_user, CQM::Patient.all)
 
     measure = CQM::Measure.where(hqmf_set_id: source_hqmf_set_id).first
 
@@ -104,8 +104,8 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     source_measures = CQM::Measure.where(user_id:source_user.id)
     dest_measures = CQM::Measure.where(user_id:dest_user.id)
-    source_patients = Record.where(user_id:source_user.id)
-    dest_patients = Record.where(user_id:dest_user.id)
+    source_patients = CQM::Patient.where(user_id:source_user.id)
+    dest_patients = CQM::Patient.where(user_id:dest_user.id)
 
     assert_equal(1, source_measures.count)
     assert_equal(measure._id, source_measures.first._id)
@@ -162,8 +162,8 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     source_measures = CQM::Measure.where(user_id:source_user.id)
     dest_measures = CQM::Measure.where(user_id:dest_user.id)
-    source_patients = Record.where(user_id:source_user.id)
-    dest_patients = Record.where(user_id:dest_user.id)
+    source_patients = CQM::Patient.where(user_id:source_user.id)
+    dest_patients = CQM::Patient.where(user_id:dest_user.id)
 
     assert_equal(0, source_measures.count)
     assert_equal(1, dest_measures.count)

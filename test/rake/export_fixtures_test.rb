@@ -10,7 +10,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     simple_records_set = File.join('records','core_measures', 'CMS134v6')
     collection_fixtures(users_set, measure_set, simple_measure_set, records_set, simple_records_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_patients(@user, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
   end
 
   test "generate_cqm_patient_fixtures description" do

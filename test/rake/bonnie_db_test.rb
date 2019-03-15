@@ -5,7 +5,7 @@ class BonnieDbTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    records_set = File.join("records", "core_measures", "CMS32v7")
+    records_set = File.join('cqm_patients', 'CMS32v7')
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set, records_set)
     @email = 'bonnie@example.com'
@@ -20,7 +20,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1).first.package.delete
 
     # these patients are already associated with the source measure in the json file
-    associate_user_with_patients(@user, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
   end
 
   test "resave measures" do

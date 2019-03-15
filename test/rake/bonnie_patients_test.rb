@@ -5,8 +5,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    records_set = File.join("records", "core_measures", "CMS32v7")
-    users_set = File.join("users", "base_set")
+    records_set = File.join('cqm_patients', 'CMS32v7')
+    users_set = File.join('users', 'base_set')
     collection_fixtures(users_set, records_set)
 
     @source_email = 'bonnie@example.com'
@@ -95,20 +95,20 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_output("\e[#{31}m#{"[Error]"}\e[0m\t\tmeasure with HQFM set id A4B9763C-847E-4E02-BB7E-ACC596E9zzzz not found for account #{@dest_email}\n") { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
   end
 
-  test "move_measure_patients moves patients" do
+  test 'move_measure_patients moves patients' do
     ENV['SOURCE_EMAIL'] = @source_email
     ENV['DEST_EMAIL'] = @dest_email
     ENV['SOURCE_HQMF_SET_ID'] = @source_hqmf_set_id
     ENV['DEST_HQMF_SET_ID'] = @dest_hqmf_set_id
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest_hqmf_set_id))
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
-    source_patients = Record.where(user_id:@source_user.id)
-    dest_patients = Record.where(user_id:@dest_user.id)
+    source_patients = CQM::Patient.where(user_id:@source_user.id)
+    dest_patients = CQM::Patient.where(user_id:@dest_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -118,33 +118,33 @@ class BonniePatientsTest < ActiveSupport::TestCase
                   "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully moved patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:move_measure_patients'].execute }
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest_hqmf_set_id))
 
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
 
-    source_patients = Record.where(user_id:@source_user.id)
-    dest_patients = Record.where(user_id:@dest_user.id)
+    source_patients = CQM::Patient.where(user_id:@source_user.id)
+    dest_patients = CQM::Patient.where(user_id:@dest_user.id)
 
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
   end
 
-  test "copy_measure_patients moves patients" do
+  test 'copy_measure_patients moves patients' do
     ENV['SOURCE_EMAIL'] = @source_email
     ENV['DEST_EMAIL'] = @dest_email
     ENV['SOURCE_HQMF_SET_ID'] = @source_hqmf_set_id
     ENV['DEST_HQMF_SET_ID'] = @dest_hqmf_set_id
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id:  @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id:  @dest_hqmf_set_id))
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
-    source_patients = Record.where(user_id:@source_user.id)
-    dest_patients = Record.where(user_id:@dest_user.id)
+    source_patients = CQM::Patient.where(user_id:@source_user.id)
+    dest_patients = CQM::Patient.where(user_id:@dest_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -154,26 +154,26 @@ class BonniePatientsTest < ActiveSupport::TestCase
                   "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest_hqmf_set_id))
 
     assert_equal(4, source_patients.count)
     assert_equal(4, dest_patients.count)
 
-    source_patients = Record.where(user_id:@source_user.id)
-    dest_patients = Record.where(user_id:@dest_user.id)
+    source_patients = CQM::Patient.where(user_id:@source_user.id)
+    dest_patients = CQM::Patient.where(user_id:@dest_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(4, dest_patients.count)
   end
 
-  test "copy_measure_patients updates source data criteria" do
+  test 'copy_measure_patients updates source data criteria' do
     ENV['SOURCE_EMAIL'] = @source_email
     ENV['DEST_EMAIL'] = @dest_email
     ENV['SOURCE_HQMF_SET_ID'] = @source_hqmf_set_id
     ENV['DEST_HQMF_SET_ID'] = @dest_hqmf_set_id
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
+    source_patients = CQM::Patient.where(measure: Measures.find(hqmf_set_id: @source_hqmf_set_id))
     dest_measures = CQM::Measure.where(hqmf_set_id:@dest_hqmf_set_id)
     assert_equal dest_measures.length, 1
     dest_measure = dest_measures.first
@@ -192,7 +192,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
                   "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
 
-    dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest_hqmf_set_id))
     dest_patients.each do |record|
       record.source_data_criteria.each do |sdc|
         assert_equal(sdc['hqmf_set_id'], @dest_hqmf_set_id) if sdc['hqmf_set_id']
@@ -200,12 +200,12 @@ class BonniePatientsTest < ActiveSupport::TestCase
     end
   end
 
-  test "move_patients_csv moves patients" do
+  test 'move_patients_csv moves patients' do
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'good_transfers.csv')
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
-    user_patients = Record.where(user_id:@source_user.id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -217,9 +217,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
                   "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
-    user_patients = Record.where(user_id:@source_user.id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
@@ -227,13 +227,13 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
   end
 
-  test "move_patients_csv with bad information" do
+  test 'move_patients_csv with bad information' do
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'bad_transfers.csv')
 
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
-    user_patients = Record.where(user_id:@source_user.id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    user_patients = CQM::Patient.tient.where(user_id:@source_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -252,9 +252,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
                   "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
-    user_patients = Record.where(user_id:@source_user.id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.tient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -262,19 +262,19 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
   end
 
-  test "move_patients_csv with bad duplicate information" do
+  test 'move_patients_csv with bad duplicate information' do
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'bad_duplicate_transfers.csv')
 
     # need to associate the last measure with this user account to test duplicate cms ids
     associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
     measure = CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id).first
-    measure.cms_id = "CMS32v7"
-    measure.title = "Median Time from ED Arrival to ED Departure for Discharged ED Patients"
+    measure.cms_id = 'CMS32v7'
+    measure.title = 'Median Time from ED Arrival to ED Departure for Discharged ED Patients'
     measure.save
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
-    user_patients = Record.where(user_id:@source_user.id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -295,9 +295,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
                   "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
-    user_patients = Record.where(user_id:@source_user.id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -305,18 +305,18 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
   end
 
-  test "move_patients_csv with duplicate information" do
+  test 'move_patients_csv with duplicate information' do
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'duplicate_transfers.csv')
 
     # need to associate the last measure with this user account to test duplicate cms ids
     associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
     measure = CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id).first
-    measure.cms_id = "CMS32v7"
+    measure.cms_id = 'CMS32v7'
     measure.save
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
-    user_patients = Record.where(user_id:@source_user.id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -328,9 +328,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
                   "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
-    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
-    user_patients = Record.where(user_id:@source_user.id)
+    source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
@@ -341,7 +341,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
   test 'successful export of patients' do
     load_measure_fixtures_from_folder(File.join('measures', 'CMS158v6'), @source_user)
     hqmf_set_id =  '3BBFC929-50C8-44B8-8D34-82BE75C08A70'
-    associate_measures_with_patients(CQM::Measure.where(hqmf_set_id: hqmf_set_id), Record.all)
+    associate_measures_with_patients(CQM::Measure.where(hqmf_set_id: hqmf_set_id), CQM::Patient.all)
 
     ENV['EMAIL'] = @source_user.email
     ENV['HQMF_SET_ID'] = hqmf_set_id
@@ -417,12 +417,12 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['EMAIL'] = @source_user.email
     ENV['YEARS'] = '1'
     ENV['DIR'] = 'forward'
-    p = Record.where(user_id:@source_user.id).first
+    p = CQM::Patient.where(user_id:@source_user.id).first
     before_birth_date = p.birthdate
     before_dc_start_date = p.source_data_criteria[0]['start_date']
     before_dc_end_date = p.source_data_criteria[0]['end_date']
     Rake::Task['bonnie:patients:date_shift'].execute
-    p = Record.where(user_id:@source_user.id).first
+    p = CQM::Patient.where(user_id:@source_user.id).first
 
     # Assert the before date + a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
     after_birth_date = (Time.at( before_birth_date ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i
@@ -437,12 +437,12 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['EMAIL'] = @source_user.email
     ENV['YEARS'] = '1'
     ENV['DIR'] = 'backward'
-    p = Record.where(user_id:@source_user.id).first
+    p = CQM::Patient.where(user_id:@source_user.id).first
     before_birth_date = p.birthdate
     before_dc_start_date = p.source_data_criteria[0]['start_date']
     before_dc_end_date = p.source_data_criteria[0]['end_date']
     Rake::Task['bonnie:patients:date_shift'].execute
-    p = Record.where(user_id:@source_user.id).first
+    p = CQM::Patient.where(user_id:@source_user.id).first
 
     # Assert the before date - a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
     after_birth_date = (Time.at( before_birth_date ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i
