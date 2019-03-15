@@ -15,7 +15,7 @@ describe 'Production_PatientBuilderView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS160/patients.json'), parse: true
       bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
       bonnie.measures.add @measure
 
@@ -45,7 +45,7 @@ describe 'Production_PatientBuilderView', ->
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS722/CMS722v0.json'), parse: true
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @cqlMeasure
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS722/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS722/patients.json'), parse: true
 
       @addCodedValue = (codeListId, submit=true) ->
         @patientBuilder.$('select[name=type]:first').val('CD').change()
@@ -80,7 +80,7 @@ describe 'Production_PatientBuilderView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS759v1/CMS759v1.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS759v1/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS759v1/patients.json'), parse: true
 
       @universalValueSetsByOid = bonnie.valueSetsByOid
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS759v1/value_sets.json')
@@ -117,7 +117,7 @@ describe 'Production_PatientBuilderView', ->
       # bonnie.valueSetsByOid must be loaded before measure because measure.parse depends on it.
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS52v7/value_sets.json')
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS52v7/CMS52v7.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS52v7/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS52v7/patients.json'), parse: true
 
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
@@ -160,7 +160,7 @@ describe 'Production_PatientBuilderView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS761/value_sets.json')
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS761/CMS761v0.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS761/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS761/patients.json'), parse: true
       bonnie.measures.add @measure
 
     it 'Not in numerator when no participation', ->
@@ -180,7 +180,7 @@ describe 'Production_PatientBuilderView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMSv54321/value_sets.json')
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv54321/CMSv54321.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv54321/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMSv54321/patients.json'), parse: true
       bonnie.measures.add @measure
 
     it 'Assessment Order calculates correctly', ->

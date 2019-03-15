@@ -5,7 +5,7 @@ describe 'Coverage', ->
     bonnie.measures = new Thorax.Collections.Measures()
     @universalValueSetsByOid = bonnie.valueSetsByOid
     bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
-    @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
+    @cqlPatients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS890/patients.json'), parse: true
     @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
 
   afterEach ->
