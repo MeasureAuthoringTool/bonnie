@@ -67,9 +67,9 @@ class User
   field :approved, type:Boolean, :default => false
 
   field :crosswalk_enabled,  type:Boolean, default: false
-  
+
   has_many :cqm_measures, class_name: 'CQM::Measure'
-  has_many :records
+  has_many :patients, class_name: 'CQM::Patient'
 
   scope :by_email, ->(email) { where({email: email}) }
 
@@ -151,7 +151,7 @@ class User
 
   attr_writer :patient_count
   def patient_count
-    @patient_count || records.count
+    @patient_count || patients.count
   end
 
 end
