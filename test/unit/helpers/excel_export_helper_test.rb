@@ -12,21 +12,21 @@ class ExcelExportHelperTest < ActionController::TestCase
     # CMS32 has stratifications and covers most of the edge cases
     # CMS134 is a simpler measure and also has a patient that fails due to invalid ucum units
 
-    records_set = File.join('records','core_measures', 'CMS32v7')
-    simple_records_set = File.join('records','core_measures', 'CMS134v6')
+    records_set = File.join('cqm_patients', 'CMS32v7')
+    simple_records_set = File.join('cqm_patients', 'CMS134v6')
 
     collection_fixtures(users_set, records_set, simple_records_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_patients(@user, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
 
     load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @user)
     load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
 
     @measure = CQM::Measure.where({'cms_id' => 'CMS32v7'}).first
-    @patients = Record.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
+    @patients = CQM::Patient.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
 
     @simple_measure = CQM::Measure.where({'cms_id' => 'CMS134v6'}).first
-    @simple_patients = Record.by_user(@user).where({:measure_ids.in => [@simple_measure.hqmf_set_id]})
+    @simple_patients = CQM::Patient.by_user(@user).where({:measure_ids.in => [@simple_measure.hqmf_set_id]})
 
     backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'CMS32-results-stub.json')))
     unpretty_backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'CMS32-unpretty-results-stub.json')))

@@ -5,28 +5,28 @@ class PatientBuilderTest < ActiveSupport::TestCase
   setup do
     dump_database
     users_set = File.join("users", "base_set")
-    records_set = File.join("records", "core_measures", "CMS134v6")
+    records_set = File.join('cqm_patients', 'CMS134v6')
     collection_fixtures(users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
     load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
-    associate_user_with_patients(@user, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
     
     @data_criteria = HQMF::DataCriteria.get_settings_for_definition('diagnosis','active')
     @data_criteria_encounter = HQMF::DataCriteria.get_settings_for_definition('encounter','performed')
     @data_criteria_labtest = HQMF::DataCriteria.get_settings_for_definition('laboratory_test', 'performed')
 
-    @p1 = Record.find_by(last: 'Numer', first: 'Pass')
-    vs_oids = @p1.source_data_criteria.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
+    @p1 = CQM::Patient.find_by(last: 'Numer', first: 'Pass')
+    vs_oids = @p1.qdm_patient.data_elements.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
     @p1_oid_to_vs_hash =  Hash[*CQM::ValueSet.in({oid: vs_oids, user_id: @p1.user_id}).collect { |vs| [vs.oid,vs] }.flatten]
-    @p1_diagnosis_diabetes_sdc = @p1.source_data_criteria.find { |dc| dc['description'] == 'Diagnosis: Diabetes' }
-    @p1_wellness_visit_sdc = @p1.source_data_criteria.find { |dc| dc['description'] == 'Encounter, Performed: Annual Wellness Visit' }
-    @p1_lab_test_kidney_sdc = @p1.source_data_criteria.find { |dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343634300000 }
-    @p1_lab_test_1xx_sdc = @p1.source_data_criteria.find { |dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343635200000 }
+    @p1_diagnosis_diabetes_sdc = @p1.qdm_patient.data_elements.find { |dc| dc['description'] == 'Diagnosis: Diabetes' }
+    @p1_wellness_visit_sdc = @p1.qdm_patient.data_elements.find { |dc| dc['description'] == 'Encounter, Performed: Annual Wellness Visit' }
+    @p1_lab_test_kidney_sdc = @p1.qdm_patient.data_elements.find { |dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343634300000 }
+    @p1_lab_test_1xx_sdc = @p1.qdm_patient.data_elements.find { |dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343635200000 }
 
-    @p2 = Record.find_by(last: 'Denex', first: 'Fail_Hospice_Not_Performed')
-    vs_oids = @p2.source_data_criteria.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
+    @p2 = CQM::Patient.find_by(last: 'Denex', first: 'Fail_Hospice_Not_Performed')
+    vs_oids = @p2.qdm_patient.data_elements.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
     @p2_oid_to_vs_hash =  Hash[*CQM::ValueSet.in({oid: vs_oids, user_id: @p2.user_id}).collect { |vs| [vs.oid,vs] }.flatten]
-    @p2_intervention_order_sdc = @p2.source_data_criteria.find { |dc| dc['description'] == 'Intervention, Order: Hospice care ambulatory' }
+    @p2_intervention_order_sdc = @p2.qdm_patient.data_elements.find { |dc| dc['description'] == 'Intervention, Order: Hospice care ambulatory' }
 
     @coded_source_data_critria = {
       "id"=> "DiagnosisActiveLimitedLifeExpectancy",

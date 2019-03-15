@@ -15,7 +15,7 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
 
   test "calculation completes test" do
     VCR.use_cassette('backend_calculator_test') do
-      patients = Record.where('measure_ids'=>{'$in'=>[@measure.hqmf_set_id]})
+      patients = CQM::Patient.where('measure_ids'=>{'$in'=>[@measure.hqmf_set_id]})
       options = {}
 
       r = BonnieBackendCalculator.calculate(@measure, patients, options)
