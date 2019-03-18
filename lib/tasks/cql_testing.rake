@@ -134,17 +134,17 @@ namespace :bonnie do
       cms_ids = {}
       failed_exports = []
       CqlMeasure.by_user(user).each do |measure|
-        CQM::Patient.where(measure_ids: measure.hqmf_set_id, user_id: BSON::ObjectId.from_string(user.id)).each do |record|
+        Record.where(measure_ids: measure.hqmf_set_id, user_id: BSON::ObjectId.from_string(user.id)).each do |record|
           begin
             patient = CQMConverter.to_cqm(record)
             patient._id = record._id if record._id
 
             backend_fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: [patient])
-            backend_fixture_path = File.join('test', 'fixtures', 'patients', measure.cms_id)
+            backend_fixture_path = File.join('test', 'fixtures', 'cqm_patients', measure.cms_id)
             backend_fixture_exporter.export_records_as_individual_files(backend_fixture_path)
 
             frontend_fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: [patient])
-            frontend_fixture_path = File.join('spec', 'javascripts', 'fixtures', 'json', 'patients', measure.cms_id)
+            frontend_fixture_path = File.join('spec', 'javascripts', 'fixtures', 'json', 'cqm_patients', measure.cms_id)
             frontend_fixture_exporter.export_records_as_array(frontend_fixture_path)
           rescue StandardError => e
             failed_exports << "measure.hqmf_set_id: #{measure.hqmf_set_id}\n\trecord._id: #{record._id}\n\terror: #{e}"
