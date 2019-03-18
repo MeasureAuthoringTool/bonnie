@@ -4,7 +4,7 @@ describe 'Result', ->
     jasmine.getJSONFixtures().clearCache()
     @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
     collection = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS160/patients.json'), parse: true
-    @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
+    @patient = collection.findWhere(givenNames: 'Pass', familyName: 'NUM2')
     @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
     bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
 
@@ -111,7 +111,7 @@ describe 'Continuous Variable Calculations', ->
     bonnie.valueSetsByOidCached = undefined
 
   it 'can handle single episodes observed', ->
-    patient = @patients.findWhere(last: '1 ED', first: 'Visit')
+    patient = @patients.findWhere(familyName: '1 ED', givenNames: 'Visit')
     result = @population.calculate(patient)
     expect(result.get('values')).toEqual([15])
     expect(result.get('population_relevance')['values']).toBe(true)
@@ -123,7 +123,7 @@ describe 'Continuous Variable Calculations', ->
     expect(result.get('episode_results')['5aeb7763b848463d625b33cf']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed', ->
-    patient = @patients.findWhere(last: '2 ED', first: 'Visits')
+    patient = @patients.findWhere(familyName: '2 ED', givenNames: 'Visits')
     result = @population.calculate(patient)
     # values are ordered when created by the calculator
     expect(result.get('values')).toEqual([15, 25])
@@ -139,7 +139,7 @@ describe 'Continuous Variable Calculations', ->
     expect(result.get('episode_results')['5aeb77ccb848463d625b5d4a']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed with one excluded', ->
-    patient = @patients.findWhere(last: '2 ED', first: 'Visits 1 Excl')
+    patient = @patients.findWhere(familyName: '2 ED', givenNames: 'Visits 1 Excl')
     result = @population.calculate(patient)
     expect(result.get('values')).toEqual([25])
     expect(result.get('population_relevance')['values']).toBe(true)
@@ -154,7 +154,7 @@ describe 'Continuous Variable Calculations', ->
     expect(result.get('episode_results')['5aeb77ccb848463d625b5d4f']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed with both excluded', ->
-    patient = @patients.findWhere(last: '2 ED', first: 'Visits 2 Excl')
+    patient = @patients.findWhere(familyName: '2 ED', givenNames: 'Visits 2 Excl')
     result = @population.calculate(patient)
     expect(result.get('values')).toEqual([])
     expect(result.get('population_relevance')['values']).toBe(false)

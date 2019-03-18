@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase
   setup do
     dump_database
     assert_equal 0, User.count
-    @user = User.new(email: "test@test.com", first: "first" , last: 'last',password: 'Test1234!') 
+    @user = User.new(email: "test@test.com", first: 'first', last: 'last', password: 'Test1234!')
     @user.save!
   end
 
@@ -64,13 +64,13 @@ class UserTest < ActiveSupport::TestCase
   test "test bad password fails" do
 
     bad_user = assert_raises(Mongoid::Errors::Validations) do
-      u = User.new(email: "test@test.com", first: "first" , last: 'last',password: 'Test1234!')
+      u = User.new(email: "test@test.com", first: 'first', last: 'last', password: 'Test1234!')
       u.save!
     end
     assert_equal false, (bad_user.message.match /Email is already taken/).nil?
 
     bad_user = assert_raises(Mongoid::Errors::Validations) do
-      u = User.new(email: "test2@test.com", first: "first" , last: 'last',password: 'test')
+      u = User.new(email: "test2@test.com", first: 'first', last: 'last', password: 'test')
       u.save!
     end
     assert_equal false, (bad_user.message.match /Password is too short/).nil?

@@ -118,7 +118,7 @@ describe 'CqlTruncatedStatementView', ->
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: true)
       @populationLogicView.render()
-      results = @population.calculate(@patients.findWhere(first: "Pass", last: "IPP1"))
+      results = @population.calculate(@patients.findWhere(givenNames: "Pass", familyName: "IPP1"))
       @populationLogicView.showRationale(results)
       firstADHDMedView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "First ADHD Medication Dispensed" && view.libraryName == "FollowUpCareforChildrenPrescribedADHDMedicationADD")
 

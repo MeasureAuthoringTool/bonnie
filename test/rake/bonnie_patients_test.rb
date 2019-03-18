@@ -5,9 +5,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    records_set = File.join('cqm_patients', 'CMS32v7')
+    patients_set = File.join('cqm_patients', 'CMS32v7')
     users_set = File.join('users', 'base_set')
-    collection_fixtures(users_set, records_set)
+    collection_fixtures(users_set, patients_set)
 
     @source_email = 'bonnie@example.com'
     @dest_email = 'user_admin@example.com'
@@ -390,15 +390,15 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal 3, CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id:  hqmf_set_id), user_id: @source_user._id).count
 
     # This patient should no longer have arrival, departure, or facility in field_values
-    deletion_patient = CQM::Patient.find_by(first: 'EDDuringMPeriod')
+    deletion_patient = CQM::Patient.find_by(givenNames: 'EDDuringMPeriod')
     assert_equal 0, deletion_patient.source_data_criteria[0]['field_values'].length
 
     # This patient should have new form of diagnosis
-    diagnosis_patient = CQM::Patient.find_by(first: 'LivebornInHospital')
+    diagnosis_patient = CQM::Patient.find_by(givenNames: 'LivebornInHospital')
     assert_equal 'COL', diagnosis_patient.source_data_criteria[0]['field_values']['DIAGNOSIS']['type']
 
     # This patient should have new form of facility
-    facility_patient = CQM::Patient.find_by(first: '3Encs<=30AftADHDMeds')
+    facility_patient = CQM::Patient.find_by(givenNames: '3Encs<=30AftADHDMeds')
     assert_equal 'COL', facility_patient.source_data_criteria[4]['field_values']['FACILITY_LOCATION']['type']
 
   end

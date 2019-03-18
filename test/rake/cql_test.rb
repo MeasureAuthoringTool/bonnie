@@ -6,7 +6,7 @@ class CqlTest < ActiveSupport::TestCase
     dump_database
     @cql_mat_export = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip')
     @cql_mat_export_drc = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'CMS26v5_Artifacts_direct_reference_code.zip')
-    @user = User.new(email: 'test@test.com', first: 'first' , last: 'last',password: 'Test1234!')
+    @user = User.new(email: 'test@test.com', givenNames: 'first', familyName: 'last', password: 'Test1234!')
     @user.save!
     assert_equal 1, User.count
   end

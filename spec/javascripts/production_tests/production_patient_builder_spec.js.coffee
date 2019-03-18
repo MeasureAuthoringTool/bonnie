@@ -21,7 +21,7 @@ describe 'Production_PatientBuilderView', ->
 
     describe 'Patient "Expired DENEX"', ->
       beforeEach ->
-        @patient = @patients.findWhere(first: 'Expired', last: 'DENEX')
+        @patient = @patients.findWhere(givenNames: 'Expired', familyName: 'DENEX')
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
         # validate this patient is in the DENEX
@@ -93,7 +93,7 @@ describe 'Production_PatientBuilderView', ->
 
     describe 'Patient "Numer PASS"', ->
       beforeEach ->
-        @patient = @patients.findWhere(first: 'Numer', last: 'PASS')
+        @patient = @patients.findWhere(givenNames: 'Numer', familyName: 'PASS')
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
 
@@ -130,7 +130,7 @@ describe 'Production_PatientBuilderView', ->
 
     describe 'Patient Direct Reference Code Element', ->
       beforeEach ->
-        @patient = @patients.findWhere(first: 'Element', last: 'Direct Reference Code')
+        @patient = @patients.findWhere(givenNames: 'Element', familyName: 'Direct Reference Code')
         expect(@measure.get('source_data_criteria').models[18].get('description')).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         @patientBuilderView = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients, measures: bonnie.measures, inPatientDashboard: false)
         medicationOrdered = @patientBuilderView.model.get('source_data_criteria').first()
@@ -164,13 +164,13 @@ describe 'Production_PatientBuilderView', ->
       bonnie.measures.add @measure
 
     it 'Not in numerator when no participation', ->
-      patient = @patients.findWhere(first: 'No', last: 'Participation')
+      patient = @patients.findWhere(givenNames: 'No', familyName: 'Participation')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 0
 
     it 'In numerator when with participation', ->
-      patient = @patients.findWhere(first: 'With', last: 'Participation')
+      patient = @patients.findWhere(givenNames: 'With', familyName: 'Participation')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 1
@@ -184,19 +184,19 @@ describe 'Production_PatientBuilderView', ->
       bonnie.measures.add @measure
 
     it 'Assessment Order calculates correctly', ->
-      patient = @patients.findWhere(first: 'Pass', last: 'AssessmentOrder')
+      patient = @patients.findWhere(givenNames: 'Pass', familyName: 'AssessmentOrder')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
     it 'Communication calculates correctly', ->
-      patient = @patients.findWhere(first: 'Pass', last: 'Communication')
+      patient = @patients.findWhere(givenNames: 'Pass', familyName: 'Communication')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
     it 'Medication Order: Setting calculates correctly', ->
-      patient = @patients.findWhere(first: 'Pass', last: 'MedSetting')
+      patient = @patients.findWhere(givenNames: 'Pass', familyName: 'MedSetting')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1

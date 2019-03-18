@@ -109,7 +109,7 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in component measure" do
-      composite_measure_records = File.join('cqm_patients','CMS321')
+      composite_measure_records = File.join('cqm_patients','CMS321v0')
       collection_fixtures(composite_measure_records)
       associate_user_with_patients(@user,CQM::Patient.all)
       load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
@@ -150,7 +150,7 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in composite measure" do
-      composite_measure_records = File.join('cqm_patients','CMS321')
+      composite_measure_records = File.join('cqm_patients','CMS321v0')
       collection_fixtures(composite_measure_records)
       associate_user_with_patients(@user,CQM::Patient.all)
       load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)

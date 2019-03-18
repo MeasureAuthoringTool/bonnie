@@ -3,8 +3,9 @@ require 'test_helper'
 class RecordTest < ActiveSupport::TestCase
   setup do
     dump_database
-    records_set = File.join('cqm_patients', 'CMS72v5')
-    collection_fixtures(*records_set)
+    # TODO: CMS32v7 is not in bonnie-fixtures, need to use different measure or add it
+    patients_set = File.join('cqm_patients', 'CMS72v7')
+    collection_fixtures(*patients_set)
     load_measure_fixtures_from_folder(File.join("measures", "CMS72v7"))
     load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"))
 
@@ -31,21 +32,22 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Good Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Good').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Good').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 0, changes.count
     assert_equal 1, patient.expected_values.count
   end
 
   test "Multiple Measures Good Expecteds (Composite Measure)" do
-    patient = CQM::Patient.where(last: 'Measures', first: 'Multiple').first
+    # TODO: use different patient or create in bonnie-fixtures CMS32v7
+    patient = CQM::Patient.where(familyName: 'Measures', givenNames: 'Multiple').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @composite_measure)
     assert_equal 0, changes.count
     assert_equal 8, patient.expected_values.count
   end
 
   test "Duplicate Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Duplicate').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Duplicate').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
@@ -64,7 +66,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Extra Population Set Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Extra Population Set').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Extra Population Set').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
@@ -83,7 +85,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Extra Population Set Multiple Measure Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Extra Population Set Multiple Measure').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Extra Population Set Multiple Measure').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
@@ -104,7 +106,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Garbage and Duplicate Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Garbage and Duplicate').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Garbage and Duplicate').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 2, changes.count
 
@@ -129,7 +131,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Garbage Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Garbage').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Garbage').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
@@ -147,7 +149,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Garbage Empty Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Garbage Empty').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Garbage Empty').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
@@ -165,7 +167,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Missing Population Set Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Missing Population Set').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Missing Population Set').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 2, changes.count
 
@@ -190,7 +192,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Missing Population Set With Garbage Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Missing Population Set With Garbage').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Missing Population Set With Garbage').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 3, changes.count
 
@@ -221,7 +223,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Missing Population Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Missing Population').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Missing Population').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 
@@ -240,7 +242,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test "Extra Population Expecteds" do
-    patient = CQM::Patient.where(last: 'Expecteds', first: 'Extra Population').first
+    patient = CQM::Patient.where(familyName: 'Expecteds', givenNames: 'Extra Population').first
     changes = collect_expected_changes_and_verify_block_no_block(patient, @measure)
     assert_equal 1, changes.count
 

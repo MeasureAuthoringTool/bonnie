@@ -3,7 +3,7 @@ require 'test_helper'
 class BonnieUsersTest < ActiveSupport::TestCase
   setup do
     dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
+    @user = User.new(email: 'test@test.com', givenNames: 'first', familyName: 'last', password: 'Test1234!')
     @user.save!
 
   end

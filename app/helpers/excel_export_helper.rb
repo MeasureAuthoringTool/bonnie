@@ -78,8 +78,8 @@ module ExcelExportHelper
         ev["OBSERV"] = [] if !ev.key?("OBSERV") || ev["OBSERV"].nil?
       end
       patient_details[patient.id.to_s] = {
-        first: patient.first,
-        last: patient.last,
+        givenNames: patient.givenNames,
+        givenNames: patient.familyName,
         expected_values: expected_values,
         birthdate: patient.birthdate,
         expired: patient.expired,

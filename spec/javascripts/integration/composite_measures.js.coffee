@@ -10,8 +10,8 @@ describe 'Composite Measure Calculations', ->
     @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
     @cql_calculator = new CQLCalculator()
     @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS890/patients.json'), parse: true
-    @pt1 = @patients.findWhere(last: 'doe', first: 'jon')
-    @pt2 = @patients.findWhere(last: 'smith', first: 'jane')
+    @pt1 = @patients.findWhere(familyName: 'doe', givenNames: 'jon')
+    @pt2 = @patients.findWhere(familyName: 'smith', givenNames: 'jane')
 
   afterEach ->
     bonnie.valueSetsByOid = @universalValueSetsByOid

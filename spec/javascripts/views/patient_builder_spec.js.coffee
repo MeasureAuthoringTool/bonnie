@@ -673,7 +673,7 @@ describe 'Direct Reference Code Usage', ->
   it 'Adding direct reference code element should calculate correctly', ->
     @measure.set('patients', [patientThatCalculatesDrc])
     population = @measure.get('populations').first()
-    patientThatCalculatesDrc = @patients.findWhere(first: "Visits 2 Excl")
+    patientThatCalculatesDrc = @patients.findWhere(givenNames: "Visits 2 Excl")
     results = population.calculate(patientThatCalculatesDrc)
     library = "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients"
     statementResults = results.get("statement_results")
@@ -690,7 +690,7 @@ describe 'Allergy Intolerance', ->
     @measure = new Thorax.Models.Measure getJSONFixture("measure_data/special_measures/CMS12v0/CMS12v0.json"), parse: true
     bonnie.measures.add @measure
     @patients = new Thorax.Collections.Patients getJSONFixture("cqm_patients/CMS12v0/patients.json"), parse: true
-    @patient = @patients.findWhere(first: "MedAllergyEndIP", last: "DENEXCEPPass")
+    @patient = @patients.findWhere(givenNames: "MedAllergyEndIP", familyName: "DENEXCEPPass")
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
     sourceDataCriteria = @patientBuilder.model.get("source_data_criteria")
     @allergyIntolerance = sourceDataCriteria.findWhere({definition: "allergy_intolerance"})

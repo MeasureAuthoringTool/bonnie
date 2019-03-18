@@ -236,6 +236,7 @@ module ApiV1
       assert_equal 'Only Strat', measure.population_sets[0].stratifications[0].title
 
       # Associate patients with measure
+      # TODO: I don't see where any Patients are added to the database, so this might be a noop
       associate_measures_with_patients(CQM::Measure.all, CQM::Patient.all)
 
       # Update the same measure

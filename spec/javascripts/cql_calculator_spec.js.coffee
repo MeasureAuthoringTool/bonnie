@@ -144,7 +144,7 @@ describe 'cqlCalculator', ->
           measure1 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
           # TODO: Add CMS107 to bonnie-fixtures and export to patients/CMS107 or use different fixture
           patients1 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS107/patients.json'), parse: true
-          patient1 = patients1.findWhere(last: 'DENEXPass', first: 'CMOduringED')
+          patient1 = patients1.findWhere(familyName: 'DENEXPass', givenNames: 'CMOduringED')
           result1 = @cql_calculator.calculate(measure1.get('populations').first(), patient1, {doPretty: true})
           expect(result1.get('statement_results').TJC_Overall['Encounter with Principal Diagnosis and Age'].pretty).toEqual('[Encounter, Performed: Non-Elective Inpatient Encounter\nSTART: 10/10/2012 9:30 AM\nSTOP: 10/12/2012 12:15 AM\nCODE: SNOMED-CT 32485007]')
           expect(result1.get('statement_results').StrokeEducation.Numerator.pretty).toEqual('UNHIT')
@@ -210,7 +210,7 @@ describe 'cqlCalculator', ->
           bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
           measure1 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
           patients1 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS107/patients.json'), parse: true
-          patient1 = patients1.findWhere(last: 'DENEXPass', first: 'CMOduringED')
+          patient1 = patients1.findWhere(familyName: 'DENEXPass', givenNames: 'CMOduringED')
           result1 = @cql_calculator.calculate(measure1.get('populations').first(), patient1)
           expect(result1.get('statement_results').TJC_Overall['Encounter with Principal Diagnosis and Age'].pretty).toEqual(undefined)
           expect(result1.get('statement_results').StrokeEducation.Numerator.pretty).toEqual(undefined)
@@ -223,7 +223,7 @@ describe 'cqlCalculator', ->
 
       it 'is correct for patient with no episodes', ->
         # this patient has no episodes in the IPP
-        patient = @patients.findWhere(last: 'IPP', first: 'Fail')
+        patient = @patients.findWhere(familyName: 'IPP', givenNames: 'Fail')
         result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
 
         # no results will be in the episode_results
@@ -233,7 +233,7 @@ describe 'cqlCalculator', ->
 
       it 'is correct for patient with episodes', ->
         # this patient has an episode that is in the IPP, DENOM and DENEX
-        patient = @patients.findWhere(last: 'Numer', first: 'Pass')
+        patient = @patients.findWhere(familyName: 'Numer', givenNames: 'Pass')
         result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
 
         # there will be a single result in the episode_results
@@ -249,7 +249,7 @@ describe 'cqlCalculator', ->
 
       it 'is correct', ->
         # this patient fails the IPP
-        patient = @patients.findWhere(last: 'IPP', first: 'Fail')
+        patient = @patients.findWhere(familyName: 'IPP', givenNames: 'Fail')
         result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
         # there will not be episode_results on the result object
         expect(result.has('episode_results')).toEqual(false)
@@ -264,7 +264,7 @@ describe 'cqlCalculator', ->
 
       it 'is correct', ->
         # This patient fails the IPP (correctly)
-        patient = @patients.findWhere(last: 'Timezone', first: 'Correct')
+        patient = @patients.findWhere(familyName: 'Timezone', givenNames: 'Correct')
         result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
 
         # The IPP should fail

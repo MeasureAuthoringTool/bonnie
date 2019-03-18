@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
   setup do
-    @user = User.new(email: 'email_test@test.com', first: 'first', last: 'last', password: 'Test1234!')
+    @user = User.new(email: 'email_test@test.com', givenNames: 'first', familyName: 'last', password: 'Test1234!')
   end
 
   test 'user signup email' do
