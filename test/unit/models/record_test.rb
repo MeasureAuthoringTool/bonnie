@@ -3,7 +3,7 @@ require 'test_helper'
 class RecordTest < ActiveSupport::TestCase
   setup do
     dump_database
-    # TODO: CMS32v7 is not in bonnie-fixtures, need to use different measure or add it
+    # TODO(cqm_patient): CMS72v7 is not in bonnie-fixtures, need to use different measure or add it
     patients_set = File.join('cqm_patients', 'CMS72v7')
     collection_fixtures(*patients_set)
     load_measure_fixtures_from_folder(File.join("measures", "CMS72v7"))

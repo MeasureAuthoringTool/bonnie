@@ -142,7 +142,7 @@ describe 'cqlCalculator', ->
         xit 'for CMS107 correctly', ->
           bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
           measure1 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
-          # TODO: Add CMS107 to bonnie-fixtures and export to patients/CMS107 or use different fixture
+          # TODO(cqm_patient): Add CMS107 to bonnie-fixtures and export to patients/CMS107 or use different fixture
           patients1 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS107/patients.json'), parse: true
           patient1 = patients1.findWhere(familyName: 'DENEXPass', givenNames: 'CMOduringED')
           result1 = @cql_calculator.calculate(measure1.get('populations').first(), patient1, {doPretty: true})

@@ -15,20 +15,22 @@ class PatientBuilderTest < ActiveSupport::TestCase
     @data_criteria_encounter = HQMF::DataCriteria.get_settings_for_definition('encounter','performed')
     @data_criteria_labtest = HQMF::DataCriteria.get_settings_for_definition('laboratory_test', 'performed')
 
-    # TODO: This patient does not exist on bonnie-fixtures
     @p1 = CQM::Patient.find_by(familyName: 'Numer', givenNames: 'Pass')
-    vs_oids = @p1.qdm_patient.data_elements.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
+    # TODO(cqm_patient): This hash is no longer created correctly
+    vs_oids = @p1.qdmPatient.dataElements.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
     @p1_oid_to_vs_hash =  Hash[*CQM::ValueSet.in({oid: vs_oids, user_id: @p1.user_id}).collect { |vs| [vs.oid,vs] }.flatten]
-    @p1_diagnosis_diabetes_sdc = @p1.qdm_patient.data_elements.find { |dc| dc['description'] == 'Diagnosis: Diabetes' }
-    @p1_wellness_visit_sdc = @p1.qdm_patient.data_elements.find { |dc| dc['description'] == 'Encounter, Performed: Annual Wellness Visit' }
-    @p1_lab_test_kidney_sdc = @p1.qdm_patient.data_elements.find { |dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343634300000 }
-    @p1_lab_test_1xx_sdc = @p1.qdm_patient.data_elements.find { |dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343635200000 }
+    @p1_diagnosis_diabetes_sdc = @p1.qdmPatient.dataElements.find_by( description: 'Diagnosis: Diabetes' )
+    @p1_wellness_visit_sdc = @p1.qdmPatient.dataElements.find_by( description: 'Encounter, Performed: Annual Wellness Visit' )
+    # TODO(cqm_patient): need to update queries below as start_date is no longer relevant
+    @p1_lab_test_kidney_sdc = @p1.qdmPatient.dataElements.find_by( description: 'Laboratory Test, Performed: Urine Protein Tests', start_date: 1343634300000 )
+    @p1_lab_test_1xx_sdc = @p1.qdmPatient.dataElements.find_By( description: 'Laboratory Test, Performed: Urine Protein Tests', start_date: 1343635200000 )
+    binding.pry
 
-    # TODO: This patient does not exist on bonnie-fixtures
     @p2 = CQM::Patient.find_by(familyName: 'Denex', givenNames: 'Fail_Hospice_Not_Performed')
-    vs_oids = @p2.qdm_patient.data_elements.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
+    # TODO(cqm_patient): This hash is no longer created correctly
+    vs_oids = @p2.qdmPatient.dataElements.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
     @p2_oid_to_vs_hash =  Hash[*CQM::ValueSet.in({oid: vs_oids, user_id: @p2.user_id}).collect { |vs| [vs.oid,vs] }.flatten]
-    @p2_intervention_order_sdc = @p2.qdm_patient.data_elements.find { |dc| dc['description'] == 'Intervention, Order: Hospice care ambulatory' }
+    @p2_intervention_order_sdc = @p2.qdmPatient.dataElements.where( description: 'Intervention, Order: Hospice care ambulatory' )
 
     @coded_source_data_critria = {
       "id"=> "DiagnosisActiveLimitedLifeExpectancy",
