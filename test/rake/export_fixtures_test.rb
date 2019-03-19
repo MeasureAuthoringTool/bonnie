@@ -34,7 +34,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     ensure
       system('rm -rf test/fixtures/cqm_patients')
       system('rm -rf spec/javascripts/fixtures/json/cqm_patients')
-      system('mv test/fixtures/patients.back test/fixtures/cqm_patients')
+      system('mv test/fixtures/cqm_patients.back test/fixtures/cqm_patients')
       system('mv spec/javascripts/fixtures/json/cqm_patients.back spec/javascripts/fixtures/json/cqm_patients')
     end
   end
