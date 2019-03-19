@@ -24,7 +24,6 @@ class PatientBuilderTest < ActiveSupport::TestCase
     # TODO(cqm_patient): need to update queries below as start_date is no longer relevant
     @p1_lab_test_kidney_sdc = @p1.qdmPatient.dataElements.find_by( description: 'Laboratory Test, Performed: Urine Protein Tests', start_date: 1343634300000 )
     @p1_lab_test_1xx_sdc = @p1.qdmPatient.dataElements.find_By( description: 'Laboratory Test, Performed: Urine Protein Tests', start_date: 1343635200000 )
-    binding.pry
 
     @p2 = CQM::Patient.find_by(familyName: 'Denex', givenNames: 'Fail_Hospice_Not_Performed')
     # TODO(cqm_patient): This hash is no longer created correctly
