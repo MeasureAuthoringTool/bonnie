@@ -233,7 +233,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
     dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
-    user_patients = CQM::Patient.tient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -253,7 +253,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @source_hqmf_set_id))
-    dest_patients = CQM::Patient.tient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
+    dest_patients = CQM::Patient.where(measures: CQM::Measure.find(hqmf_set_id: @dest2_hqmf_set_id))
     user_patients = CQM::Patient.where(user_id:@source_user.id)
 
     assert_equal(4, source_patients.count)
