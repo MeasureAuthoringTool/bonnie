@@ -41,7 +41,7 @@ describe 'MeasuresView', ->
       @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) => bonnie.measures.push(component))
 
-      @compositePatients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS890/patients.json'), parse: true
+      @compositePatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
       @compositeMeasure.populateComponents()
       @measuresView = new Thorax.Views.Measures(collection: bonnie.measures.sort(), patients: @compositePatients)
       @measuresView.appendTo 'body'

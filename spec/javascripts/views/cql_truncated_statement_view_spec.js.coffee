@@ -5,7 +5,7 @@ describe 'CqlTruncatedStatementView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS460/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS460/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population)
@@ -62,7 +62,7 @@ describe 'CqlTruncatedStatementView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS460/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS460/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: true)
@@ -90,7 +90,7 @@ describe 'CqlTruncatedStatementView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS460/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS460/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: false)
@@ -113,12 +113,12 @@ describe 'CqlTruncatedStatementView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS136/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS136/CMS136v7.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS136/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS136/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: true)
       @populationLogicView.render()
-      results = @population.calculate(@patients.findWhere(givenNames: "Pass", familyName: "IPP1"))
+      results = @population.calculate(@patients.findWhere(first: "Pass", last: "IPP1"))
       @populationLogicView.showRationale(results)
       firstADHDMedView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "First ADHD Medication Dispensed" && view.libraryName == "FollowUpCareforChildrenPrescribedADHDMedicationADD")
 

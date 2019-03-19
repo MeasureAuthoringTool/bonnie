@@ -15,13 +15,13 @@ describe 'Production_PatientBuilderView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS160/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
       bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
       bonnie.measures.add @measure
 
     describe 'Patient "Expired DENEX"', ->
       beforeEach ->
-        @patient = @patients.findWhere(givenNames: 'Expired', familyName: 'DENEX')
+        @patient = @patients.findWhere(first: 'Expired', last: 'DENEX')
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
         # validate this patient is in the DENEX
@@ -45,7 +45,7 @@ describe 'Production_PatientBuilderView', ->
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS722/CMS722v0.json'), parse: true
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @cqlMeasure
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS722/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS722/patients.json'), parse: true
 
       @addCodedValue = (codeListId, submit=true) ->
         @patientBuilder.$('select[name=type]:first').val('CD').change()
@@ -80,7 +80,7 @@ describe 'Production_PatientBuilderView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS759v1/CMS759v1.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS759v1/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS759v1/patients.json'), parse: true
 
       @universalValueSetsByOid = bonnie.valueSetsByOid
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS759v1/value_sets.json')
@@ -93,7 +93,7 @@ describe 'Production_PatientBuilderView', ->
 
     describe 'Patient "Numer PASS"', ->
       beforeEach ->
-        @patient = @patients.findWhere(givenNames: 'Numer', familyName: 'PASS')
+        @patient = @patients.findWhere(first: 'Numer', last: 'PASS')
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
 
@@ -117,7 +117,7 @@ describe 'Production_PatientBuilderView', ->
       # bonnie.valueSetsByOid must be loaded before measure because measure.parse depends on it.
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS52v7/value_sets.json')
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS52v7/CMS52v7.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS52v7/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS52v7/patients.json'), parse: true
 
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
@@ -130,7 +130,7 @@ describe 'Production_PatientBuilderView', ->
 
     describe 'Patient Direct Reference Code Element', ->
       beforeEach ->
-        @patient = @patients.findWhere(givenNames: 'Element', familyName: 'Direct Reference Code')
+        @patient = @patients.findWhere(first: 'Element', last: 'Direct Reference Code')
         expect(@measure.get('source_data_criteria').models[18].get('description')).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         @patientBuilderView = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients, measures: bonnie.measures, inPatientDashboard: false)
         medicationOrdered = @patientBuilderView.model.get('source_data_criteria').first()
@@ -160,17 +160,17 @@ describe 'Production_PatientBuilderView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS761/value_sets.json')
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS761/CMS761v0.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS761/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS761/patients.json'), parse: true
       bonnie.measures.add @measure
 
     it 'Not in numerator when no participation', ->
-      patient = @patients.findWhere(givenNames: 'No', familyName: 'Participation')
+      patient = @patients.findWhere(first: 'No', last: 'Participation')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 0
 
     it 'In numerator when with participation', ->
-      patient = @patients.findWhere(givenNames: 'With', familyName: 'Participation')
+      patient = @patients.findWhere(first: 'With', last: 'Participation')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 1
@@ -180,23 +180,23 @@ describe 'Production_PatientBuilderView', ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMSv54321/value_sets.json')
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv54321/CMSv54321.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMSv54321/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv54321/patients.json'), parse: true
       bonnie.measures.add @measure
 
     it 'Assessment Order calculates correctly', ->
-      patient = @patients.findWhere(givenNames: 'Pass', familyName: 'AssessmentOrder')
+      patient = @patients.findWhere(first: 'Pass', last: 'AssessmentOrder')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
     it 'Communication calculates correctly', ->
-      patient = @patients.findWhere(givenNames: 'Pass', familyName: 'Communication')
+      patient = @patients.findWhere(first: 'Pass', last: 'Communication')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
     it 'Medication Order: Setting calculates correctly', ->
-      patient = @patients.findWhere(givenNames: 'Pass', familyName: 'MedSetting')
+      patient = @patients.findWhere(first: 'Pass', last: 'MedSetting')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1

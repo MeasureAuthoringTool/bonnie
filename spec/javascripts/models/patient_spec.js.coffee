@@ -2,8 +2,8 @@ describe 'Patient', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    collection = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS160/patients.json'), parse: true
-    @patient = collection.findWhere(givenNames: 'Pass', familyName: 'NUM2')
+    collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+    @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
 
   it 'has basic attributes available', ->
     expect(@patient.get('gender')).toEqual 'F'

@@ -15,7 +15,7 @@
         @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
       @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
       @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS160/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
       @measure.set('patients', @patients)
       @patient = @patients.at(0)
       @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
@@ -82,7 +82,7 @@
       bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
       bonnie.measures.add @cqlMeasure
-      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS107/patients.json'), parse: true
+      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
 
       @cqlMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
       @cqlMeasureValueSetsView.appendTo 'body'
@@ -230,7 +230,7 @@
       bonnie.measures = new Thorax.Collections.Measures()
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
       bonnie.measures.add @cqlMeasure
-      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS529v0/patients.json'), parse: true
+      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS529v0/patients.json'), parse: true
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
       @measureView.appendTo 'body'
 
