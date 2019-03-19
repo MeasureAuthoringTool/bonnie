@@ -10,7 +10,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     simple_records_set = File.join('records','core_measures', 'CMS134v6')
     collection_fixtures(users_set, measure_set, simple_measure_set, records_set, simple_records_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_patients(@user, CQM::Patient.all)
+    associate_user_with_patients(@user, Record.all)
   end
 
   test "generate_cqm_patient_fixtures description" do
@@ -23,19 +23,19 @@ class ExportFixturesTest < ActiveSupport::TestCase
 
   test "export single patient from account" do
     begin
-      system('mv test/fixtures/patients test/fixtures/patients.back')
-      system('mv spec/javascripts/fixtures/json/patients spec/javascripts/fixtures/json/patients.back')
+      system('mv test/fixtures/cqm_patients test/fixtures/cqm_patients.back')
+      system('mv spec/javascripts/fixtures/json/cqm_patients spec/javascripts/fixtures/json/cqm_patients.back')
 
       assert_output(
         /CMS32/
       ) { Rake::Task['bonnie:fixtures:generate_cqm_patient_fixtures_from_cql_patients'].invoke('bonnie@example.com') }
-      assert_equal 11, `ls -l test/fixtures/patients/CMS* | wc -l`.to_i
-      assert_equal 7, `ls -l spec/javascripts/fixtures/json/patients/CMS* | wc -l`.to_i
+      assert_equal 11, `ls -l test/fixtures/cqm_patients/CMS* | wc -l`.to_i
+      assert_equal 7, `ls -l spec/javascripts/fixtures/json/cqm_patients/CMS* | wc -l`.to_i
     ensure
-      system('rm -rf test/fixtures/patients')
-      system('rm -rf spec/javascripts/fixtures/json/patients')
-      system('mv test/fixtures/patients.back test/fixtures/patients')
-      system('mv spec/javascripts/fixtures/json/patients.back spec/javascripts/fixtures/json/patients')
+      system('rm -rf test/fixtures/cqm_patients')
+      system('rm -rf spec/javascripts/fixtures/json/cqm_patients')
+      system('mv test/fixtures/patients.back test/fixtures/cqm_patients')
+      system('mv spec/javascripts/fixtures/json/cqm_patients.back spec/javascripts/fixtures/json/cqm_patients')
     end
   end
 end
