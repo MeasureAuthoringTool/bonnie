@@ -22,7 +22,7 @@ namespace :bonnie do
       record_file_path = File.join(fixtures_path, 'records', args[:path])
 
       user = User.find_by email: args[:user_email]
-      measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
+      measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
       if (args[:patient_first_name].present? && args[:patient_last_name].present?)
         records = records.select { |r| r.first == args[:patient_first_name] && r.last == args[:patient_last_name] }
@@ -54,7 +54,7 @@ namespace :bonnie do
       value_sets_path = File.join(fixtures_path, 'health_data_standards_svs_value_sets', args[:path])
 
       user = User.find_by email: args[:user_email]
-      measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
+      measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
 
       fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: records)
@@ -125,7 +125,39 @@ namespace :bonnie do
       fixture_exporter.try_export_measure_package(File.join(fixture_path,'cqm_measure_packages'))
     end
 
-    def get_cql_measure(user, cms_hqmf, measure_id)
+    desc %{Export patient fixtures for a given account. Uses vsac credentials from environmental vars.
+      Exports into test/fixtures/patients/<CMS_ID> and spec/javascripts/fixtures/json/patients/<CMS_ID>
+      example: bundle exec rake bonnie:fixtures:generate_cqm_patient_fixtures_from_cql_patients[bonnie-fixtures@mitre.org]}
+    task :generate_cqm_patient_fixtures_from_cql_patients, [:email] => [:environment] do |task, args|
+      email = args[:email]
+      user = User.find_by email: args[:email]
+      cms_ids = {}
+      failed_exports = []
+      CqlMeasure.by_user(user).each do |measure|
+        Record.where(measure_ids: measure.hqmf_set_id, user_id: BSON::ObjectId.from_string(user.id)).each do |record|
+          begin
+            patient = CQMConverter.to_cqm(record)
+            patient._id = record._id if record._id
+
+            backend_fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: [patient])
+            backend_fixture_path = File.join('test', 'fixtures', 'patients', measure.cms_id)
+            backend_fixture_exporter.export_records_as_individual_files(backend_fixture_path)
+
+            frontend_fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: [patient])
+            frontend_fixture_path = File.join('spec', 'javascripts', 'fixtures', 'json', 'patients', measure.cms_id)
+            frontend_fixture_exporter.export_records_as_individual_files(frontend_fixture_path)
+          rescue StandardError => e
+            failed_exports << "measure.hqmf_set_id: #{measure.hqmf_set_id}\n\trecord._id: #{record._id}\n\terror: #{e}"
+          end
+        end
+      end
+      unless failed_exports.empty?
+        puts "Failed to export the following patients:"
+        failed_exports.each {|failed_export| puts failed_export }
+      end
+    end
+
+    def get_cqm_measure(user, cms_hqmf, measure_id)
       if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
       end

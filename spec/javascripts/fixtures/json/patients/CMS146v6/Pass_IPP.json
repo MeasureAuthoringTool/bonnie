@@ -1,0 +1,371 @@
+{
+  "_id": "5a7dc601b8484620c5183d15",
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "familyName": "IPP",
+  "givenNames": [
+    "Pass"
+  ],
+  "notes": "",
+  "qdmPatient": {
+    "_id": "5c88013ed7c8ac4c3e10668b",
+    "birthDatetime": "2000-02-01T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": "5c88013ed7c8ac4c3e10668c",
+        "anatomicalLocationSite": null,
+        "authorDatetime": "2012-02-07T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "codeSystem": "SNOMED-CT",
+            "code": "1532007"
+          },
+          {
+            "codeSystem": "ICD-10-CM",
+            "code": "J02.0"
+          }
+        ],
+        "description": "Diagnosis: Acute Pharyngitis",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e10668d",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5aeb77d7b848463d625b60da"
+        },
+        "prevalencePeriod": {
+          "low": "2012-02-07T08:00:00.000+00:00",
+          "high": "2012-02-09T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "qdmCategory": "condition",
+        "qdmVersion": "5.4",
+        "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+        "severity": null,
+        "_type": "QDM::Diagnosis"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e10668e",
+        "admissionSource": null,
+        "authorDatetime": "2012-02-07T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "codeSystem": "SNOMED-CT",
+            "code": "12843005"
+          },
+          {
+            "codeSystem": "CPT",
+            "code": "99201"
+          }
+        ],
+        "description": "Encounter, Performed: Ambulatory/ED Visit",
+        "diagnoses": [
+
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+
+        ],
+        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e10668f",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5aeb77d7b848463d625b60db"
+        },
+        "lengthOfStay": {
+          "value": 2,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "principalDiagnosis": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmVersion": "5.4",
+        "relevantPeriod": {
+          "low": "2012-02-07T08:00:00.000+00:00",
+          "high": "2012-02-09T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e106690",
+        "authorDatetime": "2012-02-09T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "codeSystem": "RxNorm",
+            "code": "1013659"
+          }
+        ],
+        "daysSupplied": null,
+        "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
+        "dosage": null,
+        "frequency": null,
+        "hqmfOid": "2.16.840.1.113883.3.560.1.17",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e106691",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5aeb77d7b848463d625b60dc"
+        },
+        "negationRationale": null,
+        "prescriberId": null,
+        "qdmCategory": "medication",
+        "qdmStatus": "order",
+        "qdmVersion": "5.4",
+        "reason": null,
+        "refills": null,
+        "relevantPeriod": {
+          "low": "2012-02-09T08:00:00.000+00:00",
+          "high": "2012-02-09T08:15:00.000+00:00",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "route": null,
+        "setting": null,
+        "supply": null,
+        "_type": "QDM::MedicationOrder"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e106686",
+        "birthDatetime": "2000-02-01T08:00:00.000+00:00",
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "codeSystem": "LOINC",
+            "descriptor": null,
+            "codeSystemOid": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e106692",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c88013ed7c8ac4c3e106686"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e106687",
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e106693",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c88013ed7c8ac4c3e106687"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e106688",
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e106694",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c88013ed7c8ac4c3e106688"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": "5c88013ed7c8ac4c3e106689",
+        "dataElementCodes": [
+          {
+            "code": "M",
+            "codeSystem": "AdministrativeGender",
+            "descriptor": "M",
+            "codeSystemOid": "2.16.840.1.113883.5.1",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "id": {
+          "_id": "5c88013ed7c8ac4c3e106695",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5c88013ed7c8ac4c3e106689"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "measure_ids": [
+        "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        null
+      ],
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "Ambulatory/EDVisit",
+          "description": "Encounter, Performed: Ambulatory/ED Visit",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+          "type": "encounters",
+          "id": "Ambulatory_EDVisit_EncounterPerformed_a6c00a1e_e319_498e_9b26_ff64eded029a_source",
+          "start_date": 1328601600000,
+          "end_date": 1328775300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+          "cms_id": "CMS146v6",
+          "criteria_id": "1617b4cdc0bbk",
+          "codes": {
+            "SNOMED-CT": [
+              "12843005"
+            ],
+            "CPT": [
+              "99201"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": {
+            "$oid": "5aeb77d7b848463d625b60db"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "diagnosis",
+          "title": "AcutePharyngitis",
+          "description": "Diagnosis: Acute Pharyngitis",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+          "type": "conditions",
+          "id": "AcutePharyngitis_Diagnosis_178608ed_404c_4278_be24_3ad6b726d0f3_source",
+          "start_date": 1328601600000,
+          "end_date": 1328775300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+          "cms_id": "CMS146v6",
+          "criteria_id": "1617b4d2c77l0",
+          "codes": {
+            "SNOMED-CT": [
+              "1532007"
+            ],
+            "ICD-10-CM": [
+              "J02.0"
+            ]
+          },
+          "coded_entry_id": {
+            "$oid": "5aeb77d7b848463d625b60da"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "medication",
+          "status": "ordered",
+          "title": "AntibioticMedicationsforPharyngitis",
+          "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+          "type": "medications",
+          "id": "AntibioticMedicationsforPharyngitis_MedicationOrder_40280381_3d61_56a7_013e_5d1ef9ce6a5b_source",
+          "start_date": 1328774400000,
+          "end_date": 1328775300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+          "cms_id": "CMS146v6",
+          "criteria_id": "1617b4d3523e7",
+          "codes": {
+            "RxNorm": [
+              "1013659"
+            ]
+          },
+          "fulfillments": null,
+          "administrations_value": "",
+          "frequency_value": "",
+          "frequency_unit": "min",
+          "negation_code_list_id": "",
+          "coded_entry_id": {
+            "$oid": "5aeb77d7b848463d625b60dc"
+          },
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "12580b7c221836aac3202ea2d5813c6172d6f05b972c94c0d234921f43523f98",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[]"
+    },
+    "qdmVersion": "5.4"
+  }
+}

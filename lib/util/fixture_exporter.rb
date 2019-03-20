@@ -29,7 +29,12 @@ class FixtureExporter
   def export_records_as_individual_files(path)
     @records.each do |r|
       record = as_transformed_hash(r)
-      record_file = File.join(path, "#{r.first}_#{r.last}.json")
+      record_file = if !record['givenNames'].nil?
+                      File.join(path, "#{r['givenNames'][0]}_#{r['familyName']}.json")
+                    else
+                      File.join(path, "#{r.first}_#{r.last}.json")
+                    end
+
       create_fixture_file(record_file, JSON.pretty_generate(record))
       puts 'exported a patient record to ' + record_file
     end
