@@ -8,13 +8,13 @@
       @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
-      @vs1 = @measure.valueSets().findWhere(display_name: 'Bipolar Disorder')
-      @vs2 = @measure.valueSets().findWhere(display_name: 'Dysthymia')
+      @vs1 = _.find(@measure.valueSets(), (val_set) -> val_set.display_name is 'Bipolar Disorder')
+      @vs2 = _.find(@measure.valueSets(), (val_set) -> val_set.display_name is 'Dysthymia')
       for n in [1..10]
-        @vs1.get('concepts').push { code: "ABC#{n}", display_name: "ABC", code_system_name: "ABC" }
-        @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
-      @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
+        @vs1.concepts.push { code: "ABC#{n}", display_name: "ABC", code_system_name: "ABC" }
+        @vs2.concepts.push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
+      @vs1.concepts.push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
+      @vs2.concepts.push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
       @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
       @measure.set('patients', @patients)
       @patient = @patients.at(0)
@@ -39,9 +39,9 @@
       expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
     it 'renders measure details', ->
-      expect(@measureView.$el).toContainText @measure.get('title')
-      expect(@measureLayoutView.$el).toContainText @measure.get('cms_id')
-      expect(@measureView.$el).toContainText @measure.get('description')
+      expect(@measureView.$el).toContainText @measure.get('cqmMeasure').title
+      expect(@measureLayoutView.$el).toContainText @measure.get('cqmMeasure').cms_id
+      expect(@measureView.$el).toContainText @measure.get('cqmMeasure').description
 
     it 'renders measure populations', ->
       expect(@measureView.$('[data-toggle="tab"]')).toExist()
@@ -119,8 +119,8 @@
         expect(@cqlMeasureValueSetsView.$('.value_sets')).toBeVisible()
 
       it 'has the right number of value sets', ->
-        expect(@cqlMeasureValueSetsView.terminology.length).toEqual(25)
-        expect(@cqlMeasureValueSetsView.overlappingValueSets.length).toEqual(2)
+        expect(@cqlMeasureValueSetsView.terminology.length).toEqual(33)
+        expect(@cqlMeasureValueSetsView.overlappingValueSets.length).toEqual(12)
 
       it 'renders direct reference codes', ->
         expect(@cqlMeasureValueSetsView.$('#terminology')).toContainText 'Direct Reference Code'
@@ -129,14 +129,14 @@
       it 'renders terminology section', ->
         expect(@cqlMeasureValueSetsView.$('#terminology')).toExist()
         expect(@cqlMeasureValueSetsView.$('#terminology')).toBeVisible()
-        expect(@cqlMeasureValueSetsView.$('#terminology')).toContainText 'Discharge To Acute Care Facility'
+        expect(@cqlMeasureValueSetsView.$('#terminology')).toContainText 'Annual Wellness Visit'
 
       it 'renders overlapping value sets section', ->
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toExist()
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toBeVisible()
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
-        expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toContainText 'Non-Elective Inpatient Encounter'
+        expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toContainText 'Glomerulonephritis and Nephrotic Syndrome'
 
       it 'has terminology section', ->
         expect(@cqlMeasureValueSetsView.$('#terminology')).toExist()
@@ -173,7 +173,7 @@
 
         it 'behaves properly with 3 overlaps with single code', ->
           # grab codes of length 1 from a summary value set then reset summary value sets
-          codes = @getCodesAndResetSummaryValueSets(22) # Discharged to Home for Hospice Care
+          codes = @getCodesAndResetSummaryValueSets(22) # Vascular Access for Dialysis
 
           # add 3 valuesets with an overlapping code to summary valuesets
           @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
@@ -186,11 +186,11 @@
           # The matches are 1-2, 1-3, 2-3, 2-1, 3-1, 3-2 which is (2 * (n choose 2))
           expect(@cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(6)
           for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
-            expect(child.attributes.codes.length).toEqual(1)
+            expect(child.attributes.codes.length).toEqual(10)
 
         it 'behaves properly with 3 overlaps with multiple codes', ->
           # grab codes of length 10 from a summary value set then reset summary value sets
-          codes = @getCodesAndResetSummaryValueSets(16) # Ischemic Stroke
+          codes = @getCodesAndResetSummaryValueSets(16) # Office Visit
 
           # add 3 valuesets with an overlapping code to summary valuesets
           @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
@@ -207,7 +207,7 @@
 
         it 'behaves properly with 4 overlaps with single code', ->
           # grab codes of length 1 from a summary value set then reset summary value sets
-          codes = @getCodesAndResetSummaryValueSets(22) # Discharged to Home for Hospice Care
+          codes = @getCodesAndResetSummaryValueSets(22) # Vascular Access for Dialysis
 
           @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
           @addValueSet('dup2', '5.4.3.2.1', 'c54321', codes)
@@ -220,7 +220,7 @@
           # (2 * (4 choose 2)) = 12
           expect(@cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(12)
           for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
-            expect(child.attributes.codes.length).toEqual(1)
+            expect(child.attributes.codes.length).toEqual(10)
 
   describe 'Hybrid Measures', ->
     beforeEach ->

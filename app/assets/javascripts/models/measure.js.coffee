@@ -10,20 +10,31 @@ class Thorax.Models.Measure extends Thorax.Model
     @set 'patients', new Thorax.Collections.Patients [], _fetched: true
     @_localIdCache = {}
   parse: (attrs) ->
+    thoraxMeasure = {}
+    # We don't use cqm measure data criteria since we have to change them for use in the view
+    thoraxMeasure.data_criteria = attrs.data_criteria
+    thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
-    populations = new Thorax.Collections.Population [], parent: this
-    for population, index in attrs.populations
-      population.sub_id = alphabet[index]
-      population.index = index
-      delete population.id
+    populationSets = new Thorax.Collections.PopulationSets [], parent: this
+
+    stratificationPopulations = CQLMeasureHelpers.getStratificationsAsPopulationSets(thoraxMeasure.cqmMeasure.population_sets)
+    # thoraxMeasure.population_sets is a combination of mongoose population_sets and mongoose stratifications
+    # toObject() removes all mongoose specific fields (ie: '_id' and '_type')
+    # This is necessary since our view treats the stratification as a population
+    popSetsAndStrats = (thoraxMeasure.cqmMeasure.population_sets.concat stratificationPopulations).map (popSet) -> popSet.toObject()
+
+    for populationSet, index in popSetsAndStrats
+      populationSet.sub_id = alphabet[index]
+      populationSet.index = index
       # copy population criteria data to population
-      for code in @constructor.allPopulationCodes
-        if populationCriteriaKey = population[code]
-          # preserve the original population code for specifics rationale
-          population[code] = _(code: population[code]).extend(attrs.population_criteria[populationCriteriaKey])
-      populations.add new Thorax.Models.Population(population)
-    attrs.populations = populations
-    attrs.displayedPopulation = populations.first()
+      for popCode of populationSet.populations
+        # preserve the original population code for specifics rationale
+        populationSet[popCode] = _(code: popCode).extend(thoraxMeasure.cqmMeasure.population_criteria[popCode])
+      populationSets.add new Thorax.Models.PopulationSet(populationSet)
+
+    thoraxMeasure.populations = populationSets
+    thoraxMeasure.displayedPopulation = populationSets.first()
 
     # ignoring versions for diplay names
     oid_display_name_map = {}
@@ -44,12 +55,12 @@ class Thorax.Models.Measure extends Thorax.Model
         for k,field of data_criteria.field_values
           if field.reference?
             data_criteria.references[k] = field
-            ref = attrs.data_criteria[field.reference]
+            ref = thoraxMeasure.data_criteria[field.reference]
             field["referenced_criteria"] = ref
             delete data_criteria.field_values[k]
 
-    attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values(), parent: this
-    attrs.source_data_criteria.each (criteria) ->
+    thoraxMeasure.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(thoraxMeasure.cqmMeasure.source_data_criteria).values(), parent: this
+    thoraxMeasure.source_data_criteria.each (criteria) ->
       # Apply value set display name if one exists for this criteria
       if !criteria.get('variable') && oid_display_name_map[criteria.get('code_list_id')]?
         # For communication criteria we want to include the direction, which is separated from the type with a colon
@@ -57,7 +68,7 @@ class Thorax.Models.Measure extends Thorax.Model
           criteria.set('description', criteria.get('description').replace('Communication:', 'Communication'))
         criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{oid_display_name_map[criteria.get('code_list_id')]}")
 
-    attrs
+    thoraxMeasure
 
   isPopulated: -> @has('data_criteria')
 
@@ -142,7 +153,7 @@ class Thorax.Models.Measure extends Thorax.Model
     # if it's not in the cache, build the localId map, put it in the cache and return it.
     else
       @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
-      @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@, libraryName, statementName)
+      @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@.get('cqmMeasure'), libraryName, statementName)
       return @_localIdCache[libraryName][statementName]
 
 
@@ -152,8 +163,8 @@ class Thorax.Collections.Measures extends Thorax.Collection
   comparator: (m1, m2) ->
     isM1New = m1.get('patients').isEmpty()
     isM2New = m2.get('patients').isEmpty()
-    timeDifference = -1 * (new Date(m1.get('updated_at')) - new Date(m2.get('updated_at')))
-    titleComparison = m1.get('title').localeCompare(m2.get('title'))
+    timeDifference = -1 * (new Date(m1.get('cqmMeasure').updated_at) - new Date(m2.get('cqmMeasure').updated_at))
+    titleComparison = m1.get('cqmMeasure').title.localeCompare(m2.get('cqmMeasure').title)
     if isM1New and isM2New
       if timeDifference is 0
         return titleComparison
@@ -168,7 +179,7 @@ class Thorax.Collections.Measures extends Thorax.Collection
         else
           return titleComparison
   populations: ->
-    populations = new Thorax.Collections.Population
+    populations = new Thorax.Collections.PopulationSets
     @each (m) -> m.get('populations').each (p) -> populations.add(p)
     populations
 
@@ -177,7 +188,7 @@ class Thorax.Collections.Measures extends Thorax.Collection
 
   toOids: ->
     measureToOids = {} # measure hqmf_set_id : valueSet oid
-    @each (m) => measureToOids[m.get('hqmf_set_id')] = m.valueSets().pluck('oid')
+    @each (m) => measureToOids[m.get('cqmMeausre').hqmf_set_id] = m.valueSets().pluck('oid')
     measureToOids
     
   deepClone: ->
