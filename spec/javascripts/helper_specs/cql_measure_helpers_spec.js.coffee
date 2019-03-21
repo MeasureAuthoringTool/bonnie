@@ -14,7 +14,7 @@ describe 'CQLMeasureHelpers', ->
       # Loads Diabetes: Medical Attention for Neuropathy.
       # This measure has the MAT global functions library included and the measure uses the
       # "CalendarAgeInYearsAt" function.
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
 
       # Find the localid for the specific statement with the global function ref.
       libraryName = 'DiabetesMedicalAttentionforNephropathy'
@@ -27,7 +27,7 @@ describe 'CQLMeasureHelpers', ->
 
     it 'finds localIds for library ExpressionRefs while finding localIds in statements', ->
       # Loads Diabetes: Medical Attention for Neuropathy.
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
 
       # Find the localid for the specific statement with the global expression ref.
       libraryName = 'DiabetesMedicalAttentionforNephropathy'

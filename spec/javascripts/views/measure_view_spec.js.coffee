@@ -3,9 +3,9 @@
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
 
-      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
       @vs1 = @measure.valueSets().findWhere(display_name: 'Bipolar Disorder')

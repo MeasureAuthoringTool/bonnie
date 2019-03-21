@@ -22,8 +22,8 @@ describe 'cqlCalculator', ->
       bonnie.valueSetsByOidCached = undefined
 
     it 'properly caches refactored bonnie.valueSetsByOid', ->
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
-      measure = getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json')
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
+      measure = getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json')
       expect(bonnie.valueSetsByOidCached).not.toBeDefined()
       oldRefactoredValueSets = @cql_calculator.valueSetsForCodeService(measure.value_set_oid_version_objects, measure.hqmf_set_id)
       expect(oldRefactoredValueSets).toExist()
@@ -216,8 +216,8 @@ describe 'cqlCalculator', ->
 
     describe 'episode of care based relevance map', ->
       beforeEach ->
-        bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS177/value_sets.json')
-        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS177/CMS177v6.json'), parse: true
+        bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS177/value_sets.json')
+        @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS177/CMS177v6.json'), parse: true
         @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS177/patients.json'), parse: true
 
       it 'is correct for patient with no episodes', ->
@@ -242,8 +242,8 @@ describe 'cqlCalculator', ->
 
     describe 'patient based relevance map', ->
       beforeEach ->
-        bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS158/value_sets.json')
-        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS158/CMS158v6.json'), parse: true
+        bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS158/value_sets.json')
+        @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS158/CMS158v6.json'), parse: true
         @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS158/patients.json'), parse: true
 
       it 'is correct', ->
