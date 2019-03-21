@@ -35,7 +35,7 @@ describe 'ImportMeasure view', ->
         bonnie.valueSetsByOid = @universalValueSetsByOid
 
       it 'remembers we are calculating SDEs', ->
-        cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
+        cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
         importView = new Thorax.Views.ImportMeasure(model: cqlMeasure)
         importView.appendTo 'body'
         importView.render()
@@ -43,7 +43,8 @@ describe 'ImportMeasure view', ->
         importView.remove()
 
       it 'remembers we are NOT calculating SDEs', ->
-        cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
+        # TODO(cqm-measure) Need to update or replace this fixture
+        cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS107/CMS107v6.json'), parse: true
         importView = new Thorax.Views.ImportMeasure(model: cqlMeasure)
         importView.appendTo 'body'
         importView.render()

@@ -39,7 +39,7 @@ describe 'cqlCalculator', ->
 
   describe 'setValueSetVersionsToUndefined', ->
     it 'returns valueSets with versions set to undefined', ->
-      measure = getJSONFixture('measure_data/special_measures/CMS720/CMS720v0.json')
+      measure = getJSONFixture('cqm_measure_data/special_measures/CMS720/CMS720v0.json')
       expect(measure['elm'][0]['library']['valueSets']).toExist()
       # Add a version to a valueSet
       measure['elm'][0]['library']['valueSets']['def'][0]['version'] = '1.2.3'
@@ -48,7 +48,7 @@ describe 'cqlCalculator', ->
       expect(elm[0]['library']['valueSets']['def'][0]['version']).not.toBeDefined()
 
     it 'returns the elm without error if there are no valueSets', ->
-      measure = getJSONFixture('measure_data/special_measures/CMS720/CMS720v0.json')
+      measure = getJSONFixture('cqm_measure_data/special_measures/CMS720/CMS720v0.json')
       expect(measure['elm'][0]['library']['valueSets']).toExist()
       # Remove valueSets
       measure['elm'][0]['library']['valueSets'] = undefined
@@ -140,8 +140,9 @@ describe 'cqlCalculator', ->
 
       describe 'pretty statement results when requested', ->
         it 'for CMS107 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
-          measure1 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
+          # TODO(cqm-measure): Need to update or replace CQL/CMS107
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
+          measure1 = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS107/CMS107v6.json'), parse: true
           patients1 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
           patient1 = patients1.findWhere(last: 'DENEXPass', first: 'CMOduringED')
           result1 = @cql_calculator.calculate(measure1.get('populations').first(), patient1, {doPretty: true})
@@ -149,16 +150,17 @@ describe 'cqlCalculator', ->
           expect(result1.get('statement_results').StrokeEducation.Numerator.pretty).toEqual('UNHIT')
 
         it 'for CMS760 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS760/value_sets.json')
-          measure2 = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS760/CMS760v0.json'), parse: true
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS760/value_sets.json')
+          measure2 = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS760/CMS760v0.json'), parse: true
           patients2 = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS760/patients.json'), parse: true
           patient2 = patients2.models[0]
           result2 = @cql_calculator.calculate(measure2.get('populations').first(), patient2, {doPretty: true})
           expect(result2.get('statement_results').PD0329.IntervalWithTZOffsets.pretty).toEqual('INTERVAL: 08/01/2012 12:00 AM - 12/31/2012 12:00 AM')
 
         it 'for CMS32 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS32/value_sets.json')
-          measure3 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS32/CMS721v0.json'), parse: true
+          # TODO(cqm-measure) Need to update or replace this fixture
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS32/value_sets.json')
+          measure3 = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS32/CMS721v0.json'), parse: true
           patients3 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS32/patients.json'), parse: true
           patient3 = patients3.models[0]
           result3 = @cql_calculator.calculate(measure3.get('populations').first(), patient3, {doPretty: true})
@@ -167,19 +169,20 @@ describe 'cqlCalculator', ->
           expect(result3.get('statement_results').Test32['Measure Population Exclusions'].pretty).toEqual('FALSE ([])')
 
         it 'for CMS347 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS347/value_sets.json')
-          measure4 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+          # TODO(cqm-measure) Need to update or replace this fixture
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS347/value_sets.json')
+          measure4 = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS347/CMS735v0.json'), parse: true
           patients4 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS347/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS347/value_sets.json')
           patient4 = patients4.models[0]
           result4 = @cql_calculator.calculate(measure4.get('populations').first(), patient4, {doPretty: true})
           expect(result4.get('statement_results').StatinTherapy['In Demographic'].pretty).toEqual('true')
 
         it 'for CMS460 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS460/value_sets.json')
-          measure5 = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS460/value_sets.json')
+          measure5 = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
           patients5 = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS460/value_sets.json')
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS460/value_sets.json')
           patient5 = patients5.models[0]
           result5 = @cql_calculator.calculate(measure5.get('populations').first(), patient5, {doPretty: true})
           expect(result5.get('statement_results').DayMonthTimings['Months Containing 29 Days'].pretty).toEqual('[1,\n2,\n3,\n4,\n5,\n6,\n7,\n8,\n9,\n10,\n11,\n12,\n13,\n14,\n15,\n16,\n17,\n18,\n19,\n20,\n21,\n22,\n23,\n24,\n25,\n26,\n27,\n28,\n29]')
@@ -191,8 +194,8 @@ describe 'cqlCalculator', ->
           expect(result5.get('statement_results').OpioidData.DrugIngredients.pretty).toContain('drugName: "72 HR Fentanyl 0.075 MG/HR Transdermal System"')
 
          it 'for CMS872 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS872v0/value_sets.json')
-          measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS872v0/CMS872v0.json'), parse: true
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS872v0/value_sets.json')
+          measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS872v0/CMS872v0.json'), parse: true
           patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS872v0/patients.json'), parse: true
           ratioUnitConversionCorrect = patients.models[0]
           ratioCorrect = patients.models[1]
@@ -206,8 +209,9 @@ describe 'cqlCalculator', ->
 
       describe 'no pretty statement results when not requested', ->
         it 'for CMS107 correctly', ->
-          bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
-          measure1 = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
+          # TODO(cqm-measure) Need to update or replace this fixture
+          bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
+          measure1 = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS107/CMS107v6.json'), parse: true
           patients1 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
           patient1 = patients1.findWhere(last: 'DENEXPass', first: 'CMOduringED')
           result1 = @cql_calculator.calculate(measure1.get('populations').first(), patient1)
@@ -257,8 +261,8 @@ describe 'cqlCalculator', ->
 
     describe 'execution engine using passed in timezone offset', ->
       beforeEach ->
-        bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS760/value_sets.json')
-        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS760/CMS760v0.json'), parse: true
+        bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS760/value_sets.json')
+        @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS760/CMS760v0.json'), parse: true
         @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS760/patients.json'), parse: true
 
       it 'is correct', ->

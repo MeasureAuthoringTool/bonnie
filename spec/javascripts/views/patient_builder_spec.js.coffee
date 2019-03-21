@@ -493,7 +493,8 @@ describe 'PatientBuilderView', ->
   describe 'CQL', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+      # TODO(cqm-measure) Need to update or replace this fixture
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS347/CMS735v0.json'), parse: true
       # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
@@ -505,7 +506,8 @@ describe 'PatientBuilderView', ->
       bonnie.measures = @bonnie_measures_old
 
     it "laboratory test performed should have custom view for components", ->
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS347/value_sets.json')
+      # TODO(cqm-measure) Need to update or replace this fixture
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS347/value_sets.json')
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
       dataCriteria = patientBuilder.model.get('source_data_criteria').models
@@ -530,8 +532,9 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
 
     it "EditCriteriaValueView does not have duplicated codes in dropdown", ->
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS107/value_sets.json')
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
+      # TODO(cqm-measure) Need to update or replace this fixture
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS107/CMS107v6.json'), parse: true
       bonnie.measures.add(cqlMeasure, { parse: true })
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
@@ -599,12 +602,12 @@ describe 'PatientBuilderView', ->
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
 
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
+      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
       bonnie.measures.push(@compositeMeasure)
 
-      @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
+      @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
       @components = @components.map((component) -> new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) -> bonnie.measures.push(component))
 
@@ -686,8 +689,8 @@ describe 'Allergy Intolerance', ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @universalValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture("measure_data/special_measures/CMS12v0/value_sets.json")
-    @measure = new Thorax.Models.Measure getJSONFixture("measure_data/special_measures/CMS12v0/CMS12v0.json"), parse: true
+    bonnie.valueSetsByOid = getJSONFixture("cqm_measure_data/special_measures/CMS12v0/value_sets.json")
+    @measure = new Thorax.Models.Measure getJSONFixture("cqm_measure_data/special_measures/CMS12v0/CMS12v0.json"), parse: true
     bonnie.measures.add @measure
     @patients = new Thorax.Collections.Patients getJSONFixture("records/special_measures/CMS12v0/patients.json"), parse: true
     @patient = @patients.findWhere(first: "MedAllergyEndIP", last: "DENEXCEPPass")

@@ -2,8 +2,8 @@ describe 'CQL Coverage', ->
   beforeEach ->
     bonnie.measures = new Thorax.Collections.Measures()
     jasmine.getJSONFixtures().clearCache()
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS10/value_sets.json')
-    @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS10/CMS10v0.json'), parse: true
+    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS10/value_sets.json')
+    @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS10/CMS10v0.json'), parse: true
     bonnie.measures.add @cqlMeasure
     @patient1 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[0], parse: true
     @patient2 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[1], parse: true
@@ -83,8 +83,8 @@ describe 'CQL Coloring', ->
   beforeEach ->
     bonnie.measures = new Thorax.Collections.Measures()
     jasmine.getJSONFixtures().clearCache()
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS10/value_sets.json')
-    @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS10/CMS10v0.json'), parse: true
+    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS10/value_sets.json')
+    @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS10/CMS10v0.json'), parse: true
     bonnie.measures.add @cqlMeasure
 
   it 'is correct for first patient', ->

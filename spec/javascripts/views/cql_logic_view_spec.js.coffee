@@ -2,7 +2,7 @@ describe 'CqlLogicView', ->
   describe 'Population Logic View', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS334v1/CMS334v1.json'), parse: true
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS334v1/CMS334v1.json'), parse: true
       #Failing to store and reset the global valueSetsByOid breaks the tests.
       #When integrated with the master branch context switching, this will need to be changed out.
       @universalValueSetsByOid = bonnie.valueSetsByOid
@@ -125,7 +125,7 @@ describe 'CqlLogicView', ->
   describe 'outdated QDM warning message', ->
     it 'shows for QDM 5.02 measure', ->
       jasmine.getJSONFixtures().clearCache()
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS720/CMS720v0.json'), parse: true
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS720/CMS720v0.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).toContain 'This measure was written using an outdated version of QDM. Please re-package and re-export the measure from the MAT.'
@@ -139,7 +139,8 @@ describe 'CqlLogicView', ->
 
     it 'does not show for QDM 5.4 measure', ->
       jasmine.getJSONFixtures().clearCache()
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/QDM54-measure/CMS10v0.json'), parse: true
+      # TODO(cqm-measure) Need to update or replace this fixture
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/QDM54-measure/CMS10v0.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).not.toContain 'This measure was written using an outdated version of QDM. Please re-package and re-export the measure from the MAT.'
@@ -148,7 +149,8 @@ describe 'CqlLogicView', ->
   describe 'CQL Error warning message', ->
     it 'shows for measure with CQL errors', ->
       jasmine.getJSONFixtures().clearCache()
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/deprecated_measures/CMS735/CMS735v0.json'), parse: true
+      # TODO(cqm-measure): need to update/replace this fixture
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/deprecated_measures/CMS735/CMS735v0.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).toContain 'This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.'
@@ -165,8 +167,8 @@ describe 'CqlLogicView', ->
       jasmine.getJSONFixtures().clearCache()
       # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMSv9999/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv9999/CMSv9999.json'), parse: true
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMSv9999/value_sets.json')
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMSv9999/CMSv9999.json'), parse: true
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv9999/patients.json'), parse: true
 
     afterEach ->
@@ -185,8 +187,8 @@ describe 'CqlLogicView', ->
       jasmine.getJSONFixtures().clearCache()
       @universalValueSetsByOid = bonnie.valueSetsByOid
       # TODO: update CQL/CMS146v6 path to CQL/CMS146 when cql-testing-overhaul is merged
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS146/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS146/CMS146v6.json'), parse: true
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS146/value_sets.json')
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS146/CMS146v6.json'), parse: true
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS146/patients.json'), parse: true
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @cqlMeasure.get('populations').first())
