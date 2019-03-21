@@ -509,20 +509,20 @@
   # Format ValueSets for use by CQL4Browsers
   valueSetsForCodeService: (value_set_oid_version_objects, hqmf_set_id) ->
     # Cache this refactoring so it only happens once per user rather than once per measure population
-    if !bonnie.valueSetsByOidCached
-      bonnie.valueSetsByOidCached = {}
+    if !bonnie.valueSetsByMeasureIdCached
+      bonnie.valueSetsByMeasureIdCached = {}
 
-    if !bonnie.valueSetsByOidCached[hqmf_set_id]
+    if !bonnie.valueSetsByMeasureIdCached[hqmf_set_id]
       valueSets = {}
       for value_set in value_set_oid_version_objects
-        specific_value_set = bonnie.valueSetsByOid[value_set['oid']][value_set['version']]
+        specific_value_set = bonnie.valueSetsByMeasureId[value_set['oid']][value_set['version']]
         continue unless specific_value_set.concepts
         valueSets[specific_value_set['oid']] ||= {}
         valueSets[specific_value_set['oid']][specific_value_set['version']] ||= []
         for concept in specific_value_set.concepts
           valueSets[specific_value_set['oid']][specific_value_set['version']].push code: concept.code, system: concept.code_system_name, version: specific_value_set['version']
-      bonnie.valueSetsByOidCached[hqmf_set_id] = valueSets
-    bonnie.valueSetsByOidCached[hqmf_set_id]
+      bonnie.valueSetsByMeasureIdCached[hqmf_set_id] = valueSets
+    bonnie.valueSetsByMeasureIdCached[hqmf_set_id]
 
   # Converts the given time to the correct format using momentJS
   getConvertedTime: (timeValue) ->

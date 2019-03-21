@@ -27,11 +27,11 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # ignoring versions for diplay names
     oid_display_name_map = {}
-    for oid, versions of bonnie.valueSetsByOid
-      for version, vs of versions
-        oid_display_name_map[oid] = vs.display_name if vs?.display_name
+    if bonnie.valueSetsByMeasureId?
+      for valSet in bonnie.valueSetsByMeasureId[thoraxMeasure.cqmMeasure.hqmf_set_id]
+        oid_display_name_map[valSet.oid] = valSet.display_name if valSet?.display_name
 
-    for key, data_criteria of attrs.data_criteria
+    for key, data_criteria of thoraxMeasure.data_criteria
       data_criteria.key = key
       # Apply value set display name if one exists for this criteria
       if !data_criteria.variable && oid_display_name_map[data_criteria.code_list_id]?
@@ -61,22 +61,17 @@ class Thorax.Models.Measure extends Thorax.Model
 
   isPopulated: -> @has('data_criteria')
 
-  populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('population_criteria')).map (p) -> p.type)
+  populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('cqmMeasure').population_criteria).map (p) -> p.type)
 
   valueSets: ->
-    unless @cachedValueSets
-      matchingSets = []
-      for oid_version in @get('value_set_oid_version_objects')
-        if bonnie.valueSetsByOid[oid_version.oid]
-          matchingSets.push(bonnie.valueSetsByOid[oid_version.oid][oid_version.version])
-      @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) ->
-        console.log('WARNING: missing value set') if !vs.get('display_name') && console?
-        vs.get('display_name')?.toLowerCase())
-    @cachedValueSets
+    valSets = []
+    if bonnie.valueSetsByMeasureId?
+      valSets = bonnie.valueSetsByMeasureId[@get('cqmMeasure').hqmf_set_id]
+    valSets
 
   hasCode: (code, code_system) ->
-    @valueSets().any (vs) ->
-      _(vs.get('concepts')).any (c) ->
+    for vs in @valueSets()
+      _(vs.concepts).any (c) ->
         c.code == code && c.code_system_name == code_system
 
   @referencesFor: (criteriaType) ->
