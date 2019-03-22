@@ -274,9 +274,9 @@ class CQLMeasureHelpers
     populationRelevance = {}
     for popCode in Thorax.Models.Measure.allPopulationCodes
       # TODO: Look into Observ attributes
-      # if popCode == 'OBSERV' 
+      # if popCode == 'OBSERV'
       #   populationRelevance['values'] = true
-      
+
       if populationSet.get('populations')[popCode]
         populationRelevance[popCode] = true
 
@@ -310,7 +310,6 @@ class CQLMeasureHelpers
   # @return {boolean} Statement does or does not belong to a Supplemental Data Element.
   ###
   @isSupplementalDataElementStatement: (supplementalDataElements, statementDefine) ->
-    #return _.contains(supplementalDataElements, statementDefine)
     return Array.isArray(supplementalDataElements) && (supplementalDataElements?.filter (d) -> d.statement_name is statementDefine).length > 0
 
   ###*
