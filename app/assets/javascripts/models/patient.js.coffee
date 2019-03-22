@@ -2,21 +2,35 @@ class Thorax.Models.Patient extends Thorax.Model
   idAttribute: '_id'
   urlRoot: '/patients'
 
-  parse: (attrs) ->
-    dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
-    attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
+  initialize: ->
 
-    attrs.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
+  parse: (attrs) ->
+    thoraxPatient = {}
+    # cqmPatient will already exist if we are cloning the thoraxModel
+    if attrs.cqmPatient?
+      thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
+    else
+      thoraxPatient.cqmPatient = new cqm.models.Patient(attrs)
+    # TODO: look into adding this into cqmPatient constructino
+    if !thoraxPatient.cqmPatient.qdmPatient
+      thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
+    thoraxPatient.first = thoraxPatient.cqmPatient.givenNames[0]
+    thoraxPatient.last = thoraxPatient.cqmPatient.familyName
+    # TODO: Will Cole's work make the SDC loadable?
+    #dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
+    # attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
+    thoraxPatient.source_data_criteria = new Thorax.Collections.PatientDataCriteria(thoraxPatient.cqmPatient.qdmPatient.dataElements, parse: true)
+
+    thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
 
     # This section is a bit unusual: we map from server side values to a more straight forward client
     # side representation; the reverse mapping would usually happen in toJSON(), but in this case it
     # happens on the server in the controller
     # extract demographics from hash, or use extracted values when cloning
-    attrs.ethnicity = attrs.ethnicity?.code || attrs.ethnicity
-    attrs.race = attrs.race?.code || attrs.race
-    attrs.payer = attrs.insurance_providers?[0]?.type || 'OT'
-
-    attrs
+    # attrs.ethnicity = attrs.ethnicity?.code || attrs.ethnicity
+    # attrs.race = attrs.race?.code || attrs.race
+    # attrs.payer = attrs.insurance_providers?[0]?.type || 'OT'
+    thoraxPatient
 
   # Create a deep clone of the patient, optionally omitting the id field
   deepClone: (options = {}) ->
@@ -77,34 +91,34 @@ class Thorax.Models.Patient extends Thorax.Model
 
   materialize: ->
 
-    # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
-    # "changed" functionality because that doesn't capture new sub-models
-    patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
-    return if @previousPatientJSON == patientJSON
-    @previousPatientJSON = patientJSON
+    # # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
+    # # "changed" functionality because that doesn't capture new sub-models
+    # patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
+    # return if @previousPatientJSON == patientJSON
+    # @previousPatientJSON = patientJSON
     
-    $.ajax
-      url:         "#{@urlRoot}/materialize"
-      type:        'POST'
-      dataType:    'json'
-      contentType: 'application/json'
-      data:        JSON.stringify @toJSON()
-      processData: false
-    .done (data) =>
-      # We only want to overwrite certain fields; if the server doesn't provide them, we want them emptied
-      defaults = {}
-      defaults[section] = [] for section in Thorax.Models.Patient.sections
-      @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
-      for criterium, i in @get('source_data_criteria').models
-        criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
-        # if we already have codes, then we know we're up to date; no change is necessary
-        if criterium.get('codes').isEmpty()
-          criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
-      @previousPatientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections) # Capture post-materialize changes too
-      @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
-      $('#ariaalerts').html "This patient has been updated" #tell SR something changed
-    .fail ->
-      bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
+    # $.ajax
+    #   url:         "#{@urlRoot}/materialize"
+    #   type:        'POST'
+    #   dataType:    'json'
+    #   contentType: 'application/json'
+    #   data:        JSON.stringify @toJSON()
+    #   processData: false
+    # .done (data) =>
+    #   # We only want to overwrite certain fields; if the server doesn't provide them, we want them emptied
+    #   defaults = {}
+    #   defaults[section] = [] for section in Thorax.Models.Patient.sections
+    #   @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
+    #   for criterium, i in @get('source_data_criteria').models
+    #     criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
+    #     # if we already have codes, then we know we're up to date; no change is necessary
+    #     if criterium.get('codes').isEmpty()
+    #       criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
+    #   @previousPatientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections) # Capture post-materialize changes too
+    #   @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
+    #   $('#ariaalerts').html "This patient has been updated" #tell SR something changed
+    # .fail ->
+    #   bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
 
   getExpectedValue: (population) ->
     measure = population.collection.parent

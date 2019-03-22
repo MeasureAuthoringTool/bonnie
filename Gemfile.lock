@@ -48,13 +48,6 @@ GIT
       sprockets
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-models
-  revision: 56d8862c3529bbcba8771640d8364464b7fdbe45
-  branch: master
-  specs:
-    cqm-models (1.0.2)
-
-GIT
   remote: https://github.com/projecttacoma/cqm-parsers
   revision: 0adaa71c24f288fa11f99715cb2d42afbcb2f2ac
   branch: master
@@ -95,6 +88,11 @@ GIT
     exception_notification (4.3.0)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
+
+PATH
+  remote: ../cqm-models
+  specs:
+    cqm-models (1.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -383,6 +381,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
     rake (12.3.2)
+    rb-readline (0.5.5)
     reek (5.3.1)
       codeclimate-engine-rb (~> 0.4.0)
       kwalify (~> 0.7.0)
@@ -526,6 +525,7 @@ DEPENDENCIES
   quality-measure-engine (~> 3.2)
   rails (~> 4.2.11)
   rails_best_practices
+  rb-readline
   reek
   roo (~> 2.7)
   rubocop

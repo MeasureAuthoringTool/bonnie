@@ -24,13 +24,17 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
         @$('a.panel-title[data-toggle="collapse"]').toggleClass('closed')
         if e.type is 'show' then $('a.panel-title[data-toggle="collapse"]').next('div.in').not(e.target).collapse('hide') # hide open ones
 
-  faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
+  faIcon: -> @collection.first()?.faIcon()
 
 
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
-  addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
+  addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model
   context: ->
-    desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
+    # dataelements such as birthdate do not have descriptions
+    if !@model.get('description')
+        desc = "" 
+    else
+      desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
     _(super).extend
       type: desc.split(": ")[0]
       # everything after the data criteria type is the detailed description
@@ -101,10 +105,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-    cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
-    
-    desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
-    definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
+    if !@model.get('description')
+      desc = "" 
+    else
+      desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
+    definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
     
@@ -158,7 +163,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
-    droppedCriteria = $(ui.draggable).model().toPatientDataCriteria()
+    droppedCriteria = $(ui.draggable).model()
     targetCriteria = $(e.target).model()
     droppedCriteria.set start_date: targetCriteria.get('start_date'), end_date: targetCriteria.get('end_date')
     @trigger 'bonnie:dropCriteria', droppedCriteria

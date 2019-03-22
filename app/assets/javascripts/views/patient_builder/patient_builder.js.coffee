@@ -12,8 +12,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @cqmMeasure = @measure.get('cqmMeasure')
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
     @model.get('source_data_criteria').on 'remove', => @materialize()
-    if bonnie.isPortfolio
-      @measureRibbon = new Thorax.Views.MeasureRibbon model: @model
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
@@ -43,16 +41,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   dataCriteriaCategories: ->
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
-      type = criteria.get('type').replace(/_/g, ' ')
+      type = criteria.get('qdmCategory').replace(/_/g, ' ')
       # Filter out negations, certain patient characteristics, and specific occurrences
       # Note: we previously filtered out patient_characteristic_payer, but that was needed on the elements list
       # because a payer can have a start and stop date in QDM 5
       filter_criteria = criteria.get('negation') or
-      ( criteria.get('definition') is 'patient_characteristic_birthdate' ) or
-      ( criteria.get('definition') is 'patient_characteristic_gender' ) or
-      ( criteria.get('definition') is 'patient_characteristic_expired' ) or
-      ( criteria.get('definition') is 'patient_characteristic_race' ) or
-      ( criteria.get('definition') is 'patient_characteristic_ethnicity' ) or
+      ( criteria.get('qdmCategory') is 'patient_characteristic' ) or
       ( criteria.has('specific_occurrence') )
       unless filter_criteria
         categories[type] ||= new Thorax.Collection
@@ -107,6 +101,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         $logic.animate scrollTop: $logic.scrollTop() + $logic.height()
 
     serialize: (attr) ->
+      first = attr.givenNames[0] if attr.givenNames
+      last = attr.familyName if attr.familyName
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
       attr.birthdate = moment.utc(birthdate, 'L LT').format('X') if birthdate
@@ -134,7 +130,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @expectedValuesView.serialize(children: false)
 
   drop: (e, ui) ->
-    patientDataCriteria = $(ui.draggable).model().toPatientDataCriteria()
+    patientDataCriteria = $(ui.draggable).model().clone()
+    patientDataCriteria.set('criteria_id', Thorax.Models.PatientDataCriteria.generateCriteriaId())
     @addCriteria patientDataCriteria
     return false
 
@@ -177,8 +174,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           continue if !measure_id?
           m = bonnie.measures.findWhere({hqmf_set_id: measure_id})
           m.get('patients').add(model)
-        if bonnie.isPortfolio
-          @measures.each (m) -> m.get('patients').add model
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
           route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
         else

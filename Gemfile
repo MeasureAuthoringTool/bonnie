@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.2.11'
-
+gem 'rb-readline'
 # There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
 # https://github.com/capistrano/rails/issues/111
 gem 'sprockets', '~> 2.8'
@@ -32,7 +32,7 @@ gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.g
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
 gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'master'
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'master'
-gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
+# gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
