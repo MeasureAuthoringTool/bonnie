@@ -12,9 +12,9 @@ class CQLMeasureHelpers
   ###
   @buildDefineToFullStatement: (measure) ->
     ret = {}
-    for lib of measure.get("elm_annotations")
+    for lib in measure.cql_libraries
       lib_statements = {}
-      for statement in measure.get("elm_annotations")[lib].statements
+      for statement in lib.elm_annotations.statements
         lib_statements[statement.define_name] = @_parseAnnotationTree(statement.children)
       ret[lib] = lib_statements
     return ret
@@ -45,7 +45,7 @@ class CQLMeasureHelpers
   # @param {string} statementName - The statement name to search for.
   # @return {Hash} List of local ids in the statement.
   ###
-  @findAllLocalIdsInStatementByName: (measure, libraryName, statementName) ->
+  @findAllLocalIdsInStatementByName: (cqmMeasure, libraryName, statementName) ->
     # create place for aliases and their usages to be placed to be filled in later. Aliases and their usages (aka scope)
     # and returns do not have localIds in the elm but do in elm_annotations at a consistent calculable offset.
     # BE WEARY of this calaculable offset.
@@ -54,10 +54,10 @@ class CQLMeasureHelpers
     # find the library and statement in the elm.
     library = null
     statement = null
-    for lib in measure.get('elm')
-      if lib.library.identifier.id == libraryName
+    for lib in cqmMeasure.cql_libraries
+      if lib.library_name == libraryName
         library = lib
-    for curStatement in library.library.statements.def
+    for curStatement in library.elm.library.statements.def
       if curStatement.name == statementName
         statement = curStatement
 
@@ -265,39 +265,35 @@ class CQLMeasureHelpers
   # This is used by the logic view to determine which statements are unused to bin them properly. This is effectively
   # creating a statement_relevance map that doesn't regard results at all, to be used when you don't have a result.
   # @public
-  # @param {Measure} measure - The measure.
+  # @param {cqmMeasure} measure - The measure.
   # @param {Population} populationSet - The populationSet we wish to get statement relevance for.
   # @return {object} Statement relevance map for the population set.
   ###
-  @getStatementRelevanceForPopulationSet: (measure, populationSet) ->
+  @getStatementRelevanceForPopulationSet: (cqmMeasure, populationSet) ->
     # create a population relevance map where every population is true.
     populationRelevance = {}
     for popCode in Thorax.Models.Measure.allPopulationCodes
-      if populationSet.has(popCode)
-        if popCode == 'OBSERV'
-          populationRelevance['values'] = true
-        else
-          populationRelevance[popCode] = true
+      # TODO: Look into Observ attributes
+      # if popCode == 'OBSERV'
+      #   populationRelevance['values'] = true
+
+      if populationSet.get('populations')[popCode]
+        populationRelevance[popCode] = true
 
     # builds and returns this statement relevance map.
-    return CQLResultsHelpers.buildStatementRelevanceMap(populationRelevance, measure, populationSet)
+    return CQLResultsHelpers.buildStatementRelevanceMap(populationRelevance, cqmMeasure, populationSet)
 
   ###*
   # Figure out if a statement is a function given the measure, library name and statement name.
   # @public
-  # @param {Measure} measure - The measure to find localIds in.
   # @param {string} libraryName - The name of the library the statement belongs to.
   # @param {string} statementName - The statement name to search for.
   # @return {boolean} If the statement is a function or not.
   ###
-  @isStatementFunction: (measure, libraryName, statementName) ->
+  @isStatementFunction: (library, statementName) ->
     # find the library and statement in the elm.
-    library = null
     statement = null
-    for lib in measure.get('elm')
-      if lib.library.identifier.id == libraryName
-        library = lib
-    for curStatement in library.library.statements.def
+    for curStatement in library.elm.library.statements.def
       if curStatement.name == statementName
         statement = curStatement
 
@@ -313,5 +309,37 @@ class CQLMeasureHelpers
   # @param {string} statementDefine - The statement define to search for.
   # @return {boolean} Statement does or does not belong to a Supplemental Data Element.
   ###
-  @isSupplementalDataElementStatement: (population, statementDefine) ->
-    return _.contains(population.get('supplemental_data_elements'), statementDefine)
+  @isSupplementalDataElementStatement: (supplementalDataElements, statementDefine) ->
+    return Array.isArray(supplementalDataElements) && (supplementalDataElements?.filter (d) -> d.statement_name is statementDefine).length > 0
+
+  ###*
+  # Format stratifications as population sets to be added to the measure's population sets
+  # @public {measure} measure - The measure
+  ###
+  @getStratificationsAsPopulationSets: (pop_sets) ->
+    stratificationsAsPopulationSets = []
+    for populationSet in pop_sets
+      if (populationSet.stratifications)
+        for stratification in populationSet.stratifications
+          clonedSet = @deepCopyPopulationSet(populationSet)
+          clonedSet.population_set_id = stratification.stratification_id
+          clonedSet.populations.STRAT = stratification.statement
+          clonedSet.title = stratification.title
+          stratificationsAsPopulationSets.push clonedSet
+    return stratificationsAsPopulationSets
+
+  ###*
+  # Returns a copy of the given population set
+  # @public {original} populationSet - The population set to be copied
+  ###
+  @deepCopyPopulationSet: (original) ->
+    copy = {}
+    copy.title = original.title
+    copy.observations = original.observations
+    copy.populations = {}
+    for popCode of original.populations
+      copyPop = {}
+      copyPop.library_name = original.populations[popCode].library_name
+      copyPop.statement_name = original.populations[popCode].statement_name
+      copy.populations[popCode] = copyPop
+    return copy

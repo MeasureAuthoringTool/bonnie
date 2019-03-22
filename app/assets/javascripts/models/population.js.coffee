@@ -1,4 +1,4 @@
-class Thorax.Models.Population extends Thorax.Model
+class Thorax.Models.PopulationSet extends Thorax.Model
 
   index: -> @collection.indexOf(this)
 
@@ -6,7 +6,7 @@ class Thorax.Models.Population extends Thorax.Model
 
   measure: -> @collection.parent
 
-  displayName: -> "#{@measure().get('cms_id')}#{if @measure().get('populations').length > 1 then @get('sub_id') else ''}"
+  displayName: -> "#{@measure().get('cqmMeasure').cms_id}#{if @measure().get('populations').length > 1 then @get('sub_id') else ''}"
 
   populationCriteria: -> (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @has(criteria))
 
@@ -89,8 +89,8 @@ class Thorax.Models.Population extends Thorax.Model
           occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
     return occurrences
 
-class Thorax.Collections.Population extends Thorax.Collection
-  model: Thorax.Models.Population
+class Thorax.Collections.PopulationSets extends Thorax.Collection
+  model: Thorax.Models.PopulationSet
   initialize: (models, options) -> @parent = options?.parent
   whenDifferencesComputed: (callback) ->
     @each (population) => population.differencesFromExpected().once 'complete', => callback(@) if @differencesComputed()

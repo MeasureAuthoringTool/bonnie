@@ -3,7 +3,7 @@
     <div class="measure-title">
       {{!-- This really just needs to be bold --}}
       <span class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> Measure details</span>
-      {{#if component}}
+      {{#if cqmMeasure.component}}
         <span class="settings-container">
           <div class="measure-settings">
             <a data-title="Component measures must be updated via their composite measure." data-toggle="tooltip" data-placement="bottom">
@@ -28,29 +28,16 @@
       {{/if}}
     </div>
     <div class="measure-dsp">
-      <h2 class="full-title">{{title}}</h2>
-      {{#if episode_of_care}}
-        {{#unless cql}}
-        <div class="measure-dsp-title">
-          Episode(s) of Care:
-        </div>
-          {{#each episodesOfCare tag="ul"}}
-            {{#with attributes}}
-              <li>{{description}}</li>
-            {{/with}}
-          {{/each}}
-        {{else}}
-            Episode of Care Based Measure
-        {{/unless}}
+      <h2 class="full-title">{{cqmMeasure.title}}</h2>
+      {{#ifCond cqmMeasure.calculation_method '==' 'EPISODE_OF_CARE'}}
+        Episode of Care Based Measure
         <p></p>
-      {{/if}}
-      {{#if calculate_sdes}}
+      {{/ifCond}}
+      {{#if cqmMeasure.calculate_sdes}}
           <p>Include Supplemental Data Element Calculations</p>
       {{/if}}
 
-      <p>{{description}}</p>
-
-      {{view complexityView}}
+      <p>{{cqmMeasure.description}}</p>
 
     </div>
 
@@ -65,9 +52,7 @@
       <span class="settings-container">
         <div class="patients-settings">
           <a data-title="Not yet implemented for QDM 5.4" data-toggle="tooltip" data-placement="bottom">{{#button "exportQrdaPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only">Patient Export</span>{{/button}}</a>
-          {{#if cql}}
-            {{#button "exportExcelPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}
-          {{/if}}
+          {{#button "exportExcelPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}
         </div>
         {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Patient Options</span>{{/button}}
       </span>
