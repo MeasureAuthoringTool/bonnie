@@ -6,8 +6,8 @@ describe 'Composite Measure Calculations', ->
   beforeEach ->
     @universalValueSetsByOid = bonnie.valueSetsByOid
     jasmine.getJSONFixtures().clearCache()
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
-    @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
+    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
+    @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
     @cql_calculator = new CQLCalculator()
     @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
     @pt1 = @patients.findWhere(last: 'doe', first: 'jon')
@@ -18,7 +18,7 @@ describe 'Composite Measure Calculations', ->
     bonnie.valueSetsByOidCached = undefined
 
   it 'calculates correctly for the composite measure', ->
-    measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
+    measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
     population = measure.get('populations').at(0)
 
     result = population.calculate(@pt1)
