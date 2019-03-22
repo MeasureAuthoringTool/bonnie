@@ -2,9 +2,9 @@
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
       @population = @cqlMeasure.get('populations').at(0)
       @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
       @cqlMeasure.set('patients',@cqlPatients)

@@ -3,7 +3,7 @@ describe 'MeasuresView', ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @measures = new Thorax.Collections.Measures()
-    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+    @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
     @measures.add(@measure)
     @measuresView = new Thorax.Views.Measures(collection: @measures)
     @measuresView.render()
@@ -32,12 +32,12 @@ describe 'MeasuresView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
+      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
       bonnie.measures.push(@compositeMeasure)
 
-      @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
+      @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
       @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) => bonnie.measures.push(component))
 
