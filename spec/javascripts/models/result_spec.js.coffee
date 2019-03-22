@@ -5,11 +5,11 @@ describe 'Result', ->
     @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
     collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
-    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
+    @oldBonnieValueSetsByMeasureId = bonnie.valueSetsByMeasureId
+    bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
 
   afterEach ->
-    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
+    bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByMeasureId
 
   it 'allows for deferring use of results until populated', ->
     result1 = new Thorax.Models.Result({}, population: @measure.get('populations').first(), patient: @patient)
@@ -96,10 +96,10 @@ describe 'Result', ->
 describe 'Continuous Variable Calculations', ->
 
   beforeEach ->
-    @universalValueSetsByOid = bonnie.valueSetsByOid
+    @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
     jasmine.getJSONFixtures().clearCache()
 
-    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS32/value_sets.json')
+    bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS32/value_sets.json')
     @cql_calculator = new CQLCalculator()
 
     @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
@@ -107,8 +107,8 @@ describe 'Continuous Variable Calculations', ->
     @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
 
   afterEach ->
-    bonnie.valueSetsByOid = @universalValueSetsByOid
-    bonnie.valueSetsByOidCached = undefined
+    bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
+    bonnie.valueSetsByMeasureIdCached = undefined
 
   it 'can handle single episodes observed', ->
     patient = @patients.findWhere(last: '1 ED', first: 'Visit')

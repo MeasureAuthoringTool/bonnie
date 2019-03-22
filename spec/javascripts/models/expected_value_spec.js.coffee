@@ -1,8 +1,8 @@
   describe 'Expected vs  Actual Comparisons', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
+      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
+      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
       @population = @cqlMeasure.get('populations').at(0)
@@ -13,7 +13,7 @@
       @measureView.appendTo 'body'
 
     afterEach ->
-      bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       @measureView.remove()
 
     it 'compares actual vs expected to only 8 decimal places', ->
