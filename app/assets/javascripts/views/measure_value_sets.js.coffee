@@ -36,9 +36,9 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       else
         version = ''
 
-    if bonnie.valueSetsByOid[oid]?
-      if bonnie.valueSetsByOid[oid][version]?
-        codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
+    if bonnie.valueSetsByMeasureId[oid]?
+      if bonnie.valueSetsByMeasureId[oid][version]?
+        codeConcepts = bonnie.valueSetsByMeasureId[oid][version].concepts ? []
         for code in codeConcepts
           code.hasLongDisplayName = code.display_name.length > 160
       else
@@ -66,7 +66,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       @model.get('elm').forEach (library) =>
         # Direct Reference Codes
         drc_guids_and_names = {}
-        for guid, value of bonnie.valueSetsByOid
+        for guid, value of bonnie.valueSetsByMeasureId
           if ValueSetHelpers.isDirectReferenceCode(guid)
             drc_guids_and_names[guid] = value['']['display_name'] # all drc have version of ''
 

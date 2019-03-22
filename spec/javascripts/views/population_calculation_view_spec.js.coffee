@@ -3,8 +3,8 @@ describe 'PopulationCalculationView', ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
+    @oldBonnieValueSetsByMeasureId = bonnie.valueSetsByMeasureId
+    bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
     @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     @measure.set('patients', @patients)
     @population = @measure.get('populations').first()
@@ -12,7 +12,7 @@ describe 'PopulationCalculationView', ->
     @populationCalculationView.render()
 
   afterEach ->
-    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
+    bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByMeasureId
 
   it 'renders correctly', ->
     expect(@populationCalculationView.$el).toContainText @patients.first().get('last')
