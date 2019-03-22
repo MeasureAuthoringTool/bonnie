@@ -9,7 +9,7 @@ describe 'MeasuresView', ->
     @measuresView.render()
 
   afterEach ->
-    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
+    bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByMeasureId
     @measuresView.remove()
 
   it 'renders dashboard', ->
@@ -31,8 +31,8 @@ describe 'MeasuresView', ->
   describe 'Composite Measures', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
+      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
+      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
       @compositeMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
       bonnie.measures.push(@compositeMeasure)
@@ -47,7 +47,7 @@ describe 'MeasuresView', ->
       @measuresView.appendTo 'body'
 
     afterEach ->
-      bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       @measuresView.remove()
 
     it 'Show title of composite measure', ->

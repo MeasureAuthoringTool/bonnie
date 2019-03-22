@@ -3,11 +3,11 @@ describe 'Measure', ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
+    @oldBonnieValueSetsByMeasureId = bonnie.valueSetsByMeasureId
+    bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
 
   afterEach ->
-    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
+    bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByMeasureId
 
   it 'has basic attributes available', ->
     expect(@measure.get('hqmf_set_id')).toEqual 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'

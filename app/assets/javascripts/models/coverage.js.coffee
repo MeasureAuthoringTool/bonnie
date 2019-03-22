@@ -19,7 +19,8 @@ class Thorax.Model.Coverage extends Thorax.Model
       @rationaleCriteria = {}
       totalClauses = 0
       passedClauses = 0
-      elmAnnotationLibraryNames = Object.keys(@population.collection.parent.get('elm_annotations'))
+      cqmMeasure = @population.collection.parent.get('cqmMeasure')
+      elmAnnotationLibraryNames = (cql_library.library_name for cql_library in cqmMeasure.cql_libraries)
       for patientResults in @clauseResults
         for libraryName, library of patientResults
           if elmAnnotationLibraryNames.some((el) -> libraryName is el)

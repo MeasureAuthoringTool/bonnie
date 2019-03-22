@@ -29,10 +29,10 @@ describe 'ImportMeasure view', ->
     describe 'loading', ->
       beforeEach ->
         jasmine.getJSONFixtures().clearCache()
-        @universalValueSetsByOid = bonnie.valueSetsByOid
+        @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
 
       afterEach ->
-        bonnie.valueSetsByOid = @universalValueSetsByOid
+        bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
 
       it 'remembers we are calculating SDEs', ->
         cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
