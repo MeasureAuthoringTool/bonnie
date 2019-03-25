@@ -6,9 +6,10 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @terminology = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex') # all value set names, OID, and versions
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
+    @cqmMeasure = @model.get('cqmMeasure')
 
     # options passed to a Backbone.PageableCollection instance
-    @pagination_options =
+    @paginationOptions =
       mode: 'client'
       state: { pageSize: 10, firstPage: 1, currentPage: 1 }
     @getValueSets() # populates @terminology
@@ -27,26 +28,24 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
   getVersionAndCodes: (oid) ->
     isDirectReference = ValueSetHelpers.isDirectReferenceCode(oid)
     if isDirectReference
-      oid_version = ''
+      oidVersion = ''
       version = ''
     else
-      oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
-      if oid_version?
-        version = oid_version.version
+      oidVersion = _.find(bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id], (oidVersion) -> oidVersion.oid == oid)
+      if oidVersion?
+        version = oidVersion.version
       else
         version = ''
 
-    if bonnie.valueSetsByMeasureId[oid]?
-      if bonnie.valueSetsByMeasureId[oid][version]?
-        codeConcepts = bonnie.valueSetsByMeasureId[oid][version].concepts ? []
-        for code in codeConcepts
-          code.hasLongDisplayName = code.display_name.length > 160
-      else
-        codeConcepts = []
+    valueSet = _.find(bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id], (valueSet) -> valueSet.oid == oid)
+    if oidVersion? && oidVersion.version == version && oidVersion.concepts?
+      codeConcepts = oidVersion.concepts
+      for code in codeConcepts
+        code.hasLongDisplayName = code.display_name.length > 160
     else
       codeConcepts = []
 
-    codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
+    codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @paginationOptions)
     if version.match(/^Draft/)
       version = "Draft"
     [version, codes]
@@ -62,33 +61,33 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
   getValueSets: ->
     terminology = []
 
-    if @model.get('elm')
-      @model.get('elm').forEach (library) =>
+    if @cqmMeasure.cql_libraries
+      @cqmMeasure.cql_libraries.forEach (library) =>
         # Direct Reference Codes
-        drc_guids_and_names = {}
-        for guid, value of bonnie.valueSetsByMeasureId
-          if ValueSetHelpers.isDirectReferenceCode(guid)
-            drc_guids_and_names[guid] = value['']['display_name'] # all drc have version of ''
+        drcGuidsAndNames = {}
+        for value in bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id]
+          if ValueSetHelpers.isDirectReferenceCode(value.oid)
+            drcGuidsAndNames[value.oid] = value['display_name']
 
-        if library.library.codes
-          library.library.codes.def.forEach (code) =>
+        if library.elm.library.codes
+          library.elm.library.codes.def.forEach (code) =>
             name = code.name
             display = code.display
             oid = 'Direct Reference Code'
             cid = _.uniqueId('c')
             # Get the guid by looping over bonnie.valueSetByOid
-            for guid, display_name of drc_guids_and_names
-              if display_name == name
+            for guid, displayName of drcGuidsAndNames
+              if displayName == name
                 [version, codes] = @getVersionAndCodes(guid)
 
                 valueSet = { name: display, oid: 'Direct Reference Code', version: 'N/A', codes: codes, cid: cid }
 
                 terminology.push(valueSet)
 
-        if library.library.valueSets
-          library.library.valueSets.def.forEach (value_set) =>
-            name = value_set.name
-            oid = value_set.id
+        if library.elm.library.valueSets
+          library.elm.library.valueSets.def.forEach (valueSet) =>
+            name = valueSet.name
+            oid = valueSet.id
             cid = _.uniqueId('c')
 
             [version, codes] = @getVersionAndCodes(oid)
@@ -153,14 +152,14 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       matchedCodes = overlapCodes[overlapKey]
       @overlappingValueSets.add
         cid: overlapKey
-        codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @pagination_options)
+        codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @paginationOptions)
         oid1: valueSet1.oid
         name1: valueSet1.name
         oid2: valueSet2.oid
         name2: valueSet2.name
       @overlappingValueSets.add
         cid: valueSet2.cid + "_" + valueSet1.cid
-        codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @pagination_options)
+        codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @paginationOptions)
         oid1: valueSet2.oid
         name1: valueSet2.name
         oid2: valueSet1.oid
