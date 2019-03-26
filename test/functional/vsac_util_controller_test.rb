@@ -52,7 +52,7 @@ class VsacUtilControllerTest < ActionController::TestCase
 
   test "vsac auth valid" do
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
-    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
+    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now.utc + 27000}
     get :auth_valid
 
     assert_response :ok
@@ -62,7 +62,7 @@ class VsacUtilControllerTest < ActionController::TestCase
   test "vsac auth invalid" do
     # Time is past expired
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
-    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now - 27000}
+    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now.utc - 27000}
     get :auth_valid
 
     assert_response :ok
@@ -71,7 +71,7 @@ class VsacUtilControllerTest < ActionController::TestCase
 
   test "force expire vsac session" do
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
-    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
+    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now.utc + 27000}
     post :auth_expire
 
     assert_response :ok
