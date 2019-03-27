@@ -10,8 +10,8 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
              value: new Thorax.Collection()
              references: new Thorax.Collection()
              field_values: new Thorax.Collection()
-             hqmf_set_id: @collection.parent.get('hqmf_set_id')
-             cms_id: @collection.parent.get('cms_id')
+             hqmf_set_id: @collection.parent.get('cqmMeasure').hqmf_set_id
+             cms_id: @collection.parent.get('cqmMeasure').cms_id
              criteria_id: @get("criteria_id") || Thorax.Models.MeasureDataCriteria.generateCriteriaId()
     new Thorax.Models.PatientDataCriteria attr
 

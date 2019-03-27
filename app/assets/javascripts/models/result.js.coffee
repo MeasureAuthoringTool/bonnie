@@ -30,10 +30,10 @@ class Thorax.Models.Result extends Thorax.Model
         updatedRationale[code] = {}
 
         # get the referenced occurrences in the logic tree using original population code
-        criteria = _.uniq @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code)?.code], false)
+        criteria = _.uniq @population.getDataCriteriaKeys(@measure.get('cqmMeasure').population_criteria[@population.get(code)?.code], false)
         criteriaResults = @checkCriteriaForRationale(specifics, criteria, rationale, @measure.get('data_criteria'))
         submeasureCode = @population.get(code)?.code || code
-        parentMap = @buildParentMap(@measure.get('population_criteria')[submeasureCode])
+        parentMap = @buildParentMap(@measure.get('cqmMeasure').population_criteria[submeasureCode])
 
         # check each bad occurrence and remove highlights marking true
         for badCriteria in criteriaResults.bad
