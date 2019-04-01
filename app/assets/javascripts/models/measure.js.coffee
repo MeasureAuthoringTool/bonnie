@@ -2,8 +2,10 @@ class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
 
   populateComponents: ->
-    return unless @get('composite')
-    @set 'componentMeasures', new Thorax.Collection @get('component_hqmf_set_ids').map((hqmfSetId) => bonnie.measures.findWhere({hqmf_set_id: hqmfSetId}))
+    return unless @.get('cqmMeasure').get('composite')
+    @set 'componentMeasures', new Thorax.Collection @.get('cqmMeasure').get('component_hqmf_set_ids').map(
+      (hqmfSetId) -> _.find(bonnie.measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId)
+    )
 
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
