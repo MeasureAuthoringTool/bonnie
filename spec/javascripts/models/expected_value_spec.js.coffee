@@ -4,7 +4,6 @@
       @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
       bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS32/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      debugger
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
       @population = @cqlMeasure.get('populations').at(0)
       @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
