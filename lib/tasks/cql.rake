@@ -125,7 +125,7 @@ namespace :bonnie do
     $ rake bonnie:cql:convert_measures EMAIL=xxx}
     task :convert_measures => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
-      bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasures.all
+      bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasure.all
       bonnie_cql_measures.each do |measure|
         cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
         cqm_measure.value_sets.map{ |value_set| value_set.save!}
