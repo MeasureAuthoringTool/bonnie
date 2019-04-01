@@ -24,7 +24,12 @@ class Thorax.Models.Measure extends Thorax.Model
     # thoraxMeasure.population_sets is a combination of mongoose population_sets and mongoose stratifications
     # toObject() removes all mongoose specific fields (ie: '_id' and '_type')
     # This is necessary since our view treats the stratification as a population
-    popSetsAndStrats = (thoraxMeasure.cqmMeasure.population_sets.concat stratificationPopulations).map (popSet) -> popSet.toObject()
+    popSetsAndStrats = (thoraxMeasure.cqmMeasure.population_sets.concat stratificationPopulations)
+                        .map (popSet) ->
+                          if typeof popSet.toObject == 'function'
+                            popSet.toObject()
+                          else
+                            popSet
 
     for populationSet, index in popSetsAndStrats
       populationSet.sub_id = alphabet[index]
