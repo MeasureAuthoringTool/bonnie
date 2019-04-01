@@ -119,6 +119,44 @@ namespace :bonnie do
       differences
     end
 
+    desc %{Converts Bonnie measures to new CQM Measures
+      user email is optional and can be passed in by EMAIL
+      If no email is provided, rake task will run on all measures
+    $ rake bonnie:cql:convert_measures EMAIL=xxx}
+    task :convert_measures => :environment do
+      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasures.all
+      bonnie_cql_measures.each do |measure|
+        cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
+        cqm_measure.value_sets.map{ |value_set| value_set.save!}
+        cqm_measure.user = measure.user
+        cqm_measure.save!
+        puts measure.title + ' ' +  measure.cms_id
+      end
+    end
+
+    desc %{Coverts Bonnie patients to new CQM/QDM Patients
+      user email is optional and can be passed in by EMAIL
+      If no email is provided, rake task will run on all patients
+    $ rake bonnie:cql:convert_patients EMAIL=xxx}
+    task :convert_patients => :environment do
+      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      bonnie_patients = user ? Record.by_user(user) : Record.all
+      bonnie_patients.each do |bonnie_patient|
+        begin
+          qdm_patient = CQMConverter.to_qdm(bonnie_patient)
+          qdm_patient.user = bonnie_patient.user
+          qdm_patient.measure_ids = bonnie_patient.measure_ids
+          qdm_patient.save!
+          puts "."
+        rescue ExecJS::ProgramError => e
+          # if there was a conversion failure we should record the resulting failure message with the hds model in a
+          # separate collection to return
+          puts e.message
+        end
+      end
+    end
+
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
       Example test@test.com  
                 CMS_ID: xxx   TITLE: Measure Title
