@@ -42,7 +42,8 @@
     @breadcrumb.addMeasurePeriod()
 
   renderMeasure: (hqmfSetId) ->
-    measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
+    measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId) if hqmfSetId
+
     if measure?
       @navigationSetup "Measure View", "dashboard"
       document.title += " - #{measure.get('cqmMeasure').cms_id}" if measure?
@@ -96,7 +97,7 @@
       error.summary = "This page has generated multiple errors... additional errors will be suppressed. #{error.summary}"
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
-    errorDialogView.display();
+    errorDialogView.display()
         
   showPageNotFound: ->
     @mainView.setView new Thorax.Views.ErrorView
