@@ -274,8 +274,8 @@ class CQLMeasureHelpers
     populationRelevance = {}
     for popCode in Thorax.Models.Measure.allPopulationCodes
       # TODO: Look into Observ attributes
-      # if popCode == 'OBSERV'
-      #   populationRelevance['values'] = true
+      if popCode == 'OBSERV'
+        populationRelevance['values'] = true
 
       if populationSet.get('populations')[popCode]
         populationRelevance[popCode] = true
@@ -316,9 +316,9 @@ class CQLMeasureHelpers
   # Format stratifications as population sets to be added to the measure's population sets
   # @public {measure} measure - The measure
   ###
-  @getStratificationsAsPopulationSets: (pop_sets) ->
+  @getStratificationsAsPopulationSets: (popSets) ->
     stratificationsAsPopulationSets = []
-    for populationSet in pop_sets
+    for populationSet in popSets.toObject()
       if (populationSet.stratifications)
         for stratification in populationSet.stratifications
           clonedSet = @deepCopyPopulationSet(populationSet)
