@@ -25,7 +25,7 @@ describe 'Navigation', ->
       expect($('button[data-call-method="importMeasure"]', @measuresView.el).length).toEqual(1)
 
     it 'should link to the measure view for a measure', ->
-      expect($('a[href="#measures/' + @measures.first().get('hqmf_set_id') + '"]', @measuresView.el).length).toEqual(1)
+      expect($('a[href="#measures/' + @measures.first().get('cqmMeasure').get('hqmf_set_id') + '"]', @measuresView.el).length).toEqual(1)
 
     it 'should link to the update measure view', ->
       expect($('button[data-call-method="updateMeasure"]', @measuresView.el).length).toEqual(@measures.length)
