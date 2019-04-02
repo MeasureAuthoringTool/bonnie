@@ -107,7 +107,6 @@ describe 'CQLMeasureHelpers', ->
   describe '_findLocalIdForLibraryRef for expressionRefs with libraryRef in clause', ->
     beforeEach ->
       # use a chunk of this fixture for these tests.
-      # TODO(cqm-measure): need to update/replace this fixture
       measure = getJSONFixture('cqm_measure_data/deprecated_measures/CMS13/CMS13v2.json')
       # the annotation for the 'Comfort Measures during Hospitalization' will be used for these tests
       # it is known the expressionRef 'TJC."Encounter with Principal Diagnosis of Ischemic Stroke"' is '42' and the
