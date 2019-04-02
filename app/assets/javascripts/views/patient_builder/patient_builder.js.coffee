@@ -9,6 +9,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   initialize: ->
     @originalModel = @model # When we're done editing we want to update the original model
+    @cqmMeasure = @measure.get('cqmMeasure')
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
     @model.get('source_data_criteria').on 'remove', => @materialize()
     if bonnie.isPortfolio
@@ -34,9 +35,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.on 'clearHighlight', =>
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
-    unless @measure.get('component')
+    unless @cqmMeasure.component
       @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
-    if @measure.get('component') or @measure.get('composite')
+    if @cqmMeasure.component or @cqmMeasure.composite
       @compositeSharingWarningView = new Thorax.Views.CompositeSharingWarning()
 
   dataCriteriaCategories: ->
@@ -118,8 +119,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     birthdatetime = moment.utc(@model.get('birthdate'), 'X') if @model.has('birthdate') && !!@model.get('birthdate')
     deathdatetime = moment.utc(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
     _(super).extend
-      measureTitle: @measure.get('title')
-      measureDescription: @measure.get('description')
+      measureTitle: @cqmMeasure.title
+      measureDescription: @cqmMeasure.description
       birthdate: birthdatetime?.format('L')
       birthtime: birthdatetime?.format('LT')
       deathdate: deathdatetime?.format('L')
@@ -158,7 +159,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @render()
     @expectedValuesView.refresh(population, @model.getExpectedValues(@measure))
     @populationLogicView.setPopulation population
-    bonnie.navigate "measures/#{@measure.get('hqmf_set_id')}/patients/#{@model.id}/edit"
+    bonnie.navigate "measures/#{@measure.get('cqmMeasure').hqmf_set_id}/patients/#{@model.id}/edit"
 
   save: (e, callback) ->
     e.preventDefault()
@@ -181,7 +182,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
           route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
         else
-          route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
+          route = if @measure then "measures/#{@measure.get('cqmMeasure').hqmf_set_id}" else "patients"
         bonnie.navigate route, trigger: true
         callback.success(model) if callback?.success
     unless status
@@ -266,5 +267,5 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
     @getView().showRationale(@model.calculate(patient))
   context: ->
     _(super).extend
-      title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
-      cms_id: @model.collection.parent.get('cms_id')
+      title: if @model.collection.parent.get('populations').length > 1 then (@model.get('cqmMeasure').title || @model.get('sub_id')) else ''
+      cms_id: @model.collection.parent.get('cqmMeasure').cms_id

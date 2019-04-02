@@ -2,10 +2,6 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
 
   template: JST['measures']
 
-  initialize: ->
-    toFinalize = @collection.select (m) -> m.get('needs_finalize')
-    @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures measures: new Thorax.Collections.Measures(toFinalize)
-
   importMeasure: (event) ->
     importMeasureView = new Thorax.Views.ImportMeasure(firstMeasure: (@collection.length == 0))
     importMeasureView.appendTo(@$el)
@@ -14,9 +10,6 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
   events:
     rendered: ->
       if @collection.isEmpty() then @importMeasure()
-      else if @finalizeMeasuresView.measures.length
-        @finalizeMeasuresView.appendTo(@$el)
-        @finalizeMeasuresView.display()
 
 class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 
@@ -28,7 +21,6 @@ class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
     @multiplePopulations = @model.get('populations').length > 1
     unless @multiplePopulations
       @differences = @model.get('displayedPopulation').differencesFromExpected()
-    @cql = @model.get('cql')?
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)

@@ -9,7 +9,7 @@ class Thorax.Views.Matrix extends Thorax.Views.BonnieView
     @patients.sort()
 
   context: ->
-    _(super).extend measures: @collection.populations().map (p) -> name: p.displayName(), hqmf_set_id: p.measure().get('hqmf_set_id')
+    _(super).extend measures: @collection.populations().map (p) -> name: p.displayName(), hqmf_set_id: p.measure().get('cqmMeasure').hqmf_set_id
 
   patientContext: (p) ->
     _(p.toJSON()).extend results: @collection.populations().map (m) -> m.calculate(p)
@@ -38,7 +38,7 @@ class Thorax.Views.MatrixCell extends Thorax.Views.BonnieView
     click: ->
       @$el.popover 'destroy'
       $(".popover").remove() # Destroy doesn't seem to remove the popover, so remove it directly
-      bonnie.navigate "measures/#{@model.measure.get('hqmf_set_id')}/patients/#{@model.patient.id}/edit", trigger: true
+      bonnie.navigate "measures/#{@model.measure.get('cqmMeasure').hqmf_set_id}/patients/#{@model.patient.id}/edit", trigger: true
     model:
       change: -> @$el.addClass(@className())
 
