@@ -1,16 +1,16 @@
 [
   {
-    "_id": "5bfd982bbb9215e5083a525e",
+    "_id": "5c06ec72b848466bbc906066",
     "assessments": [
       {
-        "_id": "5bfd9e16bb9215e5083a5367",
+        "_id": "5c9b8ca2d7c8ac34da28ce9f",
         "codes": {
           "LOINC": [
-            "73832-8"
+            "59458-0"
           ]
         },
         "components": null,
-        "description": "Assessment, Performed: Adult Depression Screening",
+        "description": "Assessment, Performed: Ambulatory Status",
         "end_time": null,
         "health_record_field": null,
         "method": null,
@@ -20,25 +20,56 @@
         "oid": "2.16.840.1.113883.10.20.28.3.117",
         "reason": null,
         "specifics": null,
-        "start_time": 1353484800,
+        "start_time": 1309766400,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
           ]
         },
-        "time": null
+        "time": null,
+        "_type": "Assessment"
+      },
+      {
+        "_id": "5c9b8ca2d7c8ac34da28cea0",
+        "codes": {
+          "SNOMED-CT": [
+            "401196007"
+          ],
+          "LOINC": [
+            "52552-7"
+          ]
+        },
+        "components": null,
+        "description": "Assessment, Performed: Falls Screening",
+        "end_time": null,
+        "health_record_field": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.10.20.28.3.117",
+        "reason": null,
+        "specifics": null,
+        "start_time": 1341388800,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null,
+        "_type": "Assessment"
       }
     ],
-    "birthdate": -919180800,
-    "bundle_id": "5ae36960b848466193d0b327",
-    "created_at": "2018-11-27T19:16:59.620Z",
+    "birthdate": -946742400,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-12-04T21:06:58.615Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5bfd9e16bb9215e5083a5364",
+        "_id": "5c9b8ca2d7c8ac34da28ce9e",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -50,7 +81,7 @@
         "diagnosis": null,
         "dischargeDisposition": null,
         "dischargeTime": null,
-        "end_time": 1353485700,
+        "end_time": 1354608900,
         "facility": null,
         "health_record_field": null,
         "mood_code": "EVN",
@@ -60,13 +91,14 @@
         "performer_id": null,
         "reason": null,
         "specifics": null,
-        "start_time": 1353484800,
+        "start_time": 1354608000,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
           ]
         },
-        "time": null
+        "time": null,
+        "_type": "Encounter"
       }
     ],
     "ethnicity": {
@@ -81,7 +113,7 @@
         "IPP": 1,
         "DENOM": 1,
         "DENEX": 0,
-        "NUMER": 0
+        "NUMER": 1
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
@@ -90,14 +122,14 @@
         "MSRPOPL": 1,
         "MSRPOPLEX": 0,
         "OBSERV": [
-          0.4
+          0.25
         ],
         "OBSERV_UNIT": ""
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
         "population_index": 0,
-        "IPP": 1,
+        "IPP": 0,
         "DENOM": 0,
         "NUMER": 0,
         "DENEXCEP": 0
@@ -105,87 +137,53 @@
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
         "population_index": 0,
-        "IPP": 1,
-        "DENOM": 1,
+        "IPP": 0,
+        "DENOM": 0,
         "DENEX": 0,
-        "NUMER": 1
+        "NUMER": 0
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
         "population_index": 0,
         "IPP": 1,
-        "DENOM": 1,
+        "DENOM": 0,
         "DENEX": 0,
         "NUMER": 0
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
         "population_index": 0,
-        "IPP": 1,
-        "DENOM": 1,
-        "DENEX": 1,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
         "NUMER": 0
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
         "population_index": 0,
-        "IPP": 1,
-        "DENOM": 1,
+        "IPP": 0,
+        "DENOM": 0,
         "DENEX": 0,
-        "NUMER": 1,
+        "NUMER": 0,
         "DENEXCEP": 0
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
         "population_index": 0,
-        "IPP": 1,
-        "DENOM": 1,
+        "IPP": 0,
+        "DENOM": 0,
         "DENEX": 0,
         "NUMER": 0
       }
     ],
     "expired": null,
-    "first": "jane",
-    "gender": "F",
-    "insurance_providers": [
-      {
-        "_id": "5bfd9e16bb9215e5083a5368",
-        "codes": {
-          "SOP": [
-            "349"
-          ]
-        },
-        "description": null,
-        "end_time": null,
-        "financial_responsibility_type": {
-          "code": "SELF",
-          "codeSystem": "HL7 Relationship Code"
-        },
-        "health_record_field": null,
-        "member_id": "1234567890",
-        "mood_code": "EVN",
-        "name": "Other",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": null,
-        "payer": {
-          "_id": "5bfd9e16bb9215e5083a5369",
-          "name": "Other"
-        },
-        "reason": null,
-        "relationship": null,
-        "specifics": null,
-        "start_time": 1199163600,
-        "status_code": null,
-        "time": null,
-        "type": "OT"
-      }
-    ],
+    "first": "Patient",
+    "gender": "M",
     "is_shared": null,
     "languages": [
 
     ],
-    "last": "smith",
+    "last": "Test 1",
     "marital_status": null,
     "measure_ids": [
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
@@ -199,107 +197,10 @@
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "5b817397ff487a087d186dd27916e39592aaa5ed49d3918da70fab2b61481bb9",
-    "medications": [
-      {
-        "_id": "5bfd9e16bb9215e5083a5365",
-        "active_datetime": null,
-        "administrationTiming": null,
-        "allowedAdministrations": null,
-        "anatomical_approach": null,
-        "codes": {
-          "CVX": [
-            "109"
-          ]
-        },
-        "cumulativeMedicationDuration": null,
-        "daysSupplied": null,
-        "deliveryMethod": null,
-        "description": "Immunization, Administered: Pneumococcal Vaccine",
-        "dispenserIdentifier": null,
-        "dose": null,
-        "doseIndicator": null,
-        "doseRestriction": null,
-        "end_time": null,
-        "freeTextSig": null,
-        "fulfillmentInstructions": null,
-        "health_record_field": null,
-        "indication": null,
-        "method": null,
-        "mood_code": "EVN",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": "2.16.840.1.113883.10.20.28.3.112",
-        "patientInstructions": null,
-        "prescriberIdentifier": null,
-        "productForm": null,
-        "reaction": null,
-        "reason": null,
-        "refills": null,
-        "route": null,
-        "setting": null,
-        "signed_datetime": null,
-        "specifics": null,
-        "start_time": 1353484800,
-        "statusOfMedication": null,
-        "status_code": {
-          "HL7 ActStatus": [
-            "administered"
-          ]
-        },
-        "supply": null,
-        "time": null,
-        "typeOfMedication": null,
-        "vehicle": null
-      }
-    ],
+    "medical_record_number": "d975a2c11a5dbfa9af64642c349f94b5f5e5b43b211617f5d2992dd0438ca8fd",
     "notes": "",
     "origin_data": [
 
-    ],
-    "procedures": [
-      {
-        "_id": "5bfd9e16bb9215e5083a5366",
-        "anatomical_approach": null,
-        "anatomical_location": null,
-        "anatomical_target": null,
-        "codes": {
-          "SNOMED-CT": [
-            "26390003"
-          ],
-          "CPT": [
-            "44150"
-          ]
-        },
-        "components": null,
-        "description": "Procedure, Performed: Total Colectomy",
-        "end_time": 1353485700,
-        "facility": null,
-        "health_record_field": null,
-        "incisionTime": null,
-        "method": null,
-        "mood_code": "EVN",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": "2.16.840.1.113883.3.560.1.6",
-        "ordinality": null,
-        "performer_id": null,
-        "qdm_status": null,
-        "radiation_dose": null,
-        "radiation_duration": null,
-        "reaction": null,
-        "reason": null,
-        "result_date_time": null,
-        "source": null,
-        "specifics": null,
-        "start_time": 1353484800,
-        "status_code": {
-          "HL7 ActStatus": [
-            "performed"
-          ]
-        },
-        "time": null
-      }
     ],
     "race": {
       "code": "1002-5",
@@ -310,58 +211,61 @@
     "source_data_criteria": [
       {
         "negation": false,
-        "definition": "immunization",
-        "status": "administered",
-        "title": "PneumococcalVaccine",
-        "description": "Immunization, Administered: Pneumococcal Vaccine",
-        "code_list_id": "2.16.840.1.113883.3.464.1003.110.12.1027",
-        "type": "immunizations",
-        "id": "PneumococcalVaccine_ImmunizationAdministered_982d2f60_9267_45f6_9805_8d95c07405b0_source",
-        "start_date": 1353484800000,
+        "definition": "assessment",
+        "status": "performed",
+        "title": "AmbulatoryStatus",
+        "description": "Assessment, Performed: Ambulatory Status",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.118.11.1219",
+        "type": "assessments",
+        "id": "AmbulatoryStatus_AssessmentPerformed_eb84926c_ae80_4768_9f88_ea55ed355df6_source",
+        "start_date": 1309766400000,
         "value": [
 
         ],
         "references": null,
         "field_values": {
         },
-        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
-        "cms_id": "CMS890v0",
-        "criteria_id": "167569abc47Kn",
+        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+        "cms_id": "CMS231v0",
+        "criteria_id": "1677b0af52fFX",
         "codes": {
-          "CVX": [
-            "109"
+          "LOINC": [
+            "59458-0"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5bfd9e16bb9215e5083a5365",
+        "coded_entry_id": "5c9b8ca2d7c8ac34da28ce9f",
         "code_source": "DEFAULT"
       },
       {
         "negation": false,
         "definition": "assessment",
         "status": "performed",
-        "title": "AdultDepressionScreening",
-        "description": "Assessment, Performed: Adult Depression Screening",
-        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "title": "FallsScreening",
+        "description": "Assessment, Performed: Falls Screening",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.118.12.1028",
         "type": "assessments",
-        "id": "AdultDepressionScreening_AssessmentPerformed_a002775a_cbd3_4033_9def_223190baf14b_source",
-        "start_date": 1353484800000,
+        "id": "FallsScreening_AssessmentPerformed_3296d6d9_085b_4acd_84a9_819c01e4e5cd_source",
+        "start_date": 1341388800000,
         "value": [
 
         ],
         "references": null,
         "field_values": {
         },
-        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
-        "cms_id": "CMS890v0",
-        "criteria_id": "167569b0e4fCI",
+        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+        "cms_id": "CMS231v0",
+        "criteria_id": "1677b0b4e9bGs",
         "codes": {
+          "SNOMED-CT": [
+            "401196007"
+          ],
           "LOINC": [
-            "73832-8"
+            "52552-7"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5bfd9e16bb9215e5083a5367",
+        "coded_entry_id": "5c9b8ca2d7c8ac34da28cea0",
         "code_source": "DEFAULT"
       },
       {
@@ -372,57 +276,25 @@
         "description": "Encounter, Performed: Annual Wellness Visit",
         "code_list_id": "2.16.840.1.113883.3.526.3.1240",
         "type": "encounters",
-        "id": "AnnualWellnessVisit_EncounterPerformed_294cb5b3_0284_4c4d_8501_9471ecda03ea_source",
-        "start_date": 1353484800000,
-        "end_date": 1353485700000,
+        "id": "AnnualWellnessVisit_EncounterPerformed_d50103e4_3ce4_48e3_9489_68dc37fb0b20_source",
+        "start_date": 1354608000000,
+        "end_date": 1354608900000,
         "value": [
 
         ],
         "references": null,
         "field_values": {
         },
-        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
-        "cms_id": "CMS890v0",
-        "criteria_id": "167569b7b9cXH",
+        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+        "cms_id": "CMS231v0",
+        "criteria_id": "1677b0ac53a4Q",
         "codes": {
           "HCPCS": [
             "G0438"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5bfd9e16bb9215e5083a5364",
-        "code_source": "DEFAULT"
-      },
-      {
-        "negation": false,
-        "definition": "procedure",
-        "status": "performed",
-        "title": "TotalColectomy",
-        "description": "Procedure, Performed: Total Colectomy",
-        "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1019",
-        "type": "procedures",
-        "id": "TotalColectomy_ProcedurePerformed_40280381_3e93_d1af_013e_a399ad6d3020_source",
-        "start_date": 1353484800000,
-        "end_date": 1353485700000,
-        "value": [
-
-        ],
-        "references": null,
-        "field_values": {
-        },
-        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
-        "cms_id": "CMS890v0",
-        "criteria_id": "167569be64aa4",
-        "codes": {
-          "SNOMED-CT": [
-            "26390003"
-          ],
-          "CPT": [
-            "44150"
-          ]
-        },
-        "negation_code_list_id": "",
-        "coded_entry_id": "5bfd9e16bb9215e5083a5366",
+        "coded_entry_id": "5c9b8ca2d7c8ac34da28ce9e",
         "code_source": "DEFAULT"
       },
       {
@@ -435,21 +307,21 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-11-27T19:42:15.024Z",
-    "user_id": null
+    "updated_at": "2019-03-27T14:45:54.234Z",
+    "user_id": "501fdba3044a111b98000001"
   },
   {
-    "_id": "5bfd98d6bb9215e5083a52c0",
+    "_id": "5c06ecf1b848466bbc906184",
     "assessments": [
       {
-        "_id": "5bfd9e0dbb9215e5083a5361",
+        "_id": "5c9b8ca2d7c8ac34da28cea2",
         "codes": {
           "LOINC": [
-            "73832-8"
+            "59458-0"
           ]
         },
         "components": null,
-        "description": "Assessment, Performed: Adult Depression Screening",
+        "description": "Assessment, Performed: Ambulatory Status",
         "end_time": null,
         "health_record_field": null,
         "method": null,
@@ -459,25 +331,56 @@
         "oid": "2.16.840.1.113883.10.20.28.3.117",
         "reason": null,
         "specifics": null,
-        "start_time": 1353484800,
+        "start_time": 1309766400,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
           ]
         },
-        "time": null
+        "time": null,
+        "_type": "Assessment"
+      },
+      {
+        "_id": "5c9b8ca2d7c8ac34da28cea3",
+        "codes": {
+          "SNOMED-CT": [
+            "401196007"
+          ],
+          "LOINC": [
+            "52552-7"
+          ]
+        },
+        "components": null,
+        "description": "Assessment, Performed: Falls Screening",
+        "end_time": null,
+        "health_record_field": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.10.20.28.3.117",
+        "reason": null,
+        "specifics": null,
+        "start_time": 1341388800,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null,
+        "_type": "Assessment"
       }
     ],
-    "birthdate": -1234886400,
-    "bundle_id": "5ae36960b848466193d0b327",
-    "created_at": "2018-11-27T19:19:50.975Z",
+    "birthdate": -946742400,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-12-04T21:09:05.921Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5bfd9e0dbb9215e5083a535e",
+        "_id": "5c9b8ca2d7c8ac34da28cea1",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -489,7 +392,7 @@
         "diagnosis": null,
         "dischargeDisposition": null,
         "dischargeTime": null,
-        "end_time": 1353658500,
+        "end_time": 1354608900,
         "facility": null,
         "health_record_field": null,
         "mood_code": "EVN",
@@ -499,13 +402,14 @@
         "performer_id": null,
         "reason": null,
         "specifics": null,
-        "start_time": 1353657600,
+        "start_time": 1354608000,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
           ]
         },
-        "time": null
+        "time": null,
+        "_type": "Encounter"
       }
     ],
     "ethnicity": {
@@ -520,7 +424,7 @@
         "IPP": 1,
         "DENOM": 1,
         "DENEX": 0,
-        "NUMER": 0
+        "NUMER": 1
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
@@ -529,14 +433,14 @@
         "MSRPOPL": 1,
         "MSRPOPLEX": 0,
         "OBSERV": [
-          0.33333333
+          0.25
         ],
         "OBSERV_UNIT": ""
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
         "population_index": 0,
-        "IPP": 1,
+        "IPP": 0,
         "DENOM": 0,
         "NUMER": 0,
         "DENEXCEP": 0
@@ -544,10 +448,10 @@
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
         "population_index": 0,
-        "IPP": 1,
-        "DENOM": 1,
+        "IPP": 0,
+        "DENOM": 0,
         "DENEX": 0,
-        "NUMER": 1
+        "NUMER": 0
       },
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
@@ -560,7 +464,7 @@
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
         "population_index": 0,
-        "IPP": 1,
+        "IPP": 0,
         "DENOM": 0,
         "DENEX": 0,
         "NUMER": 0
@@ -568,8 +472,8 @@
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
         "population_index": 0,
-        "IPP": 1,
-        "DENOM": 1,
+        "IPP": 0,
+        "DENOM": 0,
         "DENEX": 0,
         "NUMER": 0,
         "DENEXCEP": 0
@@ -577,160 +481,37 @@
       {
         "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
         "population_index": 0,
-        "IPP": 1,
+        "IPP": 0,
         "DENOM": 0,
         "DENEX": 0,
         "NUMER": 0
       }
     ],
     "expired": null,
-    "first": "jon",
+    "first": "Patient",
     "gender": "M",
-    "insurance_providers": [
-      {
-        "_id": "5bfd9e0dbb9215e5083a5362",
-        "codes": {
-          "SOP": [
-            "349"
-          ]
-        },
-        "description": null,
-        "end_time": null,
-        "financial_responsibility_type": {
-          "code": "SELF",
-          "codeSystem": "HL7 Relationship Code"
-        },
-        "health_record_field": null,
-        "member_id": "1234567890",
-        "mood_code": "EVN",
-        "name": "Other",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": null,
-        "payer": {
-          "_id": "5bfd9e0dbb9215e5083a5363",
-          "name": "Other"
-        },
-        "reason": null,
-        "relationship": null,
-        "specifics": null,
-        "start_time": 1199163600,
-        "status_code": null,
-        "time": null,
-        "type": "OT"
-      }
-    ],
     "is_shared": null,
     "languages": [
 
     ],
-    "last": "doe",
+    "last": "Test 2",
     "marital_status": null,
     "measure_ids": [
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
-      null,
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
       "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
-      "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+      "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
+      null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "bcf0884b4a8561bb24fa15539a812ef5f11e9f720b5bff63f3e1d6c5ea8f6337",
+    "medical_record_number": "66e7185c846fb50aaff1541a59d0b72284f89f64783a89bb33f9ae0d93f07361",
     "notes": "",
     "origin_data": [
 
-    ],
-    "procedures": [
-      {
-        "_id": "5bfd9e0dbb9215e5083a535f",
-        "anatomical_approach": null,
-        "anatomical_location": null,
-        "anatomical_target": null,
-        "codes": {
-          "SNOMED-CT": [
-            "86198006"
-          ],
-          "CPT": [
-            "90630"
-          ],
-          "HCPCS": [
-            "G0008"
-          ]
-        },
-        "components": null,
-        "description": "Procedure, Performed: Influenza Vaccination",
-        "end_time": 1353485700,
-        "facility": null,
-        "health_record_field": null,
-        "incisionTime": null,
-        "method": null,
-        "mood_code": "EVN",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": "2.16.840.1.113883.3.560.1.6",
-        "ordinality": null,
-        "performer_id": null,
-        "qdm_status": null,
-        "radiation_dose": null,
-        "radiation_duration": null,
-        "reaction": null,
-        "reason": null,
-        "result_date_time": null,
-        "source": null,
-        "specifics": null,
-        "start_time": 1325491200,
-        "status_code": {
-          "HL7 ActStatus": [
-            "performed"
-          ]
-        },
-        "time": null
-      },
-      {
-        "_id": "5bfd9e0dbb9215e5083a5360",
-        "anatomical_approach": null,
-        "anatomical_location": null,
-        "anatomical_target": null,
-        "codes": {
-          "SNOMED-CT": [
-            "12866006"
-          ],
-          "CPT": [
-            "90670"
-          ]
-        },
-        "components": null,
-        "description": "Procedure, Performed: Pneumococcal Vaccine Administered",
-        "end_time": 1353658500,
-        "facility": null,
-        "health_record_field": null,
-        "incisionTime": null,
-        "method": null,
-        "mood_code": "EVN",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": "2.16.840.1.113883.3.560.1.6",
-        "ordinality": null,
-        "performer_id": null,
-        "qdm_status": null,
-        "radiation_dose": null,
-        "radiation_duration": null,
-        "reaction": null,
-        "reason": null,
-        "result_date_time": null,
-        "source": null,
-        "specifics": null,
-        "start_time": 1353657600,
-        "status_code": {
-          "HL7 ActStatus": [
-            "performed"
-          ]
-        },
-        "time": null
-      }
     ],
     "race": {
       "code": "1002-5",
@@ -741,97 +522,61 @@
     "source_data_criteria": [
       {
         "negation": false,
-        "definition": "procedure",
+        "definition": "assessment",
         "status": "performed",
-        "title": "InfluenzaVaccination",
-        "description": "Procedure, Performed: Influenza Vaccination",
-        "code_list_id": "2.16.840.1.113883.3.526.3.402",
-        "type": "procedures",
-        "id": "InfluenzaVaccination_ProcedurePerformed_f4176384_1d3b_4889_b637_878d1be3a9e5_source",
-        "start_date": 1325491200000,
-        "end_date": 1353485700000,
+        "title": "AmbulatoryStatus",
+        "description": "Assessment, Performed: Ambulatory Status",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.118.11.1219",
+        "type": "assessments",
+        "id": "AmbulatoryStatus_AssessmentPerformed_eb84926c_ae80_4768_9f88_ea55ed355df6_source",
+        "start_date": 1309766400000,
         "value": [
 
         ],
         "references": null,
         "field_values": {
         },
-        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
-        "cms_id": "CMS890v0",
-        "criteria_id": "167569da518An",
+        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+        "cms_id": "CMS231v0",
+        "criteria_id": "1677b0af52fFX",
         "codes": {
-          "SNOMED-CT": [
-            "86198006"
-          ],
-          "CPT": [
-            "90630"
-          ],
-          "HCPCS": [
-            "G0008"
+          "LOINC": [
+            "59458-0"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5bfd9e0dbb9215e5083a535f",
+        "coded_entry_id": "5c9b8ca2d7c8ac34da28cea2",
         "code_source": "DEFAULT"
       },
       {
         "negation": false,
         "definition": "assessment",
         "status": "performed",
-        "title": "AdultDepressionScreening",
-        "description": "Assessment, Performed: Adult Depression Screening",
-        "code_list_id": "2.16.840.1.113883.3.600.2449",
+        "title": "FallsScreening",
+        "description": "Assessment, Performed: Falls Screening",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.118.12.1028",
         "type": "assessments",
-        "id": "AdultDepressionScreening_AssessmentPerformed_a002775a_cbd3_4033_9def_223190baf14b_source",
-        "start_date": 1353484800000,
+        "id": "FallsScreening_AssessmentPerformed_3296d6d9_085b_4acd_84a9_819c01e4e5cd_source",
+        "start_date": 1341388800000,
         "value": [
 
         ],
         "references": null,
         "field_values": {
         },
-        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
-        "cms_id": "CMS890v0",
-        "criteria_id": "167569e04637O",
-        "codes": {
-          "LOINC": [
-            "73832-8"
-          ]
-        },
-        "negation_code_list_id": "",
-        "coded_entry_id": "5bfd9e0dbb9215e5083a5361",
-        "code_source": "DEFAULT"
-      },
-      {
-        "negation": false,
-        "definition": "procedure",
-        "status": "performed",
-        "title": "PneumococcalVaccineAdministered",
-        "description": "Procedure, Performed: Pneumococcal Vaccine Administered",
-        "code_list_id": "2.16.840.1.113883.3.464.1003.110.12.1034",
-        "type": "procedures",
-        "id": "PneumococcalVaccineAdministered_ProcedurePerformed_8ee42d84_bc30_489f_8332_c5acbdfc2f59_source",
-        "start_date": 1353657600000,
-        "end_date": 1353658500000,
-        "value": [
-
-        ],
-        "references": null,
-        "field_values": {
-        },
-        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
-        "cms_id": "CMS890v0",
-        "criteria_id": "167569e4b34BZ",
+        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+        "cms_id": "CMS231v0",
+        "criteria_id": "1677b0b4e9bGs",
         "codes": {
           "SNOMED-CT": [
-            "12866006"
+            "401196007"
           ],
-          "CPT": [
-            "90670"
+          "LOINC": [
+            "52552-7"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5bfd9e0dbb9215e5083a5360",
+        "coded_entry_id": "5c9b8ca2d7c8ac34da28cea3",
         "code_source": "DEFAULT"
       },
       {
@@ -842,25 +587,25 @@
         "description": "Encounter, Performed: Annual Wellness Visit",
         "code_list_id": "2.16.840.1.113883.3.526.3.1240",
         "type": "encounters",
-        "id": "AnnualWellnessVisit_EncounterPerformed_294cb5b3_0284_4c4d_8501_9471ecda03ea_source",
-        "start_date": 1353657600000,
-        "end_date": 1353658500000,
+        "id": "AnnualWellnessVisit_EncounterPerformed_d50103e4_3ce4_48e3_9489_68dc37fb0b20_source",
+        "start_date": 1354608000000,
+        "end_date": 1354608900000,
         "value": [
 
         ],
         "references": null,
         "field_values": {
         },
-        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
-        "cms_id": "CMS890v0",
-        "criteria_id": "167569ea23eNR",
+        "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+        "cms_id": "CMS231v0",
+        "criteria_id": "1677b0ac53a4Q",
         "codes": {
           "HCPCS": [
             "G0438"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5bfd9e0dbb9215e5083a535e",
+        "coded_entry_id": "5c9b8ca2d7c8ac34da28cea1",
         "code_source": "DEFAULT"
       },
       {
@@ -873,7 +618,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-11-27T19:42:05.168Z",
-    "user_id": null
+    "updated_at": "2019-03-27T14:45:54.248Z",
+    "user_id": "501fdba3044a111b98000001"
   }
 ]

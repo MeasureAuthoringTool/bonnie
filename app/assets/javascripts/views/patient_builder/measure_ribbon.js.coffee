@@ -11,7 +11,7 @@ class Thorax.Views.MeasureRibbonCell extends Thorax.Views.BuilderChildView
   className: 'ribbon-cell'
   template: JST['patient_builder/measure_ribbon']
   context: ->
-    cms_id: @population.collection.parent.get('cms_id')
+    cms_id: @population.collection.parent.get('cqmMeasure').cms_id
     sub_id: @population.get('sub_id')
   initialize: ->
     @model = @population.differenceFromExpected(@patient)

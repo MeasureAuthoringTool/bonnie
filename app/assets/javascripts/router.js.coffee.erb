@@ -42,10 +42,11 @@
     @breadcrumb.addMeasurePeriod()
 
   renderMeasure: (hqmfSetId) ->
-    measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
+    measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId) if hqmfSetId
+
     if measure?
       @navigationSetup "Measure View", "dashboard"
-      document.title += " - #{measure.get('cms_id')}" if measure?
+      document.title += " - #{measure.get('cqmMeasure').cms_id}" if measure?
       measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
       @mainView.setView(measureLayoutView)
       measureLayoutView.showMeasure()
@@ -60,11 +61,11 @@
     @mainView.setView(usersView)
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
-    measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
-    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
+    measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is measureHqmfSetId) if measureHqmfSetId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('cqmMeasure').hqmf_set_id]}, parse: true
     if measure? and patient?
       @navigationSetup "Patient Builder", "patient-builder"
-      document.title += " - #{measure.get('cms_id')}" if measure?
+      document.title += " - #{measure.get('cqmMeasure').cms_id}" if measure?
       patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
       @mainView.setView patientBuilderView
       @breadcrumb.addPatient(measure, patient)
@@ -84,10 +85,10 @@
   # mode populated with data from an existing patient, ie a clone
   navigateToPatientBuilder: (patient, measure) ->
     # FIXME: Remove this when the Patients View is removed; select the first measure if a measure isn't passed in
-    measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_ids')[0]}
+    measure ?= _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is patient.get('measure_ids')[0])
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
     @breadcrumb.addPatient(measure, patient)
-    @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
+    @navigate "measures/#{measure.get('cqmMeasure').hqmf_set_id}/patients/new"
 
   showError: (error) ->
     return if $('.errorDialog').size() > @maxErrorCount
@@ -96,7 +97,7 @@
       error.summary = "This page has generated multiple errors... additional errors will be suppressed. #{error.summary}"
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
-    errorDialogView.display();
+    errorDialogView.display()
         
   showPageNotFound: ->
     @mainView.setView new Thorax.Views.ErrorView
