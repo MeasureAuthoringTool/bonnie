@@ -273,7 +273,6 @@ class CQLMeasureHelpers
     # create a population relevance map where every population is true.
     populationRelevance = {}
     for popCode in Thorax.Models.Measure.allPopulationCodes
-      # TODO: Look into Observ attributes
       if popCode == 'OBSERV'
         populationRelevance['values'] = true
 
