@@ -2,7 +2,7 @@ class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
 
   populateComponents: ->
-    return unless @.get('cqmMeasure').get('composite')
+    return unless @get('cqmMeasure').get('composite')
     @set 'componentMeasures', new Thorax.Collection @.get('cqmMeasure').get('component_hqmf_set_ids').map(
       (hqmfSetId) -> _.find(bonnie.measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId)
     )
@@ -197,7 +197,7 @@ class Thorax.Collections.Measures extends Thorax.Collection
     measureToOids = {} # measure hqmf_set_id : valueSet oid
     @each (m) => measureToOids[m.get('cqmMeausre').hqmf_set_id] = m.valueSets().pluck('oid')
     measureToOids
-    
+
   deepClone: ->
     cloneMeasures = new Thorax.Collections.Measures (@.toJSON())
     cloneMeasures.each (measure) ->
