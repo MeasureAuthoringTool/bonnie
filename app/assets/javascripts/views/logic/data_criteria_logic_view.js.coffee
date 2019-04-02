@@ -14,7 +14,7 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
 
   initialize: ->
     # Capture logic view building errors that may arise and handle them using Costanza
-    Costanza.run 'data-criteria-logic-view-creation', {reference: @reference, cms_id: @measure.get('cms_id')}, () =>
+    Costanza.run 'data-criteria-logic-view-creation', {reference: @reference, cms_id: @measure.get('cqmMeasure').cms_id}, () =>
       @dataCriteria = @measure.get('data_criteria')[@reference]
       # handle reference to source data criteria (this is used for displaying variables)
       unless @dataCriteria

@@ -2,8 +2,10 @@ class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
 
   populateComponents: ->
-    return unless @get('composite')
-    @set 'componentMeasures', new Thorax.Collection @get('component_hqmf_set_ids').map((hqmfSetId) => bonnie.measures.findWhere({hqmf_set_id: hqmfSetId}))
+    return unless @get('cqmMeasure').get('composite')
+    @set 'componentMeasures', new Thorax.Collection @.get('cqmMeasure').get('component_hqmf_set_ids').map(
+      (hqmfSetId) -> _.find(bonnie.measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId)
+    )
 
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
@@ -22,7 +24,12 @@ class Thorax.Models.Measure extends Thorax.Model
     # thoraxMeasure.population_sets is a combination of mongoose population_sets and mongoose stratifications
     # toObject() removes all mongoose specific fields (ie: '_id' and '_type')
     # This is necessary since our view treats the stratification as a population
-    popSetsAndStrats = (thoraxMeasure.cqmMeasure.population_sets.concat stratificationPopulations).map (popSet) -> popSet.toObject()
+    popSetsAndStrats = (thoraxMeasure.cqmMeasure.population_sets.concat stratificationPopulations)
+                        .map (popSet) ->
+                          if typeof popSet.toObject == 'function'
+                            popSet.toObject()
+                          else
+                            popSet
 
     for populationSet, index in popSetsAndStrats
       populationSet.sub_id = alphabet[index]
@@ -190,7 +197,7 @@ class Thorax.Collections.Measures extends Thorax.Collection
     measureToOids = {} # measure hqmf_set_id : valueSet oid
     @each (m) => measureToOids[m.get('cqmMeausre').hqmf_set_id] = m.valueSets().pluck('oid')
     measureToOids
-    
+
   deepClone: ->
     cloneMeasures = new Thorax.Collections.Measures (@.toJSON())
     cloneMeasures.each (measure) ->

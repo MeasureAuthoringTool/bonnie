@@ -14,8 +14,8 @@ describe 'MeasuresView', ->
 
   it 'renders dashboard', ->
     expect(@measuresView.$('.measure').length).toBe @measures.length
-    expect(@measuresView.$el).toContainText @measure.get('cms_id')
-    expect(@measuresView.$el).toContainText @measure.get('title')
+    expect(@measuresView.$el).toContainText @measure.get('cqmMeasure').cms_id
+    expect(@measuresView.$el).toContainText @measure.get('cqmMeasure').title
     expect(@measuresView.$('.patient-listing-col > a').length).toBe @measures.length
 
   it 'renders measures with populations on dashboard', ->
@@ -41,7 +41,7 @@ describe 'MeasuresView', ->
       @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) => bonnie.measures.push(component))
 
-      @compositePatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
+      @compositePatients = new Thorax.Collections.Patients getJSONFixture('patients/CMS890/patients.json'), parse: true
       @compositeMeasure.populateComponents()
       @measuresView = new Thorax.Views.Measures(collection: bonnie.measures.sort(), patients: @compositePatients)
       @measuresView.appendTo 'body'
@@ -51,7 +51,7 @@ describe 'MeasuresView', ->
       @measuresView.remove()
 
     it 'Show title of composite measure', ->
-      expect(@measuresView.$el).toContainText @compositeMeasure.get('title')
+      expect(@measuresView.$el).toContainText @compositeMeasure.get('cqmMeasure').title
 
     it 'Show titles of component measures', ->
       expect(@measuresView.$el.html()).toContainText 'Annual Wellness Assessment: Preventive Care (Screening for Breast Cancer)'
