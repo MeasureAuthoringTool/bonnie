@@ -18,7 +18,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @toggledPatient = null
 
   context: ->
-    _(super).extend({measure_id: @measure.get('hqmf_set_id'), measure_is_composite: @measure.get('composite')})
+    _(super).extend({measure_id: @measure.get('cqmMeasure').hqmf_set_id, measure_is_composite: @measure.get('cqmMeasure').composite})
 
   events:
     'click .select-patient': -> @trigger 'select-patients:change'
@@ -26,8 +26,8 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
   differenceContext: (difference) ->
     _(difference.toJSON()).extend
       patient: difference.result.patient.toJSON()
-      measure_id: @measure.get('hqmf_set_id')
-      episode_of_care: @measure.get('episode_of_care')
+      measure_id: @measure.get('cqmMeasure').hqmf_set_id
+      episode_of_care: @measure.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE'
 
   updatePopulation: (population) ->
     selectedResult = @$('.toggle-result').filter(':visible').model().result

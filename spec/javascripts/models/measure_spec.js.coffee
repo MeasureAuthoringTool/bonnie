@@ -10,8 +10,8 @@ describe 'Measure', ->
     bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByMeasureId
 
   it 'has basic attributes available', ->
-    expect(@measure.get('hqmf_set_id')).toEqual 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
-    expect(@measure.get('title')).toEqual 'Depression Utilization of the PHQ-9 Tool'
+    expect(@measure.get('cqmMeasure').get('hqmf_set_id')).toEqual 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    expect(@measure.get('cqmMeasure').get('title')).toEqual 'Depression Utilization of the PHQ-9 Tool'
 
   it 'has the expected number of populations', ->
     expect(@measure.get('populations').length).toEqual 3

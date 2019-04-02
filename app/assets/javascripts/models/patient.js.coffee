@@ -108,15 +108,15 @@ class Thorax.Models.Patient extends Thorax.Model
 
   getExpectedValue: (population) ->
     measure = population.collection.parent
-    expectedValue = @get('expected_values').findWhere(measure_id: measure.get('hqmf_set_id'), population_index: population.index())
+    expectedValue = @get('expected_values').findWhere(measure_id: measure.get('cqmMeasure').hqmf_set_id, population_index: population.index())
     unless expectedValue
-      expectedValue = new Thorax.Models.ExpectedValue measure_id: measure.get('hqmf_set_id'), population_index: population.index()
+      expectedValue = new Thorax.Models.ExpectedValue measure_id: measure.get('cqmMeasure').hqmf_set_id, population_index: population.index()
       @get('expected_values').add expectedValue
     # We don't want to set a value for OBSERV, it should already exist or be created in the builder
     for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has(populationCriteria) and populationCriteria != 'OBSERV'
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
 
-    if !_(@get('measure_ids')).contains measure.get('hqmf_set_id') # if patient wasn't made for this measure
+    if !_(@get('measure_ids')).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
       expectedValue.set _.object(_.keys(expectedValue.attributes), []) # make expectations undefined instead of 0/fail
 
     expectedValue

@@ -5,18 +5,14 @@
         <div>
           <span class="population-label {{population.type}} rationale-target"><b>{{translate_population population.type}}: </b><span class="sr-only sr-highlight-status"></span></span>
           <div class="pull-right">
-            {{#if exceedsComplexityThreshold}}
-              <i class="fa fa-lg fa-angle-right toggle-icon" aria-hidden="true"></i>
-            {{else}}
-              <i class="fa fa-lg fa-angle-down toggle-icon" aria-hidden="true"></i>
-            {{/if}}
+            <i class="fa fa-lg fa-angle-down toggle-icon" aria-hidden="true"></i>
             <span class="sr-only">toggle {{translate_population population.type}}</span>
           </div>
         </div>
       </a>
     </h4>
   </div>
-  <div id="collapse{{cid}}" class="panel-collapse collapse{{#unless exceedsComplexityThreshold}} in{{/unless}}">
+  <div id="collapse{{cid}}" class="panel-collapse collapse in">
     <div class="panel-body">
     {{#if deferRender}}
       <img src="/assets/loading.gif"></img>
