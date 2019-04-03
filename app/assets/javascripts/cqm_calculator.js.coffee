@@ -23,7 +23,6 @@
 
     # Since we're going to start a calculation for this one, set the state to 'pending'
     result.state = 'pending'
-
     if !patient.has('cqmPatient')
       result.state = 'cancelled'
       console.log "No CQM patient for #{patient.get('_id')} - #{patient.get('first')} #{patient.get('last')}"

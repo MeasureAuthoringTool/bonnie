@@ -1,6 +1,26 @@
 class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
 
+  convertMeasure: =>
+    @conversionDeferred = $.Deferred()
+
+    $.getJSON("/measures/#{@get('id')}/to_cqm")
+      .done (measureVSJSON) =>
+        measure = new cqm.models.Measure(measureVSJSON.measure)
+        valueSets = measureVSJSON.value_sets
+        @set('cqmMeasure', measure)
+        @set('cqmValueSets', valueSets)
+        console.log("#{@get('cms_id')} and value sets converted!")
+        @conversionDeferred.resolve()
+      .fail (data) =>
+        @conversionDeferred.resolve()
+        bonnie.showError(
+          title: "Measure Conversion Error"
+          summary: "There was an error converting measure #{@get('cms_id')}"
+          body: "#{data.status}")
+    
+    return @conversionDeferred
+
   populateComponents: ->
     return unless @get('cqmMeasure').get('composite')
     @set 'componentMeasures', new Thorax.Collection @.get('cqmMeasure').get('component_hqmf_set_ids').map(
