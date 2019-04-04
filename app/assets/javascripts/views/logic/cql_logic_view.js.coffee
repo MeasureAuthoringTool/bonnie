@@ -71,11 +71,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     @unusedStatementViews = []
     @supplementalDataElementViews = []
 
-    if Array.isArray @cqmMeasure.cql_libraries
-      _.each @cqmMeasure.cql_libraries, (lib) =>
-        @hasOutdatedQDM = @_hasOutDatedQDM(lib)
-        @hasCqlErrors = @_hasCqlErrors(lib)
-
     if @population?
       @statementRelevance = CQLMeasureHelpers.getStatementRelevanceForPopulationSet(@cqmMeasure, @population)
 
@@ -87,6 +82,8 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
       return
 
     for library in @cqmMeasure.cql_libraries
+      @hasOutdatedQDM = true if @_hasOutdatedQDM(library)
+      @hasCqlErrors = true if @_hasCqlErrors(library)
       for statement in library.elm_annotations.statements
         # skip if this is a statement the user doesn't need to see
         continue unless statement.define_name?
@@ -125,15 +122,16 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
 
       @populationStatementViews.sort(@_statementComparator)
 
-  _hasOutDatedQDM: (lib) ->
-    _.each lib.elm.library.usings.def, (id) =>
+  _hasOutdatedQDM: (lib) ->
+    for id in lib.elm.library.usings.def
       if id?.localIdentifier == "QDM"
         if !CompareVersion.equalToOrNewer id.version, bonnie.support_qdm_version
           return true
     return false
 
   _hasCqlErrors: (lib) ->
-    _.each lib.elm.library.annotation, (annotation) =>
+    return false unless lib.elm.library.annotation?
+    for annotation in lib.elm.library.annotation
       if annotation.errorSeverity == "error"
         return true
     return false

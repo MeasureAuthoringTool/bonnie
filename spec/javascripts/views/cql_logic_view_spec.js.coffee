@@ -147,7 +147,6 @@ describe 'CqlLogicView', ->
   describe 'CQL Error warning message', ->
     it 'shows for measure with CQL errors', ->
       jasmine.getJSONFixtures().clearCache()
-      # TODO(cqm-measure): need to update/replace this fixture
       measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/deprecated_measures/CMS735/CMS735v0.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: measure)
       populationLogicView.render()
@@ -177,14 +176,13 @@ describe 'CqlLogicView', ->
     it 'should load without errors', ->
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, population: @measure.get('populations').first())
       populationLogicView.render()
-      results = @cqlMeasure.get('populations').first().calculate(@patients.first())
+      results = @measure.get('populations').first().calculate(@patients.first())
       expect(-> populationLogicView.showRationale(results)).not.toThrow()
 
   describe 'CQL Statement Results', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
-      # TODO: update CQL/CMS146v6 path to CQL/CMS146 when cql-testing-overhaul is merged
       bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS146/value_sets.json')
       @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS146/CMS146v6.json'), parse: true
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS146/patients.json'), parse: true
