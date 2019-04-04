@@ -285,7 +285,7 @@ class CQLMeasureHelpers
   ###*
   # Figure out if a statement is a function given the measure, library name and statement name.
   # @public
-  # @param {string} libraryName - The name of the library the statement belongs to.
+  # @param {string} library - The name of the library the statement belongs to.
   # @param {string} statementName - The statement name to search for.
   # @return {boolean} If the statement is a function or not.
   ###
@@ -304,7 +304,7 @@ class CQLMeasureHelpers
   ###*
   # Figure out if a statement is in a Supplemental Data Element given the statement name.
   # @public
-  # @param {Population} population
+  # @param {array} supplementalDataElements - The Supplemental Data Elements
   # @param {string} statementDefine - The statement define to search for.
   # @return {boolean} Statement does or does not belong to a Supplemental Data Element.
   ###
@@ -313,7 +313,7 @@ class CQLMeasureHelpers
 
   ###*
   # Format stratifications as population sets to be added to the measure's population sets
-  # @public {measure} measure - The measure
+  # @param {object} popSets - The populationSets.
   ###
   @getStratificationsAsPopulationSets: (popSets) ->
     stratificationsAsPopulationSets = []

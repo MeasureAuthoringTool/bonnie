@@ -2,7 +2,7 @@ describe 'CqlLogicView', ->
   describe 'Population Logic View', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS334v1/CMS334v1.json'), parse: true
+      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS334v1/CMS334v1.json'), parse: true
       #Failing to store and reset the global valueSetsByMeasureId breaks the tests.
       #When integrated with the master branch context switching, this will need to be changed out.
       @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
@@ -11,8 +11,8 @@ describe 'CqlLogicView', ->
       bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
 
     it 'only uses populations out of main_cql_library', ->
-      population = @cqlMeasure.get('populations').first()
-      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, highlightPatientDataEnabled: true, population: population)
+      population = @measure.get('populations').first()
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: population)
       populationLogicView.render()
       populationStatementViews = populationLogicView.populationStatementViews
       for populationStatement1, index1 in populationStatementViews
@@ -23,9 +23,7 @@ describe 'CqlLogicView', ->
   describe 'sorting', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
-      #Failing to store and reset the global valueSetsByMeasureId breaks the tests.
-      #When integrated with the master branch context switching, this will need to be changed out.
+      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
       @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
       bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS32/value_sets.json')
 
@@ -33,8 +31,8 @@ describe 'CqlLogicView', ->
       bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
 
     it 'proof of concept', ->
-      population = @cqlMeasure.get('populations').first()
-      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, highlightPatientDataEnabled: true, population: population)
+      population = @measure.get('cqmMeasure').population_sets[0]
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: population)
       populationLogicView.render()
 
       testPatients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
