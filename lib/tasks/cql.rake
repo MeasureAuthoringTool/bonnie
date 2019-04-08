@@ -127,11 +127,16 @@ namespace :bonnie do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
       bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasure.all
       bonnie_cql_measures.each do |measure|
-        cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
-        cqm_measure.value_sets.map{ |value_set| value_set.save!}
-        cqm_measure.user = measure.user
-        cqm_measure.save!
-        puts measure.title + ' ' +  measure.cms_id
+        begin
+          cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
+          cqm_measure.value_sets.map{ |value_set| value_set.save!}
+          cqm_measure.user = measure.user
+          cqm_measure.save!
+          puts measure.title + ' ' +  measure.cms_id
+        rescue ExecJS::ProgramError => e
+          # if there was a conversion failure we should record the resulting failure message with the measure
+          puts 'Measure ' + measure.title + ' ' +  measure.cms_id + ' failed with message: ' + e.message
+        end
       end
     end
 
@@ -154,13 +159,13 @@ namespace :bonnie do
         rescue ExecJS::ProgramError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return
-          puts e.message
+          puts 'Patient ' + bonnie_patient._id + ' (_id) failed with message: ' + e.message
         end
       end
     end
 
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
-      Example test@test.com  
+      Example test@test.com
                 CMS_ID: xxx   TITLE: Measure Title
     $ rake bonnie:cql:cql_measure_stats}
     task :cql_measure_stats => :environment do
@@ -180,7 +185,7 @@ namespace :bonnie do
           puts "  CMS_ID: #{m[:cms_id]}  TITLE: #{m[:title]}"
         end
       end
-      
+
     end
   end
 end
