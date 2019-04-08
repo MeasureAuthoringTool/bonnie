@@ -144,10 +144,12 @@ namespace :bonnie do
       bonnie_patients = user ? Record.by_user(user) : Record.all
       bonnie_patients.each do |bonnie_patient|
         begin
-          qdm_patient = CQMConverter.to_qdm(bonnie_patient)
-          qdm_patient.user = bonnie_patient.user
-          qdm_patient.measure_ids = bonnie_patient.measure_ids
-          qdm_patient.save!
+          cqm_patient = CQMConverter.to_cqm(bonnie_patient)
+          cqm_patient.user = bonnie_patient.user
+          bonnie_patient.measure_ids.each do |measure_id|
+            cqm_patient.measures.push CQM::Measure.where(hqmf_set_id: measure_id).first
+          end
+          cqm_patient.save!
           puts "."
         rescue ExecJS::ProgramError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
