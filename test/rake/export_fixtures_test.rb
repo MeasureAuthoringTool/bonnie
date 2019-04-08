@@ -54,19 +54,19 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert rake_task_descriptions.include? '# Export patient fixtures for a given account'
   end
 
-  # test "export single patient from account" do
-  #   begin
-  #     system('mv test/fixtures/patients test/fixtures/patients.back')
-  #     system('mv spec/javascripts/fixtures/json/patients spec/javascripts/fixtures/json/patients.back')
+  test "export single patient from account" do
+    begin
+      system('mv test/fixtures/patients test/fixtures/patients.back')
+      system('mv spec/javascripts/fixtures/json/patients spec/javascripts/fixtures/json/patients.back')
 
-  #     assert_output(
-  #       /CMS32/
-  #     ) { Rake::Task['bonnie:fixtures:generate_cqm_patient_fixtures_from_cql_patients'].invoke('bonnie@example.com') }
-  #     assert_equal 11, `ls -l test/fixtures/patients/CMS* | wc -l`.to_i
-  #     assert_equal 11, `ls -l spec/javascripts/fixtures/json/patients/CMS* | wc -l`.to_i
-  #   ensure
-  #     system('mv test/fixtures/patients.back test/fixtures/patients')
-  #     system('mv spec/javascripts/fixtures/json/patients.back spec/javascripts/fixtures/json/patients')
-  #   end
-  # end
+      assert_output(
+        /CMS32/
+      ) { Rake::Task['bonnie:fixtures:generate_cqm_patient_fixtures_from_cql_patients'].invoke('bonnie@example.com') }
+      assert_equal 11, `ls -l test/fixtures/patients/CMS* | wc -l`.to_i
+      assert_equal 11, `ls -l spec/javascripts/fixtures/json/patients/CMS* | wc -l`.to_i
+    ensure
+      system('mv test/fixtures/patients.back test/fixtures/patients')
+      system('mv spec/javascripts/fixtures/json/patients.back spec/javascripts/fixtures/json/patients')
+    end
+  end
 end
