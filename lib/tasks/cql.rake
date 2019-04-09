@@ -162,8 +162,10 @@ namespace :bonnie do
           user = User.find_by _id: bonnie_patient.user_id
           if bonnie_patient.measure_ids.first.nil?
             puts user.email + "\n Measure: N/A\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+          elsif CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first.nil?
+            puts user.email + "\n Measure (hqmf_set_id): " + bonnie_patient.measure_ids.first + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
           else
-            measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first).first
+            measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first
             puts user.email + "\n Measure: " + measure.title + " " + measure.cms_id + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
           end
         end
