@@ -13,7 +13,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     associate_user_with_patients(@user, Record.all)
   end
 
-  test "measures and patients convert to CQM format properly" do
+  test "measures convert to CQM format properly" do
     measure = CqlMeasure.by_user(@user).first
     assert_equal CQM::Measure.count, 0
     assert_equal measure[:hqmf_set_id], '3FD13096-2C8F-40B5-9297-B714E8DE9133'
@@ -21,14 +21,16 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_nil measure[:calculation_method]
     assert_equal measure[:continuous_variable], true
     assert_equal measure[:episode_of_care], true
-    Rake::Task['bonnie:cql:convert_measures'].invoke()
+    Rake::Task['bonnie:cql:convert_measures'].execute()
     converted_measure = CQM::Measure.by_user(@user).first
     assert_equal converted_measure[:hqmf_set_id], '3FD13096-2C8F-40B5-9297-B714E8DE9133'
     assert_equal converted_measure[:measure_scoring], 'CONTINUOUS_VARIABLE'
     assert_equal converted_measure[:calculation_method], 'EPISODE_OF_CARE'
     assert_nil converted_measure[:continuous_variable]
     assert_nil converted_measure[:episode_of_care]
+  end
 
+  test "patients convert to CQM format properly" do
     patient = Record.where(first: 'Visits').first
     assert_equal CQM::Patient.count, 0
     assert_equal patient[:bundle_id], BSON::ObjectId('5a57e977942c6d1e61d32f14')
@@ -36,7 +38,8 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_equal patient[:notes], ''
     assert_equal patient[:measure_ids], ["3FD13096-2C8F-40B5-9297-B714E8DE9133", nil]
     assert_nil patient[:qdmPatient]
-    Rake::Task['bonnie:cql:convert_patients'].invoke()
+    Rake::Task['bonnie:cql:convert_measures'].execute()
+    Rake::Task['bonnie:cql:convert_patients'].execute()
     converted_patient = CQM::Patient.where(givenNames: ['Visits']).first
     assert_equal converted_patient[:bundleId], '5a57e977942c6d1e61d32f14'
     assert_equal converted_patient[:familyName], "2 ED"
