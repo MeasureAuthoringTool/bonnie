@@ -160,8 +160,12 @@ namespace :bonnie do
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return
           user = User.find_by _id: bonnie_patient.user_id
-          measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first).first
-          puts user.email + "\n Measure: " + measure.title + " " + measure.cms_id + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+          if bonnie_patient.measure_ids.first.nil?
+            puts user.email + "\n Measure: N/A\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+          else
+            measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first).first
+            puts user.email + "\n Measure: " + measure.title + " " + measure.cms_id + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+          end
         end
       end
     end
