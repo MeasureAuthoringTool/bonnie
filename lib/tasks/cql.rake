@@ -119,8 +119,61 @@ namespace :bonnie do
       differences
     end
 
+    desc %{Converts Bonnie measures to new CQM Measures
+      user email is optional and can be passed in by EMAIL
+      If no email is provided, rake task will run on all measures
+    $ rake bonnie:cql:convert_measures EMAIL=xxx}
+    task :convert_measures => :environment do
+      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasure.all
+      bonnie_cql_measures.each do |measure|
+        begin
+          cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
+          cqm_measure.value_sets.map{ |value_set| value_set.save!}
+          cqm_measure.user = measure.user
+          cqm_measure.save!
+          puts measure.title + ' ' +  measure.cms_id
+        rescue ExecJS::ProgramError => e
+          # if there was a conversion failure we should record the resulting failure message with the measure
+          puts 'Measure ' + measure.title + ' ' +  measure.cms_id + ' failed with message: ' + e.message
+        end
+      end
+    end
+
+    desc %{Coverts Bonnie patients to new CQM/QDM Patients
+      user email is optional and can be passed in by EMAIL
+      If no email is provided, rake task will run on all patients
+    $ rake bonnie:cql:convert_patients EMAIL=xxx}
+    task :convert_patients => :environment do
+      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      bonnie_patients = user ? Record.by_user(user) : Record.all
+      bonnie_patients.each do |bonnie_patient|
+        begin
+          cqm_patient = CQMConverter.to_cqm(bonnie_patient)
+          cqm_patient.user = bonnie_patient.user
+          bonnie_patient.measure_ids.each do |measure_id|
+            cqm_patient.measures.push CQM::Measure.where(hqmf_set_id: measure_id).first
+          end
+          cqm_patient.save!
+          puts "."
+        rescue ExecJS::ProgramError => e
+          # if there was a conversion failure we should record the resulting failure message with the hds model in a
+          # separate collection to return
+          user = User.find_by _id: bonnie_patient.user_id
+          if bonnie_patient.measure_ids.first.nil?
+            puts user.email + "\n Measure: N/A\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+          elsif CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first.nil?
+            puts user.email + "\n Measure (hqmf_set_id): " + bonnie_patient.measure_ids.first + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+          else
+            measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first
+            puts user.email + "\n Measure: " + measure.title + " " + measure.cms_id + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+          end
+        end
+      end
+    end
+
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
-      Example test@test.com  
+      Example test@test.com
                 CMS_ID: xxx   TITLE: Measure Title
     $ rake bonnie:cql:cql_measure_stats}
     task :cql_measure_stats => :environment do
@@ -140,7 +193,7 @@ namespace :bonnie do
           puts "  CMS_ID: #{m[:cms_id]}  TITLE: #{m[:title]}"
         end
       end
-      
+
     end
   end
 end
