@@ -5,6 +5,7 @@ module CQM
     belongs_to :user
     scope :by_user, ->(user) { where user_id: user.id }
     index 'user_id' => 1
+    has_and_belongs_to_many :patients, class_name: 'CQM::Patient'
     # Find the measures matching a patient
     def self.for_patient(record)
       where user_id: record.user_id, hqmf_set_id: { '$in' => record.measure_ids }
