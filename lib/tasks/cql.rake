@@ -159,7 +159,9 @@ namespace :bonnie do
         rescue ExecJS::ProgramError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return
-          puts 'Patient ' + bonnie_patient._id + ' (_id) failed with message: ' + e.message
+          user = User.find_by _id: bonnie_patient.user_id
+          measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first).first
+          puts user.email + "\n Measure: " + measure.title + " " + measure.cms_id + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
         end
       end
     end
