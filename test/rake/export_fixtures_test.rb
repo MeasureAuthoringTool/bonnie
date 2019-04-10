@@ -59,8 +59,8 @@ class ExportFixturesTest < ActiveSupport::TestCase
 
   test "export single patient from account" do
     begin
-      system('mv test/fixtures/patients test/fixtures/patients.back')
-      system('mv spec/javascripts/fixtures/json/patients spec/javascripts/fixtures/json/patients.back')
+      FileUtils.mv 'test/fixtures/patients', 'test/fixtures/patients.back'
+      FileUtils.mv 'spec/javascripts/fixtures/json/patients', 'spec/javascripts/fixtures/json/patients.back'
 
       assert_output(
         /CMS32/
@@ -68,8 +68,10 @@ class ExportFixturesTest < ActiveSupport::TestCase
       assert_equal 11, `ls -l test/fixtures/patients/CMS* | wc -l`.to_i
       assert_equal 11, `ls -l spec/javascripts/fixtures/json/patients/CMS* | wc -l`.to_i
     ensure
-      system('mv test/fixtures/patients.back test/fixtures/patients')
-      system('mv spec/javascripts/fixtures/json/patients.back spec/javascripts/fixtures/json/patients')
+      FileUtils.rm_r 'test/fixtures/patients'
+      FileUtils.mv 'test/fixtures/patients.back', 'test/fixtures/patients'
+      FileUtils.rm_r 'spec/javascripts/fixtures/json/patients'
+      FileUtils.mv 'spec/javascripts/fixtures/json/patients.back', 'spec/javascripts/fixtures/json/patients'
     end
   end
 end
