@@ -71,75 +71,101 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     @unusedStatementViews = []
     @supplementalDataElementViews = []
 
-    # Look through all elm library structures, and check for CQL errors noted by the translation service.
-    # Also finds if using old versions of QDM
-    if Array.isArray @cqmMeasure.cql_libraries
-      _.each @cqmMeasure.cql_libraries, (lib) =>
-        _.each lib.elm.library.usings.def, (id) =>
-          if id?.localIdentifier == "QDM"
-            if !CompareVersion.equalToOrNewer id.version, bonnie.support_qdm_version
-              @hasOutdatedQDM = true
-        _.each lib.elm.library.annotation, (annotation) =>
-          if annotation.errorSeverity == "error"
-            @hasCqlErrors = true
-
-    # build a statement_relevance map for this population set, disregarding results
-    if @population
+    if @population?
       @statementRelevance = CQLMeasureHelpers.getStatementRelevanceForPopulationSet(@cqmMeasure, @population)
 
-    # Check to see if this measure was uploaded with an older version of the loader code that did not get the
-    # clause level annotations.
-    # TODO: Update this check as needed. Remove these checks when CQL has settled for production.
-    if @cqmMeasure.cql_libraries?
-      for library in @cqmMeasure.cql_libraries
-        for statement in library.elm_annotations.statements
-          # skip if this is a statement the user doesn't need to see
-          # skip doesn't happen when we are calculating SDEs
-          continue unless statement.define_name?
-          continue if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statement.define_name) >= 0 && !@cqmMeasure.calculate_sdes
-          popNames = []
-          popName = null
-          # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement
-          if @population
-            for popCode, popStatements of @population.get('populations')
-              # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
-              popNames.push(popCode) if statement.define_name == popStatements.statement_name && library.is_main_library
-
-            # Mark if it is in an OBSERV if there are any and we are looking at the main_cql_library
-            if @cqmMeasure.population_sets[0].observations? && library.is_main_library
-              for observ, observIndex in @cqmMeasure.population_sets[0].observations
-                popNames.push("OBSERV_#{observIndex+1}") if statement.define_name == observ.observation_function.statement_name
-
-            # create the view for this statement and add it to the list of all views.
-            if CQLMeasureHelpers.isStatementFunction(library, statement.define_name)
-              # Function statements don't show results
-              statementView = new Thorax.Views.CqlStatement(statement: statement, libraryName: library.library_name, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulations: popNames, logicView: @)
-            else
-              statementView = new Thorax.Views.CqlResultStatement(statement: statement, libraryName: library.library_name, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulations: popNames, logicView: @)
-              @allStatementResultViews.push statementView
-            @allStatementViews.push statementView
-
-            # figure out which section of the page it belongs in and add it to the proper list.
-            if popNames.length > 0
-              @populationStatementViews.push statementView   # if it is a population defining statement.
-            else if CQLMeasureHelpers.isStatementFunction(library, statement.define_name)
-              @functionStatementViews.push statementView   # if it is a function
-            else if CQLMeasureHelpers.isSupplementalDataElementStatement(@population.get('supplemental_data_elements'), statement.define_name)
-              # only display SDEs if calculate_sdes flag set
-              if @cqmMeasure.calculate_sdes
-                @supplementalDataElementViews.push statementView
-            else if !@population? || @statementRelevance[library.library_name][statement.define_name] == 'TRUE'
-              @defineStatementViews.push statementView   # if it is a plain old supporting define
-            else
-              @unusedStatementViews.push statementView   # otherwise it is a statement that isn't relevant
-
-      # Sort the population statements
-      @populationStatementViews.sort(@_statementComparator)
-    # Since we dont have elm_annotations we should mark this as an outdated upload. Do not create any statement views.
-    else
+    # Check to see if this measure was uploaded with an older version of the
+    # loader code that did not get the clause level annotations.
+    unless @cqmMeasure.cql_libraries?
+      # Mark as an outdated and do not create any statement views.
       @isOutdatedUpload = true
+      return
 
-  ###*
+    for library in @cqmMeasure.cql_libraries
+      @hasOutdatedQDM = true if @_hasOutdatedQDM(library)
+      @hasCqlErrors = true if @_hasCqlErrors(library)
+      for statement in library.elm_annotations.statements
+        # skip if this is a statement the user doesn't need to see
+        continue unless statement.define_name?
+        isSkipStatement = _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statement.define_name) >= 0
+        continue if isSkipStatement && !@cqmMeasure.calculate_sdes
+        popNames = []
+        popName = null
+        # if a population (population set) was provided for this view it should
+        # mark the statment if it is a population defining statement
+        continue unless @population?
+
+        for popCode, popStatements of @population.get('populations')
+          continue unless library.is_main_library
+          if statement.define_name == popStatements.statement_name
+            popNames.push(popCode)
+
+        for observ, observIndex in @population.get('observations')
+          continue unless library.is_main_library
+          if statement.define_name == observ.observation_function.statement_name
+            popNames.push("OBSERV_#{observIndex+1}")
+
+        # Build the statement or result statement view
+        statementOrResultStatement =
+          statement: statement,
+          libraryName: library.library_name,
+          highlightPatientDataEnabled: @highlightPatientDataEnabled,
+          cqlPopulations: popNames,
+          logicView: @
+
+        if CQLMeasureHelpers.isStatementFunction(library, statement.define_name)
+          statementView = new Thorax.Views.CqlStatement statementOrResultStatement
+        else
+          statementView = new Thorax.Views.CqlResultStatement statementOrResultStatement
+          @allStatementResultViews.push statementView
+        @_categorizeStatementView(statementView, library)
+
+      @populationStatementViews.sort(@_statementComparator)
+
+  _hasOutdatedQDM: (lib) ->
+    for id in lib.elm.library.usings.def
+      if id?.localIdentifier == "QDM"
+        if !CompareVersion.equalToOrNewer id.version, bonnie.support_qdm_version
+          return true
+    return false
+
+  _hasCqlErrors: (lib) ->
+    return false unless lib.elm.library.annotation?
+    for annotation in lib.elm.library.annotation
+      if annotation.errorSeverity == "error"
+        return true
+    return false
+
+  _categorizeStatementView: (statementView, library) ->
+    @allStatementViews.push statementView
+    if @_isPopulationStatementView(statementView)
+      @populationStatementViews.push statementView
+    else if @_isFunctionStatementView(library, statementView)
+      @functionStatementViews.push statementView
+    else if @_isSupplementalDataElementView(statementView) && @cqmMeasure.calculate_sdes
+      @supplementalDataElementViews.push statementView
+    else if @_isDefineStatementView(statementView, library)
+      @defineStatementViews.push statementView
+    else
+      @unusedStatementViews.push statementView
+
+
+  _isPopulationStatementView: (statementView) ->
+    return statementView.cqlPopulations.length > 0
+
+  _isFunctionStatementView: (library, statementView) ->
+    return CQLMeasureHelpers.isStatementFunction(library, statementView.statement.define_name)
+
+  _isSupplementalDataElementView: (statementView) ->
+    return CQLMeasureHelpers.isSupplementalDataElementStatement(@population.get('supplemental_data_elements'),
+                                                                statementView.statement.define_name)
+  _isDefineStatementView: (statementView, library) ->
+    libraryName = library.library_name
+    defineName = statementView.statement.define_name
+    isRelevant = @statementRelevance[libraryName][defineName] == 'TRUE'
+    return !@population? || isRelevant
+
+  ###
   # Compares two statement views to sort them by the population they define. IPP, DENOM, NUMER, etc..
   # @private
   # @param {Thorax.Views.CqlStatement} a - The left side of the comparison.
