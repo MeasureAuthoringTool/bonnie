@@ -66,10 +66,9 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     if attrs.dataElementCodes
       attrs.codes = new Thorax.Collections.Codes attrs.dataElementCodes, parse: true
     attrs
+
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
-  isDuringMeasurePeriod: ->
-    moment.utc(@get('start_date')).year() is moment.utc(@get('end_date')).year() is bonnie.measurePeriod
   toJSON: ->
     # Transform fieldValues back to an object from a collection
     fieldValues = {}
@@ -141,6 +140,16 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     else if @get('sub_category')?
       criteriaType = "#{criteriaType}_#{@get('sub_category')}"
     criteriaType
+
+Thorax.Models.PatientDataCriteria.getTimingInterval = (criteria) ->
+  if criteria.attributes.hasOwnProperty('relevantPeriod')
+    'relevantPeriod'
+  else if criteria.attributes.hasOwnProperty('prevalencePeriod')
+    'prevalencePeriod'
+  else if criteria.attributes.hasOwnProperty('participationPeriod')
+    'participationPeriod'
+  else
+    undefined
 
 Thorax.Models.PatientDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"

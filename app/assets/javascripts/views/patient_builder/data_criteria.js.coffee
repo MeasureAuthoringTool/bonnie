@@ -112,13 +112,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    
+    timingInterval = Thorax.Models.PatientDataCriteria.getTimingInterval(@model) || 'authorDatetime'
     _(super).extend
-      start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
-      start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
-      end_date: moment.utc(@model.get('end_date')).format('L') if @model.get('end_date')
-      end_time: moment.utc(@model.get('end_date')).format('LT') if @model.get('end_date')
-      end_date_is_undefined: !@model.has('end_date')
+      start_date: moment.utc(@model.get(timingInterval).low).format('L') if @model.get(timingInterval)?.low
+      start_time: moment.utc(@model.get(timingInterval).low).format('LT') if @model.get(timingInterval)?.low
+      start_date: moment.utc(@model.get(timingInterval)).format('L') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
+      start_time: moment.utc(@model.get(timingInterval)).format('LT') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
+      end_date: moment.utc(@model.get(timingInterval).high).format('L') if @model.get(timingInterval)?.high
+      end_time: moment.utc(@model.get(timingInterval).high).format('LT') if @model.get(timingInterval)?.high
+      end_date_is_undefined: !@model.get(timingInterval)?.high?
       description: desc
       value_sets: @model.measure()?.valueSets().map((vs) -> vs.toJSON()) or []
       cms_id_number: cmsIdParts[1] if cmsIdParts
@@ -152,7 +154,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.criteria-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
       @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
-      @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
+      @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
     'change .negation-select':                    'toggleNegationSelect'
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'
@@ -161,11 +163,24 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
+  isDuringMeasurePeriod: ->
+    moment.utc(@get('start_date')).year() is moment.utc(@get('end_date')).year() is bonnie.measurePeriod
+
+  # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
+  copyTimingAttributes: (droppedCriteria, targetCriteria) ->
+    droppedCriteriaTiming = Thorax.Models.PatientDataCriteria.getTimingInterval(droppedCriteria)
+    targetCriteriaTiming = Thorax.Models.PatientDataCriteria.getTimingInterval(targetCriteria)
+    if(droppedCriteria? && targetCriteriaTiming?)
+      droppedCriteria.set "#{droppedCriteriaTiming}": targetCriteria.get(targetCriteriaTiming)
+    # Copy authorDatetime if droppedCriteria and target both have the authorDatetime property
+    if droppedCriteria.hasOwnProperty('authorDatetime') && targetCriteria.hasOwnProperty('authorDatetime')
+      droppedCriteria.set authorDatetime: targetCriteria.get('authorDatetime')
+
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
     droppedCriteria = $(ui.draggable).model()
     targetCriteria = $(e.target).model()
-    droppedCriteria.set start_date: targetCriteria.get('start_date'), end_date: targetCriteria.get('end_date')
+    @copyTimingAttributes(droppedCriteria, targetCriteria)
     @trigger 'bonnie:dropCriteria', droppedCriteria
     return false
 
