@@ -48,6 +48,13 @@ GIT
       sprockets
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-models
+  revision: b2be2d00f83a2d49e2d3332fc6c454d80d41a6eb
+  branch: master
+  specs:
+    cqm-models (1.0.2)
+
+GIT
   remote: https://github.com/projecttacoma/cqm-parsers
   revision: 0adaa71c24f288fa11f99715cb2d42afbcb2f2ac
   branch: master
@@ -88,11 +95,6 @@ GIT
     exception_notification (4.3.0)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
-
-PATH
-  remote: ../cqm-models
-  specs:
-    cqm-models (1.0.2)
 
 GEM
   remote: https://rubygems.org/
