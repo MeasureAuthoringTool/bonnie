@@ -2,17 +2,10 @@ describe 'PatientBuilderView', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
+    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS134/value_sets.json')
     @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
     @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS134v6/patients.json'), parse: true
     @patient = @patients.models[0]
-    
-    # THIS IS TEMPORARY UNTIL THE MEASURE FIXTURES HAVE SOURCE DATA CRITERIA AS DATA ELEMENTS!!!!!!!!!!
-    @measure.set('source_data_criteria', new Thorax.Collections.PatientDataCriteria mongoose.utils.toObject(this.patient.get("cqmPatient").qdmPatient.dataElements), parent: this)
-    # TEMPOROARY TEMPOROARY TEMPOROARY TEMPOROARY TEMPOROARY TEMPOROARY TEMPOROARY TEMPOROARY
-
-
-
-    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS134/value_sets.json')
     @bonnie_measures_old = bonnie.measures
     bonnie.measures = new Thorax.Collections.Measures()
     bonnie.measures.add @measure
@@ -55,14 +48,18 @@ describe 'PatientBuilderView', ->
     @patientBuilder.$(':input[name=deathtime]').val('1:15 PM')
     @patientBuilder.$("button[data-call-method=save]").click()
     expect(@patientBuilder.model.get('expired')).toEqual true
-    expect(@patientBuilder.model.get('deathdate')).toEqual moment.utc('01/02/1994 1:15 PM', 'L LT').format('X')
+    expect(@patientBuilder.model.get('deathdate')).toEqual '01/02/1994'
     expect(@patientBuilder.model.get('deathtime')).toEqual "1:15 PM"
+    expiredElement = (@patientBuilder.model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    expect(expiredElement.expiredDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1994,1,2,13,15,0,0,0).toString())
     # Remove deathdate from patient
     @patientBuilder.$("button[data-call-method=removeDeathDate]").click()
     @patientBuilder.$("button[data-call-method=save]").click()
     expect(@patientBuilder.model.get('expired')).toEqual false
     expect(@patientBuilder.model.get('deathdate')).toEqual null
     expect(@patientBuilder.model.get('deathtime')).toEqual null
+    expiredElement = (@patientBuilder.model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    expect(expiredElement).not.toExist()
     @patientBuilder.remove()
 
   describe "setting basic attributes and saving", ->
@@ -70,7 +67,7 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$(':input[name=last]').val("LAST NAME")
       @patientBuilder.$(':input[name=first]').val("FIRST NAME")
-      @patientBuilder.$('select[name=payer]').val('MA')
+      @patientBuilder.$('select[name=payer]').val('1')
       @patientBuilder.$('select[name=gender]').val('F')
       @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
       @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
@@ -78,14 +75,36 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$('select[name=ethnicity]').val('2135-2')
       @patientBuilder.$("button[data-call-method=save]").click()
 
+    it "dynamically loads race, ethnicity, gender and payer codes from measure", ->
+      expect(@patientBuilder.$('select[name=race]')[0].options.length).toEqual 6
+      expect(@patientBuilder.$('select[name=ethnicity]')[0].options.length).toEqual 2
+      expect(@patientBuilder.$('select[name=gender]')[0].options.length).toEqual 2
+      expect(@patientBuilder.$('select[name=payer]')[0].options.length).toEqual 155
+
     it "serializes the attributes correctly", ->
-      expect(@patientBuilder.model.get('last')).toEqual 'LAST NAME'
-      expect(@patientBuilder.model.get('first')).toEqual 'FIRST NAME'
-      expect(@patientBuilder.model.get('payer')).toEqual 'MA'
-      expect(@patientBuilder.model.get('gender')).toEqual 'F'
-      expect(@patientBuilder.model.get('birthdate')).toEqual moment.utc('01/02/1993 1:15 PM', 'L LT').format('X')
-      expect(@patientBuilder.model.get('race')).toEqual '2131-1'
-      expect(@patientBuilder.model.get('ethnicity')).toEqual '2135-2'
+      thoraxPatient = @patientBuilder.model
+      cqmPatient = thoraxPatient.get('cqmPatient')
+      expect(cqmPatient.familyName).toEqual 'LAST NAME'
+      expect(cqmPatient.givenNames[0]).toEqual 'FIRST NAME'
+      birthdateElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
+      expect(birthdateElement.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
+      expect(cqmPatient.qdmPatient.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
+      expect(thoraxPatient.getBirthdate()).toEqual '1/2/1993'
+      expect(thoraxPatient.getGender()).toEqual 'Female'
+      genderElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
+      expect(genderElement.dataElementCodes[0].code).toEqual 'F'
+      raceElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
+      expect(raceElement.dataElementCodes[0].code).toEqual '2131-1'
+      expect(raceElement.dataElementCodes[0].display).toEqual 'Other Race'
+      expect(thoraxPatient.getRace()).toEqual 'Other Race'
+      ethnicityElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
+      expect(ethnicityElement.dataElementCodes[0].code).toEqual '2135-2'
+      expect(ethnicityElement.dataElementCodes[0].display).toEqual 'Hispanic or Latino'
+      expect(thoraxPatient.getEthnicity()).toEqual 'Hispanic or Latino'
+      payerElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
+      expect(payerElement.dataElementCodes[0].code).toEqual '1'
+      expect(payerElement.dataElementCodes[0].display).toEqual 'MEDICARE'
+      expect(@patientBuilder.model.get('payer')).toEqual '1'
 
     it "tries to save the patient correctly", ->
       expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
@@ -130,12 +149,17 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
 
     xit "acquires the dates of the drop target when dropping on an existing criteria", ->
+<<<<<<< HEAD
       startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
       endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
+=======
+      startDate = @patientBuilder.model.get('source_data_criteria').first().get('prevalencePeriod').low
+      endDate = @patientBuilder.model.get('source_data_criteria').first().get('prevalencePeriod').high
+>>>>>>> Xit out source_data_criteria tests, update patient serialization tests
       # droppable 5 used because droppable 1 didn't have a start and end date
       @addEncounter 5, '.criteria-data.droppable:first'
-      expect(@patientBuilder.model.get('source_data_criteria').last().get('prevalencePeriod').low).toEqual startDate
-      expect(@patientBuilder.model.get('source_data_criteria').last().get('prevalencePeriod').high).toEqual endDate
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('relevantPeriod').low).toEqual startDate
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('relevantPeriod').high).toEqual endDate
 
     xit "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
@@ -159,9 +183,15 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$("button[data-call-method=save]").click()
 
     xit "serializes the attributes correctly", ->
+<<<<<<< HEAD
       dataCriteria = @patientBuilder.model.get('source_data_criteria').where({definition:'diagnosis', title:'Diabetes'})[0]
       expect(dataCriteria.get('start_date')).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
       expect(dataCriteria.get('end_date')).toBeUndefined()
+=======
+      dataCriteria = this.patient.get('cqmPatient').qdmPatient.conditions()[0]
+      expect(dataCriteria.get('prevelancePeriod').low).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
+      expect(dataCriteria.get('prevelancePeriod').high).toBeUndefined()
+>>>>>>> Xit out source_data_criteria tests, update patient serialization tests
 
     afterEach -> @patientBuilder.remove()
 
@@ -480,24 +510,6 @@ describe 'PatientBuilderView', ->
 
     afterEach -> @patientBuilder.remove()
 
-  describe "modifying living status", ->
-    beforeEach ->
-      @patientBuilder.appendTo 'body'
-
-    it "expires and revives patient correctly", ->
-      @patientBuilder.$('input[type=checkbox][name=expired]:first').click()
-      @patientBuilder.$(':input[name=deathdate]').val('01/02/1994')
-      @patientBuilder.$(':input[name=deathtime]').val('1:15 PM')
-      @patientBuilder.$("button[data-call-method=save]").click()
-      expect(@patientBuilder.model.get('expired')).toEqual true
-      expect(@patientBuilder.model.get('deathdate')).toEqual moment.utc('01/02/1994 1:15 PM', 'L LT').format('X')
-      @patientBuilder.$("button[data-call-method=removeDeathDate]").click()
-      @patientBuilder.$("button[data-call-method=save]").click()
-      expect(@patientBuilder.model.get('expired')).toEqual false
-      expect(@patientBuilder.model.get('deathdate')).toEqual null
-
-    afterEach -> @patientBuilder.remove()
-
   # TODO Need to update or replace this fixture
   describe 'CQL', ->
     beforeEach ->
@@ -514,9 +526,14 @@ describe 'PatientBuilderView', ->
       bonnie.measures = @bonnie_measures_old
 
     xit "laboratory test performed should have custom view for components", ->
+<<<<<<< HEAD
       # TODO(cqm-measure) Need to update or replace this fixture
       bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/CQL/CMS347/value_sets.json')
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
+=======
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS347/value_sets.json')
+      patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS347/patients.json'), parse: true
+>>>>>>> Xit out source_data_criteria tests, update patient serialization tests
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
       dataCriteria = patientBuilder.model.get('source_data_criteria').models
       laboratoryTestIndex = dataCriteria.findIndex((m) ->  m.attributes.definition is 'laboratory_test')
@@ -540,8 +557,12 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
 
     xit "EditCriteriaValueView does not have duplicated codes in dropdown", ->
+<<<<<<< HEAD
       # TODO(cqm-measure) Need to update or replace this fixture
       bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
+=======
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
+>>>>>>> Xit out source_data_criteria tests, update patient serialization tests
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS107/CMS107v6.json'), parse: true
       bonnie.measures.add(cqlMeasure, { parse: true })
       patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS107/patients.json'), parse: true
@@ -561,7 +582,11 @@ describe 'PatientBuilderView', ->
       expect(codesInDropdown['Dead']).toBeDefined()
 
     xit "EditCriteriaValueView allows for input field validation to happen on change event", ->
+<<<<<<< HEAD
       bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
+=======
+      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
+>>>>>>> Xit out source_data_criteria tests, update patient serialization tests
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add(cqlMeasure, { parse: true })
