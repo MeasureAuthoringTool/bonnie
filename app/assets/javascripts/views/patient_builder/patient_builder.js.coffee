@@ -12,6 +12,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @cqmMeasure = @measure.get('cqmMeasure')
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
     @model.get('source_data_criteria').on 'remove', => @materialize()
+    @race_codes = @getConceptsForDataElement('race')
+    @ethnicity_codes = @getConceptsForDataElement('ethnicity')
+    @gender_codes = @getConceptsForDataElement('gender')
+    @payer_codes = @getConceptsForDataElement('payer')
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
@@ -22,8 +26,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       collection: @model.getExpectedValues(@measure)
       measure: @measure
     @populationLogicView = new Thorax.Views.BuilderPopulationLogic
-    @populationLogicView.setPopulation @measure.get('displayedPopulation')
-    @populationLogicView.showRationale @model
+    #@populationLogicView.setPopulation @measure.get('displayedPopulation')
+    #@populationLogicView.showRationale @model
     @expectedValuesView.on 'population:select', (population_index) =>
       @populationLogicView.setPopulation @measure.get('populations').at(population_index)
       @populationLogicView.showRationale @model
@@ -37,6 +41,15 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     if @cqmMeasure.component or @cqmMeasure.composite
       @compositeSharingWarningView = new Thorax.Views.CompositeSharingWarning()
+
+  getConceptsForDataElement: (qdmStatus) ->
+    raceDataCriteria = (@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
+    # TODO REPLACE THIS WITH measure.value_sets when we can
+    raceValueSet = (bonnie.valueSetsByOid["7B2A9277-43DA-4D99-9BEE-6AC271A07747"].filter (elem) -> elem.oid == raceDataCriteria.codeListId)[0]
+    raceValueSet.concepts
+
+  conceptToCode: (concept) ->
+    new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
 
   dataCriteriaCategories: ->
     categories = {}
@@ -101,14 +114,82 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         $logic.animate scrollTop: $logic.scrollTop() + $logic.height()
 
     serialize: (attr) ->
-      first = attr.givenNames[0] if attr.givenNames
-      last = attr.familyName if attr.familyName
+      @setCqmPatientFirstName(attr.first)if attr.first
+      @setCqmPatientLastName(attr.last) if attr.last
+      @setCqmPatientGender(attr.gender) if attr.gender
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
-      attr.birthdate = moment.utc(birthdate, 'L LT').format('X') if birthdate
+      @setCqmPatientBirthDate(birthdate) if birthdate
       deathdate = attr.deathdate if attr.deathdate
       deathdate += " #{attr.deathtime}" if attr.deathdate && attr.deathtime
-      attr.deathdate = moment.utc(deathdate, 'L LT').format('X') if deathdate
+      @setCqmPatientDeathDate(deathdate) if deathdate
+      @setCqmPatientRace(attr.race) if attr.race
+      @setCqmPatientEthnicity(attr.ethnicity) if attr.ethnicity
+      @setCqmPatientPayer(attr.payer) if attr.payer
+
+  setCqmPatientFirstName: (firstName) ->
+    @model.get('cqmPatient').givenNames[0] = firstName
+  setCqmPatientLastName: (lastName) ->
+    @model.get('cqmPatient').familyName = lastName
+  setCqmPatientBirthDate: (birthdate) ->
+    @model.get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(new Date(birthdate))
+    birthdateElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
+    if birthdateElement
+      @model.get('cqmPatient').qdmPatient.dataElements.remove(birthdateElement)
+    sourceElement = mongoose.utils.clone((@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == 'birthdate')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicBirthdate().toObject()
+    sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
+    @model.get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientDeathDate: (deathdate) ->
+    expiredElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    if expiredElement
+      @model.get('cqmPatient').qdmPatient.dataElements.remove(expiredElement)
+    sourceElement = mongoose.utils.clone((@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == 'deathdate')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicExpired().toObject()
+    sourceElement.expiredDatetime = @createCQLDate(new Date(deathdate))
+    @model.get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientGender: (gender) ->
+    genderConcept = (@getConceptsForDataElement('gender').filter (elem) -> elem.code == gender)[0]
+    genderElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
+    if genderElement
+      @model.get('cqmPatient').qdmPatient.dataElements.remove(genderElement)
+    sourceElement = mongoose.utils.clone((@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == 'gender')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicSex().toObject()
+    sourceElement.dataElementCodes[0] = @conceptToCode(genderConcept)
+    @model.get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientRace: (race) ->
+    raceConcept = (@getConceptsForDataElement('race').filter (elem) -> elem.code == race)[0]
+    raceElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
+    if raceElement
+      @model.get('cqmPatient').qdmPatient.dataElements.remove(raceElement)
+    sourceElement = mongoose.utils.clone((@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == 'race')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicRace().toObject()
+    sourceElement.dataElementCodes[0] = @conceptToCode(raceConcept)
+    @model.get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientEthnicity: (ethnicity) ->
+    ethnicityConcept = (@getConceptsForDataElement('ethnicity').filter (elem) -> elem.code == ethnicity)[0]
+    ethnicityElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
+    if ethnicityElement
+      @model.get('cqmPatient').qdmPatient.dataElements.remove(ethnicityElement)
+    sourceElement = mongoose.utils.clone((@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == 'ethnicity')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicEthnicity().toObject()
+    sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
+    @model.get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientPayer: (payer) ->
+    payerConcept = (@getConceptsForDataElement('payer').filter (elem) -> elem.code == payer)[0]
+    payerElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
+    if payerElement
+      @model.get('cqmPatient').qdmPatient.dataElements.remove(payerlement)
+    sourceElement = mongoose.utils.clone((@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == 'payer')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicPayer().toObject()
+    sourceElement.dataElementCodes[0] = @conceptToCode(payerConcept)
+    @model.get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
@@ -121,6 +202,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       birthtime: birthdatetime?.format('LT')
       deathdate: deathdatetime?.format('L')
       deathtime: deathdatetime?.format('LT')
+
+  createCQLDate: (date) ->
+    new cqm.models.CQL.DateTime(date.getFullYear(),date.getMonth()+1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), date.getTimezoneOffset())
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
@@ -206,6 +290,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.set 'expired', false
     @model.set 'deathtime', null
     @model.set 'deathdate', null
+    expiredElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    if expiredElement
+      @model.get('cqmPatient').qdmPatient.dataElements.remove(expiredElement)
     @$('#expired').focus()
 
   setAffix: ->

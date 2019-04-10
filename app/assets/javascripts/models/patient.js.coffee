@@ -11,15 +11,19 @@ class Thorax.Models.Patient extends Thorax.Model
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
     else
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs)
+      @cqmPatient = new cqm.models.Patient(attrs)
     # TODO: look into adding this into cqmPatient constructino
     if !thoraxPatient.cqmPatient.qdmPatient
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
+    # Bring first and last name out so that it is easier for the view to handle
     thoraxPatient.first = thoraxPatient.cqmPatient.givenNames[0]
     thoraxPatient.last = thoraxPatient.cqmPatient.familyName
+    thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
+
     # TODO: Will Cole's work make the SDC loadable?
     #dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
     # attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
-    thoraxPatient.source_data_criteria = new Thorax.Collections.PatientDataCriteria(thoraxPatient.cqmPatient.qdmPatient.dataElements, parse: true)
+    thoraxPatient.source_data_criteria = new Thorax.Collections.PatientDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
 
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
 
@@ -34,16 +38,14 @@ class Thorax.Models.Patient extends Thorax.Model
 
   # Create a deep clone of the patient, optionally omitting the id field
   deepClone: (options = {}) ->
-    # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
-    data = if options.omit_id then _(@toJSON()).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
+    data = @toJSON()
+    # Remove _id from cqmPatient, mongoose will generate new _id upon construction
+    if options.new_id then data['cqmPatient'] = _(data['cqmPatient']).omit('_id')
     if options.dedupName
-       data['first'] = bonnie.patients.dedupName(data)
+       data['cqmPatient']['givenNames'][0] = bonnie.patients.dedupName(data)
 
-    json = JSON.stringify data
+    new @constructor data, parse: true
 
-    new @constructor JSON.parse(json), parse: true
-
-  getBirthDate: -> new Date(@get('birthdate'))
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
@@ -54,20 +56,24 @@ class Thorax.Models.Patient extends Thorax.Model
     s for s in Thorax.Models.Patient.sections when @has(s)
   ### Patient HTML Header values ###
   getGender: ->
-    if @get('gender') == 'M'
+    genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
+    gender = genderElement?.dataElementCodes[0].code
+    if gender == 'M'
       "Male"
     else
       "Female"
-  getBirthdate: -> @printDate @get('birthdate')
-  getExpirationDate: -> if @get('expired') then @printDate(@get('deathdate')) else ''
+  getBirthdate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
+  getExpirationDate: -> if @get('expired') then @printDate((thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
   getRace: ->
-    unless @get('race')? then "Unknown"
-    else unless @get('race').name? then "CDC-RE: #{@get('race').code}"
-    else @get('race').name
+    raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
+    unless raceElement? then "Unknown"
+    else unless raceElement.dataElementCodes[0].display? then "CDC-RE: #{raceElement.dataElementCodes[0].code}"
+    else raceElement.dataElementCodes[0].display
   getEthnicity: ->
-    unless @get('ethnicity')? then "Unknown"
-    else unless @get('ethnicity').name? then "CDC-RE: #{@get('ethnicity').code}"
-    else @get('ethnicity').name
+    ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
+    unless ethnicityElement? then "Unknown"
+    else unless ethnicityElement.dataElementCodes[0].display? then "CDC-RE: #{ethnicityElement.dataElementCodes[0].code}"
+    else ethnicityElement.dataElementCodes[0].display
   getInsurance: ->
     insurances = @get('insurance_providers')?.map (ip) -> ip.name
     insurances?.join(", ") or ''
@@ -86,8 +92,7 @@ class Thorax.Models.Patient extends Thorax.Model
         if telecom.use
           address += telecom.use + "\n"
   printDate: (date) ->
-    fullDate = new Date(date * 1000)
-    (fullDate.getMonth() + 1) + '/' + fullDate.getDay() + '/' + fullDate.getYear()
+    date.month + '/' + date.day + '/' + date.year
 
   materialize: ->
 
@@ -150,8 +155,9 @@ class Thorax.Models.Patient extends Thorax.Model
 
   validate: ->
     errors = []
-    birthdate = if @get('birthdate') then moment(@get('birthdate'), 'X') else null
-    deathdate = if @get('deathdate') then moment(@get('deathdate'), 'X') else null
+    birthdate = if @get('cqmPatient').qdmPatient.birthDatetime then moment(@get('cqmPatient').qdmPatient.birthDatetime, 'X') else null
+    expiredElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    deathdate = if @get('expired') && expiredElement.expiredDatetime then moment(expiredElement.expiredDatetime, 'X') else null
 
     unless @get('first').length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
@@ -161,35 +167,30 @@ class Thorax.Models.Patient extends Thorax.Model
       errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
     if @get('expired') && !deathdate
       errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
-    if birthdate && birthdate.year() < 100
+    if birthdate && birthdate.year() < 1000
       errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
-    if deathdate && deathdate.year() < 100
+    if deathdate && deathdate.year() < 1000
       errors.push [@cid, 'deathdate', 'Date of death must have four digit year']
     if deathdate && birthdate && deathdate.isBefore birthdate
       errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
 
     @get('source_data_criteria').each (sdc) =>
-      start_date = if sdc.get('start_date') then moment(sdc.get('start_date') / 1000, 'X') else null
-      end_date = if sdc.get('end_date') then moment(sdc.get('end_date') / 1000, 'X') else null
-      # Note that birth and death dates are stored in seconds, data criteria dates in milliseconds
-      unless start_date
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} must have start date"]
+      timingInterval = Thorax.Models.PatientDataCriteria.getTimingInterval(sdc) || 'authorDatetime'
+      start_date = if sdc.get(timingInterval)?.low then moment(sdc.get(timingInterval).low, 'X') else if timingInterval == 'authorDatetime' && sdc.get(timingInterval) then moment(sdc.get(timingInterval), 'X') else null
+      end_date = if sdc.get(timingInterval)?.high then moment(sdc.get(timingInterval).high, 'X') else null
+      # patient_characteristics do not have start dates
+      if !start_date && sdc.get('qdmCategory') != 'patient_characteristic'
+        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} must have start date"]
       if end_date && start_date && end_date.isBefore start_date
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date cannot be before start date"]
-      if start_date && start_date.year() < 100
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must have four digit year"]
-      if end_date && end_date.year() < 100
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must have four digit year"]
-      # Start date *can* be before patient birth, if the encounter is when the patient is being born!
-      # if sdc.get('start_date') && @get('birthdate') && sdc.get('start_date') < @get('birthdate') * 1000
-      #   errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be after patient date of birth"]
+        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date cannot be before start date"]
+      if start_date && start_date.year() < 1000
+        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} start date must have four digit year"]
+      if end_date && end_date.year() < 1000
+        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date must have four digit year"]
       if start_date && deathdate && start_date.isAfter deathdate
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be before patient date of death"]
+        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} start date must be before patient date of death"]
       if end_date && birthdate && end_date.isBefore birthdate
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be after patient date of birth"]
-      # Stop date *can* be after patient death, if the patient has died during an encounter or procedure
-      # if end_date && deathdate && end_date.isAfter deathdate
-      #   errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be before patient date of death"]
+        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date must be after patient date of birth"]
 
     return errors if errors.length > 0
 
