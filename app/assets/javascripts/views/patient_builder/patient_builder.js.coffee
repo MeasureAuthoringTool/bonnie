@@ -45,7 +45,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   getConceptsForDataElement: (qdmStatus) ->
     raceDataCriteria = (@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
     # TODO REPLACE THIS WITH measure.value_sets when we can
-    raceValueSet = (bonnie.valueSetsByOid["7B2A9277-43DA-4D99-9BEE-6AC271A07747"].filter (elem) -> elem.oid == raceDataCriteria.codeListId)[0]
+    raceValueSet = (bonnie.valueSetsByMeasureId["7B2A9277-43DA-4D99-9BEE-6AC271A07747"].filter (elem) -> elem.oid == raceDataCriteria.codeListId)[0]
     raceValueSet.concepts
 
   conceptToCode: (concept) ->
