@@ -49,15 +49,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: b2be2d00f83a2d49e2d3332fc6c454d80d41a6eb
+  revision: 332cf4899011761a96ed7b5fa09de7138de238aa
   branch: master
   specs:
     cqm-models (1.0.2)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 0adaa71c24f288fa11f99715cb2d42afbcb2f2ac
-  branch: master
+  revision: d909c73ffac92e0363b6efa38bf2473b3e6a1f9d
+  branch: bonnie_version
   specs:
     cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
