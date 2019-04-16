@@ -125,7 +125,6 @@ class Thorax.Models.Measure extends Thorax.Model
     desiredInclusions = _(globalInclusions).union(typeInclusions[criteriaType])
 
     # check any defined inclusions against the coded_entry_value of each field value
-    debugger
     filteredKeys = (criteria for criteria, value of fields when value['coded_entry_method'] in desiredInclusions)
     fields = _(fields).pick(filteredKeys)
 
