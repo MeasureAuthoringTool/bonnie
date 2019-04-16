@@ -203,11 +203,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if @model.isPeriodType()
       @$('#periodLabel, #stopControl').toggleClass('hide', $(e.target).is(':checked'))
       @$('#startLabel').text(@startLabel($(e.target).is(':checked')))
-
       # make it so end date is always undefined if negation is toggled
       $end_date_is_undefined = @$('[name="end_date_is_undefined"]')
       $end_date_is_undefined.prop('checked', true)
       @toggleEndDateDefinition({target: $end_date_is_undefined})
+
+      # If making data element negated remove author datetime field value,
+      # due to the start time becoming the author datetime.
+      if $(e.target).is(':checked')
+        authorDateTimeFieldValue = @model.attributes.field_values.models.filter((field_value) -> field_value.get('field_title') == 'Author Date/Time')
+        authorDateTimeFieldValue[0]?.destroy()
 
     @triggerMaterialize()
 
