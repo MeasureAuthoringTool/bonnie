@@ -89,13 +89,8 @@
       # Set all value set versions to 'undefined' so the execution engine does not grab the specified version in the ELM
       elm = @setValueSetVersionsToUndefined(elm)
 
-      # Grab the correct version of value sets to pass into the exectuion engine.
-      valueSets = []
-      valueSets = bonnie.valueSetsByMeasureId[cqm_measure.hqmf_set_id] if bonnie.valueSetsByMeasureId?
-      measure_value_sets = @valueSetsForCodeService(valueSets, cqm_measure.hqmf_set_id)
-
       # Calculate results for each CQL statement
-      results = executeSimpleELM(elm, patientSource, measure_value_sets, cqm_measure.main_cql_library, main_library_version, executionDateTime, params)
+      results = executeSimpleELM(elm, patientSource, cqm_measure.value_sets, cqm_measure.main_cql_library, main_library_version, executionDateTime, params)
 
       # Parse CQL statement results into population values
       [population_results, episode_results] = @createPopulationValues population, results, patient, observation_defs

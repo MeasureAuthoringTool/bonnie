@@ -34,7 +34,7 @@
       return result
 
     cqmMeasure = measure.get('cqmMeasure')
-    cqmValueSets = measure.get('cqmValueSets')
+    cqmValueSets = measure.valueSets()
     cqmPatient = patient.get('cqmPatient')
 
     # attempt calcuation

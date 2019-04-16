@@ -41,7 +41,7 @@ Bonnie::Application.routes.draw do
     member do
       get 'debug', defaults: { format: :html }
       post 'clear_cached_javascript'
-      get 'to_cqm'
+      # get 'to_cqm'
     end
     resources :populations do
       member do
