@@ -212,7 +212,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       # due to the start time becoming the author datetime.
       if $(e.target).is(':checked')
         authorDateTimeFieldValue = @model.attributes.field_values.models.filter((field_value) -> field_value.get('field_title') == 'Author Date/Time')
-        authorDateTimeFieldValue[0]?.destroy()
+        authorDateTimeFieldValue.forEach (fieldValue) ->
+          fieldValue.destroy()
 
     @triggerMaterialize()
 
