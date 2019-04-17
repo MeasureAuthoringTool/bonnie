@@ -15,12 +15,8 @@ class Thorax.Models.Patient extends Thorax.Model
     # TODO: look into adding this into cqmPatient constructino
     if !thoraxPatient.cqmPatient.qdmPatient
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
-    # Bring first and last name out so that it is easier for the view to handle
-    thoraxPatient.first = thoraxPatient.cqmPatient.givenNames[0]
-    thoraxPatient.last = thoraxPatient.cqmPatient.familyName
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
 
-    # TODO: Will Cole's work make the SDC loadable?
     #dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
     # attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
     thoraxPatient.source_data_criteria = new Thorax.Collections.PatientDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
@@ -38,7 +34,8 @@ class Thorax.Models.Patient extends Thorax.Model
 
   # Create a deep clone of the patient, optionally omitting the id field
   deepClone: (options = {}) ->
-    data = @toJSON()
+    data = @.clone().toJSON()
+    data['cqmPatient'] = mongoose.utils.clone(data['cqmPatient'] )
     # Remove _id from cqmPatient, mongoose will generate new _id upon construction
     if options.new_id then data['cqmPatient'] = _(data['cqmPatient']).omit('_id')
     if options.dedupName
@@ -77,6 +74,10 @@ class Thorax.Models.Patient extends Thorax.Model
   getInsurance: ->
     insurances = @get('insurance_providers')?.map (ip) -> ip.name
     insurances?.join(", ") or ''
+  getFirstName: ->
+    @get('cqmPatient').givenNames[0]
+  getLastName: ->
+    @get('cqmPatient').familyName
   getAddresses: ->
     address = ""
     if @get('addresses')
@@ -159,9 +160,9 @@ class Thorax.Models.Patient extends Thorax.Model
     expiredElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
     deathdate = if @get('expired') && expiredElement.expiredDatetime then moment(expiredElement.expiredDatetime, 'X') else null
 
-    unless @get('first').length > 0
+    unless @getFirstName().length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
-    unless @get('last').length > 0
+    unless @getLastName().length > 0
       errors.push [@cid, 'last', 'Name fields cannot be blank']
     unless birthdate
       errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
@@ -198,18 +199,19 @@ class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'
   model: Thorax.Models.Patient
   dedupName: (patient) ->
-    return patient.first if !(patient.first && patient.last)
+    return patient.cqmPatient.givenNames[0] if !(patient.cqmPatient.givenNames[0] && patient.cqmPatient.familyName)
     #matcher to find all of the records that have the same last name and the first name starts with the first name of the
     #patient data being duplicated
     matcher =  (record) ->
-      return false if !(record.get('first') && record.get('last')) || record.get('last') != patient.last
-      return record.get('first').substring( 0, patient.first.length ) == patient.first;
+      return false if !(record.cqmPatient.givenNames[0] && record.cqmPatient.familyName) || record.cqmPatient.familyName != patient.cqmPatient.familyName
+      return record.cqmPatient.givenNames[0].substring( 0, patient.cqmPatient.givenNames[0].length ) == patient.cqmPatient.givenNames[0];
 
     matches = @.filter(matcher)
+    givenName = patient.cqmPatient.givenNames[0]
     index = 1
     #increment the index for any copy index that may have been previously used
-    index++ while _.find(matches, (record) -> record.get("first") == patient.first + " ("+index+")")
-    patient.first + " (" + index + ")"
+    index++ while _.find(matches, (record) -> record.cqmPatient.givenNames[0] == givenName + " ("+index+")")
+    givenName + " (" + index + ")"
 
   toOids: ->
     patientToOids = {} # patient medical_record_number : valueSet oid

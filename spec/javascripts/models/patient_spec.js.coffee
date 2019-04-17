@@ -2,8 +2,11 @@ describe 'Patient', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    collection = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS160v6/patients.json'), parse: true
-    @patient = collection.findWhere(first: 'Expired', last: 'DENEX')
+    patients = []
+    patients.push(getJSONFixture('patients/CMS160v6/Expired_DENEX.json'))
+    patients.push(getJSONFixture('patients/CMS160v6/Pass_NUM2.json'))
+    collection = new Thorax.Collections.Patients patients, parse: true
+    @patient = collection.first()
 
   it 'has basic attributes available', ->
     gender = (@patient.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
@@ -22,7 +25,7 @@ describe 'Patient', ->
 
   it 'correctly deduplicates the name when deep cloning and dedupName is an option', ->
     clone = @patient.deepClone({dedupName: true})
-    expect(clone.get("first")).toEqual @patient.get("first") + " (1)"
+    expect(clone.getFirstName()).toEqual @patient.getFirstName() + " (1)"
 
   it 'correctly sorts criteria by multiple attributes', ->
     # Patient has for existing criteria; first get their current order
@@ -47,23 +50,21 @@ describe 'Patient', ->
   describe 'validation', ->
 
     beforeEach ->
-      @errorsForPatientWithout = (field, extraAttrs) ->
-        clone = @patient.deepClone()
-        clone.set field, ''
-        clone.set extraAttrs
-        clone.validate()
-
     it 'passes patient with no issues', ->
       errors = @patient.validate()
       expect(errors).toBeUndefined()
 
     it 'fails patient missing a first name', ->
-      errors = @errorsForPatientWithout('first')
+      clone = @patient.deepClone()
+      clone.get('cqmPatient').givenNames[0] = ''
+      errors = clone.validate()
       expect(errors.length).toEqual 1
       expect(errors[0][2]).toEqual 'Name fields cannot be blank'
 
     it 'fails patient missing a last name', ->
-      errors = @errorsForPatientWithout('last')
+      clone = @patient.deepClone()
+      clone.get('cqmPatient').familyName = ''
+      errors = clone.validate()
       expect(errors.length).toEqual 1
       expect(errors[0][2]).toEqual 'Name fields cannot be blank'
 

@@ -45,29 +45,29 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   getConceptsForDataElement: (qdmStatus) ->
     raceDataCriteria = (@measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
     # TODO REPLACE THIS WITH measure.value_sets when we can
-    raceValueSet = (bonnie.valueSetsByMeasureId["7B2A9277-43DA-4D99-9BEE-6AC271A07747"].filter (elem) -> elem.oid == raceDataCriteria.codeListId)[0]
-    raceValueSet.concepts
+    raceValueSet = (bonnie.valueSetsByMeasureId[this.measure.get('cqmMeasure').hqmf_set_id]?.filter (elem) -> elem.oid == raceDataCriteria.codeListId)?[0]
+    raceValueSet?.concepts || []
 
   conceptToCode: (concept) ->
     new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
 
   dataCriteriaCategories: ->
     categories = {}
-    @measure?.get('source_data_criteria').each (criteria) ->
-      type = criteria.get('qdmCategory').replace(/_/g, ' ')
-      # Filter out negations, certain patient characteristics, and specific occurrences
-      # Note: we previously filtered out patient_characteristic_payer, but that was needed on the elements list
-      # because a payer can have a start and stop date in QDM 5
-      filter_criteria = criteria.get('negation') or
-      ( criteria.get('qdmCategory') is 'patient_characteristic' ) or
-      ( criteria.has('specific_occurrence') )
-      unless filter_criteria
-        categories[type] ||= new Thorax.Collection
-        categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , '') == criteria.get('description').replace(/,/g , '') && c.get('code_list_id') == criteria.get('code_list_id')
-    categories = _(categories).omit('transfers','derived')
-    # Pass a sorted array to the view so ordering is consistent
-    categoriesArray = ({ type: type, criteria: criteria } for type, criteria of categories)
-    _(categoriesArray).sortBy (entry) -> entry.type
+    # @measure?.get('source_data_criteria').each (criteria) ->
+    #   type = criteria.get('qdmCategory').replace(/_/g, ' ')
+    #   # Filter out negations, certain patient characteristics, and specific occurrences
+    #   # Note: we previously filtered out patient_characteristic_payer, but that was needed on the elements list
+    #   # because a payer can have a start and stop date in QDM 5
+    #   filter_criteria = criteria.get('negation') or
+    #   ( criteria.get('qdmCategory') is 'patient_characteristic' ) or
+    #   ( criteria.has('specific_occurrence') )
+    #   unless filter_criteria
+    #     categories[type] ||= new Thorax.Collection
+    #     categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , '') == criteria.get('description').replace(/,/g , '') && c.get('code_list_id') == criteria.get('code_list_id')
+    # categories = _(categories).omit('transfers','derived')
+    # # Pass a sorted array to the view so ordering is consistent
+    # categoriesArray = ({ type: type, criteria: criteria } for type, criteria of categories)
+    # _(categoriesArray).sortBy (entry) -> entry.type
 
   events:
     'blur :text': 'materialize'
@@ -193,15 +193,15 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
-    birthdatetime = moment.utc(@model.get('birthdate'), 'X') if @model.has('birthdate') && !!@model.get('birthdate')
-    deathdatetime = moment.utc(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
+    # birthdatetime = moment.utc(@model.get('birthdate'), 'X') if @model.has('birthdate') && !!@model.get('birthdate')
+    # deathdatetime = moment.utc(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
     _(super).extend
       measureTitle: @cqmMeasure.title
       measureDescription: @cqmMeasure.description
-      birthdate: birthdatetime?.format('L')
-      birthtime: birthdatetime?.format('LT')
-      deathdate: deathdatetime?.format('L')
-      deathtime: deathdatetime?.format('LT')
+      # birthdate: birthdatetime?.format('L')
+      # birthtime: birthdatetime?.format('LT')
+      # deathdate: deathdatetime?.format('L')
+      # deathtime: deathdatetime?.format('LT')
 
   createCQLDate: (date) ->
     new cqm.models.CQL.DateTime(date.getFullYear(),date.getMonth()+1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), date.getTimezoneOffset())
@@ -248,10 +248,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
-    status = @originalModel.save @model.toJSON(),
+    status = @originalModel.save @model.get('cqmPatient').toJSON(),
       success: (model) =>
         @patients.add model # make sure that the patient exist in the global patient collection
-        @measure?.get('patients').add model # and the measure's patient collection
+        @measure?.get('cqmMeasure').patients.push model.get('cqmPatient') # and the measure's patient collection
         # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids 
         # field with the ids of the sibling and composite measures, so we need to add this patient to those models.
         for measure_id in model.get('measure_ids')
