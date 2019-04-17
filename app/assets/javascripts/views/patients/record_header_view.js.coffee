@@ -1,8 +1,8 @@
 class Thorax.Views.RecordHeader extends Thorax.Views.BonnieView
   template: JST['patients/record_header']
   patientGender: -> @model.getGender()
-  patientBirthdate: -> @model.getBirthdate()
-  patientExpirationDate: -> if @model.get('expired') then @model.getExpirationDate()
+  patientBirthdate: -> @model.getBirthDate()
+  patientExpirationDate: -> if @model.get('expired') then @model.getDeathDate()
   patientRace: -> @model.getRace()
   patientEthnicity: -> @model.getEthnicity()
   patientInsurance: -> @model.getInsurance()

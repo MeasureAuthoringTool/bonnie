@@ -16,20 +16,8 @@ class Thorax.Models.Patient extends Thorax.Model
     if !thoraxPatient.cqmPatient.qdmPatient
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
-
-    #dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
-    # attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
     thoraxPatient.source_data_criteria = new Thorax.Collections.PatientDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
-
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
-
-    # This section is a bit unusual: we map from server side values to a more straight forward client
-    # side representation; the reverse mapping would usually happen in toJSON(), but in this case it
-    # happens on the server in the controller
-    # extract demographics from hash, or use extracted values when cloning
-    # attrs.ethnicity = attrs.ethnicity?.code || attrs.ethnicity
-    # attrs.race = attrs.race?.code || attrs.race
-    # attrs.payer = attrs.insurance_providers?[0]?.type || 'OT'
     thoraxPatient
 
   # Create a deep clone of the patient, optionally omitting the id field
@@ -59,8 +47,10 @@ class Thorax.Models.Patient extends Thorax.Model
       "Male"
     else
       "Female"
-  getBirthdate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
-  getExpirationDate: -> if @get('expired') then @printDate((thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+  getBirthDate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
+  getBirthTime: -> @printTime @get('cqmPatient').qdmPatient.birthDatetime
+  getDeathDate: -> if @get('expired') then @printDate((thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+  getDeathTime: -> if @get('expired') then @printTime((thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
   getRace: ->
     raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
     unless raceElement? then "Unknown"
@@ -78,6 +68,8 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').givenNames[0]
   getLastName: ->
     @get('cqmPatient').familyName
+  getNotes: ->
+    @get('cqmPatient').notes
   getAddresses: ->
     address = ""
     if @get('addresses')
@@ -92,8 +84,89 @@ class Thorax.Models.Patient extends Thorax.Model
         address += telecom.value + "\n"
         if telecom.use
           address += telecom.use + "\n"
+  setCqmPatientFirstName: (firstName) ->
+    @get('cqmPatient').givenNames[0] = firstName
+  setCqmPatientLastName: (lastName) ->
+    @get('cqmPatient').familyName = lastName
+  setCqmPatientNotes: (notes) ->
+    @get('cqmPatient').notes = notes
+  setCqmPatientBirthDate: (birthdate, measure) ->
+    @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(new Date(birthdate))
+    birthdateElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
+    if birthdateElement
+      @get('cqmPatient').qdmPatient.dataElements.remove(birthdateElement)
+    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'birthdate')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicBirthdate().toObject()
+    sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientDeathDate: (deathdate, measure) ->
+    expiredElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    if expiredElement
+      @get('cqmPatient').qdmPatient.dataElements.remove(expiredElement)
+    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'deathdate')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicExpired().toObject()
+    sourceElement.expiredDatetime = @createCQLDate(new Date(deathdate))
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientGender: (gender, measure) ->
+    genderConcept = (@getConceptsForDataElement('gender', measure).filter (elem) -> elem.code == gender)[0]
+    genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
+    if genderElement
+      @get('cqmPatient').qdmPatient.dataElements.remove(genderElement)
+    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'gender')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicSex().toObject()
+    sourceElement.dataElementCodes[0] = @conceptToCode(genderConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientRace: (race, measure) ->
+    raceConcept = (@getConceptsForDataElement('race', measure).filter (elem) -> elem.code == race)[0]
+    raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
+    if raceElement
+      @get('cqmPatient').qdmPatient.dataElements.remove(raceElement)
+    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'race')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicRace().toObject()
+    sourceElement.dataElementCodes[0] = @conceptToCode(raceConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientEthnicity: (ethnicity, measure) ->
+    ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
+    ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
+    if ethnicityElement
+      @get('cqmPatient').qdmPatient.dataElements.remove(ethnicityElement)
+    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'ethnicity')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicEthnicity().toObject()
+    sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientPayer: (payer, measure) ->
+    payerConcept = (@getConceptsForDataElement('payer', measure).filter (elem) -> elem.code == payer)[0]
+    payerElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
+    if payerElement
+      @get('cqmPatient').qdmPatient.dataElements.remove(payerlement)
+    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'payer')[0])
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicPayer().toObject()
+    sourceElement.dataElementCodes[0] = @conceptToCode(payerConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+
+  getConceptsForDataElement: (qdmStatus, measure) ->
+    dataCriteria = (measure.source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
+    # TODO REPLACE THIS WITH measure.value_sets when we can
+    valueSet = (bonnie.valueSetsByMeasureId[measure.hqmf_set_id]?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
+    valueSet?.concepts || []
+
+  createCQLDate: (date) ->
+    new cqm.models.CQL.DateTime(date.getFullYear(),date.getMonth()+1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), date.getTimezoneOffset())
+  
+  conceptToCode: (concept) ->
+    new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
+
   printDate: (date) ->
     date.month + '/' + date.day + '/' + date.year
+
+  printTime: (dateTime) ->
+    moment(dateTime).format('h:mm A');
 
   materialize: ->
 

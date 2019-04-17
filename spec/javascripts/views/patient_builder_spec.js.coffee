@@ -39,6 +39,11 @@ describe 'PatientBuilderView', ->
 
   it 'renders the builder correctly', ->
     expect(@$el.find(":input[name='first']")).toHaveValue @patient.getFirstName()
+    expect(@$el.find(":input[name='last']")).toHaveValue @patient.getLastName()
+    expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
+    expect(@$el.find(":input[name='birthtime']")).toHaveValue @patient.getBirthTime()
+    expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
+
 
   it 'does not display compare patient results button when there is no history', ->
     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
@@ -92,7 +97,7 @@ describe 'PatientBuilderView', ->
       birthdateElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
       expect(birthdateElement.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
       expect(cqmPatient.qdmPatient.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
-      expect(thoraxPatient.getBirthdate()).toEqual '1/2/1993'
+      expect(thoraxPatient.getBirthDate()).toEqual '1/2/1993'
       expect(thoraxPatient.getGender()).toEqual 'Female'
       genderElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
       expect(genderElement.dataElementCodes[0].code).toEqual 'F'
