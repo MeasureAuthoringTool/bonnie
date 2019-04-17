@@ -2,9 +2,12 @@ describe 'PatientBuilderView', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS134/value_sets.json')
+    bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS134/value_sets.json')
+    fixturePatients = []
+    fixturePatients.push(getJSONFixture('patients/CMS134v6/Elements_Test.json'))
+    fixturePatients.push(getJSONFixture('patients/CMS134v6/Fail_Hospice_Not_Performed_Denex.json'))
     @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
-    @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS134v6/patients.json'), parse: true
+    @patients = new Thorax.Collections.Patients fixturePatients, parse: true
     @patient = @patients.models[0]
     @bonnie_measures_old = bonnie.measures
     bonnie.measures = new Thorax.Collections.Measures()
@@ -35,7 +38,7 @@ describe 'PatientBuilderView', ->
     expect(bonnie.mainView.setView).toHaveBeenCalled()
 
   it 'renders the builder correctly', ->
-    expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
+    expect(@$el.find(":input[name='first']")).toHaveValue @patient.getFirstName()
 
   it 'does not display compare patient results button when there is no history', ->
     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()

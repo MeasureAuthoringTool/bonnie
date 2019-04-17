@@ -16,6 +16,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @ethnicity_codes = @getConceptsForDataElement('ethnicity')
     @gender_codes = @getConceptsForDataElement('gender')
     @payer_codes = @getConceptsForDataElement('payer')
+    @first = @model.getFirstName()
+    @last = @model.getLastName()
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
