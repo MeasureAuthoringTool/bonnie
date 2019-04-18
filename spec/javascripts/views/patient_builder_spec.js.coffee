@@ -191,7 +191,7 @@ describe 'PatientBuilderView', ->
       patientBuilder.$('input[name=negation]:first').click()
       expect(patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toBe 0
       startDate = new Date(patientBuilder.model.get('source_data_criteria').first().get('start_date'))
-      expect(startDate.toString()).toEqual('Tue Apr 17 2012 04:00:00 GMT-0400 (Eastern Daylight Time)')
+      expect(startDate.toString().incudes("Tue Apr 17 2012")).toBe true
       patientBuilder.remove()
 
   describe "blurring basic fields of a criteria", ->
