@@ -92,63 +92,52 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').notes = notes
   setCqmPatientBirthDate: (birthdate, measure) ->
     @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(new Date(birthdate))
-    birthdateElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
-    if birthdateElement
-      @get('cqmPatient').qdmPatient.dataElements.remove(birthdateElement)
-    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'birthdate')[0])
+    sourceElement = @removeElementAndGetNewCopy('birthdate', measure)
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicBirthdate().toObject()
     sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientDeathDate: (deathdate, measure) ->
-    expiredElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
-    if expiredElement
-      @get('cqmPatient').qdmPatient.dataElements.remove(expiredElement)
-    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'deathdate')[0])
+    sourceElement = @removeElementAndGetNewCopy('expired', measure)
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicExpired().toObject()
     sourceElement.expiredDatetime = @createCQLDate(new Date(deathdate))
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientGender: (gender, measure) ->
-    genderConcept = (@getConceptsForDataElement('gender', measure).filter (elem) -> elem.code == gender)[0]
-    genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
-    if genderElement
-      @get('cqmPatient').qdmPatient.dataElements.remove(genderElement)
-    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'gender')[0])
+    sourceElement = @removeElementAndGetNewCopy('gender', measure)
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicSex().toObject()
+    genderConcept = (@getConceptsForDataElement('gender', measure).filter (elem) -> elem.code == gender)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(genderConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientRace: (race, measure) ->
-    raceConcept = (@getConceptsForDataElement('race', measure).filter (elem) -> elem.code == race)[0]
-    raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
-    if raceElement
-      @get('cqmPatient').qdmPatient.dataElements.remove(raceElement)
-    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'race')[0])
+    sourceElement = @removeElementAndGetNewCopy('race', measure)
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicRace().toObject()
+    raceConcept = (@getConceptsForDataElement('race', measure).filter (elem) -> elem.code == race)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(raceConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientEthnicity: (ethnicity, measure) ->
-    ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
-    ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
-    if ethnicityElement
-      @get('cqmPatient').qdmPatient.dataElements.remove(ethnicityElement)
-    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'ethnicity')[0])
+    sourceElement = @removeElementAndGetNewCopy('ethnicity', measure)
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicEthnicity().toObject()
+    ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientPayer: (payer, measure) ->
-    payerConcept = (@getConceptsForDataElement('payer', measure).filter (elem) -> elem.code == payer)[0]
-    payerElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
-    if payerElement
-      @get('cqmPatient').qdmPatient.dataElements.remove(payerlement)
-    sourceElement = mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'payer')[0])
+    sourceElement = @removeElementAndGetNewCopy('payer', measure)
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicPayer().toObject()
+    payerConcept = (@getConceptsForDataElement('payer', measure).filter (elem) -> elem.code == payer)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(payerConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+
+  removeElementAndGetNewCopy: (elementType, measure) ->
+    element = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == elementType)[0]
+    if element
+      @get('cqmPatient').qdmPatient.dataElements.remove(element)
+    # return copy of dataElement off the measure
+    mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0])
 
   getConceptsForDataElement: (qdmStatus, measure) ->
     dataCriteria = (measure.source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
