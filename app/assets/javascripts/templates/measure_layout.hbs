@@ -5,6 +5,7 @@
       </h1>
 
       <span class="actions-container">
+        {{#button "measurement-period-button" class="btn btn-default"}}<span class="sr-only">Measurement Period</span><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 1/1/2012 - 12/31/2012{{/button}}
         {{#unless cql}}
           {{#link "measures/{{hqmf_set_id}}" id="measure-details-button" expand-tokens=true class="btn btn-default btn-primary"}}<span class="sr-only">Measure Details</span>Measure Details{{/link}}
           {{#link "measures/{{hqmf_set_id}}/patient_dashboard" id="patient-dashboard-button" expand-tokens=true class="btn btn-default"}}<span class="sr-only">Patient Dashboard</span>Patient Dashboard{{/link}}
