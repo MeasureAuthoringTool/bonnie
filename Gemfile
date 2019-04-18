@@ -29,7 +29,7 @@ gem 'hquery-patient-api', '~> 1.1'
 # gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
-gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'bonnie-patch'
+gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'bonnie-patch-update'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
