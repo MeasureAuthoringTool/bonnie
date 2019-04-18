@@ -5,9 +5,10 @@
     "bundle_id": "5a57e977942c6d1e61d32f14",
     "conditions": [
       {
-        "_id": "5ac279c4b848462af8fef31b",
+        "_id": "5cb7712c08fa188860ae8d99",
         "anatomical_location": null,
         "anatomical_target": null,
+        "author_datetime": null,
         "causeOfDeath": null,
         "codes": {
           "ICD-9-CM": [
@@ -52,9 +53,10 @@
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5ac279c4b848462af8fef31c",
+        "_id": "5cb7712c08fa188860ae8d9a",
         "admitTime": null,
         "admitType": null,
+        "author_datetime": 1333094400,
         "codes": {
           "SNOMED-CT": [
             "185463005"
@@ -86,9 +88,10 @@
         "time": null
       },
       {
-        "_id": "5ac279c4b848462af8fef31e",
+        "_id": "5cb7712c08fa188860ae8d9b",
         "admitTime": null,
         "admitType": null,
+        "author_datetime": 1343635200,
         "codes": {
           "SNOMED-CT": [
             "185463005"
@@ -158,7 +161,8 @@
     "gender": "M",
     "insurance_providers": [
       {
-        "_id": "5ac279c4b848462af8fef320",
+        "_id": "5cb7712c08fa188860ae8d9f",
+        "author_datetime": null,
         "codes": {
           "SOP": [
             "349"
@@ -178,13 +182,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5ac279c4b848462af8fef321",
+          "_id": "5cb7712c08fa188860ae8da0",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199145600,
+        "start_time": 1199163600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -204,27 +208,27 @@
     "medical_record_number": "7368f43d63c27db2e2516cc8cc97fdf89a58a9ed2318ca3ecc90fb0656657f6a",
     "medications": [
       {
-        "_id": "5ac279c4b848462af8fef31a",
+        "_id": "5cb7712c08fa188860ae8d9c",
         "active_datetime": null,
         "administrationTiming": null,
         "allowedAdministrations": null,
         "anatomical_approach": null,
+        "author_datetime": null,
         "codes": {
           "RxNorm": [
             "105337"
           ]
         },
         "cumulativeMedicationDuration": null,
+        "daysSupplied": null,
         "deliveryMethod": null,
         "description": "Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet",
+        "dispenserIdentifier": null,
         "dose": null,
         "doseIndicator": null,
         "doseRestriction": null,
         "end_time": 1333095300,
         "freeTextSig": null,
-        "fulfillmentHistory": [
-
-        ],
         "fulfillmentInstructions": null,
         "health_record_field": null,
         "indication": null,
@@ -234,10 +238,13 @@
         "negationReason": null,
         "oid": "2.16.840.1.113883.3.560.1.17",
         "patientInstructions": null,
+        "prescriberIdentifier": null,
         "productForm": null,
         "reaction": null,
         "reason": null,
+        "refills": null,
         "route": null,
+        "setting": null,
         "signed_datetime": null,
         "specifics": null,
         "start_time": 1333094400,
@@ -294,7 +301,7 @@
         "frequency_value": "",
         "frequency_unit": "min",
         "negation_code_list_id": "",
-        "coded_entry_id": "5ac279c4b848462af8fef31a",
+        "coded_entry_id": "5cb7712c08fa188860ae8d9c",
         "code_source": "DEFAULT"
       },
       {
@@ -327,7 +334,7 @@
             "B20"
           ]
         },
-        "coded_entry_id": "5ac279c4b848462af8fef31b",
+        "coded_entry_id": "5cb7712c08fa188860ae8d99",
         "code_source": "DEFAULT"
       },
       {
@@ -346,6 +353,14 @@
         ],
         "references": null,
         "field_values": {
+          "AUTHOR_DATETIME": {
+            "type": "TS",
+            "code_list_id": "",
+            "field_title": "Author Date/Time",
+            "start_date": "03/30/2012",
+            "start_time": "8:00 AM",
+            "value": 1333094400000
+          }
         },
         "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
         "cms_id": "CMS52v7",
@@ -359,7 +374,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5ac279c4b848462af8fef31c",
+        "coded_entry_id": "5cb7712c08fa188860ae8d9a",
         "code_source": "DEFAULT"
       },
       {
@@ -393,7 +408,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5ac279c4b848462af8fef31d",
+        "coded_entry_id": "5cb7712c08fa188860ae8d9d",
         "code_source": "DEFAULT"
       },
       {
@@ -412,6 +427,14 @@
         ],
         "references": null,
         "field_values": {
+          "AUTHOR_DATETIME": {
+            "type": "TS",
+            "code_list_id": "",
+            "field_title": "Author Date/Time",
+            "start_date": "07/30/2012",
+            "start_time": "8:00 AM",
+            "value": 1343635200000
+          }
         },
         "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
         "cms_id": "CMS52v7",
@@ -425,7 +448,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5ac279c4b848462af8fef31e",
+        "coded_entry_id": "5cb7712c08fa188860ae8d9b",
         "code_source": "DEFAULT"
       },
       {
@@ -438,11 +461,12 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-04-02T18:43:16.051Z",
-    "user_id": "5a57e975942c6d1e61d32f13",
+    "updated_at": "2019-04-17T18:32:12.448Z",
+    "user_id": null,
     "vital_signs": [
       {
-        "_id": "5ac279c4b848462af8fef31d",
+        "_id": "5cb7712c08fa188860ae8d9d",
+        "author_datetime": null,
         "codes": {
           "LOINC": [
             "24467-3"
@@ -475,7 +499,7 @@
         "time": null,
         "values": [
           {
-            "_id": "5ac279c4b848462af8fef31f",
+            "_id": "5cb7712c08fa188860ae8d9e",
             "scalar": "199",
             "units": "/mm3"
           }
