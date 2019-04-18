@@ -81,6 +81,7 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
       @patientBuilder.$('select[name=race]').val('2131-1')
       @patientBuilder.$('select[name=ethnicity]').val('2135-2')
+      @patientBuilder.$(':input[name=notes]').val('EXAMPLE NOTES FOR TEST')
       @patientBuilder.$("button[data-call-method=save]").click()
 
     it "dynamically loads race, ethnicity, gender and payer codes from measure", ->
@@ -98,6 +99,7 @@ describe 'PatientBuilderView', ->
       expect(birthdateElement.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
       expect(cqmPatient.qdmPatient.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
       expect(thoraxPatient.getBirthDate()).toEqual '1/2/1993'
+      expect(thoraxPatient.getNotes()).toEqual 'EXAMPLE NOTES FOR TEST'
       expect(thoraxPatient.getGender()).toEqual 'Female'
       genderElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
       expect(genderElement.dataElementCodes[0].code).toEqual 'F'
