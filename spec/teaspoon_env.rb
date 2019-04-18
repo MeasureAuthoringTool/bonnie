@@ -225,7 +225,7 @@ Teaspoon.configure do |config|
   # Specify that you always want a coverage configuration to be used.
   # Otherwise, specify that you want coverage on the CLI.
   # Set this to "true" or the name of your coverage config.
-  config.use_coverage = false
+  config.use_coverage = true
 
   # You can have multiple coverage configs by passing a name to config.coverage.
   # e.g. config.coverage :ci do |coverage|
