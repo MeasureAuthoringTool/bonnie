@@ -333,8 +333,9 @@ core-util-is@~1.0.0:
     moment "^2.20.1"
     ucum "0.0.7"
 
-"cqm-models@file:../cqm-models":
+"cqm-models@https://github.com/projecttacoma/cqm-models.git":
   version "1.0.2"
+  resolved "https://github.com/projecttacoma/cqm-models.git#74647bdb951cac58ecba9207a1a899b9bf36fd0f"
   dependencies:
     cql-execution "https://github.com/cqframework/cql-execution.git"
     mongoose "^5.4.14"

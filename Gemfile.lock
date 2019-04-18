@@ -49,15 +49,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: b2be2d00f83a2d49e2d3332fc6c454d80d41a6eb
+  revision: 74647bdb951cac58ecba9207a1a899b9bf36fd0f
   branch: master
   specs:
     cqm-models (1.0.2)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 0adaa71c24f288fa11f99715cb2d42afbcb2f2ac
-  branch: master
+  revision: d909c73ffac92e0363b6efa38bf2473b3e6a1f9d
+  branch: bonnie_version
   specs:
     cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
@@ -383,7 +383,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
     rake (12.3.2)
-    rb-readline (0.5.5)
     reek (5.3.1)
       codeclimate-engine-rb (~> 0.4.0)
       kwalify (~> 0.7.0)
@@ -527,7 +526,6 @@ DEPENDENCIES
   quality-measure-engine (~> 3.2)
   rails (~> 4.2.11)
   rails_best_practices
-  rb-readline
   reek
   roo (~> 2.7)
   rubocop
