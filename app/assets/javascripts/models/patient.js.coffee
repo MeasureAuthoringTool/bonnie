@@ -11,8 +11,7 @@ class Thorax.Models.Patient extends Thorax.Model
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
     else
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs)
-      @cqmPatient = new cqm.models.Patient(attrs)
-    # TODO: look into adding this into cqmPatient constructino
+    # TODO: look into adding this into cqmPatient construction
     if !thoraxPatient.cqmPatient.qdmPatient
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
