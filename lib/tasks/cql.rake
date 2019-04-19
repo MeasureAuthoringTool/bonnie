@@ -5,7 +5,6 @@ namespace :bonnie do
   namespace :cql do
 
     require 'colorize'
-    require 'byebug'
 
     desc %{Recreates the JSON elm stored on CQL measures using an instance of
       a locally running CQLTranslationService JAR.
