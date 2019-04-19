@@ -4,6 +4,9 @@ namespace :bonnie do
 
   namespace :cql do
 
+    require 'colorize'
+    require 'byebug'
+
     desc %{Recreates the JSON elm stored on CQL measures using an instance of
       a locally running CQLTranslationService JAR.
 
@@ -126,18 +129,83 @@ namespace :bonnie do
     task :convert_measures => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
       bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasure.all
+
+      puts "**** Starting to convert measures! ****\n\n"
       bonnie_cql_measures.each do |measure|
         begin
           cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
           cqm_measure.value_sets.map(&:save!)
           cqm_measure.user = measure.user
           cqm_measure.save!
-          puts measure.title + ' ' + measure.cms_id
+          # Verify Measure was converted properly
+          diff = measure_conversion_diff(measure, cqm_measure)
+          unless diff.empty?
+            puts "Conversion Difference".yellow
+            measure_user = User.find_by(_id: measure[:user_id])
+            puts "Measure #{measure.cms_id}: #{measure.title} with id #{measure._id} in account #{measure_user.email}".light_blue
+            diff.each_key do |key|
+              puts "--- #{key} --- Is different from CQL measure".light_blue
+            end
+          end
         rescue ExecJS::ProgramError => e
           # if there was a conversion failure we should record the resulting failure message with the measure
-          puts 'Measure ' + measure.title + ' ' + measure.cms_id + ' failed with message: ' + e.message
+          puts "Measure  #{measure.title} #{measure.cms_id} failed with message: #{e.message}".red
         end
       end
+      puts '**** Done converting ****'
+    end
+
+    def self.measure_conversion_diff(cql_measure, cqm_measure)
+      differences = {}
+
+      differences['user id'] = 'user_id' if Digest::MD5.hexdigest(cql_measure.user_id.to_json) != Digest::MD5.hexdigest(cqm_measure['user_id'].to_json)
+      differences['hqmf id'] = 'hqmf_id' if Digest::MD5.hexdigest(cql_measure.hqmf_id.to_json) != Digest::MD5.hexdigest(cqm_measure['hqmf_id'].to_json)
+      differences['hqmf set id'] = 'hqmf_set_id' if Digest::MD5.hexdigest(cql_measure[:hqmf_set_id].to_json) != Digest::MD5.hexdigest(cqm_measure['hqmf_set_id'].to_json)
+      differences['hqmf version number'] = 'hqmf_version_number' if Digest::MD5.hexdigest((cql_measure[:hqmf_version_number].to_s).to_json) != Digest::MD5.hexdigest(cqm_measure['hqmf_version_number'].to_json)
+      differences['cms id'] = 'cms_id' if Digest::MD5.hexdigest(cql_measure[:cms_id].to_json) != Digest::MD5.hexdigest(cqm_measure['cms_id'].to_json)
+      differences['title'] = 'title' if Digest::MD5.hexdigest(cql_measure[:title].to_json) != Digest::MD5.hexdigest(cqm_measure['title'].to_json)
+      differences['description'] = 'description' if Digest::MD5.hexdigest(cql_measure[:description].to_json) != Digest::MD5.hexdigest(cqm_measure['description'].to_json)
+      differences['calculate sdes'] = 'calculate_sdes' if Digest::MD5.hexdigest(cql_measure[:calculate_sdes].to_json) != Digest::MD5.hexdigest(cqm_measure['calculate_sdes'].to_json)
+      differences['main cql library'] = 'main_cql_library' if Digest::MD5.hexdigest(cql_measure[:main_cql_library].to_json) != Digest::MD5.hexdigest(cqm_measure['main_cql_library'].to_json)
+      differences['population criteria'] = 'population_criteria' if Digest::MD5.hexdigest(cql_measure[:population_criteria].to_json) != Digest::MD5.hexdigest(cqm_measure['population_criteria'].to_json)
+      differences['measure period'] = 'measure_period' if Digest::MD5.hexdigest(cql_measure[:measure_period].to_json) != Digest::MD5.hexdigest(cqm_measure['measure_period'].to_json)
+      differences['measure attributes'] = 'measure_attributes' if Digest::MD5.hexdigest(cql_measure[:measure_attributes].to_json) != Digest::MD5.hexdigest(cqm_measure['measure_attributes'].to_json)
+      differences['cql_libraries'] = 'cql libraries' if cql_measure[:cql_statement_dependencies].count != cqm_measure['cql_libraries'].count
+
+      scoring = cql_measure[:continuous_variable] ? 'CONTINUOUS_VARIABLE' : 'PROPORTION'
+      differences['measure scoring'] = 'measure_scoring' if Digest::MD5.hexdigest(scoring.to_json) != Digest::MD5.hexdigest(cqm_measure['measure_scoring'].to_json)
+      calc_method = cql_measure[:episode_of_care] ? 'EPISODE_OF_CARE' : 'PATIENT'
+      differences['calculation method'] = 'calculation_method' if Digest::MD5.hexdigest(calc_method.to_json) != Digest::MD5.hexdigest(cqm_measure['calculation_method'].to_json)
+
+      cql_measure.source_data_criteria.each_key do |key|
+        if cqm_measure.source_data_criteria[key].nil? || cql_measure.source_data_criteria[key] != cqm_measure.source_data_criteria[key]
+          differences['source data criteria'] = 'source_data_criteria'
+        end
+      end
+      cql_measure.data_criteria.each_key do |key|
+        if cqm_measure.data_criteria[key].nil? || cql_measure.data_criteria[key] != cqm_measure.data_criteria[key]
+          differences['data criteria'] = 'data_criteria'
+        end
+      end
+
+      if cql_measure[:composite]
+        differences['composite'] = 'composite' if !cqm_measure['composite']
+        differences['component_hqmf_set_ids'] = 'component hqmf set ids' if Digest::MD5.hexdigest(cql_measure[:component_hqmf_set_ids].to_json) != Digest::MD5.hexdigest(cqm_measure['component_hqmf_set_ids'].to_json)
+      end
+      if cql_measure[:component]
+        differences['component'] = 'component' if !cqm_measure['component']
+        differences['composite_hqmf_set_id'] = 'composite hqmf set id' if Digest::MD5.hexdigest(cql_measure.composite_hqmf_set_id().to_json) != Digest::MD5.hexdigest(cqm_measure['composite_hqmf_set_id'].to_json)
+      end
+
+      cql_measure[:value_set_oid_version_objects].each do |cql_val_set|
+        if cql_val_set[:version] == ""
+          differences['value_sets'] = 'value sets' if (cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "").count < 1 && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "N/A").count < 1)
+        else
+          differences['value_sets'] = 'value sets' if cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
+        end
+      end
+
+      differences
     end
 
     desc %{Coverts Bonnie patients to new CQM/QDM Patients
@@ -155,18 +223,17 @@ namespace :bonnie do
             cqm_patient.measures.push CQM::Measure.where(hqmf_set_id: measure_id).first
           end
           cqm_patient.save!
-          puts "."
         rescue ExecJS::ProgramError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return
           user = User.find_by _id: bonnie_patient.user_id
           if bonnie_patient.measure_ids.first.nil?
-            puts user.email + "\n Measure: N/A\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+            puts "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
           elsif CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first.nil?
-            puts user.email + "\n Measure (hqmf_set_id): " + bonnie_patient.measure_ids.first + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+            puts "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient.measure_ids.first}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
           else
             measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first
-            puts user.email + "\n Measure: " + measure.title + " " + measure.cms_id + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+            puts "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
           end
         end
       end
