@@ -2,14 +2,9 @@ describe 'Result', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+    @measure = loadMeasureWithValueSet 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
     collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
-    @oldBonnieValueSetsByMeasureId = bonnie.valueSetsByMeasureId
-    bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
-
-  afterEach ->
-    bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByMeasureId
 
   it 'allows for deferring use of results until populated', ->
     result1 = new Thorax.Models.Result({}, population: @measure.get('populations').first(), patient: @patient)
@@ -96,19 +91,13 @@ describe 'Result', ->
 describe 'Continuous Variable Calculations', ->
 
   beforeEach ->
-    @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
     jasmine.getJSONFixtures().clearCache()
 
-    bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS32/value_sets.json')
     @cql_calculator = new CQLCalculator()
 
-    @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
+    @measure = loadMeasureWithValueSet 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
     @population = @measure.get('populations').at(0)
     @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
-
-  afterEach ->
-    bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
-    bonnie.valueSetsByMeasureIdCached = undefined
 
   it 'can handle single episodes observed', ->
     patient = @patients.findWhere(last: '1 ED', first: 'Visit')
