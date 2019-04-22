@@ -2,7 +2,7 @@ describe 'Measure', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSet 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
 
   it 'has basic attributes available', ->
     expect(@measure.get('cqmMeasure').get('hqmf_set_id')).toEqual 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'

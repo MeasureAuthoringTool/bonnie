@@ -102,7 +102,7 @@ class Thorax.Models.Measure extends Thorax.Model
   populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('cqmMeasure').population_criteria).map (p) -> p.type)
 
   valueSets: ->
-    @get('cqmMeasure').value_sets
+    @get('cqmValueSets')
 
   hasCode: (code, code_system) ->
     for vs in @valueSets()

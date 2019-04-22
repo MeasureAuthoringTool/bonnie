@@ -3,7 +3,7 @@ describe 'Navigation', ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @measures = new Thorax.Collections.Measures()
-    measure = 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
+    measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
     @measures.add(measure)
     @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
 

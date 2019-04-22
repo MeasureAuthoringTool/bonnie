@@ -90,7 +90,7 @@
       elm = @setValueSetVersionsToUndefined(elm)
 
       # Calculate results for each CQL statement
-      results = executeSimpleELM(elm, patientSource, cqm_measure.value_sets, cqm_measure.main_cql_library, main_library_version, executionDateTime, params)
+      results = executeSimpleELM(elm, patientSource, thorax_measure.valueSets(), cqm_measure.main_cql_library, main_library_version, executionDateTime, params)
 
       # Parse CQL statement results into population values
       [population_results, episode_results] = @createPopulationValues population, results, patient, observation_defs

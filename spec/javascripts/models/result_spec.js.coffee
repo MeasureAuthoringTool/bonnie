@@ -2,7 +2,7 @@ describe 'Result', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSet 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
     collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
 
@@ -95,7 +95,7 @@ describe 'Continuous Variable Calculations', ->
 
     @cql_calculator = new CQLCalculator()
 
-    @measure = loadMeasureWithValueSet 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
     @population = @measure.get('populations').at(0)
     @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
 

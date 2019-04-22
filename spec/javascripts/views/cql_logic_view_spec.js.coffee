@@ -164,7 +164,7 @@ describe 'CqlLogicView', ->
   describe 'CQL Statement Results', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS146/CMS146v6.json', 'cqm_measure_data/special_measures/CMS146/value_sets.json')
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS146/CMS146v6.json', 'cqm_measure_data/special_measures/CMS146/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS146/patients.json'), parse: true
       @population = @measure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, population: @measure.get('populations').first())

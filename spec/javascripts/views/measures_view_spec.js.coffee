@@ -37,7 +37,7 @@ describe 'MeasuresView', ->
       @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
       @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
       valueSets = getJSONFixture 'cqm_measure_data/special_measures/CMS890/value_sets.json'
-      @components.forEach((component) => component.set('cqmValueSets', valueSets)
+      @components.forEach((component) => component.set('cqmValueSets', valueSets))
       @components.forEach((component) => bonnie.measures.push(component))
 
       @compositePatients = new Thorax.Collections.Patients getJSONFixture('patients/CMS890/patients.json'), parse: true

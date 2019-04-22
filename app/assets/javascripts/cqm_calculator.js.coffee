@@ -117,7 +117,7 @@
       return results
 
     cqmMeasure = measure.get('cqmMeasure')
-    cqmValueSets = measure.get('cqmValueSets')
+    cqmValueSets = measure.valueSets()
     cqmPatients = resultsNeedingCalc.map (result) -> result.patient.get('cqmPatient')
 
     # attempt calcuation

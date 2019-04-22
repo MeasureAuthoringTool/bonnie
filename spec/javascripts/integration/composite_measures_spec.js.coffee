@@ -32,7 +32,7 @@ describe 'Composite Measure Calculations', ->
   it 'calculates correctly for a component measure', ->
     #hqmf set id BA108B7B-90B4-4692-B1D0-5DB554D2A1A2
     measure = new Thorax.Models.Measure @components[6], parse: true
-    measure.set('cqmValueSets', getJSONFixture(@valueSetsPath));
+    measure.set('cqmValueSets', getJSONFixture(@valueSetsPath))
     population = measure.get('populations').at(0)
 
     result = population.calculate(@pt1)

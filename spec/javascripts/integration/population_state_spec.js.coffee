@@ -2,7 +2,7 @@ describe "Population state between routes", ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @patient = new Thorax.Models.Patient getJSONFixture('records/core_measures/CMS160/patients.json')[0], parse: true
-    @measureToTest = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json')
+    @measureToTest = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
     @measureToTest.get('patients').add @patient
 
   it "starts with the first population", ->

@@ -2,7 +2,6 @@
   describe 'MeasureView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-
       @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
