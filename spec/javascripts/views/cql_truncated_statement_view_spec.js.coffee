@@ -1,18 +1,13 @@
 describe 'CqlTruncatedStatementView', ->
   describe 'nominal function', ->
     beforeEach ->
-      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
       jasmine.getJSONFixtures().clearCache()
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS460/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population)
       @populationLogicView.render()
-
-    afterEach ->
-      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
 
     it 'is used for OpioidData DrugIngredients statement instead of normal clause view', ->
       drugIngredientsView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "DrugIngredients" && view.libraryName == "OpioidData")
@@ -49,19 +44,16 @@ describe 'CqlTruncatedStatementView', ->
 
   describe 'lowered threshold', ->
     beforeEach ->
-      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
       # lower the threshold to use the truncated statement view on more statements
       @originalClauseThreshold = Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD
       Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD = 14
 
     afterEach ->
-      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD = @originalClauseThreshold
 
     it 'uses truncated view statement returning list of entries and can request hover highlight of the list of entries', ->
       jasmine.getJSONFixtures().clearCache()
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS460/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
@@ -88,8 +80,7 @@ describe 'CqlTruncatedStatementView', ->
 
     it 'does not hover highlight of the list of entries when highlightPatientDataEnabled is false', ->
       jasmine.getJSONFixtures().clearCache()
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS460/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS460/CMS460v0.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
@@ -111,8 +102,7 @@ describe 'CqlTruncatedStatementView', ->
 
     it 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
       jasmine.getJSONFixtures().clearCache()
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS136/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS136/CMS136v7.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS136/CMS136v7.json', 'cqm_measure_data/special_measures/CMS136/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS136/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
