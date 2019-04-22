@@ -449,7 +449,7 @@ describe 'PatientBuilderView', ->
   describe "setting expected values for CV measure", ->
     beforeEach ->
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
-      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS32/value_sets.json')
+      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS32/value_sets.json')
       patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS32v7/patients.json'), parse: true
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       @patientBuilder.appendTo 'body'
@@ -509,23 +509,22 @@ describe 'PatientBuilderView', ->
 
     afterEach -> @patientBuilder.remove()
 
-  # TODO Need to update or replace this fixture
   describe 'CQL', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS347/CMS735v0.json'), parse: true
       # preserve atomicity
-      @universalValueSetsByOid = bonnie.valueSetsByOid
+      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add(@cqlMeasure, {parse: true})
 
     afterEach ->
-      bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       bonnie.measures = @bonnie_measures_old
 
     xit "laboratory test performed should have custom view for components", ->
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS347/value_sets.json')
+      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/CQL/CMS347/value_sets.json')
       patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS347/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
       dataCriteria = patientBuilder.model.get('source_data_criteria').models
@@ -550,7 +549,8 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
 
     xit "EditCriteriaValueView does not have duplicated codes in dropdown", ->
-      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
+      # TODO(cqm-measure) Need to update or replace this fixture
+      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS107/CMS107v6.json'), parse: true
       bonnie.measures.add(cqlMeasure, { parse: true })
       patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS107/patients.json'), parse: true
@@ -570,7 +570,7 @@ describe 'PatientBuilderView', ->
       expect(codesInDropdown['Dead']).toBeDefined()
 
     xit "EditCriteriaValueView allows for input field validation to happen on change event", ->
-      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
+      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add(cqlMeasure, { parse: true })
@@ -600,7 +600,7 @@ describe 'PatientBuilderView', ->
       # behavior, but can serve as an example of how to reproduce these
       # conditions for future investigation
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-      bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
+      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
       # If bonnie.measures = new Thorax.Collections.Measures() is called here,
       # no WARNING: missing value set message will be shown
       bonnie.measures.add(cqlMeasure, { parse: true })
@@ -611,21 +611,20 @@ describe 'PatientBuilderView', ->
       editCriteriaView = new Thorax.Views.EditCriteriaView(model: assessmentPerformed, measure: cqlMeasure)
       expect(console.log).toHaveBeenCalledWith('WARNING: missing value set')
 
-  # TODO Need to update or replace this fixture
   describe 'Composite Measure', ->
 
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       # preserve atomicity
-      @universalValueSetsByOid = bonnie.valueSetsByOid
+      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
       @bonnie_measures_old = bonnie.measures
 
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
+      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
+      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
       bonnie.measures.push(@compositeMeasure)
 
-      @components = getJSONFixture('measure_data/special_measures/CMS890/components.json')
+      @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
       @components = @components.map((component) -> new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) -> bonnie.measures.push(component))
 
@@ -633,7 +632,7 @@ describe 'PatientBuilderView', ->
       @compositeMeasure.populateComponents()
 
     afterEach ->
-      bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       bonnie.measures = @bonnie_measures_old
 
     xit "should floor the observ value to at most 8 decimals", ->
@@ -672,14 +671,14 @@ describe 'Direct Reference Code Usage', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS32/value_sets.json')
+    @oldBonnieValueSetsByMeasureId = bonnie.valueSetsByMeasureId
+    bonnie.valueSetsByMeasureId = getJSONFixture("cqm_measure_data/special_measures/CMS12v0/value_sets.json")
     @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
     bonnie.measures.add(@measure, { parse: true })
     @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS32v7/patients.json'), parse: true
 
   afterEach ->
-    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
+    bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByOid
 
   xit 'Field Value Dropdown should contain direct reference code element', ->
     patientBuilder = new Thorax.Views.PatientBuilder(model: @patients.first(), measure: @measure)
@@ -706,8 +705,8 @@ describe 'Allergy Intolerance', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @universalValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture("cqm_measure_data/special_measures/CMS12v0/value_sets.json")
+    @universalValueSetsByOid = bonnie.valueSetsByMeasureId
+    bonnie.valueSetsByMeasureId = getJSONFixture("cqm_measure_data/special_measures/CMS12v0/value_sets.json")
     @measure = new Thorax.Models.Measure getJSONFixture("cqm_measure_data/special_measures/CMS12v0/CMS12v0.json"), parse: true
     bonnie.measures.add @measure
     @patients = new Thorax.Collections.Patients getJSONFixture("cqm_patients/CMS12v0/patients.json"), parse: true
@@ -719,7 +718,7 @@ describe 'Allergy Intolerance', ->
     @patientBuilder.appendTo('body')
 
   afterEach ->
-    bonnie.valueSetsByOid = @universalValueSetsByOid
+    bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
     @patientBuilder.remove()
 
   xit 'is displayed on Patient Builder Page in Elements section', ->
