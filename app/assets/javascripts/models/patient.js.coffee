@@ -2,8 +2,6 @@ class Thorax.Models.Patient extends Thorax.Model
   idAttribute: '_id'
   urlRoot: '/patients'
 
-  initialize: ->
-
   parse: (attrs) ->
     thoraxPatient = {}
     # cqmPatient will already exist if we are cloning the thoraxModel
