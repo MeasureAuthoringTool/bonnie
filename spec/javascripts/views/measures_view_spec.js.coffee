@@ -9,7 +9,6 @@ describe 'MeasuresView', ->
     @measuresView.render()
 
   afterEach ->
-    bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByMeasureId
     @measuresView.remove()
 
   it 'renders dashboard', ->
@@ -31,14 +30,14 @@ describe 'MeasuresView', ->
   describe 'Composite Measures', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @compositeMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
+      @compositeMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS890/CMS890v0.json', 'cqm_measure_data/special_measures/CMS890/value_sets.json'
       bonnie.measures.push(@compositeMeasure)
 
       @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
       @components = @components.map((component) => new Thorax.Models.Measure component, parse: true)
+      valueSets = getJSONFixture 'cqm_measure_data/special_measures/CMS890/value_sets.json'
+      @components.forEach((component) => component.set('cqmValueSets', valueSets)
       @components.forEach((component) => bonnie.measures.push(component))
 
       @compositePatients = new Thorax.Collections.Patients getJSONFixture('patients/CMS890/patients.json'), parse: true
@@ -47,7 +46,6 @@ describe 'MeasuresView', ->
       @measuresView.appendTo 'body'
 
     afterEach ->
-      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       @measuresView.remove()
 
     it 'Show title of composite measure', ->
