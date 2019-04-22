@@ -5,19 +5,15 @@ describe 'Composite Measure Calculations', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
+    @valueSetsPath = 'cqm_measure_data/special_measures/CMS890/value_sets.json'
     @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
     @cql_calculator = new CQLCalculator()
     @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
     @pt1 = @patients.findWhere(last: 'doe', first: 'jon')
     @pt2 = @patients.findWhere(last: 'smith', first: 'jane')
 
-  afterEach ->
-    bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
-    bonnie.valueSetsByMeasureIdCached = undefined
-
   it 'calculates correctly for the composite measure', ->
-    measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
+    loadMeasureWithValueSets('cqm_measure_data/special_measures/CMS890/CMS890v0.json', valueSetsPath)
     population = measure.get('populations').at(0)
 
     result = population.calculate(@pt1)
@@ -36,6 +32,7 @@ describe 'Composite Measure Calculations', ->
   it 'calculates correctly for a component measure', ->
     #hqmf set id BA108B7B-90B4-4692-B1D0-5DB554D2A1A2
     measure = new Thorax.Models.Measure @components[6], parse: true
+    measure.set('cqmValueSets', getJSONFixture(valueSetsPath));
     population = measure.get('populations').at(0)
 
     result = population.calculate(@pt1)
