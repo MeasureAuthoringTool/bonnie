@@ -159,13 +159,8 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
 
     xit "acquires the dates of the drop target when dropping on an existing criteria", ->
-<<<<<<< HEAD
-      startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
-      endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
-=======
       startDate = @patientBuilder.model.get('source_data_criteria').first().get('prevalencePeriod').low
       endDate = @patientBuilder.model.get('source_data_criteria').first().get('prevalencePeriod').high
->>>>>>> Xit out source_data_criteria tests, update patient serialization tests
       # droppable 5 used because droppable 1 didn't have a start and end date
       @addEncounter 5, '.criteria-data.droppable:first'
       expect(@patientBuilder.model.get('source_data_criteria').last().get('relevantPeriod').low).toEqual startDate
@@ -193,15 +188,9 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$("button[data-call-method=save]").click()
 
     xit "serializes the attributes correctly", ->
-<<<<<<< HEAD
-      dataCriteria = @patientBuilder.model.get('source_data_criteria').where({definition:'diagnosis', title:'Diabetes'})[0]
-      expect(dataCriteria.get('start_date')).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
-      expect(dataCriteria.get('end_date')).toBeUndefined()
-=======
       dataCriteria = this.patient.get('cqmPatient').qdmPatient.conditions()[0]
       expect(dataCriteria.get('prevelancePeriod').low).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
       expect(dataCriteria.get('prevelancePeriod').high).toBeUndefined()
->>>>>>> Xit out source_data_criteria tests, update patient serialization tests
 
     afterEach -> @patientBuilder.remove()
 
@@ -536,14 +525,8 @@ describe 'PatientBuilderView', ->
       bonnie.measures = @bonnie_measures_old
 
     xit "laboratory test performed should have custom view for components", ->
-<<<<<<< HEAD
-      # TODO(cqm-measure) Need to update or replace this fixture
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/CQL/CMS347/value_sets.json')
-      patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
-=======
       bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS347/value_sets.json')
       patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS347/patients.json'), parse: true
->>>>>>> Xit out source_data_criteria tests, update patient serialization tests
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
       dataCriteria = patientBuilder.model.get('source_data_criteria').models
       laboratoryTestIndex = dataCriteria.findIndex((m) ->  m.attributes.definition is 'laboratory_test')
@@ -567,12 +550,7 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
 
     xit "EditCriteriaValueView does not have duplicated codes in dropdown", ->
-<<<<<<< HEAD
-      # TODO(cqm-measure) Need to update or replace this fixture
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
-=======
       bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/CQL/CMS107/value_sets.json')
->>>>>>> Xit out source_data_criteria tests, update patient serialization tests
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS107/CMS107v6.json'), parse: true
       bonnie.measures.add(cqlMeasure, { parse: true })
       patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS107/patients.json'), parse: true
@@ -592,11 +570,7 @@ describe 'PatientBuilderView', ->
       expect(codesInDropdown['Dead']).toBeDefined()
 
     xit "EditCriteriaValueView allows for input field validation to happen on change event", ->
-<<<<<<< HEAD
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
-=======
       bonnie.valueSetsByOid = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
->>>>>>> Xit out source_data_criteria tests, update patient serialization tests
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add(cqlMeasure, { parse: true })

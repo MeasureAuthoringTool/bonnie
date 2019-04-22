@@ -151,10 +151,10 @@ class Thorax.Models.Patient extends Thorax.Model
     new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
 
   printDate: (date) ->
-    date.month + '/' + date.day + '/' + date.year
+    (date.month + '/' + date.day + '/' + date.year) if date
 
   printTime: (dateTime) ->
-    moment(dateTime).format('h:mm A');
+    moment(dateTime).format('h:mm A') if dateTime
 
   materialize: ->
 
@@ -238,7 +238,12 @@ class Thorax.Models.Patient extends Thorax.Model
 
     @get('source_data_criteria').each (sdc) =>
       timingInterval = Thorax.Models.PatientDataCriteria.getTimingInterval(sdc) || 'authorDatetime'
-      start_date = if sdc.get(timingInterval)?.low then moment(sdc.get(timingInterval).low, 'X') else if timingInterval == 'authorDatetime' && sdc.get(timingInterval) then moment(sdc.get(timingInterval), 'X') else null
+      if sdc.get(timingInterval)?.low
+        start_date = moment(sdc.get(timingInterval).low, 'X')
+      else if timingInterval == 'authorDatetime' && sdc.get(timingInterval)
+        start_date = moment(sdc.get(timingInterval), 'X')
+      else
+        start_date = null
       end_date = if sdc.get(timingInterval)?.high then moment(sdc.get(timingInterval).high, 'X') else null
       # patient_characteristics do not have start dates
       if !start_date && sdc.get('qdmCategory') != 'patient_characteristic'
@@ -260,19 +265,21 @@ class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'
   model: Thorax.Models.Patient
   dedupName: (patient) ->
-    return patient.cqmPatient.givenNames[0] if !(patient.cqmPatient.givenNames[0] && patient.cqmPatient.familyName)
-    #matcher to find all of the records that have the same last name and the first name starts with the first name of the
-    #patient data being duplicated
+    # Can't use patient getters here since patient is not a thorax patient at this point
+    patientFirst = patient.cqmPatient.givenNames[0]
+    patientLast = patient.cqmPatient.familyName
+    return patientFirst if !(patientFirst && patientLast)
+    # matcher to find all of the records that have the same last name and the first name starts with the first name of the
+    # patient data being duplicated
     matcher =  (record) ->
-      return false if !(record.cqmPatient.givenNames[0] && record.cqmPatient.familyName) || record.cqmPatient.familyName != patient.cqmPatient.familyName
-      return record.cqmPatient.givenNames[0].substring( 0, patient.cqmPatient.givenNames[0].length ) == patient.cqmPatient.givenNames[0];
+      return false if !(record.getFirstName() && record.getLastName()) || record.getLastName() != patientLast
+      return record.getFirstName().substring( 0, patientFirst.length ) == patientFirst;
 
     matches = @.filter(matcher)
-    givenName = patient.cqmPatient.givenNames[0]
     index = 1
-    #increment the index for any copy index that may have been previously used
-    index++ while _.find(matches, (record) -> record.cqmPatient.givenNames[0] == givenName + " ("+index+")")
-    givenName + " (" + index + ")"
+    # increment the index for any copy index that may have been previously used
+    index++ while _.find(matches, (record) -> record.getFirstName() == patientFirst + " ("+index+")")
+    patientFirst + " (" + index + ")"
 
   toOids: ->
     patientToOids = {} # patient medical_record_number : valueSet oid
