@@ -4,7 +4,6 @@
 describe 'Composite Measure Calculations', ->
 
   beforeEach ->
-    @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
     jasmine.getJSONFixtures().clearCache()
     bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS890/value_sets.json')
     @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
@@ -52,4 +51,3 @@ describe 'Composite Measure Calculations', ->
     expect(result.get('DENEX')).toEqual 0
     expect(result.get('NUMER')).toEqual 1
     expect(result.get('DENEXCEP')).toEqual 0
-    
