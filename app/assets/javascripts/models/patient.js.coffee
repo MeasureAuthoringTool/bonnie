@@ -19,14 +19,12 @@ class Thorax.Models.Patient extends Thorax.Model
 
   # Create a deep clone of the patient, optionally omitting the id field
   deepClone: (options = {}) ->
-    data = @.clone().toJSON()
-    data['cqmPatient'] = mongoose.utils.clone(data['cqmPatient'] )
-    # Remove _id from cqmPatient, mongoose will generate new _id upon construction
-    if options.new_id then data['cqmPatient'] = _(data['cqmPatient']).omit('_id')
+    clonedPatient = @.clone()
+    clonedPatient.set 'cqmPatient', new cqm.models.Patient(mongoose.utils.clone(clonedPatient.get('cqmPatient')))
+    if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
     if options.dedupName
-       data['cqmPatient']['givenNames'][0] = bonnie.patients.dedupName(data)
-
-    new @constructor data, parse: true
+       clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
+    clonedPatient
 
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
@@ -91,40 +89,40 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(new Date(birthdate))
     sourceElement = @removeElementAndGetNewCopy('birthdate', measure)
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicBirthdate().toObject()
+      sourceElement = new cqm.models.PatientCharacteristicBirthdate()
     sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientDeathDate: (deathdate, measure) ->
     sourceElement = @removeElementAndGetNewCopy('expired', measure)
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicExpired().toObject()
+      sourceElement = new cqm.models.PatientCharacteristicExpired()
     sourceElement.expiredDatetime = @createCQLDate(new Date(deathdate))
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientGender: (gender, measure) ->
     sourceElement = @removeElementAndGetNewCopy('gender', measure)
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicSex().toObject()
+      sourceElement = new cqm.models.PatientCharacteristicSex()
     genderConcept = (@getConceptsForDataElement('gender', measure).filter (elem) -> elem.code == gender)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(genderConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientRace: (race, measure) ->
     sourceElement = @removeElementAndGetNewCopy('race', measure)
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicRace().toObject()
+      sourceElement = new cqm.models.PatientCharacteristicRace()
     raceConcept = (@getConceptsForDataElement('race', measure).filter (elem) -> elem.code == race)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(raceConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientEthnicity: (ethnicity, measure) ->
     sourceElement = @removeElementAndGetNewCopy('ethnicity', measure)
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicEthnicity().toObject()
+      sourceElement = new cqm.models.PatientCharacteristicEthnicity()
     ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientPayer: (payer, measure) ->
     sourceElement = @removeElementAndGetNewCopy('payer', measure)
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicPayer().toObject()
+      sourceElement = new cqm.models.PatientCharacteristicPayer()
     payerConcept = (@getConceptsForDataElement('payer', measure).filter (elem) -> elem.code == payer)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(payerConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
@@ -132,7 +130,8 @@ class Thorax.Models.Patient extends Thorax.Model
   removeElementAndGetNewCopy: (elementType, measure) ->
     element = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == elementType)[0]
     if element
-      @get('cqmPatient').qdmPatient.dataElements.remove(element)
+      elementIndex = @get('cqmPatient').qdmPatient.dataElements.indexOf(element)
+      @attributes.cqmPatient.qdmPatient.dataElements.splice(elementIndex, 1)
     # return copy of dataElement off the measure
     mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0])
 
@@ -264,8 +263,8 @@ class Thorax.Collections.Patients extends Thorax.Collection
   model: Thorax.Models.Patient
   dedupName: (patient) ->
     # Can't use patient getters here since patient is not a thorax patient at this point
-    patientFirst = patient.cqmPatient.givenNames[0]
-    patientLast = patient.cqmPatient.familyName
+    patientFirst = patient.getFirstName()
+    patientLast = patient.getLastName()
     return patientFirst if !(patientFirst && patientLast)
     # matcher to find all of the records that have the same last name and the first name starts with the first name of the
     # patient data being duplicated
