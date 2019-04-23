@@ -1,0 +1,31 @@
+<div class="modal fade" id="sharePatientsDialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog"  role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="modalTitle">Share Patients Across Measures</h1>
+      </div>
+      <div class="modal-body">
+            <div class="alert alert-info">Please select which measures you would like to transfer all patients to</div>
+            <div class="form-group">
+            <label for="measureTitles" class="control-label">Measures:</label>
+            <div id="measureTitles">
+            {{#each shareableMeasures.models}}
+            {{#with attributes}}
+                <div class="form-group">
+                    <div class="checkbox">
+                    <label>
+                        <input id="title{{@index}}_{{@cid}}" type="checkbox" name="{{@cid}}[titles[{{@index}}]]" value="true" checked="true"> {{title}}
+                    </label>
+                    </div>
+                </div>
+            {{/with}}
+            {{/each}}
+            </div>
+            </div>
+        <div class="modal-footer">
+        <button type="button" id="sharePatientsSubmit" class="btn btn-primary">Done</button>
+      </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
