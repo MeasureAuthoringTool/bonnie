@@ -320,7 +320,7 @@
                 episode_results[element.id().value] = newEpisode
         else
           console.log('WARNING: CQL Results not an array') if console?
-    if observation_defs?.length > 0 
+    if observation_defs?.length > 0
       # Handle observations using the names of the define statements that
       # were added to the ELM to call the observation functions.
       for ob_def in observation_defs
@@ -457,7 +457,7 @@
     return resultShown
 
   ###
-  # Iterate over episode results, call _buildPopulationRelevanceMap for each result 
+  # Iterate over episode results, call _buildPopulationRelevanceMap for each result
   # OR population relevances together so that populations are marked as relevant
   # based on all episodes instead of just one
   # @private
@@ -487,23 +487,6 @@
           if valueSet['version']?
             valueSet['version'] = undefined
     elm
-
-  # Format ValueSets for use by CQL4Browsers
-  valueSetsForCodeService: (value_set_oid_version_objects, hqmf_set_id) ->
-    # Cache this refactoring so it only happens once per user rather than once per measure population
-    if !bonnie.valueSetsByMeasureIdCached
-      bonnie.valueSetsByMeasureIdCached = {}
-
-    if !bonnie.valueSetsByMeasureIdCached[hqmf_set_id]
-      valueSets = {}
-      for value_set in value_set_oid_version_objects
-        continue unless value_set.concepts
-        valueSets[value_set['oid']] ||= {}
-        valueSets[value_set['oid']][value_set['version']] ||= []
-        for concept in value_set.concepts
-          valueSets[value_set['oid']][value_set['version']].push code: concept.code, system: concept.code_system_name, version: value_set['version']
-      bonnie.valueSetsByMeasureIdCached[hqmf_set_id] = valueSets
-    bonnie.valueSetsByMeasureIdCached[hqmf_set_id]
 
   # Converts the given time to the correct format using momentJS
   getConvertedTime: (timeValue) ->

@@ -3,36 +3,6 @@ describe 'cqmCalculator', ->
     jasmine.getJSONFixtures().clearCache()
     @cqm_calculator = new CQMCalculator()
 
-  describe 'valueSetsForCodeService', ->
-    xit 'returns bonnie.valueSetsByMeasureIdCached if it exists', ->
-      bonnie.valueSetsByMeasureIdCached = {'foo': []}
-      expect(@cql_calculator.valueSetsForCodeService(bonnie.valueSetsByMeasureId, 'foo')).toEqual([])
-      bonnie.valueSetsByMeasureIdCached = undefined
-
-    xit 'returns an empty hash if given empty hash', ->
-      expect(bonnie.valueSetsByMeasureIdCached).not.toBeDefined()
-      bonnie.valueSetsByMeasureId = {}
-      emptyRefactoredValueSets = @cql_calculator.valueSetsForCodeService(bonnie.valueSetsByMeasureId, '')
-      expect(Object.keys(emptyRefactoredValueSets).length).toEqual(0)
-      expect(bonnie.valueSetsByMeasureIdCached).toEqual({'':{}})
-      bonnie.valueSetsByMeasureIdCached = undefined
-
-    xit 'properly caches refactored bonnie.valueSetsByMeasureId', ->
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
-      measure = getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json')
-      measure.value_sets = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
-      @cqm_calculator.valueSetsForCodeService(measure.value_set_oid_version_objects, measure.hqmf_set_id)
-      expect(oldRefactoredValueSets).toExist()
-      expect(bonnie.valueSetsByMeasureIdCached).toExist()
-      bonnie.valueSetsByMeasureId = {} # If cache isn't used, next line will be {} as shown in previous test
-      newRefactoredValueSets = @cqm_calculator.valueSetsForCodeService(measure.value_set_oid_version_objects, measure.hqmf_set_id)
-      expect(newRefactoredValueSets).toExist()
-      expect(newRefactoredValueSets).not.toEqual({})
-      expect(oldRefactoredValueSets).toEqual(bonnie.valueSetsByMeasureIdCached[measure.hqmf_set_id])
-      expect(oldRefactoredValueSets).toEqual(newRefactoredValueSets)
-      expect(bonnie.valueSetsByMeasureIdCached[measure.hqmf_set_id]['2.16.840.1.113883.3.67.1.101.1.246']['Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C'].length).toEqual(64)
-      bonnie.valueSetsByMeasureIdCached = undefined
-
   describe 'setValueSetVersionsToUndefined', ->
     xit 'returns valueSets with versions set to undefined', ->
       measure = getJSONFixture('cqm_measure_data/special_measures/CMS720/CMS720v0.json')
