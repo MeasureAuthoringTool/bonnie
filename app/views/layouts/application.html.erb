@@ -42,42 +42,34 @@
       bonnie.isDashboard = <%= current_user.is_dashboard? %>;
       bonnie.isAdmin = <%= current_user.is_admin? %>;
       bonnie.currentUserId = '<%= current_user.id %>';
-
-      $.when.apply(this, bonnie.measures.map((m) => m.convertMeasure())).then(function () {
-        console.log("Done converting measures!");
-
-        <% @patients.each do |patient| %>
-          (function() {
-            var patient = new Thorax.Models.Patient(<%= json_escape(MultiJson.encode(patient.as_json(except: :results))).html_safe %>, { parse: true });
-            bonnie.measures.each(function(measure) {
-              if (bonnie.isPortfolio) {
-                measure.get('patients').add(patient);
-              } else if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
-                measure.get('patients').add(patient);
-              }
-            });
-            // FIXME bonnie.patients is deprecated and will be going away shortly
-            bonnie.patients.add(patient);
-          })();
-        <% end %>
-        return $.when.apply(this, bonnie.patients.map((p) => p.convertPatient()));
-      }).then(function() {
-        console.log("Done converting patients!");
-        $(document).ready(function() {
-          Backbone.history.start();
-          <% if (flash[:error]) %>
-            bonnie.showError(<%= json_escape(flash[:error].to_json).html_safe %>);
-          <% end %>
-          $('.skip-content').click(function(e) {
-            e.preventDefault();
-            $('#bonnie').attr('tabindex', -1).on('blur focusout', function() {
-              $(this).removeAttr('tabindex');
-            }).focus();
+      <% @patients.each do |patient| %>
+        (function() {
+          var patient = new Thorax.Models.Patient(<%= json_escape(MultiJson.encode(patient.as_json(except: :results))).html_safe %>, { parse: true });
+          bonnie.measures.each(function(measure) {
+            if (bonnie.isPortfolio) {
+              measure.get('patients').add(patient);
+            } else if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
+              measure.get('patients').add(patient);
+            }
           });
+          // FIXME bonnie.patients is deprecated and will be going away shortly
+          bonnie.patients.add(patient);
+        })();
+       <% end %>
+      $(document).ready(function() {
+        Backbone.history.start();
+        <% if (flash[:error]) %>
+          bonnie.showError(<%= json_escape(flash[:error].to_json).html_safe %>);
+        <% end %>
+        $('.skip-content').click(function(e) {
+          e.preventDefault();
+          $('#bonnie').attr('tabindex', -1).on('blur focusout', function() {
+            $(this).removeAttr('tabindex');
+          }).focus();
         });
-        // prevent fetching directly from server after bootstrapping measures
-        bonnie.measures._fetched = true;
       });
+      // prevent fetching directly from server after bootstrapping measures
+      bonnie.measures._fetched = true;
     </script>
   </body>
 </html>

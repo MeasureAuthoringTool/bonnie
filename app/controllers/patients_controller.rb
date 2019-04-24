@@ -85,14 +85,6 @@ class PatientsController < ApplicationController
     send_data package.to_stream.read, type: "application/xlsx", filename: "#{params[:file_name]}.xlsx"
   end
 
-  def to_cqm
-    hds_patients = [Record.by_user(current_user).find(params[:id])]
-    cqm_patients, errored_patients = PatientHelper.convert_patient_models(hds_patients)
-    raise StandardError.new("failed to convert patient") if errored_patients.size > 0
-    render json: cqm_patients[0]
-  end
-
-
 private
 
   def update_patient(patient)
