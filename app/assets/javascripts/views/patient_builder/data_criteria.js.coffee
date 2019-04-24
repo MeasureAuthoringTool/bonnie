@@ -32,7 +32,7 @@ class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
   context: ->
     # dataelements such as birthdate do not have descriptions
     if !@model.get('description')
-        desc = "" 
+      desc = "" 
     else
       desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
     _(super).extend
@@ -114,12 +114,12 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       desc = desc.substring(desc.indexOf(':')+2)
     timingInterval = Thorax.Models.PatientDataCriteria.getTimingInterval(@model) || 'authorDatetime'
     _(super).extend
-      start_date: moment.utc(@model.get(timingInterval).low).format('L') if @model.get(timingInterval)?.low
-      start_time: moment.utc(@model.get(timingInterval).low).format('LT') if @model.get(timingInterval)?.low
+      start_date: moment.utc(@model.get(timingInterval).low).format('L') if @model.get(timingInterval)?.low?
+      start_time: moment.utc(@model.get(timingInterval).low).format('LT') if @model.get(timingInterval)?.low?
       start_date: moment.utc(@model.get(timingInterval)).format('L') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
       start_time: moment.utc(@model.get(timingInterval)).format('LT') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
-      end_date: moment.utc(@model.get(timingInterval).high).format('L') if @model.get(timingInterval)?.high
-      end_time: moment.utc(@model.get(timingInterval).high).format('LT') if @model.get(timingInterval)?.high
+      end_date: moment.utc(@model.get(timingInterval).high).format('L') if @model.get(timingInterval)?.high?
+      end_time: moment.utc(@model.get(timingInterval).high).format('LT') if @model.get(timingInterval)?.high?
       end_date_is_undefined: !@model.get(timingInterval)?.high?
       description: desc
       value_sets: @model.measure()?.valueSets().map((vs) -> vs) or []

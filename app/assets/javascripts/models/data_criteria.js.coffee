@@ -42,7 +42,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     if !@isPeriodType() then @set('end_date', undefined)
 
   parse: (attrs) ->
-    fieldValueBlacklist = ['_id', 'authorDatetime', 'relevantPeriod', 'dataElementCodes', 'description', 'hqmfOid', 'id', 'prevalencePeriod', 'qdmCategory', 'qdmVersion', 'qrdaOid', '_type', 'criteria_id', 'value', 'qdmStatus', 'negationRationale']
+    fieldValueBlacklist = ['_id', 'relevantPeriod', 'dataElementCodes', 'description', 'hqmfOid', 'id', 'prevalencePeriod', 'qdmCategory', 'qdmVersion', 'qrdaOid', '_type', 'criteria_id', 'value', 'qdmStatus', 'negationRationale']
     fieldValuesOnDataElement = _.difference(Object.keys(attrs), fieldValueBlacklist)
     attrs.criteria_id ||= Thorax.Models.PatientDataCriteria.generateCriteriaId()
     attrs.value = new Thorax.Collection(attrs.value)
