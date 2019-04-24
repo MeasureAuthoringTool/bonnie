@@ -29,16 +29,18 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
 
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
   addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model
-  context: ->
+  parseDescription: (description) ->
     # dataelements such as birthdate do not have descriptions
-    if !@model.get('description')
-      desc = "" 
+    if !description
+      "" 
     else
-      desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
+      description.split(/, (.*:.*)/)?[1] or description
+  context: ->
+    parseDescription: (description) 
     _(super).extend
-      type: desc.split(": ")[0]
-      # everything after the data criteria type is the detailed description
-      detail: desc.substring(desc.indexOf(':')+2)
+    type: desc.split(": ")[0]
+    # everything after the data criteria type is the detailed description
+    detail: desc.substring(desc.indexOf(':')+2)
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
@@ -105,10 +107,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-    if !@model.get('description')
-      desc = "" 
-    else
-      desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
+    desc = Thorax.Views.SelectCriteriaItemView.parseDescription(@model.get('description'))
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
