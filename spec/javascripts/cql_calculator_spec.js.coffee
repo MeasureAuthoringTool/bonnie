@@ -159,7 +159,7 @@ describe 'cqmCalculator', ->
           expect(result5.get('statement_results').PotentialOpioidOveruse['Prescriptions with MME'].pretty).toContain('MME: QUANTITY: 0.13 mg/d')
           expect(result5.get('statement_results').OpioidData.DrugIngredients.pretty).toContain('drugName: "72 HR Fentanyl 0.075 MG/HR Transdermal System"')
 
-         it 'for CMS872 correctly', ->
+        it 'for CMS872 correctly', ->
           measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS872v0/CMS872v0.json', 'cqm_measure_data/special_measures/CMS872v0/value_sets.json'
           patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS872v0/patients.json'), parse: true
           ratioUnitConversionCorrect = patients.models[0]

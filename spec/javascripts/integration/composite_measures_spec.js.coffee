@@ -7,7 +7,7 @@ describe 'Composite Measure Calculations', ->
     jasmine.getJSONFixtures().clearCache()
     @valueSetsPath = 'cqm_measure_data/special_measures/CMS890/value_sets.json'
     @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
-    @cql_calculator = new CQLCalculator()
+    @cqm_calculator = new CQMCalculator()
     @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
     @pt1 = @patients.findWhere(last: 'doe', first: 'jon')
     @pt2 = @patients.findWhere(last: 'smith', first: 'jane')
