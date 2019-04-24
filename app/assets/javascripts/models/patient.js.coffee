@@ -2,20 +2,6 @@ class Thorax.Models.Patient extends Thorax.Model
   idAttribute: '_id'
   urlRoot: '/patients'
 
-  convertPatient: =>
-    @conversionDeferred = $.Deferred()
-
-    $.getJSON("/patients/#{@get('_id')}/to_cqm")
-      .done (patientJSON) =>
-        patient = new cqm.models.QDMPatient(patientJSON)
-        @set('cqmPatient', patient)
-        @conversionDeferred.resolve()
-      .fail (data) =>
-        @conversionDeferred.resolve()
-        console.error("Failed to convert #{@get('_id')} - #{@get('first')} #{@get('last')}")
-    
-    return @conversionDeferred
-
   parse: (attrs) ->
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
     attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
@@ -96,7 +82,7 @@ class Thorax.Models.Patient extends Thorax.Model
     patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
     return if @previousPatientJSON == patientJSON
     @previousPatientJSON = patientJSON
-    
+
     $.ajax
       url:         "#{@urlRoot}/materialize"
       type:        'POST'
