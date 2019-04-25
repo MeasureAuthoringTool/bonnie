@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: d909c73ffac92e0363b6efa38bf2473b3e6a1f9d
+  revision: 0049a1fbc3c08bb01bce5637608bc7ecab466333
   branch: bonnie_version
   specs:
     cqm-parsers (0.2.1)
@@ -69,7 +69,7 @@ GIT
       mongoid (~> 5.0.0)
       mongoid-tree (~> 2.0.0)
       mustache
-      nokogiri (~> 1.8.5)
+      nokogiri (>= 1.8.5, < 1.11.0)
       protected_attributes (~> 1.0.5)
       rubyzip (~> 1.2.2)
       typhoeus
