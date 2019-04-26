@@ -1,0 +1,69 @@
+<div class="modal fade" id="measurementPeriodDialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog"  role="dialog" aria-labelledby="measurementPeriodModalTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        {{#button "close" class="close" aria-hidden="true"}}&times;{{/button}}
+        <h1 class="modal-title" id="measurementPeriodModalTitle">Change Measurement Period</h1>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="measurementPeriodStartInput" class="col-sm-3 control-label">Start</label>
+            
+            <div class="col-sm-4" style="padding-right: 0px;">
+              <div class="form-control">01/01/2012</div>
+            </div>
+
+            <div class="col-sm-1" style="line-height: 34px; text-align: center;"><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></div>
+
+            <div class="col-sm-4" style="padding-left: 0px;">
+              <div class="datetime-control">
+                <div>
+                  <input type="text" name="start_date" id="measurementPeriodStartInput" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" value="01/01/2012"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="measurementPeriodEndInput" class="col-sm-3 control-label">End</label>
+
+            <div class="col-sm-4" style="padding-right: 0px;">
+              <div class="form-control">12/31/2012</div>
+            </div>
+
+            <div class="col-sm-1" style="line-height: 34px; text-align: center;"><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></div>
+
+            <div class="col-sm-4" style="padding-left: 0px;">
+              <div class="datetime-control">
+                <div>
+                  <input type="text" name="start_date" id="measurementPeriodEndInput" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" value="12/31/2012"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="measurementPeriodShiftDates" class="col-sm-3 control-label">Patients</label>
+            <div class="col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input id="measurementPeriodShiftDates" type="checkbox" name="vsac_query_measure_defined" value="true" checked="checked"/>Shift dates in patient elements.
+                </label>
+                <div><i>This option shifts all dates on all patients in this measure in relation to the change between the current start time and the new start time.</i></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <div class="form-group">
+            <div class="col-sm-offset-3">
+            {{#button "close" class="btn btn-default"}}Cancel{{/button}}
+            {{#button "submit" class="btn btn-primary" id="loadButton" disabled=true}}Change Period{{/button}}
+            </div>  
+          </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
