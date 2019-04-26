@@ -218,13 +218,13 @@ class Thorax.Models.Patient extends Thorax.Model
     expiredElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
     deathdate = if @get('expired') && expiredElement.expiredDatetime then moment(expiredElement.expiredDatetime, 'X') else null
 
-    unless @getFirstName().length > 0
+    unless @getFirstName()?.length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
-    unless @getLastName().length > 0
+    unless @getLastName()?.length > 0
       errors.push [@cid, 'last', 'Name fields cannot be blank']
     unless birthdate
       errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
-    if @get('expired') && !deathdate
+    if @get('expired')? && !deathdate
       errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
     if birthdate && birthdate.year() < 1000
       errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
