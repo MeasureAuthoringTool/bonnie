@@ -224,7 +224,7 @@ class Thorax.Models.Patient extends Thorax.Model
       errors.push [@cid, 'last', 'Name fields cannot be blank']
     unless birthdate
       errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
-    if @get('expired')? && !deathdate
+    if @get('expired') && !deathdate
       errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
     if birthdate && birthdate.year() < 1000
       errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
