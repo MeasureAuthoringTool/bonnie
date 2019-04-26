@@ -142,23 +142,26 @@ namespace :bonnie do
           if diff.empty?
             print ".".green
           else
-            fail_count += 1
-            puts "Conversion Difference".yellow
+            puts "\nConversion Difference".yellow
             measure_user = User.find_by(_id: measure[:user_id])
             puts "Measure #{measure.cms_id}: #{measure.title} with id #{measure._id} in account #{measure_user.email}".light_blue
             diff.each_entry do |element|
               puts "--- #{element} --- Is different from CQL measure".light_blue
             end
+            fail_count += 1
           end
+        rescue StandardError => e
+          fail_count += 1
+          puts "\nMeasure  #{measure.title} #{measure.cms_id} with id #{measure._id} failed with message: #{e.message}".red
         rescue ExecJS::ProgramError => e
+          fail_count += 1
           # if there was a conversion failure we should record the resulting failure message with the measure
-          puts "Measure  #{measure.title} #{measure.cms_id} failed with message: #{e.message}".red
+          puts "\nMeasure  #{measure.title} #{measure.cms_id} with id #{measure._id} failed with message: #{e.message}".red
         end
       end
-      puts '**** Done converting ****'
+      puts "\n**** Done converting ****"
       puts "Successful Conversions: #{bonnie_cql_measures.count - fail_count}"
-      puts "Unsuccessful Conversion*: #{fail_count}"
-      puts "* - the converted measure exists, but the data is off in some way from the original CQL measure"
+      puts "Unsuccessful/Failed Conversions: #{fail_count}"
     end
 
     def self.measure_conversion_diff(cql_measure, cqm_measure)
