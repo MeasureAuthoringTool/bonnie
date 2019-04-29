@@ -1,7 +1,7 @@
 class MeasuresController < ApplicationController
   include MeasureHelper
 
-  skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
+  skip_before_action :verify_authenticity_token, only: [:show]
 
   respond_to :json, :js, :html
 
@@ -17,18 +17,6 @@ class MeasuresController < ApplicationController
       @measure_json = MultiJson.encode(raw_json)
       respond_with @measure do |format|
         format.json { render json: @measure_json }
-      end
-    end
-  end
-
-  def value_sets
-    if true # Used to reduce indentation diffs while line above is disabled
-      cqm_measures = CQM::Measure.where(user_id: current_user.id)
-      @value_sets_by_measure_id_json = {}
-
-      @value_sets_final = MultiJson.encode @value_sets_by_measure_id_json
-      respond_with @value_sets_final do |format|
-        format.json { render json: @value_sets_final }
       end
     end
   end

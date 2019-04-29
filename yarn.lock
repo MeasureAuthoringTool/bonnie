@@ -333,9 +333,9 @@ core-util-is@~1.0.0:
     moment "^2.20.1"
     ucum "0.0.7"
 
-"cqm-execution@https://github.com/projecttacoma/cqm-execution":
+"cqm-execution@https://github.com/projecttacoma/cqm-execution.git":
   version "1.0.2"
-  resolved "https://github.com/projecttacoma/cqm-execution#d2e3e4f4079f4057f5370753ebaa52d13fda6d7c"
+  resolved "https://github.com/projecttacoma/cqm-execution.git#20767a9cdbdf093fc3568d5128f5e3684155d3f7"
   dependencies:
     cqm-models "https://github.com/projecttacoma/cqm-models#master"
     lodash "^4.17.5"
