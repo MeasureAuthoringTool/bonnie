@@ -21,7 +21,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_nil measure[:calculation_method]
     assert_equal measure[:continuous_variable], true
     assert_equal measure[:episode_of_care], true
-    Rake::Task['bonnie:cql:convert_measures'].execute()
+    Rake::Task['bonnie:cql:convert_measures'].execute
     converted_measure = CQM::Measure.by_user(@user).first
     assert_equal converted_measure[:hqmf_set_id], '3FD13096-2C8F-40B5-9297-B714E8DE9133'
     assert_equal converted_measure[:measure_scoring], 'CONTINUOUS_VARIABLE'
@@ -38,8 +38,8 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_equal patient[:notes], ''
     assert_equal patient[:measure_ids], ["3FD13096-2C8F-40B5-9297-B714E8DE9133", nil]
     assert_nil patient[:qdmPatient]
-    Rake::Task['bonnie:cql:convert_measures'].execute()
-    Rake::Task['bonnie:cql:convert_patients'].execute()
+    Rake::Task['bonnie:cql:convert_measures'].execute
+    Rake::Task['bonnie:cql:convert_patients'].execute
     converted_patient = CQM::Patient.where(givenNames: ['Visits']).first
     assert_equal converted_patient[:bundleId], '5a57e977942c6d1e61d32f14'
     assert_equal converted_patient[:familyName], "2 ED"
