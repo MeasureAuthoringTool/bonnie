@@ -1,5 +1,4 @@
 {
-  "_id": "5c65c94857a11ed3696293e3",
   "calculate_sdes": null,
   "calculation_method": "EPISODE_OF_CARE",
   "cms_id": "CMS177v6",
@@ -11,7 +10,6 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5c65c94857a11ed3696293e4",
       "cql": "library ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment version '6.0.002'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Face-to-Face Interaction\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1048'\r\nvalueset \"Group Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1187'\r\nvalueset \"Major Depressive Disorder-Active\": 'urn:oid:2.16.840.1.113883.3.526.3.1491'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Outpatient Consultation\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1008'\r\nvalueset \"Psych Visit - Diagnostic Evaluation\": 'urn:oid:2.16.840.1.113883.3.526.3.1492'\r\nvalueset \"Psych Visit - Family Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1018'\r\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'\r\nvalueset \"Psychoanalysis\": 'urn:oid:2.16.840.1.113883.3.526.3.1141'\r\nvalueset \"Suicide Risk Assessment\": 'urn:oid:2.16.840.1.113883.3.526.3.1484'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\t\"Encounter with Major Depressive Disorder Diagnosis\" Enc\r\n\t\twith [\"Intervention, Performed\": \"Suicide Risk Assessment\"] Intervention\r\n\t\t\tsuch that Intervention.relevantPeriod during Enc.relevantPeriod\r\n\r\ndefine \"Encounter with Major Depressive Disorder Diagnosis\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Outpatient Consultation\"]\r\n\t\tunion [\"Encounter, Performed\": \"Face-to-Face Interaction\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Diagnostic Evaluation\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Family Psychotherapy\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Psychotherapy\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psychoanalysis\"]\r\n\t\tunion [\"Encounter, Performed\": \"Group Psychotherapy\"] ) Enc\r\n\t\twhere exists ( Enc.diagnoses Diagnosis\r\n\t\t\t\twhere Diagnosis in \"Major Depressive Disorder-Active\"\r\n\t\t)\r\n\t\t\tand Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\t\"Encounter with Major Depressive Disorder Diagnosis\" Enc\r\n\t\twhere AgeInYearsAt(start of \"Measurement Period\")>= 6\r\n\t\t\tand AgeInYearsAt(start of \"Measurement Period\")< 17\r\n",
       "elm": {
         "library": {
@@ -3031,61 +3029,53 @@
         }
       },
       "is_main_library": true,
+      "is_top_level": true,
       "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
       "library_version": "6.0.002",
       "statement_dependencies": [
         {
-          "_id": "5c65c94857a11ed3696293e5",
           "statement_name": "Patient"
         },
         {
-          "_id": "5c65c94857a11ed3696293e6",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5c65c94857a11ed3696293e7",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5c65c94857a11ed3696293e8",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5c65c94857a11ed3696293e9",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5c65c94857a11ed3696293ea",
           "statement_name": "Encounter with Major Depressive Disorder Diagnosis"
         },
         {
-          "_id": "5c65c94857a11ed3696293eb",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5c65c94857a11ed3696293ec",
+              "hqmf_id": null,
               "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
               "statement_name": "Encounter with Major Depressive Disorder Diagnosis"
             }
           ]
         },
         {
-          "_id": "5c65c94857a11ed3696293ed",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5c65c94857a11ed3696293ee",
+              "hqmf_id": null,
               "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
               "statement_name": "Initial Population"
             }
           ]
         },
         {
-          "_id": "5c65c94857a11ed3696293ef",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5c65c94857a11ed3696293f0",
+              "hqmf_id": null,
               "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
               "statement_name": "Encounter with Major Depressive Disorder Diagnosis"
             }
@@ -3095,344 +3085,6 @@
     }
   ],
   "created_at": null,
-  "data_criteria": {
-    "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d9034ec707c": {
-      "title": "Face-to-FaceInteraction",
-      "description": "Encounter, Performed: Face-to-FaceInteraction",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d9034ec707c_source",
-      "variable": false
-    },
-    "Payer_PatientCharacteristicPayer_017dc6d3_9c8e_49de_8ffd_10a2b6194af1": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_017dc6d3_9c8e_49de_8ffd_10a2b6194af1_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "619",
-          "62",
-          "63",
-          "64",
-          "69",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_9875ed53_df03_4176_b93c_722d680ad79b": {
-      "title": "ONCAdministrativeSex",
-      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_9875ed53_df03_4176_b93c_722d680ad79b_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "OutpatientConsultation_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7070": {
-      "title": "OutpatientConsultation",
-      "description": "Encounter, Performed: OutpatientConsultation",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OutpatientConsultation_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7070_source",
-      "variable": false
-    },
-    "PsychVisit_DiagnosticEvaluation_EncounterPerformed_40280381_3d61_56a7_013e_9046741b6c87": {
-      "title": "PsychVisit-DiagnosticEvaluation",
-      "description": "Encounter, Performed: PsychVisit-DiagnosticEvaluation",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1492",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PsychVisit_DiagnosticEvaluation_EncounterPerformed_40280381_3d61_56a7_013e_9046741b6c87_source",
-      "variable": false
-    },
-    "PsychVisit_Psychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034ec708d": {
-      "title": "PsychVisit-Psychotherapy",
-      "description": "Encounter, Performed: PsychVisit-Psychotherapy",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1496",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PsychVisit_Psychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034ec708d_source",
-      "variable": false
-    },
-    "GroupPsychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb706b": {
-      "title": "GroupPsychotherapy",
-      "description": "Encounter, Performed: GroupPsychotherapy",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1187",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "GroupPsychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb706b_source",
-      "variable": false
-    },
-    "PsychVisit_FamilyPsychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7074": {
-      "title": "PsychVisit-FamilyPsychotherapy",
-      "description": "Encounter, Performed: PsychVisit-FamilyPsychotherapy",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1018",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PsychVisit_FamilyPsychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7074_source",
-      "variable": false
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_37c22a2d_a1d9_43f1_ae5b_c6fb2041c530": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_37c22a2d_a1d9_43f1_ae5b_c6fb2041c530_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "Psychoanalysis_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7076": {
-      "title": "Psychoanalysis",
-      "description": "Encounter, Performed: Psychoanalysis",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1141",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Psychoanalysis_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7076_source",
-      "variable": false
-    },
-    "Race_PatientCharacteristicRace_f4f79a4e_4a9e_456a_ae10_c7826e5bdca6": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_f4f79a4e_4a9e_456a_ae10_c7826e5bdca6_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    },
-    "SuicideRiskAssessment_InterventionPerformed_40280381_3d61_56a7_013e_5d9034ec708a": {
-      "title": "SuicideRiskAssessment",
-      "description": "Intervention, Performed: SuicideRiskAssessment",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1484",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "SuicideRiskAssessment_InterventionPerformed_40280381_3d61_56a7_013e_5d9034ec708a_source",
-      "variable": false
-    },
-    "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb706f": {
-      "title": "OfficeVisit",
-      "description": "Encounter, Performed: OfficeVisit",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb706f_source",
-      "variable": false
-    }
-  },
   "description": "Percentage of patient visits for those patients aged 6 through 17 years with a\ndiagnosis of major depressive disorder with an assessment for suicide risk",
   "hqmf_id": "40280382-5FA6-FE85-0160-0498BA791EE8",
   "hqmf_set_id": "848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3",
@@ -3951,384 +3603,375 @@
   },
   "population_sets": [
     {
-      "_id": "5c65c94857a11ed3696293f1",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
-          "_id": "5c65c94857a11ed3696293f2",
+          "hqmf_id": "FB9470CF-9D17-4D21-A56C-DD50333C41DB",
           "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5c65c94857a11ed3696293f3",
+          "hqmf_id": "814DC710-4366-4E53-8747-EA68A1D82146",
           "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5c65c94857a11ed3696293f4",
+          "hqmf_id": "487BEADB-29B5-43D7-8E33-F0E40184E27B",
           "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
           "statement_name": "Numerator"
         },
-        "_id": "5c65c94857a11ed3696293f5"
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     }
   ],
-  "source_data_criteria": {
-    "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d9034ec707c_source": {
-      "title": "Face-to-FaceInteraction",
+  "source_data_criteria": [
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1048",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: Face-to-FaceInteraction",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d9034ec707c_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236dd"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "Payer_PatientCharacteristicPayer_017dc6d3_9c8e_49de_8ffd_10a2b6194af1_source": {
-      "title": "Payer",
+    {
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_017dc6d3_9c8e_49de_8ffd_10a2b6194af1_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "619",
-          "62",
-          "63",
-          "64",
-          "69",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236de"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_9875ed53_df03_4176_b93c_722d680ad79b_source": {
-      "title": "ONCAdministrativeSex",
+    {
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_9875ed53_df03_4176_b93c_722d680ad79b_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236df"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "OutpatientConsultation_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7070_source": {
-      "title": "OutpatientConsultation",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1008",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: OutpatientConsultation",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OutpatientConsultation_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7070_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e0"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "PsychVisit_DiagnosticEvaluation_EncounterPerformed_40280381_3d61_56a7_013e_9046741b6c87_source": {
-      "title": "PsychVisit-DiagnosticEvaluation",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.526.3.1492",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: PsychVisit-DiagnosticEvaluation",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1492",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PsychVisit_DiagnosticEvaluation_EncounterPerformed_40280381_3d61_56a7_013e_9046741b6c87_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e1"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "PsychVisit_Psychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034ec708d_source": {
-      "title": "PsychVisit-Psychotherapy",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.526.3.1496",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: PsychVisit-Psychotherapy",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1496",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PsychVisit_Psychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034ec708d_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e2"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "GroupPsychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb706b_source": {
-      "title": "GroupPsychotherapy",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.526.3.1187",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: GroupPsychotherapy",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1187",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "GroupPsychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb706b_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e3"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "PsychVisit_FamilyPsychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7074_source": {
-      "title": "PsychVisit-FamilyPsychotherapy",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.526.3.1018",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: PsychVisit-FamilyPsychotherapy",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1018",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PsychVisit_FamilyPsychotherapy_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7074_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e4"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "Ethnicity_PatientCharacteristicEthnicity_37c22a2d_a1d9_43f1_ae5b_c6fb2041c530_source": {
-      "title": "Ethnicity",
+    {
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_37c22a2d_a1d9_43f1_ae5b_c6fb2041c530_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e5"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
     },
-    "Psychoanalysis_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7076_source": {
-      "title": "Psychoanalysis",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.526.3.1141",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: Psychoanalysis",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1141",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Psychoanalysis_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb7076_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e6"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "Race_PatientCharacteristicRace_f4f79a4e_4a9e_456a_ae10_c7826e5bdca6_source": {
-      "title": "Race",
+    {
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_f4f79a4e_4a9e_456a_ae10_c7826e5bdca6_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e7"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
     },
-    "SuicideRiskAssessment_InterventionPerformed_40280381_3d61_56a7_013e_5d9034ec708a_source": {
-      "title": "SuicideRiskAssessment",
+    {
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.526.3.1484",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Performed: SuicideRiskAssessment",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1484",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "SuicideRiskAssessment_InterventionPerformed_40280381_3d61_56a7_013e_5d9034ec708a_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e8"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "performed",
+      "qdmTitle": "Intervention, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "relevantPeriod": null,
+      "result": null,
+      "status": null,
+      "_type": "QDM::InterventionPerformed"
     },
-    "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb706f_source": {
-      "title": "OfficeVisit",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: OfficeVisit",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d9034eb706f_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369ac5cc9752f260236e9"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     }
-  },
+  ],
   "title": "Child and Adolescent Major Depressive Disorder (MDD): Suicide Risk Assessment",
   "updated_at": null,
-  "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5c65c94857a11ed3696293d5",
-    "5c65c94857a11ed3696293d6",
-    "5c65c94857a11ed3696293d7",
-    "5c65c94857a11ed3696293d8",
-    "5c65c94857a11ed3696293d9",
-    "5c65c94857a11ed3696293da",
-    "5c65c94857a11ed3696293db",
-    "5c65c94857a11ed3696293dc",
-    "5c65c94857a11ed3696293dd",
-    "5c65c94857a11ed3696293de",
-    "5c65c94857a11ed3696293df",
-    "5c65c94857a11ed3696293e0",
-    "5c65c94857a11ed3696293e1",
-    "5c65c94857a11ed3696293e2"
+    "5ca369ac5cc9752f260236ea",
+    "5ca369ac5cc9752f260236eb",
+    "5ca369ac5cc9752f260236ec",
+    "5ca369ac5cc9752f260236ed",
+    "5ca369ac5cc9752f260236ee",
+    "5ca369ac5cc9752f260236ef",
+    "5ca369ac5cc9752f260236f0",
+    "5ca369ac5cc9752f260236f1",
+    "5ca369ac5cc9752f260236f2",
+    "5ca369ac5cc9752f260236f3",
+    "5ca369ac5cc9752f260236f4",
+    "5ca369ac5cc9752f260236f5",
+    "5ca369ac5cc9752f260236f6",
+    "5ca369ac5cc9752f260236f7"
   ]
 }
