@@ -49,15 +49,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: 56d8862c3529bbcba8771640d8364464b7fdbe45
+  revision: d1ccbea6451f02fed3c5ef4e443a53bc6f29b000
   branch: master
   specs:
     cqm-models (1.0.2)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 0adaa71c24f288fa11f99715cb2d42afbcb2f2ac
-  branch: master
+  revision: 0049a1fbc3c08bb01bce5637608bc7ecab466333
+  branch: bonnie_version
   specs:
     cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
@@ -69,7 +69,7 @@ GIT
       mongoid (~> 5.0.0)
       mongoid-tree (~> 2.0.0)
       mustache
-      nokogiri (~> 1.8.5)
+      nokogiri (>= 1.8.5, < 1.11.0)
       protected_attributes (~> 1.0.5)
       rubyzip (~> 1.2.2)
       typhoeus

@@ -64,7 +64,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
   clonePatient: (e) ->
     result = $(e.target).model().result
     patient = @measure.get('patients').get result.get('patient_id')
-    bonnie.navigateToPatientBuilder patient.deepClone(omit_id: true, dedupName: true), @measure
+    bonnie.navigateToPatientBuilder patient.deepClone(new_id: true, dedupName: true), @measure
 
   # The button to toggle a patient was disabled as part of BONNIE-1110.
   togglePatient: (e) ->
