@@ -25,8 +25,18 @@ class Thorax.Views.SharePatients extends Thorax.Views.BonnieView
       "show" : true)
 
   submit: ->
+    selected = []
+    $.each($('div#measureTitles input[type=checkbox]:checked'), -> selected.push($(this).attr('value')))
+    hqmf_set_id = this.model.get("hqmf_set_id")
+    $.ajax({
+      type: "POST",
+      url: '/patients/share_patients',
+      dataType: 'json',
+      data: {selected: selected, hqmf_set_id: hqmf_set_id}
+    });
     @sharePatientsDialog.modal('hide')
     @$('form').submit()
+
 
   # FIXME: Is anything additional required for cleaning up this view on close?
   close: -> ''

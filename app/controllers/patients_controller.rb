@@ -94,6 +94,22 @@ class PatientsController < ApplicationController
     send_data package.to_stream.read, type: "application/xlsx", filename: "#{params[:file_name]}.xlsx"
   end
 
+  def share_patients
+    records = Record.by_user(current_user)
+    records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
+    # set patient measure_ids to those selected in the UI
+    measure_ids = params[:selected] || []
+    # plus the hqmf_set_id of the measure the patients are being shared from
+    measure_ids.push(params[:hqmf_set_id])
+    # plus a nil terminator, here for consistancy with data from the database
+    measure_ids.push(nil)
+    # set measure_ids for all patients on the current measure
+    records.each do |patient|
+      patient.measure_ids = measure_ids
+      patient.save
+    end
+  end
+
 private
 
   # if the patient has any existing measure ids that correspond to component measures, all 'sibling' measure ids will be added
