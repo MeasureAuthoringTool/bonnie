@@ -2,10 +2,7 @@
   describe 'MeasureView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @oldBonnieValueSetsByMeasureId = bonnie.valueSetsByMeasureId
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
-
-      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
       @vs1 = _.find(@measure.valueSets(), (val_set) -> val_set.display_name is 'Bipolar Disorder')
@@ -25,7 +22,6 @@
       @cqlMeasureValueSetsView.appendTo 'body'
 
     afterEach ->
-      bonnie.valueSetsByMeasureId = @oldBonnieValueSetsByMeasureId
       # Remove the 11 extra codes that were added for value set overlap testing
       @vs1.concepts.splice(-11, 11)
       @vs2.concepts.splice(-11, 11)
@@ -78,9 +74,7 @@
       @bonnie_measures_old = bonnie.measures
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
-      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS134/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS134/CMS134v6.json', 'cqm_measure_data/core_measures/CMS134/value_sets.json'
       bonnie.measures.add @cqlMeasure
       @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS134/patients.json'), parse: true
 
@@ -89,7 +83,6 @@
 
     afterEach ->
       bonnie.measures = @bonnie_measures_old
-      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       @cqlMeasureValueSetsView.remove()
 
     it 'has QRDA export button disabled', ->
@@ -225,17 +218,14 @@
   describe 'Hybrid Measures', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS529v0/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS529v0/CMS529v0.json', 'cqm_measure_data/special_measures/CMS529v0/value_sets.json'
       bonnie.measures.add @cqlMeasure
       @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS529v0/patients.json'), parse: true
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
       @measureView.appendTo 'body'
 
     afterEach ->
-      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       @measureView.remove()
 
     it 'display SDE section', ->

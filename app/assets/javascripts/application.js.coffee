@@ -45,7 +45,6 @@
 #= require_tree ./helpers
 #= require_tree ./views
 #= require calculator
-#= require cql_calculator
 #= require cqm_calculator
 #= require calculator_selector
 #= require router

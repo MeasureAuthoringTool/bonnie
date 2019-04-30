@@ -2,12 +2,6 @@ describe 'CQLMeasureHelpers', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    #Failing to store and reset the global valueSetsByMeasureId breaks the tests.
-    #When integrated with the master branch context switching, this will need to be changed out.
-    @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
-
-  afterEach ->
-    bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
 
   describe 'findAllLocalIdsInStatementByName', ->
     it 'finds localIds for library FunctionRefs while finding localIds in statements', ->

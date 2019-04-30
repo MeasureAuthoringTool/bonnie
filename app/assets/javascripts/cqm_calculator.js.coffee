@@ -23,7 +23,6 @@
 
     # Since we're going to start a calculation for this one, set the state to 'pending'
     result.state = 'pending'
-
     if !patient.has('cqmPatient')
       result.state = 'cancelled'
       console.log "No CQM patient for #{patient.get('_id')} - #{patient.get('first')} #{patient.get('last')}"
@@ -35,7 +34,7 @@
       return result
 
     cqmMeasure = measure.get('cqmMeasure')
-    cqmValueSets = measure.get('cqmValueSets')
+    cqmValueSets = measure.valueSets()
     cqmPatient = patient.get('cqmPatient')
 
     # attempt calcuation
@@ -118,13 +117,12 @@
       return results
 
     cqmMeasure = measure.get('cqmMeasure')
-    cqmValueSets = measure.get('cqmValueSets')
+    cqmValueSets = measure.valueSets()
     cqmPatients = resultsNeedingCalc.map (result) -> result.patient.get('cqmPatient')
 
     # attempt calcuation
     try
       cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, cqmPatients, cqmValueSets, { doPretty: true, includeClauseResults: true })
-
       # Fill result objects for everything in the measure
       resultsNeedingCalc.forEach((result) =>
         patient = result.patient

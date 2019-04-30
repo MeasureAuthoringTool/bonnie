@@ -31,13 +31,13 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       oidVersion = ''
       version = ''
     else
-      oidVersion = _.find(bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id], (oidVersion) -> oidVersion.oid == oid)
+      oidVersion = _.find(@cqmMeasure.value_sets, (oidVersion) -> oidVersion.oid == oid)
       if oidVersion?
         version = oidVersion.version
       else
         version = ''
 
-    valueSet = _.find(bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id], (valueSet) -> valueSet.oid == oid)
+    valueSet = _.find(@cqmMeasure.value_sets, (valueSet) -> valueSet.oid == oid)
     if oidVersion? && oidVersion.version == version && oidVersion.concepts?
       codeConcepts = oidVersion.concepts
       for code in codeConcepts
@@ -65,7 +65,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       @cqmMeasure.cql_libraries.forEach (library) =>
         # Direct Reference Codes
         drcGuidsAndNames = {}
-        for value in bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id]
+        for value in @cqmMeasure.value_sets
           if ValueSetHelpers.isDirectReferenceCode(value.oid)
             drcGuidsAndNames[value.oid] = value['display_name']
 

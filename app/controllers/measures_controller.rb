@@ -1,36 +1,22 @@
 class MeasuresController < ApplicationController
   include MeasureHelper
 
-  skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
+  skip_before_action :verify_authenticity_token, only: [:show]
 
   respond_to :json, :js, :html
 
   def show
+    # TODO: I think skippable_fields can be removed with the 'without(*skippable_fields)' below
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
     @measure = CQM::Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
-      raw_json = @measure.as_json(except: skippable_fields, methods: :_type)
+      raw_json = @measure.as_json(except: skippable_fields)
+      value_sets = @measure.value_sets
+      raw_json['value_sets'] = value_sets.as_json
       @measure_json = MultiJson.encode(raw_json)
       respond_with @measure do |format|
         format.json { render json: @measure_json }
-      end
-    end
-  end
-
-  def value_sets
-    # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
-    # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
-    if true # Used to reduce indentation diffs while line above is disabled
-      cqm_measures = CQM::Measure.where(user_id: current_user.id)
-      @value_sets_by_measure_id_json = {}
-      cqm_measures.each do |cqm_measure|
-        @value_sets_by_measure_id_json[cqm_measure.hqmf_set_id] = cqm_measure.value_sets.as_json(:except => :_id)
-      end
-
-      @value_sets_final = MultiJson.encode @value_sets_by_measure_id_json
-      respond_with @value_sets_final do |format|
-        format.json { render json: @value_sets_final }
       end
     end
   end

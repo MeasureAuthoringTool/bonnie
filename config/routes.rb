@@ -34,7 +34,6 @@ Bonnie::Application.routes.draw do
 
   resources :measures, defaults: { format: :json } do
     collection do
-      get 'value_sets'
       post 'finalize'
       post 'cql_to_elm'
     end
