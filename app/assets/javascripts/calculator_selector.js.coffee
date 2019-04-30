@@ -7,9 +7,6 @@
   calculateAll: (measure, patients, options = {}) ->
     bonnie.cqm_calculator.calculateAll measure, patients, options
 
-  calculateAll: (measure, patients, options = {}) ->
-    bonnie.cql_calculator.calculateAll measure, patients, options
-
   clearResult: (population, patient) ->
     bonnie.cqm_calculator.clearResult population, patient
 
