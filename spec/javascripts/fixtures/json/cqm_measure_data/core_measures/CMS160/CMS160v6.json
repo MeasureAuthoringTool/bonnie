@@ -1,5 +1,4 @@
 {
-  "_id": "5c65c93c57a11ed30f3c32bb",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS160v6",
@@ -11,7 +10,6 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5c65c93c57a11ed30f3c32bc",
       "cql": "library DepressionUtilizationofthePHQ9Tool version '6.1.001'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Bipolar Disorder\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.128'\r\nvalueset \"Care Services in Long-Term Residential Facility\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1014'\r\nvalueset \"Dysthymia\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.254'\r\nvalueset \"Face to Face Interaction - No ED\": 'urn:oid:2.16.840.1.113762.1.4.1080.1'\r\nvalueset \"Major Depression Including Remission\": 'urn:oid:2.16.840.113883.3.67.1.101.3.2444'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Palliative Care\": 'urn:oid:2.16.840.1.113883.3.600.1.1579'\r\nvalueset \"Personality Disorder\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.246'\r\nvalueset \"PHQ-9 Tool\": 'urn:oid:2.16.840.1.113883.3.67.1.101.11.723'\r\nvalueset \"Psych Visit\": 'urn:oid:2.16.840.113883.3.67.1.101.3.2445'\r\nvalueset \"Palliative care encounter\": 'urn:oid:2.16.840.1.113883.3.600.1.1575'\r\n\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Initial Population 1\":\r\n\tAgeInYearsAt(start of \"Measurement Period\")>= 18\r\n\t\tand ( exists ( \"Depression Office Visit Encounter 1\" )\r\n\t\t\t\tor exists ( \"Depression Behavioral Health Encounter 1\" )\r\n\t\t\t\tor exists ( \"Depression Face to Face Encounter 1\" )\r\n\t\t)\r\n\r\ndefine \"Initial Population 2\":\r\n\tAgeInYearsAt(start of \"Measurement Period\")>= 18\r\n\t\tand ( exists ( \"Depression Office Visit Encounter 2\" )\r\n\t\t\t\tor exists ( \"Depression Behavioral Health Encounter 2\" )\r\n\t\t\t\tor exists ( \"Depression Face to Face Encounter 2\" )\r\n\t\t)\r\n\r\ndefine \"Initial Population 3\":\r\n\tAgeInYearsAt(start of \"Measurement Period\")>= 18\r\n\t\tand ( exists ( \"Depression Office Visit Encounter 3\" )\r\n\t\t\t\tor exists ( \"Depression Behavioral Health Encounter 3\" )\r\n\t\t\t\tor exists ( \"Depression Face to Face Encounter 3\" )\r\n\t\t)\r\n\r\ndefine \"Palliative Care Order\":\r\n\t[\"Intervention, Order\": \"Palliative Care\"] OrderedPalliativeCare\r\n\t\twhere OrderedPalliativeCare.authorDatetime 1 year or less before end of \"Measurement Period\"\r\n\r\ndefine \"Long Term Care\":\r\n\t[\"Encounter, Performed\": \"Care Services in Long-Term Residential Facility\"] EncounterLongTermCare\r\n\t\twhere EncounterLongTermCare.relevantPeriod starts 1 year or less before end of \"Measurement Period\"\r\n\r\ndefine \"Expired\":\r\n\t[\"Patient Characteristic Expired\": \"Dead\"] Deceased\r\n\t\twhere Deceased.expiredDatetime before end of \"Measurement Period\"\r\n\r\ndefine \"Denominator 1\":\r\n\t\"Initial Population 1\"\r\n\r\ndefine \"Denominator 2\":\r\n\t\"Initial Population 2\"\r\n\r\ndefine \"Denominator 3\":\r\n\t\"Initial Population 3\"\r\n\r\ndefine \"Denominator Exclusion 1\":\r\n\t\"Denominator Exclusions\"\r\n\r\ndefine \"Denominator Exclusion 2\":\r\n\t\"Denominator Exclusions\"\r\n\r\ndefine \"Denominator Exclusion 3\":\r\n\t\"Denominator Exclusions\"\r\n\r\ndefine \"Encounter Palliative Care\":\r\n\t[\"Encounter, Performed\": \"Palliative care encounter\"] PalliativeCareEncounter\r\n\t\twhere PalliativeCareEncounter.relevantPeriod starts 1 year or less before end of \"Measurement Period\"\r\n\r\ndefine \"Depression Behavioral Health Encounter 2\":\r\n\t[\"Encounter, Performed\": \"Psych Visit\"] BehaviorHealthEncounter2\r\n\t\twhere ( BehaviorHealthEncounter2.principalDiagnosis in \"Major Depression Including Remission\"\r\n\t\t\t\tor BehaviorHealthEncounter2.principalDiagnosis in \"Dysthymia\"\r\n\t\t)\r\n\t\t\tand BehaviorHealthEncounter2.relevantPeriod ends 8 months or less after start of \"Measurement Period\"\r\n\t\t\tand difference in months between end of BehaviorHealthEncounter2.relevantPeriod and ( start of \"Measurement Period\" + 8 months ) <= 4\r\n\r\ndefine \"Numerator 2\":\r\n\texists ( [\"Assessment, Performed\": \"PHQ-9 Tool\"] DepressionAssessment2\r\n\t\t\twhere DepressionAssessment2.result is not null\r\n\t\t\t\tand DepressionAssessment2.authorDatetime 8 months or less after start of \"Measurement Period\"\r\n\t\t\t\tand difference in months between DepressionAssessment2.authorDatetime and ( start of \"Measurement Period\" + 8 months ) <= 4\r\n\t)\r\n\r\ndefine \"Depression Behavioral Health Encounter 3\":\r\n\t[\"Encounter, Performed\": \"Psych Visit\"] BehaviorHealthEncounter3\r\n\t\twhere ( BehaviorHealthEncounter3.principalDiagnosis in \"Major Depression Including Remission\"\r\n\t\t\t\tor BehaviorHealthEncounter3.principalDiagnosis in \"Dysthymia\"\r\n\t\t)\r\n\t\t\tand BehaviorHealthEncounter3.relevantPeriod ends during \"Measurement Period\"\r\n\t\t\tand difference in months between start of \"Measurement Period\" and end of BehaviorHealthEncounter3.relevantPeriod <= 3\r\n\r\ndefine \"Depression Behavioral Health Encounter 1\":\r\n\t[\"Encounter, Performed\": \"Psych Visit\"] BehaviorHealthEncounter1\r\n\t\twhere ( BehaviorHealthEncounter1.principalDiagnosis in \"Major Depression Including Remission\"\r\n\t\t\t\tor BehaviorHealthEncounter1.principalDiagnosis in \"Dysthymia\"\r\n\t\t)\r\n\t\t\tand BehaviorHealthEncounter1.relevantPeriod ends during \"Measurement Period\"\r\n\t\t\tand difference in months between end of BehaviorHealthEncounter1.relevantPeriod and end of \"Measurement Period\" <= 3\r\n\r\ndefine \"Depression Diagnoses\":\r\n\t( [\"Diagnosis\": \"Major Depression Including Remission\"]\r\n\t\tunion [\"Diagnosis\": \"Dysthymia\"] ) Diagnoses\r\n\t\twhere Diagnoses.prevalencePeriod is not null\r\n\r\ndefine \"Disorder Diagnoses\":\r\n\t( [\"Diagnosis\": \"Bipolar Disorder\"]\r\n\t\tunion [\"Diagnosis\": \"Personality Disorder\"] ) DisorderDiagnoses\r\n\t\twhere DisorderDiagnoses.prevalencePeriod starts before end of \"Measurement Period\"\r\n\r\ndefine \"Depression Face to Face Encounter 1\":\r\n\t[\"Encounter, Performed\": \"Face to Face Interaction - No ED\"] FacetoFaceEncounter1\r\n\t\twith \"Depression Diagnoses\" Diagnoses\r\n\t\t\tsuch that FacetoFaceEncounter1.relevantPeriod overlaps Diagnoses.prevalencePeriod\r\n\t\t\t\tand FacetoFaceEncounter1.relevantPeriod ends during \"Measurement Period\"\r\n\t\t\t\tand difference in months between end of FacetoFaceEncounter1.relevantPeriod and end of \"Measurement Period\" <= 3\r\n\r\ndefine \"Depression Face to Face Encounter 2\":\r\n\t[\"Encounter, Performed\": \"Face to Face Interaction - No ED\"] FacetoFaceEncounter2\r\n\t\twith \"Depression Diagnoses\" Diagnoses\r\n\t\t\tsuch that FacetoFaceEncounter2.relevantPeriod overlaps Diagnoses.prevalencePeriod\r\n\t\t\t\tand FacetoFaceEncounter2.relevantPeriod ends 8 months or less after start of \"Measurement Period\"\r\n\t\t\t\tand difference in months between end of FacetoFaceEncounter2.relevantPeriod and ( start of \"Measurement Period\" + 8 months ) <= 4\r\n\r\ndefine \"Depression Face to Face Encounter 3\":\r\n\t[\"Encounter, Performed\": \"Face to Face Interaction - No ED\"] FacetoFaceEncounter3\r\n\t\twith \"Depression Diagnoses\" Diagnoses\r\n\t\t\tsuch that FacetoFaceEncounter3.relevantPeriod overlaps Diagnoses.prevalencePeriod\r\n\t\t\t\tand FacetoFaceEncounter3.relevantPeriod ends during \"Measurement Period\"\r\n\t\t\t\tand difference in months between start of \"Measurement Period\" and end of FacetoFaceEncounter3.relevantPeriod <= 3\r\n\r\ndefine \"Depression Office Visit Encounter 1\":\r\n\t[\"Encounter, Performed\": \"Office Visit\"] OfficeVisitEncounter1\r\n\t\twith \"Depression Diagnoses\" Diagnoses\r\n\t\t\tsuch that OfficeVisitEncounter1.relevantPeriod overlaps Diagnoses.prevalencePeriod\r\n\t\t\t\tand OfficeVisitEncounter1.relevantPeriod ends during \"Measurement Period\"\r\n\t\t\t\tand difference in months between end of OfficeVisitEncounter1.relevantPeriod and end of \"Measurement Period\" <= 3\r\n\r\ndefine \"Depression Office Visit Encounter 2\":\r\n\t[\"Encounter, Performed\": \"Office Visit\"] OfficeVisitEncounter2\r\n\t\twith \"Depression Diagnoses\" Diagnoses\r\n\t\t\tsuch that OfficeVisitEncounter2.relevantPeriod overlaps Diagnoses.prevalencePeriod\r\n\t\t\t\tand OfficeVisitEncounter2.relevantPeriod ends 8 months or less after start of \"Measurement Period\"\r\n\t\t\t\tand difference in months between end of OfficeVisitEncounter2.relevantPeriod and ( start of \"Measurement Period\" + 8 months ) <= 4\r\n\r\ndefine \"Depression Office Visit Encounter 3\":\r\n\t[\"Encounter, Performed\": \"Office Visit\"] OfficeVisitEncounter3\r\n\t\twith \"Depression Diagnoses\" Diagnoses\r\n\t\t\tsuch that OfficeVisitEncounter3.relevantPeriod overlaps Diagnoses.prevalencePeriod\r\n\t\t\t\tand OfficeVisitEncounter3.relevantPeriod ends during \"Measurement Period\"\r\n\t\t\t\tand difference in months between start of \"Measurement Period\" and end of OfficeVisitEncounter3.relevantPeriod <= 3\r\n\r\ndefine \"Numerator 1\":\r\n\texists ( [\"Assessment, Performed\": \"PHQ-9 Tool\"] DepressionAssessment1\r\n\t\t\twhere DepressionAssessment1.result is not null\r\n\t\t\t\tand DepressionAssessment1.authorDatetime during \"Measurement Period\"\r\n\t\t\t\tand difference in months between DepressionAssessment1.authorDatetime and end of \"Measurement Period\" <= 3\r\n\t)\r\n\r\ndefine \"Denominator Exclusions\":\r\n\texists ( \"Palliative Care Order\" )\r\n\t\tor exists ( \"Encounter Palliative Care\" )\r\n\t\tor exists ( \"Long Term Care\" )\r\n\t\tor exists ( \"Expired\" )\r\n\t\tor exists ( \"Disorder Diagnoses\" )\r\n\r\ndefine \"Numerator 3\":\r\n\texists ( [\"Assessment, Performed\": \"PHQ-9 Tool\"] DepressionAssessment3\r\n\t\t\twhere DepressionAssessment3.result is not null\r\n\t\t\t\tand DepressionAssessment3.authorDatetime during \"Measurement Period\"\r\n\t\t\t\tand difference in months between start of \"Measurement Period\" and DepressionAssessment3.authorDatetime <= 3\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -17872,676 +17870,275 @@
         }
       },
       "is_main_library": true,
+      "is_top_level": true,
       "library_name": "DepressionUtilizationofthePHQ9Tool",
       "library_version": "6.1.001",
       "statement_dependencies": [
         {
-          "_id": "5c65c93c57a11ed30f3c32bd",
           "statement_name": "Patient"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32be",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32bf",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32c0",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32c1",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32c2",
           "statement_name": "Depression Diagnoses"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32c3",
           "statement_name": "Depression Office Visit Encounter 1",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32c4",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Diagnoses"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32c5",
           "statement_name": "Depression Behavioral Health Encounter 1"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32c6",
           "statement_name": "Depression Face to Face Encounter 1",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32c7",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Diagnoses"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32c8",
           "statement_name": "Initial Population 1",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32c9",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Office Visit Encounter 1"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32ca",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Behavioral Health Encounter 1"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32cb",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Face to Face Encounter 1"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32cc",
           "statement_name": "Depression Office Visit Encounter 2",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32cd",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Diagnoses"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32ce",
           "statement_name": "Depression Behavioral Health Encounter 2"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32cf",
           "statement_name": "Depression Face to Face Encounter 2",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32d0",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Diagnoses"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32d1",
           "statement_name": "Initial Population 2",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32d2",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Office Visit Encounter 2"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32d3",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Behavioral Health Encounter 2"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32d4",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Face to Face Encounter 2"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32d5",
           "statement_name": "Depression Office Visit Encounter 3",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32d6",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Diagnoses"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32d7",
           "statement_name": "Depression Behavioral Health Encounter 3"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32d8",
           "statement_name": "Depression Face to Face Encounter 3",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32d9",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Diagnoses"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32da",
           "statement_name": "Initial Population 3",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32db",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Office Visit Encounter 3"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32dc",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Behavioral Health Encounter 3"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32dd",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Depression Face to Face Encounter 3"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32de",
           "statement_name": "Palliative Care Order"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32df",
           "statement_name": "Long Term Care"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32e0",
           "statement_name": "Expired"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32e1",
           "statement_name": "Denominator 1",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32e2",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Initial Population 1"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32e3",
           "statement_name": "Denominator 2",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32e4",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Initial Population 2"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32e5",
           "statement_name": "Denominator 3",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32e6",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Initial Population 3"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32e7",
           "statement_name": "Encounter Palliative Care"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32e8",
           "statement_name": "Disorder Diagnoses"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32e9",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32ea",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Palliative Care Order"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32eb",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Encounter Palliative Care"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32ec",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Long Term Care"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32ed",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Expired"
             },
             {
-              "_id": "5c65c93c57a11ed30f3c32ee",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Disorder Diagnoses"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32ef",
           "statement_name": "Denominator Exclusion 1",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32f0",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Denominator Exclusions"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32f1",
           "statement_name": "Denominator Exclusion 2",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32f2",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Denominator Exclusions"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32f3",
           "statement_name": "Denominator Exclusion 3",
           "statement_references": [
             {
-              "_id": "5c65c93c57a11ed30f3c32f4",
+              "hqmf_id": null,
               "library_name": "DepressionUtilizationofthePHQ9Tool",
               "statement_name": "Denominator Exclusions"
             }
           ]
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32f5",
           "statement_name": "Numerator 2"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32f6",
           "statement_name": "Numerator 1"
         },
         {
-          "_id": "5c65c93c57a11ed30f3c32f7",
           "statement_name": "Numerator 3"
         }
       ]
     }
   ],
   "created_at": null,
-  "data_criteria": {
-    "Payer_PatientCharacteristicPayer_51c5eb3e_7f59_43f3_ac6e_a2d2a0562e4e": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_51c5eb3e_7f59_43f3_ac6e_a2d2a0562e4e_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "619",
-          "62",
-          "63",
-          "64",
-          "69",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_62630a16_6370_41b6_a1fe_bbf014f6076a": {
-      "title": "ONCAdministrativeSex",
-      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_62630a16_6370_41b6_a1fe_bbf014f6076a_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "PersonalityDisorder_Diagnosis_02fbde96_d881_44a0_b315_59e4c3eeb158": {
-      "title": "PersonalityDisorder",
-      "description": "Diagnosis: PersonalityDisorder",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.246",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PersonalityDisorder_Diagnosis_02fbde96_d881_44a0_b315_59e4c3eeb158_source",
-      "variable": false
-    },
-    "PalliativeCare_InterventionOrder_40280381_3d61_56a7_013e_8a3638283368": {
-      "title": "PalliativeCare",
-      "description": "Intervention, Order: PalliativeCare",
-      "code_list_id": "2.16.840.1.113883.3.600.1.1579",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "PalliativeCare_InterventionOrder_40280381_3d61_56a7_013e_8a3638283368_source",
-      "variable": false
-    },
-    "CareServicesinLong_TermResidentialFacility_EncounterPerformed_40280381_3e93_d1af_013e_a8c4e64a4ad3": {
-      "title": "CareServicesinLong-TermResidentialFacility",
-      "description": "Encounter, Performed: CareServicesinLong-TermResidentialFacility",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1014",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "CareServicesinLong_TermResidentialFacility_EncounterPerformed_40280381_3e93_d1af_013e_a8c4e64a4ad3_source",
-      "variable": false
-    },
-    "PHQ_9Tool_AssessmentPerformed_40280381_3d61_56a7_013e_8a363828336d": {
-      "title": "PHQ-9Tool",
-      "description": "Assessment, Performed: PHQ-9Tool",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.11.723",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PHQ_9Tool_AssessmentPerformed_40280381_3d61_56a7_013e_8a363828336d_source",
-      "variable": false
-    },
-    "FacetoFaceInteraction_NoED_EncounterPerformed_91f84aee_e473_4f7d_9dd3_7d0259441055": {
-      "title": "FacetoFaceInteraction-NoED",
-      "description": "Encounter, Performed: FacetoFaceInteraction-NoED",
-      "code_list_id": "2.16.840.1.113762.1.4.1080.1",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "FacetoFaceInteraction_NoED_EncounterPerformed_91f84aee_e473_4f7d_9dd3_7d0259441055_source",
-      "variable": false
-    },
-    "Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a": {
-      "title": "Dysthymia",
-      "description": "Diagnosis: Dysthymia",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.254",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a_source",
-      "variable": false
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_246a82b4_2eaf_4b8e_ac36_ca036e1b97dd": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_246a82b4_2eaf_4b8e_ac36_ca036e1b97dd_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "BipolarDisorder_Diagnosis_89a1244b_f388_4261_949a_70b82971f63d": {
-      "title": "BipolarDisorder",
-      "description": "Diagnosis: BipolarDisorder",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.128",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "BipolarDisorder_Diagnosis_89a1244b_f388_4261_949a_70b82971f63d_source",
-      "variable": false
-    },
-    "PsychVisit_EncounterPerformed_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": {
-      "title": "PsychVisit",
-      "description": "Encounter, Performed: PsychVisit",
-      "code_list_id": "2.16.840.113883.3.67.1.101.3.2445",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PsychVisit_EncounterPerformed_bec03ff0_88da_49ee_a2fd_21037ee0a3a3_source",
-      "variable": false
-    },
-    "Race_PatientCharacteristicRace_18b082b8_69da_4b5a_ab71_943a6f8f64e5": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_18b082b8_69da_4b5a_ab71_943a6f8f64e5_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    },
-    "Palliativecareencounter_EncounterPerformed_c69c8f5b_5312_470b_bf8b_b43ee052e0d4": {
-      "title": "Palliativecareencounter",
-      "description": "Encounter, Performed: Palliativecareencounter",
-      "code_list_id": "2.16.840.1.113883.3.600.1.1575",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Palliativecareencounter_EncounterPerformed_c69c8f5b_5312_470b_bf8b_b43ee052e0d4_source",
-      "variable": false
-    },
-    "MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba": {
-      "title": "MajorDepressionIncludingRemission",
-      "description": "Diagnosis: MajorDepressionIncludingRemission",
-      "code_list_id": "2.16.840.113883.3.67.1.101.3.2444",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba_source",
-      "variable": false
-    },
-    "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f": {
-      "title": "OfficeVisit",
-      "description": "Encounter, Performed: OfficeVisit",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source",
-      "variable": false
-    },
-    "prefix_419099009_PatientCharacteristicExpired_83771EEC_B3EA_4575_97D8_280E257B692A": {
-      "title": "Patient Characteristic Expired: Patient Characteristic Expired",
-      "description": "Patient Characteristic Expired: Patient Characteristic Expired",
-      "property": "expired",
-      "type": "characteristic",
-      "definition": "patient_characteristic_expired",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_419099009_PatientCharacteristicExpired_83771EEC_B3EA_4575_97D8_280E257B692A_source",
-      "variable": false
-    }
-  },
   "description": "The percentage of patients age 18 and older with the diagnosis of major depression or dysthymia who have a completed PHQ-9 during each applicable 4 month period in which there was a qualifying visit",
   "hqmf_id": "40280382-5FA6-FE85-015F-B5B5982402D6",
   "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
@@ -19437,478 +19034,478 @@
   },
   "population_sets": [
     {
-      "_id": "5c65c93c57a11ed30f3c32f8",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5c65c93c57a11ed30f3c32f9",
+          "hqmf_id": "08821615-9B0E-4C1C-AE75-63807597A68E",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Denominator Exclusion 1"
         },
         "DENOM": {
-          "_id": "5c65c93c57a11ed30f3c32fa",
+          "hqmf_id": "39477C70-44D2-406B-ACB5-3192E14B49B8",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Denominator 1"
         },
         "IPP": {
-          "_id": "5c65c93c57a11ed30f3c32fb",
+          "hqmf_id": "E5CAD3E0-2CF4-4F7D-B0CB-84CEA6BC44AB",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Initial Population 1"
         },
         "NUMER": {
-          "_id": "5c65c93c57a11ed30f3c32fc",
+          "hqmf_id": "4696F818-ED1A-4DEB-BDD4-880722F3165F",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Numerator 1"
         },
-        "_id": "5c65c93c57a11ed30f3c32fd"
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section 1"
     },
     {
-      "_id": "5c65c93c57a11ed30f3c32fe",
       "population_set_id": "PopulationCriteria2",
       "populations": {
         "DENEX": {
-          "_id": "5c65c93c57a11ed30f3c32ff",
+          "hqmf_id": "DC76F105-C17A-4045-B763-E1802225D3A1",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Denominator Exclusion 2"
         },
         "DENOM": {
-          "_id": "5c65c93c57a11ed30f3c3300",
+          "hqmf_id": "70D8CAA3-4182-41C0-9A73-335396BB6764",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Denominator 2"
         },
         "IPP": {
-          "_id": "5c65c93c57a11ed30f3c3301",
+          "hqmf_id": "6D6BC9D7-1492-412C-A076-EC0A6DFEFC4C",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Initial Population 2"
         },
         "NUMER": {
-          "_id": "5c65c93c57a11ed30f3c3302",
+          "hqmf_id": "BB75E2C0-749E-4323-A4DB-35B24FF31CED",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Numerator 2"
         },
-        "_id": "5c65c93c57a11ed30f3c3303"
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section 2"
     },
     {
-      "_id": "5c65c93c57a11ed30f3c3304",
       "population_set_id": "PopulationCriteria3",
       "populations": {
         "DENEX": {
-          "_id": "5c65c93c57a11ed30f3c3305",
+          "hqmf_id": "ECC73292-C204-4458-B9A2-557CC72FFE96",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Denominator Exclusion 3"
         },
         "DENOM": {
-          "_id": "5c65c93c57a11ed30f3c3306",
+          "hqmf_id": "1EE7E1F6-E10A-4BE0-93C5-EED14D088023",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Denominator 3"
         },
         "IPP": {
-          "_id": "5c65c93c57a11ed30f3c3307",
+          "hqmf_id": "30F9735A-FDAC-4419-BF46-71CF1968C7D1",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Initial Population 3"
         },
         "NUMER": {
-          "_id": "5c65c93c57a11ed30f3c3308",
+          "hqmf_id": "4C5B11DD-040D-460D-B6F6-57D440BE7B36",
           "library_name": "DepressionUtilizationofthePHQ9Tool",
           "statement_name": "Numerator 3"
         },
-        "_id": "5c65c93c57a11ed30f3c3309"
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section 3"
     }
   ],
-  "source_data_criteria": {
-    "Payer_PatientCharacteristicPayer_51c5eb3e_7f59_43f3_ac6e_a2d2a0562e4e_source": {
-      "title": "Payer",
+  "source_data_criteria": [
+    {
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_51c5eb3e_7f59_43f3_ac6e_a2d2a0562e4e_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "619",
-          "62",
-          "63",
-          "64",
-          "69",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d21"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_62630a16_6370_41b6_a1fe_bbf014f6076a_source": {
-      "title": "ONCAdministrativeSex",
+    {
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_62630a16_6370_41b6_a1fe_bbf014f6076a_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d22"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "PersonalityDisorder_Diagnosis_02fbde96_d881_44a0_b315_59e4c3eeb158_source": {
-      "title": "PersonalityDisorder",
+    {
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.67.1.101.1.246",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: PersonalityDisorder",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.246",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PersonalityDisorder_Diagnosis_02fbde96_d881_44a0_b315_59e4c3eeb158_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d23"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     },
-    "PalliativeCare_InterventionOrder_40280381_3d61_56a7_013e_8a3638283368_source": {
-      "title": "PalliativeCare",
+    {
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.600.1.1579",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Order: PalliativeCare",
-      "code_list_id": "2.16.840.1.113883.3.600.1.1579",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "PalliativeCare_InterventionOrder_40280381_3d61_56a7_013e_8a3638283368_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d24"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "order",
+      "qdmTitle": "Intervention, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "_type": "QDM::InterventionOrder"
     },
-    "CareServicesinLong_TermResidentialFacility_EncounterPerformed_40280381_3e93_d1af_013e_a8c4e64a4ad3_source": {
-      "title": "CareServicesinLong-TermResidentialFacility",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1014",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: CareServicesinLong-TermResidentialFacility",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1014",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "CareServicesinLong_TermResidentialFacility_EncounterPerformed_40280381_3e93_d1af_013e_a8c4e64a4ad3_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d25"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "PHQ_9Tool_AssessmentPerformed_40280381_3d61_56a7_013e_8a363828336d_source": {
-      "title": "PHQ-9Tool",
+    {
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.67.1.101.11.723",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Assessment, Performed: PHQ-9Tool",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.11.723",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PHQ_9Tool_AssessmentPerformed_40280381_3d61_56a7_013e_8a363828336d_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d26"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "assessment",
+      "qdmStatus": "performed",
+      "qdmTitle": "Assessment, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "result": null,
+      "_type": "QDM::AssessmentPerformed"
     },
-    "FacetoFaceInteraction_NoED_EncounterPerformed_91f84aee_e473_4f7d_9dd3_7d0259441055_source": {
-      "title": "FacetoFaceInteraction-NoED",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1080.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: FacetoFaceInteraction-NoED",
-      "code_list_id": "2.16.840.1.113762.1.4.1080.1",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "FacetoFaceInteraction_NoED_EncounterPerformed_91f84aee_e473_4f7d_9dd3_7d0259441055_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d27"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a_source": {
-      "title": "Dysthymia",
+    {
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.67.1.101.1.254",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: Dysthymia",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.254",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d28"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     },
-    "Ethnicity_PatientCharacteristicEthnicity_246a82b4_2eaf_4b8e_ac36_ca036e1b97dd_source": {
-      "title": "Ethnicity",
+    {
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_246a82b4_2eaf_4b8e_ac36_ca036e1b97dd_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d29"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
     },
-    "BipolarDisorder_Diagnosis_89a1244b_f388_4261_949a_70b82971f63d_source": {
-      "title": "BipolarDisorder",
+    {
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.67.1.101.1.128",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: BipolarDisorder",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.128",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "BipolarDisorder_Diagnosis_89a1244b_f388_4261_949a_70b82971f63d_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d2a"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     },
-    "PsychVisit_EncounterPerformed_bec03ff0_88da_49ee_a2fd_21037ee0a3a3_source": {
-      "title": "PsychVisit",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.113883.3.67.1.101.3.2445",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: PsychVisit",
-      "code_list_id": "2.16.840.113883.3.67.1.101.3.2445",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PsychVisit_EncounterPerformed_bec03ff0_88da_49ee_a2fd_21037ee0a3a3_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d2b"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "Race_PatientCharacteristicRace_18b082b8_69da_4b5a_ab71_943a6f8f64e5_source": {
-      "title": "Race",
+    {
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_18b082b8_69da_4b5a_ab71_943a6f8f64e5_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d2c"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
     },
-    "Palliativecareencounter_EncounterPerformed_c69c8f5b_5312_470b_bf8b_b43ee052e0d4_source": {
-      "title": "Palliativecareencounter",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.600.1.1575",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: Palliativecareencounter",
-      "code_list_id": "2.16.840.1.113883.3.600.1.1575",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Palliativecareencounter_EncounterPerformed_c69c8f5b_5312_470b_bf8b_b43ee052e0d4_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d2d"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba_source": {
-      "title": "MajorDepressionIncludingRemission",
+    {
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.113883.3.67.1.101.3.2444",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: MajorDepressionIncludingRemission",
-      "code_list_id": "2.16.840.113883.3.67.1.101.3.2444",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d2e"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     },
-    "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source": {
-      "title": "OfficeVisit",
+    {
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: OfficeVisit",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d2f"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "prefix_419099009_PatientCharacteristicExpired_83771EEC_B3EA_4575_97D8_280E257B692A_source": {
-      "title": "Patient Characteristic Expired: Patient Characteristic Expired",
+    {
+      "cause": null,
+      "codeListId": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Expired: Patient Characteristic Expired",
-      "property": "expired",
-      "type": "characteristic",
-      "definition": "patient_characteristic_expired",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_419099009_PatientCharacteristicExpired_83771EEC_B3EA_4575_97D8_280E257B692A_source",
-      "variable": false
+      "expiredDatetime": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.57",
+      "id": {
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5ca369a35cc9752ee94f8d30"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "expired",
+      "qdmTitle": "Patient Characteristic Expired",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicExpired"
     }
-  },
+  ],
   "title": "Depression Utilization of the PHQ-9 Tool",
   "updated_at": null,
-  "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5c65c93c57a11ed30f3c32ab",
-    "5c65c93c57a11ed30f3c32ac",
-    "5c65c93c57a11ed30f3c32ad",
-    "5c65c93c57a11ed30f3c32ae",
-    "5c65c93c57a11ed30f3c32af",
-    "5c65c93c57a11ed30f3c32b0",
-    "5c65c93c57a11ed30f3c32b1",
-    "5c65c93c57a11ed30f3c32b2",
-    "5c65c93c57a11ed30f3c32b3",
-    "5c65c93c57a11ed30f3c32b4",
-    "5c65c93c57a11ed30f3c32b5",
-    "5c65c93c57a11ed30f3c32b6",
-    "5c65c93c57a11ed30f3c32b7",
-    "5c65c93c57a11ed30f3c32b8",
-    "5c65c93c57a11ed30f3c32b9",
-    "5c65c93c57a11ed30f3c32ba"
+    "5ca369a35cc9752ee94f8d31",
+    "5ca369a35cc9752ee94f8d32",
+    "5ca369a35cc9752ee94f8d33",
+    "5ca369a35cc9752ee94f8d34",
+    "5ca369a35cc9752ee94f8d35",
+    "5ca369a35cc9752ee94f8d36",
+    "5ca369a35cc9752ee94f8d37",
+    "5ca369a35cc9752ee94f8d38",
+    "5ca369a35cc9752ee94f8d39",
+    "5ca369a35cc9752ee94f8d3a",
+    "5ca369a35cc9752ee94f8d3b",
+    "5ca369a35cc9752ee94f8d3c",
+    "5ca369a35cc9752ee94f8d3d",
+    "5ca369a35cc9752ee94f8d3e",
+    "5ca369a35cc9752ee94f8d3f",
+    "5ca369a35cc9752ee94f8d40"
   ]
 }

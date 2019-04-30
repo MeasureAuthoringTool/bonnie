@@ -10,7 +10,7 @@ class MeasuresController < ApplicationController
     @measure = CQM::Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
-      raw_json = @measure.as_json(except: skippable_fields)
+      raw_json = @measure.as_json(except: skippable_fields, methods: :_type)
       @measure_json = MultiJson.encode(raw_json)
       respond_with @measure do |format|
         format.json { render json: @measure_json }
