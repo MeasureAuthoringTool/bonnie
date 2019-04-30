@@ -24,17 +24,23 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
         @$('a.panel-title[data-toggle="collapse"]').toggleClass('closed')
         if e.type is 'show' then $('a.panel-title[data-toggle="collapse"]').next('div.in').not(e.target).collapse('hide') # hide open ones
 
-  faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
+  faIcon: -> @collection.first()?.faIcon()
 
 
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
-  addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
+  addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model
+  parseDescription: (description) ->
+    # dataelements such as birthdate do not have descriptions
+    if !description
+      "" 
+    else
+      description.split(/, (.*:.*)/)?[1] or description
   context: ->
-    desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
+    parseDescription: (description) 
     _(super).extend
-      type: desc.split(": ")[0]
-      # everything after the data criteria type is the detailed description
-      detail: desc.substring(desc.indexOf(':')+2)
+    type: desc.split(": ")[0]
+    # everything after the data criteria type is the detailed description
+    detail: desc.substring(desc.indexOf(':')+2)
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
@@ -101,23 +107,21 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-    cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
-    
-    desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
-    definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
+    desc = Thorax.Views.SelectCriteriaItemView.parseDescription(@model.get('description'))
+    definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    
+    timingInterval = Thorax.Models.PatientDataCriteria.getTimingInterval(@model) || 'authorDatetime'
     _(super).extend
-      start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
-      start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
-      end_date: moment.utc(@model.get('end_date')).format('L') if @model.get('end_date')
-      end_time: moment.utc(@model.get('end_date')).format('LT') if @model.get('end_date')
-      end_date_is_undefined: !@model.has('end_date')
+      start_date: moment.utc(@model.get(timingInterval).low).format('L') if @model.get(timingInterval)?.low?
+      start_time: moment.utc(@model.get(timingInterval).low).format('LT') if @model.get(timingInterval)?.low?
+      start_date: moment.utc(@model.get(timingInterval)).format('L') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
+      start_time: moment.utc(@model.get(timingInterval)).format('LT') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
+      end_date: moment.utc(@model.get(timingInterval).high).format('L') if @model.get(timingInterval)?.high?
+      end_time: moment.utc(@model.get(timingInterval).high).format('LT') if @model.get(timingInterval)?.high?
+      end_date_is_undefined: !@model.get(timingInterval)?.high?
       description: desc
-      value_sets: @model.measure()?.valueSets().map((vs) -> vs.toJSON()) or []
-      cms_id_number: cmsIdParts[1] if cmsIdParts
-      cms_id_version: cmsIdParts[2] if cmsIdParts
+      value_sets: @model.measure()?.valueSets() or []
       faIcon: @model.faIcon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
@@ -147,7 +151,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.criteria-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
       @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
-      @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
+      @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
     'change .negation-select':                    'toggleNegationSelect'
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'
@@ -156,11 +160,24 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
+  isDuringMeasurePeriod: ->
+    moment.utc(@get('start_date')).year() is moment.utc(@get('end_date')).year() is bonnie.measurePeriod
+
+  # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
+  copyTimingAttributes: (droppedCriteria, targetCriteria) ->
+    droppedCriteriaTiming = Thorax.Models.PatientDataCriteria.getTimingInterval(droppedCriteria)
+    targetCriteriaTiming = Thorax.Models.PatientDataCriteria.getTimingInterval(targetCriteria)
+    if(droppedCriteria? && targetCriteriaTiming?)
+      droppedCriteria.set "#{droppedCriteriaTiming}": targetCriteria.get(targetCriteriaTiming)
+    # Copy authorDatetime if droppedCriteria and target both have the authorDatetime property
+    if droppedCriteria.hasOwnProperty('authorDatetime') && targetCriteria.hasOwnProperty('authorDatetime')
+      droppedCriteria.set authorDatetime: targetCriteria.get('authorDatetime')
+
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
-    droppedCriteria = $(ui.draggable).model().toPatientDataCriteria()
+    droppedCriteria = $(ui.draggable).model()
     targetCriteria = $(e.target).model()
-    droppedCriteria.set start_date: targetCriteria.get('start_date'), end_date: targetCriteria.get('end_date')
+    @copyTimingAttributes(droppedCriteria, targetCriteria)
     @trigger 'bonnie:dropCriteria', droppedCriteria
     return false
 
@@ -344,7 +361,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     # Until then, PQ (Scalar) can be used with "%" as the unit
 
   context: ->
-    codes_list = @measure?.valueSets().map((vs) -> vs.toJSON()) or []
+    codes_list = @measure?.valueSets() or []
     unique_codes = []
     # remove duplicate direct reference code value sets
     direct_reference_codes = []

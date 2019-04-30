@@ -68,20 +68,18 @@
         <div class="form-group">
           <label for="race" class="control-label">Race</label>
           <select id="race" name="race" class="form-control">
-            <option value="1002-5">American Indian or Alaska Native</option>
-            <option value="2028-9">Asian</option>
-            <option value="2054-5">Black or African American</option>
-            <option value="2076-8">Native Hawaiian or Other Pacific Islander</option>
-            <option value="2106-3">White</option>
-            <option value="2131-1">Other</option>
+            {{#each race_codes}}
+              <option value="{{code}}">{{display_name}}</option>
+            {{/each}}
           </select>
         </div>
 
         <div class="form-group">
           <label for="ethnicity" class="control-label">Ethnicity</label>
           <select id="ethnicity" name="ethnicity" class="form-control">
-            <option value="2186-5">Not Hispanic or Latino</option>
-            <option value="2135-2">Hispanic Or Latino</option>
+            {{#each ethnicity_codes}}
+              <option value="{{code}}">{{display_name}}</option>
+            {{/each}}
           </select>
         </div>
       </div>
@@ -114,17 +112,18 @@
         <div class="form-group">
           <label for="gender" class="control-label">Gender</label>
           <select id="gender" name="gender" class="form-control">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
+            {{#each gender_codes}}
+              <option value="{{code}}">{{display_name}}</option>
+            {{/each}}
           </select>
         </div>
 
         <div class="form-group">
           <label for="payer" class="control-label">Payer</label>
           <select id="payer" name="payer" class="form-control">
-            <option value="MA">Medicare</option>
-            <option value="MC">Medicaid</option>
-            <option value="OT">Other</option>
+            {{#each payer_codes}}
+              <option value="{{code}}">{{display_name}}</option>
+            {{/each}}
           </select>
         </div>
       </div>
