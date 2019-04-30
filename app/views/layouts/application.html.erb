@@ -33,7 +33,6 @@
         <%= HQMF2JS::Generator::JS.crosswalk_functions.html_safe %>
       </script>
     <% end %>
-    <script src="<%= value_sets_measures_url(format: :js) %>"></script>
     <% @measures.each do |measure| %>
       <script src="<%= measure_url(measure, format: :js) %>"></script>
     <% end %>
