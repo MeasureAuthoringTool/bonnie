@@ -13,10 +13,10 @@
           </div>
 
           <div class="form-group">
-            <label for="measurementPeriodStartInput" class="col-sm-3 control-label">Start</label>
+            <label for="measurementPeriodStartInput" class="col-sm-3 control-label">Year</label>
             
             <div class="col-sm-4" style="padding-right: 0px;">
-              <input type="text" class="form-control" placeholder="01/01/2012" readonly/>
+              <input type="text" class="form-control" placeholder="2012" readonly/>
             </div>
 
             <div class="col-sm-1" style="line-height: 34px; text-align: center;"><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></div>
@@ -24,25 +24,7 @@
             <div class="col-sm-4" style="padding-left: 0px;">
               <div class="datetime-control">
                 <div>
-                  <input type="text" name="start_date" id="measurementPeriodStartInput" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" value="01/01/2012"/>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="measurementPeriodEndInput" class="col-sm-3 control-label">End</label>
-
-            <div class="col-sm-4" style="padding-right: 0px;">
-              <input type="text" class="form-control" placeholder="12/31/2012" readonly/>
-            </div>
-
-            <div class="col-sm-1" style="line-height: 34px; text-align: center;"><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></div>
-
-            <div class="col-sm-4" style="padding-left: 0px;">
-              <div class="datetime-control">
-                <div>
-                  <input type="text" name="start_date" id="measurementPeriodEndInput" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" value="12/31/2012"/>
+                  <input type="text" name="year" id="measurementPeriodYear" class="date-picker form-control" placeholder="yyyy" data-date-format="yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" value="2012"/>
                 </div>
               </div>
             </div>
@@ -55,7 +37,7 @@
                 <label>
                   <input id="measurementPeriodShiftDates" type="checkbox" name="vsac_query_measure_defined" value="true" checked="checked"/>Shift dates in patient data.
                 </label>
-                <div><i>This option shifts all dates on all patients in this measure in relation to the change between the current start time and the new start time.</i></div>
+                <div><i>This option shifts all dates on all patients in this measure by the number of years being changed. Feb 29th in leap years will be changed to Feb 28th in non-leap years.</i></div>
               </div>
             </div>
           </div>
