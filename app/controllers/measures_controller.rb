@@ -11,7 +11,7 @@ class MeasuresController < ApplicationController
     @measure = CQM::Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
-      raw_json = @measure.as_json(except: skippable_fields)
+      raw_json = @measure.as_document.as_json(except: skippable_fields)
       value_sets = @measure.value_sets
       raw_json['value_sets'] = value_sets.as_json
       @measure_json = MultiJson.encode(raw_json)
