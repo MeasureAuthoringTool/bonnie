@@ -50,7 +50,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       isPrimaryView: @isPrimaryView
 
   initialize: ->
-    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
+    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("source_data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
     # Determine which population logic view use
     populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
 
@@ -73,7 +73,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @$('.d3-measure-viz').empty()
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('.btn-viz-chords').show()
-      @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).dataCriteria(@model.get('data_criteria')).measurePopulation(population).measureValueSets(@model.valueSets())
+      @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).dataCriteria(@model.get('source_data_criteria')).measurePopulation(population).measureValueSets(@model.valueSets())
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)

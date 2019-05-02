@@ -12,7 +12,7 @@
         @vs2.concepts.push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
       @vs1.concepts.push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
       @vs2.concepts.push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('patients/core_measures/CMS160/patients.json'), parse: true
       @measure.set('patients', @patients)
       @patient = @patients.at(0)
       @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))

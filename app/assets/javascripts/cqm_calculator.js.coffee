@@ -39,8 +39,8 @@
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient], cqmValueSets, { doPretty: true, includeClauseResults: true })
-      patientResults = cqmResults[patient.id]
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: true, includeClauseResults: true })
+      patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
 
       measure.get('populations').forEach((measure_population) =>
         if measure_population.has('stratification')
@@ -127,7 +127,7 @@
       resultsNeedingCalc.forEach((result) =>
         patient = result.patient
         population = result.population
-        patientResults = cqmResults[patient.id]
+        patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
 
         if population.has('stratification')
           populationSetId = cqmMeasure.population_sets[population.get('population_index')].stratifications[population.get('stratification_index')].stratification_id
