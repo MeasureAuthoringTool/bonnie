@@ -436,20 +436,12 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @showFieldValueCodeSelection(e)
       @validateForAddition()
 
-  canSelectFieldValueCode: (concepts, key) ->
-    return bonnie.isPortfolio and @fieldValue and key in ['PRINCIPAL_DIAGNOSIS', 'DIAGNOSIS'] and concepts and @$("select[name=type]").val() == "CD"
-
   getConcepts: (code_list_id) ->
     return @measure?.valueSets().findWhere(oid: code_list_id)?.get('concepts')
 
   toggleAddCodesButton: ->
     attributes = @serialize(set: false)
-    if @canSelectFieldValueCode(@getConcepts(attributes.code_list_id), attributes.key)
-      # Show code selection for field value
-      @showAddCodesButton = true
-      @fieldValueCodesCollection.reset()
-    else
-      @showAddCodesButton = false
+    @showAddCodesButton = false
     @showAddCodes = false
     @render()
 

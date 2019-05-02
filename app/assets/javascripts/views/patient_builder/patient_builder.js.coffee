@@ -176,8 +176,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           continue if !measure_id?
           m = bonnie.measures.findWhere({hqmf_set_id: measure_id})
           m.get('patients').add(model)
-        if bonnie.isPortfolio
-          @measures.each (m) -> m.get('patients').add model
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
           route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
         else
