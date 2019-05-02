@@ -4,7 +4,7 @@ describe 'cqmCalculator', ->
     @cqm_calculator = new CQMCalculator()
 
   describe 'setValueSetVersionsToUndefined', ->
-    xit 'returns valueSets with versions set to undefined', ->
+    it 'returns valueSets with versions set to undefined', ->
       measure = getJSONFixture('cqm_measure_data/special_measures/CMS720/CMS720v0.json')
       measure_elm = measure.cql_libraries.map((lib) -> lib.elm)
       expect(measure_elm[0]['library']['valueSets']).toExist()
@@ -14,7 +14,7 @@ describe 'cqmCalculator', ->
       elm = cqm.execution.CalculatorHelpers.setValueSetVersionsToUndefined(measure_elm)
       expect(elm[0]['library']['valueSets']['def'][0]['version']).not.toBeDefined()
 
-    xit 'returns the elm without error if there are no valueSets', ->
+    it 'returns the elm without error if there are no valueSets', ->
       measure = getJSONFixture('cqm_measure_data/special_measures/CMS720/CMS720v0.json')
       measure_elm = measure.cql_libraries.map((lib) -> lib.elm)
       expect(measure_elm[0]['library']['valueSets']).toExist()
