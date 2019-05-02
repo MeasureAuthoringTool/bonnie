@@ -61,7 +61,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     else
       @logicView = populationLogicView
 
-    pView = new Thorax.Views.MeasureValueSets model: @model
+    @valueSetsView = new Thorax.Views.MeasureValueSets model: @model
 
     @populationCalculation = new Thorax.Views.PopulationCalculation(model: @population)
     @logicView.listenTo @populationCalculation, 'logicView:showCoverage', -> @showCoverage()

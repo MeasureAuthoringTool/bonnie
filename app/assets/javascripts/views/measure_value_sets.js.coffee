@@ -65,7 +65,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       @cqmMeasure.cql_libraries.forEach (library) =>
         # Direct Reference Codes
         drcGuidsAndNames = {}
-        for value in @cqmMeasure.value_sets
+        for value in @model.valueSets()
           if ValueSetHelpers.isDirectReferenceCode(value.oid)
             drcGuidsAndNames[value.oid] = value['display_name']
 

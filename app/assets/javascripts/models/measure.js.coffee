@@ -16,6 +16,10 @@ class Thorax.Models.Measure extends Thorax.Model
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.data_criteria = attrs.data_criteria
     thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+    if attrs.value_sets?
+      thoraxMeasure.cqmValueSets = attrs.value_sets.map (vs) -> new cqm.models.ValueSet(vs)
+    else
+      thoraxMeasure.cqmValueSets = []
 
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
@@ -45,8 +49,8 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # ignoring versions for diplay names
     oid_display_name_map = {}
-    if thoraxMeasure.value_sets
-      for valSet in thoraxMeasure.value_sets
+    if thoraxMeasure.cqmValueSets
+      for valSet in thoraxMeasure.cqmValueSets
         oid_display_name_map[valSet.oid] = valSet.display_name if valSet?.display_name
 
     for key, data_criteria of thoraxMeasure.data_criteria
