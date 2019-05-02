@@ -87,58 +87,57 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').notes = notes
   setCqmPatientBirthDate: (birthdate, measure) ->
     @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(new Date(birthdate))
-    sourceElement = @removeElementAndGetNewCopy('birthdate', measure)
+    sourceElement = @removeElementAndGetNewCopy('birthdate', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicBirthdate()
     sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientDeathDate: (deathdate, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('expired', measure)
+    sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicExpired()
     sourceElement.expiredDatetime = @createCQLDate(new Date(deathdate))
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientGender: (gender, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('gender', measure)
+    sourceElement = @removeElementAndGetNewCopy('gender', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicSex()
     genderConcept = (@getConceptsForDataElement('gender', measure).filter (elem) -> elem.code == gender)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(genderConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientRace: (race, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('race', measure)
+    sourceElement = @removeElementAndGetNewCopy('race', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicRace()
     raceConcept = (@getConceptsForDataElement('race', measure).filter (elem) -> elem.code == race)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(raceConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientEthnicity: (ethnicity, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('ethnicity', measure)
+    sourceElement = @removeElementAndGetNewCopy('ethnicity', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicEthnicity()
     ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientPayer: (payer, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('payer', measure)
+    sourceElement = @removeElementAndGetNewCopy('payer', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicPayer()
     payerConcept = (@getConceptsForDataElement('payer', measure).filter (elem) -> elem.code == payer)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(payerConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
 
-  removeElementAndGetNewCopy: (elementType, measure) ->
+  removeElementAndGetNewCopy: (elementType, cqmMeasure) ->
     element = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == elementType)[0]
     if element
       elementIndex = @get('cqmPatient').qdmPatient.dataElements.indexOf(element)
       @attributes.cqmPatient.qdmPatient.dataElements.splice(elementIndex, 1)
     # return copy of dataElement off the measure
-    mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0])
+    mongoose.utils.clone((cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0])
 
   getConceptsForDataElement: (qdmStatus, measure) ->
-    dataCriteria = (measure.source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
-    # TODO REPLACE THIS WITH measure.value_sets when we can
-    valueSet = (bonnie.valueSetsByMeasureId[measure.hqmf_set_id]?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
+    dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
+    valueSet = (measure.valueSets()?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
     valueSet?.concepts || []
 
   createCQLDate: (date) ->
