@@ -148,7 +148,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   drop: (e, ui) ->
     patientDataCriteria = $(ui.draggable).model().clone()
-    patientDataCriteria.set('criteria_id', Thorax.Models.PatientDataCriteria.generateCriteriaId())
+    patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
     @addCriteria patientDataCriteria
     return false
 

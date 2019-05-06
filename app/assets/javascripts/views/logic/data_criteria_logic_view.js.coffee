@@ -7,7 +7,7 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
     'INTERSECT':'Intersection of'
     'UNION':'Union of'
 
-  satisfiesDefinitions: Thorax.Models.PatientDataCriteria.satisfiesDefinitions
+  satisfiesDefinitions: Thorax.Models.SourceDataCriteria.satisfiesDefinitions
   events:
     'mouseover .highlight-target': 'highlightEntry'
     'mouseout .highlight-target': 'clearHighlightEntry'

@@ -72,7 +72,7 @@ class Thorax.Models.PopulationSet extends Thorax.Model
     else
       if child.type is 'derived' && child.children_criteria
         # add derived to DC list if it's a satisfies all/any or a variable
-        occurrences.push child.key if child.key && (child.specific_occurrence || !specificsOnly) && (child.definition in Thorax.Models.PatientDataCriteria.satisfiesDefinitions || child.variable)
+        occurrences.push child.key if child.key && (child.specific_occurrence || !specificsOnly) && (child.definition in Thorax.Models.SourceDataCriteria.satisfiesDefinitions || child.variable)
         for dataCriteriaKey in child.children_criteria
           dataCriteria = @measure().get('source_data_criteria')[dataCriteriaKey]
           occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)

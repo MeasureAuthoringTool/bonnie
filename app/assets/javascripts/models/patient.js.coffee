@@ -13,7 +13,7 @@ class Thorax.Models.Patient extends Thorax.Model
     if !thoraxPatient.cqmPatient.qdmPatient
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
-    thoraxPatient.source_data_criteria = new Thorax.Collections.PatientDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
+    thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
     thoraxPatient
 
@@ -233,7 +233,7 @@ class Thorax.Models.Patient extends Thorax.Model
       errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
 
     @get('source_data_criteria').each (sdc) =>
-      timingInterval = Thorax.Models.PatientDataCriteria.getTimingInterval(sdc) || 'authorDatetime'
+      timingInterval = Thorax.Models.SourceDataCriteria.getTimingInterval(sdc) || 'authorDatetime'
       if sdc.get(timingInterval)?.low
         start_date = moment(sdc.get(timingInterval).low, 'X')
       else if timingInterval == 'authorDatetime' && sdc.get(timingInterval)
