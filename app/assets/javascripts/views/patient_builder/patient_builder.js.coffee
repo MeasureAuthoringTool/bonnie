@@ -11,8 +11,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @originalModel = @model # When we're done editing we want to update the original model
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
     @model.get('source_data_criteria').on 'remove', => @materialize()
-    if bonnie.isPortfolio
-      @measureRibbon = new Thorax.Views.MeasureRibbon model: @model
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
