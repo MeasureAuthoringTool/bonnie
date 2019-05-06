@@ -127,7 +127,7 @@
     it 'share patients button not available for non-portfolio users', ->
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
       @measureView.appendTo 'body'
-      @measureView.$("button[data-call-method=sharePatients]").not.toExist()
+      expect(@measureView.$("button[data-call-method=sharePatients]")).not.toExist()
       @measureView.remove()
 
     describe 'value sets view', ->
