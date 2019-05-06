@@ -7,6 +7,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
     @cqmMeasure = @model.get('cqmMeasure')
+    @cqmValueSets = @model.get('cqmValueSets')
 
     # options passed to a Backbone.PageableCollection instance
     @paginationOptions =
@@ -31,13 +32,13 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       oidVersion = ''
       version = ''
     else
-      oidVersion = _.find(@cqmMeasure.value_sets, (oidVersion) -> oidVersion.oid == oid)
+      oidVersion = _.find(@cqmValueSets, (oidVersion) -> oidVersion.oid == oid)
       if oidVersion?
         version = oidVersion.version
       else
         version = ''
 
-    valueSet = _.find(@cqmMeasure.value_sets, (valueSet) -> valueSet.oid == oid)
+    valueSet = _.find(@cqmValueSets, (valueSet) -> valueSet.oid == oid)
     if oidVersion? && oidVersion.version == version && oidVersion.concepts?
       codeConcepts = oidVersion.concepts
       for code in codeConcepts
