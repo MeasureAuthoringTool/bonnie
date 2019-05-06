@@ -1,4 +1,4 @@
-describe "MeasureDataCriteriaOLD", ->
+describe "SourceDataCriteria", ->
   beforeEach ->
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
