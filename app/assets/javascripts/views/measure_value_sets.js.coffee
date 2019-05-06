@@ -27,26 +27,12 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       criteriaSets: criteriaSetArray
 
   getVersionAndCodes: (oid) ->
-    isDirectReference = ValueSetHelpers.isDirectReferenceCode(oid)
-    if isDirectReference
-      oidVersion = ''
-      version = ''
-    else
-      oidVersion = _.find(@cqmValueSets, (oidVersion) -> oidVersion.oid == oid)
-      if oidVersion?
-        version = oidVersion.version
-      else
-        version = ''
-
     valueSet = _.find(@cqmValueSets, (valueSet) -> valueSet.oid == oid)
-    if oidVersion? && oidVersion.version == version && oidVersion.concepts?
-      codeConcepts = oidVersion.concepts
-      for code in codeConcepts
-        code.hasLongDisplayName = code.display_name.length > 160
-    else
-      codeConcepts = []
+    for code in valueSet.concepts
+      code.hasLongDisplayName = code.display_name.length > 160
 
-    codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @paginationOptions)
+    codes = new Backbone.PageableCollection(@sortAndFilterCodes(valueSet.concepts), @paginationOptions)
+    version = valueSet.version
     if version.match(/^Draft/)
       version = "Draft"
     [version, codes]
@@ -76,7 +62,6 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
             display = code.display
             oid = 'Direct Reference Code'
             cid = _.uniqueId('c')
-            # Get the guid by looping over bonnie.valueSetByOid
             for guid, displayName of drcGuidsAndNames
               if displayName == name
                 [version, codes] = @getVersionAndCodes(guid)
