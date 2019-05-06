@@ -113,16 +113,15 @@
       @measureView.$("button[data-call-method=exportExcelPatients]").click()
       expect($.fileDownload).toHaveBeenCalled()
 
-    # it 'can click share patients button', ->
-    #   # share patients only available as a portfolio user
-    #   bonnie.isPorfolio = true
-    #   Handlebars.helpers.ifPortfolio = -> true
-    #   @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
-    #   @measureView.appendTo 'body'
-    #   spyOn(@measureView, 'sharePatients')
-    #   @measureView.$("button[data-call-method=sharePatients]").click()
-    #   expect(@measureView.sharePatients).toHaveBeenCalled()
-    #   @measureView.remove()
+    it 'can click share patients button', ->
+      # Force handlebars to show share patients button, cannot use default handlebars ifPortfolio helper because of mocked BonnieRouter
+      Handlebars.registerHelper 'ifPortfolio', (options) -> options.fn(this) 
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
+      spyOn(@measureView, 'sharePatients')
+      @measureView.$("button[data-call-method=sharePatients]").click()
+      expect(@measureView.sharePatients).toHaveBeenCalled()
+      @measureView.remove()
 
     it 'share patients button not available for non-portfolio users', ->
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
