@@ -15,8 +15,7 @@ Handlebars.registerHelper 'complexityIcon', (score) ->
   return new Handlebars.SafeString(exclamation + exclamation) if score <= 50
   return new Handlebars.SafeString(exclamation + exclamation + exclamation)
 
-# Is the current user an admin or portfolio user? For convenience in deciding what UI
-# elements to display, not trustable for security purposes
+# Helper for checking if user is a portfolio user
 Handlebars.registerHelper 'ifPortfolio', (options) ->
   if bonnie.isPortfolio then options.fn(this) else options.inverse(this)
 
