@@ -7,8 +7,6 @@ Handlebars.registerHelper 'moment', (date, format) -> moment.utc(date).format(fo
 
 # Is the current user an admin or portfolio user? For convenience in deciding what UI
 # elements to display, not trustable for security purposes
-Handlebars.registerHelper 'ifAdmin', (options) ->
-  if bonnie.isAdmin then options.fn(this) else options.inverse(this)
 Handlebars.registerHelper 'ifPortfolio', (options) ->
   if bonnie.isPortfolio then options.fn(this) else options.inverse(this)
 
