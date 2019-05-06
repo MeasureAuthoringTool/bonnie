@@ -8,6 +8,10 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
     @cqmMeasure = @model.get('cqmMeasure')
     @cqmValueSets = @model.get('cqmValueSets')
+    @cqmValueSetsByOid = @cqmValueSets.reduce (result, valueSet) ->
+      result[valueSet.oid] = valueSet
+      result
+    , {}
 
     # options passed to a Backbone.PageableCollection instance
     @paginationOptions =
@@ -27,7 +31,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       criteriaSets: criteriaSetArray
 
   getVersionAndCodes: (oid) ->
-    valueSet = _.find(@cqmValueSets, (valueSet) -> valueSet.oid == oid)
+    valueSet = @cqmValueSetsByOid[oid]
     for code in valueSet.concepts
       code.hasLongDisplayName = code.display_name.length > 160
 
