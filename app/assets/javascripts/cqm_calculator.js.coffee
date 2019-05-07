@@ -23,15 +23,6 @@
 
     # Since we're going to start a calculation for this one, set the state to 'pending'
     result.state = 'pending'
-    if !patient.has('cqmPatient')
-      result.state = 'cancelled'
-      console.log "No CQM patient for #{patient.get('_id')} - #{patient.get('first')} #{patient.get('last')}"
-      return result
-
-    if !measure.has('cqmMeasure')
-      result.state = 'cancelled'
-      console.log "No CQM measure for #{measure.get('cms_id')}"
-      return result
 
     cqmMeasure = measure.get('cqmMeasure')
     cqmValueSets = measure.valueSets()
@@ -60,7 +51,7 @@
           otherPopResult.set(populationSetResults.toObject())
           otherPopResult.state = 'complete'
 
-        console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.get('first')} #{patient.get('last')}"
+        console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
       )
     catch error
       console.log error
@@ -99,7 +90,7 @@
 
         if !patient.has('cqmPatient')
           result.state = 'cancelled'
-          console.log "No CQM patient for #{patient.get('_id')} - #{patient.get('first')} #{patient.get('last')}"
+          console.log "No CQM patient for #{patient.get('_id')} - #{patient.getFirstName()} #{patient.getLastName()}"
         else
           patientNeedsCalc = true
           resultsNeedingCalc.push result
@@ -108,12 +99,12 @@
 
     # leave if everything is calculated
     if !foundIncompleteResults
-      console.log "No recalculation needed for #{measure.get('cms_id')}"
+      console.log "No recalculation needed for #{measure.get('cqmMeasure').cms_id}"
       return results
 
     if !measure.has('cqmMeasure')
       results.forEach((result) -> result.state = 'cancelled')
-      console.log "No CQM measure for #{measure.get('cms_id')}"
+      console.log "No CQM measure for #{measure.get('cqmMeasure')}"
       return results
 
     cqmMeasure = measure.get('cqmMeasure')
@@ -138,7 +129,7 @@
         result.set(populationSetResults.toObject())
         result.state = 'complete'
 
-        console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.get('first')} #{patient.get('last')}"
+        console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
       )
       console.log "finished BATCH calculation of #{cqmMeasure.cms_id}"
     catch error
