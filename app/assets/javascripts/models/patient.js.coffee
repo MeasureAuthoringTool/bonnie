@@ -7,6 +7,8 @@ class Thorax.Models.Patient extends Thorax.Model
     # cqmPatient will already exist if we are cloning the thoraxModel
     if attrs.cqmPatient?
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
+      # TODO: Remove after this is handled properly in cqm-models
+      thoraxPatient.cqmPatient.qdmPatient.extendedData = attrs.cqmPatient.qdmPatient.extendedData
     else
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs)
     # TODO: look into adding this into cqmPatient construction
@@ -29,7 +31,8 @@ class Thorax.Models.Patient extends Thorax.Model
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
-    @get('measure_ids').map (m) ->
+    # TODO: Update measure_ids reference once it is on cqmPatient top level
+    @get('cqmPatient').qdmPatient.extendedData['measure_ids'].map (m) ->
       validIds[m] = {key: m, value: _.contains(measures.pluck('hqmf_set_id'), m)}
     validIds
   getEntrySections: ->
@@ -142,7 +145,7 @@ class Thorax.Models.Patient extends Thorax.Model
 
   createCQLDate: (date) ->
     new cqm.models.CQL.DateTime(date.getFullYear(),date.getMonth()+1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), date.getTimezoneOffset())
-  
+
   conceptToCode: (concept) ->
     new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
 
@@ -159,7 +162,7 @@ class Thorax.Models.Patient extends Thorax.Model
     # patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
     # return if @previousPatientJSON == patientJSON
     # @previousPatientJSON = patientJSON
-    
+
     # $.ajax
     #   url:         "#{@urlRoot}/materialize"
     #   type:        'POST'
@@ -193,7 +196,8 @@ class Thorax.Models.Patient extends Thorax.Model
     for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has(populationCriteria) and populationCriteria != 'OBSERV'
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
 
-    if !_(@get('measure_ids')).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
+    # TODO: Update measure_ids reference once it is on cqmPatient top level
+    if !_(@get('cqmPatient').qdmPatient.extendedData['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
       expectedValue.set _.object(_.keys(expectedValue.attributes), []) # make expectations undefined instead of 0/fail
 
     expectedValue

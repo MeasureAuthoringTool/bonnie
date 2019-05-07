@@ -47,7 +47,8 @@
           bonnie.measures.each(function(measure) {
             if (bonnie.isPortfolio) {
               measure.get('patients').add(patient);
-            } else if(_(patient.getValidMeasureIds())).contains(measure.get('cqmMeasure').hqmf_set_id)) {
+            } else if(_(patient.get('cqmPatient').qdmPatient.extendedData['measure_ids']).contains(measure.get('cqmMeasure').hqmf_set_id)) {
+              // TODO: Update measure_ids reference once it is on cqmPatient top level
               measure.get('patients').add(patient);
             }
           });
