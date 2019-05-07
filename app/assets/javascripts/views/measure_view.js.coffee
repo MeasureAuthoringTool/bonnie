@@ -122,16 +122,16 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         # Populates the patient details
         if (patient_details[patient.cid] == undefined)
           patient_details[patient.cid] = {
-            first: patient.get("first")
-            last: patient.get("last")
-            expected_values: patient.get("expected_values")
-            birthdate: patient.get("birthdate")
+            first: patient.getFirstName()
+            last: patient.getLastName()
+            expected_values: patient.getExpectedValues(@model)
+            birthdate: patient.getBirthDate()
             expired: patient.get("expired")
-            deathdate: patient.get("deathdate")
-            ethnicity: patient.get("ethnicity")
-            race: patient.get("race")
-            gender: patient.get("gender")
-            notes: patient.get("notes")
+            deathdate: patient.getDeathDate()
+            ethnicity: patient.getEthnicity()
+            race: patient.getRace()
+            gender: patient.getGender()
+            notes: patient.getNotes()
           }
         # Populates the population details
         if (population_details[pop.cid] == undefined)
