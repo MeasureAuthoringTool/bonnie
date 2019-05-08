@@ -50,7 +50,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       isPrimaryView: @isPrimaryView
 
   initialize: ->
-    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
+    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("source_data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
     # Determine which population logic view use
     populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
 
@@ -61,7 +61,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     else
       @logicView = populationLogicView
 
-    pView = new Thorax.Views.MeasureValueSets model: @model
+    @valueSetsView = new Thorax.Views.MeasureValueSets model: @model
 
     @populationCalculation = new Thorax.Views.PopulationCalculation(model: @population)
     @logicView.listenTo @populationCalculation, 'logicView:showCoverage', -> @showCoverage()
@@ -73,7 +73,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @$('.d3-measure-viz').empty()
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('.btn-viz-chords').show()
-      @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).dataCriteria(@model.get('data_criteria')).measurePopulation(population).measureValueSets(@model.valueSets())
+      @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).dataCriteria(@model.get('source_data_criteria')).measurePopulation(population).measureValueSets(@model.valueSets())
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
@@ -122,16 +122,16 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         # Populates the patient details
         if (patient_details[patient.cid] == undefined)
           patient_details[patient.cid] = {
-            first: patient.get("first")
-            last: patient.get("last")
-            expected_values: patient.get("expected_values")
-            birthdate: patient.get("birthdate")
+            first: patient.getFirstName()
+            last: patient.getLastName()
+            expected_values: patient.getExpectedValues(@model)
+            birthdate: patient.getBirthDate()
             expired: patient.get("expired")
-            deathdate: patient.get("deathdate")
-            ethnicity: patient.get("ethnicity")
-            race: patient.get("race")
-            gender: patient.get("gender")
-            notes: patient.get("notes")
+            deathdate: patient.getDeathDate()
+            ethnicity: patient.getEthnicity()
+            race: patient.getRace()
+            gender: patient.getGender()
+            notes: patient.getNotes()
           }
         # Populates the population details
         if (population_details[pop.cid] == undefined)

@@ -10,7 +10,6 @@
       <%= app_javascript %>
       var measure = new Thorax.Models.Measure(<%= ERB::Util.json_escape(measure.to_json).html_safe %>, { parse: true });
       var populations = measure.get('populations');
-      bonnie.valueSetsByMeasureId = <%= ERB::Util.json_escape(value_sets_by_oid.to_json).html_safe %>;
       $(document).ready(function() {
         populations.each(function(population) {
           var populationLogicView = new Thorax.Views.PopulationLogic({ model: population });

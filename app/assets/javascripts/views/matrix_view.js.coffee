@@ -3,9 +3,9 @@ class Thorax.Views.Matrix extends Thorax.Views.BonnieView
   template: JST['matrix']
 
   initialize: ->
-    @collection.comparator = (m) -> if match = m.get('cms_id').match(/CMS([0-9]+)/) then parseInt(match[1]) else 0
+    @collection.comparator = (m) -> if match = m.get('cqmMeasure').cms_id.match(/CMS([0-9]+)/) then parseInt(match[1]) else 0
     @collection.sort()
-    @patients.comparator = (p) -> [p.get('last'), p.get('first')]
+    @patients.comparator = (p) -> [p.getLastName(), p.getFirstName()]
     @patients.sort()
 
   context: ->
@@ -24,7 +24,7 @@ class Thorax.Views.MatrixCell extends Thorax.Views.BonnieView
   events:
     rendered: ->
       if @model.differenceFromExpected().has('match')
-        title = "#{@model.population.displayName()} - #{@model.patient.get('last')}, #{@model.patient.get('first')}"
+        title = "#{@model.population.displayName()} - #{@model.patient.getLastName()}, #{@model.patient.getFirstName()}"
         content = JST['population_calculation_results'](patient: @model.patient.toJSON(), comparisons: @model.differenceFromExpected().get('comparisons'))
         @$el.popover trigger: 'hover', placement: 'bottom', container: 'body', title: title, html: true, content: content
     mouseover: ->

@@ -7,13 +7,15 @@ class Thorax.Models.Patient extends Thorax.Model
     # cqmPatient will already exist if we are cloning the thoraxModel
     if attrs.cqmPatient?
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
+      # TODO: Remove after this is handled properly in cqm-models
+      thoraxPatient.cqmPatient.qdmPatient.extendedData = attrs.cqmPatient.qdmPatient.extendedData
     else
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs)
     # TODO: look into adding this into cqmPatient construction
     if !thoraxPatient.cqmPatient.qdmPatient
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
-    thoraxPatient.source_data_criteria = new Thorax.Collections.PatientDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
+    thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
     thoraxPatient
 
@@ -29,7 +31,8 @@ class Thorax.Models.Patient extends Thorax.Model
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
-    @get('measure_ids').map (m) ->
+    # TODO: Update measure_ids reference once it is on cqmPatient top level
+    @get('cqmPatient').qdmPatient.extendedData['measure_ids'].map (m) ->
       validIds[m] = {key: m, value: _.contains(measures.pluck('hqmf_set_id'), m)}
     validIds
   getEntrySections: ->
@@ -87,63 +90,62 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').notes = notes
   setCqmPatientBirthDate: (birthdate, measure) ->
     @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(new Date(birthdate))
-    sourceElement = @removeElementAndGetNewCopy('birthdate', measure)
+    sourceElement = @removeElementAndGetNewCopy('birthdate', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicBirthdate()
     sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientDeathDate: (deathdate, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('expired', measure)
+    sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicExpired()
     sourceElement.expiredDatetime = @createCQLDate(new Date(deathdate))
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientGender: (gender, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('gender', measure)
+    sourceElement = @removeElementAndGetNewCopy('gender', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicSex()
     genderConcept = (@getConceptsForDataElement('gender', measure).filter (elem) -> elem.code == gender)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(genderConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientRace: (race, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('race', measure)
+    sourceElement = @removeElementAndGetNewCopy('race', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicRace()
     raceConcept = (@getConceptsForDataElement('race', measure).filter (elem) -> elem.code == race)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(raceConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientEthnicity: (ethnicity, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('ethnicity', measure)
+    sourceElement = @removeElementAndGetNewCopy('ethnicity', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicEthnicity()
     ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientPayer: (payer, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('payer', measure)
+    sourceElement = @removeElementAndGetNewCopy('payer', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicPayer()
     payerConcept = (@getConceptsForDataElement('payer', measure).filter (elem) -> elem.code == payer)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(payerConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
 
-  removeElementAndGetNewCopy: (elementType, measure) ->
+  removeElementAndGetNewCopy: (elementType, cqmMeasure) ->
     element = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == elementType)[0]
     if element
       elementIndex = @get('cqmPatient').qdmPatient.dataElements.indexOf(element)
       @attributes.cqmPatient.qdmPatient.dataElements.splice(elementIndex, 1)
     # return copy of dataElement off the measure
-    mongoose.utils.clone((measure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0])
+    mongoose.utils.clone((cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0])
 
   getConceptsForDataElement: (qdmStatus, measure) ->
-    dataCriteria = (measure.source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
-    # TODO REPLACE THIS WITH measure.value_sets when we can
-    valueSet = (bonnie.valueSetsByMeasureId[measure.hqmf_set_id]?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
+    dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
+    valueSet = (measure.valueSets()?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
     valueSet?.concepts || []
 
   createCQLDate: (date) ->
     new cqm.models.CQL.DateTime(date.getFullYear(),date.getMonth()+1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), date.getTimezoneOffset())
-  
+
   conceptToCode: (concept) ->
     new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
 
@@ -160,7 +162,7 @@ class Thorax.Models.Patient extends Thorax.Model
     # patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
     # return if @previousPatientJSON == patientJSON
     # @previousPatientJSON = patientJSON
-    
+
     # $.ajax
     #   url:         "#{@urlRoot}/materialize"
     #   type:        'POST'
@@ -194,7 +196,8 @@ class Thorax.Models.Patient extends Thorax.Model
     for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has(populationCriteria) and populationCriteria != 'OBSERV'
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
 
-    if !_(@get('measure_ids')).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
+    # TODO: Update measure_ids reference once it is on cqmPatient top level
+    if !_(@get('cqmPatient').qdmPatient.extendedData['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
       expectedValue.set _.object(_.keys(expectedValue.attributes), []) # make expectations undefined instead of 0/fail
 
     expectedValue
@@ -234,7 +237,7 @@ class Thorax.Models.Patient extends Thorax.Model
       errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
 
     @get('source_data_criteria').each (sdc) =>
-      timingInterval = Thorax.Models.PatientDataCriteria.getTimingInterval(sdc) || 'authorDatetime'
+      timingInterval = Thorax.Models.SourceDataCriteria.getTimingInterval(sdc) || 'authorDatetime'
       if sdc.get(timingInterval)?.low
         start_date = moment(sdc.get(timingInterval).low, 'X')
       else if timingInterval == 'authorDatetime' && sdc.get(timingInterval)

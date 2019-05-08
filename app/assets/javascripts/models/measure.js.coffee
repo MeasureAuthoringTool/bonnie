@@ -16,6 +16,10 @@ class Thorax.Models.Measure extends Thorax.Model
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.data_criteria = attrs.data_criteria
     thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+    if attrs.value_sets?
+      thoraxMeasure.cqmValueSets = attrs.value_sets.map (vs) -> new cqm.models.ValueSet(vs)
+    else
+      thoraxMeasure.cqmValueSets = []
 
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
@@ -45,8 +49,8 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # ignoring versions for diplay names
     oid_display_name_map = {}
-    if bonnie.valueSetsByMeasureId?
-      for valSet in bonnie.valueSetsByMeasureId[thoraxMeasure.cqmMeasure.hqmf_set_id]
+    if thoraxMeasure.cqmValueSets
+      for valSet in thoraxMeasure.cqmValueSets
         oid_display_name_map[valSet.oid] = valSet.display_name if valSet?.display_name
 
     for key, data_criteria of thoraxMeasure.data_criteria
@@ -66,7 +70,7 @@ class Thorax.Models.Measure extends Thorax.Model
             field["referenced_criteria"] = ref
             delete data_criteria.field_values[k]
 
-    thoraxMeasure.source_data_criteria = new Thorax.Collections.PatientDataCriteria _(thoraxMeasure.cqmMeasure.source_data_criteria).values(), parent: this
+    thoraxMeasure.source_data_criteria = new Thorax.Collections.SourceDataCriteria _(thoraxMeasure.cqmMeasure.source_data_criteria).values(), parent: this
     thoraxMeasure.source_data_criteria.each (criteria) ->
       # Apply value set display name if one exists for this criteria
       if !criteria.get('variable') && oid_display_name_map[criteria.get('code_list_id')]?
@@ -77,15 +81,12 @@ class Thorax.Models.Measure extends Thorax.Model
 
     thoraxMeasure
 
-  isPopulated: -> @has('data_criteria')
+  isPopulated: -> @has('source_data_criteria')
 
   populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('cqmMeasure').population_criteria).map (p) -> p.type)
 
   valueSets: ->
-    valSets = []
-    if bonnie.valueSetsByMeasureId?
-      valSets = bonnie.valueSetsByMeasureId[@get('cqmMeasure').hqmf_set_id]
-    valSets
+    @get('cqmValueSets')
 
   hasCode: (code, code_system) ->
     for vs in @valueSets()

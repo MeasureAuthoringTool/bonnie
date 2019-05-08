@@ -4,19 +4,16 @@ describe 'Production_PatientBuilderView', ->
 
   beforeEach ->
     # preserve atomicity
-    @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
     @bonnie_measures_old = bonnie.measures
 
   afterEach ->
-    bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
     bonnie.measures = @bonnie_measures_old
 
   describe 'CMS160 tests', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/core_measures/CMS160/value_sets.json')
       bonnie.measures.add @measure
 
     describe 'Patient "Expired DENEX"', ->
@@ -38,11 +35,8 @@ describe 'Production_PatientBuilderView', ->
   describe 'CMS722 Tests', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      # preserve atomicity
-      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
       @bonnie_measures_old = bonnie.measures
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS722/value_sets.json')
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS722/CMS722v0.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS722/CMS722v0.json', 'cqm_measure_data/special_measures/CMS722/value_sets.json'
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @cqlMeasure
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS722/patients.json'), parse: true
@@ -51,11 +45,10 @@ describe 'Production_PatientBuilderView', ->
         @patientBuilder.$('select[name=type]:first').val('CD').change()
         @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
         @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
-  
-    afterEach -> 
-      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
+
+    afterEach ->
       bonnie.measures = @bonnie_measures_old
-  
+
     it "Can Add A Coded Result To DiagnosticStudyPerformed Data Criteria", ->
       patient = @patients.first()
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @cqlMeasure)
@@ -79,16 +72,13 @@ describe 'Production_PatientBuilderView', ->
   describe 'Medicare Fee For Service tests', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS759v1/CMS759v1.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS759v1/CMS759v1.json', 'cqm_measure_data/special_measures/CMS759v1/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS759v1/patients.json'), parse: true
 
-      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS759v1/value_sets.json')
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @measure
     afterEach ->
-      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       bonnie.measures = @bonnie_measures_old
 
     describe 'Patient "Numer PASS"', ->
@@ -114,18 +104,14 @@ describe 'Production_PatientBuilderView', ->
   describe 'Direct Reference Code tests', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      # bonnie.valueSetsByMeasureId must be loaded before measure because measure.parse depends on it.
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS52v7/value_sets.json')
-      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS52v7/CMS52v7.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS52v7/CMS52v7.json', 'cqm_measure_data/special_measures/CMS52v7/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS52v7/patients.json'), parse: true
 
-      @universalValueSetsByMeasureId = bonnie.valueSetsByMeasureId
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @measure, parse: true
 
     afterEach ->
-      bonnie.valueSetsByMeasureId = @universalValueSetsByMeasureId
       bonnie.measures = @bonnie_measures_old
 
     describe 'Patient Direct Reference Code Element', ->
@@ -158,8 +144,7 @@ describe 'Production_PatientBuilderView', ->
   describe 'Participation tests', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMS761/value_sets.json')
-      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS761/CMS761v0.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS761/CMS761v0.json', 'cqm_measure_data/special_measures/CMS761/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS761/patients.json'), parse: true
       bonnie.measures.add @measure
 
@@ -178,8 +163,7 @@ describe 'Production_PatientBuilderView', ->
   describe 'QDM 5.4', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      bonnie.valueSetsByMeasureId = getJSONFixture('cqm_measure_data/special_measures/CMSv54321/value_sets.json')
-      @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMSv54321/CMSv54321.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMSv54321/CMSv54321.json', 'cqm_measure_data/special_measures/CMSv54321/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv54321/patients.json'), parse: true
       bonnie.measures.add @measure
 
