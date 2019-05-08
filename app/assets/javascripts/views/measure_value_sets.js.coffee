@@ -7,6 +7,11 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
     @cqmMeasure = @model.get('cqmMeasure')
+    @cqmValueSets = @model.get('cqmValueSets')
+    @cqmValueSetsByOid = @cqmValueSets.reduce (result, valueSet) ->
+      result[valueSet.oid] = valueSet
+      result
+    , {}
 
     # options passed to a Backbone.PageableCollection instance
     @paginationOptions =
@@ -26,26 +31,12 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       criteriaSets: criteriaSetArray
 
   getVersionAndCodes: (oid) ->
-    isDirectReference = ValueSetHelpers.isDirectReferenceCode(oid)
-    if isDirectReference
-      oidVersion = ''
-      version = ''
-    else
-      oidVersion = _.find(bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id], (oidVersion) -> oidVersion.oid == oid)
-      if oidVersion?
-        version = oidVersion.version
-      else
-        version = ''
+    valueSet = @cqmValueSetsByOid[oid]
+    for code in valueSet.concepts
+      code.hasLongDisplayName = code.display_name.length > 160
 
-    valueSet = _.find(bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id], (valueSet) -> valueSet.oid == oid)
-    if oidVersion? && oidVersion.version == version && oidVersion.concepts?
-      codeConcepts = oidVersion.concepts
-      for code in codeConcepts
-        code.hasLongDisplayName = code.display_name.length > 160
-    else
-      codeConcepts = []
-
-    codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @paginationOptions)
+    codes = new Backbone.PageableCollection(@sortAndFilterCodes(valueSet.concepts), @paginationOptions)
+    version = valueSet.version
     if version.match(/^Draft/)
       version = "Draft"
     [version, codes]
@@ -65,7 +56,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       @cqmMeasure.cql_libraries.forEach (library) =>
         # Direct Reference Codes
         drcGuidsAndNames = {}
-        for value in bonnie.valueSetsByMeasureId[@cqmMeasure.hqmf_set_id]
+        for value in @model.valueSets()
           if ValueSetHelpers.isDirectReferenceCode(value.oid)
             drcGuidsAndNames[value.oid] = value['display_name']
 
@@ -75,7 +66,6 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
             display = code.display
             oid = 'Direct Reference Code'
             cid = _.uniqueId('c')
-            # Get the guid by looping over bonnie.valueSetByOid
             for guid, displayName of drcGuidsAndNames
               if displayName == name
                 [version, codes] = @getVersionAndCodes(guid)

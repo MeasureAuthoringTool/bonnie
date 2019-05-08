@@ -33,7 +33,6 @@
         <%= HQMF2JS::Generator::JS.crosswalk_functions.html_safe %>
       </script>
     <% end %>
-    <script src="<%= value_sets_measures_url(format: :js) %>"></script>
     <% @measures.each do |measure| %>
       <script src="<%= measure_url(measure, format: :js) %>"></script>
     <% end %>
@@ -48,7 +47,8 @@
           bonnie.measures.each(function(measure) {
             if (bonnie.isPortfolio) {
               measure.get('patients').add(patient);
-            } else if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
+            } else if(_(patient.get('cqmPatient').qdmPatient.extendedData['measure_ids']).contains(measure.get('cqmMeasure').hqmf_set_id)) {
+              // TODO: Update measure_ids reference once it is on cqmPatient top level
               measure.get('patients').add(patient);
             }
           });

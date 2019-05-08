@@ -12,10 +12,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @cqmMeasure = @measure.get('cqmMeasure')
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
     @model.get('source_data_criteria').on 'remove', => @materialize()
-    @race_codes = @model.getConceptsForDataElement('race', @measure.get('cqmMeasure'))
-    @ethnicity_codes = @model.getConceptsForDataElement('ethnicity', @measure.get('cqmMeasure'))
-    @gender_codes = @model.getConceptsForDataElement('gender', @measure.get('cqmMeasure'))
-    @payer_codes = @model.getConceptsForDataElement('payer', @measure.get('cqmMeasure'))
+    @race_codes = @model.getConceptsForDataElement('race', @measure)
+    @ethnicity_codes = @model.getConceptsForDataElement('ethnicity', @measure)
+    @gender_codes = @model.getConceptsForDataElement('gender', @measure)
+    @payer_codes = @model.getConceptsForDataElement('payer', @measure)
     @first = @model.getFirstName()
     @last = @model.getLastName()
     @birthdate = @model.getBirthDate()
@@ -114,16 +114,16 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     serialize: (attr) ->
       @model.setCqmPatientFirstName(attr.first)if attr.first
       @model.setCqmPatientLastName(attr.last) if attr.last
-      @model.setCqmPatientGender(attr.gender, @measure.get('cqmMeasure')) if attr.gender
+      @model.setCqmPatientGender(attr.gender, @measure) if attr.gender
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
-      @model.setCqmPatientBirthDate(birthdate, @measure.get('cqmMeasure')) if birthdate
+      @model.setCqmPatientBirthDate(birthdate, @measure) if birthdate
       deathdate = attr.deathdate if attr.deathdate
       deathdate += " #{attr.deathtime}" if attr.deathdate && attr.deathtime
-      @model.setCqmPatientDeathDate(deathdate, @measure.get('cqmMeasure')) if deathdate
-      @model.setCqmPatientRace(attr.race, @measure.get('cqmMeasure')) if attr.race
-      @model.setCqmPatientEthnicity(attr.ethnicity, @measure.get('cqmMeasure')) if attr.ethnicity
-      @model.setCqmPatientPayer(attr.payer, @measure.get('cqmMeasure')) if attr.payer
+      @model.setCqmPatientDeathDate(deathdate, @measure) if deathdate
+      @model.setCqmPatientRace(attr.race, @measure) if attr.race
+      @model.setCqmPatientEthnicity(attr.ethnicity, @measure) if attr.ethnicity
+      @model.setCqmPatientPayer(attr.payer, @measure) if attr.payer
       @model.setCqmPatientNotes(attr.notes) if attr.notes
       @model.attributes.cqmPatient.qdmPatient.initializeDataElements()
 
@@ -148,7 +148,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   drop: (e, ui) ->
     patientDataCriteria = $(ui.draggable).model().clone()
-    patientDataCriteria.set('criteria_id', Thorax.Models.PatientDataCriteria.generateCriteriaId())
+    patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
     @addCriteria patientDataCriteria
     return false
 

@@ -93,7 +93,7 @@ class FixtureExporter
 
   def create_fixture_file(file_path, fixture)
     fixture_json = JSON.pretty_generate(fixture)
-    FileUtils.mkdir_p(File.dirname(file_path)) unless Dir.exists? File.dirname(file_path)
+    FileUtils.mkdir_p(File.dirname(file_path)) unless Dir.exist? File.dirname(file_path)
     File.new(file_path, "w+")
     File.write(file_path, fixture_json)
   end
