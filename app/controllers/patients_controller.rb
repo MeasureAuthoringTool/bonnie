@@ -99,6 +99,7 @@ class PatientsController < ApplicationController
       patient.measure_ids = measure_ids
       patient.save
     end
+    render nothing: true
   end
 
 private
@@ -106,7 +107,7 @@ private
   def update_patient(patient)
 
     # FIXME: This code handles current confused state of client side patient/measure association; everything should use measure_ids only
-    patient['measure_ids'] ||= params['measure_ids'] || []
+    patient['measure_ids'] = params['measure_ids'] || []
     patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id'] || params['measure_id'].nil?
 
     ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category', 'deathdate', 'notes', 'is_shared'].each {|param| patient[param] = params[param]}
