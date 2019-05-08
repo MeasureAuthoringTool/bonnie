@@ -57,14 +57,13 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     result = $(e.target).model().result
     patient = @measure.get('patients').get result.get('patient_id')
     # If patient belongs to multiple measures, show dialog asking if we want to remove patient from specific measures else delete patient
-    if (patient.get('measure_ids').filter (id) -> id?).length > 1
+    if (patient.get('measure_ids').filter (id) -> id?).length > 1 && bonnie.isPortfolio
       patientsMeasures = @measure.collection.models.filter (measure) -> patient.get('measure_ids').includes(measure.get('hqmf_set_id'))
       deletePatientDialog = new Thorax.Views.DeletePatientDialog(model: patient, availableMeasures: patientsMeasures, submitCallback: @adjustMeasureIds, result: result)
       deletePatientDialog.appendTo(@$el)
       deletePatientDialog.display()
     else
       @patientDestroy(patient,result)
-
 
   patientDestroy: (patient, result) ->
     patient.destroy()
