@@ -31,7 +31,7 @@ class Thorax.Models.Result extends Thorax.Model
 
         # get the referenced occurrences in the logic tree using original population code
         criteria = _.uniq @population.getDataCriteriaKeys(@measure.get('cqmMeasure').population_criteria[@population.get(code)?.code], false)
-        criteriaResults = @checkCriteriaForRationale(specifics, criteria, rationale, @measure.get('data_criteria'))
+        criteriaResults = @checkCriteriaForRationale(specifics, criteria, rationale, @measure.get('source_data_criteria'))
         submeasureCode = @population.get(code)?.code || code
         parentMap = @buildParentMap(@measure.get('cqmMeasure').population_criteria[submeasureCode])
 
@@ -128,7 +128,7 @@ class Thorax.Models.Result extends Thorax.Model
           @updateLogicTreeChildren(updatedRationale, rationale, code, parentMap[parentKey], orCounts, parentMap)
 
   buildParentMap: (root) ->
-    dataCriteriaMap = @measure.get('data_criteria')
+    dataCriteriaMap = @measure.get('source_data_criteria')
     parentMap = {}
     return parentMap unless root
     if root.preconditions?.length > 0
@@ -190,7 +190,7 @@ class Thorax.Models.Result extends Thorax.Model
   # walk through data criteria to account for specific occurrences within a UNION
   calculateDataCriteriaOrCounts: (rationale) ->
     orCounts = {}
-    for key, dc of @measure.get('data_criteria') when dc.derivation_operator == 'UNION' && key.match(/UNION|satisfiesAny/)
+    for key, dc of @measure.get('source_data_criteria') when dc.derivation_operator == 'UNION' && key.match(/UNION|satisfiesAny/)
       for child in dc.children_criteria
         orCounts[key] = (orCounts[key] || 0) + 1 if rationale[child] # Only add to orCount for logically true branches
     orCounts
@@ -199,7 +199,7 @@ class Thorax.Models.Result extends Thorax.Model
     @get('rationale')[dataCriteriaKey]?['results']
 
   codedEntriesPassingSpecifics: (dataCriteriaKey, populationCriteriaKey) ->
-    index = hqmf.SpecificsManager.indexLookup[@measure.get('data_criteria')[dataCriteriaKey].source_data_criteria]
+    index = hqmf.SpecificsManager.indexLookup[@measure.get('source_data_criteria')[dataCriteriaKey].source_data_criteria]
     goodElements = (row[index] for row in @get('finalSpecifics')[populationCriteriaKey]) if index? and @get('finalSpecifics')?[populationCriteriaKey]?
 
   # adds specific rationale results to the toJSON output.

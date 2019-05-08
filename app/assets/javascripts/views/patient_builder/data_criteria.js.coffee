@@ -111,7 +111,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    timingInterval = Thorax.Models.PatientDataCriteria.getTimingInterval(@model) || 'authorDatetime'
+    timingInterval = Thorax.Models.SourceDataCriteria.getTimingInterval(@model) || 'authorDatetime'
     _(super).extend
       start_date: moment.utc(@model.get(timingInterval).low).format('L') if @model.get(timingInterval)?.low?
       start_time: moment.utc(@model.get(timingInterval).low).format('LT') if @model.get(timingInterval)?.low?
@@ -165,8 +165,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->
-    droppedCriteriaTiming = Thorax.Models.PatientDataCriteria.getTimingInterval(droppedCriteria)
-    targetCriteriaTiming = Thorax.Models.PatientDataCriteria.getTimingInterval(targetCriteria)
+    droppedCriteriaTiming = Thorax.Models.SourceDataCriteria.getTimingInterval(droppedCriteria)
+    targetCriteriaTiming = Thorax.Models.SourceDataCriteria.getTimingInterval(targetCriteria)
     if(droppedCriteria? && targetCriteriaTiming?)
       droppedCriteria.set "#{droppedCriteriaTiming}": targetCriteria.get(targetCriteriaTiming)
     # Copy authorDatetime if droppedCriteria and target both have the authorDatetime property
@@ -377,7 +377,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     _(super).extend
       codes: unique_codes
       # QDM say that per instance of a data criteria there can be only 1 Result
-      # The function Thorax.Models.PatientDataCriteria.canHaveResult determines which criteria those are
+      # The function Thorax.Models.SourceDataCriteria.canHaveResult determines which criteria those are
       hideEditValueView: @values.models.length > 0
 
   # When we serialize the form, we want to put the description for any CD codes into the submission

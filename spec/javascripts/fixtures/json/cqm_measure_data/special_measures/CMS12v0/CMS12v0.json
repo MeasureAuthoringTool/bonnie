@@ -1,5 +1,5 @@
 {
-  "_id": "5c65cb5157a11ee1887a8091",
+  "_id": "5cc9f83ed7c8ac7fa8e22020",
   "calculate_sdes": null,
   "calculation_method": "EPISODE_OF_CARE",
   "cms_id": "CMS12v0",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5c65cb5157a11ee1887a8092",
+      "_id": "5cc9f83ed7c8ac7fa8e22021",
       "cql": "library TEST105 version '0.0.011'\n\nusing QDM version '5.0.2'\n\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1' \n\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836' \n\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837' \n\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591' \n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \n\nvalueset \"Non-Elective Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.424' \n\nvalueset \"Comfort Measures\": 'urn:oid:1.3.6.1.4.1.33895.1.3.0.45' \n\nvalueset \"LDL-c\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.215' \n\nvalueset \"Statin Allergen\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.423' \n\nvalueset \"Statin Grouper\": 'urn:oid:2.16.840.1.113762.1.4.1110.19' \n\nvalueset \"Patient Refusal\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.93' \n\nvalueset \"Medical Reason\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.473' \n\nvalueset \"Patient Expired\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.309' \n\nvalueset \"Left Against Medical Advice\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.308' \n\nvalueset \"Discharged to Health Care Facility for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.207' \n\nvalueset \"Ischemic Stroke\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.247' \n\nvalueset \"Discharge To Acute Care Facility\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.87' \n\nvalueset \"Discharged to Home for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.209' \n\nvalueset \"Hemorrhagic Stroke\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.212' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"SDE Ethnicity\": [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\n\ndefine \"SDE Payer\": [\"Patient Characteristic Payer\": \"Payer\"]\n\ndefine \"SDE Race\": [\"Patient Characteristic Race\": \"Race\"]\n\ndefine \"SDE Sex\": [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\n\ndefine \"LDL less than 70 mg per dL\": \"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\n    with [\"Laboratory Test, Performed\": \"LDL-c\"] Ldl\n        such that Ldl.result < 70 'mg/dL'\n            and (Ldl.resultDatetime 30 days or less before start of Encounter.relevantPeriod \n            or Ldl.resultDatetime during Encounter.relevantPeriod)\n\ndefine \"Intervention Comfort Measures\": distinct (\n[\"Intervention, Order\": \"Comfort Measures\"]\nunion (\n[\"Intervention, Performed\": \"Comfort Measures\"] Intervention\nreturn \"Intervention, Order\" {\nauthorDatetime: start of Intervention.relevantPeriod,\nreason: Intervention.reason\n}\n)\n)\n\ndefine \"Encounters with Comfort Measures\": \"Encounter with Principal Diagnosis of Ischemic Stroke\" NonElectiveEncounter\n    with \"Intervention Comfort Measures\" ComfortMeasure\n        such that ComfortMeasure.authorDatetime during NonElectiveEncounter.relevantPeriod\n\ndefine \"statin at discharge\": [\"Medication, Discharge\": \"Statin Grouper\"] statin\n\ndefine \"statin allergy\": [\"Allergy/Intolerance\": \"Statin Allergen\"] Allergy\n\ndefine \"statin not given at discharge\": [\"Medication, Not Discharged\": \"Statin Grouper\"] StatinDischarge\n    where StatinDischarge.negationRationale in \"Medical Reason\"\n    or StatinDischarge.negationRationale in \"Patient Refusal\"\n\ndefine \"Initial Population\": \"Encounter with Age\"\n\ndefine \"Denominator\": \"Encounter with Principal Diagnosis of Ischemic Stroke\"\n\ndefine \"Denominator Exclusions\": distinct ((\n\"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\nwhere Encounter.dischargeDisposition in \"Discharge To Acute Care Facility\"\nor Encounter.dischargeDisposition in \"Left Against Medical Advice\"\nor Encounter.dischargeDisposition in \"Patient Expired\"\nor Encounter.dischargeDisposition in \"Discharged to Home for Hospice Care\"\nor Encounter.dischargeDisposition in \"Discharged to Health Care Facility for Hospice Care\"\n)\nunion \"LDL less than 70 mg per dL\"\nunion \"Encounters with Prior ED Encounters with Comfort Measures\"\nunion \"Encounters with Comfort Measures\"\n)\n\ndefine \"Numerator\": \"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\n    with \"statin at discharge\" Statin\n        such that Statin.authorDatetime during Encounter.relevantPeriod\n\ndefine \"Denominator Exceptions\": distinct (\n    (\"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\n        with \"statin not given at discharge\" StatinDischarge\n        such that StatinDischarge.authorDatetime during Encounter.relevantPeriod\n    )\n    union (\n     \"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\n        with \"statin allergy\" Allergy\n        such that Allergy.prevalencePeriod starts same or before end of Encounter.relevantPeriod\n        )\n    )\n\ndefine \"ED Encounters with Comfort Measures\": [\"Encounter, Performed\": \"Emergency Department Visit\"] EDEncounter\n    with \"Intervention Comfort Measures\" ComfortMeasure\n        such that ComfortMeasure.authorDatetime during EDEncounter.relevantPeriod\n\ndefine \"Encounters with Prior ED Encounters with Comfort Measures\": \"Encounter with Principal Diagnosis of Ischemic Stroke\" NonElectiveEncounter\n    with \"ED Encounters with Comfort Measures\" EDEncounter\n        such that EDEncounter.relevantPeriod ends 1 hour or less before start of NonElectiveEncounter.relevantPeriod\n\ndefine \"non elective inpatient encounter\": [\"Encounter, Performed\": \"Non-Elective Inpatient Encounter\"] NonElectiveEncounter\n    where NonElectiveEncounter.lengthOfStay <= 120 days\n    and NonElectiveEncounter.relevantPeriod ends during \"Measurement Period\"\n\ndefine \"Encounter with Principal Diagnosis of Hemorrhagic or Ischemic Stroke\": \"non elective inpatient encounter\" NonElectiveEncounter\n    where NonElectiveEncounter.principalDiagnosis in \"Ischemic Stroke\"\n    or NonElectiveEncounter.principalDiagnosis in \"Hemorrhagic Stroke\"\n\ndefine \"Encounter with Age\": \"Encounter with Principal Diagnosis of Hemorrhagic or Ischemic Stroke\" NonElectiveEncounter\n    where AgeInYearsAt(start of NonElectiveEncounter.relevantPeriod) >=18\n\ndefine \"Encounter with Principal Diagnosis of Ischemic Stroke\": \"Encounter with Age\" Encounter\n    where Encounter.principalDiagnosis in \"Ischemic Stroke\"\n\n",
       "elm": {
         "library": {
@@ -8796,221 +8796,243 @@
         }
       },
       "is_main_library": true,
+      "is_top_level": true,
       "library_name": "TEST105",
       "library_version": "0.0.011",
       "statement_dependencies": [
         {
-          "_id": "5c65cb5157a11ee1887a8093",
+          "_id": "5cc9f83ed7c8ac7fa8e22022",
           "statement_name": "Patient"
         },
         {
-          "_id": "5c65cb5157a11ee1887a8094",
+          "_id": "5cc9f83ed7c8ac7fa8e22023",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5c65cb5157a11ee1887a8095",
+          "_id": "5cc9f83ed7c8ac7fa8e22024",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5c65cb5157a11ee1887a8096",
+          "_id": "5cc9f83ed7c8ac7fa8e22025",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5c65cb5157a11ee1887a8097",
+          "_id": "5cc9f83ed7c8ac7fa8e22026",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5c65cb5157a11ee1887a8098",
+          "_id": "5cc9f83ed7c8ac7fa8e22027",
           "statement_name": "non elective inpatient encounter"
         },
         {
-          "_id": "5c65cb5157a11ee1887a8099",
+          "_id": "5cc9f83ed7c8ac7fa8e22028",
           "statement_name": "Encounter with Principal Diagnosis of Hemorrhagic or Ischemic Stroke",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a809a",
+              "_id": "5cc9f83ed7c8ac7fa8e22029",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "non elective inpatient encounter"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a809b",
+          "_id": "5cc9f83ed7c8ac7fa8e2202a",
           "statement_name": "Encounter with Age",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a809c",
+              "_id": "5cc9f83ed7c8ac7fa8e2202b",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Hemorrhagic or Ischemic Stroke"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a809d",
+          "_id": "5cc9f83ed7c8ac7fa8e2202c",
           "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a809e",
+              "_id": "5cc9f83ed7c8ac7fa8e2202d",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Age"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a809f",
+          "_id": "5cc9f83ed7c8ac7fa8e2202e",
           "statement_name": "LDL less than 70 mg per dL",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80a0",
+              "_id": "5cc9f83ed7c8ac7fa8e2202f",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a80a1",
+          "_id": "5cc9f83ed7c8ac7fa8e22030",
           "statement_name": "Intervention Comfort Measures"
         },
         {
-          "_id": "5c65cb5157a11ee1887a80a2",
+          "_id": "5cc9f83ed7c8ac7fa8e22031",
           "statement_name": "Encounters with Comfort Measures",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80a3",
+              "_id": "5cc9f83ed7c8ac7fa8e22032",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80a4",
+              "_id": "5cc9f83ed7c8ac7fa8e22033",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Intervention Comfort Measures"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a80a5",
+          "_id": "5cc9f83ed7c8ac7fa8e22034",
           "statement_name": "statin at discharge"
         },
         {
-          "_id": "5c65cb5157a11ee1887a80a6",
+          "_id": "5cc9f83ed7c8ac7fa8e22035",
           "statement_name": "statin allergy"
         },
         {
-          "_id": "5c65cb5157a11ee1887a80a7",
+          "_id": "5cc9f83ed7c8ac7fa8e22036",
           "statement_name": "statin not given at discharge"
         },
         {
-          "_id": "5c65cb5157a11ee1887a80a8",
+          "_id": "5cc9f83ed7c8ac7fa8e22037",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80a9",
+              "_id": "5cc9f83ed7c8ac7fa8e22038",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Age"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a80aa",
+          "_id": "5cc9f83ed7c8ac7fa8e22039",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80ab",
+              "_id": "5cc9f83ed7c8ac7fa8e2203a",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a80ac",
+          "_id": "5cc9f83ed7c8ac7fa8e2203b",
           "statement_name": "ED Encounters with Comfort Measures",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80ad",
+              "_id": "5cc9f83ed7c8ac7fa8e2203c",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Intervention Comfort Measures"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a80ae",
+          "_id": "5cc9f83ed7c8ac7fa8e2203d",
           "statement_name": "Encounters with Prior ED Encounters with Comfort Measures",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80af",
+              "_id": "5cc9f83ed7c8ac7fa8e2203e",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80b0",
+              "_id": "5cc9f83ed7c8ac7fa8e2203f",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "ED Encounters with Comfort Measures"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a80b1",
+          "_id": "5cc9f83ed7c8ac7fa8e22040",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80b2",
+              "_id": "5cc9f83ed7c8ac7fa8e22041",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80b3",
+              "_id": "5cc9f83ed7c8ac7fa8e22042",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "LDL less than 70 mg per dL"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80b4",
+              "_id": "5cc9f83ed7c8ac7fa8e22043",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounters with Prior ED Encounters with Comfort Measures"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80b5",
+              "_id": "5cc9f83ed7c8ac7fa8e22044",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounters with Comfort Measures"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a80b6",
+          "_id": "5cc9f83ed7c8ac7fa8e22045",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80b7",
+              "_id": "5cc9f83ed7c8ac7fa8e22046",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80b8",
+              "_id": "5cc9f83ed7c8ac7fa8e22047",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "statin at discharge"
             }
           ]
         },
         {
-          "_id": "5c65cb5157a11ee1887a80b9",
+          "_id": "5cc9f83ed7c8ac7fa8e22048",
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
-              "_id": "5c65cb5157a11ee1887a80ba",
+              "_id": "5cc9f83ed7c8ac7fa8e22049",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80bb",
+              "_id": "5cc9f83ed7c8ac7fa8e2204a",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "statin not given at discharge"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80bc",
+              "_id": "5cc9f83ed7c8ac7fa8e2204b",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5c65cb5157a11ee1887a80bd",
+              "_id": "5cc9f83ed7c8ac7fa8e2204c",
+              "hqmf_id": null,
               "library_name": "TEST105",
               "statement_name": "statin allergy"
             }
@@ -9019,339 +9041,7 @@
       ]
     }
   ],
-  "created_at": null,
-  "data_criteria": {
-    "ComfortMeasures_InterventionOrder_7236796e_763e_4cae_b42a_d24d273df06f": {
-      "title": "Comfort Measures",
-      "description": "Intervention, Order: Comfort Measures",
-      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "ComfortMeasures_InterventionOrder_7236796e_763e_4cae_b42a_d24d273df06f_source",
-      "variable": false
-    },
-    "ComfortMeasures_InterventionPerformed_7236796e_763e_4cae_b42a_d24d273df06f": {
-      "title": "Comfort Measures",
-      "description": "Intervention, Performed: Comfort Measures",
-      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ComfortMeasures_InterventionPerformed_7236796e_763e_4cae_b42a_d24d273df06f_source",
-      "variable": false
-    },
-    "Non_ElectiveInpatientEncounter_EncounterPerformed_2abc795f_73fb_4273_a9da_ae9a84cdca7a": {
-      "title": "Non-Elective Inpatient Encounter",
-      "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Non_ElectiveInpatientEncounter_EncounterPerformed_2abc795f_73fb_4273_a9da_ae9a84cdca7a_source",
-      "variable": false
-    },
-    "LDL_c_LaboratoryTestPerformed_0751fc4c_f4ba_4c88_b3b1_d502fe190ba9": {
-      "title": "LDL-c",
-      "description": "Laboratory Test, Performed: LDL-c",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.215",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "LDL_c_LaboratoryTestPerformed_0751fc4c_f4ba_4c88_b3b1_d502fe190ba9_source",
-      "variable": false
-    },
-    "StatinAllergen_Allergy_Intolerance_0465ff33_0f70_4a43_bfa4_e0d58eaf529a": {
-      "title": "Statin Allergen",
-      "description": "Allergy/Intolerance: Statin Allergen",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.423",
-      "type": "allergies_intolerances",
-      "definition": "allergy_intolerance",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "StatinAllergen_Allergy_Intolerance_0465ff33_0f70_4a43_bfa4_e0d58eaf529a_source",
-      "variable": false
-    },
-    "EmergencyDepartmentVisit_EncounterPerformed_ad416bc8_a455_41b9_a44b_bda0531ba006": {
-      "title": "Emergency Department Visit",
-      "description": "Encounter, Performed: Emergency Department Visit",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EmergencyDepartmentVisit_EncounterPerformed_ad416bc8_a455_41b9_a44b_bda0531ba006_source",
-      "variable": false
-    },
-    "StatinGrouper_MedicationDischarge_97a0bf13_2b1e_4bff_9578_eaa6a68ef604": {
-      "title": "Statin Grouper",
-      "description": "Medication, Discharge: Statin Grouper",
-      "code_list_id": "2.16.840.1.113762.1.4.1110.19",
-      "type": "medications",
-      "definition": "medication",
-      "status": "discharge",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "StatinGrouper_MedicationDischarge_97a0bf13_2b1e_4bff_9578_eaa6a68ef604_source",
-      "variable": false
-    },
-    "StatinGrouper_MedicationNotDischarged_97a0bf13_2b1e_4bff_9578_eaa6a68ef604": {
-      "title": "Statin Grouper",
-      "description": "Medication, Not Discharged: Statin Grouper",
-      "code_list_id": "2.16.840.1.113762.1.4.1110.19",
-      "type": "medications",
-      "definition": "medication",
-      "status": "discharge",
-      "hard_status": true,
-      "negation": true,
-      "source_data_criteria": "StatinGrouper_MedicationNotDischarged_97a0bf13_2b1e_4bff_9578_eaa6a68ef604_source",
-      "variable": false
-    },
-    "Payer_PatientCharacteristicPayer_682705d0_1bf2_45d7_b315_214675fdc2d2": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_682705d0_1bf2_45d7_b315_214675fdc2d2_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "32127",
-          "32128",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "391",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "524",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "622",
-          "623",
-          "629",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_e61e3af2_33ae_4138_b487_c648231207ba": {
-      "title": "ONC Administrative Sex",
-      "description": "Patient Characteristic Sex: ONC Administrative Sex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_e61e3af2_33ae_4138_b487_c648231207ba_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_3c2b2d96_ed58_444a_8443_7d180f1f1c0f": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_3c2b2d96_ed58_444a_8443_7d180f1f1c0f_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "Race_PatientCharacteristicRace_84344dd2_b5df_4546_979a_bc433ded4302": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_84344dd2_b5df_4546_979a_bc433ded4302_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    }
-  },
+  "created_at": "2019-05-01T19:49:18.895Z",
   "description": "Ischemic stroke patients who are prescribed or continuing to take statin medication at hospital discharge",
   "hqmf_id": "40280582-5859-673B-0158-88ABAE920236",
   "hqmf_set_id": "DEAB0F79-D6C0-4E5C-9866-3DCFFAD0181B",
@@ -9920,393 +9610,371 @@
   },
   "population_sets": [
     {
-      "_id": "5c65cb5157a11ee1887a80be",
+      "_id": "5cc9f83ed7c8ac7fa8e22059",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5c65cb5157a11ee1887a80bf",
+          "_id": "5cc9f83ed7c8ac7fa8e2205f",
+          "hqmf_id": "1AA4A58B-0800-45D3-8181-2746A532E563",
           "library_name": "TEST105",
           "statement_name": "Denominator Exclusions"
         },
         "DENEXCEP": {
-          "_id": "5c65cb5157a11ee1887a80c0",
+          "_id": "5cc9f83ed7c8ac7fa8e2205e",
+          "hqmf_id": "4BC59DD0-25EB-41B0-B875-481E7CCCA40C",
           "library_name": "TEST105",
           "statement_name": "Denominator Exceptions"
         },
         "DENOM": {
-          "_id": "5c65cb5157a11ee1887a80c1",
+          "_id": "5cc9f83ed7c8ac7fa8e2205c",
+          "hqmf_id": "233FB589-59CD-4332-B2B5-80528C4BD82B",
           "library_name": "TEST105",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5c65cb5157a11ee1887a80c2",
+          "_id": "5cc9f83ed7c8ac7fa8e2205b",
+          "hqmf_id": "9320FE66-13DD-44DE-93C8-266F3C35EE01",
           "library_name": "TEST105",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5c65cb5157a11ee1887a80c3",
+          "_id": "5cc9f83ed7c8ac7fa8e2205d",
+          "hqmf_id": "959CDF36-5B71-436B-9A1D-4C0A070BEB8F",
           "library_name": "TEST105",
           "statement_name": "Numerator"
         },
-        "_id": "5c65cb5157a11ee1887a80c4"
+        "_id": "5cc9f83ed7c8ac7fa8e2205a",
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     }
   ],
-  "source_data_criteria": {
-    "ComfortMeasures_InterventionOrder_7236796e_763e_4cae_b42a_d24d273df06f_source": {
-      "title": "Comfort Measures",
+  "source_data_criteria": [
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e2a",
+      "authorDatetime": null,
+      "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Order: Comfort Measures",
-      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "ComfortMeasures_InterventionOrder_7236796e_763e_4cae_b42a_d24d273df06f_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e2204d",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e2a"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "order",
+      "qdmTitle": "Intervention, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "_type": "QDM::InterventionOrder"
     },
-    "ComfortMeasures_InterventionPerformed_7236796e_763e_4cae_b42a_d24d273df06f_source": {
-      "title": "Comfort Measures",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e2b",
+      "authorDatetime": null,
+      "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Performed: Comfort Measures",
-      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ComfortMeasures_InterventionPerformed_7236796e_763e_4cae_b42a_d24d273df06f_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e2204e",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e2b"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "performed",
+      "qdmTitle": "Intervention, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "relevantPeriod": null,
+      "result": null,
+      "status": null,
+      "_type": "QDM::InterventionPerformed"
     },
-    "Non_ElectiveInpatientEncounter_EncounterPerformed_2abc795f_73fb_4273_a9da_ae9a84cdca7a_source": {
-      "title": "Non-Elective Inpatient Encounter",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e2c",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.424",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Non_ElectiveInpatientEncounter_EncounterPerformed_2abc795f_73fb_4273_a9da_ae9a84cdca7a_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e2204f",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e2c"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "LDL_c_LaboratoryTestPerformed_0751fc4c_f4ba_4c88_b3b1_d502fe190ba9_source": {
-      "title": "LDL-c",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e2d",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.215",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Laboratory Test, Performed: LDL-c",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.215",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "LDL_c_LaboratoryTestPerformed_0751fc4c_f4ba_4c88_b3b1_d502fe190ba9_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22050",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e2d"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "laboratory_test",
+      "qdmStatus": "performed",
+      "qdmTitle": "Laboratory Test, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "referenceRange": null,
+      "relevantPeriod": null,
+      "result": null,
+      "resultDatetime": null,
+      "status": null,
+      "_type": "QDM::LaboratoryTestPerformed"
     },
-    "StatinAllergen_Allergy_Intolerance_0465ff33_0f70_4a43_bfa4_e0d58eaf529a_source": {
-      "title": "Statin Allergen",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e2e",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.423",
+      "dataElementCodes": [
+
+      ],
       "description": "Allergy/Intolerance: Statin Allergen",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.423",
-      "type": "allergies_intolerances",
-      "definition": "allergy_intolerance",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "StatinAllergen_Allergy_Intolerance_0465ff33_0f70_4a43_bfa4_e0d58eaf529a_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22051",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e2e"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "allergy",
+      "qdmStatus": "intolerance",
+      "qdmTitle": "Allergy/Intolerance",
+      "qdmVersion": "5.4",
+      "severity": null,
+      "type": null,
+      "_type": "QDM::AllergyIntolerance"
     },
-    "EmergencyDepartmentVisit_EncounterPerformed_ad416bc8_a455_41b9_a44b_bda0531ba006_source": {
-      "title": "Emergency Department Visit",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e2f",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: Emergency Department Visit",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EmergencyDepartmentVisit_EncounterPerformed_ad416bc8_a455_41b9_a44b_bda0531ba006_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22052",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e2f"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "StatinGrouper_MedicationDischarge_97a0bf13_2b1e_4bff_9578_eaa6a68ef604_source": {
-      "title": "Statin Grouper",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e30",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1110.19",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
       "description": "Medication, Discharge: Statin Grouper",
-      "code_list_id": "2.16.840.1.113762.1.4.1110.19",
-      "type": "medications",
-      "definition": "medication",
-      "status": "discharge",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "StatinGrouper_MedicationDischarge_97a0bf13_2b1e_4bff_9578_eaa6a68ef604_source",
-      "variable": false
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.48",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22053",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e30"
+      },
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "discharge",
+      "qdmTitle": "Medication, Discharge",
+      "qdmVersion": "5.4",
+      "refills": null,
+      "route": null,
+      "supply": null,
+      "_type": "QDM::MedicationDischarge"
     },
-    "StatinGrouper_MedicationNotDischarged_97a0bf13_2b1e_4bff_9578_eaa6a68ef604_source": {
-      "title": "Statin Grouper",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e31",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1110.19",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
       "description": "Medication, Not Discharged: Statin Grouper",
-      "code_list_id": "2.16.840.1.113762.1.4.1110.19",
-      "type": "medications",
-      "definition": "medication",
-      "status": "discharge",
-      "hard_status": true,
-      "negation": true,
-      "source_data_criteria": "StatinGrouper_MedicationNotDischarged_97a0bf13_2b1e_4bff_9578_eaa6a68ef604_source",
-      "variable": false
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.48",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22054",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e31"
+      },
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "discharge",
+      "qdmTitle": "Medication, Discharge",
+      "qdmVersion": "5.4",
+      "refills": null,
+      "route": null,
+      "supply": null,
+      "_type": "QDM::MedicationDischarge"
     },
-    "Payer_PatientCharacteristicPayer_682705d0_1bf2_45d7_b315_214675fdc2d2_source": {
-      "title": "Payer",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e32",
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_682705d0_1bf2_45d7_b315_214675fdc2d2_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "32127",
-          "32128",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "391",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "524",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "622",
-          "623",
-          "629",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22055",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e32"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_e61e3af2_33ae_4138_b487_c648231207ba_source": {
-      "title": "ONC Administrative Sex",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e33",
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: ONC Administrative Sex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_e61e3af2_33ae_4138_b487_c648231207ba_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22056",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e33"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "Ethnicity_PatientCharacteristicEthnicity_3c2b2d96_ed58_444a_8443_7d180f1f1c0f_source": {
-      "title": "Ethnicity",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e34",
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_3c2b2d96_ed58_444a_8443_7d180f1f1c0f_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22057",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e34"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
     },
-    "Race_PatientCharacteristicRace_84344dd2_b5df_4546_979a_bc433ded4302_source": {
-      "title": "Race",
+    {
+      "_id": "5cc9f83ed7c8ac7fa8e21e35",
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_84344dd2_b5df_4546_979a_bc433ded4302_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "_id": "5cc9f83ed7c8ac7fa8e22058",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cc9f83ed7c8ac7fa8e21e35"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
     }
-  },
+  ],
   "title": "TEST105",
-  "updated_at": null,
+  "updated_at": "2019-05-01T19:49:18.895Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5c65cb5157a11ee1887a807e",
-    "5c65cb5157a11ee1887a807f",
-    "5c65cb5157a11ee1887a8080",
-    "5c65cb5157a11ee1887a8081",
-    "5c65cb5157a11ee1887a8082",
-    "5c65cb5157a11ee1887a8083",
-    "5c65cb5157a11ee1887a8084",
-    "5c65cb5157a11ee1887a8085",
-    "5c65cb5157a11ee1887a8086",
-    "5c65cb5157a11ee1887a8087",
-    "5c65cb5157a11ee1887a8088",
-    "5c65cb5157a11ee1887a8089",
-    "5c65cb5157a11ee1887a808a",
-    "5c65cb5157a11ee1887a808b",
-    "5c65cb5157a11ee1887a808c",
-    "5c65cb5157a11ee1887a808d",
-    "5c65cb5157a11ee1887a808e",
-    "5c65cb5157a11ee1887a808f",
-    "5c65cb5157a11ee1887a8090"
+    "5cc9f83ed7c8ac7fa8e21e36",
+    "5cc9f83ed7c8ac7fa8e21e37",
+    "5cc9f83ed7c8ac7fa8e21e38",
+    "5cc9f83ed7c8ac7fa8e21e39",
+    "5cc9f83ed7c8ac7fa8e21e3a",
+    "5cc9f83ed7c8ac7fa8e21e3b",
+    "5cc9f83ed7c8ac7fa8e21e3c",
+    "5cc9f83ed7c8ac7fa8e21e3d",
+    "5cc9f83ed7c8ac7fa8e21e3e",
+    "5cc9f83ed7c8ac7fa8e21e3f",
+    "5cc9f83ed7c8ac7fa8e21e40",
+    "5cc9f83ed7c8ac7fa8e21e41",
+    "5cc9f83ed7c8ac7fa8e21e42",
+    "5cc9f83ed7c8ac7fa8e21e43",
+    "5cc9f83ed7c8ac7fa8e21e44",
+    "5cc9f83ed7c8ac7fa8e21e45",
+    "5cc9f83ed7c8ac7fa8e21e46",
+    "5cc9f83ed7c8ac7fa8e21e47",
+    "5cc9f83ed7c8ac7fa8e21e48"
   ]
 }

@@ -21,7 +21,7 @@
 #= require underscore/underscore-min
 #= require backbone/backbone-min
 #= require backbone.paginator/lib/backbone.paginator.min
-#= require cqm-models/dist/browser
+#= require cqm-execution/dist/browser
 #= require thorax/thorax
 #= require moment/min/moment.min
 #= require d3/d3
@@ -45,7 +45,7 @@
 #= require_tree ./helpers
 #= require_tree ./views
 #= require calculator
-#= require cql_calculator
+#= require cqm_calculator
 #= require calculator_selector
 #= require router
 #= require measure_libraries

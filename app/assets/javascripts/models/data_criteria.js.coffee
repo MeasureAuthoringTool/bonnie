@@ -1,40 +1,7 @@
-# class Thorax.Models.MeasureDataCriteria extends Thorax.Model
-#   @satisfiesDefinitions: ['satisfies_all', 'satisfies_any']
-
-#   toPatientDataCriteria: ->
-#     # FIXME: Temporary approach
-#     attr = _(@pick('negation', 'definition', 'status', 'title', 'description', 'code_list_id', 'type')).extend
-#              id: @get('source_data_criteria')
-#              start_date: @getDefaultTime()
-#              end_date: @getDefaultTime() + (15 * 60 * 1000) # Default 15 minute duration
-#              value: new Thorax.Collection()
-#              references: new Thorax.Collection()
-#              field_values: new Thorax.Collection()
-#              hqmf_set_id: @collection.parent.get('hqmf_set_id')
-#              cms_id: @collection.parent.get('cms_id')
-#              criteria_id: @get("criteria_id") || Thorax.Models.MeasureDataCriteria.generateCriteriaId()
-#     new Thorax.Models.PatientDataCriteria attr
-
-#   getDefaultTime: ->
-#     time = moment.utc().set({'year': bonnie.measurePeriod, 'hour': 8, 'minute': 0, 'second': 0})
-#     parseInt(time.format('X')) * 1000
-
-# Thorax.Models.MeasureDataCriteria.generateCriteriaId = ->
-#     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-#     today = new Date()
-#     result = today.valueOf().toString 16
-#     result += chars.substr Math.floor(Math.random() * chars.length), 1
-#     result += chars.substr Math.floor(Math.random() * chars.length), 1
-#     result
-
-# class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
-#   model: Thorax.Models.MeasureDataCriteria
-#   initialize: (models, options) -> @parent = options?.parent
-
 # Used for patient encounters. idAttribute is null, as the model itself
 # isn't responsible for persisting itself, and the collection must support
 # multiple criteria with the same ID.
-class Thorax.Models.PatientDataCriteria extends Thorax.Model
+class Thorax.Models.SourceDataCriteria extends Thorax.Model
   idAttribute: null
   dataElement: null
   initialize: ->
@@ -44,7 +11,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   parse: (attrs) ->
     fieldValueBlacklist = ['_id', 'relevantPeriod', 'dataElementCodes', 'description', 'hqmfOid', 'id', 'prevalencePeriod', 'qdmCategory', 'qdmVersion', 'qrdaOid', '_type', 'criteria_id', 'value', 'qdmStatus', 'negationRationale']
     fieldValuesOnDataElement = _.difference(Object.keys(attrs), fieldValueBlacklist)
-    attrs.criteria_id ||= Thorax.Models.PatientDataCriteria.generateCriteriaId()
+    attrs.criteria_id ||= Thorax.Models.SourceDataCriteria.generateCriteriaId()
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
     fieldValues = new Thorax.Collection()
@@ -141,7 +108,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       criteriaType = "#{criteriaType}_#{@get('sub_category')}"
     criteriaType
 
-Thorax.Models.PatientDataCriteria.getTimingInterval = (criteria) ->
+Thorax.Models.SourceDataCriteria.getTimingInterval = (criteria) ->
   if criteria.attributes.hasOwnProperty('relevantPeriod')
     'relevantPeriod'
   else if criteria.attributes.hasOwnProperty('prevalencePeriod')
@@ -151,7 +118,7 @@ Thorax.Models.PatientDataCriteria.getTimingInterval = (criteria) ->
   else
     undefined
 
-Thorax.Models.PatientDataCriteria.generateCriteriaId = ->
+Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     today = new Date()
     result = today.valueOf().toString 16
@@ -159,8 +126,8 @@ Thorax.Models.PatientDataCriteria.generateCriteriaId = ->
     result += chars.substr Math.floor(Math.random() * chars.length), 1
     result
 
-class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
-  model: Thorax.Models.PatientDataCriteria
+class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
+  model: Thorax.Models.SourceDataCriteria
   initialize: (models, options) -> @parent = options?.parent
   # FIXME sortable: commenting out due to odd bug in droppable
   # comparator: (m) -> [m.get('start_date'), m.get('end_date')]

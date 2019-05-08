@@ -1,0 +1,788 @@
+[
+  {
+    "_id": "5cc9fb96d7c8ac82dc80879f",
+    "bundleId": "5a57e977942c6d1e61d32f14",
+    "expectedValues": [
+      {
+        "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0
+      },
+      {
+        "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+        "population_index": 1,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 1
+      },
+      {
+        "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+        "population_index": 2,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    ],
+    "familyName": "NUM2",
+    "givenNames": [
+      "Pass"
+    ],
+    "measure_ids": [
+
+    ],
+    "notes": "Based on  NUM2Pass PHQ9>4mo<8moEASMP_BipolarDxSAEMP in epecqmtelligen@gmail.com",
+    "provider_ids": [
+
+    ],
+    "qdmPatient": {
+      "_id": "5cc9fb96d7c8ac82dc8087a0",
+      "birthDatetime": "1965-04-13T08:00:00.000+00:00",
+      "dataElements": [
+        {
+          "_id": "5cc9fb96d7c8ac82dc8087a1",
+          "authorDatetime": "2012-08-31T14:35:00.000+00:00",
+          "codeListId": null,
+          "components": [
+
+          ],
+          "dataElementCodes": [
+            {
+              "codeSystem": "LOINC",
+              "code": "44261-6"
+            }
+          ],
+          "description": "Assessment, Performed: PHQ-9 Tool",
+          "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087a2",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5aeb7763b848463d625b33d9"
+          },
+          "method": null,
+          "negationRationale": null,
+          "qdmCategory": "assessment",
+          "qdmStatus": "performed",
+          "qdmTitle": "Assessment, Performed",
+          "qdmVersion": "5.4",
+          "reason": null,
+          "result": 10,
+          "_type": "QDM::AssessmentPerformed"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc8087a3",
+          "anatomicalLocationSite": null,
+          "authorDatetime": "2012-06-08T14:35:00.000+00:00",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "codeSystem": "ICD-10-CM",
+              "code": "F33.9"
+            }
+          ],
+          "description": "Diagnosis: Major Depression Including Remission",
+          "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087a4",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5aeb7763b848463d625b33d6"
+          },
+          "prevalencePeriod": {
+            "low": "2012-06-08T14:35:00.000+00:00",
+            "high": "9999-12-31T23:59:59.000+00:00",
+            "lowClosed": true,
+            "highClosed": true
+          },
+          "qdmCategory": "condition",
+          "qdmTitle": "Diagnosis",
+          "qdmVersion": "5.4",
+          "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+          "severity": null,
+          "_type": "QDM::Diagnosis"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc8087a5",
+          "anatomicalLocationSite": null,
+          "authorDatetime": "2013-11-08T14:35:00.000+00:00",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "codeSystem": "SNOMED-CT",
+              "code": "81319007"
+            }
+          ],
+          "description": "Diagnosis: Bipolar Disorder",
+          "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087a6",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5aeb7763b848463d625b33d7"
+          },
+          "prevalencePeriod": {
+            "low": "2013-11-08T14:35:00.000+00:00",
+            "high": "9999-12-31T23:59:59.000+00:00",
+            "lowClosed": true,
+            "highClosed": true
+          },
+          "qdmCategory": "condition",
+          "qdmTitle": "Diagnosis",
+          "qdmVersion": "5.4",
+          "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+          "severity": null,
+          "_type": "QDM::Diagnosis"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc8087a7",
+          "admissionSource": null,
+          "authorDatetime": "2012-06-08T14:30:00.000+00:00",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "codeSystem": "CPT",
+              "code": "99201"
+            }
+          ],
+          "description": "Encounter, Performed: Office Visit",
+          "diagnoses": [
+
+          ],
+          "dischargeDisposition": null,
+          "facilityLocations": [
+
+          ],
+          "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087a8",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5aeb7763b848463d625b33d8"
+          },
+          "lengthOfStay": {
+            "value": 0,
+            "unit": "days"
+          },
+          "negationRationale": null,
+          "principalDiagnosis": null,
+          "qdmCategory": "encounter",
+          "qdmStatus": "performed",
+          "qdmTitle": "Encounter, Performed",
+          "qdmVersion": "5.4",
+          "relevantPeriod": {
+            "low": "2012-06-08T14:30:00.000+00:00",
+            "high": "2012-06-08T14:50:00.000+00:00",
+            "lowClosed": true,
+            "highClosed": true
+          },
+          "_type": "QDM::EncounterPerformed"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc808796",
+          "birthDatetime": "1965-04-13T08:00:00.000+00:00",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "21112-8",
+              "codeSystem": "LOINC",
+              "descriptor": null,
+              "codeSystemOid": null,
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087a9",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc808796"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "birthdate",
+          "qdmTitle": "Patient Characteristic Birthdate",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicBirthdate"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc808797",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "2186-5",
+              "codeSystem": "CDC Race",
+              "descriptor": "Not Hispanic or Latino",
+              "codeSystemOid": "2.16.840.1.113883.6.238",
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087aa",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc808797"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "ethnicity",
+          "qdmTitle": "Patient Characteristic Ethnicity",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicEthnicity"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc808798",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "1002-5",
+              "codeSystem": "CDC Race",
+              "descriptor": "American Indian or Alaska Native",
+              "codeSystemOid": "2.16.840.1.113883.6.238",
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087ab",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc808798"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "race",
+          "qdmTitle": "Patient Characteristic Race",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicRace"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc808799",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "F",
+              "codeSystem": "AdministrativeGender",
+              "descriptor": "F",
+              "codeSystemOid": "2.16.840.1.113883.5.1",
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087ac",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc808799"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "gender",
+          "qdmTitle": "Patient Characteristic Sex",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicSex"
+        }
+      ],
+      "extendedData": {
+        "type": null,
+        "measure_ids": [
+          "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+          null
+        ],
+        "source_data_criteria": [
+          {
+            "negation": false,
+            "definition": "encounter",
+            "status": "performed",
+            "title": "OfficeVisit",
+            "description": "Encounter, Performed: Office Visit",
+            "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+            "type": "encounters",
+            "id": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source",
+            "start_date": 1339165800000,
+            "end_date": 1339167000000,
+            "value": [
+
+            ],
+            "references": null,
+            "field_values": {
+            },
+            "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+            "cms_id": "CMS160v6",
+            "criteria_id": "160eb75c1d3El",
+            "codes": {
+              "CPT": [
+                "99201"
+              ]
+            },
+            "negation_code_list_id": "",
+            "coded_entry_id": "5aeb7763b848463d625b33d8",
+            "code_source": "USER_DEFINED"
+          },
+          {
+            "negation": false,
+            "definition": "diagnosis",
+            "title": "MajorDepressionIncludingRemission",
+            "description": "Diagnosis: Major Depression Including Remission",
+            "code_list_id": "2.16.840.113883.3.67.1.101.3.2444",
+            "type": "conditions",
+            "id": "MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba_source",
+            "start_date": 1339166100000,
+            "value": [
+
+            ],
+            "references": null,
+            "field_values": {
+            },
+            "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+            "cms_id": "CMS160v6",
+            "criteria_id": "160eb76956cSo",
+            "codes": {
+              "ICD-10-CM": [
+                "F33.9"
+              ]
+            },
+            "coded_entry_id": "5aeb7763b848463d625b33d6",
+            "code_source": "USER_DEFINED"
+          },
+          {
+            "negation": false,
+            "definition": "assessment",
+            "status": "performed",
+            "title": "PHQ-9Tool",
+            "description": "Assessment, Performed: PHQ-9 Tool",
+            "code_list_id": "2.16.840.1.113883.3.67.1.101.11.723",
+            "type": "assessments",
+            "id": "PHQ_9Tool_AssessmentPerformed_40280381_3d61_56a7_013e_8a363828336d_source",
+            "start_date": 1346423700000,
+            "value": [
+              {
+                "type": "PQ",
+                "type_cmp": "CD",
+                "value": "10",
+                "unit": ""
+              }
+            ],
+            "references": null,
+            "field_values": {
+            },
+            "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+            "cms_id": "CMS160v6",
+            "criteria_id": "160eb8174dclO",
+            "codes": {
+              "LOINC": [
+                "44261-6"
+              ]
+            },
+            "negation_code_list_id": "",
+            "coded_entry_id": "5aeb7763b848463d625b33d9",
+            "code_source": "DEFAULT"
+          },
+          {
+            "negation": false,
+            "definition": "diagnosis",
+            "title": "BipolarDisorder",
+            "description": "Diagnosis: Bipolar Disorder",
+            "code_list_id": "2.16.840.1.113883.3.67.1.101.1.128",
+            "type": "conditions",
+            "id": "BipolarDisorder_Diagnosis_89a1244b_f388_4261_949a_70b82971f63d_source",
+            "start_date": 1383921300000,
+            "value": [
+
+            ],
+            "references": null,
+            "field_values": {
+            },
+            "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+            "cms_id": "CMS160v6",
+            "criteria_id": "160eb7773f7Zc",
+            "codes": {
+              "SNOMED-CT": [
+                "81319007"
+              ]
+            },
+            "coded_entry_id": "5aeb7763b848463d625b33d7",
+            "code_source": "USER_DEFINED"
+          },
+          {
+            "id": "MeasurePeriod",
+            "start_date": 0,
+            "end_date": 0,
+            "references": null
+          }
+        ],
+        "is_shared": null,
+        "origin_data": [
+
+        ],
+        "test_id": null,
+        "medical_record_number": "62eb0c6cafb20eeb143aaa87226f769ed92076b0173c0a756d62af1145f54b6c",
+        "medical_record_assigner": "Bonnie",
+        "description": null,
+        "description_category": null,
+        "insurance_providers": "[]"
+      },
+      "qdmVersion": "5.4"
+    },
+    "user_id": "501fdba3044a111b98000001"
+  },
+  {
+    "_id": "5cc9fb96d7c8ac82dc8087ad",
+    "bundleId": "5a57e977942c6d1e61d32f14",
+    "expectedValues": [
+      {
+        "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 1,
+        "NUMER": 0
+      },
+      {
+        "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+        "population_index": 1,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0
+      },
+      {
+        "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+        "population_index": 2,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    ],
+    "familyName": "DENEX",
+    "givenNames": [
+      "Expired"
+    ],
+    "measure_ids": [
+
+    ],
+    "notes": "",
+    "provider_ids": [
+
+    ],
+    "qdmPatient": {
+      "_id": "5cc9fb96d7c8ac82dc8087ae",
+      "birthDatetime": "1970-01-01T08:00:00.000+00:00",
+      "dataElements": [
+        {
+          "_id": "5cc9fb96d7c8ac82dc8087af",
+          "anatomicalLocationSite": null,
+          "authorDatetime": "2012-04-12T08:00:00.000+00:00",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "codeSystem": "SNOMED-CT",
+              "code": "19694002"
+            },
+            {
+              "codeSystem": "ICD-10-CM",
+              "code": "F34.1"
+            }
+          ],
+          "description": "Diagnosis: Dysthymia",
+          "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087b0",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5aeb77a2b848463d625b4c70"
+          },
+          "prevalencePeriod": {
+            "low": "2012-04-12T08:00:00.000+00:00",
+            "high": "9999-12-31T23:59:59.000+00:00",
+            "lowClosed": true,
+            "highClosed": true
+          },
+          "qdmCategory": "condition",
+          "qdmTitle": "Diagnosis",
+          "qdmVersion": "5.4",
+          "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+          "severity": null,
+          "_type": "QDM::Diagnosis"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc8087b1",
+          "admissionSource": null,
+          "authorDatetime": "2012-11-04T08:00:00.000+00:00",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "codeSystem": "CPT",
+              "code": "99201"
+            }
+          ],
+          "description": "Encounter, Performed: Office Visit",
+          "diagnoses": [
+
+          ],
+          "dischargeDisposition": null,
+          "facilityLocations": [
+
+          ],
+          "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087b2",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5aeb77a2b848463d625b4c71"
+          },
+          "lengthOfStay": {
+            "value": 0,
+            "unit": "days"
+          },
+          "negationRationale": null,
+          "principalDiagnosis": null,
+          "qdmCategory": "encounter",
+          "qdmStatus": "performed",
+          "qdmTitle": "Encounter, Performed",
+          "qdmVersion": "5.4",
+          "relevantPeriod": {
+            "low": "2012-11-04T08:00:00.000+00:00",
+            "high": "2012-11-04T08:15:00.000+00:00",
+            "lowClosed": true,
+            "highClosed": true
+          },
+          "_type": "QDM::EncounterPerformed"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc80879a",
+          "birthDatetime": "1970-01-01T08:00:00.000+00:00",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "21112-8",
+              "codeSystem": "LOINC",
+              "descriptor": null,
+              "codeSystemOid": null,
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087b3",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc80879a"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "birthdate",
+          "qdmTitle": "Patient Characteristic Birthdate",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicBirthdate"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc80879b",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "2186-5",
+              "codeSystem": "CDC Race",
+              "descriptor": "Not Hispanic or Latino",
+              "codeSystemOid": "2.16.840.1.113883.6.238",
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087b4",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc80879b"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "ethnicity",
+          "qdmTitle": "Patient Characteristic Ethnicity",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicEthnicity"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc80879c",
+          "cause": null,
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "419099009",
+              "codeSystem": "SNOMED-CT",
+              "descriptor": null,
+              "codeSystemOid": null,
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "expiredDatetime": "2012-12-04T08:00:00.000+00:00",
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.57",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087b5",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc80879c"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "expired",
+          "qdmTitle": "Patient Characteristic Expired",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicExpired"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc80879d",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "1002-5",
+              "codeSystem": "CDC Race",
+              "descriptor": "American Indian or Alaska Native",
+              "codeSystemOid": "2.16.840.1.113883.6.238",
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087b6",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc80879d"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "race",
+          "qdmTitle": "Patient Characteristic Race",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicRace"
+        },
+        {
+          "_id": "5cc9fb96d7c8ac82dc80879e",
+          "codeListId": null,
+          "dataElementCodes": [
+            {
+              "code": "M",
+              "codeSystem": "AdministrativeGender",
+              "descriptor": "M",
+              "codeSystemOid": "2.16.840.1.113883.5.1",
+              "version": null,
+              "_type": "QDM::Code"
+            }
+          ],
+          "description": null,
+          "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+          "id": {
+            "_id": "5cc9fb96d7c8ac82dc8087b7",
+            "namingSystem": null,
+            "qdmVersion": "5.4",
+            "value": "5cc9fb96d7c8ac82dc80879e"
+          },
+          "qdmCategory": "patient_characteristic",
+          "qdmStatus": "gender",
+          "qdmTitle": "Patient Characteristic Sex",
+          "qdmVersion": "5.4",
+          "_type": "QDM::PatientCharacteristicSex"
+        }
+      ],
+      "extendedData": {
+        "type": null,
+        "measure_ids": [
+          "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+          null
+        ],
+        "source_data_criteria": [
+          {
+            "negation": false,
+            "definition": "diagnosis",
+            "title": "Dysthymia",
+            "description": "Diagnosis: Dysthymia",
+            "code_list_id": "2.16.840.1.113883.3.67.1.101.1.254",
+            "type": "conditions",
+            "id": "Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a_source",
+            "start_date": 1334217600000,
+            "value": [
+
+            ],
+            "references": null,
+            "field_values": {
+            },
+            "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+            "cms_id": "CMS160v6",
+            "criteria_id": "161fcb4cf7chz",
+            "codes": {
+              "SNOMED-CT": [
+                "19694002"
+              ],
+              "ICD-10-CM": [
+                "F34.1"
+              ]
+            },
+            "coded_entry_id": "5aeb77a2b848463d625b4c70",
+            "code_source": "DEFAULT"
+          },
+          {
+            "negation": false,
+            "definition": "encounter",
+            "status": "performed",
+            "title": "OfficeVisit",
+            "description": "Encounter, Performed: Office Visit",
+            "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+            "type": "encounters",
+            "id": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source",
+            "start_date": 1352016000000,
+            "end_date": 1352016900000,
+            "value": [
+
+            ],
+            "references": null,
+            "field_values": {
+            },
+            "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+            "cms_id": "CMS160v6",
+            "criteria_id": "161fcb54fcd6O",
+            "codes": {
+              "CPT": [
+                "99201"
+              ]
+            },
+            "negation_code_list_id": "",
+            "coded_entry_id": "5aeb77a2b848463d625b4c71",
+            "code_source": "USER_DEFINED"
+          },
+          {
+            "id": "MeasurePeriod",
+            "start_date": 0,
+            "end_date": 0,
+            "references": null
+          }
+        ],
+        "is_shared": null,
+        "origin_data": [
+
+        ],
+        "test_id": null,
+        "medical_record_number": "c41b2fc639938515ddbedfbb122df57bd818474278962683a0c3d50e3e3cbfed",
+        "medical_record_assigner": "Bonnie",
+        "description": null,
+        "description_category": null,
+        "insurance_providers": "[]"
+      },
+      "qdmVersion": "5.4"
+    },
+    "user_id": "501fdba3044a111b98000001"
+  }
+]

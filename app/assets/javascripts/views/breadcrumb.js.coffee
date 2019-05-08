@@ -26,7 +26,7 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
 
   addPatient: (measure, patient) ->
     measureHierarchy = @generateMeasureHierarchy(measure)
-    patient_name = if patient.get('first') then "#{patient.get('last')} #{patient.get('first')}" else "Create new patient"
+    patient_name = if patient.getFirstName() then "#{patient.getLastName()} #{patient.getFirstName()}" else "Create new patient"
     @model.clear silent: true
     @model.set
       period: bonnie.measurePeriod

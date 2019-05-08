@@ -129,13 +129,13 @@ namespace :bonnie do
       bonnie_cql_measures.each do |measure|
         begin
           cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
-          cqm_measure.value_sets.map{ |value_set| value_set.save!}
+          cqm_measure.value_sets.map(&:save!)
           cqm_measure.user = measure.user
           cqm_measure.save!
-          puts measure.title + ' ' +  measure.cms_id
+          puts measure.title + ' ' + measure.cms_id
         rescue ExecJS::ProgramError => e
           # if there was a conversion failure we should record the resulting failure message with the measure
-          puts 'Measure ' + measure.title + ' ' +  measure.cms_id + ' failed with message: ' + e.message
+          puts 'Measure ' + measure.title + ' ' + measure.cms_id + ' failed with message: ' + e.message
         end
       end
     end

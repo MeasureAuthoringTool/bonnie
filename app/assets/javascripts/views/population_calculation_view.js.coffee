@@ -10,7 +10,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @measure = @model.measure()
     @differences = @model.differencesFromExpected()
     # We want to display the results sorted by 1) failures first, then 2) last name, then 3) first name
-    @differences.comparator = (d) -> [!d.get('done'), d.get('match'), d.result.patient.get('last'), d.result.patient.get('first')]
+    @differences.comparator = (d) -> [!d.get('done'), d.get('match'), d.result.patient.getLastName(), d.result.patient.getFirstName()]
     @differences.sort()
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences

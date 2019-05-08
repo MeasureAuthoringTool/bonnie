@@ -7,7 +7,7 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
     'INTERSECT':'Intersection of'
     'UNION':'Union of'
 
-  satisfiesDefinitions: Thorax.Models.PatientDataCriteria.satisfiesDefinitions
+  satisfiesDefinitions: Thorax.Models.SourceDataCriteria.satisfiesDefinitions
   events:
     'mouseover .highlight-target': 'highlightEntry'
     'mouseout .highlight-target': 'clearHighlightEntry'
@@ -15,7 +15,7 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
   initialize: ->
     # Capture logic view building errors that may arise and handle them using Costanza
     Costanza.run 'data-criteria-logic-view-creation', {reference: @reference, cms_id: @measure.get('cqmMeasure').cms_id}, () =>
-      @dataCriteria = @measure.get('data_criteria')[@reference]
+      @dataCriteria = @measure.get('source_data_criteria')[@reference]
       # handle reference to source data criteria (this is used for displaying variables)
       unless @dataCriteria
         @dataCriteria = @measure.get('source_data_criteria').findWhere({'source_data_criteria': @reference}).attributes
