@@ -43,6 +43,31 @@ namespace :bonnie do
       end
     end
 
+    desc %{Import Bonnie patients into composite measure from a JSON file, can only copy to SAME composite as source
+    The JSON file must be the one that is generated using the export_patients rake task.
+
+    You must identify the user by EMAIL
+    the name of the file to be imported using FILENAME
+
+    $ rake bonnie:patients:import_patients_composite EMAIL=xxx FILENAME=CMS100_patients.json}
+    task :import_patients_composite => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      # Import patient objects from JSON file and save
+      puts "Importing patients..."
+      raise "FILENAME not specified" unless input_file = ENV['FILENAME']
+      File.foreach(File.join(Rails.root, input_file)) do |p|
+        next if p.blank?
+        patient = Record.new.from_json p.strip
+        patient['user_id'] = user._id
+        patient.dup.save!
+      end
+
+      puts "Done!"
+    end
+
     desc %(Update source_data_criteria to match fields from measure
     $ rake bonnie:patients:update_source_data_criteria)
     task :update_source_data_criteria=> :environment do
