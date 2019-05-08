@@ -90,7 +90,7 @@
 
         if !patient.has('cqmPatient')
           result.state = 'cancelled'
-          console.log "No CQM patient for #{patient.get('_id')} - #{patient.getFirstName()} #{patient.getLastName()}"
+          console.log "No CQM patient for #{patient.id} - #{patient.getFirstName()} #{patient.getLastName()}"
         else
           patientNeedsCalc = true
           resultsNeedingCalc.push result

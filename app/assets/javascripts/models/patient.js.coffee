@@ -13,6 +13,7 @@ class Thorax.Models.Patient extends Thorax.Model
     # TODO: look into adding this into cqmPatient construction
     if !thoraxPatient.cqmPatient.qdmPatient
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
+    thoraxPatient._id = attrs._id
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
     thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
