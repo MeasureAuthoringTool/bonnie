@@ -7,7 +7,6 @@ class Thorax.Models.Patient extends Thorax.Model
     # cqmPatient will already exist if we are cloning the thoraxModel
     if attrs.cqmPatient?
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
-      # TODO: Remove after this is handled properly in cqm-models
       thoraxPatient.cqmPatient.qdmPatient.extendedData = attrs.cqmPatient.qdmPatient.extendedData
     else
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs)
@@ -32,7 +31,7 @@ class Thorax.Models.Patient extends Thorax.Model
   getValidMeasureIds: (measures) ->
     validIds = {}
     # TODO: Update measure_ids reference once it is on cqmPatient top level
-    @get('cqmPatient').qdmPatient.extendedData['measure_ids'].map (m) ->
+    @get('cqmPatient')['measure_ids'].map (m) ->
       validIds[m] = {key: m, value: _.contains(measures.pluck('hqmf_set_id'), m)}
     validIds
   getEntrySections: ->
@@ -197,7 +196,7 @@ class Thorax.Models.Patient extends Thorax.Model
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
 
     # TODO: Update measure_ids reference once it is on cqmPatient top level
-    if !_(@get('cqmPatient').qdmPatient.extendedData['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
+    if !_(@get('cqmPatient')['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
       expectedValue.set _.object(_.keys(expectedValue.attributes), []) # make expectations undefined instead of 0/fail
 
     expectedValue
