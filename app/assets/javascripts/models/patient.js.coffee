@@ -4,6 +4,7 @@ class Thorax.Models.Patient extends Thorax.Model
 
   parse: (attrs) ->
     thoraxPatient = {}
+
     # cqmPatient will already exist if we are cloning the thoraxModel
     if attrs.cqmPatient?
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
