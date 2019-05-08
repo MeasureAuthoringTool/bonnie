@@ -1,15 +1,15 @@
-<div class="modal fade" id="sharePatientsDialog" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="deletePatientDialog" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog"  role="dialog" aria-labelledby="modalTitle">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modalTitle">Share Patients Across Measures</h1>
+        <h1 class="modal-title" id="modalTitle">This Patient Belongs To Multiple Measures</h1>
       </div>
       <div class="modal-body">
-            <div class="alert alert-info">Please select which measures you would like to transfer all patients to</div>
+            <div class="alert alert-info">Please select which measures you would like to delete the patient from</div>
             <div class="form-group">
             <label for="measureTitles" class="control-label">Measures:</label>
             <div id="measureTitles">
-            {{#each shareableMeasures.models}}
+            {{#each availableMeasures}}
             {{#with attributes}}
                 <div class="form-group">
                     <div class="checkbox">
@@ -23,8 +23,8 @@
             </div>
             </div>
         <div class="modal-footer">
-        <button type="button" id="sharePatientsSubmit" class="btn btn-primary">Done</button>
-        <button type="button" id="sharePatientsCancel" class="btn btn-default">Cancel</button>
+        <button type="button" id="deletePatientSubmit" class="btn btn-primary">Delete</button>
+        <button type="button" id="deletePatientCancel" class="btn btn-default">Cancel</button>
       </div>
       </div>
     </div><!-- /.modal-content -->

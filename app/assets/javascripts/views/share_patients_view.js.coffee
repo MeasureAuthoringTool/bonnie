@@ -15,6 +15,7 @@ class Thorax.Views.SharePatients extends Thorax.Views.BonnieView
     rendered: ->
         @$el.on 'hidden.bs.modal', -> @remove() unless $('#sharePatientsDialog').is(':visible')
     'click #sharePatientsSubmit': 'submit'
+    'click #sharePatientsCancel': 'cancel'
     'ready': 'setup'
     
 
@@ -37,6 +38,5 @@ class Thorax.Views.SharePatients extends Thorax.Views.BonnieView
     @sharePatientsDialog.modal('hide')
     @$('form').submit()
 
-
-  # FIXME: Is anything additional required for cleaning up this view on close?
-  close: -> ''
+  cancel: ->
+    @sharePatientsDialog.modal('hide')
