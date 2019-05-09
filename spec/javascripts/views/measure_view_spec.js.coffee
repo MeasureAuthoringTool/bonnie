@@ -114,14 +114,14 @@
       @measureView.remove()
 
     it 'can click share patients button', ->
-      # Force handlebars to show share patients button, cannot use default handlebars ifPortfolio helper because of mocked BonnieRouter
-      Handlebars.registerHelper 'ifPortfolio', (options) -> options.fn(this) 
+      bonnie.isPortfolio = true
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
       @measureView.appendTo 'body'
       spyOn(@measureView, 'sharePatients')
       @measureView.$("button[data-call-method=sharePatients]").click()
       expect(@measureView.sharePatients).toHaveBeenCalled()
       @measureView.remove()
+      bonnie.isPortfolio = false
 
     it 'share patients button not available for non-portfolio users', ->
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
