@@ -232,8 +232,7 @@ class PatientExport
   # excel has a maximum character restriction on cells of 32,767 characters
   def self.truncate_result(result)
     if result.length >= 32700
-      result = result[0...32700]
-      result += " <Entry Truncated To Fit Cell>"
+      result[0...32700] + " <Entry Truncated To Fit Cell>"
     else
       result
     end

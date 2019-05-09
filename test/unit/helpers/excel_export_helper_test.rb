@@ -1,6 +1,8 @@
 require 'test_helper'
 require './app/helpers/excel_export_helper'
 require './app/helpers/patient_helper'
+require './lib/patient_export'
+
 class ExcelExportHelperTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
@@ -191,6 +193,19 @@ class ExcelExportHelperTest < ActionController::TestCase
     frontend_excel_spreadsheet = Roo::Spreadsheet.open(frontend_excel_file.path)
 
     compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, patient_details.keys.length)
+  end
+
+  test 'result truncation truncates long strings' do
+    long_string = 'a' * 400000
+    truncated_string = PatientExport.truncate_result(long_string)
+    assert true, truncated_string.length < 32700
+    assert true, (truncated_string.include? 'Entry Truncated To Fit Cell')
+  end
+
+  test 'result truncation doesnt truncate short strings' do
+    short_string = 'short_string'
+    truncated_string = PatientExport.truncate_result(short_string)
+    assert_equal short_string, truncated_string
   end
 
   def get_results_with_failed_patients(patients, results)
