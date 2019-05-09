@@ -48,7 +48,7 @@ class PatientExport
           white_right_border = styles.add_style(:border => { :style => :thin,:color => "FFFFFF", :edges => [:left, :right] })
 
           sheet.add_row(["\nKEY\n","",""], style: key_title_style, height: 55)
-          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list.","",""], 
+          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list.\nCells that are too long will be truncated due to limitations in Excel.","",""], 
                         style: false_info_style, height: 70)
           sheet.merge_cells("A1:C1") 
           sheet.merge_cells("A2:C2")
