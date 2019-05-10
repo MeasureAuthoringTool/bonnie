@@ -79,9 +79,10 @@ class PatientsController < ApplicationController
   def excel_export
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     package = PatientExport.export_excel_cql_file(JSON.parse(params[:calc_results]), 
-      JSON.parse(params[:patient_details]), JSON.parse(params[:population_details]),
-      JSON.parse(params[:statement_details]),
-      params[:measure_hqmf_set_id])
+                                                  JSON.parse(params[:patient_details]),
+                                                  JSON.parse(params[:population_details]),
+                                                  JSON.parse(params[:statement_details]),
+                                                  params[:measure_hqmf_set_id])
     send_data package.to_stream.read, type: "application/xlsx", filename: "#{params[:file_name]}.xlsx"
   end
 

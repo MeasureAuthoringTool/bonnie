@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @measures = CQM::Measure.by_user(current_user).only(:id)
-    @patients = Record.by_user(current_user)
+    @patients = CQM::Patient.by_user(current_user)
   end
 
   def show
