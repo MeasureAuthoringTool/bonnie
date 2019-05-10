@@ -198,8 +198,8 @@ class ExcelExportHelperTest < ActionController::TestCase
   test 'result truncation truncates long strings' do
     long_string = 'a' * 400000
     truncated_string = PatientExport.truncate_result(long_string)
-    assert true, truncated_string.length < 32700
-    assert true, (truncated_string.include? 'Entry Truncated To Fit Cell')
+    assert_equal true, truncated_string.length < 32700
+    assert_equal true, (truncated_string.include? 'Entry Truncated To Fit Cell')
   end
 
   test 'result truncation doesnt truncate short strings' do
