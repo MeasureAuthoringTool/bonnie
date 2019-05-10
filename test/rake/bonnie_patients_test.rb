@@ -114,8 +114,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(0, dest_patients.count)
 
     assert_output(
-                  "Moving patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully moved patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
+      "Moving patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully moved patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:move_measure_patients'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
@@ -150,8 +150,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(0, dest_patients.count)
 
     assert_output(
-                  "Copying patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
+      "Copying patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
@@ -188,8 +188,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     end
 
     assert_output(
-                  "Copying patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
+      "Copying patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
 
     dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
@@ -212,9 +212,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, user_patients.count)
 
     assert_output(
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
@@ -240,16 +240,16 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, user_patients.count)
 
     assert_output(
-                  # test 1 user not found failure
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\ttest1@example.com not found\n" +
-                  # test 2 dest measure not found
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
-                  # test 3 source measure not found
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
+      # test 1 user not found failure
+      "\e[#{31}m#{"[Error]"}\e[0m\t\ttest1@example.com not found\n" +
+      # test 2 dest measure not found
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
+      # test 3 source measure not found
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
@@ -281,18 +281,18 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, user_patients.count)
 
     assert_output(
-                  # test 1 source title incorrect for duplicate cms ids
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Test 1 Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Test 1 Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n" +
-                  # test 2 destination title incorrect for duplicate cms ids
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Test 2 Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS160v6:Depression Utilization of the PHQ-9 Tool to CMS32v7:Test 2 Median Time from ED Arrival to ED Departure for Discharged ED Patients\n\n" +
-                  # test 3 measure title and cms id are duplicates
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients not unique\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
+      # test 1 source title incorrect for duplicate cms ids
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Test 1 Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Test 1 Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n" +
+      # test 2 destination title incorrect for duplicate cms ids
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Test 2 Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS160v6:Depression Utilization of the PHQ-9 Tool to CMS32v7:Test 2 Median Time from ED Arrival to ED Departure for Discharged ED Patients\n\n" +
+      # test 3 measure title and cms id are duplicates
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients not unique\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
@@ -323,9 +323,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, user_patients.count)
 
     assert_output(
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)

@@ -56,15 +56,15 @@ class PatientBuilderTest < ActiveSupport::TestCase
       "value" => [],
       "references" => "null",
       "field_values" => {
-          "DISPENSER_IDENTIFIER" => {
-              "type" => "ID",
-              "code_list_id" => "",
-              "field_title" => "Dispenser Identifier",
-              "root" => "testId",
-              "extension" => "testSystem"
-          }
+        "DISPENSER_IDENTIFIER" => {
+          "type" => "ID",
+          "code_list_id" => "",
+          "field_title" => "Dispenser Identifier",
+          "root" => "testId",
+          "extension" => "testSystem"
         }
       }
+    }
 
     @un_coded_source_data_critria = {
       "id"=> "DiagnosisActiveLimitedLifeExpectancy",
@@ -75,7 +75,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
       "negation_code_list_id"=>"2.16.840.1.113883.3.464.1003.106.12.1005",
       "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB"}},
       "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-      }
+    }
 
     @un_coded_with_facility = {
       "id"=> "EncounterPerformedInpatient",
@@ -86,7 +86,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
         "FACILITY_LOCATION"=>
           {"type"=>"COL", "values"=> [{"type"=>"FAC", "key"=>"FACILITY_LOCATION", "code_list_id"=>"2.16.840.1.113883.3.666.5.1084", "field_title"=>"Facility Location", "locationPeriodLow"=>"08/30/2017 1:00 AM", "locationPeriodHigh"=>"08/31/2017 1:00 AM", "title"=>"Annual Wellness Visit"}, {"type"=>"FAC", "key"=>"FACILITY_LOCATION", "code_list_id"=>"2.16.840.1.113883.3.666.5.1084", "field_title"=>"Facility Location", "locationPeriodLow"=>"08/30/2017 2:00 AM", "locationPeriodHigh"=>"08/31/2017 3:00 AM", "title"=>"Annual Wellness Visit"}], "field_title"=>"Facility Location"} },
         "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-      }
+    }
 
     @un_coded_with_component = {
       "negation" => "false",
@@ -100,18 +100,18 @@ class PatientBuilderTest < ActiveSupport::TestCase
             [{"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011", "field_title"=>"Component", "value"=>"5", "unit"=>"mg", "title"=>"Hemorrhagic Stroke"},
               {"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011", "field_title"=>"Component", "value"=>"33", "unit"=>"cc", "title"=>"Hemorrhagic Stroke"}],
             "field_title"=>"Component"}
-        },
+      },
         "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-      }
+    }
 
     @source_with_range_value = {
-          "id"=> "DiagnosisActiveLimitedLifeExpectancy",
+      "id"=> "DiagnosisActiveLimitedLifeExpectancy",
           "start_date"=> 1333206000000,
           "end_date"=> 1333206000000,
           "value"=>[{"type"=>"PQ","value"=>"1","unit"=>"xx"}],
           "negation"=>"false",
           "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-        }
+    }
 
     @communication_source_data_criteria = {
       "negation"=>true,

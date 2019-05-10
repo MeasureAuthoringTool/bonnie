@@ -43,12 +43,11 @@
       bonnie.currentUserId = '<%= current_user.id %>';
       <% @patients.each do |patient| %>
         (function() {
-          var patient = new Thorax.Models.Patient(<%= json_escape(MultiJson.encode(patient.as_json(except: :results))).html_safe %>, { parse: true });
+          var patient = new Thorax.Models.Patient(<%= json_escape(MultiJson.encode(patient.as_document.as_json(except: :results))).html_safe %>, { parse: true });
           bonnie.measures.each(function(measure) {
             if (bonnie.isPortfolio) {
               measure.get('patients').add(patient);
-            } else if(_(patient.get('cqmPatient').qdmPatient.extendedData['measure_ids']).contains(measure.get('cqmMeasure').hqmf_set_id)) {
-              // TODO: Update measure_ids reference once it is on cqmPatient top level
+            } else if(_(patient.get('cqmPatient')['measure_ids']).contains(measure.get('cqmMeasure').hqmf_set_id)) {
               measure.get('patients').add(patient);
             }
           });

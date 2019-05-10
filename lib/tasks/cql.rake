@@ -191,19 +191,19 @@ namespace :bonnie do
       differences.push('source_data_criteria') if unique_sdc.length != cqm_measure.source_data_criteria.count
 
       if cql_measure[:composite]
-        differences.push('composite') if !cqm_measure['composite']
+        differences.push('composite') unless cqm_measure['composite']
         differences.push('component_hqmf_set_ids') if cql_measure[:component_hqmf_set_ids] != cqm_measure['component_hqmf_set_ids']
       end
       if cql_measure[:component]
-        differences.push('component') if !cqm_measure['component']
-        differences.push('composite_hqmf_set_id') if cql_measure.composite_hqmf_set_id() != cqm_measure['composite_hqmf_set_id']
+        differences.push('component') unless cqm_measure['component']
+        differences.push('composite_hqmf_set_id') if cql_measure.composite_hqmf_set_id != cqm_measure['composite_hqmf_set_id']
       end
 
       cql_measure[:value_set_oid_version_objects].each do |cql_val_set|
-        if cql_val_set[:version] == ""
-          differences.push('value_sets') if (cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "").count < 1 && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "N/A").count < 1)
-        else
-          differences.push('value_sets') if cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
+        if cql_val_set[:version] == "" && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "").count < 1 && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "N/A").count < 1
+          differences.push('value_sets')
+        elsif cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
+          differences.push('value_sets') 
         end
       end
 
@@ -221,9 +221,6 @@ namespace :bonnie do
         begin
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
           cqm_patient.user = bonnie_patient.user
-          bonnie_patient.measure_ids.each do |measure_id|
-            cqm_patient.measures.push CQM::Measure.where(hqmf_set_id: measure_id).first
-          end
           cqm_patient.save!
         rescue ExecJS::ProgramError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a

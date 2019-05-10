@@ -185,32 +185,6 @@ Layout/ExtraSpacing:
     - 'test/unit/generator_test.rb'
     - 'test/unit/patient_builder_test.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: consistent, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
-Layout/FirstParameterIndentation:
-  Exclude:
-    - 'test/rake/bonnie_db_test.rb'
-    - 'test/rake/bonnie_patients_test.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/IndentArray:
-  Exclude:
-    - 'test/unit/patient_builder_test.rb'
-
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/IndentHash:
-  Exclude:
-    - 'app/controllers/measures_controller.rb'
-    - 'test/unit/patient_builder_test.rb'
-
 # Offense count: 92
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -636,19 +610,6 @@ Naming/VariableNumber:
     - 'test/rake/bonnie_helpers_test.rb'
     - 'test/rake/bonnie_patients_test.rb'
     - 'test/rake/cql_test.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-Performance/Casecmp:
-  Exclude:
-    - 'lib/tasks/bonnie.rake'
-    - 'lib/tasks/cql_testing.rake'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Performance/CompareWithBlock:
-  Exclude:
-    - 'test/unit/helpers/excel_export_helper_test.rb'
 
 # Offense count: 1
 # Configuration parameters: AllowedChars.

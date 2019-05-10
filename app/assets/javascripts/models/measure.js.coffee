@@ -34,7 +34,6 @@ class Thorax.Models.Measure extends Thorax.Model
                             popSet.toObject()
                           else
                             popSet
-
     for populationSet, index in popSetsAndStrats
       populationSet.sub_id = alphabet[index]
       populationSet.index = index
