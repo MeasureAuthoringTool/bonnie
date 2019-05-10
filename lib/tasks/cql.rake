@@ -4,8 +4,6 @@ namespace :bonnie do
 
   namespace :cql do
 
-    require 'colorize'
-
     desc %{Recreates the JSON elm stored on CQL measures using an instance of
       a locally running CQLTranslationService JAR.
 
@@ -217,7 +215,8 @@ namespace :bonnie do
     task :convert_patients => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
       bonnie_patients = user ? Record.by_user(user) : Record.all
-      bonnie_patients.each do |bonnie_patient|
+      count = 1
+      bonnie_patients.no_timeout.each do |bonnie_patient|
         begin
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
           cqm_patient.user = bonnie_patient.user
@@ -225,7 +224,8 @@ namespace :bonnie do
             cqm_patient.measures.push CQM::Measure.where(hqmf_set_id: measure_id).first
           end
           cqm_patient.save!
-        rescue ExecJS::ProgramError => e
+          count = count + 1
+        rescue ExecJS::ProgramError, StandardError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return
           user = User.find_by _id: bonnie_patient.user_id
@@ -239,6 +239,7 @@ namespace :bonnie do
           end
         end
       end
+      puts count
     end
 
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
@@ -262,7 +263,6 @@ namespace :bonnie do
           puts "  CMS_ID: #{m[:cms_id]}  TITLE: #{m[:title]}"
         end
       end
-
     end
   end
 end
