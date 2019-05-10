@@ -109,11 +109,10 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in component measure" do
-      composite_measure_records = File.join("records","special_measures","CMS321")
+      composite_measure_records = File.join("records","special_measures","CMS890")
       collection_fixtures(composite_measure_records)
       associate_user_with_patients(@user,Record.all)
       load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
-
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
 
@@ -136,14 +135,17 @@ module ApiV1
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
         sheet = doc.sheet("1 - Population Criteria Section")
         if sheet.row(3)[9] == "doe"
-          jon_doe_row = sheet.row(3)
-          jane_smith_row = sheet.row(4)
+          joe_doe_row = sheet.row(3)
+          test_2_row = sheet.row(4)
+          test_1_row = sheet.row(5)
         else
-          jon_doe_row = sheet.row(4)
-          jane_smith_row = sheet.row(3)
+          joe_doe_row = sheet.row(4)
+          test_2_row = sheet.row(3)
+          test_1_row = sheet.row(5)
         end
-        assert_equal [1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0], jon_doe_row[0..7]
-        assert_equal [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], jane_smith_row[0..7]
+        assert_equal [0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0], joe_doe_row[0..7]
+        assert_equal [1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0], test_2_row[0..7]
+        assert_equal [1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0], test_1_row[0..7]
       end
 
       Apipie.configuration.record = apipie_record_configuration
@@ -187,6 +189,7 @@ module ApiV1
         expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results","CMS321v0_shared_patients_composite.json")))
         # There currently seems to be a mismatch in frontend / backend for things like [], 0, [0], etc.
         expected_rows["jane_smith_row"][6] = "[]" # from "0"
+        expected_rows["jon_doe_row"][6] = "[]" # from "[0]"
 
         jon_doe_row[12] = "FALSE" if jon_doe_row[12] == false
         jane_smith_row[12] = "FALSE" if jane_smith_row[12] == false
