@@ -128,18 +128,86 @@ namespace :bonnie do
     task :convert_measures => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
       bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasure.all
+
+      fail_count = 0
+      puts "**** Starting to convert measures! ****\n\n"
       bonnie_cql_measures.each do |measure|
         begin
           cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
-          cqm_measure.value_sets.map{ |value_set| value_set.save!}
+          cqm_measure.value_sets.map(&:save!)
           cqm_measure.user = measure.user
           cqm_measure.save!
-          puts measure.title + ' ' +  measure.cms_id
+          # Verify Measure was converted properly
+          diff = measure_conversion_diff(measure, cqm_measure)
+          if diff.empty?
+            print ".".green
+          else
+            puts "\nConversion Difference".yellow
+            measure_user = User.find_by(_id: measure[:user_id])
+            puts "Measure #{measure.cms_id}: #{measure.title} with id #{measure._id} in account #{measure_user.email}".light_blue
+            diff.each_entry do |element|
+              puts "--- #{element} --- Is different from CQL measure".light_blue
+            end
+            fail_count += 1
+          end
+        rescue StandardError => e
+          fail_count += 1
+          puts "\nMeasure  #{measure.title} #{measure.cms_id} with id #{measure._id} failed with message: #{e.message}".red
         rescue ExecJS::ProgramError => e
+          fail_count += 1
           # if there was a conversion failure we should record the resulting failure message with the measure
-          puts 'Measure ' + measure.title + ' ' +  measure.cms_id + ' failed with message: ' + e.message
+          puts "\nMeasure  #{measure.title} #{measure.cms_id} with id #{measure._id} failed with message: #{e.message}".red
         end
       end
+      puts "\n**** Done converting ****"
+      puts "Successful Conversions: #{bonnie_cql_measures.count - fail_count}"
+      puts "Unsuccessful/Failed Conversions: #{fail_count}"
+    end
+
+    def self.measure_conversion_diff(cql_measure, cqm_measure)
+      differences = []
+
+      differences.push('user_id') if cql_measure.user_id != cqm_measure['user_id']
+      differences.push('hqmf_id') if cql_measure.hqmf_id != cqm_measure['hqmf_id']
+      differences.push('hqmf_set_id') if cql_measure[:hqmf_set_id] != cqm_measure['hqmf_set_id']
+      differences.push('hqmf_version_number') if cql_measure[:hqmf_version_number].to_s != cqm_measure['hqmf_version_number']
+      differences.push('cms_id') if cql_measure[:cms_id] != cqm_measure['cms_id']
+      differences.push('title') if cql_measure[:title] != cqm_measure['title']
+      differences.push('description') if cql_measure[:description] != cqm_measure['description']
+      differences.push('calculate_sdes') if cql_measure[:calculate_sdes] != cqm_measure['calculate_sdes']
+      differences.push('main_cql_library') if cql_measure[:main_cql_library] != cqm_measure['main_cql_library']
+      differences.push('population_criteria') if cql_measure[:population_criteria] != cqm_measure['population_criteria']
+      differences.push('measure_period') if cql_measure[:measure_period] != cqm_measure['measure_period']
+      differences.push('measure_attributes') if cql_measure[:measure_attributes] != cqm_measure['measure_attributes']
+      differences.push('cql libraries') if cql_measure[:cql_statement_dependencies].count != cqm_measure['cql_libraries'].count
+
+      scoring = cql_measure[:continuous_variable] ? 'CONTINUOUS_VARIABLE' : 'PROPORTION'
+      differences.push('measure_scoring') if scoring != cqm_measure['measure_scoring']
+      calc_method = cql_measure[:episode_of_care] ? 'EPISODE_OF_CARE' : 'PATIENT'
+      differences.push('calculation_method') if calc_method != cqm_measure['calculation_method']
+
+      # Duplicate source data criteria are removed from the measure when converted, so this verification ensures that was done properly
+      unique_sdc = cql_measure.source_data_criteria.values.index_by { |sdc| [sdc['code_list_id'], sdc['description']] }
+      differences.push('source_data_criteria') if unique_sdc.length != cqm_measure.source_data_criteria.count
+
+      if cql_measure[:composite]
+        differences.push('composite') if !cqm_measure['composite']
+        differences.push('component_hqmf_set_ids') if cql_measure[:component_hqmf_set_ids] != cqm_measure['component_hqmf_set_ids']
+      end
+      if cql_measure[:component]
+        differences.push('component') if !cqm_measure['component']
+        differences.push('composite_hqmf_set_id') if cql_measure.composite_hqmf_set_id() != cqm_measure['composite_hqmf_set_id']
+      end
+
+      cql_measure[:value_set_oid_version_objects].each do |cql_val_set|
+        if cql_val_set[:version] == ""
+          differences.push('value_sets') if (cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "").count < 1 && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "N/A").count < 1)
+        else
+          differences.push('value_sets') if cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
+        end
+      end
+
+      differences
     end
 
     desc %{Coverts Bonnie patients to new CQM/QDM Patients
@@ -164,16 +232,15 @@ namespace :bonnie do
           # separate collection to return
           user = User.find_by _id: bonnie_patient.user_id
           if bonnie_patient.measure_ids.first.nil?
-            puts user.email + "\n Measure: N/A\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+            puts "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
           elsif CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first.nil?
-            puts user.email + "\n Measure (hqmf_set_id): " + bonnie_patient.measure_ids.first + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+            puts "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient.measure_ids.first}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
           else
             measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first
-            puts user.email + "\n Measure: " + measure.title + " " + measure.cms_id + "\n Patient: " + bonnie_patient._id + "\n Failed with message: " + e.message
+            puts "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
           end
         end
       end
-      puts count
     end
 
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
@@ -197,6 +264,7 @@ namespace :bonnie do
           puts "  CMS_ID: #{m[:cms_id]}  TITLE: #{m[:title]}"
         end
       end
+
     end
   end
 end
