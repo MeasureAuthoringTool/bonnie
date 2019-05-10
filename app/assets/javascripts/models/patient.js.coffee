@@ -4,16 +4,17 @@ class Thorax.Models.Patient extends Thorax.Model
 
   parse: (attrs) ->
     thoraxPatient = {}
+
     # cqmPatient will already exist if we are cloning the thoraxModel
     if attrs.cqmPatient?
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
-      # TODO: Remove after this is handled properly in cqm-models
       thoraxPatient.cqmPatient.qdmPatient.extendedData = attrs.cqmPatient.qdmPatient.extendedData
     else
       thoraxPatient.cqmPatient = new cqm.models.Patient(attrs)
     # TODO: look into adding this into cqmPatient construction
     if !thoraxPatient.cqmPatient.qdmPatient
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
+    thoraxPatient._id = attrs._id
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
     thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
@@ -31,8 +32,7 @@ class Thorax.Models.Patient extends Thorax.Model
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
-    # TODO: Update measure_ids reference once it is on cqmPatient top level
-    @get('cqmPatient').qdmPatient.extendedData['measure_ids'].map (m) ->
+    @get('cqmPatient')['measure_ids'].map (m) ->
       validIds[m] = {key: m, value: _.contains(measures.pluck('hqmf_set_id'), m)}
     validIds
   getEntrySections: ->
@@ -196,8 +196,7 @@ class Thorax.Models.Patient extends Thorax.Model
     for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has(populationCriteria) and populationCriteria != 'OBSERV'
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
 
-    # TODO: Update measure_ids reference once it is on cqmPatient top level
-    if !_(@get('cqmPatient').qdmPatient.extendedData['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
+    if !_(@get('cqmPatient')['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
       expectedValue.set _.object(_.keys(expectedValue.attributes), []) # make expectations undefined instead of 0/fail
 
     expectedValue
