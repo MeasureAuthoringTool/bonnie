@@ -186,7 +186,9 @@ namespace :bonnie do
       calc_method = cql_measure[:episode_of_care] ? 'EPISODE_OF_CARE' : 'PATIENT'
       differences.push('calculation_method') if calc_method != cqm_measure['calculation_method']
 
-      differences.push('source_data_criteria') if cql_measure.source_data_criteria.count != cqm_measure.source_data_criteria.count
+      # Duplicate source data criteria are removed from the measure when converted, so this verification ensures that was done properly
+      unique_sdc = cql_measure.source_data_criteria.values.index_by { |sdc| [sdc['code_list_id'], sdc['description']] }
+      differences.push('source_data_criteria') if unique_sdc.length != cqm_measure.source_data_criteria.count
 
       if cql_measure[:composite]
         differences.push('composite') if !cqm_measure['composite']
