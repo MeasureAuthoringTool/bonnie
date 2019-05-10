@@ -241,6 +241,7 @@ namespace :bonnie do
           end
         end
       end
+      puts count
     end
 
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
