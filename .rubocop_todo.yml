@@ -185,32 +185,6 @@ Layout/ExtraSpacing:
     - 'test/unit/generator_test.rb'
     - 'test/unit/patient_builder_test.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: consistent, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
-Layout/IndentFirstArgument:
-  Exclude:
-    - 'test/rake/bonnie_db_test.rb'
-    - 'test/rake/bonnie_patients_test.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/IndentFirstArrayElement:
-  Exclude:
-    - 'test/unit/patient_builder_test.rb'
-
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/IndentFirstHashElement:
-  Exclude:
-    - 'app/controllers/measures_controller.rb'
-    - 'test/unit/patient_builder_test.rb'
-
 # Offense count: 92
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
