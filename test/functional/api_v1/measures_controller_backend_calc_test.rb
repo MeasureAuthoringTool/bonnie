@@ -137,12 +137,11 @@ module ApiV1
         if sheet.row(3)[9] == "doe"
           joe_doe_row = sheet.row(3)
           test_2_row = sheet.row(4)
-          test_1_row = sheet.row(5)
         else
           joe_doe_row = sheet.row(4)
           test_2_row = sheet.row(3)
-          test_1_row = sheet.row(5)
         end
+        test_1_row = sheet.row(5)
         assert_equal [0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0], joe_doe_row[0..7]
         assert_equal [1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0], test_2_row[0..7]
         assert_equal [1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0], test_1_row[0..7]
