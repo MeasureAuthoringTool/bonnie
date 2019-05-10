@@ -198,7 +198,8 @@ class ExcelExportHelperTest < ActionController::TestCase
   test 'result truncation truncates long strings' do
     long_string = 'a' * 400000
     truncated_string = PatientExport.truncate_result(long_string)
-    assert_equal true, truncated_string.length < 32700
+    # excel has a maximum character restriction on cells of 32,767 characters
+    assert_equal true, truncated_string.length < 32767
     assert_equal true, (truncated_string.include? 'Entry Truncated To Fit Cell')
   end
 
