@@ -32,7 +32,6 @@ class Thorax.Models.Patient extends Thorax.Model
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
-    # TODO: Update measure_ids reference once it is on cqmPatient top level
     @get('cqmPatient')['measure_ids'].map (m) ->
       validIds[m] = {key: m, value: _.contains(measures.pluck('hqmf_set_id'), m)}
     validIds
@@ -197,7 +196,6 @@ class Thorax.Models.Patient extends Thorax.Model
     for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has(populationCriteria) and populationCriteria != 'OBSERV'
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
 
-    # TODO: Update measure_ids reference once it is on cqmPatient top level
     if !_(@get('cqmPatient')['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
       expectedValue.set _.object(_.keys(expectedValue.attributes), []) # make expectations undefined instead of 0/fail
 
