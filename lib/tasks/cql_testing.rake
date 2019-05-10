@@ -158,13 +158,13 @@ namespace :bonnie do
     end
 
     def get_cqm_measure(user, cms_hqmf, measure_id)
-      if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
+      if (!cms_hqmf.casecmp('cms').zero? && !cms_hqmf.casecmp('hqmf').zero?)
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
       end
       CQM::Measure.by_user(user).each do |measure|
-        if (cms_hqmf.downcase  == 'cms' && measure.cms_id.downcase == measure_id.downcase)
+        if (cms_hqmf.casecmp('cms').zero? && measure.cms_id.casecmp(measure_id).zero?)
           return measure
-        elsif (cms_hqmf.downcase == 'hqmf' && measure.hqmf_set_id.downcase == measure_id.downcase)
+        elsif (cms_hqmf.casecmp('hqmf').zero? && measure.hqmf_set_id.casecmp(measure_id).zero?)
           return measure
         end
       end

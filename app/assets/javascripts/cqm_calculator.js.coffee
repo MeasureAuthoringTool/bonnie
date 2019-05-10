@@ -34,10 +34,7 @@
       patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
 
       measure.get('populations').forEach((measure_population) =>
-        if measure_population.has('stratification')
-          populationSetId = cqmMeasure.population_sets[measure_population.get('population_index')].stratifications[measure_population.get('stratification_index')].stratification_id
-        else
-          populationSetId = cqmMeasure.population_sets.find((pop_set) -> pop_set.title == measure_population.get('title')).population_set_id
+        populationSetId = measure_population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
 
         # if this population is requested update the object
@@ -65,7 +62,6 @@
 
     # Build result objects for everything in the measure
     patients.forEach((patient) =>
-      patientNeedsCalc = false
       measure.get('populations').forEach((population) =>
         # We store both the calculation result and the calcuation code based on keys derived from the arguments
         cacheKey = @cacheKey(population, patient)
@@ -90,9 +86,8 @@
 
         if !patient.has('cqmPatient')
           result.state = 'cancelled'
-          console.log "No CQM patient for #{patient.get('_id')} - #{patient.getFirstName()} #{patient.getLastName()}"
+          console.log "No CQM patient for #{patient.id} - #{patient.getFirstName()} #{patient.getLastName()}"
         else
-          patientNeedsCalc = true
           resultsNeedingCalc.push result
       ) # end populations iteration
     ) # end patient iteration
@@ -109,21 +104,18 @@
 
     cqmMeasure = measure.get('cqmMeasure')
     cqmValueSets = measure.valueSets()
-    cqmPatients = resultsNeedingCalc.map (result) -> result.patient.get('cqmPatient')
+    qdmPatients = resultsNeedingCalc.map (result) -> result.patient.get('cqmPatient').qdmPatient
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, cqmPatients, cqmValueSets, { doPretty: true, includeClauseResults: true })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, qdmPatients, cqmValueSets, { doPretty: true, includeClauseResults: true })
       # Fill result objects for everything in the measure
       resultsNeedingCalc.forEach((result) =>
         patient = result.patient
         population = result.population
         patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
 
-        if population.has('stratification')
-          populationSetId = cqmMeasure.population_sets[population.get('population_index')].stratifications[population.get('stratification_index')].stratification_id
-        else
-          populationSetId = cqmMeasure.population_sets.find((pop_set) -> pop_set.title == population.get('title')).population_set_id
+        populationSetId = population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
 
         result.set(populationSetResults.toObject())
