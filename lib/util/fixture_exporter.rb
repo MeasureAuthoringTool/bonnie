@@ -35,7 +35,7 @@ class FixtureExporter
                       File.join(path, "#{r.first}_#{r.last}.json")
                     end
 
-      create_fixture_file(record_file, JSON.pretty_generate(record))
+      create_fixture_file(record_file, record)
       puts 'exported a patient record to ' + record_file
     end
   end
