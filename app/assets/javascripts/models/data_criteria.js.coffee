@@ -132,6 +132,15 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   # FIXME sortable: commenting out due to odd bug in droppable
   # comparator: (m) -> [m.get('start_date'), m.get('end_date')]
 
+  # Expect a array of QDM::DataElements to be passed in. We want to turn it into an array
+  # of plain objects that will become the attributes for each SourceDataCriteria.
+  parse: (dataElements, options) ->
+    # TODO: Replace quick and dirty option
+    dataElements.map (dataElement) ->
+      dataElementAsObject = dataElement.toObject()
+      dataElementAsObject.qdmDataElement = dataElement
+      return dataElementAsObject
+
 class Thorax.Collections.Codes extends Thorax.Collection
   parse: (results, options) ->
     codes = for codeset, codes of results

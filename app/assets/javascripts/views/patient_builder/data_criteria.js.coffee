@@ -11,6 +11,13 @@ class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
   triggerMaterialize: ->
     @trigger 'bonnie:materialize'
 
+  parseDataElementDescription: (description) ->
+    # dataelements such as birthdate do not have descriptions
+    if !description
+      ""
+    else
+      description.split(/, (.*:.*)/)?[1] or description
+
 
 class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
   template: JST['patient_builder/select_criteria']
@@ -29,18 +36,12 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
 
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
   addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model
-  parseDescription: (description) ->
-    # dataelements such as birthdate do not have descriptions
-    if !description
-      "" 
-    else
-      description.split(/, (.*:.*)/)?[1] or description
   context: ->
-    parseDescription: (description) 
+    desc = @parseDataElementDescription @model.get('description')
     _(super).extend
-    type: desc.split(": ")[0]
-    # everything after the data criteria type is the detailed description
-    detail: desc.substring(desc.indexOf(':')+2)
+      type: desc.split(": ")[0]
+      # everything after the data criteria type is the detailed description
+      detail: desc.substring(desc.indexOf(':')+2)
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
@@ -107,7 +108,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-    desc = Thorax.Views.SelectCriteriaItemView.parseDescription(@model.get('description'))
+    desc = @parseDataElementDescription(@model.get('description'))
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)

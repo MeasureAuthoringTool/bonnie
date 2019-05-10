@@ -69,7 +69,7 @@ class Thorax.Models.Measure extends Thorax.Model
             field["referenced_criteria"] = ref
             delete data_criteria.field_values[k]
 
-    thoraxMeasure.source_data_criteria = new Thorax.Collections.SourceDataCriteria _(thoraxMeasure.cqmMeasure.source_data_criteria).values(), parent: this
+    thoraxMeasure.source_data_criteria = new Thorax.Collections.SourceDataCriteria thoraxMeasure.cqmMeasure.source_data_criteria, parent: this, parse: true
     thoraxMeasure.source_data_criteria.each (criteria) ->
       # Apply value set display name if one exists for this criteria
       if !criteria.get('variable') && oid_display_name_map[criteria.get('code_list_id')]?
