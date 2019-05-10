@@ -217,12 +217,14 @@ namespace :bonnie do
     task :convert_patients => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
       bonnie_patients = user ? Record.by_user(user) : Record.all
-      bonnie_patients.each do |bonnie_patient|
+      count = 0
+      bonnie_patients.no_timeout.each do |bonnie_patient|
         begin
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
           cqm_patient.user = bonnie_patient.user
           cqm_patient.save!
-        rescue ExecJS::ProgramError => e
+          count = count + 1
+        rescue ExecJS::ProgramError, StandardError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return
           user = User.find_by _id: bonnie_patient.user_id
@@ -236,6 +238,7 @@ namespace :bonnie do
           end
         end
       end
+      puts count
     end
 
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
