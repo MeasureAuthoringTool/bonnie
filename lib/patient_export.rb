@@ -48,7 +48,7 @@ class PatientExport
           white_right_border = styles.add_style(:border => { :style => :thin,:color => "FFFFFF", :edges => [:left, :right] })
 
           sheet.add_row(["\nKEY\n","",""], style: key_title_style, height: 55)
-          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list.","",""], 
+          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list.\nCells that are too long will be truncated due to limitations in Excel.","",""], 
                         style: false_info_style, height: 70)
           sheet.merge_cells("A1:C1") 
           sheet.merge_cells("A2:C2")
@@ -143,7 +143,7 @@ class PatientExport
                   # Fortunately we want to ignore those results, so we can just skip results that
                   # dont have corresponding details from the measure.
                   next if statement_details.dig(lib_key,statement).nil?
-                  header_row.push(statement_details[lib_key][statement])
+                  header_row.push(truncate_result(statement_details[lib_key][statement]))
                   statement_to_column[statement] = cur_column
                   cur_column = cur_column + 1
                 end
@@ -202,7 +202,7 @@ class PatientExport
                     if result.eql? "UNHIT"
                       statement_results[statement_to_column[statement]] = "Not Calculated"
                     else
-                      statement_results[statement_to_column[statement]] = result
+                      statement_results[statement_to_column[statement]] = truncate_result(result)
                     end
                   end
                 end
@@ -226,6 +226,15 @@ class PatientExport
           pop_index = pop_index + 1
         end
       end
+    end
+  end
+
+  # excel has a maximum character restriction on cells of 32,767 characters
+  def self.truncate_result(result)
+    if result.length >= 32700
+      result[0...32700] + " <Entry Truncated To Fit Cell>"
+    else
+      result
     end
   end
 
