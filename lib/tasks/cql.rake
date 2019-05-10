@@ -149,7 +149,7 @@ namespace :bonnie do
     task :convert_patients => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
       bonnie_patients = user ? Record.by_user(user) : Record.all
-      count = 1
+      count = 0
       bonnie_patients.no_timeout.each do |bonnie_patient|
         begin
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
