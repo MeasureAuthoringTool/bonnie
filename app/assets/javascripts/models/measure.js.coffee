@@ -55,11 +55,11 @@ class Thorax.Models.Measure extends Thorax.Model
     for key, data_criteria of thoraxMeasure.data_criteria
       data_criteria.key = key
       # Apply value set display name if one exists for this criteria
-      if !data_criteria.variable && oid_display_name_map[data_criteria.code_list_id]?
+      if !data_criteria.variable && oid_display_name_map[data_criteria.codeListId]?
         # For communication criteria we want to include the direction, which is separated from the type with a colon
         if data_criteria.type == 'communications'
           data_criteria.description = data_criteria.description.replace('Communication:', 'Communication')
-        data_criteria.description = "#{data_criteria.description.split(':')[0]}: #{oid_display_name_map[data_criteria.code_list_id]}"
+        data_criteria.description = "#{data_criteria.description.split(':')[0]}: #{oid_display_name_map[data_criteria.codeListId]}"
       if data_criteria.field_values
         data_criteria.references = {}
         for k,field of data_criteria.field_values
@@ -72,11 +72,11 @@ class Thorax.Models.Measure extends Thorax.Model
     thoraxMeasure.source_data_criteria = new Thorax.Collections.SourceDataCriteria thoraxMeasure.cqmMeasure.source_data_criteria, parent: this, parse: true
     thoraxMeasure.source_data_criteria.each (criteria) ->
       # Apply value set display name if one exists for this criteria
-      if !criteria.get('variable') && oid_display_name_map[criteria.get('code_list_id')]?
+      if !criteria.get('variable') && oid_display_name_map[criteria.get('codeListId')]?
         # For communication criteria we want to include the direction, which is separated from the type with a colon
-        if criteria.get('type') == 'communications'
+        if criteria.get('qdmCategory') == 'communications'
           criteria.set('description', criteria.get('description').replace('Communication:', 'Communication'))
-        criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{oid_display_name_map[criteria.get('code_list_id')]}")
+        criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{oid_display_name_map[criteria.get('codeListId')]}")
 
     thoraxMeasure
 

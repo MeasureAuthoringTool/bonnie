@@ -35,7 +35,9 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     attrs
 
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
-  valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
+
+  valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')
+
   toJSON: ->
     # Transform fieldValues back to an object from a collection
     fieldValues = {}
@@ -45,34 +47,35 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =
-      characteristic:            'fa-user'
-      communications:            'fa-files-o'
-      allergies_intolerances:    'fa-exclamation-triangle'
-      adverse_events:            'fa-exclamation'
-      conditions:                'fa-stethoscope'
-      devices:                   'fa-medkit'
-      diagnostic_studies:        'fa-stethoscope'
-      encounters:                'fa-user-md'
-      functional_statuses:       'fa-stethoscope'
-      interventions:             'fa-comments'
-      laboratory_tests:          'fa-flask'
-      medications:               'fa-medkit'
-      physical_exams:            'fa-user-md'
-      procedures:                'fa-scissors'
-      risk_category_assessments: 'fa-user'
-      care_goals:                'fa-sliders'
-      assessments:               'fa-eye'
-      care_experiences:          'fa-heartbeat'
-      family_history:            'fa-sitemap'
-      immunizations:             'fa-medkit'
-      participations:            'fa-shield'
-      preferences:               'fa-comment'
-      provider_characteristics:  'fa-user-md'
-      substances:                'fa-medkit'
-      symptoms:                  'fa-bug'
-      system_characteristics:    'fa-tachometer'
-      transfers:                 'fa-random'
-    icons[@get('type')] || 'fa-question'
+      characteristic:           'fa-user'
+      communication:            'fa-files-o'
+      allergies_intolerance:    'fa-exclamation-triangle'
+      adverse_event:            'fa-exclamation'
+      condition:                'fa-stethoscope'
+      device:                   'fa-medkit'
+      diagnostic_study:         'fa-stethoscope'
+      encounter:                'fa-user-md'
+      functional_status:        'fa-stethoscope'
+      intervention:             'fa-comments'
+      laboratory_test:          'fa-flask'
+      medication:               'fa-medkit'
+      physical_exam:            'fa-user-md'
+      procedure:                'fa-scissors'
+      risk_category_assessment: 'fa-user'
+      care_goal:                'fa-sliders'
+      assessment:               'fa-eye'
+      care_experience:          'fa-heartbeat'
+      family_history:           'fa-sitemap'
+      immunization:             'fa-medkit'
+      participation:            'fa-shield'
+      preference:               'fa-comment'
+      provider_characteristic:  'fa-user-md'
+      substance:                'fa-medkit'
+      symptom:                  'fa-bug'
+      system_characteristic:    'fa-tachometer'
+      transfer:                 'fa-random'
+    icons[@get('qdmCategory')] || 'fa-question'
+
   canHaveResult: ->
     ['result', 'resultDatetime'] in Object.keys(@attributes)
 
@@ -108,15 +111,17 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       criteriaType = "#{criteriaType}_#{@get('sub_category')}"
     criteriaType
 
-Thorax.Models.SourceDataCriteria.getTimingInterval = (criteria) ->
-  if criteria.attributes.hasOwnProperty('relevantPeriod')
-    'relevantPeriod'
-  else if criteria.attributes.hasOwnProperty('prevalencePeriod')
-    'prevalencePeriod'
-  else if criteria.attributes.hasOwnProperty('participationPeriod')
-    'participationPeriod'
-  else
-    undefined
+  # Use the mongoose schema to look at the fields for this element
+  getPrimaryTimingAttribute: ->
+    schema = @get('qdmDataElement').schema
+    if schema.path('relevantPeriod')?
+      'relevantPeriod'
+    else if schema.path('prevalencePeriod')?
+      'prevalencePeriod'
+    else if schema.path('participationPeriod')? 
+      'participationPeriod'
+    else
+      undefined
 
 Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"

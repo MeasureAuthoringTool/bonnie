@@ -83,7 +83,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       criteriaType: @model.get('type')
       vals: JSON.stringify(@model.get('references'))
     codes = @model.get('codes')
-    concepts = @model.valueSet()?.get('concepts')
+    concepts = @model.valueSet()?.concepts
     codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
@@ -112,7 +112,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    timingInterval = Thorax.Models.SourceDataCriteria.getTimingInterval(@model) || 'authorDatetime'
+    timingInterval = @model.getPrimaryTimingAttribute() || 'authorDatetime'
     _(super).extend
       start_date: moment.utc(@model.get(timingInterval).low).format('L') if @model.get(timingInterval)?.low?
       start_time: moment.utc(@model.get(timingInterval).low).format('LT') if @model.get(timingInterval)?.low?
@@ -162,12 +162,12 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
   isDuringMeasurePeriod: ->
-    moment.utc(@get('start_date')).year() is moment.utc(@get('end_date')).year() is bonnie.measurePeriod
+    moment.utc(@model.get('start_date')).year() is moment.utc(@model.get('end_date')).year() is bonnie.measurePeriod
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->
-    droppedCriteriaTiming = Thorax.Models.SourceDataCriteria.getTimingInterval(droppedCriteria)
-    targetCriteriaTiming = Thorax.Models.SourceDataCriteria.getTimingInterval(targetCriteria)
+    droppedCriteriaTiming = droppedCriteria.getPrimaryTimingAttribute()
+    targetCriteriaTiming = targetCriteria.getPrimaryTimingAttribute()
     if(droppedCriteria? && targetCriteriaTiming?)
       droppedCriteria.set "#{droppedCriteriaTiming}": targetCriteria.get(targetCriteriaTiming)
     # Copy authorDatetime if droppedCriteria and target both have the authorDatetime property

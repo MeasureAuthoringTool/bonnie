@@ -236,7 +236,7 @@ class Thorax.Models.Patient extends Thorax.Model
       errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
 
     @get('source_data_criteria').each (sdc) =>
-      timingInterval = Thorax.Models.SourceDataCriteria.getTimingInterval(sdc) || 'authorDatetime'
+      timingInterval = sdc.getPrimaryTimingAttribute() || 'authorDatetime'
       if sdc.get(timingInterval)?.low
         start_date = moment(sdc.get(timingInterval).low, 'X')
       else if timingInterval == 'authorDatetime' && sdc.get(timingInterval)
