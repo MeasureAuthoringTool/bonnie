@@ -3,9 +3,8 @@
 module BonnieBackendCalculator
   CALCULATION_SERVICE_URL = 'http://localhost:8081/calculate'.freeze
 
-  def self.calculate(measure, patients, options)
+  def self.calculate(measure, cqm_patients, options)
     # convert patients to CQM, note that once we switch to the CQM model this will become unnecessary (or maybe optional)
-    cqm_patients, failed_patients = PatientHelper.convert_patient_models(patients)
     cqm_measure = if measure.is_a?(CQM::Measure)
                     measure
                   else
