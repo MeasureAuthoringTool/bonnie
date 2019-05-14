@@ -12,6 +12,9 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - npm install -g coffeelint
   - npm install -g istanbul
+  - "find /home/travis/.rvm/rubies -wholename '*default/bundler-*.gemspec' -delete"
+  - rvm @global do gem uninstall bundler -a -x -I || true
+  - gem install bundler -v "< 2.0"
 services: mongodb
 bundler_args: --without test development
 before_script:
