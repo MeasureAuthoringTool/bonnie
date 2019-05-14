@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5c6ef315bb9215d9682d861f"
+    "$oid": "5cdad220d7c8ac0ab5cc1de2"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5c6ef315bb9215d9682d8620"
+        "$oid": "5cdad220d7c8ac0ab5cc1de3"
       },
       "cql": "library BonnieTestBasic2 version '0.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Laboratory Tests for Hypertension\": 'urn:oid:2.16.840.1.113883.3.600.1482'\r\nvalueset \"Patient Reason refused\": 'urn:oid:2.16.840.1.113883.3.600.791'\r\nvalueset \"Beta Blocker Therapy for LVSD\": 'urn:oid:2.16.840.1.113883.3.526.3.1184'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\texists [\"Medication, Not Ordered\": \"Beta Blocker Therapy for LVSD\"] NoBetaBlocker\r\n\t\twhere NoBetaBlocker.negationRationale in \"Patient Reason refused\"\r\n\r\ndefine \"Initial Assessments\":\r\n\t[\"Assessment, Performed\": \"Laboratory Tests for Hypertension\"] A\r\n\t\twhere A.result as DateTime during \"Measurement Period\"\r\n\r\ndefine \"Foo\":\r\n\t[\"Laboratory Test, Performed\": \"Laboratory Tests for Hypertension\"] Test\r\n\t\twith \"Initial Assessments\" Assessment\r\n\t\t\tsuch that exists ( Test.components Comp\r\n\t\t\t\t\twhere Assessment.result as DateTime < Comp.result as DateTime\r\n\t\t\t)\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Initial Assessments\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Foo\"\r\n",
       "elm": {
@@ -2128,7 +2128,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": " < "
+                                                    "text": " &lt; "
                                                   }
                                                 ]
                                               },
@@ -2326,61 +2326,63 @@
         }
       },
       "is_main_library": true,
+      "is_top_level": true,
       "library_name": "BonnieTestBasic2",
       "library_version": "0.0.001",
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8621"
+            "$oid": "5cdad220d7c8ac0ab5cc1de4"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8622"
+            "$oid": "5cdad220d7c8ac0ab5cc1de5"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8623"
+            "$oid": "5cdad220d7c8ac0ab5cc1de6"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8624"
+            "$oid": "5cdad220d7c8ac0ab5cc1de7"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8625"
+            "$oid": "5cdad220d7c8ac0ab5cc1de8"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8626"
+            "$oid": "5cdad220d7c8ac0ab5cc1de9"
           },
           "statement_name": "Denominator"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8627"
+            "$oid": "5cdad220d7c8ac0ab5cc1dea"
           },
           "statement_name": "Initial Assessments"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8628"
+            "$oid": "5cdad220d7c8ac0ab5cc1deb"
           },
           "statement_name": "Foo",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5c6ef315bb9215d9682d8629"
+                "$oid": "5cdad220d7c8ac0ab5cc1dec"
               },
+              "hqmf_id": null,
               "library_name": "BonnieTestBasic2",
               "statement_name": "Initial Assessments"
             }
@@ -2388,14 +2390,15 @@
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d862a"
+            "$oid": "5cdad220d7c8ac0ab5cc1ded"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5c6ef315bb9215d9682d862b"
+                "$oid": "5cdad220d7c8ac0ab5cc1dee"
               },
+              "hqmf_id": null,
               "library_name": "BonnieTestBasic2",
               "statement_name": "Initial Assessments"
             }
@@ -2403,14 +2406,15 @@
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d862c"
+            "$oid": "5cdad220d7c8ac0ab5cc1def"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5c6ef315bb9215d9682d862d"
+                "$oid": "5cdad220d7c8ac0ab5cc1df0"
               },
+              "hqmf_id": null,
               "library_name": "BonnieTestBasic2",
               "statement_name": "Foo"
             }
@@ -2419,296 +2423,11 @@
       ]
     }
   ],
-  "created_at": "2019-02-21T18:51:01.897Z",
-  "data_criteria": {
-    "Payer_PatientCharacteristicPayer_aeb1e349_0674_43bb_9ee3_fa0f6af94854": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_aeb1e349_0674_43bb_9ee3_fa0f6af94854_source",
-      "variable": false,
-      "inline_code_list": {
-        "SOP": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "32127",
-          "32128",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "391",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "524",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "622",
-          "623",
-          "629",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_c6cd0406_3b5a_4b60_9f2f_af7148bd0821": {
-      "title": "ONCAdministrativeSex",
-      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_c6cd0406_3b5a_4b60_9f2f_af7148bd0821_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_45455da0_619a_49c9_8d55_4690becaef89": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_45455da0_619a_49c9_8d55_4690becaef89_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDCREC": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a": {
-      "title": "BetaBlockerTherapyforLVSD",
-      "description": "Medication, Ordered: BetaBlockerTherapyforLVSD",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": true,
-      "source_data_criteria": "BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
-      "variable": false
-    },
-    "Race_PatientCharacteristicRace_f626befd_df2c_4b98_b6e9_efc81ce6abaf": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_f626befd_df2c_4b98_b6e9_efc81ce6abaf_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDCREC": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    },
-    "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc": {
-      "title": "LaboratoryTestsforHypertension",
-      "description": "Laboratory Test, Performed: LaboratoryTestsforHypertension",
-      "code_list_id": "2.16.840.1.113883.3.600.1482",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
-      "variable": false
-    },
-    "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc": {
-      "title": "LaboratoryTestsforHypertension",
-      "description": "Assessment, Performed: LaboratoryTestsforHypertension",
-      "code_list_id": "2.16.840.1.113883.3.600.1482",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
-      "variable": false
-    },
-    "BetaBlockerTherapyforLVSD_MedicationOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_spoofed": {
-      "title": "BetaBlockerTherapyforLVSD",
-      "description": "Medication, Ordered: BetaBlockerTherapyforLVSD",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Derived from BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
-      "variable": false
-    }
-  },
+  "created_at": "2019-05-14T14:35:12.668Z",
   "description": "Testing of Bonnie",
   "hqmf_id": "40280382-649C-54C3-0164-EC898A6E15C8",
   "hqmf_set_id": "D5355200-50C1-4A79-8983-8617B93FE6C1",
-  "hqmf_version_number": "0.0.001",
+  "hqmf_version_number": "0",
   "main_cql_library": "BonnieTestBasic2",
   "measure_attributes": [
     {
@@ -3140,62 +2859,69 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5c6ef315bb9215d9682d862e"
+        "$oid": "5cdad220d7c8ac0ab5cc1df8"
       },
-      "population_set_id": "PopulationSet_1",
+      "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8631"
+            "$oid": "5cdad220d7c8ac0ab5cc1dfb"
           },
+          "hqmf_id": "A8E2B862-4CAE-4F6B-9298-F9698A6AA981",
           "library_name": "BonnieTestBasic2",
           "statement_name": "Denominator"
         },
         "IPP": {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8630"
+            "$oid": "5cdad220d7c8ac0ab5cc1dfa"
           },
+          "hqmf_id": "56CA3D77-7EA4-4009-802A-7EEBD7CEC8F1",
           "library_name": "BonnieTestBasic2",
           "statement_name": "Initial Population"
         },
         "NUMER": {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8632"
+            "$oid": "5cdad220d7c8ac0ab5cc1dfc"
           },
+          "hqmf_id": "D38BEB3F-3494-449E-AAD8-0AD44B861983",
           "library_name": "BonnieTestBasic2",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5c6ef315bb9215d9682d862f"
+          "$oid": "5cdad220d7c8ac0ab5cc1df9"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8633"
+            "$oid": "5cdad220d7c8ac0ab5cc1dfd"
           },
+          "hqmf_id": null,
           "library_name": "BonnieTestBasic2",
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8634"
+            "$oid": "5cdad220d7c8ac0ab5cc1dfe"
           },
+          "hqmf_id": null,
           "library_name": "BonnieTestBasic2",
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8635"
+            "$oid": "5cdad220d7c8ac0ab5cc1dff"
           },
+          "hqmf_id": null,
           "library_name": "BonnieTestBasic2",
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5c6ef315bb9215d9682d8636"
+            "$oid": "5cdad220d7c8ac0ab5cc1e00"
           },
+          "hqmf_id": null,
           "library_name": "BonnieTestBasic2",
           "statement_name": "SDE Sex"
         }
@@ -3203,303 +2929,217 @@
       "title": "Population Criteria Section"
     }
   ],
-  "source_data_criteria": {
-    "Payer_PatientCharacteristicPayer_aeb1e349_0674_43bb_9ee3_fa0f6af94854_source": {
-      "title": "Payer",
+  "source_data_criteria": [
+    {
+      "_id": {
+        "$oid": "5cdad220d7c8ac0ab5cc1d03"
+      },
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_aeb1e349_0674_43bb_9ee3_fa0f6af94854_source",
-      "variable": false,
-      "inline_code_list": {
-        "SOP": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "32127",
-          "32128",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "391",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "524",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "622",
-          "623",
-          "629",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": {
+          "$oid": "5cdad220d7c8ac0ab5cc1df1"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad220d7c8ac0ab5cc1d03"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_c6cd0406_3b5a_4b60_9f2f_af7148bd0821_source": {
-      "title": "ONCAdministrativeSex",
+    {
+      "_id": {
+        "$oid": "5cdad220d7c8ac0ab5cc1d04"
+      },
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_c6cd0406_3b5a_4b60_9f2f_af7148bd0821_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": {
+          "$oid": "5cdad220d7c8ac0ab5cc1df2"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad220d7c8ac0ab5cc1d04"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "Ethnicity_PatientCharacteristicEthnicity_45455da0_619a_49c9_8d55_4690becaef89_source": {
-      "title": "Ethnicity",
+    {
+      "_id": {
+        "$oid": "5cdad220d7c8ac0ab5cc1d05"
+      },
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_45455da0_619a_49c9_8d55_4690becaef89_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDCREC": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "_id": {
+          "$oid": "5cdad220d7c8ac0ab5cc1df3"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad220d7c8ac0ab5cc1d05"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
     },
-    "BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source": {
-      "title": "BetaBlockerTherapyforLVSD",
+    {
+      "_id": {
+        "$oid": "5cdad220d7c8ac0ab5cc1d06"
+      },
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.526.3.1184",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
       "description": "Medication, Ordered: BetaBlockerTherapyforLVSD",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": true,
-      "source_data_criteria": "BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
-      "variable": false
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
+      "id": {
+        "_id": {
+          "$oid": "5cdad220d7c8ac0ab5cc1df4"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad220d7c8ac0ab5cc1d06"
+      },
+      "negationRationale": null,
+      "prescriberId": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "order",
+      "qdmTitle": "Medication, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "refills": null,
+      "relevantPeriod": null,
+      "route": null,
+      "setting": null,
+      "supply": null,
+      "_type": "QDM::MedicationOrder"
     },
-    "Race_PatientCharacteristicRace_f626befd_df2c_4b98_b6e9_efc81ce6abaf_source": {
-      "title": "Race",
+    {
+      "_id": {
+        "$oid": "5cdad220d7c8ac0ab5cc1d07"
+      },
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_f626befd_df2c_4b98_b6e9_efc81ce6abaf_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDCREC": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "_id": {
+          "$oid": "5cdad220d7c8ac0ab5cc1df5"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad220d7c8ac0ab5cc1d07"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
     },
-    "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source": {
-      "title": "LaboratoryTestsforHypertension",
+    {
+      "_id": {
+        "$oid": "5cdad220d7c8ac0ab5cc1d08"
+      },
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.600.1482",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Laboratory Test, Performed: LaboratoryTestsforHypertension",
-      "code_list_id": "2.16.840.1.113883.3.600.1482",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+      "id": {
+        "_id": {
+          "$oid": "5cdad220d7c8ac0ab5cc1df6"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad220d7c8ac0ab5cc1d08"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "laboratory_test",
+      "qdmStatus": "performed",
+      "qdmTitle": "Laboratory Test, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "referenceRange": null,
+      "relevantPeriod": null,
+      "result": null,
+      "resultDatetime": null,
+      "status": null,
+      "_type": "QDM::LaboratoryTestPerformed"
     },
-    "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source": {
-      "title": "LaboratoryTestsforHypertension",
+    {
+      "_id": {
+        "$oid": "5cdad220d7c8ac0ab5cc1d09"
+      },
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.600.1482",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Assessment, Performed: LaboratoryTestsforHypertension",
-      "code_list_id": "2.16.840.1.113883.3.600.1482",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
-      "variable": false
-    },
-    "BetaBlockerTherapyforLVSD_MedicationOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_spoofed_source": {
-      "title": "BetaBlockerTherapyforLVSD",
-      "description": "Medication, Ordered: BetaBlockerTherapyforLVSD",
-      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Derived from BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
+      "id": {
+        "_id": {
+          "$oid": "5cdad220d7c8ac0ab5cc1df7"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad220d7c8ac0ab5cc1d09"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "assessment",
+      "qdmStatus": "performed",
+      "qdmTitle": "Assessment, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "result": null,
+      "_type": "QDM::AssessmentPerformed"
     }
-  },
+  ],
   "title": "Bonnie Test Basic 2",
-  "updated_at": "2019-02-21T18:51:01.897Z",
+  "updated_at": "2019-05-14T14:35:12.668Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5c6ef315bb9215d9682d8617",
-    "5c6ef315bb9215d9682d8618",
-    "5c6ef315bb9215d9682d8619",
-    "5c6ef315bb9215d9682d861a",
-    "5c6ef315bb9215d9682d861b",
-    "5c6ef315bb9215d9682d861c",
-    "5c6ef315bb9215d9682d861d"
+    "5cdad220d7c8ac0ab5cc1d0b",
+    "5cdad220d7c8ac0ab5cc1d0c",
+    "5cdad220d7c8ac0ab5cc1d0d",
+    "5cdad220d7c8ac0ab5cc1d0e",
+    "5cdad220d7c8ac0ab5cc1d0f",
+    "5cdad220d7c8ac0ab5cc1d10",
+    "5cdad220d7c8ac0ab5cc1d11"
   ]
 }
