@@ -1,27 +1,27 @@
 [
   {
     "_id": {
-      "$oid": "5c6ef23bbb9215d5537fed8c"
+      "$oid": "5cdad221d7c8ac0ab5cc1e06"
     },
     "concepts": [
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedab"
+          "$oid": "5cdad221d7c8ac0ab5cc1e0b"
         },
         "code": "F",
         "code_system_name": "AdministrativeGender",
         "code_system_oid": "2.16.840.1.113883.5.1",
-        "code_system_version": "HL7V3.0_2018-08",
+        "code_system_version": "HL7V3.0_2017-07",
         "display_name": "Female"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedac"
+          "$oid": "5cdad221d7c8ac0ab5cc1e0c"
         },
         "code": "M",
         "code_system_name": "AdministrativeGender",
         "code_system_oid": "2.16.840.1.113883.5.1",
-        "code_system_version": "HL7V3.0_2018-08",
+        "code_system_version": "HL7V3.0_2017-07",
         "display_name": "Male"
       }
     ],
@@ -34,65 +34,65 @@
   },
   {
     "_id": {
-      "$oid": "5c6ef23bbb9215d5537fed8d"
+      "$oid": "5cdad221d7c8ac0ab5cc1e07"
     },
     "concepts": [
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedad"
+          "$oid": "5cdad221d7c8ac0ab5cc1e0d"
         },
         "code": "1002-5",
-        "code_system_name": "CDCREC",
+        "code_system_name": "CDC Race",
         "code_system_oid": "2.16.840.1.113883.6.238",
         "code_system_version": "1.2",
         "display_name": "American Indian or Alaska Native"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedae"
+          "$oid": "5cdad221d7c8ac0ab5cc1e0e"
         },
         "code": "2028-9",
-        "code_system_name": "CDCREC",
+        "code_system_name": "CDC Race",
         "code_system_oid": "2.16.840.1.113883.6.238",
         "code_system_version": "1.2",
         "display_name": "Asian"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedaf"
+          "$oid": "5cdad221d7c8ac0ab5cc1e0f"
         },
         "code": "2054-5",
-        "code_system_name": "CDCREC",
+        "code_system_name": "CDC Race",
         "code_system_oid": "2.16.840.1.113883.6.238",
         "code_system_version": "1.2",
         "display_name": "Black or African American"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb0"
+          "$oid": "5cdad221d7c8ac0ab5cc1e10"
         },
         "code": "2076-8",
-        "code_system_name": "CDCREC",
+        "code_system_name": "CDC Race",
         "code_system_oid": "2.16.840.1.113883.6.238",
         "code_system_version": "1.2",
         "display_name": "Native Hawaiian or Other Pacific Islander"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb1"
+          "$oid": "5cdad221d7c8ac0ab5cc1e11"
         },
         "code": "2106-3",
-        "code_system_name": "CDCREC",
+        "code_system_name": "CDC Race",
         "code_system_oid": "2.16.840.1.113883.6.238",
         "code_system_version": "1.2",
         "display_name": "White"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb2"
+          "$oid": "5cdad221d7c8ac0ab5cc1e12"
         },
         "code": "2131-1",
-        "code_system_name": "CDCREC",
+        "code_system_name": "CDC Race",
         "code_system_oid": "2.16.840.1.113883.6.238",
         "code_system_version": "1.2",
         "display_name": "Other Race"
@@ -107,25 +107,25 @@
   },
   {
     "_id": {
-      "$oid": "5c6ef23bbb9215d5537fed8e"
+      "$oid": "5cdad221d7c8ac0ab5cc1e08"
     },
     "concepts": [
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb3"
+          "$oid": "5cdad221d7c8ac0ab5cc1e13"
         },
         "code": "2135-2",
-        "code_system_name": "CDCREC",
+        "code_system_name": "CDC Race",
         "code_system_oid": "2.16.840.1.113883.6.238",
         "code_system_version": "1.2",
         "display_name": "Hispanic or Latino"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb4"
+          "$oid": "5cdad221d7c8ac0ab5cc1e14"
         },
         "code": "2186-5",
-        "code_system_name": "CDCREC",
+        "code_system_name": "CDC Race",
         "code_system_oid": "2.16.840.1.113883.6.238",
         "code_system_version": "1.2",
         "display_name": "Not Hispanic or Latino"
@@ -140,1625 +140,1625 @@
   },
   {
     "_id": {
-      "$oid": "5c6ef23bbb9215d5537fed8f"
+      "$oid": "5cdad221d7c8ac0ab5cc1e09"
     },
     "concepts": [
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb5"
+          "$oid": "5cdad221d7c8ac0ab5cc1e15"
         },
         "code": "1",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "MEDICARE"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb6"
+          "$oid": "5cdad221d7c8ac0ab5cc1e16"
         },
         "code": "11",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare (Managed Care)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb7"
+          "$oid": "5cdad221d7c8ac0ab5cc1e17"
         },
         "code": "111",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb8"
+          "$oid": "5cdad221d7c8ac0ab5cc1e18"
         },
         "code": "112",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare PPO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedb9"
+          "$oid": "5cdad221d7c8ac0ab5cc1e19"
         },
         "code": "113",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare POS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedba"
+          "$oid": "5cdad221d7c8ac0ab5cc1e1a"
         },
         "code": "119",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare Managed Care Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedbb"
+          "$oid": "5cdad221d7c8ac0ab5cc1e1b"
         },
         "code": "12",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare (Non-managed Care)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedbc"
+          "$oid": "5cdad221d7c8ac0ab5cc1e1c"
         },
         "code": "121",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare FFS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedbd"
+          "$oid": "5cdad221d7c8ac0ab5cc1e1d"
         },
         "code": "122",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare Drug Benefit"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedbe"
+          "$oid": "5cdad221d7c8ac0ab5cc1e1e"
         },
         "code": "123",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare Medical Savings Account (MSA)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedbf"
+          "$oid": "5cdad221d7c8ac0ab5cc1e1f"
         },
         "code": "129",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare Non-managed Care Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc0"
+          "$oid": "5cdad221d7c8ac0ab5cc1e20"
         },
         "code": "13",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare Hospice"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc1"
+          "$oid": "5cdad221d7c8ac0ab5cc1e21"
         },
         "code": "14",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Dual Eligibility Medicare/Medicaid Organization"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc2"
+          "$oid": "5cdad221d7c8ac0ab5cc1e22"
         },
         "code": "19",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc3"
+          "$oid": "5cdad221d7c8ac0ab5cc1e23"
         },
         "code": "191",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare Pharmacy Benefit Manager"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc4"
+          "$oid": "5cdad221d7c8ac0ab5cc1e24"
         },
         "code": "2",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "MEDICAID"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc5"
+          "$oid": "5cdad221d7c8ac0ab5cc1e25"
         },
         "code": "21",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid (Managed Care)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc6"
+          "$oid": "5cdad221d7c8ac0ab5cc1e26"
         },
         "code": "211",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc7"
+          "$oid": "5cdad221d7c8ac0ab5cc1e27"
         },
         "code": "212",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid PPO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc8"
+          "$oid": "5cdad221d7c8ac0ab5cc1e28"
         },
         "code": "213",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid PCCM (Primary Care Case Management)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedc9"
+          "$oid": "5cdad221d7c8ac0ab5cc1e29"
         },
         "code": "219",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid Managed Care Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedca"
+          "$oid": "5cdad221d7c8ac0ab5cc1e2a"
         },
         "code": "22",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid (Non-managed Care Plan)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedcb"
+          "$oid": "5cdad221d7c8ac0ab5cc1e2b"
         },
         "code": "23",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid/SCHIP"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedcc"
+          "$oid": "5cdad221d7c8ac0ab5cc1e2c"
         },
         "code": "25",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid - Out of State"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedcd"
+          "$oid": "5cdad221d7c8ac0ab5cc1e2d"
         },
         "code": "26",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid -- Long Term Care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedce"
+          "$oid": "5cdad221d7c8ac0ab5cc1e2e"
         },
         "code": "29",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedcf"
+          "$oid": "5cdad221d7c8ac0ab5cc1e2f"
         },
         "code": "291",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid Pharmacy Benefit Manager"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd0"
+          "$oid": "5cdad221d7c8ac0ab5cc1e30"
         },
         "code": "299",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicaid - Dental"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd1"
+          "$oid": "5cdad221d7c8ac0ab5cc1e31"
         },
         "code": "3",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd2"
+          "$oid": "5cdad221d7c8ac0ab5cc1e32"
         },
         "code": "31",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Department of Defense"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd3"
+          "$oid": "5cdad221d7c8ac0ab5cc1e33"
         },
         "code": "311",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "TRICARE (CHAMPUS)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd4"
+          "$oid": "5cdad221d7c8ac0ab5cc1e34"
         },
         "code": "3111",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "TRICARE Prime--HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd5"
+          "$oid": "5cdad221d7c8ac0ab5cc1e35"
         },
         "code": "3112",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "TRICARE Extra--PPO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd6"
+          "$oid": "5cdad221d7c8ac0ab5cc1e36"
         },
         "code": "3113",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "TRICARE Standard - Fee For Service"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd7"
+          "$oid": "5cdad221d7c8ac0ab5cc1e37"
         },
         "code": "3114",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "TRICARE For Life--Medicare Supplement"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd8"
+          "$oid": "5cdad221d7c8ac0ab5cc1e38"
         },
         "code": "3115",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "TRICARE Reserve Select"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedd9"
+          "$oid": "5cdad221d7c8ac0ab5cc1e39"
         },
         "code": "3116",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedda"
+          "$oid": "5cdad221d7c8ac0ab5cc1e3a"
         },
         "code": "3119",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Department of Defense - (other)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537feddb"
+          "$oid": "5cdad221d7c8ac0ab5cc1e3b"
         },
         "code": "312",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Military Treatment Facility"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537feddc"
+          "$oid": "5cdad221d7c8ac0ab5cc1e3c"
         },
         "code": "3121",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Enrolled Prime--HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537feddd"
+          "$oid": "5cdad221d7c8ac0ab5cc1e3d"
         },
         "code": "3122",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Non-enrolled Space Available"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedde"
+          "$oid": "5cdad221d7c8ac0ab5cc1e3e"
         },
         "code": "3123",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "TRICARE For Life (TFL)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537feddf"
+          "$oid": "5cdad221d7c8ac0ab5cc1e3f"
         },
         "code": "313",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Dental --Stand Alone"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede0"
+          "$oid": "5cdad221d7c8ac0ab5cc1e40"
         },
         "code": "32",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Department of Veterans Affairs"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede1"
+          "$oid": "5cdad221d7c8ac0ab5cc1e41"
         },
         "code": "321",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Veteran care--Care provided to Veterans"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede2"
+          "$oid": "5cdad221d7c8ac0ab5cc1e42"
         },
         "code": "3211",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Direct Care--Care provided in VA facilities"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede3"
+          "$oid": "5cdad221d7c8ac0ab5cc1e43"
         },
         "code": "3212",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Indirect Care--Care provided outside VA facilities"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede4"
+          "$oid": "5cdad221d7c8ac0ab5cc1e44"
         },
         "code": "32121",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Fee Basis"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede5"
+          "$oid": "5cdad221d7c8ac0ab5cc1e45"
         },
         "code": "32122",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Foreign Fee/Foreign Medical Program (FMP)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede6"
+          "$oid": "5cdad221d7c8ac0ab5cc1e46"
         },
         "code": "32123",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Contract Nursing Home/Community Nursing Home"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede7"
+          "$oid": "5cdad221d7c8ac0ab5cc1e47"
         },
         "code": "32124",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "State Veterans Home"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede8"
+          "$oid": "5cdad221d7c8ac0ab5cc1e48"
         },
         "code": "32125",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Sharing Agreements"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fede9"
+          "$oid": "5cdad221d7c8ac0ab5cc1e49"
         },
         "code": "32126",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other Federal Agency"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedea"
+          "$oid": "5cdad221d7c8ac0ab5cc1e4a"
         },
         "code": "32127",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Dental Care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedeb"
+          "$oid": "5cdad221d7c8ac0ab5cc1e4b"
         },
         "code": "32128",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Vision Care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedec"
+          "$oid": "5cdad221d7c8ac0ab5cc1e4c"
         },
         "code": "322",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Non-veteran care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537feded"
+          "$oid": "5cdad221d7c8ac0ab5cc1e4d"
         },
         "code": "3221",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedee"
+          "$oid": "5cdad221d7c8ac0ab5cc1e4e"
         },
         "code": "3222",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Spina Bifida Health Care Program (SB)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedef"
+          "$oid": "5cdad221d7c8ac0ab5cc1e4f"
         },
         "code": "3223",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Children of Women Vietnam Veterans (CWVV)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf0"
+          "$oid": "5cdad221d7c8ac0ab5cc1e50"
         },
         "code": "3229",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other non-veteran care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf1"
+          "$oid": "5cdad221d7c8ac0ab5cc1e51"
         },
         "code": "33",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Indian Health Service or Tribe"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf2"
+          "$oid": "5cdad221d7c8ac0ab5cc1e52"
         },
         "code": "331",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Indian Health Service -- Regular"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf3"
+          "$oid": "5cdad221d7c8ac0ab5cc1e53"
         },
         "code": "332",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Indian Health Service -- Contract"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf4"
+          "$oid": "5cdad221d7c8ac0ab5cc1e54"
         },
         "code": "333",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Indian Health Service - Managed Care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf5"
+          "$oid": "5cdad221d7c8ac0ab5cc1e55"
         },
         "code": "334",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Indian Tribe - Sponsored Coverage"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf6"
+          "$oid": "5cdad221d7c8ac0ab5cc1e56"
         },
         "code": "34",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "HRSA Program"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf7"
+          "$oid": "5cdad221d7c8ac0ab5cc1e57"
         },
         "code": "341",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Title V (MCH Block Grant)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf8"
+          "$oid": "5cdad221d7c8ac0ab5cc1e58"
         },
         "code": "342",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Migrant Health Program"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedf9"
+          "$oid": "5cdad221d7c8ac0ab5cc1e59"
         },
         "code": "343",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Ryan White Act"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedfa"
+          "$oid": "5cdad221d7c8ac0ab5cc1e5a"
         },
         "code": "349",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedfb"
+          "$oid": "5cdad221d7c8ac0ab5cc1e5b"
         },
         "code": "35",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Black Lung"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedfc"
+          "$oid": "5cdad221d7c8ac0ab5cc1e5c"
         },
         "code": "36",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "State Government"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedfd"
+          "$oid": "5cdad221d7c8ac0ab5cc1e5d"
         },
         "code": "361",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "State SCHIP program (codes for individual states)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedfe"
+          "$oid": "5cdad221d7c8ac0ab5cc1e5e"
         },
         "code": "362",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Specific state programs (list/ local code)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fedff"
+          "$oid": "5cdad221d7c8ac0ab5cc1e5f"
         },
         "code": "369",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "State, not otherwise specified (other state)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee00"
+          "$oid": "5cdad221d7c8ac0ab5cc1e60"
         },
         "code": "37",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Local Government"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee01"
+          "$oid": "5cdad221d7c8ac0ab5cc1e61"
         },
         "code": "371",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Local - Managed care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee02"
+          "$oid": "5cdad221d7c8ac0ab5cc1e62"
         },
         "code": "3711",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee03"
+          "$oid": "5cdad221d7c8ac0ab5cc1e63"
         },
         "code": "3712",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "PPO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee04"
+          "$oid": "5cdad221d7c8ac0ab5cc1e64"
         },
         "code": "3713",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "POS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee05"
+          "$oid": "5cdad221d7c8ac0ab5cc1e65"
         },
         "code": "372",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "FFS/Indemnity"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee06"
+          "$oid": "5cdad221d7c8ac0ab5cc1e66"
         },
         "code": "379",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Local, not otherwise specified (other local, county)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee07"
+          "$oid": "5cdad221d7c8ac0ab5cc1e67"
         },
         "code": "38",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other Government (Federal, State, Local not specified)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee08"
+          "$oid": "5cdad221d7c8ac0ab5cc1e68"
         },
         "code": "381",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Federal, State, Local not specified managed care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee09"
+          "$oid": "5cdad221d7c8ac0ab5cc1e69"
         },
         "code": "3811",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Federal, State, Local not specified - HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee0a"
+          "$oid": "5cdad221d7c8ac0ab5cc1e6a"
         },
         "code": "3812",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Federal, State, Local not specified - PPO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee0b"
+          "$oid": "5cdad221d7c8ac0ab5cc1e6b"
         },
         "code": "3813",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Federal, State, Local not specified - POS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee0c"
+          "$oid": "5cdad221d7c8ac0ab5cc1e6c"
         },
         "code": "3819",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Federal, State, Local not specified - not specified managed care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee0d"
+          "$oid": "5cdad221d7c8ac0ab5cc1e6d"
         },
         "code": "382",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Federal, State, Local not specified - FFS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee0e"
+          "$oid": "5cdad221d7c8ac0ab5cc1e6e"
         },
         "code": "389",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Federal, State, Local not specified - Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee0f"
+          "$oid": "5cdad221d7c8ac0ab5cc1e6f"
         },
         "code": "39",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other Federal"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee10"
+          "$oid": "5cdad221d7c8ac0ab5cc1e70"
         },
         "code": "391",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Federal Employee Health Plan - Use when known"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee11"
+          "$oid": "5cdad221d7c8ac0ab5cc1e71"
         },
         "code": "4",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "DEPARTMENTS OF CORRECTIONS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee12"
+          "$oid": "5cdad221d7c8ac0ab5cc1e72"
         },
         "code": "41",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Corrections Federal"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee13"
+          "$oid": "5cdad221d7c8ac0ab5cc1e73"
         },
         "code": "42",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Corrections State"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee14"
+          "$oid": "5cdad221d7c8ac0ab5cc1e74"
         },
         "code": "43",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Corrections Local"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee15"
+          "$oid": "5cdad221d7c8ac0ab5cc1e75"
         },
         "code": "44",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Corrections Unknown Level"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee16"
+          "$oid": "5cdad221d7c8ac0ab5cc1e76"
         },
         "code": "5",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "PRIVATE HEALTH INSURANCE"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee17"
+          "$oid": "5cdad221d7c8ac0ab5cc1e77"
         },
         "code": "51",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Managed Care (Private)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee18"
+          "$oid": "5cdad221d7c8ac0ab5cc1e78"
         },
         "code": "511",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Commercial Managed Care - HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee19"
+          "$oid": "5cdad221d7c8ac0ab5cc1e79"
         },
         "code": "512",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Commercial Managed Care - PPO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee1a"
+          "$oid": "5cdad221d7c8ac0ab5cc1e7a"
         },
         "code": "513",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Commercial Managed Care - POS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee1b"
+          "$oid": "5cdad221d7c8ac0ab5cc1e7b"
         },
         "code": "514",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Exclusive Provider Organization"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee1c"
+          "$oid": "5cdad221d7c8ac0ab5cc1e7c"
         },
         "code": "515",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Gatekeeper PPO (GPPO)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee1d"
+          "$oid": "5cdad221d7c8ac0ab5cc1e7d"
         },
         "code": "516",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee1e"
+          "$oid": "5cdad221d7c8ac0ab5cc1e7e"
         },
         "code": "517",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Commercial Managed Care - Dental"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee1f"
+          "$oid": "5cdad221d7c8ac0ab5cc1e7f"
         },
         "code": "519",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Managed Care, Other (non HMO)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee20"
+          "$oid": "5cdad221d7c8ac0ab5cc1e80"
         },
         "code": "52",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Private Health Insurance - Indemnity"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee21"
+          "$oid": "5cdad221d7c8ac0ab5cc1e81"
         },
         "code": "521",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Commercial Indemnity"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee22"
+          "$oid": "5cdad221d7c8ac0ab5cc1e82"
         },
         "code": "522",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee23"
+          "$oid": "5cdad221d7c8ac0ab5cc1e83"
         },
         "code": "523",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Medicare supplemental policy (as second payer)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee24"
+          "$oid": "5cdad221d7c8ac0ab5cc1e84"
         },
         "code": "524",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Indemnity Insurance - Dental"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee25"
+          "$oid": "5cdad221d7c8ac0ab5cc1e85"
         },
         "code": "529",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Private health insurance--other commercial Indemnity"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee26"
+          "$oid": "5cdad221d7c8ac0ab5cc1e86"
         },
         "code": "53",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee27"
+          "$oid": "5cdad221d7c8ac0ab5cc1e87"
         },
         "code": "54",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Organized Delivery System"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee28"
+          "$oid": "5cdad221d7c8ac0ab5cc1e88"
         },
         "code": "55",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Small Employer Purchasing Group"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee29"
+          "$oid": "5cdad221d7c8ac0ab5cc1e89"
         },
         "code": "56",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Specialized Stand Alone Plan"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee2a"
+          "$oid": "5cdad221d7c8ac0ab5cc1e8a"
         },
         "code": "561",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Dental"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee2b"
+          "$oid": "5cdad221d7c8ac0ab5cc1e8b"
         },
         "code": "562",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Vision"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee2c"
+          "$oid": "5cdad221d7c8ac0ab5cc1e8c"
         },
         "code": "59",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other Private Insurance"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee2d"
+          "$oid": "5cdad221d7c8ac0ab5cc1e8d"
         },
         "code": "6",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BLUE CROSS/BLUE SHIELD"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee2e"
+          "$oid": "5cdad221d7c8ac0ab5cc1e8e"
         },
         "code": "61",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Managed Care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee2f"
+          "$oid": "5cdad221d7c8ac0ab5cc1e8f"
         },
         "code": "611",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Managed Care -- HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee30"
+          "$oid": "5cdad221d7c8ac0ab5cc1e90"
         },
         "code": "612",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Managed Care -- PPO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee31"
+          "$oid": "5cdad221d7c8ac0ab5cc1e91"
         },
         "code": "613",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Managed Care -- POS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee32"
+          "$oid": "5cdad221d7c8ac0ab5cc1e92"
         },
         "code": "614",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Managed Care - Dental"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee33"
+          "$oid": "5cdad221d7c8ac0ab5cc1e93"
         },
         "code": "619",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Managed Care -- Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee34"
+          "$oid": "5cdad221d7c8ac0ab5cc1e94"
         },
         "code": "62",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Insurance Indemnity"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee35"
+          "$oid": "5cdad221d7c8ac0ab5cc1e95"
         },
         "code": "621",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Indemnity"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee36"
+          "$oid": "5cdad221d7c8ac0ab5cc1e96"
         },
         "code": "622",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee37"
+          "$oid": "5cdad221d7c8ac0ab5cc1e97"
         },
         "code": "623",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Medicare Supplemental Plan"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee38"
+          "$oid": "5cdad221d7c8ac0ab5cc1e98"
         },
         "code": "629",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "BC Indemnity - Dental"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee39"
+          "$oid": "5cdad221d7c8ac0ab5cc1e99"
         },
         "code": "7",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee3a"
+          "$oid": "5cdad221d7c8ac0ab5cc1e9a"
         },
         "code": "71",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee3b"
+          "$oid": "5cdad221d7c8ac0ab5cc1e9b"
         },
         "code": "72",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "PPO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee3c"
+          "$oid": "5cdad221d7c8ac0ab5cc1e9c"
         },
         "code": "73",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "POS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee3d"
+          "$oid": "5cdad221d7c8ac0ab5cc1e9d"
         },
         "code": "79",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other Managed Care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee3e"
+          "$oid": "5cdad221d7c8ac0ab5cc1e9e"
         },
         "code": "8",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee3f"
+          "$oid": "5cdad221d7c8ac0ab5cc1e9f"
         },
         "code": "81",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Self-pay (Includes applicants for insurance and Medicaid applicants)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee40"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea0"
         },
         "code": "82",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "No Charge"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee41"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea1"
         },
         "code": "821",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Charity"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee42"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea2"
         },
         "code": "822",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Professional Courtesy"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee43"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea3"
         },
         "code": "823",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Research/Clinical Trial"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee44"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea4"
         },
         "code": "83",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Refusal to Pay/Bad Debt"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee45"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea5"
         },
         "code": "84",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Hill Burton Free Care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee46"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea6"
         },
         "code": "85",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Research/Donor"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee47"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea7"
         },
         "code": "89",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "No Payment, Other"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee48"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea8"
         },
         "code": "9",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "MISCELLANEOUS/OTHER"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee49"
+          "$oid": "5cdad221d7c8ac0ab5cc1ea9"
         },
         "code": "91",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Foreign National"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee4a"
+          "$oid": "5cdad221d7c8ac0ab5cc1eaa"
         },
         "code": "92",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other (Non-government)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee4b"
+          "$oid": "5cdad221d7c8ac0ab5cc1eab"
         },
         "code": "93",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Disability Insurance"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee4c"
+          "$oid": "5cdad221d7c8ac0ab5cc1eac"
         },
         "code": "94",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Long-term Care Insurance"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee4d"
+          "$oid": "5cdad221d7c8ac0ab5cc1ead"
         },
         "code": "95",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Worker's Compensation"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee4e"
+          "$oid": "5cdad221d7c8ac0ab5cc1eae"
         },
         "code": "951",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Worker's Comp HMO"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee4f"
+          "$oid": "5cdad221d7c8ac0ab5cc1eaf"
         },
         "code": "953",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Worker's Comp Fee-for-Service"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee50"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb0"
         },
         "code": "954",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Worker's Comp Other Managed Care"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee51"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb1"
         },
         "code": "959",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Worker's Comp, Other unspecified"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee52"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb2"
         },
         "code": "96",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Auto Insurance (includes no fault)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee53"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb3"
         },
         "code": "97",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Legal Liability / Liability Insurance"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee54"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb4"
         },
         "code": "98",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee55"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb5"
         },
         "code": "99",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "No Typology Code available for payment source"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee56"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb6"
         },
         "code": "9999",
-        "code_system_name": "SOP",
+        "code_system_name": "Source of Payment Typology",
         "code_system_oid": "2.16.840.1.113883.3.221.5",
         "code_system_version": "8.0",
         "display_name": "Unavailable / No Payer Specified / Blank"
@@ -1773,27 +1773,27 @@
   },
   {
     "_id": {
-      "$oid": "5c6ef23bbb9215d5537fed90"
+      "$oid": "5cdad221d7c8ac0ab5cc1e0a"
     },
     "concepts": [
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee57"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb7"
         },
         "code": "72166-2",
         "code_system_name": "LOINC",
         "code_system_oid": "2.16.840.1.113883.6.1",
-        "code_system_version": "2.65",
+        "code_system_version": "2.64",
         "display_name": "Tobacco smoking status NHIS"
       },
       {
         "_id": {
-          "$oid": "5c6ef23cbb9215d5537fee58"
+          "$oid": "5cdad221d7c8ac0ab5cc1eb8"
         },
         "code": "88031-0",
         "code_system_name": "LOINC",
         "code_system_oid": "2.16.840.1.113883.6.1",
-        "code_system_version": "2.65",
+        "code_system_version": "2.64",
         "display_name": "Smokeless tobacco status"
       }
     ],

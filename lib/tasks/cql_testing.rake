@@ -34,6 +34,28 @@ namespace :bonnie do
       fixture_exporter.export_records(record_file_path)
     end
 
+    desc %{Export backend cqm fixtures for a given user account
+    example: bundle exec rake bonnie:fixtures:generate_backend_cqm_fixtures[bonnie-fixtures@mitre.org]}
+    task :generate_backend_cqm_fixtures, [:user_email] => [:environment] do |t, args|
+      fixtures_path = File.join('test', 'fixtures')
+
+      user = User.find_by email: args[:user_email]
+      CQM::Measure.by_user(user).each do |measure|
+        patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+
+        measure_file_path = File.join(fixtures_path, 'measures', measure.cms_id, 'cqm_measures')
+        patient_file_path = File.join(fixtures_path, 'cqm_patients', measure.cms_id)
+        measure_package_path = File.join(fixtures_path, 'measures', measure.cms_id, 'cqm_measure_packages')
+        value_sets_path = File.join(fixtures_path, 'measures', measure.cms_id, 'cqm_value_sets')
+
+        fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: patients)
+        fixture_exporter.export_measure_and_any_components(measure_file_path)
+        fixture_exporter.try_export_measure_package(measure_package_path)
+        fixture_exporter.export_value_sets(value_sets_path)
+        fixture_exporter.export_records(patient_file_path)
+      end
+    end
+
     ###
     # Generates a set of back end fixtures representing a specific database state.
     # Generated fixtures will be associated with

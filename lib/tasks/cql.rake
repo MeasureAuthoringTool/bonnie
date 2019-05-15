@@ -223,7 +223,7 @@ namespace :bonnie do
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
           cqm_patient.user = bonnie_patient.user
           cqm_patient.save!
-          count = count + 1
+          count += 1
         rescue ExecJS::ProgramError, StandardError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return

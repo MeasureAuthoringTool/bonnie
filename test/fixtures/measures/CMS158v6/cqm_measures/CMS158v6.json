@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5c670d72bb92157fe8040591"
+    "$oid": "5cdad216d7c8ac0ab5cbd327"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5c670d72bb92157fe8040592"
+        "$oid": "5cdad216d7c8ac0ab5cbd328"
       },
       "cql": "library PregnantwomenthathadHBsAgtesting version '6.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Delivery - Diagnosis\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.278'\r\nvalueset \"Delivery - Procedure\": 'urn:oid:2.16.840.1.113762.1.4.1078.5'\r\nvalueset \"Female\": 'urn:oid:2.16.840.1.113883.3.560.100.2'\r\nvalueset \"HBsAg\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.279'\r\nvalueset \"Hepatitis B\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.269'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Most Recent Delivery\":\r\n\tLast([\"Procedure, Performed\": \"Delivery - Procedure\"] DeliveryProcedure\r\n\t\t\twhere DeliveryProcedure.relevantPeriod during \"Measurement Period\"\r\n\t\t\tsort by start of relevantPeriod\r\n\t)\r\n\r\ndefine \"Denominator Exceptions\":\r\n\texists ( [\"Diagnosis\": \"Hepatitis B\"] HepB\r\n\t\t\twith \"Most Recent Delivery Overlaps Diagnosis\" DeliveryOverlapsDiagnosis\r\n\t\t\t\tsuch that HepB.prevalencePeriod starts 365 days or less before start of DeliveryOverlapsDiagnosis.relevantPeriod\r\n\t\t\t\t\tor HepB.prevalencePeriod ends 365 days or less before start of DeliveryOverlapsDiagnosis.relevantPeriod\r\n\t)\r\n\r\ndefine \"Most Recent Delivery Overlaps Diagnosis\":\r\n\t\"Most Recent Delivery\" MostRecentDelivery\r\n\t\twhere exists ( [\"Diagnosis\": \"Delivery - Diagnosis\"] DeliveryDiagnosis\r\n\t\t\t\twhere MostRecentDelivery.relevantPeriod overlaps DeliveryDiagnosis.prevalencePeriod\r\n\t\t)\r\n\r\ndefine \"Initial Population\":\r\n\t\"Most Recent Delivery Overlaps Diagnosis\" is not null\r\n\t\tand AgeInYearsAt(start of \"Measurement Period\")>= 12\r\n\t\tand exists ( [\"Patient Characteristic Sex\": \"Female\"] )\r\n\r\ndefine \"Numerator\":\r\n\texists ( [\"Laboratory Test, Performed\": \"HBsAg\"] LabTest\r\n\t\t\twith \"Most Recent Delivery Overlaps Diagnosis\" DeliveryOverlapsDiagnosis\r\n\t\t\t\tsuch that LabTest.relevantPeriod starts 280 days or less before start of DeliveryOverlapsDiagnosis.relevantPeriod\r\n\t)\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n",
       "elm": {
@@ -3427,7 +3427,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": ">= 12"
+                                    "text": "&gt;= 12"
                                   }
                                 ]
                               }
@@ -3863,55 +3863,57 @@
         }
       },
       "is_main_library": true,
+      "is_top_level": true,
       "library_name": "PregnantwomenthathadHBsAgtesting",
       "library_version": "6.0.001",
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe8040593"
+            "$oid": "5cdad216d7c8ac0ab5cbd329"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe8040594"
+            "$oid": "5cdad216d7c8ac0ab5cbd32a"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe8040595"
+            "$oid": "5cdad216d7c8ac0ab5cbd32b"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe8040596"
+            "$oid": "5cdad216d7c8ac0ab5cbd32c"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe8040597"
+            "$oid": "5cdad216d7c8ac0ab5cbd32d"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe8040598"
+            "$oid": "5cdad216d7c8ac0ab5cbd32e"
           },
           "statement_name": "Most Recent Delivery"
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe8040599"
+            "$oid": "5cdad216d7c8ac0ab5cbd32f"
           },
           "statement_name": "Most Recent Delivery Overlaps Diagnosis",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5c670d72bb92157fe804059a"
+                "$oid": "5cdad216d7c8ac0ab5cbd330"
               },
+              "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
               "statement_name": "Most Recent Delivery"
             }
@@ -3919,14 +3921,15 @@
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe804059b"
+            "$oid": "5cdad216d7c8ac0ab5cbd331"
           },
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5c670d72bb92157fe804059c"
+                "$oid": "5cdad216d7c8ac0ab5cbd332"
               },
+              "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
               "statement_name": "Most Recent Delivery Overlaps Diagnosis"
             }
@@ -3934,36 +3937,31 @@
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe804059d"
+            "$oid": "5cdad216d7c8ac0ab5cbd333"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5c670d72bb92157fe804059e"
+                "$oid": "5cdad216d7c8ac0ab5cbd334"
               },
+              "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
               "statement_name": "Most Recent Delivery Overlaps Diagnosis"
-            },
-            {
-              "_id": {
-                "$oid": "5c670d72bb92157fe804059f"
-              },
-              "library_name": "PregnantwomenthathadHBsAgtesting",
-              "statement_name": "Patient"
             }
           ]
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe80405a0"
+            "$oid": "5cdad216d7c8ac0ab5cbd335"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5c670d72bb92157fe80405a1"
+                "$oid": "5cdad216d7c8ac0ab5cbd336"
               },
+              "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
               "statement_name": "Most Recent Delivery Overlaps Diagnosis"
             }
@@ -3971,14 +3969,15 @@
         },
         {
           "_id": {
-            "$oid": "5c670d72bb92157fe80405a2"
+            "$oid": "5cdad216d7c8ac0ab5cbd337"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5c670d72bb92157fe80405a3"
+                "$oid": "5cdad216d7c8ac0ab5cbd338"
               },
+              "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
               "statement_name": "Initial Population"
             }
@@ -3987,311 +3986,11 @@
       ]
     }
   ],
-  "created_at": "2019-02-15T19:05:22.266Z",
-  "data_criteria": {
-    "Payer_PatientCharacteristicPayer_db378f80_d372_4017_830b_17befc5e45d2": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_db378f80_d372_4017_830b_17befc5e45d2_source",
-      "variable": false,
-      "inline_code_list": {
-        "SOP": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "32127",
-          "32128",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "391",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "524",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "622",
-          "623",
-          "629",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_0a1eb113_68c5_4e81_ba8c_03e4541fd752": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_0a1eb113_68c5_4e81_ba8c_03e4541fd752_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDCREC": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_ca6fb067_270a_43f8_9849_a197b20702a6": {
-      "title": "ONCAdministrativeSex",
-      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_ca6fb067_270a_43f8_9849_a197b20702a6_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "Race_PatientCharacteristicRace_7b1d6697_e04e_4af8_baa8_4abb48e8366c": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_7b1d6697_e04e_4af8_baa8_4abb48e8366c_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDCREC": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    },
-    "Delivery_Procedure_ProcedurePerformed_d55d2514_1421_44fb_98ca_195188229890": {
-      "title": "Delivery-Procedure",
-      "description": "Procedure, Performed: Delivery-Procedure",
-      "code_list_id": "2.16.840.1.113762.1.4.1078.5",
-      "type": "procedures",
-      "definition": "procedure",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Delivery_Procedure_ProcedurePerformed_d55d2514_1421_44fb_98ca_195188229890_source",
-      "variable": false
-    },
-    "Female_PatientCharacteristicSex_40280381_3d61_56a7_013e_7f3878ec7633": {
-      "title": "Female",
-      "description": "Patient Characteristic Sex: Female",
-      "code_list_id": "2.16.840.1.113883.3.560.100.2",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Female_PatientCharacteristicSex_40280381_3d61_56a7_013e_7f3878ec7633_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "HBsAg_LaboratoryTestPerformed_40280381_3d61_56a7_013e_7f3878ec7630": {
-      "title": "HBsAg",
-      "description": "Laboratory Test, Performed: HBsAg",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.279",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "HBsAg_LaboratoryTestPerformed_40280381_3d61_56a7_013e_7f3878ec7630_source",
-      "variable": false
-    },
-    "Delivery_Diagnosis_Diagnosis_f9272c9f_18fc_4c40_a2bf_d3dfbc477434": {
-      "title": "Delivery-Diagnosis",
-      "description": "Diagnosis: Delivery-Diagnosis",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.278",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Delivery_Diagnosis_Diagnosis_f9272c9f_18fc_4c40_a2bf_d3dfbc477434_source",
-      "variable": false
-    },
-    "HepatitisB_Diagnosis_40280381_3d61_56a7_013e_7f3878ec7631": {
-      "title": "HepatitisB",
-      "description": "Diagnosis: HepatitisB",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.269",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "HepatitisB_Diagnosis_40280381_3d61_56a7_013e_7f3878ec7631_source",
-      "variable": false
-    }
-  },
+  "created_at": "2019-05-14T14:35:02.652Z",
   "description": "This measure identifies pregnant women who had a HBsAg (hepatitis B) test during their pregnancy",
   "hqmf_id": "40280382-5FA6-FE85-015F-B5969D1D0264",
   "hqmf_set_id": "3BBFC929-50C8-44B8-8D34-82BE75C08A70",
-  "hqmf_version_number": "6.0.001",
+  "hqmf_version_number": "0",
   "main_cql_library": "PregnantwomenthathadHBsAgtesting",
   "measure_attributes": [
     {
@@ -4776,382 +4475,312 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5c670d72bb92157fe80405a4"
+        "$oid": "5cdad216d7c8ac0ab5cbd342"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
+        "DENEXCEP": {
+          "_id": {
+            "$oid": "5cdad216d7c8ac0ab5cbd347"
+          },
+          "hqmf_id": "CA814520-4C34-40EE-8B75-E4CC17F826E4",
+          "library_name": "PregnantwomenthathadHBsAgtesting",
+          "statement_name": "Denominator Exceptions"
+        },
         "DENOM": {
           "_id": {
-            "$oid": "5c670d72bb92157fe80405a7"
+            "$oid": "5cdad216d7c8ac0ab5cbd345"
           },
+          "hqmf_id": "0D651BD8-1BC2-44DD-B939-D4668CBCF2F8",
           "library_name": "PregnantwomenthathadHBsAgtesting",
           "statement_name": "Denominator"
         },
         "IPP": {
           "_id": {
-            "$oid": "5c670d72bb92157fe80405a6"
+            "$oid": "5cdad216d7c8ac0ab5cbd344"
           },
+          "hqmf_id": "D925905E-7C6A-4DAB-BAED-9BD0D30C17B4",
           "library_name": "PregnantwomenthathadHBsAgtesting",
           "statement_name": "Initial Population"
         },
         "NUMER": {
           "_id": {
-            "$oid": "5c670d72bb92157fe80405a8"
+            "$oid": "5cdad216d7c8ac0ab5cbd346"
           },
+          "hqmf_id": "6D406128-ADE1-4B45-826A-5850D297D405",
           "library_name": "PregnantwomenthathadHBsAgtesting",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5c670d72bb92157fe80405a5"
-        }
+          "$oid": "5cdad216d7c8ac0ab5cbd343"
+        },
+        "_type": "CQM::ProportionPopulationMap"
       },
-      "supplemental_data_elements": [
-        {
-          "_id": {
-            "$oid": "5c670d72bb92157fe80405a9"
-          },
-          "library_name": "PregnantwomenthathadHBsAgtesting",
-          "statement_name": "SDE Ethnicity"
-        },
-        {
-          "_id": {
-            "$oid": "5c670d72bb92157fe80405aa"
-          },
-          "library_name": "PregnantwomenthathadHBsAgtesting",
-          "statement_name": "SDE Payer"
-        },
-        {
-          "_id": {
-            "$oid": "5c670d72bb92157fe80405ab"
-          },
-          "library_name": "PregnantwomenthathadHBsAgtesting",
-          "statement_name": "SDE Race"
-        },
-        {
-          "_id": {
-            "$oid": "5c670d72bb92157fe80405ac"
-          },
-          "library_name": "PregnantwomenthathadHBsAgtesting",
-          "statement_name": "SDE Sex"
-        }
-      ],
       "title": "Population Criteria Section"
     }
   ],
-  "source_data_criteria": {
-    "Payer_PatientCharacteristicPayer_db378f80_d372_4017_830b_17befc5e45d2_source": {
-      "title": "Payer",
+  "source_data_criteria": [
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd05f"
+      },
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_db378f80_d372_4017_830b_17befc5e45d2_source",
-      "variable": false,
-      "inline_code_list": {
-        "SOP": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "32127",
-          "32128",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "391",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "524",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "622",
-          "623",
-          "629",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd339"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd05f"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "Ethnicity_PatientCharacteristicEthnicity_0a1eb113_68c5_4e81_ba8c_03e4541fd752_source": {
-      "title": "Ethnicity",
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd060"
+      },
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_0a1eb113_68c5_4e81_ba8c_03e4541fd752_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDCREC": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd33a"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd060"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_ca6fb067_270a_43f8_9849_a197b20702a6_source": {
-      "title": "ONCAdministrativeSex",
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd061"
+      },
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_ca6fb067_270a_43f8_9849_a197b20702a6_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd33b"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd061"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "Race_PatientCharacteristicRace_7b1d6697_e04e_4af8_baa8_4abb48e8366c_source": {
-      "title": "Race",
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd062"
+      },
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_7b1d6697_e04e_4af8_baa8_4abb48e8366c_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDCREC": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd33c"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd062"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
     },
-    "Delivery_Procedure_ProcedurePerformed_d55d2514_1421_44fb_98ca_195188229890_source": {
-      "title": "Delivery-Procedure",
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd063"
+      },
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1078.5",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Procedure, Performed: Delivery-Procedure",
-      "code_list_id": "2.16.840.1.113762.1.4.1078.5",
-      "type": "procedures",
-      "definition": "procedure",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Delivery_Procedure_ProcedurePerformed_d55d2514_1421_44fb_98ca_195188229890_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd33d"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd063"
+      },
+      "incisionDatetime": null,
+      "method": null,
+      "negationRationale": null,
+      "ordinality": null,
+      "qdmCategory": "procedure",
+      "qdmStatus": "performed",
+      "qdmTitle": "Procedure, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "relevantPeriod": null,
+      "result": null,
+      "status": null,
+      "_type": "QDM::ProcedurePerformed"
     },
-    "Female_PatientCharacteristicSex_40280381_3d61_56a7_013e_7f3878ec7633_source": {
-      "title": "Female",
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd064"
+      },
+      "codeListId": "2.16.840.1.113883.3.560.100.2",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: Female",
-      "code_list_id": "2.16.840.1.113883.3.560.100.2",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Female_PatientCharacteristicSex_40280381_3d61_56a7_013e_7f3878ec7633_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd33e"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd064"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "HBsAg_LaboratoryTestPerformed_40280381_3d61_56a7_013e_7f3878ec7630_source": {
-      "title": "HBsAg",
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd065"
+      },
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.67.1.101.1.279",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Laboratory Test, Performed: HBsAg",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.279",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "HBsAg_LaboratoryTestPerformed_40280381_3d61_56a7_013e_7f3878ec7630_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd33f"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd065"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "laboratory_test",
+      "qdmStatus": "performed",
+      "qdmTitle": "Laboratory Test, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "referenceRange": null,
+      "relevantPeriod": null,
+      "result": null,
+      "resultDatetime": null,
+      "status": null,
+      "_type": "QDM::LaboratoryTestPerformed"
     },
-    "Delivery_Diagnosis_Diagnosis_f9272c9f_18fc_4c40_a2bf_d3dfbc477434_source": {
-      "title": "Delivery-Diagnosis",
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd066"
+      },
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.67.1.101.1.278",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: Delivery-Diagnosis",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.278",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Delivery_Diagnosis_Diagnosis_f9272c9f_18fc_4c40_a2bf_d3dfbc477434_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd340"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd066"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     },
-    "HepatitisB_Diagnosis_40280381_3d61_56a7_013e_7f3878ec7631_source": {
-      "title": "HepatitisB",
+    {
+      "_id": {
+        "$oid": "5cdad216d7c8ac0ab5cbd067"
+      },
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.67.1.101.1.269",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: HepatitisB",
-      "code_list_id": "2.16.840.1.113883.3.67.1.101.1.269",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "HepatitisB_Diagnosis_40280381_3d61_56a7_013e_7f3878ec7631_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "_id": {
+          "$oid": "5cdad216d7c8ac0ab5cbd341"
+        },
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cdad216d7c8ac0ab5cbd067"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     }
-  },
+  ],
   "title": "Pregnant women that had HBsAg testing",
-  "updated_at": "2019-02-15T19:05:22.266Z",
+  "updated_at": "2019-05-14T14:35:02.652Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5c670d72bb92157fe8040587",
-    "5c670d72bb92157fe8040588",
-    "5c670d72bb92157fe8040589",
-    "5c670d72bb92157fe804058a",
-    "5c670d72bb92157fe804058b",
-    "5c670d72bb92157fe804058c",
-    "5c670d72bb92157fe804058d",
-    "5c670d72bb92157fe804058e",
-    "5c670d72bb92157fe804058f"
+    "5cdad216d7c8ac0ab5cbd068",
+    "5cdad216d7c8ac0ab5cbd069",
+    "5cdad216d7c8ac0ab5cbd06a",
+    "5cdad216d7c8ac0ab5cbd06b",
+    "5cdad216d7c8ac0ab5cbd06c",
+    "5cdad216d7c8ac0ab5cbd06d",
+    "5cdad216d7c8ac0ab5cbd06e",
+    "5cdad216d7c8ac0ab5cbd06f",
+    "5cdad216d7c8ac0ab5cbd070"
   ]
 }

@@ -1,0 +1,4064 @@
+[
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf842"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf85a"
+        },
+        "code": "21112-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "urn:hl7:version:2.46",
+        "display_name": "Birthdate"
+      }
+    ],
+    "display_name": "Birthdate",
+    "oid": "drc-5e3dd7a2b908c12dc1dd525dd16ae9b969b86825d92d4b58d101ef476d44510b",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": ""
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf843"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf85b"
+        },
+        "code": "419099009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "urn:hl7:version:2016-03",
+        "display_name": "Dead"
+      }
+    ],
+    "display_name": "Dead",
+    "oid": "drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": ""
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf844"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf85c"
+        },
+        "code": "428371000124100",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "urn:hl7:version:2017-09",
+        "display_name": "Discharge to healthcare facility for hospice care (procedure)"
+      }
+    ],
+    "display_name": "Discharge to healthcare facility for hospice care (procedure)",
+    "oid": "drc-2bbe231b80adbbda1f62e54d2e939c81babe4ae2c40bf6e55b22e5b6d44f4e02",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": ""
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf845"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf85d"
+        },
+        "code": "428361000124107",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "urn:hl7:version:2017-09",
+        "display_name": "Discharge to home for hospice care (procedure)"
+      }
+    ],
+    "display_name": "Discharge to home for hospice care (procedure)",
+    "oid": "drc-7e63a6e0afd51d085689e8824f313c508a0f9b1c39974cc93b34536627eed531",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": ""
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf846"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf85e"
+        },
+        "code": "4525004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Emergency department patient visit (procedure)"
+      }
+    ],
+    "display_name": "Emergency Department Visit",
+    "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf847"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf85f"
+        },
+        "code": "309904001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf860"
+        },
+        "code": "309905000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Adult intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf861"
+        },
+        "code": "309907008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Cardiac intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf862"
+        },
+        "code": "309908003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Metabolic intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf863"
+        },
+        "code": "309909006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Neurological intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf864"
+        },
+        "code": "309910001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Pediatric intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf865"
+        },
+        "code": "309911002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Respiratory intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf866"
+        },
+        "code": "418433008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Surgical intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf867"
+        },
+        "code": "426439001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Burns intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf868"
+        },
+        "code": "441994008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Medical intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf869"
+        },
+        "code": "448391000124102",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Trauma intensive care unit (environment)"
+      }
+    ],
+    "display_name": "Intensive Care Unit",
+    "oid": "2.16.840.1.113762.1.4.1110.23",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf848"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf86a"
+        },
+        "code": "F",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2017-07",
+        "display_name": "Female"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf86b"
+        },
+        "code": "M",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2017-07",
+        "display_name": "Male"
+      }
+    ],
+    "display_name": "ONC Administrative Sex",
+    "oid": "2.16.840.1.113762.1.4.1",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf849"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf86c"
+        },
+        "code": "1002-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "American Indian or Alaska Native"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf86d"
+        },
+        "code": "2028-9",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Asian"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf86e"
+        },
+        "code": "2054-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Black or African American"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf86f"
+        },
+        "code": "2076-8",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Native Hawaiian or Other Pacific Islander"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf870"
+        },
+        "code": "2106-3",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "White"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf871"
+        },
+        "code": "2131-1",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Other Race"
+      }
+    ],
+    "display_name": "Race",
+    "oid": "2.16.840.1.114222.4.11.836",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf84a"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf872"
+        },
+        "code": "2135-2",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Hispanic or Latino"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf873"
+        },
+        "code": "2186-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Not Hispanic or Latino"
+      }
+    ],
+    "display_name": "Ethnicity",
+    "oid": "2.16.840.1.114222.4.11.837",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf84b"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf874"
+        },
+        "code": "1",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "MEDICARE"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf875"
+        },
+        "code": "11",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf876"
+        },
+        "code": "111",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf877"
+        },
+        "code": "112",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf878"
+        },
+        "code": "113",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf879"
+        },
+        "code": "119",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf87a"
+        },
+        "code": "12",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare (Non-managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf87b"
+        },
+        "code": "121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf87c"
+        },
+        "code": "122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Drug Benefit"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf87d"
+        },
+        "code": "123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Medical Savings Account (MSA)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf87e"
+        },
+        "code": "129",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Non-managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf87f"
+        },
+        "code": "13",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Hospice"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf880"
+        },
+        "code": "14",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Dual Eligibility Medicare/Medicaid Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf881"
+        },
+        "code": "19",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf882"
+        },
+        "code": "191",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf883"
+        },
+        "code": "2",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "MEDICAID"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf884"
+        },
+        "code": "21",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf885"
+        },
+        "code": "211",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf886"
+        },
+        "code": "212",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf887"
+        },
+        "code": "213",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid PCCM (Primary Care Case Management)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf888"
+        },
+        "code": "219",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf889"
+        },
+        "code": "22",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid (Non-managed Care Plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf88a"
+        },
+        "code": "23",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid/SCHIP"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf88b"
+        },
+        "code": "24",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid Applicant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf88c"
+        },
+        "code": "25",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid - Out of State"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf88d"
+        },
+        "code": "26",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid -- Long Term Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf88e"
+        },
+        "code": "29",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf88f"
+        },
+        "code": "291",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf890"
+        },
+        "code": "299",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf891"
+        },
+        "code": "3",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf892"
+        },
+        "code": "31",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Department of Defense"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf893"
+        },
+        "code": "311",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE (CHAMPUS)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf894"
+        },
+        "code": "3111",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf895"
+        },
+        "code": "3112",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE Extra--PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf896"
+        },
+        "code": "3113",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE Standard - Fee For Service"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf897"
+        },
+        "code": "3114",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE For Life--Medicare Supplement"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf898"
+        },
+        "code": "3115",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE Reserve Select"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf899"
+        },
+        "code": "3116",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf89a"
+        },
+        "code": "3119",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Department of Defense - (other)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf89b"
+        },
+        "code": "312",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Military Treatment Facility"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf89c"
+        },
+        "code": "3121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Enrolled Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf89d"
+        },
+        "code": "3122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Non-enrolled Space Available"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf89e"
+        },
+        "code": "3123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE For Life (TFL)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf89f"
+        },
+        "code": "313",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Dental --Stand Alone"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a0"
+        },
+        "code": "32",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Department of Veterans Affairs"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a1"
+        },
+        "code": "321",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Veteran care--Care provided to Veterans"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a2"
+        },
+        "code": "3211",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Direct Care--Care provided in VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a3"
+        },
+        "code": "3212",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indirect Care--Care provided outside VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a4"
+        },
+        "code": "32121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Fee Basis"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a5"
+        },
+        "code": "32122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Foreign Fee/Foreign Medical Program (FMP)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a6"
+        },
+        "code": "32123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Contract Nursing Home/Community Nursing Home"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a7"
+        },
+        "code": "32124",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "State Veterans Home"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a8"
+        },
+        "code": "32125",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Sharing Agreements"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8a9"
+        },
+        "code": "32126",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Federal Agency"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8aa"
+        },
+        "code": "32127",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Dental Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ab"
+        },
+        "code": "32128",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Vision Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ac"
+        },
+        "code": "322",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ad"
+        },
+        "code": "3221",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ae"
+        },
+        "code": "3222",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Spina Bifida Health Care Program (SB)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8af"
+        },
+        "code": "3223",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Children of Women Vietnam Veterans (CWVV)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b0"
+        },
+        "code": "3229",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b1"
+        },
+        "code": "33",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Health Service or Tribe"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b2"
+        },
+        "code": "331",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Health Service -- Regular"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b3"
+        },
+        "code": "332",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Health Service -- Contract"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b4"
+        },
+        "code": "333",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Health Service - Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b5"
+        },
+        "code": "334",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Tribe - Sponsored Coverage"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b6"
+        },
+        "code": "34",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "HRSA Program"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b7"
+        },
+        "code": "341",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Title V (MCH Block Grant)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b8"
+        },
+        "code": "342",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Migrant Health Program"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8b9"
+        },
+        "code": "343",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Ryan White Act"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ba"
+        },
+        "code": "349",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8bb"
+        },
+        "code": "35",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Black Lung"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8bc"
+        },
+        "code": "36",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "State Government"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8bd"
+        },
+        "code": "361",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "State SCHIP program (codes for individual states)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8be"
+        },
+        "code": "362",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Specific state programs (list/ local code)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8bf"
+        },
+        "code": "369",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "State, not otherwise specified (other state)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c0"
+        },
+        "code": "37",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Local Government"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c1"
+        },
+        "code": "371",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Local - Managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c2"
+        },
+        "code": "3711",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c3"
+        },
+        "code": "3712",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c4"
+        },
+        "code": "3713",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c5"
+        },
+        "code": "372",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "FFS/Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c6"
+        },
+        "code": "379",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Local, not otherwise specified (other local, county)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c7"
+        },
+        "code": "38",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Government (Federal, State, Local not specified)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c8"
+        },
+        "code": "381",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8c9"
+        },
+        "code": "3811",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ca"
+        },
+        "code": "3812",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8cb"
+        },
+        "code": "3813",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8cc"
+        },
+        "code": "3819",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8cd"
+        },
+        "code": "382",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ce"
+        },
+        "code": "389",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8cf"
+        },
+        "code": "39",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d0"
+        },
+        "code": "391",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal Employee Health Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d1"
+        },
+        "code": "4",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "DEPARTMENTS OF CORRECTIONS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d2"
+        },
+        "code": "41",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Corrections Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d3"
+        },
+        "code": "42",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Corrections State"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d4"
+        },
+        "code": "43",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Corrections Local"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d5"
+        },
+        "code": "44",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Corrections Unknown Level"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d6"
+        },
+        "code": "5",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "PRIVATE HEALTH INSURANCE"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d7"
+        },
+        "code": "51",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Managed Care (Private)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d8"
+        },
+        "code": "511",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8d9"
+        },
+        "code": "512",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8da"
+        },
+        "code": "513",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8db"
+        },
+        "code": "514",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Exclusive Provider Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8dc"
+        },
+        "code": "515",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Gatekeeper PPO (GPPO)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8dd"
+        },
+        "code": "516",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8de"
+        },
+        "code": "517",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8df"
+        },
+        "code": "519",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Managed Care, Other (non HMO)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e0"
+        },
+        "code": "52",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Private Health Insurance - Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e1"
+        },
+        "code": "521",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e2"
+        },
+        "code": "522",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e3"
+        },
+        "code": "523",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare supplemental policy (as second payer)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e4"
+        },
+        "code": "524",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indemnity Insurance - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e5"
+        },
+        "code": "529",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Private health insurance--other commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e6"
+        },
+        "code": "53",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e7"
+        },
+        "code": "54",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Organized Delivery System"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e8"
+        },
+        "code": "55",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Small Employer Purchasing Group"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8e9"
+        },
+        "code": "56",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Specialized Stand Alone Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ea"
+        },
+        "code": "561",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8eb"
+        },
+        "code": "562",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Vision"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ec"
+        },
+        "code": "59",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Private Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ed"
+        },
+        "code": "6",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BLUE CROSS/BLUE SHIELD"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ee"
+        },
+        "code": "61",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ef"
+        },
+        "code": "611",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f0"
+        },
+        "code": "612",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care -- PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f1"
+        },
+        "code": "613",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care -- POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f2"
+        },
+        "code": "614",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f3"
+        },
+        "code": "619",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care -- Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f4"
+        },
+        "code": "62",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Insurance Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f5"
+        },
+        "code": "621",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f6"
+        },
+        "code": "622",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f7"
+        },
+        "code": "623",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Medicare Supplemental Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f8"
+        },
+        "code": "629",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Indemnity - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8f9"
+        },
+        "code": "7",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8fa"
+        },
+        "code": "71",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8fb"
+        },
+        "code": "72",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8fc"
+        },
+        "code": "73",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8fd"
+        },
+        "code": "79",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8fe"
+        },
+        "code": "8",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf8ff"
+        },
+        "code": "81",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Self-pay"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf900"
+        },
+        "code": "82",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "No Charge"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf901"
+        },
+        "code": "821",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Charity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf902"
+        },
+        "code": "822",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Professional Courtesy"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf903"
+        },
+        "code": "823",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Research/Clinical Trial"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf904"
+        },
+        "code": "83",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Refusal to Pay/Bad Debt"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf905"
+        },
+        "code": "84",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Hill Burton Free Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf906"
+        },
+        "code": "85",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Research/Donor"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf907"
+        },
+        "code": "89",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "No Payment, Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf908"
+        },
+        "code": "9",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "MISCELLANEOUS/OTHER"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf909"
+        },
+        "code": "91",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Foreign National"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf90a"
+        },
+        "code": "92",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other (Non-government)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf90b"
+        },
+        "code": "93",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Disability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf90c"
+        },
+        "code": "94",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Long-term Care Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf90d"
+        },
+        "code": "95",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Compensation"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf90e"
+        },
+        "code": "951",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Comp HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf90f"
+        },
+        "code": "953",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Comp Fee-for-Service"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf910"
+        },
+        "code": "954",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Comp Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf911"
+        },
+        "code": "959",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Comp, Other unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf912"
+        },
+        "code": "96",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Auto Insurance (includes no fault)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf913"
+        },
+        "code": "97",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Legal Liability / Liability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf914"
+        },
+        "code": "98",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf915"
+        },
+        "code": "99",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "No Typology Code available for payment source"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf916"
+        },
+        "code": "9999",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Unavailable / No Payer Specified / Blank"
+      }
+    ],
+    "display_name": "Payer",
+    "oid": "2.16.840.1.114222.4.11.3591",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf84c"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf917"
+        },
+        "code": "24467-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells [#/volume] in Blood"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf918"
+        },
+        "code": "32515-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells [#/volume] in Unspecified specimen"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf919"
+        },
+        "code": "32532-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells [#/volume] in Bone marrow"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf91a"
+        },
+        "code": "40898-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells [#/volume] in Tissue"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf91b"
+        },
+        "code": "63450-1",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells [#/volume] in Cerebral spinal fluid"
+      }
+    ],
+    "display_name": "CD4+ Count",
+    "oid": "2.16.840.1.113883.3.464.1003.121.12.1004",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf84d"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf91c"
+        },
+        "code": "17822-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells/100 cells in Body fluid"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf91d"
+        },
+        "code": "32516-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells/100 cells in Unspecified specimen"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf91e"
+        },
+        "code": "32533-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells/100 cells in Bone marrow"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf91f"
+        },
+        "code": "40623-1",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells/100 cells in Bronchial specimen"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf920"
+        },
+        "code": "43970-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells/100 cells in Cerebral spinal fluid"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf921"
+        },
+        "code": "51300-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells/100 cells in Tissue"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf922"
+        },
+        "code": "8123-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.63",
+        "display_name": "CD3+CD4+ (T4 helper) cells/100 cells in Blood"
+      }
+    ],
+    "display_name": "CD4+ Percentage",
+    "oid": "2.16.840.1.113883.3.464.1003.121.12.1005",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf84e"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf923"
+        },
+        "code": "042",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Human immunodeficiency virus [HIV] disease"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf924"
+        },
+        "code": "111880001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Acute human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf925"
+        },
+        "code": "186706006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus infection constitutional disease (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf926"
+        },
+        "code": "186707002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus infection with neurological disease (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf927"
+        },
+        "code": "186708007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus infection with secondary clinical infectious disease (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf928"
+        },
+        "code": "186709004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus with secondary cancers (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf929"
+        },
+        "code": "186717007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus disease resulting in mycobacterial infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf92a"
+        },
+        "code": "186718002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus disease resulting in cytomegaloviral disease (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf92b"
+        },
+        "code": "186719005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus disease resulting in candidiasis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf92c"
+        },
+        "code": "186721000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus disease resulting in multiple infections (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf92d"
+        },
+        "code": "186723002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus disease resulting in Burkitt's lymphoma (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf92e"
+        },
+        "code": "186725009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus disease resulting in multiple malignant neoplasms (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf92f"
+        },
+        "code": "186726005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus disease resulting in lymphoid interstitial pneumonitis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf930"
+        },
+        "code": "230180003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus leukoencephalopathy (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf931"
+        },
+        "code": "230201009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus myelitis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf932"
+        },
+        "code": "230598008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Neuropathy caused by human immunodeficiency virus (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf933"
+        },
+        "code": "235009000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus-associated periodontitis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf934"
+        },
+        "code": "235726002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus enteropathy (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf935"
+        },
+        "code": "240103002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus myopathy (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf936"
+        },
+        "code": "276666007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Congenital human immunodeficiency virus positive status syndrome (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf937"
+        },
+        "code": "315019000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus infection with aseptic meningitis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf938"
+        },
+        "code": "359791000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Acquired immunodeficiency syndrome with dermatomycosis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf939"
+        },
+        "code": "397763006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus encephalopathy (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf93a"
+        },
+        "code": "398329009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus encephalitis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf93b"
+        },
+        "code": "402915006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus seroconversion exanthem (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf93c"
+        },
+        "code": "402916007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-03",
+        "display_name": "Human immunodeficiency virus seropositivity (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf93d"
+        },
+        "code": "405631006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Pediatric human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf93e"
+        },
+        "code": "40780007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus I infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf93f"
+        },
+        "code": "48794007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus infection with infectious mononucleosis-like syndrome (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf940"
+        },
+        "code": "52079000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Congenital human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf941"
+        },
+        "code": "5810003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Human immunodeficiency virus infection with infection by another virus (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf942"
+        },
+        "code": "62246005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Acquired immunodeficiency syndrome-like syndrome (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf943"
+        },
+        "code": "62479008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Acquired immune deficiency syndrome (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf944"
+        },
+        "code": "713260006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Subacute adenoviral encephalitis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf945"
+        },
+        "code": "713275003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Splenomegaly co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf946"
+        },
+        "code": "713278001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Neuralgia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf947"
+        },
+        "code": "713297001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Candidiasis of esophagus co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf948"
+        },
+        "code": "713298006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Heart disease co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf949"
+        },
+        "code": "713299003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disorder of eye proper co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf94a"
+        },
+        "code": "713300006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disorder of gastrointestinal tract co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf94b"
+        },
+        "code": "713316008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Eruption of skin co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf94c"
+        },
+        "code": "713318009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Myocarditis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf94d"
+        },
+        "code": "713320007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Radiculitis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf94e"
+        },
+        "code": "713325002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Primary cerebral lymphoma co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf94f"
+        },
+        "code": "713339002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Strongyloides co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf950"
+        },
+        "code": "713340000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disorder of skin co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf951"
+        },
+        "code": "713341001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Myelitis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf952"
+        },
+        "code": "713342008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Salmonella co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf953"
+        },
+        "code": "713349004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Anemia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf954"
+        },
+        "code": "713444005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hemophagocytic syndrome co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf955"
+        },
+        "code": "713445006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disseminated infection caused by Strongyloides co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf956"
+        },
+        "code": "713446007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Chronic infection caused by herpes simplex virus co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf957"
+        },
+        "code": "713483007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Reticulosarcoma co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf958"
+        },
+        "code": "713484001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disorder of respiratory system co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf959"
+        },
+        "code": "713487008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Progressive multifocal leukoencephalopathy co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf95a"
+        },
+        "code": "713488003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Presenile dementia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf95b"
+        },
+        "code": "713489006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Polyneuropathy co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf95c"
+        },
+        "code": "713490002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Pneumocystis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf95d"
+        },
+        "code": "713491003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Organic brain syndrome co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf95e"
+        },
+        "code": "713497004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Candidiasis of mouth co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf95f"
+        },
+        "code": "713503007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disorder of spinal cord co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf960"
+        },
+        "code": "713504001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disorder of kidney co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf961"
+        },
+        "code": "713505000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Gastrointestinal malabsorption syndrome co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf962"
+        },
+        "code": "713506004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Neuritis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf963"
+        },
+        "code": "713507008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Lymphadenopathy co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf964"
+        },
+        "code": "713508003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Aplastic anemia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf965"
+        },
+        "code": "713510001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Enlargement of liver co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf966"
+        },
+        "code": "713511002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Acute endocarditis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf967"
+        },
+        "code": "713523008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Cardiomyopathy co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf968"
+        },
+        "code": "713526000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Recurrent bacterial pneumonia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf969"
+        },
+        "code": "713527009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disorder of peripheral nervous system co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf96a"
+        },
+        "code": "713530002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Agranulocytosis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf96b"
+        },
+        "code": "713531003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Visual impairment co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf96c"
+        },
+        "code": "713532005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infective arthritis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf96d"
+        },
+        "code": "713533000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Acquired hemolytic anemia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf96e"
+        },
+        "code": "713543002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Demyelinating disease of central nervous system co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf96f"
+        },
+        "code": "713544008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Bacterial pneumonia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf970"
+        },
+        "code": "713545009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Nocardia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf971"
+        },
+        "code": "713546005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Isosporiasis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf972"
+        },
+        "code": "713570009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infectious gastroenteritis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf973"
+        },
+        "code": "713571008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disorder of central nervous system co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf974"
+        },
+        "code": "713572001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Malignant neoplastic disease co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf975"
+        },
+        "code": "713695001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Nephrotic syndrome co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf976"
+        },
+        "code": "713696000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Renal failure syndrome co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf977"
+        },
+        "code": "713718006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Diffuse non-Hodgkin immunoblastic lymphoma co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf978"
+        },
+        "code": "713722001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Cytomegalovirus co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf979"
+        },
+        "code": "713729005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Coccidia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf97a"
+        },
+        "code": "713730000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by herpes simplex virus co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf97b"
+        },
+        "code": "713731001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Pyrexia of unknown origin co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf97c"
+        },
+        "code": "713732008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Aspergillus co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf97d"
+        },
+        "code": "713733003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by herpes zoster virus co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf97e"
+        },
+        "code": "713734009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Dermatophyte co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf97f"
+        },
+        "code": "713844000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Dementia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf980"
+        },
+        "code": "713845004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Cryptosporidium co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf981"
+        },
+        "code": "713880000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Opportunistic mycosis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf982"
+        },
+        "code": "713881001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Infection caused by Microsporidia co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf983"
+        },
+        "code": "713887002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Focal segmental glomerulosclerosis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf984"
+        },
+        "code": "713897006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Burkitt lymphoma co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf985"
+        },
+        "code": "713964006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Multidermatomal infection caused by Herpes zoster co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf986"
+        },
+        "code": "713967004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Disseminated atypical infection caused by Mycobacterium co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf987"
+        },
+        "code": "714083007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Recurrent salmonella sepsis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf988"
+        },
+        "code": "714464009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Immune reconstitution inflammatory syndrome caused by human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf989"
+        },
+        "code": "733834006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Invasive carcinoma of uterine cervix co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf98a"
+        },
+        "code": "733835007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Extrapulmonary tuberculosis co-occurrent with human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf98b"
+        },
+        "code": "77070006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2015-09",
+        "display_name": "Acquired immunodeficiency syndrome with Salmonella infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf98c"
+        },
+        "code": "79019005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus II infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf98d"
+        },
+        "code": "86406008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf98e"
+        },
+        "code": "87117006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Human immunodeficiency virus infection with acute lymphadenitis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf98f"
+        },
+        "code": "91947003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Asymptomatic human immunodeficiency virus infection (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf990"
+        },
+        "code": "91948008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Asymptomatic human immunodeficiency virus infection in pregnancy (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf991"
+        },
+        "code": "B20",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Human immunodeficiency virus [HIV] disease"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf992"
+        },
+        "code": "V08",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Asymptomatic human immunodeficiency virus [HIV] infection status"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf993"
+        },
+        "code": "Z21",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Asymptomatic human immunodeficiency virus [HIV] infection status"
+      }
+    ],
+    "display_name": "HIV 1",
+    "oid": "2.16.840.1.113883.3.464.1003.120.12.1004",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf84f"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf994"
+        },
+        "code": "185463005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Visit out of hours (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf995"
+        },
+        "code": "185464004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Out of hours visit - not night visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf996"
+        },
+        "code": "185465003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Weekend visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf997"
+        },
+        "code": "30346009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Evaluation and management of established outpatient in office or other outpatient facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf998"
+        },
+        "code": "3391000175108",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Office visit for pediatric care and assessment (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf999"
+        },
+        "code": "37894004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Evaluation and management of new outpatient in office or other outpatient facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf99a"
+        },
+        "code": "439740005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Postoperative follow-up visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf99b"
+        },
+        "code": "99201",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf99c"
+        },
+        "code": "99202",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 20 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf99d"
+        },
+        "code": "99203",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf99e"
+        },
+        "code": "99204",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf99f"
+        },
+        "code": "99205",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a0"
+        },
+        "code": "99212",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a1"
+        },
+        "code": "99213",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 15 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a2"
+        },
+        "code": "99214",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 25 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a3"
+        },
+        "code": "99215",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent face-to-face with the patient and/or family."
+      }
+    ],
+    "display_name": "Office Visit",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1001",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf850"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a4"
+        },
+        "code": "17436001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Medical consultation with outpatient (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a5"
+        },
+        "code": "281036007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Follow-up consultation (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a6"
+        },
+        "code": "77406008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Confirmatory medical consultation (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a7"
+        },
+        "code": "99241",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 15 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a8"
+        },
+        "code": "99242",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 30 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9a9"
+        },
+        "code": "99243",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 40 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9aa"
+        },
+        "code": "99244",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9ab"
+        },
+        "code": "99245",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 80 minutes are spent face-to-face with the patient and/or family."
+      }
+    ],
+    "display_name": "Outpatient Consultation",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1008",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf851"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9ac"
+        },
+        "code": "142118",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Sulfamethoxazole 100 MG / Trimethoprim 20 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9ad"
+        },
+        "code": "197557",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Dapsone 100 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9ae"
+        },
+        "code": "197558",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Dapsone 25 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9af"
+        },
+        "code": "198229",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Pyrimethamine 25 MG / Sulfadoxine 500 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b0"
+        },
+        "code": "198334",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Sulfamethoxazole 400 MG / Trimethoprim 80 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b1"
+        },
+        "code": "198335",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Sulfamethoxazole 800 MG / Trimethoprim 160 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b2"
+        },
+        "code": "308429",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Atovaquone 150 MG/ML Oral Suspension"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b3"
+        },
+        "code": "313134",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Sulfamethoxazole 40 MG/ML / Trimethoprim 8 MG/ML Oral Suspension"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b4"
+        },
+        "code": "313137",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Sulfamethoxazole 80 MG/ML / Trimethoprim 16 MG/ML Injectable Solution"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b5"
+        },
+        "code": "607295",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Dapsone 0.05 MG/MG Topical Gel"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b6"
+        },
+        "code": "861597",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Pentamidine Isethionate 50 MG/ML Inhalant Solution"
+      }
+    ],
+    "display_name": "Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis",
+    "oid": "2.16.840.1.113883.3.464.1003.196.12.1076",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf852"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b7"
+        },
+        "code": "99391",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; infant (age younger than 1 year)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b8"
+        },
+        "code": "99392",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; early childhood (age 1 through 4 years)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9b9"
+        },
+        "code": "99393",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; late childhood (age 5 through 11 years)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9ba"
+        },
+        "code": "99394",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; adolescent (age 12 through 17 years)"
+      }
+    ],
+    "display_name": "Preventive Care, Established Office Visit, 0 to 17",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1024",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf853"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9bb"
+        },
+        "code": "99395",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 18-39 years"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9bc"
+        },
+        "code": "99396",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 40-64 years"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9bd"
+        },
+        "code": "99397",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 65 years and older"
+      }
+    ],
+    "display_name": "Preventive Care Services - Established Office Visit, 18 and Up",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1025",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf854"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9be"
+        },
+        "code": "99385",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; 18-39 years"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9bf"
+        },
+        "code": "99386",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; 40-64 years"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c0"
+        },
+        "code": "99387",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; 65 years and older"
+      }
+    ],
+    "display_name": "Preventive Care Services-Initial Office Visit, 18 and Up",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1023",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf855"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c1"
+        },
+        "code": "99381",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; infant (age younger than 1 year)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c2"
+        },
+        "code": "99382",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; early childhood (age 1 through 4 years)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c3"
+        },
+        "code": "99383",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; late childhood (age 5 through 11 years)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c4"
+        },
+        "code": "99384",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2018",
+        "display_name": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; adolescent (age 12 through 17 years)"
+      }
+    ],
+    "display_name": "Preventive Care Services, Initial Office Visit, 0 to 17",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1022",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf856"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c5"
+        },
+        "code": "197860",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Leucovorin 10 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c6"
+        },
+        "code": "197861",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Leucovorin 15 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c7"
+        },
+        "code": "197862",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Leucovorin 25 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c8"
+        },
+        "code": "197863",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Leucovorin 5 MG Oral Tablet"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9c9"
+        },
+        "code": "237788",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Leucovorin 350 MG Injection"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9ca"
+        },
+        "code": "311282",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "2018-01",
+        "display_name": "Leucovorin 10 MG/ML Injectable Solution"
+      }
+    ],
+    "display_name": "Leucovorin",
+    "oid": "2.16.840.1.113883.3.464.1003.196.12.1205",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf857"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9cb"
+        },
+        "code": "183452005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9cc"
+        },
+        "code": "32485007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9cd"
+        },
+        "code": "8715000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, elective (procedure)"
+      }
+    ],
+    "display_name": "Encounter Inpatient",
+    "oid": "2.16.840.1.113883.3.666.5.307",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf858"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9ce"
+        },
+        "code": "385763009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospice care (regime/therapy)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9cf"
+        },
+        "code": "385765002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospice care management (procedure)"
+      }
+    ],
+    "display_name": "Hospice care ambulatory",
+    "oid": "2.16.840.1.113762.1.4.1108.15",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad21ad7c8ac0ab5cbf859"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad21ad7c8ac0ab5cbf9d0"
+        },
+        "code": "105337",
+        "code_system_name": "RxNorm",
+        "code_system_oid": "2.16.840.1.113883.6.88",
+        "code_system_version": "urn:hl7:version:2018-01",
+        "display_name": "Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet"
+      }
+    ],
+    "display_name": "Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet",
+    "oid": "drc-e7bcd5fe05acffa0b0210240916ebdd5cb263ec9e30c7f943a055e4f406b38c4",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": ""
+  }
+]
