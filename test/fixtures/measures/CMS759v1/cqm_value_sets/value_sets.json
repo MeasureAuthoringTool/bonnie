@@ -1,0 +1,2720 @@
+[
+  {
+    "_id": {
+      "$oid": "5cdad219d7c8ac0ab5cbf4c5"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4cb"
+        },
+        "code": "F",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2017-07",
+        "display_name": "Female"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4cc"
+        },
+        "code": "M",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2017-07",
+        "display_name": "Male"
+      }
+    ],
+    "display_name": "ONC Administrative Sex",
+    "oid": "2.16.840.1.113762.1.4.1",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad219d7c8ac0ab5cbf4c6"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4cd"
+        },
+        "code": "1002-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "American Indian or Alaska Native"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4ce"
+        },
+        "code": "2028-9",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Asian"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4cf"
+        },
+        "code": "2054-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Black or African American"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d0"
+        },
+        "code": "2076-8",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Native Hawaiian or Other Pacific Islander"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d1"
+        },
+        "code": "2106-3",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "White"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d2"
+        },
+        "code": "2131-1",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Other Race"
+      }
+    ],
+    "display_name": "Race",
+    "oid": "2.16.840.1.114222.4.11.836",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad219d7c8ac0ab5cbf4c7"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d3"
+        },
+        "code": "2135-2",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Hispanic or Latino"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d4"
+        },
+        "code": "2186-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Not Hispanic or Latino"
+      }
+    ],
+    "display_name": "Ethnicity",
+    "oid": "2.16.840.1.114222.4.11.837",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad219d7c8ac0ab5cbf4c8"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d5"
+        },
+        "code": "1",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "MEDICARE"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d6"
+        },
+        "code": "11",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d7"
+        },
+        "code": "111",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d8"
+        },
+        "code": "112",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4d9"
+        },
+        "code": "113",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4da"
+        },
+        "code": "119",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4db"
+        },
+        "code": "12",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare (Non-managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4dc"
+        },
+        "code": "121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4dd"
+        },
+        "code": "122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Drug Benefit"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4de"
+        },
+        "code": "123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Medical Savings Account (MSA)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4df"
+        },
+        "code": "129",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Non-managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e0"
+        },
+        "code": "13",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Hospice"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e1"
+        },
+        "code": "14",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Dual Eligibility Medicare/Medicaid Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e2"
+        },
+        "code": "19",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e3"
+        },
+        "code": "191",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e4"
+        },
+        "code": "2",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "MEDICAID"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e5"
+        },
+        "code": "21",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e6"
+        },
+        "code": "211",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e7"
+        },
+        "code": "212",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e8"
+        },
+        "code": "213",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid PCCM (Primary Care Case Management)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4e9"
+        },
+        "code": "219",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4ea"
+        },
+        "code": "22",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid (Non-managed Care Plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4eb"
+        },
+        "code": "23",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid/SCHIP"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4ec"
+        },
+        "code": "24",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid Applicant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4ed"
+        },
+        "code": "25",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid - Out of State"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4ee"
+        },
+        "code": "26",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid -- Long Term Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4ef"
+        },
+        "code": "29",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f0"
+        },
+        "code": "291",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f1"
+        },
+        "code": "299",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicaid - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f2"
+        },
+        "code": "3",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f3"
+        },
+        "code": "31",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Department of Defense"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f4"
+        },
+        "code": "311",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE (CHAMPUS)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f5"
+        },
+        "code": "3111",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f6"
+        },
+        "code": "3112",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE Extra--PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f7"
+        },
+        "code": "3113",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE Standard - Fee For Service"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f8"
+        },
+        "code": "3114",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE For Life--Medicare Supplement"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4f9"
+        },
+        "code": "3115",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE Reserve Select"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4fa"
+        },
+        "code": "3116",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4fb"
+        },
+        "code": "3119",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Department of Defense - (other)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4fc"
+        },
+        "code": "312",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Military Treatment Facility"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4fd"
+        },
+        "code": "3121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Enrolled Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4fe"
+        },
+        "code": "3122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Non-enrolled Space Available"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf4ff"
+        },
+        "code": "3123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "TRICARE For Life (TFL)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf500"
+        },
+        "code": "313",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Dental --Stand Alone"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf501"
+        },
+        "code": "32",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Department of Veterans Affairs"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf502"
+        },
+        "code": "321",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Veteran care--Care provided to Veterans"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf503"
+        },
+        "code": "3211",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Direct Care--Care provided in VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf504"
+        },
+        "code": "3212",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indirect Care--Care provided outside VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf505"
+        },
+        "code": "32121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Fee Basis"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf506"
+        },
+        "code": "32122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Foreign Fee/Foreign Medical Program (FMP)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf507"
+        },
+        "code": "32123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Contract Nursing Home/Community Nursing Home"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf508"
+        },
+        "code": "32124",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "State Veterans Home"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf509"
+        },
+        "code": "32125",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Sharing Agreements"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf50a"
+        },
+        "code": "32126",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Federal Agency"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf50b"
+        },
+        "code": "32127",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Dental Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf50c"
+        },
+        "code": "32128",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Vision Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf50d"
+        },
+        "code": "322",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf50e"
+        },
+        "code": "3221",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf50f"
+        },
+        "code": "3222",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Spina Bifida Health Care Program (SB)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf510"
+        },
+        "code": "3223",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Children of Women Vietnam Veterans (CWVV)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf511"
+        },
+        "code": "3229",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf512"
+        },
+        "code": "33",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Health Service or Tribe"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf513"
+        },
+        "code": "331",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Health Service -- Regular"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf514"
+        },
+        "code": "332",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Health Service -- Contract"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf515"
+        },
+        "code": "333",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Health Service - Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf516"
+        },
+        "code": "334",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indian Tribe - Sponsored Coverage"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf517"
+        },
+        "code": "34",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "HRSA Program"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf518"
+        },
+        "code": "341",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Title V (MCH Block Grant)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf519"
+        },
+        "code": "342",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Migrant Health Program"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf51a"
+        },
+        "code": "343",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Ryan White Act"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf51b"
+        },
+        "code": "349",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf51c"
+        },
+        "code": "35",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Black Lung"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf51d"
+        },
+        "code": "36",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "State Government"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf51e"
+        },
+        "code": "361",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "State SCHIP program (codes for individual states)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf51f"
+        },
+        "code": "362",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Specific state programs (list/ local code)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf520"
+        },
+        "code": "369",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "State, not otherwise specified (other state)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf521"
+        },
+        "code": "37",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Local Government"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf522"
+        },
+        "code": "371",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Local - Managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf523"
+        },
+        "code": "3711",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf524"
+        },
+        "code": "3712",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf525"
+        },
+        "code": "3713",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf526"
+        },
+        "code": "372",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "FFS/Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf527"
+        },
+        "code": "379",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Local, not otherwise specified (other local, county)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf528"
+        },
+        "code": "38",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Government (Federal, State, Local not specified)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf529"
+        },
+        "code": "381",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf52a"
+        },
+        "code": "3811",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf52b"
+        },
+        "code": "3812",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf52c"
+        },
+        "code": "3813",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf52d"
+        },
+        "code": "3819",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf52e"
+        },
+        "code": "382",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf52f"
+        },
+        "code": "389",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal, State, Local not specified - Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf530"
+        },
+        "code": "39",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf531"
+        },
+        "code": "391",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Federal Employee Health Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf532"
+        },
+        "code": "4",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "DEPARTMENTS OF CORRECTIONS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf533"
+        },
+        "code": "41",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Corrections Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf534"
+        },
+        "code": "42",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Corrections State"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf535"
+        },
+        "code": "43",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Corrections Local"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf536"
+        },
+        "code": "44",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Corrections Unknown Level"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf537"
+        },
+        "code": "5",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "PRIVATE HEALTH INSURANCE"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf538"
+        },
+        "code": "51",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Managed Care (Private)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf539"
+        },
+        "code": "511",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf53a"
+        },
+        "code": "512",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf53b"
+        },
+        "code": "513",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf53c"
+        },
+        "code": "514",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Exclusive Provider Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf53d"
+        },
+        "code": "515",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Gatekeeper PPO (GPPO)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf53e"
+        },
+        "code": "516",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf53f"
+        },
+        "code": "517",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf540"
+        },
+        "code": "519",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Managed Care, Other (non HMO)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf541"
+        },
+        "code": "52",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Private Health Insurance - Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf542"
+        },
+        "code": "521",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf543"
+        },
+        "code": "522",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf544"
+        },
+        "code": "523",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare supplemental policy (as second payer)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf545"
+        },
+        "code": "524",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Indemnity Insurance - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf546"
+        },
+        "code": "529",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Private health insurance--other commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf547"
+        },
+        "code": "53",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf548"
+        },
+        "code": "54",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Organized Delivery System"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf549"
+        },
+        "code": "55",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Small Employer Purchasing Group"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf54a"
+        },
+        "code": "56",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Specialized Stand Alone Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf54b"
+        },
+        "code": "561",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf54c"
+        },
+        "code": "562",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Vision"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf54d"
+        },
+        "code": "59",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Private Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf54e"
+        },
+        "code": "6",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BLUE CROSS/BLUE SHIELD"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf54f"
+        },
+        "code": "61",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf550"
+        },
+        "code": "611",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf551"
+        },
+        "code": "612",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care -- PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf552"
+        },
+        "code": "613",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care -- POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf553"
+        },
+        "code": "614",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf554"
+        },
+        "code": "619",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Managed Care -- Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf555"
+        },
+        "code": "62",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Insurance Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf556"
+        },
+        "code": "621",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf557"
+        },
+        "code": "622",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf558"
+        },
+        "code": "623",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Medicare Supplemental Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf559"
+        },
+        "code": "629",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "BC Indemnity - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf55a"
+        },
+        "code": "7",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf55b"
+        },
+        "code": "71",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf55c"
+        },
+        "code": "72",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf55d"
+        },
+        "code": "73",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf55e"
+        },
+        "code": "79",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf55f"
+        },
+        "code": "8",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf560"
+        },
+        "code": "81",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Self-pay"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf561"
+        },
+        "code": "82",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "No Charge"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf562"
+        },
+        "code": "821",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Charity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf563"
+        },
+        "code": "822",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Professional Courtesy"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf564"
+        },
+        "code": "823",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Research/Clinical Trial"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf565"
+        },
+        "code": "83",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Refusal to Pay/Bad Debt"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf566"
+        },
+        "code": "84",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Hill Burton Free Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf567"
+        },
+        "code": "85",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Research/Donor"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf568"
+        },
+        "code": "89",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "No Payment, Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf569"
+        },
+        "code": "9",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "MISCELLANEOUS/OTHER"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf56a"
+        },
+        "code": "91",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Foreign National"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf56b"
+        },
+        "code": "92",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other (Non-government)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf56c"
+        },
+        "code": "93",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Disability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf56d"
+        },
+        "code": "94",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Long-term Care Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf56e"
+        },
+        "code": "95",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Compensation"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf56f"
+        },
+        "code": "951",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Comp HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf570"
+        },
+        "code": "953",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Comp Fee-for-Service"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf571"
+        },
+        "code": "954",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Comp Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf572"
+        },
+        "code": "959",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Worker's Comp, Other unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf573"
+        },
+        "code": "96",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Auto Insurance (includes no fault)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf574"
+        },
+        "code": "97",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Legal Liability / Liability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf575"
+        },
+        "code": "98",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf576"
+        },
+        "code": "99",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "No Typology Code available for payment source"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf577"
+        },
+        "code": "9999",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Unavailable / No Payer Specified / Blank"
+      }
+    ],
+    "display_name": "Payer",
+    "oid": "2.16.840.1.114222.4.11.3591",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad219d7c8ac0ab5cbf4c9"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf578"
+        },
+        "code": "121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "7.0",
+        "display_name": "Medicare FFS"
+      }
+    ],
+    "display_name": "Medicare Fee For Service",
+    "oid": "2.16.840.1.113883.3.1240.15.2.4008",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad219d7c8ac0ab5cbf4ca"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf579"
+        },
+        "code": "10378005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, emergency, from emergency room, accidental injury (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf57a"
+        },
+        "code": "112689000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, elective, with complete pre-admission work-up (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf57b"
+        },
+        "code": "112690009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, boarder, for social reasons (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf57c"
+        },
+        "code": "1505002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission for isolation (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf57d"
+        },
+        "code": "15584006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, elective, with partial pre-admission work-up (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf57e"
+        },
+        "code": "18083007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, emergency, indirect (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf57f"
+        },
+        "code": "183452005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf580"
+        },
+        "code": "183455007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Psychiatric emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf581"
+        },
+        "code": "183457004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Geriatric emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf582"
+        },
+        "code": "183458009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Pediatric emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf583"
+        },
+        "code": "183459001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Gynecological emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf584"
+        },
+        "code": "183460006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Obstetric emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf585"
+        },
+        "code": "183461005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Orthopedic emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf586"
+        },
+        "code": "183462003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Ear, nose and throat emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf587"
+        },
+        "code": "183463008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Trauma emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf588"
+        },
+        "code": "183464002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Ophthalmological emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf589"
+        },
+        "code": "183465001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Rheumatology emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf58a"
+        },
+        "code": "183466000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Dermatology emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf58b"
+        },
+        "code": "183467009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Neurology emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf58c"
+        },
+        "code": "183468004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Urology emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf58d"
+        },
+        "code": "183469007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Radiotherapy emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf58e"
+        },
+        "code": "183470008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hematology emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf58f"
+        },
+        "code": "183471007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Plastic surgery emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf590"
+        },
+        "code": "183472000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Diabetic emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf591"
+        },
+        "code": "183473005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Oral surgical emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf592"
+        },
+        "code": "183474004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Psychogeriatric emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf593"
+        },
+        "code": "183475003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Renal medicine emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf594"
+        },
+        "code": "183476002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Neurosurgical emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf595"
+        },
+        "code": "183477006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Cardiothoracic emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf596"
+        },
+        "code": "183478001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Emergency hospital admission for asthma (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf597"
+        },
+        "code": "183481006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Non-urgent hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf598"
+        },
+        "code": "183497001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Non-urgent trauma admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf599"
+        },
+        "code": "19951005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, emergency, from emergency room, medical nature (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf59a"
+        },
+        "code": "2252009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, urgent, 48 hours (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf59b"
+        },
+        "code": "23473000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, for research investigation (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf59c"
+        },
+        "code": "25986004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, under police custody (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf59d"
+        },
+        "code": "2876009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, type unclassified, explain by report (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf59e"
+        },
+        "code": "304568006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission for respite care (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf59f"
+        },
+        "code": "305335007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to establishment (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a0"
+        },
+        "code": "305337004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to community hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a1"
+        },
+        "code": "305338009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to general practice hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a2"
+        },
+        "code": "305339001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to private hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a3"
+        },
+        "code": "305340004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to long stay hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a4"
+        },
+        "code": "305341000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to tertiary referral hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a5"
+        },
+        "code": "305342007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to ward (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a6"
+        },
+        "code": "305343002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to day ward (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a7"
+        },
+        "code": "305344008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to day hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a8"
+        },
+        "code": "305345009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to psychiatric day hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5a9"
+        },
+        "code": "305346005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to psychogeriatric day hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5aa"
+        },
+        "code": "305347001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to elderly severely mentally ill day hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5ab"
+        },
+        "code": "305348006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Admission to care of the elderly day hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5ac"
+        },
+        "code": "313385005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Cardiology emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5ad"
+        },
+        "code": "3241000175106",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission from non-health care facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5ae"
+        },
+        "code": "32485007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5af"
+        },
+        "code": "36723004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, pre-nursing home placement (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b0"
+        },
+        "code": "405614004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Unexpected hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b1"
+        },
+        "code": "408489005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Respiratory emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b2"
+        },
+        "code": "408501008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Emergency hospital admission for chronic obstructive pulmonary disease (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b3"
+        },
+        "code": "416683003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Emergency hospital admission for heart failure (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b4"
+        },
+        "code": "417005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital re-admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b5"
+        },
+        "code": "432621000124105",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, transfer from dialysis facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b6"
+        },
+        "code": "432661000124104",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, transfer from emergency department (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b7"
+        },
+        "code": "442281000124108",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Emergency hospital admission from observation unit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b8"
+        },
+        "code": "448381000124100",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Urgent hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5b9"
+        },
+        "code": "448421000124105",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, transfer from physician office (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5ba"
+        },
+        "code": "448431000124108",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, transfer from assisted living facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5bb"
+        },
+        "code": "448441000124103",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, transfer from intermediate care facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5bc"
+        },
+        "code": "448851000124103",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission from observation unit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5bd"
+        },
+        "code": "4563007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, transfer from other hospital or health care facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5be"
+        },
+        "code": "45702004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, precertified by medical audit action (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5bf"
+        },
+        "code": "47348005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, mother, for observation, delivered outside of hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c0"
+        },
+        "code": "48183000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, special (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c1"
+        },
+        "code": "50699000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, short-term (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c2"
+        },
+        "code": "51032003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, donor for transplant organ (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c3"
+        },
+        "code": "51501005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, parent, for in-hospital child care (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c4"
+        },
+        "code": "52748007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, involuntary (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c5"
+        },
+        "code": "60059000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, infant, for observation, delivered outside of hospital (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c6"
+        },
+        "code": "63551005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, from remote area, by means of special transportation (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c7"
+        },
+        "code": "65043002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, short-term, day care (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c8"
+        },
+        "code": "699122005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Vascular surgery emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5c9"
+        },
+        "code": "699245006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Emergency hospital admission for ischemic heart disease (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5ca"
+        },
+        "code": "70755000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, by legal authority (commitment) (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5cb"
+        },
+        "code": "71290004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, limited to designated procedures (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5cc"
+        },
+        "code": "73607007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, emergency, from emergency room (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5cd"
+        },
+        "code": "74857009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, short-term, 24 hours (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5ce"
+        },
+        "code": "76464004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, for observation (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5cf"
+        },
+        "code": "78680009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, emergency, direct (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5d0"
+        },
+        "code": "81672003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, elective, without pre-admission work-up (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5d1"
+        },
+        "code": "82942009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, blood donor (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad219d7c8ac0ab5cbf5d2"
+        },
+        "code": "8715000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Hospital admission, elective (procedure)"
+      }
+    ],
+    "display_name": "Inpatient Encounter",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1060",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
+  }
+]

@@ -1,0 +1,4015 @@
+[
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a18"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a2d"
+        },
+        "code": "428371000124100",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "urn:hl7:version:2017-09",
+        "display_name": "Discharge to healthcare facility for hospice care (procedure)"
+      }
+    ],
+    "display_name": "Discharge to healthcare facility for hospice care (procedure)",
+    "oid": "drc-2bbe231b80adbbda1f62e54d2e939c81babe4ae2c40bf6e55b22e5b6d44f4e02",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": ""
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a19"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a2e"
+        },
+        "code": "428361000124107",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "urn:hl7:version:2017-09",
+        "display_name": "Discharge to home for hospice care (procedure)"
+      }
+    ],
+    "display_name": "Discharge to home for hospice care (procedure)",
+    "oid": "drc-7e63a6e0afd51d085689e8824f313c508a0f9b1c39974cc93b34536627eed531",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": ""
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a1a"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a2f"
+        },
+        "code": "444971000124105",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Annual wellness visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a30"
+        },
+        "code": "456201000124103",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Medicare Annual Wellness Visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a31"
+        },
+        "code": "G0438",
+        "code_system_name": "HCPCS",
+        "code_system_oid": "2.16.840.1.113883.6.285",
+        "code_system_version": "2019",
+        "display_name": "Annual wellness visit; includes a personalized prevention plan of service (pps), initial visit"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a32"
+        },
+        "code": "G0439",
+        "code_system_name": "HCPCS",
+        "code_system_oid": "2.16.840.1.113883.6.285",
+        "code_system_version": "2019",
+        "display_name": "Annual wellness visit, includes a personalized prevention plan of service (pps), subsequent visit"
+      }
+    ],
+    "display_name": "Annual Wellness Visit",
+    "oid": "2.16.840.1.113883.3.526.3.1240",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a1b"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a33"
+        },
+        "code": "0HTV0ZZ",
+        "code_system_name": "ICD-10-PCS",
+        "code_system_oid": "2.16.840.1.113883.6.4",
+        "code_system_version": "2019",
+        "display_name": "Resection of Bilateral Breast, Open Approach"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a34"
+        },
+        "code": "136071000119101",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History of bilateral prophylactic mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a35"
+        },
+        "code": "14693006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bilateral subcutaneous mammectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a36"
+        },
+        "code": "14714006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bilateral mastectomy with excision of bilateral regional lymph nodes (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a37"
+        },
+        "code": "17086001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Modified radical mastectomy, bilateral (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a38"
+        },
+        "code": "22418005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bilateral simple mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a39"
+        },
+        "code": "27865001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bilateral mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a3a"
+        },
+        "code": "428529004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History of bilateral mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a3b"
+        },
+        "code": "456903003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bilateral extended radical mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a3c"
+        },
+        "code": "52314009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bilateral mastectomy extended simple (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a3d"
+        },
+        "code": "59860000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Removal of intact mammary implant, bilateral, plus capsulectomies (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a3e"
+        },
+        "code": "60633004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bilateral subcutaneous mammectomy with synchronous implant (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a3f"
+        },
+        "code": "726636007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Prophylactic bilateral mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a40"
+        },
+        "code": "76468001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Bilateral radical mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a41"
+        },
+        "code": "85.42",
+        "code_system_name": "ICD-9-PCS",
+        "code_system_oid": "2.16.840.1.113883.6.104",
+        "code_system_version": "2013",
+        "display_name": "Bilateral simple mastectomy"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a42"
+        },
+        "code": "85.44",
+        "code_system_name": "ICD-9-PCS",
+        "code_system_oid": "2.16.840.1.113883.6.104",
+        "code_system_version": "2013",
+        "display_name": "Bilateral extended simple mastectomy"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a43"
+        },
+        "code": "85.46",
+        "code_system_name": "ICD-9-PCS",
+        "code_system_oid": "2.16.840.1.113883.6.104",
+        "code_system_version": "2013",
+        "display_name": "Bilateral radical mastectomy"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a44"
+        },
+        "code": "85.48",
+        "code_system_name": "ICD-9-PCS",
+        "code_system_oid": "2.16.840.1.113883.6.104",
+        "code_system_version": "2013",
+        "display_name": "Bilateral extended radical mastectomy"
+      }
+    ],
+    "display_name": "Bilateral Mastectomy",
+    "oid": "2.16.840.1.113883.3.464.1003.198.12.1005",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a1c"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a45"
+        },
+        "code": "2135-2",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Hispanic or Latino"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a46"
+        },
+        "code": "2186-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Not Hispanic or Latino"
+      }
+    ],
+    "display_name": "Ethnicity",
+    "oid": "2.16.840.1.114222.4.11.837",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a1d"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a47"
+        },
+        "code": "F",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2018-08",
+        "display_name": "Female"
+      }
+    ],
+    "display_name": "Female",
+    "oid": "2.16.840.1.113883.3.560.100.2",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a1e"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a48"
+        },
+        "code": "136071000119101",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History of bilateral prophylactic mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a49"
+        },
+        "code": "428529004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History of bilateral mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a4a"
+        },
+        "code": "Z90.13",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Acquired absence of bilateral breasts and nipples"
+      }
+    ],
+    "display_name": "History of bilateral mastectomy",
+    "oid": "2.16.840.1.113883.3.464.1003.198.12.1068",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a1f"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a4b"
+        },
+        "code": "419161000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-03",
+        "display_name": "Unilateral left (qualifier value)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a4c"
+        },
+        "code": "7771000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Left (qualifier value)"
+      }
+    ],
+    "display_name": "Left",
+    "oid": "2.16.840.1.113883.3.464.1003.122.12.1036",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a20"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a4d"
+        },
+        "code": "24604-1",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Diagnostic Limited Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a4e"
+        },
+        "code": "24605-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a4f"
+        },
+        "code": "24606-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a50"
+        },
+        "code": "24610-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Limited Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a51"
+        },
+        "code": "26175-0",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a52"
+        },
+        "code": "26176-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a53"
+        },
+        "code": "26177-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a54"
+        },
+        "code": "26287-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Limited Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a55"
+        },
+        "code": "26289-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Limited Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a56"
+        },
+        "code": "26291-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Limited Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a57"
+        },
+        "code": "26346-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a58"
+        },
+        "code": "26347-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a59"
+        },
+        "code": "26348-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a5a"
+        },
+        "code": "26349-1",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Diagnostic Limited Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a5b"
+        },
+        "code": "26350-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Diagnostic Limited Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a5c"
+        },
+        "code": "26351-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Diagnostic Limited Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a5d"
+        },
+        "code": "36319-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast 4 Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a5e"
+        },
+        "code": "36625-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a5f"
+        },
+        "code": "36626-0",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a60"
+        },
+        "code": "36627-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a61"
+        },
+        "code": "36642-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left 2 Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a62"
+        },
+        "code": "36962-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Axillary"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a63"
+        },
+        "code": "37005-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Magnification"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a64"
+        },
+        "code": "37006-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral MLO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a65"
+        },
+        "code": "37016-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Rolled Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a66"
+        },
+        "code": "37017-1",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Rolled Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a67"
+        },
+        "code": "37028-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Tangential"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a68"
+        },
+        "code": "37029-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Tangential"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a69"
+        },
+        "code": "37030-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Tangential"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a6a"
+        },
+        "code": "37037-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast True lateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a6b"
+        },
+        "code": "37038-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral True lateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a6c"
+        },
+        "code": "37052-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral XCCL"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a6d"
+        },
+        "code": "37053-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left XCCL"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a6e"
+        },
+        "code": "37539-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Grid Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a6f"
+        },
+        "code": "37542-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Magnification Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a70"
+        },
+        "code": "37543-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Magnification Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a71"
+        },
+        "code": "37551-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Spot Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a72"
+        },
+        "code": "37552-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Spot Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a73"
+        },
+        "code": "37553-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Spot Views compression"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a74"
+        },
+        "code": "37554-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Magnification and Spot"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a75"
+        },
+        "code": "37768-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right 2 Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a76"
+        },
+        "code": "37769-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Magnification and Spot"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a77"
+        },
+        "code": "37770-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Tangential"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a78"
+        },
+        "code": "37771-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right True lateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a79"
+        },
+        "code": "37772-1",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right XCCL"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a7a"
+        },
+        "code": "37773-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Magnification"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a7b"
+        },
+        "code": "37774-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a7c"
+        },
+        "code": "37775-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Rolled Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a7d"
+        },
+        "code": "38067-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.58",
+        "display_name": "Breast - bilateral Mammogram nipple profile"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a7e"
+        },
+        "code": "38070-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Views for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a7f"
+        },
+        "code": "38071-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Views for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a80"
+        },
+        "code": "38072-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Views for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a81"
+        },
+        "code": "38090-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Air gap Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a82"
+        },
+        "code": "38091-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Air gap Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a83"
+        },
+        "code": "38807-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Spot Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a84"
+        },
+        "code": "38820-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Views for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a85"
+        },
+        "code": "38854-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Magnification and Spot"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a86"
+        },
+        "code": "38855-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left True lateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a87"
+        },
+        "code": "39150-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast Views Post Localization"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a88"
+        },
+        "code": "39152-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a89"
+        },
+        "code": "39153-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a8a"
+        },
+        "code": "39154-0",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast - bilateral Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a8b"
+        },
+        "code": "42168-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast - right Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a8c"
+        },
+        "code": "42169-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast - left Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a8d"
+        },
+        "code": "42174-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast - bilateral Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a8e"
+        },
+        "code": "42415-0",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Views Post Wire Placement"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a8f"
+        },
+        "code": "42416-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Views Post Wire Placement"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a90"
+        },
+        "code": "46335-6",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Single view"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a91"
+        },
+        "code": "46336-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Single view"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a92"
+        },
+        "code": "46337-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Single view"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a93"
+        },
+        "code": "46338-0",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - unilateral Single view"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a94"
+        },
+        "code": "46339-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - unilateral Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a95"
+        },
+        "code": "46342-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast Views"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a96"
+        },
+        "code": "46350-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - unilateral Diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a97"
+        },
+        "code": "46351-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Displacement Views for Implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a98"
+        },
+        "code": "46354-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast - right Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a99"
+        },
+        "code": "46355-4",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "FFD mammogram Breast - left Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a9a"
+        },
+        "code": "46356-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - unilateral Screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a9b"
+        },
+        "code": "46380-2",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - unilateral Views for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a9c"
+        },
+        "code": "48475-8",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Diagnostic for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a9d"
+        },
+        "code": "48492-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - bilateral Screening for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a9e"
+        },
+        "code": "69150-1",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - left Diagnostic for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5a9f"
+        },
+        "code": "69251-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast Views Post Wire Placement"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa0"
+        },
+        "code": "69259-0",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "MG Breast - right Diagnostic for implant"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa1"
+        },
+        "code": "72137-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "DBT Breast - right diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa2"
+        },
+        "code": "72138-1",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "DBT Breast - left diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa3"
+        },
+        "code": "72139-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "DBT Breast - bilateral diagnostic"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa4"
+        },
+        "code": "72140-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "DBT Breast - right screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa5"
+        },
+        "code": "72141-5",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "DBT Breast - left screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa6"
+        },
+        "code": "72142-3",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "DBT Breast - bilateral screening"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa7"
+        },
+        "code": "86462-9",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "DBT Breast - unilateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa8"
+        },
+        "code": "86463-7",
+        "code_system_name": "LOINC",
+        "code_system_oid": "2.16.840.1.113883.6.1",
+        "code_system_version": "2.65",
+        "display_name": "DBT Breast - bilateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aa9"
+        },
+        "code": "G0202",
+        "code_system_name": "HCP",
+        "code_system_oid": "2.16.840.1.113883.6.14",
+        "code_system_version": "2017",
+        "display_name": "Screening mammography, bilateral (2-view study of each breast), including computer-aided detection (cad) when performed"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aaa"
+        },
+        "code": "G0202",
+        "code_system_name": "HCPCS",
+        "code_system_oid": "2.16.840.1.113883.6.285",
+        "code_system_version": "2017",
+        "display_name": "Screening mammography, bilateral (2-view study of each breast), including computer-aided detection (cad) when performed"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aab"
+        },
+        "code": "G0204",
+        "code_system_name": "HCP",
+        "code_system_oid": "2.16.840.1.113883.6.14",
+        "code_system_version": "2017",
+        "display_name": "Diagnostic mammography, including computer-aided detection (cad) when performed; bilateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aac"
+        },
+        "code": "G0204",
+        "code_system_name": "HCPCS",
+        "code_system_oid": "2.16.840.1.113883.6.285",
+        "code_system_version": "2017",
+        "display_name": "Diagnostic mammography, including computer-aided detection (cad) when performed; bilateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aad"
+        },
+        "code": "G0206",
+        "code_system_name": "HCP",
+        "code_system_oid": "2.16.840.1.113883.6.14",
+        "code_system_version": "2017",
+        "display_name": "Diagnostic mammography, including computer-aided detection (cad) when performed; unilateral"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aae"
+        },
+        "code": "G0206",
+        "code_system_name": "HCPCS",
+        "code_system_oid": "2.16.840.1.113883.6.285",
+        "code_system_version": "2017",
+        "display_name": "Diagnostic mammography, including computer-aided detection (cad) when performed; unilateral"
+      }
+    ],
+    "display_name": "Mammography",
+    "oid": "2.16.840.1.113883.3.464.1003.108.12.1018",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a21"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aaf"
+        },
+        "code": "F",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2018-08",
+        "display_name": "Female"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab0"
+        },
+        "code": "M",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2018-08",
+        "display_name": "Male"
+      }
+    ],
+    "display_name": "ONC Administrative Sex",
+    "oid": "2.16.840.1.113762.1.4.1",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a22"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab1"
+        },
+        "code": "1",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MEDICARE"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab2"
+        },
+        "code": "11",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab3"
+        },
+        "code": "111",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab4"
+        },
+        "code": "112",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab5"
+        },
+        "code": "113",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab6"
+        },
+        "code": "119",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab7"
+        },
+        "code": "12",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare (Non-managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab8"
+        },
+        "code": "121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ab9"
+        },
+        "code": "122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Drug Benefit"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aba"
+        },
+        "code": "123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Medical Savings Account (MSA)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5abb"
+        },
+        "code": "129",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Non-managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5abc"
+        },
+        "code": "13",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Hospice"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5abd"
+        },
+        "code": "14",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dual Eligibility Medicare/Medicaid Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5abe"
+        },
+        "code": "19",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5abf"
+        },
+        "code": "191",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac0"
+        },
+        "code": "2",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MEDICAID"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac1"
+        },
+        "code": "21",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac2"
+        },
+        "code": "211",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac3"
+        },
+        "code": "212",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac4"
+        },
+        "code": "213",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid PCCM (Primary Care Case Management)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac5"
+        },
+        "code": "219",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac6"
+        },
+        "code": "22",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid (Non-managed Care Plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac7"
+        },
+        "code": "23",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid/SCHIP"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac8"
+        },
+        "code": "25",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid - Out of State"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ac9"
+        },
+        "code": "26",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid -- Long Term Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aca"
+        },
+        "code": "29",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5acb"
+        },
+        "code": "291",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5acc"
+        },
+        "code": "299",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicaid - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5acd"
+        },
+        "code": "3",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ace"
+        },
+        "code": "31",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Defense"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5acf"
+        },
+        "code": "311",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE (CHAMPUS)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad0"
+        },
+        "code": "3111",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad1"
+        },
+        "code": "3112",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Extra--PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad2"
+        },
+        "code": "3113",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Standard - Fee For Service"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad3"
+        },
+        "code": "3114",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE For Life--Medicare Supplement"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad4"
+        },
+        "code": "3115",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE Reserve Select"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad5"
+        },
+        "code": "3116",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad6"
+        },
+        "code": "3119",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Defense - (other)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad7"
+        },
+        "code": "312",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Military Treatment Facility"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad8"
+        },
+        "code": "3121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Enrolled Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ad9"
+        },
+        "code": "3122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Non-enrolled Space Available"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ada"
+        },
+        "code": "3123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "TRICARE For Life (TFL)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5adb"
+        },
+        "code": "313",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental --Stand Alone"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5adc"
+        },
+        "code": "32",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Department of Veterans Affairs"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5add"
+        },
+        "code": "321",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Veteran care--Care provided to Veterans"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ade"
+        },
+        "code": "3211",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Direct Care--Care provided in VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5adf"
+        },
+        "code": "3212",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indirect Care--Care provided outside VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae0"
+        },
+        "code": "32121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Fee Basis"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae1"
+        },
+        "code": "32122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Foreign Fee/Foreign Medical Program (FMP)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae2"
+        },
+        "code": "32123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Contract Nursing Home/Community Nursing Home"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae3"
+        },
+        "code": "32124",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State Veterans Home"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae4"
+        },
+        "code": "32125",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Sharing Agreements"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae5"
+        },
+        "code": "32126",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Federal Agency"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae6"
+        },
+        "code": "32127",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae7"
+        },
+        "code": "32128",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Vision Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae8"
+        },
+        "code": "322",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ae9"
+        },
+        "code": "3221",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aea"
+        },
+        "code": "3222",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Spina Bifida Health Care Program (SB)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aeb"
+        },
+        "code": "3223",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Children of Women Vietnam Veterans (CWVV)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aec"
+        },
+        "code": "3229",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aed"
+        },
+        "code": "33",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service or Tribe"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aee"
+        },
+        "code": "331",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service -- Regular"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aef"
+        },
+        "code": "332",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service -- Contract"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af0"
+        },
+        "code": "333",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Health Service - Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af1"
+        },
+        "code": "334",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indian Tribe - Sponsored Coverage"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af2"
+        },
+        "code": "34",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HRSA Program"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af3"
+        },
+        "code": "341",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Title V (MCH Block Grant)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af4"
+        },
+        "code": "342",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Migrant Health Program"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af5"
+        },
+        "code": "343",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Ryan White Act"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af6"
+        },
+        "code": "349",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af7"
+        },
+        "code": "35",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Black Lung"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af8"
+        },
+        "code": "36",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State Government"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5af9"
+        },
+        "code": "361",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State SCHIP program (codes for individual states)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5afa"
+        },
+        "code": "362",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Specific state programs (list/ local code)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5afb"
+        },
+        "code": "369",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "State, not otherwise specified (other state)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5afc"
+        },
+        "code": "37",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local Government"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5afd"
+        },
+        "code": "371",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local - Managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5afe"
+        },
+        "code": "3711",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5aff"
+        },
+        "code": "3712",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b00"
+        },
+        "code": "3713",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b01"
+        },
+        "code": "372",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "FFS/Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b02"
+        },
+        "code": "379",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Local, not otherwise specified (other local, county)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b03"
+        },
+        "code": "38",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Government (Federal, State, Local not specified)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b04"
+        },
+        "code": "381",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b05"
+        },
+        "code": "3811",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b06"
+        },
+        "code": "3812",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b07"
+        },
+        "code": "3813",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b08"
+        },
+        "code": "3819",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b09"
+        },
+        "code": "382",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b0a"
+        },
+        "code": "389",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal, State, Local not specified - Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b0b"
+        },
+        "code": "39",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b0c"
+        },
+        "code": "391",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Federal Employee Health Plan - Use when known"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b0d"
+        },
+        "code": "4",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "DEPARTMENTS OF CORRECTIONS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b0e"
+        },
+        "code": "41",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b0f"
+        },
+        "code": "42",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections State"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b10"
+        },
+        "code": "43",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Local"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b11"
+        },
+        "code": "44",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Corrections Unknown Level"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b12"
+        },
+        "code": "5",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PRIVATE HEALTH INSURANCE"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b13"
+        },
+        "code": "51",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care (Private)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b14"
+        },
+        "code": "511",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b15"
+        },
+        "code": "512",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b16"
+        },
+        "code": "513",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b17"
+        },
+        "code": "514",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Exclusive Provider Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b18"
+        },
+        "code": "515",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Gatekeeper PPO (GPPO)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b19"
+        },
+        "code": "516",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b1a"
+        },
+        "code": "517",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b1b"
+        },
+        "code": "519",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care, Other (non HMO)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b1c"
+        },
+        "code": "52",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Private Health Insurance - Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b1d"
+        },
+        "code": "521",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b1e"
+        },
+        "code": "522",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b1f"
+        },
+        "code": "523",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Medicare supplemental policy (as second payer)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b20"
+        },
+        "code": "524",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Indemnity Insurance - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b21"
+        },
+        "code": "529",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Private health insurance--other commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b22"
+        },
+        "code": "53",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b23"
+        },
+        "code": "54",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Organized Delivery System"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b24"
+        },
+        "code": "55",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Small Employer Purchasing Group"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b25"
+        },
+        "code": "56",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Specialized Stand Alone Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b26"
+        },
+        "code": "561",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b27"
+        },
+        "code": "562",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Vision"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b28"
+        },
+        "code": "59",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Private Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b29"
+        },
+        "code": "6",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BLUE CROSS/BLUE SHIELD"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b2a"
+        },
+        "code": "61",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b2b"
+        },
+        "code": "611",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b2c"
+        },
+        "code": "612",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b2d"
+        },
+        "code": "613",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b2e"
+        },
+        "code": "614",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b2f"
+        },
+        "code": "619",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Managed Care -- Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b30"
+        },
+        "code": "62",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Insurance Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b31"
+        },
+        "code": "621",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b32"
+        },
+        "code": "622",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b33"
+        },
+        "code": "623",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Medicare Supplemental Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b34"
+        },
+        "code": "629",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "BC Indemnity - Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b35"
+        },
+        "code": "7",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b36"
+        },
+        "code": "71",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b37"
+        },
+        "code": "72",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b38"
+        },
+        "code": "73",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b39"
+        },
+        "code": "79",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b3a"
+        },
+        "code": "8",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b3b"
+        },
+        "code": "81",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Self-pay (Includes applicants for insurance and Medicaid applicants)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b3c"
+        },
+        "code": "82",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Charge"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b3d"
+        },
+        "code": "821",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Charity"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b3e"
+        },
+        "code": "822",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Professional Courtesy"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b3f"
+        },
+        "code": "823",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Research/Clinical Trial"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b40"
+        },
+        "code": "83",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Refusal to Pay/Bad Debt"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b41"
+        },
+        "code": "84",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Hill Burton Free Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b42"
+        },
+        "code": "85",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Research/Donor"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b43"
+        },
+        "code": "89",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Payment, Other"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b44"
+        },
+        "code": "9",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "MISCELLANEOUS/OTHER"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b45"
+        },
+        "code": "91",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Foreign National"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b46"
+        },
+        "code": "92",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other (Non-government)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b47"
+        },
+        "code": "93",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Disability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b48"
+        },
+        "code": "94",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Long-term Care Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b49"
+        },
+        "code": "95",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Compensation"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b4a"
+        },
+        "code": "951",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b4b"
+        },
+        "code": "953",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp Fee-for-Service"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b4c"
+        },
+        "code": "954",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b4d"
+        },
+        "code": "959",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Worker's Comp, Other unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b4e"
+        },
+        "code": "96",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Auto Insurance (includes no fault)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b4f"
+        },
+        "code": "97",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Legal Liability / Liability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b50"
+        },
+        "code": "98",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b51"
+        },
+        "code": "99",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "No Typology Code available for payment source"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b52"
+        },
+        "code": "9999",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "8.0",
+        "display_name": "Unavailable / No Payer Specified / Blank"
+      }
+    ],
+    "display_name": "Payer",
+    "oid": "2.16.840.1.114222.4.11.3591",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a23"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b53"
+        },
+        "code": "1002-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "American Indian or Alaska Native"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b54"
+        },
+        "code": "2028-9",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Asian"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b55"
+        },
+        "code": "2054-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Black or African American"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b56"
+        },
+        "code": "2076-8",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Native Hawaiian or Other Pacific Islander"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b57"
+        },
+        "code": "2106-3",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "White"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b58"
+        },
+        "code": "2131-1",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.2",
+        "display_name": "Other Race"
+      }
+    ],
+    "display_name": "Race",
+    "oid": "2.16.840.1.114222.4.11.836",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a24"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b59"
+        },
+        "code": "24028007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Right (qualifier value)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b5a"
+        },
+        "code": "419465000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-03",
+        "display_name": "Unilateral right (qualifier value)"
+      }
+    ],
+    "display_name": "Right",
+    "oid": "2.16.840.1.113883.3.464.1003.122.12.1035",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a25"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b5b"
+        },
+        "code": "137671000119105",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History of prophylactic mastectomy of left breast (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b5c"
+        },
+        "code": "429009003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History of left mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b5d"
+        },
+        "code": "Z90.12",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Acquired absence of left breast and nipple"
+      }
+    ],
+    "display_name": "Status Post Left Mastectomy",
+    "oid": "2.16.840.1.113883.3.464.1003.198.12.1069",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a26"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b5e"
+        },
+        "code": "137681000119108",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History of prophylactic mastectomy of right breast (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b5f"
+        },
+        "code": "429242008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "History of right mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b60"
+        },
+        "code": "Z90.11",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Acquired absence of right breast and nipple"
+      }
+    ],
+    "display_name": "Status Post Right Mastectomy",
+    "oid": "2.16.840.1.113883.3.464.1003.198.12.1070",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a27"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b61"
+        },
+        "code": "12275171000119105",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Postmastectomy lymphedema syndrome of right upper limb (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b62"
+        },
+        "code": "12275221000119100",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Postmastectomy lymphedema syndrome of left upper limb (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b63"
+        },
+        "code": "172043006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Simple mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b64"
+        },
+        "code": "19180",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2006",
+        "display_name": "Mastectomy, simple, complete"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b65"
+        },
+        "code": "19200",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2006",
+        "display_name": "Mastectomy, radical, including pectoral muscles, axillary lymph nodes"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b66"
+        },
+        "code": "19220",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2006",
+        "display_name": "Mastectomy, radical, including pectoral muscles, axillary and internal mammary lymph nodes (Urban type operation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b67"
+        },
+        "code": "19240",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2006",
+        "display_name": "Mastectomy, modified radical, including axillary lymph nodes, with or without pectoralis minor muscle, but excluding pectoralis major muscle"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b68"
+        },
+        "code": "19303",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Mastectomy, simple, complete"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b69"
+        },
+        "code": "19304",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Mastectomy, subcutaneous"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b6a"
+        },
+        "code": "19305",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Mastectomy, radical, including pectoral muscles, axillary lymph nodes"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b6b"
+        },
+        "code": "19306",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Mastectomy, radical, including pectoral muscles, axillary and internal mammary lymph nodes (Urban type operation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b6c"
+        },
+        "code": "19307",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2019",
+        "display_name": "Mastectomy, modified radical, including axillary lymph nodes, with or without pectoralis minor muscle, but excluding pectoralis major muscle"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b6d"
+        },
+        "code": "237367009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Total mastectomy and division of pectoralis minor muscle (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b6e"
+        },
+        "code": "237368004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Total mastectomy and excision of part of pectoral muscles and chest wall (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b6f"
+        },
+        "code": "237385002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Excision of mastectomy scar (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b70"
+        },
+        "code": "237388000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Biopsy of mastectomy scar (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b71"
+        },
+        "code": "274957008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Radical mastectomy including axillary lymph nodes (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b72"
+        },
+        "code": "287653007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Subcutaneous mastectomy and prosthetic implant (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b73"
+        },
+        "code": "287654001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Extended simple mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b74"
+        },
+        "code": "303690008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Excisional biopsy of mastectomy scar (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b75"
+        },
+        "code": "307995002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Excision of lesion of mastectomy scar (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b76"
+        },
+        "code": "318190001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mastectomy with preservation of skin and nipple with synchronous implant (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b77"
+        },
+        "code": "33129002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Postmastectomy lymphedema syndrome (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b78"
+        },
+        "code": "359728003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Radical mastectomy including pectoral muscles and axillary lymph nodes (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b79"
+        },
+        "code": "359731002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Urban operation, extended radical mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b7a"
+        },
+        "code": "359734005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Halsted mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b7b"
+        },
+        "code": "359740003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Extended radical mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b7c"
+        },
+        "code": "384723003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Radical mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b7d"
+        },
+        "code": "395702000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Patey total mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b7e"
+        },
+        "code": "406505007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Modified radical mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b7f"
+        },
+        "code": "428564008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Skin sparing mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b80"
+        },
+        "code": "446109005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Simple mastectomy with excision of axillary lymph nodes (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b81"
+        },
+        "code": "446420001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Simple mastectomy with complete axillary lymphadenectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b82"
+        },
+        "code": "447135002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Simple mastectomy with axillary lymph node sampling (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b83"
+        },
+        "code": "447421006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Prophylactic mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b84"
+        },
+        "code": "451201000124106",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Prophylactic mastectomy of right breast (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b85"
+        },
+        "code": "451211000124109",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Prophylactic mastectomy of left breast (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b86"
+        },
+        "code": "66398006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Mastectomy with excision of regional lymph nodes (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b87"
+        },
+        "code": "70183006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Subcutaneous mastectomy (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b88"
+        },
+        "code": "714111001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Post-mastectomy breast deformity (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b89"
+        },
+        "code": "714252004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Post-mastectomy chronic pain syndrome (disorder)"
+      }
+    ],
+    "display_name": "Unilateral Mastectomy",
+    "oid": "2.16.840.1.113883.3.464.1003.198.12.1020",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a28"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b8a"
+        },
+        "code": "22964006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Unilateral simple mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b8b"
+        },
+        "code": "248802009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Absence of breast (finding)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b8c"
+        },
+        "code": "72269009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Unilateral modified radical mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b8d"
+        },
+        "code": "73359007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Unilateral mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b8e"
+        },
+        "code": "8115005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Unilateral radical mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b8f"
+        },
+        "code": "88764002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-09",
+        "display_name": "Unilateral extended simple mastectomy (situation)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b90"
+        },
+        "code": "V45.71",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Acquired absence of breast and nipple"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b91"
+        },
+        "code": "Z90.10",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2019",
+        "display_name": "Acquired absence of unspecified breast and nipple"
+      }
+    ],
+    "display_name": "Unilateral Mastectomy, Unspecified Laterality",
+    "oid": "2.16.840.1.113883.3.464.1003.198.12.1071",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a29"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b92"
+        },
+        "code": "385763009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Hospice care (regime/therapy)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b93"
+        },
+        "code": "385765002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Hospice care management (procedure)"
+      }
+    ],
+    "display_name": "Hospice care ambulatory",
+    "oid": "2.16.840.1.113762.1.4.1108.15",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a2a"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b94"
+        },
+        "code": "4525004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Emergency department patient visit (procedure)"
+      }
+    ],
+    "display_name": "Emergency Department Visit",
+    "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a2b"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b95"
+        },
+        "code": "183452005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Emergency hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b96"
+        },
+        "code": "32485007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Hospital admission (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b97"
+        },
+        "code": "8715000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Hospital admission, elective (procedure)"
+      }
+    ],
+    "display_name": "Encounter Inpatient",
+    "oid": "2.16.840.1.113883.3.666.5.307",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  },
+  {
+    "_id": {
+      "$oid": "5cdad227d7c8ac0ab5cc5a2c"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b98"
+        },
+        "code": "309904001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b99"
+        },
+        "code": "309905000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Adult intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b9a"
+        },
+        "code": "309907008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Cardiac intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b9b"
+        },
+        "code": "309908003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Metabolic intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b9c"
+        },
+        "code": "309909006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Neurological intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b9d"
+        },
+        "code": "309910001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Pediatric intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b9e"
+        },
+        "code": "309911002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Respiratory intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5b9f"
+        },
+        "code": "418433008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Surgical intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ba0"
+        },
+        "code": "426439001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Burns intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ba1"
+        },
+        "code": "441994008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Medical intensive care unit (environment)"
+      },
+      {
+        "_id": {
+          "$oid": "5cdad227d7c8ac0ab5cc5ba2"
+        },
+        "code": "448391000124102",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2018-09",
+        "display_name": "Trauma intensive care unit (environment)"
+      }
+    ],
+    "display_name": "Intensive Care Unit",
+    "oid": "2.16.840.1.113762.1.4.1110.23",
+    "user_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-3000797E-11B1-4F62-A078-341A4002A11C"
+  }
+]
