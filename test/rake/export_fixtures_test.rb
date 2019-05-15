@@ -44,7 +44,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_equal converted_patient[:bundleId], '5a57e977942c6d1e61d32f14'
     assert_equal converted_patient[:familyName], "2 ED"
     assert_equal converted_patient[:notes], ''
-    assert_equal converted_patient.measures.length, 1
+    assert_equal converted_patient.measure_ids.length, 1
     assert_not_nil converted_patient[:measure_ids]
     assert_not_nil converted_patient[:qdmPatient]
   end

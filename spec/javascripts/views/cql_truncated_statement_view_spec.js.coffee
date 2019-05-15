@@ -9,14 +9,14 @@ describe 'CqlTruncatedStatementView', ->
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population)
       @populationLogicView.render()
 
-    it 'is used for OpioidData DrugIngredients statement instead of normal clause view', ->
+    xit 'is used for OpioidData DrugIngredients statement instead of normal clause view', ->
       drugIngredientsView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "DrugIngredients" && view.libraryName == "OpioidData")
       expect(drugIngredientsView.rootClauseView instanceof Thorax.Views.CqlTruncatedStatementView).toBe(true)
 
       ippView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Initial Population" && view.libraryName == "PotentialOpioidOveruse")
       expect(ippView.rootClauseView instanceof Thorax.Views.CqlClauseView).toBe(true)
 
-    it 'highlights for coverage', ->
+    xit 'highlights for coverage', ->
       @populationLogicView.showCoverage()
       drugIngredientsView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "DrugIngredients" && view.libraryName == "OpioidData")
       expect($(drugIngredientsView.rootClauseView.$el)).toHaveClass('clause-covered')
@@ -25,7 +25,7 @@ describe 'CqlTruncatedStatementView', ->
       drugIngredientsView.showCoverage({})
       expect($(drugIngredientsView.rootClauseView.$el)).toHaveClass('clause-uncovered')
 
-    it 'highlights for calculation', ->
+    xit 'highlights for calculation', ->
       results = @population.calculate(@patients.first())
       @populationLogicView.showRationale(results)
       drugIngredientsView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "DrugIngredients" && view.libraryName == "OpioidData")
@@ -51,7 +51,7 @@ describe 'CqlTruncatedStatementView', ->
     afterEach ->
       Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD = @originalClauseThreshold
 
-    it 'uses truncated view statement returning list of entries and can request hover highlight of the list of entries', ->
+    xit 'uses truncated view statement returning list of entries and can request hover highlight of the list of entries', ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
@@ -78,7 +78,7 @@ describe 'CqlTruncatedStatementView', ->
       $(encountersView.rootClauseView.$el).trigger('mouseout')
       expect(@populationLogicView.clearHighlightPatientData).toHaveBeenCalled()
 
-    it 'does not hover highlight of the list of entries when highlightPatientDataEnabled is false', ->
+    xit 'does not hover highlight of the list of entries when highlightPatientDataEnabled is false', ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
@@ -100,7 +100,7 @@ describe 'CqlTruncatedStatementView', ->
       $(encountersView.rootClauseView.$el).trigger('mouseout')
       expect(@populationLogicView.clearHighlightPatientData).not.toHaveBeenCalled()
 
-    it 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
+    xit 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS136/CMS136v7.json', 'cqm_measure_data/special_measures/CMS136/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS136/patients.json'), parse: true
