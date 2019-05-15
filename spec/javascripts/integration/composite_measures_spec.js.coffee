@@ -11,7 +11,7 @@ describe 'Composite Measure Calculations', ->
     @pt1 = @patients.findWhere(last: 'doe', first: 'jon')
     @pt2 = @patients.findWhere(last: 'smith', first: 'jane')
 
-  it 'calculates correctly for the composite measure', ->
+  xit 'calculates correctly for the composite measure', ->
     loadMeasureWithValueSets('cqm_measure_data/special_measures/CMS890/CMS890v0.json', @valueSetsPath)
     population = measure.get('populations').at(0)
 
@@ -28,7 +28,7 @@ describe 'Composite Measure Calculations', ->
     expect(result.get('MSRPOPLEX')).toEqual 1
     expect(result.get('values').length).toEqual 0
 
-  it 'calculates correctly for a component measure', ->
+  xit 'calculates correctly for a component measure', ->
     #hqmf set id BA108B7B-90B4-4692-B1D0-5DB554D2A1A2
     measure = new Thorax.Models.Measure @components[6], parse: true
     measure.set('cqmValueSets', getJSONFixture(@valueSetsPath))

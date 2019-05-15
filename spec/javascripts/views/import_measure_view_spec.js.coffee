@@ -30,7 +30,7 @@ describe 'ImportMeasure view', ->
       beforeEach ->
         jasmine.getJSONFixtures().clearCache()
 
-      it 'remembers we are calculating SDEs', ->
+      xit 'remembers we are calculating SDEs', ->
         cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
         importView = new Thorax.Views.ImportMeasure(model: cqlMeasure)
         importView.appendTo 'body'

@@ -6,7 +6,7 @@ describe 'Result', ->
     collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
 
-  it 'allows for deferring use of results until populated', ->
+  xit 'allows for deferring use of results until populated', ->
     result1 = new Thorax.Models.Result({}, population: @measure.get('populations').first(), patient: @patient)
     expect(result1.calculation.state()).toEqual 'pending'
     result1.set(rationale: 'RATIONALE')
@@ -42,7 +42,7 @@ describe 'Result', ->
     processed_results = cqm.execution.CalculatorHelpers.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
 
-  it 'MSRPOPLEX should be 0 if MSRPOPL not satisfied', ->
+  xit 'MSRPOPLEX should be 0 if MSRPOPL not satisfied', ->
     initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 1}
     expected_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
     processed_results = cqm.execution.CalculatorHelpers.handlePopulationValues(initial_results)
@@ -99,7 +99,7 @@ describe 'Continuous Variable Calculations', ->
     @population = @measure.get('populations').at(0)
     @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
 
-  it 'can handle single episodes observed', ->
+  xit 'can handle single episodes observed', ->
     patient = @patients.findWhere(last: '1 ED', first: 'Visit')
     result = @population.calculate(patient)
     expect(result.get('values')).toEqual([15])
@@ -111,7 +111,7 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
     expect(result.get('episode_results')['5aeb7763b848463d625b33cf']).toEqual(expectedEpisodeResults)
 
-  it 'can handle multiple episodes observed', ->
+  xit 'can handle multiple episodes observed', ->
     patient = @patients.findWhere(last: '2 ED', first: 'Visits')
     result = @population.calculate(patient)
     # values are ordered when created by the calculator
@@ -127,7 +127,7 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
     expect(result.get('episode_results')['5aeb77ccb848463d625b5d4a']).toEqual(expectedEpisodeResults)
 
-  it 'can handle multiple episodes observed with one excluded', ->
+  xit 'can handle multiple episodes observed with one excluded', ->
     patient = @patients.findWhere(last: '2 ED', first: 'Visits 1 Excl')
     result = @population.calculate(patient)
     expect(result.get('values')).toEqual([25])
@@ -142,7 +142,7 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
     expect(result.get('episode_results')['5aeb77ccb848463d625b5d4f']).toEqual(expectedEpisodeResults)
 
-  it 'can handle multiple episodes observed with both excluded', ->
+  xit 'can handle multiple episodes observed with both excluded', ->
     patient = @patients.findWhere(last: '2 ED', first: 'Visits 2 Excl')
     result = @population.calculate(patient)
     expect(result.get('values')).toEqual([])
