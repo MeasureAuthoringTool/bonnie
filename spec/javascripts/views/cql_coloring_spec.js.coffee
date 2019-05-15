@@ -7,7 +7,7 @@ describe 'CQL Coverage', ->
     @patient1 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[0], parse: true
     @patient2 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[1], parse: true
 
-  it 'is correct with first patient', ->
+  xit 'is correct with first patient', ->
     @cqlMeasure.get('patients').add @patient1
     @population = @cqlMeasure.get('populations').first()
     @cqlMeasurePopulationLogic = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population)
@@ -42,7 +42,7 @@ describe 'CQL Coverage', ->
     expect(MedsNotDocumented.find(".clause-covered").length).toBe(0)
     expect(MedsNotDocumented.find(".clause-uncovered").length).toBe(11)
 
-  it 'is correct with both patients', ->
+  xit 'is correct with both patients', ->
     @cqlMeasure.get('patients').add @patient1
     @cqlMeasure.get('patients').add @patient2
     @population = @cqlMeasure.get('populations').first()
@@ -85,7 +85,7 @@ describe 'CQL Coloring', ->
     @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS10/CMS10v0.json', 'cqm_measure_data/special_measures/CMS10/value_sets.json'
     bonnie.measures.add @cqlMeasure
 
-  it 'is correct for first patient', ->
+  xit 'is correct for first patient', ->
     @patient1 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[0], parse: true
     @cqlMeasure.get('patients').add @patient1
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient1, measure: @cqlMeasure)
@@ -119,7 +119,7 @@ describe 'CQL Coloring', ->
     expect(MedsNotDocumented.find(".clause-true").length).toBe(0)
     expect(MedsNotDocumented.find(".clause-false").length).toBe(11)
 
-  it 'is correct for second patient', ->
+  xit 'is correct for second patient', ->
     @patient2 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[1], parse: true
     @cqlMeasure.get('patients').add @patient2
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient2, measure: @cqlMeasure)

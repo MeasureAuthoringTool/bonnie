@@ -24,11 +24,11 @@ describe 'Production_PatientBuilderView', ->
         # validate this patient is in the DENEX
         expect(@result.attributes.DENEX).toBe 1
 
-      it 'define Expired should be true', ->
+      xit 'define Expired should be true', ->
         expired_result = @result.get('statement_results').DepressionUtilizationofthePHQ9Tool['Expired'].final
         expect(expired_result).toBe 'TRUE'
 
-      it 'should have expired code', ->
+      xit 'should have expired code', ->
         expired_code = @result.get('statement_results').DepressionUtilizationofthePHQ9Tool['Expired'].raw[0].getCode()
         expect(expired_code).toEqual new cql.Code('419099009', 'SNOMED-CT')
 
@@ -49,7 +49,7 @@ describe 'Production_PatientBuilderView', ->
     afterEach ->
       bonnie.measures = @bonnie_measures_old
 
-    it "Can Add A Coded Result To DiagnosticStudyPerformed Data Criteria", ->
+    xit "Can Add A Coded Result To DiagnosticStudyPerformed Data Criteria", ->
       patient = @patients.first()
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @cqlMeasure)
       @patientBuilder.render()
@@ -64,7 +64,7 @@ describe 'Production_PatientBuilderView', ->
       expect(resultValue.get('code_list_id')).toEqual code_list_id
       @patientBuilder.remove()
 
-    it "Calculates Patient With Coded Result", ->
+    xit "Calculates Patient With Coded Result", ->
       patient = @patients.last()
       result = @cqlMeasure.get('populations').first().calculate(patient)
       expect(result.get('statement_results').Test31['Newborn Hearing Screening Right'].final).toEqual "TRUE"
@@ -90,13 +90,13 @@ describe 'Production_PatientBuilderView', ->
       afterEach ->
         @patientBuilder.remove()
 
-      it 'Medicare Fee for Service characteristic should be visible', ->
+      xit 'Medicare Fee for Service characteristic should be visible', ->
         @patientBuilder.render()
         @patientBuilder.appendTo 'body'
         expect(@patientBuilder.$('.ui-draggable')[2]).toContainText('MedicareFeeForService')
         expect(@patientBuilder.$('.ui-draggable')[2]).toBeVisible()
 
-      it 'should calculate correctly', ->
+      xit 'should calculate correctly', ->
         expect(@result.attributes.IPP).toBe 1
         expect(@result.attributes.NUMER).toBe 1
         expect(@result.attributes.DENOM).toBe 1
@@ -129,14 +129,14 @@ describe 'Production_PatientBuilderView', ->
       afterEach ->
         @patientBuilderView.remove()
 
-      it 'should have Dapsone in Elements', ->
+      xit 'should have Dapsone in Elements', ->
         expect($('.ui-draggable')[31]).toContainText('Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
 
-      it 'should have Dapsone in field value code dropdown', ->
+      xit 'should have Dapsone in field value code dropdown', ->
         codes = @editFieldValueView.context().codes
         expect(codes[3].display_name).toBe('Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
 
-      it 'should calculate using direct reference code', ->
+      xit 'should calculate using direct reference code', ->
         clauseResults = @result.attributes.clause_results.HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis
         expect(clauseResults[244].raw[0]._description).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         expect(clauseResults[244].final).toBe('TRUE')
@@ -148,13 +148,13 @@ describe 'Production_PatientBuilderView', ->
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS761/patients.json'), parse: true
       bonnie.measures.add @measure
 
-    it 'Not in numerator when no participation', ->
+    xit 'Not in numerator when no participation', ->
       patient = @patients.findWhere(first: 'No', last: 'Participation')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 0
 
-    it 'In numerator when with participation', ->
+    xit 'In numerator when with participation', ->
       patient = @patients.findWhere(first: 'With', last: 'Participation')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
@@ -167,19 +167,19 @@ describe 'Production_PatientBuilderView', ->
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv54321/patients.json'), parse: true
       bonnie.measures.add @measure
 
-    it 'Assessment Order calculates correctly', ->
+    xit 'Assessment Order calculates correctly', ->
       patient = @patients.findWhere(first: 'Pass', last: 'AssessmentOrder')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
-    it 'Communication calculates correctly', ->
+    xit 'Communication calculates correctly', ->
       patient = @patients.findWhere(first: 'Pass', last: 'Communication')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
-    it 'Medication Order: Setting calculates correctly', ->
+    xit 'Medication Order: Setting calculates correctly', ->
       patient = @patients.findWhere(first: 'Pass', last: 'MedSetting')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)

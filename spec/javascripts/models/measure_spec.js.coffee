@@ -14,7 +14,7 @@ describe 'Measure', ->
   it 'has set itself as parent on source_data_criteria', ->
     expect(@measure.get('cqmMeasure').get('parent') == @measure)
 
-  it 'can calulate results for a patient', ->
+  xit 'can calulate results for a patient', ->
     collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     patient = collection.findWhere(first: 'Pass', last: 'NUM2')
     results = @measure.get('populations').at(1).calculate(patient)

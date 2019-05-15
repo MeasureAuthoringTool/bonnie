@@ -228,6 +228,6 @@
     afterEach ->
       @measureView.remove()
 
-    it 'display SDE section', ->
+    xit 'display SDE section', ->
       expect(@measureView.$('.sde-defines')).toExist()
 
