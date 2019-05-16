@@ -16,7 +16,7 @@ class Thorax.Models.Patient extends Thorax.Model
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
     thoraxPatient._id = attrs._id
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
-    thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(thoraxPatient.cqmPatient.qdmPatient.dataElements, parse: true)
+    thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(thoraxPatient.cqmPatient.qdmPatient.dataElements, parent: this, parse: true)
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
     thoraxPatient
 
@@ -156,7 +156,7 @@ class Thorax.Models.Patient extends Thorax.Model
     moment(dateTime).format('h:mm A') if dateTime
 
   materialize: ->
-
+    @trigger 'materialize'
     # # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
     # # "changed" functionality because that doesn't capture new sub-models
     # patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)

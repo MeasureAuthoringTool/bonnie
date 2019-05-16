@@ -33,8 +33,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       collection: @model.getExpectedValues(@measure)
       measure: @measure
     @populationLogicView = new Thorax.Views.BuilderPopulationLogic
-    #@populationLogicView.setPopulation @measure.get('displayedPopulation')
-    #@populationLogicView.showRationale @model
+    @populationLogicView.setPopulation @measure.get('displayedPopulation')
+    @populationLogicView.showRationale @model
     @expectedValuesView.on 'population:select', (population_index) =>
       @populationLogicView.setPopulation @measure.get('populations').at(population_index)
       @populationLogicView.showRationale @model

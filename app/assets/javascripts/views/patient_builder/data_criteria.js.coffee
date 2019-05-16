@@ -57,31 +57,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    if @model.canHaveResult()
-      @editValueView = new Thorax.Views.EditCriteriaValueView
-        model: new Thorax.Model
-        measure: @model.measure()
-        fieldValue: false
-        values: @model.get('value')
-        criteriaType: @model.get('type')
-        # TODO: (LDY 10/6/2016) should this be rewritten so criteriaType works with what @model.getCriteriaType returns?
-        # this would move us towards having more directed field drop downs for each criteria type
-        fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
-    @editFieldValueView = new Thorax.Views.EditCriteriaValueView
-      model: new Thorax.Model
-      measure: @model.measure()
-      fieldValue: true
-      values: @model.get('field_values')
-      criteriaType: @model.get('type')
-      fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
-    @editReferenceView = new Thorax.Views.EditCriteriaReferenceView
-      model: new Thorax.Model
-      measure: @model.measure()
-      fieldValue: false
-      reference: true
-      values: @model.get('references')
-      criteriaType: @model.get('type')
-      vals: JSON.stringify(@model.get('references'))
+    # TODO: Make proper use of the CodeSelectionView and update it for use with CQM models
     codes = @model.get('codes')
     concepts = @model.valueSet()?.concepts
     codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
@@ -91,20 +67,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
-
-  valueWithDateContext: (model) ->
-    _(model.toJSON()).extend
-      start_date: moment.utc(model.get('value')).format('L') if model.get('type') == 'TS'
-      start_time: moment.utc(model.get('value')).format('LT') if model.get('type') == 'TS'
-      if model.get('type') == 'COL'
-        for item in model.attributes.values
-          # Add OR logic for any collections that need to display dates here
-          if item.type == 'FAC'
-            start_date: moment.utc(item.value).format('L')    
-            start_time: moment.utc(item.value).format('LT')   
-            end_date: moment.utc(item.end_value).format('L') 
-            end_time: moment.utc(item.end_value).format('LT')
-
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
@@ -126,39 +88,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       faIcon: @model.faIcon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
-      startLabel: @startLabel(@model.get('negation'))
-      stopLabel: @stopLabel()
-      periodLabel: @periodLabel()
       isPeriod: @model.isPeriodType() && !@model.get('negation') # if something is negated, it didn't happen so is not a period
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
     serialize: (attr) ->
-      if startDate = attr.start_date
-        startDate += " #{attr.start_time}" if attr.start_time
-        attr.start_date = moment.utc(startDate, 'L LT').format('X') * 1000
-      delete attr.start_time
-      # If the user indicates that there is no end date, or if this is a criteria with a single "Authored"
-      # time (ie negated, or not a period type) then the end date should always be undefined
-      if attr.end_date_is_undefined || @model.get('negation') || !@model.isPeriodType()
-        attr.end_date = undefined
-      else if endDate = attr.end_date
-        endDate += " #{attr.end_time}" if attr.end_time
-        attr.end_date = moment.utc(endDate, 'L LT').format('X') * 1000
-      attr.negation = !!attr.negation && !_.isEmpty(attr.negation_code_list_id)
-      delete attr.end_date_is_undefined
-      delete attr.end_time
     rendered: ->
       @$('.criteria-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
-      @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
-      @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
       @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
-    'change .negation-select':                    'toggleNegationSelect'
-    'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
-    'blur :text':                                 'triggerMaterialize'
-    'blur :input[type=number]':                   'triggerMaterialize'
-    'change select':                              'triggerMaterialize'
-    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
+   # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
   isDuringMeasurePeriod: ->
@@ -176,7 +114,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
-    droppedCriteria = $(ui.draggable).model()
+    droppedCriteria = $(ui.draggable).model().clone()
     targetCriteria = $(e.target).model()
     @copyTimingAttributes(droppedCriteria, targetCriteria)
     @trigger 'bonnie:dropCriteria', droppedCriteria
@@ -200,92 +138,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').next().toggleClass('hide')
 
-  toggleEndDateDefinition: (e) ->
-    $cb = $(e.target)
-    $endDateTime = @$('input[name=end_date], input[name=end_time]')
-    $endDateTime.val('') if $cb.is(':checked')
-    unless $cb.is(':checked') # set to 15 minutes after start
-      endDate = moment.utc(@model.get('start_date') + (15 * 60 * 1000)) if @model.has('start_date')
-      @$('input[name=end_date]').datepicker('orientation': 'bottom left').datepicker('setDate', endDate.format('L')) if endDate
-      @$('input[name=end_date]').datepicker('update')
-      @$('input[name=end_time]').timepicker('setTime', endDate.format('LT')) if endDate
-    $endDateTime.prop 'disabled', $cb.is(':checked')
-    @triggerMaterialize()
-
-  toggleNegationSelect: (e) ->
-    @$('.negation-code-list').prop('selectedIndex',0).toggleClass('hide')
-
-    # the following code changes the timing display if a period data type
-    # is negated. If it is negated, author date time should be used. If it's
-    # not, then the start/stop date time should be used.
-    if @model.isPeriodType()
-      @$('#periodLabel, #stopControl').toggleClass('hide', $(e.target).is(':checked'))
-      @$('#startLabel').text(@startLabel($(e.target).is(':checked')))
-
-      # make it so end date is always undefined if negation is toggled
-      $end_date_is_undefined = @$('[name="end_date_is_undefined"]')
-      $end_date_is_undefined.prop('checked', true)
-      @toggleEndDateDefinition({target: $end_date_is_undefined})
-
-    @triggerMaterialize()
-
   removeCriteria: (e) ->
     e.preventDefault()
     @model.destroy()
-
-  removeValue: (e) ->
-    e.preventDefault()
-    # If the value being removed is part of a collection type, the data will include the index of said value within the collection
-    # col-item-index is the index of the item that we want to remove within the collection
-    if $(e.target).data('col-item-index')?
-      # Clone the model and remove from the clone and then add the cloned model to the collection so that the UI change event is triggered
-      clone = $(e.target).model().clone()
-      clone.get('values').splice($(e.target).data('col-item-index'), 1)
-      # Add the collection if the collection still contains values
-      if clone.get('values').length > 0
-        $(e.target).model().collection.add clone
-      
-    $(e.target).model().destroy()
-    @triggerMaterialize()
-    @editValueView?.render() # Re-render edit view, if used
-
-  highlightError: (e, field) ->
-    @toggleDetails(e) unless @isExpanded()
-    @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
-
-  jumpToSelectCriteria: (e) ->
-    e.preventDefault()
-    type = @$(e.target).model().get('type')
-    $(".#{type}-elements").focus()
-
-
-  startLabel: (negated) ->
-    # if the data criteria is a period type and has not been negated, then the
-    # period time labels should be used. Otherwise, "authored" should be used.
-    if @model.isPeriodType() && !negated
-      if @model.isIssue()
-        'Onset'
-      else
-        'Start'
-    else
-      # authored used for instances or negations
-      'Authored'
-
-  stopLabel: ->
-    if @model.isPeriodType()
-      if @model.isIssue()
-        'Abatement'
-      else
-        'Stop'
-
-  periodLabel: ->
-    if @model.isPeriodType()
-      if @model.isIssue()
-        'Prevalence Period'
-      else if @model.get('type') == 'participations'
-        'Participation Period'
-      else
-        'Relevant Period'
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']

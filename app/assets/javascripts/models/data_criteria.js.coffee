@@ -8,31 +8,44 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if !@isPeriodType() then @set('end_date', undefined)
 
-  parse: (attrs) ->
-    fieldValueBlacklist = ['_id', 'relevantPeriod', 'dataElementCodes', 'description', 'hqmfOid', 'id', 'prevalencePeriod', 'qdmCategory', 'qdmVersion', 'qrdaOid', '_type', 'criteria_id', 'value', 'qdmStatus', 'negationRationale']
-    fieldValuesOnDataElement = _.difference(Object.keys(attrs), fieldValueBlacklist)
-    attrs.criteria_id ||= Thorax.Models.SourceDataCriteria.generateCriteriaId()
-    attrs.value = new Thorax.Collection(attrs.value)
-    # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
-    fieldValues = new Thorax.Collection()
-    references = new Thorax.Collection()
-    for fieldValueKey in fieldValuesOnDataElement
-      # TODO: Add human readable version of title, need map somewhere
-      fieldValue = attrs[fieldValueKey]
-      if fieldValue?
-        if typeof fieldValue != 'object'
-          fieldValue = {fieldValueKey: fieldValue}
-        fieldValue = _(fieldValue).extend(field_title: fieldValueKey)
-        fieldValues.add fieldValue
+  clone: ->
+    # Clone the QDM::DataElement
+    dataElementType = @get('qdmDataElement')._type.replace(/QDM::/, '')
+    clonedDataElement = new cqm.models[dataElementType](mongoose.utils.clone(@get('qdmDataElement')))
+    
+    # build the initial attributes object similar to how it is done in the collection parse.
+    dataElementAsObject = clonedDataElement.toObject()
+    dataElementAsObject.description = @get('description')
+    dataElementAsObject.qdmDataElement = clonedDataElement
 
-    if attrs.references?
-      references.add value for value in attrs.references
+    # make and return the new SDC
+    return new Thorax.Models.SourceDataCriteria(dataElementAsObject)
 
-    attrs.field_values = fieldValues
-    attrs.references = references
-    if attrs.dataElementCodes
-      attrs.codes = new Thorax.Collections.Codes attrs.dataElementCodes, parse: true
-    attrs
+  # parse: (attrs) ->
+  #   fieldValueBlacklist = ['_id', 'relevantPeriod', 'dataElementCodes', 'description', 'hqmfOid', 'id', 'prevalencePeriod', 'qdmCategory', 'qdmVersion', 'qrdaOid', '_type', 'criteria_id', 'value', 'qdmStatus', 'negationRationale']
+  #   fieldValuesOnDataElement = _.difference(Object.keys(attrs), fieldValueBlacklist)
+  #   attrs.criteria_id ||= Thorax.Models.SourceDataCriteria.generateCriteriaId()
+  #   attrs.value = new Thorax.Collection(attrs.value)
+  #   # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
+  #   fieldValues = new Thorax.Collection()
+  #   references = new Thorax.Collection()
+  #   for fieldValueKey in fieldValuesOnDataElement
+  #     # TODO: Add human readable version of title, need map somewhere
+  #     fieldValue = attrs[fieldValueKey]
+  #     if fieldValue?
+  #       if typeof fieldValue != 'object'
+  #         fieldValue = {fieldValueKey: fieldValue}
+  #       fieldValue = _(fieldValue).extend(field_title: fieldValueKey)
+  #       fieldValues.add fieldValue
+
+  #   if attrs.references?
+  #     references.add value for value in attrs.references
+
+  #   attrs.field_values = fieldValues
+  #   attrs.references = references
+  #   if attrs.dataElementCodes
+  #     attrs.codes = new Thorax.Collections.Codes attrs.dataElementCodes, parse: true
+  #   attrs
 
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
 
@@ -76,11 +89,8 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       transfer:                 'fa-random'
     icons[@get('qdmCategory')] || 'fa-question'
 
-  canHaveResult: ->
-    ['result', 'resultDatetime'] in Object.keys(@attributes)
-
   canHaveNegation: ->
-    'negationRationale' in Object.keys(@attributes)
+     @get('qdmDataElement').schema.path('negationRationale')?
 
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
@@ -133,9 +143,25 @@ Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
 
 class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   model: Thorax.Models.SourceDataCriteria
-  initialize: (models, options) -> @parent = options?.parent
+  initialize: (models, options) ->
+    @parent = options?.parent
+    # set up add remove events to handle syncing of data elements if the parent is a patient
+    if @parent instanceof Thorax.Models.Patient
+      @on 'add', @addSourceDataCriteriaToPatient, this
+      @on 'remove', @removeSourceDataCriteriaFromPatient, this
+
   # FIXME sortable: commenting out due to odd bug in droppable
   # comparator: (m) -> [m.get('start_date'), m.get('end_date')]
+
+  # event listener for add SDC event. if this collection belongs to a patient the
+  # QDM::DataElement will be added to the DataElements array.
+  addSourceDataCriteriaToPatient: (criteria) ->
+    @parent?.get('cqmPatient').qdmPatient.dataElements.push(criteria.get('qdmDataElement'));
+
+  # event listener for remove SDC event. if this collection belongs to a patient the
+  # QDM::DataElement will be removed from the DataElements array.
+  removeSourceDataCriteriaFromPatient: (criteria) ->
+    @parent?.get('cqmPatient').qdmPatient.dataElements.remove(criteria.get('qdmDataElement'));
 
   # Expect a array of QDM::DataElements to be passed in. We want to turn it into an array
   # of plain objects that will become the attributes for each SourceDataCriteria.
