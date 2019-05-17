@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
     map = "function() { emit(this.user_id, 1); }"
     reduce = "function(user_id, counts) { return Array.sum(counts); }"
     measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
-    patient_counts = Record.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    patient_counts = CQM::Patient.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     users.each do |u|
       u.measure_count = measure_counts[u.id] || 0
       u.patient_count = patient_counts[u.id] || 0
@@ -77,7 +77,7 @@ class Admin::UsersController < ApplicationController
 
   def patients
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(JSON.parse(user.records.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
+    send_data JSON.pretty_generate(user.patients.map(&:as_document)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
   end
 
   def measures
