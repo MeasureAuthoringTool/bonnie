@@ -3,7 +3,7 @@ describe 'CqlTruncatedStatementView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population)
@@ -54,7 +54,7 @@ describe 'CqlTruncatedStatementView', ->
     xit 'uses truncated view statement returning list of entries and can request hover highlight of the list of entries', ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: true)
@@ -81,7 +81,7 @@ describe 'CqlTruncatedStatementView', ->
     xit 'does not hover highlight of the list of entries when highlightPatientDataEnabled is false', ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS460/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: false)
@@ -103,7 +103,7 @@ describe 'CqlTruncatedStatementView', ->
     xit 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS136/CMS136v7.json', 'cqm_measure_data/special_measures/CMS136/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS136/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS136/patients.json'), parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: true)

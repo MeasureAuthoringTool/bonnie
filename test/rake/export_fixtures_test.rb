@@ -59,17 +59,17 @@ class ExportFixturesTest < ActiveSupport::TestCase
 
   test "export single patient from account" do
     begin
-      FileUtils.mv 'test/fixtures/patients', 'test/fixtures/patients.back'
+      FileUtils.mv 'test/fixtures/cqm_patients', 'test/fixtures/cqm_patients.back'
       FileUtils.mv 'spec/javascripts/fixtures/json/patients', 'spec/javascripts/fixtures/json/patients.back'
 
       assert_output(
         /CMS32/
       ) { Rake::Task['bonnie:fixtures:generate_cqm_patient_fixtures_from_cql_patients'].invoke('bonnie@example.com') }
-      assert_equal 11, `ls -l test/fixtures/patients/CMS* | wc -l`.to_i
+      assert_equal 11, `ls -l test/fixtures/cqm_patients/CMS* | wc -l`.to_i
       assert_equal 11, `ls -l spec/javascripts/fixtures/json/patients/CMS* | wc -l`.to_i
     ensure
-      FileUtils.rm_r 'test/fixtures/patients'
-      FileUtils.mv 'test/fixtures/patients.back', 'test/fixtures/patients'
+      FileUtils.rm_r 'test/fixtures/cqm_patients'
+      FileUtils.mv 'test/fixtures/cqm_patients.back', 'test/fixtures/cqm_patients'
       FileUtils.rm_r 'spec/javascripts/fixtures/json/patients'
       FileUtils.mv 'spec/javascripts/fixtures/json/patients.back', 'spec/javascripts/fixtures/json/patients'
     end
