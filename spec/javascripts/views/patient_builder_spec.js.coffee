@@ -3,7 +3,7 @@ describe 'PatientBuilderView', ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS134/CMS134v6.json', 'cqm_measure_data/core_measures/CMS134/value_sets.json'
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS134/patients.json'), parse: true
+    @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS134v6/Elements_Test.json'), getJSONFixture('patients/CMS134v6/Fail_Hospice_Not_Performed_Denex.json')], parse: true
     @patient = @patients.models[1]
     @bonnie_measures_old = bonnie.measures
     bonnie.measures = new Thorax.Collections.Measures()
@@ -32,7 +32,7 @@ describe 'PatientBuilderView', ->
     bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
     expect(bonnie.mainView.setView).toHaveBeenCalled()
 
-  xit 'renders the builder correctly', ->
+  it 'renders the builder correctly', ->
     expect(@$el.find(":input[name='first']")).toHaveValue @patient.getFirstName()
     expect(@$el.find(":input[name='last']")).toHaveValue @patient.getLastName()
     expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
@@ -142,16 +142,22 @@ describe 'PatientBuilderView', ->
         else
           target.view().drop({ target: target }, { draggable: criteria })
 
-    xit "adds data criteria to model when dragged", ->
+    it "adds data criteria to model when dragged", ->
       initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
+      initialDataElementCount = @patientBuilder.model.get('cqmPatient').qdmPatient.dataElements.length
+      debugger
       @addEncounter 1, '.criteria-container.droppable'
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 1
+      expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements.length).toEqual initialDataElementCount + 1
 
-    xit "can add multiples of the same criterion", ->
+    it "can add multiples of the same criterion", ->
       initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
+      initialDataElementCount = @patientBuilder.model.get('cqmPatient').qdmPatient.dataElements.length
       @addEncounter 1, '.criteria-container.droppable'
       @addEncounter 1, '.criteria-container.droppable' # add the same one again
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
+      expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements.length).toEqual initialDataElementCount + 2
+
 
     xit "acquires the dates of the drop target when dropping on an existing criteria", ->
       startDate = @patientBuilder.model.get('source_data_criteria').first().get('prevalencePeriod').low
@@ -161,7 +167,7 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('source_data_criteria').last().get('relevantPeriod').low).toEqual startDate
       expect(@patientBuilder.model.get('source_data_criteria').last().get('relevantPeriod').high).toEqual endDate
 
-    xit "materializes the patient", ->
+    it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
       @addEncounter 1, '.criteria-container.droppable'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()

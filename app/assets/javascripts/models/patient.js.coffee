@@ -23,7 +23,9 @@ class Thorax.Models.Patient extends Thorax.Model
   # Create a deep clone of the patient, optionally omitting the id field
   deepClone: (options = {}) ->
     clonedPatient = @.clone()
+    # clone the cqmPatient and make a new source_data_criteria collection for it
     clonedPatient.set 'cqmPatient', new cqm.models.Patient(mongoose.utils.clone(clonedPatient.get('cqmPatient')))
+    clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').qdmPatient.dataElements, parent: clonedPatient, parse: true)
     if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
     if options.dedupName
        clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
