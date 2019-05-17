@@ -5,7 +5,7 @@ describe 'Navigation', ->
     @measures = new Thorax.Collections.Measures()
     measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
     @measures.add(measure)
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+    @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/core_measures/CMS160/patients.json'), parse: true
 
   describe 'navigating the measures list view', ->
 
