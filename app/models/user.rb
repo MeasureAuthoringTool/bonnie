@@ -69,7 +69,7 @@ class User
   field :crosswalk_enabled,  type:Boolean, default: false
   
   has_many :cqm_measures, class_name: 'CQM::Measure'
-  has_many :records
+  has_many :patients, class_name: 'CQM::Patient'
 
   scope :by_email, ->(email) { where({email: email}) }
 

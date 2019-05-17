@@ -260,21 +260,18 @@ namespace :bonnie do
       raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
 
       # Grab the patients
-      patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
-        .or(Record.where(user_id: user._id, :measure_ids => measure.hqmf_id))
-        .or(Record.where(user_id: user._id, measure_id: measure.hqmf_id))
+      patients = CQM::Patient.where(user_id: user._id, measure_ids: measure.hqmf_set_id)
 
       # Write patient objects to file in JSON format
-      puts "Exporting patients..."
-      raise "FILENAME not specified" unless output_file = ENV['FILENAME']
-      File.open(File.join(Rails.root, output_file), "w") do |f|
+      puts 'Exporting patients...'
+      raise 'FILENAME not specified' unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), 'w') do |f|
         patients.each do |patient|
-          f.write(patient.to_json)
-          f.write("\r\n")
+          f.puts(patient.as_document.to_json)
         end
       end
 
-      puts "Done!"
+      puts 'Done!'
     end
 
     desc %{Import Bonnie patients from a JSON file.
@@ -298,7 +295,7 @@ namespace :bonnie do
       raise "FILENAME not specified" unless input_file = ENV['FILENAME']
       File.foreach(File.join(Rails.root, input_file)) do |p|
         next if p.blank?
-        patient = Record.new.from_json p.strip
+        patient = CQM::Patient.new.from_json p.strip
 
         patient['user_id'] = user._id
 
@@ -322,14 +319,13 @@ namespace :bonnie do
 
         all_codes = HQMF::PopulationCriteria::ALL_POPULATION_CODES
         all_codes.each do |code|
-          if !patient.expected_values[0][code].nil? && measure.population_sets[0].populations[code].nil?
-            patient.expected_values.each do |expected_value|
+          if !patient.expectedValues[0][code].nil? && measure.population_sets[0].populations[code].nil?
+            patient.expectedValues.each do |expected_value|
               expected_value.delete(code)
             end
           end
         end
 
-        patient = update_facilities_and_diagnoses_on_patient(patient)
         patient.dup.save!
       end
 
@@ -539,56 +535,6 @@ namespace :bonnie do
       end
     end
 
-    desc %{Date shift patient records for a given user.
-      Use EMAIL to denote the user to scope the date_shift for all associated patients' source data criteria; first user by default.
-      Use DIR to denote direction [forward, backward]; direction is forward by default.
-      Use SECONDS, MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS to denote time offset [###]; offsets are 0 by default.
-
-      e.g., rake bonnie:patients:date_shift DIR=backward YEARS=2 MONTHS=2 will shift the first user's patients' source data criteria start/stop dates and birth/death dates backwards by 2 years and 2 months.
-    }
-    task :date_shift => :environment do
-      user_email = ENV['EMAIL'] || User.first.email
-      user = User.where(email: user_email).first
-      direction = ENV['DIR'] || 'forward'
-      direction = 'forward' if !direction.downcase == 'backward'
-      seconds, minutes, hours, days, weeks, months, years = ENV['SECONDS'] || 0, ENV['MINUTES'] || 0, ENV['HOURS'] || 0, ENV['DAYS'] || 0, ENV['WEEKS'] || 0, ENV['MONTHS'] || 0, ENV['YEARS'] || 0
-      puts "Shifting dates #{direction} [ #{years}ys, #{months}mos, #{weeks}wks, #{days}d, #{hours}hrs, #{minutes}mins, #{seconds}s ] for source_data_criteria start/stop dates and birth/death dates on all associated patient records for #{user.email}"
-      direction.casecmp('backward').zero? ? dir = -1 : dir = 1
-      seconds, minutes, hours, days, weeks, months, years = dir * seconds.to_i, dir * minutes.to_i, dir * hours.to_i, dir * days.to_i, dir * weeks.to_i, dir * months.to_i, dir * years.to_i
-      timestamps = ['FACILITY_LOCATION_ARRIVAL_DATETIME','FACILITY_LOCATION_DEPARTURE_DATETIME','DISCHARGE_DATETIME','ADMISSION_DATETIME','START_DATETIME','STOP_DATETIME','INCISION_DATETIME','REMOVAL_DATETIME', 'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME']
-      Record.by_user(user).each do |patient|
-        patient.birthdate = ( Time.at( patient.birthdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
-        if patient.expired
-          patient.deathdate = ( Time.at( patient.deathdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
-        end
-        patient.source_data_criteria.each do |sdc|
-          unless sdc["start_date"].blank?
-            sdc["start_date"] = ( Time.at( sdc["start_date"] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
-          end
-          unless sdc["end_date"].blank?
-            sdc["end_date"] = ( Time.at( sdc["end_date"] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
-          end
-          unless sdc['field_values'].blank?
-            sdc_timestamps = timestamps & sdc['field_values'].keys
-            sdc_timestamps.each do |sdc_timestamp|
-              sdc['field_values'][sdc_timestamp]['value'] = ( Time.at( sdc['field_values'][sdc_timestamp]['value'] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
-            end
-          end
-          unless sdc["fulfillments"].blank?
-            sdc["fulfillments"].each do |fulfillment|
-              dispense_datetime = fulfillment["dispense_datetime"].to_i
-              changed_time = Time.at( dispense_datetime ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds )
-              fulfillment["dispense_time"] = changed_time.strftime('%I:%M:%p')
-              fulfillment["dispense_date"] = changed_time.strftime('%m/%d/%Y')
-              fulfillment["dispense_datetime"] = changed_time.to_i.to_s
-            end
-          end
-        end
-        Measures::PatientBuilder.rebuild_patient(patient)
-        patient.save!
-      end
-    end
-
     desc 'Re-save all patient records'
     task :resave_patient_records => :environment do
       STDOUT.sync = true
@@ -668,29 +614,29 @@ namespace :bonnie do
   # If you are moving patients to different measures in the same account, just
   # pass in the same user information for both src_user and dest_user.
   def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
-    records = []
-    src_user.records.where(measure_ids: src_measure.hqmf_set_id).each do |r|
+    patients = []
+    src_user.patients.where(measure_ids: src_measure.hqmf_set_id).each do |patient|
       if copy
-        records.push(r.dup)
+        patients.push(patient.dup)
       else
-        records.push(r)
+        patients.push(patient)
       end
     end
 
-    records.each do |r|
-      r.user = dest_user
-      r.measure_ids.map! { |x| x == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
-      r.expected_values.each do |expected_value|
+    patients.each do |patient|
+      patient.user = dest_user
+      patient.measure_ids.map! { |hqmf_set_id| hqmf_set_id == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : hqmf_set_id }
+      patient.expectedValues.each do |expected_value|
         if expected_value['measure_id'] == src_measure.hqmf_set_id
           expected_value['measure_id'] = dest_measure.hqmf_set_id
         end
       end
-      r.source_data_criteria.each do |sdc|
+      patient.qdmPatient.extendedData['source_data_criteria'].each do |sdc|
         if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != dest_measure.hqmf_set_id
           sdc['hqmf_set_id'] = dest_measure.hqmf_set_id
         end
       end
-      r.save
+      patient.save
     end
   end
 end

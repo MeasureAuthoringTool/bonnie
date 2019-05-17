@@ -4,7 +4,7 @@
       bonnie.measures = new Thorax.Collections.Measures()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
       @population = @cqlMeasure.get('populations').at(0)
-      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
+      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/core_measures/CMS32/patients.json'), parse: true
       @cqlMeasure.set('patients',@cqlPatients)
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
       bonnie.measures.add @cqlMeasure

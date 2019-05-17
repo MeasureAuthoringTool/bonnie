@@ -15,7 +15,7 @@ describe 'Measure', ->
     expect(@measure.get('cqmMeasure').get('parent') == @measure)
 
   xit 'can calulate results for a patient', ->
-    collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+    collection = new Thorax.Collections.Patients getJSONFixture('cqm_patients/core_measures/CMS160/patients.json'), parse: true
     patient = collection.findWhere(first: 'Pass', last: 'NUM2')
     results = @measure.get('populations').at(1).calculate(patient)
     expect(results.get('DENEX')).toEqual 0
