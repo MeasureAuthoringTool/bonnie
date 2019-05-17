@@ -143,29 +143,38 @@ describe 'PatientBuilderView', ->
           target.view().drop({ target: target }, { draggable: criteria })
 
     it "adds data criteria to model when dragged", ->
+      initialOriginalDataElementCount = @patientBuilder.originalModel.get('cqmPatient').qdmPatient.dataElements.length
+      # force materialize to get any patient characteristics that should exist added
+      @patientBuilder.materialize();
       initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
       initialDataElementCount = @patientBuilder.model.get('cqmPatient').qdmPatient.dataElements.length
-      debugger
       @addEncounter 1, '.criteria-container.droppable'
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 1
       expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements.length).toEqual initialDataElementCount + 1
+      # make sure the dataElements on the original model were not touched
+      expect(@patientBuilder.originalModel.get('cqmPatient').qdmPatient.dataElements.length).toEqual initialOriginalDataElementCount
 
     it "can add multiples of the same criterion", ->
+      initialOriginalDataElementCount = @patientBuilder.originalModel.get('cqmPatient').qdmPatient.dataElements.length
+      # force materialize to get any patient characteristics that should exist added
+      @patientBuilder.materialize();
       initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
       initialDataElementCount = @patientBuilder.model.get('cqmPatient').qdmPatient.dataElements.length
       @addEncounter 1, '.criteria-container.droppable'
       @addEncounter 1, '.criteria-container.droppable' # add the same one again
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
       expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements.length).toEqual initialDataElementCount + 2
+      # make sure the dataElements on the original model were not touched
+      expect(@patientBuilder.originalModel.get('cqmPatient').qdmPatient.dataElements.length).toEqual initialOriginalDataElementCount
 
 
-    xit "acquires the dates of the drop target when dropping on an existing criteria", ->
-      startDate = @patientBuilder.model.get('source_data_criteria').first().get('prevalencePeriod').low
-      endDate = @patientBuilder.model.get('source_data_criteria').first().get('prevalencePeriod').high
+    it "acquires the dates of the drop target when dropping on an existing criteria", ->
+      startDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low
+      endDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.high
       # droppable 5 used because droppable 1 didn't have a start and end date
-      @addEncounter 5, '.criteria-data.droppable:first'
-      expect(@patientBuilder.model.get('source_data_criteria').last().get('relevantPeriod').low).toEqual startDate
-      expect(@patientBuilder.model.get('source_data_criteria').last().get('relevantPeriod').high).toEqual endDate
+      @addEncounter 17, '.criteria-data.droppable:first'
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod.low).toEqual startDate
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod.high).toEqual endDate
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()

@@ -106,11 +106,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->
     droppedCriteriaTiming = droppedCriteria.getPrimaryTimingAttribute()
     targetCriteriaTiming = targetCriteria.getPrimaryTimingAttribute()
-    if(droppedCriteria? && targetCriteriaTiming?)
-      droppedCriteria.set "#{droppedCriteriaTiming}": targetCriteria.get(targetCriteriaTiming)
+    if(droppedCriteriaTiming? && targetCriteriaTiming?)
+      droppedCriteria.get('qdmDataElement')[droppedCriteriaTiming] = targetCriteria.get('qdmDataElement')[targetCriteriaTiming].copy()
     # Copy authorDatetime if droppedCriteria and target both have the authorDatetime property
-    if droppedCriteria.hasOwnProperty('authorDatetime') && targetCriteria.hasOwnProperty('authorDatetime')
-      droppedCriteria.set authorDatetime: targetCriteria.get('authorDatetime')
+    if droppedCriteria.get('qdmDataElement').schema.path('authorDateTime') && targetCriteria.get('qdmDataElement').authorDatetime?
+      droppedCriteria.get('qdmDataElement').authorDatetime = targetCriteria.get('qdmDataElement').authorDateTime.copy()
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
