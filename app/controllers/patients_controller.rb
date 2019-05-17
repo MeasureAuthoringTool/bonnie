@@ -2,28 +2,35 @@ class PatientsController < ApplicationController
   before_filter :authenticate_user!
 
   def update
-    patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
-    update_patient(patient)
-    patient.save!
-    render :json => patient
+    old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
+    begin
+      updated_patient = CQM::Patient.new(params["cqmPatient"])
+    rescue Mongoid::Errors::UnknownAttribute
+      render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
+      return
+    end
+    updated_patient._id = old_patient._id
+    updated_patient.user_id = old_patient.user_id
+    updated_patient.upsert
+    render :json => updated_patient
   end
 
   def create
-    patient = update_patient(Record.new)
+    begin
+      patient = CQM::Patient.new(params["cqmPatient"])
+    rescue Mongoid::Errors::UnknownAttribute
+      render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
+      return
+    end
     populate_measure_ids_if_composite_measures(patient)
     patient.save!
     render :json => patient
   end
 
-  def materialize
-    patient = update_patient(Record.new) # Always materialize a patient from scratch
-    render :json => patient
-  end
-
   def destroy
-    patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
-    Record.by_user(current_user).find(params[:id]).destroy
-    render :json => patient
+    patient = CQM::Patient.by_user(current_user).find(params[:id])
+    CQM::Patient.by_user(current_user).find(params[:id]).destroy
+    render :json => patient.as_document
   end
 
   def qrda_export
@@ -87,39 +94,6 @@ class PatientsController < ApplicationController
   end
 
 private
-
-  def update_patient(patient)
-
-    # FIXME: This code handles current confused state of client side patient/measure association; everything should use measure_ids only
-    patient['measure_ids'] ||= params['measure_ids'] || []
-    patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id'] || params['measure_id'].nil?
-
-    ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category', 'deathdate', 'notes', 'is_shared'].each {|param| patient[param] = params[param]}
-
-    patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>Record::ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
-    patient['race'] = {'code' => params['race'], 'name'=>Record::RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
-
-    measure_period = {'id' => 'MeasurePeriod', 'start_date' => params['measure_period_start'].to_i, 'end_date' => params['measure_period_end'].to_i}
-
-    # work around Rails regression with empty nested attributes in parameters: https://github.com/rails/rails/issues/8832
-    params['source_data_criteria'] ||= []
-    params['source_data_criteria'].each { |c| c[:value] ||= [] }
-
-    patient['source_data_criteria'] = params['source_data_criteria'] + [measure_period]
-    # TODO: we should probably get the target measure period on the patient builder view
-    # patient['measure_period_start'] = measure_period['start_date']
-    # patient['measure_period_end'] = measure_period['end_date']
-
-    patient.expected_values = params['expected_values']
-
-    patient['origin_data'] ||= []
-    patient['origin_data'] << params['origin_data'] if params['origin_data']
-
-    patient.user = current_user
-    patient.rebuild!(params[:payer])
-
-    patient
-  end
 
   # if the patient has any existing measure ids that correspond to component measures, all 'sibling' measure ids will be added
   def populate_measure_ids_if_composite_measures(patient)

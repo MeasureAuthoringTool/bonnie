@@ -4,8 +4,8 @@ describe 'CQL Coverage', ->
     jasmine.getJSONFixtures().clearCache()
     @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS10/CMS10v0.json', 'cqm_measure_data/special_measures/CMS10/value_sets.json'
     bonnie.measures.add @cqlMeasure
-    @patient1 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[0], parse: true
-    @patient2 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[1], parse: true
+    @patient1 = new Thorax.Models.Patient getJSONFixture('cqm_patients/special_measures/CMS10/patients.json')[0], parse: true
+    @patient2 = new Thorax.Models.Patient getJSONFixture('cqm_patients/special_measures/CMS10/patients.json')[1], parse: true
 
   xit 'is correct with first patient', ->
     @cqlMeasure.get('patients').add @patient1
@@ -86,7 +86,7 @@ describe 'CQL Coloring', ->
     bonnie.measures.add @cqlMeasure
 
   xit 'is correct for first patient', ->
-    @patient1 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[0], parse: true
+    @patient1 = new Thorax.Models.Patient getJSONFixture('cqm_patients/special_measures/CMS10/patients.json')[0], parse: true
     @cqlMeasure.get('patients').add @patient1
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient1, measure: @cqlMeasure)
     @patientBuilder.render()
@@ -120,7 +120,7 @@ describe 'CQL Coloring', ->
     expect(MedsNotDocumented.find(".clause-false").length).toBe(11)
 
   xit 'is correct for second patient', ->
-    @patient2 = new Thorax.Models.Patient getJSONFixture('records/special_measures/CMS10/patients.json')[1], parse: true
+    @patient2 = new Thorax.Models.Patient getJSONFixture('cqm_patients/special_measures/CMS10/patients.json')[1], parse: true
     @cqlMeasure.get('patients').add @patient2
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient2, measure: @cqlMeasure)
     @patientBuilder.render()

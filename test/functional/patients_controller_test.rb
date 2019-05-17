@@ -12,53 +12,75 @@ include Devise::Test::ControllerHelpers
     load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
     @measure = CQM::Measure.where({"cms_id" => "CMS134v6"}).first
     sign_in @user
+
+    qdm_data_element = {
+      "dataElementCodes"=>[{"code"=>"M", "system"=>"2.16.840.1.113883.5.1", "display"=>"Male"}],
+      "_id"=>"5ccb0c8857a11ed7a196dc9e",
+      "qdmTitle"=>"Patient Characteristic Sex",
+      "hqmfOid"=>"2.16.840.1.113883.10.20.28.4.55",
+      "qdmCategory"=>"patient_characteristic",
+      "qdmStatus"=>"gender",
+      "qdmVersion"=>"5.4",
+      "_type"=>"QDM::PatientCharacteristicSex",
+      "codeListId"=>"2.16.840.1.113762.1.4.1",
+      "description"=>"Patient Characteristic Sex: ONCAdministrativeSex",
+      "id"=>{"qdmVersion"=>"5.4", "namingSystem"=>nil, "value"=>"5ccb0c8857a11ed7a196dc9e"}
+    }
+    qdm_patient = {
+      'birthDatetime' => '1930-09-09',
+      'qdmVersion' => '-1.3',
+      'dataElements' => [qdm_data_element],
+      'extendedData' => {'adverse_event' => 'ADVERSE EVENT', 'encounter' => 'ENCOUNTER', 'family_history' => 'MYSTERIOUS'}
+    }
+    @patient = { 'cqmPatient' => {
+      'givenNames'=> ['Betty'],
+      'providers'=>[],
+      'familyName'=> 'Boop',
+      'bundleId'=> 'F',
+      'expectedValues' => ['true'],
+      'notes'=> 'Boop-Oop-a-Doop',
+      'qdmPatient' => qdm_patient,
+      'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"]
+    }}
   end
 
   test "create" do
-
-    assert_equal 0, Record.count
-    @patient = {'first'=> 'Betty',
-     'last'=> 'Boop',
-     'gender'=> 'F',
-     'expired'=> 'true' ,
-     'birthdate'=> "1930-10-17",
-     'ethnicity'=> 'B',
-     'race'=> 'B',
-     'start_date'=>'2012-01-01',
-     'end_date'=>'2012-12-31',
-     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation", "status"=>"performed", "definition"=>"encounter", "start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
-     'measure_id' => @measure.hqmf_set_id}
+    assert_equal 0, CQM::Patient.count
 
     post :create, @patient
     assert_response :success
-    assert_equal 1, Record.count
-    r = Record.first
-    assert_equal "Betty", r.first
-    assert_equal "Boop", r.last
-    assert_equal "F", r.gender
-    assert_equal 2, r.source_data_criteria.length
-    assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", r.source_data_criteria[0]["id"]
-    assert_equal 1, r.encounters.length
+    assert_equal 1, CQM::Patient.count
+    r = CQM::Patient.first
+    assert_equal "Betty", r.givenNames[0]
+    assert_equal "Boop", r.familyName
+    assert_equal "F", r.bundleId
+    assert_equal '-1.3', r.qdmPatient.qdmVersion
+    assert_equal '2.16.840.1.113883.10.20.28.4.55', r.qdmPatient.dataElements.first.hqmfOid
+    assert_equal 1, r.expectedValues.length
+    assert_equal 1, r.qdmPatient.dataElements.length
     json = JSON.parse(response.body)
 
-    assert_equal "Betty", json["first"]
-    assert_equal "Boop", json["last"]
-    assert_equal "F", json["gender"]
-    assert_equal 2, json["source_data_criteria"].length
-    assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", json["source_data_criteria"][0]["id"]
-    assert_equal 1, json["encounters"].length
+    assert_equal "Betty", json["givenNames"][0]
+    assert_equal "Boop", json["familyName"]
+    assert_equal "F", json["bundleId"]
+    assert_equal '-1.3', json["qdmPatient"]["qdmVersion"]
+    assert_equal '2.16.840.1.113883.10.20.28.4.55', json["qdmPatient"]['dataElements'][0]['hqmfOid']
+    assert_equal 1, json["expectedValues"].length
   end
 
   test "create patient for component measure of composite measure" do
     load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
-    assert_equal 0, Record.count
-    @patient = {'first'=> 'Betty',
-     'last'=> 'Boop',
-     'gender'=> 'F',
-     'birthdate'=> "1930-10-17",
-     'start_date'=>'2012-01-01',
-     'end_date'=>'2012-12-31',
-     'measure_id' => "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C"}
+    assert_equal 0, CQM::Patient.count
+    qdm_patient = {
+      'birthDatetime' => '1930-09-09',
+      'qdmVersion' => '-1.3',
+      'extendedData' => {'adverse_event' => 'ADVERSE EVENT', 'encounter' => 'ENCOUNTER', 'family_history' => 'MYSTERIOUS'}
+    }
+    composite_patient = {'cqmPatient' => {
+      'givenNames'=> ['Betty'],
+      'familyName'=> 'Boop',
+      'qdmPatient' => qdm_patient,
+      'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C"]}}
 
     expected_measure_ids = ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
@@ -68,105 +90,84 @@ include Devise::Test::ControllerHelpers
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"]
-    post :create, @patient
+    post :create, composite_patient
     assert_response :success
-    assert_equal 1, Record.count
-    r = Record.first
-    assert_equal "Betty", r.first
-    assert_equal "Boop", r.last
-    assert_equal expected_measure_ids.sort, r.measure_ids.sort
+    assert_equal 1, CQM::Patient.count
+    patient = CQM::Patient.first
+    assert_equal "Betty", patient.givenNames[0]
+    assert_equal "Boop", patient.familyName
+    assert_equal '-1.3', patient.qdmPatient.qdmVersion
+    assert_equal expected_measure_ids.sort, patient.measure_ids.sort
   end
 
   test "update" do
-
-    assert_equal 0, Record.count
-    patient = Record.new
+    assert_equal 0, CQM::Patient.count
+    patient = CQM::Patient.new
     patient.user = @user
     patient.save!
+    assert_equal 1, CQM::Patient.count
+    updated_patient = @patient
+    updated_patient['_id'] = patient.id.to_s
+    updated_patient['id'] = patient.id.to_s
 
-    @patient = {
-      "id" => patient.id.to_s,
-      "_id" => patient.id.to_s,
-      'first'=> 'Betty',
-     'last'=> 'Boop',
-     'gender'=> 'F',
-     'expired'=> 'true' ,
-     'birthdate'=> "1930-10-17",
-     'ethnicity'=> 'B',
-     'race'=> 'B',
-     'start_date'=>'2012-01-01',
-     'end_date'=>'2012-12-31',
-     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
-     'measure_id' => @measure.hqmf_set_id}
-
-    post :update,@patient
+    post :update, updated_patient
     assert_response :success
-    assert_equal 1, Record.count
-    r = Record.first
-    assert_equal "Betty", r.first
-    assert_equal "Boop", r.last
-    assert_equal "F", r.gender
-    assert_equal 2, r.source_data_criteria.length
-    assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", r.source_data_criteria[0]["id"]
-    assert_equal 1, r.encounters.length
+    assert_equal 1, CQM::Patient.count
+    retrieved_patient = CQM::Patient.first
+    assert_equal "Betty", retrieved_patient.givenNames[0]
+    assert_equal "Boop", retrieved_patient.familyName
+    assert_equal '-1.3', retrieved_patient.qdmPatient.qdmVersion
+    assert_equal '2.16.840.1.113883.10.20.28.4.55', retrieved_patient.qdmPatient.dataElements.first.hqmfOid
     json = JSON.parse(response.body)
 
-    assert_equal "Betty", json["first"]
-    assert_equal "Boop", json["last"]
-    assert_equal "F", json["gender"]
-    assert_equal 2, json["source_data_criteria"].length
-    assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", json["source_data_criteria"][0]["id"]
-    assert_equal 1, json["encounters"].length
-  end
-
-
-  test "materialize" do
-   assert_equal 0, Record.count
-    @patient = {'first'=> 'Betty',
-     'last'=> 'Boop',
-     'gender'=> 'F',
-     'expired'=> 'true' ,
-     'birthdate'=> "1930-10-17",
-     'ethnicity'=> 'B',
-     'race'=> 'B',
-     'start_date'=>'2012-01-01',
-     'end_date'=>'2012-12-31',
-     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
-     'measure_id' => @measure.hqmf_set_id}
-
-    post :materialize, @patient
-    assert_response :success
-    assert_equal 0, Record.count
-
-    json = JSON.parse(response.body)
-
-    assert_equal "Betty", json["first"]
-    assert_equal "Boop", json["last"]
-    assert_equal "F", json["gender"]
-    assert_equal 2, json["source_data_criteria"].length
-    assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", json["source_data_criteria"][0]["id"]
-    assert_equal 1, json["encounters"].length
+    assert_equal "Betty", json["givenNames"][0]
+    assert_equal "Boop", json["familyName"]
+    assert_equal '-1.3', json["qdmPatient"]["qdmVersion"]
+    assert_equal '2.16.840.1.113883.10.20.28.4.55', json["qdmPatient"]['dataElements'][0]['hqmfOid']
   end
 
   test "destroy" do
-    records_set = File.join("records","core_measures", "CMS134v6")
+    records_set = File.join("cqm_patients", "CMS134v6")
     collection_fixtures(records_set)
-    associate_user_with_patients(@user, Record.all)
-    patient = Record.first
-    assert_equal 3, @user.records.count
+    associate_user_with_patients(@user, CQM::Patient.all)
+    patient = CQM::Patient.first
+    assert_equal 2, @user.patients.count
     delete :destroy, {id: patient.id}
     assert_response :success
-    assert_equal 2, @user.records.count
-    patient = Record.where({id: patient.id}).first
+    assert_equal 1, @user.patients.count
+    patient = CQM::Patient.where({id: patient.id}).first
     assert_nil patient
+  end
+
+  test "invalid patients" do
+    assert_equal 0, CQM::Patient.count
+    @patient['cqmPatient']['qdmPatient']['_type'] = 'QDMPatient'
+    post :create, @patient
+    assert_response :internal_server_error
+    assert_equal 0, CQM::Patient.count
+
+    @patient['cqmPatient']['qdmPatient'].delete('_type')
+    post :create, @patient
+    assert_response :success
+    assert_equal 1, CQM::Patient.count
+
+    updated_patient = @patient
+    updated_patient['cqmPatient']['qdmPatient']['_type'] = 'QDMPatient'
+    updated_patient['cqmPatient']['givenNames'] = ['These', 'are', 'not', 'real', 'names']
+    updated_patient['_id'] = CQM::Patient.first._id.to_s
+    updated_patient['id'] = CQM::Patient.first.id.to_s
+    post :update, updated_patient
+    assert_response :internal_server_error
+    assert_equal 1, CQM::Patient.count
+    assert_equal 1, CQM::Patient.first.givenNames.length
   end
 
   test "export patients" do
     skip('Need to bring in new patient model and use cqm-reports')
     records_set = File.join("records", "core_measures", "CMS134v6")
     collection_fixtures(records_set)
-    associate_user_with_patients(@user, Record.all)
-    associate_measure_with_patients(@measure, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
+    associate_measure_with_patients(@measure, CQM::Patient.all)
     get :qrda_export, hqmf_set_id: @measure.hqmf_set_id, isCQL: 'true'
     assert_response :success
     assert_equal 'application/zip', response.header['Content-Type']
@@ -405,5 +406,4 @@ include Devise::Test::ControllerHelpers
     temp.close()
     temp.unlink()
   end
-  
 end

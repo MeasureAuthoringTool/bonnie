@@ -1,32 +1,33 @@
 {
   "_id": {
-    "$oid": "5a593d66942c6d0773593d97"
+    "$oid": "5a58e9b6942c6d4bb26bb2f6"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
+  "measure_ids": [
+    "3FD13096-2C8F-40B5-9297-B714E8DE9133"
+  ],
   "expectedValues": [
     {
       "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
       "population_index": 0,
-      "IPP": 2,
-      "MSRPOPL": 2,
+      "IPP": 1,
+      "MSRPOPL": 1,
       "MSRPOPLEX": 0,
       "OBSERV_UNIT": " mins",
       "OBSERV": [
-        15,
-        25
+        15
       ]
     },
     {
       "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
       "population_index": 1,
-      "STRAT": 2,
-      "IPP": 2,
-      "MSRPOPL": 2,
+      "STRAT": 1,
+      "IPP": 1,
+      "MSRPOPL": 1,
       "MSRPOPLEX": 0,
       "OBSERV_UNIT": " mins",
       "OBSERV": [
-        15,
-        25
+        15
       ]
     },
     {
@@ -48,20 +49,20 @@
       "OBSERV_UNIT": " mins"
     }
   ],
-  "familyName": "2 ED",
+  "familyName": "1 ED",
   "givenNames": [
-    "Visits"
+    "Visit"
   ],
   "notes": "",
   "qdmPatient": {
     "_id": {
-      "$oid": "5c88013dd7c8ac4c3e10665b"
+      "$oid": "5c88013cd7c8ac4c3e10664d"
     },
     "birthDatetime": "1994-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5c88013dd7c8ac4c3e10665c"
+          "$oid": "5c88013cd7c8ac4c3e10664e"
         },
         "admissionSource": null,
         "authorDatetime": "2012-06-10T05:00:00.000+00:00",
@@ -87,11 +88,11 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
           "_id": {
-            "$oid": "5c88013dd7c8ac4c3e10665d"
+            "$oid": "5c88013cd7c8ac4c3e10664f"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5aeb77ccb848463d625b5d48"
+          "value": "5aeb7763b848463d625b33cf"
         },
         "lengthOfStay": {
           "value": 0,
@@ -110,7 +111,7 @@
         "qdmVersion": "5.4",
         "relevantPeriod": {
           "low": "2012-06-10T05:00:00.000+00:00",
-          "high": "2012-06-10T05:25:00.000+00:00",
+          "high": "2012-06-10T05:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -118,64 +119,7 @@
       },
       {
         "_id": {
-          "$oid": "5c88013dd7c8ac4c3e10665e"
-        },
-        "admissionSource": null,
-        "authorDatetime": "2012-06-10T09:00:00.000+00:00",
-        "dataElementCodes": [
-          {
-            "codeSystem": "SNOMED-CT",
-            "code": "4525004"
-          }
-        ],
-        "description": "Encounter, Performed: Emergency Department Visit",
-        "diagnoses": [
-          {
-            "code": "10278007",
-            "codeSystem": "SNOMED-CT",
-            "version": null,
-            "descriptor": "Psychiatric/Mental Health Diagnosis"
-          }
-        ],
-        "dischargeDisposition": null,
-        "facilityLocations": [
-
-        ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
-        "id": {
-          "_id": {
-            "$oid": "5c88013dd7c8ac4c3e10665f"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb77ccb848463d625b5d4a"
-        },
-        "lengthOfStay": {
-          "value": 0,
-          "unit": "days"
-        },
-        "negationRationale": null,
-        "principalDiagnosis": {
-          "code": "10278007",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Psychiatric/Mental Health Diagnosis",
-          "codeSystemOid": null,
-          "version": null
-        },
-        "qdmCategory": "encounter",
-        "qdmStatus": "performed",
-        "qdmVersion": "5.4",
-        "relevantPeriod": {
-          "low": "2012-06-10T09:00:00.000+00:00",
-          "high": "2012-06-10T09:15:00.000+00:00",
-          "lowClosed": true,
-          "highClosed": true
-        },
-        "_type": "QDM::EncounterPerformed"
-      },
-      {
-        "_id": {
-          "$oid": "5c88013dd7c8ac4c3e106660"
+          "$oid": "5c88013cd7c8ac4c3e106650"
         },
         "admissionSource": null,
         "authorDatetime": "2012-06-11T09:15:00.000+00:00",
@@ -196,11 +140,11 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
           "_id": {
-            "$oid": "5c88013dd7c8ac4c3e106661"
+            "$oid": "5c88013cd7c8ac4c3e106651"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5aeb77ccb848463d625b5d4c"
+          "value": "5aeb7763b848463d625b33d1"
         },
         "lengthOfStay": {
           "value": 3,
@@ -221,7 +165,7 @@
       },
       {
         "_id": {
-          "$oid": "5c88013dd7c8ac4c3e106656"
+          "$oid": "5c88013cd7c8ac4c3e106648"
         },
         "birthDatetime": "1994-01-01T08:00:00.000+00:00",
         "dataElementCodes": [
@@ -238,11 +182,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
         "id": {
           "_id": {
-            "$oid": "5c88013dd7c8ac4c3e106662"
+            "$oid": "5c88013cd7c8ac4c3e106652"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013dd7c8ac4c3e106656"
+          "value": "5c88013cd7c8ac4c3e106648"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -251,7 +195,7 @@
       },
       {
         "_id": {
-          "$oid": "5c88013dd7c8ac4c3e106657"
+          "$oid": "5c88013cd7c8ac4c3e106649"
         },
         "dataElementCodes": [
           {
@@ -267,11 +211,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
         "id": {
           "_id": {
-            "$oid": "5c88013dd7c8ac4c3e106663"
+            "$oid": "5c88013cd7c8ac4c3e106653"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013dd7c8ac4c3e106657"
+          "value": "5c88013cd7c8ac4c3e106649"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -280,7 +224,7 @@
       },
       {
         "_id": {
-          "$oid": "5c88013dd7c8ac4c3e106658"
+          "$oid": "5c88013cd7c8ac4c3e10664a"
         },
         "dataElementCodes": [
           {
@@ -296,11 +240,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
         "id": {
           "_id": {
-            "$oid": "5c88013dd7c8ac4c3e106664"
+            "$oid": "5c88013cd7c8ac4c3e106654"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013dd7c8ac4c3e106658"
+          "value": "5c88013cd7c8ac4c3e10664a"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -309,7 +253,7 @@
       },
       {
         "_id": {
-          "$oid": "5c88013dd7c8ac4c3e106659"
+          "$oid": "5c88013cd7c8ac4c3e10664b"
         },
         "dataElementCodes": [
           {
@@ -325,11 +269,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
         "id": {
           "_id": {
-            "$oid": "5c88013dd7c8ac4c3e106665"
+            "$oid": "5c88013cd7c8ac4c3e106655"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013dd7c8ac4c3e106659"
+          "value": "5c88013cd7c8ac4c3e10664b"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
@@ -339,10 +283,6 @@
     ],
     "extendedData": {
       "type": null,
-      "measure_ids": [
-        "3FD13096-2C8F-40B5-9297-B714E8DE9133",
-        null
-      ],
       "source_data_criteria": [
         {
           "negation": false,
@@ -354,7 +294,7 @@
           "type": "encounters",
           "id": "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source",
           "start_date": 1339304400000,
-          "end_date": 1339305900000,
+          "end_date": 1339305300000,
           "value": [
 
           ],
@@ -377,44 +317,7 @@
           },
           "negation_code_list_id": "",
           "coded_entry_id": {
-            "$oid": "5aeb77ccb848463d625b5d48"
-          },
-          "code_source": "DEFAULT"
-        },
-        {
-          "negation": false,
-          "definition": "encounter",
-          "status": "performed",
-          "title": "EmergencyDepartmentVisit",
-          "description": "Encounter, Performed: Emergency Department Visit",
-          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
-          "type": "encounters",
-          "id": "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source",
-          "start_date": 1339318800000,
-          "end_date": 1339319700000,
-          "value": [
-
-          ],
-          "references": null,
-          "field_values": {
-            "PRINCIPAL_DIAGNOSIS": {
-              "type": "CD",
-              "code_list_id": "2.16.840.1.113883.3.117.1.7.1.299",
-              "field_title": "Principal Diagnosis",
-              "title": "Psychiatric/Mental Health Patient"
-            }
-          },
-          "hqmf_set_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
-          "cms_id": "CMS32v7",
-          "criteria_id": "160ec970f24Bn",
-          "codes": {
-            "SNOMED-CT": [
-              "4525004"
-            ]
-          },
-          "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5aeb77ccb848463d625b5d4a"
+            "$oid": "5aeb7763b848463d625b33cf"
           },
           "code_source": "DEFAULT"
         },
@@ -445,7 +348,7 @@
           },
           "negation_code_list_id": "",
           "coded_entry_id": {
-            "$oid": "5aeb77ccb848463d625b5d4c"
+            "$oid": "5aeb7763b848463d625b33d1"
           },
           "code_source": "DEFAULT"
         },
@@ -461,7 +364,7 @@
 
       ],
       "test_id": null,
-      "medical_record_number": "612454107a524e3f58c27db45630314da51689f4f33965288175657a991416b5",
+      "medical_record_number": "ae884d4ce89724e1ec3c435032e573ae1433d5c257b3c4755178898fdbab8abd",
       "medical_record_assigner": "Bonnie",
       "description": null,
       "description_category": null,

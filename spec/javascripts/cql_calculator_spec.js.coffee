@@ -109,7 +109,7 @@ describe 'cqmCalculator', ->
         xit 'for CMS107 correctly', ->
           # TODO(cqm-measure): Need to update or replace CQL/CMS107
           measure1 = loadMeasureWithValueSets('cqm_measure_data/CQL/CMS107/CMS107v6.json', 'cqm_measure_data/CQL/CMS107/value_sets.json')
-          patients1 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
+          patients1 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CQL/CMS107/patients.json'), parse: true
           patient1 = patients1.findWhere(last: 'DENEXPass', first: 'CMOduringED')
           result1 = @cqm_calculator.calculate(measure1.get('populations').first(), patient1, {doPretty: true})
           expect(result1.get('statement_results').TJC_Overall['Encounter with Principal Diagnosis and Age'].pretty).toEqual('[Encounter, Performed: Non-Elective Inpatient Encounter\nSTART: 10/10/2012 9:30 AM\nSTOP: 10/12/2012 12:15 AM\nCODE: SNOMED-CT 32485007]')
@@ -117,7 +117,7 @@ describe 'cqmCalculator', ->
 
         xit 'for CMS760 correctly', ->
           measure2 = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS760/CMS760v0.json', 'cqm_measure_data/special_measures/CMS760/value_sets.json'
-          patients2 = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS760/patients.json'), parse: true
+          patients2 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS760/patients.json'), parse: true
           patient2 = patients2.models[0]
           patient2.set('cqmPatient', new cqm.models.QDMPatient getJSONFixture('patients/CMS760v0/Correct_Timezone.json'))
           patient2.id = patient2.get('cqmPatient').id().toString()
@@ -128,7 +128,7 @@ describe 'cqmCalculator', ->
         xit 'for CMS32 correctly', ->
           # TODO: investigate calculation difference. could be due to measure fixture update
           measure3 = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
-          patients3 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS32/patients.json'), parse: true
+          patients3 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CQL/CMS32/patients.json'), parse: true
           patient3 = patients3.models[0]
           patient3.set('cqmPatient', new cqm.models.QDMPatient getJSONFixture('patients/CMS32v7/Visit_1 ED.json'))
           patient3.id = patient3.get('cqmPatient').id().toString()
@@ -141,14 +141,14 @@ describe 'cqmCalculator', ->
         xit 'for CMS347 correctly', ->
           # TODO(cqm-measure) Need to update or replace this fixture
           measure4 = loadMeasureWithValueSets 'cqm_measure_data/deprecated_measures/CMS347v3/CMS735v0.json', 'cqm_measure_data/deprecated_measures/CMS347/value_sets.json'
-          patients4 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
+          patients4 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CQL/CMS347/patients.json'), parse: true
           patient4 = patients4.models[0]
           result4 = @cqm_calculator.calculate(measure4.get('populations').first(), patient4, {doPretty: true})
           expect(result4.get('statement_results').StatinTherapy['In Demographic'].pretty).toEqual('true')
 
         xit 'for CMS460 correctly', ->
           measure5 = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
-          patients5 = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS460/patients.json'), parse: true
+          patients5 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS460/patients.json'), parse: true
           patient5 = patients5.models[0]
           result5 = @cqm_calculator.calculate(measure5.get('populations').first(), patient5, {doPretty: true})
           expect(result5.get('statement_results').DayMonthTimings['Months Containing 29 Days'].pretty).toEqual('[1,\n2,\n3,\n4,\n5,\n6,\n7,\n8,\n9,\n10,\n11,\n12,\n13,\n14,\n15,\n16,\n17,\n18,\n19,\n20,\n21,\n22,\n23,\n24,\n25,\n26,\n27,\n28,\n29]')
@@ -161,7 +161,7 @@ describe 'cqmCalculator', ->
 
         xit 'for CMS872 correctly', ->
           measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS872v0/CMS872v0.json', 'cqm_measure_data/special_measures/CMS872v0/value_sets.json'
-          patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS872v0/patients.json'), parse: true
+          patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS872v0/patients.json'), parse: true
           ratioUnitConversionCorrect = patients.models[0]
           ratioCorrect = patients.models[1]
           ratioIncorrect = patients.models[2]
@@ -176,7 +176,7 @@ describe 'cqmCalculator', ->
         xit 'for CMS107 correctly', ->
           # TODO(cqm-measure) Need to update or replace this fixture
           measure1 = loadMeasureWithValueSets 'cqm_measure_data/CQL/CMS107/CMS107v6.json', 'cqm_measure_data/CQL/CMS107/value_sets.json'
-          patients1 = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
+          patients1 = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CQL/CMS107/patients.json'), parse: true
           patient1 = patients1.findWhere(last: 'DENEXPass', first: 'CMOduringED')
           result1 = @cqm_calculator.calculate(measure1.get('populations').first(), patient1)
           expect(result1.get('statement_results').TJC_Overall['Encounter with Principal Diagnosis and Age'].pretty).toEqual(undefined)
@@ -185,7 +185,7 @@ describe 'cqmCalculator', ->
     describe 'episode of care based relevance map', ->
       beforeEach ->
         @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS177/CMS177v6.json', 'cqm_measure_data/core_measures/CMS177/value_sets.json'
-        @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS177/patients.json'), parse: true
+        @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/core_measures/CMS177/patients.json'), parse: true
 
       xit 'is correct for patient with no episodes', ->
         # this patient has no episodes in the IPP
@@ -210,7 +210,7 @@ describe 'cqmCalculator', ->
     describe 'patient based relevance map', ->
       beforeEach ->
         @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS158/CMS158v6.json', 'cqm_measure_data/core_measures/CMS158/value_sets.json'
-        @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS158/patients.json'), parse: true
+        @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/core_measures/CMS158/patients.json'), parse: true
 
       xit 'is correct', ->
         # this patient fails the IPP
@@ -224,7 +224,7 @@ describe 'cqmCalculator', ->
     describe 'execution engine using passed in timezone offset', ->
       beforeEach ->
         @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS760/CMS760v0.json', 'cqm_measure_data/special_measures/CMS760/value_sets.json'
-        @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS760/patients.json'), parse: true
+        @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS760/patients.json'), parse: true
 
       xit 'is correct', ->
         # This patient fails the IPP (correctly)

@@ -24,7 +24,7 @@ describe 'CqlLogicView', ->
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: populationSet)
       populationLogicView.render()
 
-      testPatients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS32/patients.json'), parse: true
+      testPatients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/core_measures/CMS32/patients.json'), parse: true
 
       results = populationSet.calculate(testPatients.first())
 
@@ -151,7 +151,7 @@ describe 'CqlLogicView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMSv9999/CMSv9999.json', 'cqm_measure_data/special_measures/CMSv9999/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv9999/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMSv9999/patients.json'), parse: true
 
     # Tests that a "let" statement in a library function which doesn't have results for
     # it's parent clause still loads properly without errors
@@ -165,7 +165,7 @@ describe 'CqlLogicView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS146/CMS146v6.json', 'cqm_measure_data/special_measures/CMS146/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS146/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS146/patients.json'), parse: true
       @population = @measure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, population: @measure.get('populations').first())
       @populationLogicView.render()
