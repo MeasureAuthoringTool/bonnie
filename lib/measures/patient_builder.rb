@@ -319,8 +319,12 @@ module Measures
           # Give some feedback if we hit an unexpected error. Some fields have no action expected, so we'll suppress those messages.
           noop_fields = ["LENGTH_OF_STAY", "START_DATETIME", "STOP_DATETIME"]
           unless noop_fields.include? name
-            field_accessor = HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
-            puts "Unknown field #{name} was unable to be added via #{field_accessor} to the patient"
+            if HQMF::DataCriteria::FIELDS[name]
+              field_accessor = HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
+              puts "Unknown field #{name} was unable to be added via #{field_accessor} to the patient"
+            else
+              puts "Unknown HQMF DataCriteria field #{name}"
+            end
           end
         end
       end
