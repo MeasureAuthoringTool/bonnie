@@ -49,8 +49,8 @@ class Thorax.Models.Patient extends Thorax.Model
       "Female"
   getBirthDate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
   getBirthTime: -> @printTime @get('cqmPatient').qdmPatient.birthDatetime
-  getDeathDate: -> if @get('expired') then @printDate((thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
-  getDeathTime: -> if @get('expired') then @printTime((thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+  getDeathDate: -> if @get('expired') then @printDate((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+  getDeathTime: -> if @get('expired') then @printTime((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
   getRace: ->
     raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
     unless raceElement? then "Unknown"

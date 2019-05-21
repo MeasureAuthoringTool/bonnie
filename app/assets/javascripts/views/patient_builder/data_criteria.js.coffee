@@ -96,7 +96,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     rendered: ->
       @$('.criteria-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
       @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
-   # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
+    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
   isDuringMeasurePeriod: ->

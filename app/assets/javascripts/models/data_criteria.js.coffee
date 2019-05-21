@@ -21,32 +21,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     # make and return the new SDC
     return new Thorax.Models.SourceDataCriteria(dataElementAsObject)
 
-  # parse: (attrs) ->
-  #   fieldValueBlacklist = ['_id', 'relevantPeriod', 'dataElementCodes', 'description', 'hqmfOid', 'id', 'prevalencePeriod', 'qdmCategory', 'qdmVersion', 'qrdaOid', '_type', 'criteria_id', 'value', 'qdmStatus', 'negationRationale']
-  #   fieldValuesOnDataElement = _.difference(Object.keys(attrs), fieldValueBlacklist)
-  #   attrs.criteria_id ||= Thorax.Models.SourceDataCriteria.generateCriteriaId()
-  #   attrs.value = new Thorax.Collection(attrs.value)
-  #   # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
-  #   fieldValues = new Thorax.Collection()
-  #   references = new Thorax.Collection()
-  #   for fieldValueKey in fieldValuesOnDataElement
-  #     # TODO: Add human readable version of title, need map somewhere
-  #     fieldValue = attrs[fieldValueKey]
-  #     if fieldValue?
-  #       if typeof fieldValue != 'object'
-  #         fieldValue = {fieldValueKey: fieldValue}
-  #       fieldValue = _(fieldValue).extend(field_title: fieldValueKey)
-  #       fieldValues.add fieldValue
-
-  #   if attrs.references?
-  #     references.add value for value in attrs.references
-
-  #   attrs.field_values = fieldValues
-  #   attrs.references = references
-  #   if attrs.dataElementCodes
-  #     attrs.codes = new Thorax.Collections.Codes attrs.dataElementCodes, parse: true
-  #   attrs
-
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')

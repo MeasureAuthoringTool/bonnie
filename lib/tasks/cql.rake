@@ -127,6 +127,7 @@ namespace :bonnie do
     $ rake bonnie:cql:convert_measures EMAIL=xxx}
     task :convert_measures => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
       bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasure.all
 
       fail_count = 0
@@ -216,6 +217,7 @@ namespace :bonnie do
     $ rake bonnie:cql:convert_patients EMAIL=xxx}
     task :convert_patients => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
       bonnie_patients = user ? Record.by_user(user) : Record.all
       count = 0
       bonnie_patients.no_timeout.each do |bonnie_patient|
