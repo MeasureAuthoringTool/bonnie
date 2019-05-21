@@ -16,14 +16,16 @@ class Thorax.Models.Patient extends Thorax.Model
       thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
     thoraxPatient._id = attrs._id
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
-    thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(mongoose.utils.clone(thoraxPatient.cqmPatient.qdmPatient.dataElements), parse: true)
+    thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(thoraxPatient.cqmPatient.qdmPatient.dataElements, parent: this, parse: true)
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
     thoraxPatient
 
   # Create a deep clone of the patient, optionally omitting the id field
   deepClone: (options = {}) ->
     clonedPatient = @.clone()
+    # clone the cqmPatient and make a new source_data_criteria collection for it
     clonedPatient.set 'cqmPatient', new cqm.models.Patient(mongoose.utils.clone(clonedPatient.get('cqmPatient')))
+    clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').qdmPatient.dataElements, parent: clonedPatient, parse: true)
     if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
     if options.dedupName
        clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
@@ -47,8 +49,8 @@ class Thorax.Models.Patient extends Thorax.Model
       "Female"
   getBirthDate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
   getBirthTime: -> @printTime @get('cqmPatient').qdmPatient.birthDatetime
-  getDeathDate: -> if @get('expired') then @printDate((thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
-  getDeathTime: -> if @get('expired') then @printTime((thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+  getDeathDate: -> if @get('expired') then @printDate((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+  getDeathTime: -> if @get('expired') then @printTime((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
   getRace: ->
     raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
     unless raceElement? then "Unknown"
@@ -156,7 +158,7 @@ class Thorax.Models.Patient extends Thorax.Model
     moment(dateTime).format('h:mm A') if dateTime
 
   materialize: ->
-
+    @trigger 'materialize'
     # # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
     # # "changed" functionality because that doesn't capture new sub-models
     # patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
@@ -236,7 +238,7 @@ class Thorax.Models.Patient extends Thorax.Model
       errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
 
     @get('source_data_criteria').each (sdc) =>
-      timingInterval = Thorax.Models.SourceDataCriteria.getTimingInterval(sdc) || 'authorDatetime'
+      timingInterval = sdc.getPrimaryTimingAttribute() || 'authorDatetime'
       if sdc.get(timingInterval)?.low
         start_date = moment(sdc.get(timingInterval).low, 'X')
       else if timingInterval == 'authorDatetime' && sdc.get(timingInterval)
