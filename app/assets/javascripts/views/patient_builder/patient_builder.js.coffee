@@ -33,8 +33,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       collection: @model.getExpectedValues(@measure)
       measure: @measure
     @populationLogicView = new Thorax.Views.BuilderPopulationLogic
-    #@populationLogicView.setPopulation @measure.get('displayedPopulation')
-    #@populationLogicView.showRationale @model
+    @populationLogicView.setPopulation @measure.get('displayedPopulation')
+    @populationLogicView.showRationale @model
     @expectedValuesView.on 'population:select', (population_index) =>
       @populationLogicView.setPopulation @measure.get('populations').at(population_index)
       @populationLogicView.showRationale @model
@@ -51,21 +51,21 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   dataCriteriaCategories: ->
     categories = {}
-    # @measure?.get('source_data_criteria').each (criteria) ->
-    #   type = criteria.get('qdmCategory').replace(/_/g, ' ')
-    #   # Filter out negations, certain patient characteristics, and specific occurrences
-    #   # Note: we previously filtered out patient_characteristic_payer, but that was needed on the elements list
-    #   # because a payer can have a start and stop date in QDM 5
-    #   filter_criteria = criteria.get('negation') or
-    #   ( criteria.get('qdmCategory') is 'patient_characteristic' ) or
-    #   ( criteria.has('specific_occurrence') )
-    #   unless filter_criteria
-    #     categories[type] ||= new Thorax.Collection
-    #     categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , '') == criteria.get('description').replace(/,/g , '') && c.get('code_list_id') == criteria.get('code_list_id')
-    # categories = _(categories).omit('transfers','derived')
-    # # Pass a sorted array to the view so ordering is consistent
-    # categoriesArray = ({ type: type, criteria: criteria } for type, criteria of categories)
-    # _(categoriesArray).sortBy (entry) -> entry.type
+    @measure?.get('source_data_criteria').each (criteria) ->
+      type = criteria.get('qdmCategory').replace(/_/g, ' ')
+      # Filter out negations, certain patient characteristics, and specific occurrences
+      # Note: we previously filtered out patient_characteristic_payer, but that was needed on the elements list
+      # because a payer can have a start and stop date in QDM 5
+      filter_criteria = criteria.get('negation') or
+      ( criteria.get('qdmCategory') is 'patient_characteristic' ) or
+      ( criteria.has('specific_occurrence') )
+      unless filter_criteria
+        categories[type] ||= new Thorax.Collection
+        categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , '') == criteria.get('description').replace(/,/g , '') && c.get('code_list_id') == criteria.get('code_list_id')
+    categories = _(categories).omit('transfers','derived')
+    # Pass a sorted array to the view so ordering is consistent
+    categoriesArray = ({ type: type, criteria: criteria } for type, criteria of categories)
+    _(categoriesArray).sortBy (entry) -> entry.type
 
   events:
     'blur :text': 'materialize'
