@@ -131,10 +131,10 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(records_set)
     associate_user_with_patients(@user, CQM::Patient.all)
     patient = CQM::Patient.first
-    assert_equal 2, @user.patients.count
+    assert_equal 3, @user.patients.count
     delete :destroy, {id: patient.id}
     assert_response :success
-    assert_equal 1, @user.patients.count
+    assert_equal 2, @user.patients.count
     patient = CQM::Patient.where({id: patient.id}).first
     assert_nil patient
   end

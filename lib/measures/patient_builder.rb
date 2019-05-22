@@ -66,11 +66,6 @@ module Measures
       end
 
 
-      # if the patient is persisted, mongoid will send the updates at this point.
-      Record::Sections.each do |section|
-        patient.send(section).clear.concat(sections[section.to_s] || [])
-      end
-
       # now handle all of the references -- this needs to be done after all of the entries have been materialized
       # because there is no guarantee of order in the source data criteria
 
