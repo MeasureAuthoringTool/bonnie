@@ -160,7 +160,6 @@ namespace :bonnie do
     # rake task goes back and fixes up existing entries; it was run on May 24, 2016
     # Updated to use CQM::Patient instead of Record
 
-
     desc "Garbage collect/fix expected_values structures"
     task :expected_values_garbage_collect => :environment do
       # build structures for holding counts of changes

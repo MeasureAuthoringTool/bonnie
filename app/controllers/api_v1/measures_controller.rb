@@ -136,7 +136,7 @@ module ApiV1
       http_status = 200
       begin
         # Get the measure
-        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).min_by(&:updated_at)
         # Extract out the HQMF set id, which we'll use to get related patients
         hqmf_set_id = @api_v1_measure.hqmf_set_id
         # Get the patients for this measure
