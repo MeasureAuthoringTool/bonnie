@@ -54,7 +54,7 @@ namespace :bonnie do
       warnings = 0
       errors = 0
 
-      Record.all.each do |patient|
+      CQM::Patient.all.each do |patient|
         p_hqmf_set_ids_updated = 0
 
         first = patient.first
@@ -158,38 +158,8 @@ namespace :bonnie do
     # HQMF OIDs were not being stored on patient record entries for data types that only appear in the HQMF R2
     # support; git commit c988d25be480171a8dac5bef02386e5f49f57acb addressed thsi issue for new entries; this
     # rake task goes back and fixes up existing entries; it was run on May 24, 2016
+    # Updated to use CQM::Patient instead of Record
 
-    desc "Update missing HQMF OIDS in patient record entries"
-    task :update_missing_hqmf_oids => :environment do
-      Record.each do |r|
-        conditions_without_oids = r.conditions.select { |cc| cc.oid.nil? }
-        if conditions_without_oids.size > 0
-          puts "Trying to update OIDs for #{r.first} #{r.last} (#{r.user.try(:email)})"
-          conditions_without_oids.each do |cc|
-            puts "  Trying to update OID for #{cc.description}"
-            # We don't have sufficient data in the entry to re-create the OID (we don't have the definition);
-            # we could try to find the matching source data criteria by type and date, but there isn't always
-            # a 1-to-1 mapping; because there's limited cases where this happened, we can use a shortcut of
-            # looking at the description
-            case cc.description
-            when /^Diagnosis: /
-              cc.oid = HQMF::DataCriteria.template_id_for_definition('diagnosis', nil, false)
-              cc.oid ||= HQMF::DataCriteria.template_id_for_definition('diagnosis', nil, false, 'r2')
-            when /^Symptom: /
-              cc.oid = HQMF::DataCriteria.template_id_for_definition('symptom', nil, false)
-              cc.oid ||= HQMF::DataCriteria.template_id_for_definition('symptom', nil, false, 'r2')
-            when /^Patient Characteristic Clinical Trial Participant: /
-              cc.oid = HQMF::DataCriteria.template_id_for_definition('patient_characteristic', 'clinical_trial_participant', false)
-              cc.oid ||= HQMF::DataCriteria.template_id_for_definition('patient_characteristic', 'clinical_trial_participant', false, 'r2')
-            else
-              puts "DID NOT FIND OID FOR #{cc.description}"
-            end
-            puts "    Updating OID to #{cc.oid}"
-            r.save
-          end
-        end
-      end
-    end
 
     desc "Garbage collect/fix expected_values structures"
     task :expected_values_garbage_collect => :environment do
@@ -209,7 +179,7 @@ namespace :bonnie do
           measure_count = {cms_id: measure.cms_id, title: measure.title, total_patients_count: 0, patient_values_changed_count: 0}
 
           # loop through each patient in the measure
-          Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |patient|
+          CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |patient|
             user_count[:total_patients_count] += 1
             measure_count[:total_patients_count] += 1
             total_patients_count += 1
@@ -217,18 +187,18 @@ namespace :bonnie do
             # do the updating of the structure
             items_changed = false
             patient.update_expected_value_structure!(measure) do |change_type, change_reason, expected_value_set|
-              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - #{change_type} because #{change_reason}"
+              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.givenNames[0]} #{patient.familyName} - #{change_type} because #{change_reason}"
               pp(expected_value_set)
               items_changed = true
             end
 
-            # if anything was removed print the final structure 
+            # if anything was removed print the final structure
             if items_changed
               measure_count[:patient_values_changed_count] += 1
               user_count[:patient_values_changed_count] += 1
               patient_values_changed_count += 1
-              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - FINAL STRUCTURE:"
-              pp(patient.expected_values)
+              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.givenNames[0]} #{patient.familyName} - FINAL STRUCTURE:"
+              pp(patient.qdmPatient.expectedValues)
               puts ""
             end
           end
@@ -277,87 +247,6 @@ namespace :bonnie do
         else
           unit
       end
-    end
-
-    desc %{Fix up dose_unit and quantity_dispensed_unit to be ucum compliant
-      $ bundle exec rake bonnie:patients:fix_non_ucum_dose_and_quantity_dispensed}
-    task :fix_non_ucum_dose_and_quantity_dispensed => :environment do
-      count = 0
-      Record.all.each do |patient|
-        # this first patient is skipped because this is a fatal error
-        #
-        # CMS122v7 in account epecqmncqa@gmail.com patient named IPPFail EncInMPInvldCustCode with an
-        # "Encounter: Performed: Office Visit" containing a custom code set "2.16.840.1.113883.6.12"
-        next if patient._id == BSON::ObjectId.from_string("59836fe8942c6d7356000133")
-
-        # these next 2 patients are skipped so rake task doesn't print warnings about bogus field values
-        #
-        # CMS50v7 in account sudhakar.yarasu@ge.com patient named CMS50v7Test SC1_IPP_Met that has a 'SOURCE'
-        # data critera that attempts to invoke method :source which class Communication does not have
-        next if patient._id == BSON::ObjectId.from_string("5a97a962b848464bde177c40")
-        # CMS818v0 in account jason@cedarbridgegroup.com patient named Jane Smith that has a 'SOURCE'
-        # data critera that attempts to invoke method :source which class Condition does not have
-        next if patient._id == BSON::ObjectId.from_string("5ade3f0cb848462812369f88")
-
-        if patient.source_data_criteria
-          print '.' if ((count+=1) % 100).zero?
-          patient.source_data_criteria.each do |sdc|
-            if sdc['dose_unit']
-              sdc['dose_unit'] = old_unit_to_ucum_unit(sdc['dose_unit'])
-            end
-            if sdc['fulfillments']
-              sdc['fulfillments'].each do |fulfillment|
-                if fulfillment['quantity_dispensed_unit']
-                  fulfillment['quantity_dispensed_unit'] = old_unit_to_ucum_unit(fulfillment['quantity_dispensed_unit'])
-                end
-              end
-            end
-          end
-          begin
-            Measures::PatientBuilder.rebuild_patient(patient)
-            patient.save!
-          rescue Exception => e
-            puts
-            puts "Error in rebuild_patient: #{e}"
-            puts "Patient dump:"
-            puts patient.inspect
-          end
-        end
-      end
-      puts " Done (#{count} records)."
-    end
-
-    desc %{Count each of the existing dose and quantity dispensed units
-      $ bundle exec rake bonnie:patients:tabulate_dose_and_quantity_dispensed_units}
-    task :tabulate_dose_and_quantity_dispensed_units => :environment do
-      unique_units = {}
-      Record.all.each do |patient|
-        if patient.source_data_criteria
-          patient.source_data_criteria.each do |sdc|
-            if sdc['dose_unit']
-              keyname = sdc['dose_unit']
-              if unique_units.key?(keyname)
-                unique_units[keyname] = unique_units[keyname] + 1
-              else
-                unique_units[keyname] = 1
-              end
-            end
-            if sdc['fulfillments']
-              sdc['fulfillments'].each do |fulfillment|
-                if fulfillment['quantity_dispensed_unit']
-                  keyname = fulfillment['quantity_dispensed_unit']
-                  if unique_units.key?(keyname)
-                    unique_units[keyname] = unique_units[keyname] + 1
-                  else
-                    unique_units[keyname] = 1
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-      puts unique_units.inspect
     end
 
     desc %(Recreates the JSON elm stored on CQL measures using an instance of

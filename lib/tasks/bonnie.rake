@@ -231,20 +231,6 @@ namespace :bonnie do
 
   namespace :patients do
 
-    desc %{Update Facilities and Diagnoses on all patients
-
-    $ rake bonnie:patients:update_facilities_and_diagnoses_on_all_patients}
-    task :update_facilities_and_diagnoses_on_all_patients => :environment do
-      printf "%-22s", "\e[#{32}m#{"[TITLE] "}\e[0m"
-      printf "| %-80s", "\e[#{36}m#{"FIRST LAST"}\e[0m"
-      printf "| %-35s", "ACCOUNT"
-      puts "| MEASURE ID"
-      puts "-"*157
-      Record.all.each do |patient|
-        update_facilities_and_diagnoses_on_patient(patient)
-      end
-    end
-
     desc %{Export Bonnie patients to a JSON file.
 
     You must identify the user by EMAIL, include a HQMF_SET_ID, and
@@ -508,43 +494,14 @@ namespace :bonnie do
       end
     end
 
-    desc "Materialize all patients"
-    task :materialize_all => :environment do
-      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
-      records = user ? user.records : Record.all
-      count = 0
-      records.each do |r|
-        puts "Materializing #{r.last} #{r.first}"
-        begin
-          r.rebuild!
-          count += 1
-        rescue => e
-          puts "Error materializing #{r.first} #{r.last}: #{e.message}"
-        end
-      end
-      puts "Materialized #{count} of #{records.count} patients"
-    end
-
     desc 'Reset expected_values hash.'
     task :reset_expected_values => :environment do
       puts "Resetting expected_values hash for all patients to []"
-      Record.each do |patient|
-        patient.expected_values = []
+      CQM::Patient.each do |patient|
+        patient.qdmPatient.expectedValues = []
         patient.save
-        puts "\tReset expected_values for patient #{patient.first} #{patient.last}."
+        puts "\tReset expected_values for patient #{patient.givenNames[0]} #{patient.familyName}."
       end
-    end
-
-    desc 'Re-save all patient records'
-    task :resave_patient_records => :environment do
-      STDOUT.sync = true
-      index = 0
-      Record.each do |r|
-        r.save
-        index += 1
-        print '.' if index % 500 == 0
-      end
-      puts
     end
   end
 
