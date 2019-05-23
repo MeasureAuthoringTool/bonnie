@@ -39,8 +39,8 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_equal patient[:measure_ids], ["3FD13096-2C8F-40B5-9297-B714E8DE9133", nil]
     assert_nil patient[:qdmPatient]
     ENV.delete('EMAIL')
-    Rake::Task['bonnie:cql:convert_measures']
-    Rake::Task['bonnie:cql:convert_patients']
+    Rake::Task['bonnie:cql:convert_measures'].execute
+    Rake::Task['bonnie:cql:convert_patients'].execute
     converted_patient = CQM::Patient.where(givenNames: ['Visits']).first
     assert_equal converted_patient[:bundleId], '5a57e977942c6d1e61d32f14'
     assert_equal converted_patient[:familyName], "2 ED"
