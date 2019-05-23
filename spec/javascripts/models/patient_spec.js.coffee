@@ -7,6 +7,7 @@ describe 'Patient', ->
     patients.push(getJSONFixture('patients/CMS160v6/Pass_NUM2.json'))
     collection = new Thorax.Collections.Patients patients, parse: true
     @patient = collection.first()
+    @patient1 = collection.at(1)
 
   it 'has basic attributes available', ->
     gender = (@patient.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
@@ -29,23 +30,17 @@ describe 'Patient', ->
 
   it 'correctly sorts criteria by multiple attributes', ->
     # Patient has for existing criteria; first get their current order
-    startOrder = @patient.get('source_data_criteria').map (dc) -> dc.cid
+    startOrder = @patient1.get('source_data_criteria').map (dc) -> dc.cid
     # Set some attribute values so that they should sort 4,3,2,1 and sort
-    @patient.get('source_data_criteria').at(0).set start_date: 2, end_date: 2
-    @patient.get('source_data_criteria').at(1).set start_date: 2, end_date: 1
-    @patient.get('source_data_criteria').at(2).set start_date: 1, end_date: 2
-    @patient.get('source_data_criteria').at(3).set start_date: 1, end_date: 1
-    @patient.get('source_data_criteria').at(4).set start_date: 5, end_date: 3
-    @patient.get('source_data_criteria').at(5).set start_date: 3, end_date: 3
-    @patient.get('source_data_criteria').at(6).set start_date: 1, end_date: 3
-    @patient.sortCriteriaBy 'start_date', 'end_date'
-    expect(@patient.get('source_data_criteria').at(0).cid).toEqual startOrder[3]
-    expect(@patient.get('source_data_criteria').at(1).cid).toEqual startOrder[2]
-    expect(@patient.get('source_data_criteria').at(2).cid).toEqual startOrder[6]
-    expect(@patient.get('source_data_criteria').at(3).cid).toEqual startOrder[1]
-    expect(@patient.get('source_data_criteria').at(4).cid).toEqual startOrder[0]
-    expect(@patient.get('source_data_criteria').at(5).cid).toEqual startOrder[5]
-    expect(@patient.get('source_data_criteria').at(6).cid).toEqual startOrder[4]
+    @patient1.get('source_data_criteria').at(0).set start_date: 2, end_date: 2
+    @patient1.get('source_data_criteria').at(1).set start_date: 2, end_date: 1
+    @patient1.get('source_data_criteria').at(2).set start_date: 1, end_date: 3
+    @patient1.get('source_data_criteria').at(3).set start_date: 1, end_date: 2
+    @patient1.sortCriteriaBy 'start_date', 'end_date'
+    expect(@patient1.get('source_data_criteria').at(0).cid).toEqual startOrder[3]
+    expect(@patient1.get('source_data_criteria').at(1).cid).toEqual startOrder[2]
+    expect(@patient1.get('source_data_criteria').at(2).cid).toEqual startOrder[1]
+    expect(@patient1.get('source_data_criteria').at(3).cid).toEqual startOrder[0]
 
   describe 'validation', ->
 
