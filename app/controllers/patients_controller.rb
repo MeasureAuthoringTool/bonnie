@@ -36,11 +36,11 @@ class PatientsController < ApplicationController
   def qrda_export
     if params[:patients]
       # if patients are given, they're from the patient bank; use those patients
-      records = Record.where(is_shared: true).find(params[:patients])
+      patients = CQM::Patient.where(is_shared: true).find(params[:patients])
     else
-      records = Record.by_user(current_user)
+      patients = CQM::Patient.by_user(current_user)
       unless current_user.portfolio?
-        records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
+        patients = patients.where({:measure_ids.in => [params[:hqmf_set_id]]})
       end
       measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
     end
@@ -49,7 +49,7 @@ class PatientsController < ApplicationController
     html_errors = {}
 
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
-      records.each_with_index do |patient, index|
+      patients.each_with_index do |patient, index|
         # Use defined measure if available, else get the specific measure for this patient
         patient_measure = measure || get_associated_measure(patient)
         # attach the QRDA export, or the error
@@ -73,7 +73,7 @@ class PatientsController < ApplicationController
       if (params[:results] && !params[:patients])
         measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
-        zip.puts measure_patients_summary(records, params[:results].values, qrda_errors, html_errors, measure)
+        zip.puts measure_patients_summary(patients, params[:results].values, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
@@ -141,7 +141,7 @@ private
   end
 
   # TODO: update this once we are using new patient model, change to point to something from cqm-reports
-  def measure_patients_summary(records, results, qrda_errors, html_errors, measure)
+  def measure_patients_summary(patients, results, qrda_errors, html_errors, measure)
     # restructure differences for output
     results.each do |r|
       r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].values)
@@ -150,7 +150,7 @@ private
     results
     rendering_context = HealthDataStandards::Export::RenderingContext.new
     rendering_context.template_helper = HealthDataStandards::Export::TemplateHelper.new('html', 'patient_summary', Rails.root.join('lib', 'templates'))
-    rendering_context.render(:template => 'index', :locals => {records: records, results: results, qrda_errors: qrda_errors, html_errors: html_errors, measure: measure})
+    rendering_context.render(:template => 'index', :locals => {records: patients, results: results, qrda_errors: qrda_errors, html_errors: html_errors, measure: measure})
   end
 
 end

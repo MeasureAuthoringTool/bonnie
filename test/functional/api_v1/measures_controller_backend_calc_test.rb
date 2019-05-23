@@ -9,13 +9,13 @@ module ApiV1
     def setup_db
       dump_database
       users_set = File.join("users", "base_set")
-      record_fixtures = File.join("records", "core_measures", "CMS160v6")
-      collection_fixtures(users_set, record_fixtures)
+      patient_fixtures = File.join("patients", "CMS160v6")
+      collection_fixtures(users_set, patient_fixtures)
       @user = User.by_email('bonnie@example.com').first
       load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @user)
       @measure = CQM::Measure.where({"cms_id" => "CMS160v6"}).first
       @cms160_hqmf_set_id = @measure.hqmf_set_id
-      associate_user_with_patients(@user,Record.all)
+      associate_user_with_patients(@user,CQM::Patient.all)
 
       @vcr_options = {match_requests_on: [:method, :uri_no_st]}
     end
@@ -110,9 +110,9 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in component measure" do
-      composite_measure_records = File.join("records","special_measures","CMS890")
-      collection_fixtures(composite_measure_records)
-      associate_user_with_patients(@user,Record.all)
+      composite_measure_patients = File.join("cqm_patients", "CMS890v0")
+      collection_fixtures(composite_measure_patients)
+      associate_user_with_patients(@user,CQM::Patient.all)
       load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
@@ -153,9 +153,9 @@ module ApiV1
     end
 
     test "should calculate result excel sheet with correct expected values for shared patient in composite measure" do
-      composite_measure_records = File.join("records","special_measures","CMS321")
-      collection_fixtures(composite_measure_records)
-      associate_user_with_patients(@user,Record.all)
+      composite_measure_patients = File.join("cqm_patients", "CMS890v0")
+      collection_fixtures(composite_measure_patients)
+      associate_user_with_patients(@user,CQM::Patient.all)
       load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
 
       apipie_record_configuration = Apipie.configuration.record
