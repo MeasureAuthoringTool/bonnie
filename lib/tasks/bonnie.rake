@@ -287,18 +287,16 @@ namespace :bonnie do
 
         patient['measure_ids'] = []
         patient['measure_ids'] << measure.hqmf_set_id
-        patient['measure_ids'] << nil # Need to add a null value at the end of the array.
 
-        # Modifiying hqmf_set_id and cms_id for source data criteria
-        unless patient['source_data_criteria'].nil?
-          patient['source_data_criteria'].each do |source_criteria|
-            source_criteria['hqmf_set_id'] = measure.hqmf_set_id
-            source_criteria['cms_id'] = measure.cms_id
+        unless patient.qdmPatient.dataElements.nil?
+          patient.qdmPatient.dataElements.each do |data_element|
+            data_element['hqmf_set_id'] = measure.hqmf_set_id
+            data_element['cms_id'] = measure.cms_id
           end
         end
-        # Modifying measure_id for expected values
-        unless patient['expected_values'].nil?
-          patient['expected_values'].each do |expected_value|
+
+        unless patient.ent.expectedValues.nil?
+          patient.ent.expectedValues.each do |expected_value|
             expected_value['measure_id'] = measure.hqmf_set_id
           end
         end
