@@ -21,6 +21,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_nil measure[:calculation_method]
     assert_equal measure[:continuous_variable], true
     assert_equal measure[:episode_of_care], true
+    ENV['EMAIL'] = 'bonnie@example.com'
     Rake::Task['bonnie:cql:convert_measures'].execute
     converted_measure = CQM::Measure.by_user(@user).first
     assert_equal converted_measure[:hqmf_set_id], '3FD13096-2C8F-40B5-9297-B714E8DE9133'

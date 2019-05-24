@@ -288,15 +288,8 @@ namespace :bonnie do
         patient['measure_ids'] = []
         patient['measure_ids'] << measure.hqmf_set_id
 
-        unless patient.qdmPatient.dataElements.nil?
-          patient.qdmPatient.dataElements.each do |data_element|
-            data_element['hqmf_set_id'] = measure.hqmf_set_id
-            data_element['cms_id'] = measure.cms_id
-          end
-        end
-
-        unless patient.ent.expectedValues.nil?
-          patient.ent.expectedValues.each do |expected_value|
+        unless patient.expectedValues.nil?
+          patient.expectedValues.each do |expected_value|
             expected_value['measure_id'] = measure.hqmf_set_id
           end
         end
