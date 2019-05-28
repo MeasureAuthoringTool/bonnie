@@ -1,0 +1,183 @@
+{
+  "_id": {
+    "$oid": "5ce6c80bd7c8ac50771fe4b7"
+  },
+  "bundleId": "5a5668c5942c6d3afd4f245f",
+  "expectedValues": [
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
+      "population_index": 0,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "MSRPOPLEX": 0,
+      "OBSERV": [
+        0
+      ],
+      "OBSERV_UNIT": " mins"
+    }
+  ],
+  "familyName": "Measures",
+  "givenNames": [
+    "Multiple"
+  ],
+  "measure_ids": [
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+  ],
+  "notes": "",
+  "provider_ids": [
+
+  ],
+  "qdmPatient": {
+    "_id": {
+      "$oid": "5be215e8bb9215073f68f601"
+    },
+    "birthDatetime": "1940-11-14T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": {
+          "$oid": "5ce6c80bd7c8ac50771fe4b4"
+        },
+        "birthDatetime": "1940-11-14T08:00:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "codeSystem": "LOINC",
+            "descriptor": null,
+            "codeSystemOid": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+        "id": {
+          "_id": {
+            "$oid": "5ce6c80bd7c8ac50771fe4b8"
+          },
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5ce6c80bd7c8ac50771fe4b4"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": {
+          "$oid": "5ce6c80bd7c8ac50771fe4b5"
+        },
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "F",
+            "codeSystem": "AdministrativeGender",
+            "descriptor": "F",
+            "codeSystemOid": "2.16.840.1.113883.5.1",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+        "id": {
+          "_id": {
+            "$oid": "5ce6c80bd7c8ac50771fe4b9"
+          },
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5ce6c80bd7c8ac50771fe4b5"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "source_data_criteria": null,
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "215a43b2eaeeb858b7470ef9beb1f5e36b9df0dbee244ec48217de5786e55594",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[]"
+    },
+    "qdmVersion": "5.4"
+  },
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  }
+}

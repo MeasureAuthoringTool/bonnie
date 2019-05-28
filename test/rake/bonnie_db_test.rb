@@ -21,7 +21,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     # CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1).first.package.delete
 
     # these patients are already associated with the source measure in the json file
-    associate_user_with_patients(@user, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
   end
 
   test "resave measures" do

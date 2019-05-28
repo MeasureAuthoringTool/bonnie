@@ -197,7 +197,7 @@ namespace :bonnie do
       if json.kind_of?(Hash)
         json.each_pair do |k,v|
           if k.ends_with?("_at")
-            json[k] = Time.parse(v)
+            json[k] = Time.parse(v) unless v.nil?
           end
         end
       end
