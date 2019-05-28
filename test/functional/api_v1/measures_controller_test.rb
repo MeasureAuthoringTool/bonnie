@@ -241,7 +241,7 @@ module ApiV1
       assert_equal "Only Strat", measure.population_sets[0].stratifications[0].title
 
       # Associate patients with measure
-      associate_measures_with_patients(CQM::Measure.all, Record.all)
+      associate_measures_with_patients(CQM::Measure.all, CQM::Patient.all)
 
       # Update the same measure
       VCR.use_cassette("api_valid_vsac_response_update", @vcr_options) do

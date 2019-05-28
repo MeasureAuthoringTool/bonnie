@@ -1,5 +1,4 @@
 require 'test_helper'
-require './app/helpers/error_helper'
 
 class ErrorHelperTest < ActionView::TestCase
   test 'Empty error message from execution engine' do
