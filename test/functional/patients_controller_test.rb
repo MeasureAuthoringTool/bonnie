@@ -131,10 +131,10 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(records_set)
     associate_user_with_patients(@user, CQM::Patient.all)
     patient = CQM::Patient.first
-    assert_equal 2, @user.patients.count
+    assert_equal 3, @user.patients.count
     delete :destroy, {id: patient.id}
     assert_response :success
-    assert_equal 1, @user.patients.count
+    assert_equal 2, @user.patients.count
     patient = CQM::Patient.where({id: patient.id}).first
     assert_nil patient
   end
@@ -164,7 +164,7 @@ include Devise::Test::ControllerHelpers
 
   test "export patients" do
     skip('Need to bring in new patient model and use cqm-reports')
-    records_set = File.join("records", "core_measures", "CMS134v6")
+    records_set = File.join("cqm_patients", "CMS134v6")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, CQM::Patient.all)
     associate_measure_with_patients(@measure, CQM::Patient.all)
