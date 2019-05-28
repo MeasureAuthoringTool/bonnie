@@ -285,5 +285,5 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
     @getView().showRationale(@model.calculate(patient))
   context: ->
     _(super).extend
-      title: if @model.collection.parent.get('populations').length > 1 then (@model.get('cqmMeasure').title || @model.get('sub_id')) else ''
+      title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
       cms_id: @model.collection.parent.get('cqmMeasure').cms_id

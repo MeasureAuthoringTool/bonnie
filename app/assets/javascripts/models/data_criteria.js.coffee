@@ -116,6 +116,15 @@ Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
     result
 
 class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
+  # List of QDM types to exclude from SourceDataCriteria collection because they are managed by the header of the patient builder.
+  @SKIP_TYPES = [ "QDM::PatientCharacteristicSex",
+                  "QDM::PatientCharacteristicBirthdate",
+                  "QDM::PatientCharacteristicRace",
+                  "QDM::PatientCharacteristicEthnicity",
+                  "QDM::PatientCharacteristicPayer",
+                  "QDM::PatientCharacteristicExpired"
+                ]
+
   model: Thorax.Models.SourceDataCriteria
   initialize: (models, options) ->
     @parent = options?.parent
@@ -140,11 +149,16 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   # Expect a array of QDM::DataElements to be passed in. We want to turn it into an array
   # of plain objects that will become the attributes for each SourceDataCriteria.
   parse: (dataElements, options) ->
+    dataElementsAsObjects = []
+
     # TODO: Replace quick and dirty option
-    dataElements.map (dataElement) ->
-      dataElementAsObject = dataElement.toObject()
-      dataElementAsObject.qdmDataElement = dataElement
-      return dataElementAsObject
+    dataElements.forEach (dataElement) ->
+      if !Thorax.Collections.SourceDataCriteria.SKIP_TYPES.includes(dataElement._type)
+        dataElementAsObject = dataElement.toObject()
+        dataElementAsObject.qdmDataElement = dataElement
+        dataElementsAsObjects.push(dataElementAsObject)
+
+    return dataElementsAsObjects
 
 class Thorax.Collections.Codes extends Thorax.Collection
   parse: (results, options) ->
