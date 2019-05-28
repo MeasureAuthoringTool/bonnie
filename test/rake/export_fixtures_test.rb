@@ -10,7 +10,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     simple_records_set = File.join('records','core_measures', 'CMS134v6')
     collection_fixtures(users_set, measure_set, simple_measure_set, records_set, simple_records_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_patients(@user, Record.all)
+    associate_user_with_patients(@user, CQM::Patient.all)
   end
 
   test "measures convert to CQM format properly" do
@@ -21,6 +21,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_nil measure[:calculation_method]
     assert_equal measure[:continuous_variable], true
     assert_equal measure[:episode_of_care], true
+    ENV['EMAIL'] = 'bonnie@example.com'
     Rake::Task['bonnie:cql:convert_measures'].execute
     converted_measure = CQM::Measure.by_user(@user).first
     assert_equal converted_measure[:hqmf_set_id], '3FD13096-2C8F-40B5-9297-B714E8DE9133'
@@ -38,6 +39,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_equal patient[:notes], ''
     assert_equal patient[:measure_ids], ["3FD13096-2C8F-40B5-9297-B714E8DE9133", nil]
     assert_nil patient[:qdmPatient]
+    ENV['EMAIL'] = 'bonnie@example.com'
     Rake::Task['bonnie:cql:convert_measures'].execute
     Rake::Task['bonnie:cql:convert_patients'].execute
     converted_patient = CQM::Patient.where(givenNames: ['Visits']).first

@@ -1,6 +1,5 @@
 require 'test_helper'
 require './app/helpers/excel_export_helper'
-require './app/helpers/patient_helper'
 class ExcelExportHelperTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 

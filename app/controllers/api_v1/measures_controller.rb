@@ -128,27 +128,26 @@ module ApiV1
       render json: hash, status: http_status
     end
 
-    # Disabled until QDM models are more integrated.
-    # api :GET, '/api_v1/measures/:id/patients', 'List of Patients for a Specific Measure'
-    # description 'Get all the patients associated with a measure.'
-    # param_group :measure
-    # def patients
-    #   @api_v1_patients = []
-    #   http_status = 200
-    #   begin
-    #     # Get the measure
-    #     @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
-    #     # Extract out the HQMF set id, which we'll use to get related patients
-    #     hqmf_set_id = @api_v1_measure.hqmf_set_id
-    #     # Get the patients for this measure
-    #     @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
-    #     @api_v1_patients = process_patient_records(@api_v1_patients)
-    #   rescue StandardError
-    #     http_status = 404
-    #     @api_v1_patients = []
-    #   end
-    #   render json: @api_v1_patients, status: http_status
-    # end
+    api :GET, '/api_v1/measures/:id/patients', 'List of Patients for a Specific Measure'
+    description 'Get all the patients associated with a measure.'
+    param_group :measure
+    def patients
+      @api_v1_patients = []
+      http_status = 200
+      begin
+        # Get the measure
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).min_by(&:updated_at)
+        # Extract out the HQMF set id, which we'll use to get related patients
+        hqmf_set_id = @api_v1_measure.hqmf_set_id
+        # Get the patients for this measure
+        @api_v1_patients = CQM::Patient.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+        @api_v1_patients = process_patients(@api_v1_patients)
+      rescue StandardError
+        http_status = 404
+        @api_v1_patients = []
+      end
+      render json: @api_v1_patients, status: http_status
+    end
 
     api :GET, '/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
     description 'Retrieve the calculated results of the measure logic for each patient.'
@@ -172,7 +171,7 @@ module ApiV1
           return
         end
         hqmf_set_id = @api_v1_measure.hqmf_set_id
-        @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+        @api_v1_patients = CQM::Patient.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
       rescue StandardError => e
         # Email the error so we can see more details on what went wrong with the patient load.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
@@ -252,7 +251,7 @@ module ApiV1
       }
     end
 
-    def process_patient_records(selector)
+    def process_patients(selector)
       patients = selector.map(&:as_json)
       patients.each do |p|
         p.select! { |key,value| PATIENT_WHITELIST.include?(key) && !value.nil? }

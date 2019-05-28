@@ -181,7 +181,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     # Make fake sdc items in measure as if measure has relevant sdc
     source_patients.each do |patient|
-      patient.qdmPatient.extendedData['source_data_criteria'].each do |sdc|
+      patient.qdmPatient.extendedData['source_data_criteria'].each do |_sdc|
         fake_sdc = QDM::EncounterPerformed.new description: "fake"
         dest_measure.source_data_criteria << fake_sdc
       end
