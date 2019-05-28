@@ -13,7 +13,7 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', '~> 4.3.3'
+gem 'health-data-standards', '~> 4.3.5'
 # gem 'cql_qdm_patientapi', '~> 1.3.1'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
