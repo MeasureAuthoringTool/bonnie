@@ -15,7 +15,7 @@ module ApiV1
       @token = StubToken.new
       @token.resource_owner_id = @user.id
       @controller.instance_variable_set('@_doorkeeper_token', @token)
-      @ticket_expires_at = (Time.now + 8.hours).to_i
+      @ticket_expires_at = (Time.now.utc + 8.hours).to_i
 
       @vcr_options = {match_requests_on: [:method, :uri_no_st]}
     end

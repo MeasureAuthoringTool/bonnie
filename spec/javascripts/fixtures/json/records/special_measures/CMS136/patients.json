@@ -10,9 +10,10 @@
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5babbf765cc9753f21828504",
+        "_id": "5cb76e1b08fa188731afd123",
         "admitTime": null,
         "admitType": null,
+        "author_datetime": 1328774400,
         "codes": {
           "SNOMED-CT": [
             "185463005"
@@ -70,6 +71,41 @@
     "expired": null,
     "first": "Pass",
     "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5cb76e1b08fa188731afd125",
+        "author_datetime": null,
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5cb76e1b08fa188731afd126",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
     "is_shared": null,
     "languages": [
 
@@ -84,11 +120,12 @@
     "medical_record_number": "b7ad2cc9e2a89ba7961791d541d1fd41970d60549e86ec25038e859fcab42ae0",
     "medications": [
       {
-        "_id": "5babbf765cc9753f21828505",
+        "_id": "5cb76e1b08fa188731afd124",
         "active_datetime": null,
         "administrationTiming": null,
         "allowedAdministrations": null,
         "anatomical_approach": null,
+        "author_datetime": 1328774400,
         "codes": {
           "RxNorm": [
             "1006608"
@@ -162,6 +199,14 @@
         ],
         "references": null,
         "field_values": {
+          "AUTHOR_DATETIME": {
+            "type": "TS",
+            "code_list_id": "",
+            "field_title": "Author Date/Time",
+            "start_date": "02/09/2012",
+            "start_time": "8:00 AM",
+            "value": 1328774400000
+          }
         },
         "hqmf_set_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
         "cms_id": "CMS136v7",
@@ -175,7 +220,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5babbf765cc9753f21828504",
+        "coded_entry_id": "5cb76e1b08fa188731afd123",
         "code_source": "DEFAULT"
       },
       {
@@ -194,6 +239,14 @@
         ],
         "references": null,
         "field_values": {
+          "AUTHOR_DATETIME": {
+            "type": "TS",
+            "code_list_id": "",
+            "field_title": "Author Date/Time",
+            "start_date": "02/09/2012",
+            "start_time": "8:00 AM",
+            "value": 1328774400000
+          }
         },
         "hqmf_set_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
         "cms_id": "CMS136v7",
@@ -209,7 +262,7 @@
         "frequency_value": "",
         "frequency_unit": "min",
         "negation_code_list_id": "",
-        "coded_entry_id": "5babbf765cc9753f21828505",
+        "coded_entry_id": "5cb76e1b08fa188731afd124",
         "code_source": "DEFAULT"
       },
       {
@@ -222,8 +275,8 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-09-26T17:18:46.439Z",
-    "user_id": "5a57e975942c6d1e61d32f13"
+    "updated_at": "2019-04-17T18:19:07.500Z",
+    "user_id": null
   },
   {
     "_id": "5a7dc67fb8484620c5183d68",
@@ -236,9 +289,10 @@
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5babbf765cc9753f21828506",
+        "_id": "5aeb7734b848463d625b203a",
         "admitTime": null,
         "admitType": null,
+        "author_datetime": null,
         "codes": {
           "SNOMED-CT": [
             "185463005"
@@ -310,11 +364,12 @@
     "medical_record_number": "978377cb9abfa822ea7943ce0ac537f2638722c872dcb77b05b86b106367455a",
     "medications": [
       {
-        "_id": "5babbf765cc9753f21828507",
+        "_id": "5aeb7734b848463d625b203b",
         "active_datetime": null,
         "administrationTiming": null,
         "allowedAdministrations": null,
         "anatomical_approach": null,
+        "author_datetime": null,
         "codes": {
           "RxNorm": [
             "1006608"
@@ -330,6 +385,9 @@
         "doseRestriction": null,
         "end_time": 1328775300,
         "freeTextSig": null,
+        "fulfillmentHistory": [
+
+        ],
         "fulfillmentInstructions": null,
         "health_record_field": null,
         "indication": null,
@@ -361,11 +419,12 @@
         "vehicle": null
       },
       {
-        "_id": "5babbf765cc9753f21828508",
+        "_id": "5aeb7734b848463d625b203c",
         "active_datetime": null,
         "administrationTiming": null,
         "allowedAdministrations": null,
         "anatomical_approach": null,
+        "author_datetime": null,
         "codes": {
           "RxNorm": [
             "1006608"
@@ -381,6 +440,9 @@
         "doseRestriction": null,
         "end_time": 1355040900,
         "freeTextSig": null,
+        "fulfillmentHistory": [
+
+        ],
         "fulfillmentInstructions": null,
         "health_record_field": null,
         "indication": null,
@@ -455,7 +517,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5babbf765cc9753f21828506",
+        "coded_entry_id": "5aeb7734b848463d625b203a",
         "code_source": "DEFAULT"
       },
       {
@@ -489,7 +551,7 @@
         "frequency_value": "",
         "frequency_unit": "min",
         "negation_code_list_id": "",
-        "coded_entry_id": "5babbf765cc9753f21828507",
+        "coded_entry_id": "5aeb7734b848463d625b203b",
         "code_source": "DEFAULT"
       },
       {
@@ -522,7 +584,7 @@
         "dose_unit": "{Capsule}",
         "frequency_value": "",
         "frequency_unit": "min",
-        "coded_entry_id": "5babbf765cc9753f21828508",
+        "coded_entry_id": "5aeb7734b848463d625b203c",
         "code_source": "DEFAULT"
       },
       {
@@ -535,7 +597,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-09-26T17:18:46.473Z",
-    "user_id": "5a57e975942c6d1e61d32f13"
+    "updated_at": "2018-05-03T20:55:16.179Z",
+    "user_id": null
   }
 ]

@@ -28,7 +28,7 @@ module ApiV1
       @token = StubToken.new
       @token.resource_owner_id = @user.id
       @controller.instance_variable_set('@_doorkeeper_token', @token)
-      @ticket_expires_at = (Time.now + 8.hours).to_i
+      @ticket_expires_at = (Time.now.utc + 8.hours).to_i
     end
 
     test "should get a 404 for bad measure id" do
