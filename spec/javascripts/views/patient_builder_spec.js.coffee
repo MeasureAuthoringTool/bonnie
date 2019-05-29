@@ -227,6 +227,20 @@ describe 'PatientBuilderView', ->
 
     afterEach -> @patientBuilder.remove()
 
+  describe 'author date time', ->
+    xit "removes author date time field value when not performed is checked", ->
+      authorDateTimePatient = @patients.models.filter((patient) -> patient.get('last') is 'AuthorDateTime')[0]
+      patientBuilder = new Thorax.Views.PatientBuilder(model: authorDateTimePatient, measure: @measure, patients: @patients)
+      patientBuilder.appendTo 'body'
+      firstCriteria = patientBuilder.model.get('source_data_criteria').first()
+      authorDateTime = patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('start_date')
+      expect(authorDateTime).toEqual '04/24/2019'
+      patientBuilder.$('input[name=negation]:first').click()
+      expect(patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toBe 0
+      startDate = new Date(patientBuilder.model.get('source_data_criteria').first().get('start_date'))
+      expect(startDate.toString().includes("Tue Apr 17 2012")).toBe true
+      patientBuilder.remove()
+
   describe "blurring basic fields of a criteria", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
