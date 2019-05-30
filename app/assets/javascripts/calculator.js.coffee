@@ -6,7 +6,7 @@
     @resultsCache = {}
 
   # Key for storing calculators on a population
-  calculationKey: (population) -> "#{population.measure().id}/#{population.get('index')}"
+  calculationKey: (population) -> "#{population.measure().get('cqmMeasure').id}/#{population.get('index')}"
 
   # Key for storing results for a patient / population calculation; we use the CID for the patient portion
   # of the key so that clones can have different calculation results

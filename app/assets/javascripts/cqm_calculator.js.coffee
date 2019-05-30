@@ -40,6 +40,8 @@
         # if this population is requested update the object
         if measure_population == population
           result.set(populationSetResults.toObject())
+          episode_results = result.get('episode_results')
+          result.set values: @getValuesFromEpisodeResults(result.get('episode_results'))
           result.state = 'complete'
         # otherwise create result and put it on the cache
         else
@@ -119,6 +121,7 @@
         populationSetResults = patientResults[populationSetId]
 
         result.set(populationSetResults.toObject())
+        result.set values: @getValuesFromEpisodeResults(result.get('episode_results'))
         result.state = 'complete'
 
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
@@ -129,3 +132,12 @@
       results.forEach((result) -> result.state = 'cancelled')
 
     return results
+
+  getValuesFromEpisodeResults: (episode_results) ->
+    # Add the OBSERV values from episode_results
+    # flatten episode_results and sort into an array
+    values = []
+    for episode_id of episode_results
+      for value in episode_results[episode_id].values
+        values.push value
+    values.sort()
