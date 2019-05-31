@@ -1,4 +1,5 @@
 require_relative './fixture_helper'
+require_relative './cql_to_elm_helper'
 # NOTE: Tasks use array arguments to execute.
 # In order for z-shell to execute, noglob is required.
 # e.g., noglob bundle exec rake bonnie:fixtures:load_backend_fixtures[test/fake]
@@ -240,7 +241,7 @@ namespace :bonnie do
       raise Exception.new("Package already has ELM JSON!") if files[:ELM_JSON].length > 0
 
       # translate_cql_to_elm
-      elm_jsons, elm_xmls = CqlElm::CqlToElmHelper.translate_cql_to_elm(files[:CQL])
+      elm_jsons, elm_xmls = CqlToElmHelper.translate_cql_to_elm(files[:CQL])
 
       # older packages don't have annotations or clause level annotations, if they dont have them wipe out the existing
       # XML ELM and use the ones from the translation server
