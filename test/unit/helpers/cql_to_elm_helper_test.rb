@@ -1,7 +1,6 @@
 require 'test_helper'
 require 'vcr_setup.rb'
 
-
 class CqlToElmHelperTest < ActiveSupport::TestCase
 
   include WebMock::API
