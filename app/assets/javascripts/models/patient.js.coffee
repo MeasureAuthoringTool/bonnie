@@ -17,7 +17,7 @@ class Thorax.Models.Patient extends Thorax.Model
     thoraxPatient._id = attrs._id
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
     thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(thoraxPatient.cqmPatient.qdmPatient.dataElements, parent: this, parse: true)
-    thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(thoraxPatient.cqmPatient.expectedValues.toObject())
+    thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(thoraxPatient.cqmPatient.expectedValues, parent: this, parse: true)
     thoraxPatient
 
   # Create a deep clone of the patient, optionally omitting the id field
@@ -26,6 +26,7 @@ class Thorax.Models.Patient extends Thorax.Model
     # clone the cqmPatient and make a new source_data_criteria collection for it
     clonedPatient.set 'cqmPatient', new cqm.models.Patient(mongoose.utils.clone(clonedPatient.get('cqmPatient')))
     clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').qdmPatient.dataElements, parent: clonedPatient, parse: true)
+    clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expectedValues, parent: clonedPatient, parse: true)
     if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
     if options.dedupName
        clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
@@ -96,6 +97,7 @@ class Thorax.Models.Patient extends Thorax.Model
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicBirthdate()
     sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
+    sourceElement.dataElementCodes[0] = new cqm.models.CQL.Code('21112-8', 'LOINC')
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientDeathDate: (deathdate, measure) ->
     sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
@@ -210,7 +212,7 @@ class Thorax.Models.Patient extends Thorax.Model
     expectedValue
 
   getExpectedValues: (measure) ->
-    expectedValues = new Thorax.Collections.ExpectedValues()
+    expectedValues = new Thorax.Collections.ExpectedValues([], parent: this)
     measure.get('populations').each (population) =>
       expectedValues.add @getExpectedValue(population)
     expectedValues
