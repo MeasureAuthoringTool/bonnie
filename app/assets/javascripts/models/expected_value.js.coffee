@@ -1,12 +1,25 @@
 class Thorax.Models.ExpectedValue extends Thorax.Model
 
   initialize: ->
+    @on 'change', @changeExpectedValue, this
     # make 'OBSERV' be an empty list if CV measure and 'OBSERV' not set
     if @has('MSRPOPL') && !@has('OBSERV')
       @set 'OBSERV', []
     # sort OBSERV when it is set to make comparison w actuals easier
     if @has 'OBSERV' and Array.isArray(@get('OBSERV'))
       @set 'OBSERV', @get('OBSERV').sort()
+
+  changeExpectedValue: (expectedValue) ->
+    mongoose_expectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
+    if expectedValue.has('IPP') then mongoose_expectedValue.IPP = expectedValue.get('IPP')
+    if expectedValue.has('DENOM') then mongoose_expectedValue.DENOM = expectedValue.get('DENOM')
+    if expectedValue.has('DENEXCEP') then mongoose_expectedValue.DENEXCEP = expectedValue.get('DENEXCEP')
+    if expectedValue.has('NUMER') then mongoose_expectedValue.NUMER = expectedValue.get('NUMER')
+    if expectedValue.has('MSRPOPL') then mongoose_expectedValue.MSRPOPL = expectedValue.get('MSRPOPL')
+    if expectedValue.has('MSRPOPLEX') then mongoose_expectedValue.MSRPOPLEX = expectedValue.get('MSMSRPOPLEXRPOPL')
+    if expectedValue.has('OBSERV') then mongoose_expectedValue.OBSERV = expectedValue.get('OBSERV')
+    if expectedValue.has('OBSERV_UNIT') then mongoose_expectedValue.OBSERV_UNIT = expectedValue.get('OBSERV_UNIT')
+    if expectedValue.has('STRAT') then mongoose_expectedValue.STRAT = expectedValue.get('STRAT')
 
   populationCriteria: ->
     defaults = _(@pick(Thorax.Models.Measure.allPopulationCodes)).keys()
@@ -58,7 +71,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
   compareObservs: (val1, val2) ->
     return ExpectedValue.prepareObserv(val1) == ExpectedValue.prepareObserv(val2)
-  
+
   @floorToCQLPrecision: (num) ->
     Number(Math.floor(num + 'e' + 8) + 'e-' + 8);
 
@@ -69,3 +82,6 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
 class Thorax.Collections.ExpectedValues extends Thorax.Collection
   model: Thorax.Models.ExpectedValue
+
+  initialize: (models, options) ->
+    @parent = options?.parent

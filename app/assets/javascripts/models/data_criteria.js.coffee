@@ -25,12 +25,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')
 
-  toJSON: ->
-    # Transform fieldValues back to an object from a collection
-    fieldValues = {}
-    @get('field_values').each (fv) -> fieldValues[fv.get('key')] = _(fv.toJSON()).omit('key')
-    _(super).extend(field_values: fieldValues)
-
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =

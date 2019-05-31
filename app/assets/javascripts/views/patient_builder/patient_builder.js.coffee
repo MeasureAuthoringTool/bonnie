@@ -202,13 +202,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       success: (model) =>
         @patients.add model # make sure that the patient exist in the global patient collection
         @measure?.get('cqmMeasure').patients.push model.get('cqmPatient') # and the measure's patient collection
-        # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids 
+        # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids
         # field with the ids of the sibling and composite measures, so we need to add this patient to those models.
         # TODO ADD A PATIENT -> MEASURE ID RELATION IN CQM-MODELS
-        # for measure_id in model.get('measure_ids')
-        #   continue if !measure_id?
-        #   m = bonnie.measures.findWhere({hqmf_set_id: measure_id})
-        #   m.get('patients').add(model)
+        for measure_id in model.get('cqmPatient').measure_ids
+          continue if !measure_id?
+          measure = (bonnie.measures.filter (m) -> m.get('cqmMeasure').hqmf_set_id == measure_id)[0]
+          measure.get('patients').add(model)
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
           route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
         else
