@@ -1,4 +1,5 @@
 require 'colorize'
+require_relative '../util/cql_to_elm_helper'
 
 # This rakefile is for tasks that are designed to be run once to address a specific problem; we're keeping
 # them as a history and as a reference for solving related problems
@@ -304,7 +305,7 @@ namespace :bonnie do
             # Grab the measure cql
             cql = measure[:cql]
             # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
-            elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
+            elm_json, elm_xml = CqlToElmHelper.translate_cql_to_elm(cql)
             elms = {:ELM_JSON => elm_json,
                     :ELM_XML => elm_xml}
             cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, measure.hqmf_set_id)

@@ -1,14 +1,16 @@
+require_relative '../util/cql_to_elm_helper'
+
 namespace :bonnie do
   namespace :cql do
     desc %(Rebuilds the JSON and XML ELM for a MAT package or extracted directory. Saves as a new zip file with '_rebuilt' appened to
       the file name next to the input path.
       - DOES NOT work with composite measures
       - MUST have cql-to-elm cqlTranslationServer JAR running on local machine
-      
+
       $ bundle exec rake bonnie:cql:rebuild_package[path/to/package.zip]
       or
       $ bundle exec rake bonnie:cql:rebuild_package[path/to/package_dir]
-      
+
       If you are using a zsh terminal, you need to use 'noglob':
       $ noglob bundle exec rake bonnie:cql:rebuild_package[path/to/package.zip])
     task :rebuild_package, [:input_package_or_dir_path] => [:environment] do |_t, args|
@@ -45,7 +47,7 @@ namespace :bonnie do
 
       # translate_cql_to_elm
       cql_files = Dir.glob(File.join(measure_path, '**.cql'))
-      elm_jsons, elm_xmls = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql_files.map { |cql_path| File.read(cql_path) })
+      elm_jsons, elm_xmls = CqlToElmHelper.translate_cql_to_elm(cql_files.map { |cql_path| File.read(cql_path) })
 
       # find hqmf file
       hqmf_file_path = Dir.glob(File.join(measure_path, "*.xml")).find do |xml_file_path|
