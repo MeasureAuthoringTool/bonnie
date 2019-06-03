@@ -64,6 +64,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
 
+    @timingAttributeViews = []
+    for timingAttr in @model.getPrimaryTimingAttributes()
+      switch timingAttr.type
+        when 'Interval'
+          @timingAttributeViews.push new Thorax.Views.InputIntervalDateTimeView(initialValue: @model.get('qdmDataElement')[timingAttr.name], attributeName: timingAttr.name, attributeTitle: timingAttr.title, showLabel: true)
+        when 'DateTime'
+          @timingAttributeViews.push new Thorax.Views.InputDateTimeView(initialValue: @model.get('qdmDataElement')[timingAttr.name], attributeName: timingAttr.name, attributeTitle: timingAttr.title, showLabel: true)
+
+
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '

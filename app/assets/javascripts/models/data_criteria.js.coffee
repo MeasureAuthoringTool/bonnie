@@ -95,6 +95,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       criteriaType = "#{criteriaType}_#{@get('sub_category')}"
     criteriaType
 
+  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
     schema = @get('qdmDataElement').schema
@@ -106,6 +107,29 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       'participationPeriod'
     else
       undefined
+
+  # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
+  getPrimaryTimingAttributes: ->
+    primaryTimingAttributes = []
+    for timingAttr in Thorax.Models.SourceDataCriteria.PRIMARY_TIMING_ATTRIBUTES
+      if @get('qdmDataElement').schema.path(timingAttr)?
+        primaryTimingAttributes.push(
+          name: timingAttr
+          title: Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[timingAttr]
+          type: @getAttributeType(timingAttr)
+        )
+    return primaryTimingAttributes
+
+  # TODO: Complete this or find a more appropiate location for this
+  @ATTRIBUTE_TITLE_MAP:
+    'relevantPeriod': 'Relevant Period'
+    'prevalencePeriod': 'Prevalence Period'
+    'participationPeriod': 'Participation Period'
+    'authorDatetime': 'Author DateTime'
+
+  getAttributeType: (attributeName) ->
+    attrInfo = @get('qdmDataElement').schema.path(attributeName)
+    return attrInfo.instance
 
 Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
