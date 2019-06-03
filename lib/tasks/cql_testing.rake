@@ -1,5 +1,5 @@
 require_relative './fixture_helper'
-require_relative './cql_to_elm_helper'
+require_relative '../util/cql_to_elm_helper'
 # NOTE: Tasks use array arguments to execute.
 # In order for z-shell to execute, noglob is required.
 # e.g., noglob bundle exec rake bonnie:fixtures:load_backend_fixtures[test/fake]

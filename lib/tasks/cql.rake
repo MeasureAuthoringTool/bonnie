@@ -1,4 +1,4 @@
-require_relative './cql_to_elm_helper'
+require_relative '../util/cql_to_elm_helper'
 
 #  -*- coding: utf-8 -*-
 
