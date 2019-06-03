@@ -12,12 +12,12 @@ class Thorax.Views.MeasurementPeriod extends Thorax.Views.BonnieView
   setup: ->
     @dialog = @$("#measurementPeriodDialog")
     @$('.date-picker').datepicker('orientation': 'bottom left')
-  
+
   display: ->
     @dialog.modal(
       "backdrop" : "static",
       "keyboard" : true,
       "show" : true)
-  
+
   close: ->
     @dialog.modal('hide')

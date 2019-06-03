@@ -33,7 +33,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     # the view needs to be re-created each time it is shown. super annoying...
     population = @measure.get 'displayedPopulation'
     @setView new Thorax.Views.Measure(model: @measure, patients: @patients, populations: @populations, population: population)
-  
+
   changeMeasurementPeriod: (e) ->
     measurementPeriodView = new Thorax.Views.MeasurementPeriod(model: @model)
     measurementPeriodView.appendTo(@$el)
