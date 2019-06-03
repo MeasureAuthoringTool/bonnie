@@ -106,7 +106,7 @@ module ExcelExportHelper
     pop_sets_and_strats.each_with_index do |pop_set_or_strat, pop_index|
       # Populates the population details
       next if population_details[pop_index]
-      statement_results_hash = results.first[1][pop_set_or_strat[:id]].statement_results_by_statement()
+      statement_results_hash = results.first[1][pop_set_or_strat[:id]].statement_results_by_statement
       # the population_details are independent of patient, so index into the first patient in the results.
       population_details[pop_index] = {title: pop_set_or_strat[:title], statement_results: statement_results_hash}
 
