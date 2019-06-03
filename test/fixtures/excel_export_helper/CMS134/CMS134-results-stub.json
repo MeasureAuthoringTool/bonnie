@@ -3,42 +3,11 @@
     "PopulationSet_1": {
       "state": "complete",
       "_id": "5b479b890a97b16d73ba4782",
-      "extendedData": {
-        "population_relevance": {
-          "IPP": true,
-          "DENOM": true,
-          "DENEX": true,
-          "NUMER": true
-        },
-        "statement_relevance": {
-          "DiabetesMedicalAttentionforNephropathy": {
-            "Patient": "NA",
-            "SDE Ethnicity": "NA",
-            "SDE Payer": "NA",
-            "SDE Race": "NA",
-            "SDE Sex": "NA",
-            "Renal Procedures": "TRUE",
-            "Renal Interventions": "TRUE",
-            "Qualifying Encounters": "TRUE",
-            "Protein Urea Lab Test": "TRUE",
-            "Nephropathy Diagnoses": "TRUE",
-            "ESRD Encounter": "TRUE",
-            "Active ACEI or ARB Medications": "TRUE",
-            "Initial Population": "TRUE",
-            "Denominator": "TRUE",
-            "Nephropathy Screenings": "TRUE",
-            "Numerator": "TRUE",
-            "In Hospice": "TRUE",
-            "Denominator Exclusions": "TRUE"
-          },
-          "MATGlobalCommonFunctions": {
-            "CalendarAgeInYearsAt": "TRUE",
-            "ToDate": "TRUE"
-          },
-          "Hospice": {
-            "Has Hospice": "TRUE"
-          }
-        }
+      "population_relevance": {
+        "IPP": true,
+        "DENOM": true,
+        "DENEX": true,
+        "NUMER": true
       },
       "IPP": 1,
       "DENOM": 1,
@@ -47,19 +16,23 @@
       "statement_results": {
         "DiabetesMedicalAttentionforNephropathy": {
           "Patient": {
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "SDE Ethnicity": {
             "raw": [],
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "SDE Payer": {
             "raw": [],
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "SDE Race": {
             "raw": [],
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "SDE Sex": {
             "raw": [
@@ -83,15 +56,18 @@
                 "description": null
               }
             ],
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "Renal Procedures": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Renal Interventions": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Qualifying Encounters": {
             "raw": [
@@ -128,61 +104,75 @@
                 }
               }
             ],
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "Protein Urea Lab Test": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Nephropathy Diagnoses": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "ESRD Encounter": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Active ACEI or ARB Medications": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Initial Population": {
             "raw": true,
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "Denominator": {
             "raw": true,
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "Nephropathy Screenings": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Numerator": {
             "raw": false,
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "In Hospice": {
             "raw": false,
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Denominator Exclusions": {
             "raw": false,
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           }
         },
         "MATGlobalCommonFunctions": {
           "CalendarAgeInYearsAt": {
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "ToDate": {
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           }
         },
         "Hospice": {
           "Has Hospice": {
             "raw": false,
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           }
         }
       },
@@ -1650,42 +1640,11 @@
     "PopulationSet_1": {
       "state": "complete",
       "_id": "5b479b890a97b16d73ba4783",
-      "extendedData": {
-        "population_relevance": {
-          "IPP": true,
-          "DENOM": true,
-          "DENEX": true,
-          "NUMER": true
-        },
-        "statement_relevance": {
-          "DiabetesMedicalAttentionforNephropathy": {
-            "Patient": "NA",
-            "SDE Ethnicity": "NA",
-            "SDE Payer": "NA",
-            "SDE Race": "NA",
-            "SDE Sex": "NA",
-            "Renal Procedures": "TRUE",
-            "Renal Interventions": "TRUE",
-            "Qualifying Encounters": "TRUE",
-            "Protein Urea Lab Test": "TRUE",
-            "Nephropathy Diagnoses": "TRUE",
-            "ESRD Encounter": "TRUE",
-            "Active ACEI or ARB Medications": "TRUE",
-            "Initial Population": "TRUE",
-            "Denominator": "TRUE",
-            "Nephropathy Screenings": "TRUE",
-            "Numerator": "TRUE",
-            "In Hospice": "TRUE",
-            "Denominator Exclusions": "TRUE"
-          },
-          "MATGlobalCommonFunctions": {
-            "CalendarAgeInYearsAt": "TRUE",
-            "ToDate": "TRUE"
-          },
-          "Hospice": {
-            "Has Hospice": "TRUE"
-          }
-        }
+      "population_relevance": {
+        "IPP": true,
+        "DENOM": true,
+        "DENEX": true,
+        "NUMER": true
       },
       "IPP": 1,
       "DENOM": 1,
@@ -1694,19 +1653,23 @@
       "statement_results": {
         "DiabetesMedicalAttentionforNephropathy": {
           "Patient": {
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "SDE Ethnicity": {
             "raw": [],
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "SDE Payer": {
             "raw": [],
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "SDE Race": {
             "raw": [],
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "SDE Sex": {
             "raw": [
@@ -1730,15 +1693,18 @@
                 "description": null
               }
             ],
-            "final": "NA"
+            "final": "NA",
+            "relevance": "NA"
           },
           "Renal Procedures": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Renal Interventions": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Qualifying Encounters": {
             "raw": [
@@ -1810,7 +1776,8 @@
                 }
               }
             ],
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "Protein Urea Lab Test": {
             "raw": [
@@ -1928,7 +1895,8 @@
                 "status": null
               }
             ],
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "Nephropathy Diagnoses": {
             "raw": [
@@ -1957,23 +1925,28 @@
                 "severity": null
               }
             ],
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "ESRD Encounter": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Active ACEI or ARB Medications": {
             "raw": [],
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Initial Population": {
             "raw": true,
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "Denominator": {
             "raw": true,
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "Nephropathy Screenings": {
             "raw": [
@@ -2091,33 +2064,40 @@
                 "status": null
               }
             ],
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "Numerator": {
             "raw": true,
-            "final": "TRUE"
+            "final": "TRUE",
+            "relevance": "TRUE"
           },
           "In Hospice": {
             "raw": false,
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "Denominator Exclusions": {
             "raw": false,
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           }
         },
         "MATGlobalCommonFunctions": {
           "CalendarAgeInYearsAt": {
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           },
           "ToDate": {
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           }
         },
         "Hospice": {
           "Has Hospice": {
             "raw": false,
-            "final": "FALSE"
+            "final": "FALSE",
+            "relevance": "TRUE"
           }
         }
       },

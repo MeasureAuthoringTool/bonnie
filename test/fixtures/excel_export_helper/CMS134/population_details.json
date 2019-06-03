@@ -1,33 +1,33 @@
 {
   "c10": {
     "title": "Population Criteria Section",
-    "statement_relevance": {
+    "statement_results": {
       "DiabetesMedicalAttentionforNephropathy": {
-        "Patient": "NA",
-        "SDE Ethnicity": "NA",
-        "SDE Payer": "NA",
-        "SDE Race": "NA",
-        "SDE Sex": "NA",
-        "Renal Procedures": "TRUE",
-        "Renal Interventions": "TRUE",
-        "Qualifying Encounters": "TRUE",
-        "Protein Urea Lab Test": "TRUE",
-        "Nephropathy Diagnoses": "TRUE",
-        "ESRD Encounter": "TRUE",
-        "Active ACEI or ARB Medications": "TRUE",
-        "Initial Population": "TRUE",
-        "Denominator": "TRUE",
-        "Nephropathy Screenings": "TRUE",
-        "Numerator": "TRUE",
-        "In Hospice": "TRUE",
-        "Denominator Exclusions": "TRUE"
+        "Patient": {"relevance": "NA"},
+        "SDE Ethnicity": {"relevance": "NA"},
+        "SDE Payer": {"relevance": "NA"},
+        "SDE Race": {"relevance": "NA"},
+        "SDE Sex": {"relevance": "NA"},
+        "Renal Procedures": {"relevance": "TRUE"},
+        "Renal Interventions": {"relevance": "TRUE"},
+        "Qualifying Encounters": {"relevance": "TRUE"},
+        "Protein Urea Lab Test": {"relevance": "TRUE"},
+        "Nephropathy Diagnoses": {"relevance": "TRUE"},
+        "ESRD Encounter": {"relevance": "TRUE"},
+        "Active ACEI or ARB Medications": {"relevance": "TRUE"},
+        "Initial Population": {"relevance": "TRUE"},
+        "Denominator": {"relevance": "TRUE"},
+        "Nephropathy Screenings": {"relevance": "TRUE"},
+        "Numerator": {"relevance": "TRUE"},
+        "In Hospice": {"relevance": "TRUE"},
+        "Denominator Exclusions": {"relevance": "TRUE"}
       },
       "MATGlobalCommonFunctions": {
-        "CalendarAgeInYearsAt": "TRUE",
-        "ToDate": "TRUE"
+        "CalendarAgeInYearsAt": {"relevance": "TRUE"},
+        "ToDate": {"relevance": "TRUE"}
       },
       "Hospice": {
-        "Has Hospice": "TRUE"
+        "Has Hospice": {"relevance": "TRUE"}
       }
     },
     "criteria": [

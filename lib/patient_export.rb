@@ -135,9 +135,9 @@ class PatientExport
             header_row = population_criteria * 2 + DISPLAYED_ATTRIBUTES
             
             cur_column = 0
-            population_details[pop_key]["statement_relevance"].each do |lib_key, statements|
-              statements.each do |statement, relevance|
-                if (relevance != "NA")
+            population_details[pop_key]["statement_results"].each do |lib_key, statements|
+              statements.each do |statement, result|
+                if (result["relevance"] != "NA")
                   # Composite measures will have some statement results from the components, but
                   # the measure won't have statement details (excel headers) for them. 
                   # Fortunately we want to ignore those results, so we can just skip results that

@@ -1,21 +1,21 @@
 {
   "c89": {
     "title": "Population Criteria Section",
-    "statement_relevance": {
+    "statement_results": {
       "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
-        "Patient": "NA",
-        "SDE Ethnicity": "NA",
-        "SDE Payer": "NA",
-        "SDE Race": "NA",
-        "SDE Sex": "NA",
-        "ED Visit": "TRUE",
-        "Initial Population": "TRUE",
-        "Measure Population": "TRUE",
-        "Stratification 1": "NA",
-        "Stratification 2": "NA",
-        "Stratification 3": "NA",
-        "Measure Population Exclusions": "TRUE",
-        "Measure Observation": "TRUE"
+        "Patient": {"relevance": "NA"},
+        "SDE Ethnicity": {"relevance": "NA"},
+        "SDE Payer": {"relevance": "NA"},
+        "SDE Race": {"relevance": "NA"},
+        "SDE Sex": {"relevance": "NA"},
+        "ED Visit": {"relevance": "TRUE"},
+        "Initial Population": {"relevance": "TRUE"},
+        "Measure Population": {"relevance": "TRUE"},
+        "Stratification 1": {"relevance": "NA"},
+        "Stratification 2": {"relevance": "NA"},
+        "Stratification 3": {"relevance": "NA"},
+        "Measure Population Exclusions": {"relevance": "TRUE"},
+        "Measure Observation": {"relevance": "TRUE"}
       }
     },
     "criteria": [
@@ -28,21 +28,21 @@
   },
   "c90": {
     "title": "PopSet1 Stratification 1",
-    "statement_relevance": {
+    "statement_results": {
       "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
-        "Patient": "NA",
-        "SDE Ethnicity": "NA",
-        "SDE Payer": "NA",
-        "SDE Race": "NA",
-        "SDE Sex": "NA",
-        "ED Visit": "TRUE",
-        "Initial Population": "TRUE",
-        "Measure Population": "TRUE",
-        "Stratification 1": "TRUE",
-        "Stratification 2": "NA",
-        "Stratification 3": "NA",
-        "Measure Population Exclusions": "TRUE",
-        "Measure Observation": "TRUE"
+        "Patient": {"relevance": "NA"},
+        "SDE Ethnicity": {"relevance": "NA"},
+        "SDE Payer": {"relevance": "NA"},
+        "SDE Race": {"relevance": "NA"},
+        "SDE Sex": {"relevance": "NA"},
+        "ED Visit": {"relevance": "TRUE"},
+        "Initial Population": {"relevance": "TRUE"},
+        "Measure Population": {"relevance": "TRUE"},
+        "Stratification 1": {"relevance": "TRUE"},
+        "Stratification 2": {"relevance": "NA"},
+        "Stratification 3": {"relevance": "NA"},
+        "Measure Population Exclusions": {"relevance": "TRUE"},
+        "Measure Observation": {"relevance": "TRUE"}
       }
     },
     "criteria": [
@@ -59,21 +59,21 @@
   },
   "c91": {
     "title": "PopSet1 Stratification 2",
-    "statement_relevance": {
+    "statement_results": {
       "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
-        "Patient": "NA",
-        "SDE Ethnicity": "NA",
-        "SDE Payer": "NA",
-        "SDE Race": "NA",
-        "SDE Sex": "NA",
-        "ED Visit": "TRUE",
-        "Initial Population": "FALSE",
-        "Measure Population": "FALSE",
-        "Stratification 1": "NA",
-        "Stratification 2": "TRUE",
-        "Stratification 3": "NA",
-        "Measure Population Exclusions": "FALSE",
-        "Measure Observation": "FALSE"
+        "Patient": {"relevance": "NA"},
+        "SDE Ethnicity": {"relevance": "NA"},
+        "SDE Payer": {"relevance": "NA"},
+        "SDE Race": {"relevance": "NA"},
+        "SDE Sex": {"relevance": "NA"},
+        "ED Visit": {"relevance": "TRUE"},
+        "Initial Population": {"relevance": "FALSE"},
+        "Measure Population": {"relevance": "FALSE"},
+        "Stratification 1": {"relevance": "NA"},
+        "Stratification 2": {"relevance": "TRUE"},
+        "Stratification 3": {"relevance": "NA"},
+        "Measure Population Exclusions": {"relevance": "FALSE"},
+        "Measure Observation": {"relevance": "FALSE"}
       }
     },
     "criteria": [
@@ -90,21 +90,21 @@
   },
   "c92": {
     "title": "PopSet1 Stratification 3",
-    "statement_relevance": {
+    "statement_results": {
       "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
-        "Patient": "NA",
-        "SDE Ethnicity": "NA",
-        "SDE Payer": "NA",
-        "SDE Race": "NA",
-        "SDE Sex": "NA",
-        "ED Visit": "TRUE",
-        "Initial Population": "FALSE",
-        "Measure Population": "FALSE",
-        "Stratification 1": "NA",
-        "Stratification 2": "NA",
-        "Stratification 3": "TRUE",
-        "Measure Population Exclusions": "FALSE",
-        "Measure Observation": "FALSE"
+        "Patient": {"relevance": "NA"},
+        "SDE Ethnicity": {"relevance": "NA"},
+        "SDE Payer": {"relevance": "NA"},
+        "SDE Race": {"relevance": "NA"},
+        "SDE Sex": {"relevance": "NA"},
+        "ED Visit": {"relevance": "TRUE"},
+        "Initial Population": {"relevance": "FALSE"},
+        "Measure Population": {"relevance": "FALSE"},
+        "Stratification 1": {"relevance": "NA"},
+        "Stratification 2": {"relevance": "NA"},
+        "Stratification 3": {"relevance": "TRUE"},
+        "Measure Population Exclusions": {"relevance": "FALSE"},
+        "Measure Observation": {"relevance": "FALSE"}
       }
     },
     "criteria": [
