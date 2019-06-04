@@ -274,7 +274,7 @@ class CQLMeasureHelpers
     populationRelevance = {}
     for popCode in Thorax.Models.Measure.allPopulationCodes
       if popCode == 'OBSERV'
-        populationRelevance['values'] = true
+        populationRelevance['observation_values'] = true
 
       if populationSet.get('populations')[popCode]
         populationRelevance[popCode] = true
