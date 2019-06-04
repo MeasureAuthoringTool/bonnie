@@ -14,6 +14,10 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
     else
       @value = @createDefault()
 
+  events:
+    'change input[type=text]': 'handleChange'
+    'change input[type=checkbox]': 'handleCheckboxChange'
+
   createDefault: ->
     todayInMP = new Date()
     # TODO: use measurement period for this
@@ -29,8 +33,54 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
   context: ->
     _(super).extend
       start_date_is_defined: @value.low?
-      start_date: moment(@value.low.toJSDate()).format('L') if @value.low?
-      start_time: moment(@value.low.toJSDate()).format('LT') if @value.low?
+      start_date: moment.utc(@value.low.toJSDate()).format('L') if @value.low?
+      start_time: moment.utc(@value.low.toJSDate()).format('LT') if @value.low?
       end_date_is_defined: @value.high?
-      end_date: moment(@value.high.toJSDate()).format('L') if @value.high?
-      end_time: moment(@value.high.toJSDate()).format('LT') if @value.high?
+      end_date: moment.utc(@value.high.toJSDate()).format('L') if @value.high?
+      end_time: moment.utc(@value.high.toJSDate()).format('LT') if @value.high?
+
+  # handle the cases of either of the null checkboxes being changed
+  handleCheckboxChange: (e) ->
+    # check the status of the start checkbox and disable/enable fields
+    if @$("input[name='start_date_is_defined']").prop("checked")
+      @$("input[name='start_date'], input[name='start_time']").prop('disabled', false)
+      # if date is empty create values and populate fields
+      if @$("input[name='start_date']").val() == ""
+        defaultStart = @createDefault().low
+        @$("input[name='start_date']").val(moment.utc(defaultStart.toJSDate()).format('L'))
+        @$("input[name='start_time']").val(moment.utc(defaultStart.toJSDate()).format('LT'))
+    else
+      @$("input[name='start_date'], input[name='start_time']").prop('disabled', true).val("")
+
+    # check the status of the end checkbox and disable/enable fields
+    if @$("input[name='end_date_is_defined']").prop("checked")
+      @$("input[name='end_date'], input[name='end_time']").prop('disabled', false)
+      # if date is empty create values and populate fields
+      if @$("input[name='end_date']").val() == ""
+        defaultEnd = @createDefault().high
+        @$("input[name='end_date']").val(moment.utc(defaultEnd.toJSDate()).format('L'))
+        @$("input[name='end_time']").val(moment.utc(defaultEnd.toJSDate()).format('LT'))
+    else
+      @$("input[name='end_date'], input[name='end_time']").prop('disabled', true).val("")
+
+    # now handle the rest of the fields to create a new interval
+    @handleChange()
+
+  # handle a change event on any of the fields.
+  handleChange: (e) ->
+    formData = @serialize()
+    lowDateTime = null
+    highDateTime = null
+
+    if formData.start_date_is_defined?
+      lowDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("#{formData.start_date} #{formData.start_time}", 'L LT').toDate(), 0)
+
+    if formData.end_date_is_defined?
+      highDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("#{formData.end_date} #{formData.end_time}", 'L LT').toDate(), 0)
+    
+    newInterval = new cqm.models.CQL.Interval(lowDateTime, highDateTime)
+    
+    # only change and fire the change event if there actually was a change
+    if !newInterval.equals(@value)
+      @value = newInterval
+      @trigger 'change', @ 

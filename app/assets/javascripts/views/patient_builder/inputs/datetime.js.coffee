@@ -26,5 +26,5 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
   context: ->
     _(super).extend
       date_is_defined: @value?
-      date: moment(@value.toJSDate()).format('L') if @value?
-      time: moment(@value.toJSDate()).format('LT') if @value?
+      date: moment.utc(@value.toJSDate()).format('L') if @value?
+      time: moment.utc(@value.toJSDate()).format('LT') if @value?
