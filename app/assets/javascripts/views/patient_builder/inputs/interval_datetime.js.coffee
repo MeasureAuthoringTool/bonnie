@@ -41,6 +41,7 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
 
   # handle the cases of either of the null checkboxes being changed
   handleCheckboxChange: (e) ->
+    e.preventDefault()
     # check the status of the start checkbox and disable/enable fields
     if @$("input[name='start_date_is_defined']").prop("checked")
       @$("input[name='start_date'], input[name='start_time']").prop('disabled', false)
@@ -64,10 +65,11 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
       @$("input[name='end_date'], input[name='end_time']").prop('disabled', true).val("")
 
     # now handle the rest of the fields to create a new interval
-    @handleChange()
+    @handleChange(e)
 
   # handle a change event on any of the fields.
   handleChange: (e) ->
+    e.preventDefault()
     formData = @serialize()
     lowDateTime = null
     highDateTime = null
@@ -83,4 +85,4 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
     # only change and fire the change event if there actually was a change
     if !newInterval.equals(@value)
       @value = newInterval
-      @trigger 'change', @ 
+      @trigger 'valueChanged', @

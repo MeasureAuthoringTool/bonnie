@@ -35,6 +35,7 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
 
   # handle the cases the null checkbox being changed
   handleCheckboxChange: (e) ->
+    e.preventDefault()
     # check the status of the checkbox and disable/enable fields
     if @$("input[name='date_is_defined']").prop("checked")
       @$("input[name='date'], input[name='time']").prop('disabled', false)
@@ -47,10 +48,11 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
       @$("input[name='date'], input[name='time']").prop('disabled', true).val("")
 
     # now handle the rest of the fields to create a new date
-    @handleChange()
+    @handleChange(e)
 
   # handle a change event on any of the fields.
   handleChange: (e) ->
+    e.preventDefault()
     formData = @serialize()
     newDateTime = null
 
@@ -65,9 +67,9 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
     if (@value? && newDateTime?)
       if !@value.equals(newDateTime)
         @value = newDateTime
-        @trigger 'change', @
+        @trigger 'valueChanged', @
 
     # if either before xor after was null trigger change
     else
       @value = newDateTime
-      @trigger 'change', @
+      @trigger 'valueChanged', @

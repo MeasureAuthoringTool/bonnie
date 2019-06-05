@@ -68,10 +68,13 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     for timingAttr in @model.getPrimaryTimingAttributes()
       switch timingAttr.type
         when 'Interval'
-          @timingAttributeViews.push new Thorax.Views.InputIntervalDateTimeView(initialValue: @model.get('qdmDataElement')[timingAttr.name], attributeName: timingAttr.name, attributeTitle: timingAttr.title, showLabel: true)
+          intervalView = new Thorax.Views.InputIntervalDateTimeView(initialValue: @model.get('qdmDataElement')[timingAttr.name], attributeName: timingAttr.name, attributeTitle: timingAttr.title, showLabel: true)
+          @timingAttributeViews.push intervalView
+          @listenTo intervalView, 'valueChanged', @updateAttributeFromInputChange
         when 'DateTime'
-          @timingAttributeViews.push new Thorax.Views.InputDateTimeView(initialValue: @model.get('qdmDataElement')[timingAttr.name], attributeName: timingAttr.name, attributeTitle: timingAttr.title, showLabel: true)
-
+          dateTimeView = new Thorax.Views.InputDateTimeView(initialValue: @model.get('qdmDataElement')[timingAttr.name], attributeName: timingAttr.name, attributeTitle: timingAttr.title, showLabel: true)
+          @timingAttributeViews.push dateTimeView
+          @listenTo dateTimeView, 'valueChanged', @updateAttributeFromInputChange
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -107,6 +110,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+
+  updateAttributeFromInputChange: (inputView) ->
+    @model.get('qdmDataElement')[inputView.attributeName] = inputView.value
 
   isDuringMeasurePeriod: ->
     moment.utc(@model.get('start_date')).year() is moment.utc(@model.get('end_date')).year() is moment.utc(@model.measure().get('cqmMeasure').measure_period.low.value).year()
