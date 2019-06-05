@@ -28,3 +28,21 @@ describe 'Composite Measures', ->
     expect(result.get('DENEX')).toEqual 0
     expect(result.get('NUMER')).toEqual 0
     expect(result.get('DENEXCEP')).toEqual 0
+    expect(result.get('observation_values').length).toEqual 0
+
+  it 'uses correct cached calculation for a component measure after composite has been calculated', ->
+    measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS890/CMS890v0.json', @valueSetsPath
+    population = measure.get('populations').at(0)
+    population.calculate(@pt1)
+
+    measure = new Thorax.Models.Measure @components[6], parse: true
+    measure.set('cqmValueSets', getJSONFixture(@valueSetsPath)[measure.get('cqmMeasure').hqmf_set_id]);
+    population = measure.get('populations').at(0)
+
+    result = population.calculate(@pt1)
+    expect(result.get('IPP')).toEqual 1
+    expect(result.get('DENOM')).toEqual 1
+    expect(result.get('DENEX')).toEqual 0
+    expect(result.get('NUMER')).toEqual 0
+    expect(result.get('DENEXCEP')).toEqual 0
+    expect(result.get('observation_values').length).toEqual 0

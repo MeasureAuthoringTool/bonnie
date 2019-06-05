@@ -16,6 +16,7 @@ class Thorax.Models.Measure extends Thorax.Model
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.data_criteria = attrs.data_criteria
     thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+    thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets.map (vs) -> new cqm.models.ValueSet(vs)
     else
