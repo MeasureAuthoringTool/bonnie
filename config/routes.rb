@@ -40,6 +40,7 @@ Bonnie::Application.routes.draw do
     member do
       get 'debug', defaults: { format: :html }
       post 'clear_cached_javascript'
+      post 'measurement_period'
     end
     resources :populations do
       member do

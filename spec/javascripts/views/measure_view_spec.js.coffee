@@ -32,6 +32,13 @@
     it 'shows measurement period indicator', ->
       expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toExist()
 
+    it 'shows measurement period year', ->
+      expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toContainText('2012')
+
+    it 'shows measurement period year after change', ->
+      @measure.setMeasurePeriodYear('1984')
+      expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toContainText('1984')
+
     it 'should not open measure view for non existent measure', ->
       spyOn(bonnie,'showPageNotFound')
       bonnie.renderMeasure('non_existant_hqmf_set_id')

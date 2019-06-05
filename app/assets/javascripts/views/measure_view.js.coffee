@@ -9,6 +9,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     _(super).extend
       cms_id: @measure.get('cqmMeasure').cms_id
       hqmf_set_id: @measure.get('cqmMeasure').hqmf_set_id
+      measurePeriodYear: @measure.getMeasurePeriodYear()
       cql: true # Hide certain features in handlebars if the measure is cql.
 
   # Navigates to the Patient Dashboard
@@ -35,7 +36,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     @setView new Thorax.Views.Measure(model: @measure, patients: @patients, populations: @populations, population: population)
 
   changeMeasurementPeriod: (e) ->
-    measurementPeriodView = new Thorax.Views.MeasurementPeriod(model: @model)
+    measurementPeriodView = new Thorax.Views.MeasurementPeriod(model: @measure)
     measurementPeriodView.appendTo(@$el)
     measurementPeriodView.display()
 

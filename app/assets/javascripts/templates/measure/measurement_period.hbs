@@ -6,7 +6,9 @@
         <h1 class="modal-title" id="measurementPeriodModalTitle">Change Measurement Period</h1>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" method="post" action="measures/{{_id}}/measurement_period">
+          <input type="hidden" name="redirect_route" value="{{redirectRoute}}"/>
+          <input name="authenticity_token" type="hidden" value="{{token}}">
           <div class="form-group">
             <label class="col-sm-offset-3 col-sm-4 control-label" style="text-align: center;">Current</label>
             <label class="col-sm-offset-1 col-sm-4 control-label" style="text-align: center; padding-left: 0px;">New</label>
@@ -16,17 +18,13 @@
             <label for="measurementPeriodStartInput" class="col-sm-3 control-label">Year</label>
 
             <div class="col-sm-4" style="padding-right: 0px;">
-              <input type="text" class="form-control" placeholder="2012" readonly/>
+              <input type="text" class="form-control" placeholder="{{measurePeriodYear}}" readonly/>
             </div>
 
             <div class="col-sm-1" style="line-height: 34px; text-align: center;"><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></div>
 
             <div class="col-sm-4" style="padding-left: 0px;">
-              <div class="datetime-control">
-                <div>
-                  <input type="text" name="year" id="measurementPeriodYear" class="date-picker form-control" placeholder="yyyy" data-date-format="yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" value="2012"/>
-                </div>
-              </div>
+              <input type="text" name="year" id="measurementPeriodYear" class="form-control" placeholder="yyyy" value="{{measurePeriodYear}}"/>
             </div>
           </div>
 
@@ -35,7 +33,7 @@
             <div class="col-sm-9">
               <div class="checkbox">
                 <label>
-                  <input id="measurementPeriodShiftDates" type="checkbox" name="vsac_query_measure_defined" value="true" checked="checked"/>Shift dates in patient data.
+                  <input id="measurementPeriodShiftDates" type="checkbox" name="measurement_period_shift_dates" value="true" checked="checked"/>Shift dates in patient data.
                 </label>
                 <div><i>This option shifts all dates on all patients in this measure by the number of years being changed. Feb 29th in leap years will be changed to Feb 28th in non-leap years.</i></div>
               </div>
@@ -44,12 +42,10 @@
         </form>
       </div>
       <div class="modal-footer">
-          <div class="form-group">
-            <div class="col-sm-offset-3">
-            {{#button "close" class="btn btn-default"}}Cancel{{/button}}
-            {{#button "submit" class="btn btn-primary" id="loadButton" disabled=true}}Change Period{{/button}}
-            </div>
-          </div>
+        <div class="form-group">
+          {{#button "close" class="btn btn-default"}}Cancel{{/button}}
+          {{#button "changePeriod" class="btn btn-primary" id="changePeriod" disabled=true}}Change Period{{/button}}
+        </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

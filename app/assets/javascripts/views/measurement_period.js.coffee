@@ -3,21 +3,34 @@ class Thorax.Views.MeasurementPeriod extends Thorax.Views.BonnieView
 
   events:
     'ready': 'setup'
+    'change input[name="year"]': 'validate'
+    'keyup input[name="year"]': 'validate'
+
+  initialize: ->
 
   context: ->
+
     _(super).extend
-      titleSize: 3
-      dataSize: 9
+      measurePeriodYear: @model.getMeasurePeriodYear()
+      redirectRoute: Backbone.history.fragment
+      token: $("meta[name='csrf-token']").attr('content')
 
   setup: ->
     @dialog = @$("#measurementPeriodDialog")
-    @$('.date-picker').datepicker('orientation': 'bottom left')
+
+  changePeriod: ->
+    @$('form').submit()
 
   display: ->
     @dialog.modal(
       "backdrop" : "static",
       "keyboard" : true,
       "show" : true)
+
+  validate: (e) ->
+    year = @$('input[name="year"]').val()
+    isValidYear = parseFloat(year) == parseInt(year) && year.length == 4 && year >= 1 && year <= 9999
+    @$('#changePeriod').prop 'disabled', !isValidYear
 
   close: ->
     @dialog.modal('hide')

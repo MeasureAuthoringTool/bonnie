@@ -16,6 +16,7 @@ class Thorax.Models.Measure extends Thorax.Model
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.data_criteria = attrs.data_criteria
     thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+    thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets.map (vs) -> new cqm.models.ValueSet(vs)
     else
@@ -162,6 +163,13 @@ class Thorax.Models.Measure extends Thorax.Model
       @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
       @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@.get('cqmMeasure'), libraryName, statementName)
       return @_localIdCache[libraryName][statementName]
+
+  getMeasurePeriodYear: ->
+    @get('cqmMeasure').measure_period.low.value[0..3]
+
+  setMeasurePeriodYear: (year) ->
+    @get('cqmMeasure').measure_period.low.value = year + @get('cqmMeasure').measure_period.low.value[4..]
+    @get('cqmMeasure').measure_period.high.value = year + @get('cqmMeasure').measure_period.high.value[4..]
 
 
 class Thorax.Collections.Measures extends Thorax.Collection

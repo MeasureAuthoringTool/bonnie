@@ -74,6 +74,18 @@ class MeasuresController < ApplicationController
     redirect_to root_path
   end
 
+  def measurement_period
+    measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
+    # TODO this will be a function
+    # TODO validate again
+    measure.measure_period['low']['value'] = params[:year] + measure.measure_period['low']['value'].slice(4, measure.measure_period['high']['value'].length)
+    measure.measure_period['high']['value'] = params[:year] + measure.measure_period['high']['value'].slice(4, measure.measure_period['high']['value'].length)
+    measure.save!
+    # TODO Update patient dates if checkbox is checked
+    redirect_to "#{root_path}##{params[:redirect_route]}"
+  end
+
+
   private
 
   def persist_measure(uploaded_file, params, user)
@@ -98,4 +110,5 @@ class MeasuresController < ApplicationController
       'calculate_sdes'=>params[:calc_sde]
     }
   end
+
 end
