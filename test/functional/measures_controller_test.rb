@@ -772,53 +772,27 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'update measurement period float' do
-    measure = CQM::Measure.first
-    measure_id = measure.id
-    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
-    post :measurement_period, {
-      year: '19.1',
-      id: measure.id.to_s
-    }
-    measure = CQM::Measure.where(id: measure_id).first
-    assert_equal 'Error Updating Measurement Period', flash[:error][:title]
-    assert_equal 'Error Updating Measurement Period', flash[:error][:summary]
-    assert_equal 'Invalid year selected. Year must be 4 digits and between 1 and 9999', flash[:error][:body]
+    check_invalid_year('19.1')
   end
 
   test 'update measurement period not 4 digits' do
-    measure = CQM::Measure.first
-    measure_id = measure.id
-    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
-    post :measurement_period, {
-      year: '999',
-      id: measure.id.to_s
-    }
-    measure = CQM::Measure.where(id: measure_id).first
-    assert_equal 'Error Updating Measurement Period', flash[:error][:title]
-    assert_equal 'Error Updating Measurement Period', flash[:error][:summary]
-    assert_equal 'Invalid year selected. Year must be 4 digits and between 1 and 9999', flash[:error][:body]
+    check_invalid_year('999')
   end
 
   test 'update measurement period not year too low' do
-    measure = CQM::Measure.first
-    measure_id = measure.id
-    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
-    post :measurement_period, {
-      year: '0',
-      id: measure.id.to_s
-    }
-    measure = CQM::Measure.where(id: measure_id).first
-    assert_equal 'Error Updating Measurement Period', flash[:error][:title]
-    assert_equal 'Error Updating Measurement Period', flash[:error][:summary]
-    assert_equal 'Invalid year selected. Year must be 4 digits and between 1 and 9999', flash[:error][:body]
+    check_invalid_year('0000')
   end
 
   test 'update measurement period not year too high' do
+    check_invalid_year('10000')
+  end
+
+  def check_invalid_year(year)
     measure = CQM::Measure.first
     measure_id = measure.id
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     post :measurement_period, {
-      year: '10000',
+      year: year,
       id: measure.id.to_s
     }
     measure = CQM::Measure.where(id: measure_id).first
