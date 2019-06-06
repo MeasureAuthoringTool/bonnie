@@ -76,15 +76,21 @@ class MeasuresController < ApplicationController
 
   def measurement_period
     measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
-    # TODO this will be a function
-    # TODO validate again
-    measure.measure_period['low']['value'] = params[:year] + measure.measure_period['low']['value'].slice(4, measure.measure_period['high']['value'].length)
-    measure.measure_period['high']['value'] = params[:year] + measure.measure_period['high']['value'].slice(4, measure.measure_period['high']['value'].length)
-    measure.save!
-    # TODO Update patient dates if checkbox is checked
+    year = params[:year]
+    is_valid_year = year.to_i == year.to_f && year.length == 4 && year.to_i >= 1 && year.to_i <= 9999
+
+    if is_valid_year
+      measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
+      measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
+      measure.save!
+    else
+      flash[:error] = { title: 'Error Updating Measurement Period',
+                        summary: 'Error Updating Measurement Period',
+                        body: 'Invalid year selected. Year must be 4 digits and between 1 and 9999' }
+    end
+    # TODO: Update patient dates if checkbox is checked
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
-
 
   private
 
