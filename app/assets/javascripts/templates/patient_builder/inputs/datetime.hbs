@@ -10,18 +10,18 @@
   <div class="form-group col-md-6 datetime-interval-start">
     <div class="datetime-control-nullable">
       <div class="col-md-2 datetime-null-toggle">
-        <label for="date_is_defined" class="sr-only">date is defined</label>
-        <input type="checkbox" name="date_is_defined" value="true" {{#if date_is_defined}}checked{{/if}}/>
+        <label for="date_is_defined_{{cid}}" class="sr-only">date is defined</label>
+        <input type="checkbox" name="date_is_defined" id="date_is_defined_{{cid}}" value="true" {{#if date_is_defined}}checked{{/if}}/>
       </div>
 
       <div class="datetime-control-date">
-        <label for="date" class="sr-only">date month/day/year</label>
-        <input type="text" name="date" id="date" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" {{#if date_is_defined}}value="{{date}}"{{else}}disabled{{/if}}/>
+        <label for="date_{{cid}}" class="sr-only">date month/day/year</label>
+        <input type="text" name="date" id="date_{{cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" {{#if date_is_defined}}value="{{date}}"{{else}}disabled{{/if}}/>
       </div>
 
       <div class="datetime-control-time">
-        <label for="time" class="sr-only">time</label>
-        <input type="text" name="time" id="time" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" {{#if date_is_defined}}value="{{time}}"{{else}}disabled{{/if}}/>
+        <label for="time_{{cid}}" class="sr-only">time</label>
+        <input type="text" name="time" id="time_{{cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" {{#if date_is_defined}}value="{{time}}"{{else}}disabled{{/if}}/>
       </div>
     </div>
   </div>
