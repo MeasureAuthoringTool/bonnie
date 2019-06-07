@@ -62,7 +62,7 @@ def convert_times(json)
       json[k] = v
     elsif v.is_a?(Hash)
       vals = [v]
-      vals.each {|val| convert_times(val)}
+      vals.each { |val| convert_times(val) }
     elsif v.is_a?(String)
       json[k] = v.to_datetime if v.match?(/\d{4}-\d{2}-\d{2}T/)
     end
