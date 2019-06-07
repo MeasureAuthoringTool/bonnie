@@ -495,8 +495,7 @@ describe 'PatientBuilderView', ->
         @patientBuilder.$("input[type=checkbox][name=#{population}]:first").click()
         @patientBuilder.$("button[data-call-method=save]").click() if save
 
-    xit "auto unselects DENOM and IPP when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM and IPP when IPP is unselected", ->
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 1
       expect(expectedValues.get('DENOM')).toEqual 1
@@ -507,16 +506,14 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    xit "auto selects DENOM and IPP when NUMER is selected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto selects DENOM and IPP when NUMER is selected", ->
       @selectPopulationEV('NUMER', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 1
       expect(expectedValues.get('DENOM')).toEqual 1
       expect(expectedValues.get('NUMER')).toEqual 1
 
-    xit "auto unselects DENOM when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM when IPP is unselected", ->
       @selectPopulationEV('DENOM', false)
       @selectPopulationEV('IPP', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
@@ -524,8 +521,7 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    xit "auto unselects DENOM and NUMER when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM and NUMER when IPP is unselected", ->
       @selectPopulationEV('NUMER', false)
       @selectPopulationEV('IPP', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
@@ -533,16 +529,14 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    xit "auto selects DENOM and IPP when NUMER is selected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto selects DENOM and IPP when NUMER is selected", ->
       @selectPopulationEV('NUMER', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 1
       expect(expectedValues.get('DENOM')).toEqual 1
       expect(expectedValues.get('NUMER')).toEqual 1
 
-    xit "auto unselects DENOM when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM when IPP is unselected", ->
       @selectPopulationEV('DENOM', false)
       @selectPopulationEV('IPP', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
@@ -550,8 +544,7 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    xit "auto unselects DENOM and NUMER when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM and NUMER when IPP is unselected", ->
       @selectPopulationEV('NUMER', false)
       @selectPopulationEV('IPP', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
