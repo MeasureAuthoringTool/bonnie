@@ -10,6 +10,7 @@ include Devise::Test::ControllerHelpers
     dump_database
     users_set = File.join("users", "base_set")
     patients_set = File.join('cqm_patients', 'CMS32v7')
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
     collection_fixtures(users_set, patients_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, CQM::Patient.all)
@@ -756,5 +757,47 @@ include Devise::Test::ControllerHelpers
     measure = CQM::Measure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_equal true, measure.calculate_sdes
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
+  end
+
+  test 'update measurement period' do
+    measure = CQM::Measure.first
+    measure_id = measure.id
+    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
+    post :measurement_period, {
+      year: '1984',
+      id: measure.id.to_s
+    }
+    measure = CQM::Measure.where(id: measure_id).first
+    assert_equal '1984', measure.measure_period['low']['value'].slice(0,4)
+  end
+
+  test 'update measurement period float' do
+    check_invalid_year('19.1')
+  end
+
+  test 'update measurement period not 4 digits' do
+    check_invalid_year('999')
+  end
+
+  test 'update measurement period not year too low' do
+    check_invalid_year('0000')
+  end
+
+  test 'update measurement period not year too high' do
+    check_invalid_year('10000')
+  end
+
+  def check_invalid_year(year)
+    measure = CQM::Measure.first
+    measure_id = measure.id
+    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
+    post :measurement_period, {
+      year: year,
+      id: measure.id.to_s
+    }
+    measure = CQM::Measure.where(id: measure_id).first
+    assert_equal 'Error Updating Measurement Period', flash[:error][:title]
+    assert_equal 'Error Updating Measurement Period', flash[:error][:summary]
+    assert_equal 'Invalid year selected. Year must be 4 digits and between 1 and 9999', flash[:error][:body]
   end
 end
