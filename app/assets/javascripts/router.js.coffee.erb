@@ -17,7 +17,6 @@
 
     @on 'route', -> window.scrollTo(0, 0)
 
-    @measurePeriod = <%= Time.zone.at(APP_CONFIG['measure_period_start']).year %>;
     @applicationVersion = '<%=Bonnie::Version.current()%>';
     @support_qdm_version = '<%= APP_CONFIG['support_qdm_version'] %>';
 
@@ -39,7 +38,6 @@
     else
       dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
-    @breadcrumb.addMeasurePeriod()
 
   renderMeasure: (hqmfSetId) ->
     measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId) if hqmfSetId

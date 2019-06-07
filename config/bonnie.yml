@@ -4,7 +4,6 @@ defaults: &defaults
   enable_logging: true
   enable_rationale: true
   check_crosswalk: false
-  measure_period_start: 1325376000
   vsac:
     auth_url: https://vsac.nlm.nih.gov/vsac/ws
     content_url: https://vsac.nlm.nih.gov/vsac/svs
