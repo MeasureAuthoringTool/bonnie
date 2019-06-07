@@ -1,23 +1,15 @@
-{{#if period}}
-
-  <li>{{#link "/"}}<i class='fa fa-fw fa-clock-o' aria-hidden='true'></i> Measure Period: {{period}} {{/link}}</li>
+  <li>{{#link "/"}}<i class='fa fa-fw fa-th-list' aria-hidden='true'></i> Measures {{/link}}</li>
 
   {{#if measureHierarchy}}
 
     {{#each measureHierarchy}}
-      <li>{{#link "measures/{{this.hqmf_set_id}}" expand-tokens=true}}<i class='fa fa-fw fa-tasks' aria-hidden='true'></i> {{this.cms_id}} {{/link}}</li>
+      <li>{{#link "measures/{{this.cqmMeasure.hqmf_set_id}}" expand-tokens=true}}<i class='fa fa-fw fa-tasks' aria-hidden='true'></i> {{this.cqmMeasure.cms_id}} {{/link}}</li>
     {{/each}}
 
     {{#if patientName}}
       <li><i class='fa fa-fw fa-user' aria-hidden='true'></i> {{patientName}}</li>
     {{/if}}
 
-    {{#if bankView}}
-      <li><i class='fa fa-fw fa-group' aria-hidden='true'></i> Import patients from the patient bank</li>
-    {{/if}}
-
   {{/if}}
-
-{{/if}}
 
 

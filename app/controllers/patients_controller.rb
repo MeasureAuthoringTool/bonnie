@@ -125,9 +125,11 @@ private
 
   # TODO: update this once we are using new patient model and cqm-reports (its partially updated)
   def qrda_patient_export(patient, measure)
+    start_time = Time.zone.at(measure.measure_period['low']['value'].to_i)
+    end_time = Time.zone.at(measure.measure_period['high']['value'].to_i)
     options = {
-      start_time: Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1),
-      end_time: Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
+      start_time: Time.new(start_time.year, start_time.month, start_time.day),
+      end_time: Time.new(end_time.year, end_time.month, end_time.day)
     }
     qrda_exporter = Qrda1R5.new(patient, measure, options)
     qrda_exporter.render
