@@ -100,7 +100,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
   isDuringMeasurePeriod: ->
-    moment.utc(@model.get('start_date')).year() is moment.utc(@model.get('end_date')).year() is bonnie.measurePeriod
+    moment.utc(@model.get('start_date')).year() is moment.utc(@model.get('end_date')).year() is moment.utc(@model.measure().get('cqmMeasure').measure_period.low.value).year()
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->

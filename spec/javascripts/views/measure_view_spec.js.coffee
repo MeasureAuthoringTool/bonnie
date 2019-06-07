@@ -12,7 +12,8 @@
         @vs2.concepts.push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
       @vs1.concepts.push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
       @vs2.concepts.push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS160v6/Expired_DENEX.json')], parse: true
+      patientsJSON = [getJSONFixture('patients/CMS160v6/Expired_DENEX.json'), getJSONFixture('patients/CMS160v6/Pass_NUM2.json')]
+      @patients = new Thorax.Collections.Patients patientsJSON, parse: true
       @measure.set('patients', @patients)
       @patient = @patients.at(0)
       @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
@@ -28,6 +29,16 @@
       @measureView.remove()
       @cqlMeasureValueSetsView.remove()
 
+    it 'shows measurement period indicator', ->
+      expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toExist()
+
+    it 'shows measurement period year', ->
+      expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toContainText('2012')
+
+    it 'changeMeasurementPeriod creates the MeasurementPeriod View', ->
+      spyOn(Thorax.Views.MeasurementPeriod.prototype, 'initialize')
+      @measureLayoutView.changeMeasurementPeriod(new Event('click'))
+      expect(Thorax.Views.MeasurementPeriod.prototype.initialize).toHaveBeenCalled()
 
     it 'should not open measure view for non existent measure', ->
       spyOn(bonnie,'showPageNotFound')
@@ -66,8 +77,7 @@
           ->
             done()
         )
-      xit 'computes coverage', ->
-        # TODO Update this
+      it 'computes coverage', ->
         expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')
 
   describe 'CQL', ->
@@ -220,16 +230,14 @@
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS529v0/CMS529v0.json', 'cqm_measure_data/special_measures/CMS529v0/value_sets.json'
-      bonnie.measures.add @cqlMeasure
-      # TODO need to update with hybrid measure fixture from bonnie-fixtures
-      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('patients/CMS529v0/patients.json'), parse: true
-      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS529v0/CMS529v0.json', 'cqm_measure_data/special_measures/CMS529v0/value_sets.json'
+      bonnie.measures.add @measure
+      @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS529v0/Pass_IPP_DENOM_NUMER.json')], parse: true
+      @measureView = new Thorax.Views.Measure(model: @measure, patients: @patients, populations: @measure.get('populations'), population: @measure.get('displayedPopulation'))
       @measureView.appendTo 'body'
 
     afterEach ->
       @measureView.remove()
 
-    xit 'display SDE section', ->
+    it 'display SDE section', ->
       expect(@measureView.$('.sde-defines')).toExist()
-
