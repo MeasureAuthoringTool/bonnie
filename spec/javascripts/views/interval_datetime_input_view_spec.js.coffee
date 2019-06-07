@@ -108,7 +108,7 @@ describe 'InputView', ->
         spyOn(@view, 'trigger')
 
         # change the start date and trigger change event
-        @view.$el.find("input[name='start_date']").val('02/15/2012').change()
+        @view.$el.find("input[name='start_date']").val('02/15/2012').datepicker('update')
 
         expect(@view.trigger).toHaveBeenCalledWith('valueChanged', @view)
         newStart = new cqm.models.CQL.DateTime(2012, 2, 15, 8, 15, 0, 0, 0)
@@ -120,7 +120,7 @@ describe 'InputView', ->
         spyOn(@view, 'trigger')
 
         # change the end time and trigger change event
-        @view.$el.find("input[name='end_time']").val('9:45 AM').change()
+        @view.$el.find("input[name='end_time']").val('9:45 AM').timepicker('setTime', '9:45 AM')
 
         expect(@view.trigger).toHaveBeenCalledWith('valueChanged', @view)
         newStart = new cqm.models.CQL.DateTime(2012, 2, 23, 8, 15, 0, 0, 0)
@@ -152,7 +152,7 @@ describe 'InputView', ->
         expect(@view.value).toEqual(new cqm.models.CQL.Interval(null, new cqm.models.CQL.DateTime(2012, 2, 24, 9, 0, 0, 0, 0)))
 
       it 'handles the user entering a end time before start time', ->
-        @view.$el.find("input[name='end_date']").val('02/15/2012').change()
+        @view.$el.find("input[name='end_date']").val('02/15/2012').datepicker('update')
 
         newStart = new cqm.models.CQL.DateTime(2012, 2, 23, 8, 15, 0, 0, 0)
         newEnd = new cqm.models.CQL.DateTime(2012, 2, 15, 9, 0, 0, 0, 0)

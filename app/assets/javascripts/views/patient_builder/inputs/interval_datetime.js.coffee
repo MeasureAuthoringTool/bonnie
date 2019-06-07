@@ -15,8 +15,12 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
       @value = new cqm.models.CQL.Interval(null, null)
 
   events:
-    'change input[type=text]': 'handleChange'
     'change input[type=checkbox]': 'handleCheckboxChange'
+    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
+    'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+    rendered: ->
+      @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@handleChange, this)
+      @$('.time-picker').timepicker(template: false, defaultTime: false).on 'changeTime.timepicker', _.bind(@handleChange, this)
 
   createDefault: ->
     todayInMP = new Date()
@@ -49,7 +53,7 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
         @$("input[name='start_date']").val(moment.utc(defaultStart.toJSDate()).format('L'))
         @$("input[name='start_time']").val(moment.utc(defaultStart.toJSDate()).format('LT'))
         @$("input[name='start_date']").datepicker('update')
-        @$("input[name='start_time']").datepicker('update')
+        @$("input[name='start_time']").timepicker('setTime', moment.utc(defaultStart.toJSDate()).format('LT'))
     else
       @$("input[name='start_date'], input[name='start_time']").prop('disabled', true).val("")
 
@@ -62,7 +66,7 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
         @$("input[name='end_date']").val(moment.utc(defaultEnd.toJSDate()).format('L'))
         @$("input[name='end_time']").val(moment.utc(defaultEnd.toJSDate()).format('LT'))
         @$("input[name='end_date']").datepicker('update')
-        @$("input[name='end_time']").datepicker('update')
+        @$("input[name='end_time']").timepicker('setTime', moment.utc(defaultEnd.toJSDate()).format('LT'))
     else
       @$("input[name='end_date'], input[name='end_time']").prop('disabled', true).val("")
 

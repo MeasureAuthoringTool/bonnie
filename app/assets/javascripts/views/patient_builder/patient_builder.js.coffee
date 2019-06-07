@@ -86,12 +86,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @$('.expand').html('Nothing more to show...').fadeOut 2000, -> $(@).remove()
 
     rendered: ->
+      debugger
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
 
       # Make criteria list a drop target
       @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', activeClass: 'active-drop', drop: _.bind(@drop, this)
-      @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@materialize, this)
-      @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
+      @$('#deathdate.date-picker, #birthdate.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@materialize, this)
+      @$('#deathtime.time-picker, #birthtime.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
 
       unless @inPatientDashboard
         @$('#criteriaElements, #populationLogic') #these get affixed when user scrolls past a defined offset
@@ -149,6 +150,14 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   drop: (e, ui) ->
     patientDataCriteria = $(ui.draggable).model().clone()
     patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
+
+    # if primary timing attr is an interval set it.
+    if patientDataCriteria.getPrimaryTimingAttribute()?
+      patientDataCriteria.get('qdmDataElement')[patientDataCriteria.getPrimaryTimingAttribute()] = @createDefaultInterval()
+    # it is authorDatetime, set it
+    else
+      patientDataCriteria.get('qdmDataElement').authorDatetime = @createDefaultInterval().low
+
     @addCriteria patientDataCriteria
     return false
 
@@ -160,6 +169,16 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   materialize: ->
     @serializeWithChildren()
     @model.materialize()
+
+  createDefaultInterval: ->
+    todayInMP = new Date()
+    # TODO: use measurement period for this
+    todayInMP.setYear(2012)
+
+    # create CQL DateTimes
+    start = new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 0, 0, 0, 0)
+    end = new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 15, 0, 0, 0)
+    return new cqm.models.CQL.Interval(start, end)
 
   addCriteria: (criteria) ->
     @model.get('source_data_criteria').add criteria

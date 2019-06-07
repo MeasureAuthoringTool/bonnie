@@ -15,8 +15,12 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
       @value = null
 
   events:
-    'change input[type=text]': 'handleChange'
     'change input[type=checkbox]': 'handleCheckboxChange'
+    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
+    'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+    rendered: ->
+      @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@handleChange, this)
+      @$('.time-picker').timepicker(template: false, defaultTime: false).on 'changeTime.timepicker', _.bind(@handleChange, this)
 
   createDefault: ->
     todayInMP = new Date()
@@ -44,7 +48,7 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
         @$("input[name='date']").val(moment.utc(defaultDate.toJSDate()).format('L'))
         @$("input[name='time']").val(moment.utc(defaultDate.toJSDate()).format('LT'))
         @$("input[name='date']").datepicker('update')
-        @$("input[name='time']").datepicker('update')
+        @$("input[name='time']").timepicker('setTime', moment.utc(defaultDate.toJSDate()).format('LT'))
     else
       @$("input[name='date'], input[name='time']").prop('disabled', true).val("")
 

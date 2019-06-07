@@ -43,7 +43,7 @@ describe 'InputView', ->
         spyOn(@view, 'trigger')
 
         # change the date and trigger change event
-        @view.$el.find("input[name='date']").val('02/15/2012').change()
+        @view.$el.find("input[name='date']").val('02/15/2012').datepicker('update')
 
         expect(@view.trigger).toHaveBeenCalledWith('valueChanged', @view)
         newDate = new cqm.models.CQL.DateTime(2012, 2, 15, 8, 15, 0, 0, 0)
@@ -53,7 +53,7 @@ describe 'InputView', ->
         spyOn(@view, 'trigger')
 
         # change the time and trigger change event
-        @view.$el.find("input[name='time']").val('9:45 AM').change()
+        @view.$el.find("input[name='time']").val('9:45 AM').timepicker('setTime', '9:45 AM')
 
         expect(@view.trigger).toHaveBeenCalledWith('valueChanged', @view)
         newDate= new cqm.models.CQL.DateTime(2012, 2, 23, 9, 45, 0, 0, 0)
