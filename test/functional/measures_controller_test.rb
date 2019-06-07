@@ -766,7 +766,8 @@ include Devise::Test::ControllerHelpers
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     post :measurement_period, {
       year: '1984',
-      id: measure.id.to_s
+      id: measure.id.to_s,
+      measurement_period_shift_dates: "true"
     }
     measure = CQM::Measure.where(id: measure_id).first
     assert_equal '1984', measure.measure_period['low']['value'].slice(0,4)
@@ -797,7 +798,8 @@ include Devise::Test::ControllerHelpers
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     post :measurement_period, {
       year: year,
-      id: measure.id.to_s
+      id: measure.id.to_s,
+      measurement_period_shift_dates: "true"
     }
     measure = CQM::Measure.where(id: measure_id).first
     assert_equal 'Error Updating Measurement Period', flash[:error][:title]

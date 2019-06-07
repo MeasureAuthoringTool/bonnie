@@ -88,8 +88,10 @@ class MeasuresController < ApplicationController
                         summary: 'Error Updating Measurement Period',
                         body: 'Invalid year selected. Year must be 4 digits and between 1 and 9999' }
     end
-    # TODO: Update patient dates if checkbox is checked
-    shift_years(measure, year)
+    
+    if (params[:measurement_period_shift_dates] == "true")
+      shift_years(measure, year)
+    end
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
