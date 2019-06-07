@@ -760,7 +760,8 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'update measurement period' do
-    measure = CQM::Measure.first
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    measure = CQM::Measure.where({cms_id: "CMS32v7"}).first
     measure_id = measure.id
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     post :measurement_period, {
@@ -769,6 +770,9 @@ include Devise::Test::ControllerHelpers
     }
     measure = CQM::Measure.where(id: measure_id).first
     assert_equal '1984', measure.measure_period['low']['value'].slice(0,4)
+    patient = CQM::Patient.by_user(@user).first
+    assert_equal 1984, patient.qdmPatient.dataElements.first.authorDatetime.year
+    assert_equal 1984, patient.qdmPatient.dataElements.first.relevantPeriod.low.year
   end
 
   test 'update measurement period float' do

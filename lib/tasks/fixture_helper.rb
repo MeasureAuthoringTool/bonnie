@@ -45,8 +45,9 @@ def load_fixture_file(file, collection_name, user = nil)
   end
 end
 
-# JSON.parse doesn't catch time fields, so this converts fields ending in _at
-# to a Time object.
+# JSON.parse doesn't catch time fields, so this converts all times to a
+# DateTime object before getting imported into a mongoid Document
+# Some date fields can be nested so that is why there is recursion
 def convert_times(json)
   return nil unless json.is_a?(Hash)
   json.each_pair do |k,v|
