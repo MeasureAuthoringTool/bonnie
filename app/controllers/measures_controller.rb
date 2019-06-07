@@ -89,6 +89,7 @@ class MeasuresController < ApplicationController
                         body: 'Invalid year selected. Year must be 4 digits and between 1 and 9999' }
     end
     # TODO: Update patient dates if checkbox is checked
+    shift_years(measure, year)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
@@ -117,4 +118,12 @@ class MeasuresController < ApplicationController
     }
   end
 
+  def shift_years(measure, year)
+    CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).each do |patient|
+      patient.qdmPatient.dataElements.each do |data_element|
+        data_element.shift_years(year)
+      end
+      patient.save!
+    end
+  end
 end

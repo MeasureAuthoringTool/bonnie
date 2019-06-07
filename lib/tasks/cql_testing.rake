@@ -193,17 +193,6 @@ namespace :bonnie do
       end
       throw('Argument: "' + cms_hqmf + ': ' + measure_id +'" does not match any measure id associated with user: "'+user.email+'"')
     end
-
-    def convert_times(json)
-      if json.kind_of?(Hash)
-        json.each_pair do |k,v|
-          if k.ends_with?("_at")
-            json[k] = Time.parse(v) unless v.nil?
-          end
-        end
-      end
-    end
-
   end
 
   namespace :cql do

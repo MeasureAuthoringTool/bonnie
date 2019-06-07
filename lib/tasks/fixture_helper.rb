@@ -50,7 +50,21 @@ end
 def convert_times(json)
   return nil unless json.is_a?(Hash)
   json.each_pair do |k,v|
-    json[k] = Time.parse(v) if k.ends_with?("_at")
+    if v.is_a?(Array)
+      v.each do |val| 
+        if val.is_a?(Hash)
+          convert_times(val)
+        elsif val.is_a?(String)
+          val.to_datetime if val.match?(/\d{4}-\d{2}-\d{2}T/)
+        end
+      end
+      json[k] = v
+    elsif v.is_a?(Hash)
+      vals = [v]
+      vals.each {|val| convert_times(val)}
+    elsif v.is_a?(String)
+      json[k] = v.to_datetime if v.match?(/\d{4}-\d{2}-\d{2}T/)
+    end
   end
 end
 
