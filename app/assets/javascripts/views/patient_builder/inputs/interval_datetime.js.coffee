@@ -12,7 +12,7 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
     if @initialValue?
       @value = @initialValue.copy()
     else
-      @value = @createDefault()
+      @value = new cqm.models.CQL.Interval(null, null)
 
   events:
     'change input[type=text]': 'handleChange'
@@ -22,13 +22,11 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
     todayInMP = new Date()
     # TODO: use measurement period for this
     todayInMP.setYear(2012)
-    todayInMP.setHours(8)
-    todayInMP.setMinutes(0)
-    todayInMP.setMilliseconds(0)
-    todayInMPEnd = new Date(todayInMP)
-    todayInMPEnd.setMinutes(15)
-    return new cqm.models.CQL.Interval(cqm.models.CQL.DateTime.fromJSDate(todayInMP, 0),
-      cqm.models.CQL.DateTime.fromJSDate(todayInMPEnd, 0))
+
+    # create CQL DateTimes
+    start = new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 0, 0, 0, 0)
+    end = new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 15, 0, 0, 0)
+    return new cqm.models.CQL.Interval(start, end)
 
   context: ->
     _(super).extend

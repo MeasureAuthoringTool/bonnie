@@ -12,7 +12,7 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
     if @initialValue?
       @value = @initialValue.copy()
     else
-      @value = @createDefault()
+      @value = null
 
   events:
     'change input[type=text]': 'handleChange'
@@ -22,10 +22,9 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
     todayInMP = new Date()
     # TODO: use measurement period for this
     todayInMP.setYear(2012)
-    todayInMP.setHours(8)
-    todayInMP.setMinutes(0)
-    todayInMP.setMilliseconds(0)
-    return cqm.models.CQL.DateTime.fromJSDate(todayInMP, 0)
+
+    # create CQL DateTimes
+    return new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 0, 0, 0, 0)
 
   context: ->
     _(super).extend
