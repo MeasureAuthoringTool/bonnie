@@ -48,6 +48,8 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
         defaultStart = @createDefault().low
         @$("input[name='start_date']").val(moment.utc(defaultStart.toJSDate()).format('L'))
         @$("input[name='start_time']").val(moment.utc(defaultStart.toJSDate()).format('LT'))
+        @$("input[name='start_date']").datepicker('update')
+        @$("input[name='start_time']").datepicker('update')
     else
       @$("input[name='start_date'], input[name='start_time']").prop('disabled', true).val("")
 
@@ -59,6 +61,8 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
         defaultEnd = @createDefault().high
         @$("input[name='end_date']").val(moment.utc(defaultEnd.toJSDate()).format('L'))
         @$("input[name='end_time']").val(moment.utc(defaultEnd.toJSDate()).format('LT'))
+        @$("input[name='end_date']").datepicker('update')
+        @$("input[name='end_time']").datepicker('update')
     else
       @$("input[name='end_date'], input[name='end_time']").prop('disabled', true).val("")
 

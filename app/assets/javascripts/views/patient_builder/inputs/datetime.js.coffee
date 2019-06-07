@@ -3,7 +3,7 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/datetime']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - Interval<DateTime> - Optional. Initial value of interval.
+  #   initialValue - CQL DateTime - Optional. Initial value of datetime.
   #   showLabel - Boolean - Optional. To show the label for the attribute or not. Defaults to false.
   #                          If true, attributeName and attributeTitle should be specified.
   #   attributeName - String - Optional. The name/path of the attribue on the data element that this is editing.
@@ -43,6 +43,8 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
         defaultDate = @createDefault()
         @$("input[name='date']").val(moment.utc(defaultDate.toJSDate()).format('L'))
         @$("input[name='time']").val(moment.utc(defaultDate.toJSDate()).format('LT'))
+        @$("input[name='date']").datepicker('update')
+        @$("input[name='time']").datepicker('update')
     else
       @$("input[name='date'], input[name='time']").prop('disabled', true).val("")
 

@@ -86,15 +86,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    timingInterval = @model.getPrimaryTimingAttribute() || 'authorDatetime'
+    primaryTimingAttributeName = @model.getPrimaryTimingAttribute() || 'authorDatetime'
+    primaryTimingValue = @model.get('qdmDataElement')[primaryTimingAttributeName]
     _(super).extend
-      start_date: moment.utc(@model.get(timingInterval).low).format('L') if @model.get(timingInterval)?.low?
-      start_time: moment.utc(@model.get(timingInterval).low).format('LT') if @model.get(timingInterval)?.low?
-      start_date: moment.utc(@model.get(timingInterval)).format('L') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
-      start_time: moment.utc(@model.get(timingInterval)).format('LT') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
-      end_date: moment.utc(@model.get(timingInterval).high).format('L') if @model.get(timingInterval)?.high?
-      end_time: moment.utc(@model.get(timingInterval).high).format('LT') if @model.get(timingInterval)?.high?
-      end_date_is_undefined: !@model.get(timingInterval)?.high?
+      start_date: moment.utc(primaryTimingValue.low.toJSDate()).format('L') if primaryTimingValue?.low?
+      start_time: moment.utc(primaryTimingValue.low.toJSDate()).format('LT') if primaryTimingValue?.low?
+      start_date: moment.utc(primaryTimingValue.toJSDate()).format('L') if primaryTimingValue?.isDateTime
+      start_time: moment.utc(primaryTimingValue.toJSDate()).format('LT') if primaryTimingValue?.isDateTime
+      end_date: moment.utc(primaryTimingValue.high.toJSDate()).format('L') if primaryTimingValue?.high?
+      end_time: moment.utc(primaryTimingValue.high.toJSDate()).format('LT') if primaryTimingValue?.high?
+      end_date_is_undefined: !primaryTimingValue?.high?
       description: desc
       value_sets: @model.measure()?.valueSets() or []
       faIcon: @model.faIcon()
@@ -113,6 +114,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   updateAttributeFromInputChange: (inputView) ->
     @model.get('qdmDataElement')[inputView.attributeName] = inputView.value
+    @triggerMaterialize()
 
   isDuringMeasurePeriod: ->
     moment.utc(@model.get('start_date')).year() is moment.utc(@model.get('end_date')).year() is moment.utc(@model.measure().get('cqmMeasure').measure_period.low.value).year()
@@ -254,10 +256,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
     serialize: (attr) ->
-      if startDate = attr.start_date
-        startDate += " #{attr.start_time}" if attr.start_time
-        attr.value = moment.utc(startDate, 'L LT').format('X') * 1000
-
       if attr.key == 'FACILITY_LOCATION'
         # Facility Locations care about start and end dates/times
         if startDate
