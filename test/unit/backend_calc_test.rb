@@ -7,21 +7,20 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
 
   setup do
     dump_database
-    patients_set = File.join('patients', 'CMS160v6')
+    patients_set = File.join('cqm_patients', 'CMS160v6')
     collection_fixtures(patients_set)
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'))
     @measure = CQM::Measure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs
   end
 
   test "calculation completes test" do
-    skip('need to update cassette')
     VCR.use_cassette('backend_calculator_test') do
       patients = CQM::Patient.where('measure_ids'=>{'$in'=>[@measure.hqmf_set_id]})
       options = {}
 
       r = BonnieBackendCalculator.calculate(@measure, patients, options)
 
-      assert_equal "complete", r["5a9ee716b848465b0064f52c"]["PopulationCriteria1"]["state"]
+      assert_equal "complete", r["5cfe974ad7c8aced6ef7c625"]["PopulationCriteria1"]["state"]
     end
   end
 
