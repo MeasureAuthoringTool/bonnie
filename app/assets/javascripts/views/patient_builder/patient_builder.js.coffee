@@ -151,7 +151,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
 
     # if primary timing attr is an interval set it.
-    if patientDataCriteria.getPrimaryTimingAttribute()?
+    if patientDataCriteria.getPrimaryTimingAttribute() != 'authorDatetime'
       patientDataCriteria.get('qdmDataElement')[patientDataCriteria.getPrimaryTimingAttribute()] = @createDefaultInterval()
     # it is authorDatetime, set it
     else

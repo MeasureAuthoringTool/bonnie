@@ -69,13 +69,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
   isPeriodType: ->
-    criteriaType = @getCriteriaType()
-    # in QDM 5.0, these are all things that are *not* considered 'authored' - and thus have a time interval.
-    criteriaType in ['adverse_event', 'care_goal', 'device_applied', 'diagnostic_study_performed',
-                     'encounter_active', 'encounter_performed', 'intervention_performed', 'laboratory_test_performed',
-                     'medication_active', 'medication_ordered', 'medication_dispensed', 'medication_administered',
-                     'physical_exam_performed', 'procedure_performed', 'substance_administered', 'allergy_intolerance',
-                     'diagnosis', 'symptom', 'patient_characteristic_payer', 'participation']
+    @getPrimaryTimingAttribute() != 'authorDatetime'
 
   # determines if a data criteria describes an issue or problem with a person
   # allergy/intolerance, diagnosis, and symptom fall into this
@@ -88,25 +82,15 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   # TODO: (LDY 10/6/2016) this is a helper function. does it belong somewhere else? should it be used in
   # other places?
   getCriteriaType: ->
-    criteriaType = @get('definition')
-    if @get('status')?
-      criteriaType = "#{criteriaType}_#{@get('status')}"
-    else if @get('sub_category')?
-      criteriaType = "#{criteriaType}_#{@get('sub_category')}"
+    criteriaType = @get('qdmDataElement').qdmCategory
+    if @get('qdmDataElement').qdmStatus?
+      criteriaType = "#{criteriaType}_#{@get('qdmDataElement').qdmStatus}"
     criteriaType
 
   @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
-    schema = @get('qdmDataElement').schema
-    if schema.path('relevantPeriod')?
-      'relevantPeriod'
-    else if schema.path('prevalencePeriod')?
-      'prevalencePeriod'
-    else if schema.path('participationPeriod')? 
-      'participationPeriod'
-    else
-      undefined
+    return @getPrimaryTimingAttributes()[0].name
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
   getPrimaryTimingAttributes: ->

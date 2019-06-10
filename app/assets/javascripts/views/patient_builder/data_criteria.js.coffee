@@ -92,7 +92,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    primaryTimingAttributeName = @model.getPrimaryTimingAttribute() || 'authorDatetime'
+    primaryTimingAttributeName = @model.getPrimaryTimingAttribute()
     primaryTimingValue = @model.get('qdmDataElement')[primaryTimingAttributeName]
     _(super).extend
       start_date: moment.utc(primaryTimingValue.low.toJSDate()).format('L') if primaryTimingValue?.low?
