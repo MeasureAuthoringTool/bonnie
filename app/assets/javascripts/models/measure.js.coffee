@@ -165,7 +165,7 @@ class Thorax.Models.Measure extends Thorax.Model
       return @_localIdCache[libraryName][statementName]
 
   getMeasurePeriodYear: ->
-    @get('cqmMeasure').measure_period.low.value[0..3]
+    Number.parseInt(@get('cqmMeasure').measure_period.low.value[0..3])
 
   setMeasurePeriodYear: (year) ->
     @get('cqmMeasure').measure_period.low.value = year + @get('cqmMeasure').measure_period.low.value[4..]

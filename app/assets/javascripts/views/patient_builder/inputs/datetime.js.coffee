@@ -8,11 +8,16 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
   #                          If true, attributeName and attributeTitle should be specified.
   #   attributeName - String - Optional. The name/path of the attribue on the data element that this is editing.
   #   attributeTitle - String - Optional. The human friendly name of the attribute.
+  #   defaultYear - Integer - Optional. The default year to use when a default date needs to be created.
+  #                           This should be the measurement period. Defaults to 2012.
   initialize: ->
     if @initialValue?
       @value = @initialValue.copy()
     else
       @value = null
+
+    if !@defaultYear?
+      @defaultYear = 2012
 
   events:
     'change input[type=checkbox]': 'handleCheckboxChange'
@@ -24,8 +29,7 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
 
   createDefault: ->
     todayInMP = new Date()
-    # TODO: use measurement period for this
-    todayInMP.setYear(2012)
+    todayInMP.setYear(@defaultYear)
 
     # create CQL DateTimes
     return new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 0, 0, 0, 0)

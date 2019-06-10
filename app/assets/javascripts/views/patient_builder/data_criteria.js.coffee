@@ -68,11 +68,17 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     for timingAttr in @model.getPrimaryTimingAttributes()
       switch timingAttr.type
         when 'Interval'
-          intervalView = new Thorax.Views.InputIntervalDateTimeView(initialValue: @model.get('qdmDataElement')[timingAttr.name], attributeName: timingAttr.name, attributeTitle: timingAttr.title, showLabel: true)
+          intervalView = new Thorax.Views.InputIntervalDateTimeView(
+            initialValue: @model.get('qdmDataElement')[timingAttr.name],
+            attributeName: timingAttr.name, attributeTitle: timingAttr.title,
+            showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
           @timingAttributeViews.push intervalView
           @listenTo intervalView, 'valueChanged', @updateAttributeFromInputChange
         when 'DateTime'
-          dateTimeView = new Thorax.Views.InputDateTimeView(initialValue: @model.get('qdmDataElement')[timingAttr.name], attributeName: timingAttr.name, attributeTitle: timingAttr.title, showLabel: true)
+          dateTimeView = new Thorax.Views.InputDateTimeView(
+            initialValue: @model.get('qdmDataElement')[timingAttr.name],
+            attributeName: timingAttr.name, attributeTitle: timingAttr.title,
+            showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
           @timingAttributeViews.push dateTimeView
           @listenTo dateTimeView, 'valueChanged', @updateAttributeFromInputChange
 

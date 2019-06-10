@@ -86,7 +86,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @$('.expand').html('Nothing more to show...').fadeOut 2000, -> $(@).remove()
 
     rendered: ->
-      debugger
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
 
       # Make criteria list a drop target
@@ -172,8 +171,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   createDefaultInterval: ->
     todayInMP = new Date()
-    # TODO: use measurement period for this
-    todayInMP.setYear(2012)
+    todayInMP.setYear(@measure.getMeasurePeriodYear())
 
     # create CQL DateTimes
     start = new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 0, 0, 0, 0)

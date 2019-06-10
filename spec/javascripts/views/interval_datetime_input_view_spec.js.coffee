@@ -188,3 +188,29 @@ describe 'InputView', ->
         expect(@view.$el.find("input[name='end_date']").prop('disabled')).toBe false
         expect(@view.$el.find("input[name='end_time']").val()).toEqual "8:15 AM"
         expect(@view.$el.find("input[name='end_time']").prop('disabled')).toBe false
+
+    describe 'createDefault', ->
+
+      it 'defaults to 2012 when the defaultYear is not provided', ->
+        start = new cqm.models.CQL.DateTime(2012, 2, 23, 8, 15, 0, 0, 0)
+        end = new cqm.models.CQL.DateTime(2012, 2, 24, 9, 0, 0, 0, 0)
+        view = new Thorax.Views.InputIntervalDateTimeView(initialValue: new cqm.models.CQL.Interval(start, end))
+
+        # get today in 2012 and check the default is today 8:00-8:15
+        today = new Date()
+        newStart = new cqm.models.CQL.DateTime(2012, today.getMonth() + 1, today.getDate(), 8, 0, 0, 0, 0)
+        newEnd = new cqm.models.CQL.DateTime(2012, today.getMonth() + 1, today.getDate(), 8, 15, 0, 0, 0)
+        newInterval = new cqm.models.CQL.Interval(newStart, newEnd)
+        expect(view.createDefault()).toEqual(newInterval)
+
+      it 'uses defaultYear when provided', ->
+        start = new cqm.models.CQL.DateTime(2012, 2, 23, 8, 15, 0, 0, 0)
+        end = new cqm.models.CQL.DateTime(2012, 2, 24, 9, 0, 0, 0, 0)
+        view = new Thorax.Views.InputIntervalDateTimeView(initialValue: new cqm.models.CQL.Interval(start, end), defaultYear: 2019)
+
+        # get today in 2019 and check the default is today 8:00-8:15
+        today = new Date()
+        newStart = new cqm.models.CQL.DateTime(2019, today.getMonth() + 1, today.getDate(), 8, 0, 0, 0, 0)
+        newEnd = new cqm.models.CQL.DateTime(2019, today.getMonth() + 1, today.getDate(), 8, 15, 0, 0, 0)
+        newInterval = new cqm.models.CQL.Interval(newStart, newEnd)
+        expect(view.createDefault()).toEqual(newInterval)
