@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5cdad220d7c8ac0ab5cc1cbf"
+    "$oid": "5cfe970ed7c8aced5e9b36af"
   },
   "calculate_sdes": true,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1cc0"
+        "$oid": "5cfe970ed7c8aced5e9b36b0"
       },
       "cql": "library DiabetesFootExam version '7.5.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude Adult_Outpatient_Encounters version '1.1.000' called AdultOutpatientEncounters\r\ninclude Hospice version '1.0.000' called Hospice\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\n\r\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Bilateral amputation of leg below or above knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1056'\r\nvalueset \"Diabetes\": 'urn:oid:2.16.840.1.113883.3.464.1003.103.12.1001'\r\nvalueset \"Left\": 'urn:oid:2.16.840.1.113883.3.464.1003.122.12.1036'\r\nvalueset \"Left Unilateral Amputation Procedure Above or Below Knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1072'\r\nvalueset \"Right\": 'urn:oid:2.16.840.1.113883.3.464.1003.122.12.1035'\r\nvalueset \"Right Unilateral Amputation Procedure Above or Below Knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1073'\r\nvalueset \"Unilateral Amputation Procedure Below or Above Knee, Unspecified Laterality\": 'urn:oid:2.16.840.1.113883.3.464.1003.103.12.1022'\r\nvalueset \"Unilateral Amputation Below or Above Knee, Unspecified Laterality\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1059'\r\nvalueset \"Left Unilateral Amputation Above or Below Knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1058'\r\nvalueset \"Right Unilateral Amputation Above or Below Knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1057'\r\n\r\ncode \"Diabetic foot examination (regime/therapy)\": '401191002' from \"SNOMEDCT:2017-09\" display 'Diabetic foot examination (regime/therapy)'\r\ncode \"Monofilament foot sensation test (procedure)\": '134388005' from \"SNOMEDCT:2017-09\" display 'Monofilament foot sensation test (procedure)'\r\ncode \"Pedal pulse taking (procedure)\": '91161007' from \"SNOMEDCT:2017-09\" display 'Pedal pulse taking (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists ( \"Sensory Foot Exam\" )\r\n\t\tand exists ( \"Visual Foot Exam\" )\r\n\t\tand exists ( \"Pedal Pulse Checked\" )\r\n\r\ndefine \"Pedal Pulse Checked\":\r\n\t[\"Assessment, Performed\": \"Pedal pulse taking (procedure)\"] PedalPulseCheck\r\n\t\twhere PedalPulseCheck.result is not null\r\n\t\t\tand PedalPulseCheck.authorDatetime during \"Measurement Period\"\r\n\r\ndefine \"Visual Foot Exam\":\r\n\t[\"Assessment, Performed\": \"Diabetic foot examination (regime/therapy)\"] FootExamVisual\r\n\t\twhere FootExamVisual.result is not null\r\n\t\t\tand FootExamVisual.authorDatetime during \"Measurement Period\"\r\n\r\ndefine \"Bilateral Lower Extremity Amputation\":\r\n\t[\"Diagnosis\": \"Bilateral amputation of leg below or above knee\"] LowerBilateralAmputation\r\n\t\twhere LowerBilateralAmputation.prevalencePeriod starts on or before end of \"Measurement Period\"\r\n\r\ndefine \"Sensory Foot Exam\":\r\n\t[\"Assessment, Performed\": \"Monofilament foot sensation test (procedure)\"] MonofilamentTest\r\n\t\twhere MonofilamentTest.result is not null\r\n\t\t\tand MonofilamentTest.authorDatetime during \"Measurement Period\"\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tHospice.\"Has Hospice\"\r\n\t\tor exists ( \"Bilateral Lower Extremity Amputation\" )\r\n\t\tor ( exists ( \"Left Lower Extremity Amputation\" )\r\n\t\t\t\tand exists ( \"Right Lower Extremity Amputation\" )\r\n\t\t)\r\n\r\ndefine \"Initial Population\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")in Interval[18, 75 )\r\n\t)\r\n\t\tand exists ( AdultOutpatientEncounters.\"Qualifying Encounters\" )\r\n\t\tand exists ( [\"Diagnosis\": \"Diabetes\"] Diabetes\r\n\t\t\t\twhere Diabetes.prevalencePeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n\r\ndefine \"Left Lower Extremity Amputation\":\r\n\t( ( ( [\"Diagnosis\": \"Unilateral Amputation Below or Above Knee, Unspecified Laterality\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Unilateral Amputation Procedure Below or Above Knee, Unspecified Laterality\"] ) UnilateralAmputation\r\n\t\t\twhere UnilateralAmputation.anatomicalLocationSite in \"Left\"\r\n\t)\r\n\t\tunion ( [\"Diagnosis\": \"Left Unilateral Amputation Above or Below Knee\"]\r\n\t\t\t\tunion [\"Procedure, Performed\": \"Left Unilateral Amputation Procedure Above or Below Knee\"]\r\n\t\t) ) LeftLowerAmputation\r\n\t\twhere Coalesce(LeftLowerAmputation.prevalencePeriod, LeftLowerAmputation.relevantPeriod)starts on or before end of \"Measurement Period\"\r\n\r\ndefine \"Right Lower Extremity Amputation\":\r\n\t( ( ( [\"Diagnosis\": \"Unilateral Amputation Below or Above Knee, Unspecified Laterality\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Unilateral Amputation Procedure Below or Above Knee, Unspecified Laterality\"] ) UnilateralAmputation\r\n\t\t\twhere UnilateralAmputation.anatomicalLocationSite in \"Right\"\r\n\t)\r\n\t\tunion ( [\"Diagnosis\": \"Right Unilateral Amputation Above or Below Knee\"]\r\n\t\t\t\tunion [\"Procedure, Performed\": \"Right Unilateral Amputation Procedure Above or Below Knee\"]\r\n\t\t) ) RightLowerAmputation\r\n\t\twhere Coalesce(RightLowerAmputation.prevalencePeriod, RightLowerAmputation.relevantPeriod)starts on or before end of \"Measurement Period\"\r\n",
       "elm": {
@@ -7089,43 +7089,43 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cc1"
+            "$oid": "5cfe970ed7c8aced5e9b36b1"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cc2"
+            "$oid": "5cfe970ed7c8aced5e9b36b2"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cc3"
+            "$oid": "5cfe970ed7c8aced5e9b36b3"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cc4"
+            "$oid": "5cfe970ed7c8aced5e9b36b4"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cc5"
+            "$oid": "5cfe970ed7c8aced5e9b36b5"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cc6"
+            "$oid": "5cfe970ed7c8aced5e9b36b6"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cc7"
+                "$oid": "5cfe970ed7c8aced5e9b36b7"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -7133,7 +7133,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cc8"
+                "$oid": "5cfe970ed7c8aced5e9b36b8"
               },
               "hqmf_id": null,
               "library_name": "Adult_Outpatient_Encounters",
@@ -7143,13 +7143,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cc9"
+            "$oid": "5cfe970ed7c8aced5e9b36b9"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cca"
+                "$oid": "5cfe970ed7c8aced5e9b36ba"
               },
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
@@ -7159,31 +7159,31 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1ccb"
+            "$oid": "5cfe970ed7c8aced5e9b36bb"
           },
           "statement_name": "Sensory Foot Exam"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1ccc"
+            "$oid": "5cfe970ed7c8aced5e9b36bc"
           },
           "statement_name": "Visual Foot Exam"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1ccd"
+            "$oid": "5cfe970ed7c8aced5e9b36bd"
           },
           "statement_name": "Pedal Pulse Checked"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cce"
+            "$oid": "5cfe970ed7c8aced5e9b36be"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1ccf"
+                "$oid": "5cfe970ed7c8aced5e9b36bf"
               },
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
@@ -7191,7 +7191,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cd0"
+                "$oid": "5cfe970ed7c8aced5e9b36c0"
               },
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
@@ -7199,7 +7199,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cd1"
+                "$oid": "5cfe970ed7c8aced5e9b36c1"
               },
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
@@ -7209,31 +7209,31 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cd2"
+            "$oid": "5cfe970ed7c8aced5e9b36c2"
           },
           "statement_name": "Bilateral Lower Extremity Amputation"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cd3"
+            "$oid": "5cfe970ed7c8aced5e9b36c3"
           },
           "statement_name": "Left Lower Extremity Amputation"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cd4"
+            "$oid": "5cfe970ed7c8aced5e9b36c4"
           },
           "statement_name": "Right Lower Extremity Amputation"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cd5"
+            "$oid": "5cfe970ed7c8aced5e9b36c5"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cd6"
+                "$oid": "5cfe970ed7c8aced5e9b36c6"
               },
               "hqmf_id": null,
               "library_name": "Hospice",
@@ -7241,7 +7241,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cd7"
+                "$oid": "5cfe970ed7c8aced5e9b36c7"
               },
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
@@ -7249,7 +7249,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cd8"
+                "$oid": "5cfe970ed7c8aced5e9b36c8"
               },
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
@@ -7257,7 +7257,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cd9"
+                "$oid": "5cfe970ed7c8aced5e9b36c9"
               },
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
@@ -7269,7 +7269,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1cda"
+        "$oid": "5cfe970ed7c8aced5e9b36ca"
       },
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
@@ -15935,13 +15935,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cdb"
+            "$oid": "5cfe970ed7c8aced5e9b36cb"
           },
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1cdc"
+                "$oid": "5cfe970ed7c8aced5e9b36cc"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -15951,7 +15951,7 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cdd"
+            "$oid": "5cfe970ed7c8aced5e9b36cd"
           },
           "statement_name": "ToDate"
         }
@@ -15959,7 +15959,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1cde"
+        "$oid": "5cfe970ed7c8aced5e9b36ce"
       },
       "cql": "library Adult_Outpatient_Encounters version '1.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Preventive Care Services - Established Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1025'\r\nvalueset \"Preventive Care Services-Initial Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1023'\r\nvalueset \"Home Healthcare Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1016'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Qualifying Encounters\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Annual Wellness Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services - Established Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services-Initial Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Home Healthcare Services\"] ) ValidEncounter\r\n\t\twhere ValidEncounter.relevantPeriod during \"Measurement Period\"\r\n",
       "elm": {
@@ -16899,7 +16899,7 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cdf"
+            "$oid": "5cfe970ed7c8aced5e9b36cf"
           },
           "statement_name": "Qualifying Encounters"
         }
@@ -16907,7 +16907,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1ce0"
+        "$oid": "5cfe970ed7c8aced5e9b36d0"
       },
       "cql": "library Hospice version '1.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2017-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-03'\r\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\r\n\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n",
       "elm": {
@@ -18794,14 +18794,14 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1ce1"
+            "$oid": "5cfe970ed7c8aced5e9b36d1"
           },
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-05-14T14:35:12.327Z",
+  "created_at": "2019-06-10T17:44:46.124Z",
   "description": "The percentage of patients 18-75 years of age with diabetes (type 1 and type 2) who received a foot exam (visual inspection and sensory exam with mono filament and a pulse exam) during the measurement year",
   "hqmf_id": "40280382-62C4-DE26-0162-FE2505800CC9",
   "hqmf_set_id": "C0D72444-7C26-4863-9B51-8080F8928A85",
@@ -19354,13 +19354,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1cf9"
+        "$oid": "5cfe970ed7c8aced5e9b36e9"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cfe"
+            "$oid": "5cfe970ed7c8aced5e9b36ee"
           },
           "hqmf_id": "169882FC-8B2E-4632-862C-3081579CB7AD",
           "library_name": "DiabetesFootExam",
@@ -19368,7 +19368,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cfc"
+            "$oid": "5cfe970ed7c8aced5e9b36ec"
           },
           "hqmf_id": "181114D4-30C3-4373-883B-1089B4B5F78C",
           "library_name": "DiabetesFootExam",
@@ -19376,7 +19376,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cfb"
+            "$oid": "5cfe970ed7c8aced5e9b36eb"
           },
           "hqmf_id": "7567276B-C419-4192-9302-B74184432984",
           "library_name": "DiabetesFootExam",
@@ -19384,21 +19384,21 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cfd"
+            "$oid": "5cfe970ed7c8aced5e9b36ed"
           },
           "hqmf_id": "1B37DBE9-2193-4846-95BD-A3F3DFF21D5A",
           "library_name": "DiabetesFootExam",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cfa"
+          "$oid": "5cfe970ed7c8aced5e9b36ea"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1cff"
+            "$oid": "5cfe970ed7c8aced5e9b36ef"
           },
           "hqmf_id": null,
           "library_name": "DiabetesFootExam",
@@ -19406,7 +19406,7 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1d00"
+            "$oid": "5cfe970ed7c8aced5e9b36f0"
           },
           "hqmf_id": null,
           "library_name": "DiabetesFootExam",
@@ -19414,7 +19414,7 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1d01"
+            "$oid": "5cfe970ed7c8aced5e9b36f1"
           },
           "hqmf_id": null,
           "library_name": "DiabetesFootExam",
@@ -19422,7 +19422,7 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1d02"
+            "$oid": "5cfe970ed7c8aced5e9b36f2"
           },
           "hqmf_id": null,
           "library_name": "DiabetesFootExam",
@@ -19435,7 +19435,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc199f"
+        "$oid": "5cfe970dd7c8aced5e9b338f"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -19445,11 +19445,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ce2"
+          "$oid": "5cfe970ed7c8aced5e9b36d2"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc199f"
+        "value": "5cfe970dd7c8aced5e9b338f"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -19460,7 +19460,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a0"
+        "$oid": "5cfe970dd7c8aced5e9b3390"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -19470,11 +19470,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ce3"
+          "$oid": "5cfe970ed7c8aced5e9b36d3"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a0"
+        "value": "5cfe970dd7c8aced5e9b3390"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -19484,7 +19484,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a1"
+        "$oid": "5cfe970dd7c8aced5e9b3391"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -19496,11 +19496,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ce4"
+          "$oid": "5cfe970ed7c8aced5e9b36d4"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a1"
+        "value": "5cfe970dd7c8aced5e9b3391"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19512,7 +19512,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a2"
+        "$oid": "5cfe970dd7c8aced5e9b3392"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -19524,11 +19524,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ce5"
+          "$oid": "5cfe970ed7c8aced5e9b36d5"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a2"
+        "value": "5cfe970dd7c8aced5e9b3392"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19540,7 +19540,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a3"
+        "$oid": "5cfe970dd7c8aced5e9b3393"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -19552,11 +19552,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ce6"
+          "$oid": "5cfe970ed7c8aced5e9b36d6"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a3"
+        "value": "5cfe970dd7c8aced5e9b3393"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19568,7 +19568,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a4"
+        "$oid": "5cfe970dd7c8aced5e9b3394"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -19581,11 +19581,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ce7"
+          "$oid": "5cfe970ed7c8aced5e9b36d7"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a4"
+        "value": "5cfe970dd7c8aced5e9b3394"
       },
       "incisionDatetime": null,
       "method": null,
@@ -19603,7 +19603,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a5"
+        "$oid": "5cfe970dd7c8aced5e9b3395"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -19620,11 +19620,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ce8"
+          "$oid": "5cfe970ed7c8aced5e9b36d8"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a5"
+        "value": "5cfe970dd7c8aced5e9b3395"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19638,7 +19638,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a6"
+        "$oid": "5cfe970dd7c8aced5e9b3396"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -19655,11 +19655,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ce9"
+          "$oid": "5cfe970ed7c8aced5e9b36d9"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a6"
+        "value": "5cfe970dd7c8aced5e9b3396"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19673,7 +19673,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a7"
+        "$oid": "5cfe970dd7c8aced5e9b3397"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -19686,11 +19686,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cea"
+          "$oid": "5cfe970ed7c8aced5e9b36da"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a7"
+        "value": "5cfe970dd7c8aced5e9b3397"
       },
       "incisionDatetime": null,
       "method": null,
@@ -19708,7 +19708,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a8"
+        "$oid": "5cfe970dd7c8aced5e9b3398"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -19720,11 +19720,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ceb"
+          "$oid": "5cfe970ed7c8aced5e9b36db"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a8"
+        "value": "5cfe970dd7c8aced5e9b3398"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19736,7 +19736,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19a9"
+        "$oid": "5cfe970dd7c8aced5e9b3399"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -19747,11 +19747,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cec"
+          "$oid": "5cfe970ed7c8aced5e9b36dc"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19a9"
+        "value": "5cfe970dd7c8aced5e9b3399"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -19763,7 +19763,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19aa"
+        "$oid": "5cfe970dd7c8aced5e9b339a"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -19774,11 +19774,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1ced"
+          "$oid": "5cfe970ed7c8aced5e9b36dd"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19aa"
+        "value": "5cfe970dd7c8aced5e9b339a"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -19793,7 +19793,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19ab"
+        "$oid": "5cfe970dd7c8aced5e9b339b"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -19803,11 +19803,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cee"
+          "$oid": "5cfe970ed7c8aced5e9b36de"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19ab"
+        "value": "5cfe970dd7c8aced5e9b339b"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -19817,7 +19817,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19ac"
+        "$oid": "5cfe970dd7c8aced5e9b339c"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -19834,11 +19834,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cef"
+          "$oid": "5cfe970ed7c8aced5e9b36df"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19ac"
+        "value": "5cfe970dd7c8aced5e9b339c"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19852,7 +19852,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19ad"
+        "$oid": "5cfe970dd7c8aced5e9b339d"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -19869,11 +19869,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf0"
+          "$oid": "5cfe970ed7c8aced5e9b36e0"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19ad"
+        "value": "5cfe970dd7c8aced5e9b339d"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19887,7 +19887,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19ae"
+        "$oid": "5cfe970dd7c8aced5e9b339e"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -19904,11 +19904,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf1"
+          "$oid": "5cfe970ed7c8aced5e9b36e1"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19ae"
+        "value": "5cfe970dd7c8aced5e9b339e"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19922,7 +19922,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19af"
+        "$oid": "5cfe970dd7c8aced5e9b339f"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -19939,11 +19939,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf2"
+          "$oid": "5cfe970ed7c8aced5e9b36e2"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19af"
+        "value": "5cfe970dd7c8aced5e9b339f"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19957,7 +19957,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19b0"
+        "$oid": "5cfe970dd7c8aced5e9b33a0"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -19967,11 +19967,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf3"
+          "$oid": "5cfe970ed7c8aced5e9b36e3"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19b0"
+        "value": "5cfe970dd7c8aced5e9b33a0"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -19981,7 +19981,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19b1"
+        "$oid": "5cfe970dd7c8aced5e9b33a1"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -19993,11 +19993,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf4"
+          "$oid": "5cfe970ed7c8aced5e9b36e4"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19b1"
+        "value": "5cfe970dd7c8aced5e9b33a1"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -20009,7 +20009,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19b2"
+        "$oid": "5cfe970dd7c8aced5e9b33a2"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -20022,11 +20022,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf5"
+          "$oid": "5cfe970ed7c8aced5e9b36e5"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19b2"
+        "value": "5cfe970dd7c8aced5e9b33a2"
       },
       "incisionDatetime": null,
       "method": null,
@@ -20044,7 +20044,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19b3"
+        "$oid": "5cfe970dd7c8aced5e9b33a3"
       },
       "authorDatetime": null,
       "codeListId": "drc-529dc4d622e3c7acea52e699b35e8154cd879f8e64e48c790de34a6585ea4ba4",
@@ -20056,11 +20056,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf6"
+          "$oid": "5cfe970ed7c8aced5e9b36e6"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19b3"
+        "value": "5cfe970dd7c8aced5e9b33a3"
       },
       "method": null,
       "negationRationale": null,
@@ -20074,7 +20074,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19b4"
+        "$oid": "5cfe970dd7c8aced5e9b33a4"
       },
       "authorDatetime": null,
       "codeListId": "drc-33211b1978e0fee5a3a65e4ecd35fe3f70cd065128690cbc4530e298f87c742c",
@@ -20086,11 +20086,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf7"
+          "$oid": "5cfe970ed7c8aced5e9b36e7"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19b4"
+        "value": "5cfe970dd7c8aced5e9b33a4"
       },
       "method": null,
       "negationRationale": null,
@@ -20104,7 +20104,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc19b5"
+        "$oid": "5cfe970dd7c8aced5e9b33a5"
       },
       "authorDatetime": null,
       "codeListId": "drc-37129ce483571cc63df7966e306dcddb2c35dd3bf3aa768a1ce357089d34706b",
@@ -20116,11 +20116,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1cf8"
+          "$oid": "5cfe970ed7c8aced5e9b36e8"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc19b5"
+        "value": "5cfe970dd7c8aced5e9b33a5"
       },
       "method": null,
       "negationRationale": null,
@@ -20134,40 +20134,40 @@
     }
   ],
   "title": "Diabetes: Foot Exam",
-  "updated_at": "2019-05-14T14:35:12.327Z",
+  "updated_at": "2019-06-10T17:44:46.124Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5cdad220d7c8ac0ab5cc19b6",
-    "5cdad220d7c8ac0ab5cc19b7",
-    "5cdad220d7c8ac0ab5cc19b8",
-    "5cdad220d7c8ac0ab5cc19b9",
-    "5cdad220d7c8ac0ab5cc19ba",
-    "5cdad220d7c8ac0ab5cc19bb",
-    "5cdad220d7c8ac0ab5cc19bc",
-    "5cdad220d7c8ac0ab5cc19bd",
-    "5cdad220d7c8ac0ab5cc19be",
-    "5cdad220d7c8ac0ab5cc19bf",
-    "5cdad220d7c8ac0ab5cc19c0",
-    "5cdad220d7c8ac0ab5cc19c1",
-    "5cdad220d7c8ac0ab5cc19c2",
-    "5cdad220d7c8ac0ab5cc19c3",
-    "5cdad220d7c8ac0ab5cc19c4",
-    "5cdad220d7c8ac0ab5cc19c5",
-    "5cdad220d7c8ac0ab5cc19c6",
-    "5cdad220d7c8ac0ab5cc19c7",
-    "5cdad220d7c8ac0ab5cc19c8",
-    "5cdad220d7c8ac0ab5cc19c9",
-    "5cdad220d7c8ac0ab5cc19ca",
-    "5cdad220d7c8ac0ab5cc19cb",
-    "5cdad220d7c8ac0ab5cc19cc",
-    "5cdad220d7c8ac0ab5cc19cd",
-    "5cdad220d7c8ac0ab5cc19ce",
-    "5cdad220d7c8ac0ab5cc19cf",
-    "5cdad220d7c8ac0ab5cc19d0",
-    "5cdad220d7c8ac0ab5cc19d1",
-    "5cdad220d7c8ac0ab5cc19d2",
-    "5cdad220d7c8ac0ab5cc19d3"
+    "5cfe970ed7c8aced5e9b33a6",
+    "5cfe970ed7c8aced5e9b33a7",
+    "5cfe970ed7c8aced5e9b33a8",
+    "5cfe970ed7c8aced5e9b33a9",
+    "5cfe970ed7c8aced5e9b33aa",
+    "5cfe970ed7c8aced5e9b33ab",
+    "5cfe970ed7c8aced5e9b33ac",
+    "5cfe970ed7c8aced5e9b33ad",
+    "5cfe970ed7c8aced5e9b33ae",
+    "5cfe970ed7c8aced5e9b33af",
+    "5cfe970ed7c8aced5e9b33b0",
+    "5cfe970ed7c8aced5e9b33b1",
+    "5cfe970ed7c8aced5e9b33b2",
+    "5cfe970ed7c8aced5e9b33b3",
+    "5cfe970ed7c8aced5e9b33b4",
+    "5cfe970ed7c8aced5e9b33b5",
+    "5cfe970ed7c8aced5e9b33b6",
+    "5cfe970ed7c8aced5e9b33b7",
+    "5cfe970ed7c8aced5e9b33b8",
+    "5cfe970ed7c8aced5e9b33b9",
+    "5cfe970ed7c8aced5e9b33ba",
+    "5cfe970ed7c8aced5e9b33bb",
+    "5cfe970ed7c8aced5e9b33bc",
+    "5cfe970ed7c8aced5e9b33bd",
+    "5cfe970ed7c8aced5e9b33be",
+    "5cfe970ed7c8aced5e9b33bf",
+    "5cfe970ed7c8aced5e9b33c0",
+    "5cfe970ed7c8aced5e9b33c1",
+    "5cfe970ed7c8aced5e9b33c2",
+    "5cfe970ed7c8aced5e9b33c3"
   ]
 }

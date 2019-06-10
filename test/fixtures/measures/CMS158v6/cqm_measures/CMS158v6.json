@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5cdad216d7c8ac0ab5cbd327"
+    "$oid": "5cfe9705d7c8aced5e9aeeb2"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd328"
+        "$oid": "5cfe9705d7c8aced5e9aeeb3"
       },
       "cql": "library PregnantwomenthathadHBsAgtesting version '6.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Delivery - Diagnosis\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.278'\r\nvalueset \"Delivery - Procedure\": 'urn:oid:2.16.840.1.113762.1.4.1078.5'\r\nvalueset \"Female\": 'urn:oid:2.16.840.1.113883.3.560.100.2'\r\nvalueset \"HBsAg\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.279'\r\nvalueset \"Hepatitis B\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.269'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Most Recent Delivery\":\r\n\tLast([\"Procedure, Performed\": \"Delivery - Procedure\"] DeliveryProcedure\r\n\t\t\twhere DeliveryProcedure.relevantPeriod during \"Measurement Period\"\r\n\t\t\tsort by start of relevantPeriod\r\n\t)\r\n\r\ndefine \"Denominator Exceptions\":\r\n\texists ( [\"Diagnosis\": \"Hepatitis B\"] HepB\r\n\t\t\twith \"Most Recent Delivery Overlaps Diagnosis\" DeliveryOverlapsDiagnosis\r\n\t\t\t\tsuch that HepB.prevalencePeriod starts 365 days or less before start of DeliveryOverlapsDiagnosis.relevantPeriod\r\n\t\t\t\t\tor HepB.prevalencePeriod ends 365 days or less before start of DeliveryOverlapsDiagnosis.relevantPeriod\r\n\t)\r\n\r\ndefine \"Most Recent Delivery Overlaps Diagnosis\":\r\n\t\"Most Recent Delivery\" MostRecentDelivery\r\n\t\twhere exists ( [\"Diagnosis\": \"Delivery - Diagnosis\"] DeliveryDiagnosis\r\n\t\t\t\twhere MostRecentDelivery.relevantPeriod overlaps DeliveryDiagnosis.prevalencePeriod\r\n\t\t)\r\n\r\ndefine \"Initial Population\":\r\n\t\"Most Recent Delivery Overlaps Diagnosis\" is not null\r\n\t\tand AgeInYearsAt(start of \"Measurement Period\")>= 12\r\n\t\tand exists ( [\"Patient Characteristic Sex\": \"Female\"] )\r\n\r\ndefine \"Numerator\":\r\n\texists ( [\"Laboratory Test, Performed\": \"HBsAg\"] LabTest\r\n\t\t\twith \"Most Recent Delivery Overlaps Diagnosis\" DeliveryOverlapsDiagnosis\r\n\t\t\t\tsuch that LabTest.relevantPeriod starts 280 days or less before start of DeliveryOverlapsDiagnosis.relevantPeriod\r\n\t)\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n",
       "elm": {
@@ -3869,49 +3869,49 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd329"
+            "$oid": "5cfe9705d7c8aced5e9aeeb4"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd32a"
+            "$oid": "5cfe9705d7c8aced5e9aeeb5"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd32b"
+            "$oid": "5cfe9705d7c8aced5e9aeeb6"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd32c"
+            "$oid": "5cfe9705d7c8aced5e9aeeb7"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd32d"
+            "$oid": "5cfe9705d7c8aced5e9aeeb8"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd32e"
+            "$oid": "5cfe9705d7c8aced5e9aeeb9"
           },
           "statement_name": "Most Recent Delivery"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd32f"
+            "$oid": "5cfe9705d7c8aced5e9aeeba"
           },
           "statement_name": "Most Recent Delivery Overlaps Diagnosis",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd330"
+                "$oid": "5cfe9705d7c8aced5e9aeebb"
               },
               "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
@@ -3921,13 +3921,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd331"
+            "$oid": "5cfe9705d7c8aced5e9aeebc"
           },
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd332"
+                "$oid": "5cfe9705d7c8aced5e9aeebd"
               },
               "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
@@ -3937,13 +3937,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd333"
+            "$oid": "5cfe9705d7c8aced5e9aeebe"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd334"
+                "$oid": "5cfe9705d7c8aced5e9aeebf"
               },
               "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
@@ -3953,13 +3953,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd335"
+            "$oid": "5cfe9705d7c8aced5e9aeec0"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd336"
+                "$oid": "5cfe9705d7c8aced5e9aeec1"
               },
               "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
@@ -3969,13 +3969,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd337"
+            "$oid": "5cfe9705d7c8aced5e9aeec2"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd338"
+                "$oid": "5cfe9705d7c8aced5e9aeec3"
               },
               "hqmf_id": null,
               "library_name": "PregnantwomenthathadHBsAgtesting",
@@ -3986,7 +3986,7 @@
       ]
     }
   ],
-  "created_at": "2019-05-14T14:35:02.652Z",
+  "created_at": "2019-06-10T17:44:37.483Z",
   "description": "This measure identifies pregnant women who had a HBsAg (hepatitis B) test during their pregnancy",
   "hqmf_id": "40280382-5FA6-FE85-015F-B5969D1D0264",
   "hqmf_set_id": "3BBFC929-50C8-44B8-8D34-82BE75C08A70",
@@ -4475,13 +4475,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd342"
+        "$oid": "5cfe9705d7c8aced5e9aeecd"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEXCEP": {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd347"
+            "$oid": "5cfe9705d7c8aced5e9aeed2"
           },
           "hqmf_id": "CA814520-4C34-40EE-8B75-E4CC17F826E4",
           "library_name": "PregnantwomenthathadHBsAgtesting",
@@ -4489,7 +4489,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd345"
+            "$oid": "5cfe9705d7c8aced5e9aeed0"
           },
           "hqmf_id": "0D651BD8-1BC2-44DD-B939-D4668CBCF2F8",
           "library_name": "PregnantwomenthathadHBsAgtesting",
@@ -4497,7 +4497,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd344"
+            "$oid": "5cfe9705d7c8aced5e9aeecf"
           },
           "hqmf_id": "D925905E-7C6A-4DAB-BAED-9BD0D30C17B4",
           "library_name": "PregnantwomenthathadHBsAgtesting",
@@ -4505,14 +4505,14 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd346"
+            "$oid": "5cfe9705d7c8aced5e9aeed1"
           },
           "hqmf_id": "6D406128-ADE1-4B45-826A-5850D297D405",
           "library_name": "PregnantwomenthathadHBsAgtesting",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd343"
+          "$oid": "5cfe9705d7c8aced5e9aeece"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
@@ -4522,7 +4522,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd05f"
+        "$oid": "5cfe9705d7c8aced5e9aebea"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -4532,11 +4532,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd339"
+          "$oid": "5cfe9705d7c8aced5e9aeec4"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd05f"
+        "value": "5cfe9705d7c8aced5e9aebea"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -4547,7 +4547,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd060"
+        "$oid": "5cfe9705d7c8aced5e9aebeb"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -4557,11 +4557,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd33a"
+          "$oid": "5cfe9705d7c8aced5e9aeec5"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd060"
+        "value": "5cfe9705d7c8aced5e9aebeb"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -4571,7 +4571,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd061"
+        "$oid": "5cfe9705d7c8aced5e9aebec"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -4581,11 +4581,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd33b"
+          "$oid": "5cfe9705d7c8aced5e9aeec6"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd061"
+        "value": "5cfe9705d7c8aced5e9aebec"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -4595,7 +4595,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd062"
+        "$oid": "5cfe9705d7c8aced5e9aebed"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -4605,11 +4605,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd33c"
+          "$oid": "5cfe9705d7c8aced5e9aeec7"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd062"
+        "value": "5cfe9705d7c8aced5e9aebed"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -4619,7 +4619,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd063"
+        "$oid": "5cfe9705d7c8aced5e9aebee"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -4632,11 +4632,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd33d"
+          "$oid": "5cfe9705d7c8aced5e9aeec8"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd063"
+        "value": "5cfe9705d7c8aced5e9aebee"
       },
       "incisionDatetime": null,
       "method": null,
@@ -4654,7 +4654,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd064"
+        "$oid": "5cfe9705d7c8aced5e9aebef"
       },
       "codeListId": "2.16.840.1.113883.3.560.100.2",
       "dataElementCodes": [
@@ -4664,11 +4664,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd33e"
+          "$oid": "5cfe9705d7c8aced5e9aeec9"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd064"
+        "value": "5cfe9705d7c8aced5e9aebef"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -4678,7 +4678,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd065"
+        "$oid": "5cfe9705d7c8aced5e9aebf0"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.67.1.101.1.279",
@@ -4690,11 +4690,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd33f"
+          "$oid": "5cfe9705d7c8aced5e9aeeca"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd065"
+        "value": "5cfe9705d7c8aced5e9aebf0"
       },
       "method": null,
       "negationRationale": null,
@@ -4712,7 +4712,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd066"
+        "$oid": "5cfe9705d7c8aced5e9aebf1"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -4724,11 +4724,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd340"
+          "$oid": "5cfe9705d7c8aced5e9aeecb"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd066"
+        "value": "5cfe9705d7c8aced5e9aebf1"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -4740,7 +4740,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd067"
+        "$oid": "5cfe9705d7c8aced5e9aebf2"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -4752,11 +4752,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd341"
+          "$oid": "5cfe9705d7c8aced5e9aeecc"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad216d7c8ac0ab5cbd067"
+        "value": "5cfe9705d7c8aced5e9aebf2"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -4768,19 +4768,19 @@
     }
   ],
   "title": "Pregnant women that had HBsAg testing",
-  "updated_at": "2019-05-14T14:35:02.652Z",
+  "updated_at": "2019-06-10T17:44:37.483Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5cdad216d7c8ac0ab5cbd068",
-    "5cdad216d7c8ac0ab5cbd069",
-    "5cdad216d7c8ac0ab5cbd06a",
-    "5cdad216d7c8ac0ab5cbd06b",
-    "5cdad216d7c8ac0ab5cbd06c",
-    "5cdad216d7c8ac0ab5cbd06d",
-    "5cdad216d7c8ac0ab5cbd06e",
-    "5cdad216d7c8ac0ab5cbd06f",
-    "5cdad216d7c8ac0ab5cbd070"
+    "5cfe9705d7c8aced5e9aebf3",
+    "5cfe9705d7c8aced5e9aebf4",
+    "5cfe9705d7c8aced5e9aebf5",
+    "5cfe9705d7c8aced5e9aebf6",
+    "5cfe9705d7c8aced5e9aebf7",
+    "5cfe9705d7c8aced5e9aebf8",
+    "5cfe9705d7c8aced5e9aebf9",
+    "5cfe9705d7c8aced5e9aebfa",
+    "5cfe9705d7c8aced5e9aebfb"
   ]
 }
