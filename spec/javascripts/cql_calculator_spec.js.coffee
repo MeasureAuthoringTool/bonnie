@@ -43,26 +43,26 @@ describe 'cqmCalculator', ->
       expect(relevance_map).toEqual expected_relevance_map
 
     it 'marks OBSERV calculated if MSRPOPLEX is less than MSRPOPL', ->
-      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 1, values: [12]}
-      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, values: true }
+      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 1, observation_values: [12]}
+      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, observation_values: true }
       relevance_map = cqm.execution.ResultsHelpers.buildPopulationRelevanceMap(population_results)
       expect(relevance_map).toEqual expected_relevance_map
 
     it 'marks OBSERV not calculated if MSRPOPLEX is same as MSRPOPL', ->
-      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 2, values: [12]}
-      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, values: false }
+      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 2, observation_values: [12]}
+      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, observation_values: false }
       relevance_map = cqm.execution.ResultsHelpers.buildPopulationRelevanceMap(population_results)
       expect(relevance_map).toEqual expected_relevance_map
 
     it 'marks OBSERV not calculated if MSRPOPLEX is greater than MSRPOPL', ->
-      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 3, values: [12]}
-      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, values: false }
+      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 3, observation_values: [12]}
+      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, observation_values: false }
       relevance_map = cqm.execution.ResultsHelpers.buildPopulationRelevanceMap(population_results)
       expect(relevance_map).toEqual expected_relevance_map
 
     it 'marks MSRPOPLEX not calculated if MSRPOPL is zero', ->
-      population_results = {IPP: 3, MSRPOPL: 0, MSRPOPLEX: 0, values: []}
-      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: false, values: false }
+      population_results = {IPP: 3, MSRPOPL: 0, MSRPOPLEX: 0, observation_values: []}
+      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: false, observation_values: false }
       relevance_map = cqm.execution.ResultsHelpers.buildPopulationRelevanceMap(population_results)
       expect(relevance_map).toEqual expected_relevance_map
 
