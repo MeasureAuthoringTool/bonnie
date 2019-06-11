@@ -200,7 +200,7 @@ Teaspoon.configure do |config|
   #
   # Available: :dot, :clean, :documentation, :json, :junit, :pride,
   #            :rspec_html, :snowday, :swayze_or_oprah, :tap, :tap_y, :teamcity
-  config.formatters = [:tap_y]
+  config.formatters = [:clean]
 
   # Specify if you want color output from the formatters.
   # config.color = true
