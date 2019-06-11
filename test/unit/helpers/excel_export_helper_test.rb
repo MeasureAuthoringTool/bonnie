@@ -80,7 +80,7 @@ class ExcelExportHelperTest < ActionController::TestCase
   test 'backend results are converted' do
     skip('ExcelExportHelper needs update')
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
-    @calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
+    @calc_results.observation_values.zip(converted_results.observation_values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
         assert_equal calc_result[cid], converted_result[id]
       end
@@ -91,7 +91,7 @@ class ExcelExportHelperTest < ActionController::TestCase
     skip('ExcelExportHelper needs update')
     converted_unpretty_results = ExcelExportHelper.convert_results_for_excel_export(@unpretty_backend_results, @measure, @patients)
     skip('calc results dont match expected')
-    @calc_results_unpretty.values.zip(converted_unpretty_results.values).each do |calc_result, converted_result|
+    @calc_results_unpretty.observation_values.zip(converted_unpretty_results.observation_values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
         assert_equal calc_result[cid], converted_result[id]
       end

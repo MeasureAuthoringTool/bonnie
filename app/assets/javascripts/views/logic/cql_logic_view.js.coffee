@@ -84,6 +84,8 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     for library in @cqmMeasure.cql_libraries
       @hasOutdatedQDM = true if @_hasOutdatedQDM(library)
       @hasCqlErrors = true if @_hasCqlErrors(library)
+      # Only top level libraries will have elm annotations
+      continue unless library.is_top_level
       for statement in library.elm_annotations.statements
         # skip if this is a statement the user doesn't need to see
         continue unless statement.define_name?

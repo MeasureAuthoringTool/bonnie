@@ -21,15 +21,15 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
   isMatch: (result) ->
     # account for OBSERV if an actual value exists
     unless @has 'OBSERV'
-      if result.get('values')?.length
-        @set 'OBSERV', (undefined for val in result.get('values'))
+      if result.get('observation_values')?.length
+        @set 'OBSERV', (undefined for val in result.get('observation_values'))
     else
-      if result.get('values')?.length
-        if @get('OBSERV').length - result.get('values').length < 0
-          @get('OBSERV').push(undefined) for n in [(@get('OBSERV').length + 1)..result.get('values').length]
+      if result.get('observation_values')?.length
+        if @get('OBSERV').length - result.get('observation_values').length < 0
+          @get('OBSERV').push(undefined) for n in [(@get('OBSERV').length + 1)..result.get('observation_values').length]
 
     for popCrit in @populationCriteria()
-      if popCrit.indexOf('OBSERV') != -1 then return false unless @compareObservs(@get('OBSERV')?[@observIndex(popCrit)], result.get('values')?[@observIndex(popCrit)])
+      if popCrit.indexOf('OBSERV') != -1 then return false unless @compareObservs(@get('OBSERV')?[@observIndex(popCrit)], result.get('observation_values')?[@observIndex(popCrit)])
       else return false unless @get(popCrit) == result.get(popCrit)
     return true
 
@@ -38,7 +38,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     for popCrit in @populationCriteria()
       if popCrit.indexOf('OBSERV') != -1
         expected = ExpectedValue.prepareObserv(if popCrit == 'OBSERV' then @get('OBSERV')?[0] else @get('OBSERV')?[@observIndex(popCrit)])
-        actual = ExpectedValue.prepareObserv(if popCrit == 'OBSERV' then result.get('values')?[0] else result.get('values')?[@observIndex(popCrit)])
+        actual = ExpectedValue.prepareObserv(if popCrit == 'OBSERV' then result.get('observation_values')?[0] else result.get('observation_values')?[@observIndex(popCrit)])
         unit = @get('OBSERV_UNIT')
         key = 'OBSERV'
       else
