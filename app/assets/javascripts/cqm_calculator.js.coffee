@@ -5,8 +5,10 @@
 
   calculate: (population, patient, options = {}) ->
     measure = population.collection.parent
+    # Set Default Options
+    options.doPretty = true unless options.doPretty?
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
-    cacheKey = @cacheKey(population, patient)
+    cacheKey = @cacheKey(population, patient, options)
     calcKey = @calculationKey(population)
     # We only ever generate a single result for a population / patient pair; if we've ever generated a
     # result for this pair, we use that result and return it, starting its calculation if needed
@@ -30,7 +32,7 @@
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: true, includeClauseResults: true })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true })
       patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
 
       measure.get('populations').forEach((measure_population) =>
@@ -44,7 +46,7 @@
           result.state = 'complete'
         # otherwise create result and put it on the cache
         else
-          otherPopCacheKey = @cacheKey(measure_population, patient)
+          otherPopCacheKey = @cacheKey(measure_population, patient, options)
           otherPopResult = @resultsCache[otherPopCacheKey] ?= new Thorax.Models.Result({}, population: measure_population, patient: patient)
           otherPopResult.set(populationSetResults.toObject())
           otherPopResult.state = 'complete'
@@ -65,7 +67,7 @@
     patients.forEach((patient) =>
       measure.get('populations').forEach((population) =>
         # We store both the calculation result and the calcuation code based on keys derived from the arguments
-        cacheKey = @cacheKey(population, patient)
+        cacheKey = @cacheKey(population, patient, options)
         # We only ever generate a single result for a population / patient pair; if we've ever generated a
         # result for this pair, we use that result and return it, starting its calculation if needed
         result = @resultsCache[cacheKey] ?= new Thorax.Models.Result({}, population: population, patient: patient)
@@ -109,7 +111,7 @@
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, qdmPatients, cqmValueSets, { doPretty: true, includeClauseResults: true })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, qdmPatients, cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true })
       # Fill result objects for everything in the measure
       resultsNeedingCalc.forEach((result) =>
         patient = result.patient
