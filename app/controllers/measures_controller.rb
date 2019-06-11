@@ -80,18 +80,21 @@ class MeasuresController < ApplicationController
     is_valid_year = year.to_i == year.to_f && year.length == 4 && year.to_i >= 1 && year.to_i <= 9999
 
     if is_valid_year
+      original_year = measure.measure_period['low']['value'][0..3]
+      year_shift = year.to_i - original_year.to_i
       measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
       measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
       measure.save!
+
+      if (params[:measurement_period_shift_dates] == "true")
+        shift_years(measure, year_shift)
+      end
     else
       flash[:error] = { title: 'Error Updating Measurement Period',
                         summary: 'Error Updating Measurement Period',
                         body: 'Invalid year selected. Year must be 4 digits and between 1 and 9999' }
     end
-    
-    if (params[:measurement_period_shift_dates] == "true")
-      shift_years(measure, year)
-    end
+
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
@@ -120,10 +123,12 @@ class MeasuresController < ApplicationController
     }
   end
 
-  def shift_years(measure, year)
+  def shift_years(measure, year_shift)
     CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).each do |patient|
+      patient_birthdate_year = patient.qdmPatient.birthDatetime.year
+      patient.qdmPatient.birthDatetime.change(year: year_shift + patient_birthdate_year)
       patient.qdmPatient.dataElements.each do |data_element|
-        data_element.shift_years(year)
+        data_element.shift_years(year_shift)
       end
       patient.save!
     end
