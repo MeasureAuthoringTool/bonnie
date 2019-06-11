@@ -73,7 +73,7 @@ class PatientsController < ApplicationController
       if (params[:results] && !params[:patients])
         measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
-        zip.puts measure_patients_summary(patients, params[:results].values, qrda_errors, html_errors, measure)
+        zip.puts measure_patients_summary(patients, params[:results].observation_values, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
@@ -146,8 +146,8 @@ private
   def measure_patients_summary(patients, results, qrda_errors, html_errors, measure)
     # restructure differences for output
     results.each do |r|
-      r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].values)
-      r[:differences].values.each {|d| d[:comparisons] = convert_to_hash(:name, d[:comparisons].values)}
+      r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].observation_values)
+      r[:differences].observation_values.each {|d| d[:comparisons] = convert_to_hash(:name, d[:comparisons].observation_values)}
     end
     results
     rendering_context = HealthDataStandards::Export::RenderingContext.new

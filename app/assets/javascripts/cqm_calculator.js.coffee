@@ -37,6 +37,7 @@
         populationSetId = measure_population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
 
+        populationSetResults.observation_values.sort()
         # if this population is requested update the object
         if measure_population == population
           result.set(populationSetResults.toObject())
@@ -117,6 +118,7 @@
 
         populationSetId = population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
+        populationSetResults.observation_values.sort()
 
         result.set(populationSetResults.toObject())
         result.state = 'complete'
