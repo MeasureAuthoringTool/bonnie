@@ -1,0 +1,140 @@
+{
+  "_id": "5a8f0106b848466ea2de7a87",
+  "birthdate": 28800,
+  "bundle_id": "57eaea476c5d1c5a5500000d",
+  "created_at": "2018-02-22T17:42:30.011Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "5aeb7797b848463d625b499c",
+      "admitTime": null,
+      "admitType": null,
+      "author_datetime": null,
+      "codes": {
+        "SNOMED-CT": [
+          "183452005"
+        ]
+      },
+      "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+      "diagnosis": null,
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1329898500,
+      "facility": null,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "principalDiagnosis": {
+        "_id": "5aeb7797b848463d625b499d",
+        "code": "111297002",
+        "code_system": "SNOMED-CT",
+        "title": "Ischemic Stroke"
+      },
+      "reason": null,
+      "specifics": null,
+      "start_time": 1329897600,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null,
+      "_type": "Encounter"
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "155445E1-6CEE-4F81-98E4-669957369D57",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "expired": null,
+  "first": "1",
+  "gender": "M",
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "P",
+  "marital_status": null,
+  "measure_ids": [
+    "155445E1-6CEE-4F81-98E4-669957369D57",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "51170d7b90b3ddf111d2820adeb3a2720b4cefc2c39479828830100f3a499e27",
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Non-ElectiveInpatientEncounter",
+      "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
+      "type": "encounters",
+      "id": "Non_ElectiveInpatientEncounter_EncounterPerformed_61e3c371_09df_4283_9098_cd37f778bdbb_source",
+      "start_date": 1329897600000,
+      "end_date": 1329898500000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+        "PRINCIPAL_DIAGNOSIS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+          "field_title": "Principal Diagnosis",
+          "title": "Ischemic Stroke"
+        }
+      },
+      "hqmf_set_id": "155445E1-6CEE-4F81-98E4-669957369D57",
+      "cms_id": "CMS13v2",
+      "criteria_id": "161be993d88WS",
+      "codes": {
+        "SNOMED-CT": [
+          "183452005"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "5aeb7797b848463d625b499c",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2018-05-03T20:56:55.310Z",
+  "user_id": "501fdba3044a111b98000001"
+}

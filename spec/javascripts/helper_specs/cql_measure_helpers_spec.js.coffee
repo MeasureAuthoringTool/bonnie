@@ -32,7 +32,7 @@ describe 'CQLMeasureHelpers', ->
       expect(localIds[159]).not.toBeUndefined()
       expect(localIds[159]).toEqual({localId: '159', sourceLocalId: '160'})
 
-    xit 'handles library ExpressionRefs with libraryRef embedded in the clause', ->
+    it 'handles library ExpressionRefs with libraryRef embedded in the clause', ->
       # Loads Test104 aka. CMS13 measure.
       # This measure has both the TJC_Overall and MAT global libraries
       measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/deprecated_measures/CMS13/CMS13v2.json'), parse: true
