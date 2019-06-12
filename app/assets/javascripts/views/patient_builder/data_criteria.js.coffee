@@ -127,13 +127,44 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->
-    droppedCriteriaTiming = droppedCriteria.getPrimaryTimingAttribute()
-    targetCriteriaTiming = targetCriteria.getPrimaryTimingAttribute()
-    if(droppedCriteriaTiming? && targetCriteriaTiming?)
-      droppedCriteria.get('qdmDataElement')[droppedCriteriaTiming] = targetCriteria.get('qdmDataElement')[targetCriteriaTiming].copy()
-    # Copy authorDatetime if droppedCriteria and target both have the authorDatetime property
-    if droppedCriteria.get('qdmDataElement').schema.path('authorDateTime') && targetCriteria.get('qdmDataElement').authorDatetime?
-      droppedCriteria.get('qdmDataElement').authorDatetime = targetCriteria.get('qdmDataElement').authorDateTime.copy()
+    droppedCriteriaTiming = droppedCriteria.getPrimaryTimingAttributes()
+    targetCriteriaTiming = targetCriteria.getPrimaryTimingAttributes()
+
+    # do a pairwise copy from target timing attributes to dropped timing attributes
+    for timingIndex, droppedTimingAttr of droppedCriteriaTiming
+      # if there is a corresponding pair, then copy it
+      if timingIndex < targetCriteriaTiming.length
+        @_copyTimingAttribute(droppedCriteria, targetCriteria, droppedTimingAttr, targetCriteriaTiming[timingIndex])
+      # otherwise, copy the first one in target
+      else
+        @_copyTimingAttribute(droppedCriteria, targetCriteria, droppedTimingAttr, targetCriteriaTiming[0])
+
+  # Helper function to copy a timing value from targetCriteria to droppedCriteria. The last two arguments are obejcts from the
+  # timing attributes structure that comes from the SourceDataCriteria.getPrimaryTimingAttributes() method. This has the attribute name and type.
+  _copyTimingAttribute: (droppedCriteria, targetCriteria, droppedAttr, targetAttr) ->
+    # clone if they are of the same type
+    if targetAttr.type == droppedAttr.type
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = targetCriteria.get('qdmDataElement')[targetAttr.name].copy()
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = null
+
+    # turn Interval into DateTime
+    else if targetAttr.type == 'Interval' && droppedAttr.type == 'DateTime'
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?.low?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = targetCriteria.get('qdmDataElement')[targetAttr.name].low.copy()
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = null
+
+    # turn DateTime into Interval. use start + 15 mins for end. if target is null, use Interval[null, null]
+    else if targetAttr.type == 'DateTime' && droppedAttr.type == 'Interval'
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(
+          targetCriteria.get('qdmDataElement')[targetAttr.name].copy(),
+          targetCriteria.get('qdmDataElement')[targetAttr.name].add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
+          )
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(null, null)
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria

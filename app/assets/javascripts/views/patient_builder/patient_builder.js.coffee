@@ -150,12 +150,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     patientDataCriteria = $(ui.draggable).model().clone()
     patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
 
-    # if primary timing attr is an interval set it.
-    if patientDataCriteria.getPrimaryTimingAttribute() != 'authorDatetime'
-      patientDataCriteria.get('qdmDataElement')[patientDataCriteria.getPrimaryTimingAttribute()] = @createDefaultInterval()
-    # it is authorDatetime, set it
-    else
-      patientDataCriteria.get('qdmDataElement').authorDatetime = @createDefaultInterval().low
+    # create default values for all primary timing attributes
+    for timingAttr in patientDataCriteria.getPrimaryTimingAttributes()
+      if timingAttr.type == 'Interval'
+        patientDataCriteria.get('qdmDataElement')[timingAttr.name] = @createDefaultInterval()
+      else if timingAttr.type == 'DateTime'
+        patientDataCriteria.get('qdmDataElement')[timingAttr.name] = @createDefaultInterval().low
 
     @addCriteria patientDataCriteria
     return false
