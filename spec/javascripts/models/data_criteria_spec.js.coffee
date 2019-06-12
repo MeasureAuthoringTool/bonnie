@@ -5,8 +5,10 @@ describe "SourceDataCriteria", ->
 
   # changed from Authored to Relevant Period for QDM 5.3
   it "specifies 'Medication, Dispensed' to have a relevant period", ->
-    patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS136v7/Pass_IPP1.json')], parse: true
-    patient = patients.first()
+    passIPP1 = getJSONFixture 'patients/CMS136v7/Pass_IPP1.json'
+    passIPP2 = getJSONFixture 'patients/CMS136v7/Pass_IPP2.json'
+    patients = new Thorax.Collections.Patients [passIPP1, passIPP2], parse: true
+    patient = patients.at(0) # Pass IPP1
     dataCriteria = patient.get('source_data_criteria').at(1)
     expect(dataCriteria.getCriteriaType()).toBe 'medication_dispensed'
     expect(dataCriteria.isPeriodType()).toBe true
