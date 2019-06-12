@@ -1,5 +1,5 @@
 {
-  "_id": "5c65cb0a57a11edfa5f0b0f5",
+  "_id": "5cfe9706d7c8aced5e9afd9d",
   "calculate_sdes": null,
   "calculation_method": "EPISODE_OF_CARE",
   "cms_id": "CMS146v6",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5c65cb0a57a11edfa5f0b0f6",
+      "_id": "5cfe9707d7c8aced5e9afd9e",
       "cql": "library AppropriateTestingforChildrenwithPharyngitis version '6.1.011'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude Hospice version '0.1.000' called Hospice\r\ninclude MATGlobalCommonFunctions version '1.0.000' called Global\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Acute Pharyngitis\": 'urn:oid:2.16.840.1.113883.3.464.1003.102.12.1011'\r\nvalueset \"Acute Tonsillitis\": 'urn:oid:2.16.840.1.113883.3.464.1003.102.12.1012'\r\nvalueset \"Antibiotic Medications for Pharyngitis\": 'urn:oid:2.16.840.1.113883.3.464.1003.196.12.1001'\r\nvalueset \"Group A Streptococcus Test\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1012'\r\nvalueset \"Ambulatory/ED Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1061'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Pharyngitis or Tonsillitis\":\r\n\t( [\"Diagnosis\": \"Acute Pharyngitis\"]\r\n\t\t\tunion [\"Diagnosis\": \"Acute Tonsillitis\"]\r\n\t)\r\n\r\ndefine \"Streptococcus Lab Test\":\r\n\t[\"Laboratory Test, Performed\": \"Group A Streptococcus Test\"] StrepLabTest\r\n\t\twhere StrepLabTest.result is not null\r\n\r\ndefine \"Antibiotic Encounter\":\r\n\t[\"Encounter, Performed\": \"Ambulatory/ED Visit\"] Encounter\r\n\t\twith [\"Medication, Order\": \"Antibiotic Medications for Pharyngitis\"] Antibiotic\r\n\t\t\tsuch that ( Encounter.relevantPeriod starts 3 days or less before Antibiotic.authorDatetime\r\n\t\t\t\t\tor Encounter.relevantPeriod starts same as Antibiotic.authorDatetime\r\n\t\t\t)\r\n\t\twhere Encounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Diagnosis Related Encounters\":\r\n\tfrom\r\n\t\t\"Antibiotic Encounter\" AntibioticRxVisit,\r\n\t\t\"Pharyngitis or Tonsillitis\" AcutePharyngitisTonsillitis\r\n\t\twhere AntibioticRxVisit.relevantPeriod overlaps AcutePharyngitisTonsillitis.prevalencePeriod\r\n\r\ndefine \"Numerator\":\r\n\tfrom\r\n\t\t\"Streptococcus Lab Test\" StrepLabTest,\r\n\t\t[\"Encounter, Performed\": \"Ambulatory/ED Visit\"] AmbulatoryEncounter,\r\n\t\t\"Diagnosis Related Encounters\" DiagnosticEncounter\r\n\t\twhere ( start of StrepLabTest.relevantPeriod 3 days or less before end of AmbulatoryEncounter.relevantPeriod\r\n\t\t\t\tor start of StrepLabTest.relevantPeriod 3 days or less after end of AmbulatoryEncounter.relevantPeriod\r\n\t\t)\r\n\t\t\tand DiagnosticEncounter.AntibioticRxVisit.relevantPeriod includes AmbulatoryEncounter.relevantPeriod\r\n\t\treturn DiagnosticEncounter.AntibioticRxVisit\r\n\r\ndefine \"Initial Population\":\r\n\t\"Diagnosis Related Encounters\" DiagnosisEncounters\r\n\t\twith [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\tsuch that Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 3\r\n\t\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 18\r\n\t\treturn DiagnosisEncounters.AntibioticRxVisit\r\n\r\ndefine \"Denominator Exclusions\":\r\n\t\"In Hospice\"\r\n\t\tunion distinct \"Prior Antibiotic Exclusion\"\r\n\r\ndefine \"Prior Antibiotic Exclusion\":\r\n\t( ( from\r\n\t\t\t\t[\"Medication, Active\": \"Antibiotic Medications for Pharyngitis\"] MedicationActive,\r\n\t\t\t\t\"Pharyngitis or Tonsillitis\" PharyngitisTonsillitis,\r\n\t\t\t\t\"Diagnosis Related Encounters\" DiagnosisEncounter\r\n\t\t\t\twhere start of MedicationActive.relevantPeriod 1 day or more before start of PharyngitisTonsillitis.prevalencePeriod\r\n\t\t\t\t\tand start of MedicationActive.relevantPeriod 30 days or less before start of PharyngitisTonsillitis.prevalencePeriod\r\n\t\t\t\t\tand DiagnosisEncounter.AcutePharyngitisTonsillitis = PharyngitisTonsillitis\r\n\t\t\t\treturn DiagnosisEncounter.AntibioticRxVisit\r\n\t\t)\r\n\t\t\tunion ( from\r\n\t\t\t\t\t[\"Medication, Active\": \"Antibiotic Medications for Pharyngitis\"] MedicationActive,\r\n\t\t\t\t\t\"Pharyngitis or Tonsillitis\" PharyngitisTonsillitis,\r\n\t\t\t\t\t\"Diagnosis Related Encounters\" DiagnosisEncounter\r\n\t\t\t\t\twhere start of MedicationActive.relevantPeriod 30 days or more before start of PharyngitisTonsillitis.prevalencePeriod\r\n\t\t\t\t\t\tand not ( end of MedicationActive.relevantPeriod 30 days or more before start of PharyngitisTonsillitis.prevalencePeriod )\r\n\t\t\t\t\t\tand DiagnosisEncounter.AcutePharyngitisTonsillitis = PharyngitisTonsillitis\r\n\t\t\t\t\treturn DiagnosisEncounter.AntibioticRxVisit\r\n\t\t\t)\r\n\t)\r\n\r\ndefine \"In Hospice\":\r\n\t\"Initial Population\" EligibleEncounters\r\n\t\twhere Hospice.\"Has Hospice\"\r\n",
       "elm": {
         "library": {
@@ -8318,158 +8318,175 @@
         }
       },
       "is_main_library": true,
+      "is_top_level": true,
       "library_name": "AppropriateTestingforChildrenwithPharyngitis",
       "library_version": "6.1.011",
       "statement_dependencies": [
         {
-          "_id": "5c65cb0a57a11edfa5f0b0f7",
+          "_id": "5cfe9707d7c8aced5e9afd9f",
           "statement_name": "Patient"
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b0f8",
+          "_id": "5cfe9707d7c8aced5e9afda0",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b0f9",
+          "_id": "5cfe9707d7c8aced5e9afda1",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b0fa",
+          "_id": "5cfe9707d7c8aced5e9afda2",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b0fb",
+          "_id": "5cfe9707d7c8aced5e9afda3",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b0fc",
+          "_id": "5cfe9707d7c8aced5e9afda4",
           "statement_name": "Antibiotic Encounter"
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b0fd",
+          "_id": "5cfe9707d7c8aced5e9afda5",
           "statement_name": "Pharyngitis or Tonsillitis"
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b0fe",
+          "_id": "5cfe9707d7c8aced5e9afda6",
           "statement_name": "Diagnosis Related Encounters",
           "statement_references": [
             {
-              "_id": "5c65cb0a57a11edfa5f0b0ff",
+              "_id": "5cfe9707d7c8aced5e9afda7",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Antibiotic Encounter"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b100",
+              "_id": "5cfe9707d7c8aced5e9afda8",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Pharyngitis or Tonsillitis"
             }
           ]
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b101",
+          "_id": "5cfe9707d7c8aced5e9afda9",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5c65cb0a57a11edfa5f0b102",
+              "_id": "5cfe9707d7c8aced5e9afdaa",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Diagnosis Related Encounters"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b103",
+              "_id": "5cfe9707d7c8aced5e9afdab",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b104",
+              "_id": "5cfe9707d7c8aced5e9afdac",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b105",
+          "_id": "5cfe9707d7c8aced5e9afdad",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5c65cb0a57a11edfa5f0b106",
+              "_id": "5cfe9707d7c8aced5e9afdae",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Initial Population"
             }
           ]
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b107",
+          "_id": "5cfe9707d7c8aced5e9afdaf",
           "statement_name": "Streptococcus Lab Test"
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b108",
+          "_id": "5cfe9707d7c8aced5e9afdb0",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5c65cb0a57a11edfa5f0b109",
+              "_id": "5cfe9707d7c8aced5e9afdb1",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Streptococcus Lab Test"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b10a",
+              "_id": "5cfe9707d7c8aced5e9afdb2",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Diagnosis Related Encounters"
             }
           ]
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b10b",
+          "_id": "5cfe9707d7c8aced5e9afdb3",
           "statement_name": "In Hospice",
           "statement_references": [
             {
-              "_id": "5c65cb0a57a11edfa5f0b10c",
+              "_id": "5cfe9707d7c8aced5e9afdb4",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Initial Population"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b10d",
+              "_id": "5cfe9707d7c8aced5e9afdb5",
+              "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
             }
           ]
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b10e",
+          "_id": "5cfe9707d7c8aced5e9afdb6",
           "statement_name": "Prior Antibiotic Exclusion",
           "statement_references": [
             {
-              "_id": "5c65cb0a57a11edfa5f0b10f",
+              "_id": "5cfe9707d7c8aced5e9afdb7",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Pharyngitis or Tonsillitis"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b110",
+              "_id": "5cfe9707d7c8aced5e9afdb8",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Diagnosis Related Encounters"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b111",
+              "_id": "5cfe9707d7c8aced5e9afdb9",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Pharyngitis or Tonsillitis"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b112",
+              "_id": "5cfe9707d7c8aced5e9afdba",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Diagnosis Related Encounters"
             }
           ]
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b113",
+          "_id": "5cfe9707d7c8aced5e9afdbb",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5c65cb0a57a11edfa5f0b114",
+              "_id": "5cfe9707d7c8aced5e9afdbc",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "In Hospice"
             },
             {
-              "_id": "5c65cb0a57a11edfa5f0b115",
+              "_id": "5cfe9707d7c8aced5e9afdbd",
+              "hqmf_id": null,
               "library_name": "AppropriateTestingforChildrenwithPharyngitis",
               "statement_name": "Prior Antibiotic Exclusion"
             }
@@ -8478,7 +8495,7 @@
       ]
     },
     {
-      "_id": "5c65cb0a57a11edfa5f0b116",
+      "_id": "5cfe9707d7c8aced5e9afdbe",
       "cql": "library MATGlobalCommonFunctions version '1.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/*TotalLengthOfStay calculates the difference in calendar days between the start and end of the given stay interval.*/\r\n\r\ndefine function \"TotalLengthOfStay\"(Stay Interval<DateTime>):\r\n\tdifference in days between start of Stay and end of Stay\r\n",
       "elm": {
         "library": {
@@ -12535,28 +12552,30 @@
         }
       },
       "is_main_library": false,
+      "is_top_level": true,
       "library_name": "MATGlobalCommonFunctions",
       "library_version": "1.0.000",
       "statement_dependencies": [
         {
-          "_id": "5c65cb0a57a11edfa5f0b117",
+          "_id": "5cfe9707d7c8aced5e9afdbf",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5c65cb0a57a11edfa5f0b118",
+              "_id": "5cfe9707d7c8aced5e9afdc0",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
             }
           ]
         },
         {
-          "_id": "5c65cb0a57a11edfa5f0b119",
+          "_id": "5cfe9707d7c8aced5e9afdc1",
           "statement_name": "ToDate"
         }
       ]
     },
     {
-      "_id": "5c65cb0a57a11edfa5f0b11a",
+      "_id": "5cfe9707d7c8aced5e9afdc2",
       "cql": "library Hospice version '0.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2017-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-03'\r\n\r\nvalueset \"Discharged to Health Care Facility for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.207'\r\nvalueset \"Discharged to Home for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.209'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-03\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-03\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n",
       "elm": {
         "library": {
@@ -14442,350 +14461,18 @@
         }
       },
       "is_main_library": false,
+      "is_top_level": true,
       "library_name": "Hospice",
       "library_version": "0.1.000",
       "statement_dependencies": [
         {
-          "_id": "5c65cb0a57a11edfa5f0b11b",
+          "_id": "5cfe9707d7c8aced5e9afdc3",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": null,
-  "data_criteria": {
-    "Payer_PatientCharacteristicPayer_10fead0a_1db1_47a9_8dff_0acf087ff7ff": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_10fead0a_1db1_47a9_8dff_0acf087ff7ff_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "619",
-          "62",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "Ambulatory_EDVisit_EncounterPerformed_a6c00a1e_e319_498e_9b26_ff64eded029a": {
-      "title": "Ambulatory/EDVisit",
-      "description": "Encounter, Performed: Ambulatory/EDVisit",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ambulatory_EDVisit_EncounterPerformed_a6c00a1e_e319_498e_9b26_ff64eded029a_source",
-      "variable": false
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_48a9ef9a_c600_403d_817e_41a870c123ac": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_48a9ef9a_c600_403d_817e_41a870c123ac_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_18136f61_3a69_4982_ad09_1ed90b1fc8cf": {
-      "title": "ONCAdministrativeSex",
-      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_18136f61_3a69_4982_ad09_1ed90b1fc8cf_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "GroupAStreptococcusTest_LaboratoryTestPerformed_40280381_3d61_56a7_013e_5d1ef9cd6a4d": {
-      "title": "GroupAStreptococcusTest",
-      "description": "Laboratory Test, Performed: GroupAStreptococcusTest",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "GroupAStreptococcusTest_LaboratoryTestPerformed_40280381_3d61_56a7_013e_5d1ef9cd6a4d_source",
-      "variable": false
-    },
-    "AntibioticMedicationsforPharyngitis_MedicationOrder_40280381_3d61_56a7_013e_5d1ef9ce6a5b": {
-      "title": "AntibioticMedicationsforPharyngitis",
-      "description": "Medication, Order: AntibioticMedicationsforPharyngitis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "AntibioticMedicationsforPharyngitis_MedicationOrder_40280381_3d61_56a7_013e_5d1ef9ce6a5b_source",
-      "variable": false
-    },
-    "AntibioticMedicationsforPharyngitis_MedicationActive_40280381_3d61_56a7_013e_5d1ef9ce6a5b": {
-      "title": "AntibioticMedicationsforPharyngitis",
-      "description": "Medication, Active: AntibioticMedicationsforPharyngitis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
-      "type": "medications",
-      "definition": "medication",
-      "status": "active",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AntibioticMedicationsforPharyngitis_MedicationActive_40280381_3d61_56a7_013e_5d1ef9ce6a5b_source",
-      "variable": false
-    },
-    "Hospicecareambulatory_InterventionOrder_95cca057_9695_4ee4_a5bd_eff4b54c6098": {
-      "title": "Hospicecareambulatory",
-      "description": "Intervention, Order: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionOrder_95cca057_9695_4ee4_a5bd_eff4b54c6098_source",
-      "variable": false
-    },
-    "Hospicecareambulatory_InterventionPerformed_95cca057_9695_4ee4_a5bd_eff4b54c6098": {
-      "title": "Hospicecareambulatory",
-      "description": "Intervention, Performed: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionPerformed_95cca057_9695_4ee4_a5bd_eff4b54c6098_source",
-      "variable": false
-    },
-    "AcuteTonsillitis_Diagnosis_b191199e_67ae_4fd7_90bd_d6d81ec08f28": {
-      "title": "AcuteTonsillitis",
-      "description": "Diagnosis: AcuteTonsillitis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AcuteTonsillitis_Diagnosis_b191199e_67ae_4fd7_90bd_d6d81ec08f28_source",
-      "variable": false
-    },
-    "Race_PatientCharacteristicRace_7b31b323_1dba_4043_94ed_5175243dfe39": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_7b31b323_1dba_4043_94ed_5175243dfe39_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    },
-    "EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3": {
-      "title": "EncounterInpatient",
-      "description": "Encounter, Performed: EncounterInpatient",
-      "code_list_id": "2.16.840.1.113883.3.666.5.307",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source",
-      "variable": false
-    },
-    "AcutePharyngitis_Diagnosis_178608ed_404c_4278_be24_3ad6b726d0f3": {
-      "title": "AcutePharyngitis",
-      "description": "Diagnosis: AcutePharyngitis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AcutePharyngitis_Diagnosis_178608ed_404c_4278_be24_3ad6b726d0f3_source",
-      "variable": false
-    }
-  },
+  "created_at": "2019-06-10T17:44:38.999Z",
   "description": "Percentage of children 3-18 years of age who were diagnosed with pharyngitis, ordered an antibiotic and received a group A streptococcus (strep) test for the episode",
   "hqmf_id": "40280382-5FA6-FE85-015F-B736B62A0656",
   "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
@@ -15289,388 +14976,387 @@
   },
   "population_sets": [
     {
-      "_id": "5c65cb0a57a11edfa5f0b11c",
+      "_id": "5cfe9707d7c8aced5e9afdd1",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5c65cb0a57a11edfa5f0b11d",
+          "_id": "5cfe9707d7c8aced5e9afdd6",
+          "hqmf_id": "B6F1C575-D2AF-4A54-8B27-73837B82F29A",
           "library_name": "AppropriateTestingforChildrenwithPharyngitis",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5c65cb0a57a11edfa5f0b11e",
+          "_id": "5cfe9707d7c8aced5e9afdd4",
+          "hqmf_id": "2FAE0A77-A840-4E23-B363-C4567C6DC6D0",
           "library_name": "AppropriateTestingforChildrenwithPharyngitis",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5c65cb0a57a11edfa5f0b11f",
+          "_id": "5cfe9707d7c8aced5e9afdd3",
+          "hqmf_id": "E892F06B-E646-4E31-8309-F06C5C13E4AB",
           "library_name": "AppropriateTestingforChildrenwithPharyngitis",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5c65cb0a57a11edfa5f0b120",
+          "_id": "5cfe9707d7c8aced5e9afdd5",
+          "hqmf_id": "3653B7B0-60F7-4442-AC17-77FE2F37EB0C",
           "library_name": "AppropriateTestingforChildrenwithPharyngitis",
           "statement_name": "Numerator"
         },
-        "_id": "5c65cb0a57a11edfa5f0b121"
+        "_id": "5cfe9707d7c8aced5e9afdd2",
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     }
   ],
-  "source_data_criteria": {
-    "Payer_PatientCharacteristicPayer_10fead0a_1db1_47a9_8dff_0acf087ff7ff_source": {
-      "title": "Payer",
+  "source_data_criteria": [
+    {
+      "_id": "5cfe9706d7c8aced5e9afb09",
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_10fead0a_1db1_47a9_8dff_0acf087ff7ff_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "619",
-          "62",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdc4",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb09"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "Ambulatory_EDVisit_EncounterPerformed_a6c00a1e_e319_498e_9b26_ff64eded029a_source": {
-      "title": "Ambulatory/EDVisit",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb0a",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1061",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: Ambulatory/EDVisit",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ambulatory_EDVisit_EncounterPerformed_a6c00a1e_e319_498e_9b26_ff64eded029a_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdc5",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb0a"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "Ethnicity_PatientCharacteristicEthnicity_48a9ef9a_c600_403d_817e_41a870c123ac_source": {
-      "title": "Ethnicity",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb0b",
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_48a9ef9a_c600_403d_817e_41a870c123ac_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdc6",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb0b"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_18136f61_3a69_4982_ad09_1ed90b1fc8cf_source": {
-      "title": "ONCAdministrativeSex",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb0c",
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_18136f61_3a69_4982_ad09_1ed90b1fc8cf_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdc7",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb0c"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "GroupAStreptococcusTest_LaboratoryTestPerformed_40280381_3d61_56a7_013e_5d1ef9cd6a4d_source": {
-      "title": "GroupAStreptococcusTest",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb0d",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.198.12.1012",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Laboratory Test, Performed: GroupAStreptococcusTest",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "GroupAStreptococcusTest_LaboratoryTestPerformed_40280381_3d61_56a7_013e_5d1ef9cd6a4d_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdc8",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb0d"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "laboratory_test",
+      "qdmStatus": "performed",
+      "qdmTitle": "Laboratory Test, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "referenceRange": null,
+      "relevantPeriod": null,
+      "result": null,
+      "resultDatetime": null,
+      "status": null,
+      "_type": "QDM::LaboratoryTestPerformed"
     },
-    "AntibioticMedicationsforPharyngitis_MedicationOrder_40280381_3d61_56a7_013e_5d1ef9ce6a5b_source": {
-      "title": "AntibioticMedicationsforPharyngitis",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb0e",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
       "description": "Medication, Order: AntibioticMedicationsforPharyngitis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "AntibioticMedicationsforPharyngitis_MedicationOrder_40280381_3d61_56a7_013e_5d1ef9ce6a5b_source",
-      "variable": false
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdc9",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb0e"
+      },
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "order",
+      "qdmTitle": "Medication, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "refills": null,
+      "relevantPeriod": null,
+      "route": null,
+      "setting": null,
+      "supply": null,
+      "_type": "QDM::MedicationOrder"
     },
-    "AntibioticMedicationsforPharyngitis_MedicationActive_40280381_3d61_56a7_013e_5d1ef9ce6a5b_source": {
-      "title": "AntibioticMedicationsforPharyngitis",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb0f",
+      "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1001",
+      "dataElementCodes": [
+
+      ],
       "description": "Medication, Active: AntibioticMedicationsforPharyngitis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
-      "type": "medications",
-      "definition": "medication",
-      "status": "active",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AntibioticMedicationsforPharyngitis_MedicationActive_40280381_3d61_56a7_013e_5d1ef9ce6a5b_source",
-      "variable": false
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdca",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb0f"
+      },
+      "qdmCategory": "medication",
+      "qdmStatus": "active",
+      "qdmTitle": "Medication, Active",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "route": null,
+      "_type": "QDM::MedicationActive"
     },
-    "Hospicecareambulatory_InterventionOrder_95cca057_9695_4ee4_a5bd_eff4b54c6098_source": {
-      "title": "Hospicecareambulatory",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb10",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1108.15",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Order: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionOrder_95cca057_9695_4ee4_a5bd_eff4b54c6098_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdcb",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb10"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "order",
+      "qdmTitle": "Intervention, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "_type": "QDM::InterventionOrder"
     },
-    "Hospicecareambulatory_InterventionPerformed_95cca057_9695_4ee4_a5bd_eff4b54c6098_source": {
-      "title": "Hospicecareambulatory",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb11",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1108.15",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Performed: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionPerformed_95cca057_9695_4ee4_a5bd_eff4b54c6098_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdcc",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb11"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "performed",
+      "qdmTitle": "Intervention, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "relevantPeriod": null,
+      "result": null,
+      "status": null,
+      "_type": "QDM::InterventionPerformed"
     },
-    "AcuteTonsillitis_Diagnosis_b191199e_67ae_4fd7_90bd_d6d81ec08f28_source": {
-      "title": "AcuteTonsillitis",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb12",
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.102.12.1012",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: AcuteTonsillitis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1012",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AcuteTonsillitis_Diagnosis_b191199e_67ae_4fd7_90bd_d6d81ec08f28_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdcd",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb12"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     },
-    "Race_PatientCharacteristicRace_7b31b323_1dba_4043_94ed_5175243dfe39_source": {
-      "title": "Race",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb13",
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_7b31b323_1dba_4043_94ed_5175243dfe39_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdce",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb13"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
     },
-    "EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source": {
-      "title": "EncounterInpatient",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb14",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.666.5.307",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: EncounterInpatient",
-      "code_list_id": "2.16.840.1.113883.3.666.5.307",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdcf",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb14"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "AcutePharyngitis_Diagnosis_178608ed_404c_4278_be24_3ad6b726d0f3_source": {
-      "title": "AcutePharyngitis",
+    {
+      "_id": "5cfe9706d7c8aced5e9afb15",
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.102.12.1011",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: AcutePharyngitis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AcutePharyngitis_Diagnosis_178608ed_404c_4278_be24_3ad6b726d0f3_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "_id": "5cfe9707d7c8aced5e9afdd0",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9706d7c8aced5e9afb15"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     }
-  },
+  ],
   "title": "Appropriate Testing for Children with Pharyngitis",
-  "updated_at": null,
+  "updated_at": "2019-06-10T17:44:38.999Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5c65cb0a57a11edfa5f0b0e3",
-    "5c65cb0a57a11edfa5f0b0e4",
-    "5c65cb0a57a11edfa5f0b0e5",
-    "5c65cb0a57a11edfa5f0b0e6",
-    "5c65cb0a57a11edfa5f0b0e7",
-    "5c65cb0a57a11edfa5f0b0e8",
-    "5c65cb0a57a11edfa5f0b0e9",
-    "5c65cb0a57a11edfa5f0b0ea",
-    "5c65cb0a57a11edfa5f0b0eb",
-    "5c65cb0a57a11edfa5f0b0ec",
-    "5c65cb0a57a11edfa5f0b0ed",
-    "5c65cb0a57a11edfa5f0b0ee",
-    "5c65cb0a57a11edfa5f0b0ef",
-    "5c65cb0a57a11edfa5f0b0f0",
-    "5c65cb0a57a11edfa5f0b0f1",
-    "5c65cb0a57a11edfa5f0b0f2",
-    "5c65cb0a57a11edfa5f0b0f3",
-    "5c65cb0a57a11edfa5f0b0f4"
+    "5cfe9706d7c8aced5e9afb16",
+    "5cfe9706d7c8aced5e9afb17",
+    "5cfe9706d7c8aced5e9afb18",
+    "5cfe9706d7c8aced5e9afb19",
+    "5cfe9706d7c8aced5e9afb1a",
+    "5cfe9706d7c8aced5e9afb1b",
+    "5cfe9706d7c8aced5e9afb1c",
+    "5cfe9706d7c8aced5e9afb1d",
+    "5cfe9706d7c8aced5e9afb1e",
+    "5cfe9706d7c8aced5e9afb1f",
+    "5cfe9706d7c8aced5e9afb20",
+    "5cfe9706d7c8aced5e9afb21",
+    "5cfe9706d7c8aced5e9afb22",
+    "5cfe9706d7c8aced5e9afb23",
+    "5cfe9706d7c8aced5e9afb24",
+    "5cfe9706d7c8aced5e9afb25",
+    "5cfe9706d7c8aced5e9afb26",
+    "5cfe9706d7c8aced5e9afb27"
   ]
 }

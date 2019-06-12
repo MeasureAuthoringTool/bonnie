@@ -1,5 +1,5 @@
 {
-  "_id": "5c65ca4457a11eda06c23b3f",
+  "_id": "5cfe9709d7c8aced5e9b1875",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMSv9999",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5c65ca4457a11eda06c23b40",
+      "_id": "5cfe9709d7c8aced5e9b1876",
       "cql": "library UnhealthyAlcoholUseScreeningandFollowUpASF version '1000.0.013'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude NCQA_Common version '3.3.000' called Common\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"LOINC:2.50\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.50'\r\ncodesystem \"LOINC:2.63\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.63'\r\n\r\nvalueset \"Male\": 'urn:oid:2.16.840.1.113883.3.560.100.1'\r\nvalueset \"Female\": 'urn:oid:2.16.840.1.113883.3.560.100.2'\r\nvalueset \"Alcohol Counseling or Other Follow up Care\": 'urn:oid:2.16.840.1.113883.3.464.1004.1437'\r\nvalueset \"Alcohol Use Disorder\": 'urn:oid:2.16.840.1.113883.3.464.1004.1339'\r\nvalueset \"Dementia\": 'urn:oid:2.16.840.1.113883.3.464.1004.1074'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"How often have you had five or more drinks in one day during the past year [Reported]\": '88037-7' from \"LOINC:2.63\" display 'How often have you had five or more drinks in one day during the past year [Reported]'\r\ncode \"How often have you had four or more drinks in one day during the past year [Reported]\": '75889-6' from \"LOINC:2.63\" display 'How often have you had four or more drinks in one day during the past year [Reported]'\r\ncode \"Total score [AUDIT-C]\": '75626-2' from \"LOINC:2.63\" display 'Total score [AUDIT-C]'\r\ncode \"Total score [AUDIT]\": '75624-7' from \"LOINC:2.50\" display 'Total score [AUDIT]'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Denominator 1\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Patient is Male\":\r\n\texists [\"Patient Characteristic Sex\": \"Male\"]\r\n\r\ndefine \"Patient is Female\":\r\n\texists [\"Patient Characteristic Sex\": \"Female\"]\r\n\r\ndefine \"First Positive Screen\":\r\n\tFirst(\"Positive Screen\" PositiveScreen\r\n\t\t\twhere PositiveScreen.authorDatetime during \"Measurement Period\"\r\n\t\t\tsort by authorDatetime\r\n\t)\r\n\r\ndefine \"Denominator 2\":\r\n\texists \"Positive Screen\"\r\n\r\ndefine \"Numerator 2\":\r\n\texists \"Counseling or Other Follow-up Care\"\r\n\r\ndefine \"Screening Period\":\r\n\tInterval[start of \"Measurement Period\", end of \"Measurement Period\" - 2 months]\r\n\r\ndefine \"Patient is 65 or Over\":\r\n\texists ( [\"Patient Characteristic Birthdate\": \"Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t)\r\n\r\ndefine \"Stratifier 8\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Medicare\"]\r\n\r\ndefine \"Denominator Exclusions\":\r\n\texists ( [\"Diagnosis\": \"Alcohol Use Disorder\"] AlcoholAbuse\r\n\t\t\twhere AlcoholAbuse.prevalencePeriod starts during Interval[start of \"Measurement Period\" - 1 year, end of \"Measurement Period\"]\r\n\t)\r\n\t\tor exists ( [\"Diagnosis\": \"Dementia\"] Dementia\r\n\t\t\t\twhere Dementia.prevalencePeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n\t\tor Common.\"Has Hospice\"\r\n\r\ndefine \"Counseling or Other Follow-up Care\":\r\n\t[\"Intervention, Performed\": \"Alcohol Counseling or Other Follow up Care\"] AlcoholCounseling\r\n\t\twith \"First Positive Screen\" PositiveScreen\r\n\t\t\tsuch that AlcoholCounseling.authorDatetime 60 days or less on or after PositiveScreen.authorDatetime\r\n\r\ndefine \"Positive Screen\":\r\n\t( [\"Assessment, Performed\": \"Total score [AUDIT-C]\"] AuditC\r\n\t\t\twhere ( \"Patient is Male\"\r\n\t\t\t\t\tand AuditC.result >= 4\r\n\t\t\t)\r\n\t\t\t\tor ( \"Patient is Female\"\r\n\t\t\t\t\t\tand AuditC.result >= 3\r\n\t\t\t\t)\r\n\t\t\t\t\tand AuditC.authorDatetime during \"Screening Period\"\r\n\t)\r\n\t\tunion ( [\"Assessment, Performed\": \"Total score [AUDIT]\"] Audit\r\n\t\t\t\twhere Audit.result >= 8\r\n\t\t\t\t\tand Audit.authorDatetime during \"Screening Period\"\r\n\t\t)\r\n\t\tunion ( ( [\"Assessment, Performed\": \"How often have you had five or more drinks in one day during the past year [Reported]\"] FiveDrinks\r\n\t\t\t\twhere \"Patient is Male\"\r\n\t\t\t\t\tand FiveDrinks.result >= 1 ) FiveDrinks\r\n\t\t\t\twhere FiveDrinks.authorDatetime during \"Screening Period\"\r\n\t\t)\r\n\t\tunion ( ( [\"Assessment, Performed\": \"How often have you had four or more drinks in one day during the past year [Reported]\"] FourDrinks\r\n\t\t\t\twhere ( \"Patient is Female\"\r\n\t\t\t\t\t\tor \"Patient is 65 or Over\"\r\n\t\t\t\t)\r\n\t\t\t\t\tand FourDrinks.result >= 1 ) FourDrinks\r\n\t\t\t\twhere FourDrinks.authorDatetime during \"Screening Period\"\r\n\t\t)\r\n\r\ndefine \"Numerator 1\":\r\n\texists ( ( [\"Assessment, Performed\": \"Total score [AUDIT-C]\"]\r\n\t\t\tunion [\"Assessment, Performed\": \"Total score [AUDIT]\"]\r\n\t\t\tunion [\"Assessment, Performed\": \"How often have you had five or more drinks in one day during the past year [Reported]\"]\r\n\t\t\tunion [\"Assessment, Performed\": \"How often have you had four or more drinks in one day during the past year [Reported]\"] ) AllAssessments\r\n\t\t\twhere AllAssessments.result is not null\r\n\t\t\t\tand AllAssessments.authorDatetime during \"Measurement Period\"\r\n\t)\r\n\r\ndefine \"Stratifier 1\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 18\r\n\t\t\t\tand Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")<= 44\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Medicaid\"]\r\n\r\ndefine \"Stratifier 2\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 18\r\n\t\t\t\tand Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")<= 44\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Medicare\"]\r\n\r\ndefine \"Stratifier 3\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 18\r\n\t\t\t\tand Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")<= 44\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Commercial\"]\r\n\r\ndefine \"Stratifier 4\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 45\r\n\t\t\t\tand Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")<= 64\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Medicaid\"]\r\n\r\ndefine \"Stratifier 5\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 45\r\n\t\t\t\tand Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")<= 64\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Medicare\"]\r\n\r\ndefine \"Stratifier 6\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 45\r\n\t\t\t\tand Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")<= 64\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Commercial\"]\r\n\r\ndefine \"Stratifier 7\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Medicaid\"]\r\n\r\ndefine \"Stratifier 9\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t)\r\n\t\tand exists [\"Patient Characteristic Payer\": Common.\"Commercial\"]\r\n\r\ndefine \"Initial Population\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Common.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 18\r\n\t)\r\n\t\tand Common.\"Is Continuously Enrolled One Year\"('commercial')\r\n\t\tor Common.\"Is Continuously Enrolled One Year\"('medicare')\r\n\t\tor Common.\"Is Continuously Enrolled One Year\"('medicaid')\r\n",
       "elm": {
         "library": {
@@ -15944,307 +15944,343 @@
         }
       },
       "is_main_library": true,
+      "is_top_level": true,
       "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
       "library_version": "1000.0.013",
       "statement_dependencies": [
         {
-          "_id": "5c65ca4457a11eda06c23b41",
+          "_id": "5cfe9709d7c8aced5e9b1877",
           "statement_name": "Patient"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b42",
+          "_id": "5cfe9709d7c8aced5e9b1878",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b43",
+              "_id": "5cfe9709d7c8aced5e9b1879",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b44",
+              "_id": "5cfe9709d7c8aced5e9b187a",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Is Continuously Enrolled One Year"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b45",
+              "_id": "5cfe9709d7c8aced5e9b187b",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Is Continuously Enrolled One Year"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b46",
+              "_id": "5cfe9709d7c8aced5e9b187c",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Is Continuously Enrolled One Year"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b47",
+          "_id": "5cfe9709d7c8aced5e9b187d",
           "statement_name": "Denominator 1",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b48",
+              "_id": "5cfe9709d7c8aced5e9b187e",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Initial Population"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b49",
+          "_id": "5cfe9709d7c8aced5e9b187f",
           "statement_name": "Patient is Male"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b4a",
+          "_id": "5cfe9709d7c8aced5e9b1880",
           "statement_name": "Patient is Female"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b4b",
+          "_id": "5cfe9709d7c8aced5e9b1881",
           "statement_name": "Screening Period"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b4c",
+          "_id": "5cfe9709d7c8aced5e9b1882",
           "statement_name": "Patient is 65 or Over",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b4d",
+              "_id": "5cfe9709d7c8aced5e9b1883",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b4e",
+          "_id": "5cfe9709d7c8aced5e9b1884",
           "statement_name": "Positive Screen",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b4f",
+              "_id": "5cfe9709d7c8aced5e9b1885",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Patient is Male"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b50",
+              "_id": "5cfe9709d7c8aced5e9b1886",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Patient is Female"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b51",
+              "_id": "5cfe9709d7c8aced5e9b1887",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Screening Period"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b52",
+              "_id": "5cfe9709d7c8aced5e9b1888",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Screening Period"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b53",
+              "_id": "5cfe9709d7c8aced5e9b1889",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Patient is Male"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b54",
+              "_id": "5cfe9709d7c8aced5e9b188a",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Screening Period"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b55",
+              "_id": "5cfe9709d7c8aced5e9b188b",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Patient is Female"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b56",
+              "_id": "5cfe9709d7c8aced5e9b188c",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Patient is 65 or Over"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b57",
+              "_id": "5cfe9709d7c8aced5e9b188d",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Screening Period"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b58",
+          "_id": "5cfe9709d7c8aced5e9b188e",
           "statement_name": "First Positive Screen",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b59",
+              "_id": "5cfe9709d7c8aced5e9b188f",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Positive Screen"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b5a",
+          "_id": "5cfe9709d7c8aced5e9b1890",
           "statement_name": "Denominator 2",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b5b",
+              "_id": "5cfe9709d7c8aced5e9b1891",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Positive Screen"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b5c",
+          "_id": "5cfe9709d7c8aced5e9b1892",
           "statement_name": "Counseling or Other Follow-up Care",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b5d",
+              "_id": "5cfe9709d7c8aced5e9b1893",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "First Positive Screen"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b5e",
+          "_id": "5cfe9709d7c8aced5e9b1894",
           "statement_name": "Numerator 2",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b5f",
+              "_id": "5cfe9709d7c8aced5e9b1895",
+              "hqmf_id": null,
               "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
               "statement_name": "Counseling or Other Follow-up Care"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b60",
+          "_id": "5cfe9709d7c8aced5e9b1896",
           "statement_name": "Stratifier 8",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b61",
+              "_id": "5cfe9709d7c8aced5e9b1897",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b62",
+          "_id": "5cfe9709d7c8aced5e9b1898",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b63",
+              "_id": "5cfe9709d7c8aced5e9b1899",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Has Hospice"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b64",
+          "_id": "5cfe9709d7c8aced5e9b189a",
           "statement_name": "Numerator 1"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b65",
+          "_id": "5cfe9709d7c8aced5e9b189b",
           "statement_name": "Stratifier 1",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b66",
+              "_id": "5cfe9709d7c8aced5e9b189c",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b67",
+              "_id": "5cfe9709d7c8aced5e9b189d",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b68",
+          "_id": "5cfe9709d7c8aced5e9b189e",
           "statement_name": "Stratifier 2",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b69",
+              "_id": "5cfe9709d7c8aced5e9b189f",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b6a",
+              "_id": "5cfe9709d7c8aced5e9b18a0",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b6b",
+          "_id": "5cfe9709d7c8aced5e9b18a1",
           "statement_name": "Stratifier 3",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b6c",
+              "_id": "5cfe9709d7c8aced5e9b18a2",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b6d",
+              "_id": "5cfe9709d7c8aced5e9b18a3",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b6e",
+          "_id": "5cfe9709d7c8aced5e9b18a4",
           "statement_name": "Stratifier 4",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b6f",
+              "_id": "5cfe9709d7c8aced5e9b18a5",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b70",
+              "_id": "5cfe9709d7c8aced5e9b18a6",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b71",
+          "_id": "5cfe9709d7c8aced5e9b18a7",
           "statement_name": "Stratifier 5",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b72",
+              "_id": "5cfe9709d7c8aced5e9b18a8",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b73",
+              "_id": "5cfe9709d7c8aced5e9b18a9",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b74",
+          "_id": "5cfe9709d7c8aced5e9b18aa",
           "statement_name": "Stratifier 6",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b75",
+              "_id": "5cfe9709d7c8aced5e9b18ab",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b76",
+              "_id": "5cfe9709d7c8aced5e9b18ac",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b77",
+          "_id": "5cfe9709d7c8aced5e9b18ad",
           "statement_name": "Stratifier 7",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b78",
+              "_id": "5cfe9709d7c8aced5e9b18ae",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b79",
+          "_id": "5cfe9709d7c8aced5e9b18af",
           "statement_name": "Stratifier 9",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b7a",
+              "_id": "5cfe9709d7c8aced5e9b18b0",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "CalendarAgeInYearsAt"
             }
@@ -16253,7 +16289,7 @@
       ]
     },
     {
-      "_id": "5c65ca4457a11eda06c23b7b",
+      "_id": "5cfe9709d7c8aced5e9b18b1",
       "cql": "library NCQA_Common version '3.3.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2015-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2015-09'\r\n\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\nvalueset \"Care Services in Long-Term Residential Facility\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1014'\r\nvalueset \"X Institutional SNP Value Set\": 'urn:oid:2.16.840.1.113762.1.4.1165.43'\r\nvalueset \"Commercial\": 'urn:oid:2.16.840.1.113762.1.4.1165.46'\r\nvalueset \"Medicaid\": 'urn:oid:2.16.840.1.113762.1.4.1165.45'\r\nvalueset \"Medicare\": 'urn:oid:2.16.840.1.113762.1.4.1165.44'\r\nvalueset \"NCQA Payer\": 'urn:oid:2.16.840.1.113762.1.4.1165.42'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2015-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2015-09\" display 'Discharge to home for hospice care (procedure)'\r\ncode \"Long term care hospital (environment)\": '32074000' from \"SNOMEDCT:2016-03\" display 'Long term care hospital (environment)'\r\ncode \"Patient transfer, to another health care facility (procedure)\": '19712007' from \"SNOMEDCT:2016-03\" display 'Patient transfer, to another health care facility (procedure)'\r\ncode \"Referral to long term care service (procedure)\": '417708006' from \"SNOMEDCT:2016-03\" display 'Referral to long term care service (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Is Enrolled in Institutional SNP\":\r\n\texists ( [\"Encounter, Performed\": \"X Institutional SNP Value Set\"] SNP\r\n\t\t\twhere SNP.relevantPeriod overlaps \"Measurement Period\"\r\n\t)\r\n\r\ndefine \"Is Living Long Term in Institution\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeLongTerm\r\n\t\t\twhere ( DischargeLongTerm.dischargeDisposition as Code ~ \"Patient transfer, to another health care facility (procedure)\"\r\n\t\t\t\t\tor DischargeLongTerm.dischargeDisposition as Code ~ \"Referral to long term care service (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeLongTerm.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Care Services in Long-Term Residential Facility\"] LongTermOrder\r\n\t\t\t\twhere LongTermOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Care Services in Long-Term Residential Facility\"] LongTermPerformed\r\n\t\t\t\twhere LongTermPerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n\r\ndefine \"Is Age 65 Plus at Start\":\r\n\tCalendarAgeInYearsAt(Patient.birthDatetime, start of \"Measurement Period\")>= 65\r\n\r\ndefine \"Lookback Interval Four More Years\":\r\n\tInterval[start of \"Measurement Period\" - 4 years, end of \"Measurement Period\"]\r\n\r\ndefine \"Lookback Interval Two More Years\":\r\n\tInterval[start of \"Measurement Period\" - 2 years, end of \"Measurement Period\"]\r\n\r\ndefine \"Second Predecessor Year\":\r\n\tInterval[start of \"Measurement Period\" - 2 years, start of \"Measurement Period\" - 1 year]\n\n/*This is the standard NCQA Hospice exclusion logic from 3.6.2018*/\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n\r\ndefine \"First Predecessor Year\":\r\n\tInterval[start of \"Measurement Period\" - 1 year, start of \"Measurement Period\"]\r\n\r\ndefine \"Is Medicaid\":\r\n\texists ( [\"Patient Characteristic Payer\": \"Medicaid\"] )\r\n\r\ndefine \"Is Commercial\":\r\n\texists ( [\"Patient Characteristic Payer\": \"Commercial\"] )\r\n\r\ndefine \"Medicaid Product\":\r\n\t'medicaid'\r\n\r\ndefine \"Is Medicare\":\r\n\texists ( [\"Patient Characteristic Payer\": \"Medicare\"] )\r\n\r\ndefine \"Is Enrolled Medicaid\":\r\n\t\"Is Continuous Enrollment\"(\"Medicare Product\")\r\n\r\ndefine \"Commercial Product\":\r\n\t'commercial'\r\n\r\ndefine \"Medicare Product\":\r\n\t'medicare'\r\n\r\ndefine \"Is Enrolled Medicare\":\r\n\t\"Is Continuous Enrollment\"(\"Medicare Product\")\r\n\r\ndefine \"Is Enrolled Commercial\":\r\n\t\"Is Continuous Enrollment\"(\"Commercial Product\")\r\n\r\ndefine \"Second Predecessor Quarter\":\r\n\tInterval[start of \"Measurement Period\" - 1 years - 3 months, start of \"Measurement Period\" - 1 years]\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example */\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*calculates the difference in calendar days between the start and end of the given interval*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today */\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\r\n\r\ndefine function \"Enrollment Periods\"(ProductLine String):\r\n\tcollapse ( ( case ProductLine when \"Commercial Product\" then [\"Participation\": \"Commercial\"] when \"Medicare Product\" then [\"Participation\": \"Medicare\"] when \"Medicaid Product\" then [\"Participation\": \"Medicaid\"] else [\"Participation\": \"NCQA Payer\"] end ) Coverage\r\n\t\t\treturn all Coverage.participationPeriod\r\n\t)\r\n\r\ndefine function \"Is Continuous Enrollment in Quarter\"(ProductLine String, Quarter Interval<DateTime>):\r\n\t( {\r\n\t\tProductLine: ProductLine,\r\n\t\tQuarter: Quarter\r\n\t} ) Input\r\n\t\tlet Periods: \"EnrollmentPeriodsInYear\"(Input.ProductLine, Input.Quarter)\r\n\t\treturn Count(Periods)= 1\r\n\t\t\tand Periods[0]= Quarter\r\n\r\ndefine function \"Is In Applicable Product Line\"(ProductLine String):\r\n\tcase when ( ProductLine is null ) then true when ( ProductLine ~ \"Commercial Product\" ) then \"Is Continuous Enrollment\"(ProductLine)when ( ProductLine ~ \"Medicaid Product\" ) then \"Is Continuous Enrollment\"(ProductLine)when ( ProductLine ~ \"Medicare Product\" ) then ( \"Is Continuous Enrollment\"(ProductLine)\r\n\t\t\tand ( if \"Is Age 65 Plus at Start\" then ( \"Is Enrolled in Institutional SNP\"\r\n\t\t\t\t\t\tor \"Is Living Long Term in Institution\"\r\n\t\t\t\t) else false\r\n\t\t\t)\r\n\t) else false end\r\n\r\ndefine function \"Is Continuous Enrollment In Year\"(ProductLine String, Year Interval<DateTime>):\r\n\t( {\r\n\t\tProductLine: ProductLine,\r\n\t\tYear: Year\r\n\t} ) Input\r\n\t\tlet Periods: \"EnrollmentPeriodsInYear\"(Input.ProductLine, Input.Year)\r\n\t\treturn case Count(Periods)when 1 then ( ( Periods[0]starts Year\r\n\t\t\t\t\tand ( ( difference in days between end of Periods[0]and end of Year ) <= 45 )\r\n\t\t\t)\r\n\t\t\t\tor ( Periods[0]ends Year\r\n\t\t\t\t\t\tand ( ( difference in days between start of Periods[0]and start of Year ) <= 45 )\r\n\t\t\t\t)\r\n\t\t) when 2 then ( Periods[0]starts Year\r\n\t\t\t\tand Periods[1]ends Year\r\n\t\t\t\tand ( difference in days between end of Periods[0]and start of Periods[1]<= 45 )\r\n\t\t) else false end\r\n\r\ndefine function \"EnrollmentPeriodsInYear\"(ProductLine String, Year Interval<DateTime>):\r\n\t( \"Enrollment Periods\"(ProductLine)) EnrP\r\n\t\twhere EnrP overlaps Year\r\n\t\treturn EnrP\r\n\t\t\tintersect Year\r\n\r\ndefine function \"Is Continuously Enrolled Two Years\"(ProductLine String):\r\n\t\"Is Continuous Enrollment In Year\"(ProductLine, \"Measurement Period\")\r\n\t\tand \"Is Continuous Enrollment In Year\"(ProductLine, \"First Predecessor Year\")\r\n\r\ndefine function \"Is Continuously Enrolled One Year\"(ProductLine String):\r\n\t\"Is Continuous Enrollment In Year\"(ProductLine, \"Measurement Period\")\r\n\r\ndefine function \"Is Continuous Enrollment\"(ProductLine String):\r\n\t\"Is Continuous Enrollment In Year\"(ProductLine, \"Measurement Period\")\r\n\t\tand \"Is Continuous Enrollment In Year\"(ProductLine, \"First Predecessor Year\")\r\n\t\tand \"Is Continuous Enrollment In Year\"(ProductLine, \"Second Predecessor Year\")\r\n\t\tand \"Is Continuous Enrollment in Quarter\"(ProductLine, \"Second Predecessor Quarter\")\r\n\r\ndefine function \"Is Continuously Enrolled for Twenty Seven Months\"(ProductLine String):\r\n\t\"Is Continuous Enrollment In Year\"(ProductLine, \"Measurement Period\")\r\n\t\tand \"Is Continuous Enrollment In Year\"(ProductLine, \"First Predecessor Year\")\r\n\t\tand \"Is Continuous Enrollment In Year\"(ProductLine, \"Second Predecessor Year\")\r\n\t\tand \"Is Continuous Enrollment in Quarter\"(ProductLine, \"Second Predecessor Quarter\")\r\n",
       "elm": {
         "library": {
@@ -33964,441 +34000,106 @@
         }
       },
       "is_main_library": false,
+      "is_top_level": true,
       "library_name": "NCQA_Common",
       "library_version": "3.3.000",
       "statement_dependencies": [
         {
-          "_id": "5c65ca4457a11eda06c23b7c",
+          "_id": "5cfe9709d7c8aced5e9b18b2",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b7d",
+              "_id": "5cfe9709d7c8aced5e9b18b3",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "ToDate"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b7e",
+          "_id": "5cfe9709d7c8aced5e9b18b4",
           "statement_name": "ToDate"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b7f",
+          "_id": "5cfe9709d7c8aced5e9b18b5",
           "statement_name": "Is Continuously Enrolled One Year",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b80",
+              "_id": "5cfe9709d7c8aced5e9b18b6",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Is Continuous Enrollment In Year"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b81",
+          "_id": "5cfe9709d7c8aced5e9b18b7",
           "statement_name": "Is Continuous Enrollment In Year",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b82",
+              "_id": "5cfe9709d7c8aced5e9b18b8",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "EnrollmentPeriodsInYear"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b83",
+          "_id": "5cfe9709d7c8aced5e9b18b9",
           "statement_name": "EnrollmentPeriodsInYear",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b84",
+              "_id": "5cfe9709d7c8aced5e9b18ba",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Enrollment Periods"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b85",
+          "_id": "5cfe9709d7c8aced5e9b18bb",
           "statement_name": "Enrollment Periods",
           "statement_references": [
             {
-              "_id": "5c65ca4457a11eda06c23b86",
+              "_id": "5cfe9709d7c8aced5e9b18bc",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Commercial Product"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b87",
+              "_id": "5cfe9709d7c8aced5e9b18bd",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Medicare Product"
             },
             {
-              "_id": "5c65ca4457a11eda06c23b88",
+              "_id": "5cfe9709d7c8aced5e9b18be",
+              "hqmf_id": null,
               "library_name": "NCQA_Common",
               "statement_name": "Medicaid Product"
             }
           ]
         },
         {
-          "_id": "5c65ca4457a11eda06c23b89",
+          "_id": "5cfe9709d7c8aced5e9b18bf",
           "statement_name": "Commercial Product"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b8a",
+          "_id": "5cfe9709d7c8aced5e9b18c0",
           "statement_name": "Medicare Product"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b8b",
+          "_id": "5cfe9709d7c8aced5e9b18c1",
           "statement_name": "Medicaid Product"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b8c",
+          "_id": "5cfe9709d7c8aced5e9b18c2",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": null,
-  "data_criteria": {
-    "NCQAPayer_Participation_a3389d69_b79f_4724_a6c6_5ce4be6f011c": {
-      "title": "NCQAPayer",
-      "description": "Participation: NCQAPayer",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.42",
-      "type": "participations",
-      "definition": "participation",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "NCQAPayer_Participation_a3389d69_b79f_4724_a6c6_5ce4be6f011c_source",
-      "variable": false
-    },
-    "Medicaid_Participation_866196a7_fdf8_4112_b9cb_9ddaf5c24193": {
-      "title": "Medicaid",
-      "description": "Participation: Medicaid",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.45",
-      "type": "participations",
-      "definition": "participation",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Medicaid_Participation_866196a7_fdf8_4112_b9cb_9ddaf5c24193_source",
-      "variable": false
-    },
-    "Medicaid_PatientCharacteristicPayer_866196a7_fdf8_4112_b9cb_9ddaf5c24193": {
-      "title": "Medicaid",
-      "description": "Patient Characteristic Payer: Medicaid",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.45",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Medicaid_PatientCharacteristicPayer_866196a7_fdf8_4112_b9cb_9ddaf5c24193_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299"
-        ]
-      }
-    },
-    "EncounterInpatient_EncounterPerformed_5baecc8b_6c9a_4a71_a610_5021a3c18f45": {
-      "title": "EncounterInpatient",
-      "description": "Encounter, Performed: EncounterInpatient",
-      "code_list_id": "2.16.840.1.113883.3.666.5.307",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EncounterInpatient_EncounterPerformed_5baecc8b_6c9a_4a71_a610_5021a3c18f45_source",
-      "variable": false
-    },
-    "AlcoholUseDisorder_Diagnosis_cbcef776_23b6_4db7_9a20_5e5ef9fe744c": {
-      "title": "AlcoholUseDisorder",
-      "description": "Diagnosis: AlcoholUseDisorder",
-      "code_list_id": "2.16.840.1.113883.3.464.1004.1339",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AlcoholUseDisorder_Diagnosis_cbcef776_23b6_4db7_9a20_5e5ef9fe744c_source",
-      "variable": false
-    },
-    "Medicare_Participation_f23955aa_f610_4938_9d4a_7b51203d757e": {
-      "title": "Medicare",
-      "description": "Participation: Medicare",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.44",
-      "type": "participations",
-      "definition": "participation",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Medicare_Participation_f23955aa_f610_4938_9d4a_7b51203d757e_source",
-      "variable": false
-    },
-    "Medicare_PatientCharacteristicPayer_f23955aa_f610_4938_9d4a_7b51203d757e": {
-      "title": "Medicare",
-      "description": "Patient Characteristic Payer: Medicare",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.44",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Medicare_PatientCharacteristicPayer_f23955aa_f610_4938_9d4a_7b51203d757e_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "3114",
-          "3123",
-          "623"
-        ]
-      }
-    },
-    "Male_PatientCharacteristicSex_692029fe_95fd_497b_9126_eb9005202594": {
-      "title": "Male",
-      "description": "Patient Characteristic Sex: Male",
-      "code_list_id": "2.16.840.1.113883.3.560.100.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Male_PatientCharacteristicSex_692029fe_95fd_497b_9126_eb9005202594_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "M"
-      }
-    },
-    "Female_PatientCharacteristicSex_ab82ff66_6f2f_45e1_809c_1fa835dce83b": {
-      "title": "Female",
-      "description": "Patient Characteristic Sex: Female",
-      "code_list_id": "2.16.840.1.113883.3.560.100.2",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Female_PatientCharacteristicSex_ab82ff66_6f2f_45e1_809c_1fa835dce83b_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "AlcoholCounselingorOtherFollowupCare_InterventionPerformed_7bb7bee1_606f_46d9_8930_bb6589378377": {
-      "title": "AlcoholCounselingorOtherFollowupCare",
-      "description": "Intervention, Performed: AlcoholCounselingorOtherFollowupCare",
-      "code_list_id": "2.16.840.1.113883.3.464.1004.1437",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AlcoholCounselingorOtherFollowupCare_InterventionPerformed_7bb7bee1_606f_46d9_8930_bb6589378377_source",
-      "variable": false
-    },
-    "Hospicecareambulatory_InterventionOrder_b3ceda51_70f9_41f9_b54a_86d00b5331fb": {
-      "title": "Hospicecareambulatory",
-      "description": "Intervention, Order: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionOrder_b3ceda51_70f9_41f9_b54a_86d00b5331fb_source",
-      "variable": false
-    },
-    "Hospicecareambulatory_InterventionPerformed_b3ceda51_70f9_41f9_b54a_86d00b5331fb": {
-      "title": "Hospicecareambulatory",
-      "description": "Intervention, Performed: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionPerformed_b3ceda51_70f9_41f9_b54a_86d00b5331fb_source",
-      "variable": false
-    },
-    "Commercial_Participation_948f2ed6_a8fb_486e_a632_34d3acc1de6c": {
-      "title": "Commercial",
-      "description": "Participation: Commercial",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.46",
-      "type": "participations",
-      "definition": "participation",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Commercial_Participation_948f2ed6_a8fb_486e_a632_34d3acc1de6c_source",
-      "variable": false
-    },
-    "Commercial_PatientCharacteristicPayer_948f2ed6_a8fb_486e_a632_34d3acc1de6c": {
-      "title": "Commercial",
-      "description": "Patient Characteristic Payer: Commercial",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.46",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Commercial_PatientCharacteristicPayer_948f2ed6_a8fb_486e_a632_34d3acc1de6c_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79"
-        ]
-      }
-    },
-    "Dementia_Diagnosis_1f55427b_0c2a_4fd3_a5e4_d532bbea2ddb": {
-      "title": "Dementia",
-      "description": "Diagnosis: Dementia",
-      "code_list_id": "2.16.840.1.113883.3.464.1004.1074",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Dementia_Diagnosis_1f55427b_0c2a_4fd3_a5e4_d532bbea2ddb_source",
-      "variable": false
-    },
-    "prefix_75626_2_AssessmentPerformed_F562D348_E122_4CD7_B628_3E91083F1693": {
-      "title": "Assessment, Performed: Assessment, Performed",
-      "description": "Assessment, Performed: Assessment, Performed",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_75626_2_AssessmentPerformed_F562D348_E122_4CD7_B628_3E91083F1693_source",
-      "variable": false,
-      "inline_code_list": {
-        "LOINC": [
-          "75626-2"
-        ]
-      },
-      "code_list_id": "drc-07c6b50ede6a1c21489d14fc93ca5b29c5e4a53b6bbfcdc2835f469c669366e1"
-    },
-    "prefix_75624_7_AssessmentPerformed_DD04F006_5BFA_44C2_BFDB_3A40CC247C54": {
-      "title": "Assessment, Performed: Assessment, Performed",
-      "description": "Assessment, Performed: Assessment, Performed",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_75624_7_AssessmentPerformed_DD04F006_5BFA_44C2_BFDB_3A40CC247C54_source",
-      "variable": false,
-      "inline_code_list": {
-        "LOINC": [
-          "75624-7"
-        ]
-      },
-      "code_list_id": "drc-0e29ea55eec390b07dabf0c80483e4796c0902bd905aa2df33e5269b4c95ad37"
-    },
-    "prefix_75889_6_AssessmentPerformed_959F960D_1AD5_4A2F_9074_27A05AC0A93D": {
-      "title": "Assessment, Performed: Assessment, Performed",
-      "description": "Assessment, Performed: Assessment, Performed",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_75889_6_AssessmentPerformed_959F960D_1AD5_4A2F_9074_27A05AC0A93D_source",
-      "variable": false,
-      "inline_code_list": {
-        "LOINC": [
-          "75889-6"
-        ]
-      },
-      "code_list_id": "drc-c4db4ff2e1f75ae761c73d6bf11f1cfe185fe4b06ecb1c6f1a333e75852dc7ff"
-    },
-    "prefix_88037_7_AssessmentPerformed_47623AA9_6D00_4FC4_86EB_98C3BEC0A86D": {
-      "title": "Assessment, Performed: Assessment, Performed",
-      "description": "Assessment, Performed: Assessment, Performed",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_88037_7_AssessmentPerformed_47623AA9_6D00_4FC4_86EB_98C3BEC0A86D_source",
-      "variable": false,
-      "inline_code_list": {
-        "LOINC": [
-          "88037-7"
-        ]
-      },
-      "code_list_id": "drc-6b60c1a3853558cffe46da753976d20a22fdf5e9fc61ebe95dad323ffddf69bb"
-    },
-    "prefix_21112_8_PatientCharacteristicBirthdate_5894331C_00BC_4DC1_8F63_5A1AE5862C93": {
-      "title": "Patient Characteristic Birthdate: Patient Characteristic Birthdate",
-      "description": "Patient Characteristic Birthdate: Patient Characteristic Birthdate",
-      "property": "birthtime",
-      "type": "characteristic",
-      "definition": "patient_characteristic_birthdate",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_21112_8_PatientCharacteristicBirthdate_5894331C_00BC_4DC1_8F63_5A1AE5862C93_source",
-      "variable": false
-    }
-  },
+  "created_at": "2019-06-10T17:44:41.494Z",
   "description": "The percentage of members 18 years of age and older who were screened for unhealthy alcohol use using a standardized tool and, if screened positive, received appropriate follow-up care. \n\nUnhealthy Alcohol Use Screening: The percentage of members who had a systematic screening for unhealthy alcohol use.\n\nCounseling or Other Follow-up: The percentage of members receiving brief counseling or other follow-up care within 2 months of screening positive for unhealthy alcohol use",
   "hqmf_id": "40280382-610B-E7A4-0161-6C967D3E2104",
   "hqmf_set_id": "21C422D4-1658-478D-AEC2-B87B73638C41",
@@ -35091,36 +34792,43 @@
   },
   "population_sets": [
     {
-      "_id": "5c65ca4457a11eda06c23b8d",
+      "_id": "5cfe9709d7c8aced5e9b18d7",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5c65ca4457a11eda06c23b8e",
+          "_id": "5cfe9709d7c8aced5e9b18dc",
+          "hqmf_id": "BFFCC43D-436E-4409-81E6-4760607B2A44",
           "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5c65ca4457a11eda06c23b8f",
+          "_id": "5cfe9709d7c8aced5e9b18da",
+          "hqmf_id": "31EAFFDB-C138-4C50-9311-7A00CBFF3CBC",
           "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
           "statement_name": "Denominator 1"
         },
         "IPP": {
-          "_id": "5c65ca4457a11eda06c23b90",
+          "_id": "5cfe9709d7c8aced5e9b18d9",
+          "hqmf_id": "F262188C-56CA-4C5E-A407-7D5292222806",
           "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5c65ca4457a11eda06c23b91",
+          "_id": "5cfe9709d7c8aced5e9b18db",
+          "hqmf_id": "2D3AED15-8F37-4204-9470-AAF34DB2B064",
           "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
           "statement_name": "Numerator 1"
         },
-        "_id": "5c65ca4457a11eda06c23b92"
+        "_id": "5cfe9709d7c8aced5e9b18d8",
+        "_type": "CQM::ProportionPopulationMap"
       },
       "stratifications": [
         {
-          "_id": "5c65ca4457a11eda06c23b93",
+          "_id": "5cfe9709d7c8aced5e9b18dd",
+          "hqmf_id": "7C640782-5C45-4C88-99B8-92A92623A0E5",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23b94",
+            "_id": "5cfe9709d7c8aced5e9b18de",
+            "hqmf_id": "7C640782-5C45-4C88-99B8-92A92623A0E5",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 1"
           },
@@ -35128,9 +34836,11 @@
           "title": "Stratification 1"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b95",
+          "_id": "5cfe9709d7c8aced5e9b18df",
+          "hqmf_id": "E193051E-F353-4CC1-9C70-4C54F4F33FD4",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23b96",
+            "_id": "5cfe9709d7c8aced5e9b18e0",
+            "hqmf_id": "E193051E-F353-4CC1-9C70-4C54F4F33FD4",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 2"
           },
@@ -35138,9 +34848,11 @@
           "title": "Stratification 2"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b97",
+          "_id": "5cfe9709d7c8aced5e9b18e1",
+          "hqmf_id": "14F747A0-563C-44F2-8158-DAEBBADC4880",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23b98",
+            "_id": "5cfe9709d7c8aced5e9b18e2",
+            "hqmf_id": "14F747A0-563C-44F2-8158-DAEBBADC4880",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 3"
           },
@@ -35148,9 +34860,11 @@
           "title": "Stratification 3"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b99",
+          "_id": "5cfe9709d7c8aced5e9b18e3",
+          "hqmf_id": "038373E1-D9D3-4144-8B64-D673C19248E9",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23b9a",
+            "_id": "5cfe9709d7c8aced5e9b18e4",
+            "hqmf_id": "038373E1-D9D3-4144-8B64-D673C19248E9",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 4"
           },
@@ -35158,9 +34872,11 @@
           "title": "Stratification 4"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b9b",
+          "_id": "5cfe9709d7c8aced5e9b18e5",
+          "hqmf_id": "33DC3CAD-C9DB-42B2-87C9-DEAD978DD5BC",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23b9c",
+            "_id": "5cfe9709d7c8aced5e9b18e6",
+            "hqmf_id": "33DC3CAD-C9DB-42B2-87C9-DEAD978DD5BC",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 5"
           },
@@ -35168,9 +34884,11 @@
           "title": "Stratification 5"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b9d",
+          "_id": "5cfe9709d7c8aced5e9b18e7",
+          "hqmf_id": "09C85687-B3BA-4CE2-9FFC-26C57E863911",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23b9e",
+            "_id": "5cfe9709d7c8aced5e9b18e8",
+            "hqmf_id": "09C85687-B3BA-4CE2-9FFC-26C57E863911",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 6"
           },
@@ -35178,9 +34896,11 @@
           "title": "Stratification 6"
         },
         {
-          "_id": "5c65ca4457a11eda06c23b9f",
+          "_id": "5cfe9709d7c8aced5e9b18e9",
+          "hqmf_id": "CF3BE7C3-5829-4B84-BC75-D92754D61823",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23ba0",
+            "_id": "5cfe9709d7c8aced5e9b18ea",
+            "hqmf_id": "CF3BE7C3-5829-4B84-BC75-D92754D61823",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 7"
           },
@@ -35188,9 +34908,11 @@
           "title": "Stratification 7"
         },
         {
-          "_id": "5c65ca4457a11eda06c23ba1",
+          "_id": "5cfe9709d7c8aced5e9b18eb",
+          "hqmf_id": "832196E2-37D4-415B-A00A-AA12F6923319",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23ba2",
+            "_id": "5cfe9709d7c8aced5e9b18ec",
+            "hqmf_id": "832196E2-37D4-415B-A00A-AA12F6923319",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 8"
           },
@@ -35198,9 +34920,11 @@
           "title": "Stratification 8"
         },
         {
-          "_id": "5c65ca4457a11eda06c23ba3",
+          "_id": "5cfe9709d7c8aced5e9b18ed",
+          "hqmf_id": "31A36B75-051D-46CC-8609-3FA246D2E28F",
           "statement": {
-            "_id": "5c65ca4457a11eda06c23ba4",
+            "_id": "5cfe9709d7c8aced5e9b18ee",
+            "hqmf_id": "31A36B75-051D-46CC-8609-3FA246D2E28F",
             "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
             "statement_name": "Stratifier 9"
           },
@@ -35211,404 +34935,530 @@
       "title": "Population Criteria Section"
     },
     {
-      "_id": "5c65ca4457a11eda06c23ba5",
+      "_id": "5cfe9709d7c8aced5e9b18ef",
       "population_set_id": "PopulationCriteria2",
       "populations": {
         "DENEX": {
-          "_id": "5c65ca4457a11eda06c23ba6",
+          "_id": "5cfe9709d7c8aced5e9b18f4",
+          "hqmf_id": "FE4FC6B1-E5B1-4C87-A662-D345D255D72E",
           "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5c65ca4457a11eda06c23ba7",
+          "_id": "5cfe9709d7c8aced5e9b18f2",
+          "hqmf_id": "4677D6D6-BE11-49C3-90F9-B1E4277F0B24",
           "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
           "statement_name": "Denominator 2"
         },
         "IPP": {
-          "_id": "5c65ca4457a11eda06c23ba8",
+          "_id": "5cfe9709d7c8aced5e9b18f1",
+          "hqmf_id": "D6D45192-4922-402A-A6F7-A938BECFCFD6",
           "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5c65ca4457a11eda06c23ba9",
+          "_id": "5cfe9709d7c8aced5e9b18f3",
+          "hqmf_id": "C526AEFD-7BBC-454D-89C4-3FAD3498453C",
           "library_name": "UnhealthyAlcoholUseScreeningandFollowUpASF",
           "statement_name": "Numerator 2"
         },
-        "_id": "5c65ca4457a11eda06c23baa"
+        "_id": "5cfe9709d7c8aced5e9b18f0",
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     }
   ],
-  "source_data_criteria": {
-    "NCQAPayer_Participation_a3389d69_b79f_4724_a6c6_5ce4be6f011c_source": {
-      "title": "NCQAPayer",
+  "source_data_criteria": [
+    {
+      "_id": "5cfe9709d7c8aced5e9b16f9",
+      "codeListId": "2.16.840.1.113762.1.4.1165.42",
+      "dataElementCodes": [
+
+      ],
       "description": "Participation: NCQAPayer",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.42",
-      "type": "participations",
-      "definition": "participation",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "NCQAPayer_Participation_a3389d69_b79f_4724_a6c6_5ce4be6f011c_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.130",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18c3",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b16f9"
+      },
+      "participationPeriod": null,
+      "qdmCategory": "participation",
+      "qdmTitle": "Participation",
+      "qdmVersion": "5.4",
+      "_type": "QDM::Participation"
     },
-    "Medicaid_Participation_866196a7_fdf8_4112_b9cb_9ddaf5c24193_source": {
-      "title": "Medicaid",
+    {
+      "_id": "5cfe9709d7c8aced5e9b16fa",
+      "codeListId": "2.16.840.1.113762.1.4.1165.45",
+      "dataElementCodes": [
+
+      ],
       "description": "Participation: Medicaid",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.45",
-      "type": "participations",
-      "definition": "participation",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Medicaid_Participation_866196a7_fdf8_4112_b9cb_9ddaf5c24193_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.130",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18c4",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b16fa"
+      },
+      "participationPeriod": null,
+      "qdmCategory": "participation",
+      "qdmTitle": "Participation",
+      "qdmVersion": "5.4",
+      "_type": "QDM::Participation"
     },
-    "Medicaid_PatientCharacteristicPayer_866196a7_fdf8_4112_b9cb_9ddaf5c24193_source": {
-      "title": "Medicaid",
+    {
+      "_id": "5cfe9709d7c8aced5e9b16fb",
+      "codeListId": "2.16.840.1.113762.1.4.1165.45",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Medicaid",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.45",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Medicaid_PatientCharacteristicPayer_866196a7_fdf8_4112_b9cb_9ddaf5c24193_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18c5",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b16fb"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "EncounterInpatient_EncounterPerformed_5baecc8b_6c9a_4a71_a610_5021a3c18f45_source": {
-      "title": "EncounterInpatient",
+    {
+      "_id": "5cfe9709d7c8aced5e9b16fc",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.666.5.307",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: EncounterInpatient",
-      "code_list_id": "2.16.840.1.113883.3.666.5.307",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EncounterInpatient_EncounterPerformed_5baecc8b_6c9a_4a71_a610_5021a3c18f45_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18c6",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b16fc"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "AlcoholUseDisorder_Diagnosis_cbcef776_23b6_4db7_9a20_5e5ef9fe744c_source": {
-      "title": "AlcoholUseDisorder",
+    {
+      "_id": "5cfe9709d7c8aced5e9b16fd",
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1004.1339",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: AlcoholUseDisorder",
-      "code_list_id": "2.16.840.1.113883.3.464.1004.1339",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AlcoholUseDisorder_Diagnosis_cbcef776_23b6_4db7_9a20_5e5ef9fe744c_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18c7",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b16fd"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     },
-    "Medicare_Participation_f23955aa_f610_4938_9d4a_7b51203d757e_source": {
-      "title": "Medicare",
+    {
+      "_id": "5cfe9709d7c8aced5e9b16fe",
+      "codeListId": "2.16.840.1.113762.1.4.1165.44",
+      "dataElementCodes": [
+
+      ],
       "description": "Participation: Medicare",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.44",
-      "type": "participations",
-      "definition": "participation",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Medicare_Participation_f23955aa_f610_4938_9d4a_7b51203d757e_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.130",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18c8",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b16fe"
+      },
+      "participationPeriod": null,
+      "qdmCategory": "participation",
+      "qdmTitle": "Participation",
+      "qdmVersion": "5.4",
+      "_type": "QDM::Participation"
     },
-    "Medicare_PatientCharacteristicPayer_f23955aa_f610_4938_9d4a_7b51203d757e_source": {
-      "title": "Medicare",
+    {
+      "_id": "5cfe9709d7c8aced5e9b16ff",
+      "codeListId": "2.16.840.1.113762.1.4.1165.44",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Medicare",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.44",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Medicare_PatientCharacteristicPayer_f23955aa_f610_4938_9d4a_7b51203d757e_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "3114",
-          "3123",
-          "623"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18c9",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b16ff"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "Male_PatientCharacteristicSex_692029fe_95fd_497b_9126_eb9005202594_source": {
-      "title": "Male",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1700",
+      "codeListId": "2.16.840.1.113883.3.560.100.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: Male",
-      "code_list_id": "2.16.840.1.113883.3.560.100.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Male_PatientCharacteristicSex_692029fe_95fd_497b_9126_eb9005202594_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "M"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18ca",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1700"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "Female_PatientCharacteristicSex_ab82ff66_6f2f_45e1_809c_1fa835dce83b_source": {
-      "title": "Female",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1701",
+      "codeListId": "2.16.840.1.113883.3.560.100.2",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: Female",
-      "code_list_id": "2.16.840.1.113883.3.560.100.2",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Female_PatientCharacteristicSex_ab82ff66_6f2f_45e1_809c_1fa835dce83b_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18cb",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1701"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "AlcoholCounselingorOtherFollowupCare_InterventionPerformed_7bb7bee1_606f_46d9_8930_bb6589378377_source": {
-      "title": "AlcoholCounselingorOtherFollowupCare",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1702",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1004.1437",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Performed: AlcoholCounselingorOtherFollowupCare",
-      "code_list_id": "2.16.840.1.113883.3.464.1004.1437",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "AlcoholCounselingorOtherFollowupCare_InterventionPerformed_7bb7bee1_606f_46d9_8930_bb6589378377_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18cc",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1702"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "performed",
+      "qdmTitle": "Intervention, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "relevantPeriod": null,
+      "result": null,
+      "status": null,
+      "_type": "QDM::InterventionPerformed"
     },
-    "Hospicecareambulatory_InterventionOrder_b3ceda51_70f9_41f9_b54a_86d00b5331fb_source": {
-      "title": "Hospicecareambulatory",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1703",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1108.15",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Order: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionOrder_b3ceda51_70f9_41f9_b54a_86d00b5331fb_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18cd",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1703"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "order",
+      "qdmTitle": "Intervention, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "_type": "QDM::InterventionOrder"
     },
-    "Hospicecareambulatory_InterventionPerformed_b3ceda51_70f9_41f9_b54a_86d00b5331fb_source": {
-      "title": "Hospicecareambulatory",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1704",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1108.15",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Performed: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionPerformed_b3ceda51_70f9_41f9_b54a_86d00b5331fb_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18ce",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1704"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "performed",
+      "qdmTitle": "Intervention, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "relevantPeriod": null,
+      "result": null,
+      "status": null,
+      "_type": "QDM::InterventionPerformed"
     },
-    "Commercial_Participation_948f2ed6_a8fb_486e_a632_34d3acc1de6c_source": {
-      "title": "Commercial",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1705",
+      "codeListId": "2.16.840.1.113762.1.4.1165.46",
+      "dataElementCodes": [
+
+      ],
       "description": "Participation: Commercial",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.46",
-      "type": "participations",
-      "definition": "participation",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Commercial_Participation_948f2ed6_a8fb_486e_a632_34d3acc1de6c_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.130",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18cf",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1705"
+      },
+      "participationPeriod": null,
+      "qdmCategory": "participation",
+      "qdmTitle": "Participation",
+      "qdmVersion": "5.4",
+      "_type": "QDM::Participation"
     },
-    "Commercial_PatientCharacteristicPayer_948f2ed6_a8fb_486e_a632_34d3acc1de6c_source": {
-      "title": "Commercial",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1706",
+      "codeListId": "2.16.840.1.113762.1.4.1165.46",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Commercial",
-      "code_list_id": "2.16.840.1.113762.1.4.1165.46",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Commercial_PatientCharacteristicPayer_948f2ed6_a8fb_486e_a632_34d3acc1de6c_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18d0",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1706"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "Dementia_Diagnosis_1f55427b_0c2a_4fd3_a5e4_d532bbea2ddb_source": {
-      "title": "Dementia",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1707",
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1004.1074",
+      "dataElementCodes": [
+
+      ],
       "description": "Diagnosis: Dementia",
-      "code_list_id": "2.16.840.1.113883.3.464.1004.1074",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Dementia_Diagnosis_1f55427b_0c2a_4fd3_a5e4_d532bbea2ddb_source",
-      "variable": false
-    },
-    "prefix_75626_2_AssessmentPerformed_F562D348_E122_4CD7_B628_3E91083F1693_source": {
-      "title": "Assessment, Performed: Assessment, Performed",
-      "description": "Assessment, Performed: Assessment, Performed",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_75626_2_AssessmentPerformed_F562D348_E122_4CD7_B628_3E91083F1693_source",
-      "variable": false,
-      "inline_code_list": {
-        "LOINC": [
-          "75626-2"
-        ]
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18d1",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1707"
       },
-      "code_list_id": "drc-07c6b50ede6a1c21489d14fc93ca5b29c5e4a53b6bbfcdc2835f469c669366e1"
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
     },
-    "prefix_75624_7_AssessmentPerformed_DD04F006_5BFA_44C2_BFDB_3A40CC247C54_source": {
-      "title": "Assessment, Performed: Assessment, Performed",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1708",
+      "authorDatetime": null,
+      "codeListId": "drc-07c6b50ede6a1c21489d14fc93ca5b29c5e4a53b6bbfcdc2835f469c669366e1",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Assessment, Performed: Assessment, Performed",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_75624_7_AssessmentPerformed_DD04F006_5BFA_44C2_BFDB_3A40CC247C54_source",
-      "variable": false,
-      "inline_code_list": {
-        "LOINC": [
-          "75624-7"
-        ]
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18d2",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1708"
       },
-      "code_list_id": "drc-0e29ea55eec390b07dabf0c80483e4796c0902bd905aa2df33e5269b4c95ad37"
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "assessment",
+      "qdmStatus": "performed",
+      "qdmTitle": "Assessment, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "result": null,
+      "_type": "QDM::AssessmentPerformed"
     },
-    "prefix_75889_6_AssessmentPerformed_959F960D_1AD5_4A2F_9074_27A05AC0A93D_source": {
-      "title": "Assessment, Performed: Assessment, Performed",
+    {
+      "_id": "5cfe9709d7c8aced5e9b1709",
+      "authorDatetime": null,
+      "codeListId": "drc-0e29ea55eec390b07dabf0c80483e4796c0902bd905aa2df33e5269b4c95ad37",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Assessment, Performed: Assessment, Performed",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_75889_6_AssessmentPerformed_959F960D_1AD5_4A2F_9074_27A05AC0A93D_source",
-      "variable": false,
-      "inline_code_list": {
-        "LOINC": [
-          "75889-6"
-        ]
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18d3",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b1709"
       },
-      "code_list_id": "drc-c4db4ff2e1f75ae761c73d6bf11f1cfe185fe4b06ecb1c6f1a333e75852dc7ff"
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "assessment",
+      "qdmStatus": "performed",
+      "qdmTitle": "Assessment, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "result": null,
+      "_type": "QDM::AssessmentPerformed"
     },
-    "prefix_88037_7_AssessmentPerformed_47623AA9_6D00_4FC4_86EB_98C3BEC0A86D_source": {
-      "title": "Assessment, Performed: Assessment, Performed",
+    {
+      "_id": "5cfe9709d7c8aced5e9b170a",
+      "authorDatetime": null,
+      "codeListId": "drc-c4db4ff2e1f75ae761c73d6bf11f1cfe185fe4b06ecb1c6f1a333e75852dc7ff",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Assessment, Performed: Assessment, Performed",
-      "type": "assessments",
-      "definition": "assessment",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_88037_7_AssessmentPerformed_47623AA9_6D00_4FC4_86EB_98C3BEC0A86D_source",
-      "variable": false,
-      "inline_code_list": {
-        "LOINC": [
-          "88037-7"
-        ]
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18d4",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b170a"
       },
-      "code_list_id": "drc-6b60c1a3853558cffe46da753976d20a22fdf5e9fc61ebe95dad323ffddf69bb"
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "assessment",
+      "qdmStatus": "performed",
+      "qdmTitle": "Assessment, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "result": null,
+      "_type": "QDM::AssessmentPerformed"
     },
-    "prefix_21112_8_PatientCharacteristicBirthdate_5894331C_00BC_4DC1_8F63_5A1AE5862C93_source": {
-      "title": "Patient Characteristic Birthdate: Patient Characteristic Birthdate",
+    {
+      "_id": "5cfe9709d7c8aced5e9b170b",
+      "authorDatetime": null,
+      "codeListId": "drc-6b60c1a3853558cffe46da753976d20a22fdf5e9fc61ebe95dad323ffddf69bb",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
+      "description": "Assessment, Performed: Assessment, Performed",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18d5",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b170b"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "assessment",
+      "qdmStatus": "performed",
+      "qdmTitle": "Assessment, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "result": null,
+      "_type": "QDM::AssessmentPerformed"
+    },
+    {
+      "_id": "5cfe9709d7c8aced5e9b170c",
+      "birthDatetime": null,
+      "codeListId": null,
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Birthdate: Patient Characteristic Birthdate",
-      "property": "birthtime",
-      "type": "characteristic",
-      "definition": "patient_characteristic_birthdate",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "prefix_21112_8_PatientCharacteristicBirthdate_5894331C_00BC_4DC1_8F63_5A1AE5862C93_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b18d6",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9709d7c8aced5e9b170c"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "birthdate",
+      "qdmTitle": "Patient Characteristic Birthdate",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicBirthdate"
     }
-  },
+  ],
   "title": "Unhealthy Alcohol Use Screening and Follow Up (ASF)",
-  "updated_at": null,
+  "updated_at": "2019-06-10T17:44:41.494Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5c65ca4457a11eda06c23b27",
-    "5c65ca4457a11eda06c23b28",
-    "5c65ca4457a11eda06c23b29",
-    "5c65ca4457a11eda06c23b2a",
-    "5c65ca4457a11eda06c23b2b",
-    "5c65ca4457a11eda06c23b2c",
-    "5c65ca4457a11eda06c23b2d",
-    "5c65ca4457a11eda06c23b2e",
-    "5c65ca4457a11eda06c23b2f",
-    "5c65ca4457a11eda06c23b30",
-    "5c65ca4457a11eda06c23b31",
-    "5c65ca4457a11eda06c23b32",
-    "5c65ca4457a11eda06c23b33",
-    "5c65ca4457a11eda06c23b34",
-    "5c65ca4457a11eda06c23b35",
-    "5c65ca4457a11eda06c23b36",
-    "5c65ca4457a11eda06c23b37",
-    "5c65ca4457a11eda06c23b38",
-    "5c65ca4457a11eda06c23b39",
-    "5c65ca4457a11eda06c23b3a",
-    "5c65ca4457a11eda06c23b3b",
-    "5c65ca4457a11eda06c23b3c",
-    "5c65ca4457a11eda06c23b3d",
-    "5c65ca4457a11eda06c23b3e"
+    "5cfe9709d7c8aced5e9b170d",
+    "5cfe9709d7c8aced5e9b170e",
+    "5cfe9709d7c8aced5e9b170f",
+    "5cfe9709d7c8aced5e9b1710",
+    "5cfe9709d7c8aced5e9b1711",
+    "5cfe9709d7c8aced5e9b1712",
+    "5cfe9709d7c8aced5e9b1713",
+    "5cfe9709d7c8aced5e9b1714",
+    "5cfe9709d7c8aced5e9b1715",
+    "5cfe9709d7c8aced5e9b1716",
+    "5cfe9709d7c8aced5e9b1717",
+    "5cfe9709d7c8aced5e9b1718",
+    "5cfe9709d7c8aced5e9b1719",
+    "5cfe9709d7c8aced5e9b171a",
+    "5cfe9709d7c8aced5e9b171b",
+    "5cfe9709d7c8aced5e9b171c",
+    "5cfe9709d7c8aced5e9b171d",
+    "5cfe9709d7c8aced5e9b171e",
+    "5cfe9709d7c8aced5e9b171f",
+    "5cfe9709d7c8aced5e9b1720",
+    "5cfe9709d7c8aced5e9b1721",
+    "5cfe9709d7c8aced5e9b1722",
+    "5cfe9709d7c8aced5e9b1723",
+    "5cfe9709d7c8aced5e9b1724"
   ]
 }
