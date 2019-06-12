@@ -1,13 +1,13 @@
 class Thorax.Models.ExpectedValue extends Thorax.Model
 
   initialize: ->
-    @on 'change', @changeExpectedValue, this
     # make 'OBSERV' be an empty list if CV measure and 'OBSERV' not set
     if @has('MSRPOPL') && !@has('OBSERV')
       @set 'OBSERV', []
     # sort OBSERV when it is set to make comparison w actuals easier
     if @has 'OBSERV' and Array.isArray(@get('OBSERV'))
       @set 'OBSERV', @get('OBSERV').sort()
+    @on 'change', @changeExpectedValue, this
 
   changeExpectedValue: (expectedValue) ->
     mongoose_expectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]

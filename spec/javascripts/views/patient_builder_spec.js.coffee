@@ -556,16 +556,20 @@ describe 'PatientBuilderView', ->
 
   describe "setting expected values for CV measure", ->
     beforeEach ->
-      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
-      patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS32v7/patients.json'), parse: true
+      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
+      patientsJSON = []
+      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visit_1 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits 1 Excl_2 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits 2 Excl_2 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits_2 ED.json'))
+      patients = new Thorax.Collections.Patients patientsJSON, parse: true
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       @patientBuilder.appendTo 'body'
       @setPopulationVal = (population, value=0, save=true) ->
         @patientBuilder.$("input[type=number][name=#{population}]:first").val(value).change()
         @patientBuilder.$("button[data-call-method=save]").click() if save
 
-    xit "IPP removal removes membership of all populations in CV measures", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "IPP removal removes membership of all populations in CV measures", ->
       @setPopulationVal('IPP', 0, true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 0
@@ -573,8 +577,7 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('MSRPOPLEX')).toEqual 0
       expect(expectedValues.get('OBSERV')).toEqual undefined
 
-    xit "MSRPOPLEX addition adds membership to all populations in CV measures", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "MSRPOPLEX addition adds membership to all populations in CV measures", ->
       # First set IPP to 0 to zero out all population membership
       @setPopulationVal('IPP', 0, true)
       @setPopulationVal('MSRPOPLEX', 4, true)
@@ -585,8 +588,7 @@ describe 'PatientBuilderView', ->
       # 4 MSRPOPLEX and 4 MSRPOPL means there should be no OBSERVs
       expect(expectedValues.get('OBSERV')).toEqual undefined
 
-    xit "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
       # First set IPP to 0 to zero out all population membership
       @setPopulationVal('IPP', 0, true)
       @setPopulationVal('MSRPOPLEX', 3, true)
