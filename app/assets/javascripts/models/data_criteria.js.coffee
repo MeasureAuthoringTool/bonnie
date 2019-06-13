@@ -36,7 +36,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     icons =
       characteristic:           'fa-user'
       communication:            'fa-files-o'
-      allergies_intolerance:    'fa-exclamation-triangle'
+      allergy:                  'fa-exclamation-triangle'
       adverse_event:            'fa-exclamation'
       condition:                'fa-stethoscope'
       device:                   'fa-medkit'
