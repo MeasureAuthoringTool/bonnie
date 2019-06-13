@@ -66,7 +66,8 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
     newDateTime = null
 
     if formData.date_is_defined?
-      newDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("#{formData.date} #{formData.time}", 'L LT').toDate(), 0)
+      dateFormatted = moment(@$('input[name="date"]').datepicker('getDate')).format('L')
+      newDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("#{dateFormatted} #{formData.time}", 'L LT').toDate(), 0)
 
     # only change and fire the change event if there actually was a change
     # if before and after are null, just return

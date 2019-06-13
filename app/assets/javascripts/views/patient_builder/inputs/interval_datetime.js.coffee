@@ -85,13 +85,15 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
     highDateTime = null
 
     if formData.start_date_is_defined?
-      lowDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("#{formData.start_date} #{formData.start_time}", 'L LT').toDate(), 0)
+      lowDateFormatted = moment(@$('input[name="start_date"]').datepicker('getDate')).format('L')
+      lowDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("#{lowDateFormatted} #{formData.start_time}", 'L LT').toDate(), 0)
 
     if formData.end_date_is_defined?
-      highDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("#{formData.end_date} #{formData.end_time}", 'L LT').toDate(), 0)
-    
+      highDateFormatted = moment(@$('input[name="end_date"]').datepicker('getDate')).format('L')
+      highDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("#{highDateFormatted} #{formData.end_time}", 'L LT').toDate(), 0)
+
     newInterval = new cqm.models.CQL.Interval(lowDateTime, highDateTime)
-    
+
     # only change and fire the change event if there actually was a change
     if !newInterval.equals(@value)
       @value = newInterval
