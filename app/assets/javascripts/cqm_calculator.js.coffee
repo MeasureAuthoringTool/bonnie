@@ -40,13 +40,13 @@
         populationSetResults.observation_values.sort()
         # if this population is requested update the object
         if measure_population == population
-          result.set(populationSetResults.toObject())
+          @_populateResultModel(result, populationSetResults)
           result.state = 'complete'
         # otherwise create result and put it on the cache
         else
           otherPopCacheKey = @cacheKey(measure_population, patient)
           otherPopResult = @resultsCache[otherPopCacheKey] ?= new Thorax.Models.Result({}, population: measure_population, patient: patient)
-          otherPopResult.set(populationSetResults.toObject())
+          @_populateResultModel(otherPopResult, populationSetResults)
           otherPopResult.state = 'complete'
 
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
@@ -120,7 +120,7 @@
         populationSetResults = patientResults[populationSetId]
         populationSetResults.observation_values.sort()
 
-        result.set(populationSetResults.toObject())
+        @_populateResultModel(result, populationSetResults)
         result.state = 'complete'
 
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
@@ -131,3 +131,24 @@
       results.forEach((result) -> result.state = 'cancelled')
 
     return results
+
+  # take the CQM Individual results and put the appropiate fields from it on a given thorax result after doing necessary transforms
+  _populateResultModel: (result, cqmResult) ->
+    # things that can be directly used
+    result.set(
+      population_relevance: cqmResult.population_relevance
+      episode_results: cqmResult.episode_results
+      observation_values: cqmResult.observation_values
+    )
+
+    # get the results for populations. use the keys from population_relevance
+    for pop of cqmResult.population_relevance
+      result.set pop, cqmResult[pop]
+
+    # clause results
+    result.set 'clause_results', cqmResult.clause_results_by_clause()
+
+    # statement results
+    result.set 'statement_results', cqmResult.statement_results_by_statement()
+
+    # statement_relevance
