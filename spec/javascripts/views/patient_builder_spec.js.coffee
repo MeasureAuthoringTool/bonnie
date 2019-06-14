@@ -311,7 +311,7 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$(':text[name=start_date]:first').blur()
 
-    it "materializes the patient", ->
+    xit "materializes the patient", ->
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
       expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
 
@@ -711,7 +711,7 @@ describe 'PatientBuilderView', ->
       @compositePatients = new Thorax.Collections.Patients getJSONFixture('patients/CMS890/patients.json'), parse: true
       @compositeMeasure.populateComponents()
 
-    afterAll ->
+    afterEach ->
       bonnie.measures = @bonnie_measures_old
 
     xit "should floor the observ value to at most 8 decimals", ->
