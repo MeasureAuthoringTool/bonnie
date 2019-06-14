@@ -82,13 +82,15 @@ class MeasuresController < ApplicationController
     if is_valid_year
       original_year = measure.measure_period['low']['value'][0..3]
       year_shift = year.to_i - original_year.to_i
-      measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
-      measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
-      measure.save!
-
       if (params[:measurement_period_shift_dates] == "true")
-        shift_years(measure, year_shift)
+        successful_patient_shift = shift_years(measure, year_shift)
       end
+      if successful_patient_shift
+        measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
+        measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
+        measure.save!
+      end
+
     else
       flash[:error] = { title: 'Error Updating Measurement Period',
                         summary: 'Error Updating Measurement Period',
@@ -124,13 +126,23 @@ class MeasuresController < ApplicationController
   end
 
   def shift_years(measure, year_shift)
-    CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).each do |patient|
-      patient_birthdate_year = patient.qdmPatient.birthDatetime.year
-      patient.qdmPatient.birthDatetime.change(year: year_shift + patient_birthdate_year)
-      patient.qdmPatient.dataElements.each do |data_element|
-        data_element.shift_years(year_shift)
+    # Copy the patients to make sure there are no errors before saving every patient
+    patients = CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).all.entries
+    begin
+      patients.each do |patient|
+        patient_birthdate_year = patient.qdmPatient.birthDatetime.year
+        patient.qdmPatient.birthDatetime.change(year: year_shift + patient_birthdate_year)
+        patient.qdmPatient.dataElements.each do |data_element|
+          data_element.shift_years(year_shift)
+        end
       end
-      patient.save!
+    rescue RangeError => e
+      flash[:error] = { title: 'Error Updating Measurement Period',
+                        summary: 'Error Updating Measurement Period',
+                        body: 'Element on Patient could not be shifted. Please make sure shift will keep all years between 1 and 9999' }
+      return false
     end
+    patients.each(&:save!)
+    return true
   end
 end

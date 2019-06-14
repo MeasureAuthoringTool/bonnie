@@ -773,7 +773,32 @@ include Devise::Test::ControllerHelpers
     assert_equal '1984', measure.measure_period['low']['value'].slice(0,4)
     patient = CQM::Patient.by_user(@user).first
     assert_equal 1984, patient.qdmPatient.dataElements.first.authorDatetime.year
-    assert_equal 1984, patient.qdmPatient.dataElements.first.relevantPeriod.low.year
+    assert_equal 1984, patient.qdmPatient.dataElements.first.relevantPeriod.high.year
+  end
+
+  test 'data element goes outside of date range after conversion and fails' do
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    measure = CQM::Measure.where({cms_id: "CMS32v7"}).first
+    measure_id = measure.id
+    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
+    patient = CQM::Patient.by_user(@user).first
+    # lower the authordatetime year so that when the measurement period is
+    # shift this date will cause a RangeError
+    patient.qdmPatient.dataElements.first.authorDatetime.change(year: 1972)
+    patient.save!
+    post :measurement_period, {
+      year: '0003',
+      id: measure.id.to_s,
+      measurement_period_shift_dates: "true"
+    }
+    assert_equal 'Error Updating Measurement Period', flash[:error][:title]
+    assert_equal 'Error Updating Measurement Period', flash[:error][:summary]
+    assert_equal 'Element on Patient could not be shifted. Please make sure shift will keep all years between 1 and 9999', flash[:error][:body]
+    measure = CQM::Measure.where(id: measure_id).first
+    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
+    patient = CQM::Patient.by_user(@user).first
+    assert_equal 2012, patient.qdmPatient.dataElements.first.authorDatetime.year
+    assert_equal 2012, patient.qdmPatient.dataElements.first.relevantPeriod.high.year
   end
 
   test 'update measurement period float' do
