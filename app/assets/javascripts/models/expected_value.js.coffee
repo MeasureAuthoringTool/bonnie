@@ -10,16 +10,21 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     @on 'change', @changeExpectedValue, this
 
   changeExpectedValue: (expectedValue) ->
-    mongoose_expectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
-    if expectedValue.has('IPP') then mongoose_expectedValue.IPP = expectedValue.get('IPP')
-    if expectedValue.has('DENOM') then mongoose_expectedValue.DENOM = expectedValue.get('DENOM')
-    if expectedValue.has('DENEXCEP') then mongoose_expectedValue.DENEXCEP = expectedValue.get('DENEXCEP')
-    if expectedValue.has('NUMER') then mongoose_expectedValue.NUMER = expectedValue.get('NUMER')
-    if expectedValue.has('MSRPOPL') then mongoose_expectedValue.MSRPOPL = expectedValue.get('MSRPOPL')
-    if expectedValue.has('MSRPOPLEX') then mongoose_expectedValue.MSRPOPLEX = expectedValue.get('MSMSRPOPLEXRPOPL')
-    if expectedValue.has('OBSERV') then mongoose_expectedValue.OBSERV = expectedValue.get('OBSERV')
-    if expectedValue.has('OBSERV_UNIT') then mongoose_expectedValue.OBSERV_UNIT = expectedValue.get('OBSERV_UNIT')
-    if expectedValue.has('STRAT') then mongoose_expectedValue.STRAT = expectedValue.get('STRAT')
+    mongooseExpectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
+    if !mongooseExpectedValue
+      @collection.parent.get('cqmPatient').expectedValues.push({population_index: expectedValue.get('population_index'), measure_id: expectedValue.get('measure_id')})
+      mongooseExpectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
+    if expectedValue.has('IPP') then mongooseExpectedValue.IPP = expectedValue.get('IPP')
+    if expectedValue.has('DENOM') then mongooseExpectedValue.DENOM = expectedValue.get('DENOM')
+    if expectedValue.has('DENEX') then mongooseExpectedValue.DENEX = expectedValue.get('DENEX')
+    if expectedValue.has('DENEXCEP') then mongooseExpectedValue.DENEXCEP = expectedValue.get('DENEXCEP')
+    if expectedValue.has('NUMER') then mongooseExpectedValue.NUMER = expectedValue.get('NUMER')
+    if expectedValue.has('NUMEX') then mongooseExpectedValue.NUMEX = expectedValue.get('NUMEX')
+    if expectedValue.has('MSRPOPL') then mongooseExpectedValue.MSRPOPL = expectedValue.get('MSRPOPL')
+    if expectedValue.has('MSRPOPLEX') then mongooseExpectedValue.MSRPOPLEX = expectedValue.get('MSRPOPLEX')
+    if expectedValue.has('OBSERV') then mongooseExpectedValue.OBSERV = expectedValue.get('OBSERV')
+    if expectedValue.has('OBSERV_UNIT') then mongooseExpectedValue.OBSERV_UNIT = expectedValue.get('OBSERV_UNIT')
+    if expectedValue.has('STRAT') then mongooseExpectedValue.STRAT = expectedValue.get('STRAT')
 
   populationCriteria: ->
     defaults = _(@pick(Thorax.Models.Measure.allPopulationCodes)).keys()

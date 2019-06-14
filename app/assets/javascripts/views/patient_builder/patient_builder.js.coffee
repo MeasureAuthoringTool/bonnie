@@ -204,9 +204,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @measure?.get('cqmMeasure').patients.push model.get('cqmPatient') # and the measure's patient collection
         # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids
         # field with the ids of the sibling and composite measures, so we need to add this patient to those models.
-        # TODO ADD A PATIENT -> MEASURE ID RELATION IN CQM-MODELS
         for measure_id in model.get('cqmPatient').measure_ids
-          continue if !measure_id?
           measure = (bonnie.measures.filter (m) -> m.get('cqmMeasure').hqmf_set_id == measure_id)[0]
           measure.get('patients').add(model)
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.

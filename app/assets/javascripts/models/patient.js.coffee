@@ -93,11 +93,11 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').notes = notes
 
   setCqmPatientBirthDate: (birthdate, measure) ->
-    @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(new Date(birthdate))
+    @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(moment.utc(birthdate, 'L LT').toDate())
     sourceElement = @removeElementAndGetNewCopy('birthdate', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicBirthdate()
-    sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
+    sourceElement.birthDatetime = @get('cqmPatient').qdmPatient.birthDatetime.copy()
     if sourceElement.codeListId?
       birthdateConcept = (@getConceptsForDataElement('birthdate', measure).filter (elem) -> elem.code == birthdate)[0]
       sourceElement.dataElementCodes[0] = @conceptToCode(birthdateConcept)
@@ -109,7 +109,7 @@ class Thorax.Models.Patient extends Thorax.Model
     sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicExpired()
-    sourceElement.expiredDatetime = @createCQLDate(new Date(deathdate))
+    sourceElement.expiredDatetime = @createCQLDate(moment.utc(deathdate, 'L LT').toDate())
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientGender: (gender, measure) ->
     sourceElement = @removeElementAndGetNewCopy('gender', measure.get('cqmMeasure'))
@@ -160,7 +160,7 @@ class Thorax.Models.Patient extends Thorax.Model
     valueSet?.concepts || []
 
   createCQLDate: (date) ->
-    new cqm.models.CQL.DateTime(date.getFullYear(),date.getMonth()+1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), date.getTimezoneOffset())
+    cqm.models.CQL.DateTime.fromJSDate(date, 0)
 
   conceptToCode: (concept) ->
     new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
