@@ -1,5 +1,5 @@
 {
-  "_id": "5c65c9e757a11ed78d7a9877",
+  "_id": "5cfe9709d7c8aced5e9b155c",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS52v7",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5c65c9e757a11ed78d7a9878",
+      "_id": "5cfe9709d7c8aced5e9b155d",
       "cql": "library HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis version '7.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude Hospice version '1.0.000' called Hospice\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\n\r\ncodesystem \"RXNORM:2018-01\": 'urn:oid:2.16.840.1.113883.6.88' version 'urn:hl7:version:2018-01'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"CD4+ Count\": 'urn:oid:2.16.840.1.113883.3.464.1003.121.12.1004'\r\nvalueset \"CD4+ Percentage\": 'urn:oid:2.16.840.1.113883.3.464.1003.121.12.1005'\r\nvalueset \"HIV 1\": 'urn:oid:2.16.840.1.113883.3.464.1003.120.12.1004'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Outpatient Consultation\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1008'\r\nvalueset \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\": 'urn:oid:2.16.840.1.113883.3.464.1003.196.12.1076'\r\nvalueset \"Preventive Care - Established Office Visit, 0 to 17\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1024'\r\nvalueset \"Preventive Care Services - Established Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1025'\r\nvalueset \"Preventive Care Services-Initial Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1023'\r\nvalueset \"Preventive Care- Initial Office Visit, 0 to 17\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1022'\r\nvalueset \"Leucovorin\": 'urn:oid:2.16.840.1.113883.3.464.1003.196.12.1205'\r\n\r\ncode \"Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet\": '105337' from \"RXNORM:2018-01\" display 'Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"CD4 Count Under 500\":\r\n\t[\"Laboratory Test, Performed\": \"CD4+ Count\"] CD4Count\r\n\t\twhere ( CD4Count.result as Quantity ) < 500 '/mm3'\r\n\t\t\tand CD4Count.relevantPeriod ends 9 months or less after start of \"Measurement Period\"\r\n\r\ndefine \"CD4 Count Under 200\":\r\n\t[\"Laboratory Test, Performed\": \"CD4+ Count\"] CD4Count\r\n\t\twhere ( CD4Count.result as Quantity ) < 200 '/mm3'\r\n\t\t\tand CD4Count.relevantPeriod ends 9 months or less after start of \"Measurement Period\"\r\n\r\ndefine \"Denominator 1\":\r\n\t\"Initial Population 1\"\r\n\r\ndefine \"Denominator 2\":\r\n\t\"Initial Population 2\"\r\n\r\ndefine \"Denominator 3\":\r\n\t\"Initial Population 3\"\r\n\r\ndefine \"Qualifying Encounters\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care- Initial Office Visit, 0 to 17\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services - Established Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services-Initial Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care - Established Office Visit, 0 to 17\"]\r\n\t\tunion [\"Encounter, Performed\": \"Outpatient Consultation\"] ) ValidEncounter\r\n\t\twhere ValidEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"CD4 Count Under 500 with PCP Medication Prophylaxis\":\r\n\t\"CD4 Count Under 500\" CD4Under500\r\n\t\twith [\"Medication, Order\": \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\"] PCPProphylaxis\r\n\t\t\tsuch that PCPProphylaxis.authorDatetime occurs 3 months or less after end of CD4Under500.relevantPeriod\r\n\r\ndefine \"CD4 Count Under 200 with PCP Medication Prophylaxis\":\r\n\t\"CD4 Count Under 200\" CD4Under200\r\n\t\twith [\"Medication, Order\": \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\"] PCPProphylaxis\r\n\t\t\tsuch that PCPProphylaxis.authorDatetime 3 months or less after end of CD4Under200.relevantPeriod\r\n\r\ndefine \"HIV Diagnosis\":\r\n\t[\"Diagnosis\": \"HIV 1\"] HIV\r\n\t\twhere HIV.prevalencePeriod starts before end of \"Measurement Period\"\r\n\r\ndefine \"First HIV Diagnosis\":\r\n\tFirst(\"HIV Diagnosis\" FirstHIVDiagnosis\r\n\t\t\twhere FirstHIVDiagnosis.prevalencePeriod starts before end of \"Measurement Period\"\r\n\t\t\tsort by start of prevalencePeriod\r\n\t)\r\n\r\ndefine \"CD4 Count Under 200 With Current PCP Treatment\":\r\n\tfrom\r\n\t\t\"CD4 Count Under 200\" CD4CountUnder200,\r\n\t\t[\"Medication, Order\": \"Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet\"] DapsoneOrder,\r\n\t\t[\"Medication, Order\": \"Leucovorin\"] LeucovorinOrder\r\n\t\twhere DapsoneOrder.authorDatetime occurs 3 months or less after end CD4CountUnder200.relevantPeriod\r\n\t\t\tand LeucovorinOrder.authorDatetime occurs 3 months or less after end CD4CountUnder200.relevantPeriod\r\n\t\t\tand DapsoneOrder.authorDatetime same day as LeucovorinOrder.authorDatetime\r\n\t\treturn CD4CountUnder200\r\n\r\ndefine \"CD4 Percentage Less Than 15\":\r\n\t[\"Laboratory Test, Performed\": \"CD4+ Percentage\"] CD4Percent\r\n\t\twhere ( CD4Percent.result as Quantity ) < 15 '%'\r\n\t\t\tand CD4Percent.relevantPeriod ends 9 months or less after start of \"Measurement Period\"\r\n\r\ndefine \"CD4 Count Under 500 or CD4 Percentage Less Than 15\":\r\n\t\"CD4 Count Under 500\"\r\n\t\tunion \"CD4 Percentage Less Than 15\"\r\n\r\ndefine \"Numerator 3\":\r\n\texists [\"Medication, Order\": \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\"] PCPProphylaxis\r\n\t\twith \"First HIV Diagnosis\" FirstHIVDiagnosis\r\n\t\t\tsuch that PCPProphylaxis.authorDatetime same day as start of FirstHIVDiagnosis.prevalencePeriod\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tHospice.\"Has Hospice\"\r\n\r\ndefine \"Initial Population 3\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInDaysAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 42\r\n\t\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 1\r\n\t)\r\n\t\tand \"First HIV Diagnosis\" is not null\r\n\t\tand exists ( \"Followup HIV Visit\" )\r\n\r\ndefine \"CD4 Percentage Less Than 15 with PCP Medication Prophylaxis\":\r\n\t\"CD4 Percentage Less Than 15\" CD4Percentage\r\n\t\twith [\"Medication, Order\": \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\"] PCPProphylaxis\r\n\t\t\tsuch that PCPProphylaxis.authorDatetime occurs 3 months or less after end of CD4Percentage.relevantPeriod\r\n\r\ndefine \"Numerator 2\":\r\n\texists ( \"CD4 Count Under 500 with PCP Medication Prophylaxis\" )\r\n\t\tor exists ( \"CD4 Percentage Less Than 15 with PCP Medication Prophylaxis\" )\r\n\r\ndefine \"Numerator 1\":\r\n\texists \"CD4 Count Under 200 with PCP Medication Prophylaxis\"\r\n\t\tor exists ( \"CD4 Count Under 200 With Current PCP Treatment\" )\r\n\r\ndefine \"Followup HIV Visit\":\r\n\t\"Qualifying Encounters\" FollowupVisit\r\n\t\twith \"Qualifying Encounters\" PriorVisit\r\n\t\t\tsuch that FollowupVisit.authorDatetime 90 days or more on or after day of PriorVisit.authorDatetime\r\n\r\ndefine \"Denominator Exceptions 1\":\r\n\texists ( \"CD4 Count Under 200\" FirstCD4Count\r\n\t\t\twith [\"Laboratory Test, Performed\": \"CD4+ Count\"] SecondCD4Count\r\n\t\t\t\tsuch that SecondCD4Count.authorDatetime less than 3 months after day of FirstCD4Count.authorDatetime\r\n\t\t\t\t\tand SecondCD4Count.result >= 200 '/mm3'\r\n\t)\r\n\r\ndefine \"Denominator Exceptions 2\":\r\n\texists ( ( [\"Laboratory Test, Performed\": \"CD4+ Count\"] FirstCD4Count\r\n\t\t\t\twith [\"Laboratory Test, Performed\": \"CD4+ Count\"] SecondCD4Count\r\n\t\t\t\t\tsuch that SecondCD4Count.authorDatetime occurs 3 months or less after day of FirstCD4Count.authorDatetime\r\n\t\t\t\t\t\tand SecondCD4Count.result >= 500 '/mm3'\r\n\t\t)\r\n\t\t\tunion ( [\"Laboratory Test, Performed\": \"CD4+ Percentage\"] FirstCD4Percent\r\n\t\t\t\t\twith [\"Laboratory Test, Performed\": \"CD4+ Percentage\"] SecondCD4Percent\r\n\t\t\t\t\t\tsuch that SecondCD4Percent.authorDatetime occurs 3 months or less after FirstCD4Percent.authorDatetime\r\n\t\t\t\t\t\t\tand SecondCD4Percent.result >= 15 '%'\r\n\t\t\t)\r\n\t)\r\n\r\ndefine \"Initial Population 1\":\r\n\tGlobal.\"CalendarAgeInYearsAt\"(Patient.birthDatetime, start of \"Measurement Period\")>= 6\r\n\t\tand exists ( \"HIV Diagnosis\" )\r\n\t\tand exists ( \"Followup HIV Visit\" )\r\n\t\tand exists ( \"CD4 Count Under 200\" )\r\n\r\ndefine \"Initial Population 2\":\r\n\tGlobal.\"CalendarAgeInYearsAt\"(Patient.birthDatetime, start of \"Measurement Period\")in Interval[1, 6 )\r\n\t\tand exists ( \"HIV Diagnosis\" )\r\n\t\tand exists ( \"Followup HIV Visit\" )\r\n\t\tand exists ( \"CD4 Count Under 500 or CD4 Percentage Less Than 15\" )\r\n",
       "elm": {
         "library": {
@@ -14605,320 +14605,352 @@
         }
       },
       "is_main_library": true,
+      "is_top_level": true,
       "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
       "library_version": "7.1.000",
       "statement_dependencies": [
         {
-          "_id": "5c65c9e757a11ed78d7a9879",
+          "_id": "5cfe9709d7c8aced5e9b155e",
           "statement_name": "Patient"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a987a",
+          "_id": "5cfe9709d7c8aced5e9b155f",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a987b",
+          "_id": "5cfe9709d7c8aced5e9b1560",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a987c",
+          "_id": "5cfe9709d7c8aced5e9b1561",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a987d",
+          "_id": "5cfe9709d7c8aced5e9b1562",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a987e",
+          "_id": "5cfe9709d7c8aced5e9b1563",
           "statement_name": "CD4 Count Under 500"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a987f",
+          "_id": "5cfe9709d7c8aced5e9b1564",
           "statement_name": "CD4 Count Under 200"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a9880",
+          "_id": "5cfe9709d7c8aced5e9b1565",
           "statement_name": "HIV Diagnosis"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a9881",
+          "_id": "5cfe9709d7c8aced5e9b1566",
           "statement_name": "Qualifying Encounters"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a9882",
+          "_id": "5cfe9709d7c8aced5e9b1567",
           "statement_name": "Followup HIV Visit",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a9883",
+              "_id": "5cfe9709d7c8aced5e9b1568",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Qualifying Encounters"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a9884",
+              "_id": "5cfe9709d7c8aced5e9b1569",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Qualifying Encounters"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a9885",
+          "_id": "5cfe9709d7c8aced5e9b156a",
           "statement_name": "Initial Population 1",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a9886",
+              "_id": "5cfe9709d7c8aced5e9b156b",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a9887",
+              "_id": "5cfe9709d7c8aced5e9b156c",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "HIV Diagnosis"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a9888",
+              "_id": "5cfe9709d7c8aced5e9b156d",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Followup HIV Visit"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a9889",
+              "_id": "5cfe9709d7c8aced5e9b156e",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a988a",
+          "_id": "5cfe9709d7c8aced5e9b156f",
           "statement_name": "Denominator 1",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a988b",
+              "_id": "5cfe9709d7c8aced5e9b1570",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Initial Population 1"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a988c",
+          "_id": "5cfe9709d7c8aced5e9b1571",
           "statement_name": "CD4 Percentage Less Than 15"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a988d",
+          "_id": "5cfe9709d7c8aced5e9b1572",
           "statement_name": "CD4 Count Under 500 or CD4 Percentage Less Than 15",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a988e",
+              "_id": "5cfe9709d7c8aced5e9b1573",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 500"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a988f",
+              "_id": "5cfe9709d7c8aced5e9b1574",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Percentage Less Than 15"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a9890",
+          "_id": "5cfe9709d7c8aced5e9b1575",
           "statement_name": "Initial Population 2",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a9891",
+              "_id": "5cfe9709d7c8aced5e9b1576",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a9892",
+              "_id": "5cfe9709d7c8aced5e9b1577",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "HIV Diagnosis"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a9893",
+              "_id": "5cfe9709d7c8aced5e9b1578",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Followup HIV Visit"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a9894",
+              "_id": "5cfe9709d7c8aced5e9b1579",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 500 or CD4 Percentage Less Than 15"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a9895",
+          "_id": "5cfe9709d7c8aced5e9b157a",
           "statement_name": "Denominator 2",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a9896",
+              "_id": "5cfe9709d7c8aced5e9b157b",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Initial Population 2"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a9897",
+          "_id": "5cfe9709d7c8aced5e9b157c",
           "statement_name": "First HIV Diagnosis",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a9898",
+              "_id": "5cfe9709d7c8aced5e9b157d",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "HIV Diagnosis"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a9899",
+          "_id": "5cfe9709d7c8aced5e9b157e",
           "statement_name": "Initial Population 3",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a989a",
+              "_id": "5cfe9709d7c8aced5e9b157f",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInDaysAt"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a989b",
+              "_id": "5cfe9709d7c8aced5e9b1580",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a989c",
+              "_id": "5cfe9709d7c8aced5e9b1581",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "First HIV Diagnosis"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a989d",
+              "_id": "5cfe9709d7c8aced5e9b1582",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Followup HIV Visit"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a989e",
+          "_id": "5cfe9709d7c8aced5e9b1583",
           "statement_name": "Denominator 3",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a989f",
+              "_id": "5cfe9709d7c8aced5e9b1584",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Initial Population 3"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98a0",
+          "_id": "5cfe9709d7c8aced5e9b1585",
           "statement_name": "CD4 Count Under 500 with PCP Medication Prophylaxis",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98a1",
+              "_id": "5cfe9709d7c8aced5e9b1586",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 500"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98a2",
+          "_id": "5cfe9709d7c8aced5e9b1587",
           "statement_name": "CD4 Count Under 200 with PCP Medication Prophylaxis",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98a3",
+              "_id": "5cfe9709d7c8aced5e9b1588",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98a4",
+          "_id": "5cfe9709d7c8aced5e9b1589",
           "statement_name": "CD4 Count Under 200 With Current PCP Treatment",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98a5",
+              "_id": "5cfe9709d7c8aced5e9b158a",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98a6",
+          "_id": "5cfe9709d7c8aced5e9b158b",
           "statement_name": "Numerator 3",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98a7",
+              "_id": "5cfe9709d7c8aced5e9b158c",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "First HIV Diagnosis"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98a8",
+          "_id": "5cfe9709d7c8aced5e9b158d",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98a9",
+              "_id": "5cfe9709d7c8aced5e9b158e",
+              "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98aa",
+          "_id": "5cfe9709d7c8aced5e9b158f",
           "statement_name": "CD4 Percentage Less Than 15 with PCP Medication Prophylaxis",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98ab",
+              "_id": "5cfe9709d7c8aced5e9b1590",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Percentage Less Than 15"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98ac",
+          "_id": "5cfe9709d7c8aced5e9b1591",
           "statement_name": "Numerator 2",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98ad",
+              "_id": "5cfe9709d7c8aced5e9b1592",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 500 with PCP Medication Prophylaxis"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a98ae",
+              "_id": "5cfe9709d7c8aced5e9b1593",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Percentage Less Than 15 with PCP Medication Prophylaxis"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98af",
+          "_id": "5cfe9709d7c8aced5e9b1594",
           "statement_name": "Numerator 1",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98b0",
+              "_id": "5cfe9709d7c8aced5e9b1595",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200 with PCP Medication Prophylaxis"
             },
             {
-              "_id": "5c65c9e757a11ed78d7a98b1",
+              "_id": "5cfe9709d7c8aced5e9b1596",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200 With Current PCP Treatment"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98b2",
+          "_id": "5cfe9709d7c8aced5e9b1597",
           "statement_name": "Denominator Exceptions 1",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98b3",
+              "_id": "5cfe9709d7c8aced5e9b1598",
+              "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98b4",
+          "_id": "5cfe9709d7c8aced5e9b1599",
           "statement_name": "Denominator Exceptions 2"
         }
       ]
     },
     {
-      "_id": "5c65c9e757a11ed78d7a98b5",
+      "_id": "5cfe9709d7c8aced5e9b159a",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -23577,30 +23609,33 @@
         }
       },
       "is_main_library": false,
+      "is_top_level": true,
       "library_name": "MATGlobalCommonFunctions",
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5c65c9e757a11ed78d7a98b6",
+          "_id": "5cfe9709d7c8aced5e9b159b",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98b7",
+              "_id": "5cfe9709d7c8aced5e9b159c",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
             }
           ]
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98b8",
+          "_id": "5cfe9709d7c8aced5e9b159d",
           "statement_name": "ToDate"
         },
         {
-          "_id": "5c65c9e757a11ed78d7a98b9",
+          "_id": "5cfe9709d7c8aced5e9b159e",
           "statement_name": "CalendarAgeInDaysAt",
           "statement_references": [
             {
-              "_id": "5c65c9e757a11ed78d7a98ba",
+              "_id": "5cfe9709d7c8aced5e9b159f",
+              "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
             }
@@ -23609,7 +23644,7 @@
       ]
     },
     {
-      "_id": "5c65c9e757a11ed78d7a98bb",
+      "_id": "5cfe9709d7c8aced5e9b15a0",
       "cql": "library Hospice version '1.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2017-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-03'\r\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\r\n\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n",
       "elm": {
         "library": {
@@ -25489,439 +25524,18 @@
         }
       },
       "is_main_library": false,
+      "is_top_level": true,
       "library_name": "Hospice",
       "library_version": "1.0.000",
       "statement_dependencies": [
         {
-          "_id": "5c65c9e757a11ed78d7a98bc",
+          "_id": "5cfe9709d7c8aced5e9b15a1",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": null,
-  "data_criteria": {
-    "PneumocystisJiroveciPneumonia_PCP_Prophylaxis_MedicationOrder_40280381_3e93_d1af_013e_a49f8f3d4122": {
-      "title": "PneumocystisJiroveciPneumonia(PCP)Prophylaxis",
-      "description": "Medication, Order: PneumocystisJiroveciPneumonia(PCP)Prophylaxis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1076",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "PneumocystisJiroveciPneumonia_PCP_Prophylaxis_MedicationOrder_40280381_3e93_d1af_013e_a49f8f3d4122_source",
-      "variable": false
-    },
-    "Payer_PatientCharacteristicPayer_f9e29a0e_09a5_4ae0_96e8_7799778b8237": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_f9e29a0e_09a5_4ae0_96e8_7799778b8237_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "32127",
-          "32128",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "391",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "524",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "622",
-          "623",
-          "629",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "CD4_Percentage_LaboratoryTestPerformed_40280381_3e93_d1af_013e_a49f8f3e412a": {
-      "title": "CD4+Percentage",
-      "description": "Laboratory Test, Performed: CD4+Percentage",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.121.12.1005",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "CD4_Percentage_LaboratoryTestPerformed_40280381_3e93_d1af_013e_a49f8f3e412a_source",
-      "variable": false
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_9e70bbab_4e8b_4d2b_a390_68e4845115d5": {
-      "title": "ONCAdministrativeSex",
-      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_9e70bbab_4e8b_4d2b_a390_68e4845115d5_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "OutpatientConsultation_EncounterPerformed_63ed2cc3_f71b_47dd_a318_e57799a404b3": {
-      "title": "OutpatientConsultation",
-      "description": "Encounter, Performed: OutpatientConsultation",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OutpatientConsultation_EncounterPerformed_63ed2cc3_f71b_47dd_a318_e57799a404b3_source",
-      "variable": false
-    },
-    "CD4_Count_LaboratoryTestPerformed_fe396d84_5c2c_448e_84b9_e6c4b7064c0d": {
-      "title": "CD4+Count",
-      "description": "Laboratory Test, Performed: CD4+Count",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.121.12.1004",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "CD4_Count_LaboratoryTestPerformed_fe396d84_5c2c_448e_84b9_e6c4b7064c0d_source",
-      "variable": false
-    },
-    "Leucovorin_MedicationOrder_82529f08_2041_498c_96f3_51955c1c4703": {
-      "title": "Leucovorin",
-      "description": "Medication, Order: Leucovorin",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1205",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Leucovorin_MedicationOrder_82529f08_2041_498c_96f3_51955c1c4703_source",
-      "variable": false
-    },
-    "EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3": {
-      "title": "EncounterInpatient",
-      "description": "Encounter, Performed: EncounterInpatient",
-      "code_list_id": "2.16.840.1.113883.3.666.5.307",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source",
-      "variable": false
-    },
-    "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b8283288_b7d3_4467_9453_d5cf3c016769": {
-      "title": "PreventiveCareServices-EstablishedOfficeVisit18andUp",
-      "description": "Encounter, Performed: PreventiveCareServices-EstablishedOfficeVisit18andUp",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b8283288_b7d3_4467_9453_d5cf3c016769_source",
-      "variable": false
-    },
-    "Hospicecareambulatory_InterventionOrder_95cca057_9695_4ee4_a5bd_eff4b54c6098": {
-      "title": "Hospicecareambulatory",
-      "description": "Intervention, Order: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionOrder_95cca057_9695_4ee4_a5bd_eff4b54c6098_source",
-      "variable": false
-    },
-    "Hospicecareambulatory_InterventionPerformed_95cca057_9695_4ee4_a5bd_eff4b54c6098": {
-      "title": "Hospicecareambulatory",
-      "description": "Intervention, Performed: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionPerformed_95cca057_9695_4ee4_a5bd_eff4b54c6098_source",
-      "variable": false
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_8cc92f99_855b_4de4_9705_9cac40abf767": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_8cc92f99_855b_4de4_9705_9cac40abf767_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "Race_PatientCharacteristicRace_085a67cc_0b40_437c_898c_8c423b2bb290": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_085a67cc_0b40_437c_898c_8c423b2bb290_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    },
-    "HIV1_Diagnosis_abf5cb1c_6014_4c16_9991_f0af2322bf3d": {
-      "title": "HIV1",
-      "description": "Diagnosis: HIV1",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.120.12.1004",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "HIV1_Diagnosis_abf5cb1c_6014_4c16_9991_f0af2322bf3d_source",
-      "variable": false
-    },
-    "OfficeVisit_EncounterPerformed_53ac9eca_bdc8_4a25_bb93_f88e7282c0b0": {
-      "title": "OfficeVisit",
-      "description": "Encounter, Performed: OfficeVisit",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OfficeVisit_EncounterPerformed_53ac9eca_bdc8_4a25_bb93_f88e7282c0b0_source",
-      "variable": false
-    },
-    "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_9ad90d65_1eef_40d0_ac30_9b60e895e5f7": {
-      "title": "PreventiveCare-InitialOfficeVisit0to17",
-      "description": "Encounter, Performed: PreventiveCare-InitialOfficeVisit0to17",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_9ad90d65_1eef_40d0_ac30_9b60e895e5f7_source",
-      "variable": false
-    },
-    "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_2f8f8431_164b_4079_8f5c_1952a213b909": {
-      "title": "PreventiveCareServices-InitialOfficeVisit18andUp",
-      "description": "Encounter, Performed: PreventiveCareServices-InitialOfficeVisit18andUp",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_2f8f8431_164b_4079_8f5c_1952a213b909_source",
-      "variable": false
-    },
-    "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_b9e77540_5948_4885_b507_9706cc48a329": {
-      "title": "PreventiveCare-EstablishedOfficeVisit0to17",
-      "description": "Encounter, Performed: PreventiveCare-EstablishedOfficeVisit0to17",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_b9e77540_5948_4885_b507_9706cc48a329_source",
-      "variable": false
-    },
-    "prefix_105337_MedicationOrder_0EC8DFB2_C7B5_4C69_92A3_F517CCD2FF8C": {
-      "title": "Medication, Order: Medication, Order",
-      "description": "Medication, Order: Medication, Order",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "prefix_105337_MedicationOrder_0EC8DFB2_C7B5_4C69_92A3_F517CCD2FF8C_source",
-      "variable": false,
-      "inline_code_list": {
-        "RxNorm": [
-          "105337"
-        ]
-      },
-      "code_list_id": "drc-e7bcd5fe05acffa0b0210240916ebdd5cb263ec9e30c7f943a055e4f406b38c4"
-    }
-  },
+  "created_at": "2019-06-10T17:44:41.093Z",
   "description": "Percentage of patients aged 6 weeks and older with a diagnosis of HIV/AIDS who were prescribed Pneumocystis jiroveci pneumonia (PCP) prophylaxis",
   "hqmf_id": "40280382-610B-E7A4-0161-B995747C3F72",
   "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
@@ -26627,549 +26241,670 @@
   },
   "population_sets": [
     {
-      "_id": "5c65c9e757a11ed78d7a98bd",
+      "_id": "5cfe9709d7c8aced5e9b15b5",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5c65c9e757a11ed78d7a98be",
+          "_id": "5cfe9709d7c8aced5e9b15bb",
+          "hqmf_id": "D676976B-021E-4719-92F8-924F599A9739",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exclusions"
         },
         "DENEXCEP": {
-          "_id": "5c65c9e757a11ed78d7a98bf",
+          "_id": "5cfe9709d7c8aced5e9b15ba",
+          "hqmf_id": "9B98F901-F09D-4CA6-8879-0CA27BDCA1BB",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exceptions 1"
         },
         "DENOM": {
-          "_id": "5c65c9e757a11ed78d7a98c0",
+          "_id": "5cfe9709d7c8aced5e9b15b8",
+          "hqmf_id": "9CB9ED56-E393-4263-BA40-45955026278C",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator 1"
         },
         "IPP": {
-          "_id": "5c65c9e757a11ed78d7a98c1",
+          "_id": "5cfe9709d7c8aced5e9b15b7",
+          "hqmf_id": "86D270A6-96DA-4BA6-A6FA-92A44F422595",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Initial Population 1"
         },
         "NUMER": {
-          "_id": "5c65c9e757a11ed78d7a98c2",
+          "_id": "5cfe9709d7c8aced5e9b15b9",
+          "hqmf_id": "1FF8CB1B-CAF0-4839-8083-47AC8D717A47",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Numerator 1"
         },
-        "_id": "5c65c9e757a11ed78d7a98c3"
+        "_id": "5cfe9709d7c8aced5e9b15b6",
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     },
     {
-      "_id": "5c65c9e757a11ed78d7a98c4",
+      "_id": "5cfe9709d7c8aced5e9b15bc",
       "population_set_id": "PopulationCriteria2",
       "populations": {
         "DENEX": {
-          "_id": "5c65c9e757a11ed78d7a98c5",
+          "_id": "5cfe9709d7c8aced5e9b15c2",
+          "hqmf_id": "834A03FD-5B6A-486C-A3DB-843E1A32FA79",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exclusions"
         },
         "DENEXCEP": {
-          "_id": "5c65c9e757a11ed78d7a98c6",
+          "_id": "5cfe9709d7c8aced5e9b15c1",
+          "hqmf_id": "B5DD1908-BFAA-4E93-BCFB-5CFB72AB3ECF",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exceptions 2"
         },
         "DENOM": {
-          "_id": "5c65c9e757a11ed78d7a98c7",
+          "_id": "5cfe9709d7c8aced5e9b15bf",
+          "hqmf_id": "1380947E-39EE-422D-B4F4-3B56AE4E2554",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator 2"
         },
         "IPP": {
-          "_id": "5c65c9e757a11ed78d7a98c8",
+          "_id": "5cfe9709d7c8aced5e9b15be",
+          "hqmf_id": "1DD90837-30FF-4245-B1F0-82FA72DE80A6",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Initial Population 2"
         },
         "NUMER": {
-          "_id": "5c65c9e757a11ed78d7a98c9",
+          "_id": "5cfe9709d7c8aced5e9b15c0",
+          "hqmf_id": "DD6AC019-EEFC-4EA8-8E0D-18012B69CF9C",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Numerator 2"
         },
-        "_id": "5c65c9e757a11ed78d7a98ca"
+        "_id": "5cfe9709d7c8aced5e9b15bd",
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     },
     {
-      "_id": "5c65c9e757a11ed78d7a98cb",
+      "_id": "5cfe9709d7c8aced5e9b15c3",
       "population_set_id": "PopulationCriteria3",
       "populations": {
         "DENEX": {
-          "_id": "5c65c9e757a11ed78d7a98cc",
+          "_id": "5cfe9709d7c8aced5e9b15c8",
+          "hqmf_id": "31F3F3E8-744C-44B0-9EE1-3DB187A6F93F",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5c65c9e757a11ed78d7a98cd",
+          "_id": "5cfe9709d7c8aced5e9b15c6",
+          "hqmf_id": "81907C0E-19DF-4E88-8351-005514E54B3B",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator 3"
         },
         "IPP": {
-          "_id": "5c65c9e757a11ed78d7a98ce",
+          "_id": "5cfe9709d7c8aced5e9b15c5",
+          "hqmf_id": "1453A456-966B-4A52-9958-92A7C1EFD6AD",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Initial Population 3"
         },
         "NUMER": {
-          "_id": "5c65c9e757a11ed78d7a98cf",
+          "_id": "5cfe9709d7c8aced5e9b15c7",
+          "hqmf_id": "C45DA2B3-09CD-4892-8B6D-C537CF05CEE5",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Numerator 3"
         },
-        "_id": "5c65c9e757a11ed78d7a98d0"
+        "_id": "5cfe9709d7c8aced5e9b15c4",
+        "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     }
   ],
-  "source_data_criteria": {
-    "PneumocystisJiroveciPneumonia_PCP_Prophylaxis_MedicationOrder_40280381_3e93_d1af_013e_a49f8f3d4122_source": {
-      "title": "PneumocystisJiroveciPneumonia(PCP)Prophylaxis",
+  "source_data_criteria": [
+    {
+      "_id": "5cfe9708d7c8aced5e9b13ba",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1076",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
       "description": "Medication, Order: PneumocystisJiroveciPneumonia(PCP)Prophylaxis",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1076",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "PneumocystisJiroveciPneumonia_PCP_Prophylaxis_MedicationOrder_40280381_3e93_d1af_013e_a49f8f3d4122_source",
-      "variable": false
-    },
-    "Payer_PatientCharacteristicPayer_f9e29a0e_09a5_4ae0_96e8_7799778b8237_source": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_f9e29a0e_09a5_4ae0_96e8_7799778b8237_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "299",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "32127",
-          "32128",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "391",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "517",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "524",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "614",
-          "619",
-          "62",
-          "621",
-          "622",
-          "623",
-          "629",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "CD4_Percentage_LaboratoryTestPerformed_40280381_3e93_d1af_013e_a49f8f3e412a_source": {
-      "title": "CD4+Percentage",
-      "description": "Laboratory Test, Performed: CD4+Percentage",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.121.12.1005",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "CD4_Percentage_LaboratoryTestPerformed_40280381_3e93_d1af_013e_a49f8f3e412a_source",
-      "variable": false
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_9e70bbab_4e8b_4d2b_a390_68e4845115d5_source": {
-      "title": "ONCAdministrativeSex",
-      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_9e70bbab_4e8b_4d2b_a390_68e4845115d5_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "OutpatientConsultation_EncounterPerformed_63ed2cc3_f71b_47dd_a318_e57799a404b3_source": {
-      "title": "OutpatientConsultation",
-      "description": "Encounter, Performed: OutpatientConsultation",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OutpatientConsultation_EncounterPerformed_63ed2cc3_f71b_47dd_a318_e57799a404b3_source",
-      "variable": false
-    },
-    "CD4_Count_LaboratoryTestPerformed_fe396d84_5c2c_448e_84b9_e6c4b7064c0d_source": {
-      "title": "CD4+Count",
-      "description": "Laboratory Test, Performed: CD4+Count",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.121.12.1004",
-      "type": "laboratory_tests",
-      "definition": "laboratory_test",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "CD4_Count_LaboratoryTestPerformed_fe396d84_5c2c_448e_84b9_e6c4b7064c0d_source",
-      "variable": false
-    },
-    "Leucovorin_MedicationOrder_82529f08_2041_498c_96f3_51955c1c4703_source": {
-      "title": "Leucovorin",
-      "description": "Medication, Order: Leucovorin",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1205",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Leucovorin_MedicationOrder_82529f08_2041_498c_96f3_51955c1c4703_source",
-      "variable": false
-    },
-    "EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source": {
-      "title": "EncounterInpatient",
-      "description": "Encounter, Performed: EncounterInpatient",
-      "code_list_id": "2.16.840.1.113883.3.666.5.307",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source",
-      "variable": false
-    },
-    "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b8283288_b7d3_4467_9453_d5cf3c016769_source": {
-      "title": "PreventiveCareServices-EstablishedOfficeVisit18andUp",
-      "description": "Encounter, Performed: PreventiveCareServices-EstablishedOfficeVisit18andUp",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b8283288_b7d3_4467_9453_d5cf3c016769_source",
-      "variable": false
-    },
-    "Hospicecareambulatory_InterventionOrder_95cca057_9695_4ee4_a5bd_eff4b54c6098_source": {
-      "title": "Hospicecareambulatory",
-      "description": "Intervention, Order: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionOrder_95cca057_9695_4ee4_a5bd_eff4b54c6098_source",
-      "variable": false
-    },
-    "Hospicecareambulatory_InterventionPerformed_95cca057_9695_4ee4_a5bd_eff4b54c6098_source": {
-      "title": "Hospicecareambulatory",
-      "description": "Intervention, Performed: Hospicecareambulatory",
-      "code_list_id": "2.16.840.1.113762.1.4.1108.15",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Hospicecareambulatory_InterventionPerformed_95cca057_9695_4ee4_a5bd_eff4b54c6098_source",
-      "variable": false
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_8cc92f99_855b_4de4_9705_9cac40abf767_source": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_8cc92f99_855b_4de4_9705_9cac40abf767_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "Race_PatientCharacteristicRace_085a67cc_0b40_437c_898c_8c423b2bb290_source": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_085a67cc_0b40_437c_898c_8c423b2bb290_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    },
-    "HIV1_Diagnosis_abf5cb1c_6014_4c16_9991_f0af2322bf3d_source": {
-      "title": "HIV1",
-      "description": "Diagnosis: HIV1",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.120.12.1004",
-      "type": "conditions",
-      "definition": "diagnosis",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "HIV1_Diagnosis_abf5cb1c_6014_4c16_9991_f0af2322bf3d_source",
-      "variable": false
-    },
-    "OfficeVisit_EncounterPerformed_53ac9eca_bdc8_4a25_bb93_f88e7282c0b0_source": {
-      "title": "OfficeVisit",
-      "description": "Encounter, Performed: OfficeVisit",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "OfficeVisit_EncounterPerformed_53ac9eca_bdc8_4a25_bb93_f88e7282c0b0_source",
-      "variable": false
-    },
-    "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_9ad90d65_1eef_40d0_ac30_9b60e895e5f7_source": {
-      "title": "PreventiveCare-InitialOfficeVisit0to17",
-      "description": "Encounter, Performed: PreventiveCare-InitialOfficeVisit0to17",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_9ad90d65_1eef_40d0_ac30_9b60e895e5f7_source",
-      "variable": false
-    },
-    "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_2f8f8431_164b_4079_8f5c_1952a213b909_source": {
-      "title": "PreventiveCareServices-InitialOfficeVisit18andUp",
-      "description": "Encounter, Performed: PreventiveCareServices-InitialOfficeVisit18andUp",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_2f8f8431_164b_4079_8f5c_1952a213b909_source",
-      "variable": false
-    },
-    "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_b9e77540_5948_4885_b507_9706cc48a329_source": {
-      "title": "PreventiveCare-EstablishedOfficeVisit0to17",
-      "description": "Encounter, Performed: PreventiveCare-EstablishedOfficeVisit0to17",
-      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_b9e77540_5948_4885_b507_9706cc48a329_source",
-      "variable": false
-    },
-    "prefix_105337_MedicationOrder_0EC8DFB2_C7B5_4C69_92A3_F517CCD2FF8C_source": {
-      "title": "Medication, Order: Medication, Order",
-      "description": "Medication, Order: Medication, Order",
-      "type": "medications",
-      "definition": "medication",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "prefix_105337_MedicationOrder_0EC8DFB2_C7B5_4C69_92A3_F517CCD2FF8C_source",
-      "variable": false,
-      "inline_code_list": {
-        "RxNorm": [
-          "105337"
-        ]
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15a2",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13ba"
       },
-      "code_list_id": "drc-e7bcd5fe05acffa0b0210240916ebdd5cb263ec9e30c7f943a055e4f406b38c4"
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "order",
+      "qdmTitle": "Medication, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "refills": null,
+      "relevantPeriod": null,
+      "route": null,
+      "setting": null,
+      "supply": null,
+      "_type": "QDM::MedicationOrder"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13bb",
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Payer: Payer",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15a3",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13bb"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13bc",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.121.12.1005",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
+      "description": "Laboratory Test, Performed: CD4+Percentage",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15a4",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13bc"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "laboratory_test",
+      "qdmStatus": "performed",
+      "qdmTitle": "Laboratory Test, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "referenceRange": null,
+      "relevantPeriod": null,
+      "result": null,
+      "resultDatetime": null,
+      "status": null,
+      "_type": "QDM::LaboratoryTestPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13bd",
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15a5",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13bd"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13be",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1008",
+      "dataElementCodes": [
+
+      ],
+      "description": "Encounter, Performed: OutpatientConsultation",
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15a6",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13be"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13bf",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.121.12.1004",
+      "components": null,
+      "dataElementCodes": [
+
+      ],
+      "description": "Laboratory Test, Performed: CD4+Count",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15a7",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13bf"
+      },
+      "method": null,
+      "negationRationale": null,
+      "qdmCategory": "laboratory_test",
+      "qdmStatus": "performed",
+      "qdmTitle": "Laboratory Test, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "referenceRange": null,
+      "relevantPeriod": null,
+      "result": null,
+      "resultDatetime": null,
+      "status": null,
+      "_type": "QDM::LaboratoryTestPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c0",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1205",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
+      "description": "Medication, Order: Leucovorin",
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15a8",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c0"
+      },
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "order",
+      "qdmTitle": "Medication, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "refills": null,
+      "relevantPeriod": null,
+      "route": null,
+      "setting": null,
+      "supply": null,
+      "_type": "QDM::MedicationOrder"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c1",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.666.5.307",
+      "dataElementCodes": [
+
+      ],
+      "description": "Encounter, Performed: EncounterInpatient",
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15a9",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c1"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c2",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "dataElementCodes": [
+
+      ],
+      "description": "Encounter, Performed: PreventiveCareServices-EstablishedOfficeVisit18andUp",
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15aa",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c2"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c3",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1108.15",
+      "dataElementCodes": [
+
+      ],
+      "description": "Intervention, Order: Hospicecareambulatory",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15ab",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c3"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "order",
+      "qdmTitle": "Intervention, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "_type": "QDM::InterventionOrder"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c4",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113762.1.4.1108.15",
+      "dataElementCodes": [
+
+      ],
+      "description": "Intervention, Performed: Hospicecareambulatory",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15ac",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c4"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "performed",
+      "qdmTitle": "Intervention, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "relevantPeriod": null,
+      "result": null,
+      "status": null,
+      "_type": "QDM::InterventionPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c5",
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15ad",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c5"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c6",
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Race: Race",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15ae",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c6"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c7",
+      "anatomicalLocationSite": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.120.12.1004",
+      "dataElementCodes": [
+
+      ],
+      "description": "Diagnosis: HIV1",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15af",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c7"
+      },
+      "prevalencePeriod": null,
+      "qdmCategory": "condition",
+      "qdmTitle": "Diagnosis",
+      "qdmVersion": "5.4",
+      "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "severity": null,
+      "_type": "QDM::Diagnosis"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c8",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "dataElementCodes": [
+
+      ],
+      "description": "Encounter, Performed: OfficeVisit",
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15b0",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c8"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13c9",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1022",
+      "dataElementCodes": [
+
+      ],
+      "description": "Encounter, Performed: PreventiveCare-InitialOfficeVisit0to17",
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15b1",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13c9"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13ca",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "dataElementCodes": [
+
+      ],
+      "description": "Encounter, Performed: PreventiveCareServices-InitialOfficeVisit18andUp",
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15b2",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13ca"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13cb",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1024",
+      "dataElementCodes": [
+
+      ],
+      "description": "Encounter, Performed: PreventiveCare-EstablishedOfficeVisit0to17",
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15b3",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13cb"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
+    },
+    {
+      "_id": "5cfe9708d7c8aced5e9b13cc",
+      "authorDatetime": null,
+      "codeListId": "drc-e7bcd5fe05acffa0b0210240916ebdd5cb263ec9e30c7f943a055e4f406b38c4",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
+      "description": "Medication, Order: Medication, Order",
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
+      "id": {
+        "_id": "5cfe9709d7c8aced5e9b15b4",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5cfe9708d7c8aced5e9b13cc"
+      },
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "order",
+      "qdmTitle": "Medication, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "refills": null,
+      "relevantPeriod": null,
+      "route": null,
+      "setting": null,
+      "supply": null,
+      "_type": "QDM::MedicationOrder"
     }
-  },
+  ],
   "title": "HIV/AIDS: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis",
-  "updated_at": null,
+  "updated_at": "2019-06-10T17:44:41.093Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5c65c9e757a11ed78d7a985f",
-    "5c65c9e757a11ed78d7a9860",
-    "5c65c9e757a11ed78d7a9861",
-    "5c65c9e757a11ed78d7a9862",
-    "5c65c9e757a11ed78d7a9863",
-    "5c65c9e757a11ed78d7a9864",
-    "5c65c9e757a11ed78d7a9865",
-    "5c65c9e757a11ed78d7a9866",
-    "5c65c9e757a11ed78d7a9867",
-    "5c65c9e757a11ed78d7a9868",
-    "5c65c9e757a11ed78d7a9869",
-    "5c65c9e757a11ed78d7a986a",
-    "5c65c9e757a11ed78d7a986b",
-    "5c65c9e757a11ed78d7a986c",
-    "5c65c9e757a11ed78d7a986d",
-    "5c65c9e757a11ed78d7a986e",
-    "5c65c9e757a11ed78d7a986f",
-    "5c65c9e757a11ed78d7a9870",
-    "5c65c9e757a11ed78d7a9871",
-    "5c65c9e757a11ed78d7a9872",
-    "5c65c9e757a11ed78d7a9873",
-    "5c65c9e757a11ed78d7a9874",
-    "5c65c9e757a11ed78d7a9875",
-    "5c65c9e757a11ed78d7a9876"
+    "5cfe9709d7c8aced5e9b13cd",
+    "5cfe9709d7c8aced5e9b13ce",
+    "5cfe9709d7c8aced5e9b13cf",
+    "5cfe9709d7c8aced5e9b13d0",
+    "5cfe9709d7c8aced5e9b13d1",
+    "5cfe9709d7c8aced5e9b13d2",
+    "5cfe9709d7c8aced5e9b13d3",
+    "5cfe9709d7c8aced5e9b13d4",
+    "5cfe9709d7c8aced5e9b13d5",
+    "5cfe9709d7c8aced5e9b13d6",
+    "5cfe9709d7c8aced5e9b13d7",
+    "5cfe9709d7c8aced5e9b13d8",
+    "5cfe9709d7c8aced5e9b13d9",
+    "5cfe9709d7c8aced5e9b13da",
+    "5cfe9709d7c8aced5e9b13db",
+    "5cfe9709d7c8aced5e9b13dc",
+    "5cfe9709d7c8aced5e9b13dd",
+    "5cfe9709d7c8aced5e9b13de",
+    "5cfe9709d7c8aced5e9b13df",
+    "5cfe9709d7c8aced5e9b13e0",
+    "5cfe9709d7c8aced5e9b13e1",
+    "5cfe9709d7c8aced5e9b13e2",
+    "5cfe9709d7c8aced5e9b13e3",
+    "5cfe9709d7c8aced5e9b13e4"
   ]
 }

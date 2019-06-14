@@ -57,7 +57,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       # Note: we previously filtered out patient_characteristic_payer, but that was needed on the elements list
       # because a payer can have a start and stop date in QDM 5
       filter_criteria = criteria.get('negation') or
-      ( criteria.get('qdmCategory') is 'patient_characteristic' ) or
+      ( ( criteria.get('qdmCategory') is 'patient_characteristic' ) && criteria.get('_type') != 'QDM::PatientCharacteristicPayer') or
       ( criteria.has('specific_occurrence') )
       unless filter_criteria
         categories[type] ||= new Thorax.Collection

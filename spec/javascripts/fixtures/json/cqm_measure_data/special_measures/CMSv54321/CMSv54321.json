@@ -1,0 +1,2145 @@
+{
+  "_id": "5d03a7d5d7c8ac0e2e80c6bc",
+  "calculate_sdes": null,
+  "calculation_method": "PATIENT",
+  "cms_id": "CMSv54321",
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
+  "composite_hqmf_set_id": null,
+  "cql_libraries": [
+    {
+      "_id": "5d03a7d5d7c8ac0e2e80c6bd",
+      "cql": "library ExampleMeasure version '0.0.001'\r\n\r\nusing QDM version '5.4'\r\n\r\ncodesystem \"SNOMEDCT:2018-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2018-03'\r\ncodesystem \"SNOMEDCT\": 'urn:oid:2.16.840.1.113883.6.96'\r\ncodesystem \"LOINC:2.52\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.52'\r\n\r\nvalueset \"High-Risk Medications With Days Supply Criteria\": 'urn:oid:2.16.840.1.113883.3.464.1003.196.12.1254'\r\n\r\ncode \"Breast cancer genetic marker of susceptibility positive (finding)\": '445333001' from \"SNOMEDCT:2018-03\" display 'Breast cancer genetic marker of susceptibility positive (finding)'\r\ncode \"Computer record of patient (record artifact)\": '184225006' from \"SNOMEDCT\" display 'Computer record of patient (record artifact)'\r\ncode \"Faxed report (record artifact)\": '445666005' from \"SNOMEDCT\" display 'Faxed report (record artifact)'\r\ncode \"Pediatric oncologist (occupation)\": '309336000' from \"SNOMEDCT:2018-03\" display 'Pediatric oncologist (occupation)'\r\ncode \"PHQ-9 quick depression assessment panel [Reported.PHQ]\": '44249-1' from \"LOINC:2.52\" display 'PHQ-9 quick depression assessment panel [Reported.PHQ]'\r\ncode \"Primary care provider (occupation)\": '453231000124104' from \"SNOMEDCT\" display 'Primary care provider (occupation)'\r\ncode \"Residential environment (environment)\": '272497004' from \"SNOMEDCT\" display 'Residential environment (environment)'\r\n\r\ncontext Patient\r\n\r\ndefine \"Initial Population\":\r\n\texists ( [\"Assessment, Order\": \"PHQ-9 quick depression assessment panel [Reported.PHQ]\"] )\r\n\t\tor exists ( [\"Communication, Performed\": \"Breast cancer genetic marker of susceptibility positive (finding)\"] Comm\r\n\t\t\t\twhere Comm.sender ~ \"Pediatric oncologist (occupation)\"\r\n\t\t\t\t\tand Comm.recipient ~ \"Primary care provider (occupation)\"\r\n\t\t\t\t\tand Comm.category ~ \"Computer record of patient (record artifact)\"\r\n\t\t\t\t\tand Comm.medium ~ \"Faxed report (record artifact)\"\r\n\t\t)\r\n\t\tor exists ( [\"Medication, Order\": \"High-Risk Medications With Days Supply Criteria\"] Med\r\n\t\t\t\twhere Med.setting ~ \"Residential environment (environment)\"\r\n\t\t)\r\n",
+      "elm": {
+        "library": {
+          "identifier": {
+            "id": "ExampleMeasure",
+            "version": "0.0.001"
+          },
+          "schemaIdentifier": {
+            "id": "urn:hl7-org:elm",
+            "version": "r1"
+          },
+          "usings": {
+            "def": [
+              {
+                "localIdentifier": "System",
+                "uri": "urn:hl7-org:elm-types:r1"
+              },
+              {
+                "localId": "1",
+                "locator": "3:1-3:23",
+                "localIdentifier": "QDM",
+                "uri": "urn:healthit-gov:qdm:v5_4",
+                "version": "5.4"
+              }
+            ]
+          },
+          "codeSystems": {
+            "def": [
+              {
+                "localId": "2",
+                "locator": "5:1-5:97",
+                "name": "SNOMEDCT:2018-03",
+                "id": "SNOMED-CT",
+                "version": "urn:hl7:version:2018-03",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "3",
+                "locator": "6:1-6:55",
+                "name": "SNOMEDCT",
+                "id": "SNOMED-CT",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "4",
+                "locator": "7:1-7:87",
+                "name": "LOINC:2.52",
+                "id": "LOINC",
+                "version": "urn:hl7:version:2.52",
+                "accessLevel": "Public"
+              }
+            ]
+          },
+          "valueSets": {
+            "def": [
+              {
+                "localId": "5",
+                "locator": "9:1-9:110",
+                "name": "High-Risk Medications With Days Supply Criteria",
+                "id": "2.16.840.1.113883.3.464.1003.196.12.1254",
+                "accessLevel": "Public"
+              }
+            ]
+          },
+          "codes": {
+            "def": [
+              {
+                "localId": "7",
+                "locator": "11:1-11:185",
+                "name": "Breast cancer genetic marker of susceptibility positive (finding)",
+                "id": "445333001",
+                "display": "Breast cancer genetic marker of susceptibility positive (finding)",
+                "accessLevel": "Public",
+                "codeSystem": {
+                  "localId": "6",
+                  "locator": "11:92-11:109",
+                  "name": "SNOMEDCT:2018-03"
+                }
+              },
+              {
+                "localId": "9",
+                "locator": "12:1-12:135",
+                "name": "Computer record of patient (record artifact)",
+                "id": "184225006",
+                "display": "Computer record of patient (record artifact)",
+                "accessLevel": "Public",
+                "codeSystem": {
+                  "localId": "8",
+                  "locator": "12:71-12:80",
+                  "name": "SNOMEDCT"
+                }
+              },
+              {
+                "localId": "11",
+                "locator": "13:1-13:107",
+                "name": "Faxed report (record artifact)",
+                "id": "445666005",
+                "display": "Faxed report (record artifact)",
+                "accessLevel": "Public",
+                "codeSystem": {
+                  "localId": "10",
+                  "locator": "13:57-13:66",
+                  "name": "SNOMEDCT"
+                }
+              },
+              {
+                "localId": "13",
+                "locator": "14:1-14:121",
+                "name": "Pediatric oncologist (occupation)",
+                "id": "309336000",
+                "display": "Pediatric oncologist (occupation)",
+                "accessLevel": "Public",
+                "codeSystem": {
+                  "localId": "12",
+                  "locator": "14:60-14:77",
+                  "name": "SNOMEDCT:2018-03"
+                }
+              },
+              {
+                "localId": "15",
+                "locator": "15:1-15:155",
+                "name": "PHQ-9 quick depression assessment panel [Reported.PHQ]",
+                "id": "44249-1",
+                "display": "PHQ-9 quick depression assessment panel [Reported.PHQ]",
+                "accessLevel": "Public",
+                "codeSystem": {
+                  "localId": "14",
+                  "locator": "15:79-15:90",
+                  "name": "LOINC:2.52"
+                }
+              },
+              {
+                "localId": "17",
+                "locator": "16:1-16:121",
+                "name": "Primary care provider (occupation)",
+                "id": "453231000124104",
+                "display": "Primary care provider (occupation)",
+                "accessLevel": "Public",
+                "codeSystem": {
+                  "localId": "16",
+                  "locator": "16:67-16:76",
+                  "name": "SNOMEDCT"
+                }
+              },
+              {
+                "localId": "19",
+                "locator": "17:1-17:121",
+                "name": "Residential environment (environment)",
+                "id": "272497004",
+                "display": "Residential environment (environment)",
+                "accessLevel": "Public",
+                "codeSystem": {
+                  "localId": "18",
+                  "locator": "17:64-17:73",
+                  "name": "SNOMEDCT"
+                }
+              }
+            ]
+          },
+          "statements": {
+            "def": [
+              {
+                "locator": "19:1-19:15",
+                "name": "Patient",
+                "context": "Patient",
+                "expression": {
+                  "type": "SingletonFrom",
+                  "operand": {
+                    "locator": "19:1-19:15",
+                    "dataType": "{urn:healthit-gov:qdm:v5_4}Patient",
+                    "templateId": "Patient",
+                    "type": "Retrieve"
+                  }
+                }
+              },
+              {
+                "localId": "55",
+                "locator": "21:1-31:3",
+                "name": "Initial Population",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "55",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Initial Population\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "54",
+                          "s": [
+                            {
+                              "r": "45",
+                              "s": [
+                                {
+                                  "r": "21",
+                                  "s": [
+                                    {
+                                      "value": [
+                                        "exists "
+                                      ]
+                                    },
+                                    {
+                                      "r": "20",
+                                      "s": [
+                                        {
+                                          "value": [
+                                            "( "
+                                          ]
+                                        },
+                                        {
+                                          "r": "20",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "[",
+                                                "\"Assessment, Order\"",
+                                                ": "
+                                              ]
+                                            },
+                                            {
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "\"PHQ-9 quick depression assessment panel [Reported.PHQ]\""
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "]"
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            " )"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "value": [
+                                    "\n\t\tor "
+                                  ]
+                                },
+                                {
+                                  "r": "44",
+                                  "s": [
+                                    {
+                                      "value": [
+                                        "exists "
+                                      ]
+                                    },
+                                    {
+                                      "r": "43",
+                                      "s": [
+                                        {
+                                          "value": [
+                                            "( "
+                                          ]
+                                        },
+                                        {
+                                          "r": "43",
+                                          "s": [
+                                            {
+                                              "s": [
+                                                {
+                                                  "r": "23",
+                                                  "s": [
+                                                    {
+                                                      "r": "22",
+                                                      "s": [
+                                                        {
+                                                          "r": "22",
+                                                          "s": [
+                                                            {
+                                                              "value": [
+                                                                "[",
+                                                                "\"Communication, Performed\"",
+                                                                ": "
+                                                              ]
+                                                            },
+                                                            {
+                                                              "s": [
+                                                                {
+                                                                  "value": [
+                                                                    "\"Breast cancer genetic marker of susceptibility positive (finding)\""
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "value": [
+                                                                "]"
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "value": [
+                                                        " ",
+                                                        "Comm"
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "\n\t\t\t\t"
+                                              ]
+                                            },
+                                            {
+                                              "r": "42",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "where "
+                                                  ]
+                                                },
+                                                {
+                                                  "r": "42",
+                                                  "s": [
+                                                    {
+                                                      "r": "37",
+                                                      "s": [
+                                                        {
+                                                          "r": "32",
+                                                          "s": [
+                                                            {
+                                                              "r": "27",
+                                                              "s": [
+                                                                {
+                                                                  "r": "25",
+                                                                  "s": [
+                                                                    {
+                                                                      "r": "24",
+                                                                      "s": [
+                                                                        {
+                                                                          "value": [
+                                                                            "Comm"
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "value": [
+                                                                        "."
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "r": "25",
+                                                                      "s": [
+                                                                        {
+                                                                          "value": [
+                                                                            "sender"
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "value": [
+                                                                    " ",
+                                                                    "~",
+                                                                    " "
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "r": "26",
+                                                                  "s": [
+                                                                    {
+                                                                      "value": [
+                                                                        "\"Pediatric oncologist (occupation)\""
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "value": [
+                                                                "\n\t\t\t\t\tand "
+                                                              ]
+                                                            },
+                                                            {
+                                                              "r": "31",
+                                                              "s": [
+                                                                {
+                                                                  "r": "29",
+                                                                  "s": [
+                                                                    {
+                                                                      "r": "28",
+                                                                      "s": [
+                                                                        {
+                                                                          "value": [
+                                                                            "Comm"
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "value": [
+                                                                        "."
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "r": "29",
+                                                                      "s": [
+                                                                        {
+                                                                          "value": [
+                                                                            "recipient"
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "value": [
+                                                                    " ",
+                                                                    "~",
+                                                                    " "
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "r": "30",
+                                                                  "s": [
+                                                                    {
+                                                                      "value": [
+                                                                        "\"Primary care provider (occupation)\""
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "value": [
+                                                            "\n\t\t\t\t\tand "
+                                                          ]
+                                                        },
+                                                        {
+                                                          "r": "36",
+                                                          "s": [
+                                                            {
+                                                              "r": "34",
+                                                              "s": [
+                                                                {
+                                                                  "r": "33",
+                                                                  "s": [
+                                                                    {
+                                                                      "value": [
+                                                                        "Comm"
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "value": [
+                                                                    "."
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "r": "34",
+                                                                  "s": [
+                                                                    {
+                                                                      "value": [
+                                                                        "category"
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "value": [
+                                                                " ",
+                                                                "~",
+                                                                " "
+                                                              ]
+                                                            },
+                                                            {
+                                                              "r": "35",
+                                                              "s": [
+                                                                {
+                                                                  "value": [
+                                                                    "\"Computer record of patient (record artifact)\""
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "value": [
+                                                        "\n\t\t\t\t\tand "
+                                                      ]
+                                                    },
+                                                    {
+                                                      "r": "41",
+                                                      "s": [
+                                                        {
+                                                          "r": "39",
+                                                          "s": [
+                                                            {
+                                                              "r": "38",
+                                                              "s": [
+                                                                {
+                                                                  "value": [
+                                                                    "Comm"
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "value": [
+                                                                "."
+                                                              ]
+                                                            },
+                                                            {
+                                                              "r": "39",
+                                                              "s": [
+                                                                {
+                                                                  "value": [
+                                                                    "medium"
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "value": [
+                                                            " ",
+                                                            "~",
+                                                            " "
+                                                          ]
+                                                        },
+                                                        {
+                                                          "r": "40",
+                                                          "s": [
+                                                            {
+                                                              "value": [
+                                                                "\"Faxed report (record artifact)\""
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            "\n\t\t)"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "\n\t\tor "
+                              ]
+                            },
+                            {
+                              "r": "53",
+                              "s": [
+                                {
+                                  "value": [
+                                    "exists "
+                                  ]
+                                },
+                                {
+                                  "r": "52",
+                                  "s": [
+                                    {
+                                      "value": [
+                                        "( "
+                                      ]
+                                    },
+                                    {
+                                      "r": "52",
+                                      "s": [
+                                        {
+                                          "s": [
+                                            {
+                                              "r": "47",
+                                              "s": [
+                                                {
+                                                  "r": "46",
+                                                  "s": [
+                                                    {
+                                                      "r": "46",
+                                                      "s": [
+                                                        {
+                                                          "value": [
+                                                            "[",
+                                                            "\"Medication, Order\"",
+                                                            ": "
+                                                          ]
+                                                        },
+                                                        {
+                                                          "s": [
+                                                            {
+                                                              "value": [
+                                                                "\"High-Risk Medications With Days Supply Criteria\""
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "value": [
+                                                            "]"
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "value": [
+                                                    " ",
+                                                    "Med"
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            "\n\t\t\t\t"
+                                          ]
+                                        },
+                                        {
+                                          "r": "51",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "where "
+                                              ]
+                                            },
+                                            {
+                                              "r": "51",
+                                              "s": [
+                                                {
+                                                  "r": "49",
+                                                  "s": [
+                                                    {
+                                                      "r": "48",
+                                                      "s": [
+                                                        {
+                                                          "value": [
+                                                            "Med"
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "value": [
+                                                        "."
+                                                      ]
+                                                    },
+                                                    {
+                                                      "r": "49",
+                                                      "s": [
+                                                        {
+                                                          "value": [
+                                                            "setting"
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "value": [
+                                                    " ",
+                                                    "~",
+                                                    " "
+                                                  ]
+                                                },
+                                                {
+                                                  "r": "50",
+                                                  "s": [
+                                                    {
+                                                      "value": [
+                                                        "\"Residential environment (environment)\""
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        "\n\t\t)"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "54",
+                  "locator": "22:2-31:3",
+                  "type": "Or",
+                  "operand": [
+                    {
+                      "localId": "45",
+                      "locator": "22:2-28:3",
+                      "type": "Or",
+                      "operand": [
+                        {
+                          "localId": "21",
+                          "locator": "22:2-22:91",
+                          "type": "Exists",
+                          "operand": {
+                            "localId": "20",
+                            "locator": "22:9-22:91",
+                            "dataType": "{urn:healthit-gov:qdm:v5_4}PositiveAssessmentOrder",
+                            "templateId": "PositiveAssessmentOrder",
+                            "codeProperty": "code",
+                            "type": "Retrieve",
+                            "codes": {
+                              "type": "ToList",
+                              "operand": {
+                                "name": "PHQ-9 quick depression assessment panel [Reported.PHQ]",
+                                "type": "CodeRef"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "localId": "44",
+                          "locator": "23:6-28:3",
+                          "type": "Exists",
+                          "operand": {
+                            "localId": "43",
+                            "locator": "23:13-28:3",
+                            "type": "Query",
+                            "source": [
+                              {
+                                "localId": "23",
+                                "locator": "23:15-23:116",
+                                "alias": "Comm",
+                                "expression": {
+                                  "localId": "22",
+                                  "locator": "23:15-23:111",
+                                  "dataType": "{urn:healthit-gov:qdm:v5_4}PositiveCommunicationPerformed",
+                                  "templateId": "PositiveCommunicationPerformed",
+                                  "codeProperty": "code",
+                                  "type": "Retrieve",
+                                  "codes": {
+                                    "type": "ToList",
+                                    "operand": {
+                                      "name": "Breast cancer genetic marker of susceptibility positive (finding)",
+                                      "type": "CodeRef"
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "relationship": [
+
+                            ],
+                            "where": {
+                              "localId": "42",
+                              "locator": "24:5-27:55",
+                              "type": "And",
+                              "operand": [
+                                {
+                                  "localId": "37",
+                                  "locator": "24:11-26:71",
+                                  "type": "And",
+                                  "operand": [
+                                    {
+                                      "localId": "32",
+                                      "locator": "24:11-25:62",
+                                      "type": "And",
+                                      "operand": [
+                                        {
+                                          "localId": "27",
+                                          "locator": "24:11-24:59",
+                                          "type": "Equivalent",
+                                          "operand": [
+                                            {
+                                              "localId": "25",
+                                              "locator": "24:11-24:21",
+                                              "path": "sender",
+                                              "scope": "Comm",
+                                              "type": "Property"
+                                            },
+                                            {
+                                              "localId": "26",
+                                              "locator": "24:25-24:59",
+                                              "name": "Pediatric oncologist (occupation)",
+                                              "type": "CodeRef"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "localId": "31",
+                                          "locator": "25:10-25:62",
+                                          "type": "Equivalent",
+                                          "operand": [
+                                            {
+                                              "localId": "29",
+                                              "locator": "25:10-25:23",
+                                              "path": "recipient",
+                                              "scope": "Comm",
+                                              "type": "Property"
+                                            },
+                                            {
+                                              "localId": "30",
+                                              "locator": "25:27-25:62",
+                                              "name": "Primary care provider (occupation)",
+                                              "type": "CodeRef"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "localId": "36",
+                                      "locator": "26:10-26:71",
+                                      "type": "Equivalent",
+                                      "operand": [
+                                        {
+                                          "localId": "34",
+                                          "locator": "26:10-26:22",
+                                          "path": "category",
+                                          "scope": "Comm",
+                                          "type": "Property"
+                                        },
+                                        {
+                                          "localId": "35",
+                                          "locator": "26:26-26:71",
+                                          "name": "Computer record of patient (record artifact)",
+                                          "type": "CodeRef"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "localId": "41",
+                                  "locator": "27:10-27:55",
+                                  "type": "Equivalent",
+                                  "operand": [
+                                    {
+                                      "localId": "39",
+                                      "locator": "27:10-27:20",
+                                      "path": "medium",
+                                      "scope": "Comm",
+                                      "type": "Property"
+                                    },
+                                    {
+                                      "localId": "40",
+                                      "locator": "27:24-27:55",
+                                      "name": "Faxed report (record artifact)",
+                                      "type": "CodeRef"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "localId": "53",
+                      "locator": "29:6-31:3",
+                      "type": "Exists",
+                      "operand": {
+                        "localId": "52",
+                        "locator": "29:13-31:3",
+                        "type": "Query",
+                        "source": [
+                          {
+                            "localId": "47",
+                            "locator": "29:15-29:90",
+                            "alias": "Med",
+                            "expression": {
+                              "localId": "46",
+                              "locator": "29:15-29:86",
+                              "dataType": "{urn:healthit-gov:qdm:v5_4}PositiveMedicationOrder",
+                              "templateId": "PositiveMedicationOrder",
+                              "codeProperty": "code",
+                              "type": "Retrieve",
+                              "codes": {
+                                "name": "High-Risk Medications With Days Supply Criteria",
+                                "type": "ValueSetRef"
+                              }
+                            }
+                          }
+                        ],
+                        "relationship": [
+
+                        ],
+                        "where": {
+                          "localId": "51",
+                          "locator": "30:5-30:63",
+                          "type": "Equivalent",
+                          "operand": [
+                            {
+                              "localId": "49",
+                              "locator": "30:11-30:21",
+                              "path": "setting",
+                              "scope": "Med",
+                              "type": "Property"
+                            },
+                            {
+                              "localId": "50",
+                              "locator": "30:25-30:63",
+                              "name": "Residential environment (environment)",
+                              "type": "CodeRef"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "elm_annotations": {
+        "statements": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Initial Population\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "text": "exists "
+                                  }
+                                ]
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "( "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "[\"Assessment, Order\": "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "\"PHQ-9 quick depression assessment panel [Reported.PHQ]\""
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "]"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "node_type": "Retrieve",
+                                    "ref_id": "20"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": " )"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "node_type": "Retrieve",
+                                "ref_id": "20"
+                              }
+                            ],
+                            "node_type": "Exists",
+                            "ref_id": "21"
+                          },
+                          {
+                            "children": [
+                              {
+                                "text": "\n    or "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "text": "exists "
+                                  }
+                                ]
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "( "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "[\"Communication, Performed\": "
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "\"Breast cancer genetic marker of susceptibility positive (finding)\""
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "]"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ],
+                                                    "node_type": "Retrieve",
+                                                    "ref_id": "22"
+                                                  }
+                                                ],
+                                                "node_type": "Retrieve",
+                                                "ref_id": "22"
+                                              },
+                                              {
+                                                "children": [
+                                                  {
+                                                    "text": " Comm"
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "ref_id": "23"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "\n        "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "where "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "children": [
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "children": [
+                                                                      {
+                                                                        "text": "Comm"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ],
+                                                                "ref_id": "24"
+                                                              },
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "text": "."
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "children": [
+                                                                      {
+                                                                        "text": "sender"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ],
+                                                                "node_type": "Property",
+                                                                "ref_id": "25"
+                                                              }
+                                                            ],
+                                                            "node_type": "Property",
+                                                            "ref_id": "25"
+                                                          },
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": " ~ "
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "text": "\"Pediatric oncologist (occupation)\""
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ],
+                                                            "node_type": "CodeRef",
+                                                            "ref_id": "26"
+                                                          }
+                                                        ],
+                                                        "node_type": "Equivalent",
+                                                        "ref_id": "27"
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "\n          and "
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "children": [
+                                                                      {
+                                                                        "text": "Comm"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ],
+                                                                "ref_id": "28"
+                                                              },
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "text": "."
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "children": [
+                                                                      {
+                                                                        "text": "recipient"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ],
+                                                                "node_type": "Property",
+                                                                "ref_id": "29"
+                                                              }
+                                                            ],
+                                                            "node_type": "Property",
+                                                            "ref_id": "29"
+                                                          },
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": " ~ "
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "text": "\"Primary care provider (occupation)\""
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ],
+                                                            "node_type": "CodeRef",
+                                                            "ref_id": "30"
+                                                          }
+                                                        ],
+                                                        "node_type": "Equivalent",
+                                                        "ref_id": "31"
+                                                      }
+                                                    ],
+                                                    "node_type": "And",
+                                                    "ref_id": "32"
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "text": "\n          and "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "text": "Comm"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ],
+                                                            "ref_id": "33"
+                                                          },
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "."
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "children": [
+                                                                  {
+                                                                    "text": "category"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ],
+                                                            "node_type": "Property",
+                                                            "ref_id": "34"
+                                                          }
+                                                        ],
+                                                        "node_type": "Property",
+                                                        "ref_id": "34"
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": " ~ "
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "\"Computer record of patient (record artifact)\""
+                                                              }
+                                                            ]
+                                                          }
+                                                        ],
+                                                        "node_type": "CodeRef",
+                                                        "ref_id": "35"
+                                                      }
+                                                    ],
+                                                    "node_type": "Equivalent",
+                                                    "ref_id": "36"
+                                                  }
+                                                ],
+                                                "node_type": "And",
+                                                "ref_id": "37"
+                                              },
+                                              {
+                                                "children": [
+                                                  {
+                                                    "text": "\n          and "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "Comm"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ],
+                                                        "ref_id": "38"
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "."
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "children": [
+                                                              {
+                                                                "text": "medium"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ],
+                                                        "node_type": "Property",
+                                                        "ref_id": "39"
+                                                      }
+                                                    ],
+                                                    "node_type": "Property",
+                                                    "ref_id": "39"
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "text": " ~ "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "\"Faxed report (record artifact)\""
+                                                          }
+                                                        ]
+                                                      }
+                                                    ],
+                                                    "node_type": "CodeRef",
+                                                    "ref_id": "40"
+                                                  }
+                                                ],
+                                                "node_type": "Equivalent",
+                                                "ref_id": "41"
+                                              }
+                                            ],
+                                            "ref_id": "42"
+                                          }
+                                        ],
+                                        "ref_id": "42"
+                                      }
+                                    ],
+                                    "node_type": "Query",
+                                    "ref_id": "43"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "\n    )"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "node_type": "Query",
+                                "ref_id": "43"
+                              }
+                            ],
+                            "node_type": "Exists",
+                            "ref_id": "44"
+                          }
+                        ],
+                        "node_type": "Or",
+                        "ref_id": "45"
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "\n    or "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "exists "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "text": "( "
+                                  }
+                                ]
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "text": "[\"Medication, Order\": "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "children": [
+                                                          {
+                                                            "text": "\"High-Risk Medications With Days Supply Criteria\""
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "text": "]"
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "node_type": "Retrieve",
+                                                "ref_id": "46"
+                                              }
+                                            ],
+                                            "node_type": "Retrieve",
+                                            "ref_id": "46"
+                                          },
+                                          {
+                                            "children": [
+                                              {
+                                                "text": " Med"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "ref_id": "47"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "\n        "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "where "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "text": "Med"
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "ref_id": "48"
+                                              },
+                                              {
+                                                "children": [
+                                                  {
+                                                    "text": "."
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "children": [
+                                                  {
+                                                    "children": [
+                                                      {
+                                                        "text": "setting"
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "node_type": "Property",
+                                                "ref_id": "49"
+                                              }
+                                            ],
+                                            "node_type": "Property",
+                                            "ref_id": "49"
+                                          },
+                                          {
+                                            "children": [
+                                              {
+                                                "text": " ~ "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "children": [
+                                              {
+                                                "children": [
+                                                  {
+                                                    "text": "\"Residential environment (environment)\""
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "node_type": "CodeRef",
+                                            "ref_id": "50"
+                                          }
+                                        ],
+                                        "ref_id": "51"
+                                      }
+                                    ],
+                                    "ref_id": "51"
+                                  }
+                                ],
+                                "node_type": "Query",
+                                "ref_id": "52"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": "\n    )"
+                                  }
+                                ]
+                              }
+                            ],
+                            "node_type": "Query",
+                            "ref_id": "52"
+                          }
+                        ],
+                        "node_type": "Exists",
+                        "ref_id": "53"
+                      }
+                    ],
+                    "node_type": "Or",
+                    "ref_id": "54"
+                  }
+                ],
+                "ref_id": "55"
+              }
+            ],
+            "define_name": "Initial Population"
+          }
+        ],
+        "identifier": {
+          "id": "ExampleMeasure",
+          "version": "0.0.001"
+        }
+      },
+      "is_main_library": true,
+      "is_top_level": true,
+      "library_name": "ExampleMeasure",
+      "library_version": "0.0.001",
+      "statement_dependencies": [
+        {
+          "_id": "5d03a7d5d7c8ac0e2e80c6be",
+          "statement_name": "Patient"
+        },
+        {
+          "_id": "5d03a7d5d7c8ac0e2e80c6bf",
+          "statement_name": "Initial Population"
+        }
+      ]
+    }
+  ],
+  "created_at": "2019-06-14T13:57:41.986Z",
+  "description": "Test",
+  "hqmf_id": "2C91C386-6544-2AF5-0165-4437BE760006",
+  "hqmf_set_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
+  "hqmf_version_number": "0",
+  "main_cql_library": "ExampleMeasure",
+  "measure_attributes": [
+    {
+      "code": "OTH",
+      "value": "",
+      "name": "eCQM Identifier (Measure Authoring Tool)",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "eCQM Identifier (Measure Authoring Tool)"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "OTH",
+      "value": "Not Applicable",
+      "name": "NQF Number",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "NQF Number"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Not Applicable",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "COPY",
+      "value": "Test",
+      "name": "Copyright",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "COPY",
+        "title": "Copyright"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DISC",
+      "value": "Test",
+      "name": "Disclaimer",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DISC",
+        "title": "Disclaimer"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRSCORE",
+      "name": "Measure Scoring",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRSCORE",
+        "title": "Measure Scoring"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.1063",
+        "code": "COHORT",
+        "title": "Cohort"
+      }
+    },
+    {
+      "code": "MSRTYPE",
+      "name": "Measure Type",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRTYPE",
+        "title": "Measure Type"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.1063",
+        "code": "PROCESS",
+        "title": "PROCESS"
+      }
+    },
+    {
+      "code": "STRAT",
+      "value": "None",
+      "name": "Stratification",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "STRAT",
+        "title": "Stratification"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRADJ",
+      "value": "None",
+      "name": "Risk Adjustment",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRADJ",
+        "title": "Risk Adjustment"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRAGG",
+      "value": "None",
+      "name": "Rate Aggregation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRAGG",
+        "title": "Rate Aggregation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "RAT",
+      "value": "Test",
+      "name": "Rationale",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "RAT",
+        "title": "Rationale"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "CRS",
+      "value": "Test",
+      "name": "Clinical Recommendation Statement",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "CRS",
+        "title": "Clinical Recommendation Statement"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IDUR",
+      "value": "Test",
+      "name": "Improvement Notation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IDUR",
+        "title": "Improvement Notation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Test",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DEF",
+      "value": "Test",
+      "name": "Definition",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DEF",
+        "title": "Definition"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "GUIDE",
+      "value": "Test",
+      "name": "Guidance",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "GUIDE",
+        "title": "Guidance"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "TRANF",
+      "value": "Test",
+      "name": "Transmission Format",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "TRANF",
+        "title": "Transmission Format"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IPOP",
+      "value": "Test",
+      "name": "Initial Population",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IPOP",
+        "title": "Initial Population"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "SDE",
+      "value": "Test",
+      "name": "Supplemental Data Elements",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "SDE",
+        "title": "Supplemental Data Elements"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Test",
+        "media_type": "text/plain"
+      }
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  },
+  "measure_scoring": "PROPORTION",
+  "patient_ids": [
+
+  ],
+  "population_criteria": {
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "hqmf_id": "FBB21EE0-97F1-429E-9BF4-A349B7220D8B",
+      "preconditions": [
+        {
+          "id": 2,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "ExampleMeasure__Initial_Population__3F8D4E94_8C2F_4AB2_8766_66321B452400"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    }
+  },
+  "population_sets": [
+    {
+      "_id": "5d03a7d5d7c8ac0e2e80c6c3",
+      "population_set_id": "PopulationCriteria1",
+      "populations": {
+        "IPP": {
+          "_id": "5d03a7d5d7c8ac0e2e80c6c5",
+          "hqmf_id": "FBB21EE0-97F1-429E-9BF4-A349B7220D8B",
+          "library_name": "ExampleMeasure",
+          "statement_name": "Initial Population"
+        },
+        "_id": "5d03a7d5d7c8ac0e2e80c6c4",
+        "_type": "CQM::ProportionPopulationMap"
+      },
+      "title": "Population Criteria Section"
+    }
+  ],
+  "source_data_criteria": [
+    {
+      "_id": "5d03a7d5d7c8ac0e2e80c696",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1254",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
+      "description": "Medication, Order: High-RiskMedicationsWithDaysSupplyCriteria",
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
+      "id": {
+        "_id": "5d03a7d5d7c8ac0e2e80c6c0",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d03a7d5d7c8ac0e2e80c696"
+      },
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "order",
+      "qdmTitle": "Medication, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "refills": null,
+      "relevantPeriod": null,
+      "route": null,
+      "setting": null,
+      "supply": null,
+      "_type": "QDM::MedicationOrder"
+    },
+    {
+      "_id": "5d03a7d5d7c8ac0e2e80c697",
+      "authorDatetime": null,
+      "category": null,
+      "codeListId": "drc-50c46fa4941d94d381579db675ebc34f5af327c8db6633bb836b865fb4391957",
+      "dataElementCodes": [
+
+      ],
+      "description": "Communication, Performed: Communication, Performed",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.132",
+      "id": {
+        "_id": "5d03a7d5d7c8ac0e2e80c6c1",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d03a7d5d7c8ac0e2e80c697"
+      },
+      "medium": null,
+      "negationRationale": null,
+      "qdmCategory": "communication",
+      "qdmStatus": "performed",
+      "qdmTitle": "Communication, Performed",
+      "qdmVersion": "5.4",
+      "recipient": null,
+      "relevantPeriod": null,
+      "sender": null,
+      "_type": "QDM::CommunicationPerformed"
+    },
+    {
+      "_id": "5d03a7d5d7c8ac0e2e80c698",
+      "authorDatetime": null,
+      "codeListId": "drc-268fb7f090fdffca2fd3e2cb3b86baeffec27ffd4a1a081d21fce33ff8caede5",
+      "dataElementCodes": [
+
+      ],
+      "description": "Assessment, Order: Assessment, Order",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.131",
+      "id": {
+        "_id": "5d03a7d5d7c8ac0e2e80c6c2",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d03a7d5d7c8ac0e2e80c698"
+      },
+      "negationRationale": null,
+      "qdmCategory": "assessment",
+      "qdmStatus": "order",
+      "qdmTitle": "Assessment, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "_type": "QDM::AssessmentOrder"
+    }
+  ],
+  "title": "Example Measure",
+  "updated_at": "2019-06-14T13:57:41.986Z",
+  "user_id": "501fdba3044a111b98000001",
+  "value_set_ids": [
+    "5d03a7d5d7c8ac0e2e80c699",
+    "5d03a7d5d7c8ac0e2e80c69a",
+    "5d03a7d5d7c8ac0e2e80c69b",
+    "5d03a7d5d7c8ac0e2e80c69c",
+    "5d03a7d5d7c8ac0e2e80c69d",
+    "5d03a7d5d7c8ac0e2e80c69e",
+    "5d03a7d5d7c8ac0e2e80c69f",
+    "5d03a7d5d7c8ac0e2e80c6a0"
+  ]
+}

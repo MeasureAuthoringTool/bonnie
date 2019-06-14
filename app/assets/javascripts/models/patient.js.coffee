@@ -147,6 +147,7 @@ class Thorax.Models.Patient extends Thorax.Model
 
   getConceptsForDataElement: (qdmStatus, measure) ->
     dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
+    return [] unless dataCriteria?
     valueSet = (measure.valueSets()?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
     valueSet?.concepts || []
 
@@ -251,8 +252,8 @@ class Thorax.Models.Patient extends Thorax.Model
       else
         start_date = null
       end_date = if sdc.get(timingInterval)?.high then moment(sdc.get(timingInterval).high, 'X') else null
-      # patient_characteristics do not have start dates
-      if !start_date && sdc.get('qdmCategory') != 'patient_characteristic'
+      # patient_characteristics do not have start dates except for payer
+      if !start_date && (sdc.get('qdmCategory') != 'patient_characteristic' && sdc.get('_type') != 'QDM::PatientCharacteristicPayer')
         errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} must have start date"]
       if end_date && start_date && end_date.isBefore start_date
         errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date cannot be before start date"]
