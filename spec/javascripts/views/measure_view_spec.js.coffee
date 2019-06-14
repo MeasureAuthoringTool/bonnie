@@ -1,6 +1,6 @@
 
   describe 'MeasureView', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
@@ -22,12 +22,25 @@
       @cqlMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @measure, measure: @measure, patients: @patients)
       @cqlMeasureValueSetsView.appendTo 'body'
 
-    afterEach ->
+    afterAll ->
       # Remove the 11 extra codes that were added for value set overlap testing
       @vs1.concepts.splice(-11, 11)
       @vs2.concepts.splice(-11, 11)
       @measureView.remove()
       @cqlMeasureValueSetsView.remove()
+
+    # makes sure the calculation percentage hasn't changed.
+    # should be 33% for CMS160v6 with given test patients as of 2018-03-29
+    describe '...', ->
+      beforeEach (done) ->
+        result = @measure.get('populations').at(0).calculate(@patient)
+        waitsForAndRuns( -> result.isPopulated()
+          ,
+          ->
+            done()
+        )
+      it 'computes coverage', ->
+        expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')
 
     it 'shows measurement period indicator', ->
       expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toExist()
@@ -50,14 +63,6 @@
       expect(@measureLayoutView.$el).toContainText @measure.get('cqmMeasure').cms_id
       expect(@measureView.$el).toContainText @measure.get('cqmMeasure').description
 
-    it 'renders measure populations', ->
-      expect(@measureView.$('[data-toggle="tab"]')).toExist()
-      expect(@measureView.$('.rationale-target')).toBeVisible()
-      expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
-      @measureView.$('[data-toggle="collapse"]').not('.value_sets').click()
-      expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).toHaveClass('collapsed')
-      @measureView.$('[data-toggle="tab"]').not('.value_sets').last().click()
-      expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
 
     it 'renders patient results', ->
       expect(@measureView.$('.patient')).toExist()
@@ -67,21 +72,18 @@
       expect(@measureView.$('.toggle-result')).toBeVisible()
       expect(@measureView.$('.btn-show-coverage')).toBeVisible()
 
-    # makes sure the calculation percentage hasn't changed.
-    # should be 33% for CMS160v6 with given test patients as of 2018-03-29
-    describe '...', ->
-      beforeEach (done) ->
-        result = @measure.get('populations').at(0).calculate(@patient)
-        waitsForAndRuns( -> result.isPopulated()
-          ,
-          ->
-            done()
-        )
-      it 'computes coverage', ->
-        expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')
+    it 'renders measure populations', ->
+      expect(@measureView.$('[data-toggle="tab"]')).toExist()
+      expect(@measureView.$('.rationale-target')).toBeVisible()
+      expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
+      @measureView.$('[data-toggle="collapse"]').not('.value_sets').click()
+      expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).toHaveClass('collapsed')
+      @measureView.$('[data-toggle="tab"]').not('.value_sets').last().click()
+      expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
+
 
   describe 'CQL', ->
-    beforeEach ->
+    beforeAll ->
       @bonnie_measures_old = bonnie.measures
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
@@ -91,31 +93,25 @@
 
       @cqlMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
       @cqlMeasureValueSetsView.appendTo 'body'
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
 
-    afterEach ->
+    afterAll ->
       bonnie.measures = @bonnie_measures_old
       @cqlMeasureValueSetsView.remove()
+      @measureView.remove()
 
     it 'has QRDA export button disabled', ->
-      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
-      @measureView.appendTo 'body'
       expect(@measureView.$("button[data-call-method=exportQrdaPatients]")).toBeDisabled()
-      @measureView.remove()
 
     it 'does not show SDEs for older measure', ->
-      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
-      @measureView.appendTo 'body'
       expect(@measureView.$(".sde-defines")).not.toExist()
-      @measureView.remove()
 
     it 'can click excel export button', ->
-      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
-      @measureView.appendTo 'body'
       spyOn($, 'fileDownload').and.callFake () ->
         expect(arguments[0]).toEqual('patients/excel_export')
       @measureView.$("button[data-call-method=exportExcelPatients]").click()
       expect($.fileDownload).toHaveBeenCalled()
-      @measureView.remove()
 
     describe 'value sets view', ->
       it 'exists', ->
@@ -159,7 +155,6 @@
         expect(@cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets')).not.toHaveClass('collapsed')
 
       describe 'overlapping value sets', ->
-
         beforeEach ->
           @cqlOverlapMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
           # reset initial overlapping value sets collection
@@ -227,7 +222,7 @@
             expect(child.attributes.codes.length).toEqual(10)
 
   describe 'Hybrid Measures', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS529v0/CMS529v0.json', 'cqm_measure_data/special_measures/CMS529v0/value_sets.json'
@@ -236,7 +231,7 @@
       @measureView = new Thorax.Views.Measure(model: @measure, patients: @patients, populations: @measure.get('populations'), population: @measure.get('displayedPopulation'))
       @measureView.appendTo 'body'
 
-    afterEach ->
+    afterAll ->
       @measureView.remove()
 
     it 'display SDE section', ->
