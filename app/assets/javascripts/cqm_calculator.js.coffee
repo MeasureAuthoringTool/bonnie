@@ -146,7 +146,7 @@
 
     # get the results for populations. use the keys from population_relevance
     for pop of cqmResult.population_relevance
-      result.set pop, cqmResult[pop]
+      result.set pop, cqmResult[pop] unless pop == 'observation_values'
 
     # clause results
     result.set 'clause_results', cqmResult.clause_results_by_clause()
