@@ -138,8 +138,11 @@
     result.set(
       population_relevance: cqmResult.population_relevance
       episode_results: cqmResult.episode_results
-      observation_values: cqmResult.observation_values
     )
+
+    # turn observation_values into a regular array
+    if cqmResult.observation_values?
+      result.set 'observation_values', [].concat(cqmResult.observation_values)
 
     # get the results for populations. use the keys from population_relevance
     for pop of cqmResult.population_relevance
@@ -151,4 +154,10 @@
     # statement results
     result.set 'statement_results', cqmResult.statement_results_by_statement()
 
-    # statement_relevance
+    # pull statement_relevance info out of statement_results
+    statement_relevance = {}
+    for libName, statement of result.get('statement_results')
+      statement_relevance[libName] = {}
+      for statementName, statementResult of statement
+        statement_relevance[libName][statementName] = statementResult.relevance
+    result.set 'statement_relevance', statement_relevance

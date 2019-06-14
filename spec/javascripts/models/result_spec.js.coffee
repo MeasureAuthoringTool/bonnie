@@ -31,9 +31,9 @@ describe 'Continuous Variable Calculations', ->
     patient = @patients.findWhere(_id: '5cc9fbb6d7c8ac83080ceba9') # 1 ED Visit
     result = @population.calculate(patient)
     expect(result.get('observation_values')).toEqual([15])
-    expect(result.get('extendedData').population_relevance['observation_values']).toBe(true)
-    expect(result.get('extendedData').population_relevance['MSRPOPL']).toBe(true)
-    expect(result.get('extendedData').population_relevance['MSRPOPLEX']).toBe(true)
+    expect(result.get('population_relevance')['observation_values']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [15] }
@@ -44,9 +44,9 @@ describe 'Continuous Variable Calculations', ->
     result = @population.calculate(patient)
     # values are ordered when created by the calculator
     expect(result.get('observation_values')).toEqual([15, 25])
-    expect(result.get('extendedData').population_relevance['observation_values']).toBe(true)
-    expect(result.get('extendedData').population_relevance['MSRPOPL']).toBe(true)
-    expect(result.get('extendedData').population_relevance['MSRPOPLEX']).toBe(true)
+    expect(result.get('population_relevance')['observation_values']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [25] }
@@ -59,9 +59,9 @@ describe 'Continuous Variable Calculations', ->
     patient = @patients.findWhere(_id: '5cc9fbb6d7c8ac83080cebbf') # 2 ED Visits 1 Excl
     result = @population.calculate(patient)
     expect(result.get('observation_values')).toEqual([25])
-    expect(result.get('extendedData').population_relevance['observation_values']).toBe(true)
-    expect(result.get('extendedData').population_relevance['MSRPOPL']).toBe(true)
-    expect(result.get('extendedData').population_relevance['MSRPOPLEX']).toBe(true)
+    expect(result.get('population_relevance')['observation_values']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [25] }
@@ -74,9 +74,9 @@ describe 'Continuous Variable Calculations', ->
     patient = @patients.findWhere(_id: '5cc9fbb6d7c8ac83080cebcb') # 2 ED Visits 2 Excl
     result = @population.calculate(patient)
     expect(result.get('observation_values')).toEqual([])
-    expect(result.get('extendedData').population_relevance['observation_values']).toBe(false)
-    expect(result.get('extendedData').population_relevance['MSRPOPL']).toBe(true)
-    expect(result.get('extendedData').population_relevance['MSRPOPLEX']).toBe(true)
+    expect(result.get('population_relevance')['observation_values']).toBe(false)
+    expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, observation_values: [] }

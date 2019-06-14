@@ -35,7 +35,7 @@ module ExcelExportHelper
             'observation_values' => []
           }
 
-          result[pop_set_or_strat[:id]]['extendedData']['population_relevance'].each_key do |population_criteria|
+          result[pop_set_or_strat[:id]]['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'observation_values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
               result[pop_set_or_strat[:id]]['episode_results']&.each_value do |episode|
