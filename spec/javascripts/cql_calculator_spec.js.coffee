@@ -1,5 +1,5 @@
 describe 'cqmCalculator', ->
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @cqm_calculator = new CQMCalculator()
 
@@ -106,7 +106,7 @@ describe 'cqmCalculator', ->
 
     describe 'pretty statement results', ->
       # NOTE: the pretty generation test is now covered within the cqm-execution repository itself
-      beforeEach ->
+      beforeAll ->
         measure = loadMeasureWithValueSets('cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json')
         patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS160v6/Expired_DENEX.json')], parse: true
         patient = patients.at(0)
@@ -122,7 +122,7 @@ describe 'cqmCalculator', ->
         expect(@unprettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Numerator 1'].pretty).toEqual(undefined)
 
     describe 'episode of care based relevance map', ->
-      beforeEach ->
+      beforeAll ->
         @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS177/CMS177v6.json', 'cqm_measure_data/core_measures/CMS177/value_sets.json'
         failIpp = getJSONFixture 'patients/CMS177v6/Fail_IPP.json'
         passNumer = getJSONFixture 'patients/CMS177v6/Pass_Numer.json'
@@ -148,7 +148,7 @@ describe 'cqmCalculator', ->
         expect(result.get('extendedData').population_relevance).toEqual({ IPP: true, DENOM: true, NUMER: true })
 
     describe 'patient based relevance map', ->
-      beforeEach ->
+      beforeAll ->
         @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS158/CMS158v6.json', 'cqm_measure_data/core_measures/CMS158/value_sets.json'
         failIpp = getJSONFixture 'patients/CMS158v6/Fail_IPP.json'
         passNumer = getJSONFixture 'patients/CMS158v6/Pass_Numer.json'
@@ -163,7 +163,7 @@ describe 'cqmCalculator', ->
         expect(result.get('extendedData').population_relevance).toEqual({ IPP: true, DENOM: false, NUMER: false, DENEXCEP: false})
 
     describe 'execution engine using passed in timezone offset', ->
-      beforeEach ->
+      beforeAll ->
         @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS760/CMS760v0.json', 'cqm_measure_data/special_measures/CMS760/value_sets.json'
         correctTimezone = getJSONFixture 'patients/CMS760v0/Correct_Timezone.json'
         @patients = new Thorax.Collections.Patients [correctTimezone], parse: true

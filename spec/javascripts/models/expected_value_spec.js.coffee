@@ -1,5 +1,5 @@
   describe 'Expected vs  Actual Comparisons', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
@@ -10,7 +10,7 @@
       bonnie.measures.add @cqlMeasure
       @measureView.appendTo 'body'
 
-    afterEach ->
+    afterAll ->
       @measureView.remove()
 
     xit 'compares actual vs expected to only 8 decimal places', ->

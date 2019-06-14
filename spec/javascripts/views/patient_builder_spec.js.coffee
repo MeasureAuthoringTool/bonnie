@@ -1,6 +1,6 @@
 describe 'PatientBuilderView', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS134/CMS134v6.json', 'cqm_measure_data/core_measures/CMS134/value_sets.json'
     @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS134v6/Elements_Test.json'), getJSONFixture('patients/CMS134v6/Fail_Hospice_Not_Performed_Denex.json')], parse: true
@@ -18,7 +18,7 @@ describe 'PatientBuilderView', ->
     spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
     @$el = @patientBuilder.$el
 
-  afterEach ->
+  afterAll: ->
     bonnie.measures = @bonnie_measures_old
 
   it 'should not open patient builder for non existent measure', ->
@@ -114,10 +114,10 @@ describe 'PatientBuilderView', ->
     it "tries to save the patient correctly", ->
       expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe "changing and blurring basic fields", ->
-    beforeEach ->
+    beforeAll ->
       @patientBuilder.$('select[name=gender]').val('F').change()
       @patientBuilder.$(':input[name=birthdate]').blur()
 
@@ -126,7 +126,7 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
 
   describe "adding encounters to patient", ->
-    beforeEach ->
+    beforeAll ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.render()
       # simulate dragging an encounter onto the patient
@@ -238,10 +238,11 @@ describe 'PatientBuilderView', ->
       @addEncounter 1, '.criteria-container.droppable'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe "editing basic attributes of a criteria", ->
-    beforeEach ->
+    # SKIP: This should be re-enabled with patient builder timing work
+    beforeAll ->
       @patientBuilder.appendTo 'body'
       # need to be specific with the query to select one of the data criteria with a period.
       # this is due to QDM 5.0 changes which make several data criteria only have an author time.
@@ -259,21 +260,27 @@ describe 'PatientBuilderView', ->
       expect(dataCriteria.get('prevelancePeriod').low).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
       expect(dataCriteria.get('prevelancePeriod').high).toBeUndefined()
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe "setting and unsetting a criteria as not performed", ->
-    beforeEach ->
+    beforeAll ->
       @patientBuilder.appendTo 'body'
 
-    xit "serializes negations of source_data_criteria correctly", ->
-      # 0th source_data_criteria is a diagnosis and therefore cannot have a negation and will not contain the negation_code_list_id field
-      expect(@patientBuilder.model.get('source_data_criteria').at(0).get('negation')).toBe false
-      expect(@patientBuilder.model.get('source_data_criteria').at(0).get('negation_code_list_id')).toEqual undefined
-      # The 1st source_data_criteria is an intervention with negation set to 'Emergency Department Visit'
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation')).toBe true
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.117.1.7.1.292'
+    it "does not serialize negationRationale for element that can't be negated", ->
+      # 0th source_data_criteria is a diagnosis and therefore cannot have a negation and will not contain the negation
+      expect(@patientBuilder.model.get('source_data_criteria').at(0).get('negationRationale')).toEqual undefined
+
+    it "serializes negationRationale to null for element that can be negated but isnt", ->
+      # 1st source_data_criteria is an encounter that is not negated
+      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negationRationale')).toEqual null
+
+    it "serializes negationRationale for element that is negated", ->
+      # The 2nd source_data_criteria is an intervention with negationRationale set to 'Emergency Department Visit' code:
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negationRationale').code).toEqual '4525004'
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negationRationale').system).toEqual 'SNOMED-CT'
 
     xit "toggles negations correctly", ->
+      # SKIP: should be re-enabled when negation part of patient builder is put back on
       # Find first instance of a negated source_data_criteria and un-negate it
       @patientBuilder.$('.criteria-data').children().toggleClass('hide')
       @patientBuilder.$('input[name=negation]:first').click()
@@ -282,10 +289,11 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation')).toBe false
       expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation_code_list_id')).toEqual ""
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe 'author date time', ->
     xit "removes author date time field value when not performed is checked", ->
+      # SKIP: Should be re-enabled with patient_builder timing attributes
       authorDateTimePatient = @patients.models.filter((patient) -> patient.get('last') is 'AuthorDateTime')[0]
       patientBuilder = new Thorax.Views.PatientBuilder(model: authorDateTimePatient, measure: @measure, patients: @patients)
       patientBuilder.appendTo 'body'
@@ -299,18 +307,18 @@ describe 'PatientBuilderView', ->
       patientBuilder.remove()
 
   describe "blurring basic fields of a criteria", ->
-    beforeEach ->
+    beforeAll ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$(':text[name=start_date]:first').blur()
 
-    xit "materializes the patient", ->
+    it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
       expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe "adding codes to an encounter", ->
-    beforeEach ->
+    beforeAll ->
       @patientBuilder.appendTo 'body'
       @addCode = (codeSet, code, submit = true) ->
         @patientBuilder.$('.codeset-control:first').val(codeSet).change()
@@ -321,10 +329,10 @@ describe 'PatientBuilderView', ->
     # FIXME Our test JSON doesn't yet support value sets very well... write these tests when we have a source of value sets independent of the measures
     it "adds a code", ->
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe "adding values to a criteria", ->
-    beforeEach ->
+    beforeAll ->
       @patientBuilder.appendTo 'body'
       @addScalarValue = (input, units, submit=true) ->
         @patientBuilder.$('select[name=type]:first').val('PQ').change()
@@ -393,10 +401,10 @@ describe 'PatientBuilderView', ->
       @addScalarValue '', '', false
       expect(@patientBuilder.$('.value-formset .btn-primary:first')).toBeDisabled()
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe "adding field values to an encounter", ->
-    beforeEach ->
+    beforeAll ->
       @patientBuilder.appendTo 'body'
       @addScalarFieldValue = (fieldType, input, units, submit=true) ->
         @patientBuilder.$('select[name=key]').val(fieldType)
@@ -458,10 +466,10 @@ describe 'PatientBuilderView', ->
       @addScalarFieldValue '', '', '', false
       expect(@patientBuilder.$('.field-value-formset .btn-primary:first')).toBeDisabled()
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe "setting expected values", ->
-    beforeEach ->
+    beforeAll ->
       @patientBuilder.appendTo 'body'
       @selectPopulationEV = (population, save=true) ->
         @patientBuilder.$("input[type=checkbox][name=#{population}]:first").click()
@@ -524,10 +532,10 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe "setting expected values for CV measure", ->
-    beforeEach ->
+    beforeAll ->
       cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
       patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS32v7/patients.json'), parse: true
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
@@ -586,10 +594,10 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('MSRPOPLEX')).toEqual 0
       expect(expectedValues.get('OBSERV')).toEqual undefined
 
-    afterEach -> @patientBuilder.remove()
+    afterAll -> @patientBuilder.remove()
 
   describe 'CQL', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS347/CMS735v0.json'), parse: true
       # preserve atomicity
@@ -597,7 +605,7 @@ describe 'PatientBuilderView', ->
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add(@cqlMeasure, {parse: true})
 
-    afterEach ->
+    afterAll ->
       bonnie.measures = @bonnie_measures_old
 
     xit "laboratory test performed should have custom view for components", ->
@@ -686,7 +694,7 @@ describe 'PatientBuilderView', ->
 
   describe 'Composite Measure', ->
 
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       # preserve atomicity
       @bonnie_measures_old = bonnie.measures
@@ -700,10 +708,10 @@ describe 'PatientBuilderView', ->
       @components = @components.map((component) -> new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) -> bonnie.measures.push(component))
 
-      @compositePatients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS890/patients.json'), parse: true
+      @compositePatients = new Thorax.Collections.Patients getJSONFixture('patients/CMS890/patients.json'), parse: true
       @compositeMeasure.populateComponents()
 
-    afterEach ->
+    afterAll ->
       bonnie.measures = @bonnie_measures_old
 
     xit "should floor the observ value to at most 8 decimals", ->
@@ -740,7 +748,7 @@ describe 'PatientBuilderView', ->
 describe 'Direct Reference Code Usage', ->
   # Originally BONNIE-939
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
     bonnie.measures.add(@measure, { parse: true })
@@ -769,7 +777,7 @@ describe 'Direct Reference Code Usage', ->
 describe 'Allergy Intolerance', ->
   # Originally BONNIE-785
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS12v0/CMS12v0.json', 'cqm_measure_data/special_measures/CMS12v0/value_sets.json'
     bonnie.measures.add @measure
@@ -781,7 +789,7 @@ describe 'Allergy Intolerance', ->
     @patientBuilder.render()
     @patientBuilder.appendTo('body')
 
-  afterEach ->
+  afterAll ->
     @patientBuilder.remove()
 
   xit 'is displayed on Patient Builder Page in Elements section', ->

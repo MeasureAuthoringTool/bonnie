@@ -1,5 +1,5 @@
 describe 'CQL', ->
-  beforeEach ->
+  beforeAll ->
     bonnie.measures = new Thorax.Collections.Measures()
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS10/CMS10v0.json', 'cqm_measure_data/special_measures/CMS10/value_sets.json'
@@ -11,7 +11,7 @@ describe 'CQL', ->
 
   describe 'Coverage', ->
     describe 'first patient has correct', ->
-      beforeEach ->
+      beforeAll ->
         @measure.get('patients').add @patient1
         @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
         @measureView = @measureLayoutView.showMeasure()
@@ -63,7 +63,7 @@ describe 'CQL', ->
         expect(MedsNotDocumented.find(".clause-uncovered").length).toBe(0)
 
     describe 'both patients have correct', ->
-      beforeEach ->
+      beforeAll ->
         @measure.get('patients').add @patient1
         @measure.get('patients').add @patient2
         @population = @measure.get('populations').first()
@@ -118,7 +118,7 @@ describe 'CQL', ->
 
   describe 'Coloring', ->
     describe 'first patient has correct', ->
-      beforeEach ->
+      beforeAll ->
         @measure.get('patients').add @patient1
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient1, measure: @measure)
         @patientBuilder.render()
@@ -169,7 +169,7 @@ describe 'CQL', ->
         expect(MedsNotDocumented.find(".clause-false").length).toBe(0)
 
     describe 'second patient has correct', ->
-      beforeEach ->
+      beforeAll ->
         @measure.get('patients').add @patient2
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient2, measure: @measure)
         @patientBuilder.render()

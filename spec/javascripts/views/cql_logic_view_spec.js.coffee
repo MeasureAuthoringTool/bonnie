@@ -1,6 +1,6 @@
 describe 'CqlLogicView', ->
   describe 'Population Logic View', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS334v1/CMS334v1.json'), parse: true
 
@@ -15,7 +15,7 @@ describe 'CqlLogicView', ->
             expect(populationStatement1.name).not.toEqual(populationStatement2.name)
 
   describe 'sorting', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
 
@@ -152,7 +152,7 @@ describe 'CqlLogicView', ->
       expect(populationLogicView.$el.html()).not.toContain 'This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.'
 
   describe 'CQL Clause View', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMSv9999/CMSv9999.json', 'cqm_measure_data/special_measures/CMSv9999/value_sets.json'
       patientBlank = getJSONFixture 'patients/CMSv9999/Patient_Blank.json'
@@ -167,12 +167,14 @@ describe 'CqlLogicView', ->
       expect(-> populationLogicView.showRationale(results)).not.toThrow()
 
   describe 'CQL Statement Results', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS146/CMS146v6.json', 'cqm_measure_data/special_measures/CMS146/value_sets.json'
       passIpp = getJSONFixture 'patients/CMS146v6/Pass_IPP.json'
       @patients = new Thorax.Collections.Patients [passIpp], parse: true
       @population = @measure.get('populations').first()
+
+    beforeEach ->
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, population: @measure.get('populations').first())
       @populationLogicView.render()
       @populationLogicView.appendTo('body')

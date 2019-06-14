@@ -1,6 +1,6 @@
 describe 'CqlTruncatedStatementView', ->
   describe 'nominal function', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
       @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS460/patients.json'), parse: true

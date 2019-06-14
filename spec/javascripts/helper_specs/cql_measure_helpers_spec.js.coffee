@@ -1,6 +1,6 @@
 describe 'CQLMeasureHelpers', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
 
   describe 'findAllLocalIdsInStatementByName', ->
@@ -50,7 +50,7 @@ describe 'CQLMeasureHelpers', ->
 
 
   describe '_findLocalIdForLibraryRef for functionRefs', ->
-    beforeEach ->
+    beforeAll ->
       # use a chunk of this fixture for these tests.
       measure = getJSONFixture('cqm_measure_data/special_measures/CMS146/CMS146v6.json')
       # the annotation for the 'Initial Population' will be used for these tests
@@ -78,7 +78,7 @@ describe 'CQLMeasureHelpers', ->
       expect(ret).toBeNull()
 
   describe '_findLocalIdForLibraryRef for expressionRefs', ->
-    beforeEach ->
+    beforeAll ->
       # use a chunk of this fixture for these tests.
       measure = getJSONFixture('cqm_measure_data/special_measures/CMS146/CMS146v6.json')
       # the annotation for the 'In Hospice' will be used for these tests
@@ -99,7 +99,7 @@ describe 'CQLMeasureHelpers', ->
       expect(ret).toBeNull()
 
   describe '_findLocalIdForLibraryRef for expressionRefs with libraryRef in clause', ->
-    beforeEach ->
+    beforeAll ->
       # use a chunk of this fixture for these tests.
       measure = getJSONFixture('cqm_measure_data/deprecated_measures/CMS13/CMS13v2.json')
       # the annotation for the 'Comfort Measures during Hospitalization' will be used for these tests

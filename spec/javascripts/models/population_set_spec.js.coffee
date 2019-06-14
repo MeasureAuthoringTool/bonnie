@@ -1,6 +1,6 @@
 describe 'Population', ->
 
-  beforeEach ->
+  beforeAll ->
     @population = new Thorax.Models.PopulationSet()
 
   it 'should return index 0 for stratifier without appended index', ->

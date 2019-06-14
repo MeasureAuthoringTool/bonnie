@@ -1,10 +1,10 @@
 describe 'Coverage', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     bonnie.measures = new Thorax.Collections.Measures()
     @valueSetsPath = 'cqm_measure_data/special_measures/CMS890/value_sets.json'
-    @cqlPatients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS890/patients.json'), parse: true
+    @cqlPatients = new Thorax.Collections.Patients getJSONFixture('patients/CMS890/patients.json'), parse: true
     @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
 
   xit 'calculates coverage correctly for composite measures', ->

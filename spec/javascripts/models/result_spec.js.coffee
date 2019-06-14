@@ -1,6 +1,6 @@
 describe 'Result', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
     collection = new Thorax.Collections.Patients getJSONFixture('patients/core_measures/CMS160/patients.json'), parse: true
@@ -18,7 +18,7 @@ describe 'Result', ->
 
 describe 'Continuous Variable Calculations', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
 
     @cqm_calculator = new CQMCalculator()

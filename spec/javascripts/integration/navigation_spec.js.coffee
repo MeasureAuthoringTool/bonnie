@@ -1,6 +1,6 @@
 describe 'Navigation', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @measures = new Thorax.Collections.Measures()
     measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
@@ -9,11 +9,11 @@ describe 'Navigation', ->
 
   describe 'navigating the measures list view', ->
 
-    beforeEach ->
+    beforeAll ->
       @measuresView = new Thorax.Views.Measures(collection: @measures)
       @measuresView.render()
 
-    afterEach ->
+    afterAll ->
       @measuresView.remove()
 
     it 'should link to the import measure view', ->
@@ -27,11 +27,11 @@ describe 'Navigation', ->
 
   describe 'navigating each measure view', ->
 
-    beforeEach ->
+    beforeAll ->
       @measureView = new Thorax.Views.MeasureLayout(measure: @measures.first(), patients: @patients)
       @measureView = @measureView.showMeasure()
 
-    afterEach ->
+    afterAll ->
       @measureView.remove()
 
     it 'should link to the update measure view', ->

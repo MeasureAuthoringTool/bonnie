@@ -2,15 +2,15 @@ describe 'Production_PatientBuilderView', ->
   # these tests need to be merged into the patient_builder_spec.js.coffee file in cql_testing_overhaul
   # note: this uses a different measure and patient, so must be in a different suite
 
-  beforeEach ->
+  beforeAll ->
     # preserve atomicity
     @bonnie_measures_old = bonnie.measures
 
-  afterEach ->
+  afterAll ->
     bonnie.measures = @bonnie_measures_old
 
   describe 'CMS160 tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
       expiredDenex = getJSONFixture('patients/CMS160v6/Expired_DENEX.json')
@@ -19,7 +19,7 @@ describe 'Production_PatientBuilderView', ->
       bonnie.measures.add @measure
 
     describe 'Patient "Expired DENEX"', ->
-      beforeEach ->
+      beforeAll ->
         @patient = @patients.at(0) # Expired DENEX
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
@@ -35,7 +35,7 @@ describe 'Production_PatientBuilderView', ->
         expect(expired_code[0].hasMatch(new cql.Code('419099009', 'SNOMED-CT'))).toBe(true)
 
   describe 'CMS722 Tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @bonnie_measures_old = bonnie.measures
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS722/CMS722v0.json', 'cqm_measure_data/special_measures/CMS722/value_sets.json'
@@ -50,7 +50,7 @@ describe 'Production_PatientBuilderView', ->
         @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
         @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
 
-    afterEach ->
+    afterAll ->
       bonnie.measures = @bonnie_measures_old
 
     xit "Can Add A Coded Result To DiagnosticStudyPerformed Data Criteria", ->
@@ -75,7 +75,7 @@ describe 'Production_PatientBuilderView', ->
       expect(result.get('statement_results').Test31['Newborn Hearing Screening Right'].final).toEqual "TRUE"
 
   describe 'Medicare Fee For Service tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS759/CMS759v1.json', 'cqm_measure_data/special_measures/CMS759v1/value_sets.json'
       numerPass = getJSONFixture('patients/CMS759v1/Numer_PASS.json')
@@ -84,16 +84,17 @@ describe 'Production_PatientBuilderView', ->
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @measure
-    afterEach ->
+
+    afterAll ->
       bonnie.measures = @bonnie_measures_old
 
     describe 'Patient "Numer PASS"', ->
-      beforeEach ->
+      beforeAll ->
         @patient = @patients.at(0) # Numer Pass
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
 
-      afterEach ->
+      afterAll ->
         @patientBuilder.remove()
 
       it 'Medicare Fee for Service characteristic should be visible', ->
@@ -108,7 +109,7 @@ describe 'Production_PatientBuilderView', ->
         expect(@result.attributes.DENOM).toBe 1
 
   describe 'Direct Reference Code tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS52v7/CMS52v7.json', 'cqm_measure_data/special_measures/CMS52v7/value_sets.json'
       elementDirectReferenceCode = getJSONFixture('patients/CMS52v7/Element_Direct Reference Code.json')
@@ -118,7 +119,7 @@ describe 'Production_PatientBuilderView', ->
       bonnie.measures.add @measure, parse: true
 
     describe 'Patient Direct Reference Code Element', ->
-      beforeEach ->
+      beforeAll ->
         @patient = @patients.at(0) # Element Direct Reference Code
         expect(@measure.get('source_data_criteria').last().get('description')).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         @patientBuilderView = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients, measures: bonnie.measures, inPatientDashboard: false)
@@ -129,7 +130,7 @@ describe 'Production_PatientBuilderView', ->
         @patientBuilderView.appendTo 'body'
         @patientBuilderView.render()
 
-      afterEach ->
+      afterAll ->
         @patientBuilderView.remove()
 
       it 'should have Dapsone in Elements', ->
@@ -146,7 +147,7 @@ describe 'Production_PatientBuilderView', ->
         expect(clauseResults[244].final).toBe('TRUE')
 
   describe 'Participation tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS761/CMS761v0.json', 'cqm_measure_data/special_measures/CMS761/value_sets.json'
       noParticipation = getJSONFixture 'patients/CMS761v0/No_Participation.json'
@@ -167,7 +168,7 @@ describe 'Production_PatientBuilderView', ->
       expect(result.attributes.NUMER).toBe 1
 
   describe 'QDM 5.4', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMSv54321/CMSv54321.json', 'cqm_measure_data/special_measures/CMSv54321/value_sets.json'
       assessmentOrderPass = getJSONFixture 'patients/CMSv54321/Pass_AssessmentOrder.json'

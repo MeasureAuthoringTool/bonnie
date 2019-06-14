@@ -27,7 +27,7 @@ describe 'ImportMeasure view', ->
           return $.Deferred().reject().promise()
 
     describe 'loading', ->
-      beforeEach ->
+      beforeAll ->
         jasmine.getJSONFixtures().clearCache()
 
       it 'remembers we are calculating SDEs', ->

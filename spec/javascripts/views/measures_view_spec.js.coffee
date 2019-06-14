@@ -1,6 +1,6 @@
 describe 'MeasuresView', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @measures = new Thorax.Collections.Measures()
     @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
@@ -8,7 +8,7 @@ describe 'MeasuresView', ->
     @measuresView = new Thorax.Views.Measures(collection: @measures)
     @measuresView.render()
 
-  afterEach ->
+  afterAll ->
     @measuresView.remove()
 
   it 'renders dashboard', ->
@@ -28,7 +28,7 @@ describe 'MeasuresView', ->
     expect(@measuresView.exportBundleView).toBeUndefined()
 
   describe 'Composite Measures', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
       @compositeMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS890/CMS890v0.json', 'cqm_measure_data/special_measures/CMS890/value_sets.json'
@@ -45,7 +45,7 @@ describe 'MeasuresView', ->
       @measuresView = new Thorax.Views.Measures(collection: bonnie.measures.sort(), patients: @compositePatients)
       @measuresView.appendTo 'body'
 
-    afterEach ->
+    afterAll ->
       @measuresView.remove()
 
     it 'Show title of composite measure', ->

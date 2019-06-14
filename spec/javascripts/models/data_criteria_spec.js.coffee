@@ -1,6 +1,5 @@
 describe "SourceDataCriteria", ->
-  beforeEach ->
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
 
   # changed from Authored to Relevant Period for QDM 5.3

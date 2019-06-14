@@ -1,7 +1,7 @@
 describe 'MeasureCollection', ->
 
   describe 'front end measures', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measureCollection = new Thorax.Collections.Measures()
       @measureCMS134 = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
@@ -22,7 +22,7 @@ describe 'MeasureCollection', ->
       expect(@measureCollection.populations().length).toEqual 10
 
   describe 'empty_set', ->
-    beforeEach ->
+    beforeAll ->
       @measureCollection = new Thorax.Collections.Measures()
 
     it 'has no measures', ->

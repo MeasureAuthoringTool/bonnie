@@ -1,5 +1,5 @@
 describe 'Composite Measures', ->
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @valueSetsPath = 'cqm_measure_data/special_measures/CMS890/value_sets.json'
     @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
