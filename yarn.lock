@@ -336,7 +336,7 @@ cql-execution@^1.3.3:
 
 "cqm-execution@https://github.com/projecttacoma/cqm-execution#interval-casting-fixes":
   version "1.0.2"
-  resolved "https://github.com/projecttacoma/cqm-execution#3b3870d8b5cd758a1835b4919b2bdca562e6b024"
+  resolved "https://github.com/projecttacoma/cqm-execution#9e035bff720ab44be9171b97250e88611f5ba428"
   dependencies:
     cqm-models "https://github.com/projecttacoma/cqm-models#interval-casting-fixes"
     lodash "^4.17.5"
@@ -344,7 +344,7 @@ cql-execution@^1.3.3:
 
 "cqm-models@https://github.com/projecttacoma/cqm-models#interval-casting-fixes":
   version "1.1.0"
-  resolved "https://github.com/projecttacoma/cqm-models#63396fcaac432e80d006998531b58daf31edb357"
+  resolved "https://github.com/projecttacoma/cqm-models#841626667d38531ed9f9cbf4e5a9ee9a93be8c77"
   dependencies:
     cql-execution "^1.3.3"
     mongoose "^5.4.14"
