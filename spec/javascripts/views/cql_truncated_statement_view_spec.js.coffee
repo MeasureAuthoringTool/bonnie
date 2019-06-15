@@ -9,7 +9,7 @@ describe 'CqlTruncatedStatementView', ->
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population)
       @populationLogicView.render()
 
-    xit 'is used for OpioidData DrugIngredients statement instead of normal clause view', ->
+    it 'is used for OpioidData DrugIngredients statement instead of normal clause view', ->
       drugIngredientsView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "DrugIngredients" && view.libraryName == "OpioidData")
       expect(drugIngredientsView.rootClauseView instanceof Thorax.Views.CqlTruncatedStatementView).toBe(true)
 
@@ -65,7 +65,8 @@ describe 'CqlTruncatedStatementView', ->
         @measureView = @measureLayoutView.showMeasure()
         @populationLogicView = @measureView.logicView
 
-      it 'uses truncated view statement returning list of entries and can request hover highlight of the list of entries', ->
+      xit 'uses truncated view statement returning list of entries and can request hover highlight of the list of entries', ->
+        # SKIP does not have clause-true anymore
         encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters during Measurement Period" && view.libraryName == "PotentialOpioidOveruse")
 
         # check that the correct view is being used
@@ -98,7 +99,8 @@ describe 'CqlTruncatedStatementView', ->
         $(encountersView.rootClauseView.$el).trigger('mouseout')
         expect(@populationLogicView.clearHighlightPatientData).not.toHaveBeenCalled()
 
-    it 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
+    xit 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
+      # SKIP: Does not have clause-true anymore
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS136/CMS136v7.json', 'cqm_measure_data/special_measures/CMS136/value_sets.json'
       passIpp1 = getJSONFixture 'patients/CMS136v7/Pass_IPP1.json'
