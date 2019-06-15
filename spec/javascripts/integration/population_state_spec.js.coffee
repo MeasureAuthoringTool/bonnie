@@ -7,6 +7,9 @@ describe "Population state between routes", ->
     @patient = new Thorax.Models.Patient getJSONFixture('patients/CMS160v6/Expired_DENEX.json'), parse: true
     @measureToTest.get('patients').add @patient
 
+  afterAll ->
+    @measureView.remove()
+
   it "starts with the first population", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
@@ -40,6 +43,7 @@ describe "Population state between routes", ->
     @measureView.remove()
 
   xit "carries over changes between views", ->
+    # SKIP: Error related to ExpectedValues when building the PatientBuilder View
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'

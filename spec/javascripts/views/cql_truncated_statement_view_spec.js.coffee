@@ -17,7 +17,7 @@ describe 'CqlTruncatedStatementView', ->
       expect(ippView.rootClauseView instanceof Thorax.Views.CqlClauseView).toBe(true)
 
     xit 'highlights for coverage', ->
-      @populationLogicView.showCoverage()
+      # SKIP: This clause is not covered (any longer?) in Bonnie-v3.2
       drugIngredientsView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "DrugIngredients" && view.libraryName == "OpioidData")
       expect($(drugIngredientsView.rootClauseView.$el)).toHaveClass('clause-covered')
 
@@ -26,6 +26,7 @@ describe 'CqlTruncatedStatementView', ->
       expect($(drugIngredientsView.rootClauseView.$el)).toHaveClass('clause-uncovered')
 
     xit 'highlights for calculation', ->
+      # SKIP: This clause is not true (any longer?) in Bonnie-v3.2
       results = @population.calculate(@patients.first())
       @populationLogicView.showRationale(results)
       drugIngredientsView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "DrugIngredients" && view.libraryName == "OpioidData")
@@ -43,72 +44,71 @@ describe 'CqlTruncatedStatementView', ->
       expect($(drugIngredientsView.rootClauseView.$el).attr('class')).toBe('')
 
   describe 'lowered threshold', ->
-    beforeEach ->
+    beforeAll ->
       # lower the threshold to use the truncated statement view on more statements
       @originalClauseThreshold = Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD
       Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD = 14
 
-    afterEach ->
+    afterAll ->
       Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD = @originalClauseThreshold
 
-    xit 'uses truncated view statement returning list of entries and can request hover highlight of the list of entries', ->
-      jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS460/patients.json'), parse: true
-      @cqlMeasure.set('patients', @patients)
-      @population = @cqlMeasure.get('populations').first()
-      @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: true)
-      @populationLogicView.render()
-      results = @population.calculate(@patients.first())
-      @populationLogicView.showRationale(results)
-      encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters during Measurement Period" && view.libraryName == "PotentialOpioidOveruse")
+    describe 'Encounters during Measurement Period', ->
+      beforeAll ->
+        jasmine.getJSONFixtures().clearCache()
+        @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
+        methadone = getJSONFixture('patients/CMS460v0/MethadoneLessThan90MME_NUMERFail.json')
+        opioidTest = getJSONFixture('patients/CMS460v0/Opioid_test.json')
+        @patients = new Thorax.Collections.Patients [methadone, opioidTest], parse: true
+        @cqlMeasure.set('patients', @patients)
+        @population = @cqlMeasure.get('populations').first()
+        @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @cqlMeasure, patients: @cqlMeasure.get('patients'))
+        @measureView = @measureLayoutView.showMeasure()
+        @populationLogicView = @measureView.logicView
 
-      # check that the correct view is being used
-      expect(encountersView.rootClauseView instanceof Thorax.Views.CqlTruncatedStatementView).toBe(true)
-      expect($(encountersView.rootClauseView.$el)).toHaveClass('clause-true')
+      it 'uses truncated view statement returning list of entries and can request hover highlight of the list of entries', ->
+        encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters during Measurement Period" && view.libraryName == "PotentialOpioidOveruse")
 
-      # spy on the highlight patient data so we can see if the proper element is called out for highlighting.
-      spyOn(@populationLogicView, 'highlightPatientData')
-      $(encountersView.rootClauseView.$el).trigger('mouseover')
-      # this is the only encounter on the test patient
-      expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5baba59e5cc9750c8441186f'])
+        # check that the correct view is being used
+        expect(encountersView.rootClauseView instanceof Thorax.Views.CqlTruncatedStatementView).toBe(true)
+        expect($(encountersView.rootClauseView.$el)).toHaveClass('clause-true')
 
-      # test mouseout functionality
-      spyOn(@populationLogicView, 'clearHighlightPatientData')
-      $(encountersView.rootClauseView.$el).trigger('mouseout')
-      expect(@populationLogicView.clearHighlightPatientData).toHaveBeenCalled()
+        # spy on the highlight patient data so we can see if the proper element is called out for highlighting.
+        spyOn(@populationLogicView, 'highlightPatientData')
+        $(encountersView.rootClauseView.$el).trigger('mouseover')
+        # this is the only encounter on the test patient
+        expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5baba59e5cc9750c8441186f'])
 
-    xit 'does not hover highlight of the list of entries when highlightPatientDataEnabled is false', ->
-      jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS460/patients.json'), parse: true
-      @cqlMeasure.set('patients', @patients)
-      @population = @cqlMeasure.get('populations').first()
-      @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: false)
-      @populationLogicView.render()
-      results = @population.calculate(@patients.first())
-      @populationLogicView.showRationale(results)
-      encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters during Measurement Period" && view.libraryName == "PotentialOpioidOveruse")
+        # test mouseout functionality
+        spyOn(@populationLogicView, 'clearHighlightPatientData')
+        $(encountersView.rootClauseView.$el).trigger('mouseout')
+        expect(@populationLogicView.clearHighlightPatientData).toHaveBeenCalled()
 
-      # spy on the highlight patient data so we can see if the proper element is called out for highlighting.
-      spyOn(@populationLogicView, 'highlightPatientData')
-      $(encountersView.rootClauseView.$el).trigger('mouseover')
-      expect(@populationLogicView.highlightPatientData).not.toHaveBeenCalled()
+      it 'does not hover highlight of the list of entries when highlightPatientDataEnabled is false', ->
+        results = @population.calculate(@patients.first())
+        @populationLogicView.showRationale(results)
+        encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters during Measurement Period" && view.libraryName == "PotentialOpioidOveruse")
 
-      # test mouseout functionality
-      spyOn(@populationLogicView, 'clearHighlightPatientData')
-      $(encountersView.rootClauseView.$el).trigger('mouseout')
-      expect(@populationLogicView.clearHighlightPatientData).not.toHaveBeenCalled()
+        # spy on the highlight patient data so we can see if the proper element is called out for highlighting.
+        spyOn(@populationLogicView, 'highlightPatientData')
+        $(encountersView.rootClauseView.$el).trigger('mouseover')
+        expect(@populationLogicView.highlightPatientData).not.toHaveBeenCalled()
 
-    xit 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
+        # test mouseout functionality
+        spyOn(@populationLogicView, 'clearHighlightPatientData')
+        $(encountersView.rootClauseView.$el).trigger('mouseout')
+        expect(@populationLogicView.clearHighlightPatientData).not.toHaveBeenCalled()
+
+    it 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS136/CMS136v7.json', 'cqm_measure_data/special_measures/CMS136/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS136/patients.json'), parse: true
+      passIpp1 = getJSONFixture 'patients/CMS136v7/Pass_IPP1.json'
+      passIpp2 = getJSONFixture 'patients/CMS136v7/Pass_IPP2.json'
+      @patients = new Thorax.Collections.Patients [passIpp1, passIpp2], parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population, highlightPatientDataEnabled: true)
       @populationLogicView.render()
-      results = @population.calculate(@patients.findWhere(first: "Pass", last: "IPP1"))
+      results = @population.calculate(@patients.at(0)) # Pass IPP1
       @populationLogicView.showRationale(results)
       firstADHDMedView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "First ADHD Medication Dispensed" && view.libraryName == "FollowUpCareforChildrenPrescribedADHDMedicationADD")
 
