@@ -14,3 +14,20 @@ describe 'PopulationCalculationView', ->
 
   it 'does not have a "Share" button', ->
     expect(@populationCalculationView.$('span[class=btn-label]').length).toEqual(0)
+
+  it 'can delete a patient', ->
+    @populationCalculationView.appendTo('body')
+    spyOn(@populationCalculationView, 'showDelete')
+    @populationCalculationView.$("button[data-call-method=showDelete]").click()
+    expect(@populationCalculationView.showDelete).toHaveBeenCalled()
+    expect(@patients.length).toEqual 1
+    @populationCalculationView.$("button[data-call-method=deletePatient]").click()
+    expect(@patients.length).toEqual 0
+    @populationCalculationView.remove()
+
+  it 'can clone a patient', ->
+    @populationCalculationView.appendTo('body')
+    spyOn(@populationCalculationView, 'clonePatient')
+    @populationCalculationView.$("button[data-call-method=clonePatient]").click()
+    expect(@populationCalculationView.clonePatient).toHaveBeenCalled()
+    @populationCalculationView.remove()
