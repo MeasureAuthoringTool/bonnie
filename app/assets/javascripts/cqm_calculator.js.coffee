@@ -30,23 +30,27 @@
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: true, includeClauseResults: true })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: true, includeClauseResults: true, requestDocument: false })
       patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
 
       measure.get('populations').forEach((measure_population) =>
         populationSetId = measure_population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
 
-        populationSetResults.observation_values.sort()
+        if populationSetResults.observation_values 
+          populationSetResults.observation_values.sort()
+        else
+          populationSetResults.observation_values = []
+
         # if this population is requested update the object
         if measure_population == population
-          result.set(populationSetResults.toObject())
+          result.set(populationSetResults)
           result.state = 'complete'
         # otherwise create result and put it on the cache
         else
           otherPopCacheKey = @cacheKey(measure_population, patient)
           otherPopResult = @resultsCache[otherPopCacheKey] ?= new Thorax.Models.Result({}, population: measure_population, patient: patient)
-          otherPopResult.set(populationSetResults.toObject())
+          otherPopResult.set(populationSetResults)
           otherPopResult.state = 'complete'
 
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
@@ -118,9 +122,13 @@
 
         populationSetId = population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
-        populationSetResults.observation_values.sort()
 
-        result.set(populationSetResults.toObject())
+        if populationSetResults.observation_values 
+          populationSetResults.observation_values.sort()
+        else
+          populationSetResults.observation_values = []
+
+        result.set(populationSetResults)
         result.state = 'complete'
 
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
