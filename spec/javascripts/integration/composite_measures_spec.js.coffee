@@ -18,7 +18,7 @@ describe 'Composite Measures', ->
     expect(result.get('observation_values')[0].toFixed(2)).toEqual '0.25'
     expect(result.get('observation_values').length).toEqual 1
 
-  it 'calculate correctly for a component measure', ->
+  it 'calculate correctly for a component measure 2', ->
     measure = new Thorax.Models.Measure @components[6], parse: true
     measure.set('cqmValueSets', getJSONFixture(@valueSetsPath)[measure.get('cqmMeasure').hqmf_set_id]);
     population = measure.get('populations').at(0)
