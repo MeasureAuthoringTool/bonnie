@@ -48,17 +48,17 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
 
   showDelete: (e) ->
     result = @$(e.target).model().result
-    deleteButton = @$(".delete-#{result.get('patient_id')}")
+    deleteButton = @$(".delete-#{result.patient.id}")
     deleteIcon = @$(e.currentTarget)
     # if we clicked on the icon, grab the icon button instead
     deleteIcon.toggleClass('btn-danger btn-danger-inverse')
     deleteButton.toggle()
-    shareButton = @$(".share-#{result.get('patient_id')}")
+    shareButton = @$(".share-#{result.patient.id}")
     shareButton.toggle() # get share button out the way
 
   deletePatient: (e) ->
     result = $(e.target).model().result
-    patient = @measure.get('patients').get result.get('patient_id')
+    patient = @measure.get('patients').get result.patient.id
     patient.destroy()
     result.destroy()
     @trigger 'rationale:clear'
@@ -66,28 +66,8 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
 
   clonePatient: (e) ->
     result = $(e.target).model().result
-    patient = @measure.get('patients').get result.get('patient_id')
+    patient = @measure.get('patients').get result.patient.id
     bonnie.navigateToPatientBuilder patient.deepClone(new_id: true, dedupName: true), @measure
-
-  # The button to toggle a patient was disabled as part of BONNIE-1110.
-  togglePatient: (e) ->
-    $btn = $(e.currentTarget)
-
-    result = $btn.model().result
-    patient = @measure.get('patients').get result.get('patient_id')
-
-    # toggle the patient's 'is_shared' attribute
-    if patient.get('is_shared')
-      patient.save({'is_shared': false}, silent: true)
-      $btn.find('.btn-label').text 'Share'
-    else
-      patient.save({'is_shared': true}, silent: true)
-      $btn.find('.btn-label').text 'Shared'
-
-    # switch displayed button
-    $btn.toggleClass 'btn-primary btn-primary-inverse'
-    $btn.find('.share-icon').toggleClass 'fa-plus fa-minus'
-
 
   expandResult: (e) ->
     @trigger 'rationale:clear'
@@ -106,8 +86,3 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
       @coverageView.hideCoverage()
       @toggledPatient = result
 
-  togglePatientsListing: ->
-    @patientsListing = !@patientsListing
-    @$('.coverage-summary').toggle()
-    @render()
-    if @patientsListing then @$('.summary').hide() else @$('.summary').show()
