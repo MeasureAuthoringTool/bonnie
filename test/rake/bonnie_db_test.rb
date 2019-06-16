@@ -5,20 +5,19 @@ class BonnieDbTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    records_set = File.join("records", "core_measures", "CMS32v7")
-    users_set = File.join("users", "base_set")
-    collection_fixtures(users_set, records_set)
+    patients_set = File.join('cqm_patients', 'CMS32v7')
+    users_set = File.join('users', 'base_set')
+    collection_fixtures(users_set, patients_set)
     @email = 'bonnie@example.com'
     @user = User.by_email('bonnie@example.com').first
 
     @hqmf_set_id_1 = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
     @hqmf_set_id_2 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
     @hqmf_set_id_3 = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
-    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), @user)
-    load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @user)
-    load_measure_fixtures_from_folder(File.join("measures", "CMS177v6"), @user)
-    # TODO: measure.package is not a function
-    # CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1).first.package.delete
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS177v6'), @user)
+    CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1).first.package.delete
 
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(@user, CQM::Patient.all)
@@ -79,7 +78,6 @@ class BonnieDbTest < ActiveSupport::TestCase
   end
 
   test 'download_measure_package' do
-    skip('measure.package is not a function')
     # check no package from fixture with hqmf set id
     ENV['EMAIL'] = @email
     ENV['HQMF_SET_ID'] = @hqmf_set_id_1
