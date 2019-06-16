@@ -30,3 +30,4 @@ describe 'PopulationCalculationView', ->
     spyOn(@populationCalculationView, 'clonePatient')
     @populationCalculationView.$("button[data-call-method=clonePatient]").click()
     expect(@populationCalculationView.clonePatient).toHaveBeenCalled()
+    @populationCalculationView.remove()
