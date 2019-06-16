@@ -23,6 +23,7 @@ describe 'PopulationCalculationView', ->
     expect(@patients.length).toEqual 1
     @populationCalculationView.$("button[data-call-method=deletePatient]").click()
     expect(@patients.length).toEqual 0
+    @populationCalculationView.remove()
 
   it 'can clone a patient', ->
     @populationCalculationView.appendTo('body')
