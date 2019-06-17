@@ -336,7 +336,7 @@ cql-execution@^1.3.3:
 
 "cqm-execution@https://github.com/projecttacoma/cqm-execution#master":
   version "1.0.2"
-  resolved "https://github.com/projecttacoma/cqm-execution#1ea24211c2c7198611f652a491053378582e6ada"
+  resolved "https://github.com/projecttacoma/cqm-execution#e32bb9e07fdcb23bcaaab5e28ae9ed731c79968c"
   dependencies:
     cqm-models "https://github.com/projecttacoma/cqm-models#master"
     lodash "^4.17.5"
@@ -344,7 +344,7 @@ cql-execution@^1.3.3:
 
 "cqm-models@https://github.com/projecttacoma/cqm-models#master":
   version "1.1.0"
-  resolved "https://github.com/projecttacoma/cqm-models#5270a0180143558674341d7bc8117edefa8b0c4a"
+  resolved "https://github.com/projecttacoma/cqm-models#2688b71f537e97d4b9b126f453816b0c7fffda60"
   dependencies:
     cql-execution "^1.3.3"
     mongoose "^5.4.14"

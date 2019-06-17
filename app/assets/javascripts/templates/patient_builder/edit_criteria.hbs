@@ -35,6 +35,9 @@
         {{/button}}
       </div>
 
+      {{#each timingAttributeViews}}
+        {{view this}}
+      {{/each}}
       {{! TODO: add subviews for showing and modifying data }}
 
       <div class="criteria-delete">
