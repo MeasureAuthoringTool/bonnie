@@ -137,8 +137,13 @@ class Thorax.Models.Patient extends Thorax.Model
     if element
       elementIndex = @get('cqmPatient').qdmPatient.dataElements.indexOf(element)
       @attributes.cqmPatient.qdmPatient.dataElements.splice(elementIndex, 1)
-    # return copy of dataElement off the measure
-    mongoose.utils.clone((cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0])
+    # return copy of dataElement off the measure if one exists
+    sdcDataElement = (cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0]
+    if (sdcDataElement)
+      dataElementType = sdcDataElement._type.replace(/QDM::/, '')
+      return new cqm.models[dataElementType](mongoose.utils.clone(sdcDataElement))
+    else
+      return null
 
   getConceptsForDataElement: (qdmStatus, measure) ->
     dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]

@@ -125,7 +125,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @model.setCqmPatientEthnicity(attr.ethnicity, @measure) if attr.ethnicity
       @model.setCqmPatientPayer(attr.payer, @measure) if attr.payer
       @model.setCqmPatientNotes(attr.notes) if attr.notes
-      @model.attributes.cqmPatient.qdmPatient.initializeDataElements()
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
