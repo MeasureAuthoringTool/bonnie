@@ -792,9 +792,10 @@ include Devise::Test::ControllerHelpers
       id: measure.id.to_s,
       measurement_period_shift_dates: "true"
     }
+    patient = CQM::Patient.by_user(@user).first
     assert_equal 'Error Updating Measurement Period', flash[:error][:title]
     assert_equal 'Error Updating Measurement Period', flash[:error][:summary]
-    assert_equal 'Element on Visits 2 ED could not be shifted. Please make sure shift will keep all years between 1 and 9999', flash[:error][:body]
+    assert_equal 'Element on ' + patient.givenNames[0] + ' ' + patient.familyName + ' could not be shifted. Please make sure shift will keep all years between 1 and 9999', flash[:error][:body]
     measure = CQM::Measure.where(id: measure_id).first
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     patient = CQM::Patient.by_user(@user).first
