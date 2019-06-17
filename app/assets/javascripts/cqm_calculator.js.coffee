@@ -113,7 +113,7 @@
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, qdmPatients, cqmValueSets, { doPretty: true, includeClauseResults: true })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, qdmPatients, cqmValueSets, { doPretty: true, includeClauseResults: true, requestDocument: false })
       # Fill result objects for everything in the measure
       resultsNeedingCalc.forEach((result) =>
         patient = result.patient
