@@ -251,29 +251,6 @@ class Thorax.Models.Patient extends Thorax.Model
     if deathdate && birthdate && deathdate.isBefore birthdate
       errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
 
-    @get('source_data_criteria').each (sdc) =>
-      timingInterval = sdc.getPrimaryTimingAttribute()
-      if sdc.get(timingInterval)?.low
-        start_date = moment(sdc.get(timingInterval).low, 'X')
-      else if timingInterval == 'authorDatetime' && sdc.get(timingInterval)
-        start_date = moment(sdc.get(timingInterval), 'X')
-      else
-        start_date = null
-      end_date = if sdc.get(timingInterval)?.high then moment(sdc.get(timingInterval).high, 'X') else null
-      # patient_characteristics do not have start dates except for payer
-      if !start_date && (sdc.get('qdmCategory') != 'patient_characteristic' && sdc.get('_type') != 'QDM::PatientCharacteristicPayer')
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} must have start date"]
-      if end_date && start_date && end_date.isBefore start_date
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date cannot be before start date"]
-      if start_date && start_date.year() < 1000
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} start date must have four digit year"]
-      if end_date && end_date.year() < 1000
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date must have four digit year"]
-      if start_date && deathdate && start_date.isAfter deathdate
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} start date must be before patient date of death"]
-      if end_date && birthdate && end_date.isBefore birthdate
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date must be after patient date of birth"]
-
     return errors if errors.length > 0
 
 class Thorax.Collections.Patients extends Thorax.Collection
