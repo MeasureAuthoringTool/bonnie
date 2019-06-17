@@ -798,7 +798,6 @@ include Devise::Test::ControllerHelpers
     assert_equal 'Element on ' + patient.givenNames[0] + ' ' + patient.familyName + ' could not be shifted. Please make sure shift will keep all years between 1 and 9999', flash[:error][:body]
     measure = CQM::Measure.where(id: measure_id).first
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
-    patient = CQM::Patient.by_user(@user).first
     assert_equal 1994, patient.qdmPatient.birthDatetime.year
     assert_equal 2012, patient.qdmPatient.dataElements.first.authorDatetime.year
     assert_equal 2012, patient.qdmPatient.dataElements.first.relevantPeriod.high.year
