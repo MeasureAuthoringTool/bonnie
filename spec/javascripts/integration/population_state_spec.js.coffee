@@ -42,8 +42,7 @@ describe "Population state between routes", ->
 
     @measureView.remove()
 
-  xit "carries over changes between views", ->
-    # SKIP: Error related to ExpectedValues when building the PatientBuilder View
+  it "carries over changes between views", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
