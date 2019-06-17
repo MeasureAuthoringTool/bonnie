@@ -32,6 +32,26 @@ namespace :bonnie do
       fixture_exporter.export_records_as_individual_files(record_file_path)
     end
 
+    desc %{Export frontend cqm fixtures for a given user account
+    example: bundle exec rake bonnie:fixtures:generate_frontend_cqm_fixtures[bonnie-fixtures@mitre.org]}
+    task :generate_frontend_cqm_fixtures, [:user_email] => [:environment] do |t, args|
+      fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
+      user = User.find_by email: args[:user_email]
+
+      CQM::Measure.by_user(user).each do |measure|
+        patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+
+        measure_file_path = File.join(fixtures_path, 'cqm_measure_data', measure.cms_id)
+        patient_file_path = File.join(fixtures_path, 'patients', measure.cms_id)
+
+        fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: patients)
+        fixture_exporter.export_measure_and_any_components(measure_file_path)
+        fixture_exporter.export_value_sets(measure_file_path)
+        fixture_exporter.export_records_as_individual_files(patient_file_path)
+      end
+    end
+
+
     desc %{Export backend cqm fixtures for a given user account
     example: bundle exec rake bonnie:fixtures:generate_backend_cqm_fixtures[bonnie-fixtures@mitre.org]}
     task :generate_backend_cqm_fixtures, [:user_email] => [:environment] do |t, args|

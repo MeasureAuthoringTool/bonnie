@@ -1,0 +1,2371 @@
+{
+  "_id": "5d081190d7c8ac1d93244534",
+  "calculate_sdes": null,
+  "calculation_method": "PATIENT",
+  "cms_id": "CMS759v1",
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
+  "composite_hqmf_set_id": null,
+  "cql_libraries": [
+    {
+      "_id": "5d081190d7c8ac1d93244535",
+      "cql": "library TestMedicareFeeForService version '1.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Medicare Fee For Service\": 'urn:oid:2.16.840.1.113883.3.1240.15.2.4008'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Medicare Fee\":\r\n\t\"Interesting Encounter\" Enc\r\n\t\twith [\"Patient Characteristic Payer\": \"Medicare Fee For Service\"] Fee\r\n\t\t\tsuch that Fee.relevantPeriod overlaps Enc.relevantPeriod\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Interesting Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Medicare Fee\"\r\n",
+      "elm": {
+        "library": {
+          "identifier": {
+            "id": "TestMedicareFeeForService",
+            "version": "1.0.001"
+          },
+          "schemaIdentifier": {
+            "id": "urn:hl7-org:elm",
+            "version": "r1"
+          },
+          "usings": {
+            "def": [
+              {
+                "localIdentifier": "System",
+                "uri": "urn:hl7-org:elm-types:r1"
+              },
+              {
+                "localId": "1",
+                "locator": "3:1-3:23",
+                "localIdentifier": "QDM",
+                "uri": "urn:healthit-gov:qdm:v5_3",
+                "version": "5.3"
+              }
+            ]
+          },
+          "parameters": {
+            "def": [
+              {
+                "localId": "10",
+                "locator": "14:1-14:49",
+                "name": "Measurement Period",
+                "accessLevel": "Public",
+                "parameterTypeSpecifier": {
+                  "localId": "9",
+                  "locator": "14:32-14:49",
+                  "type": "IntervalTypeSpecifier",
+                  "pointType": {
+                    "localId": "8",
+                    "locator": "14:41-14:48",
+                    "name": "{urn:hl7-org:elm-types:r1}DateTime",
+                    "type": "NamedTypeSpecifier"
+                  }
+                }
+              }
+            ]
+          },
+          "valueSets": {
+            "def": [
+              {
+                "localId": "2",
+                "locator": "6:1-6:68",
+                "name": "ONC Administrative Sex",
+                "id": "2.16.840.1.113762.1.4.1",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "3",
+                "locator": "7:1-7:53",
+                "name": "Race",
+                "id": "2.16.840.1.114222.4.11.836",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "4",
+                "locator": "8:1-8:58",
+                "name": "Ethnicity",
+                "id": "2.16.840.1.114222.4.11.837",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "5",
+                "locator": "9:1-9:55",
+                "name": "Payer",
+                "id": "2.16.840.1.114222.4.11.3591",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "6",
+                "locator": "10:1-10:81",
+                "name": "Medicare Fee For Service",
+                "id": "2.16.840.1.113883.3.1240.15.2.4008",
+                "accessLevel": "Public"
+              },
+              {
+                "localId": "7",
+                "locator": "11:1-11:82",
+                "name": "Inpatient Encounter",
+                "id": "2.16.840.1.113883.3.464.1003.101.12.1060",
+                "accessLevel": "Public"
+              }
+            ]
+          },
+          "statements": {
+            "def": [
+              {
+                "locator": "16:1-16:15",
+                "name": "Patient",
+                "context": "Patient",
+                "expression": {
+                  "type": "SingletonFrom",
+                  "operand": {
+                    "locator": "16:1-16:15",
+                    "dataType": "{urn:healthit-gov:qdm:v5_3}Patient",
+                    "templateId": "Patient",
+                    "type": "Retrieve"
+                  }
+                }
+              },
+              {
+                "localId": "12",
+                "locator": "18:1-19:50",
+                "name": "SDE Ethnicity",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "12",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"SDE Ethnicity\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "11",
+                          "s": [
+                            {
+                              "value": [
+                                "[",
+                                "\"Patient Characteristic Ethnicity\"",
+                                ": "
+                              ]
+                            },
+                            {
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Ethnicity\""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "]"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "11",
+                  "locator": "19:2-19:50",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicEthnicity",
+                  "codeProperty": "code",
+                  "type": "Retrieve",
+                  "codes": {
+                    "name": "Ethnicity",
+                    "type": "ValueSetRef"
+                  }
+                }
+              },
+              {
+                "localId": "14",
+                "locator": "21:1-22:42",
+                "name": "SDE Payer",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "14",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"SDE Payer\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "13",
+                          "s": [
+                            {
+                              "value": [
+                                "[",
+                                "\"Patient Characteristic Payer\"",
+                                ": "
+                              ]
+                            },
+                            {
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Payer\""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "]"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "13",
+                  "locator": "22:2-22:42",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicPayer",
+                  "codeProperty": "code",
+                  "type": "Retrieve",
+                  "codes": {
+                    "name": "Payer",
+                    "type": "ValueSetRef"
+                  }
+                }
+              },
+              {
+                "localId": "16",
+                "locator": "24:1-25:40",
+                "name": "SDE Race",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "16",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"SDE Race\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "15",
+                          "s": [
+                            {
+                              "value": [
+                                "[",
+                                "\"Patient Characteristic Race\"",
+                                ": "
+                              ]
+                            },
+                            {
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Race\""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "]"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "15",
+                  "locator": "25:2-25:40",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicRace",
+                  "codeProperty": "code",
+                  "type": "Retrieve",
+                  "codes": {
+                    "name": "Race",
+                    "type": "ValueSetRef"
+                  }
+                }
+              },
+              {
+                "localId": "18",
+                "locator": "27:1-28:57",
+                "name": "SDE Sex",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "18",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"SDE Sex\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "17",
+                          "s": [
+                            {
+                              "value": [
+                                "[",
+                                "\"Patient Characteristic Sex\"",
+                                ": "
+                              ]
+                            },
+                            {
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"ONC Administrative Sex\""
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "]"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "17",
+                  "locator": "28:2-28:57",
+                  "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicSex",
+                  "codeProperty": "code",
+                  "type": "Retrieve",
+                  "codes": {
+                    "name": "ONC Administrative Sex",
+                    "type": "ValueSetRef"
+                  }
+                }
+              },
+              {
+                "localId": "27",
+                "locator": "30:1-32:63",
+                "name": "Interesting Encounter",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "27",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Interesting Encounter\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "26",
+                          "s": [
+                            {
+                              "s": [
+                                {
+                                  "r": "20",
+                                  "s": [
+                                    {
+                                      "r": "19",
+                                      "s": [
+                                        {
+                                          "r": "19",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "[",
+                                                "\"Encounter, Performed\"",
+                                                ": "
+                                              ]
+                                            },
+                                            {
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "\"Inpatient Encounter\""
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "]"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "Enc"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "\n\t\t"
+                              ]
+                            },
+                            {
+                              "r": "25",
+                              "s": [
+                                {
+                                  "value": [
+                                    "where "
+                                  ]
+                                },
+                                {
+                                  "r": "25",
+                                  "s": [
+                                    {
+                                      "r": "23",
+                                      "s": [
+                                        {
+                                          "value": [
+                                            "start of "
+                                          ]
+                                        },
+                                        {
+                                          "r": "22",
+                                          "s": [
+                                            {
+                                              "r": "21",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "Enc"
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "."
+                                              ]
+                                            },
+                                            {
+                                              "r": "22",
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "relevantPeriod"
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "during",
+                                        " "
+                                      ]
+                                    },
+                                    {
+                                      "r": "24",
+                                      "s": [
+                                        {
+                                          "value": [
+                                            "\"Measurement Period\""
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "26",
+                  "locator": "31:2-32:63",
+                  "type": "Query",
+                  "source": [
+                    {
+                      "localId": "20",
+                      "locator": "31:2-31:52",
+                      "alias": "Enc",
+                      "expression": {
+                        "localId": "19",
+                        "locator": "31:2-31:48",
+                        "dataType": "{urn:healthit-gov:qdm:v5_3}PositiveEncounterPerformed",
+                        "templateId": "PositiveEncounterPerformed",
+                        "codeProperty": "code",
+                        "type": "Retrieve",
+                        "codes": {
+                          "name": "Inpatient Encounter",
+                          "type": "ValueSetRef"
+                        }
+                      }
+                    }
+                  ],
+                  "relationship": [
+
+                  ],
+                  "where": {
+                    "localId": "25",
+                    "locator": "32:3-32:63",
+                    "type": "In",
+                    "operand": [
+                      {
+                        "localId": "23",
+                        "locator": "32:9-32:35",
+                        "type": "Start",
+                        "operand": {
+                          "localId": "22",
+                          "locator": "32:18-32:35",
+                          "path": "relevantPeriod",
+                          "scope": "Enc",
+                          "type": "Property"
+                        }
+                      },
+                      {
+                        "localId": "24",
+                        "locator": "32:44-32:63",
+                        "name": "Measurement Period",
+                        "type": "ParameterRef"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "localId": "39",
+                "locator": "34:1-37:59",
+                "name": "Medicare Fee",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "39",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Medicare Fee\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "38",
+                          "s": [
+                            {
+                              "s": [
+                                {
+                                  "r": "29",
+                                  "s": [
+                                    {
+                                      "r": "28",
+                                      "s": [
+                                        {
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "\"Interesting Encounter\""
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "Enc"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "value": [
+                                "\n\t\t"
+                              ]
+                            },
+                            {
+                              "r": "37",
+                              "s": [
+                                {
+                                  "value": [
+                                    "with "
+                                  ]
+                                },
+                                {
+                                  "r": "31",
+                                  "s": [
+                                    {
+                                      "r": "30",
+                                      "s": [
+                                        {
+                                          "r": "30",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "[",
+                                                "\"Patient Characteristic Payer\"",
+                                                ": "
+                                              ]
+                                            },
+                                            {
+                                              "s": [
+                                                {
+                                                  "value": [
+                                                    "\"Medicare Fee For Service\""
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "value": [
+                                                "]"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "Fee"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "value": [
+                                    "\n\t\t\tsuch that "
+                                  ]
+                                },
+                                {
+                                  "r": "36",
+                                  "s": [
+                                    {
+                                      "r": "33",
+                                      "s": [
+                                        {
+                                          "r": "32",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "Fee"
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            "."
+                                          ]
+                                        },
+                                        {
+                                          "r": "33",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "relevantPeriod"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "value": [
+                                        " ",
+                                        "overlaps",
+                                        " "
+                                      ]
+                                    },
+                                    {
+                                      "r": "35",
+                                      "s": [
+                                        {
+                                          "r": "34",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "Enc"
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "value": [
+                                            "."
+                                          ]
+                                        },
+                                        {
+                                          "r": "35",
+                                          "s": [
+                                            {
+                                              "value": [
+                                                "relevantPeriod"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "38",
+                  "locator": "35:2-37:59",
+                  "type": "Query",
+                  "source": [
+                    {
+                      "localId": "29",
+                      "locator": "35:2-35:28",
+                      "alias": "Enc",
+                      "expression": {
+                        "localId": "28",
+                        "locator": "35:2-35:24",
+                        "name": "Interesting Encounter",
+                        "type": "ExpressionRef"
+                      }
+                    }
+                  ],
+                  "relationship": [
+                    {
+                      "localId": "37",
+                      "locator": "36:3-37:59",
+                      "alias": "Fee",
+                      "type": "With",
+                      "expression": {
+                        "localId": "30",
+                        "locator": "36:8-36:67",
+                        "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicPayer",
+                        "codeProperty": "code",
+                        "type": "Retrieve",
+                        "codes": {
+                          "name": "Medicare Fee For Service",
+                          "type": "ValueSetRef"
+                        }
+                      },
+                      "suchThat": {
+                        "localId": "36",
+                        "locator": "37:14-37:59",
+                        "type": "Overlaps",
+                        "operand": [
+                          {
+                            "localId": "33",
+                            "locator": "37:14-37:31",
+                            "path": "relevantPeriod",
+                            "scope": "Fee",
+                            "type": "Property"
+                          },
+                          {
+                            "localId": "35",
+                            "locator": "37:42-37:59",
+                            "path": "relevantPeriod",
+                            "scope": "Enc",
+                            "type": "Property"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "localId": "42",
+                "locator": "39:1-40:31",
+                "name": "Initial Population",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "42",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Initial Population\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "41",
+                          "s": [
+                            {
+                              "value": [
+                                "exists "
+                              ]
+                            },
+                            {
+                              "r": "40",
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Interesting Encounter\""
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "41",
+                  "locator": "40:2-40:31",
+                  "type": "Exists",
+                  "operand": {
+                    "localId": "40",
+                    "locator": "40:9-40:31",
+                    "name": "Interesting Encounter",
+                    "type": "ExpressionRef"
+                  }
+                }
+              },
+              {
+                "localId": "44",
+                "locator": "42:1-43:21",
+                "name": "Denominator",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "44",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Denominator\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "43",
+                          "s": [
+                            {
+                              "value": [
+                                "\"Initial Population\""
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "43",
+                  "locator": "43:2-43:21",
+                  "name": "Initial Population",
+                  "type": "ExpressionRef"
+                }
+              },
+              {
+                "localId": "47",
+                "locator": "45:1-46:22",
+                "name": "Numerator",
+                "context": "Patient",
+                "accessLevel": "Public",
+                "annotation": [
+                  {
+                    "type": "Annotation",
+                    "s": {
+                      "r": "47",
+                      "s": [
+                        {
+                          "value": [
+                            "define ",
+                            "\"Numerator\"",
+                            ":\n\t"
+                          ]
+                        },
+                        {
+                          "r": "46",
+                          "s": [
+                            {
+                              "value": [
+                                "exists "
+                              ]
+                            },
+                            {
+                              "r": "45",
+                              "s": [
+                                {
+                                  "value": [
+                                    "\"Medicare Fee\""
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "expression": {
+                  "localId": "46",
+                  "locator": "46:2-46:22",
+                  "type": "Exists",
+                  "operand": {
+                    "localId": "45",
+                    "locator": "46:9-46:22",
+                    "name": "Medicare Fee",
+                    "type": "ExpressionRef"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "elm_annotations": {
+        "statements": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"SDE Ethnicity\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "[\"Patient Characteristic Ethnicity\": "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Ethnicity\""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "]"
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "Retrieve",
+                    "ref_id": "11"
+                  }
+                ],
+                "ref_id": "12"
+              }
+            ],
+            "define_name": "SDE Ethnicity"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"SDE Payer\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "[\"Patient Characteristic Payer\": "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Payer\""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "]"
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "Retrieve",
+                    "ref_id": "13"
+                  }
+                ],
+                "ref_id": "14"
+              }
+            ],
+            "define_name": "SDE Payer"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"SDE Race\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "[\"Patient Characteristic Race\": "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Race\""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "]"
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "Retrieve",
+                    "ref_id": "15"
+                  }
+                ],
+                "ref_id": "16"
+              }
+            ],
+            "define_name": "SDE Race"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"SDE Sex\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "[\"Patient Characteristic Sex\": "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"ONC Administrative Sex\""
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "]"
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "Retrieve",
+                    "ref_id": "17"
+                  }
+                ],
+                "ref_id": "18"
+              }
+            ],
+            "define_name": "SDE Sex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Interesting Encounter\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "[\"Encounter, Performed\": "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "\"Inpatient Encounter\""
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "]"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "node_type": "Retrieve",
+                                    "ref_id": "19"
+                                  }
+                                ],
+                                "node_type": "Retrieve",
+                                "ref_id": "19"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " Enc"
+                                  }
+                                ]
+                              }
+                            ],
+                            "ref_id": "20"
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "\n    "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "where "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "start of "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "Enc"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "ref_id": "21"
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "."
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "relevantPeriod"
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "node_type": "Property",
+                                        "ref_id": "22"
+                                      }
+                                    ],
+                                    "node_type": "Property",
+                                    "ref_id": "22"
+                                  }
+                                ],
+                                "node_type": "Start",
+                                "ref_id": "23"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " during "
+                                  }
+                                ]
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "\"Measurement Period\""
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "node_type": "ParameterRef",
+                                "ref_id": "24"
+                              }
+                            ],
+                            "ref_id": "25"
+                          }
+                        ],
+                        "ref_id": "25"
+                      }
+                    ],
+                    "node_type": "Query",
+                    "ref_id": "26"
+                  }
+                ],
+                "ref_id": "27"
+              }
+            ],
+            "define_name": "Interesting Encounter"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Medicare Fee\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "\"Interesting Encounter\""
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "node_type": "ExpressionRef",
+                                "ref_id": "28"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " Enc"
+                                  }
+                                ]
+                              }
+                            ],
+                            "ref_id": "29"
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "text": "\n    "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "with "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "[\"Patient Characteristic Payer\": "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "children": [
+                                              {
+                                                "text": "\"Medicare Fee For Service\""
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "]"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "node_type": "Retrieve",
+                                    "ref_id": "30"
+                                  }
+                                ],
+                                "node_type": "Retrieve",
+                                "ref_id": "30"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " Fee"
+                                  }
+                                ]
+                              }
+                            ],
+                            "ref_id": "31"
+                          },
+                          {
+                            "children": [
+                              {
+                                "text": "\n      such that "
+                              }
+                            ]
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "Fee"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "ref_id": "32"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "."
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "relevantPeriod"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "node_type": "Property",
+                                    "ref_id": "33"
+                                  }
+                                ],
+                                "node_type": "Property",
+                                "ref_id": "33"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "text": " overlaps "
+                                  }
+                                ]
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "Enc"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "ref_id": "34"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "text": "."
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "children": [
+                                          {
+                                            "text": "relevantPeriod"
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "node_type": "Property",
+                                    "ref_id": "35"
+                                  }
+                                ],
+                                "node_type": "Property",
+                                "ref_id": "35"
+                              }
+                            ],
+                            "node_type": "Overlaps",
+                            "ref_id": "36"
+                          }
+                        ],
+                        "ref_id": "37"
+                      }
+                    ],
+                    "node_type": "Query",
+                    "ref_id": "38"
+                  }
+                ],
+                "ref_id": "39"
+              }
+            ],
+            "define_name": "Medicare Fee"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Initial Population\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "exists "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Interesting Encounter\""
+                              }
+                            ]
+                          }
+                        ],
+                        "node_type": "ExpressionRef",
+                        "ref_id": "40"
+                      }
+                    ],
+                    "node_type": "Exists",
+                    "ref_id": "41"
+                  }
+                ],
+                "ref_id": "42"
+              }
+            ],
+            "define_name": "Initial Population"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Denominator\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "\"Initial Population\""
+                          }
+                        ]
+                      }
+                    ],
+                    "node_type": "ExpressionRef",
+                    "ref_id": "43"
+                  }
+                ],
+                "ref_id": "44"
+              }
+            ],
+            "define_name": "Denominator"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "text": "define \"Numerator\":\n  "
+                      }
+                    ]
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "exists "
+                          }
+                        ]
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "text": "\"Medicare Fee\""
+                              }
+                            ]
+                          }
+                        ],
+                        "node_type": "ExpressionRef",
+                        "ref_id": "45"
+                      }
+                    ],
+                    "node_type": "Exists",
+                    "ref_id": "46"
+                  }
+                ],
+                "ref_id": "47"
+              }
+            ],
+            "define_name": "Numerator"
+          }
+        ],
+        "identifier": {
+          "id": "TestMedicareFeeForService",
+          "version": "1.0.001"
+        }
+      },
+      "is_main_library": true,
+      "is_top_level": true,
+      "library_name": "TestMedicareFeeForService",
+      "library_version": "1.0.001",
+      "statement_dependencies": [
+        {
+          "_id": "5d081190d7c8ac1d93244536",
+          "statement_name": "Patient"
+        },
+        {
+          "_id": "5d081190d7c8ac1d93244537",
+          "statement_name": "SDE Ethnicity"
+        },
+        {
+          "_id": "5d081190d7c8ac1d93244538",
+          "statement_name": "SDE Payer"
+        },
+        {
+          "_id": "5d081190d7c8ac1d93244539",
+          "statement_name": "SDE Race"
+        },
+        {
+          "_id": "5d081190d7c8ac1d9324453a",
+          "statement_name": "SDE Sex"
+        },
+        {
+          "_id": "5d081190d7c8ac1d9324453b",
+          "statement_name": "Interesting Encounter"
+        },
+        {
+          "_id": "5d081190d7c8ac1d9324453c",
+          "statement_name": "Medicare Fee",
+          "statement_references": [
+            {
+              "_id": "5d081190d7c8ac1d9324453d",
+              "hqmf_id": null,
+              "library_name": "TestMedicareFeeForService",
+              "statement_name": "Interesting Encounter"
+            }
+          ]
+        },
+        {
+          "_id": "5d081190d7c8ac1d9324453e",
+          "statement_name": "Initial Population",
+          "statement_references": [
+            {
+              "_id": "5d081190d7c8ac1d9324453f",
+              "hqmf_id": null,
+              "library_name": "TestMedicareFeeForService",
+              "statement_name": "Interesting Encounter"
+            }
+          ]
+        },
+        {
+          "_id": "5d081190d7c8ac1d93244540",
+          "statement_name": "Denominator",
+          "statement_references": [
+            {
+              "_id": "5d081190d7c8ac1d93244541",
+              "hqmf_id": null,
+              "library_name": "TestMedicareFeeForService",
+              "statement_name": "Initial Population"
+            }
+          ]
+        },
+        {
+          "_id": "5d081190d7c8ac1d93244542",
+          "statement_name": "Numerator",
+          "statement_references": [
+            {
+              "_id": "5d081190d7c8ac1d93244543",
+              "hqmf_id": null,
+              "library_name": "TestMedicareFeeForService",
+              "statement_name": "Medicare Fee"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "created_at": "2019-06-17T22:17:52.101Z",
+  "description": "Testing valueset Medicare Fee For Service",
+  "hqmf_id": "40280582-61AF-07AC-0162-494D9AC800C6",
+  "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
+  "hqmf_version_number": "0",
+  "main_cql_library": "TestMedicareFeeForService",
+  "measure_attributes": [
+    {
+      "code": "OTH",
+      "value": "759",
+      "name": "eCQM Identifier (Measure Authoring Tool)",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "eCQM Identifier (Measure Authoring Tool)"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "759",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "OTH",
+      "value": "",
+      "name": "NQF Number",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "NQF Number"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "COPY",
+      "value": "",
+      "name": "Copyright",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "COPY",
+        "title": "Copyright"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DISC",
+      "value": "",
+      "name": "Disclaimer",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DISC",
+        "title": "Disclaimer"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRSCORE",
+      "name": "Measure Scoring",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRSCORE",
+        "title": "Measure Scoring"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.1.11.20367",
+        "code": "PROPOR",
+        "title": "Proportion"
+      }
+    },
+    {
+      "code": "STRAT",
+      "value": "",
+      "name": "Stratification",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "STRAT",
+        "title": "Stratification"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRADJ",
+      "value": "",
+      "name": "Risk Adjustment",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRADJ",
+        "title": "Risk Adjustment"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRAGG",
+      "value": "",
+      "name": "Rate Aggregation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRAGG",
+        "title": "Rate Aggregation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "RAT",
+      "value": "",
+      "name": "Rationale",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "RAT",
+        "title": "Rationale"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "CRS",
+      "value": "",
+      "name": "Clinical Recommendation Statement",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "CRS",
+        "title": "Clinical Recommendation Statement"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IDUR",
+      "value": "",
+      "name": "Improvement Notation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IDUR",
+        "title": "Improvement Notation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DEF",
+      "name": "Definition",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DEF",
+        "title": "Definition"
+      },
+      "value_obj": {
+        "type": "ED",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "GUIDE",
+      "value": "",
+      "name": "Guidance",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "GUIDE",
+        "title": "Guidance"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "TRANF",
+      "value": "",
+      "name": "Transmission Format",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "TRANF",
+        "title": "Transmission Format"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IPOP",
+      "value": "",
+      "name": "Initial Population",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IPOP",
+        "title": "Initial Population"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENOM",
+      "value": "",
+      "name": "Denominator",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENOM",
+        "title": "Denominator"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENEX",
+      "value": "",
+      "name": "Denominator Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENEX",
+        "title": "Denominator Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "NUMER",
+      "value": "",
+      "name": "Numerator",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "NUMER",
+        "title": "Numerator"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "NUMEX",
+      "value": "",
+      "name": "Numerator Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "NUMEX",
+        "title": "Numerator Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENEXCEP",
+      "value": "",
+      "name": "Denominator Exceptions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENEXCEP",
+        "title": "Denominator Exceptions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "SDE",
+      "value": "",
+      "name": "Supplemental Data Elements",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "SDE",
+        "title": "Supplemental Data Elements"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "",
+        "media_type": "text/plain"
+      }
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  },
+  "measure_scoring": "PROPORTION",
+  "patient_ids": [
+
+  ],
+  "population_criteria": {
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "hqmf_id": "7FB0245E-BF10-4D09-8B8D-1A1761F43D53",
+      "preconditions": [
+        {
+          "id": 2,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "TestMedicareFeeForService__Initial_Population__25ABB716_B618_4D80_A27D_08099FB5062C"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "conjunction?": true,
+      "type": "DENOM",
+      "hqmf_id": "491E8DFA-2829-4168-BC6A-CABD309670A9",
+      "preconditions": [
+        {
+          "id": 4,
+          "preconditions": [
+            {
+              "id": 3,
+              "reference": "TestMedicareFeeForService__Denominator__25ABB716_B618_4D80_A27D_08099FB5062C"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "NUMER": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "hqmf_id": "2E00A29E-E406-494A-9FA9-916F8C24556A",
+      "preconditions": [
+        {
+          "id": 6,
+          "preconditions": [
+            {
+              "id": 5,
+              "reference": "TestMedicareFeeForService__Numerator__25ABB716_B618_4D80_A27D_08099FB5062C"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    }
+  },
+  "population_sets": [
+    {
+      "_id": "5d081190d7c8ac1d9324454a",
+      "population_set_id": "PopulationCriteria1",
+      "populations": {
+        "DENOM": {
+          "_id": "5d081190d7c8ac1d9324454d",
+          "hqmf_id": "491E8DFA-2829-4168-BC6A-CABD309670A9",
+          "library_name": "TestMedicareFeeForService",
+          "statement_name": "Denominator"
+        },
+        "IPP": {
+          "_id": "5d081190d7c8ac1d9324454c",
+          "hqmf_id": "7FB0245E-BF10-4D09-8B8D-1A1761F43D53",
+          "library_name": "TestMedicareFeeForService",
+          "statement_name": "Initial Population"
+        },
+        "NUMER": {
+          "_id": "5d081190d7c8ac1d9324454e",
+          "hqmf_id": "2E00A29E-E406-494A-9FA9-916F8C24556A",
+          "library_name": "TestMedicareFeeForService",
+          "statement_name": "Numerator"
+        },
+        "_id": "5d081190d7c8ac1d9324454b",
+        "_type": "CQM::ProportionPopulationMap"
+      },
+      "title": "Population Criteria Section"
+    }
+  ],
+  "source_data_criteria": [
+    {
+      "_id": "5d08118fd7c8ac1d93244420",
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Payer: Payer",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5d081190d7c8ac1d93244544",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d08118fd7c8ac1d93244420"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
+    },
+    {
+      "_id": "5d08118fd7c8ac1d93244421",
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "_id": "5d081190d7c8ac1d93244545",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d08118fd7c8ac1d93244421"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
+    },
+    {
+      "_id": "5d08118fd7c8ac1d93244422",
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": "5d081190d7c8ac1d93244546",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d08118fd7c8ac1d93244422"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
+    },
+    {
+      "_id": "5d08118fd7c8ac1d93244423",
+      "codeListId": "2.16.840.1.113883.3.1240.15.2.4008",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Payer: MedicareFeeForService",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5d081190d7c8ac1d93244547",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d08118fd7c8ac1d93244423"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
+    },
+    {
+      "_id": "5d08118fd7c8ac1d93244424",
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
+      "description": "Patient Characteristic Race: Race",
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "_id": "5d081190d7c8ac1d93244548",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d08118fd7c8ac1d93244424"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
+    },
+    {
+      "_id": "5d08118fd7c8ac1d93244425",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1060",
+      "dataElementCodes": [
+
+      ],
+      "description": "Encounter, Performed: InpatientEncounter",
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5d081190d7c8ac1d93244549",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d08118fd7c8ac1d93244425"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
+    }
+  ],
+  "title": "Test Medicare Fee For Service",
+  "updated_at": "2019-06-17T22:17:52.101Z",
+  "user_id": "501fdba3044a111b98000001",
+  "value_set_ids": [
+    "5d081190d7c8ac1d93244426",
+    "5d081190d7c8ac1d93244427",
+    "5d081190d7c8ac1d93244428",
+    "5d081190d7c8ac1d93244429",
+    "5d081190d7c8ac1d9324442a",
+    "5d081190d7c8ac1d9324442b"
+  ]
+}
