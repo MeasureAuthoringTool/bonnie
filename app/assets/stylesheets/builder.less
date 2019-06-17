@@ -394,6 +394,35 @@
     }
   }
 
+  .datetime-control-nullable {
+    .make-row(0);
+    .datetime-null-toggle {
+      input {
+        margin-right: 5px;
+      }
+      line-height: 34px;
+      text-align: right;
+      .make-md-column(1; 0);
+    }
+    .datetime-control-date {
+      .make-md-column(6; 0);
+    }
+    .datetime-control-time {
+      input {
+        border-left: 0;
+      }
+      .make-md-column(5; 0);
+    }
+  }
+
+  .datetime-interval-start {
+    padding-right: 3px;
+  }
+
+  .datetime-interval-end {
+    padding-left: 3px;
+  }
+
   .logic-pager {
     text-align: center;
     color: @brand-primary;
