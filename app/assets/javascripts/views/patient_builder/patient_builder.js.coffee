@@ -196,9 +196,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
-    originalCqmPatient = @originalModel.get('cqmPatient')
-    @originalModel.set('cqmPatient', @model.get('cqmPatient'))
-    status = @originalModel.save {},
+    status = @originalModel.save {cqmPatient: @model.get('cqmPatient')},
       success: (model) =>
         @patients.add model # make sure that the patient exist in the global patient collection
         @measure?.get('cqmMeasure').patients.push model.get('cqmPatient') # and the measure's patient collection
@@ -217,11 +215,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       $(e.target).button('reset').prop('disabled', false)
       messages = []
       for [cid, field, message] in @originalModel.validationError
-        # Location holds the cid of the model with the error, either toplevel or a data criteria, from whcih we get the view
-        if cid == @originalModel.cid
-          @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
-        else
-          @$("[data-model-cid=#{cid}]").view().highlightError(e, field)
+        # Location holds the cid of the model with the error, only toplevel (data criteria no longer handled in Thorax Patient model's validate)
+        @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
         messages.push message
       @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
 
