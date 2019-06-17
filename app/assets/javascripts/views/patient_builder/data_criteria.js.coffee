@@ -64,6 +64,24 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
 
+    @timingAttributeViews = []
+    for timingAttr in @model.getPrimaryTimingAttributes()
+      switch timingAttr.type
+        when 'Interval'
+          intervalView = new Thorax.Views.InputIntervalDateTimeView(
+            initialValue: @model.get('qdmDataElement')[timingAttr.name],
+            attributeName: timingAttr.name, attributeTitle: timingAttr.title,
+            showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
+          @timingAttributeViews.push intervalView
+          @listenTo intervalView, 'valueChanged', @updateAttributeFromInputChange
+        when 'DateTime'
+          dateTimeView = new Thorax.Views.InputDateTimeView(
+            initialValue: @model.get('qdmDataElement')[timingAttr.name],
+            attributeName: timingAttr.name, attributeTitle: timingAttr.title,
+            showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
+          @timingAttributeViews.push dateTimeView
+          @listenTo dateTimeView, 'valueChanged', @updateAttributeFromInputChange
+
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
@@ -74,15 +92,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    timingInterval = @model.getPrimaryTimingAttribute() || 'authorDatetime'
+    primaryTimingAttributeName = @model.getPrimaryTimingAttribute()
+    primaryTimingValue = @model.get('qdmDataElement')[primaryTimingAttributeName]
     _(super).extend
-      start_date: moment.utc(@model.get(timingInterval).low).format('L') if @model.get(timingInterval)?.low?
-      start_time: moment.utc(@model.get(timingInterval).low).format('LT') if @model.get(timingInterval)?.low?
-      start_date: moment.utc(@model.get(timingInterval)).format('L') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
-      start_time: moment.utc(@model.get(timingInterval)).format('LT') if timingInterval == 'authorDatetime' && @model.get(timingInterval)
-      end_date: moment.utc(@model.get(timingInterval).high).format('L') if @model.get(timingInterval)?.high?
-      end_time: moment.utc(@model.get(timingInterval).high).format('LT') if @model.get(timingInterval)?.high?
-      end_date_is_undefined: !@model.get(timingInterval)?.high?
+      start_date: moment.utc(primaryTimingValue.low.toJSDate()).format('L') if primaryTimingValue?.low?
+      start_time: moment.utc(primaryTimingValue.low.toJSDate()).format('LT') if primaryTimingValue?.low?
+      start_date: moment.utc(primaryTimingValue.toJSDate()).format('L') if primaryTimingValue?.isDateTime
+      start_time: moment.utc(primaryTimingValue.toJSDate()).format('LT') if primaryTimingValue?.isDateTime
+      end_date: moment.utc(primaryTimingValue.high.toJSDate()).format('L') if primaryTimingValue?.high?
+      end_time: moment.utc(primaryTimingValue.high.toJSDate()).format('LT') if primaryTimingValue?.high?
+      end_date_is_undefined: !primaryTimingValue?.high?
       description: desc
       value_sets: @model.measure()?.valueSets() or []
       faIcon: @model.faIcon()
@@ -99,18 +118,53 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
+  updateAttributeFromInputChange: (inputView) ->
+    @model.get('qdmDataElement')[inputView.attributeName] = inputView.value
+    @triggerMaterialize()
+
   isDuringMeasurePeriod: ->
     moment.utc(@model.get('start_date')).year() is moment.utc(@model.get('end_date')).year() is moment.utc(@model.measure().get('cqmMeasure').measure_period.low.value).year()
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->
-    droppedCriteriaTiming = droppedCriteria.getPrimaryTimingAttribute()
-    targetCriteriaTiming = targetCriteria.getPrimaryTimingAttribute()
-    if(droppedCriteriaTiming? && targetCriteriaTiming?)
-      droppedCriteria.get('qdmDataElement')[droppedCriteriaTiming] = targetCriteria.get('qdmDataElement')[targetCriteriaTiming].copy()
-    # Copy authorDatetime if droppedCriteria and target both have the authorDatetime property
-    if droppedCriteria.get('qdmDataElement').schema.path('authorDateTime') && targetCriteria.get('qdmDataElement').authorDatetime?
-      droppedCriteria.get('qdmDataElement').authorDatetime = targetCriteria.get('qdmDataElement').authorDateTime.copy()
+    droppedCriteriaTiming = droppedCriteria.getPrimaryTimingAttributes()
+    targetCriteriaTiming = targetCriteria.getPrimaryTimingAttributes()
+
+    # do a pairwise copy from target timing attributes to dropped timing attributes
+    for timingIndex, droppedTimingAttr of droppedCriteriaTiming
+      # if there is a corresponding pair, then copy it
+      if timingIndex < targetCriteriaTiming.length
+        @_copyTimingAttribute(droppedCriteria, targetCriteria, droppedTimingAttr, targetCriteriaTiming[timingIndex])
+      # otherwise, copy the first one in target
+      else
+        @_copyTimingAttribute(droppedCriteria, targetCriteria, droppedTimingAttr, targetCriteriaTiming[0])
+
+  # Helper function to copy a timing value from targetCriteria to droppedCriteria. The last two arguments are obejcts from the
+  # timing attributes structure that comes from the SourceDataCriteria.getPrimaryTimingAttributes() method. This has the attribute name and type.
+  _copyTimingAttribute: (droppedCriteria, targetCriteria, droppedAttr, targetAttr) ->
+    # clone if they are of the same type
+    if targetAttr.type == droppedAttr.type
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = targetCriteria.get('qdmDataElement')[targetAttr.name].copy()
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = null
+
+    # turn Interval into DateTime
+    else if targetAttr.type == 'Interval' && droppedAttr.type == 'DateTime'
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?.low?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = targetCriteria.get('qdmDataElement')[targetAttr.name].low.copy()
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = null
+
+    # turn DateTime into Interval. use start + 15 mins for end. if target is null, use Interval[null, null]
+    else if targetAttr.type == 'DateTime' && droppedAttr.type == 'Interval'
+      if targetCriteria.get('qdmDataElement')[targetAttr.name]?
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(
+          targetCriteria.get('qdmDataElement')[targetAttr.name].copy(),
+          targetCriteria.get('qdmDataElement')[targetAttr.name].add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
+          )
+      else
+        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(null, null)
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
@@ -239,10 +293,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
     serialize: (attr) ->
-      if startDate = attr.start_date
-        startDate += " #{attr.start_time}" if attr.start_time
-        attr.value = moment.utc(startDate, 'L LT').format('X') * 1000
-
       if attr.key == 'FACILITY_LOCATION'
         # Facility Locations care about start and end dates/times
         if startDate

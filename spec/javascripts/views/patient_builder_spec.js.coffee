@@ -167,14 +167,71 @@ describe 'PatientBuilderView', ->
       # make sure the dataElements on the original model were not touched
       expect(@patientBuilder.originalModel.get('cqmPatient').qdmPatient.dataElements.length).toEqual initialOriginalDataElementCount
 
-
-    it "acquires the dates of the drop target when dropping on an existing criteria", ->
+    it "has a default start and end date for the primary timing attributes when not dropped on an existing criteria", ->
       startDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low
       endDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.high
-      # droppable 5 used because droppable 1 didn't have a start and end date
+      # droppable 17 used because droppable 1 didn't have a start and end date
+      @addEncounter 17, '.criteria-container.droppable'
+
+      # get today in MP year and check the defaults are today 8:00-8:15
+      today = new Date()
+      newStart = new cqm.models.CQL.DateTime(2012, today.getMonth() + 1, today.getDate(), 8, 0, 0, 0, 0)
+      newEnd = new cqm.models.CQL.DateTime(2012, today.getMonth() + 1, today.getDate(), 8, 15, 0, 0, 0)
+      newInterval = new cqm.models.CQL.Interval(newStart, newEnd)
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod).toEqual newInterval
+      # authorDatetime should be same as the start of the relevantPeriod
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toEqual newStart
+
+    it "acquires the interval of the drop target when dropping on an existing criteria", ->
+      startDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low
+      endDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.high
+      # droppable 17 used because droppable 1 didn't have a start and end date
       @addEncounter 17, '.criteria-data.droppable:first'
       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod.low).toEqual startDate
       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod.high).toEqual endDate
+
+    it "acquires the authorDatetime of the drop target when dropping on an existing criteria", ->
+      authorDatetime = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').authorDatetime
+      # droppable 17
+      @addEncounter 17, '.criteria-data.droppable:first'
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toEqual authorDatetime
+
+    it "acquires the interval of the drop target when dropping on an existing criteria even when low is null", ->
+      @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low = null
+      endDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.high
+      # droppable 17 used because droppable 1 didn't have a start and end date
+      @addEncounter 17, '.criteria-data.droppable:first'
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod.low).toBe null
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod.high).toEqual endDate
+
+    it "acquires the start time and makes an end time of the drop target when dropping on an existing criteria with only authorDatetime ", ->
+      startDate = @patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').authorDatetime
+      # expecting end date to be 15 minutes later
+      endDate = startDate.add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
+      # droppable 17 used because droppable 1 didn't have a start and end date
+      @addEncounter 17, '.criteria-data.droppable:last'
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(startDate, endDate))
+
+    it "acquires Interval[null,null] when dropping on an existing criteria with only authorDatetime that is null", ->
+      @patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').authorDatetime = null
+      # droppable 17 used because droppable 1 didn't have a start and end date
+      @addEncounter 17, '.criteria-data.droppable:last'
+      # interval should be [null,null]
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(null, null))
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toBe(null)
+
+    it "acquires the start of an interval as the authorDatetime when criteria with only authorDatetime is dropped on one with an Interval", ->
+      startDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low
+      # droppable 14 used. this is InterventionOrder that only has authorDatetime
+      @addEncounter 14, '.criteria-data.droppable:first'
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toEqual(startDate)
+
+    it "acquires null as the authorDatetime when criteria with only authorDatetime is dropped on one with an Interval that starts with null", ->
+      # set the low of the drop target to be null
+      @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low = null
+      # droppable 14 used. this is InterventionOrder that only has authorDatetime
+      @addEncounter 14, '.criteria-data.droppable:first'
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toBe(null)
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
