@@ -39,7 +39,6 @@ describe 'ImportMeasure view', ->
         importView.remove()
 
       it 'remembers we are NOT calculating SDEs', ->
-        # TODO(cqm-measure) Need to update or replace this fixture
         measure - loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
         importView = new Thorax.Views.ImportMeasure(model: measure)
         importView.appendTo 'body'

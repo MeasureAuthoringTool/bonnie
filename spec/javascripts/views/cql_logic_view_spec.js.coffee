@@ -129,8 +129,7 @@ describe 'CqlLogicView', ->
 
     it 'does not show for QDM 5.4 measure', ->
       jasmine.getJSONFixtures().clearCache()
-      # TODO(cqm-measure) Need to update or replace this fixture
-      measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/QDM54-measure/CMS10v0.json'), parse: true
+      measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS32/CMS32v7.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: measure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).not.toContain 'This measure was written using an outdated version of QDM. Please re-package and re-export the measure from the MAT.'
