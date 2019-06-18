@@ -552,6 +552,23 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
+    it 'updates the values of the frontend mongoose model', ->
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      mongooseExpectecValue = (expectedValues.collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is 0 && val.measure_id is '7B2A9277-43DA-4D99-9BEE-6AC271A07747')[0]
+      expect(mongooseExpectecValue.IPP).toEqual 1
+      expect(mongooseExpectecValue.DENOM).toEqual 1
+      expect(mongooseExpectecValue.NUMER).toEqual 0
+      @selectPopulationEV('IPP', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(mongooseExpectecValue.IPP).toEqual 0
+      expect(mongooseExpectecValue.DENOM).toEqual 0
+      expect(mongooseExpectecValue.NUMER).toEqual 0
+      @selectPopulationEV('NUMER', false)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(mongooseExpectecValue.IPP).toEqual 1
+      expect(mongooseExpectecValue.DENOM).toEqual 1
+      expect(mongooseExpectecValue.NUMER).toEqual 1
+
     afterEach -> @patientBuilder.remove()
 
   describe "setting expected values for CV measure", ->
