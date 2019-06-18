@@ -128,6 +128,7 @@ class MeasuresController < ApplicationController
   def shift_years(measure, year_shift)
     # Copy the patients to make sure there are no errors before saving every patient
     patients = CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).all.entries
+    errored_patients = []
     patients.each do |patient|
       begin
         patient_birthdate_year = patient.qdmPatient.birthDatetime.year
@@ -139,14 +140,22 @@ class MeasuresController < ApplicationController
           data_element.shift_years(year_shift)
         end
       rescue RangeError => e
-        flash[:error] = { title: 'Error Updating Measurement Period',
-                          summary: 'Error Updating Measurement Period',
-                          body: 'Element on ' + patient.givenNames[0] + ' ' + patient.familyName + ' could not be shifted. Please make sure shift will keep all years between 1 and 9999' }
-        return false
+        errored_patients << patient
       end
     end
-    patients.each(&:save!)
-    return true
+
+    if errored_patients.empty?
+      patients.each(&:save!)
+      return true
+    else
+      body_text = 'Element(s) on '
+      errored_patients.each { |patient| body_text += patient.givenNames[0] + ' ' + patient.familyName + ', '}
+      body_text += 'could not be shifted. Please make sure shift will keep all years between 1 and 9999'
+      flash[:error] = { title: 'Error Updating Measurement Period',
+                        summary: 'Error Updating Measurement Period',
+                        body: body_text }
+      return false
+    end
   end
 
   def shift_birth_datetime(birth_datetime, year_shift)
