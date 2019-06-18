@@ -142,7 +142,7 @@ namespace :bonnie do
 
           # Port over the measure package between collections. No conversion is
           # necessary, just need to grab the correct ids.
-          unless measure.package.file.nil?
+          unless measure.package.nil? || measure.package.file.nil?
             cqm_package = CQM::MeasurePackage.new file: measure.package.file, measure_id: cqm_measure.id, user_id: measure.user_id
             cqm_package.save!
             cqm_measure.package = cqm_package
