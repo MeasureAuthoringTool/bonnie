@@ -1,0 +1,655 @@
+{
+  "_id": "5d07f799d7c8ac11979fff38",
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1
+    }
+  ],
+  "familyName": "Numer",
+  "givenNames": [
+    "Pass_GoodUcum"
+  ],
+  "measure_ids": [
+    "7B2A9277-43DA-4D99-9BEE-6AC271A07747"
+  ],
+  "notes": "",
+  "provider_ids": [
+
+  ],
+  "qdmPatient": {
+    "_id": "5d07f799d7c8ac11979fff39",
+    "birthDatetime": "1937-07-01T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": "5d07f799d7c8ac11979fff3a",
+        "anatomicalLocationSite": null,
+        "authorDatetime": "1949-02-17T09:00:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "codeSystem": "SNOMED-CT",
+            "code": "190372001"
+          }
+        ],
+        "description": "Diagnosis: Diabetes",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff3b",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5ce42f73b848461fd2b95949"
+        },
+        "prevalencePeriod": {
+          "low": "1949-02-17T09:00:00.000Z",
+          "high": "9999-12-31T23:59:59.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "qdmCategory": "condition",
+        "qdmTitle": "Diagnosis",
+        "qdmVersion": "5.4",
+        "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+        "severity": null,
+        "_type": "QDM::Diagnosis"
+      },
+      {
+        "_id": "5d07f799d7c8ac11979fff3c",
+        "anatomicalLocationSite": null,
+        "authorDatetime": "2012-04-03T12:00:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "codeSystem": "SNOMED-CT",
+            "code": "236499007"
+          }
+        ],
+        "description": "Diagnosis: Diabetic Nephropathy",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff3d",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5ce42f73b848461fd2b9594b"
+        },
+        "prevalencePeriod": {
+          "low": "2012-04-03T12:00:00.000Z",
+          "high": "9999-12-31T23:59:59.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "qdmCategory": "condition",
+        "qdmTitle": "Diagnosis",
+        "qdmVersion": "5.4",
+        "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+        "severity": null,
+        "_type": "QDM::Diagnosis"
+      },
+      {
+        "_id": "5d07f799d7c8ac11979fff3e",
+        "admissionSource": null,
+        "authorDatetime": "2012-02-02T08:45:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "codeSystem": "HCPCS",
+            "code": "G0438"
+          }
+        ],
+        "description": "Encounter, Performed: Annual Wellness Visit",
+        "diagnoses": [
+
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+          {
+            "_id": "5d07f799d7c8ac11979fff3f",
+            "_type": "QDM::FacilityLocation",
+            "code": {
+              "code": "444971000124105",
+              "codeSystem": "SNOMED-CT",
+              "descriptor": "Annual Wellness Visit",
+              "codeSystemOid": null,
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "locationPeriod": {
+              "low": "2017-08-30T01:00:00.000Z",
+              "high": "2017-08-31T01:00:00.000Z",
+              "lowClosed": true,
+              "highClosed": true,
+              "_type": "QDM::Interval"
+            },
+            "qdmVersion": "5.4"
+          },
+          {
+            "_id": "5d07f799d7c8ac11979fff40",
+            "_type": "QDM::FacilityLocation",
+            "code": {
+              "code": "444971000124105",
+              "codeSystem": "SNOMED-CT",
+              "descriptor": "Annual Wellness Visit",
+              "codeSystemOid": null,
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "locationPeriod": {
+              "low": "2017-08-30T02:00:00.000Z",
+              "high": "2017-08-31T03:00:00.000Z",
+              "lowClosed": true,
+              "highClosed": true,
+              "_type": "QDM::Interval"
+            },
+            "qdmVersion": "5.4"
+          }
+        ],
+        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff41",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5ce42f73b848461fd2b9594a"
+        },
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "principalDiagnosis": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.4",
+        "relevantPeriod": {
+          "low": "2012-02-02T08:45:00.000Z",
+          "high": "2012-02-02T08:45:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5d07f799d7c8ac11979fff42",
+        "authorDatetime": "2012-07-30T07:45:00.000+00:00",
+        "codeListId": null,
+        "components": [
+          {
+            "result": {
+              "unit": "mg",
+              "value": 5
+            },
+            "code": {
+              "code": "129151000119102",
+              "codeSystem": "SNOMED-CT",
+              "version": null,
+              "descriptor": null
+            }
+          },
+          {
+            "result": {
+              "code": "129151000119102",
+              "codeSystem": "SNOMED-CT",
+              "version": null,
+              "descriptor": null
+            },
+            "code": {
+              "code": "129151000119102",
+              "codeSystem": "SNOMED-CT",
+              "version": null,
+              "descriptor": "Kidney Failure"
+            },
+            "referenceRange": {
+              "low": "33",
+              "high": null,
+              "lowClosed": true,
+              "highClosed": true
+            }
+          }
+        ],
+        "dataElementCodes": [
+          {
+            "codeSystem": "LOINC",
+            "code": "11218-5"
+          }
+        ],
+        "description": "Laboratory Test, Performed: Urine Protein Tests",
+        "hqmfOid": "2.16.840.1.113883.3.560.1.5",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff43",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5ce42f73b848461fd2b9594c"
+        },
+        "method": null,
+        "negationRationale": null,
+        "qdmCategory": "laboratory_test",
+        "qdmStatus": "performed",
+        "qdmTitle": "Laboratory Test, Performed",
+        "qdmVersion": "5.4",
+        "reason": null,
+        "referenceRange": null,
+        "relevantPeriod": {
+          "low": "2012-07-30T07:45:00.000Z",
+          "high": "2012-07-30T07:45:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "result": {
+          "code": "129151000119102",
+          "codeSystem": "SNOMED-CT",
+          "version": null,
+          "descriptor": "Kidney Failure"
+        },
+        "resultDatetime": null,
+        "status": null,
+        "_type": "QDM::LaboratoryTestPerformed"
+      },
+      {
+        "_id": "5d07f799d7c8ac11979fff44",
+        "authorDatetime": "2012-07-30T08:00:00.000+00:00",
+        "codeListId": null,
+        "components": [
+
+        ],
+        "dataElementCodes": [
+          {
+            "codeSystem": "LOINC",
+            "code": "11218-5"
+          }
+        ],
+        "description": "Laboratory Test, Performed: Urine Protein Tests",
+        "hqmfOid": "2.16.840.1.113883.3.560.1.5",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff45",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5ce42f73b848461fd2b9594d"
+        },
+        "method": null,
+        "negationRationale": null,
+        "qdmCategory": "laboratory_test",
+        "qdmStatus": "performed",
+        "qdmTitle": "Laboratory Test, Performed",
+        "qdmVersion": "5.4",
+        "reason": null,
+        "referenceRange": null,
+        "relevantPeriod": {
+          "low": "2012-07-30T08:00:00.000Z",
+          "high": "2012-07-30T08:00:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "result": {
+          "unit": "{xx}",
+          "value": 1
+        },
+        "resultDatetime": null,
+        "status": null,
+        "_type": "QDM::LaboratoryTestPerformed"
+      },
+      {
+        "_id": "5d07f799d7c8ac11979fff34",
+        "birthDatetime": "1937-07-01T08:00:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "codeSystem": "LOINC",
+            "descriptor": null,
+            "codeSystemOid": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff46",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5d07f799d7c8ac11979fff34"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": "5d07f799d7c8ac11979fff35",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff47",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5d07f799d7c8ac11979fff35"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": "5d07f799d7c8ac11979fff36",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "codeSystem": "CDC Race",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystemOid": "2.16.840.1.113883.6.238",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff48",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5d07f799d7c8ac11979fff36"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": "5d07f799d7c8ac11979fff37",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "F",
+            "codeSystem": "AdministrativeGender",
+            "descriptor": "F",
+            "codeSystemOid": "2.16.840.1.113883.5.1",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+        "id": {
+          "_id": "5d07f799d7c8ac11979fff49",
+          "namingSystem": null,
+          "qdmVersion": "5.4",
+          "value": "5d07f799d7c8ac11979fff37"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
+        "qdmVersion": "5.4",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "diagnosis",
+          "title": "Diabetes",
+          "description": "Diagnosis: Diabetes",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1001",
+          "type": "conditions",
+          "id": "Diabetes_Diagnosis_40280381_3d61_56a7_013e_62abf57d3006_source",
+          "start_date": -658594800000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+            "ORDINAL": {
+              "type": "CD",
+              "code_list_id": "2.16.840.1.113883.3.526.3.1139",
+              "field_title": "Ordinality",
+              "title": "ACE Inhibitor or ARB"
+            }
+          },
+          "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+          "cms_id": "CMS134v6",
+          "criteria_id": "160eb64a4ffoq",
+          "codes": {
+            "SNOMED-CT": [
+              "190372001"
+            ]
+          },
+          "coded_entry_id": "5ce42f73b848461fd2b95949",
+          "code_source": "USER_DEFINED"
+        },
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "AnnualWellnessVisit",
+          "description": "Encounter, Performed: Annual Wellness Visit",
+          "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+          "type": "encounters",
+          "id": "AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_62abf57e3022_source",
+          "start_date": 1328172300000,
+          "end_date": 1328172300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+            "FACILITY_LOCATION": {
+              "type": "COL",
+              "values": [
+                {
+                  "type": "FAC",
+                  "key": "FACILITY_LOCATION",
+                  "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+                  "field_title": "Facility Location",
+                  "start_date": "08/30/2017",
+                  "start_time": "1:00 AM",
+                  "end_date": "08/31/2017",
+                  "end_time": "1:00 AM",
+                  "value": 1504054800000,
+                  "locationPeriodLow": "08/30/2017 1:00 AM",
+                  "locationPeriodHigh": "08/31/2017 1:00 AM",
+                  "end_value": 1504141200000,
+                  "title": "Annual Wellness Visit"
+                },
+                {
+                  "type": "FAC",
+                  "key": "FACILITY_LOCATION",
+                  "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+                  "field_title": "Facility Location",
+                  "start_date": "08/30/2017",
+                  "start_time": "2:00 AM",
+                  "end_date": "08/31/2017",
+                  "end_time": "3:00 AM",
+                  "value": 1504058400000,
+                  "locationPeriodLow": "08/30/2017 2:00 AM",
+                  "locationPeriodHigh": "08/31/2017 3:00 AM",
+                  "end_value": 1504148400000,
+                  "title": "Annual Wellness Visit"
+                }
+              ],
+              "field_title": "Facility Location"
+            }
+          },
+          "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+          "cms_id": "CMS134v6",
+          "criteria_id": "160eb65f2eaz2",
+          "codes": {
+            "HCPCS": [
+              "G0438"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "5ce42f73b848461fd2b9594a",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "diagnosis",
+          "title": "DiabeticNephropathy",
+          "description": "Diagnosis: Diabetic Nephropathy",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.109.12.1004",
+          "type": "conditions",
+          "id": "DiabeticNephropathy_Diagnosis_40280381_3d61_56a7_013e_62abf57e3014_source",
+          "start_date": 1333454400000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+          "cms_id": "CMS134v6",
+          "criteria_id": "160eb66a79aIq",
+          "codes": {
+            "SNOMED-CT": [
+              "236499007"
+            ]
+          },
+          "coded_entry_id": "5ce42f73b848461fd2b9594b",
+          "code_source": "USER_DEFINED"
+        },
+        {
+          "negation": false,
+          "definition": "laboratory_test",
+          "status": "performed",
+          "title": "UrineProteinTests",
+          "description": "Laboratory Test, Performed: Urine Protein Tests",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.109.12.1024",
+          "type": "laboratory_tests",
+          "id": "UrineProteinTests_LaboratoryTestPerformed_28120d98_866d_488a_b3c6_4cd573a59048_source",
+          "start_date": 1343634300000,
+          "end_date": 1343634300000,
+          "value": [
+            {
+              "type": "CD",
+              "type_cmp": "CD",
+              "code_list_id": "2.16.840.1.113883.3.464.1003.109.12.1028",
+              "title": "Kidney Failure"
+            }
+          ],
+          "references": null,
+          "field_values": {
+            "COMPONENT": {
+              "type": "COL",
+              "values": [
+                {
+                  "type": "CMP",
+                  "type_cmp": "PQ",
+                  "key": "COMPONENT",
+                  "code_list_id": "2.16.840.1.113883.3.464.1003.109.12.1028",
+                  "field_title": "Component",
+                  "code_list_id_cmp": "",
+                  "referenceRangeLow_value": "",
+                  "referenceRangeLow_unit": "",
+                  "referenceRangeHigh_value": "",
+                  "referenceRangeHigh_unit": "",
+                  "title": "Kidney Failure",
+                  "value": "5",
+                  "unit": "mg"
+                },
+                {
+                  "type": "CMP",
+                  "key": "COMPONENT",
+                  "code_list_id": "2.16.840.1.113883.3.464.1003.109.12.1028",
+                  "title_cmp": "Kidney Failure",
+                  "field_title": "Component",
+                  "type_cmp": "CD",
+                  "code_list_id_cmp": "2.16.840.1.113883.3.464.1003.109.12.1028",
+                  "referenceRangeLow_value": "33",
+                  "referenceRangeLow_unit": "cm3",
+                  "referenceRangeHigh_value": "",
+                  "referenceRangeHigh_unit": "",
+                  "title": "Kidney Failure"
+                }
+              ],
+              "field_title": "Component"
+            }
+          },
+          "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+          "cms_id": "CMS134v6",
+          "criteria_id": "160eb677373d5",
+          "codes": {
+            "LOINC": [
+              "11218-5"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "5ce42f73b848461fd2b9594c",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "laboratory_test",
+          "status": "performed",
+          "title": "UrineProteinTests",
+          "description": "Laboratory Test, Performed: Urine Protein Tests",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.109.12.1024",
+          "type": "laboratory_tests",
+          "id": "UrineProteinTests_LaboratoryTestPerformed_28120d98_866d_488a_b3c6_4cd573a59048_source",
+          "start_date": 1343635200000,
+          "end_date": 1343635200000,
+          "value": [
+            {
+              "type": "PQ",
+              "type_cmp": "CD",
+              "value": "1",
+              "unit": "{xx}"
+            }
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+          "cms_id": "CMS134v6",
+          "criteria_id": "16158595a48Lc",
+          "codes": {
+            "LOINC": [
+              "11218-5"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "5ce42f73b848461fd2b9594d",
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "c60b45d979287e11d67a279df69b8306e36ff42c67d62ca89ae135297fab67a3",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
+    },
+    "qdmVersion": "5.4"
+  },
+  "user_id": "501fdba3044a111b98000001"
+}
