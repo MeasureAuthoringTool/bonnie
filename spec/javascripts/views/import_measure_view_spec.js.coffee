@@ -31,7 +31,7 @@ describe 'ImportMeasure view', ->
         jasmine.getJSONFixtures().clearCache()
 
       it 'remembers we are calculating SDEs', ->
-        measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS529v0/CMS529v0.json', 'cqm_measure_data/special_measures/CMS529v0/value_sets.json'
+        measure = loadMeasureWithValueSets 'cqm_measure_data/CMS529v0/CMS529v0.json', 'cqm_measure_data/CMS529v0/value_sets.json'
         importView = new Thorax.Views.ImportMeasure(model: measure)
         importView.appendTo 'body'
         importView.render()
@@ -39,7 +39,7 @@ describe 'ImportMeasure view', ->
         importView.remove()
 
       it 'remembers we are NOT calculating SDEs', ->
-        measure - loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
+        measure - loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
         importView = new Thorax.Views.ImportMeasure(model: measure)
         importView.appendTo 'body'
         importView.render()

@@ -12,7 +12,7 @@ describe 'Production_PatientBuilderView', ->
   describe 'CMS160 tests', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
       expiredDenex = getJSONFixture('patients/CMS160v6/Expired_DENEX.json')
       passNum2 = getJSONFixture('patients/CMS160v6/Pass_NUM2.json')
       @patients = new Thorax.Collections.Patients [expiredDenex, passNum2], parse: true
@@ -38,7 +38,7 @@ describe 'Production_PatientBuilderView', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @bonnie_measures_old = bonnie.measures
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS722/CMS722v0.json', 'cqm_measure_data/special_measures/CMS722/value_sets.json'
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS722v0/CMS722v0.json', 'cqm_measure_data/CMS722v0/value_sets.json'
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @cqlMeasure
       patientTest = getJSONFixture('patients/CMS722v0/Patient_Test.json')
@@ -77,7 +77,7 @@ describe 'Production_PatientBuilderView', ->
   describe 'Medicare Fee For Service tests', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS759/CMS759v1.json', 'cqm_measure_data/special_measures/CMS759v1/value_sets.json'
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS759v1/CMS759v1.json', 'cqm_measure_data/CMS759v1/value_sets.json'
       numerPass = getJSONFixture('patients/CMS759v1/Numer_PASS.json')
       @patients = new Thorax.Collections.Patients [numerPass], parse: true
 
@@ -111,7 +111,7 @@ describe 'Production_PatientBuilderView', ->
   describe 'Direct Reference Code tests', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS52v7/CMS52v7.json', 'cqm_measure_data/special_measures/CMS52v7/value_sets.json'
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS52v7/CMS52v7.json', 'cqm_measure_data/CMS52v7/value_sets.json'
       elementDirectReferenceCode = getJSONFixture('patients/CMS52v7/Element_Direct Reference Code.json')
       @patients = new Thorax.Collections.Patients [elementDirectReferenceCode], parse: true
 
@@ -149,7 +149,7 @@ describe 'Production_PatientBuilderView', ->
   describe 'Participation tests', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS761/CMS761v0.json', 'cqm_measure_data/special_measures/CMS761/value_sets.json'
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS761v0/CMS761v0.json', 'cqm_measure_data/CMS761v0/value_sets.json'
       noParticipation = getJSONFixture 'patients/CMS761v0/No_Participation.json'
       withParticipation = getJSONFixture 'patients/CMS761v0/With_Participation.json'
       @patients = new Thorax.Collections.Patients [noParticipation, withParticipation], parse: true
@@ -170,7 +170,7 @@ describe 'Production_PatientBuilderView', ->
   describe 'QDM 5.4', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMSv54321/CMSv54321.json', 'cqm_measure_data/special_measures/CMSv54321/value_sets.json'
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMSv54321/CMSv54321.json', 'cqm_measure_data/CMSv54321/value_sets.json'
       assessmentOrderPass = getJSONFixture 'patients/CMSv54321/Pass_AssessmentOrder.json'
       communicationPass = getJSONFixture 'patients/CMSv54321/Pass_Communication.json'
       medSettingPass = getJSONFixture 'patients/CMSv54321/Pass_MedSetting.json'

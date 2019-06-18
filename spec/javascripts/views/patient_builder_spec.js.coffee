@@ -2,7 +2,7 @@ describe 'PatientBuilderView', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS134/CMS134v6.json', 'cqm_measure_data/core_measures/CMS134/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
     @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS134v6/Elements_Test.json'), getJSONFixture('patients/CMS134v6/Fail_Hospice_Not_Performed_Denex.json')], parse: true
     @patient = @patients.models[1]
     @bonnie_measures_old = bonnie.measures
@@ -556,7 +556,7 @@ describe 'PatientBuilderView', ->
 
   describe "setting expected values for CV measure", ->
     beforeEach ->
-      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
+      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
       patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS32v7/patients.json'), parse: true
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       @patientBuilder.appendTo 'body'
@@ -622,7 +622,7 @@ describe 'PatientBuilderView', ->
   describe 'CQL', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/deprecated_measures/CMS347/CMS347v3.json'), parse: true
       # preserve atomicity
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
@@ -633,7 +633,8 @@ describe 'PatientBuilderView', ->
 
     xit "laboratory test performed should have custom view for components", ->
       # SKIP: Re-enable with Patient Builder Attributes
-      patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS347/patients.json'), parse: true
+      # NOTE: these patients aren't in the DB so fixture will need to be swapped
+      patients = new Thorax.Collections.Patients getJSONFixture('patients/CMS347/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
       dataCriteria = patientBuilder.model.get('source_data_criteria').models
       laboratoryTestIndex = dataCriteria.findIndex((m) ->  m.attributes.definition is 'laboratory_test')
@@ -658,7 +659,7 @@ describe 'PatientBuilderView', ->
 
     xit "EditCriteriaValueView does not have duplicated codes in dropdown", ->
       # SKIP: Re-enable with Patient Builder Code Work
-      # TODO(cqm-measure/patients) Need to update or replace this fixture
+      # TODO(cqm-measure/patients) Need to update or replace this fixture and the patients one below
       cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CQL/CMS107/CMS107v6.json', 'cqm_measure_data/CQL/CMS107/value_sets.json'
       bonnie.measures.add(cqlMeasure, { parse: true })
       patients = new Thorax.Collections.Patients getJSONFixture('patients/CMS107/patients.json'), parse: true
@@ -679,7 +680,7 @@ describe 'PatientBuilderView', ->
 
     xit "EditCriteriaValueView allows for input field validation to happen on change event", ->
       # SKIP: Re-enable with Patient Builder Code Work
-      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
+      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add(cqlMeasure, { parse: true })
       patients = new Thorax.Collections.Patients getJSONFixture('patients/CMS160v6/patients.json'), parse: true
@@ -710,16 +711,18 @@ describe 'PatientBuilderView', ->
       # preserve atomicity
       @bonnie_measures_old = bonnie.measures
 
-      valueSetsPath = 'cqm_measure_data/special_measures/CMS890/value_sets.json'
+      valueSetsPath = 'cqm_measure_data/CMS890v0/value_sets.json'
       bonnie.measures = new Thorax.Collections.Measures()
-      @compositeMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS890/CMS890v0.json', valueSetsPath
+      @compositeMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS890v0/CMS890v0.json', valueSetsPath
       bonnie.measures.push(@compositeMeasure)
 
-      @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
+      @components = getJSONFixture('cqm_measure_data/CMS890v0/components.json')
       @components = @components.map((component) -> new Thorax.Models.Measure component, parse: true)
       @components.forEach((component) -> bonnie.measures.push(component))
 
-      @compositePatients = new Thorax.Collections.Patients getJSONFixture('patients/CMS890/patients.json'), parse: true
+      patientTest1 = getJSONFixture('patients/CMS890v0/Patient_Test 1.json')
+      patientTest2 = getJSONFixture('patients/CMS890v0/Patient_Test 2.json')
+      @compositePatients = new Thorax.Collections.Patients [patientTest1, patientTest2], parse: true
       @compositeMeasure.populateComponents()
 
     afterEach ->
@@ -761,7 +764,7 @@ describe 'Direct Reference Code Usage', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
     bonnie.measures.add(@measure, { parse: true })
     @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS32v7/patients.json'), parse: true
 
@@ -792,7 +795,7 @@ describe 'Allergy', ->
 
   beforeAll ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS12v0/CMS12v0.json', 'cqm_measure_data/special_measures/CMS12v0/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS12v0/CMS12v0.json', 'cqm_measure_data/CMS12v0/value_sets.json'
     bonnie.measures.add @measure
     medAllergy = getJSONFixture("patients/CMS12v0/MedAllergyEndIP_DENEXCEPPass.json")
     @patients = new Thorax.Collections.Patients [medAllergy], parse: true
@@ -810,10 +813,10 @@ describe 'Allergy', ->
     expect(@patientBuilder.$el.find("div#criteriaElements").html()).toContainText "allergy"
 
   it 'highlight is triggered by relevant cql clause', ->
-    dataCriteriaIds = ['5c880149d7c8ac4c3e1068e2']
     cqlLogicView = @patientBuilder.populationLogicView.getView().cqlLogicView
     sourceDataCriteria = cqlLogicView.latestResult.patient.get('source_data_criteria')
-    patientDataCriteria = _.find(sourceDataCriteria.models, (sdc) -> sdc.get('_id').toString() == dataCriteriaIds[0])
+    patientDataCriteria = _.find(sourceDataCriteria.models, (sdc) -> sdc.get('qdmCategory') == 'allergy')
+    dataCriteriaIds = [patientDataCriteria.get('_id').toString()]
     spyOn(patientDataCriteria, 'trigger')
     cqlLogicView.highlightPatientData(dataCriteriaIds)
     expect(patientDataCriteria.trigger).toHaveBeenCalled()

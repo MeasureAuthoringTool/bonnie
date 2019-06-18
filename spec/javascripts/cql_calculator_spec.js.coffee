@@ -5,7 +5,7 @@ describe 'cqmCalculator', ->
 
   describe 'setValueSetVersionsToUndefined', ->
     it 'returns valueSets with versions set to undefined', ->
-      measure = getJSONFixture('cqm_measure_data/special_measures/CMS720/CMS720v0.json')
+      measure = getJSONFixture('cqm_measure_data/CMS720v0/CMS720v0.json')
       measure_elm = measure.cql_libraries.map((lib) -> lib.elm)
       expect(measure_elm[0]['library']['valueSets']).toExist()
       # Add a version to a valueSet
@@ -15,7 +15,7 @@ describe 'cqmCalculator', ->
       expect(elm[0]['library']['valueSets']['def'][0]['version']).not.toBeDefined()
 
     it 'returns the elm without error if there are no valueSets', ->
-      measure = getJSONFixture('cqm_measure_data/special_measures/CMS720/CMS720v0.json')
+      measure = getJSONFixture('cqm_measure_data/CMS720v0/CMS720v0.json')
       measure_elm = measure.cql_libraries.map((lib) -> lib.elm)
       expect(measure_elm[0]['library']['valueSets']).toExist()
       # Remove valueSets
@@ -107,7 +107,7 @@ describe 'cqmCalculator', ->
     describe 'pretty statement results', ->
       # NOTE: the pretty generation test is now covered within the cqm-execution repository itself
       beforeAll ->
-        measure = loadMeasureWithValueSets('cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json')
+        measure = loadMeasureWithValueSets('cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json')
         patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS160v6/Expired_DENEX.json')], parse: true
         patient = patients.at(0)
         @prettyResult = @cqm_calculator.calculate(measure.get('populations').first(), patient, {doPretty: true})
@@ -123,7 +123,7 @@ describe 'cqmCalculator', ->
 
     describe 'episode of care based relevance map', ->
       beforeAll ->
-        @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS177/CMS177v6.json', 'cqm_measure_data/core_measures/CMS177/value_sets.json'
+        @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS177v6/CMS177v6.json', 'cqm_measure_data/CMS177v6/value_sets.json'
         failIpp = getJSONFixture 'patients/CMS177v6/Fail_IPP.json'
         passNumer = getJSONFixture 'patients/CMS177v6/Pass_Numer.json'
         @patients = new Thorax.Collections.Patients [failIpp, passNumer], parse: true
@@ -149,7 +149,7 @@ describe 'cqmCalculator', ->
 
     describe 'patient based relevance map', ->
       beforeAll ->
-        @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS158/CMS158v6.json', 'cqm_measure_data/core_measures/CMS158/value_sets.json'
+        @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS158v6/CMS158v6.json', 'cqm_measure_data/CMS158v6/value_sets.json'
         failIpp = getJSONFixture 'patients/CMS158v6/Fail_IPP.json'
         passNumer = getJSONFixture 'patients/CMS158v6/Pass_Numer.json'
         @patients = new Thorax.Collections.Patients [failIpp, passNumer], parse: true
@@ -164,7 +164,7 @@ describe 'cqmCalculator', ->
 
     describe 'execution engine using passed in timezone offset', ->
       beforeAll ->
-        @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS760/CMS760v0.json', 'cqm_measure_data/special_measures/CMS760/value_sets.json'
+        @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS760v0/CMS760v0.json', 'cqm_measure_data/CMS760v0/value_sets.json'
         correctTimezone = getJSONFixture 'patients/CMS760v0/Correct_Timezone.json'
         @patients = new Thorax.Collections.Patients [correctTimezone], parse: true
 

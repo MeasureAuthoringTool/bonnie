@@ -2,7 +2,7 @@ describe 'CQL', ->
   beforeAll ->
     bonnie.measures = new Thorax.Collections.Measures()
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS10/CMS10v0.json', 'cqm_measure_data/special_measures/CMS10/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS10v0/CMS10v0.json', 'cqm_measure_data/CMS10v0/value_sets.json'
     bonnie.measures.add @measure
     testDenexcepPass = getJSONFixture('patients/CMS10v0/Test_DenexcepPass.json')
     testIppPass = getJSONFixture('patients/CMS10v0/Test_IppPass.json')

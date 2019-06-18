@@ -2,7 +2,7 @@
   describe 'MeasureView', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
       @vs1 = _.find(@measure.valueSets(), (val_set) -> val_set.display_name is 'Bipolar Disorder')
@@ -87,7 +87,7 @@
       @bonnie_measures_old = bonnie.measures
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS134/CMS134v6.json', 'cqm_measure_data/core_measures/CMS134/value_sets.json'
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
       bonnie.measures.add @cqlMeasure
       @cqlPatients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS134v6/Elements_Test.json')], parse: true
 
@@ -225,7 +225,7 @@
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS529v0/CMS529v0.json', 'cqm_measure_data/special_measures/CMS529v0/value_sets.json'
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS529v0/CMS529v0.json', 'cqm_measure_data/CMS529v0/value_sets.json'
       bonnie.measures.add @measure
       @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS529v0/Pass_IPP_DENOM_NUMER.json')], parse: true
       @measureView = new Thorax.Views.Measure(model: @measure, patients: @patients, populations: @measure.get('populations'), population: @measure.get('displayedPopulation'))

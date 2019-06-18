@@ -2,8 +2,10 @@ describe 'CqlTruncatedStatementView', ->
   describe 'nominal function', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS460/patients.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS460v0/CMS460v0.json', 'cqm_measure_data/CMS460v0/value_sets.json'
+      methadone = getJSONFixture('patients/CMS460v0/MethadoneLessThan90MME_NUMERFail.json')
+      opioidTest = getJSONFixture('patients/CMS460v0/Opioid_Test.json')
+      @patients = new Thorax.Collections.Patients [methadone, opioidTest], parse: true
       @cqlMeasure.set('patients', @patients)
       @population = @cqlMeasure.get('populations').first()
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population)
@@ -55,7 +57,7 @@ describe 'CqlTruncatedStatementView', ->
     describe 'Encounters during Measurement Period', ->
       beforeAll ->
         jasmine.getJSONFixtures().clearCache()
-        @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS460/CMS460v0.json', 'cqm_measure_data/special_measures/CMS460/value_sets.json'
+        @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS460v0/CMS460v0.json', 'cqm_measure_data/CMS460v0/value_sets.json'
         methadone = getJSONFixture('patients/CMS460v0/MethadoneLessThan90MME_NUMERFail.json')
         opioidTest = getJSONFixture('patients/CMS460v0/Opioid_test.json')
         @patients = new Thorax.Collections.Patients [methadone, opioidTest], parse: true
@@ -102,7 +104,7 @@ describe 'CqlTruncatedStatementView', ->
     xit 'uses truncated view statement returning single entry and can request hover highlight of single entry', ->
       # SKIP: Does not have clause-true anymore
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS136/CMS136v7.json', 'cqm_measure_data/special_measures/CMS136/value_sets.json'
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS136v7/CMS136v7.json', 'cqm_measure_data/CMS136v7/value_sets.json'
       passIpp1 = getJSONFixture 'patients/CMS136v7/Pass_IPP1.json'
       passIpp2 = getJSONFixture 'patients/CMS136v7/Pass_IPP2.json'
       @patients = new Thorax.Collections.Patients [passIpp1, passIpp2], parse: true

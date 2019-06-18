@@ -2,7 +2,7 @@
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
       @population = @cqlMeasure.get('populations').at(0)
       visit1ED = getJSONFixture 'patients/CMS32v7/Visit_1 ED.json'
       visits1Excl2ED = getJSONFixture 'patients/CMS32v7/Visits 1 Excl_2 ED.json'
