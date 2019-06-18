@@ -18,7 +18,7 @@ describe 'PatientBuilderView', ->
     spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
     @$el = @patientBuilder.$el
 
-  afterEach: ->
+  afterEach ->
     bonnie.measures = @bonnie_measures_old
 
   it 'should not open patient builder for non existent measure', ->
@@ -262,7 +262,7 @@ describe 'PatientBuilderView', ->
       expect($dataCriteria.find(':input[name=end_time]:first')).toBeDisabled()
       @patientBuilder.$("button[data-call-method=save]").click()
 
-    it "serializes the attributes correctly", ->
+    xit "serializes the attributes correctly", ->
       # SKIP: Re-endable with Patient Builder Timing Attributes
       dataCriteria = this.patient.get('cqmPatient').qdmPatient.conditions()[0]
       expect(dataCriteria.get('prevelancePeriod').low).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
@@ -300,7 +300,8 @@ describe 'PatientBuilderView', ->
     afterEach -> @patientBuilder.remove()
 
   describe 'author date time', ->
-    it "removes author date time field value when not performed is checked", ->
+    xit "removes author date time field value when not performed is checked", ->
+      # SKIP: Re-enable with Patient Builder work
       authorDateTimePatient = @patients.models.filter((patient) -> patient.get('last') is 'AuthorDateTime')[0]
       patientBuilder = new Thorax.Views.PatientBuilder(model: authorDateTimePatient, measure: @measure, patients: @patients)
       patientBuilder.appendTo 'body'
@@ -318,7 +319,8 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$(':text[name=start_date]:first').blur()
 
-    it "materializes the patient", ->
+    xit "materializes the patient", ->
+      # SKIP: Re-enable with Patient Builder Work
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
       expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
 
