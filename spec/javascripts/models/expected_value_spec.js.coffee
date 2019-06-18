@@ -17,13 +17,13 @@
     afterAll ->
       @measureView.remove()
 
-    xit 'compares actual vs expected to only 8 decimal places', ->
+    it 'compares actual vs expected to only 8 decimal places', ->
       pt1_passes = $("div.patient-name:contains('Visits 2 ED')").closest('.panel-heading').next().find('.pass').length
       pt2_passes = $("div.patient-name:contains('Visits 1 Excl 2 ED')").closest('.panel-heading').next().find('.pass').length
       expect(pt1_passes).toEqual 4
       expect(pt2_passes).toEqual 4
 
-    xit 'displays actual and expected to only 8 decimal places', ->
+    it 'displays actual and expected to only 8 decimal places', ->
       observ_td = $("td:contains('OBSERV_1')")
       expected = observ_td.next()[0].innerText.trim()
       actual = observ_td.next().next()[0].innerText.trim()
