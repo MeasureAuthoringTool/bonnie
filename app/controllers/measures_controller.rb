@@ -134,7 +134,7 @@ class MeasuresController < ApplicationController
         if year_shift + patient_birthdate_year > 9999 || year_shift + patient_birthdate_year < 0001
           raise RangeError
         end
-        patient.qdmPatient.birthDatetime = patient.qdmPatient.birthDatetime.change(year: year_shift + patient_birthdate_year)
+        patient.qdmPatient.birthDatetime = shift_birth_datetime(patient.qdmPatient.birthDatetime, year_shift)
         patient.qdmPatient.dataElements.each do |data_element|
           data_element.shift_years(year_shift)
         end
@@ -147,5 +147,13 @@ class MeasuresController < ApplicationController
     end
     patients.each(&:save!)
     return true
+  end
+
+  def shift_birth_datetime(birth_datetime, year_shift)
+    if birth_datetime.month == 2 && birth_datetime.day == 29 && !Date.leap?(year_shift + birth_datetime.year)
+      birth_datetime.change(year: year_shift + birth_datetime.year, day: 28)
+    else
+      birth_datetime.change(year: year_shift + birth_datetime.year)
+    end
   end
 end
