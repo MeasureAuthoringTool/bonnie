@@ -82,6 +82,11 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     criteriaType
 
   @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
+
+  # the attributes to skip in user attribute view and editing fields
+  @SKIP_ATTRIBUTES = ['dataElementCodeas', 'description', 'id', '_id', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', '_type']
+    .concat(@PRIMARY_TIMING_ATTRIBUTES)
+
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
     return @getPrimaryTimingAttributes()[0].name
@@ -108,6 +113,10 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   getAttributeType: (attributeName) ->
     attrInfo = @get('qdmDataElement').schema.path(attributeName)
     return attrInfo.instance
+
+  # return the human friendly title for an attribute, if it exists, otherwise return the name.
+  getAttributeTitle: (attributeName) ->
+    Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[attributeName] || attributeName
 
 Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"

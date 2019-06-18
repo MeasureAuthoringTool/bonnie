@@ -89,6 +89,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
           @timingAttributeViews.push dateTimeView
           @listenTo dateTimeView, 'valueChanged', @updateAttributeFromInputChange
 
+    # view that shows all the currently set attributes
+    @attributeDisplayView = new Thorax.Views.DataCriteriaAttributeDisplayView(model: @model)
+    @listenTo @attributeDisplayView, 'attributesModified', @attributesModified
+
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
@@ -127,6 +131,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   updateAttributeFromInputChange: (inputView) ->
     @model.get('qdmDataElement')[inputView.attributeName] = inputView.value
+    @triggerMaterialize()
+
+  attributesModified: ->
+    @attributeDisplayView.render()
     @triggerMaterialize()
 
   isDuringMeasurePeriod: ->
