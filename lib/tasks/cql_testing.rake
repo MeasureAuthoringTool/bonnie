@@ -51,7 +51,6 @@ namespace :bonnie do
       end
     end
 
-
     desc %{Export backend cqm fixtures for a given user account
     example: bundle exec rake bonnie:fixtures:generate_backend_cqm_fixtures[bonnie-fixtures@mitre.org]}
     task :generate_backend_cqm_fixtures, [:user_email] => [:environment] do |t, args|
