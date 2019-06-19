@@ -196,7 +196,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
-    status = @originalModel.save {cqmPatient: @model.get('cqmPatient')},
+    status = @originalModel.save {cqmPatient: @model.get('cqmPatient'), expired: @model.get('expired')},
       success: (model) =>
         @patients.add model # make sure that the patient exist in the global patient collection
         @measure?.get('cqmMeasure').patients.push model.get('cqmPatient') # and the measure's patient collection
