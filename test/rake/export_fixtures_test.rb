@@ -10,8 +10,8 @@ class ExportFixturesTest < ActiveSupport::TestCase
     simple_records_set = File.join('records','core_measures', 'CMS134v6')
     packages_set = File.join('cql_measure_packages','core_measures','CMS32v7')
     collection_fixtures(users_set, measure_set, simple_measure_set, records_set, simple_records_set, packages_set)
-    cms_32 = CqlMeasure.find_by(cms_id: 'CMS32v7')
-    @cms32_file = cms_32.package.file
+    cms32 = CqlMeasure.find_by(cms_id: 'CMS32v7')
+    @cms32_file = cms32.package.file
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, CQM::Patient.all)
   end
