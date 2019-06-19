@@ -101,8 +101,11 @@ class Thorax.Models.Patient extends Thorax.Model
     if !sourceElement
       return # Patient characteristic birthdate was not found on the measure, so it won't be placed on the patient
     sourceElement.birthDatetime = @get('cqmPatient').qdmPatient.birthDatetime.copy()
-    birthdateConcept = (@getConceptsForDataElement('birthdate', measure).filter (elem) -> elem.code == birthdate)[0]
-    sourceElement.dataElementCodes[0] = @conceptToCode(birthdateConcept)
+    if sourceElement.codeListId?
+      birthdateConcept = (@getConceptsForDataElement('birthdate', measure).filter (elem) -> elem.code == birthdate)[0]
+      sourceElement.dataElementCodes[0] = @conceptToCode(birthdateConcept)
+    else
+      sourceElement.dataElementCodes[0] = new cqm.models.CQL.Code('21112-8', 'LOINC', undefined, 'Birth date')
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
 
   setCqmPatientDeathDate: (deathdate, measure) ->
