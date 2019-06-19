@@ -74,7 +74,7 @@ describe 'Production_PatientBuilderView', ->
       result = @cqlMeasure.get('populations').first().calculate(patient)
       expect(result.get('statement_results').Test31['Newborn Hearing Screening Right'].final).toEqual "TRUE"
 
-  describe 'Medicare Fee For Service tests', ->
+  describe 'Medicare Fee For Service', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS759v1/CMS759v1.json', 'cqm_measure_data/CMS759v1/value_sets.json'
@@ -85,28 +85,24 @@ describe 'Production_PatientBuilderView', ->
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @measure
 
+      @patient = @patients.at(0) # Numer Pass
+      @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
+      @result = @measure.get('populations').first().calculate(@patient)
+
     afterAll ->
       bonnie.measures = @bonnie_measures_old
+      @patientBuilder.remove()
 
-    describe 'Patient "Numer PASS"', ->
-      beforeAll ->
-        @patient = @patients.at(0) # Numer Pass
-        @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
-        @result = @measure.get('populations').first().calculate(@patient)
+    it 'characteristic should be visible', ->
+      @patientBuilder.render()
+      @patientBuilder.appendTo 'body'
+      expect(@patientBuilder.$('.ui-draggable')[4]).toContainText('Medicare Fee For Service')
+      expect(@patientBuilder.$('.ui-draggable')[4]).toBeVisible()
 
-      afterAll ->
-        @patientBuilder.remove()
-
-      it 'Medicare Fee for Service characteristic should be visible', ->
-        @patientBuilder.render()
-        @patientBuilder.appendTo 'body'
-        expect(@patientBuilder.$('.ui-draggable')[4]).toContainText('Medicare Fee For Service')
-        expect(@patientBuilder.$('.ui-draggable')[4]).toBeVisible()
-
-      it 'should calculate correctly', ->
-        expect(@result.attributes.IPP).toBe 1
-        expect(@result.attributes.NUMER).toBe 1
-        expect(@result.attributes.DENOM).toBe 1
+    it 'should calculate correctly', ->
+      expect(@result.attributes.IPP).toBe 1
+      expect(@result.attributes.NUMER).toBe 1
+      expect(@result.attributes.DENOM).toBe 1
 
   describe 'Direct Reference Code tests', ->
     beforeAll ->
