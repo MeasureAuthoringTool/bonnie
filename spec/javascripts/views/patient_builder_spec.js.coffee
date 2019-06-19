@@ -96,21 +96,32 @@ describe 'PatientBuilderView', ->
       expect(cqmPatient.qdmPatient.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
       expect(thoraxPatient.getBirthDate()).toEqual '1/2/1993'
       expect(thoraxPatient.getNotes()).toEqual 'EXAMPLE NOTES FOR TEST'
-      expect(thoraxPatient.getGender()).toEqual 'Female'
+      expect(thoraxPatient.getGender().display).toEqual 'Female'
       genderElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
       expect(genderElement.dataElementCodes[0].code).toEqual 'F'
       raceElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
       expect(raceElement.dataElementCodes[0].code).toEqual '2131-1'
       expect(raceElement.dataElementCodes[0].display).toEqual 'Other Race'
-      expect(thoraxPatient.getRace()).toEqual 'Other Race'
+      expect(thoraxPatient.getRace().display).toEqual 'Other Race'
       ethnicityElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
       expect(ethnicityElement.dataElementCodes[0].code).toEqual '2135-2'
       expect(ethnicityElement.dataElementCodes[0].display).toEqual 'Hispanic or Latino'
-      expect(thoraxPatient.getEthnicity()).toEqual 'Hispanic or Latino'
+      expect(thoraxPatient.getEthnicity().display).toEqual 'Hispanic or Latino'
       payerElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
       expect(payerElement.dataElementCodes[0].code).toEqual '1'
       expect(payerElement.dataElementCodes[0].display).toEqual 'MEDICARE'
       expect(@patientBuilder.model.get('payer')).toEqual '1'
+
+    it "displayes correct values on the UI after saving", ->
+      expect(@patientBuilder.$(':input[name=last]')[0].value).toEqual 'LAST NAME'
+      expect(@patientBuilder.$(':input[name=first]')[0].value).toEqual 'FIRST NAME'
+      expect(@patientBuilder.$(':input[name=birthdate]')[0].value).toEqual '01/02/1993'
+      expect(@patientBuilder.$(':input[name=birthtime]')[0].value).toEqual '1:15 PM'
+      expect(@patientBuilder.$(':input[name=notes]')[0].value).toEqual 'EXAMPLE NOTES FOR TEST'
+      expect(@patientBuilder.$('select[name=race]')[0].value).toEqual '2131-1'
+      expect(@patientBuilder.$('select[name=ethnicity]')[0].value).toEqual '2135-2'
+      expect(@patientBuilder.$('select[name=gender]')[0].value).toEqual 'F'
+      expect(@patientBuilder.$('select[name=payer]')[0].value).toEqual '1'
 
     it "tries to save the patient correctly", ->
       expect(@patientBuilder.originalModel.save).toHaveBeenCalled()

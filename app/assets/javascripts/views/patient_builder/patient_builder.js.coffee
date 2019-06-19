@@ -22,6 +22,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @birthtime = @model.getBirthTime()
     @deathdate = @model.getDeathDate()
     @deathtime = @model.getDeathTime()
+    @race = @model.getRace().code
+    @gender = @model.getGender().code
+    @ethnicity = @model.getEthnicity().code
+    @payer = @model.getPayer().code
     @notes = @model.getNotes()
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
