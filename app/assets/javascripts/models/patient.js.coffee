@@ -29,10 +29,9 @@ class Thorax.Models.Patient extends Thorax.Model
     clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expectedValues, parent: clonedPatient, parse: true)
     if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
     if options.dedupName
-       clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
+      clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
     clonedPatient
 
-  getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
     @get('cqmPatient')['measure_ids'].map (m) ->
@@ -41,27 +40,31 @@ class Thorax.Models.Patient extends Thorax.Model
   getEntrySections: ->
     s for s in Thorax.Models.Patient.sections when @has(s)
   ### Patient HTML Header values ###
-  getGender: ->
-    genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
-    gender = genderElement?.dataElementCodes[0].code
-    if gender == 'M'
-      "Male"
-    else
-      "Female"
   getBirthDate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
   getBirthTime: -> @printTime @get('cqmPatient').qdmPatient.birthDatetime
   getDeathDate: -> if @get('expired') then @printDate((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
   getDeathTime: -> if @get('expired') then @printTime((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+
+  # Next 4 methods return the Code object since some calls to them need the code while others need the display name
+  getGender: ->
+    genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
+    genderElement?.dataElementCodes[0]
   getRace: ->
     raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
     unless raceElement? then "Unknown"
     else unless raceElement.dataElementCodes[0].display? then "CDC-RE: #{raceElement.dataElementCodes[0].code}"
-    else raceElement.dataElementCodes[0].display
+    else raceElement.dataElementCodes[0]
   getEthnicity: ->
     ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
     unless ethnicityElement? then "Unknown"
     else unless ethnicityElement.dataElementCodes[0].display? then "CDC-RE: #{ethnicityElement.dataElementCodes[0].code}"
-    else ethnicityElement.dataElementCodes[0].display
+    else ethnicityElement.dataElementCodes[0]
+  getPayer: ->
+    payerElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
+    unless payerElement? then "Unknown"
+    else unless payerElement.dataElementCodes[0].display? then "CDC-RE: #{payerElement.dataElementCodes[0].code}"
+    else payerElement.dataElementCodes[0]
+
   getInsurance: ->
     insurances = @get('insurance_providers')?.map (ip) -> ip.name
     insurances?.join(", ") or ''
