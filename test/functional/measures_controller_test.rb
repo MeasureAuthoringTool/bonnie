@@ -760,15 +760,51 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'update measurement period' do
-    measure = CQM::Measure.first
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    measure = CQM::Measure.where({cms_id: "CMS32v7"}).first
     measure_id = measure.id
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     post :measurement_period, {
       year: '1984',
-      id: measure.id.to_s
+      id: measure.id.to_s,
+      measurement_period_shift_dates: "true"
     }
     measure = CQM::Measure.where(id: measure_id).first
     assert_equal '1984', measure.measure_period['low']['value'].slice(0,4)
+    patient = CQM::Patient.by_user(@user).first
+    assert_equal 1966, patient.qdmPatient.birthDatetime.year
+    assert_equal 1984, patient.qdmPatient.dataElements.first.authorDatetime.year
+    assert_equal 1984, patient.qdmPatient.dataElements.first.relevantPeriod.high.year
+  end
+
+  test 'data element goes outside of date range after conversion and fails' do
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    measure = CQM::Measure.where({cms_id: "CMS32v7"}).first
+    measure_id = measure.id
+    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
+    patient = CQM::Patient.by_user(@user).first
+    # lower the authordatetime year so that when the measurement period is
+    # shift this date will cause a RangeError
+    patient.qdmPatient.dataElements.first.authorDatetime.change(year: 1972)
+    patient.save!
+    post :measurement_period, {
+      year: '0003',
+      id: measure.id.to_s,
+      measurement_period_shift_dates: "true"
+    }
+    # All patients should be failing because of their birthDatetime
+    body_text = 'Element(s) on '
+    CQM::Patient.by_user(@user).all.each { |p| body_text += p.givenNames[0] + ' ' + p.familyName + ', '}
+    body_text += 'could not be shifted. Please make sure shift will keep all years between 1 and 9999'
+    assert_equal 'Error Updating Measurement Period', flash[:error][:title]
+    assert_equal 'Error Updating Measurement Period', flash[:error][:summary]
+    assert_equal body_text, flash[:error][:body]
+    measure = CQM::Measure.where(id: measure_id).first
+    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
+    patient = CQM::Patient.by_user(@user).first
+    assert_equal 1994, patient.qdmPatient.birthDatetime.year
+    assert_equal 2012, patient.qdmPatient.dataElements.first.authorDatetime.year
+    assert_equal 2012, patient.qdmPatient.dataElements.first.relevantPeriod.high.year
   end
 
   test 'update measurement period float' do
@@ -793,7 +829,8 @@ include Devise::Test::ControllerHelpers
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     post :measurement_period, {
       year: year,
-      id: measure.id.to_s
+      id: measure.id.to_s,
+      measurement_period_shift_dates: "true"
     }
     measure = CQM::Measure.where(id: measure_id).first
     assert_equal 'Error Updating Measurement Period', flash[:error][:title]
