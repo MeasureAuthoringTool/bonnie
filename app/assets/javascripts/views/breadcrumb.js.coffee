@@ -29,5 +29,5 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
   generateMeasureHierarchy: (measure) ->
     measureHierarchy = [measure]
     if measure.get('cqmMeasure').component
-        measureHierarchy.unshift(bonnie.measures.findWhere({ hqmf_set_id: measure.get('cqmMeasure').hqmf_set_id.split('&')[0] }))
+        measureHierarchy.unshift(_.find(bonnie.measures.models, (m) -> m.get('cqmMeasure').hqmf_set_id == measure.get('cqmMeasure').hqmf_set_id.split('&')[0]))
     return measureHierarchy

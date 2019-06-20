@@ -1,5 +1,5 @@
 {
-  "_id": "5ca3819ad7c8acc0617e2c0f",
+  "_id": "5d004587d7c8aca211e62b3b",
   "calculate_sdes": null,
   "calculation_method": "EPISODE_OF_CARE",
   "cms_id": "CMS13v2",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5ca381ccd7c8acc0617e37a3",
+      "_id": "5d004587d7c8aca211e62b3c",
       "cql": "library Test104 version '2.0.002'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called global\r\ninclude TJC_Overall version '7.0.000' called TJC\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Comfort Measures\": 'urn:oid:1.3.6.1.4.1.33895.1.3.0.45'\r\nvalueset \"Antithrombotic Therapy\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.201'\r\nvalueset \"Patient Expired\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.309'\r\nvalueset \"Left Against Medical Advice\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.308'\r\nvalueset \"Discharged to Health Care Facility for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.207'\r\nvalueset \"Discharge To Acute Care Facility\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.87'\r\nvalueset \"Discharged to Home for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.209'\r\nvalueset \"Medical Reason\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.473'\r\nvalueset \"Patient Refusal\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.93'\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Antithrombotic Therapy at Discharge\":\r\n\t[\"Medication, Discharge\": \"Antithrombotic Therapy\"] Antithrombotic\r\n\r\ndefine \"Antithrombotic Not Given at Discharge\":\r\n\t[\"Medication, Not Discharged\": \"Antithrombotic Therapy\"] Antithrombotic\r\n\t\twhere Antithrombotic.negationRationale in \"Medical Reason\"\r\n\t\t\tor Antithrombotic.negationRationale in \"Patient Refusal\"\r\n\r\ndefine \"Intervention Comfort Measures\":\r\n\t[\"Intervention, Performed\": \"Comfort Measures\"]\r\n\t\tunion [\"Intervention, Order\": \"Comfort Measures\"]\r\n\r\ndefine \"Initial Population\":\r\n\tTJC.\"Encounter with Principal Diagnosis and Age\"\r\n\r\ndefine \"Denominator\":\r\n\tTJC.\"Encounter with Principal Diagnosis of Ischemic Stroke\"\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tdistinct((TJC.\"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\r\n\t\t\t\twhere Encounter.dischargeDisposition in \"Discharge To Acute Care Facility\"\r\n\t\t\t\t\tor Encounter.dischargeDisposition in \"Left Against Medical Advice\"\r\n\t\t\t\t\tor Encounter.dischargeDisposition in \"Patient Expired\"\r\n\t\t\t\t\tor Encounter.dischargeDisposition in \"Discharged to Home for Hospice Care\"\r\n\t\t\t\t\tor Encounter.dischargeDisposition in \"Discharged to Health Care Facility for Hospice Care\"\r\n\t\t)\r\n\t\t\tunion \"Comfort Measures during Hospitalization\"\r\n\t)\n\n/*testing hospitalization function*/\r\n\r\ndefine \"Comfort Measures during Hospitalization\":\r\n\tTJC.\"Encounter with Principal Diagnosis of Ischemic Stroke\" NonElectiveEncounter\r\n\t\twith \"Intervention Comfort Measures\" ComfortMeasure\r\n\t\t\tsuch that Coalesce(start of ComfortMeasure.relevantPeriod, ComfortMeasure.authorDatetime)during global.\"Hospitalization\"(NonElectiveEncounter)\r\n\r\ndefine \"Numerator\":\r\n\tTJC.\"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\r\n\t\twith \"Antithrombotic Therapy at Discharge\" Antithrombotic\r\n\t\t\tsuch that Antithrombotic.authorDatetime during Encounter.relevantPeriod\r\n\r\ndefine \"Denominator Exceptions\":\r\n\tTJC.\"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\r\n\t\twith \"Antithrombotic Not Given at Discharge\" Antithrombotic\r\n\t\t\tsuch that Antithrombotic.authorDatetime during Encounter.relevantPeriod\r\n",
       "elm": {
         "library": {
@@ -4228,43 +4228,43 @@
       "library_version": "2.0.002",
       "statement_dependencies": [
         {
-          "_id": "5ca381ccd7c8acc0617e37a4",
+          "_id": "5d004587d7c8aca211e62b3d",
           "statement_name": "Patient"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37a5",
+          "_id": "5d004587d7c8aca211e62b3e",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37a6",
+          "_id": "5d004587d7c8aca211e62b3f",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37a7",
+          "_id": "5d004587d7c8aca211e62b40",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37a8",
+          "_id": "5d004587d7c8aca211e62b41",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37a9",
+          "_id": "5d004587d7c8aca211e62b42",
           "statement_name": "Antithrombotic Therapy at Discharge"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37aa",
+          "_id": "5d004587d7c8aca211e62b43",
           "statement_name": "Antithrombotic Not Given at Discharge"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37ab",
+          "_id": "5d004587d7c8aca211e62b44",
           "statement_name": "Intervention Comfort Measures"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37ac",
+          "_id": "5d004587d7c8aca211e62b45",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37ad",
+              "_id": "5d004587d7c8aca211e62b46",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Encounter with Principal Diagnosis and Age"
@@ -4272,11 +4272,11 @@
           ]
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37ae",
+          "_id": "5d004587d7c8aca211e62b47",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37af",
+              "_id": "5d004587d7c8aca211e62b48",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
@@ -4284,23 +4284,23 @@
           ]
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37b0",
+          "_id": "5d004587d7c8aca211e62b49",
           "statement_name": "Comfort Measures during Hospitalization",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37b1",
+              "_id": "5d004587d7c8aca211e62b4a",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5ca381ccd7c8acc0617e37b2",
+              "_id": "5d004587d7c8aca211e62b4b",
               "hqmf_id": null,
               "library_name": "Test104",
               "statement_name": "Intervention Comfort Measures"
             },
             {
-              "_id": "5ca381ccd7c8acc0617e37b3",
+              "_id": "5d004587d7c8aca211e62b4c",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization"
@@ -4308,17 +4308,17 @@
           ]
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37b4",
+          "_id": "5d004587d7c8aca211e62b4d",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37b5",
+              "_id": "5d004587d7c8aca211e62b4e",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5ca381ccd7c8acc0617e37b6",
+              "_id": "5d004587d7c8aca211e62b4f",
               "hqmf_id": null,
               "library_name": "Test104",
               "statement_name": "Comfort Measures during Hospitalization"
@@ -4326,17 +4326,17 @@
           ]
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37b7",
+          "_id": "5d004587d7c8aca211e62b50",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37b8",
+              "_id": "5d004587d7c8aca211e62b51",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5ca381ccd7c8acc0617e37b9",
+              "_id": "5d004587d7c8aca211e62b52",
               "hqmf_id": null,
               "library_name": "Test104",
               "statement_name": "Antithrombotic Therapy at Discharge"
@@ -4344,17 +4344,17 @@
           ]
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37ba",
+          "_id": "5d004587d7c8aca211e62b53",
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37bb",
+              "_id": "5d004587d7c8aca211e62b54",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke"
             },
             {
-              "_id": "5ca381ccd7c8acc0617e37bc",
+              "_id": "5d004587d7c8aca211e62b55",
               "hqmf_id": null,
               "library_name": "Test104",
               "statement_name": "Antithrombotic Not Given at Discharge"
@@ -4364,7 +4364,7 @@
       ]
     },
     {
-      "_id": "5ca381ccd7c8acc0617e37bd",
+      "_id": "5d004587d7c8aca211e62b56",
       "cql": "library TJC_Overall version '7.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called global\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Non-Elective Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.424'\r\nvalueset \"Ischemic Stroke\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.247'\r\nvalueset \"Hemorrhagic Stroke\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.212'\r\nvalueset \"Comfort Measures\": 'urn:oid:1.3.6.1.4.1.33895.1.3.0.45'\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Left Against Medical Advice\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.308'\r\nvalueset \"Discharged to Health Care Facility for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.207'\r\nvalueset \"Patient Expired\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.309'\r\nvalueset \"Discharge To Acute Care Facility\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.87'\r\nvalueset \"Discharged to Home for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.209'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter with Principal Diagnosis and Age\":\r\n\t\"Encounter with Principal Diagnosis of Hemorrhagic or Ischemic Stroke\" NonElectiveEncounter\r\n\t\twith [\"Patient Characteristic Birthdate\"] P\r\n\t\t\tsuch that global.\"CalendarAgeInYearsAt\"(P.birthDatetime, start of NonElectiveEncounter.relevantPeriod)>= 18\r\n\r\ndefine \"Encounter with Principal Diagnosis of Hemorrhagic or Ischemic Stroke\":\r\n\t\"Non Elective Inpatient Encounter\" NonElectiveEncounter\r\n\t\twhere NonElectiveEncounter.principalDiagnosis in \"Hemorrhagic Stroke\"\r\n\t\t\tor NonElectiveEncounter.principalDiagnosis in \"Ischemic Stroke\"\r\n\r\ndefine \"Encounter with Principal Diagnosis of Ischemic Stroke\":\r\n\t\"Encounter with Principal Diagnosis and Age\" NonElectiveEncounter\r\n\t\twhere NonElectiveEncounter.principalDiagnosis in \"Ischemic Stroke\"\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\twhere Encounter.lengthOfStay <= 120 days\r\n\t\t\tand Encounter.relevantPeriod ends during \"Measurement Period\"\r\n\r\ndefine \"Ischemic Stroke Encounters with Discharge Status and Comfort Measure Exclusions\":\r\n\tdistinct((\"Encounter with Principal Diagnosis of Ischemic Stroke\" Encounter\r\n\t\t\t\twhere Encounter.dischargeDisposition in \"Discharge To Acute Care Facility\"\r\n\t\t\t\t\tor Encounter.dischargeDisposition in \"Left Against Medical Advice\"\r\n\t\t\t\t\tor Encounter.dischargeDisposition in \"Patient Expired\"\r\n\t\t\t\t\tor Encounter.dischargeDisposition in \"Discharged to Home for Hospice Care\"\r\n\t\t\t\t\tor Encounter.dischargeDisposition in \"Discharged to Health Care Facility for Hospice Care\"\r\n\t\t)\r\n\t)\r\n\r\ndefine \"Non Elective Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Non-Elective Inpatient Encounter\"] NonElectiveEncounter\r\n\t\twhere NonElectiveEncounter.lengthOfStay <= 120 days\r\n\t\t\tand NonElectiveEncounter.relevantPeriod ends during \"Measurement Period\"\r\n",
       "elm": {
         "library": {
@@ -7848,17 +7848,17 @@
       "library_version": "7.0.000",
       "statement_dependencies": [
         {
-          "_id": "5ca381ccd7c8acc0617e37be",
+          "_id": "5d004587d7c8aca211e62b57",
           "statement_name": "Encounter with Principal Diagnosis and Age",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37bf",
+              "_id": "5d004587d7c8aca211e62b58",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Encounter with Principal Diagnosis of Hemorrhagic or Ischemic Stroke"
             },
             {
-              "_id": "5ca381ccd7c8acc0617e37c0",
+              "_id": "5d004587d7c8aca211e62b59",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
@@ -7866,11 +7866,11 @@
           ]
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37c1",
+          "_id": "5d004587d7c8aca211e62b5a",
           "statement_name": "Encounter with Principal Diagnosis of Hemorrhagic or Ischemic Stroke",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37c2",
+              "_id": "5d004587d7c8aca211e62b5b",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Non Elective Inpatient Encounter"
@@ -7878,15 +7878,15 @@
           ]
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37c3",
+          "_id": "5d004587d7c8aca211e62b5c",
           "statement_name": "Non Elective Inpatient Encounter"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37c4",
+          "_id": "5d004587d7c8aca211e62b5d",
           "statement_name": "Encounter with Principal Diagnosis of Ischemic Stroke",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37c5",
+              "_id": "5d004587d7c8aca211e62b5e",
               "hqmf_id": null,
               "library_name": "TJC_Overall",
               "statement_name": "Encounter with Principal Diagnosis and Age"
@@ -7896,7 +7896,7 @@
       ]
     },
     {
-      "_id": "5ca381ccd7c8acc0617e37c6",
+      "_id": "5d004587d7c8aca211e62b5f",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without\nconsidering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without\nconsidering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without\nconsidering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without\nconsidering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without\nconsidering time components) in days as of today.*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*TotalLengthOfStay calculates the difference in calendar days between the\nstart and end of the given stay interval.*/\r\n\r\ndefine function \"TotalLengthOfStay\"(Stay Interval<DateTime>):\r\n\tdifference in days between start of Stay and end of Stay\n\n/*Hospitalization returns the total interval for admission to discharge for\nthe given encounter, or for the admission of any immediately prior emergency \ndepartment visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value. For example,\ngiven the DateTime @2012-01-01T06:30:00.0Z, this function will return\n@2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\r\n",
       "elm": {
         "library": {
@@ -11843,11 +11843,11 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5ca381ccd7c8acc0617e37c7",
+          "_id": "5d004587d7c8aca211e62b60",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5ca381ccd7c8acc0617e37c8",
+              "_id": "5d004587d7c8aca211e62b61",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -11855,319 +11855,17 @@
           ]
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37c9",
+          "_id": "5d004587d7c8aca211e62b62",
           "statement_name": "ToDate"
         },
         {
-          "_id": "5ca381ccd7c8acc0617e37ca",
+          "_id": "5d004587d7c8aca211e62b63",
           "statement_name": "Hospitalization"
         }
       ]
     }
   ],
-  "created_at": "2019-04-02T15:37:48.504Z",
-  "data_criteria": {
-    "Payer_PatientCharacteristicPayer_bef27782_815f_43a3_b97e_3ecdb7616d4f": {
-      "title": "Payer",
-      "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_bef27782_815f_43a3_b97e_3ecdb7616d4f_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "619",
-          "62",
-          "63",
-          "64",
-          "69",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
-    },
-    "ComfortMeasures_InterventionPerformed_e1e87ad5_fabe_4618_903e_ed0ff64fcac1": {
-      "title": "ComfortMeasures",
-      "description": "Intervention, Performed: ComfortMeasures",
-      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ComfortMeasures_InterventionPerformed_e1e87ad5_fabe_4618_903e_ed0ff64fcac1_source",
-      "variable": false
-    },
-    "ComfortMeasures_InterventionOrder_e1e87ad5_fabe_4618_903e_ed0ff64fcac1": {
-      "title": "ComfortMeasures",
-      "description": "Intervention, Order: ComfortMeasures",
-      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "ComfortMeasures_InterventionOrder_e1e87ad5_fabe_4618_903e_ed0ff64fcac1_source",
-      "variable": false
-    },
-    "Ethnicity_PatientCharacteristicEthnicity_7a73d38a_a9a6_44c4_8021_661e3a074892": {
-      "title": "Ethnicity",
-      "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_7a73d38a_a9a6_44c4_8021_661e3a074892_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
-    },
-    "ONCAdministrativeSex_PatientCharacteristicSex_b22c441a_3195_49f8_9004_fd5c93125d50": {
-      "title": "ONCAdministrativeSex",
-      "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_b22c441a_3195_49f8_9004_fd5c93125d50_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
-    },
-    "Non_ElectiveInpatientEncounter_EncounterPerformed_61e3c371_09df_4283_9098_cd37f778bdbb": {
-      "title": "Non-ElectiveInpatientEncounter",
-      "description": "Encounter, Performed: Non-ElectiveInpatientEncounter",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Non_ElectiveInpatientEncounter_EncounterPerformed_61e3c371_09df_4283_9098_cd37f778bdbb_source",
-      "variable": false
-    },
-    "Race_PatientCharacteristicRace_eea84021_fbeb_454e_8ec3_27f0a7b22243": {
-      "title": "Race",
-      "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_eea84021_fbeb_454e_8ec3_27f0a7b22243_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
-    },
-    "EmergencyDepartmentVisit_EncounterPerformed_22570436_105f_4bb7_99e6_aeb7eae2c10d": {
-      "title": "EmergencyDepartmentVisit",
-      "description": "Encounter, Performed: EmergencyDepartmentVisit",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EmergencyDepartmentVisit_EncounterPerformed_22570436_105f_4bb7_99e6_aeb7eae2c10d_source",
-      "variable": false
-    },
-    "AntithromboticTherapy_MedicationNotDischarged_8304cfd5_af8a_44bb_a2f1_0b319e1ae04e": {
-      "title": "AntithromboticTherapy",
-      "description": "Medication, Not Discharged: AntithromboticTherapy",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
-      "type": "medications",
-      "definition": "medication",
-      "status": "discharge",
-      "hard_status": true,
-      "negation": true,
-      "source_data_criteria": "AntithromboticTherapy_MedicationNotDischarged_8304cfd5_af8a_44bb_a2f1_0b319e1ae04e_source",
-      "variable": false
-    },
-    "AntithromboticTherapy_MedicationDischarge_8304cfd5_af8a_44bb_a2f1_0b319e1ae04e": {
-      "title": "AntithromboticTherapy",
-      "description": "Medication, Discharge: AntithromboticTherapy",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
-      "type": "medications",
-      "definition": "medication",
-      "status": "discharge",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "AntithromboticTherapy_MedicationDischarge_8304cfd5_af8a_44bb_a2f1_0b319e1ae04e_source",
-      "variable": false
-    }
-  },
+  "created_at": "2019-06-12T00:21:27.304Z",
   "description": "Ischemic stroke patients prescribed or continuing to take antithrombotic therapy at hospital discharge",
   "hqmf_id": "40280582-5DD7-3595-015E-29268F9D0B02",
   "hqmf_set_id": "155445E1-6CEE-4F81-98E4-669957369D57",
@@ -12768,442 +12466,390 @@
   },
   "population_sets": [
     {
-      "_id": "5ca381ccd7c8acc0617e37cb",
+      "_id": "5d004587d7c8aca211e62b6e",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5ca381ccd7c8acc0617e37d1",
-          "hqmf_id": null,
+          "_id": "5d004587d7c8aca211e62b74",
+          "hqmf_id": "A383FEEF-BE07-41AC-98A9-914E15157D37",
           "library_name": "Test104",
           "statement_name": "Denominator Exclusions"
         },
         "DENEXCEP": {
-          "_id": "5ca381ccd7c8acc0617e37d0",
-          "hqmf_id": null,
+          "_id": "5d004587d7c8aca211e62b73",
+          "hqmf_id": "CB4A22BA-0CC5-445E-A23F-4B97D9BE8F73",
           "library_name": "Test104",
           "statement_name": "Denominator Exceptions"
         },
         "DENOM": {
-          "_id": "5ca381ccd7c8acc0617e37ce",
-          "hqmf_id": null,
+          "_id": "5d004587d7c8aca211e62b71",
+          "hqmf_id": "74771414-A7B4-4F9D-B271-A57A5208173C",
           "library_name": "Test104",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5ca381ccd7c8acc0617e37cd",
-          "hqmf_id": null,
+          "_id": "5d004587d7c8aca211e62b70",
+          "hqmf_id": "7FE0B6DA-B4EC-4475-9C8D-EF8F99A0E2E8",
           "library_name": "Test104",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5ca381ccd7c8acc0617e37cf",
-          "hqmf_id": null,
+          "_id": "5d004587d7c8aca211e62b72",
+          "hqmf_id": "5C5ABA4D-7A38-47B9-AA3A-C7556809B6DA",
           "library_name": "Test104",
           "statement_name": "Numerator"
         },
-        "_id": "5ca381ccd7c8acc0617e37cc",
+        "_id": "5d004587d7c8aca211e62b6f",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     }
   ],
-  "source_data_criteria": {
-    "Payer_PatientCharacteristicPayer_bef27782_815f_43a3_b97e_3ecdb7616d4f_source": {
-      "title": "Payer",
+  "source_data_criteria": [
+    {
+      "_id": "5d004586d7c8aca211e61f42",
+      "codeListId": "2.16.840.1.114222.4.11.3591",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Payer: Payer",
-      "code_list_id": "2.16.840.1.114222.4.11.3591",
-      "property": "payer",
-      "type": "characteristic",
-      "definition": "patient_characteristic_payer",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_bef27782_815f_43a3_b97e_3ecdb7616d4f_source",
-      "variable": false,
-      "inline_code_list": {
-        "Source of Payment Typology": [
-          "1",
-          "11",
-          "111",
-          "112",
-          "113",
-          "119",
-          "12",
-          "121",
-          "122",
-          "123",
-          "129",
-          "13",
-          "14",
-          "19",
-          "191",
-          "2",
-          "21",
-          "211",
-          "212",
-          "213",
-          "219",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "29",
-          "291",
-          "3",
-          "31",
-          "311",
-          "3111",
-          "3112",
-          "3113",
-          "3114",
-          "3115",
-          "3116",
-          "3119",
-          "312",
-          "3121",
-          "3122",
-          "3123",
-          "313",
-          "32",
-          "321",
-          "3211",
-          "3212",
-          "32121",
-          "32122",
-          "32123",
-          "32124",
-          "32125",
-          "32126",
-          "322",
-          "3221",
-          "3222",
-          "3223",
-          "3229",
-          "33",
-          "331",
-          "332",
-          "333",
-          "334",
-          "34",
-          "341",
-          "342",
-          "343",
-          "349",
-          "35",
-          "36",
-          "361",
-          "362",
-          "369",
-          "37",
-          "371",
-          "3711",
-          "3712",
-          "3713",
-          "372",
-          "379",
-          "38",
-          "381",
-          "3811",
-          "3812",
-          "3813",
-          "3819",
-          "382",
-          "389",
-          "39",
-          "4",
-          "41",
-          "42",
-          "43",
-          "44",
-          "5",
-          "51",
-          "511",
-          "512",
-          "513",
-          "514",
-          "515",
-          "516",
-          "519",
-          "52",
-          "521",
-          "522",
-          "523",
-          "529",
-          "53",
-          "54",
-          "55",
-          "56",
-          "561",
-          "562",
-          "59",
-          "6",
-          "61",
-          "611",
-          "612",
-          "613",
-          "619",
-          "62",
-          "63",
-          "64",
-          "69",
-          "7",
-          "71",
-          "72",
-          "73",
-          "79",
-          "8",
-          "81",
-          "82",
-          "821",
-          "822",
-          "823",
-          "83",
-          "84",
-          "85",
-          "89",
-          "9",
-          "91",
-          "92",
-          "93",
-          "94",
-          "95",
-          "951",
-          "953",
-          "954",
-          "959",
-          "96",
-          "97",
-          "98",
-          "99",
-          "9999"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b64",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f42"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "payer",
+      "qdmTitle": "Patient Characteristic Payer",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::PatientCharacteristicPayer"
     },
-    "ComfortMeasures_InterventionPerformed_e1e87ad5_fabe_4618_903e_ed0ff64fcac1_source": {
-      "title": "ComfortMeasures",
+    {
+      "_id": "5d004586d7c8aca211e61f43",
+      "authorDatetime": null,
+      "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Performed: ComfortMeasures",
-      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ComfortMeasures_InterventionPerformed_e1e87ad5_fabe_4618_903e_ed0ff64fcac1_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b65",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f43"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "performed",
+      "qdmTitle": "Intervention, Performed",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "relevantPeriod": null,
+      "result": null,
+      "status": null,
+      "_type": "QDM::InterventionPerformed"
     },
-    "ComfortMeasures_InterventionOrder_e1e87ad5_fabe_4618_903e_ed0ff64fcac1_source": {
-      "title": "ComfortMeasures",
+    {
+      "_id": "5d004586d7c8aca211e61f44",
+      "authorDatetime": null,
+      "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
+      "dataElementCodes": [
+
+      ],
       "description": "Intervention, Order: ComfortMeasures",
-      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
-      "type": "interventions",
-      "definition": "intervention",
-      "status": "ordered",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "ComfortMeasures_InterventionOrder_e1e87ad5_fabe_4618_903e_ed0ff64fcac1_source",
-      "variable": false
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b66",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f44"
+      },
+      "negationRationale": null,
+      "qdmCategory": "intervention",
+      "qdmStatus": "order",
+      "qdmTitle": "Intervention, Order",
+      "qdmVersion": "5.4",
+      "reason": null,
+      "_type": "QDM::InterventionOrder"
     },
-    "Ethnicity_PatientCharacteristicEthnicity_7a73d38a_a9a6_44c4_8021_661e3a074892_source": {
-      "title": "Ethnicity",
+    {
+      "_id": "5d004586d7c8aca211e61f45",
+      "codeListId": "2.16.840.1.114222.4.11.837",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
-      "code_list_id": "2.16.840.1.114222.4.11.837",
-      "property": "ethnicity",
-      "type": "characteristic",
-      "definition": "patient_characteristic_ethnicity",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_7a73d38a_a9a6_44c4_8021_661e3a074892_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "2135-2",
-          "2186-5"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b67",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f45"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "ethnicity",
+      "qdmTitle": "Patient Characteristic Ethnicity",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicEthnicity"
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_b22c441a_3195_49f8_9004_fd5c93125d50_source": {
-      "title": "ONCAdministrativeSex",
+    {
+      "_id": "5d004586d7c8aca211e61f46",
+      "codeListId": "2.16.840.1.113762.1.4.1",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-      "code_list_id": "2.16.840.1.113762.1.4.1",
-      "property": "gender",
-      "type": "characteristic",
-      "definition": "patient_characteristic_gender",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_b22c441a_3195_49f8_9004_fd5c93125d50_source",
-      "variable": false,
-      "value": {
-        "type": "CD",
-        "system": "Administrative Sex",
-        "code": "F"
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b68",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f46"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "gender",
+      "qdmTitle": "Patient Characteristic Sex",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicSex"
     },
-    "Non_ElectiveInpatientEncounter_EncounterPerformed_61e3c371_09df_4283_9098_cd37f778bdbb_source": {
-      "title": "Non-ElectiveInpatientEncounter",
+    {
+      "_id": "5d004586d7c8aca211e61f47",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.424",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: Non-ElectiveInpatientEncounter",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Non_ElectiveInpatientEncounter_EncounterPerformed_61e3c371_09df_4283_9098_cd37f778bdbb_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b69",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f47"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "Race_PatientCharacteristicRace_eea84021_fbeb_454e_8ec3_27f0a7b22243_source": {
-      "title": "Race",
+    {
+      "_id": "5d004586d7c8aca211e61f48",
+      "codeListId": "2.16.840.1.114222.4.11.836",
+      "dataElementCodes": [
+
+      ],
       "description": "Patient Characteristic Race: Race",
-      "code_list_id": "2.16.840.1.114222.4.11.836",
-      "property": "race",
-      "type": "characteristic",
-      "definition": "patient_characteristic_race",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_eea84021_fbeb_454e_8ec3_27f0a7b22243_source",
-      "variable": false,
-      "inline_code_list": {
-        "CDC Race": [
-          "1002-5",
-          "2028-9",
-          "2054-5",
-          "2076-8",
-          "2106-3",
-          "2131-1"
-        ]
-      }
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b6a",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f48"
+      },
+      "qdmCategory": "patient_characteristic",
+      "qdmStatus": "race",
+      "qdmTitle": "Patient Characteristic Race",
+      "qdmVersion": "5.4",
+      "_type": "QDM::PatientCharacteristicRace"
     },
-    "EmergencyDepartmentVisit_EncounterPerformed_22570436_105f_4bb7_99e6_aeb7eae2c10d_source": {
-      "title": "EmergencyDepartmentVisit",
+    {
+      "_id": "5d004586d7c8aca211e61f49",
+      "admissionSource": null,
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
+      "dataElementCodes": [
+
+      ],
       "description": "Encounter, Performed: EmergencyDepartmentVisit",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
-      "type": "encounters",
-      "definition": "encounter",
-      "status": "performed",
-      "hard_status": false,
-      "negation": false,
-      "source_data_criteria": "EmergencyDepartmentVisit_EncounterPerformed_22570436_105f_4bb7_99e6_aeb7eae2c10d_source",
-      "variable": false
+      "diagnoses": null,
+      "dischargeDisposition": null,
+      "facilityLocations": [
+
+      ],
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b6b",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f49"
+      },
+      "lengthOfStay": null,
+      "negationRationale": null,
+      "principalDiagnosis": null,
+      "qdmCategory": "encounter",
+      "qdmStatus": "performed",
+      "qdmTitle": "Encounter, Performed",
+      "qdmVersion": "5.4",
+      "relevantPeriod": null,
+      "_type": "QDM::EncounterPerformed"
     },
-    "AntithromboticTherapy_MedicationNotDischarged_8304cfd5_af8a_44bb_a2f1_0b319e1ae04e_source": {
-      "title": "AntithromboticTherapy",
+    {
+      "_id": "5d004586d7c8aca211e61f4a",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.201",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
       "description": "Medication, Not Discharged: AntithromboticTherapy",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
-      "type": "medications",
-      "definition": "medication",
-      "status": "discharge",
-      "hard_status": true,
-      "negation": true,
-      "source_data_criteria": "AntithromboticTherapy_MedicationNotDischarged_8304cfd5_af8a_44bb_a2f1_0b319e1ae04e_source",
-      "variable": false
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.48",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b6c",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f4a"
+      },
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "discharge",
+      "qdmTitle": "Medication, Discharge",
+      "qdmVersion": "5.4",
+      "refills": null,
+      "route": null,
+      "supply": null,
+      "_type": "QDM::MedicationDischarge"
     },
-    "AntithromboticTherapy_MedicationDischarge_8304cfd5_af8a_44bb_a2f1_0b319e1ae04e_source": {
-      "title": "AntithromboticTherapy",
+    {
+      "_id": "5d004586d7c8aca211e61f4b",
+      "authorDatetime": null,
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.201",
+      "dataElementCodes": [
+
+      ],
+      "daysSupplied": null,
       "description": "Medication, Discharge: AntithromboticTherapy",
-      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
-      "type": "medications",
-      "definition": "medication",
-      "status": "discharge",
-      "hard_status": true,
-      "negation": false,
-      "source_data_criteria": "AntithromboticTherapy_MedicationDischarge_8304cfd5_af8a_44bb_a2f1_0b319e1ae04e_source",
-      "variable": false
+      "dosage": null,
+      "frequency": null,
+      "hqmfOid": "2.16.840.1.113883.10.20.28.4.48",
+      "id": {
+        "_id": "5d004587d7c8aca211e62b6d",
+        "namingSystem": null,
+        "qdmVersion": "5.4",
+        "value": "5d004586d7c8aca211e61f4b"
+      },
+      "negationRationale": null,
+      "qdmCategory": "medication",
+      "qdmStatus": "discharge",
+      "qdmTitle": "Medication, Discharge",
+      "qdmVersion": "5.4",
+      "refills": null,
+      "route": null,
+      "supply": null,
+      "_type": "QDM::MedicationDischarge"
     }
-  },
+  ],
   "title": "Test104",
-  "updated_at": "2019-04-02T15:37:48.504Z",
+  "updated_at": "2019-06-12T00:21:27.304Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5ca3819ad7c8acc0617e2bb3",
-    "5ca3819ad7c8acc0617e2bb4",
-    "5ca3819ad7c8acc0617e2bb5",
-    "5ca3819ad7c8acc0617e2bb6",
-    "5ca3819ad7c8acc0617e2bb7",
-    "5ca3819ad7c8acc0617e2bb8",
-    "5ca3819ad7c8acc0617e2bb9",
-    "5ca3819ad7c8acc0617e2bba",
-    "5ca3819ad7c8acc0617e2bbb",
-    "5ca3819ad7c8acc0617e2bbc",
-    "5ca3819ad7c8acc0617e2bbd",
-    "5ca3819ad7c8acc0617e2bbe",
-    "5ca3819ad7c8acc0617e2bbf",
-    "5ca3819ad7c8acc0617e2bc0",
-    "5ca3819ad7c8acc0617e2bc1",
-    "5ca3819ad7c8acc0617e2bc2",
-    "5ca3819ad7c8acc0617e2bc3",
-    "5ca3819ad7c8acc0617e2bc4",
-    "5ca3819ad7c8acc0617e2bc5",
-    "5ca3819ad7c8acc0617e2bc6",
-    "5ca3819ad7c8acc0617e2bc7",
-    "5ca3819ad7c8acc0617e2bc8",
-    "5ca3819ad7c8acc0617e2bc9",
-    "5ca3819ad7c8acc0617e2bca",
-    "5ca3819ad7c8acc0617e2bcb",
-    "5ca3819ad7c8acc0617e2bcc",
-    "5ca3819ad7c8acc0617e2bcd",
-    "5ca3819ad7c8acc0617e2bce",
-    "5ca3819ad7c8acc0617e2bcf",
-    "5ca3819ad7c8acc0617e2bd0",
-    "5ca3819ad7c8acc0617e2bd1",
-    "5ca3819ad7c8acc0617e2bd2",
-    "5ca3819ad7c8acc0617e2bd3",
-    "5ca3819ad7c8acc0617e2bd4",
-    "5ca3819ad7c8acc0617e2bd5",
-    "5ca3819ad7c8acc0617e2bd6",
-    "5ca3819ad7c8acc0617e2bd7",
-    "5ca3819ad7c8acc0617e2bd8",
-    "5ca3819ad7c8acc0617e2bd9",
-    "5ca3819ad7c8acc0617e2bda",
-    "5ca3819ad7c8acc0617e2bdb",
-    "5ca3819ad7c8acc0617e2bdc",
-    "5ca3819ad7c8acc0617e2bdd",
-    "5ca3819ad7c8acc0617e2bde",
-    "5ca3819ad7c8acc0617e2bdf",
-    "5ca3819ad7c8acc0617e2be0",
-    "5ca3819ad7c8acc0617e2be1",
-    "5ca3819ad7c8acc0617e2be2",
-    "5ca3819ad7c8acc0617e2be3",
-    "5ca3819ad7c8acc0617e2be4",
-    "5ca3819ad7c8acc0617e2be5",
-    "5ca3819ad7c8acc0617e2be6",
-    "5ca3819ad7c8acc0617e2be7",
-    "5ca3819ad7c8acc0617e2be8",
-    "5ca3819ad7c8acc0617e2be9",
-    "5ca3819ad7c8acc0617e2bea",
-    "5ca3819ad7c8acc0617e2beb",
-    "5ca3819ad7c8acc0617e2bec",
-    "5ca3819ad7c8acc0617e2bed",
-    "5ca3819ad7c8acc0617e2bee",
-    "5ca3819ad7c8acc0617e2bef",
-    "5ca3819ad7c8acc0617e2bf0",
-    "5ca3819ad7c8acc0617e2bf1",
-    "5ca3819ad7c8acc0617e2bf2",
-    "5ca3819ad7c8acc0617e2bf3",
-    "5ca3819ad7c8acc0617e2bf4",
-    "5ca3819ad7c8acc0617e2bf5",
-    "5ca3819ad7c8acc0617e2bf6",
-    "5ca3819ad7c8acc0617e2bf7",
-    "5ca3819ad7c8acc0617e2bf8",
-    "5ca3819ad7c8acc0617e2bf9",
-    "5ca3819ad7c8acc0617e2bfa",
-    "5ca3819ad7c8acc0617e2bfb",
-    "5ca3819ad7c8acc0617e2bfc",
-    "5ca3819ad7c8acc0617e2bfd",
-    "5ca3819ad7c8acc0617e2bfe",
-    "5ca3819ad7c8acc0617e2bff",
-    "5ca3819ad7c8acc0617e2c00",
-    "5ca3819ad7c8acc0617e2c01",
-    "5ca3819ad7c8acc0617e2c02",
-    "5ca3819ad7c8acc0617e2c03",
-    "5ca3819ad7c8acc0617e2c04",
-    "5ca3819ad7c8acc0617e2c05",
-    "5ca3819ad7c8acc0617e2c06",
-    "5ca3819ad7c8acc0617e2c07",
-    "5ca3819ad7c8acc0617e2c08",
-    "5ca3819ad7c8acc0617e2c09",
-    "5ca3819ad7c8acc0617e2c0a",
-    "5ca3819ad7c8acc0617e2c0b",
-    "5ca3819ad7c8acc0617e2c0c",
-    "5ca3819ad7c8acc0617e2c0d",
-    "5ca3819ad7c8acc0617e2c0e"
+    "5d004586d7c8aca211e61f4c",
+    "5d004586d7c8aca211e61f4d",
+    "5d004586d7c8aca211e61f4e",
+    "5d004586d7c8aca211e61f4f",
+    "5d004586d7c8aca211e61f50",
+    "5d004586d7c8aca211e61f51",
+    "5d004586d7c8aca211e61f52",
+    "5d004586d7c8aca211e61f53",
+    "5d004586d7c8aca211e61f54",
+    "5d004586d7c8aca211e61f55",
+    "5d004586d7c8aca211e61f56",
+    "5d004586d7c8aca211e61f57",
+    "5d004586d7c8aca211e61f58",
+    "5d004586d7c8aca211e61f59",
+    "5d004586d7c8aca211e61f5a",
+    "5d004586d7c8aca211e61f5b",
+    "5d004586d7c8aca211e61f5c",
+    "5d004586d7c8aca211e61f5d",
+    "5d004586d7c8aca211e61f5e",
+    "5d004586d7c8aca211e61f5f",
+    "5d004586d7c8aca211e61f60",
+    "5d004586d7c8aca211e61f61",
+    "5d004586d7c8aca211e61f62",
+    "5d004586d7c8aca211e61f63",
+    "5d004586d7c8aca211e61f64",
+    "5d004586d7c8aca211e61f65",
+    "5d004586d7c8aca211e61f66",
+    "5d004586d7c8aca211e61f67",
+    "5d004586d7c8aca211e61f68",
+    "5d004586d7c8aca211e61f69",
+    "5d004586d7c8aca211e61f6a",
+    "5d004586d7c8aca211e61f6b",
+    "5d004586d7c8aca211e61f6c",
+    "5d004586d7c8aca211e61f6d",
+    "5d004586d7c8aca211e61f6e",
+    "5d004586d7c8aca211e61f6f",
+    "5d004586d7c8aca211e61f70",
+    "5d004586d7c8aca211e61f71",
+    "5d004586d7c8aca211e61f72",
+    "5d004586d7c8aca211e61f73",
+    "5d004586d7c8aca211e61f74",
+    "5d004586d7c8aca211e61f75",
+    "5d004586d7c8aca211e61f76",
+    "5d004586d7c8aca211e61f77",
+    "5d004586d7c8aca211e61f78",
+    "5d004586d7c8aca211e61f79",
+    "5d004586d7c8aca211e61f7a",
+    "5d004586d7c8aca211e61f7b",
+    "5d004586d7c8aca211e61f7c",
+    "5d004586d7c8aca211e61f7d",
+    "5d004586d7c8aca211e61f7e",
+    "5d004586d7c8aca211e61f7f",
+    "5d004586d7c8aca211e61f80",
+    "5d004586d7c8aca211e61f81",
+    "5d004586d7c8aca211e61f82",
+    "5d004586d7c8aca211e61f83",
+    "5d004586d7c8aca211e61f84",
+    "5d004586d7c8aca211e61f85",
+    "5d004586d7c8aca211e61f86",
+    "5d004586d7c8aca211e61f87",
+    "5d004586d7c8aca211e61f88",
+    "5d004586d7c8aca211e61f89",
+    "5d004586d7c8aca211e61f8a",
+    "5d004586d7c8aca211e61f8b",
+    "5d004586d7c8aca211e61f8c",
+    "5d004586d7c8aca211e61f8d",
+    "5d004586d7c8aca211e61f8e",
+    "5d004586d7c8aca211e61f8f",
+    "5d004586d7c8aca211e61f90",
+    "5d004586d7c8aca211e61f91",
+    "5d004586d7c8aca211e61f92",
+    "5d004586d7c8aca211e61f93",
+    "5d004586d7c8aca211e61f94",
+    "5d004586d7c8aca211e61f95",
+    "5d004586d7c8aca211e61f96",
+    "5d004586d7c8aca211e61f97",
+    "5d004586d7c8aca211e61f98",
+    "5d004586d7c8aca211e61f99",
+    "5d004586d7c8aca211e61f9a",
+    "5d004586d7c8aca211e61f9b",
+    "5d004586d7c8aca211e61f9c",
+    "5d004586d7c8aca211e61f9d",
+    "5d004586d7c8aca211e61f9e",
+    "5d004586d7c8aca211e61f9f",
+    "5d004586d7c8aca211e61fa0",
+    "5d004586d7c8aca211e61fa1",
+    "5d004586d7c8aca211e61fa2",
+    "5d004586d7c8aca211e61fa3",
+    "5d004586d7c8aca211e61fa4",
+    "5d004586d7c8aca211e61fa5",
+    "5d004586d7c8aca211e61fa6",
+    "5d004586d7c8aca211e61fa7"
   ]
 }

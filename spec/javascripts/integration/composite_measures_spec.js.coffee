@@ -1,13 +1,14 @@
 describe 'Composite Measures', ->
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
-    @valueSetsPath = 'cqm_measure_data/special_measures/CMS890/value_sets.json'
-    @components = getJSONFixture('cqm_measure_data/special_measures/CMS890/components.json')
-    @patients = new Thorax.Collections.Patients getJSONFixture('patients/CMS890/patients.json'), parse: true
-    @pt1 = @patients.models[0]
+    @valueSetsPath = 'cqm_measure_data/CMS890v0/value_sets.json'
+    @components = getJSONFixture('cqm_measure_data/CMS890v0/components.json')
+    patientTest1 = getJSONFixture('patients/CMS890v0/Patient_Test 1.json')
+    @patients = new Thorax.Collections.Patients [patientTest1], parse: true
+    @pt1 = @patients.models[0] # Patient Test 1
 
   it 'calculate correctly for the composite measure', ->
-    measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS890/CMS890v0.json', @valueSetsPath
+    measure = loadMeasureWithValueSets 'cqm_measure_data/CMS890v0/CMS890v0.json', @valueSetsPath
     population = measure.get('populations').at(0)
 
     result = population.calculate(@pt1)
@@ -31,7 +32,7 @@ describe 'Composite Measures', ->
     expect(result.get('observation_values').length).toEqual 0
 
   it 'uses correct cached calculation for a component measure after composite has been calculated', ->
-    measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS890/CMS890v0.json', @valueSetsPath
+    measure = loadMeasureWithValueSets 'cqm_measure_data/CMS890v0/CMS890v0.json', @valueSetsPath
     population = measure.get('populations').at(0)
     population.calculate(@pt1)
 
