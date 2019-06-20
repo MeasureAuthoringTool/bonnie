@@ -93,6 +93,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @attributeDisplayView = new Thorax.Views.DataCriteriaAttributeDisplayView(model: @model)
     @listenTo @attributeDisplayView, 'attributesModified', @attributesModified
 
+    # view that allows for editing new attribute values
+    @attributeEditorView = new Thorax.Views.DataCriteriaAttributeEditorView(model: @model)
+    @listenTo @attributeEditorView, 'attributesModified', @attributesModified
+
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
