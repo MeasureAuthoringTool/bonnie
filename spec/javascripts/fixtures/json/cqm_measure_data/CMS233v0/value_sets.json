@@ -1,0 +1,3454 @@
+{
+  "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2": [
+    {
+      "_id": "5d08119cd7c8ac1d9324a5e3",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a5f5",
+          "code": "428371000124100",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "urn:hl7:version:2017-09",
+          "display_name": "Discharge to healthcare facility for hospice care (procedure)"
+        }
+      ],
+      "display_name": "Discharge to healthcare facility for hospice care (procedure)",
+      "oid": "drc-2bbe231b80adbbda1f62e54d2e939c81babe4ae2c40bf6e55b22e5b6d44f4e02",
+      "user_id": "501fdba3044a111b98000001",
+      "version": ""
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5e4",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a5f6",
+          "code": "428361000124107",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "urn:hl7:version:2017-09",
+          "display_name": "Discharge to home for hospice care (procedure)"
+        }
+      ],
+      "display_name": "Discharge to home for hospice care (procedure)",
+      "oid": "drc-7e63a6e0afd51d085689e8824f313c508a0f9b1c39974cc93b34536627eed531",
+      "user_id": "501fdba3044a111b98000001",
+      "version": ""
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5e5",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a5f7",
+          "code": "444971000124105",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Annual wellness visit (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a5f8",
+          "code": "456201000124103",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Medicare Annual Wellness Visit (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a5f9",
+          "code": "G0438",
+          "code_system_name": "HCPCS",
+          "code_system_oid": "2.16.840.1.113883.6.285",
+          "code_system_version": "2019",
+          "display_name": "Annual wellness visit; includes a personalized prevention plan of service (pps), initial visit"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a5fa",
+          "code": "G0439",
+          "code_system_name": "HCPCS",
+          "code_system_oid": "2.16.840.1.113883.6.285",
+          "code_system_version": "2019",
+          "display_name": "Annual wellness visit, includes a personalized prevention plan of service (pps), subsequent visit"
+        }
+      ],
+      "display_name": "Annual Wellness Visit",
+      "oid": "2.16.840.1.113883.3.526.3.1240",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5e6",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a5fb",
+          "code": "12350003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy with rigid sigmoidoscope through colotomy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a5fc",
+          "code": "174158000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Open colonoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a5fd",
+          "code": "235150006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total colonoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a5fe",
+          "code": "235151005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Limited colonoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a5ff",
+          "code": "25732003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Fiberoptic colonoscopy with biopsy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a600",
+          "code": "310634005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Check colonoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a601",
+          "code": "34264006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Intraoperative colonoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a602",
+          "code": "367535003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Fiberoptic colonoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a603",
+          "code": "425672002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Diagnostic endoscopic examination of ileoanal pouch and biopsy of ileoanal pouch using colonoscope (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a604",
+          "code": "425937002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Diagnostic endoscopic examination of enteric pouch using colonoscope (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a605",
+          "code": "427459009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Diagnostic endoscopic examination of colonic pouch and biopsy of colonic pouch using colonoscope (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a606",
+          "code": "44388",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; diagnostic, including collection of specimen(s) by brushing or washing, when performed (separate procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a607",
+          "code": "44389",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with biopsy, single or multiple"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a608",
+          "code": "44390",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with removal of foreign body(s)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a609",
+          "code": "44391",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with control of bleeding, any method"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a60a",
+          "code": "44392",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with removal of tumor(s), polyp(s), or other lesion(s) by hot biopsy forceps"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a60b",
+          "code": "44393",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2014",
+          "display_name": "Colonoscopy through stoma; with ablation of tumor(s), polyp(s), or other lesion(s) not amenable to removal by hot biopsy forceps, bipolar cautery or snare technique"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a60c",
+          "code": "44394",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with removal of tumor(s), polyp(s), or other lesion(s) by snare technique"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a60d",
+          "code": "44397",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2014",
+          "display_name": "Colonoscopy through stoma; with transendoscopic stent placement (includes predilation)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a60e",
+          "code": "443998000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy through colostomy with endoscopic biopsy of colon (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a60f",
+          "code": "44401",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with ablation of tumor(s), polyp(s), or other lesion(s) (includes pre-and post-dilation and guide wire passage, when performed)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a610",
+          "code": "44402",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with endoscopic stent placement (including pre- and post-dilation and guide wire passage, when performed)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a611",
+          "code": "44403",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with endoscopic mucosal resection"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a612",
+          "code": "44404",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with directed submucosal injection(s), any substance"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a613",
+          "code": "44405",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with transendoscopic balloon dilation"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a614",
+          "code": "44406",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with endoscopic ultrasound examination, limited to the sigmoid, descending, transverse, or ascending colon and cecum and adjacent structures"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a615",
+          "code": "44407",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with transendoscopic ultrasound guided intramural or transmural fine needle aspiration/biopsy(s), includes endoscopic ultrasound examination limited to the sigmoid, descending, transverse, or ascending colon and cecum and adjacent structures"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a616",
+          "code": "44408",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy through stoma; with decompression (for pathologic distention) (eg, volvulus, megacolon), including placement of decompression tube, when performed"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a617",
+          "code": "444783004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Screening colonoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a618",
+          "code": "446521004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy and excision of mucosa of colon (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a619",
+          "code": "446745002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy and biopsy of colon (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a61a",
+          "code": "447021001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy and tattooing (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a61b",
+          "code": "45355",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2014",
+          "display_name": "Colonoscopy, rigid or flexible, transabdominal via colotomy, single or multiple"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a61c",
+          "code": "45378",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; diagnostic, including collection of specimen(s) by brushing or washing, when performed (separate procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a61d",
+          "code": "45379",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with removal of foreign body(s)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a61e",
+          "code": "45380",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with biopsy, single or multiple"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a61f",
+          "code": "45381",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with directed submucosal injection(s), any substance"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a620",
+          "code": "45382",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with control of bleeding, any method"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a621",
+          "code": "45383",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2014",
+          "display_name": "Colonoscopy, flexible, proximal to splenic flexure; with ablation of tumor(s), polyp(s), or other lesion(s) not amenable to removal by hot biopsy forceps, bipolar cautery or snare technique"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a622",
+          "code": "45384",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with removal of tumor(s), polyp(s), or other lesion(s) by hot biopsy forceps"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a623",
+          "code": "45385",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with removal of tumor(s), polyp(s), or other lesion(s) by snare technique"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a624",
+          "code": "45386",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with transendoscopic balloon dilation"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a625",
+          "code": "45387",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2014",
+          "display_name": "Colonoscopy, flexible, proximal to splenic flexure; with transendoscopic stent placement (includes predilation)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a626",
+          "code": "45388",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with ablation of tumor(s), polyp(s), or other lesion(s) (includes pre- and post-dilation and guide wire passage, when performed)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a627",
+          "code": "45389",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with endoscopic stent placement (includes pre- and post-dilation and guide wire passage, when performed)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a628",
+          "code": "45390",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with endoscopic mucosal resection"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a629",
+          "code": "45391",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with endoscopic ultrasound examination limited to the rectum, sigmoid, descending, transverse, or ascending colon and cecum, and adjacent structures"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a62a",
+          "code": "45392",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with transendoscopic ultrasound guided intramural or transmural fine needle aspiration/biopsy(s), includes endoscopic ultrasound examination limited to the rectum, sigmoid, descending, transverse, or ascending colon and cecum, and adjacent structures"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a62b",
+          "code": "45393",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with decompression (for pathologic distention) (eg, volvulus, megacolon), including placement of decompression tube, when performed"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a62c",
+          "code": "45398",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colonoscopy, flexible; with band ligation(s) (eg, hemorrhoids)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a62d",
+          "code": "709421007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy and dilatation of stricture of colon (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a62e",
+          "code": "710293001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy using fluoroscopic guidance (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a62f",
+          "code": "711307001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy using X-ray guidance (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a630",
+          "code": "713154003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Endoscopic submucosal dissection of rectum using colonoscope (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a631",
+          "code": "73761001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Colonoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a632",
+          "code": "8180007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Fiberoptic colonoscopy through colostomy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a633",
+          "code": "851000119109",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "History of colonoscopy (situation)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a634",
+          "code": "G0105",
+          "code_system_name": "HCPCS",
+          "code_system_oid": "2.16.840.1.113883.6.285",
+          "code_system_version": "2019",
+          "display_name": "Colorectal cancer screening; colonoscopy on individual at high risk"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a635",
+          "code": "G0121",
+          "code_system_name": "HCPCS",
+          "code_system_oid": "2.16.840.1.113883.6.285",
+          "code_system_version": "2019",
+          "display_name": "Colorectal cancer screening; colonoscopy on individual not meeting criteria for high risk"
+        }
+      ],
+      "display_name": "Colonoscopy",
+      "oid": "2.16.840.1.113883.3.464.1003.108.12.1020",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5e7",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a636",
+          "code": "60515-4",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "CT Colon and Rectum W air contrast PR"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a637",
+          "code": "72531-7",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "CT Colon and Rectum W contrast IV and W air contrast PR"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a638",
+          "code": "79069-1",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "CT Colon and Rectum for screening WO contrast IV and W air contrast PR"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a639",
+          "code": "79071-7",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "CT Colon and Rectum WO contrast IV and W air contrast PR"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a63a",
+          "code": "79101-2",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "CT Colon and Rectum for screening W air contrast PR"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a63b",
+          "code": "82688-3",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "CT Colon and Rectum WO and W contrast IV and W air contrast PR"
+        }
+      ],
+      "display_name": "CT Colonography",
+      "oid": "2.16.840.1.113883.3.464.1003.108.12.1038",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5e8",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a63c",
+          "code": "2135-2",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Hispanic or Latino"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a63d",
+          "code": "2186-5",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Not Hispanic or Latino"
+        }
+      ],
+      "display_name": "Ethnicity",
+      "oid": "2.16.840.1.114222.4.11.837",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5e9",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a63e",
+          "code": "12503-9",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool --4th specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a63f",
+          "code": "12504-7",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool --5th specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a640",
+          "code": "14563-1",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool --1st specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a641",
+          "code": "14564-9",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool --2nd specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a642",
+          "code": "14565-6",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool --3rd specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a643",
+          "code": "2335-8",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a644",
+          "code": "27396-1",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Mass/mass] in Stool"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a645",
+          "code": "27401-9",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool --6th specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a646",
+          "code": "27925-7",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool --7th specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a647",
+          "code": "27926-5",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool --8th specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a648",
+          "code": "29771-3",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal.lower [Presence] in Stool by Immunoassay"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a649",
+          "code": "56490-6",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal.lower [Presence] in Stool by Immunoassay --2nd specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a64a",
+          "code": "56491-4",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal.lower [Presence] in Stool by Immunoassay --3rd specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a64b",
+          "code": "57905-2",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal.lower [Presence] in Stool by Immunoassay --1st specimen"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a64c",
+          "code": "58453-2",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal.lower [Mass/volume] in Stool by Immunoassay"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a64d",
+          "code": "80372-6",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Hemoglobin.gastrointestinal [Presence] in Stool by Rapid immunoassay"
+        }
+      ],
+      "display_name": "Fecal Occult Blood Test (FOBT)",
+      "oid": "2.16.840.1.113883.3.464.1003.198.12.1011",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5ea",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a64e",
+          "code": "77353-1",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Noninvasive colorectal cancer DNA and occult blood screening [Interpretation] in Stool Narrative"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a64f",
+          "code": "77354-9",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "2.65",
+          "display_name": "Noninvasive colorectal cancer DNA and occult blood screening [Presence] in Stool"
+        }
+      ],
+      "display_name": "FIT DNA",
+      "oid": "2.16.840.1.113883.3.464.1003.108.12.1039",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5eb",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a650",
+          "code": "396226005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Flexible fiberoptic sigmoidoscopy with biopsy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a651",
+          "code": "425634007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Diagnostic endoscopic examination of lower bowel and sampling for bacterial overgrowth using fiberoptic sigmoidoscope (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a652",
+          "code": "44441009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Flexible fiberoptic sigmoidoscopy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a653",
+          "code": "45330",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; diagnostic, including collection of specimen(s) by brushing or washing, when performed (separate procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a654",
+          "code": "45331",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with biopsy, single or multiple"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a655",
+          "code": "45332",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with removal of foreign body(s)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a656",
+          "code": "45333",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with removal of tumor(s), polyp(s), or other lesion(s) by hot biopsy forceps"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a657",
+          "code": "45334",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with control of bleeding, any method"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a658",
+          "code": "45335",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with directed submucosal injection(s), any substance"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a659",
+          "code": "45337",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with decompression (for pathologic distention) (eg, volvulus, megacolon), including placement of decompression tube, when performed"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a65a",
+          "code": "45338",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with removal of tumor(s), polyp(s), or other lesion(s) by snare technique"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a65b",
+          "code": "45339",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2014",
+          "display_name": "Sigmoidoscopy, flexible; with ablation of tumor(s), polyp(s), or other lesion(s) not amenable to removal by hot biopsy forceps, bipolar cautery or snare technique"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a65c",
+          "code": "45340",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with transendoscopic balloon dilation"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a65d",
+          "code": "45341",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with endoscopic ultrasound examination"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a65e",
+          "code": "45342",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with transendoscopic ultrasound guided intramural or transmural fine needle aspiration/biopsy(s)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a65f",
+          "code": "45345",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2014",
+          "display_name": "Sigmoidoscopy, flexible; with transendoscopic stent placement (includes predilation)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a660",
+          "code": "45346",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with ablation of tumor(s), polyp(s), or other lesion(s) (includes pre- and post-dilation and guide wire passage, when performed)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a661",
+          "code": "45347",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with placement of endoscopic stent (includes pre- and post-dilation and guide wire passage, when performed)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a662",
+          "code": "45349",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with endoscopic mucosal resection"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a663",
+          "code": "45350",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Sigmoidoscopy, flexible; with band ligation(s) (eg, hemorrhoids)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a664",
+          "code": "841000119107",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "History of flexible sigmoidoscopy (situation)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a665",
+          "code": "G0104",
+          "code_system_name": "HCPCS",
+          "code_system_oid": "2.16.840.1.113883.6.285",
+          "code_system_version": "2019",
+          "display_name": "Colorectal cancer screening; flexible sigmoidoscopy"
+        }
+      ],
+      "display_name": "Flexible Sigmoidoscopy",
+      "oid": "2.16.840.1.113883.3.464.1003.198.12.1010",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5ec",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a666",
+          "code": "109838007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Overlapping malignant neoplasm of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a667",
+          "code": "130381000119103",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary malignant neuroendocrine neoplasm of ascending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a668",
+          "code": "133751000119102",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Lymphoma of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a669",
+          "code": "153.0",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of hepatic flexure"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a66a",
+          "code": "153.1",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of transverse colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a66b",
+          "code": "153.2",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of descending colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a66c",
+          "code": "153.3",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of sigmoid colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a66d",
+          "code": "153.4",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of cecum"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a66e",
+          "code": "153.5",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of appendix vermiformis"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a66f",
+          "code": "153.6",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of ascending colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a670",
+          "code": "153.7",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of splenic flexure"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a671",
+          "code": "153.8",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of other specified sites of large intestine"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a672",
+          "code": "153.9",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of colon, unspecified site"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a673",
+          "code": "154.0",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of rectosigmoid junction"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a674",
+          "code": "154.1",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Malignant neoplasm of rectum"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a675",
+          "code": "1701000119104",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary adenocarcinoma of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a676",
+          "code": "184881000119106",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary adenocarcinoma of rectosigmoid junction (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a677",
+          "code": "187757001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant neoplasm, overlapping lesion of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a678",
+          "code": "187758006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2012-07",
+          "display_name": "Malignant neoplasm of other specified sites of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a679",
+          "code": "197.5",
+          "code_system_name": "ICD-9-CM",
+          "code_system_oid": "2.16.840.1.113883.6.103",
+          "code_system_version": "2013",
+          "display_name": "Secondary malignant neoplasm of large intestine and rectum"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a67a",
+          "code": "269533000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Carcinoma of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a67b",
+          "code": "269544008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Carcinoma of the rectosigmoid junction (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a67c",
+          "code": "285312008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Carcinoma of sigmoid colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a67d",
+          "code": "285611007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Metastasis to colon of unknown primary (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a67e",
+          "code": "301756000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Adenocarcinoma of sigmoid colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a67f",
+          "code": "312111009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Carcinoma of ascending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a680",
+          "code": "312112002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Carcinoma of transverse colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a681",
+          "code": "312113007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Carcinoma of descending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a682",
+          "code": "312114001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Carcinoma of hepatic flexure (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a683",
+          "code": "312115000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Carcinoma of splenic flexure (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a684",
+          "code": "314965007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Local recurrence of malignant tumor of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a685",
+          "code": "315058005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Hereditary nonpolyposis colon cancer (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a686",
+          "code": "363406005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant neoplasm of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a687",
+          "code": "363407001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant tumor of hepatic flexure (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a688",
+          "code": "363408006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant tumor of transverse colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a689",
+          "code": "363409003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant tumor of descending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a68a",
+          "code": "363410008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant tumor of sigmoid colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a68b",
+          "code": "363412000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant tumor of ascending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a68c",
+          "code": "363413005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant tumor of splenic flexure (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a68d",
+          "code": "363414004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant tumor of rectosigmoid junction (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a68e",
+          "code": "363510005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant tumor of large intestine (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a68f",
+          "code": "425178004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Adenocarcinoma of rectosigmoid junction (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a690",
+          "code": "449218003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Lymphoma of sigmoid colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a691",
+          "code": "681601000119101",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary adenocarcinoma of ascending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a692",
+          "code": "716654007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Non-polyposis Turcot syndrome (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a693",
+          "code": "721695008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary adenocarcinoma of ascending colon and right flexure (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a694",
+          "code": "721696009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary adenocarcinoma of transverse colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a695",
+          "code": "721699002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary adenocarcinoma of descending colon and splenic flexure (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a696",
+          "code": "737058005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Microsatellite instability-high colorectal cancer (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a697",
+          "code": "766981007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Squamous cell carcinoma of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a698",
+          "code": "93761005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary malignant neoplasm of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a699",
+          "code": "93771007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary malignant neoplasm of descending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a69a",
+          "code": "93826009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary malignant neoplasm of hepatic flexure of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a69b",
+          "code": "93980002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary malignant neoplasm of rectosigmoid junction (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a69c",
+          "code": "94006002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary malignant neoplasm of sigmoid colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a69d",
+          "code": "94072004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary malignant neoplasm of splenic flexure of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a69e",
+          "code": "94105000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Primary malignant neoplasm of transverse colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a69f",
+          "code": "94179005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Secondary malignant neoplasm of ascending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a0",
+          "code": "94260004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Secondary malignant neoplasm of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a1",
+          "code": "94271003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Secondary malignant neoplasm of descending colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a2",
+          "code": "94328005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Secondary malignant neoplasm of hepatic flexure of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a3",
+          "code": "94509004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Secondary malignant neoplasm of rectosigmoid junction (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a4",
+          "code": "94538001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Secondary malignant neoplasm of sigmoid colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a5",
+          "code": "94604000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Secondary malignant neoplasm of splenic flexure of colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a6",
+          "code": "94643001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Secondary malignant neoplasm of transverse colon (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a7",
+          "code": "96281000119107",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Overlapping malignant neoplasm of colon and rectum (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a8",
+          "code": "96981000119102",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Malignant neoplasm of rectosigmoid junction metastatic to brain (disorder)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6a9",
+          "code": "C18.0",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of cecum"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6aa",
+          "code": "C18.1",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of appendix"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ab",
+          "code": "C18.2",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of ascending colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ac",
+          "code": "C18.3",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of hepatic flexure"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ad",
+          "code": "C18.4",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of transverse colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ae",
+          "code": "C18.5",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of splenic flexure"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6af",
+          "code": "C18.6",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of descending colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b0",
+          "code": "C18.7",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of sigmoid colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b1",
+          "code": "C18.8",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of overlapping sites of colon"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b2",
+          "code": "C18.9",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of colon, unspecified"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b3",
+          "code": "C19",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of rectosigmoid junction"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b4",
+          "code": "C20",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of rectum"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b5",
+          "code": "C21.2",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of cloacogenic zone"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b6",
+          "code": "C21.8",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Malignant neoplasm of overlapping sites of rectum, anus and anal canal"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b7",
+          "code": "C78.5",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Secondary malignant neoplasm of large intestine and rectum"
+        }
+      ],
+      "display_name": "Malignant Neoplasm of Colon",
+      "oid": "2.16.840.1.113883.3.464.1003.108.12.1001",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5ed",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b8",
+          "code": "F",
+          "code_system_name": "AdministrativeGender",
+          "code_system_oid": "2.16.840.1.113883.5.1",
+          "code_system_version": "HL7V3.0_2018-08",
+          "display_name": "Female"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6b9",
+          "code": "M",
+          "code_system_name": "AdministrativeGender",
+          "code_system_oid": "2.16.840.1.113883.5.1",
+          "code_system_version": "HL7V3.0_2018-08",
+          "display_name": "Male"
+        }
+      ],
+      "display_name": "ONC Administrative Sex",
+      "oid": "2.16.840.1.113762.1.4.1",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5ee",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ba",
+          "code": "1",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "MEDICARE"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6bb",
+          "code": "11",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare (Managed Care)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6bc",
+          "code": "111",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6bd",
+          "code": "112",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare PPO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6be",
+          "code": "113",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare POS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6bf",
+          "code": "119",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Managed Care Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c0",
+          "code": "12",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare (Non-managed Care)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c1",
+          "code": "121",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare FFS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c2",
+          "code": "122",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Drug Benefit"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c3",
+          "code": "123",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Medical Savings Account (MSA)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c4",
+          "code": "129",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Non-managed Care Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c5",
+          "code": "13",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Hospice"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c6",
+          "code": "14",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Dual Eligibility Medicare/Medicaid Organization"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c7",
+          "code": "19",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c8",
+          "code": "191",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Pharmacy Benefit Manager"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6c9",
+          "code": "2",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "MEDICAID"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ca",
+          "code": "21",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid (Managed Care)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6cb",
+          "code": "211",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6cc",
+          "code": "212",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid PPO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6cd",
+          "code": "213",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid PCCM (Primary Care Case Management)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ce",
+          "code": "219",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Managed Care Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6cf",
+          "code": "22",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid (Non-managed Care Plan)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d0",
+          "code": "23",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid/SCHIP"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d1",
+          "code": "25",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid - Out of State"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d2",
+          "code": "26",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid -- Long Term Care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d3",
+          "code": "29",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d4",
+          "code": "291",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Pharmacy Benefit Manager"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d5",
+          "code": "299",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid - Dental"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d6",
+          "code": "3",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d7",
+          "code": "31",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Department of Defense"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d8",
+          "code": "311",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE (CHAMPUS)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6d9",
+          "code": "3111",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Prime--HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6da",
+          "code": "3112",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Extra--PPO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6db",
+          "code": "3113",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Standard - Fee For Service"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6dc",
+          "code": "3114",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE For Life--Medicare Supplement"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6dd",
+          "code": "3115",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Reserve Select"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6de",
+          "code": "3116",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6df",
+          "code": "3119",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Department of Defense - (other)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e0",
+          "code": "312",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Military Treatment Facility"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e1",
+          "code": "3121",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Enrolled Prime--HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e2",
+          "code": "3122",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Non-enrolled Space Available"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e3",
+          "code": "3123",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE For Life (TFL)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e4",
+          "code": "313",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Dental --Stand Alone"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e5",
+          "code": "32",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Department of Veterans Affairs"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e6",
+          "code": "321",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Veteran care--Care provided to Veterans"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e7",
+          "code": "3211",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Direct Care--Care provided in VA facilities"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e8",
+          "code": "3212",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indirect Care--Care provided outside VA facilities"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6e9",
+          "code": "32121",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Fee Basis"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ea",
+          "code": "32122",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Foreign Fee/Foreign Medical Program (FMP)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6eb",
+          "code": "32123",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Contract Nursing Home/Community Nursing Home"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ec",
+          "code": "32124",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "State Veterans Home"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ed",
+          "code": "32125",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Sharing Agreements"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ee",
+          "code": "32126",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Federal Agency"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ef",
+          "code": "32127",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Dental Care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f0",
+          "code": "32128",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Vision Care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f1",
+          "code": "322",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Non-veteran care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f2",
+          "code": "3221",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f3",
+          "code": "3222",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Spina Bifida Health Care Program (SB)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f4",
+          "code": "3223",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Children of Women Vietnam Veterans (CWVV)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f5",
+          "code": "3229",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other non-veteran care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f6",
+          "code": "33",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service or Tribe"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f7",
+          "code": "331",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service -- Regular"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f8",
+          "code": "332",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service -- Contract"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6f9",
+          "code": "333",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service - Managed Care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6fa",
+          "code": "334",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Tribe - Sponsored Coverage"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6fb",
+          "code": "34",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "HRSA Program"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6fc",
+          "code": "341",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Title V (MCH Block Grant)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6fd",
+          "code": "342",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Migrant Health Program"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6fe",
+          "code": "343",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Ryan White Act"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a6ff",
+          "code": "349",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a700",
+          "code": "35",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Black Lung"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a701",
+          "code": "36",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "State Government"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a702",
+          "code": "361",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "State SCHIP program (codes for individual states)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a703",
+          "code": "362",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Specific state programs (list/ local code)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a704",
+          "code": "369",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "State, not otherwise specified (other state)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a705",
+          "code": "37",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Local Government"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a706",
+          "code": "371",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Local - Managed care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a707",
+          "code": "3711",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a708",
+          "code": "3712",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "PPO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a709",
+          "code": "3713",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "POS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a70a",
+          "code": "372",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "FFS/Indemnity"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a70b",
+          "code": "379",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Local, not otherwise specified (other local, county)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a70c",
+          "code": "38",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Government (Federal, State, Local not specified)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a70d",
+          "code": "381",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified managed care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a70e",
+          "code": "3811",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a70f",
+          "code": "3812",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - PPO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a710",
+          "code": "3813",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - POS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a711",
+          "code": "3819",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - not specified managed care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a712",
+          "code": "382",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - FFS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a713",
+          "code": "389",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a714",
+          "code": "39",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Federal"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a715",
+          "code": "391",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal Employee Health Plan - Use when known"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a716",
+          "code": "4",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "DEPARTMENTS OF CORRECTIONS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a717",
+          "code": "41",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Federal"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a718",
+          "code": "42",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Corrections State"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a719",
+          "code": "43",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Local"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a71a",
+          "code": "44",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Unknown Level"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a71b",
+          "code": "5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "PRIVATE HEALTH INSURANCE"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a71c",
+          "code": "51",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care (Private)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a71d",
+          "code": "511",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a71e",
+          "code": "512",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - PPO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a71f",
+          "code": "513",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - POS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a720",
+          "code": "514",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Exclusive Provider Organization"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a721",
+          "code": "515",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Gatekeeper PPO (GPPO)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a722",
+          "code": "516",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a723",
+          "code": "517",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - Dental"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a724",
+          "code": "519",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care, Other (non HMO)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a725",
+          "code": "52",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Private Health Insurance - Indemnity"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a726",
+          "code": "521",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Indemnity"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a727",
+          "code": "522",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a728",
+          "code": "523",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare supplemental policy (as second payer)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a729",
+          "code": "524",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indemnity Insurance - Dental"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a72a",
+          "code": "529",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Private health insurance--other commercial Indemnity"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a72b",
+          "code": "53",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a72c",
+          "code": "54",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Organized Delivery System"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a72d",
+          "code": "55",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Small Employer Purchasing Group"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a72e",
+          "code": "56",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Specialized Stand Alone Plan"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a72f",
+          "code": "561",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Dental"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a730",
+          "code": "562",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Vision"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a731",
+          "code": "59",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Private Insurance"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a732",
+          "code": "6",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BLUE CROSS/BLUE SHIELD"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a733",
+          "code": "61",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a734",
+          "code": "611",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a735",
+          "code": "612",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- PPO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a736",
+          "code": "613",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- POS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a737",
+          "code": "614",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care - Dental"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a738",
+          "code": "619",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a739",
+          "code": "62",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Insurance Indemnity"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a73a",
+          "code": "621",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Indemnity"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a73b",
+          "code": "622",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a73c",
+          "code": "623",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Medicare Supplemental Plan"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a73d",
+          "code": "629",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Indemnity - Dental"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a73e",
+          "code": "7",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a73f",
+          "code": "71",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a740",
+          "code": "72",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "PPO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a741",
+          "code": "73",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "POS"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a742",
+          "code": "79",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Managed Care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a743",
+          "code": "8",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a744",
+          "code": "81",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Self-pay (Includes applicants for insurance and Medicaid applicants)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a745",
+          "code": "82",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "No Charge"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a746",
+          "code": "821",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Charity"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a747",
+          "code": "822",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Professional Courtesy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a748",
+          "code": "823",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Research/Clinical Trial"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a749",
+          "code": "83",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Refusal to Pay/Bad Debt"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a74a",
+          "code": "84",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Hill Burton Free Care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a74b",
+          "code": "85",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Research/Donor"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a74c",
+          "code": "89",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "No Payment, Other"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a74d",
+          "code": "9",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "MISCELLANEOUS/OTHER"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a74e",
+          "code": "91",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Foreign National"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a74f",
+          "code": "92",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other (Non-government)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a750",
+          "code": "93",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Disability Insurance"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a751",
+          "code": "94",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Long-term Care Insurance"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a752",
+          "code": "95",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Compensation"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a753",
+          "code": "951",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp HMO"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a754",
+          "code": "953",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp Fee-for-Service"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a755",
+          "code": "954",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp Other Managed Care"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a756",
+          "code": "959",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp, Other unspecified"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a757",
+          "code": "96",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Auto Insurance (includes no fault)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a758",
+          "code": "97",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Legal Liability / Liability Insurance"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a759",
+          "code": "98",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a75a",
+          "code": "99",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "No Typology Code available for payment source"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a75b",
+          "code": "9999",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Unavailable / No Payer Specified / Blank"
+        }
+      ],
+      "display_name": "Payer",
+      "oid": "2.16.840.1.114222.4.11.3591",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5ef",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a75c",
+          "code": "1002-5",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "American Indian or Alaska Native"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a75d",
+          "code": "2028-9",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Asian"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a75e",
+          "code": "2054-5",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Black or African American"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a75f",
+          "code": "2076-8",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Native Hawaiian or Other Pacific Islander"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a760",
+          "code": "2106-3",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "White"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a761",
+          "code": "2131-1",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Other Race"
+        }
+      ],
+      "display_name": "Race",
+      "oid": "2.16.840.1.114222.4.11.836",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5f0",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a762",
+          "code": "0DTE0ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Resection of Large Intestine, Open Approach"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a763",
+          "code": "0DTE4ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Resection of Large Intestine, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a764",
+          "code": "0DTE7ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Resection of Large Intestine, Via Natural or Artificial Opening"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a765",
+          "code": "0DTE8ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Resection of Large Intestine, Via Natural or Artificial Opening Endoscopic"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a766",
+          "code": "119771000119101",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "History of total colectomy (situation)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a767",
+          "code": "26390003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total colectomy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a768",
+          "code": "303401008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Parks panproctocolectomy, anastomosis of ileum to anus and creation of pouch (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a769",
+          "code": "307666008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total colectomy and ileostomy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a76a",
+          "code": "307667004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total colectomy, ileostomy and rectal mucous fistula (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a76b",
+          "code": "307669001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total colectomy, ileostomy and closure of rectal stump (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a76c",
+          "code": "31130001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total abdominal colectomy with proctectomy and ileostomy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a76d",
+          "code": "36192008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total abdominal colectomy with ileoproctostomy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a76e",
+          "code": "44150",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colectomy, total, abdominal, without proctectomy; with ileostomy or ileoproctostomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a76f",
+          "code": "44151",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colectomy, total, abdominal, without proctectomy; with continent ileostomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a770",
+          "code": "44152",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2006",
+          "display_name": "Colectomy, total, abdominal, without proctectomy; with rectal mucosectomy, ileoanal anastomosis, with or without loop ileostomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a771",
+          "code": "44153",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2006",
+          "display_name": "Colectomy, total, abdominal, without proctectomy; with rectal mucosectomy, ileoanal anastomosis, creation of ileal reservoir (S or J), with or without loop ileostomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a772",
+          "code": "44155",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colectomy, total, abdominal, with proctectomy; with ileostomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a773",
+          "code": "44156",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colectomy, total, abdominal, with proctectomy; with continent ileostomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a774",
+          "code": "44157",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colectomy, total, abdominal, with proctectomy; with ileoanal anastomosis, includes loop ileostomy, and rectal mucosectomy, when performed"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a775",
+          "code": "44158",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Colectomy, total, abdominal, with proctectomy; with ileoanal anastomosis, creation of ileal reservoir (S or J), includes loop ileostomy, and rectal mucosectomy, when performed"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a776",
+          "code": "44210",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Laparoscopy, surgical; colectomy, total, abdominal, without proctectomy, with ileostomy or ileoproctostomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a777",
+          "code": "44211",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Laparoscopy, surgical; colectomy, total, abdominal, with proctectomy, with ileoanal anastomosis, creation of ileal reservoir (S or J), with loop ileostomy, includes rectal mucosectomy, when performed"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a778",
+          "code": "44212",
+          "code_system_name": "CPT",
+          "code_system_oid": "2.16.840.1.113883.6.12",
+          "code_system_version": "2019",
+          "display_name": "Laparoscopy, surgical; colectomy, total, abdominal, with proctectomy, with ileostomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a779",
+          "code": "44751009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total abdominal colectomy with proctectomy and continent ileostomy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a77a",
+          "code": "45.81",
+          "code_system_name": "ICD-9-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.104",
+          "code_system_version": "2013",
+          "display_name": "Laparoscopic total intra-abdominal colectomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a77b",
+          "code": "45.82",
+          "code_system_name": "ICD-9-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.104",
+          "code_system_version": "2013",
+          "display_name": "Open total intra-abdominal colectomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a77c",
+          "code": "45.83",
+          "code_system_name": "ICD-9-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.104",
+          "code_system_version": "2013",
+          "display_name": "Other and unspecified total intra-abdominal colectomy"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a77d",
+          "code": "456004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total abdominal colectomy with ileostomy (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a77e",
+          "code": "80294005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Total abdominal colectomy with rectal mucosectomy and ileoanal anastomosis (procedure)"
+        }
+      ],
+      "display_name": "Total Colectomy",
+      "oid": "2.16.840.1.113883.3.464.1003.198.12.1019",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5f1",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a77f",
+          "code": "385763009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Hospice care (regime/therapy)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a780",
+          "code": "385765002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Hospice care management (procedure)"
+        }
+      ],
+      "display_name": "Hospice care ambulatory",
+      "oid": "2.16.840.1.113762.1.4.1108.15",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5f2",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a781",
+          "code": "4525004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Emergency department patient visit (procedure)"
+        }
+      ],
+      "display_name": "Emergency Department Visit",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5f3",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a782",
+          "code": "183452005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Emergency hospital admission (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a783",
+          "code": "32485007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Hospital admission (procedure)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a784",
+          "code": "8715000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Hospital admission, elective (procedure)"
+        }
+      ],
+      "display_name": "Encounter Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    },
+    {
+      "_id": "5d08119cd7c8ac1d9324a5f4",
+      "concepts": [
+        {
+          "_id": "5d08119cd7c8ac1d9324a785",
+          "code": "309904001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a786",
+          "code": "309905000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Adult intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a787",
+          "code": "309907008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Cardiac intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a788",
+          "code": "309908003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Metabolic intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a789",
+          "code": "309909006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Neurological intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a78a",
+          "code": "309910001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Pediatric intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a78b",
+          "code": "309911002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Respiratory intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a78c",
+          "code": "418433008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Surgical intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a78d",
+          "code": "426439001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Burns intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a78e",
+          "code": "441994008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Medical intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119cd7c8ac1d9324a78f",
+          "code": "448391000124102",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-09",
+          "display_name": "Trauma intensive care unit (environment)"
+        }
+      ],
+      "display_name": "Intensive Care Unit",
+      "oid": "2.16.840.1.113762.1.4.1110.23",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-920D5B27-DF5A-4770-BD60-FC4EE251C4D2"
+    }
+  ]
+}

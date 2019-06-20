@@ -27,21 +27,20 @@ describe 'ImportMeasure view', ->
           return $.Deferred().reject().promise()
 
     describe 'loading', ->
-      beforeEach ->
+      beforeAll ->
         jasmine.getJSONFixtures().clearCache()
 
-      xit 'remembers we are calculating SDEs', ->
-        cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
-        importView = new Thorax.Views.ImportMeasure(model: cqlMeasure)
+      it 'remembers we are calculating SDEs', ->
+        measure = loadMeasureWithValueSets 'cqm_measure_data/CMS529v0/CMS529v0.json', 'cqm_measure_data/CMS529v0/value_sets.json'
+        importView = new Thorax.Views.ImportMeasure(model: measure)
         importView.appendTo 'body'
         importView.render()
         expect(importView.$el[0].innerHTML.indexOf("Include Supplemental Data Element Calculations") != -1).toBe true
         importView.remove()
 
       it 'remembers we are NOT calculating SDEs', ->
-        # TODO(cqm-measure) Need to update or replace this fixture
-        cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CQL/CMS107/CMS107v6.json'), parse: true
-        importView = new Thorax.Views.ImportMeasure(model: cqlMeasure)
+        measure - loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
+        importView = new Thorax.Views.ImportMeasure(model: measure)
         importView.appendTo 'body'
         importView.render()
         expect(importView.$el[0].innerHTML.indexOf("Include Supplemental Data Element Calculations") != -1).toBe false

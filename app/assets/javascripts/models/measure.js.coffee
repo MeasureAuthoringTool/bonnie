@@ -14,7 +14,7 @@ class Thorax.Models.Measure extends Thorax.Model
   parse: (attrs) ->
     thoraxMeasure = {}
     # We don't use cqm measure data criteria since we have to change them for use in the view
-    thoraxMeasure.data_criteria = attrs.data_criteria
+    thoraxMeasure.source_data_criteria = attrs.source_data_criteria
     thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
     thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
     if attrs.value_sets?
@@ -53,7 +53,7 @@ class Thorax.Models.Measure extends Thorax.Model
       for valSet in thoraxMeasure.cqmValueSets
         oid_display_name_map[valSet.oid] = valSet.display_name if valSet?.display_name
 
-    for key, data_criteria of thoraxMeasure.data_criteria
+    for key, data_criteria of thoraxMeasure.source_data_criteria
       data_criteria.key = key
       # Apply value set display name if one exists for this criteria
       if !data_criteria.variable && oid_display_name_map[data_criteria.codeListId]?
@@ -66,7 +66,7 @@ class Thorax.Models.Measure extends Thorax.Model
         for k,field of data_criteria.field_values
           if field.reference?
             data_criteria.references[k] = field
-            ref = thoraxMeasure.data_criteria[field.reference]
+            ref = thoraxMeasure.source_data_criteria[field.reference]
             field["referenced_criteria"] = ref
             delete data_criteria.field_values[k]
 

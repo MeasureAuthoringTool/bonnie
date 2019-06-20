@@ -1,0 +1,4489 @@
+{
+  "84B9D0B5-0CAF-4E41-B345-3492A23C2E9F": [
+    {
+      "_id": "5d08119bd7c8ac1d93249c48",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249c5d",
+          "code": "21112-8",
+          "code_system_name": "LOINC",
+          "code_system_oid": "2.16.840.1.113883.6.1",
+          "code_system_version": "urn:hl7:version:2.46",
+          "display_name": "Birthdate"
+        }
+      ],
+      "display_name": "Birthdate",
+      "oid": "drc-5e3dd7a2b908c12dc1dd525dd16ae9b969b86825d92d4b58d101ef476d44510b",
+      "user_id": "501fdba3044a111b98000001",
+      "version": ""
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c49",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249c5e",
+          "code": "419099009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "urn:hl7:version:2016-03",
+          "display_name": "Dead"
+        }
+      ],
+      "display_name": "Dead",
+      "oid": "drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58",
+      "user_id": "501fdba3044a111b98000001",
+      "version": ""
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c4a",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249c5f",
+          "code": "F",
+          "code_system_name": "AdministrativeGender",
+          "code_system_oid": "2.16.840.1.113883.5.1",
+          "code_system_version": "HL7V3.0_2017-07",
+          "display_name": "Female"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c60",
+          "code": "M",
+          "code_system_name": "AdministrativeGender",
+          "code_system_oid": "2.16.840.1.113883.5.1",
+          "code_system_version": "HL7V3.0_2017-07",
+          "display_name": "Male"
+        }
+      ],
+      "display_name": "ONC Administrative Sex",
+      "oid": "2.16.840.1.113762.1.4.1",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c4b",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249c61",
+          "code": "1002-5",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "American Indian or Alaska Native"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c62",
+          "code": "2028-9",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Asian"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c63",
+          "code": "2054-5",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Black or African American"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c64",
+          "code": "2076-8",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Native Hawaiian or Other Pacific Islander"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c65",
+          "code": "2106-3",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "White"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c66",
+          "code": "2131-1",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Other Race"
+        }
+      ],
+      "display_name": "Race",
+      "oid": "2.16.840.1.114222.4.11.836",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c4c",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249c67",
+          "code": "2135-2",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Hispanic or Latino"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c68",
+          "code": "2186-5",
+          "code_system_name": "CDC Race",
+          "code_system_oid": "2.16.840.1.113883.6.238",
+          "code_system_version": "1.2",
+          "display_name": "Not Hispanic or Latino"
+        }
+      ],
+      "display_name": "Ethnicity",
+      "oid": "2.16.840.1.114222.4.11.837",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c4d",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249c69",
+          "code": "1",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "MEDICARE"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c6a",
+          "code": "11",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare (Managed Care)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c6b",
+          "code": "111",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c6c",
+          "code": "112",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare PPO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c6d",
+          "code": "113",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare POS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c6e",
+          "code": "119",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Managed Care Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c6f",
+          "code": "12",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare (Non-managed Care)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c70",
+          "code": "121",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare FFS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c71",
+          "code": "122",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Drug Benefit"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c72",
+          "code": "123",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Medical Savings Account (MSA)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c73",
+          "code": "129",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Non-managed Care Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c74",
+          "code": "13",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Hospice"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c75",
+          "code": "14",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Dual Eligibility Medicare/Medicaid Organization"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c76",
+          "code": "19",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c77",
+          "code": "191",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Pharmacy Benefit Manager"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c78",
+          "code": "2",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "MEDICAID"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c79",
+          "code": "21",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid (Managed Care)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c7a",
+          "code": "211",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c7b",
+          "code": "212",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid PPO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c7c",
+          "code": "213",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid PCCM (Primary Care Case Management)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c7d",
+          "code": "219",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Managed Care Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c7e",
+          "code": "22",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid (Non-managed Care Plan)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c7f",
+          "code": "23",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid/SCHIP"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c80",
+          "code": "25",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid - Out of State"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c81",
+          "code": "26",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid -- Long Term Care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c82",
+          "code": "29",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c83",
+          "code": "291",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Pharmacy Benefit Manager"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c84",
+          "code": "299",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid - Dental"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c85",
+          "code": "3",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c86",
+          "code": "31",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Department of Defense"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c87",
+          "code": "311",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE (CHAMPUS)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c88",
+          "code": "3111",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Prime--HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c89",
+          "code": "3112",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Extra--PPO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c8a",
+          "code": "3113",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Standard - Fee For Service"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c8b",
+          "code": "3114",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE For Life--Medicare Supplement"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c8c",
+          "code": "3115",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Reserve Select"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c8d",
+          "code": "3116",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c8e",
+          "code": "3119",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Department of Defense - (other)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c8f",
+          "code": "312",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Military Treatment Facility"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c90",
+          "code": "3121",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Enrolled Prime--HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c91",
+          "code": "3122",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Non-enrolled Space Available"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c92",
+          "code": "3123",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE For Life (TFL)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c93",
+          "code": "313",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Dental --Stand Alone"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c94",
+          "code": "32",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Department of Veterans Affairs"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c95",
+          "code": "321",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Veteran care--Care provided to Veterans"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c96",
+          "code": "3211",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Direct Care--Care provided in VA facilities"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c97",
+          "code": "3212",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indirect Care--Care provided outside VA facilities"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c98",
+          "code": "32121",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Fee Basis"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c99",
+          "code": "32122",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Foreign Fee/Foreign Medical Program (FMP)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c9a",
+          "code": "32123",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Contract Nursing Home/Community Nursing Home"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c9b",
+          "code": "32124",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "State Veterans Home"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c9c",
+          "code": "32125",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Sharing Agreements"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c9d",
+          "code": "32126",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Federal Agency"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c9e",
+          "code": "32127",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Dental Care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249c9f",
+          "code": "32128",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Vision Care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca0",
+          "code": "322",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Non-veteran care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca1",
+          "code": "3221",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca2",
+          "code": "3222",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Spina Bifida Health Care Program (SB)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca3",
+          "code": "3223",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Children of Women Vietnam Veterans (CWVV)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca4",
+          "code": "3229",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other non-veteran care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca5",
+          "code": "33",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service or Tribe"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca6",
+          "code": "331",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service -- Regular"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca7",
+          "code": "332",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service -- Contract"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca8",
+          "code": "333",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service - Managed Care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ca9",
+          "code": "334",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indian Tribe - Sponsored Coverage"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249caa",
+          "code": "34",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "HRSA Program"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cab",
+          "code": "341",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Title V (MCH Block Grant)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cac",
+          "code": "342",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Migrant Health Program"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cad",
+          "code": "343",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Ryan White Act"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cae",
+          "code": "349",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249caf",
+          "code": "35",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Black Lung"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb0",
+          "code": "36",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "State Government"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb1",
+          "code": "361",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "State SCHIP program (codes for individual states)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb2",
+          "code": "362",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Specific state programs (list/ local code)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb3",
+          "code": "369",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "State, not otherwise specified (other state)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb4",
+          "code": "37",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Local Government"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb5",
+          "code": "371",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Local - Managed care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb6",
+          "code": "3711",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb7",
+          "code": "3712",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "PPO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb8",
+          "code": "3713",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "POS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cb9",
+          "code": "372",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "FFS/Indemnity"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cba",
+          "code": "379",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Local, not otherwise specified (other local, county)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cbb",
+          "code": "38",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Government (Federal, State, Local not specified)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cbc",
+          "code": "381",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified managed care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cbd",
+          "code": "3811",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cbe",
+          "code": "3812",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - PPO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cbf",
+          "code": "3813",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - POS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc0",
+          "code": "3819",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - not specified managed care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc1",
+          "code": "382",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - FFS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc2",
+          "code": "389",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc3",
+          "code": "39",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Federal"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc4",
+          "code": "391",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Federal Employee Health Plan - Use when known"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc5",
+          "code": "4",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "DEPARTMENTS OF CORRECTIONS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc6",
+          "code": "41",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Federal"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc7",
+          "code": "42",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Corrections State"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc8",
+          "code": "43",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Local"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cc9",
+          "code": "44",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Unknown Level"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cca",
+          "code": "5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "PRIVATE HEALTH INSURANCE"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ccb",
+          "code": "51",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care (Private)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ccc",
+          "code": "511",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ccd",
+          "code": "512",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - PPO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cce",
+          "code": "513",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - POS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ccf",
+          "code": "514",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Exclusive Provider Organization"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd0",
+          "code": "515",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Gatekeeper PPO (GPPO)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd1",
+          "code": "516",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd2",
+          "code": "517",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - Dental"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd3",
+          "code": "519",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care, Other (non HMO)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd4",
+          "code": "52",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Private Health Insurance - Indemnity"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd5",
+          "code": "521",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Indemnity"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd6",
+          "code": "522",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd7",
+          "code": "523",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Medicare supplemental policy (as second payer)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd8",
+          "code": "524",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Indemnity Insurance - Dental"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cd9",
+          "code": "529",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Private health insurance--other commercial Indemnity"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cda",
+          "code": "53",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cdb",
+          "code": "54",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Organized Delivery System"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cdc",
+          "code": "55",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Small Employer Purchasing Group"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cdd",
+          "code": "56",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Specialized Stand Alone Plan"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cde",
+          "code": "561",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Dental"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cdf",
+          "code": "562",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Vision"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce0",
+          "code": "59",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Private Insurance"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce1",
+          "code": "6",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BLUE CROSS/BLUE SHIELD"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce2",
+          "code": "61",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce3",
+          "code": "611",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce4",
+          "code": "612",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- PPO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce5",
+          "code": "613",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- POS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce6",
+          "code": "614",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care - Dental"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce7",
+          "code": "619",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce8",
+          "code": "62",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Insurance Indemnity"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ce9",
+          "code": "621",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Indemnity"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cea",
+          "code": "622",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ceb",
+          "code": "623",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Medicare Supplemental Plan"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cec",
+          "code": "629",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "BC Indemnity - Dental"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ced",
+          "code": "7",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cee",
+          "code": "71",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cef",
+          "code": "72",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "PPO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf0",
+          "code": "73",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "POS"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf1",
+          "code": "79",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other Managed Care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf2",
+          "code": "8",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf3",
+          "code": "81",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Self-pay (Includes applicants for insurance and Medicaid applicants)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf4",
+          "code": "82",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "No Charge"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf5",
+          "code": "821",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Charity"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf6",
+          "code": "822",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Professional Courtesy"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf7",
+          "code": "823",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Research/Clinical Trial"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf8",
+          "code": "83",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Refusal to Pay/Bad Debt"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cf9",
+          "code": "84",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Hill Burton Free Care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cfa",
+          "code": "85",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Research/Donor"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cfb",
+          "code": "89",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "No Payment, Other"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cfc",
+          "code": "9",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "MISCELLANEOUS/OTHER"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cfd",
+          "code": "91",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Foreign National"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cfe",
+          "code": "92",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other (Non-government)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249cff",
+          "code": "93",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Disability Insurance"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d00",
+          "code": "94",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Long-term Care Insurance"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d01",
+          "code": "95",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Compensation"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d02",
+          "code": "951",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp HMO"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d03",
+          "code": "953",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp Fee-for-Service"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d04",
+          "code": "954",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp Other Managed Care"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d05",
+          "code": "959",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp, Other unspecified"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d06",
+          "code": "96",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Auto Insurance (includes no fault)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d07",
+          "code": "97",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Legal Liability / Liability Insurance"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d08",
+          "code": "98",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d09",
+          "code": "99",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "No Typology Code available for payment source"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d0a",
+          "code": "9999",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_oid": "2.16.840.1.113883.3.221.5",
+          "code_system_version": "8.0",
+          "display_name": "Unavailable / No Payer Specified / Blank"
+        }
+      ],
+      "display_name": "Payer",
+      "oid": "2.16.840.1.114222.4.11.3591",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c4e",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d0b",
+          "code": "10273003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute infarction of papillary muscle (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d0c",
+          "code": "15712841000119100",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of posterolateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d0d",
+          "code": "15712881000119105",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of anterolateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d0e",
+          "code": "15712921000119103",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of lateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d0f",
+          "code": "15712961000119108",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of anteroseptal wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d10",
+          "code": "15713041000119103",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of posterior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d11",
+          "code": "15713081000119108",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction due to left coronary artery occlusion (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d12",
+          "code": "15713121000119105",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction due to right coronary artery occlusion (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d13",
+          "code": "15713161000119100",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of septum (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d14",
+          "code": "15713201000119105",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of posterobasal wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d15",
+          "code": "15962541000119106",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of anteroapical wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d16",
+          "code": "15963181000119104",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction due to occlusion of circumflex coronary artery (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d17",
+          "code": "15990001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of posterolateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d18",
+          "code": "17531000119105",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction due to left coronary artery occlusion (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d19",
+          "code": "194809007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute atrial infarction (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d1a",
+          "code": "194857001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Subsequent myocardial infarction of anterior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d1b",
+          "code": "194858006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Subsequent myocardial infarction of inferior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d1c",
+          "code": "23311000119105",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction due to right coronary artery occlusion (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d1d",
+          "code": "233825009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute Q wave infarction - anteroseptal (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d1e",
+          "code": "233827001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute Q wave infarction - anterolateral (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d1f",
+          "code": "233829003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute Q wave infarction - inferior (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d20",
+          "code": "233831007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute Q wave infarction - inferolateral (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d21",
+          "code": "233833005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute Q wave infarction - lateral (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d22",
+          "code": "233836002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute Q wave infarction - widespread (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d23",
+          "code": "233838001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute posterior myocardial infarction (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d24",
+          "code": "282006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of basal-lateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d25",
+          "code": "285981000119103",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction involving left anterior descending coronary artery (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d26",
+          "code": "285991000119100",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction involving left main coronary artery (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d27",
+          "code": "304914007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute Q wave myocardial infarction (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d28",
+          "code": "401303003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d29",
+          "code": "52035003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute anteroapical myocardial infarction (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d2a",
+          "code": "54329005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of anterior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d2b",
+          "code": "58612006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of lateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d2c",
+          "code": "59063002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of apical-lateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d2d",
+          "code": "62695002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute anteroseptal myocardial infarction (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d2e",
+          "code": "64627002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of high lateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d2f",
+          "code": "65547006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of inferolateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d30",
+          "code": "70211005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of anterolateral wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d31",
+          "code": "703164000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of anterior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d32",
+          "code": "703165004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of anterior wall involving right ventricle (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d33",
+          "code": "703209002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Subsequent ST segment elevation myocardial infarction of inferior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d34",
+          "code": "703210007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Subsequent ST segment elevation myocardial infarction of anterior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d35",
+          "code": "703211006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Subsequent ST segment elevation myocardial infarction (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d36",
+          "code": "703213009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of inferior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d37",
+          "code": "703251009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of inferior wall involving right ventricle (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d38",
+          "code": "703252002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of anterior wall involving right ventricle (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d39",
+          "code": "703253007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute ST segment elevation myocardial infarction of inferior wall involving right ventricle (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d3a",
+          "code": "70998009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of posterobasal wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d3b",
+          "code": "73795002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of inferior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d3c",
+          "code": "76593002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of inferoposterior wall (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d3d",
+          "code": "79009004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute myocardial infarction of septum (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d3e",
+          "code": "I21.01",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "ST elevation (STEMI) myocardial infarction involving left main coronary artery"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d3f",
+          "code": "I21.02",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "ST elevation (STEMI) myocardial infarction involving left anterior descending coronary artery"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d40",
+          "code": "I21.09",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "ST elevation (STEMI) myocardial infarction involving other coronary artery of anterior wall"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d41",
+          "code": "I21.11",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "ST elevation (STEMI) myocardial infarction involving right coronary artery"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d42",
+          "code": "I21.19",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "ST elevation (STEMI) myocardial infarction involving other coronary artery of inferior wall"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d43",
+          "code": "I21.21",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "ST elevation (STEMI) myocardial infarction involving left circumflex coronary artery"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d44",
+          "code": "I21.29",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "ST elevation (STEMI) myocardial infarction involving other sites"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d45",
+          "code": "I21.3",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "ST elevation (STEMI) myocardial infarction of unspecified site"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d46",
+          "code": "I22.0",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Subsequent ST elevation (STEMI) myocardial infarction of anterior wall"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d47",
+          "code": "I22.1",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Subsequent ST elevation (STEMI) myocardial infarction of inferior wall"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d48",
+          "code": "I22.8",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Subsequent ST elevation (STEMI) myocardial infarction of other sites"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d49",
+          "code": "I22.9",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Subsequent ST elevation (STEMI) myocardial infarction of unspecified site"
+        }
+      ],
+      "display_name": "Acute or Evolving MI",
+      "oid": "2.16.840.1.113883.3.666.5.3022",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c4f",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d4a",
+          "code": "10531005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Free-standing ambulatory surgery facility (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d4b",
+          "code": "405607001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Ambulatory surgery center (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d4c",
+          "code": "69362002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Hospital-based ambulatory surgery facility (environment)"
+        }
+      ],
+      "display_name": "Ambulatory surgical center",
+      "oid": "2.16.840.1.113883.3.666.5.687",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c50",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d4d",
+          "code": "16965008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Insertion of intra-aortic balloon counterpulsation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d4e",
+          "code": "175113001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Transluminal insertion of aortic balloon pump (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d4f",
+          "code": "399052009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Aortic balloon pump operation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d50",
+          "code": "399175004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Intra-aortic balloon catheter operation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d51",
+          "code": "399217008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardioassist by aortic balloon pump (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d52",
+          "code": "432375008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Insertion of intra-aortic balloon pump using fluoroscopic guidance (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d53",
+          "code": "442807006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Insertion of intraaortic balloon counterpulsation device through femoral artery (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d54",
+          "code": "83676006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous insertion of intra-aortic balloon catheter (procedure)"
+        }
+      ],
+      "display_name": "Aortic balloon pump insertion",
+      "oid": "2.16.840.1.113883.3.666.5.1151",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c51",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d55",
+          "code": "162710004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "On examination - collapse -cardiac arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d56",
+          "code": "162711000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "On examination - collapse - respiratory arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d57",
+          "code": "213213007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest as a complication of care (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d58",
+          "code": "233927002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest with successful resuscitation (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d59",
+          "code": "234172002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Electromechanical dissociation (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d5a",
+          "code": "261195002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Circulatory arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d5b",
+          "code": "274282003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "On examination - respiratory arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d5c",
+          "code": "276259003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Respiratory arrest preceding cardiac arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d5d",
+          "code": "309809007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Electromechanical dissociation with successful resuscitation (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d5e",
+          "code": "397829000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Asystole (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d5f",
+          "code": "410429000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d60",
+          "code": "410430005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiorespiratory arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d61",
+          "code": "422970001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest due to trauma (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d62",
+          "code": "423168004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest due to respiratory disorder (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d63",
+          "code": "423191000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest due to cardiac disorder (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d64",
+          "code": "424390001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest caused by electrocution (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d65",
+          "code": "424571008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest due to drowning (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d66",
+          "code": "5561000124105",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Idiopathic cardiac arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d67",
+          "code": "62657007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest AND/OR failure following anesthesia AND/OR sedation in labor AND/OR delivery (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d68",
+          "code": "699748007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiorespiratory arrest with successful resuscitation (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d69",
+          "code": "703162001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Bradycardic cardiac arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d6a",
+          "code": "71908006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Ventricular fibrillation (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d6b",
+          "code": "78240009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest due to pacemaker failure (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d6c",
+          "code": "86152005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac arrest during AND/OR resulting from a procedure (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d6d",
+          "code": "87317003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Respiratory arrest (disorder)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d6e",
+          "code": "I46.2",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Cardiac arrest due to underlying cardiac condition"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d6f",
+          "code": "I46.8",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Cardiac arrest due to other underlying condition"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d70",
+          "code": "I46.9",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Cardiac arrest, cause unspecified"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d71",
+          "code": "I49.01",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Ventricular fibrillation"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d72",
+          "code": "I97.120",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Postprocedural cardiac arrest following cardiac surgery"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d73",
+          "code": "I97.121",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Postprocedural cardiac arrest following other surgery"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d74",
+          "code": "I97.710",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Intraoperative cardiac arrest during cardiac surgery"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d75",
+          "code": "I97.711",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Intraoperative cardiac arrest during other surgery"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d76",
+          "code": "R09.2",
+          "code_system_name": "ICD-10-CM",
+          "code_system_oid": "2.16.840.1.113883.6.90",
+          "code_system_version": "2019",
+          "display_name": "Respiratory arrest"
+        }
+      ],
+      "display_name": "Cardiopulmonary arrest",
+      "oid": "2.16.840.1.113883.3.666.5.748",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c52",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d77",
+          "code": "0B110F4",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Bypass Trachea to Cutaneous with Tracheostomy Device, Open Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d78",
+          "code": "0B113F4",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Bypass Trachea to Cutaneous with Tracheostomy Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d79",
+          "code": "0B114F4",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Bypass Trachea to Cutaneous with Tracheostomy Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d7a",
+          "code": "0BH13EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Endotracheal Airway into Trachea, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d7b",
+          "code": "0BH17EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Endotracheal Airway into Trachea, Via Natural or Artificial Opening"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d7c",
+          "code": "0BH18EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Endotracheal Airway into Trachea, Via Natural or Artificial Opening Endoscopic"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d7d",
+          "code": "112798008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Insertion of endotracheal tube (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d7e",
+          "code": "16883004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Endotracheal intubation, emergency procedure (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d7f",
+          "code": "182682004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Emergency laryngeal intubation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d80",
+          "code": "232674004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Orotracheal intubation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d81",
+          "code": "232675003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Oral intubation awake (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d82",
+          "code": "232677006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Tracheal intubation using rigid bronchoscope (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d83",
+          "code": "232678001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Orotracheal fiberoptic intubation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d84",
+          "code": "232679009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Nasotracheal intubation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d85",
+          "code": "232680007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Nasal intubation awake (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d86",
+          "code": "232682004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Nasotracheal fiberoptic intubation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d87",
+          "code": "232685002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Insertion of tracheostomy tube (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d88",
+          "code": "232686001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Insertion of tracheal T-tube (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d89",
+          "code": "243141005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Mechanically assisted spontaneous ventilation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d8a",
+          "code": "304341005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Awake intubation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d8b",
+          "code": "418613003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Tracheal intubation through a laryngeal mask airway (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d8c",
+          "code": "429161001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Insertion of endotracheal tube using laryngoscope (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d8d",
+          "code": "5A1935Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Respiratory Ventilation, Less than 24 Consecutive Hours"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d8e",
+          "code": "5A1945Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Respiratory Ventilation, 24-96 Consecutive Hours"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d8f",
+          "code": "5A1955Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Respiratory Ventilation, Greater than 96 Consecutive Hours"
+        }
+      ],
+      "display_name": "Endotracheal Intubation",
+      "oid": "2.16.840.1.113762.1.4.1045.69",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c53",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d90",
+          "code": "1804799",
+          "code_system_name": "RxNorm",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2018-07",
+          "display_name": "alteplase 100 MG Injection"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d91",
+          "code": "1804804",
+          "code_system_name": "RxNorm",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2018-07",
+          "display_name": "alteplase 50 MG Injection"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d92",
+          "code": "313212",
+          "code_system_name": "RxNorm",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2018-07",
+          "display_name": "Tenecteplase 50 MG Injection"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d93",
+          "code": "763138",
+          "code_system_name": "RxNorm",
+          "code_system_oid": "2.16.840.1.113883.6.88",
+          "code_system_version": "2018-07",
+          "display_name": "Reteplase 10 UNT Injection"
+        }
+      ],
+      "display_name": "Fibrinolytic Therapy",
+      "oid": "2.16.840.1.113883.3.666.5.736",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c54",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d94",
+          "code": "225728007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Accident and Emergency department (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d95",
+          "code": "73770003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Hospital-based outpatient emergency care center (environment)"
+        }
+      ],
+      "display_name": "Transfer From Emergency Department (ED) Locations",
+      "oid": "2.16.840.1.113883.3.666.5.3006",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c55",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d96",
+          "code": "434771000124107",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Acute care hospital (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d97",
+          "code": "440654001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Inpatient environment (environment)"
+        }
+      ],
+      "display_name": "Transfer From Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.3013",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c56",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d98",
+          "code": "33022008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Hospital-based outpatient department (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d99",
+          "code": "440655000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Outpatient environment (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d9a",
+          "code": "73770003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Hospital-based outpatient emergency care center (environment)"
+        }
+      ],
+      "display_name": "Transfer From Outpatient",
+      "oid": "2.16.840.1.113883.3.67.1.101.950",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c57",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249d9b",
+          "code": "02HA0QZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Implantable Heart Assist System into Heart, Open Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d9c",
+          "code": "02HA0RJ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Short-term External Heart Assist System into Heart, Intraoperative, Open Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d9d",
+          "code": "02HA0RS",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Biventricular Short-term External Heart Assist System into Heart, Open Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d9e",
+          "code": "02HA0RZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Short-term External Heart Assist System into Heart, Open Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249d9f",
+          "code": "02HA3QZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Implantable Heart Assist System into Heart, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da0",
+          "code": "02HA3RJ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Short-term External Heart Assist System into Heart, Intraoperative, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da1",
+          "code": "02HA3RS",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Biventricular Short-term External Heart Assist System into Heart, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da2",
+          "code": "02HA3RZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Short-term External Heart Assist System into Heart, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da3",
+          "code": "02HA4QZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Implantable Heart Assist System into Heart, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da4",
+          "code": "02HA4RJ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Short-term External Heart Assist System into Heart, Intraoperative, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da5",
+          "code": "02HA4RS",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Biventricular Short-term External Heart Assist System into Heart, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da6",
+          "code": "02HA4RZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Insertion of Short-term External Heart Assist System into Heart, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da7",
+          "code": "175112006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Transluminal heart assist operations (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da8",
+          "code": "232962000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Transluminal insertion of intraventricular pump (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249da9",
+          "code": "232965003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Implantation of ventricular assist device (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249daa",
+          "code": "232966002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Implantation of right ventricular assist device (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dab",
+          "code": "232967006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Implantation of left ventricular assist device (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dac",
+          "code": "232968001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Implantation of biventricular assist device (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dad",
+          "code": "426568003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Open implantation of ventricular assist device (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dae",
+          "code": "5A02116",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Assistance with Cardiac Output using Other Pump, Intermittent"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249daf",
+          "code": "5A0211D",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Assistance with Cardiac Output using Impeller Pump, Intermittent"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db0",
+          "code": "5A02216",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Assistance with Cardiac Output using Other Pump, Continuous"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db1",
+          "code": "5A0221D",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Assistance with Cardiac Output using Impeller Pump, Continuous"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db2",
+          "code": "64253000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Implantation of heart assist system (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db3",
+          "code": "700151002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Temporary implantation of left ventricular assist device (procedure)"
+        }
+      ],
+      "display_name": "Ventricular Assist Device placement",
+      "oid": "2.16.840.1.113883.3.666.5.3015",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c58",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249db4",
+          "code": "0270346",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Drug-eluting Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db5",
+          "code": "027034Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Drug-eluting Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db6",
+          "code": "0270356",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db7",
+          "code": "027035Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Two Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db8",
+          "code": "0270366",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249db9",
+          "code": "027036Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Three Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dba",
+          "code": "0270376",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dbb",
+          "code": "027037Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dbc",
+          "code": "02703D6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dbd",
+          "code": "02703DZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dbe",
+          "code": "02703E6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Two Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dbf",
+          "code": "02703EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Two Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc0",
+          "code": "02703F6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Three Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc1",
+          "code": "02703FZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Three Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc2",
+          "code": "02703G6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc3",
+          "code": "02703GZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Four or More Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc4",
+          "code": "02703T6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Radioactive Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc5",
+          "code": "02703TZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Radioactive Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc6",
+          "code": "02703Z6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc7",
+          "code": "02703ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc8",
+          "code": "0270446",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Drug-eluting Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dc9",
+          "code": "027044Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Drug-eluting Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dca",
+          "code": "0270456",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dcb",
+          "code": "027045Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dcc",
+          "code": "0270466",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dcd",
+          "code": "027046Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Three Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dce",
+          "code": "0270476",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dcf",
+          "code": "027047Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Four or More Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd0",
+          "code": "02704D6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd1",
+          "code": "02704DZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd2",
+          "code": "02704E6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Two Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd3",
+          "code": "02704EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Two Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd4",
+          "code": "02704F6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Three Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd5",
+          "code": "02704FZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Three Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd6",
+          "code": "02704G6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd7",
+          "code": "02704GZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Four or More Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd8",
+          "code": "02704T6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, with Radioactive Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dd9",
+          "code": "02704TZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery with Radioactive Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dda",
+          "code": "02704Z6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Bifurcation, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ddb",
+          "code": "02704ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, One Artery, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ddc",
+          "code": "0271346",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Drug-eluting Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ddd",
+          "code": "027134Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Drug-eluting Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dde",
+          "code": "0271356",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ddf",
+          "code": "027135Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Two Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de0",
+          "code": "0271366",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de1",
+          "code": "027136Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Three Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de2",
+          "code": "0271376",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de3",
+          "code": "027137Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de4",
+          "code": "02713D6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de5",
+          "code": "02713DZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de6",
+          "code": "02713E6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Two Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de7",
+          "code": "02713EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Two Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de8",
+          "code": "02713F6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Three Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249de9",
+          "code": "02713FZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Three Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dea",
+          "code": "02713G6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249deb",
+          "code": "02713GZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Four or More Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dec",
+          "code": "02713T6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Radioactive Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249ded",
+          "code": "02713TZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Radioactive Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dee",
+          "code": "02713Z6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249def",
+          "code": "02713ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df0",
+          "code": "0271446",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Drug-eluting Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df1",
+          "code": "027144Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Drug-eluting Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df2",
+          "code": "0271456",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df3",
+          "code": "027145Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df4",
+          "code": "0271466",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df5",
+          "code": "027146Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Three Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df6",
+          "code": "0271476",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df7",
+          "code": "027147Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Four or More Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df8",
+          "code": "02714D6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249df9",
+          "code": "02714DZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dfa",
+          "code": "02714E6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Two Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dfb",
+          "code": "02714EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Two Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dfc",
+          "code": "02714F6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Three Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dfd",
+          "code": "02714FZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Three Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dfe",
+          "code": "02714G6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249dff",
+          "code": "02714GZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Four or More Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e00",
+          "code": "02714T6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, with Radioactive Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e01",
+          "code": "02714TZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries with Radioactive Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e02",
+          "code": "02714Z6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Bifurcation, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e03",
+          "code": "02714ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Two Arteries, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e04",
+          "code": "0272346",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Drug-eluting Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e05",
+          "code": "027234Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Drug-eluting Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e06",
+          "code": "0272356",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e07",
+          "code": "027235Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Two Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e08",
+          "code": "0272366",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e09",
+          "code": "027236Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Three Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e0a",
+          "code": "0272376",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e0b",
+          "code": "027237Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e0c",
+          "code": "02723D6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e0d",
+          "code": "02723DZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e0e",
+          "code": "02723E6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Two Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e0f",
+          "code": "02723EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Two Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e10",
+          "code": "02723F6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Three Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e11",
+          "code": "02723FZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Three Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e12",
+          "code": "02723G6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e13",
+          "code": "02723GZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Four or More Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e14",
+          "code": "02723T6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Radioactive Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e15",
+          "code": "02723TZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Radioactive Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e16",
+          "code": "02723Z6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e17",
+          "code": "02723ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e18",
+          "code": "0272446",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Drug-eluting Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e19",
+          "code": "027244Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Drug-eluting Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e1a",
+          "code": "0272456",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e1b",
+          "code": "027245Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e1c",
+          "code": "0272466",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e1d",
+          "code": "027246Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Three Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e1e",
+          "code": "0272476",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e1f",
+          "code": "027247Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Four or More Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e20",
+          "code": "02724D6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e21",
+          "code": "02724DZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e22",
+          "code": "02724E6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Two Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e23",
+          "code": "02724EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Two Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e24",
+          "code": "02724F6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Three Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e25",
+          "code": "02724FZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Three Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e26",
+          "code": "02724G6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e27",
+          "code": "02724GZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Four or More Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e28",
+          "code": "02724T6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, with Radioactive Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e29",
+          "code": "02724TZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries with Radioactive Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e2a",
+          "code": "02724Z6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Bifurcation, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e2b",
+          "code": "02724ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Three Arteries, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e2c",
+          "code": "0273346",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Drug-eluting Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e2d",
+          "code": "027334Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Drug-eluting Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e2e",
+          "code": "0273356",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e2f",
+          "code": "027335Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Two Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e30",
+          "code": "0273366",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e31",
+          "code": "027336Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Three Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e32",
+          "code": "0273376",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e33",
+          "code": "027337Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e34",
+          "code": "02733D6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e35",
+          "code": "02733DZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e36",
+          "code": "02733E6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Two Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e37",
+          "code": "02733EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Two Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e38",
+          "code": "02733F6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Three Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e39",
+          "code": "02733FZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Three Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e3a",
+          "code": "02733G6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e3b",
+          "code": "02733GZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Four or More Intraluminal Devices, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e3c",
+          "code": "02733T6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Radioactive Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e3d",
+          "code": "02733TZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Radioactive Intraluminal Device, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e3e",
+          "code": "02733Z6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e3f",
+          "code": "02733ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Percutaneous Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e40",
+          "code": "0273446",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Drug-eluting Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e41",
+          "code": "027344Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Drug-eluting Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e42",
+          "code": "0273456",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e43",
+          "code": "027345Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e44",
+          "code": "0273466",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e45",
+          "code": "027346Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Three Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e46",
+          "code": "0273476",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e47",
+          "code": "027347Z",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Four or More Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e48",
+          "code": "02734D6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e49",
+          "code": "02734DZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e4a",
+          "code": "02734E6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Two Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e4b",
+          "code": "02734EZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Two Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e4c",
+          "code": "02734F6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Three Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e4d",
+          "code": "02734FZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Three Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e4e",
+          "code": "02734G6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e4f",
+          "code": "02734GZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Four or More Intraluminal Devices, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e50",
+          "code": "02734T6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Radioactive Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e51",
+          "code": "02734TZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries with Radioactive Intraluminal Device, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e52",
+          "code": "02734Z6",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Bifurcation, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e53",
+          "code": "02734ZZ",
+          "code_system_name": "ICD-10-PCS",
+          "code_system_oid": "2.16.840.1.113883.6.4",
+          "code_system_version": "2019",
+          "display_name": "Dilation of Coronary Artery, Four or More Arteries, Percutaneous Endoscopic Approach"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e54",
+          "code": "11101003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal coronary angioplasty (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e55",
+          "code": "175066001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal balloon angioplasty of bypass graft of coronary artery (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e56",
+          "code": "36969009",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Placement of stent in coronary artery (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e57",
+          "code": "397193006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal coronary angioplasty by rotoablation (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e58",
+          "code": "397431004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal coronary angioplasty with rotoablation, single vessel (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e59",
+          "code": "414089002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Emergency percutaneous coronary intervention (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e5a",
+          "code": "415070008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous coronary intervention (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e5b",
+          "code": "428488008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Placement of stent in anterior descending branch of left coronary artery (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e5c",
+          "code": "429499003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Placement of stent in circumflex branch of left coronary artery (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e5d",
+          "code": "429639007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal balloon angioplasty with insertion of stent into coronary artery (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e5e",
+          "code": "429809004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Fluoroscopic percutaneous transluminal angioplasty of coronary artery (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e5f",
+          "code": "609153008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous insertion of drug eluting stent into coronary artery using fluoroscopic guidance (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e60",
+          "code": "609154002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal insertion of metal stent into coronary artery using fluoroscopic guidance (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e61",
+          "code": "68466008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Removal of coronary artery obstruction by percutaneous transluminal balloon, single vessel (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e62",
+          "code": "698740005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal atherectomy of coronary artery by rotary cutter using fluoroscopic guidance (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e63",
+          "code": "707828002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal cutting balloon angioplasty of coronary artery (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e64",
+          "code": "737085003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous insertion of bioresorbable stent into coronary artery using fluoroscopic guidance (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e65",
+          "code": "85053006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Percutaneous transluminal coronary angioplasty, multiple vessels (procedure)"
+        }
+      ],
+      "display_name": "PCI",
+      "oid": "2.16.840.1.113762.1.4.1045.67",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c59",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249e66",
+          "code": "164847006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Standard electrocardiogram (procedure)"
+        }
+      ],
+      "display_name": "Electrocardiogram (ECG)",
+      "oid": "2.16.840.1.113883.3.666.5.735",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c5a",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249e67",
+          "code": "4525004",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Emergency department patient visit (procedure)"
+        }
+      ],
+      "display_name": "Emergency Department Visit",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c5b",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249e68",
+          "code": "183452005",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Emergency hospital admission (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e69",
+          "code": "32485007",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Hospital admission (procedure)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e6a",
+          "code": "8715000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Hospital admission, elective (procedure)"
+        }
+      ],
+      "display_name": "Encounter Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    },
+    {
+      "_id": "5d08119bd7c8ac1d93249c5c",
+      "concepts": [
+        {
+          "_id": "5d08119bd7c8ac1d93249e6b",
+          "code": "309904001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e6c",
+          "code": "309905000",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Adult intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e6d",
+          "code": "309907008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Cardiac intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e6e",
+          "code": "309908003",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Metabolic intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e6f",
+          "code": "309909006",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Neurological intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e70",
+          "code": "309910001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Pediatric intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e71",
+          "code": "309911002",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Respiratory intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e72",
+          "code": "418433008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Surgical intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e73",
+          "code": "426439001",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Burns intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e74",
+          "code": "441994008",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Medical intensive care unit (environment)"
+        },
+        {
+          "_id": "5d08119bd7c8ac1d93249e75",
+          "code": "448391000124102",
+          "code_system_name": "SNOMED-CT",
+          "code_system_oid": "2.16.840.1.113883.6.96",
+          "code_system_version": "2018-03",
+          "display_name": "Trauma intensive care unit (environment)"
+        }
+      ],
+      "display_name": "Intensive Care Unit",
+      "oid": "2.16.840.1.113762.1.4.1110.23",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-84B9D0B5-0CAF-4E41-B345-3492A23C2E9F"
+    }
+  ]
+}

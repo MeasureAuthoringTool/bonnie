@@ -10,7 +10,7 @@
 
   # Key for storing results for a patient / population calculation; we use the CID for the patient portion
   # of the key so that clones can have different calculation results
-  cacheKey: (population, patient) -> "#{@calculationKey(population)}/#{patient.cid}"
+  cacheKey: (population, patient, options) -> "#{@calculationKey(population)}/#{patient.cid}/#{JSON.stringify(options)}"
 
   # Utility function for setting the calculator function for a population, used in the calculator loading JS
   setCalculator: (population, calcFunction) -> @calculator[@calculationKey(population)] = calcFunction
@@ -20,5 +20,5 @@
   cancelCalculations: ->
     result.state = 'cancelled' for key, result of @resultsCache when result.state == 'pending'
 
-  clearResult: (population, patient) ->
-    delete @resultsCache[@cacheKey(population, patient)]
+  clearResult: (population, patient, options) ->
+    delete @resultsCache[@cacheKey(population, patient, options)]

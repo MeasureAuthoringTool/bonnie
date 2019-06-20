@@ -34,7 +34,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =
-      characteristic:           'fa-user'
+      patient_characteristic:   'fa-user'
       communication:            'fa-files-o'
       allergy:                  'fa-exclamation-triangle'
       adverse_event:            'fa-exclamation'
@@ -64,7 +64,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     icons[@get('qdmCategory')] || 'fa-question'
 
   canHaveNegation: ->
-     @get('qdmDataElement').schema.path('negationRationale')?
+    @get('qdmDataElement').schema.path('negationRationale')?
 
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
@@ -129,7 +129,6 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
                   "QDM::PatientCharacteristicBirthdate",
                   "QDM::PatientCharacteristicRace",
                   "QDM::PatientCharacteristicEthnicity",
-                  "QDM::PatientCharacteristicPayer",
                   "QDM::PatientCharacteristicExpired"
                 ]
 

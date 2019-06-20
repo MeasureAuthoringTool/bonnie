@@ -2,7 +2,7 @@ describe 'EditCriteriaView', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS134/CMS134v6.json', 'cqm_measure_data/core_measures/CMS134/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
     @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS134v6/Elements_Test.json'), getJSONFixture('patients/CMS134v6/Fail_Hospice_Not_Performed_Denex.json')], parse: true
     @patient = @patients.models[1]
     @bonnie_measures_old = bonnie.measures

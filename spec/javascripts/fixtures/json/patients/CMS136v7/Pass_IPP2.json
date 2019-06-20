@@ -1,5 +1,5 @@
 {
-  "_id": "5a7dc67fb8484620c5183d68",
+  "_id": "5d0811b4d7c8ac1da7d91d71",
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
@@ -23,15 +23,22 @@
   "givenNames": [
     "Pass"
   ],
+  "measure_ids": [
+    "703CC49B-B653-4885-80E8-245A057F5AE9"
+  ],
   "notes": "",
+  "provider_ids": [
+
+  ],
   "qdmPatient": {
-    "_id": "5c88013ed7c8ac4c3e1066a9",
+    "_id": "5d0811b4d7c8ac1da7d91d72",
     "birthDatetime": "2005-02-02T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5c88013ed7c8ac4c3e1066aa",
+        "_id": "5d0811b4d7c8ac1da7d91d73",
         "admissionSource": null,
         "authorDatetime": "2012-02-09T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
@@ -52,7 +59,7 @@
         ],
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
-          "_id": "5c88013ed7c8ac4c3e1066ab",
+          "_id": "5d0811b4d7c8ac1da7d91d74",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb7734b848463d625b203a"
@@ -65,18 +72,20 @@
         "principalDiagnosis": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
         "qdmVersion": "5.4",
         "relevantPeriod": {
-          "low": "2012-02-09T08:00:00.000+00:00",
-          "high": "2012-02-09T08:15:00.000+00:00",
+          "low": "2012-02-09T08:00:00.000Z",
+          "high": "2012-02-09T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
         "_type": "QDM::EncounterPerformed"
       },
       {
-        "_id": "5c88013ed7c8ac4c3e1066ac",
+        "_id": "5d0811b4d7c8ac1da7d91d75",
         "authorDatetime": "2012-02-09T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
@@ -85,25 +94,24 @@
         ],
         "daysSupplied": null,
         "description": "Medication, Dispensed: ADHD Medications",
-        "dispenserId": null,
         "dosage": null,
         "frequency": null,
         "hqmfOid": "2.16.840.1.113883.3.560.1.8",
         "id": {
-          "_id": "5c88013ed7c8ac4c3e1066ad",
+          "_id": "5d0811b4d7c8ac1da7d91d76",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb7734b848463d625b203b"
         },
         "negationRationale": null,
-        "prescriberId": null,
         "qdmCategory": "medication",
         "qdmStatus": "dispensed",
+        "qdmTitle": "Medication, Dispensed",
         "qdmVersion": "5.4",
         "refills": null,
         "relevantPeriod": {
-          "low": "2012-02-09T08:00:00.000+00:00",
-          "high": "2012-02-09T08:15:00.000+00:00",
+          "low": "2012-02-09T08:00:00.000Z",
+          "high": "2012-02-09T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -112,7 +120,8 @@
         "_type": "QDM::MedicationDispensed"
       },
       {
-        "_id": "5c88013ed7c8ac4c3e1066ae",
+        "_id": "5d0811b4d7c8ac1da7d91d77",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
@@ -124,17 +133,18 @@
         "frequency": null,
         "hqmfOid": "2.16.840.1.113883.3.560.1.13",
         "id": {
-          "_id": "5c88013ed7c8ac4c3e1066af",
+          "_id": "5d0811b4d7c8ac1da7d91d78",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb7734b848463d625b203c"
         },
         "qdmCategory": "medication",
         "qdmStatus": "active",
+        "qdmTitle": "Medication, Active",
         "qdmVersion": "5.4",
         "relevantPeriod": {
-          "low": "2012-02-09T08:00:00.000+00:00",
-          "high": "2012-12-09T08:15:00.000+00:00",
+          "low": "2012-02-09T08:00:00.000Z",
+          "high": "2012-12-09T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -142,8 +152,9 @@
         "_type": "QDM::MedicationActive"
       },
       {
-        "_id": "5c88013ed7c8ac4c3e1066a4",
+        "_id": "5d0811b4d7c8ac1da7d91d6d",
         "birthDatetime": "2005-02-02T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
@@ -155,20 +166,22 @@
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": "5c88013ed7c8ac4c3e1066b0",
+          "_id": "5d0811b4d7c8ac1da7d91d79",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013ed7c8ac4c3e1066a4"
+          "value": "5d0811b4d7c8ac1da7d91d6d"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5c88013ed7c8ac4c3e1066a5",
+        "_id": "5d0811b4d7c8ac1da7d91d6e",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
@@ -180,20 +193,22 @@
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": "5c88013ed7c8ac4c3e1066b1",
+          "_id": "5d0811b4d7c8ac1da7d91d7a",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013ed7c8ac4c3e1066a5"
+          "value": "5d0811b4d7c8ac1da7d91d6e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5c88013ed7c8ac4c3e1066a6",
+        "_id": "5d0811b4d7c8ac1da7d91d6f",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "1002-5",
@@ -205,20 +220,22 @@
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": "5c88013ed7c8ac4c3e1066b2",
+          "_id": "5d0811b4d7c8ac1da7d91d7b",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013ed7c8ac4c3e1066a6"
+          "value": "5d0811b4d7c8ac1da7d91d6f"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5c88013ed7c8ac4c3e1066a7",
+        "_id": "5d0811b4d7c8ac1da7d91d70",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "M",
@@ -230,25 +247,22 @@
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": "5c88013ed7c8ac4c3e1066b3",
+          "_id": "5d0811b4d7c8ac1da7d91d7c",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013ed7c8ac4c3e1066a7"
+          "value": "5d0811b4d7c8ac1da7d91d70"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
     "extendedData": {
       "type": null,
-      "measure_ids": [
-        "703CC49B-B653-4885-80E8-245A057F5AE9",
-        null
-      ],
       "source_data_criteria": [
         {
           "negation": false,
@@ -279,9 +293,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5aeb7734b848463d625b203a"
-          },
+          "coded_entry_id": "5aeb7734b848463d625b203a",
           "code_source": "DEFAULT"
         },
         {
@@ -315,9 +327,7 @@
           "frequency_value": "",
           "frequency_unit": "min",
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5aeb7734b848463d625b203b"
-          },
+          "coded_entry_id": "5aeb7734b848463d625b203b",
           "code_source": "DEFAULT"
         },
         {
@@ -350,9 +360,7 @@
           "dose_unit": "{Capsule}",
           "frequency_value": "",
           "frequency_unit": "min",
-          "coded_entry_id": {
-            "$oid": "5aeb7734b848463d625b203c"
-          },
+          "coded_entry_id": "5aeb7734b848463d625b203c",
           "code_source": "DEFAULT"
         },
         {
@@ -374,5 +382,6 @@
       "insurance_providers": "[]"
     },
     "qdmVersion": "5.4"
-  }
+  },
+  "user_id": "501fdba3044a111b98000001"
 }
