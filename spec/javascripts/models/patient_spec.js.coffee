@@ -1,6 +1,6 @@
 describe 'Patient', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     patients = []
     patients.push(getJSONFixture('patients/CMS160v6/Expired_DENEX.json'))
@@ -44,7 +44,6 @@ describe 'Patient', ->
 
   describe 'validation', ->
 
-    beforeEach ->
     it 'passes patient with no issues', ->
       errors = @patient.validate()
       expect(errors).toBeUndefined()

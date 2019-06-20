@@ -2,55 +2,60 @@ describe 'Production_PatientBuilderView', ->
   # these tests need to be merged into the patient_builder_spec.js.coffee file in cql_testing_overhaul
   # note: this uses a different measure and patient, so must be in a different suite
 
-  beforeEach ->
+  beforeAll ->
     # preserve atomicity
     @bonnie_measures_old = bonnie.measures
 
-  afterEach ->
+  afterAll ->
     bonnie.measures = @bonnie_measures_old
 
   describe 'CMS160 tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS160/CMS160v6.json', 'cqm_measure_data/core_measures/CMS160/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/core_measures/CMS160/patients.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
+      expiredDenex = getJSONFixture('patients/CMS160v6/Expired_DENEX.json')
+      passNum2 = getJSONFixture('patients/CMS160v6/Pass_NUM2.json')
+      @patients = new Thorax.Collections.Patients [expiredDenex, passNum2], parse: true
       bonnie.measures.add @measure
 
     describe 'Patient "Expired DENEX"', ->
-      beforeEach ->
-        @patient = @patients.findWhere(first: 'Expired', last: 'DENEX')
+      beforeAll ->
+        @patient = @patients.at(0) # Expired DENEX
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
         # validate this patient is in the DENEX
         expect(@result.attributes.DENEX).toBe 1
 
-      xit 'define Expired should be true', ->
+      it 'define Expired should be true', ->
         expired_result = @result.get('statement_results').DepressionUtilizationofthePHQ9Tool['Expired'].final
         expect(expired_result).toBe 'TRUE'
 
-      xit 'should have expired code', ->
+      it 'should have expired code', ->
         expired_code = @result.get('statement_results').DepressionUtilizationofthePHQ9Tool['Expired'].raw[0].getCode()
-        expect(expired_code).toEqual new cql.Code('419099009', 'SNOMED-CT')
+        expect(expired_code[0].hasMatch(new cql.Code('419099009', 'SNOMED-CT'))).toBe(true)
 
   describe 'CMS722 Tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
       @bonnie_measures_old = bonnie.measures
-      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS722/CMS722v0.json', 'cqm_measure_data/special_measures/CMS722/value_sets.json'
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS722v0/CMS722v0.json', 'cqm_measure_data/CMS722v0/value_sets.json'
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @cqlMeasure
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS722/patients.json'), parse: true
+      patientTest = getJSONFixture('patients/CMS722v0/Patient_Test.json')
+      patientWithCodeTest = getJSONFixture('patients/CMS722v0/Patient With Code_Test.json')
+      @patients = new Thorax.Collections.Patients [patientTest, patientWithCodeTest], parse: true
 
       @addCodedValue = (codeListId, submit=true) ->
         @patientBuilder.$('select[name=type]:first').val('CD').change()
         @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
         @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
 
-    afterEach ->
+    afterAll ->
       bonnie.measures = @bonnie_measures_old
 
     xit "Can Add A Coded Result To DiagnosticStudyPerformed Data Criteria", ->
-      patient = @patients.first()
+      # SKIP Re-endable when code section of new Patient Builder enabled (adjust addCodedValue above)
+      patient = @patients.first() # Patient Test
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @cqlMeasure)
       @patientBuilder.render()
       @patientBuilder.appendTo 'body'
@@ -64,123 +69,124 @@ describe 'Production_PatientBuilderView', ->
       expect(resultValue.get('code_list_id')).toEqual code_list_id
       @patientBuilder.remove()
 
-    xit "Calculates Patient With Coded Result", ->
-      patient = @patients.last()
+    it "Calculates Patient With Coded Result", ->
+      patient = @patients.last() # Patient With Code :Test
       result = @cqlMeasure.get('populations').first().calculate(patient)
       expect(result.get('statement_results').Test31['Newborn Hearing Screening Right'].final).toEqual "TRUE"
 
-  describe 'Medicare Fee For Service tests', ->
-    beforeEach ->
+  describe 'Medicare Fee For Service', ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS759v1/CMS759v1.json', 'cqm_measure_data/special_measures/CMS759v1/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS759v1/patients.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS759v1/CMS759v1.json', 'cqm_measure_data/CMS759v1/value_sets.json'
+      numerPass = getJSONFixture('patients/CMS759v1/Numer_PASS.json')
+      @patients = new Thorax.Collections.Patients [numerPass], parse: true
 
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @measure
-    afterEach ->
+
+      @patient = @patients.at(0) # Numer Pass
+      @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
+      @result = @measure.get('populations').first().calculate(@patient)
+
+    afterAll ->
       bonnie.measures = @bonnie_measures_old
+      @patientBuilder.remove()
 
-    describe 'Patient "Numer PASS"', ->
-      beforeEach ->
-        @patient = @patients.findWhere(first: 'Numer', last: 'PASS')
-        @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
-        @result = @measure.get('populations').first().calculate(@patient)
+    it 'characteristic should be visible', ->
+      @patientBuilder.render()
+      @patientBuilder.appendTo 'body'
+      expect(@patientBuilder.$('.ui-draggable')[4]).toContainText('Medicare Fee For Service')
+      expect(@patientBuilder.$('.ui-draggable')[4]).toBeVisible()
 
-      afterEach ->
-        @patientBuilder.remove()
-
-      xit 'Medicare Fee for Service characteristic should be visible', ->
-        @patientBuilder.render()
-        @patientBuilder.appendTo 'body'
-        expect(@patientBuilder.$('.ui-draggable')[2]).toContainText('MedicareFeeForService')
-        expect(@patientBuilder.$('.ui-draggable')[2]).toBeVisible()
-
-      xit 'should calculate correctly', ->
-        expect(@result.attributes.IPP).toBe 1
-        expect(@result.attributes.NUMER).toBe 1
-        expect(@result.attributes.DENOM).toBe 1
+    it 'should calculate correctly', ->
+      expect(@result.attributes.IPP).toBe 1
+      expect(@result.attributes.NUMER).toBe 1
+      expect(@result.attributes.DENOM).toBe 1
 
   describe 'Direct Reference Code tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS52v7/CMS52v7.json', 'cqm_measure_data/special_measures/CMS52v7/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS52v7/patients.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS52v7/CMS52v7.json', 'cqm_measure_data/CMS52v7/value_sets.json'
+      elementDirectReferenceCode = getJSONFixture('patients/CMS52v7/Element_Direct Reference Code.json')
+      @patients = new Thorax.Collections.Patients [elementDirectReferenceCode], parse: true
 
-      @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @measure, parse: true
 
-    afterEach ->
-      bonnie.measures = @bonnie_measures_old
-
     describe 'Patient Direct Reference Code Element', ->
-      beforeEach ->
-        @patient = @patients.findWhere(first: 'Element', last: 'Direct Reference Code')
-        expect(@measure.get('source_data_criteria').models[18].get('description')).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+      beforeAll ->
+        @patient = @patients.at(0) # Element Direct Reference Code
+        expect(@measure.get('source_data_criteria').last().get('description')).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         @patientBuilderView = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients, measures: bonnie.measures, inPatientDashboard: false)
-        medicationOrdered = @patientBuilderView.model.get('source_data_criteria').first()
+        medicationOrdered = @patientBuilderView.model.get('source_data_criteria').at(3) # Medication, Oder
         @editCriteriaView = new Thorax.Views.EditCriteriaView(model: medicationOrdered, measure: @measure)
         @editFieldValueView = @editCriteriaView.editFieldValueView
         @result = @measure.get('populations').first().calculate(@patient)
         @patientBuilderView.appendTo 'body'
         @patientBuilderView.render()
 
-      afterEach ->
+      afterAll ->
         @patientBuilderView.remove()
 
-      xit 'should have Dapsone in Elements', ->
-        expect($('.ui-draggable')[31]).toContainText('Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+      it 'should have Dapsone in Elements', ->
+        expect($('strong.ui-draggable')[14]).toContainText('Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
 
       xit 'should have Dapsone in field value code dropdown', ->
+        # SKIP: To be re-enabled when field value / attributes dropdown is re-added
         codes = @editFieldValueView.context().codes
         expect(codes[3].display_name).toBe('Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
 
-      xit 'should calculate using direct reference code', ->
+      it 'should calculate using direct reference code', ->
         clauseResults = @result.attributes.clause_results.HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis
-        expect(clauseResults[244].raw[0]._description).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+        expect(clauseResults[244].raw[0].description).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         expect(clauseResults[244].final).toBe('TRUE')
 
   describe 'Participation tests', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMS761/CMS761v0.json', 'cqm_measure_data/special_measures/CMS761/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMS761/patients.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS761v0/CMS761v0.json', 'cqm_measure_data/CMS761v0/value_sets.json'
+      noParticipation = getJSONFixture 'patients/CMS761v0/No_Participation.json'
+      withParticipation = getJSONFixture 'patients/CMS761v0/With_Participation.json'
+      @patients = new Thorax.Collections.Patients [noParticipation, withParticipation], parse: true
       bonnie.measures.add @measure
 
-    xit 'Not in numerator when no participation', ->
-      patient = @patients.findWhere(first: 'No', last: 'Participation')
+    it 'Not in numerator when no participation', ->
+      patient = @patients.at(0) # No Participation
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 0
 
-    xit 'In numerator when with participation', ->
-      patient = @patients.findWhere(first: 'With', last: 'Participation')
+    it 'In numerator when with participation', ->
+      patient = @patients.at(1) # With Participation
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 1
 
   describe 'QDM 5.4', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/special_measures/CMSv54321/CMSv54321.json', 'cqm_measure_data/special_measures/CMSv54321/value_sets.json'
-      @patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/special_measures/CMSv54321/patients.json'), parse: true
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMSv54321/CMSv54321.json', 'cqm_measure_data/CMSv54321/value_sets.json'
+      assessmentOrderPass = getJSONFixture 'patients/CMSv54321/Pass_AssessmentOrder.json'
+      communicationPass = getJSONFixture 'patients/CMSv54321/Pass_Communication.json'
+      medSettingPass = getJSONFixture 'patients/CMSv54321/Pass_MedSetting.json'
+      @patients = new Thorax.Collections.Patients [assessmentOrderPass, communicationPass, medSettingPass], parse: true
       bonnie.measures.add @measure
 
-    xit 'Assessment Order calculates correctly', ->
-      patient = @patients.findWhere(first: 'Pass', last: 'AssessmentOrder')
+    it 'Assessment Order calculates correctly', ->
+      patient = @patients.at(0) # AssessmentOrder Pass
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
-    xit 'Communication calculates correctly', ->
-      patient = @patients.findWhere(first: 'Pass', last: 'Communication')
+    it 'Communication calculates correctly', ->
+      patient = @patients.at(1) # Communication Pass
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
-    xit 'Medication Order: Setting calculates correctly', ->
-      patient = @patients.findWhere(first: 'Pass', last: 'MedSetting')
+    it 'Medication Order: Setting calculates correctly', ->
+      patient = @patients.at(2) # MedSetting Pass
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1

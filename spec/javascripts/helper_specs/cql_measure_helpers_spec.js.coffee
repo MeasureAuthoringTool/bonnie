@@ -1,6 +1,6 @@
 describe 'CQLMeasureHelpers', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
 
   describe 'findAllLocalIdsInStatementByName', ->
@@ -8,7 +8,7 @@ describe 'CQLMeasureHelpers', ->
       # Loads Diabetes: Medical Attention for Neuropathy.
       # This measure has the MAT global functions library included and the measure uses the
       # "CalendarAgeInYearsAt" function.
-      measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
+      measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CMS134v6/CMS134v6.json'), parse: true
 
       # Find the localid for the specific statement with the global function ref.
       libraryName = 'DiabetesMedicalAttentionforNephropathy'
@@ -21,7 +21,7 @@ describe 'CQLMeasureHelpers', ->
 
     it 'finds localIds for library ExpressionRefs while finding localIds in statements', ->
       # Loads Diabetes: Medical Attention for Neuropathy.
-      measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
+      measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CMS134v6/CMS134v6.json'), parse: true
 
       # Find the localid for the specific statement with the global expression ref.
       libraryName = 'DiabetesMedicalAttentionforNephropathy'
@@ -32,7 +32,7 @@ describe 'CQLMeasureHelpers', ->
       expect(localIds[159]).not.toBeUndefined()
       expect(localIds[159]).toEqual({localId: '159', sourceLocalId: '160'})
 
-    xit 'handles library ExpressionRefs with libraryRef embedded in the clause', ->
+    it 'handles library ExpressionRefs with libraryRef embedded in the clause', ->
       # Loads Test104 aka. CMS13 measure.
       # This measure has both the TJC_Overall and MAT global libraries
       measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/deprecated_measures/CMS13/CMS13v2.json'), parse: true
@@ -50,9 +50,9 @@ describe 'CQLMeasureHelpers', ->
 
 
   describe '_findLocalIdForLibraryRef for functionRefs', ->
-    beforeEach ->
+    beforeAll ->
       # use a chunk of this fixture for these tests.
-      measure = getJSONFixture('cqm_measure_data/special_measures/CMS146/CMS146v6.json')
+      measure = getJSONFixture('cqm_measure_data/CMS146v6/CMS146v6.json')
       # the annotation for the 'Initial Population' will be used for these tests
       # it is known the functionRef 'Global.CalendarAgeInYearsAt' is at '71' and the libraryRef clause is at '66'
       @annotationSnippet = measure.cql_libraries[0].elm.library.statements.def[8].annotation
@@ -78,9 +78,9 @@ describe 'CQLMeasureHelpers', ->
       expect(ret).toBeNull()
 
   describe '_findLocalIdForLibraryRef for expressionRefs', ->
-    beforeEach ->
+    beforeAll ->
       # use a chunk of this fixture for these tests.
-      measure = getJSONFixture('cqm_measure_data/special_measures/CMS146/CMS146v6.json')
+      measure = getJSONFixture('cqm_measure_data/CMS146v6/CMS146v6.json')
       # the annotation for the 'In Hospice' will be used for these tests
       # it is known the expressionRef 'Hospice."Has Hospice"' is '136' and the libraryRef
       # clause is at '135'
@@ -99,7 +99,7 @@ describe 'CQLMeasureHelpers', ->
       expect(ret).toBeNull()
 
   describe '_findLocalIdForLibraryRef for expressionRefs with libraryRef in clause', ->
-    beforeEach ->
+    beforeAll ->
       # use a chunk of this fixture for these tests.
       measure = getJSONFixture('cqm_measure_data/deprecated_measures/CMS13/CMS13v2.json')
       # the annotation for the 'Comfort Measures during Hospitalization' will be used for these tests

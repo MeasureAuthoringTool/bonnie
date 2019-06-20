@@ -20,19 +20,35 @@ namespace :bonnie do
     task :generate_frontend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id, :patient_first_name, :patient_last_name] => [:environment] do |t, args|
       fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
       measure_file_path = File.join(fixtures_path, 'cqm_measure_data', args[:path])
-      record_file_path = File.join(fixtures_path, 'cqm_patients', args[:path])
+      record_file_path = File.join(fixtures_path, 'patients', args[:measure_id])
 
       user = User.find_by email: args[:user_email]
       cqm_measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
-      records = Record.by_user_and_hqmf_set_id(user, cqm_measure.hqmf_set_id)
-      if (args[:patient_first_name].present? && args[:patient_last_name].present?)
-        records = records.select { |r| r.first == args[:patient_first_name] && r.last == args[:patient_last_name] }
-      end
+      records = CQM::Patient.by_user_and_hqmf_set_id(user, cqm_measure.hqmf_set_id)
 
       fixture_exporter = FrontendFixtureExporter.new(user, measure: cqm_measure, records: records)
       fixture_exporter.export_measure_and_any_components(measure_file_path)
       fixture_exporter.export_value_sets(measure_file_path)
-      fixture_exporter.export_records(record_file_path)
+      fixture_exporter.export_records_as_individual_files(record_file_path)
+    end
+
+    desc %{Export frontend cqm fixtures for a given user account
+    example: bundle exec rake bonnie:fixtures:generate_frontend_cqm_fixtures[bonnie-fixtures@mitre.org]}
+    task :generate_frontend_cqm_fixtures, [:user_email] => [:environment] do |t, args|
+      fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
+      user = User.find_by email: args[:user_email]
+
+      CQM::Measure.by_user(user).each do |measure|
+        patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+
+        measure_file_path = File.join(fixtures_path, 'cqm_measure_data', measure.cms_id)
+        patient_file_path = File.join(fixtures_path, 'patients', measure.cms_id)
+
+        fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: patients)
+        fixture_exporter.export_measure_and_any_components(measure_file_path)
+        fixture_exporter.export_value_sets(measure_file_path)
+        fixture_exporter.export_records_as_individual_files(patient_file_path)
+      end
     end
 
     desc %{Export backend cqm fixtures for a given user account
