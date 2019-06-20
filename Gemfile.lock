@@ -49,10 +49,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: ccf4093a4a6ad9bfeaf28f278919d0be4919bb6a
+  revision: c62853f5b51f2b55bf65bb0ecc7b6f4a805be22a
   branch: master
   specs:
-    cqm-models (1.1.1.0)
+    cqm-models (2.0.0)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
@@ -146,7 +146,7 @@ GEM
     bcrypt (3.1.12)
     brakeman (4.4.0)
     browser (2.5.3)
-    bson (4.4.2)
+    bson (4.5.0)
     builder (3.2.3)
     bundler-audit (0.6.1)
       bundler (>= 1.2.0, < 3)
@@ -282,8 +282,8 @@ GEM
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    macaddr (1.7.1)
-      systemu (~> 2.6.2)
+    macaddr (1.7.2)
+      systemu (~> 2.6.5)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     maruku (0.7.3)
@@ -410,7 +410,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
     ruby-progressbar (1.10.0)
-    rubyzip (1.2.2)
+    rubyzip (1.2.3)
     rvm1-capistrano3 (1.4.0)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
