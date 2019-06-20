@@ -1,5 +1,4 @@
 {
-  "_id": "5d081191d7c8ac1d93244ab5",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS761v0",
@@ -11,7 +10,6 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d081191d7c8ac1d93244ab6",
       "cql": "library BonnieTestParticipation version '0.0.002'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\nvalueset \"Insurance Coverage Type, FPAR\": 'urn:oid:2.16.840.1.113762.1.4.1166.29'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Interesting Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\t\"InParticipationPeriod\"\r\n\r\ndefine \"InParticipationPeriod\":\r\n\texists [\"Participation\": \"Insurance Coverage Type, FPAR\"] P\r\n\t\twhere P.participationPeriod overlaps \"Measurement Period\"\r\n",
       "elm": {
         "library": {
@@ -1562,35 +1560,27 @@
       "library_version": "0.0.002",
       "statement_dependencies": [
         {
-          "_id": "5d081191d7c8ac1d93244ab7",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d081191d7c8ac1d93244ab8",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d081191d7c8ac1d93244ab9",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d081191d7c8ac1d93244aba",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d081191d7c8ac1d93244abb",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d081191d7c8ac1d93244abc",
           "statement_name": "Interesting Encounter"
         },
         {
-          "_id": "5d081191d7c8ac1d93244abd",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d081191d7c8ac1d93244abe",
               "hqmf_id": null,
               "library_name": "BonnieTestParticipation",
               "statement_name": "Interesting Encounter"
@@ -1598,11 +1588,9 @@
           ]
         },
         {
-          "_id": "5d081191d7c8ac1d93244abf",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d081191d7c8ac1d93244ac0",
               "hqmf_id": null,
               "library_name": "BonnieTestParticipation",
               "statement_name": "Initial Population"
@@ -1610,15 +1598,12 @@
           ]
         },
         {
-          "_id": "5d081191d7c8ac1d93244ac1",
           "statement_name": "InParticipationPeriod"
         },
         {
-          "_id": "5d081191d7c8ac1d93244ac2",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d081191d7c8ac1d93244ac3",
               "hqmf_id": null,
               "library_name": "BonnieTestParticipation",
               "statement_name": "InParticipationPeriod"
@@ -1628,7 +1613,7 @@
       ]
     }
   ],
-  "created_at": "2019-06-17T22:17:53.050Z",
+  "created_at": null,
   "description": "Test Bonnie processing of QDM Participation data element",
   "hqmf_id": "40280582-624A-D531-0162-AAF849CC0137",
   "hqmf_set_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
@@ -2005,9 +1990,6 @@
     }
   },
   "measure_scoring": "PROPORTION",
-  "patient_ids": [
-
-  ],
   "population_criteria": {
     "IPP": {
       "conjunction?": true,
@@ -2063,28 +2045,23 @@
   },
   "population_sets": [
     {
-      "_id": "5d081191d7c8ac1d93244aca",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
-          "_id": "5d081191d7c8ac1d93244acd",
           "hqmf_id": "A8AB614A-AB80-4A0A-B49A-297DB5037EF4",
           "library_name": "BonnieTestParticipation",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d081191d7c8ac1d93244acc",
           "hqmf_id": "AC470147-0725-4713-86BA-65F422B1DF4F",
           "library_name": "BonnieTestParticipation",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d081191d7c8ac1d93244ace",
           "hqmf_id": "6645237F-BDDB-4D9B-8F4D-871E1DA46078",
           "library_name": "BonnieTestParticipation",
           "statement_name": "Numerator"
         },
-        "_id": "5d081191d7c8ac1d93244acb",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
@@ -2092,7 +2069,6 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d081190d7c8ac1d9324499f",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -2100,10 +2076,9 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d081191d7c8ac1d93244ac4",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d9324499f"
+        "value": "5d0be6dd31fe5f2d15a040c6"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -2113,7 +2088,6 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d081190d7c8ac1d932449a0",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -2121,10 +2095,9 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d081191d7c8ac1d93244ac5",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d932449a0"
+        "value": "5d0be6dd31fe5f2d15a040c7"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -2133,7 +2106,6 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d081190d7c8ac1d932449a1",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -2141,10 +2113,9 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d081191d7c8ac1d93244ac6",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d932449a1"
+        "value": "5d0be6dd31fe5f2d15a040c8"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -2153,7 +2124,6 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d081190d7c8ac1d932449a2",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -2161,10 +2131,9 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d081191d7c8ac1d93244ac7",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d932449a2"
+        "value": "5d0be6dd31fe5f2d15a040c9"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -2173,7 +2142,6 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d081190d7c8ac1d932449a3",
       "codeListId": "2.16.840.1.113762.1.4.1166.29",
       "dataElementCodes": [
 
@@ -2181,10 +2149,9 @@
       "description": "Participation: InsuranceCoverageTypeFPAR",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.130",
       "id": {
-        "_id": "5d081191d7c8ac1d93244ac8",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d932449a3"
+        "value": "5d0be6dd31fe5f2d15a040ca"
       },
       "participationPeriod": null,
       "qdmCategory": "participation",
@@ -2193,7 +2160,6 @@
       "_type": "QDM::Participation"
     },
     {
-      "_id": "5d081190d7c8ac1d932449a4",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1060",
@@ -2208,10 +2174,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081191d7c8ac1d93244ac9",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d932449a4"
+        "value": "5d0be6dd31fe5f2d15a040cb"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -2225,14 +2190,13 @@
     }
   ],
   "title": "BonnieTestParticipation",
-  "updated_at": "2019-06-17T22:17:53.050Z",
-  "user_id": "501fdba3044a111b98000001",
+  "updated_at": null,
   "value_set_ids": [
-    "5d081191d7c8ac1d932449a5",
-    "5d081191d7c8ac1d932449a6",
-    "5d081191d7c8ac1d932449a7",
-    "5d081191d7c8ac1d932449a8",
-    "5d081191d7c8ac1d932449a9",
-    "5d081191d7c8ac1d932449aa"
+    "5d0be6dd31fe5f2d15a040cc",
+    "5d0be6dd31fe5f2d15a040cd",
+    "5d0be6dd31fe5f2d15a040ce",
+    "5d0be6dd31fe5f2d15a040cf",
+    "5d0be6dd31fe5f2d15a040d0",
+    "5d0be6dd31fe5f2d15a040d1"
   ]
 }

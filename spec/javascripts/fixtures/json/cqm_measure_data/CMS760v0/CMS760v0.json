@@ -1,5 +1,4 @@
 {
-  "_id": "5d081190d7c8ac1d93244774",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS760v0",
@@ -11,7 +10,6 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d081190d7c8ac1d93244775",
       "cql": "library PD0329 version '0.0.004'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Medicare Fee For Service\": 'urn:oid:2.16.840.1.113883.3.1240.15.2.4008'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Medicare Fee\":\r\n\t\"Interesting Encounter\" Enc\r\n\t\twith [\"Patient Characteristic Payer\": \"Medicare Fee For Service\"] Fee\r\n\t\t\tsuch that Fee.relevantPeriod overlaps Enc.relevantPeriod\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Medicare Fee\"\r\n\r\ndefine \"Initial Population\":\r\n\tPatient.birthDatetime in \"IntervalWithTZOffsets\"\r\n\r\ndefine \"IntervalWithTZOffsets\":\r\n\tInterval[DateTime(year from start of \"Measurement Period\", 8, 1), DateTime(year from start of \"Measurement Period\", 12, 31)]\r\n",
       "elm": {
         "library": {
@@ -2149,35 +2147,27 @@
       "library_version": "0.0.004",
       "statement_dependencies": [
         {
-          "_id": "5d081190d7c8ac1d93244776",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d081190d7c8ac1d93244777",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d081190d7c8ac1d93244778",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d081190d7c8ac1d93244779",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d081190d7c8ac1d9324477a",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d081190d7c8ac1d9324477b",
           "statement_name": "Interesting Encounter"
         },
         {
-          "_id": "5d081190d7c8ac1d9324477c",
           "statement_name": "Medicare Fee",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d9324477d",
               "hqmf_id": null,
               "library_name": "PD0329",
               "statement_name": "Interesting Encounter"
@@ -2185,15 +2175,12 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d9324477e",
           "statement_name": "IntervalWithTZOffsets"
         },
         {
-          "_id": "5d081190d7c8ac1d9324477f",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244780",
               "hqmf_id": null,
               "library_name": "PD0329",
               "statement_name": "IntervalWithTZOffsets"
@@ -2201,11 +2188,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244781",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244782",
               "hqmf_id": null,
               "library_name": "PD0329",
               "statement_name": "Initial Population"
@@ -2213,11 +2198,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244783",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244784",
               "hqmf_id": null,
               "library_name": "PD0329",
               "statement_name": "Medicare Fee"
@@ -2227,7 +2210,7 @@
       ]
     }
   ],
-  "created_at": "2019-06-17T22:17:52.407Z",
+  "created_at": null,
   "description": "testing bonnie",
   "hqmf_id": "40280582-624A-D531-0162-72E0C62000B9",
   "hqmf_set_id": "065C9002-603F-46A3-BA0F-E2A9F1732DC3",
@@ -2604,9 +2587,6 @@
     }
   },
   "measure_scoring": "PROPORTION",
-  "patient_ids": [
-
-  ],
   "population_criteria": {
     "IPP": {
       "conjunction?": true,
@@ -2662,28 +2642,23 @@
   },
   "population_sets": [
     {
-      "_id": "5d081190d7c8ac1d9324478b",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
-          "_id": "5d081190d7c8ac1d9324478e",
           "hqmf_id": "1920A4B1-D121-4736-814F-0A2D75175063",
           "library_name": "PD0329",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d081190d7c8ac1d9324478d",
           "hqmf_id": "50BBAAEA-C350-4EFE-8D11-C6D8C39C5DC4",
           "library_name": "PD0329",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d081190d7c8ac1d9324478f",
           "hqmf_id": "1D461F91-65B6-43F1-B187-BC056C95DD6D",
           "library_name": "PD0329",
           "statement_name": "Numerator"
         },
-        "_id": "5d081190d7c8ac1d9324478c",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
@@ -2691,7 +2666,6 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d081190d7c8ac1d93244660",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -2699,10 +2673,9 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d081190d7c8ac1d93244785",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244660"
+        "value": "5d0be6db31fe5f2d111b1daa"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -2712,7 +2685,6 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d081190d7c8ac1d93244661",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -2720,10 +2692,9 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d081190d7c8ac1d93244786",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244661"
+        "value": "5d0be6db31fe5f2d111b1dab"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -2732,7 +2703,6 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d081190d7c8ac1d93244662",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -2740,10 +2710,9 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d081190d7c8ac1d93244787",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244662"
+        "value": "5d0be6db31fe5f2d111b1dac"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -2752,7 +2721,6 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d081190d7c8ac1d93244663",
       "codeListId": "2.16.840.1.113883.3.1240.15.2.4008",
       "dataElementCodes": [
 
@@ -2760,10 +2728,9 @@
       "description": "Patient Characteristic Payer: MedicareFeeForService",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d081190d7c8ac1d93244788",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244663"
+        "value": "5d0be6db31fe5f2d111b1dad"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -2773,7 +2740,6 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d081190d7c8ac1d93244664",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -2781,10 +2747,9 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d081190d7c8ac1d93244789",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244664"
+        "value": "5d0be6db31fe5f2d111b1dae"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -2793,7 +2758,6 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d081190d7c8ac1d93244665",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1060",
@@ -2808,10 +2772,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081190d7c8ac1d9324478a",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244665"
+        "value": "5d0be6db31fe5f2d111b1daf"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -2825,14 +2788,13 @@
     }
   ],
   "title": "PD0329",
-  "updated_at": "2019-06-17T22:17:52.407Z",
-  "user_id": "501fdba3044a111b98000001",
+  "updated_at": null,
   "value_set_ids": [
-    "5d081190d7c8ac1d93244666",
-    "5d081190d7c8ac1d93244667",
-    "5d081190d7c8ac1d93244668",
-    "5d081190d7c8ac1d93244669",
-    "5d081190d7c8ac1d9324466a",
-    "5d081190d7c8ac1d9324466b"
+    "5d0be6db31fe5f2d111b1db0",
+    "5d0be6db31fe5f2d111b1db1",
+    "5d0be6db31fe5f2d111b1db2",
+    "5d0be6db31fe5f2d111b1db3",
+    "5d0be6db31fe5f2d111b1db4",
+    "5d0be6db31fe5f2d111b1db5"
   ]
 }

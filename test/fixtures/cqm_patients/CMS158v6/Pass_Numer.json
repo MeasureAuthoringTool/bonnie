@@ -17,30 +17,38 @@
   "givenNames": [
     "Pass"
   ],
+  "measure_ids": [
+    "3BBFC929-50C8-44B8-8D34-82BE75C08A70"
+  ],
   "notes": "Based on NUMERPass 2Deliveries_MostRecentDeliveryNUMPass in epecqmtelligen@gmail.com",
+  "provider_ids": [
+
+  ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5c880138d7c8ac4c3e1065c1"
+      "$oid": "5d0be2dd31fe5f2b58dd21f5"
     },
     "birthDatetime": "1986-03-12T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065c2"
+          "$oid": "5d0be2dd31fe5f2b58dd21f6"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-01-11T06:50:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "102879009"
+            "code": "102879009",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Diagnosis: Delivery - Diagnosis",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065c3"
+            "$oid": "5d0be2dd31fe5f2b58dd21f7"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -53,6 +61,7 @@
           "highClosed": true
         },
         "qdmCategory": "condition",
+        "qdmTitle": "Diagnosis",
         "qdmVersion": "5.4",
         "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
         "severity": null,
@@ -60,21 +69,23 @@
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065c4"
+          "$oid": "5d0be2dd31fe5f2b58dd21f8"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-12-20T08:50:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "102879009"
+            "code": "102879009",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Diagnosis: Delivery - Diagnosis",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065c5"
+            "$oid": "5d0be2dd31fe5f2b58dd21f9"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -87,6 +98,7 @@
           "highClosed": true
         },
         "qdmCategory": "condition",
+        "qdmTitle": "Diagnosis",
         "qdmVersion": "5.4",
         "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
         "severity": null,
@@ -94,24 +106,26 @@
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065c6"
+          "$oid": "5d0be2dd31fe5f2b58dd21fa"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-01-10T09:30:00.000+00:00",
+        "codeListId": null,
         "components": [
 
         ],
         "dataElementCodes": [
           {
             "codeSystem": "ICD-10-PCS",
-            "code": "10D07Z6"
+            "code": "10D07Z6",
+            "codeSystemOid": "2.16.840.1.113883.6.4"
           }
         ],
         "description": "Procedure, Performed: Delivery - Procedure",
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065c7"
+            "$oid": "5d0be2dd31fe5f2b58dd21fb"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -123,6 +137,7 @@
         "ordinality": null,
         "qdmCategory": "procedure",
         "qdmStatus": "performed",
+        "qdmTitle": "Procedure, Performed",
         "qdmVersion": "5.4",
         "reason": null,
         "relevantPeriod": {
@@ -137,24 +152,26 @@
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065c8"
+          "$oid": "5d0be2dd31fe5f2b58dd21fc"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-12-20T08:40:00.000+00:00",
+        "codeListId": null,
         "components": [
 
         ],
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "5556001"
+            "code": "5556001",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Procedure, Performed: Delivery - Procedure",
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065c9"
+            "$oid": "5d0be2dd31fe5f2b58dd21fd"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -166,6 +183,7 @@
         "ordinality": null,
         "qdmCategory": "procedure",
         "qdmStatus": "performed",
+        "qdmTitle": "Procedure, Performed",
         "qdmVersion": "5.4",
         "reason": null,
         "relevantPeriod": {
@@ -180,23 +198,25 @@
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065ca"
+          "$oid": "5d0be2dd31fe5f2b58dd21fe"
         },
         "authorDatetime": "2011-12-20T08:00:00.000+00:00",
+        "codeListId": null,
         "components": [
 
         ],
         "dataElementCodes": [
           {
             "codeSystem": "LOINC",
-            "code": "5195-3"
+            "code": "5195-3",
+            "codeSystemOid": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Laboratory Test, Performed: HBsAg",
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065cb"
+            "$oid": "5d0be2dd31fe5f2b58dd21ff"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -206,6 +226,7 @@
         "negationRationale": null,
         "qdmCategory": "laboratory_test",
         "qdmStatus": "performed",
+        "qdmTitle": "Laboratory Test, Performed",
         "qdmVersion": "5.4",
         "reason": null,
         "referenceRange": null,
@@ -222,23 +243,25 @@
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065cc"
+          "$oid": "5d0be2dd31fe5f2b58dd2200"
         },
         "authorDatetime": "2012-04-20T13:00:00.000+00:00",
+        "codeListId": null,
         "components": [
 
         ],
         "dataElementCodes": [
           {
             "codeSystem": "LOINC",
-            "code": "5195-3"
+            "code": "5195-3",
+            "codeSystemOid": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Laboratory Test, Performed: HBsAg",
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065cd"
+            "$oid": "5d0be2dd31fe5f2b58dd2201"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -248,6 +271,7 @@
         "negationRationale": null,
         "qdmCategory": "laboratory_test",
         "qdmStatus": "performed",
+        "qdmTitle": "Laboratory Test, Performed",
         "qdmVersion": "5.4",
         "reason": null,
         "referenceRange": null,
@@ -264,128 +288,132 @@
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065bc"
+          "$oid": "5d0be2dd31fe5f2b58dd21f0"
         },
         "birthDatetime": "1986-03-12T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystem": "LOINC",
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "descriptor": null,
-            "codeSystemOid": null,
+            "codeSystem": "LOINC",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065ce"
+            "$oid": "5d0be2dd31fe5f2b58dd2202"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880138d7c8ac4c3e1065bc"
+          "value": "5d0be2dd31fe5f2b58dd21f0"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065bd"
+          "$oid": "5d0be2dd31fe5f2b58dd21f1"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "Not Hispanic or Latino",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065cf"
+            "$oid": "5d0be2dd31fe5f2b58dd2203"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880138d7c8ac4c3e1065bd"
+          "value": "5d0be2dd31fe5f2b58dd21f1"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065be"
+          "$oid": "5d0be2dd31fe5f2b58dd21f2"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2131-1",
-            "codeSystem": "CDC Race",
-            "descriptor": "Other",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "Other",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065d0"
+            "$oid": "5d0be2dd31fe5f2b58dd2204"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880138d7c8ac4c3e1065be"
+          "value": "5d0be2dd31fe5f2b58dd21f2"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5c880138d7c8ac4c3e1065bf"
+          "$oid": "5d0be2dd31fe5f2b58dd21f3"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "F",
-            "codeSystem": "AdministrativeGender",
-            "descriptor": "F",
             "codeSystemOid": "2.16.840.1.113883.5.1",
+            "descriptor": "F",
+            "codeSystem": "AdministrativeGender",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5c880138d7c8ac4c3e1065d1"
+            "$oid": "5d0be2dd31fe5f2b58dd2205"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880138d7c8ac4c3e1065bf"
+          "value": "5d0be2dd31fe5f2b58dd21f3"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
     "extendedData": {
       "type": null,
-      "measure_ids": [
-        "3BBFC929-50C8-44B8-8D34-82BE75C08A70",
-        null
-      ],
       "source_data_criteria": [
         {
           "negation": false,
@@ -588,5 +616,8 @@
       "insurance_providers": "[]"
     },
     "qdmVersion": "5.4"
+  },
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
   }
 }
