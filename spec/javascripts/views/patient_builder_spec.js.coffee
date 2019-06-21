@@ -585,7 +585,7 @@ describe 'PatientBuilderView', ->
 
   describe "setting expected values for CV measure", ->
     beforeEach ->
-      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/core_measures/CMS32/CMS32v7.json', 'cqm_measure_data/core_measures/CMS32/value_sets.json'
+      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
       patientsJSON = []
       patientsJSON.push(getJSONFixture('patients/CMS32v7/Visit_1 ED.json'))
       patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits 1 Excl_2 ED.json'))
