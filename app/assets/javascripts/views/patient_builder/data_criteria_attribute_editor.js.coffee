@@ -78,6 +78,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     @inputView = switch type
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
+      when 'Quantity' then new Thorax.Views.InputQuantityView()
       else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?

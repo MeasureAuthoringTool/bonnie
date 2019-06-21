@@ -1,0 +1,11 @@
+<div class="row quantity-input">
+  <div class="quantity-control-value form-group col-md-6">
+    <label for="date_{{cid}}" class="sr-only">quantity value</label>
+    <input type="number" class="form-control" name="value_value" id="value_{{cid}}" placeholder="value" {{#if value_value}}value="{{value_value}}"{{/if}}/>
+  </div>
+
+  <div class="quantity-control-unit form-group col-md-6">
+    <label for="unit_{{cid}}" class="sr-only">quantity unit</label>
+    <input type="text" class="form-control" name="value_unit" id="unit_{{cid}}" placeholder="unit" {{#if value_unit}}value="{{value_unit}}"{{/if}}/>
+  </div>
+</div>
