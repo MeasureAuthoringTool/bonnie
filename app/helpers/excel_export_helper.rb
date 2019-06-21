@@ -32,16 +32,15 @@ module ExcelExportHelper
           calc_results[index][patient.id.to_s] = {statement_results: {}, criteria: {}}
         else
           result_criteria = {
-            'observation_values' => []
+            'values' => []
           }
-
           result[pop_set_or_strat[:id]]['population_relevance'].each_key do |population_criteria|
-            if population_criteria == 'observation_values'
+            if population_criteria == 'values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
               result[pop_set_or_strat[:id]]['episode_results']&.each_value do |episode|
-                result_criteria['observation_values'].concat episode['observation_values']
+                result_criteria['values'].concat episode['values']
               end
-              result_criteria['observation_values'].sort!
+              result_criteria['values'].sort!
             else
               result_criteria[population_criteria] = result[pop_set_or_strat[:id]][population_criteria]
             end
@@ -73,21 +72,22 @@ module ExcelExportHelper
     patient_details = ActiveSupport::HashWithIndifferentAccess.new
     patients.each do |patient|
       next if patient_details[patient.id.to_s]
-      expected_values = patient.expected_values
+      expected_values = patient.expectedValues
       expected_values.each do |ev|
         ev["OBSERV"] = [] if !ev.key?("OBSERV") || ev["OBSERV"].nil?
       end
+      expiredDatetime = patient.qdmPatient.dataElements.detect{|x| x.class == QDM::PatientCharacteristicExpired}.expiredDatetime if !patient.qdmPatient.dataElements.detect{|x| x.class == QDM::PatientCharacteristicExpired}.nil?
       patient_details[patient.id.to_s] = {
-        first: patient.first,
-        last: patient.last,
+        first: patient.givenNames[0],
+        last: patient.familyName,
         expected_values: expected_values,
-        birthdate: patient.birthdate,
-        expired: patient.expired,
-        deathdate: patient.deathdate,
-        ethnicity: patient.ethnicity['code'],
-        race: patient.race['code'],
-        gender: patient.gender,
-        notes: patient.notes
+        birthdate: patient.qdmPatient.birthDatetime.to_i,
+        expired: patient.qdmPatient.dataElements.detect{|x| x.class == QDM::PatientCharacteristicExpired},
+        deathdate: expiredDatetime,
+        ethnicity: patient.qdmPatient.dataElements.detect{|x| x.class == QDM::PatientCharacteristicEthnicity}.dataElementCodes[0]['code'],
+        race: patient.qdmPatient.dataElements.detect{|x| x.class == QDM::PatientCharacteristicRace}.dataElementCodes[0]['code'],
+        gender: patient.qdmPatient.dataElements.detect{|x| x.class == QDM::PatientCharacteristicSex}.dataElementCodes[0]['code'],
+        notes: patient.qdmPatient.extendedData['notes']
       }
     end
     patient_details
