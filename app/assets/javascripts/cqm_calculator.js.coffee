@@ -32,11 +32,7 @@
 
     # attempt calcuation
     try
-<<<<<<< HEAD
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: options.doPretty includeClauseResults: true, requestDocument: false })
-=======
       cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
->>>>>>> Unskip frontend tests (#1243)
       patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
 
       measure.get('populations').forEach((measure_population) =>
