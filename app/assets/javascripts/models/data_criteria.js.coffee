@@ -84,7 +84,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
 
   # the attributes to skip in user attribute view and editing fields
-  @SKIP_ATTRIBUTES = ['dataElementCodeas', 'description', 'id', '_id', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', '_type']
+  @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', '_id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
     .concat(@PRIMARY_TIMING_ATTRIBUTES)
 
   # Use the mongoose schema to look at the fields for this element

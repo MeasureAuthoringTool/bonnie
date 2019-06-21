@@ -98,3 +98,8 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
     if !newInterval.equals(@value)
       @value = newInterval
       @trigger 'valueChanged', @
+
+  # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
+  # if the add button should be active or not
+  hasValidValue: ->
+    true # always is valid

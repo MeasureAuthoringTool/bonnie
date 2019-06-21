@@ -10,8 +10,8 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     # build a list of the possible attributes for this data element with the name and possible types for each
     @attributeList = []
     @dataElement.schema.eachPath (path, info) =>
-      # go on to the next one if it is an attribute that should be skipped or is null
-      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path) || !@dataElement[path]?
+      # go on to the next one if it is an attribute that should be skipped
+      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
 
       @attributeList.push(
         name: path
@@ -22,10 +22,12 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   events:
     'change select[name="attribute_name"]': 'attributeNameChange'
+    'change select[name="attribute_type"]': 'attributeTypeChange'
     rendered: ->
       # make sure the correct type attribute is selected
       if @currentAttribute
         @$("select[name=\"attribute_type\"] > option[value=\"#{@currentAttributeType}\"]").prop('selected', true)
+        @updateAddButtonStatus()
       else
         @$("select[name=\"attribute_type\"] > option:first").prop('selected', true)
 
@@ -35,14 +37,58 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     if newAttributeName != ""
       @currentAttribute = @attributeList.find((attr) -> attr.name == newAttributeName)
       if @currentAttribute?
-        @currentAttributeName = @currentAttribute.name
         @currentAttributeType = @currentAttribute.types[0]
+        @_setupAttributeInputView()
         @render()
     else
       @currentAttribute = null
-      @currentAttributeName = null
       @currentAttributeType = null
+      @_setupAttributeInputView()
       @render()
+
+  attributeTypeChange: (e) ->
+    newAttributeType = $(e.target).val()
+
+    if newAttributeType != ""
+      @currentAttributeType = newAttributeType
+    else
+      @currentAttributeType = null
+    @_setupAttributeInputView()
+    @render()
+
+  # update the add (+) button's disabled state based on if the input view says the input is valid or not
+  updateAddButtonStatus: ->
+    disabledStatus = true
+    if @inputView?
+      disabledStatus = !@inputView.hasValidValue()
+    @$('.input-add > button').prop('disabled', disabledStatus)
+
+  # Button click handler for adding the value to the attribute
+  addValue: (e) ->
+    e.preventDefault()
+    # double check we have a currently selected attribute and a valid value
+    if @currentAttribute? && @inputView?.hasValidValue()
+      if @currentAttribute.isArray
+        @dataElement[@currentAttribute.name].push(@inputView.value)
+      else
+        @dataElement[@currentAttribute.name] = @inputView.value
+      @trigger 'attributesModified', @
+
+  _createInputViewForType: (type) ->
+    @inputView = switch type
+      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
+      else null
+    @showInputViewPlaceholder = !@inputView?
+    @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
+
+  # sets up the view for the attribute input view.
+  _setupAttributeInputView: ->
+    if @currentAttributeType
+      @_createInputViewForType(@currentAttributeType)
+    else
+      @inputView = null
+      @showInputViewPlaceholder = false
 
   # Helper function that returns the list of acceptable types for a given attribute path and schema info.
   _determineAttributeTypeList: (path, info) ->
@@ -68,5 +114,12 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     # If it is an interval, it may be one of DateTime or one of Quantity
     else if info.instance == 'Interval'
       return ['Interval<DateTime>', 'Interval<Quantity>']
+
+    # If it is an embedded type, we have to make guesses about the type
+    else if info.instance == 'Embedded'
+      if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
+        return ['ID']
+      else
+        return ['???'] # TODO: Handle situation of unknown type better.
     else
       return [info.instance]
