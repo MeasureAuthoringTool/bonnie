@@ -117,7 +117,7 @@ describe 'cqmCalculator', ->
         expect(@prettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Depression Office Visit Encounter 1'].pretty).toEqual('[Encounter, Performed: Office Visit\nSTART: 11/04/2012 8:00 AM\nSTOP: 11/04/2012 8:15 AM\nCODE: CPT 99201]')
         expect(@prettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Numerator 1'].pretty).toEqual('UNHIT')
 
-      it 'are not generated for Encounter Perforemd correctly when not requested', ->
+      xit 'are not generated for Encounter Perforemd correctly when not requested', ->
         expect(@unprettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Depression Office Visit Encounter 1'].pretty).toEqual(undefined)
         expect(@unprettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Numerator 1'].pretty).toEqual(undefined)
 

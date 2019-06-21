@@ -6,7 +6,7 @@
   calculate: (population, patient, options = {}) ->
     measure = population.collection.parent
     # Set Default Options
-    options.doPretty = true unless options.doPretty?
+    options.doPretty = true # force doPretty to true
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient, options)
     calcKey = @calculationKey(population)
@@ -66,7 +66,8 @@
     foundIncompleteResults = false
     results = []
     resultsNeedingCalc = []
-
+    # Set Default Options
+    options.doPretty = true # force doPretty to true
     # Build result objects for everything in the measure
     patients.forEach((patient) =>
       measure.get('populations').forEach((population) =>
