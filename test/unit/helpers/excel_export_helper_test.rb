@@ -78,7 +78,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'backend results are converted' do
-    # skip('ExcelExportHelper needs update')
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     @calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
@@ -88,9 +87,7 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'backend results are converted if pretty is not present' do
-    # skip('ExcelExportHelper needs update')
     converted_unpretty_results = ExcelExportHelper.convert_results_for_excel_export(@unpretty_backend_results, @measure, @patients)
-    # skip('calc results dont match expected')
     @calc_results_unpretty.values.zip(converted_unpretty_results.values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
         assert_equal calc_result[cid], converted_result[id]
@@ -99,7 +96,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'patient details are extracted' do
-    # skip('ExcelExportHelper needs update')
     patient_details = ExcelExportHelper.get_patient_details(@patients)
     @cid_to_measure_id_map.with_indifferent_access.each_pair do |cid, measure_id|
       assert_equal @patient_details[cid].keys, patient_details[measure_id].keys
@@ -114,7 +110,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'population details are extracted' do
-    # skip('ExcelExportHelper needs update')
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
     @population_details.keys.each do |key|
       @population_details[key]['criteria'] = (CQM::Measure::ALL_POPULATION_CODES & @population_details[key]['criteria']) + ['index']
@@ -126,13 +121,11 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'statement details are extracted' do
-    # skip('ExcelExportHelper needs update')
     statement_details = ExcelExportHelper.get_statement_details_from_measure(@measure)
     assert_equal @statement_details, statement_details
   end
 
   test 'excel file is generated' do
-    # skip('ExcelExportHelper needs update')
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     statement_details = ExcelExportHelper.get_statement_details_from_measure(@measure)
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
