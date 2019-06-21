@@ -348,7 +348,7 @@ describe 'PatientBuilderView', ->
         $codelist.val(code).change()
 
     # FIXME Our test JSON doesn't yet support value sets very well... write these tests when we have a source of value sets independent of the measures
-    it "adds a code", ->
+    xit "adds a code", ->
 
     afterEach -> @patientBuilder.remove()
 
