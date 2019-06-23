@@ -6,7 +6,7 @@
   calculate: (population, patient, options = {}) ->
     measure = population.collection.parent
     # Set Default Options
-    options.doPretty = true unless options.doPretty?
+    options.doPretty = true # force doPretty to true
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient, options)
     calcKey = @calculationKey(population)
@@ -32,23 +32,27 @@
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
       patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
 
       measure.get('populations').forEach((measure_population) =>
         populationSetId = measure_population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
 
-        populationSetResults.observation_values.sort()
+        if populationSetResults.observation_values 
+          populationSetResults.observation_values.sort()
+        else
+          populationSetResults.observation_values = []
+
         # if this population is requested update the object
         if measure_population == population
-          result.set(populationSetResults.toObject())
+          result.set(populationSetResults)
           result.state = 'complete'
         # otherwise create result and put it on the cache
         else
           otherPopCacheKey = @cacheKey(measure_population, patient, options)
           otherPopResult = @resultsCache[otherPopCacheKey] ?= new Thorax.Models.Result({}, population: measure_population, patient: patient)
-          otherPopResult.set(populationSetResults.toObject())
+          otherPopResult.set(populationSetResults)
           otherPopResult.state = 'complete'
 
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
@@ -62,7 +66,8 @@
     foundIncompleteResults = false
     results = []
     resultsNeedingCalc = []
-
+    # Set Default Options
+    options.doPretty = true # force doPretty to true
     # Build result objects for everything in the measure
     patients.forEach((patient) =>
       measure.get('populations').forEach((population) =>
@@ -111,7 +116,7 @@
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, qdmPatients, cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, qdmPatients, cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
       # Fill result objects for everything in the measure
       resultsNeedingCalc.forEach((result) =>
         patient = result.patient
@@ -120,9 +125,13 @@
 
         populationSetId = population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
-        populationSetResults.observation_values.sort()
 
-        result.set(populationSetResults.toObject())
+        if populationSetResults.observation_values 
+          populationSetResults.observation_values.sort()
+        else
+          populationSetResults.observation_values = []
+
+        result.set(populationSetResults)
         result.state = 'complete'
 
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"

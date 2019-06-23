@@ -59,7 +59,7 @@ describe 'CqlTruncatedStatementView', ->
         jasmine.getJSONFixtures().clearCache()
         @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS460v0/CMS460v0.json', 'cqm_measure_data/CMS460v0/value_sets.json'
         methadone = getJSONFixture('patients/CMS460v0/MethadoneLessThan90MME_NUMERFail.json')
-        opioidTest = getJSONFixture('patients/CMS460v0/Opioid_test.json')
+        opioidTest = getJSONFixture('patients/CMS460v0/Opioid_Test.json')
         @patients = new Thorax.Collections.Patients [methadone, opioidTest], parse: true
         @cqlMeasure.set('patients', @patients)
         @population = @cqlMeasure.get('populations').first()

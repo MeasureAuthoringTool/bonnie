@@ -1,5 +1,4 @@
 {
-  "_id": "5d003fb0d7c8ac9d4887236e",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS735v0",
@@ -11,7 +10,6 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d003fb0d7c8ac9d4887236f",
       "cql": "library StatinTherapy version '0.0.004'\n\nusing QDM version '5.0.2'\n\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1' \n\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836' \n\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837' \n\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591' \n\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.11.1005' \n\nvalueset \"Outpatient Consultation\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.11.1040' \n\nvalueset \"Preventive Care Services-Initial Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.11.1115' \n\nvalueset \"Preventive Care Services - Established Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.11.1125' \n\nvalueset \"Preventive Care Services-Individual Counseling\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1026' \n\nvalueset \"Preventive Care Services - Other\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1030' \n\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.2.1363' \n\nvalueset \"Outpatient Encounters for Preventive Care\": 'urn:oid:2.16.840.1.113762.1.4.1047.9' \n\nvalueset \"PCI\": 'urn:oid:2.16.840.1.113762.1.4.1045.67' \n\nvalueset \"Myocardial Infarction\": 'urn:oid:2.16.840.1.113883.3.526.3.403' \n\nvalueset \"Cerebrovascular disease, Stroke, TIA\": 'urn:oid:2.16.840.1.113762.1.4.1047.44' \n\nvalueset \"CABG Surgeries\": 'urn:oid:2.16.840.1.113883.3.666.5.694' \n\nvalueset \"Atherosclerosis and Peripheral Arterial Disease\": 'urn:oid:2.16.840.1.113762.1.4.1047.21' \n\nvalueset \"Carotid Intervention\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.204' \n\nvalueset \"Ischemic heart disease or coronary occlusion, rupture, or thrombosis\": 'urn:oid:2.16.840.1.113762.1.4.1047.46' \n\nvalueset \"Stable and Unstable Angina\": 'urn:oid:2.16.840.1.113762.1.4.1047.47' \n\nvalueset \"Palliative Care\": 'urn:oid:2.16.840.1.113883.3.600.1.1579' \n\nvalueset \"End Stage Renal Disease\": 'urn:oid:2.16.840.1.113883.3.526.3.353' \n\nvalueset \"Hepatitis A\": 'urn:oid:2.16.840.1.113883.3.464.1003.110.12.1024' \n\nvalueset \"Hepatitis B\": 'urn:oid:2.16.840.1.113883.3.67.1.101.1.269' \n\nvalueset \"Liver Disease\": 'urn:oid:2.16.840.1.113762.1.4.1047.42' \n\nvalueset \"Statin Allergen\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.423' \n\nvalueset \"Pregnancy Dx\": 'urn:oid:2.16.840.1.113883.3.600.1.1623' \n\nvalueset \"Breastfeeding\": 'urn:oid:2.16.840.1.113762.1.4.1047.73' \n\nvalueset \"Rhabdomyolysis\": 'urn:oid:2.16.840.1.113762.1.4.1047.102' \n\nvalueset \"High intensity statin therapy\": 'urn:oid:2.16.840.1.113762.1.4.1047.97' \n\nvalueset \"Low intensity statin therapy\": 'urn:oid:2.16.840.1.113762.1.4.1047.107' \n\nvalueset \"Moderate intensity statin therapy\": 'urn:oid:2.16.840.1.113762.1.4.1047.98' \n\nvalueset \"LDL Test\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.11.1029' \n\nvalueset \"Hypercholesterolemia\": 'urn:oid:2.16.840.1.113762.1.4.1047.100' \n\nvalueset \"Diabetes\": 'urn:oid:2.16.840.1.113883.3.464.1003.103.12.1001' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"SDE Ethnicity\": [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\n\ndefine \"SDE Payer\": [\"Patient Characteristic Payer\": \"Payer\"]\n\ndefine \"SDE Race\": [\"Patient Characteristic Race\": \"Race\"]\n\ndefine \"SDE Sex\": [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\n\ndefine \"Valid Encounters\": [\"Encounter, Performed\": \"Annual Wellness Visit\"]\nunion [\"Encounter, Performed\":\"Office Visit\"]\nunion [\"Encounter, Performed\":\"Outpatient Consultation\"]\nunion [\"Encounter, Performed\":\"Outpatient Encounters for Preventive Care\"]\nunion [\"Encounter, Performed\":\"Preventive Care Services - Established Office Visit, 18 and Up\"]\nunion [\"Encounter, Performed\":\"Preventive Care Services - Other\"]\nunion [\"Encounter, Performed\":\"Preventive Care Services-Individual Counseling\"]\nunion [\"Encounter, Performed\":\"Preventive Care Services-Initial Office Visit, 18 and Up\"]\n\ndefine \"History of Clinical ASCVD Procedures\": [\"Procedure, Performed\": \"PCI\"]\n union [\"Procedure, Performed\": \"CABG Surgeries\"]\n union [\"Procedure, Performed\": \"Carotid Intervention\"]\n\ndefine \"History of Clinical ASCVD Diagnoses\": [\"Diagnosis\": \"Myocardial Infarction\"]\nunion [\"Diagnosis\": \"Cerebrovascular disease, Stroke, TIA\" ]\nunion [\"Diagnosis\": \"Atherosclerosis and Peripheral Arterial Disease\" ]\nunion [\"Diagnosis\": \"Ischemic heart disease or coronary occlusion, rupture, or thrombosis\" ]\nunion [\"Diagnosis\": \"Stable and Unstable Angina\" ]\n\ndefine \"PalliativeCare\": exists ([\"Intervention, Performed\":\"Palliative Care\"] palliative \n where palliative.relevantPeriod overlaps \"Measurement Period\")\n\ndefine \"MedsAdverse\": exists ([\"Adverse Event\": \"Statin Allergen\"] adverse\n where adverse.relevantPeriod overlaps \"Measurement Period\")\n\ndefine \"MedsAllergyIntolerance\": exists ([\"Allergy/Intolerance\": \"Statin Allergen\"] allergy\n where allergy.prevalencePeriod overlaps \"Measurement Period\")\n\ndefine \"In Demographic\": AgeInYearsAt(start of \"Measurement Period\") >= 21\n\ndefine \"Encounters During Measurement Period\": \"Valid Encounters\" Encounter\nwhere Encounter.relevantPeriod during \"Measurement Period\"\n\ndefine \"Initial Population\": \"In Demographic\" and\nexists(\"Encounters During Measurement Period\")\n\ndefine \"Denominator 1\": \"Initial Population\" and\n(\"ASCVD Diagnosis Before MP\" or\n\"ASCVD Procedure Before MP\")\n\ndefine \"ASCVD Diagnosis Before MP\": exists (\"History of Clinical ASCVD Diagnoses\" diag\nwhere diag.prevalencePeriod starts before end of \"Measurement Period\")\n\ndefine \"ASCVD Procedure Before MP\": exists (\"History of Clinical ASCVD Procedures\" proc\nwhere proc.relevantPeriod starts before end of \"Measurement Period\")\n\ndefine \"Statin Active\": [\"Medication, Active\": \"Low intensity statin therapy\"]\nunion [\"Medication, Active\": \"Moderate intensity statin therapy\"]\nunion [\"Medication, Active\": \"High intensity statin therapy\"]\n\ndefine \"Statin starts before end of MP\": \"Statin Active\" statin\nwhere statin.relevantPeriod starts before end of \"Measurement Period\" and not\n (statin.relevantPeriod ends before end of \"Measurement Period\")\n\ndefine \"Statin order\": [\"Medication, Order\": \"Low intensity statin therapy\"]\nunion [\"Medication, Order\": \"Moderate intensity statin therapy\"]\nunion [\"Medication, Order\": \"High intensity statin therapy\"]\n\ndefine \"Statin order during MP\": \"Statin order\" statin\nwhere statin.authorDatetime during \"Measurement Period\"\n\ndefine \"Numerator\": exists (\"Statin order during MP\") or\nexists (\"Statin starts before end of MP\")\n\ndefine \"LDL gte 190\": exists ([\"Laboratory Test, Performed\": \"LDL Test\"] Ldl\nwhere Ldl.result >= 190'mg/dl' and \n    Ldl.relevantPeriod starts before end of \"Measurement Period\")\n\ndefine \"Hypercholesterolemia Diagnosis\": exists ([\"Diagnosis\":\"Hypercholesterolemia\"] Hyper\n where Hyper.prevalencePeriod starts before end of \"Measurement Period\")\n\ndefine \"Denominator 2\": \"Initial Population\" and\n(\"LDL gte 190\" or\n\"Hypercholesterolemia Diagnosis\") and not \n(\"ASCVD Diagnosis Before MP\" or \n\"ASCVD Procedure Before MP\")\n\ndefine \"Pregnancy\": exists ([\"Diagnosis\": \"Pregnancy Dx\"] preg\nwhere preg.prevalencePeriod overlaps \"Measurement Period\")\n\ndefine \"Breastfeed\": exists ([\"Diagnosis\": \"Breastfeeding\"] breastfeed\nwhere breastfeed.prevalencePeriod overlaps \"Measurement Period\")\n\ndefine \"Rhabdo\": exists ([\"Diagnosis\": \"Rhabdomyolysis\"] rhabdo\n where rhabdo.prevalencePeriod overlaps \"Measurement Period\")\n\ndefine \"Denex\": \"Pregnancy\" or\n\"Breastfeed\" or\n\"Rhabdo\"\n\ndefine \"ESRD\": exists (\n [\"Diagnosis\":\"End Stage Renal Disease\"] esrd\nwhere esrd.prevalencePeriod during \"Measurement Period\")\n\ndefine \"HepA\": exists (\n [\"Diagnosis\":\"Hepatitis A\"] HepA\nwhere HepA.prevalencePeriod during \"Measurement Period\")\n\ndefine \"HepB\": exists (\n [\"Diagnosis\":\"Hepatitis B\"] HepB\nwhere HepB.prevalencePeriod during \"Measurement Period\")\n\ndefine \"Liver Disease Diagnosis\": exists (\n [\"Diagnosis\":\"Liver Disease\"] Liver\nwhere Liver.prevalencePeriod during \"Measurement Period\")\n\ndefine \"Denexcep\": \"PalliativeCare\" or\n\"ESRD\" or\n\"HepA\" or\n\"HepB\" or\n\"Liver Disease Diagnosis\" or\n\"MedsAdverse\" or\n\"MedsAllergyIntolerance\"\n\ndefine \"Age 40 to 75\": AgeInYearsAt(start of \"Measurement Period\") >=40 and\n AgeInYearsAt(start of \"Measurement Period\") <=75\n\ndefine \"Diabetes Diagnosis\": exists ([\"Diagnosis\": \"Diabetes\"] diab\n where diab.prevalencePeriod starts before end of \"Measurement Period\")\n\ndefine \"Denominator 3\": \"Initial Population\" and\n\"Diabetes Diagnosis\" and\n\"LDL 70 to 189 2 years prior\" and\n\"Age 40 to 75\" and not\n\"ASCVD Diagnosis Before MP\" and not\n\"ASCVD Procedure Before MP\" and not \n\"LDL gte 190\" and not\n\"Hypercholesterolemia Diagnosis\"\n\ndefine \"LDL between 70 and 189\": [\"Laboratory Test, Performed\": \"LDL Test\"] ldl\nwhere ldl.result < 190 'mg/dL' and ldl.result >=70 'mg/dL'\n\ndefine \"LDL 70 to 189 2 years prior\": exists (\"LDL between 70 and 189\" ldl\nwhere ldl.relevantPeriod starts 2 years before end \"Measurement Period\")\n\ndefine \"LDL in past 2 years\": [\"Laboratory Test, Performed\": \"LDL Test\"] ldl\n  where ldl.relevantPeriod starts 2 years before start \"Measurement Period\"   and ldl.result is not null\n  sort by start of ldl.relevantPeriod\n\ndefine \"LDL lt 70\": exists ({\n \"Most recent LDL\" recldl\n  where recldl.result <70 'mg/dL'\n })\n\ndefine \"Most recent LDL\": Last (\"LDL in past 2 years\")\n\ndefine \"Denexcep Den3\": \"PalliativeCare\" or\n\"ESRD\" or\n\"HepA\" or\n\"HepB\" or\n\"Liver Disease Diagnosis\" or\n\"MedsAdverse\" or\n\"MedsAllergyIntolerance\" or\n\"LDL lt 70\"\n\n",
       "elm": {
         "library": {
@@ -8378,7 +8376,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"SDE Ethnicity\": "
+                        "text": " define \"SDE Ethnicity\": "
                       }
                     ]
                   },
@@ -8405,7 +8403,7 @@
                       {
                         "children": [
                           {
-                            "text": "]"
+                            "text": " ]"
                           }
                         ]
                       }
@@ -8426,7 +8424,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"SDE Payer\": "
+                        "text": " define \"SDE Payer\": "
                       }
                     ]
                   },
@@ -8453,7 +8451,7 @@
                       {
                         "children": [
                           {
-                            "text": "]"
+                            "text": " ]"
                           }
                         ]
                       }
@@ -8474,7 +8472,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"SDE Race\": "
+                        "text": " define \"SDE Race\": "
                       }
                     ]
                   },
@@ -8501,7 +8499,7 @@
                       {
                         "children": [
                           {
-                            "text": "]"
+                            "text": " ]"
                           }
                         ]
                       }
@@ -8522,7 +8520,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"SDE Sex\": "
+                        "text": " define \"SDE Sex\": "
                       }
                     ]
                   },
@@ -8549,7 +8547,7 @@
                       {
                         "children": [
                           {
-                            "text": "]"
+                            "text": " ]"
                           }
                         ]
                       }
@@ -8570,7 +8568,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Valid Encounters\": "
+                        "text": " define \"Valid Encounters\": "
                       }
                     ]
                   },
@@ -8611,7 +8609,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "]"
+                                                        "text": " ]"
                                                       }
                                                     ]
                                                   }
@@ -8640,7 +8638,7 @@
                                                       {
                                                         "children": [
                                                           {
-                                                            "text": "\"Office Visit\""
+                                                            "text": " \"Office Visit\""
                                                           }
                                                         ]
                                                       }
@@ -8649,7 +8647,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "]"
+                                                        "text": " ]"
                                                       }
                                                     ]
                                                   }
@@ -8682,7 +8680,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "\"Outpatient Consultation\""
+                                                        "text": " \"Outpatient Consultation\""
                                                       }
                                                     ]
                                                   }
@@ -8691,7 +8689,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -8724,7 +8722,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "\"Outpatient Encounters for Preventive Care\""
+                                                    "text": " \"Outpatient Encounters for Preventive Care\""
                                                   }
                                                 ]
                                               }
@@ -8733,7 +8731,7 @@
                                           {
                                             "children": [
                                               {
-                                                "text": "]"
+                                                "text": " ]"
                                               }
                                             ]
                                           }
@@ -8766,7 +8764,7 @@
                                           {
                                             "children": [
                                               {
-                                                "text": "\"Preventive Care Services - Established Office Visit, 18 and Up\""
+                                                "text": " \"Preventive Care Services - Established Office Visit, 18 and Up\""
                                               }
                                             ]
                                           }
@@ -8775,7 +8773,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "]"
+                                            "text": " ]"
                                           }
                                         ]
                                       }
@@ -8808,7 +8806,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "\"Preventive Care Services - Other\""
+                                            "text": " \"Preventive Care Services - Other\""
                                           }
                                         ]
                                       }
@@ -8817,7 +8815,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "]"
+                                        "text": " ]"
                                       }
                                     ]
                                   }
@@ -8850,7 +8848,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "\"Preventive Care Services-Individual Counseling\""
+                                        "text": " \"Preventive Care Services-Individual Counseling\""
                                       }
                                     ]
                                   }
@@ -8859,7 +8857,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "]"
+                                    "text": " ]"
                                   }
                                 ]
                               }
@@ -8892,7 +8890,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "\"Preventive Care Services-Initial Office Visit, 18 and Up\""
+                                    "text": " \"Preventive Care Services-Initial Office Visit, 18 and Up\""
                                   }
                                 ]
                               }
@@ -8901,7 +8899,7 @@
                           {
                             "children": [
                               {
-                                "text": "]"
+                                "text": " ]"
                               }
                             ]
                           }
@@ -8926,7 +8924,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"History of Clinical ASCVD Procedures\": "
+                        "text": " define \"History of Clinical ASCVD Procedures\": "
                       }
                     ]
                   },
@@ -8957,7 +8955,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "]"
+                                    "text": " ]"
                                   }
                                 ]
                               }
@@ -8995,7 +8993,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "]"
+                                    "text": " ]"
                                   }
                                 ]
                               }
@@ -9037,7 +9035,7 @@
                           {
                             "children": [
                               {
-                                "text": "]"
+                                "text": " ]"
                               }
                             ]
                           }
@@ -9062,7 +9060,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"History of Clinical ASCVD Diagnoses\": "
+                        "text": " define \"History of Clinical ASCVD Diagnoses\": "
                       }
                     ]
                   },
@@ -9097,7 +9095,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "]"
+                                            "text": " ]"
                                           }
                                         ]
                                       }
@@ -9286,7 +9284,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"PalliativeCare\": "
+                        "text": " define \"PalliativeCare\": "
                       }
                     ]
                   },
@@ -9321,7 +9319,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Intervention, Performed\":"
+                                                    "text": " [\"Intervention, Performed\":"
                                                   }
                                                 ]
                                               },
@@ -9330,7 +9328,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "\"Palliative Care\""
+                                                        "text": " \"Palliative Care\""
                                                       }
                                                     ]
                                                   }
@@ -9339,7 +9337,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -9452,7 +9450,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -9477,7 +9475,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"MedsAdverse\": "
+                        "text": " define \"MedsAdverse\": "
                       }
                     ]
                   },
@@ -9512,7 +9510,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Adverse Event\": "
+                                                    "text": " [\"Adverse Event\": "
                                                   }
                                                 ]
                                               },
@@ -9530,7 +9528,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -9556,9 +9554,7 @@
                               },
                               {
                                 "children": [
-                                  {
-                                    "text": "\n "
-                                  }
+
                                 ]
                               },
                               {
@@ -9566,7 +9562,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "where "
+                                        "text": " where "
                                       }
                                     ]
                                   },
@@ -9643,7 +9639,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -9668,7 +9664,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"MedsAllergyIntolerance\": "
+                        "text": " define \"MedsAllergyIntolerance\": "
                       }
                     ]
                   },
@@ -9703,7 +9699,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Allergy/Intolerance\": "
+                                                    "text": " [\"Allergy/Intolerance\": "
                                                   }
                                                 ]
                                               },
@@ -9721,7 +9717,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -9747,9 +9743,7 @@
                               },
                               {
                                 "children": [
-                                  {
-                                    "text": "\n "
-                                  }
+
                                 ]
                               },
                               {
@@ -9757,7 +9751,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "where "
+                                        "text": " where "
                                       }
                                     ]
                                   },
@@ -9834,7 +9828,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -9859,7 +9853,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"In Demographic\": "
+                        "text": " define \"In Demographic\": "
                       }
                     ]
                   },
@@ -9879,7 +9873,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "start of "
+                                    "text": " start of "
                                   }
                                 ]
                               },
@@ -9903,7 +9897,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -9935,7 +9929,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Encounters During Measurement Period\": "
+                        "text": " define \"Encounters During Measurement Period\": "
                       }
                     ]
                   },
@@ -10073,7 +10067,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Initial Population\": "
+                        "text": " define \"Initial Population\": "
                       }
                     ]
                   },
@@ -10113,7 +10107,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "("
+                                    "text": " ("
                                   }
                                 ]
                               },
@@ -10122,7 +10116,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "\"Encounters During Measurement Period\""
+                                        "text": " \"Encounters During Measurement Period\""
                                       }
                                     ]
                                   }
@@ -10133,7 +10127,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": ")"
+                                    "text": " )"
                                   }
                                 ]
                               }
@@ -10162,7 +10156,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"ASCVD Diagnosis Before MP\": "
+                        "text": " define \"ASCVD Diagnosis Before MP\": "
                       }
                     ]
                   },
@@ -10197,7 +10191,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "\"History of Clinical ASCVD Diagnoses\""
+                                                    "text": " \"History of Clinical ASCVD Diagnoses\""
                                                   }
                                                 ]
                                               }
@@ -10321,7 +10315,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -10346,7 +10340,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"ASCVD Procedure Before MP\": "
+                        "text": " define \"ASCVD Procedure Before MP\": "
                       }
                     ]
                   },
@@ -10381,7 +10375,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "\"History of Clinical ASCVD Procedures\""
+                                                    "text": " \"History of Clinical ASCVD Procedures\""
                                                   }
                                                 ]
                                               }
@@ -10505,7 +10499,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -10530,7 +10524,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Denominator 1\": "
+                        "text": " define \"Denominator 1\": "
                       }
                     ]
                   },
@@ -10572,7 +10566,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "\"ASCVD Diagnosis Before MP\""
+                                        "text": " \"ASCVD Diagnosis Before MP\""
                                       }
                                     ]
                                   }
@@ -10607,7 +10601,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -10632,7 +10626,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Statin Active\": "
+                        "text": " define \"Statin Active\": "
                       }
                     ]
                   },
@@ -10663,7 +10657,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "]"
+                                    "text": " ]"
                                   }
                                 ]
                               }
@@ -10701,7 +10695,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "]"
+                                    "text": " ]"
                                   }
                                 ]
                               }
@@ -10743,7 +10737,7 @@
                           {
                             "children": [
                               {
-                                "text": "]"
+                                "text": " ]"
                               }
                             ]
                           }
@@ -10768,7 +10762,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Statin starts before end of MP\": "
+                        "text": " define \"Statin starts before end of MP\": "
                       }
                     ]
                   },
@@ -10936,7 +10930,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "statin"
+                                                        "text": " statin"
                                                       }
                                                     ]
                                                   }
@@ -11007,7 +11001,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": ")"
+                                            "text": " )"
                                           }
                                         ]
                                       }
@@ -11042,7 +11036,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Statin order\": "
+                        "text": " define \"Statin order\": "
                       }
                     ]
                   },
@@ -11073,7 +11067,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "]"
+                                    "text": " ]"
                                   }
                                 ]
                               }
@@ -11111,7 +11105,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": "]"
+                                    "text": " ]"
                                   }
                                 ]
                               }
@@ -11153,7 +11147,7 @@
                           {
                             "children": [
                               {
-                                "text": "]"
+                                "text": " ]"
                               }
                             ]
                           }
@@ -11178,7 +11172,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Statin order during MP\": "
+                        "text": " define \"Statin order during MP\": "
                       }
                     ]
                   },
@@ -11316,7 +11310,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Numerator\": "
+                        "text": " define \"Numerator\": "
                       }
                     ]
                   },
@@ -11345,7 +11339,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "\"Statin order during MP\""
+                                        "text": " \"Statin order during MP\""
                                       }
                                     ]
                                   }
@@ -11356,7 +11350,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": ")"
+                                    "text": " )"
                                   }
                                 ]
                               }
@@ -11398,7 +11392,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "\"Statin starts before end of MP\""
+                                        "text": " \"Statin starts before end of MP\""
                                       }
                                     ]
                                   }
@@ -11409,7 +11403,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": ")"
+                                    "text": " )"
                                   }
                                 ]
                               }
@@ -11438,7 +11432,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"LDL gte 190\": "
+                        "text": " define \"LDL gte 190\": "
                       }
                     ]
                   },
@@ -11473,7 +11467,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Laboratory Test, Performed\": "
+                                                    "text": " [\"Laboratory Test, Performed\": "
                                                   }
                                                 ]
                                               },
@@ -11491,7 +11485,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -11694,7 +11688,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -11719,7 +11713,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Hypercholesterolemia Diagnosis\": "
+                        "text": " define \"Hypercholesterolemia Diagnosis\": "
                       }
                     ]
                   },
@@ -11754,7 +11748,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Diagnosis\":"
+                                                    "text": " [\"Diagnosis\":"
                                                   }
                                                 ]
                                               },
@@ -11763,7 +11757,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "\"Hypercholesterolemia\""
+                                                        "text": " \"Hypercholesterolemia\""
                                                       }
                                                     ]
                                                   }
@@ -11772,7 +11766,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -11798,9 +11792,7 @@
                               },
                               {
                                 "children": [
-                                  {
-                                    "text": "\n "
-                                  }
+
                                 ]
                               },
                               {
@@ -11808,7 +11800,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "where "
+                                        "text": " where "
                                       }
                                     ]
                                   },
@@ -11898,7 +11890,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -11923,7 +11915,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Denominator 2\": "
+                        "text": " define \"Denominator 2\": "
                       }
                     ]
                   },
@@ -11967,7 +11959,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "\"LDL gte 190\""
+                                            "text": " \"LDL gte 190\""
                                           }
                                         ]
                                       }
@@ -12002,7 +11994,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": ")"
+                                    "text": " )"
                                   }
                                 ]
                               }
@@ -12046,7 +12038,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "\"ASCVD Diagnosis Before MP\""
+                                            "text": " \"ASCVD Diagnosis Before MP\""
                                           }
                                         ]
                                       }
@@ -12081,7 +12073,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": ")"
+                                    "text": " )"
                                   }
                                 ]
                               }
@@ -12110,7 +12102,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Pregnancy\": "
+                        "text": " define \"Pregnancy\": "
                       }
                     ]
                   },
@@ -12145,7 +12137,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Diagnosis\": "
+                                                    "text": " [\"Diagnosis\": "
                                                   }
                                                 ]
                                               },
@@ -12163,7 +12155,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -12276,7 +12268,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -12301,7 +12293,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Breastfeed\": "
+                        "text": " define \"Breastfeed\": "
                       }
                     ]
                   },
@@ -12336,7 +12328,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Diagnosis\": "
+                                                    "text": " [\"Diagnosis\": "
                                                   }
                                                 ]
                                               },
@@ -12354,7 +12346,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -12467,7 +12459,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -12492,7 +12484,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Rhabdo\": "
+                        "text": " define \"Rhabdo\": "
                       }
                     ]
                   },
@@ -12527,7 +12519,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Diagnosis\": "
+                                                    "text": " [\"Diagnosis\": "
                                                   }
                                                 ]
                                               },
@@ -12545,7 +12537,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -12571,9 +12563,7 @@
                               },
                               {
                                 "children": [
-                                  {
-                                    "text": "\n "
-                                  }
+
                                 ]
                               },
                               {
@@ -12581,7 +12571,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "where "
+                                        "text": " where "
                                       }
                                     ]
                                   },
@@ -12658,7 +12648,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -12683,7 +12673,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Denex\": "
+                        "text": " define \"Denex\": "
                       }
                     ]
                   },
@@ -12765,7 +12755,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"ESRD\": "
+                        "text": " define \"ESRD\": "
                       }
                     ]
                   },
@@ -12809,7 +12799,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "\"End Stage Renal Disease\""
+                                                        "text": " \"End Stage Renal Disease\""
                                                       }
                                                     ]
                                                   }
@@ -12818,7 +12808,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -12931,7 +12921,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -12956,7 +12946,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"HepA\": "
+                        "text": " define \"HepA\": "
                       }
                     ]
                   },
@@ -13000,7 +12990,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "\"Hepatitis A\""
+                                                        "text": " \"Hepatitis A\""
                                                       }
                                                     ]
                                                   }
@@ -13009,7 +12999,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -13122,7 +13112,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -13147,7 +13137,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"HepB\": "
+                        "text": " define \"HepB\": "
                       }
                     ]
                   },
@@ -13191,7 +13181,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "\"Hepatitis B\""
+                                                        "text": " \"Hepatitis B\""
                                                       }
                                                     ]
                                                   }
@@ -13200,7 +13190,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -13313,7 +13303,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -13338,7 +13328,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Liver Disease Diagnosis\": "
+                        "text": " define \"Liver Disease Diagnosis\": "
                       }
                     ]
                   },
@@ -13382,7 +13372,7 @@
                                                   {
                                                     "children": [
                                                       {
-                                                        "text": "\"Liver Disease\""
+                                                        "text": " \"Liver Disease\""
                                                       }
                                                     ]
                                                   }
@@ -13391,7 +13381,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -13504,7 +13494,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -13529,7 +13519,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Denexcep\": "
+                        "text": " define \"Denexcep\": "
                       }
                     ]
                   },
@@ -13715,7 +13705,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Age 40 to 75\": "
+                        "text": " define \"Age 40 to 75\": "
                       }
                     ]
                   },
@@ -13737,7 +13727,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "start of "
+                                        "text": " start of "
                                       }
                                     ]
                                   },
@@ -13761,7 +13751,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": ")"
+                                    "text": " )"
                                   }
                                 ]
                               }
@@ -13803,7 +13793,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "start of "
+                                        "text": " start of "
                                       }
                                     ]
                                   },
@@ -13827,7 +13817,7 @@
                               {
                                 "children": [
                                   {
-                                    "text": ")"
+                                    "text": " )"
                                   }
                                 ]
                               }
@@ -13863,7 +13853,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Diabetes Diagnosis\": "
+                        "text": " define \"Diabetes Diagnosis\": "
                       }
                     ]
                   },
@@ -13898,7 +13888,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "[\"Diagnosis\": "
+                                                    "text": " [\"Diagnosis\": "
                                                   }
                                                 ]
                                               },
@@ -13916,7 +13906,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "]"
+                                                    "text": " ]"
                                                   }
                                                 ]
                                               }
@@ -13942,9 +13932,7 @@
                               },
                               {
                                 "children": [
-                                  {
-                                    "text": "\n "
-                                  }
+
                                 ]
                               },
                               {
@@ -13952,7 +13940,7 @@
                                   {
                                     "children": [
                                       {
-                                        "text": "where "
+                                        "text": " where "
                                       }
                                     ]
                                   },
@@ -14042,7 +14030,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -14067,7 +14055,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"LDL between 70 and 189\": "
+                        "text": " define \"LDL between 70 and 189\": "
                       }
                     ]
                   },
@@ -14102,7 +14090,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "]"
+                                            "text": " ]"
                                           }
                                         ]
                                       }
@@ -14267,7 +14255,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "70 'mg/dL'"
+                                            "text": " 70 'mg/dL'"
                                           }
                                         ]
                                       }
@@ -14302,7 +14290,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"LDL 70 to 189 2 years prior\": "
+                        "text": " define \"LDL 70 to 189 2 years prior\": "
                       }
                     ]
                   },
@@ -14337,7 +14325,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "\"LDL between 70 and 189\""
+                                                    "text": " \"LDL between 70 and 189\""
                                                   }
                                                 ]
                                               }
@@ -14487,7 +14475,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -14512,7 +14500,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Denominator 3\": "
+                        "text": " define \"Denominator 3\": "
                       }
                     ]
                   },
@@ -14776,7 +14764,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"LDL in past 2 years\": "
+                        "text": " define \"LDL in past 2 years\": "
                       }
                     ]
                   },
@@ -14811,7 +14799,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "]"
+                                            "text": " ]"
                                           }
                                         ]
                                       }
@@ -14835,9 +14823,7 @@
                       },
                       {
                         "children": [
-                          {
-                            "text": "\n  "
-                          }
+
                         ]
                       },
                       {
@@ -14845,7 +14831,7 @@
                           {
                             "children": [
                               {
-                                "text": "where "
+                                "text": " where "
                               }
                             ]
                           },
@@ -15012,9 +14998,7 @@
                       },
                       {
                         "children": [
-                          {
-                            "text": "\n  "
-                          }
+
                         ]
                       },
                       {
@@ -15022,7 +15006,7 @@
                           {
                             "children": [
                               {
-                                "text": "sort by "
+                                "text": " sort by "
                               }
                             ]
                           },
@@ -15099,7 +15083,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Most recent LDL\": "
+                        "text": " define \"Most recent LDL\": "
                       }
                     ]
                   },
@@ -15117,7 +15101,7 @@
                           {
                             "children": [
                               {
-                                "text": "\"LDL in past 2 years\""
+                                "text": " \"LDL in past 2 years\""
                               }
                             ]
                           }
@@ -15127,7 +15111,7 @@
                       {
                         "children": [
                           {
-                            "text": ")"
+                            "text": " )"
                           }
                         ]
                       }
@@ -15148,7 +15132,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"LDL lt 70\": "
+                        "text": " define \"LDL lt 70\": "
                       }
                     ]
                   },
@@ -15215,9 +15199,7 @@
                                   },
                                   {
                                     "children": [
-                                      {
-                                        "text": "\n  "
-                                      }
+
                                     ]
                                   },
                                   {
@@ -15225,7 +15207,7 @@
                                       {
                                         "children": [
                                           {
-                                            "text": "where "
+                                            "text": " where "
                                           }
                                         ]
                                       },
@@ -15279,7 +15261,7 @@
                                               {
                                                 "children": [
                                                   {
-                                                    "text": "70 'mg/dL'"
+                                                    "text": " 70 'mg/dL'"
                                                   }
                                                 ]
                                               }
@@ -15308,7 +15290,7 @@
                           {
                             "children": [
                               {
-                                "text": ")"
+                                "text": " )"
                               }
                             ]
                           }
@@ -15332,7 +15314,7 @@
                   {
                     "children": [
                       {
-                        "text": "define \"Denexcep Den3\": "
+                        "text": " define \"Denexcep Den3\": "
                       }
                     ]
                   },
@@ -15535,59 +15517,45 @@
       "library_version": "0.0.004",
       "statement_dependencies": [
         {
-          "_id": "5d003fb0d7c8ac9d48872370",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872371",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872372",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872373",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872374",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872375",
           "statement_name": "Valid Encounters"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872376",
           "statement_name": "History of Clinical ASCVD Procedures"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872377",
           "statement_name": "History of Clinical ASCVD Diagnoses"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872378",
           "statement_name": "PalliativeCare"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872379",
           "statement_name": "MedsAdverse"
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887237a",
           "statement_name": "MedsAllergyIntolerance"
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887237b",
           "statement_name": "In Demographic"
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887237c",
           "statement_name": "Encounters During Measurement Period",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d4887237d",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Valid Encounters"
@@ -15595,17 +15563,14 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887237e",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d4887237f",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "In Demographic"
             },
             {
-              "_id": "5d003fb0d7c8ac9d48872380",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Encounters During Measurement Period"
@@ -15613,11 +15578,9 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872381",
           "statement_name": "ASCVD Diagnosis Before MP",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d48872382",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "History of Clinical ASCVD Diagnoses"
@@ -15625,11 +15588,9 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872383",
           "statement_name": "ASCVD Procedure Before MP",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d48872384",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "History of Clinical ASCVD Procedures"
@@ -15637,23 +15598,19 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872385",
           "statement_name": "Denominator 1",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d48872386",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Initial Population"
             },
             {
-              "_id": "5d003fb0d7c8ac9d48872387",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "ASCVD Diagnosis Before MP"
             },
             {
-              "_id": "5d003fb0d7c8ac9d48872388",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "ASCVD Procedure Before MP"
@@ -15661,15 +15618,12 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872389",
           "statement_name": "Statin Active"
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887238a",
           "statement_name": "Statin starts before end of MP",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d4887238b",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Statin Active"
@@ -15677,15 +15631,12 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887238c",
           "statement_name": "Statin order"
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887238d",
           "statement_name": "Statin order during MP",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d4887238e",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Statin order"
@@ -15693,17 +15644,14 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887238f",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d48872390",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Statin order during MP"
             },
             {
-              "_id": "5d003fb0d7c8ac9d48872391",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Statin starts before end of MP"
@@ -15711,43 +15659,35 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872392",
           "statement_name": "LDL gte 190"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872393",
           "statement_name": "Hypercholesterolemia Diagnosis"
         },
         {
-          "_id": "5d003fb0d7c8ac9d48872394",
           "statement_name": "Denominator 2",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d48872395",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Initial Population"
             },
             {
-              "_id": "5d003fb0d7c8ac9d48872396",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "LDL gte 190"
             },
             {
-              "_id": "5d003fb0d7c8ac9d48872397",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Hypercholesterolemia Diagnosis"
             },
             {
-              "_id": "5d003fb0d7c8ac9d48872398",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "ASCVD Diagnosis Before MP"
             },
             {
-              "_id": "5d003fb0d7c8ac9d48872399",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "ASCVD Procedure Before MP"
@@ -15755,35 +15695,28 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887239a",
           "statement_name": "Pregnancy"
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887239b",
           "statement_name": "Breastfeed"
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887239c",
           "statement_name": "Rhabdo"
         },
         {
-          "_id": "5d003fb0d7c8ac9d4887239d",
           "statement_name": "Denex",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d4887239e",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Pregnancy"
             },
             {
-              "_id": "5d003fb0d7c8ac9d4887239f",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Breastfeed"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723a0",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Rhabdo"
@@ -15791,63 +15724,51 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723a1",
           "statement_name": "ESRD"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723a2",
           "statement_name": "HepA"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723a3",
           "statement_name": "HepB"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723a4",
           "statement_name": "Liver Disease Diagnosis"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723a5",
           "statement_name": "Denexcep",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d488723a6",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "PalliativeCare"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723a7",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "ESRD"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723a8",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "HepA"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723a9",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "HepB"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723aa",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Liver Disease Diagnosis"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723ab",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "MedsAdverse"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723ac",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "MedsAllergyIntolerance"
@@ -15855,23 +15776,18 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723ad",
           "statement_name": "Age 40 to 75"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723ae",
           "statement_name": "Diabetes Diagnosis"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723af",
           "statement_name": "LDL between 70 and 189"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723b0",
           "statement_name": "LDL 70 to 189 2 years prior",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d488723b1",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "LDL between 70 and 189"
@@ -15879,53 +15795,44 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723b2",
           "statement_name": "Denominator 3",
           "statement_references": [
             {
-              "_id": "5d003fb0d7c8ac9d488723b3",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Initial Population"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723b4",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Diabetes Diagnosis"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723b5",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "LDL 70 to 189 2 years prior"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723b6",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Age 40 to 75"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723b7",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "ASCVD Diagnosis Before MP"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723b8",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "ASCVD Procedure Before MP"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723b9",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "LDL gte 190"
             },
             {
-              "_id": "5d003fb0d7c8ac9d488723ba",
               "hqmf_id": null,
               "library_name": "StatinTherapy",
               "statement_name": "Hypercholesterolemia Diagnosis"
@@ -15933,25 +15840,21 @@
           ]
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723bb",
           "statement_name": "LDL in past 2 years"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723bc",
           "statement_name": "Most recent LDL"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723bd",
           "statement_name": "LDL lt 70"
         },
         {
-          "_id": "5d003fb0d7c8ac9d488723be",
           "statement_name": "Denexcep Den3"
         }
       ]
     }
   ],
-  "created_at": "2019-06-11T23:56:32.123Z",
+  "created_at": null,
   "description": "Percentage of the following patients - all considered at high risk of cardiovascular events - who were prescribed or were on statin therapy during the measurement period: \n*Adults aged >= 21 years who were previously diagnosed with or currently have an active diagnosis of clinical atherosclerotic cardiovascular disease (ASCVD); OR \n*Adults aged >= 21 years who have ever had a fasting or direct low-density lipoprotein cholesterol (LDL-C) level >= 190 mg/dL or were previously diagnosed with or currently have an active diagnosis of familial or pure hypercholesterolemia; OR \n*Adults aged 40-75 years with a diagnosis of diabetes with a fasting or direct LDL-C level of 70-189 mg/dL",
   "hqmf_id": "40280582-5BB1-1AEA-015B-FDFA9AB70B54",
   "hqmf_set_id": "E075A7F3-D272-4B6C-A677-84C4BC780D4E",
@@ -16444,9 +16347,6 @@
     }
   },
   "measure_scoring": "PROPORTION",
-  "patient_ids": [
-
-  ],
   "population_criteria": {
     "IPP": {
       "conjunction?": true,
@@ -16706,118 +16606,97 @@
   },
   "population_sets": [
     {
-      "_id": "5d003fb0d7c8ac9d488723e6",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d003fb0d7c8ac9d488723ec",
           "hqmf_id": "E29D10A8-7867-472D-9407-02AF1DDA78DD",
           "library_name": "StatinTherapy",
           "statement_name": "Denex"
         },
         "DENEXCEP": {
-          "_id": "5d003fb0d7c8ac9d488723eb",
           "hqmf_id": "2D4B2B28-EC6D-4874-9D56-992B46646DC3",
           "library_name": "StatinTherapy",
           "statement_name": "Denexcep"
         },
         "DENOM": {
-          "_id": "5d003fb0d7c8ac9d488723e9",
           "hqmf_id": "FB196C50-2308-4064-88B7-C77746E76B36",
           "library_name": "StatinTherapy",
           "statement_name": "Denominator 1"
         },
         "IPP": {
-          "_id": "5d003fb0d7c8ac9d488723e8",
           "hqmf_id": "D75B1F50-E58A-4A79-BB5C-C4EBEB160F96",
           "library_name": "StatinTherapy",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d003fb0d7c8ac9d488723ea",
           "hqmf_id": "41010063-398D-47A2-BB73-27FE326CBACA",
           "library_name": "StatinTherapy",
           "statement_name": "Numerator"
         },
-        "_id": "5d003fb0d7c8ac9d488723e7",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     },
     {
-      "_id": "5d003fb0d7c8ac9d488723ed",
       "population_set_id": "PopulationCriteria2",
       "populations": {
         "DENEX": {
-          "_id": "5d003fb0d7c8ac9d488723f3",
           "hqmf_id": "99615B52-7B7D-42D8-BDA6-780CCA24F042",
           "library_name": "StatinTherapy",
-          "statement_name": null
+          "statement_name": "Denex"
         },
         "DENEXCEP": {
-          "_id": "5d003fb0d7c8ac9d488723f2",
           "hqmf_id": "02C31BA7-C0A1-451D-80EB-4BBC232BAE8F",
           "library_name": "StatinTherapy",
-          "statement_name": "Denexcep Den3"
+          "statement_name": "Denexcep"
         },
         "DENOM": {
-          "_id": "5d003fb0d7c8ac9d488723f0",
           "hqmf_id": "0D665008-2079-41E4-8CD5-B0E372CFD029",
           "library_name": "StatinTherapy",
           "statement_name": "Denominator 2"
         },
         "IPP": {
-          "_id": "5d003fb0d7c8ac9d488723ef",
           "hqmf_id": "295F05AE-22D4-451F-94C6-67DA6123C409",
           "library_name": "StatinTherapy",
-          "statement_name": null
+          "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d003fb0d7c8ac9d488723f1",
           "hqmf_id": "5AED46FE-4EE3-42D2-B7F4-81B8E1B9959A",
           "library_name": "StatinTherapy",
-          "statement_name": null
+          "statement_name": "Numerator"
         },
-        "_id": "5d003fb0d7c8ac9d488723ee",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     },
     {
-      "_id": "5d003fb0d7c8ac9d488723f4",
       "population_set_id": "PopulationCriteria3",
       "populations": {
         "DENEX": {
-          "_id": "5d003fb0d7c8ac9d488723fa",
           "hqmf_id": "8B6D8852-8068-4A4C-BFB5-794A7E212C2A",
           "library_name": "StatinTherapy",
-          "statement_name": null
+          "statement_name": "Denex"
         },
         "DENEXCEP": {
-          "_id": "5d003fb0d7c8ac9d488723f9",
           "hqmf_id": "F2F08981-F7CA-44DA-987E-E0C218B52642",
           "library_name": "StatinTherapy",
-          "statement_name": null
+          "statement_name": "Denexcep Den3"
         },
         "DENOM": {
-          "_id": "5d003fb0d7c8ac9d488723f7",
           "hqmf_id": "ED665D4E-AEA4-4D19-BEB9-5715D2EE4BC8",
           "library_name": "StatinTherapy",
           "statement_name": "Denominator 3"
         },
         "IPP": {
-          "_id": "5d003fb0d7c8ac9d488723f6",
           "hqmf_id": "77B3C349-BC4E-40FA-9E73-DEAA9B32067E",
           "library_name": "StatinTherapy",
-          "statement_name": null
+          "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d003fb0d7c8ac9d488723f8",
           "hqmf_id": "97A5259A-ADD5-4BCA-928C-3CD1DF357DC8",
           "library_name": "StatinTherapy",
-          "statement_name": null
+          "statement_name": "Numerator"
         },
-        "_id": "5d003fb0d7c8ac9d488723f5",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
@@ -16825,7 +16704,6 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d003faed7c8ac9d488714bd",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.11.1040",
@@ -16840,10 +16718,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723bf",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714bd"
+        "value": "5d0be6b431fe5f2ce14c546b"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -16856,7 +16733,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714be",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.423",
       "dataElementCodes": [
@@ -16866,10 +16742,9 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.120",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c0",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714be"
+        "value": "5d0be6b431fe5f2ce14c546c"
       },
       "qdmCategory": "adverse_event",
       "qdmTitle": "Adverse Event",
@@ -16880,7 +16755,6 @@
       "_type": "QDM::AdverseEvent"
     },
     {
-      "_id": "5d003faed7c8ac9d488714bf",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.423",
       "dataElementCodes": [
@@ -16889,10 +16763,9 @@
       "description": "Allergy/Intolerance: Statin Allergen",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c1",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714bf"
+        "value": "5d0be6b431fe5f2ce14c546d"
       },
       "prevalencePeriod": null,
       "qdmCategory": "allergy",
@@ -16904,7 +16777,6 @@
       "_type": "QDM::AllergyIntolerance"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c0",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1.1579",
       "dataElementCodes": [
@@ -16913,10 +16785,9 @@
       "description": "Intervention, Performed: Palliative Care",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c2",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c0"
+        "value": "5d0be6b431fe5f2ce14c546e"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -16930,7 +16801,6 @@
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c1",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.9",
@@ -16945,10 +16815,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c3",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c1"
+        "value": "5d0be6b431fe5f2ce14c546f"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -16961,7 +16830,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c2",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.102",
@@ -16971,10 +16839,9 @@
       "description": "Diagnosis: Rhabdomyolysis",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c4",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c2"
+        "value": "5d0be6b431fe5f2ce14c5470"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -16985,7 +16852,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c3",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.11.1125",
@@ -17000,10 +16866,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c5",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c3"
+        "value": "5d0be6b431fe5f2ce14c5471"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17016,7 +16881,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c4",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.46",
@@ -17026,10 +16890,9 @@
       "description": "Diagnosis: Ischemic heart disease or coronary occlusion, rupture, or thrombosis",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c6",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c4"
+        "value": "5d0be6b431fe5f2ce14c5472"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17040,7 +16903,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c5",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.97",
       "dataElementCodes": [
@@ -17052,10 +16914,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c7",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c5"
+        "value": "5d0be6b431fe5f2ce14c5473"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -17071,7 +16932,6 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c6",
       "codeListId": "2.16.840.1.113762.1.4.1047.97",
       "dataElementCodes": [
 
@@ -17081,10 +16941,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c8",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c6"
+        "value": "5d0be6b431fe5f2ce14c5474"
       },
       "qdmCategory": "medication",
       "qdmStatus": "active",
@@ -17095,7 +16954,6 @@
       "_type": "QDM::MedicationActive"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c7",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.694",
@@ -17106,10 +16964,9 @@
       "description": "Procedure, Performed: CABG Surgeries",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723c9",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c7"
+        "value": "5d0be6b431fe5f2ce14c5475"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17126,7 +16983,6 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c8",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.98",
       "dataElementCodes": [
@@ -17138,10 +16994,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723ca",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c8"
+        "value": "5d0be6b431fe5f2ce14c5476"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -17157,7 +17012,6 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d003faed7c8ac9d488714c9",
       "codeListId": "2.16.840.1.113762.1.4.1047.98",
       "dataElementCodes": [
 
@@ -17167,10 +17021,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723cb",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714c9"
+        "value": "5d0be6b431fe5f2ce14c5477"
       },
       "qdmCategory": "medication",
       "qdmStatus": "active",
@@ -17181,7 +17034,6 @@
       "_type": "QDM::MedicationActive"
     },
     {
-      "_id": "5d003faed7c8ac9d488714ca",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1.1623",
@@ -17191,10 +17043,9 @@
       "description": "Diagnosis: Pregnancy Dx",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723cc",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714ca"
+        "value": "5d0be6b431fe5f2ce14c5478"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17205,7 +17056,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714cb",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.11.1005",
@@ -17220,10 +17070,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723cd",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714cb"
+        "value": "5d0be6b431fe5f2ce14c5479"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17236,7 +17085,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714cc",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1026",
@@ -17251,10 +17099,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723ce",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714cc"
+        "value": "5d0be6b431fe5f2ce14c547a"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17267,7 +17114,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714cd",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.198.11.1029",
       "components": null,
@@ -17277,10 +17123,9 @@
       "description": "Laboratory Test, Performed: LDL Test",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723cf",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714cd"
+        "value": "5d0be6b431fe5f2ce14c547b"
       },
       "method": null,
       "negationRationale": null,
@@ -17297,7 +17142,6 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714ce",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.47",
@@ -17307,10 +17151,9 @@
       "description": "Diagnosis: Stable and Unstable Angina",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d0",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714ce"
+        "value": "5d0be6b431fe5f2ce14c547c"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17321,7 +17164,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714cf",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.107",
       "dataElementCodes": [
@@ -17333,10 +17175,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d1",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714cf"
+        "value": "5d0be6b431fe5f2ce14c547d"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -17352,7 +17193,6 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d0",
       "codeListId": "2.16.840.1.113762.1.4.1047.107",
       "dataElementCodes": [
 
@@ -17362,10 +17202,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d2",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d0"
+        "value": "5d0be6b431fe5f2ce14c547e"
       },
       "qdmCategory": "medication",
       "qdmStatus": "active",
@@ -17376,7 +17215,6 @@
       "_type": "QDM::MedicationActive"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d1",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.2.1363",
@@ -17391,10 +17229,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d3",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d1"
+        "value": "5d0be6b431fe5f2ce14c547f"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17407,7 +17244,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d2",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.403",
@@ -17417,10 +17253,9 @@
       "description": "Diagnosis: Myocardial Infarction",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d4",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d2"
+        "value": "5d0be6b431fe5f2ce14c5480"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17431,7 +17266,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d3",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.44",
@@ -17441,10 +17275,9 @@
       "description": "Diagnosis: Cerebrovascular disease, Stroke, TIA",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d5",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d3"
+        "value": "5d0be6b431fe5f2ce14c5481"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17455,7 +17288,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d4",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.100",
@@ -17465,10 +17297,9 @@
       "description": "Diagnosis: Hypercholesterolemia",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d6",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d4"
+        "value": "5d0be6b431fe5f2ce14c5482"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17479,7 +17310,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d5",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.21",
@@ -17489,10 +17319,9 @@
       "description": "Diagnosis: Atherosclerosis and Peripheral Arterial",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d7",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d5"
+        "value": "5d0be6b431fe5f2ce14c5483"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17503,7 +17332,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d6",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1030",
@@ -17518,10 +17346,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d8",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d6"
+        "value": "5d0be6b431fe5f2ce14c5484"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17534,7 +17361,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d7",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.67",
@@ -17545,10 +17371,9 @@
       "description": "Procedure, Performed: PCI",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723d9",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d7"
+        "value": "5d0be6b431fe5f2ce14c5485"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17565,7 +17390,6 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d8",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.353",
@@ -17575,10 +17399,9 @@
       "description": "Diagnosis: End Stage Renal Disease",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723da",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d8"
+        "value": "5d0be6b431fe5f2ce14c5486"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17589,7 +17412,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714d9",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.204",
@@ -17600,10 +17422,9 @@
       "description": "Procedure, Performed: Carotid Intervention",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723db",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714d9"
+        "value": "5d0be6b431fe5f2ce14c5487"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17620,7 +17441,6 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714da",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.103.12.1001",
@@ -17630,10 +17450,9 @@
       "description": "Diagnosis: Diabetes",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723dc",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714da"
+        "value": "5d0be6b431fe5f2ce14c5488"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17644,7 +17463,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714db",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.42",
@@ -17654,10 +17472,9 @@
       "description": "Diagnosis: Liver Disease",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723dd",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714db"
+        "value": "5d0be6b431fe5f2ce14c5489"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17668,7 +17485,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714dc",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1047.73",
@@ -17678,10 +17494,9 @@
       "description": "Diagnosis: Breastfeeding",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723de",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714dc"
+        "value": "5d0be6b431fe5f2ce14c548a"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17692,7 +17507,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714dd",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.110.12.1024",
@@ -17702,10 +17516,9 @@
       "description": "Diagnosis: Hepatitis A",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723df",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714dd"
+        "value": "5d0be6b431fe5f2ce14c548b"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17716,7 +17529,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714de",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.11.1115",
@@ -17731,10 +17543,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723e0",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714de"
+        "value": "5d0be6b431fe5f2ce14c548c"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17747,7 +17558,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d003faed7c8ac9d488714df",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.67.1.101.1.269",
@@ -17757,10 +17567,9 @@
       "description": "Diagnosis: Hepatitis B",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723e1",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714df"
+        "value": "5d0be6b431fe5f2ce14c548d"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17771,7 +17580,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d003faed7c8ac9d488714e0",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -17779,10 +17587,9 @@
       "description": "Patient Characteristic Sex: ONC Administrative Sex Administrative",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723e2",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714e0"
+        "value": "5d0be6b431fe5f2ce14c548e"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -17791,7 +17598,6 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d003faed7c8ac9d488714e1",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -17799,10 +17605,9 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723e3",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714e1"
+        "value": "5d0be6b431fe5f2ce14c548f"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -17811,7 +17616,6 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d003faed7c8ac9d488714e2",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -17819,10 +17623,9 @@
       "description": "Patient Characteristic Payer: Payer Source of Payment",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723e4",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714e2"
+        "value": "5d0be6b431fe5f2ce14c5490"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -17832,7 +17635,6 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d003faed7c8ac9d488714e3",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -17840,10 +17642,9 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d003fb0d7c8ac9d488723e5",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d003faed7c8ac9d488714e3"
+        "value": "5d0be6b431fe5f2ce14c5491"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -17853,43 +17654,42 @@
     }
   ],
   "title": "Statin Therapy",
-  "updated_at": "2019-06-11T23:56:32.123Z",
-  "user_id": "501fdba3044a111b98000001",
+  "updated_at": null,
   "value_set_ids": [
-    "5d003fafd7c8ac9d488714e4",
-    "5d003fafd7c8ac9d488714e5",
-    "5d003fafd7c8ac9d488714e6",
-    "5d003fafd7c8ac9d488714e7",
-    "5d003fafd7c8ac9d488714e8",
-    "5d003fafd7c8ac9d488714e9",
-    "5d003fafd7c8ac9d488714ea",
-    "5d003fafd7c8ac9d488714eb",
-    "5d003fafd7c8ac9d488714ec",
-    "5d003fafd7c8ac9d488714ed",
-    "5d003fafd7c8ac9d488714ee",
-    "5d003fafd7c8ac9d488714ef",
-    "5d003fafd7c8ac9d488714f0",
-    "5d003fafd7c8ac9d488714f1",
-    "5d003fafd7c8ac9d488714f2",
-    "5d003fafd7c8ac9d488714f3",
-    "5d003fafd7c8ac9d488714f4",
-    "5d003fafd7c8ac9d488714f5",
-    "5d003fafd7c8ac9d488714f6",
-    "5d003fafd7c8ac9d488714f7",
-    "5d003fafd7c8ac9d488714f8",
-    "5d003fafd7c8ac9d488714f9",
-    "5d003fafd7c8ac9d488714fa",
-    "5d003fafd7c8ac9d488714fb",
-    "5d003fafd7c8ac9d488714fc",
-    "5d003fafd7c8ac9d488714fd",
-    "5d003fafd7c8ac9d488714fe",
-    "5d003fafd7c8ac9d488714ff",
-    "5d003fafd7c8ac9d48871500",
-    "5d003fafd7c8ac9d48871501",
-    "5d003fafd7c8ac9d48871502",
-    "5d003fafd7c8ac9d48871503",
-    "5d003fafd7c8ac9d48871504",
-    "5d003fafd7c8ac9d48871505",
-    "5d003fafd7c8ac9d48871506"
+    "5d0be6b431fe5f2ce14c5492",
+    "5d0be6b431fe5f2ce14c5493",
+    "5d0be6b431fe5f2ce14c5494",
+    "5d0be6b431fe5f2ce14c5495",
+    "5d0be6b431fe5f2ce14c5496",
+    "5d0be6b431fe5f2ce14c5497",
+    "5d0be6b431fe5f2ce14c5498",
+    "5d0be6b431fe5f2ce14c5499",
+    "5d0be6b431fe5f2ce14c549a",
+    "5d0be6b431fe5f2ce14c549b",
+    "5d0be6b431fe5f2ce14c549c",
+    "5d0be6b431fe5f2ce14c549d",
+    "5d0be6b431fe5f2ce14c549e",
+    "5d0be6b431fe5f2ce14c549f",
+    "5d0be6b431fe5f2ce14c54a0",
+    "5d0be6b431fe5f2ce14c54a1",
+    "5d0be6b431fe5f2ce14c54a2",
+    "5d0be6b431fe5f2ce14c54a3",
+    "5d0be6b431fe5f2ce14c54a4",
+    "5d0be6b431fe5f2ce14c54a5",
+    "5d0be6b431fe5f2ce14c54a6",
+    "5d0be6b431fe5f2ce14c54a7",
+    "5d0be6b431fe5f2ce14c54a8",
+    "5d0be6b431fe5f2ce14c54a9",
+    "5d0be6b431fe5f2ce14c54aa",
+    "5d0be6b431fe5f2ce14c54ab",
+    "5d0be6b431fe5f2ce14c54ac",
+    "5d0be6b431fe5f2ce14c54ad",
+    "5d0be6b431fe5f2ce14c54ae",
+    "5d0be6b431fe5f2ce14c54af",
+    "5d0be6b431fe5f2ce14c54b0",
+    "5d0be6b431fe5f2ce14c54b1",
+    "5d0be6b431fe5f2ce14c54b2",
+    "5d0be6b431fe5f2ce14c54b3",
+    "5d0be6b431fe5f2ce14c54b4"
   ]
 }
