@@ -8,7 +8,10 @@ class ExportFixturesTest < ActiveSupport::TestCase
     users_set = File.join('users', 'base_set')
     records_set = File.join('records','core_measures', 'CMS32v7')
     simple_records_set = File.join('records','core_measures', 'CMS134v6')
-    collection_fixtures(users_set, measure_set, simple_measure_set, records_set, simple_records_set)
+    packages_set = File.join('cql_measure_packages','core_measures','CMS32v7')
+    collection_fixtures(users_set, measure_set, simple_measure_set, records_set, simple_records_set, packages_set)
+    cms32 = CqlMeasure.find_by(cms_id: 'CMS32v7')
+    @cms32_file = cms32.package.file
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, CQM::Patient.all)
   end
@@ -29,6 +32,9 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_equal converted_measure[:calculation_method], 'EPISODE_OF_CARE'
     assert_nil converted_measure[:continuous_variable]
     assert_nil converted_measure[:episode_of_care]
+
+    assert_equal CQM::Measure.find_by(cms_id: 'CMS32v7').package.file, @cms32_file
+    assert_nil CQM::Measure.find_by(cms_id: 'CMS134v6').package
   end
 
   test "patients convert to CQM format properly" do
