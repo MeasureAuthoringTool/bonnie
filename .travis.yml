@@ -25,8 +25,22 @@ before_script:
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
 script:
-  - bundle exec rake teaspoon USE_COVERAGE=default
-  - codecov
+  - bundle exec rake teaspoon DIR='cqm_specs'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='helper_specs'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='integration'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='models'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='patient_builder_tests'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='production_tests'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='views'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='javascripts'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
   - bundle exec brakeman -qAzw1
   # - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
