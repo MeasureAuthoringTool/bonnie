@@ -25,6 +25,7 @@ before_script:
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
 script:
+  - codecov
   - bundle exec rake teaspoon dir=cqm_specs
   - bash <(curl -s https://codecov.io/bash) -cF coffeeScript1
   - bundle exec rake teaspoon dir=helper_specs
