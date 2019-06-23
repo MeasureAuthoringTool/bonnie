@@ -1,5 +1,4 @@
 {
-  "_id": "5d081192d7c8ac1d9324531e",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS334v1",
@@ -11,7 +10,6 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d081192d7c8ac1d9324531f",
       "cql": "library CesareanBirth version '1.1.053'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\ninclude ElectiveDelivery version '7.3.000' called PC01\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Abnormal Presentation\": 'urn:oid:2.16.840.1.113762.1.4.1045.105'\r\nvalueset \"Cesarean Birth\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.282'\r\nvalueset \"Delivery of Singleton\": 'urn:oid:2.16.840.1.113762.1.4.1045.99'\r\nvalueset \"Delivery Procedures\": 'urn:oid:2.16.840.1.113762.1.4.1045.59'\r\nvalueset \"Estimated Gestational Age at Delivery\": 'urn:oid:2.16.840.1.113762.1.4.1045.26'\r\nvalueset \"Gravida\": 'urn:oid:2.16.840.1.113762.1.4.1045.102'\r\nvalueset \"Multiple Gestation\": 'urn:oid:2.16.840.1.113762.1.4.1045.106'\r\nvalueset \"Parity\": 'urn:oid:2.16.840.1.113762.1.4.1045.95'\r\nvalueset \"Preterm\": 'urn:oid:2.16.840.1.113762.1.4.1045.108'\r\nvalueset \"Single Stillbirth\": 'urn:oid:2.16.840.1.113762.1.4.1110.8'\r\nvalueset \"Term Newborn\": 'urn:oid:2.16.840.1.113762.1.4.1045.168'\r\nvalueset \"Time of Delivery\": 'urn:oid:2.16.840.1.113762.1.4.1045.28' version 'urn:hl7:version:20171016'\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator Exclusion\":\r\n\t\"Multiple Gestation Encounters\"\r\n\t\tunion \"Abnormal Presentation Encounters\"\r\n\t\tunion \"Single Stillbirth Encounters\"\r\n\r\ndefine \"No History of Preterm Births\":\n\t//This logic is evaluating if the mother has had prior preterm births.\r\n\t[\"Assessment, Performed\": \"Preterm\"] Preterm\r\n\t\twhere ( Preterm.result = 0 )\r\n\r\ndefine \"Delivery Encounters Ages 8 Years to Less than 65 Years\":\r\n\t\"Encounters Ages 8 Years to Less than 65 Years\" QualifyingEncounters\r\n\t\twith [\"Procedure, Performed\": \"Delivery Procedures\"] DeliveryProcedures\r\n\t\t\tsuch that DeliveryProcedures.relevantPeriod starts during QualifyingEncounters.relevantPeriod\r\n\r\ndefine \"Abnormal Presentation Encounters\":\r\n\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters\r\n\t\twhere exists ( DeliveryEncounters.diagnoses EncounterDiagnosis\r\n\t\t\t\twhere EncounterDiagnosis in \"Abnormal Presentation\"\r\n\t\t)\r\n\r\ndefine \"Encounters Ages 8 Years to Less than 65 Years\":\r\n\tGlobal.\"Inpatient Encounter\" InpatientEncounter\r\n\t\twith [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\tsuch that Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of InpatientEncounter.relevantPeriod)>= 8\r\n\t\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of InpatientEncounter.relevantPeriod)< 65\r\n\r\ndefine \"Multiple Gestation Encounters\":\r\n\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters\r\n\t\twhere exists ( [\"Diagnosis\": \"Multiple Gestation\"] MultipleGestationDiagnosis\r\n\t\t\t\twhere MultipleGestationDiagnosis.prevalencePeriod starts 42 weeks or less before or on day of \r\n\t\t\t\tend of DeliveryEncounters.relevantPeriod\r\n\t\t)\r\n\t\t\tor exists ( DeliveryEncounters.diagnoses EncounterDiagnosis\r\n\t\t\t\t\twhere EncounterDiagnosis in \"Multiple Gestation\"\r\n\t\t\t)\r\n\r\ndefine \"Single Stillbirth Encounters\":\r\n\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters\r\n\t\twhere exists ( DeliveryEncounters.diagnoses EncounterDiagnosis\r\n\t\t\t\twhere EncounterDiagnosis in \"Single Stillbirth\"\r\n\t\t)\r\n\r\ndefine \"Singleton Delivery Encounters\":\r\n\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters\r\n\t\twhere exists ( DeliveryEncounters.diagnoses EncounterDiagnosis\r\n\t\t\t\twhere EncounterDiagnosis in \"Delivery of Singleton\"\r\n\t\t)\r\n\r\ndefine \"Gestational Age of 37 Plus Weeks\":\r\n\t[\"Assessment, Performed\": \"Estimated Gestational Age at Delivery\"] GestationalAge\r\n\t\twhere ( GestationalAge.result as Quantity ) >= 37 weeks\r\n\r\ndefine \"Is Gravida 1\":\r\n\t[\"Assessment, Performed\": \"Gravida\"] Gravida\r\n\t\twhere ( Gravida.result = 1 )\r\n\r\ndefine \"Is Parity 0\":\r\n\t[\"Assessment, Performed\": \"Parity\"] Parity\r\n\t\twhere ( Parity.result = 0 )\r\n\r\ndefine \"No History of Term Births\":\n\t//This logic is evaluating if the mother has had prior term births.\r\n\t[\"Assessment, Performed\": \"Term Newborn\"] TermNewborn\r\n\t\twhere ( TermNewborn.result = 0 )\r\n\r\ndefine \"Time of Delivery Encounters\":\r\n\t[\"Assessment, Performed\": \"Time of Delivery\"]\r\n\r\ndefine \"Gestational Age 37 Plus Weeks at Delivery\":\r\n\tfrom\r\n\t\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters,\r\n\t\t\"Gestational Age of 37 Plus Weeks\" Gestation37PlusWeeks,\r\n\t\t\"Time of Delivery Encounters\" TimeOfDelivery\r\n\t\twhere TimeOfDelivery.authorDatetime during DeliveryEncounters.relevantPeriod\r\n\t\t\tand Gestation37PlusWeeks.authorDatetime 1 day or less on or before TimeOfDelivery.authorDatetime\r\n\t\treturn DeliveryEncounters\r\n\r\ndefine \"Preterm Births 0 at Delivery\":\r\n\tfrom\r\n\t\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters,\r\n\t\t\"No History of Preterm Births\" NoHistoryPreterm,\r\n\t\t\"Time of Delivery Encounters\" TimeOfDelivery\r\n\t\twhere TimeOfDelivery.authorDatetime during DeliveryEncounters.relevantPeriod\t/* \"Day Of\" logic used to ignore time of day.  Second line of timing logic needed to constrain the author time to no later than the time of delivery.  */\r\n\t\t\tand NoHistoryPreterm.authorDatetime 42 weeks or less before or on day of TimeOfDelivery.authorDatetime\r\n\t\t\tand NoHistoryPreterm.authorDatetime before or on TimeOfDelivery.authorDatetime\r\n\t\treturn DeliveryEncounters\r\n\r\ndefine \"Term Births 0 at Delivery\":\r\n\tfrom\r\n\t\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters,\r\n\t\t\"No History of Term Births\" NoHistoryTerm,\r\n\t\t\"Time of Delivery Encounters\" TimeOfDelivery\r\n\t\twhere TimeOfDelivery.authorDatetime during DeliveryEncounters.relevantPeriod\t/* \"Day Of\" logic used to ignore time of day.  Second line of timing logic needed to constrain the author time to no later than the time of delivery.  */\r\n\t\t\tand NoHistoryTerm.authorDatetime 42 weeks or less before or on day of TimeOfDelivery.authorDatetime\r\n\t\t\tand NoHistoryTerm.authorDatetime before or on TimeOfDelivery.authorDatetime\r\n\t\treturn DeliveryEncounters\r\n\r\ndefine \"Parity 0 at Delivery\":\r\n\tfrom\r\n\t\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters,\r\n\t\t\"Is Parity 0\" ParityZero,\r\n\t\t\"Time of Delivery Encounters\" TimeOfDelivery\r\n\t\twhere TimeOfDelivery.authorDatetime during DeliveryEncounters.relevantPeriod\t/* \"Day Of\" logic used to ignore time of day.  Second line of timing logic needed to constrain the author time to no later than the time of delivery.  */\r\n\t\t\tand ParityZero.authorDatetime 42 weeks or less before or on day of TimeOfDelivery.authorDatetime\r\n\t\t\tand ParityZero.authorDatetime before or on TimeOfDelivery.authorDatetime\r\n\t\treturn DeliveryEncounters\r\n\r\ndefine \"Numerator\":\r\n\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters\r\n\t\twith [\"Procedure, Performed\": \"Cesarean Birth\"] CesareanBirth\r\n\t\t\tsuch that CesareanBirth.relevantPeriod during DeliveryEncounters.relevantPeriod\r\n\r\ndefine \"Gravida 1 at Delivery\":\r\n\tfrom\r\n\t\t\"Delivery Encounters Ages 8 Years to Less than 65 Years\" DeliveryEncounters,\r\n\t\t\"Is Gravida 1\" GravidaOne,\r\n\t\t\"Time of Delivery Encounters\" TimeOfDelivery\r\n\t\twhere TimeOfDelivery.authorDatetime during DeliveryEncounters.relevantPeriod\t/* \"Day Of\" logic used to ignore time of day.  Second line of timing logic needed to constrain the author time to no later than the time of delivery.  */\r\n\t\t\tand GravidaOne.authorDatetime 42 weeks or less before or on day of TimeOfDelivery.authorDatetime\r\n\t\t\tand GravidaOne.authorDatetime before or on TimeOfDelivery.authorDatetime\r\n\t\treturn DeliveryEncounters\r\n\r\ndefine \"Denominator\":\r\n\t\"Gestational Age 37 Plus Weeks at Delivery\"\r\n\t\tintersect \"Singleton Delivery Encounters\"\r\n\t\tintersect ( \"Gravida 1 at Delivery\"\r\n\t\t\t\tunion \"Parity 0 at Delivery\"\r\n\t\t\t\tunion ( \"Preterm Births 0 at Delivery\"\r\n\t\t\t\t\t\tintersect \"Term Births 0 at Delivery\"\r\n\t\t\t\t)\r\n\t\t)\r\n\r\ndefine \"Initial Population\":\r\n\tPC01.\"Initial Population\"\r\n",
       "elm": {
         "library": {
@@ -12851,43 +12849,34 @@
       "library_version": "1.1.053",
       "statement_dependencies": [
         {
-          "_id": "5d081192d7c8ac1d93245320",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d081192d7c8ac1d93245321",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d081192d7c8ac1d93245322",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d081192d7c8ac1d93245323",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d081192d7c8ac1d93245324",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d081192d7c8ac1d93245325",
           "statement_name": "Encounters Ages 8 Years to Less than 65 Years",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245326",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Inpatient Encounter"
             },
             {
-              "_id": "5d081192d7c8ac1d93245327",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d081192d7c8ac1d93245328",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
@@ -12895,11 +12884,9 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245329",
           "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d9324532a",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Encounters Ages 8 Years to Less than 65 Years"
@@ -12907,11 +12894,9 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d9324532b",
           "statement_name": "Multiple Gestation Encounters",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d9324532c",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
@@ -12919,11 +12904,9 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d9324532d",
           "statement_name": "Abnormal Presentation Encounters",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d9324532e",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
@@ -12931,11 +12914,9 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d9324532f",
           "statement_name": "Single Stillbirth Encounters",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245330",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
@@ -12943,23 +12924,19 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245331",
           "statement_name": "Denominator Exclusion",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245332",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Multiple Gestation Encounters"
             },
             {
-              "_id": "5d081192d7c8ac1d93245333",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Abnormal Presentation Encounters"
             },
             {
-              "_id": "5d081192d7c8ac1d93245334",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Single Stillbirth Encounters"
@@ -12967,15 +12944,12 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245335",
           "statement_name": "No History of Preterm Births"
         },
         {
-          "_id": "5d081192d7c8ac1d93245336",
           "statement_name": "Singleton Delivery Encounters",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245337",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
@@ -12983,43 +12957,34 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245338",
           "statement_name": "Gestational Age of 37 Plus Weeks"
         },
         {
-          "_id": "5d081192d7c8ac1d93245339",
           "statement_name": "Is Gravida 1"
         },
         {
-          "_id": "5d081192d7c8ac1d9324533a",
           "statement_name": "Is Parity 0"
         },
         {
-          "_id": "5d081192d7c8ac1d9324533b",
           "statement_name": "No History of Term Births"
         },
         {
-          "_id": "5d081192d7c8ac1d9324533c",
           "statement_name": "Time of Delivery Encounters"
         },
         {
-          "_id": "5d081192d7c8ac1d9324533d",
           "statement_name": "Gestational Age 37 Plus Weeks at Delivery",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d9324533e",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
             },
             {
-              "_id": "5d081192d7c8ac1d9324533f",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Gestational Age of 37 Plus Weeks"
             },
             {
-              "_id": "5d081192d7c8ac1d93245340",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Time of Delivery Encounters"
@@ -13027,23 +12992,19 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245341",
           "statement_name": "Preterm Births 0 at Delivery",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245342",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
             },
             {
-              "_id": "5d081192d7c8ac1d93245343",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "No History of Preterm Births"
             },
             {
-              "_id": "5d081192d7c8ac1d93245344",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Time of Delivery Encounters"
@@ -13051,23 +13012,19 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245345",
           "statement_name": "Term Births 0 at Delivery",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245346",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
             },
             {
-              "_id": "5d081192d7c8ac1d93245347",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "No History of Term Births"
             },
             {
-              "_id": "5d081192d7c8ac1d93245348",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Time of Delivery Encounters"
@@ -13075,23 +13032,19 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245349",
           "statement_name": "Parity 0 at Delivery",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d9324534a",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
             },
             {
-              "_id": "5d081192d7c8ac1d9324534b",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Is Parity 0"
             },
             {
-              "_id": "5d081192d7c8ac1d9324534c",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Time of Delivery Encounters"
@@ -13099,11 +13052,9 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d9324534d",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d9324534e",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
@@ -13111,23 +13062,19 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d9324534f",
           "statement_name": "Gravida 1 at Delivery",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245350",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Delivery Encounters Ages 8 Years to Less than 65 Years"
             },
             {
-              "_id": "5d081192d7c8ac1d93245351",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Is Gravida 1"
             },
             {
-              "_id": "5d081192d7c8ac1d93245352",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Time of Delivery Encounters"
@@ -13135,41 +13082,34 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245353",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245354",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Gestational Age 37 Plus Weeks at Delivery"
             },
             {
-              "_id": "5d081192d7c8ac1d93245355",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Singleton Delivery Encounters"
             },
             {
-              "_id": "5d081192d7c8ac1d93245356",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Gravida 1 at Delivery"
             },
             {
-              "_id": "5d081192d7c8ac1d93245357",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Parity 0 at Delivery"
             },
             {
-              "_id": "5d081192d7c8ac1d93245358",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Preterm Births 0 at Delivery"
             },
             {
-              "_id": "5d081192d7c8ac1d93245359",
               "hqmf_id": null,
               "library_name": "CesareanBirth",
               "statement_name": "Term Births 0 at Delivery"
@@ -13177,11 +13117,9 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d9324535a",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d9324535b",
               "hqmf_id": null,
               "library_name": "ElectiveDelivery",
               "statement_name": "Initial Population"
@@ -13191,7 +13129,6 @@
       ]
     },
     {
-      "_id": "5d081192d7c8ac1d9324535c",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC\": 'urn:oid:2.16.840.1.113883.6.1'\r\ncodesystem \"SNOMEDCT\": 'urn:oid:2.16.840.1.113883.6.96'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC\" display 'Birthdate'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod \r\n\t\t\telse Interval[start of X.relevantPeriod, \r\n\t\tend of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and \r\n\tend of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations \r\n\t\t\telse flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\t\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\t\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -13245,14 +13182,14 @@
                 "localId": "2",
                 "locator": "5:1-5:51",
                 "name": "LOINC",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "accessLevel": "Public"
               },
               {
                 "localId": "3",
                 "locator": "6:1-6:55",
                 "name": "SNOMEDCT",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "accessLevel": "Public"
               }
             ]
@@ -21845,11 +21782,9 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d081192d7c8ac1d9324535d",
           "statement_name": "Inpatient Encounter",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d9324535e",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "LengthInDays"
@@ -21857,15 +21792,12 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d9324535f",
           "statement_name": "LengthInDays"
         },
         {
-          "_id": "5d081192d7c8ac1d93245360",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245361",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -21873,13 +21805,11 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245362",
           "statement_name": "ToDate"
         }
       ]
     },
     {
-      "_id": "5d081192d7c8ac1d93245363",
       "cql": "library ElectiveDelivery version '7.3.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\n\r\ncodesystem \"LOINC\": 'urn:oid:2.16.840.1.113883.6.1'\r\ncodesystem \"SNOMEDCT\": 'urn:oid:2.16.840.1.113883.6.96'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Artificial Rupture of Membranes\": 'urn:oid:2.16.840.1.113762.1.4.1045.57'\r\nvalueset \"Classical Cesarean Birth\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.421'\r\nvalueset \"Conditions Possibly Justifying Elective Delivery Prior to 39 Weeks Gestation\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.286'\r\nvalueset \"Cornual Ectopic Pregnancy\": 'urn:oid:2.16.840.1.113762.1.4.1110.12'\r\nvalueset \"Delivery Procedures\": 'urn:oid:2.16.840.1.113762.1.4.1045.59'\r\nvalueset \"Dinoprostone\": 'urn:oid:2.16.840.1.113762.1.4.1045.56'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Estimated Gestational Age at Delivery\": 'urn:oid:2.16.840.1.113762.1.4.1045.26'\r\nvalueset \"Labor\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.281'\r\nvalueset \"Medical Induction of Labor\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.288'\r\nvalueset \"Myomectomy\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.422'\r\nvalueset \"Oxytocin\": 'urn:oid:2.16.840.1.113762.1.4.1045.55'\r\nvalueset \"Perforation of Uterus\": 'urn:oid:2.16.840.1.113762.1.4.1110.14'\r\nvalueset \"Time of Delivery\": 'urn:oid:2.16.840.1.113762.1.4.1045.28'\r\nvalueset \"Transabdominal Cerclage\": 'urn:oid:2.16.840.1.113762.1.4.1110.18'\r\nvalueset \"Uterine Rupture\": 'urn:oid:2.16.840.1.113762.1.4.1110.16'\r\nvalueset \"Uterine Window\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.137'\r\nvalueset \"Metroplasty\": 'urn:oid:2.16.840.1.113762.1.4.1110.25'\r\nvalueset \"Uterine Horn\": 'urn:oid:2.16.840.1.113762.1.4.1110.24'\r\nvalueset \"Cesarean Birth\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.282'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC\" display 'Birthdate'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Encounter with Age Range\":\r\n\tGlobal.\"Inpatient Encounter\" EncounterInpatient\r\n\t\twith [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\tsuch that Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of EncounterInpatient.relevantPeriod)>= 8\r\n\t\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of EncounterInpatient.relevantPeriod)< 65\r\n\r\ndefine \"Initial Population\":\r\n\t\"Delivery Encounter with Age Range\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Delivery Encounter Near Term\"\r\n\r\ndefine \"Delivery Encounter with Justifying Conditions\":\r\n\t( \"Delivery Encounter Near Term\" DeliveryEncounter\r\n\t\t\twith [\"Diagnosis\": \"Conditions Possibly Justifying Elective Delivery Prior to 39 Weeks Gestation\"] DiagnosisElectiveDelivery\r\n\t\t\t\tsuch that DiagnosisElectiveDelivery.prevalencePeriod overlaps DeliveryEncounter.relevantPeriod\r\n\t)\r\n\t\tunion ( \"Delivery Encounter Near Term\" DeliveryEncounter\r\n\t\t\t\twhere exists ( DeliveryEncounter.diagnoses Diagnoses\r\n\t\t\t\t\t\twhere Diagnoses in \"Conditions Possibly Justifying Elective Delivery Prior to 39 Weeks Gestation\"\r\n\t\t\t\t)\r\n\t\t)\r\n\r\ndefine \"Denominator Exclusion\":\r\n\t\"Delivery Encounter with Justifying Conditions\"\r\n\r\ndefine \"Medical Induction Medication\":\r\n\t[\"Medication, Administered\": \"Oxytocin\"]\r\n\t\tunion [\"Medication, Administered\": \"Dinoprostone\"]\r\n\r\ndefine \"Medical Induction Procedure\":\r\n\t[\"Procedure, Performed\": \"Artificial Rupture of Membranes\"]\r\n\t\tunion [\"Procedure, Performed\": \"Medical Induction of Labor\"]\r\n\r\ndefine \"Medical Induction While Not In Labor\":\r\n\t\"Medical Induction Medication Administered While Not In Labor\"\r\n\t\tunion \"Medical Induction Procedure Performed While Not In Labor\"\r\n\r\ndefine \"Numerator\":\r\n\t\"Cesarean Birth Without Labor or History of Uterine Surgery\"\r\n\t\tunion \"Medical Induction While Not In Labor\"\r\n\r\ndefine \"History of Uterine Surgery Diagnosis\":\r\n\t[\"Diagnosis\": \"Perforation of Uterus\"]\r\n\t\tunion [\"Diagnosis\": \"Uterine Window\"]\r\n\t\tunion [\"Diagnosis\": \"Uterine Rupture\"]\r\n\t\tunion [\"Diagnosis\": \"Cornual Ectopic Pregnancy\"]\r\n\r\ndefine \"History of Uterine Surgery Procedure\":\r\n\t[\"Procedure, Performed\": \"Classical Cesarean Birth\"]\r\n\t\tunion [\"Procedure, Performed\": \"Myomectomy\"]\r\n\t\tunion [\"Procedure, Performed\": \"Transabdominal Cerclage\"]\r\n\t\tunion [\"Procedure, Performed\": \"Metroplasty\"]\r\n\t\tunion [\"Procedure, Performed\": \"Uterine Horn\"]\r\n\r\ndefine \"Cesarean Birth Without Labor or History of Uterine Surgery\":\r\n\t\"Delivery Encounter Near Term\" DeliveryEncounter\r\n\t\twith \"Cesarean Birth While Not in Labor\" CSectionNoLabor\r\n\t\t\tsuch that CSectionNoLabor.relevantPeriod starts during DeliveryEncounter.relevantPeriod\r\n\t\twithout \"History of Uterine Surgery Procedure\" PriorUterineProcedure\r\n\t\t\tsuch that PriorUterineProcedure.relevantPeriod starts before start of DeliveryEncounter.relevantPeriod\r\n\t\twithout \"History of Uterine Surgery Diagnosis\" PriorUterineDiagnosis\r\n\t\t\tsuch that PriorUterineDiagnosis.prevalencePeriod starts before start of DeliveryEncounter.relevantPeriod\r\n\r\ndefine \"Delivery Encounter with Age Range\":\r\n\t\"Encounter with Age Range\" EnounterWithQualifyingAge\r\n\t\twith [\"Procedure, Performed\": \"Delivery Procedures\"] DeliveryProcedure\r\n\t\t\tsuch that DeliveryProcedure.relevantPeriod starts during EnounterWithQualifyingAge.relevantPeriod\r\n\r\ndefine \"Estimated Gestational Age Captured on the Day of Delivery\":\r\n\t[\"Assessment, Performed\": \"Time of Delivery\"] TimeOfDelivery\r\n\t\twith \"Gestational Age Near Term\" NearTermGestational\r\n\t\t\tsuch that NearTermGestational.authorDatetime during Interval[Global.\"ToDate\"(TimeOfDelivery.authorDatetime), TimeOfDelivery.authorDatetime]\r\n\r\ndefine \"Delivery Encounter Near Term\":\r\n\t\"Delivery Encounter with Age Range\" QualifyingEncounter\r\n\t\twith \"Estimated Gestational Age Captured on the Day of Delivery\" GestationalAge\r\n\t\t\tsuch that GestationalAge.authorDatetime during QualifyingEncounter.relevantPeriod\r\n\r\ndefine \"Is In Labor\":\r\n\t[\"Assessment, Performed\": \"Labor\"]\r\n\r\ndefine \"Cesarean Birth While Not in Labor\":\r\n\t[\"Procedure, Performed\": \"Cesarean Birth\"] CSection\r\n\t\twithout \"Is In Labor\" Labor\r\n\t\t\tsuch that Labor.authorDatetime 24 hours or less before start of CSection.relevantPeriod\r\n\r\ndefine \"Medical Induction Medication Administered While Not In Labor\":\r\n\tfrom\r\n\t\t\"Delivery Encounter Near Term\" DeliveryEncounter,\r\n\t\t\"Medical Induction Medication\" InductionMedication,\r\n\t\t\"Is In Labor\" Labor\r\n\t\twhere Labor.authorDatetime during DeliveryEncounter.relevantPeriod\r\n\t\t\tand InductionMedication.relevantPeriod 24 hours or less before Labor.authorDatetime\r\n\t\treturn DeliveryEncounter\r\n\r\ndefine \"Medical Induction Procedure Performed While Not In Labor\":\r\n\tfrom\r\n\t\t\"Delivery Encounter Near Term\" DeliveryEncounter,\r\n\t\t\"Medical Induction Procedure\" InductionProcedure,\r\n\t\t\"Is In Labor\" Labor\r\n\t\twhere Labor.authorDatetime during DeliveryEncounter.relevantPeriod\r\n\t\t\tand InductionProcedure.relevantPeriod 24 hours or less before Labor.authorDatetime\r\n\t\treturn DeliveryEncounter\r\n\r\ndefine \"Gestational Age Near Term\":\r\n\t[\"Assessment, Performed\": \"Estimated Gestational Age at Delivery\"] EstimatedGestationalAge\r\n\t\twhere EstimatedGestationalAge.result >= 37 weeks\r\n\t\t\tand EstimatedGestationalAge.result < 39 weeks\r\n",
       "elm": {
         "library": {
@@ -21944,14 +21874,14 @@
                 "localId": "3",
                 "locator": "7:1-7:51",
                 "name": "LOINC",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "accessLevel": "Public"
               },
               {
                 "localId": "4",
                 "locator": "8:1-8:55",
                 "name": "SNOMEDCT",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "accessLevel": "Public"
               }
             ]
@@ -31977,11 +31907,9 @@
       "library_version": "7.3.000",
       "statement_dependencies": [
         {
-          "_id": "5d081192d7c8ac1d93245364",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245365",
               "hqmf_id": null,
               "library_name": "ElectiveDelivery",
               "statement_name": "Delivery Encounter with Age Range"
@@ -31989,11 +31917,9 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245366",
           "statement_name": "Delivery Encounter with Age Range",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245367",
               "hqmf_id": null,
               "library_name": "ElectiveDelivery",
               "statement_name": "Encounter with Age Range"
@@ -32001,17 +31927,14 @@
           ]
         },
         {
-          "_id": "5d081192d7c8ac1d93245368",
           "statement_name": "Encounter with Age Range",
           "statement_references": [
             {
-              "_id": "5d081192d7c8ac1d93245369",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Inpatient Encounter"
             },
             {
-              "_id": "5d081192d7c8ac1d9324536a",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
@@ -32021,7 +31944,7 @@
       ]
     }
   ],
-  "created_at": "2019-06-17T22:17:54.141Z",
+  "created_at": null,
   "description": "Nulliparous women with a term, singleton baby in a vertex position delivered by cesarean birth",
   "hqmf_id": "40280382-5FA6-FE85-015F-CAEC250A133C",
   "hqmf_set_id": "FC52D0DE-B53D-4CCF-816E-1E527748D2D9",
@@ -32610,9 +32533,6 @@
     }
   },
   "measure_scoring": "PROPORTION",
-  "patient_ids": [
-
-  ],
   "population_criteria": {
     "IPP": {
       "conjunction?": true,
@@ -32685,57 +32605,47 @@
   },
   "population_sets": [
     {
-      "_id": "5d081192d7c8ac1d93245379",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d081192d7c8ac1d9324537e",
           "hqmf_id": "9427B4A7-EBFB-438B-AFF1-0D4E1A4322CA",
           "library_name": "CesareanBirth",
           "statement_name": "Denominator Exclusion"
         },
         "DENOM": {
-          "_id": "5d081192d7c8ac1d9324537c",
           "hqmf_id": "4DFD75D0-E829-4C98-B1D7-A201BF615BD8",
           "library_name": "CesareanBirth",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d081192d7c8ac1d9324537b",
           "hqmf_id": "18BB472D-9943-45D2-802C-260971D9292E",
           "library_name": "CesareanBirth",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d081192d7c8ac1d9324537d",
           "hqmf_id": "B57AA12F-F131-4724-A73E-FDB4E51C9579",
           "library_name": "CesareanBirth",
           "statement_name": "Numerator"
         },
-        "_id": "5d081192d7c8ac1d9324537a",
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
-          "_id": "5d081192d7c8ac1d9324537f",
           "hqmf_id": null,
           "library_name": "CesareanBirth",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d081192d7c8ac1d93245380",
           "hqmf_id": null,
           "library_name": "CesareanBirth",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d081192d7c8ac1d93245381",
           "hqmf_id": null,
           "library_name": "CesareanBirth",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d081192d7c8ac1d93245382",
           "hqmf_id": null,
           "library_name": "CesareanBirth",
           "statement_name": "SDE Sex"
@@ -32746,7 +32656,6 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d081191d7c8ac1d93244ccb",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -32754,10 +32663,9 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d081192d7c8ac1d9324536b",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244ccb"
+        "value": "5d0be6c331fe5f2cf5ace129"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -32767,7 +32675,6 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d081191d7c8ac1d93244ccc",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -32775,10 +32682,9 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d081192d7c8ac1d9324536c",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244ccc"
+        "value": "5d0be6c331fe5f2cf5ace12a"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -32787,7 +32693,6 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d081191d7c8ac1d93244ccd",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -32802,10 +32707,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081192d7c8ac1d9324536d",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244ccd"
+        "value": "5d0be6c331fe5f2cf5ace12b"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -32818,7 +32722,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cce",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.168",
       "components": null,
@@ -32828,10 +32731,9 @@
       "description": "Assessment, Performed: TermNewborn",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081192d7c8ac1d9324536e",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cce"
+        "value": "5d0be6c331fe5f2cf5ace12c"
       },
       "method": null,
       "negationRationale": null,
@@ -32844,7 +32746,6 @@
       "_type": "QDM::AssessmentPerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244ccf",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.59",
@@ -32855,10 +32756,9 @@
       "description": "Procedure, Performed: DeliveryProcedures",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d081192d7c8ac1d9324536f",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244ccf"
+        "value": "5d0be6c331fe5f2cf5ace12d"
       },
       "incisionDatetime": null,
       "method": null,
@@ -32875,7 +32775,6 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd0",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.108",
       "components": null,
@@ -32885,10 +32784,9 @@
       "description": "Assessment, Performed: Preterm",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081192d7c8ac1d93245370",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd0"
+        "value": "5d0be6c331fe5f2cf5ace12e"
       },
       "method": null,
       "negationRationale": null,
@@ -32901,7 +32799,6 @@
       "_type": "QDM::AssessmentPerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd1",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.28",
       "components": null,
@@ -32911,10 +32808,9 @@
       "description": "Assessment, Performed: TimeofDelivery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081192d7c8ac1d93245371",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd1"
+        "value": "5d0be6c331fe5f2cf5ace12f"
       },
       "method": null,
       "negationRationale": null,
@@ -32927,7 +32823,6 @@
       "_type": "QDM::AssessmentPerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd2",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -32935,10 +32830,9 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d081192d7c8ac1d93245372",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd2"
+        "value": "5d0be6c331fe5f2cf5ace130"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -32947,7 +32841,6 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd3",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.26",
       "components": null,
@@ -32957,10 +32850,9 @@
       "description": "Assessment, Performed: EstimatedGestationalAgeatDelivery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081192d7c8ac1d93245373",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd3"
+        "value": "5d0be6c331fe5f2cf5ace131"
       },
       "method": null,
       "negationRationale": null,
@@ -32973,7 +32865,6 @@
       "_type": "QDM::AssessmentPerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd4",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.102",
       "components": null,
@@ -32983,10 +32874,9 @@
       "description": "Assessment, Performed: Gravida",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081192d7c8ac1d93245374",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd4"
+        "value": "5d0be6c331fe5f2cf5ace132"
       },
       "method": null,
       "negationRationale": null,
@@ -32999,7 +32889,6 @@
       "_type": "QDM::AssessmentPerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd5",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -33007,10 +32896,9 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d081192d7c8ac1d93245375",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd5"
+        "value": "5d0be6c331fe5f2cf5ace133"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -33019,7 +32907,6 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd6",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.282",
@@ -33030,10 +32917,9 @@
       "description": "Procedure, Performed: CesareanBirth",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d081192d7c8ac1d93245376",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd6"
+        "value": "5d0be6c331fe5f2cf5ace134"
       },
       "incisionDatetime": null,
       "method": null,
@@ -33050,7 +32936,6 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd7",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.95",
       "components": null,
@@ -33060,10 +32945,9 @@
       "description": "Assessment, Performed: Parity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081192d7c8ac1d93245377",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd7"
+        "value": "5d0be6c331fe5f2cf5ace135"
       },
       "method": null,
       "negationRationale": null,
@@ -33076,7 +32960,6 @@
       "_type": "QDM::AssessmentPerformed"
     },
     {
-      "_id": "5d081191d7c8ac1d93244cd8",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.106",
@@ -33086,10 +32969,9 @@
       "description": "Diagnosis: MultipleGestation",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d081192d7c8ac1d93245378",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081191d7c8ac1d93244cd8"
+        "value": "5d0be6c331fe5f2cf5ace136"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -33101,44 +32983,43 @@
     }
   ],
   "title": "Cesarean Birth",
-  "updated_at": "2019-06-17T22:17:54.141Z",
-  "user_id": "501fdba3044a111b98000001",
+  "updated_at": null,
   "value_set_ids": [
-    "5d081191d7c8ac1d93244cd9",
-    "5d081191d7c8ac1d93244cda",
-    "5d081191d7c8ac1d93244cdb",
-    "5d081191d7c8ac1d93244cdc",
-    "5d081191d7c8ac1d93244cdd",
-    "5d081191d7c8ac1d93244cde",
-    "5d081191d7c8ac1d93244cdf",
-    "5d081191d7c8ac1d93244ce0",
-    "5d081191d7c8ac1d93244ce1",
-    "5d081191d7c8ac1d93244ce2",
-    "5d081191d7c8ac1d93244ce3",
-    "5d081191d7c8ac1d93244ce4",
-    "5d081191d7c8ac1d93244ce5",
-    "5d081191d7c8ac1d93244ce6",
-    "5d081191d7c8ac1d93244ce7",
-    "5d081191d7c8ac1d93244ce8",
-    "5d081191d7c8ac1d93244ce9",
-    "5d081191d7c8ac1d93244cea",
-    "5d081191d7c8ac1d93244ceb",
-    "5d081191d7c8ac1d93244cec",
-    "5d081191d7c8ac1d93244ced",
-    "5d081191d7c8ac1d93244cee",
-    "5d081191d7c8ac1d93244cef",
-    "5d081191d7c8ac1d93244cf0",
-    "5d081191d7c8ac1d93244cf1",
-    "5d081191d7c8ac1d93244cf2",
-    "5d081191d7c8ac1d93244cf3",
-    "5d081191d7c8ac1d93244cf4",
-    "5d081191d7c8ac1d93244cf5",
-    "5d081191d7c8ac1d93244cf6",
-    "5d081191d7c8ac1d93244cf7",
-    "5d081191d7c8ac1d93244cf8",
-    "5d081191d7c8ac1d93244cf9",
-    "5d081191d7c8ac1d93244cfa",
-    "5d081191d7c8ac1d93244cfb",
-    "5d081191d7c8ac1d93244cfc"
+    "5d0be6c431fe5f2cf5ace137",
+    "5d0be6c431fe5f2cf5ace138",
+    "5d0be6c431fe5f2cf5ace139",
+    "5d0be6c431fe5f2cf5ace13a",
+    "5d0be6c431fe5f2cf5ace13b",
+    "5d0be6c431fe5f2cf5ace13c",
+    "5d0be6c431fe5f2cf5ace13d",
+    "5d0be6c431fe5f2cf5ace13e",
+    "5d0be6c431fe5f2cf5ace13f",
+    "5d0be6c431fe5f2cf5ace140",
+    "5d0be6c431fe5f2cf5ace141",
+    "5d0be6c431fe5f2cf5ace142",
+    "5d0be6c431fe5f2cf5ace143",
+    "5d0be6c431fe5f2cf5ace144",
+    "5d0be6c431fe5f2cf5ace145",
+    "5d0be6c431fe5f2cf5ace146",
+    "5d0be6c431fe5f2cf5ace147",
+    "5d0be6c431fe5f2cf5ace148",
+    "5d0be6c431fe5f2cf5ace149",
+    "5d0be6c431fe5f2cf5ace14a",
+    "5d0be6c431fe5f2cf5ace14b",
+    "5d0be6c431fe5f2cf5ace14c",
+    "5d0be6c431fe5f2cf5ace14d",
+    "5d0be6c431fe5f2cf5ace14e",
+    "5d0be6c431fe5f2cf5ace14f",
+    "5d0be6c431fe5f2cf5ace150",
+    "5d0be6c431fe5f2cf5ace151",
+    "5d0be6c431fe5f2cf5ace152",
+    "5d0be6c431fe5f2cf5ace153",
+    "5d0be6c431fe5f2cf5ace154",
+    "5d0be6c431fe5f2cf5ace155",
+    "5d0be6c431fe5f2cf5ace156",
+    "5d0be6c431fe5f2cf5ace157",
+    "5d0be6c431fe5f2cf5ace158",
+    "5d0be6c431fe5f2cf5ace159",
+    "5d0be6c431fe5f2cf5ace15a"
   ]
 }

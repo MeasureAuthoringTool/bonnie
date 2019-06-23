@@ -285,7 +285,7 @@ describe 'PatientBuilderView', ->
     it "serializes negationRationale for element that is negated", ->
       # The 2nd source_data_criteria is an intervention with negationRationale set to 'Emergency Department Visit' code:
       expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negationRationale').code).toEqual '4525004'
-      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negationRationale').system).toEqual 'SNOMED-CT'
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negationRationale').system).toEqual '2.16.840.1.113883.6.96'
 
     xit "toggles negations correctly", ->
       # SKIP: should be re-enabled when negation part of patient builder is put back on

@@ -25,27 +25,36 @@
   "givenNames": [
     "Pass"
   ],
+  "measure_ids": [
+    "703CC49B-B653-4885-80E8-245A057F5AE9"
+  ],
   "notes": "",
+  "provider_ids": [
+
+  ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5c88013ed7c8ac4c3e10669b"
+      "$oid": "5d0be2e031fe5f2b58dd22a1"
     },
     "birthDatetime": "2005-02-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5c88013ed7c8ac4c3e10669c"
+          "$oid": "5d0be2e031fe5f2b58dd22a2"
         },
         "admissionSource": null,
         "authorDatetime": "2012-02-09T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "185463005"
+            "code": "185463005",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           },
           {
             "codeSystem": "CPT",
-            "code": "99201"
+            "code": "99201",
+            "codeSystemOid": "2.16.840.1.113883.6.12"
           }
         ],
         "description": "Encounter, Performed: Office Visit",
@@ -59,7 +68,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
           "_id": {
-            "$oid": "5c88013ed7c8ac4c3e10669d"
+            "$oid": "5d0be2e031fe5f2b58dd22a3"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -73,6 +82,7 @@
         "principalDiagnosis": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
         "qdmVersion": "5.4",
         "relevantPeriod": {
           "low": "2012-02-09T08:00:00.000+00:00",
@@ -84,33 +94,34 @@
       },
       {
         "_id": {
-          "$oid": "5c88013ed7c8ac4c3e10669e"
+          "$oid": "5d0be2e031fe5f2b58dd22a4"
         },
         "authorDatetime": "2012-02-09T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
-            "code": "1006608"
+            "code": "1006608",
+            "codeSystemOid": "2.16.840.1.113883.6.88"
           }
         ],
         "daysSupplied": null,
         "description": "Medication, Dispensed: ADHD Medications",
-        "dispenserId": null,
         "dosage": null,
         "frequency": null,
         "hqmfOid": "2.16.840.1.113883.3.560.1.8",
         "id": {
           "_id": {
-            "$oid": "5c88013ed7c8ac4c3e10669f"
+            "$oid": "5d0be2e031fe5f2b58dd22a5"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb7734b848463d625b2039"
         },
         "negationRationale": null,
-        "prescriberId": null,
         "qdmCategory": "medication",
         "qdmStatus": "dispensed",
+        "qdmTitle": "Medication, Dispensed",
         "qdmVersion": "5.4",
         "refills": null,
         "relevantPeriod": {
@@ -125,128 +136,132 @@
       },
       {
         "_id": {
-          "$oid": "5c88013ed7c8ac4c3e106696"
+          "$oid": "5d0be2e031fe5f2b58dd229c"
         },
         "birthDatetime": "2005-02-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystem": "LOINC",
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "descriptor": null,
-            "codeSystemOid": null,
+            "codeSystem": "LOINC",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5c88013ed7c8ac4c3e1066a0"
+            "$oid": "5d0be2e031fe5f2b58dd22a6"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013ed7c8ac4c3e106696"
+          "value": "5d0be2e031fe5f2b58dd229c"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5c88013ed7c8ac4c3e106697"
+          "$oid": "5d0be2e031fe5f2b58dd229d"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "Not Hispanic or Latino",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5c88013ed7c8ac4c3e1066a1"
+            "$oid": "5d0be2e031fe5f2b58dd22a7"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013ed7c8ac4c3e106697"
+          "value": "5d0be2e031fe5f2b58dd229d"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5c88013ed7c8ac4c3e106698"
+          "$oid": "5d0be2e031fe5f2b58dd229e"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "American Indian or Alaska Native",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5c88013ed7c8ac4c3e1066a2"
+            "$oid": "5d0be2e031fe5f2b58dd22a8"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013ed7c8ac4c3e106698"
+          "value": "5d0be2e031fe5f2b58dd229e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5c88013ed7c8ac4c3e106699"
+          "$oid": "5d0be2e031fe5f2b58dd229f"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystem": "AdministrativeGender",
-            "descriptor": "M",
             "codeSystemOid": "2.16.840.1.113883.5.1",
+            "descriptor": "M",
+            "codeSystem": "AdministrativeGender",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5c88013ed7c8ac4c3e1066a3"
+            "$oid": "5d0be2e031fe5f2b58dd22a9"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c88013ed7c8ac4c3e106699"
+          "value": "5d0be2e031fe5f2b58dd229f"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
     "extendedData": {
       "type": null,
-      "measure_ids": [
-        "703CC49B-B653-4885-80E8-245A057F5AE9",
-        null
-      ],
       "source_data_criteria": [
         {
           "negation": false,
@@ -337,5 +352,8 @@
       "insurance_providers": "[]"
     },
     "qdmVersion": "5.4"
+  },
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
   }
 }

@@ -30,13 +30,14 @@
           "code": "184225006",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Computer record of patient (record artifact)",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
+            "codeSystemOid": "2.16.840.1.113883.6.96",
             "code": "445333001"
           }
         ],
@@ -52,7 +53,7 @@
           "code": "445666005",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Faxed report (record artifact)",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "negationRationale": null,
@@ -64,7 +65,7 @@
           "code": "453231000124104",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Primary care provider (occupation)",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relevantPeriod": {
@@ -77,7 +78,7 @@
           "code": "309336000",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Pediatric oncologist (occupation)",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::CommunicationPerformed"
@@ -91,7 +92,7 @@
             "code": "21112-8",
             "codeSystem": "LOINC",
             "descriptor": null,
-            "codeSystemOid": null,
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "version": null,
             "_type": "QDM::Code"
           }

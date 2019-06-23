@@ -1,5 +1,5 @@
 {
-  "_id": "5d07f795d7c8ac11979ffe88",
+  "_id": "5b6b2161b848461165a3b783",
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
@@ -23,16 +23,16 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d07f795d7c8ac11979ffe89",
+    "_id": "5d0be2dd31fe5f2b58dd21c1",
     "birthDatetime": "1970-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d07f795d7c8ac11979ffe8a",
+        "_id": "5d0be2dd31fe5f2b58dd21c2",
         "anatomicalLocationSite": {
           "code": "129151000119102",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Kidney Failure",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
@@ -40,20 +40,21 @@
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "129151000119102"
+            "code": "129151000119102",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Diagnosis: Kidney Failure",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe8b",
+          "_id": "5d0be2dd31fe5f2b58dd21c3",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add087399"
         },
         "prevalencePeriod": {
-          "low": "2012-07-23T08:00:00.000Z",
-          "high": "2012-07-23T08:15:00.000Z",
+          "low": "2012-07-23T08:00:00.000+00:00",
+          "high": "2012-07-23T08:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -65,18 +66,18 @@
           "code": "12178007",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Proteinuria",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::Diagnosis"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe8c",
+        "_id": "5d0be2dd31fe5f2b58dd21c4",
         "admissionSource": {
           "code": "185460008",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Home Healthcare Services",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
@@ -84,7 +85,8 @@
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "12843005"
+            "code": "12843005",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Encounter, Performed: Face-to-Face Interaction",
@@ -93,43 +95,48 @@
             "code": "129151000119102",
             "codeSystem": "SNOMED-CT",
             "version": null,
-            "descriptor": "Kidney Failure"
+            "descriptor": "Kidney Failure",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           },
           {
             "code": "12178007",
             "codeSystem": "SNOMED-CT",
             "version": null,
-            "descriptor": "Proteinuria"
+            "descriptor": "Proteinuria",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           },
           {
             "code": "105401000119101",
             "codeSystem": "SNOMED-CT",
             "version": null,
-            "descriptor": "Diabetes"
+            "descriptor": "Diabetes",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "dischargeDisposition": {
           "code": "428361000124107",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Discharged to Home for Hospice Care",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "facilityLocations": [
           {
-            "_id": "5d07f795d7c8ac11979ffe8d",
+            "_id": {
+              "$oid": "5d0be2dd31fe5f2b58dd21c5"
+            },
             "_type": "QDM::FacilityLocation",
             "code": {
               "code": "4525004",
-              "codeSystem": "SNOMED-CT",
+              "codeSystemOid": "2.16.840.1.113883.6.96",
               "descriptor": "Emergency Department Visit",
-              "codeSystemOid": null,
+              "codeSystem": "SNOMED-CT",
               "version": null,
               "_type": "QDM::Code"
             },
             "locationPeriod": {
-              "low": "2012-07-23T08:00:00.000Z",
-              "high": "2012-07-23T09:00:00.000Z",
+              "low": "2012-07-23T08:00:00.000+00:00",
+              "high": "2012-07-23T09:00:00.000+00:00",
               "lowClosed": true,
               "highClosed": true,
               "_type": "QDM::Interval"
@@ -137,19 +144,21 @@
             "qdmVersion": "5.4"
           },
           {
-            "_id": "5d07f795d7c8ac11979ffe8e",
+            "_id": {
+              "$oid": "5d0be2dd31fe5f2b58dd21c6"
+            },
             "_type": "QDM::FacilityLocation",
             "code": {
               "code": "185463005",
-              "codeSystem": "SNOMED-CT",
+              "codeSystemOid": "2.16.840.1.113883.6.96",
               "descriptor": "Office Visit",
-              "codeSystemOid": null,
+              "codeSystem": "SNOMED-CT",
               "version": null,
               "_type": "QDM::Code"
             },
             "locationPeriod": {
-              "low": "2012-07-23T09:00:00.000Z",
-              "high": "2012-07-23T10:00:00.000Z",
+              "low": "2012-07-23T09:00:00.000+00:00",
+              "high": "2012-07-23T10:00:00.000+00:00",
               "lowClosed": true,
               "highClosed": true,
               "_type": "QDM::Interval"
@@ -159,7 +168,7 @@
         ],
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe8f",
+          "_id": "5d0be2dd31fe5f2b58dd21c7",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add08739a"
@@ -173,7 +182,7 @@
           "code": "105401000119101",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Diabetes",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "qdmCategory": "encounter",
@@ -181,20 +190,21 @@
         "qdmTitle": "Encounter, Performed",
         "qdmVersion": "5.4",
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000Z",
-          "high": "2012-07-23T08:15:00.000Z",
+          "low": "2012-07-23T08:00:00.000+00:00",
+          "high": "2012-07-23T08:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
         "_type": "QDM::EncounterPerformed"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe90",
+        "_id": "5d0be2dd31fe5f2b58dd21c8",
         "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
-            "code": "1000001"
+            "code": "1000001",
+            "codeSystemOid": "2.16.840.1.113883.6.88"
           }
         ],
         "description": "Medication, Active: ACE Inhibitor or ARB",
@@ -211,7 +221,7 @@
         },
         "hqmfOid": "2.16.840.1.113883.3.560.1.13",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe91",
+          "_id": "5d0be2dd31fe5f2b58dd21c9",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add08739d"
@@ -221,8 +231,8 @@
         "qdmTitle": "Medication, Active",
         "qdmVersion": "5.4",
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000Z",
-          "high": "2012-07-23T08:15:00.000Z",
+          "low": "2012-07-23T08:00:00.000+00:00",
+          "high": "2012-07-23T08:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -230,25 +240,26 @@
           "code": "180272001",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Vascular Access for Dialysis",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::MedicationActive"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe92",
+        "_id": "5d0be2dd31fe5f2b58dd21ca",
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "385763009"
+            "code": "385763009",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Intervention, Order: Hospice care ambulatory",
         "hqmfOid": "2.16.840.1.113883.3.560.1.45",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe93",
+          "_id": "5d0be2dd31fe5f2b58dd21cb",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add08739e"
@@ -262,25 +273,26 @@
           "code": "G0438",
           "codeSystem": "HCPCS",
           "descriptor": "Annual Wellness Visit",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.285",
           "version": null
         },
         "_type": "QDM::InterventionOrder"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe94",
+        "_id": "5d0be2dd31fe5f2b58dd21cc",
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "385763009"
+            "code": "385763009",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Intervention, Performed: Hospice care ambulatory",
         "hqmfOid": "2.16.840.1.113883.3.560.1.46",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe95",
+          "_id": "5d0be2dd31fe5f2b58dd21cd",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add08739f"
@@ -294,12 +306,12 @@
           "code": "129151000119102",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Kidney Failure",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000Z",
-          "high": "2012-07-23T08:15:00.000Z",
+          "low": "2012-07-23T08:00:00.000+00:00",
+          "high": "2012-07-23T08:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -307,24 +319,25 @@
           "code": "419099009",
           "codeSystem": "SNOMED-CT",
           "version": null,
-          "descriptor": "Dead"
+          "descriptor": "Dead",
+          "codeSystemOid": "2.16.840.1.113883.6.96"
         },
         "status": {
           "code": "105401000119101",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Diabetes",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::InterventionPerformed"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe96",
+        "_id": "5d0be2dd31fe5f2b58dd21ce",
         "anatomicalLocationSite": {
           "code": "12843005",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Face-to-Face Interaction",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
@@ -335,13 +348,14 @@
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "108241001"
+            "code": "108241001",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Procedure, Performed: Dialysis Services",
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe97",
+          "_id": "5d0be2dd31fe5f2b58dd21cf",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add0873a1"
@@ -351,7 +365,7 @@
           "code": "11218-5",
           "codeSystem": "LOINC",
           "descriptor": "Urine Protein Tests",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.1",
           "version": null
         },
         "negationRationale": null,
@@ -359,7 +373,7 @@
           "code": "127013003",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Diabetic Nephropathy",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "qdmCategory": "procedure",
@@ -370,12 +384,12 @@
           "code": "12178007",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Proteinuria",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000Z",
-          "high": "2012-07-23T08:15:00.000Z",
+          "low": "2012-07-23T08:00:00.000+00:00",
+          "high": "2012-07-23T08:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -383,19 +397,20 @@
           "code": "419099009",
           "codeSystem": "SNOMED-CT",
           "version": null,
-          "descriptor": "Dead"
+          "descriptor": "Dead",
+          "codeSystemOid": "2.16.840.1.113883.6.96"
         },
         "status": {
           "code": "419099009",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Dead",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::ProcedurePerformed"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe98",
+        "_id": "5d0be2dd31fe5f2b58dd21d0",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": null,
@@ -406,7 +421,8 @@
               "code": "127013003",
               "codeSystem": "SNOMED-CT",
               "version": null,
-              "descriptor": null
+              "descriptor": null,
+              "codeSystemOid": "2.16.840.1.113883.6.96"
             }
           },
           {
@@ -414,26 +430,29 @@
               "code": "12178007",
               "codeSystem": "SNOMED-CT",
               "version": null,
-              "descriptor": null
+              "descriptor": null,
+              "codeSystemOid": "2.16.840.1.113883.6.96"
             },
             "code": {
               "code": "11218-5",
               "codeSystem": "LOINC",
               "version": null,
-              "descriptor": "Proteinuria"
+              "descriptor": "Proteinuria",
+              "codeSystemOid": "2.16.840.1.113883.6.1"
             }
           }
         ],
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "175899003"
+            "code": "175899003",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Procedure, Performed: Kidney Transplant",
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe99",
+          "_id": "5d0be2dd31fe5f2b58dd21d1",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add0873a3"
@@ -448,8 +467,8 @@
         "qdmVersion": "5.4",
         "reason": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000Z",
-          "high": "2012-07-23T08:15:00.000Z",
+          "low": "2012-07-23T08:00:00.000+00:00",
+          "high": "2012-07-23T08:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -458,7 +477,7 @@
         "_type": "QDM::ProcedurePerformed"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe9a",
+        "_id": "5d0be2dd31fe5f2b58dd21d2",
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": null,
         "components": [
@@ -467,13 +486,14 @@
         "dataElementCodes": [
           {
             "codeSystem": "LOINC",
-            "code": "11218-5"
+            "code": "11218-5",
+            "codeSystemOid": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Laboratory Test, Performed: Urine Protein Tests",
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe9b",
+          "_id": "5d0be2dd31fe5f2b58dd21d3",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add0873a4"
@@ -482,7 +502,7 @@
           "code": "180272001",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Vascular Access for Dialysis",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "negationRationale": null,
@@ -494,7 +514,7 @@
           "code": "129151000119102",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Kidney Failure",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "referenceRange": {
@@ -510,8 +530,8 @@
           "highClosed": true
         },
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000Z",
-          "high": "2012-07-23T08:15:00.000Z",
+          "low": "2012-07-23T08:00:00.000+00:00",
+          "high": "2012-07-23T08:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -524,13 +544,13 @@
           "code": "428371000124100",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Discharged to Health Care Facility for Hospice Care",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::LaboratoryTestPerformed"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe9c",
+        "_id": "5d0be2dd31fe5f2b58dd21d4",
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": null,
         "components": [
@@ -543,7 +563,8 @@
               "code": "12178007",
               "codeSystem": "SNOMED-CT",
               "version": null,
-              "descriptor": null
+              "descriptor": null,
+              "codeSystemOid": "2.16.840.1.113883.6.96"
             },
             "referenceRange": {
               "low": "20",
@@ -557,26 +578,29 @@
               "code": "105401000119101",
               "codeSystem": "SNOMED-CT",
               "version": null,
-              "descriptor": null
+              "descriptor": null,
+              "codeSystemOid": "2.16.840.1.113883.6.96"
             },
             "code": {
               "code": "180272001",
               "codeSystem": "SNOMED-CT",
               "version": null,
-              "descriptor": "Diabetes"
+              "descriptor": "Diabetes",
+              "codeSystemOid": "2.16.840.1.113883.6.96"
             }
           }
         ],
         "dataElementCodes": [
           {
             "codeSystem": "LOINC",
-            "code": "12842-1"
+            "code": "12842-1",
+            "codeSystemOid": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Laboratory Test, Performed: Urine Protein Tests",
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe9d",
+          "_id": "5d0be2dd31fe5f2b58dd21d5",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add0873a6"
@@ -590,8 +614,8 @@
         "reason": null,
         "referenceRange": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000Z",
-          "high": "2012-07-23T08:15:00.000Z",
+          "low": "2012-07-23T08:00:00.000+00:00",
+          "high": "2012-07-23T08:15:00.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -601,15 +625,15 @@
         "_type": "QDM::LaboratoryTestPerformed"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe84",
+        "_id": "5d0be2dd31fe5f2b58dd21bc",
         "birthDatetime": "1970-01-01T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystem": "LOINC",
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "descriptor": null,
-            "codeSystemOid": null,
+            "codeSystem": "LOINC",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -617,10 +641,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe9e",
+          "_id": "5d0be2dd31fe5f2b58dd21d6",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d07f795d7c8ac11979ffe84"
+          "value": "5d0be2dd31fe5f2b58dd21bc"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -629,14 +653,14 @@
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe85",
+        "_id": "5d0be2dd31fe5f2b58dd21bd",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "Not Hispanic or Latino",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -644,10 +668,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffe9f",
+          "_id": "5d0be2dd31fe5f2b58dd21d7",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d07f795d7c8ac11979ffe85"
+          "value": "5d0be2dd31fe5f2b58dd21bd"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -656,14 +680,14 @@
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe86",
+        "_id": "5d0be2dd31fe5f2b58dd21be",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "American Indian or Alaska Native",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -671,10 +695,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffea0",
+          "_id": "5d0be2dd31fe5f2b58dd21d8",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d07f795d7c8ac11979ffe86"
+          "value": "5d0be2dd31fe5f2b58dd21be"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -683,14 +707,14 @@
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d07f795d7c8ac11979ffe87",
+        "_id": "5d0be2dd31fe5f2b58dd21bf",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystem": "AdministrativeGender",
-            "descriptor": "M",
             "codeSystemOid": "2.16.840.1.113883.5.1",
+            "descriptor": "M",
+            "codeSystem": "AdministrativeGender",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -698,10 +722,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": "5d07f795d7c8ac11979ffea1",
+          "_id": "5d0be2dd31fe5f2b58dd21d9",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d07f795d7c8ac11979ffe87"
+          "value": "5d0be2dd31fe5f2b58dd21bf"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
@@ -744,7 +768,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c2f6cb848464add08739e",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add08739e"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -783,7 +809,9 @@
               "129151000119102"
             ]
           },
-          "coded_entry_id": "5b6c2f6cb848464add087399",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add087399"
+          },
           "code_source": "USER_DEFINED"
         },
         {
@@ -886,7 +914,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c2f6cb848464add08739a",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add08739a"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -932,7 +962,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c2f6cb848464add08739f",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add08739f"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -1006,7 +1038,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c2f6cb848464add0873a4",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add0873a4"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -1070,7 +1104,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c2f6cb848464add0873a6",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add0873a6"
+          },
           "code_source": "USER_DEFINED"
         },
         {
@@ -1125,7 +1161,9 @@
               "1000001"
             ]
           },
-          "coded_entry_id": "5b6c2f6cb848464add08739d",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add08739d"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -1197,7 +1235,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c2f6cb848464add0873a1",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add0873a1"
+          },
           "code_source": "USER_DEFINED"
         },
         {
@@ -1253,7 +1293,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c2f6cb848464add0873a3",
+          "coded_entry_id": {
+            "$oid": "5b6c2f6cb848464add0873a3"
+          },
           "code_source": "USER_DEFINED"
         },
         {

@@ -35,7 +35,7 @@ module ExcelExportHelper
             'observation_values' => []
           }
 
-          result[pop_set_or_strat[:id]]['extendedData']['population_relevance'].each_key do |population_criteria|
+          result[pop_set_or_strat[:id]]['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'observation_values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
               result[pop_set_or_strat[:id]]['episode_results']&.each_value do |episode|
@@ -108,7 +108,7 @@ module ExcelExportHelper
       next if population_details[pop_index]
 
       # the population_details are independent of patient, so index into the first patient in the results.
-      population_details[pop_index] = {title: pop_set_or_strat[:title], statement_relevance: results.first[1][pop_set_or_strat[:id]]['extendedData']['statement_relevance']}
+      population_details[pop_index] = {title: pop_set_or_strat[:title], statement_relevance: results.first[1][pop_set_or_strat[:id]]['statement_relevance']}
 
       # TODO: The front end adds 'index' to this array, but it might be unused. Investigate and remove if possible.
       population_details[pop_index][:criteria] = pop_set_or_strat[:criteria] + ['index']
