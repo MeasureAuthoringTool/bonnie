@@ -3,41 +3,39 @@
     "PopulationSet_1": {
       "state": "complete",
       "_id": "5b479b890a97b16d73ba4782",
-      "extendedData": {
-        "population_relevance": {
-          "IPP": true,
-          "DENOM": true,
-          "DENEX": true,
-          "NUMER": true
+      "population_relevance": {
+        "IPP": true,
+        "DENOM": true,
+        "DENEX": true,
+        "NUMER": true
+      },
+      "statement_relevance": {
+        "DiabetesMedicalAttentionforNephropathy": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Renal Procedures": "TRUE",
+          "Renal Interventions": "TRUE",
+          "Qualifying Encounters": "TRUE",
+          "Protein Urea Lab Test": "TRUE",
+          "Nephropathy Diagnoses": "TRUE",
+          "ESRD Encounter": "TRUE",
+          "Active ACEI or ARB Medications": "TRUE",
+          "Initial Population": "TRUE",
+          "Denominator": "TRUE",
+          "Nephropathy Screenings": "TRUE",
+          "Numerator": "TRUE",
+          "In Hospice": "TRUE",
+          "Denominator Exclusions": "TRUE"
         },
-        "statement_relevance": {
-          "DiabetesMedicalAttentionforNephropathy": {
-            "Patient": "NA",
-            "SDE Ethnicity": "NA",
-            "SDE Payer": "NA",
-            "SDE Race": "NA",
-            "SDE Sex": "NA",
-            "Renal Procedures": "TRUE",
-            "Renal Interventions": "TRUE",
-            "Qualifying Encounters": "TRUE",
-            "Protein Urea Lab Test": "TRUE",
-            "Nephropathy Diagnoses": "TRUE",
-            "ESRD Encounter": "TRUE",
-            "Active ACEI or ARB Medications": "TRUE",
-            "Initial Population": "TRUE",
-            "Denominator": "TRUE",
-            "Nephropathy Screenings": "TRUE",
-            "Numerator": "TRUE",
-            "In Hospice": "TRUE",
-            "Denominator Exclusions": "TRUE"
-          },
-          "MATGlobalCommonFunctions": {
-            "CalendarAgeInYearsAt": "TRUE",
-            "ToDate": "TRUE"
-          },
-          "Hospice": {
-            "Has Hospice": "TRUE"
-          }
+        "MATGlobalCommonFunctions": {
+          "CalendarAgeInYearsAt": "TRUE",
+          "ToDate": "TRUE"
+        },
+        "Hospice": {
+          "Has Hospice": "TRUE"
         }
       },
       "IPP": 1,
@@ -1650,41 +1648,39 @@
     "PopulationSet_1": {
       "state": "complete",
       "_id": "5b479b890a97b16d73ba4783",
-      "extendedData": {
-        "population_relevance": {
-          "IPP": true,
-          "DENOM": true,
-          "DENEX": true,
-          "NUMER": true
+      "population_relevance": {
+        "IPP": true,
+        "DENOM": true,
+        "DENEX": true,
+        "NUMER": true
+      },
+      "statement_relevance": {
+        "DiabetesMedicalAttentionforNephropathy": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Renal Procedures": "TRUE",
+          "Renal Interventions": "TRUE",
+          "Qualifying Encounters": "TRUE",
+          "Protein Urea Lab Test": "TRUE",
+          "Nephropathy Diagnoses": "TRUE",
+          "ESRD Encounter": "TRUE",
+          "Active ACEI or ARB Medications": "TRUE",
+          "Initial Population": "TRUE",
+          "Denominator": "TRUE",
+          "Nephropathy Screenings": "TRUE",
+          "Numerator": "TRUE",
+          "In Hospice": "TRUE",
+          "Denominator Exclusions": "TRUE"
         },
-        "statement_relevance": {
-          "DiabetesMedicalAttentionforNephropathy": {
-            "Patient": "NA",
-            "SDE Ethnicity": "NA",
-            "SDE Payer": "NA",
-            "SDE Race": "NA",
-            "SDE Sex": "NA",
-            "Renal Procedures": "TRUE",
-            "Renal Interventions": "TRUE",
-            "Qualifying Encounters": "TRUE",
-            "Protein Urea Lab Test": "TRUE",
-            "Nephropathy Diagnoses": "TRUE",
-            "ESRD Encounter": "TRUE",
-            "Active ACEI or ARB Medications": "TRUE",
-            "Initial Population": "TRUE",
-            "Denominator": "TRUE",
-            "Nephropathy Screenings": "TRUE",
-            "Numerator": "TRUE",
-            "In Hospice": "TRUE",
-            "Denominator Exclusions": "TRUE"
-          },
-          "MATGlobalCommonFunctions": {
-            "CalendarAgeInYearsAt": "TRUE",
-            "ToDate": "TRUE"
-          },
-          "Hospice": {
-            "Has Hospice": "TRUE"
-          }
+        "MATGlobalCommonFunctions": {
+          "CalendarAgeInYearsAt": "TRUE",
+          "ToDate": "TRUE"
+        },
+        "Hospice": {
+          "Has Hospice": "TRUE"
         }
       },
       "IPP": 1,

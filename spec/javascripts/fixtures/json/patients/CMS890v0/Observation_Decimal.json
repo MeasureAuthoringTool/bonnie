@@ -103,6 +103,7 @@
         "dataElementCodes": [
           {
             "codeSystem": "LOINC",
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "code": "59458-0"
           }
         ],
@@ -124,6 +125,7 @@
         "result": {
           "code": "160684002",
           "codeSystem": "SNOMED-CT",
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null,
           "descriptor": "Patient not ambulatory"
         },
@@ -137,10 +139,12 @@
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
+            "codeSystemOid": "2.16.840.1.113883.6.96",
             "code": "444971000124105"
           },
           {
             "codeSystem": "HCPCS",
+            "codeSystemOid": "2.16.840.1.113883.6.285",
             "code": "G0438"
           }
         ],
@@ -187,6 +191,7 @@
         "dataElementCodes": [
           {
             "codeSystem": "LOINC",
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "code": "24966-4"
           }
         ],
@@ -226,7 +231,7 @@
             "code": "21112-8",
             "codeSystem": "LOINC",
             "descriptor": null,
-            "codeSystemOid": null,
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "version": null,
             "_type": "QDM::Code"
           }

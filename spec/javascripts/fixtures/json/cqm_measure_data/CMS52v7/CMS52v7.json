@@ -1,5 +1,4 @@
 {
-  "_id": "5d081190d7c8ac1d93244932",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS52v7",
@@ -11,7 +10,6 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d081190d7c8ac1d93244933",
       "cql": "library HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis version '7.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude Hospice version '1.0.000' called Hospice\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\n\r\ncodesystem \"RXNORM:2018-01\": 'urn:oid:2.16.840.1.113883.6.88' version 'urn:hl7:version:2018-01'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"CD4+ Count\": 'urn:oid:2.16.840.1.113883.3.464.1003.121.12.1004'\r\nvalueset \"CD4+ Percentage\": 'urn:oid:2.16.840.1.113883.3.464.1003.121.12.1005'\r\nvalueset \"HIV 1\": 'urn:oid:2.16.840.1.113883.3.464.1003.120.12.1004'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Outpatient Consultation\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1008'\r\nvalueset \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\": 'urn:oid:2.16.840.1.113883.3.464.1003.196.12.1076'\r\nvalueset \"Preventive Care - Established Office Visit, 0 to 17\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1024'\r\nvalueset \"Preventive Care Services - Established Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1025'\r\nvalueset \"Preventive Care Services-Initial Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1023'\r\nvalueset \"Preventive Care- Initial Office Visit, 0 to 17\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1022'\r\nvalueset \"Leucovorin\": 'urn:oid:2.16.840.1.113883.3.464.1003.196.12.1205'\r\n\r\ncode \"Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet\": '105337' from \"RXNORM:2018-01\" display 'Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"CD4 Count Under 500\":\r\n\t[\"Laboratory Test, Performed\": \"CD4+ Count\"] CD4Count\r\n\t\twhere ( CD4Count.result as Quantity ) < 500 '/mm3'\r\n\t\t\tand CD4Count.relevantPeriod ends 9 months or less after start of \"Measurement Period\"\r\n\r\ndefine \"CD4 Count Under 200\":\r\n\t[\"Laboratory Test, Performed\": \"CD4+ Count\"] CD4Count\r\n\t\twhere ( CD4Count.result as Quantity ) < 200 '/mm3'\r\n\t\t\tand CD4Count.relevantPeriod ends 9 months or less after start of \"Measurement Period\"\r\n\r\ndefine \"Denominator 1\":\r\n\t\"Initial Population 1\"\r\n\r\ndefine \"Denominator 2\":\r\n\t\"Initial Population 2\"\r\n\r\ndefine \"Denominator 3\":\r\n\t\"Initial Population 3\"\r\n\r\ndefine \"Qualifying Encounters\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care- Initial Office Visit, 0 to 17\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services - Established Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services-Initial Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care - Established Office Visit, 0 to 17\"]\r\n\t\tunion [\"Encounter, Performed\": \"Outpatient Consultation\"] ) ValidEncounter\r\n\t\twhere ValidEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"CD4 Count Under 500 with PCP Medication Prophylaxis\":\r\n\t\"CD4 Count Under 500\" CD4Under500\r\n\t\twith [\"Medication, Order\": \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\"] PCPProphylaxis\r\n\t\t\tsuch that PCPProphylaxis.authorDatetime occurs 3 months or less after end of CD4Under500.relevantPeriod\r\n\r\ndefine \"CD4 Count Under 200 with PCP Medication Prophylaxis\":\r\n\t\"CD4 Count Under 200\" CD4Under200\r\n\t\twith [\"Medication, Order\": \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\"] PCPProphylaxis\r\n\t\t\tsuch that PCPProphylaxis.authorDatetime 3 months or less after end of CD4Under200.relevantPeriod\r\n\r\ndefine \"HIV Diagnosis\":\r\n\t[\"Diagnosis\": \"HIV 1\"] HIV\r\n\t\twhere HIV.prevalencePeriod starts before end of \"Measurement Period\"\r\n\r\ndefine \"First HIV Diagnosis\":\r\n\tFirst(\"HIV Diagnosis\" FirstHIVDiagnosis\r\n\t\t\twhere FirstHIVDiagnosis.prevalencePeriod starts before end of \"Measurement Period\"\r\n\t\t\tsort by start of prevalencePeriod\r\n\t)\r\n\r\ndefine \"CD4 Count Under 200 With Current PCP Treatment\":\r\n\tfrom\r\n\t\t\"CD4 Count Under 200\" CD4CountUnder200,\r\n\t\t[\"Medication, Order\": \"Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet\"] DapsoneOrder,\r\n\t\t[\"Medication, Order\": \"Leucovorin\"] LeucovorinOrder\r\n\t\twhere DapsoneOrder.authorDatetime occurs 3 months or less after end CD4CountUnder200.relevantPeriod\r\n\t\t\tand LeucovorinOrder.authorDatetime occurs 3 months or less after end CD4CountUnder200.relevantPeriod\r\n\t\t\tand DapsoneOrder.authorDatetime same day as LeucovorinOrder.authorDatetime\r\n\t\treturn CD4CountUnder200\r\n\r\ndefine \"CD4 Percentage Less Than 15\":\r\n\t[\"Laboratory Test, Performed\": \"CD4+ Percentage\"] CD4Percent\r\n\t\twhere ( CD4Percent.result as Quantity ) < 15 '%'\r\n\t\t\tand CD4Percent.relevantPeriod ends 9 months or less after start of \"Measurement Period\"\r\n\r\ndefine \"CD4 Count Under 500 or CD4 Percentage Less Than 15\":\r\n\t\"CD4 Count Under 500\"\r\n\t\tunion \"CD4 Percentage Less Than 15\"\r\n\r\ndefine \"Numerator 3\":\r\n\texists [\"Medication, Order\": \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\"] PCPProphylaxis\r\n\t\twith \"First HIV Diagnosis\" FirstHIVDiagnosis\r\n\t\t\tsuch that PCPProphylaxis.authorDatetime same day as start of FirstHIVDiagnosis.prevalencePeriod\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tHospice.\"Has Hospice\"\r\n\r\ndefine \"Initial Population 3\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInDaysAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 42\r\n\t\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 1\r\n\t)\r\n\t\tand \"First HIV Diagnosis\" is not null\r\n\t\tand exists ( \"Followup HIV Visit\" )\r\n\r\ndefine \"CD4 Percentage Less Than 15 with PCP Medication Prophylaxis\":\r\n\t\"CD4 Percentage Less Than 15\" CD4Percentage\r\n\t\twith [\"Medication, Order\": \"Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis\"] PCPProphylaxis\r\n\t\t\tsuch that PCPProphylaxis.authorDatetime occurs 3 months or less after end of CD4Percentage.relevantPeriod\r\n\r\ndefine \"Numerator 2\":\r\n\texists ( \"CD4 Count Under 500 with PCP Medication Prophylaxis\" )\r\n\t\tor exists ( \"CD4 Percentage Less Than 15 with PCP Medication Prophylaxis\" )\r\n\r\ndefine \"Numerator 1\":\r\n\texists \"CD4 Count Under 200 with PCP Medication Prophylaxis\"\r\n\t\tor exists ( \"CD4 Count Under 200 With Current PCP Treatment\" )\r\n\r\ndefine \"Followup HIV Visit\":\r\n\t\"Qualifying Encounters\" FollowupVisit\r\n\t\twith \"Qualifying Encounters\" PriorVisit\r\n\t\t\tsuch that FollowupVisit.authorDatetime 90 days or more on or after day of PriorVisit.authorDatetime\r\n\r\ndefine \"Denominator Exceptions 1\":\r\n\texists ( \"CD4 Count Under 200\" FirstCD4Count\r\n\t\t\twith [\"Laboratory Test, Performed\": \"CD4+ Count\"] SecondCD4Count\r\n\t\t\t\tsuch that SecondCD4Count.authorDatetime less than 3 months after day of FirstCD4Count.authorDatetime\r\n\t\t\t\t\tand SecondCD4Count.result >= 200 '/mm3'\r\n\t)\r\n\r\ndefine \"Denominator Exceptions 2\":\r\n\texists ( ( [\"Laboratory Test, Performed\": \"CD4+ Count\"] FirstCD4Count\r\n\t\t\t\twith [\"Laboratory Test, Performed\": \"CD4+ Count\"] SecondCD4Count\r\n\t\t\t\t\tsuch that SecondCD4Count.authorDatetime occurs 3 months or less after day of FirstCD4Count.authorDatetime\r\n\t\t\t\t\t\tand SecondCD4Count.result >= 500 '/mm3'\r\n\t\t)\r\n\t\t\tunion ( [\"Laboratory Test, Performed\": \"CD4+ Percentage\"] FirstCD4Percent\r\n\t\t\t\t\twith [\"Laboratory Test, Performed\": \"CD4+ Percentage\"] SecondCD4Percent\r\n\t\t\t\t\t\tsuch that SecondCD4Percent.authorDatetime occurs 3 months or less after FirstCD4Percent.authorDatetime\r\n\t\t\t\t\t\t\tand SecondCD4Percent.result >= 15 '%'\r\n\t\t\t)\r\n\t)\r\n\r\ndefine \"Initial Population 1\":\r\n\tGlobal.\"CalendarAgeInYearsAt\"(Patient.birthDatetime, start of \"Measurement Period\")>= 6\r\n\t\tand exists ( \"HIV Diagnosis\" )\r\n\t\tand exists ( \"Followup HIV Visit\" )\r\n\t\tand exists ( \"CD4 Count Under 200\" )\r\n\r\ndefine \"Initial Population 2\":\r\n\tGlobal.\"CalendarAgeInYearsAt\"(Patient.birthDatetime, start of \"Measurement Period\")in Interval[1, 6 )\r\n\t\tand exists ( \"HIV Diagnosis\" )\r\n\t\tand exists ( \"Followup HIV Visit\" )\r\n\t\tand exists ( \"CD4 Count Under 500 or CD4 Percentage Less Than 15\" )\r\n",
       "elm": {
         "library": {
@@ -83,7 +81,7 @@
                 "localId": "4",
                 "locator": "9:1-9:95",
                 "name": "RXNORM:2018-01",
-                "id": "RxNorm",
+                "id": "2.16.840.1.113883.6.88",
                 "version": "urn:hl7:version:2018-01",
                 "accessLevel": "Public"
               }
@@ -14610,53 +14608,41 @@
       "library_version": "7.1.000",
       "statement_dependencies": [
         {
-          "_id": "5d081190d7c8ac1d93244934",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d081190d7c8ac1d93244935",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d081190d7c8ac1d93244936",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d081190d7c8ac1d93244937",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d081190d7c8ac1d93244938",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d081190d7c8ac1d93244939",
           "statement_name": "CD4 Count Under 500"
         },
         {
-          "_id": "5d081190d7c8ac1d9324493a",
           "statement_name": "CD4 Count Under 200"
         },
         {
-          "_id": "5d081190d7c8ac1d9324493b",
           "statement_name": "HIV Diagnosis"
         },
         {
-          "_id": "5d081190d7c8ac1d9324493c",
           "statement_name": "Qualifying Encounters"
         },
         {
-          "_id": "5d081190d7c8ac1d9324493d",
           "statement_name": "Followup HIV Visit",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d9324493e",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Qualifying Encounters"
             },
             {
-              "_id": "5d081190d7c8ac1d9324493f",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Qualifying Encounters"
@@ -14664,29 +14650,24 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244940",
           "statement_name": "Initial Population 1",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244941",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d081190d7c8ac1d93244942",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "HIV Diagnosis"
             },
             {
-              "_id": "5d081190d7c8ac1d93244943",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Followup HIV Visit"
             },
             {
-              "_id": "5d081190d7c8ac1d93244944",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200"
@@ -14694,11 +14675,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244945",
           "statement_name": "Denominator 1",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244946",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Initial Population 1"
@@ -14706,21 +14685,17 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244947",
           "statement_name": "CD4 Percentage Less Than 15"
         },
         {
-          "_id": "5d081190d7c8ac1d93244948",
           "statement_name": "CD4 Count Under 500 or CD4 Percentage Less Than 15",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244949",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 500"
             },
             {
-              "_id": "5d081190d7c8ac1d9324494a",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Percentage Less Than 15"
@@ -14728,29 +14703,24 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d9324494b",
           "statement_name": "Initial Population 2",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d9324494c",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d081190d7c8ac1d9324494d",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "HIV Diagnosis"
             },
             {
-              "_id": "5d081190d7c8ac1d9324494e",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Followup HIV Visit"
             },
             {
-              "_id": "5d081190d7c8ac1d9324494f",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 500 or CD4 Percentage Less Than 15"
@@ -14758,11 +14728,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244950",
           "statement_name": "Denominator 2",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244951",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Initial Population 2"
@@ -14770,11 +14738,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244952",
           "statement_name": "First HIV Diagnosis",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244953",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "HIV Diagnosis"
@@ -14782,29 +14748,24 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244954",
           "statement_name": "Initial Population 3",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244955",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInDaysAt"
             },
             {
-              "_id": "5d081190d7c8ac1d93244956",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d081190d7c8ac1d93244957",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "First HIV Diagnosis"
             },
             {
-              "_id": "5d081190d7c8ac1d93244958",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Followup HIV Visit"
@@ -14812,11 +14773,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244959",
           "statement_name": "Denominator 3",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d9324495a",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "Initial Population 3"
@@ -14824,11 +14783,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d9324495b",
           "statement_name": "CD4 Count Under 500 with PCP Medication Prophylaxis",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d9324495c",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 500"
@@ -14836,11 +14793,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d9324495d",
           "statement_name": "CD4 Count Under 200 with PCP Medication Prophylaxis",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d9324495e",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200"
@@ -14848,11 +14803,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d9324495f",
           "statement_name": "CD4 Count Under 200 With Current PCP Treatment",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244960",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200"
@@ -14860,11 +14813,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244961",
           "statement_name": "Numerator 3",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244962",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "First HIV Diagnosis"
@@ -14872,11 +14823,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244963",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244964",
               "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
@@ -14884,11 +14833,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244965",
           "statement_name": "CD4 Percentage Less Than 15 with PCP Medication Prophylaxis",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244966",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Percentage Less Than 15"
@@ -14896,17 +14843,14 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244967",
           "statement_name": "Numerator 2",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244968",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 500 with PCP Medication Prophylaxis"
             },
             {
-              "_id": "5d081190d7c8ac1d93244969",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Percentage Less Than 15 with PCP Medication Prophylaxis"
@@ -14914,17 +14858,14 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d9324496a",
           "statement_name": "Numerator 1",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d9324496b",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200 with PCP Medication Prophylaxis"
             },
             {
-              "_id": "5d081190d7c8ac1d9324496c",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200 With Current PCP Treatment"
@@ -14932,11 +14873,9 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d9324496d",
           "statement_name": "Denominator Exceptions 1",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d9324496e",
               "hqmf_id": null,
               "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
               "statement_name": "CD4 Count Under 200"
@@ -14944,13 +14883,11 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d9324496f",
           "statement_name": "Denominator Exceptions 2"
         }
       ]
     },
     {
-      "_id": "5d081190d7c8ac1d93244970",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -15004,7 +14941,7 @@
                 "localId": "2",
                 "locator": "5:1-5:87",
                 "name": "LOINC:2.46",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "version": "urn:hl7:version:2.46",
                 "accessLevel": "Public"
               },
@@ -15012,7 +14949,7 @@
                 "localId": "3",
                 "locator": "6:1-6:97",
                 "name": "SNOMEDCT:2016-03",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2016-03",
                 "accessLevel": "Public"
               }
@@ -23614,11 +23551,9 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d081190d7c8ac1d93244971",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244972",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -23626,15 +23561,12 @@
           ]
         },
         {
-          "_id": "5d081190d7c8ac1d93244973",
           "statement_name": "ToDate"
         },
         {
-          "_id": "5d081190d7c8ac1d93244974",
           "statement_name": "CalendarAgeInDaysAt",
           "statement_references": [
             {
-              "_id": "5d081190d7c8ac1d93244975",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -23644,7 +23576,6 @@
       ]
     },
     {
-      "_id": "5d081190d7c8ac1d93244976",
       "cql": "library Hospice version '1.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2017-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-03'\r\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\r\n\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n",
       "elm": {
         "library": {
@@ -23698,7 +23629,7 @@
                 "localId": "2",
                 "locator": "5:1-5:87",
                 "name": "LOINC:2.46",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "version": "urn:hl7:version:2.46",
                 "accessLevel": "Public"
               },
@@ -23706,7 +23637,7 @@
                 "localId": "3",
                 "locator": "6:1-6:97",
                 "name": "SNOMEDCT:2016-03",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2016-03",
                 "accessLevel": "Public"
               },
@@ -23714,7 +23645,7 @@
                 "localId": "4",
                 "locator": "7:1-7:97",
                 "name": "SNOMEDCT:2017-03",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2017-03",
                 "accessLevel": "Public"
               },
@@ -23722,7 +23653,7 @@
                 "localId": "5",
                 "locator": "8:1-8:97",
                 "name": "SNOMEDCT:2017-09",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2017-09",
                 "accessLevel": "Public"
               }
@@ -25529,13 +25460,12 @@
       "library_version": "1.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d081190d7c8ac1d93244977",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-06-17T22:17:52.774Z",
+  "created_at": null,
   "description": "Percentage of patients aged 6 weeks and older with a diagnosis of HIV/AIDS who were prescribed Pneumocystis jiroveci pneumonia (PCP) prophylaxis",
   "hqmf_id": "40280382-610B-E7A4-0161-B995747C3F72",
   "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
@@ -25996,9 +25926,6 @@
     }
   },
   "measure_scoring": "PROPORTION",
-  "patient_ids": [
-
-  ],
   "population_criteria": {
     "IPP": {
       "conjunction?": true,
@@ -26241,112 +26168,92 @@
   },
   "population_sets": [
     {
-      "_id": "5d081190d7c8ac1d9324498b",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d081190d7c8ac1d93244991",
           "hqmf_id": "D676976B-021E-4719-92F8-924F599A9739",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exclusions"
         },
         "DENEXCEP": {
-          "_id": "5d081190d7c8ac1d93244990",
           "hqmf_id": "9B98F901-F09D-4CA6-8879-0CA27BDCA1BB",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exceptions 1"
         },
         "DENOM": {
-          "_id": "5d081190d7c8ac1d9324498e",
           "hqmf_id": "9CB9ED56-E393-4263-BA40-45955026278C",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator 1"
         },
         "IPP": {
-          "_id": "5d081190d7c8ac1d9324498d",
           "hqmf_id": "86D270A6-96DA-4BA6-A6FA-92A44F422595",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Initial Population 1"
         },
         "NUMER": {
-          "_id": "5d081190d7c8ac1d9324498f",
           "hqmf_id": "1FF8CB1B-CAF0-4839-8083-47AC8D717A47",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Numerator 1"
         },
-        "_id": "5d081190d7c8ac1d9324498c",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     },
     {
-      "_id": "5d081190d7c8ac1d93244992",
       "population_set_id": "PopulationCriteria2",
       "populations": {
         "DENEX": {
-          "_id": "5d081190d7c8ac1d93244998",
           "hqmf_id": "834A03FD-5B6A-486C-A3DB-843E1A32FA79",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exclusions"
         },
         "DENEXCEP": {
-          "_id": "5d081190d7c8ac1d93244997",
           "hqmf_id": "B5DD1908-BFAA-4E93-BCFB-5CFB72AB3ECF",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exceptions 2"
         },
         "DENOM": {
-          "_id": "5d081190d7c8ac1d93244995",
           "hqmf_id": "1380947E-39EE-422D-B4F4-3B56AE4E2554",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator 2"
         },
         "IPP": {
-          "_id": "5d081190d7c8ac1d93244994",
           "hqmf_id": "1DD90837-30FF-4245-B1F0-82FA72DE80A6",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Initial Population 2"
         },
         "NUMER": {
-          "_id": "5d081190d7c8ac1d93244996",
           "hqmf_id": "DD6AC019-EEFC-4EA8-8E0D-18012B69CF9C",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Numerator 2"
         },
-        "_id": "5d081190d7c8ac1d93244993",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     },
     {
-      "_id": "5d081190d7c8ac1d93244999",
       "population_set_id": "PopulationCriteria3",
       "populations": {
         "DENEX": {
-          "_id": "5d081190d7c8ac1d9324499e",
           "hqmf_id": "31F3F3E8-744C-44B0-9EE1-3DB187A6F93F",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5d081190d7c8ac1d9324499c",
           "hqmf_id": "81907C0E-19DF-4E88-8351-005514E54B3B",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Denominator 3"
         },
         "IPP": {
-          "_id": "5d081190d7c8ac1d9324499b",
           "hqmf_id": "1453A456-966B-4A52-9958-92A7C1EFD6AD",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Initial Population 3"
         },
         "NUMER": {
-          "_id": "5d081190d7c8ac1d9324499d",
           "hqmf_id": "C45DA2B3-09CD-4892-8B6D-C537CF05CEE5",
           "library_name": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
           "statement_name": "Numerator 3"
         },
-        "_id": "5d081190d7c8ac1d9324499a",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
@@ -26354,7 +26261,6 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d081190d7c8ac1d93244790",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1076",
       "dataElementCodes": [
@@ -26366,10 +26272,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
-        "_id": "5d081190d7c8ac1d93244978",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244790"
+        "value": "5d0be6d131fe5f2d010a99d5"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -26385,7 +26290,6 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d081190d7c8ac1d93244791",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -26393,10 +26297,9 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d081190d7c8ac1d93244979",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244791"
+        "value": "5d0be6d131fe5f2d010a99d6"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -26406,7 +26309,6 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d081190d7c8ac1d93244792",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.121.12.1005",
       "components": null,
@@ -26416,10 +26318,9 @@
       "description": "Laboratory Test, Performed: CD4+Percentage",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
-        "_id": "5d081190d7c8ac1d9324497a",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244792"
+        "value": "5d0be6d131fe5f2d010a99d7"
       },
       "method": null,
       "negationRationale": null,
@@ -26436,7 +26337,6 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d93244793",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -26444,10 +26344,9 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d081190d7c8ac1d9324497b",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244793"
+        "value": "5d0be6d131fe5f2d010a99d8"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -26456,7 +26355,6 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d081190d7c8ac1d93244794",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1008",
@@ -26471,10 +26369,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081190d7c8ac1d9324497c",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244794"
+        "value": "5d0be6d131fe5f2d010a99d9"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -26487,7 +26384,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d93244795",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.121.12.1004",
       "components": null,
@@ -26497,10 +26393,9 @@
       "description": "Laboratory Test, Performed: CD4+Count",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
-        "_id": "5d081190d7c8ac1d9324497d",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244795"
+        "value": "5d0be6d131fe5f2d010a99da"
       },
       "method": null,
       "negationRationale": null,
@@ -26517,7 +26412,6 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d93244796",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1205",
       "dataElementCodes": [
@@ -26529,10 +26423,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
-        "_id": "5d081190d7c8ac1d9324497e",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244796"
+        "value": "5d0be6d131fe5f2d010a99db"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -26548,7 +26441,6 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d081190d7c8ac1d93244797",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -26563,10 +26455,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081190d7c8ac1d9324497f",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244797"
+        "value": "5d0be6d131fe5f2d010a99dc"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -26579,7 +26470,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d93244798",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1025",
@@ -26594,10 +26484,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081190d7c8ac1d93244980",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244798"
+        "value": "5d0be6d131fe5f2d010a99dd"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -26610,7 +26499,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d93244799",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -26619,10 +26507,9 @@
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
-        "_id": "5d081190d7c8ac1d93244981",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d93244799"
+        "value": "5d0be6d131fe5f2d010a99de"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -26633,7 +26520,6 @@
       "_type": "QDM::InterventionOrder"
     },
     {
-      "_id": "5d081190d7c8ac1d9324479a",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -26642,10 +26528,9 @@
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": "5d081190d7c8ac1d93244982",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d9324479a"
+        "value": "5d0be6d131fe5f2d010a99df"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -26659,7 +26544,6 @@
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d9324479b",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -26667,10 +26551,9 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d081190d7c8ac1d93244983",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d9324479b"
+        "value": "5d0be6d131fe5f2d010a99e0"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -26679,7 +26562,6 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d081190d7c8ac1d9324479c",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -26687,10 +26569,9 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d081190d7c8ac1d93244984",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d9324479c"
+        "value": "5d0be6d131fe5f2d010a99e1"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -26699,7 +26580,6 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d081190d7c8ac1d9324479d",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.120.12.1004",
@@ -26709,10 +26589,9 @@
       "description": "Diagnosis: HIV1",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d081190d7c8ac1d93244985",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d9324479d"
+        "value": "5d0be6d131fe5f2d010a99e2"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -26723,7 +26602,6 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d081190d7c8ac1d9324479e",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
@@ -26738,10 +26616,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081190d7c8ac1d93244986",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d9324479e"
+        "value": "5d0be6d131fe5f2d010a99e3"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -26754,7 +26631,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d9324479f",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1022",
@@ -26769,10 +26645,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081190d7c8ac1d93244987",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d9324479f"
+        "value": "5d0be6d131fe5f2d010a99e4"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -26785,7 +26660,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d932447a0",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1023",
@@ -26800,10 +26674,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081190d7c8ac1d93244988",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d932447a0"
+        "value": "5d0be6d131fe5f2d010a99e5"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -26816,7 +26689,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d932447a1",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1024",
@@ -26831,10 +26703,9 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081190d7c8ac1d93244989",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d932447a1"
+        "value": "5d0be6d131fe5f2d010a99e6"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -26847,7 +26718,6 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081190d7c8ac1d932447a2",
       "authorDatetime": null,
       "codeListId": "drc-e7bcd5fe05acffa0b0210240916ebdd5cb263ec9e30c7f943a055e4f406b38c4",
       "dataElementCodes": [
@@ -26859,10 +26729,9 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
-        "_id": "5d081190d7c8ac1d9324498a",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081190d7c8ac1d932447a2"
+        "value": "5d0be6d131fe5f2d010a99e7"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -26879,32 +26748,31 @@
     }
   ],
   "title": "HIV/AIDS: Pneumocystis Jiroveci Pneumonia (PCP) Prophylaxis",
-  "updated_at": "2019-06-17T22:17:52.774Z",
-  "user_id": "501fdba3044a111b98000001",
+  "updated_at": null,
   "value_set_ids": [
-    "5d081190d7c8ac1d932447a3",
-    "5d081190d7c8ac1d932447a4",
-    "5d081190d7c8ac1d932447a5",
-    "5d081190d7c8ac1d932447a6",
-    "5d081190d7c8ac1d932447a7",
-    "5d081190d7c8ac1d932447a8",
-    "5d081190d7c8ac1d932447a9",
-    "5d081190d7c8ac1d932447aa",
-    "5d081190d7c8ac1d932447ab",
-    "5d081190d7c8ac1d932447ac",
-    "5d081190d7c8ac1d932447ad",
-    "5d081190d7c8ac1d932447ae",
-    "5d081190d7c8ac1d932447af",
-    "5d081190d7c8ac1d932447b0",
-    "5d081190d7c8ac1d932447b1",
-    "5d081190d7c8ac1d932447b2",
-    "5d081190d7c8ac1d932447b3",
-    "5d081190d7c8ac1d932447b4",
-    "5d081190d7c8ac1d932447b5",
-    "5d081190d7c8ac1d932447b6",
-    "5d081190d7c8ac1d932447b7",
-    "5d081190d7c8ac1d932447b8",
-    "5d081190d7c8ac1d932447b9",
-    "5d081190d7c8ac1d932447ba"
+    "5d0be6d131fe5f2d010a99e8",
+    "5d0be6d131fe5f2d010a99e9",
+    "5d0be6d131fe5f2d010a99ea",
+    "5d0be6d131fe5f2d010a99eb",
+    "5d0be6d131fe5f2d010a99ec",
+    "5d0be6d131fe5f2d010a99ed",
+    "5d0be6d131fe5f2d010a99ee",
+    "5d0be6d131fe5f2d010a99ef",
+    "5d0be6d131fe5f2d010a99f0",
+    "5d0be6d131fe5f2d010a99f1",
+    "5d0be6d131fe5f2d010a99f2",
+    "5d0be6d131fe5f2d010a99f3",
+    "5d0be6d131fe5f2d010a99f4",
+    "5d0be6d131fe5f2d010a99f5",
+    "5d0be6d131fe5f2d010a99f6",
+    "5d0be6d131fe5f2d010a99f7",
+    "5d0be6d131fe5f2d010a99f8",
+    "5d0be6d131fe5f2d010a99f9",
+    "5d0be6d131fe5f2d010a99fa",
+    "5d0be6d131fe5f2d010a99fb",
+    "5d0be6d131fe5f2d010a99fc",
+    "5d0be6d131fe5f2d010a99fd",
+    "5d0be6d131fe5f2d010a99fe",
+    "5d0be6d131fe5f2d010a99ff"
   ]
 }

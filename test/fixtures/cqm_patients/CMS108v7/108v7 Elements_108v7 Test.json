@@ -17,31 +17,40 @@
   "givenNames": [
     "108v7 Elements"
   ],
+  "measure_ids": [
+    "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622"
+  ],
   "notes": "",
+  "provider_ids": [
+
+  ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5c880144d7c8ac4c3e106797"
+      "$oid": "5d0be2e431fe5f2b58dd238f"
     },
     "birthDatetime": "1970-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e106798"
+          "$oid": "5d0be2e431fe5f2b58dd2390"
         },
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "components": [
           {
             "result": {
               "code": "0SP909Z",
               "codeSystem": "ICD-10-PCS",
               "version": null,
-              "descriptor": null
+              "descriptor": null,
+              "codeSystemOid": "2.16.840.1.113883.6.4"
             },
             "code": {
               "code": "112943005",
               "codeSystem": "SNOMED-CT",
               "version": null,
-              "descriptor": "Hip Replacement Surgery"
+              "descriptor": "Hip Replacement Surgery",
+              "codeSystemOid": "2.16.840.1.113883.6.96"
             }
           },
           {
@@ -53,7 +62,8 @@
               "code": "1037045",
               "codeSystem": "RxNorm",
               "version": null,
-              "descriptor": null
+              "descriptor": null,
+              "codeSystemOid": "2.16.840.1.113883.6.88"
             }
           },
           {
@@ -62,21 +72,23 @@
               "code": "1736470",
               "codeSystem": "RxNorm",
               "version": null,
-              "descriptor": null
+              "descriptor": null,
+              "codeSystemOid": "2.16.840.1.113883.6.88"
             }
           }
         ],
         "dataElementCodes": [
           {
             "codeSystem": "LOINC",
-            "code": "72136-5"
+            "code": "72136-5",
+            "codeSystemOid": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Assessment, Performed: Risk for venous thromboembolism",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e106799"
+            "$oid": "5d0be2e431fe5f2b58dd2391"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -86,24 +98,25 @@
           "code": "008Q0ZZ",
           "codeSystem": "ICD-10-PCS",
           "descriptor": "General Surgery",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.4",
           "version": null
         },
         "negationRationale": null,
         "qdmCategory": "assessment",
         "qdmStatus": "performed",
+        "qdmTitle": "Assessment, Performed",
         "qdmVersion": "5.4",
         "reason": {
           "code": "133918004",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Comfort Measures",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relatedTo": [
           {
             "_id": {
-              "$oid": "5c880144d7c8ac4c3e10679a"
+              "$oid": "5d0be2e431fe5f2b58dd2392"
             },
             "namingSystem": null,
             "qdmVersion": "5.4",
@@ -115,21 +128,23 @@
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e10679b"
+          "$oid": "5d0be2e431fe5f2b58dd2393"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "442023007"
+            "code": "442023007",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Device, Applied: Venous foot pumps (VFP)",
         "hqmfOid": "2.16.840.1.113883.3.560.1.10",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e10679c"
+            "$oid": "5d0be2e431fe5f2b58dd2394"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -138,12 +153,13 @@
         "negationRationale": null,
         "qdmCategory": "device",
         "qdmStatus": "applied",
+        "qdmTitle": "Device, Applied",
         "qdmVersion": "5.4",
         "reason": {
           "code": "195155004",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Hemorrhagic Stroke",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relevantPeriod": {
@@ -156,21 +172,23 @@
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e10679d"
+          "$oid": "5d0be2e431fe5f2b58dd2395"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "428411000124104"
+            "code": "428411000124104",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Device, Applied: Intermittent pneumatic compression devices (IPC)",
         "hqmfOid": "2.16.840.1.113883.3.560.1.110",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e10679e"
+            "$oid": "5d0be2e431fe5f2b58dd2396"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -180,11 +198,12 @@
           "code": "1037045",
           "codeSystem": "RxNorm",
           "descriptor": null,
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.88",
           "version": null
         },
         "qdmCategory": "device",
         "qdmStatus": "applied",
+        "qdmTitle": "Device, Applied",
         "qdmVersion": "5.4",
         "reason": null,
         "relevantPeriod": {
@@ -197,20 +216,22 @@
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e10679f"
+          "$oid": "5d0be2e431fe5f2b58dd2397"
         },
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "442023007"
+            "code": "442023007",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Device, Ordered: Venous foot pumps (VFP)",
         "hqmfOid": "2.16.840.1.113883.3.560.1.37",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067a0"
+            "$oid": "5d0be2e431fe5f2b58dd2398"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -219,32 +240,35 @@
         "negationRationale": null,
         "qdmCategory": "device",
         "qdmStatus": "order",
+        "qdmTitle": "Device, Order",
         "qdmVersion": "5.4",
         "reason": {
           "code": "0SP909Z",
           "codeSystem": "ICD-10-PCS",
           "descriptor": "Hip Replacement Surgery",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.4",
           "version": null
         },
         "_type": "QDM::DeviceOrder"
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e1067a1"
+          "$oid": "5d0be2e431fe5f2b58dd2399"
         },
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "348681001"
+            "code": "348681001",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Device, Ordered: Graduated compression stockings (GCS)",
         "hqmfOid": "2.16.840.1.113883.3.560.1.137",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067a2"
+            "$oid": "5d0be2e431fe5f2b58dd239a"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -254,24 +278,27 @@
           "code": "195155004",
           "codeSystem": "SNOMED-CT",
           "descriptor": null,
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "qdmCategory": "device",
         "qdmStatus": "order",
+        "qdmTitle": "Device, Order",
         "qdmVersion": "5.4",
         "reason": null,
         "_type": "QDM::DeviceOrder"
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e1067a3"
+          "$oid": "5d0be2e431fe5f2b58dd239b"
         },
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
-            "code": "1037045"
+            "code": "1037045",
+            "codeSystemOid": "2.16.840.1.113883.6.88"
           }
         ],
         "description": "Medication, Administered: Direct Thrombin Inhibitor",
@@ -289,7 +316,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.14",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067a4"
+            "$oid": "5d0be2e431fe5f2b58dd239c"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -298,12 +325,13 @@
         "negationRationale": null,
         "qdmCategory": "medication",
         "qdmStatus": "administered",
+        "qdmTitle": "Medication, Administered",
         "qdmVersion": "5.4",
         "reason": {
           "code": "4525004",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Emergency Department Visit",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relevantPeriod": {
@@ -316,20 +344,22 @@
           "code": "418114005",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Intravenous route",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::MedicationAdministered"
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e1067a5"
+          "$oid": "5d0be2e431fe5f2b58dd239d"
         },
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
-            "code": "1361226"
+            "code": "1361226",
+            "codeSystemOid": "2.16.840.1.113883.6.88"
           }
         ],
         "description": "Medication, Administered: Low Dose Unfractionated Heparin for VTE Prophylaxis",
@@ -338,7 +368,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.114",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067a6"
+            "$oid": "5d0be2e431fe5f2b58dd239e"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -348,11 +378,12 @@
           "code": "861356",
           "codeSystem": "RxNorm",
           "descriptor": null,
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.88",
           "version": null
         },
         "qdmCategory": "medication",
         "qdmStatus": "administered",
+        "qdmTitle": "Medication, Administered",
         "qdmVersion": "5.4",
         "reason": null,
         "relevantPeriod": {
@@ -366,13 +397,15 @@
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e1067a7"
+          "$oid": "5d0be2e431fe5f2b58dd239f"
         },
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
-            "code": "1361226"
+            "code": "1361226",
+            "codeSystemOid": "2.16.840.1.113883.6.88"
           }
         ],
         "daysSupplied": null,
@@ -382,7 +415,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.78",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067a8"
+            "$oid": "5d0be2e431fe5f2b58dd23a0"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -392,12 +425,12 @@
           "code": "101421000119107",
           "codeSystem": "SNOMED-CT",
           "descriptor": null,
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
-        "prescriberId": null,
         "qdmCategory": "medication",
         "qdmStatus": "order",
+        "qdmTitle": "Medication, Order",
         "qdmVersion": "5.4",
         "reason": null,
         "refills": null,
@@ -414,13 +447,15 @@
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e1067a9"
+          "$oid": "5d0be2e431fe5f2b58dd23a1"
         },
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
-            "code": "855288"
+            "code": "855288",
+            "codeSystemOid": "2.16.840.1.113883.6.88"
           }
         ],
         "daysSupplied": null,
@@ -439,22 +474,22 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.17",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067aa"
+            "$oid": "5d0be2e431fe5f2b58dd23a2"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870f5"
         },
         "negationRationale": null,
-        "prescriberId": null,
         "qdmCategory": "medication",
         "qdmStatus": "order",
+        "qdmTitle": "Medication, Order",
         "qdmVersion": "5.4",
         "reason": {
           "code": "195080001",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Atrial Fibrillation/Flutter",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "refills": 9,
@@ -468,7 +503,7 @@
           "code": "34206005",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Subcutaneous route",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "setting": null,
@@ -480,128 +515,132 @@
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e106792"
+          "$oid": "5d0be2e431fe5f2b58dd238a"
         },
         "birthDatetime": "1970-01-01T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystem": "LOINC",
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "descriptor": null,
-            "codeSystemOid": null,
+            "codeSystem": "LOINC",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067ab"
+            "$oid": "5d0be2e431fe5f2b58dd23a3"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880144d7c8ac4c3e106792"
+          "value": "5d0be2e431fe5f2b58dd238a"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e106793"
+          "$oid": "5d0be2e431fe5f2b58dd238b"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "Not Hispanic or Latino",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067ac"
+            "$oid": "5d0be2e431fe5f2b58dd23a4"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880144d7c8ac4c3e106793"
+          "value": "5d0be2e431fe5f2b58dd238b"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e106794"
+          "$oid": "5d0be2e431fe5f2b58dd238c"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "American Indian or Alaska Native",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067ad"
+            "$oid": "5d0be2e431fe5f2b58dd23a5"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880144d7c8ac4c3e106794"
+          "value": "5d0be2e431fe5f2b58dd238c"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5c880144d7c8ac4c3e106795"
+          "$oid": "5d0be2e431fe5f2b58dd238d"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystem": "AdministrativeGender",
-            "descriptor": "M",
             "codeSystemOid": "2.16.840.1.113883.5.1",
+            "descriptor": "M",
+            "codeSystem": "AdministrativeGender",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5c880144d7c8ac4c3e1067ae"
+            "$oid": "5d0be2e431fe5f2b58dd23a6"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880144d7c8ac4c3e106795"
+          "value": "5d0be2e431fe5f2b58dd238d"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
     "extendedData": {
       "type": null,
-      "measure_ids": [
-        "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
-        null
-      ],
       "source_data_criteria": [
         {
           "negation": false,
@@ -1039,8 +1078,11 @@
       "medical_record_assigner": "Bonnie",
       "description": null,
       "description_category": null,
-      "insurance_providers": "[{\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
+      "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
     },
     "qdmVersion": "5.4"
+  },
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
   }
 }

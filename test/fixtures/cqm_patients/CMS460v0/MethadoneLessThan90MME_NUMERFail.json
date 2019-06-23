@@ -17,27 +17,36 @@
   "givenNames": [
     "MethadoneLessThan90MME"
   ],
+  "measure_ids": [
+    "442EDEF2-7347-4080-988F-16C9D1998803"
+  ],
   "notes": "methadone 40 mg oral tab does not exceed 90 MME (total daily dose is half a tablet (20 mg) which is 80 MME). Case does not meet NUMER criteria since MME is less than 90.",
+  "provider_ids": [
+
+  ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5c880142d7c8ac4c3e106745"
+      "$oid": "5d0be2e231fe5f2b58dd233d"
     },
     "birthDatetime": "1958-05-14T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5c880142d7c8ac4c3e106746"
+          "$oid": "5d0be2e231fe5f2b58dd233e"
         },
         "admissionSource": null,
         "authorDatetime": "2012-05-04T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "SNOMED-CT",
-            "code": "17436001"
+            "code": "17436001",
+            "codeSystemOid": "2.16.840.1.113883.6.96"
           },
           {
             "codeSystem": "CPT",
-            "code": "99241"
+            "code": "99241",
+            "codeSystemOid": "2.16.840.1.113883.6.12"
           }
         ],
         "description": "Encounter, Performed: Outpatient Consultation",
@@ -51,7 +60,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
           "_id": {
-            "$oid": "5c880142d7c8ac4c3e106747"
+            "$oid": "5d0be2e231fe5f2b58dd233f"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -65,6 +74,7 @@
         "principalDiagnosis": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
         "qdmVersion": "5.4",
         "relevantPeriod": {
           "low": "2012-05-04T08:00:00.000+00:00",
@@ -76,13 +86,15 @@
       },
       {
         "_id": {
-          "$oid": "5c880142d7c8ac4c3e106748"
+          "$oid": "5d0be2e231fe5f2b58dd2340"
         },
         "authorDatetime": "2012-05-04T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "codeSystem": "RxNorm",
-            "code": "864978"
+            "code": "864978",
+            "codeSystemOid": "2.16.840.1.113883.6.88"
           }
         ],
         "daysSupplied": null,
@@ -95,22 +107,22 @@
           "code": "229797004",
           "codeSystem": "SNOMED-CT",
           "descriptor": "Once daily (qualifier value)",
-          "codeSystemOid": null,
+          "codeSystemOid": "2.16.840.1.113883.6.96",
           "version": null
         },
         "hqmfOid": "2.16.840.1.113883.3.560.1.17",
         "id": {
           "_id": {
-            "$oid": "5c880142d7c8ac4c3e106749"
+            "$oid": "5d0be2e231fe5f2b58dd2341"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b9ff2fcb8484609a9845621"
         },
         "negationRationale": null,
-        "prescriberId": null,
         "qdmCategory": "medication",
         "qdmStatus": "order",
+        "qdmTitle": "Medication, Order",
         "qdmVersion": "5.4",
         "reason": null,
         "refills": null,
@@ -127,128 +139,132 @@
       },
       {
         "_id": {
-          "$oid": "5c880142d7c8ac4c3e106740"
+          "$oid": "5d0be2e231fe5f2b58dd2338"
         },
         "birthDatetime": "1958-05-14T08:00:00.000+00:00",
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystem": "LOINC",
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "descriptor": null,
-            "codeSystemOid": null,
+            "codeSystem": "LOINC",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.54",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5c880142d7c8ac4c3e10674a"
+            "$oid": "5d0be2e231fe5f2b58dd2342"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880142d7c8ac4c3e106740"
+          "value": "5d0be2e231fe5f2b58dd2338"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5c880142d7c8ac4c3e106741"
+          "$oid": "5d0be2e231fe5f2b58dd2339"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "Not Hispanic or Latino",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.56",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5c880142d7c8ac4c3e10674b"
+            "$oid": "5d0be2e231fe5f2b58dd2343"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880142d7c8ac4c3e106741"
+          "value": "5d0be2e231fe5f2b58dd2339"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5c880142d7c8ac4c3e106742"
+          "$oid": "5d0be2e231fe5f2b58dd233a"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "American Indian or Alaska Native",
             "codeSystemOid": "2.16.840.1.113883.6.238",
+            "descriptor": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.59",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5c880142d7c8ac4c3e10674c"
+            "$oid": "5d0be2e231fe5f2b58dd2344"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880142d7c8ac4c3e106742"
+          "value": "5d0be2e231fe5f2b58dd233a"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5c880142d7c8ac4c3e106743"
+          "$oid": "5d0be2e231fe5f2b58dd233b"
         },
+        "codeListId": null,
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystem": "AdministrativeGender",
-            "descriptor": "M",
             "codeSystemOid": "2.16.840.1.113883.5.1",
+            "descriptor": "M",
+            "codeSystem": "AdministrativeGender",
             "version": null,
             "_type": "QDM::Code"
           }
         ],
         "description": null,
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.55",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5c880142d7c8ac4c3e10674d"
+            "$oid": "5d0be2e231fe5f2b58dd2345"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c880142d7c8ac4c3e106743"
+          "value": "5d0be2e231fe5f2b58dd233b"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
         "qdmVersion": "5.4",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
     "extendedData": {
       "type": null,
-      "measure_ids": [
-        "442EDEF2-7347-4080-988F-16C9D1998803",
-        null
-      ],
       "source_data_criteria": [
         {
           "negation": false,
@@ -344,8 +360,11 @@
       "medical_record_assigner": "Bonnie",
       "description": null,
       "description_category": null,
-      "insurance_providers": "[{\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
+      "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
     },
     "qdmVersion": "5.4"
+  },
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
   }
 }

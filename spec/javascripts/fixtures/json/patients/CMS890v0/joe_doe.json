@@ -98,6 +98,7 @@
         "dataElementCodes": [
           {
             "codeSystem": "HCPCS",
+            "codeSystemOid": "2.16.840.1.113883.6.285",
             "code": "G0438"
           }
         ],
@@ -143,7 +144,7 @@
             "code": "21112-8",
             "codeSystem": "LOINC",
             "descriptor": null,
-            "codeSystemOid": null,
+            "codeSystemOid": "2.16.840.1.113883.6.1",
             "version": null,
             "_type": "QDM::Code"
           }
