@@ -1,11 +1,11 @@
 {
   "_id": {
-    "$oid": "5cfe974fd7c8aced6ef7c779"
+    "$oid": "5cfe9750d7c8aced6ef7c7a7"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
-      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
       "population_index": 0,
       "IPP": 1,
       "DENOM": 1,
@@ -15,13 +15,10 @@
     {
       "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
       "population_index": 0,
-      "IPP": 1,
-      "MSRPOPL": 1,
+      "IPP": 0,
+      "MSRPOPL": 0,
       "MSRPOPLEX": 0,
-      "OBSERV": [
-        0.25
-      ],
-      "OBSERV_UNIT": ""
+      "OBSERV": null
     },
     {
       "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
@@ -32,17 +29,9 @@
       "DENEXCEP": 0
     },
     {
-      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
-      "population_index": 0,
-      "IPP": 0,
-      "DENOM": 0,
-      "DENEX": 0,
-      "NUMER": 0
-    },
-    {
       "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
       "population_index": 0,
-      "IPP": 1,
+      "IPP": 0,
       "DENOM": 0,
       "DENEX": 0,
       "NUMER": 0
@@ -65,24 +54,32 @@
       "DENEXCEP": 0
     },
     {
-      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
       "population_index": 0,
       "IPP": 0,
       "DENOM": 0,
       "DENEX": 0,
       "NUMER": 0
+    },
+    {
+      "measure_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
     }
   ],
-  "familyName": "Test 1",
+  "familyName": "doe",
   "givenNames": [
-    "Patient"
+    "joe"
   ],
   "measure_ids": [
+    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
     "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
     "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
     "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
     "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
-    "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
     "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
     "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
     "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
@@ -93,90 +90,16 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5cfe974fd7c8aced6ef7c77a"
+      "$oid": "5cfe9750d7c8aced6ef7c7a8"
     },
-    "birthDatetime": "1940-01-01T08:00:00.000+00:00",
+    "birthDatetime": "1940-10-09T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5cfe974fd7c8aced6ef7c77b"
-        },
-        "authorDatetime": "2011-07-04T08:00:00.000+00:00",
-        "codeListId": null,
-        "components": [
-
-        ],
-        "dataElementCodes": [
-          {
-            "codeSystem": "LOINC",
-            "code": "59458-0"
-          }
-        ],
-        "description": "Assessment, Performed: Ambulatory Status",
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
-        "id": {
-          "_id": {
-            "$oid": "5cfe974fd7c8aced6ef7c77c"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5c9e4f9db8484602c2f8b83d"
-        },
-        "method": null,
-        "negationRationale": null,
-        "qdmCategory": "assessment",
-        "qdmStatus": "performed",
-        "qdmTitle": "Assessment, Performed",
-        "qdmVersion": "5.4",
-        "reason": null,
-        "result": null,
-        "_type": "QDM::AssessmentPerformed"
-      },
-      {
-        "_id": {
-          "$oid": "5cfe974fd7c8aced6ef7c77d"
-        },
-        "authorDatetime": "2012-07-04T08:00:00.000+00:00",
-        "codeListId": null,
-        "components": [
-
-        ],
-        "dataElementCodes": [
-          {
-            "codeSystem": "SNOMED-CT",
-            "code": "401196007"
-          },
-          {
-            "codeSystem": "LOINC",
-            "code": "52552-7"
-          }
-        ],
-        "description": "Assessment, Performed: Falls Screening",
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
-        "id": {
-          "_id": {
-            "$oid": "5cfe974fd7c8aced6ef7c77e"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5c9e4f9db8484602c2f8b83e"
-        },
-        "method": null,
-        "negationRationale": null,
-        "qdmCategory": "assessment",
-        "qdmStatus": "performed",
-        "qdmTitle": "Assessment, Performed",
-        "qdmVersion": "5.4",
-        "reason": null,
-        "result": null,
-        "_type": "QDM::AssessmentPerformed"
-      },
-      {
-        "_id": {
-          "$oid": "5cfe974fd7c8aced6ef7c77f"
+          "$oid": "5cfe9750d7c8aced6ef7c7a9"
         },
         "admissionSource": null,
-        "authorDatetime": "2012-12-04T08:00:00.000+00:00",
+        "authorDatetime": "2012-10-23T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -195,11 +118,11 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
           "_id": {
-            "$oid": "5cfe974fd7c8aced6ef7c780"
+            "$oid": "5cfe9750d7c8aced6ef7c7aa"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5c9e4f9db8484602c2f8b83c"
+          "value": "5c9e4f9db8484602c2f8b842"
         },
         "lengthOfStay": {
           "value": 0,
@@ -212,8 +135,8 @@
         "qdmTitle": "Encounter, Performed",
         "qdmVersion": "5.4",
         "relevantPeriod": {
-          "low": "2012-12-04T08:00:00.000Z",
-          "high": "2012-12-04T08:15:00.000Z",
+          "low": "2012-10-23T08:00:00.000Z",
+          "high": "2012-10-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -221,9 +144,9 @@
       },
       {
         "_id": {
-          "$oid": "5cfe974fd7c8aced6ef7c775"
+          "$oid": "5cfe9750d7c8aced6ef7c7a3"
         },
-        "birthDatetime": "1940-01-01T08:00:00.000+00:00",
+        "birthDatetime": "1940-10-09T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -239,11 +162,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5cfe974fd7c8aced6ef7c781"
+            "$oid": "5cfe9750d7c8aced6ef7c7ab"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5cfe974fd7c8aced6ef7c775"
+          "value": "5cfe9750d7c8aced6ef7c7a3"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -253,7 +176,7 @@
       },
       {
         "_id": {
-          "$oid": "5cfe974fd7c8aced6ef7c776"
+          "$oid": "5cfe9750d7c8aced6ef7c7a4"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -270,11 +193,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5cfe974fd7c8aced6ef7c782"
+            "$oid": "5cfe9750d7c8aced6ef7c7ac"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5cfe974fd7c8aced6ef7c776"
+          "value": "5cfe9750d7c8aced6ef7c7a4"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -284,7 +207,7 @@
       },
       {
         "_id": {
-          "$oid": "5cfe974fd7c8aced6ef7c777"
+          "$oid": "5cfe9750d7c8aced6ef7c7a5"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -301,11 +224,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5cfe974fd7c8aced6ef7c783"
+            "$oid": "5cfe9750d7c8aced6ef7c7ad"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5cfe974fd7c8aced6ef7c777"
+          "value": "5cfe9750d7c8aced6ef7c7a5"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -315,7 +238,7 @@
       },
       {
         "_id": {
-          "$oid": "5cfe974fd7c8aced6ef7c778"
+          "$oid": "5cfe9750d7c8aced6ef7c7a6"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -332,11 +255,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5cfe974fd7c8aced6ef7c784"
+            "$oid": "5cfe9750d7c8aced6ef7c7ae"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5cfe974fd7c8aced6ef7c778"
+          "value": "5cfe9750d7c8aced6ef7c7a6"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
@@ -350,87 +273,24 @@
       "source_data_criteria": [
         {
           "negation": false,
-          "definition": "assessment",
-          "status": "performed",
-          "title": "AmbulatoryStatus",
-          "description": "Assessment, Performed: Ambulatory Status",
-          "code_list_id": "2.16.840.1.113883.3.464.1003.118.11.1219",
-          "type": "assessments",
-          "id": "AmbulatoryStatus_AssessmentPerformed_eb84926c_ae80_4768_9f88_ea55ed355df6_source",
-          "start_date": 1309766400000,
-          "value": [
-
-          ],
-          "references": null,
-          "field_values": {
-          },
-          "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
-          "cms_id": "CMS231v0",
-          "criteria_id": "1677b0af52fFX",
-          "codes": {
-            "LOINC": [
-              "59458-0"
-            ]
-          },
-          "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5c9e4f9db8484602c2f8b83d"
-          },
-          "code_source": "DEFAULT"
-        },
-        {
-          "negation": false,
-          "definition": "assessment",
-          "status": "performed",
-          "title": "FallsScreening",
-          "description": "Assessment, Performed: Falls Screening",
-          "code_list_id": "2.16.840.1.113883.3.464.1003.118.12.1028",
-          "type": "assessments",
-          "id": "FallsScreening_AssessmentPerformed_3296d6d9_085b_4acd_84a9_819c01e4e5cd_source",
-          "start_date": 1341388800000,
-          "value": [
-
-          ],
-          "references": null,
-          "field_values": {
-          },
-          "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
-          "cms_id": "CMS231v0",
-          "criteria_id": "1677b0b4e9bGs",
-          "codes": {
-            "SNOMED-CT": [
-              "401196007"
-            ],
-            "LOINC": [
-              "52552-7"
-            ]
-          },
-          "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5c9e4f9db8484602c2f8b83e"
-          },
-          "code_source": "DEFAULT"
-        },
-        {
-          "negation": false,
           "definition": "encounter",
           "status": "performed",
           "title": "AnnualWellnessVisit",
           "description": "Encounter, Performed: Annual Wellness Visit",
           "code_list_id": "2.16.840.1.113883.3.526.3.1240",
           "type": "encounters",
-          "id": "AnnualWellnessVisit_EncounterPerformed_d50103e4_3ce4_48e3_9489_68dc37fb0b20_source",
-          "start_date": 1354608000000,
-          "end_date": 1354608900000,
+          "id": "AnnualWellnessVisit_EncounterPerformed_a091ca0a_589d_4add_9570_eb7a7c186059_source",
+          "start_date": 1350979200000,
+          "end_date": 1350980100000,
           "value": [
 
           ],
           "references": null,
           "field_values": {
           },
-          "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
-          "cms_id": "CMS231v0",
-          "criteria_id": "1677b0ac53a4Q",
+          "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+          "cms_id": "CMS238v0",
+          "criteria_id": "169bf6c1576wU",
           "codes": {
             "HCPCS": [
               "G0438"
@@ -438,7 +298,7 @@
           },
           "negation_code_list_id": "",
           "coded_entry_id": {
-            "$oid": "5c9e4f9db8484602c2f8b83c"
+            "$oid": "5c9e4f9db8484602c2f8b842"
           },
           "code_source": "DEFAULT"
         },
@@ -454,7 +314,7 @@
 
       ],
       "test_id": null,
-      "medical_record_number": "d975a2c11a5dbfa9af64642c349f94b5f5e5b43b211617f5d2992dd0438ca8fd",
+      "medical_record_number": "d635752c85f479851049005c9646cfa799d321325b602be8f6f0f935a06a74f8",
       "medical_record_assigner": "Bonnie",
       "description": null,
       "description_category": null,
