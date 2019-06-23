@@ -168,7 +168,6 @@ class BonniePatientsTest < ActiveSupport::TestCase
   end
 
   test 'copy_measure_patients updates source data criteria' do
-    skip('need to change to use CQM::Patient')
     ENV['SOURCE_EMAIL'] = @source_email
     ENV['DEST_EMAIL'] = @dest_email
     ENV['SOURCE_HQMF_SET_ID'] = @source_hqmf_set_id

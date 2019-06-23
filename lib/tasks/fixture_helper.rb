@@ -7,12 +7,19 @@ end
 
 def load_measure_fixtures_from_folder(fixture_path, user = nil)
   path = File.join(Rails.root, 'test', 'fixtures', fixture_path)
+  measure_id, measure_package_id = nil
   Pathname.new(path).children.select(&:directory?).each do |sub_folder|
     mongo_collection_name = sub_folder.basename.to_s
-    sub_folder.children.select { |f| f.extname == ".json" }.each do |fixture_file|
-      load_fixture_file(fixture_file, mongo_collection_name, user)
+    sub_folder.children.select { |f| f.extname == '.json' }.each do |fixture_file|
+      loaded_ids = load_fixture_file(fixture_file, mongo_collection_name, user)
+      if mongo_collection_name == 'cqm_measure_packages'
+        measure_package_id = loaded_ids[0]
+      elsif mongo_collection_name == 'cqm_measures'
+        measure_id = loaded_ids[0]
+      end
     end
   end
+  CQM::Measure.find(measure_id).package = CQM::MeasurePackage.find(measure_package_id) unless measure_id.nil? || measure_package_id.nil?
 end
 
 def add_collection(collection)
@@ -27,8 +34,9 @@ def add_collection(collection)
 end
 
 def load_fixture_file(file, collection_name, user = nil)
+  loaded_ids = []
   fixture_json = JSON.parse(File.read(file))
-  return if fixture_json.empty?
+  return loaded_ids if fixture_json.empty?
   # Value_sets are arrays of objects, unlike measures etc, so we need to iterate in that case.
   fixture_json = [fixture_json] unless fixture_json.is_a?(Array)
   fixture_json.each do |fj|
@@ -38,11 +46,13 @@ def load_fixture_file(file, collection_name, user = nil)
     fj["user_id"] = user.id if user.present?
     begin
       Mongoid.default_client[collection_name].insert_one(fj)
+      loaded_ids << fj["_id"]
     rescue Mongo::Error::OperationFailure => e
       # ignore duplicate key errors for valuesets, could just be inserting the same valueset twice from different fixtures
       raise unless (collection_name == 'health_data_standards_svs_value_sets') && e.message.starts_with?('E11000 duplicate key error')
     end
   end
+  return loaded_ids
 end
 
 # JSON.parse doesn't catch time fields, so this converts all times to a

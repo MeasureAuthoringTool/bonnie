@@ -90,10 +90,10 @@ module ApiV1
         headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
         get :calculated_results, id: @measure.hqmf_set_id
-        skip('response is 500 not success')
+        skip('Fix Excel Export after Individual Result Changes')
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
-        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
         assert_equal 'CMS160v6.xlsx', filename
 
@@ -123,7 +123,7 @@ module ApiV1
         headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
         get :calculated_results, id: measure_id
-        skip('response is 500 not success')
+        skip('Fix Excel Export after Individual Result Changes')
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
         assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
@@ -167,7 +167,7 @@ module ApiV1
         headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
         get :calculated_results, id: measure_id
-        skip('response is 500 not success')
+        skip('Fix Excel Export after Individual Result Changes')
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
         assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
@@ -226,7 +226,7 @@ module ApiV1
         headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
         get :calculated_results, id: @cms160_hqmf_set_id
-        skip('response is 500 not success')
+        skip('Fix Excel Export after Individual Result Changes')
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
         assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type

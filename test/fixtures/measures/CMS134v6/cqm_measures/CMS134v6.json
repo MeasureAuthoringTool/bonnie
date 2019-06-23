@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5cdad216d7c8ac0ab5cbd017"
+    "$oid": "5cfe9705d7c8aced5e9aeba2"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd018"
+        "$oid": "5cfe9705d7c8aced5e9aeba3"
       },
       "cql": "library DiabetesMedicalAttentionforNephropathy version '6.1.003'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude Hospice version '0.1.000' called Hospice\r\ninclude MATGlobalCommonFunctions version '1.0.000' called Global\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"ACE Inhibitor or ARB\": 'urn:oid:2.16.840.1.113883.3.526.3.1139'\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Diabetes\": 'urn:oid:2.16.840.1.113883.3.464.1003.103.12.1001'\r\nvalueset \"Diabetic Nephropathy\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1004'\r\nvalueset \"Dialysis Education\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1016'\r\nvalueset \"Dialysis Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1013'\r\nvalueset \"ESRD Monthly Outpatient Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1014'\r\nvalueset \"Face-to-Face Interaction\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1048'\r\nvalueset \"Glomerulonephritis and Nephrotic Syndrome\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1018'\r\nvalueset \"Home Healthcare Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1016'\r\nvalueset \"Hypertensive Chronic Kidney Disease\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1017'\r\nvalueset \"Kidney Transplant\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1012'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Other Services Related to Dialysis\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1015'\r\nvalueset \"Preventive Care Services - Established Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1025'\r\nvalueset \"Preventive Care Services-Initial Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1023'\r\nvalueset \"Proteinuria\": 'urn:oid:2.16.840.1.113883.3.526.3.1003'\r\nvalueset \"Urine Protein Tests\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1024'\r\nvalueset \"Vascular Access for Dialysis\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1011'\r\nvalueset \"Kidney Failure\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1028'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Renal Procedures\":\r\n\t( [\"Procedure, Performed\": \"Kidney Transplant\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Vascular Access for Dialysis\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Dialysis Services\"]\r\n\t)\r\n\r\ndefine \"Renal Interventions\":\r\n\t[\"Intervention, Performed\": \"Other Services Related to Dialysis\"]\r\n\t\tunion [\"Intervention, Performed\": \"Dialysis Education\"]\r\n\r\ndefine \"Qualifying Encounters\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Face-to-Face Interaction\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services - Established Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services-Initial Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Home Healthcare Services\"]\r\n\t\tunion [\"Encounter, Performed\": \"Annual Wellness Visit\"] ) ValidEncounter\r\n\t\twhere ValidEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Protein Urea Lab Test\":\r\n\t[\"Laboratory Test, Performed\": \"Urine Protein Tests\"] ProteinUrea\r\n\t\twhere ProteinUrea.result is not null\r\n\r\ndefine \"Nephropathy Diagnoses\":\r\n\t( [\"Diagnosis\": \"Hypertensive Chronic Kidney Disease\"]\r\n\t\tunion [\"Diagnosis\": \"Kidney Failure\"]\r\n\t\tunion [\"Diagnosis\": \"Glomerulonephritis and Nephrotic Syndrome\"]\r\n\t\tunion [\"Diagnosis\": \"Diabetic Nephropathy\"]\r\n\t\tunion [\"Diagnosis\": \"Proteinuria\"] ) NephropathyDiagnoses\r\n\t\twhere NephropathyDiagnoses.prevalencePeriod overlaps \"Measurement Period\"\r\n\r\ndefine \"ESRD Encounter\":\r\n\t[\"Encounter, Performed\": \"ESRD Monthly Outpatient Services\"]\r\n\r\ndefine \"Active ACEI or ARB Medications\":\r\n\t[\"Medication, Active\": \"ACE Inhibitor or ARB\"] ACEIorARB\r\n\t\twhere ACEIorARB.relevantPeriod overlaps \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 18\r\n\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 75\r\n\t\t\tand exists ( \"Qualifying Encounters\" )\r\n\t\t\tand exists ( [\"Diagnosis\": \"Diabetes\"] DiabetesDx\r\n\t\t\t\t\twhere DiabetesDx.prevalencePeriod overlaps \"Measurement Period\"\r\n\t\t\t)\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists ( \"Active ACEI or ARB Medications\" )\r\n\t\tor exists ( \"Nephropathy Diagnoses\" )\r\n\t\tor exists ( \"Nephropathy Screenings\" )\r\n\r\ndefine \"In Hospice\":\r\n\tHospice.\"Has Hospice\"\r\n\r\ndefine \"Denominator Exclusions\":\r\n\t\"In Hospice\"\r\n\r\ndefine \"Nephropathy Screenings\":\r\n\t( \"Renal Procedures\"\r\n\t\tunion \"Renal Interventions\"\r\n\t\tunion \"ESRD Encounter\"\r\n\t\tunion \"Protein Urea Lab Test\" ) NephropathyScreenings\r\n\t\twhere NephropathyScreenings.relevantPeriod during \"Measurement Period\"\r\n",
       "elm": {
@@ -6254,85 +6254,85 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd019"
+            "$oid": "5cfe9705d7c8aced5e9aeba4"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd01a"
+            "$oid": "5cfe9705d7c8aced5e9aeba5"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd01b"
+            "$oid": "5cfe9705d7c8aced5e9aeba6"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd01c"
+            "$oid": "5cfe9705d7c8aced5e9aeba7"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd01d"
+            "$oid": "5cfe9705d7c8aced5e9aeba8"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd01e"
+            "$oid": "5cfe9705d7c8aced5e9aeba9"
           },
           "statement_name": "Renal Procedures"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd01f"
+            "$oid": "5cfe9705d7c8aced5e9aebaa"
           },
           "statement_name": "Renal Interventions"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd020"
+            "$oid": "5cfe9705d7c8aced5e9aebab"
           },
           "statement_name": "Qualifying Encounters"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd021"
+            "$oid": "5cfe9705d7c8aced5e9aebac"
           },
           "statement_name": "Protein Urea Lab Test"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd022"
+            "$oid": "5cfe9705d7c8aced5e9aebad"
           },
           "statement_name": "Nephropathy Diagnoses"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd023"
+            "$oid": "5cfe9705d7c8aced5e9aebae"
           },
           "statement_name": "ESRD Encounter"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd024"
+            "$oid": "5cfe9705d7c8aced5e9aebaf"
           },
           "statement_name": "Active ACEI or ARB Medications"
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd025"
+            "$oid": "5cfe9705d7c8aced5e9aebb0"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd026"
+                "$oid": "5cfe9705d7c8aced5e9aebb1"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -6340,7 +6340,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd027"
+                "$oid": "5cfe9705d7c8aced5e9aebb2"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -6348,7 +6348,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd028"
+                "$oid": "5cfe9705d7c8aced5e9aebb3"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6358,13 +6358,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd029"
+            "$oid": "5cfe9705d7c8aced5e9aebb4"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd02a"
+                "$oid": "5cfe9705d7c8aced5e9aebb5"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6374,13 +6374,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd02b"
+            "$oid": "5cfe9705d7c8aced5e9aebb6"
           },
           "statement_name": "Nephropathy Screenings",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd02c"
+                "$oid": "5cfe9705d7c8aced5e9aebb7"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6388,7 +6388,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd02d"
+                "$oid": "5cfe9705d7c8aced5e9aebb8"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6396,7 +6396,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd02e"
+                "$oid": "5cfe9705d7c8aced5e9aebb9"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6404,7 +6404,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd02f"
+                "$oid": "5cfe9705d7c8aced5e9aebba"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6414,13 +6414,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd030"
+            "$oid": "5cfe9705d7c8aced5e9aebbb"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd031"
+                "$oid": "5cfe9705d7c8aced5e9aebbc"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6428,7 +6428,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd032"
+                "$oid": "5cfe9705d7c8aced5e9aebbd"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6436,7 +6436,7 @@
             },
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd033"
+                "$oid": "5cfe9705d7c8aced5e9aebbe"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6446,13 +6446,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd034"
+            "$oid": "5cfe9705d7c8aced5e9aebbf"
           },
           "statement_name": "In Hospice",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd035"
+                "$oid": "5cfe9705d7c8aced5e9aebc0"
               },
               "hqmf_id": null,
               "library_name": "Hospice",
@@ -6462,13 +6462,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd036"
+            "$oid": "5cfe9705d7c8aced5e9aebc1"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd037"
+                "$oid": "5cfe9705d7c8aced5e9aebc2"
               },
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -6480,7 +6480,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd038"
+        "$oid": "5cfe9705d7c8aced5e9aebc3"
       },
       "cql": "library MATGlobalCommonFunctions version '1.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/*TotalLengthOfStay calculates the difference in calendar days between the start and end of the given stay interval.*/\r\n\r\ndefine function \"TotalLengthOfStay\"(Stay Interval<DateTime>):\r\n\tdifference in days between start of Stay and end of Stay\r\n",
       "elm": {
@@ -10544,13 +10544,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd039"
+            "$oid": "5cfe9705d7c8aced5e9aebc4"
           },
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad216d7c8ac0ab5cbd03a"
+                "$oid": "5cfe9705d7c8aced5e9aebc5"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -10560,7 +10560,7 @@
         },
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd03b"
+            "$oid": "5cfe9705d7c8aced5e9aebc6"
           },
           "statement_name": "ToDate"
         }
@@ -10568,7 +10568,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd03c"
+        "$oid": "5cfe9705d7c8aced5e9aebc7"
       },
       "cql": "library Hospice version '0.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2017-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-03'\r\n\r\nvalueset \"Discharged to Health Care Facility for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.207'\r\nvalueset \"Discharged to Home for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.209'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-03\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-03\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n",
       "elm": {
@@ -12461,14 +12461,14 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd03d"
+            "$oid": "5cfe9705d7c8aced5e9aebc8"
           },
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-05-14T14:35:02.253Z",
+  "created_at": "2019-06-10T17:44:37.194Z",
   "description": "The percentage of patients 18-75 years of age with diabetes who had a nephropathy screening test or evidence of nephropathy during the measurement period",
   "hqmf_id": "40280382-5FA6-FE85-0160-0918E74D2075",
   "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
@@ -13037,13 +13037,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5cdad216d7c8ac0ab5cbd059"
+        "$oid": "5cfe9705d7c8aced5e9aebe4"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd05e"
+            "$oid": "5cfe9705d7c8aced5e9aebe9"
           },
           "hqmf_id": "F82CC93D-C1A2-4E10-A087-81D666395C48",
           "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -13051,7 +13051,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd05c"
+            "$oid": "5cfe9705d7c8aced5e9aebe7"
           },
           "hqmf_id": "B735F4BD-DFAE-45E3-BAA9-E09BDF731B8E",
           "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -13059,7 +13059,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd05b"
+            "$oid": "5cfe9705d7c8aced5e9aebe6"
           },
           "hqmf_id": "6CD39B4B-16E6-4FD4-9241-527F9F4A48D0",
           "library_name": "DiabetesMedicalAttentionforNephropathy",
@@ -13067,14 +13067,14 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5cdad216d7c8ac0ab5cbd05d"
+            "$oid": "5cfe9705d7c8aced5e9aebe8"
           },
           "hqmf_id": "ECFD4C68-90F8-4143-8298-21798069AE8E",
           "library_name": "DiabetesMedicalAttentionforNephropathy",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd05a"
+          "$oid": "5cfe9705d7c8aced5e9aebe5"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
@@ -13084,7 +13084,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9c4"
+        "$oid": "5cfe9704d7c8aced5e9ae54f"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -13101,11 +13101,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd03e"
+          "$oid": "5cfe9705d7c8aced5e9aebc9"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9c4"
+        "value": "5cfe9704d7c8aced5e9ae54f"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -13119,7 +13119,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9c5"
+        "$oid": "5cfe9704d7c8aced5e9ae550"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13132,11 +13132,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd03f"
+          "$oid": "5cfe9705d7c8aced5e9aebca"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9c5"
+        "value": "5cfe9704d7c8aced5e9ae550"
       },
       "incisionDatetime": null,
       "method": null,
@@ -13154,7 +13154,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9c6"
+        "$oid": "5cfe9704d7c8aced5e9ae551"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13167,11 +13167,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd040"
+          "$oid": "5cfe9705d7c8aced5e9aebcb"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9c6"
+        "value": "5cfe9704d7c8aced5e9ae551"
       },
       "incisionDatetime": null,
       "method": null,
@@ -13189,7 +13189,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9c7"
+        "$oid": "5cfe9704d7c8aced5e9ae552"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -13199,11 +13199,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd041"
+          "$oid": "5cfe9705d7c8aced5e9aebcc"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9c7"
+        "value": "5cfe9704d7c8aced5e9ae552"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -13213,7 +13213,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9c8"
+        "$oid": "5cfe9704d7c8aced5e9ae553"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -13230,11 +13230,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd042"
+          "$oid": "5cfe9705d7c8aced5e9aebcd"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9c8"
+        "value": "5cfe9704d7c8aced5e9ae553"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -13248,7 +13248,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9c9"
+        "$oid": "5cfe9704d7c8aced5e9ae554"
       },
       "codeListId": "2.16.840.1.113883.3.526.3.1139",
       "dataElementCodes": [
@@ -13260,11 +13260,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd043"
+          "$oid": "5cfe9705d7c8aced5e9aebce"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9c9"
+        "value": "5cfe9704d7c8aced5e9ae554"
       },
       "qdmCategory": "medication",
       "qdmStatus": "active",
@@ -13276,7 +13276,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9ca"
+        "$oid": "5cfe9704d7c8aced5e9ae555"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13288,11 +13288,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd044"
+          "$oid": "5cfe9705d7c8aced5e9aebcf"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9ca"
+        "value": "5cfe9704d7c8aced5e9ae555"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -13304,7 +13304,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9cb"
+        "$oid": "5cfe9704d7c8aced5e9ae556"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -13321,11 +13321,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd045"
+          "$oid": "5cfe9705d7c8aced5e9aebd0"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9cb"
+        "value": "5cfe9704d7c8aced5e9ae556"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -13339,7 +13339,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9cc"
+        "$oid": "5cfe9704d7c8aced5e9ae557"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13351,11 +13351,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd046"
+          "$oid": "5cfe9705d7c8aced5e9aebd1"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9cc"
+        "value": "5cfe9704d7c8aced5e9ae557"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -13367,7 +13367,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9cd"
+        "$oid": "5cfe9704d7c8aced5e9ae558"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -13384,11 +13384,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd047"
+          "$oid": "5cfe9705d7c8aced5e9aebd2"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9cd"
+        "value": "5cfe9704d7c8aced5e9ae558"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -13402,7 +13402,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9ce"
+        "$oid": "5cfe9704d7c8aced5e9ae559"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -13413,11 +13413,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd048"
+          "$oid": "5cfe9705d7c8aced5e9aebd3"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9ce"
+        "value": "5cfe9704d7c8aced5e9ae559"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -13429,7 +13429,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9cf"
+        "$oid": "5cfe9704d7c8aced5e9ae55a"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -13440,11 +13440,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd049"
+          "$oid": "5cfe9705d7c8aced5e9aebd4"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9cf"
+        "value": "5cfe9704d7c8aced5e9ae55a"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -13459,7 +13459,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d0"
+        "$oid": "5cfe9704d7c8aced5e9ae55b"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1015",
@@ -13470,11 +13470,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd04a"
+          "$oid": "5cfe9705d7c8aced5e9aebd5"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d0"
+        "value": "5cfe9704d7c8aced5e9ae55b"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -13489,7 +13489,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d1"
+        "$oid": "5cfe9704d7c8aced5e9ae55c"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -13499,11 +13499,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd04b"
+          "$oid": "5cfe9705d7c8aced5e9aebd6"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d1"
+        "value": "5cfe9704d7c8aced5e9ae55c"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -13513,7 +13513,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d2"
+        "$oid": "5cfe9704d7c8aced5e9ae55d"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -13530,11 +13530,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd04c"
+          "$oid": "5cfe9705d7c8aced5e9aebd7"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d2"
+        "value": "5cfe9704d7c8aced5e9ae55d"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -13548,7 +13548,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d3"
+        "$oid": "5cfe9704d7c8aced5e9ae55e"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13560,11 +13560,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd04d"
+          "$oid": "5cfe9705d7c8aced5e9aebd8"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d3"
+        "value": "5cfe9704d7c8aced5e9ae55e"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -13576,7 +13576,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d4"
+        "$oid": "5cfe9704d7c8aced5e9ae55f"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -13586,11 +13586,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd04e"
+          "$oid": "5cfe9705d7c8aced5e9aebd9"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d4"
+        "value": "5cfe9704d7c8aced5e9ae55f"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -13601,7 +13601,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d5"
+        "$oid": "5cfe9704d7c8aced5e9ae560"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -13618,11 +13618,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd04f"
+          "$oid": "5cfe9705d7c8aced5e9aebda"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d5"
+        "value": "5cfe9704d7c8aced5e9ae560"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -13636,7 +13636,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d6"
+        "$oid": "5cfe9704d7c8aced5e9ae561"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13648,11 +13648,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd050"
+          "$oid": "5cfe9705d7c8aced5e9aebdb"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d6"
+        "value": "5cfe9704d7c8aced5e9ae561"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -13664,7 +13664,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d7"
+        "$oid": "5cfe9704d7c8aced5e9ae562"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1016",
@@ -13675,11 +13675,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd051"
+          "$oid": "5cfe9705d7c8aced5e9aebdc"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d7"
+        "value": "5cfe9704d7c8aced5e9ae562"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -13694,7 +13694,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d8"
+        "$oid": "5cfe9704d7c8aced5e9ae563"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -13711,11 +13711,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd052"
+          "$oid": "5cfe9705d7c8aced5e9aebdd"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d8"
+        "value": "5cfe9704d7c8aced5e9ae563"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -13729,7 +13729,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9d9"
+        "$oid": "5cfe9704d7c8aced5e9ae564"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13742,11 +13742,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd053"
+          "$oid": "5cfe9705d7c8aced5e9aebde"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9d9"
+        "value": "5cfe9704d7c8aced5e9ae564"
       },
       "incisionDatetime": null,
       "method": null,
@@ -13764,7 +13764,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9da"
+        "$oid": "5cfe9704d7c8aced5e9ae565"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -13774,11 +13774,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd054"
+          "$oid": "5cfe9705d7c8aced5e9aebdf"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9da"
+        "value": "5cfe9704d7c8aced5e9ae565"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -13788,7 +13788,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9db"
+        "$oid": "5cfe9704d7c8aced5e9ae566"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1024",
@@ -13800,11 +13800,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd055"
+          "$oid": "5cfe9705d7c8aced5e9aebe0"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9db"
+        "value": "5cfe9704d7c8aced5e9ae566"
       },
       "method": null,
       "negationRationale": null,
@@ -13822,7 +13822,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9dc"
+        "$oid": "5cfe9704d7c8aced5e9ae567"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13834,11 +13834,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd056"
+          "$oid": "5cfe9705d7c8aced5e9aebe1"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9dc"
+        "value": "5cfe9704d7c8aced5e9ae567"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -13850,7 +13850,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9dd"
+        "$oid": "5cfe9704d7c8aced5e9ae568"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -13867,11 +13867,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd057"
+          "$oid": "5cfe9705d7c8aced5e9aebe2"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9dd"
+        "value": "5cfe9704d7c8aced5e9ae568"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -13885,7 +13885,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad215d7c8ac0ab5cbc9de"
+        "$oid": "5cfe9704d7c8aced5e9ae569"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -13897,11 +13897,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cdad216d7c8ac0ab5cbd058"
+          "$oid": "5cfe9705d7c8aced5e9aebe3"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad215d7c8ac0ab5cbc9de"
+        "value": "5cfe9704d7c8aced5e9ae569"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -13913,43 +13913,43 @@
     }
   ],
   "title": "Diabetes: Medical Attention for Nephropathy",
-  "updated_at": "2019-05-14T14:35:02.253Z",
+  "updated_at": "2019-06-10T17:44:37.194Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5cdad216d7c8ac0ab5cbc9df",
-    "5cdad216d7c8ac0ab5cbc9e0",
-    "5cdad216d7c8ac0ab5cbc9e1",
-    "5cdad216d7c8ac0ab5cbc9e2",
-    "5cdad216d7c8ac0ab5cbc9e3",
-    "5cdad216d7c8ac0ab5cbc9e4",
-    "5cdad216d7c8ac0ab5cbc9e5",
-    "5cdad216d7c8ac0ab5cbc9e6",
-    "5cdad216d7c8ac0ab5cbc9e7",
-    "5cdad216d7c8ac0ab5cbc9e8",
-    "5cdad216d7c8ac0ab5cbc9e9",
-    "5cdad216d7c8ac0ab5cbc9ea",
-    "5cdad216d7c8ac0ab5cbc9eb",
-    "5cdad216d7c8ac0ab5cbc9ec",
-    "5cdad216d7c8ac0ab5cbc9ed",
-    "5cdad216d7c8ac0ab5cbc9ee",
-    "5cdad216d7c8ac0ab5cbc9ef",
-    "5cdad216d7c8ac0ab5cbc9f0",
-    "5cdad216d7c8ac0ab5cbc9f1",
-    "5cdad216d7c8ac0ab5cbc9f2",
-    "5cdad216d7c8ac0ab5cbc9f3",
-    "5cdad216d7c8ac0ab5cbc9f4",
-    "5cdad216d7c8ac0ab5cbc9f5",
-    "5cdad216d7c8ac0ab5cbc9f6",
-    "5cdad216d7c8ac0ab5cbc9f7",
-    "5cdad216d7c8ac0ab5cbc9f8",
-    "5cdad216d7c8ac0ab5cbc9f9",
-    "5cdad216d7c8ac0ab5cbc9fa",
-    "5cdad216d7c8ac0ab5cbc9fb",
-    "5cdad216d7c8ac0ab5cbc9fc",
-    "5cdad216d7c8ac0ab5cbc9fd",
-    "5cdad216d7c8ac0ab5cbc9fe",
-    "5cdad216d7c8ac0ab5cbc9ff"
+    "5cfe9705d7c8aced5e9ae56a",
+    "5cfe9705d7c8aced5e9ae56b",
+    "5cfe9705d7c8aced5e9ae56c",
+    "5cfe9705d7c8aced5e9ae56d",
+    "5cfe9705d7c8aced5e9ae56e",
+    "5cfe9705d7c8aced5e9ae56f",
+    "5cfe9705d7c8aced5e9ae570",
+    "5cfe9705d7c8aced5e9ae571",
+    "5cfe9705d7c8aced5e9ae572",
+    "5cfe9705d7c8aced5e9ae573",
+    "5cfe9705d7c8aced5e9ae574",
+    "5cfe9705d7c8aced5e9ae575",
+    "5cfe9705d7c8aced5e9ae576",
+    "5cfe9705d7c8aced5e9ae577",
+    "5cfe9705d7c8aced5e9ae578",
+    "5cfe9705d7c8aced5e9ae579",
+    "5cfe9705d7c8aced5e9ae57a",
+    "5cfe9705d7c8aced5e9ae57b",
+    "5cfe9705d7c8aced5e9ae57c",
+    "5cfe9705d7c8aced5e9ae57d",
+    "5cfe9705d7c8aced5e9ae57e",
+    "5cfe9705d7c8aced5e9ae57f",
+    "5cfe9705d7c8aced5e9ae580",
+    "5cfe9705d7c8aced5e9ae581",
+    "5cfe9705d7c8aced5e9ae582",
+    "5cfe9705d7c8aced5e9ae583",
+    "5cfe9705d7c8aced5e9ae584",
+    "5cfe9705d7c8aced5e9ae585",
+    "5cfe9705d7c8aced5e9ae586",
+    "5cfe9705d7c8aced5e9ae587",
+    "5cfe9705d7c8aced5e9ae588",
+    "5cfe9705d7c8aced5e9ae589",
+    "5cfe9705d7c8aced5e9ae58a"
   ]
 }

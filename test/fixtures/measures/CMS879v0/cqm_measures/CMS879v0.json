@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5cdad220d7c8ac0ab5cc1de2"
+    "$oid": "5cfe970ed7c8aced5e9b37d2"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1de3"
+        "$oid": "5cfe970ed7c8aced5e9b37d3"
       },
       "cql": "library BonnieTestBasic2 version '0.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Laboratory Tests for Hypertension\": 'urn:oid:2.16.840.1.113883.3.600.1482'\r\nvalueset \"Patient Reason refused\": 'urn:oid:2.16.840.1.113883.3.600.791'\r\nvalueset \"Beta Blocker Therapy for LVSD\": 'urn:oid:2.16.840.1.113883.3.526.3.1184'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\texists [\"Medication, Not Ordered\": \"Beta Blocker Therapy for LVSD\"] NoBetaBlocker\r\n\t\twhere NoBetaBlocker.negationRationale in \"Patient Reason refused\"\r\n\r\ndefine \"Initial Assessments\":\r\n\t[\"Assessment, Performed\": \"Laboratory Tests for Hypertension\"] A\r\n\t\twhere A.result as DateTime during \"Measurement Period\"\r\n\r\ndefine \"Foo\":\r\n\t[\"Laboratory Test, Performed\": \"Laboratory Tests for Hypertension\"] Test\r\n\t\twith \"Initial Assessments\" Assessment\r\n\t\t\tsuch that exists ( Test.components Comp\r\n\t\t\t\t\twhere Assessment.result as DateTime < Comp.result as DateTime\r\n\t\t\t)\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Initial Assessments\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Foo\"\r\n",
       "elm": {
@@ -2332,55 +2332,55 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1de4"
+            "$oid": "5cfe970ed7c8aced5e9b37d4"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1de5"
+            "$oid": "5cfe970ed7c8aced5e9b37d5"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1de6"
+            "$oid": "5cfe970ed7c8aced5e9b37d6"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1de7"
+            "$oid": "5cfe970ed7c8aced5e9b37d7"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1de8"
+            "$oid": "5cfe970ed7c8aced5e9b37d8"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1de9"
+            "$oid": "5cfe970ed7c8aced5e9b37d9"
           },
           "statement_name": "Denominator"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1dea"
+            "$oid": "5cfe970ed7c8aced5e9b37da"
           },
           "statement_name": "Initial Assessments"
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1deb"
+            "$oid": "5cfe970ed7c8aced5e9b37db"
           },
           "statement_name": "Foo",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1dec"
+                "$oid": "5cfe970ed7c8aced5e9b37dc"
               },
               "hqmf_id": null,
               "library_name": "BonnieTestBasic2",
@@ -2390,13 +2390,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1ded"
+            "$oid": "5cfe970ed7c8aced5e9b37dd"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1dee"
+                "$oid": "5cfe970ed7c8aced5e9b37de"
               },
               "hqmf_id": null,
               "library_name": "BonnieTestBasic2",
@@ -2406,13 +2406,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1def"
+            "$oid": "5cfe970ed7c8aced5e9b37df"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad220d7c8ac0ab5cc1df0"
+                "$oid": "5cfe970ed7c8aced5e9b37e0"
               },
               "hqmf_id": null,
               "library_name": "BonnieTestBasic2",
@@ -2423,7 +2423,7 @@
       ]
     }
   ],
-  "created_at": "2019-05-14T14:35:12.668Z",
+  "created_at": "2019-06-10T17:44:46.357Z",
   "description": "Testing of Bonnie",
   "hqmf_id": "40280382-649C-54C3-0164-EC898A6E15C8",
   "hqmf_set_id": "D5355200-50C1-4A79-8983-8617B93FE6C1",
@@ -2859,13 +2859,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1df8"
+        "$oid": "5cfe970ed7c8aced5e9b37e8"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1dfb"
+            "$oid": "5cfe970ed7c8aced5e9b37eb"
           },
           "hqmf_id": "A8E2B862-4CAE-4F6B-9298-F9698A6AA981",
           "library_name": "BonnieTestBasic2",
@@ -2873,7 +2873,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1dfa"
+            "$oid": "5cfe970ed7c8aced5e9b37ea"
           },
           "hqmf_id": "56CA3D77-7EA4-4009-802A-7EEBD7CEC8F1",
           "library_name": "BonnieTestBasic2",
@@ -2881,21 +2881,21 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1dfc"
+            "$oid": "5cfe970ed7c8aced5e9b37ec"
           },
           "hqmf_id": "D38BEB3F-3494-449E-AAD8-0AD44B861983",
           "library_name": "BonnieTestBasic2",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1df9"
+          "$oid": "5cfe970ed7c8aced5e9b37e9"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1dfd"
+            "$oid": "5cfe970ed7c8aced5e9b37ed"
           },
           "hqmf_id": null,
           "library_name": "BonnieTestBasic2",
@@ -2903,7 +2903,7 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1dfe"
+            "$oid": "5cfe970ed7c8aced5e9b37ee"
           },
           "hqmf_id": null,
           "library_name": "BonnieTestBasic2",
@@ -2911,7 +2911,7 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1dff"
+            "$oid": "5cfe970ed7c8aced5e9b37ef"
           },
           "hqmf_id": null,
           "library_name": "BonnieTestBasic2",
@@ -2919,7 +2919,7 @@
         },
         {
           "_id": {
-            "$oid": "5cdad220d7c8ac0ab5cc1e00"
+            "$oid": "5cfe970ed7c8aced5e9b37f0"
           },
           "hqmf_id": null,
           "library_name": "BonnieTestBasic2",
@@ -2932,7 +2932,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1d03"
+        "$oid": "5cfe970ed7c8aced5e9b36f3"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -2942,11 +2942,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1df1"
+          "$oid": "5cfe970ed7c8aced5e9b37e1"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc1d03"
+        "value": "5cfe970ed7c8aced5e9b36f3"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -2957,7 +2957,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1d04"
+        "$oid": "5cfe970ed7c8aced5e9b36f4"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -2967,11 +2967,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1df2"
+          "$oid": "5cfe970ed7c8aced5e9b37e2"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc1d04"
+        "value": "5cfe970ed7c8aced5e9b36f4"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -2981,7 +2981,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1d05"
+        "$oid": "5cfe970ed7c8aced5e9b36f5"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -2991,11 +2991,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1df3"
+          "$oid": "5cfe970ed7c8aced5e9b37e3"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc1d05"
+        "value": "5cfe970ed7c8aced5e9b36f5"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -3005,7 +3005,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1d06"
+        "$oid": "5cfe970ed7c8aced5e9b36f6"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1184",
@@ -3019,11 +3019,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1df4"
+          "$oid": "5cfe970ed7c8aced5e9b37e4"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc1d06"
+        "value": "5cfe970ed7c8aced5e9b36f6"
       },
       "negationRationale": null,
       "prescriberId": null,
@@ -3041,7 +3041,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1d07"
+        "$oid": "5cfe970ed7c8aced5e9b36f7"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -3051,11 +3051,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1df5"
+          "$oid": "5cfe970ed7c8aced5e9b37e5"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc1d07"
+        "value": "5cfe970ed7c8aced5e9b36f7"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -3065,7 +3065,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1d08"
+        "$oid": "5cfe970ed7c8aced5e9b36f8"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1482",
@@ -3077,11 +3077,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1df6"
+          "$oid": "5cfe970ed7c8aced5e9b37e6"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc1d08"
+        "value": "5cfe970ed7c8aced5e9b36f8"
       },
       "method": null,
       "negationRationale": null,
@@ -3099,7 +3099,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad220d7c8ac0ab5cc1d09"
+        "$oid": "5cfe970ed7c8aced5e9b36f9"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1482",
@@ -3111,11 +3111,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
         "_id": {
-          "$oid": "5cdad220d7c8ac0ab5cc1df7"
+          "$oid": "5cfe970ed7c8aced5e9b37e7"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad220d7c8ac0ab5cc1d09"
+        "value": "5cfe970ed7c8aced5e9b36f9"
       },
       "method": null,
       "negationRationale": null,
@@ -3129,17 +3129,17 @@
     }
   ],
   "title": "Bonnie Test Basic 2",
-  "updated_at": "2019-05-14T14:35:12.668Z",
+  "updated_at": "2019-06-10T17:44:46.357Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5cdad220d7c8ac0ab5cc1d0b",
-    "5cdad220d7c8ac0ab5cc1d0c",
-    "5cdad220d7c8ac0ab5cc1d0d",
-    "5cdad220d7c8ac0ab5cc1d0e",
-    "5cdad220d7c8ac0ab5cc1d0f",
-    "5cdad220d7c8ac0ab5cc1d10",
-    "5cdad220d7c8ac0ab5cc1d11"
+    "5cfe970ed7c8aced5e9b36fb",
+    "5cfe970ed7c8aced5e9b36fc",
+    "5cfe970ed7c8aced5e9b36fd",
+    "5cfe970ed7c8aced5e9b36fe",
+    "5cfe970ed7c8aced5e9b36ff",
+    "5cfe970ed7c8aced5e9b3700",
+    "5cfe970ed7c8aced5e9b3701"
   ]
 }

@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5cdad219d7c8ac0ab5cbf5d3"
+    "$oid": "5cfe9708d7c8aced5e9b115e"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5cdad21ad7c8ac0ab5cbf5d4"
+        "$oid": "5cfe9708d7c8aced5e9b115f"
       },
       "cql": "library TestMedicareFeeForService version '1.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Medicare Fee For Service\": 'urn:oid:2.16.840.1.113883.3.1240.15.2.4008'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Medicare Fee\":\r\n\t\"Interesting Encounter\" Enc\r\n\t\twith [\"Patient Characteristic Payer\": \"Medicare Fee For Service\"] Fee\r\n\t\t\tsuch that Fee.relevantPeriod overlaps Enc.relevantPeriod\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Interesting Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Medicare Fee\"\r\n",
       "elm": {
@@ -1691,49 +1691,49 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5d5"
+            "$oid": "5cfe9708d7c8aced5e9b1160"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5d6"
+            "$oid": "5cfe9708d7c8aced5e9b1161"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5d7"
+            "$oid": "5cfe9708d7c8aced5e9b1162"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5d8"
+            "$oid": "5cfe9708d7c8aced5e9b1163"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5d9"
+            "$oid": "5cfe9708d7c8aced5e9b1164"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5da"
+            "$oid": "5cfe9708d7c8aced5e9b1165"
           },
           "statement_name": "Interesting Encounter"
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5db"
+            "$oid": "5cfe9708d7c8aced5e9b1166"
           },
           "statement_name": "Medicare Fee",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad21ad7c8ac0ab5cbf5dc"
+                "$oid": "5cfe9708d7c8aced5e9b1167"
               },
               "hqmf_id": null,
               "library_name": "TestMedicareFeeForService",
@@ -1743,13 +1743,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5dd"
+            "$oid": "5cfe9708d7c8aced5e9b1168"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad21ad7c8ac0ab5cbf5de"
+                "$oid": "5cfe9708d7c8aced5e9b1169"
               },
               "hqmf_id": null,
               "library_name": "TestMedicareFeeForService",
@@ -1759,13 +1759,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5df"
+            "$oid": "5cfe9708d7c8aced5e9b116a"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad21ad7c8ac0ab5cbf5e0"
+                "$oid": "5cfe9708d7c8aced5e9b116b"
               },
               "hqmf_id": null,
               "library_name": "TestMedicareFeeForService",
@@ -1775,13 +1775,13 @@
         },
         {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5e1"
+            "$oid": "5cfe9708d7c8aced5e9b116c"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cdad21ad7c8ac0ab5cbf5e2"
+                "$oid": "5cfe9708d7c8aced5e9b116d"
               },
               "hqmf_id": null,
               "library_name": "TestMedicareFeeForService",
@@ -1792,7 +1792,7 @@
       ]
     }
   ],
-  "created_at": "2019-05-14T14:35:05.999Z",
+  "created_at": "2019-06-10T17:44:40.565Z",
   "description": "Testing valueset Medicare Fee For Service",
   "hqmf_id": "40280582-61AF-07AC-0162-494D9AC800C6",
   "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
@@ -2228,13 +2228,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5cdad21ad7c8ac0ab5cbf5e9"
+        "$oid": "5cfe9708d7c8aced5e9b1174"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5ec"
+            "$oid": "5cfe9708d7c8aced5e9b1177"
           },
           "hqmf_id": "491E8DFA-2829-4168-BC6A-CABD309670A9",
           "library_name": "TestMedicareFeeForService",
@@ -2242,7 +2242,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5eb"
+            "$oid": "5cfe9708d7c8aced5e9b1176"
           },
           "hqmf_id": "7FB0245E-BF10-4D09-8B8D-1A1761F43D53",
           "library_name": "TestMedicareFeeForService",
@@ -2250,14 +2250,14 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5cdad21ad7c8ac0ab5cbf5ed"
+            "$oid": "5cfe9708d7c8aced5e9b1178"
           },
           "hqmf_id": "2E00A29E-E406-494A-9FA9-916F8C24556A",
           "library_name": "TestMedicareFeeForService",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5cdad21ad7c8ac0ab5cbf5ea"
+          "$oid": "5cfe9708d7c8aced5e9b1175"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
@@ -2267,7 +2267,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5cdad219d7c8ac0ab5cbf4bf"
+        "$oid": "5cfe9708d7c8aced5e9b104a"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -2277,11 +2277,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
         "_id": {
-          "$oid": "5cdad21ad7c8ac0ab5cbf5e3"
+          "$oid": "5cfe9708d7c8aced5e9b116e"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad219d7c8ac0ab5cbf4bf"
+        "value": "5cfe9708d7c8aced5e9b104a"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -2292,7 +2292,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad219d7c8ac0ab5cbf4c0"
+        "$oid": "5cfe9708d7c8aced5e9b104b"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -2302,11 +2302,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
         "_id": {
-          "$oid": "5cdad21ad7c8ac0ab5cbf5e4"
+          "$oid": "5cfe9708d7c8aced5e9b116f"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad219d7c8ac0ab5cbf4c0"
+        "value": "5cfe9708d7c8aced5e9b104b"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -2316,7 +2316,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad219d7c8ac0ab5cbf4c1"
+        "$oid": "5cfe9708d7c8aced5e9b104c"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -2326,11 +2326,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
         "_id": {
-          "$oid": "5cdad21ad7c8ac0ab5cbf5e5"
+          "$oid": "5cfe9708d7c8aced5e9b1170"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad219d7c8ac0ab5cbf4c1"
+        "value": "5cfe9708d7c8aced5e9b104c"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -2340,7 +2340,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad219d7c8ac0ab5cbf4c2"
+        "$oid": "5cfe9708d7c8aced5e9b104d"
       },
       "codeListId": "2.16.840.1.113883.3.1240.15.2.4008",
       "dataElementCodes": [
@@ -2350,11 +2350,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
         "_id": {
-          "$oid": "5cdad21ad7c8ac0ab5cbf5e6"
+          "$oid": "5cfe9708d7c8aced5e9b1171"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad219d7c8ac0ab5cbf4c2"
+        "value": "5cfe9708d7c8aced5e9b104d"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -2365,7 +2365,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad219d7c8ac0ab5cbf4c3"
+        "$oid": "5cfe9708d7c8aced5e9b104e"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -2375,11 +2375,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
         "_id": {
-          "$oid": "5cdad21ad7c8ac0ab5cbf5e7"
+          "$oid": "5cfe9708d7c8aced5e9b1172"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad219d7c8ac0ab5cbf4c3"
+        "value": "5cfe9708d7c8aced5e9b104e"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -2389,7 +2389,7 @@
     },
     {
       "_id": {
-        "$oid": "5cdad219d7c8ac0ab5cbf4c4"
+        "$oid": "5cfe9708d7c8aced5e9b104f"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -2406,11 +2406,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cdad21ad7c8ac0ab5cbf5e8"
+          "$oid": "5cfe9708d7c8aced5e9b1173"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cdad219d7c8ac0ab5cbf4c4"
+        "value": "5cfe9708d7c8aced5e9b104f"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -2424,16 +2424,16 @@
     }
   ],
   "title": "Test Medicare Fee For Service",
-  "updated_at": "2019-05-14T14:35:05.999Z",
+  "updated_at": "2019-06-10T17:44:40.565Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5cdad219d7c8ac0ab5cbf4c5",
-    "5cdad219d7c8ac0ab5cbf4c6",
-    "5cdad219d7c8ac0ab5cbf4c7",
-    "5cdad219d7c8ac0ab5cbf4c8",
-    "5cdad219d7c8ac0ab5cbf4c9",
-    "5cdad219d7c8ac0ab5cbf4ca"
+    "5cfe9708d7c8aced5e9b1050",
+    "5cfe9708d7c8aced5e9b1051",
+    "5cfe9708d7c8aced5e9b1052",
+    "5cfe9708d7c8aced5e9b1053",
+    "5cfe9708d7c8aced5e9b1054",
+    "5cfe9708d7c8aced5e9b1055"
   ]
 }
