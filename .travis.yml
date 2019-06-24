@@ -33,6 +33,7 @@ script:
   - bundle exec rake teaspoon DIR=production_tests
   - bundle exec rake teaspoon DIR=views
   - bundle exec rake teaspoon DIR=javascripts
+  - codecov
   - bundle exec brakeman -qAzw1
   # - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
