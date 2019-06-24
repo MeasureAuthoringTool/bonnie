@@ -17,7 +17,7 @@ class Thorax.Models.Patient extends Thorax.Model
     thoraxPatient._id = attrs._id
     thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
     thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(thoraxPatient.cqmPatient.qdmPatient.dataElements, parent: this, parse: true)
-    thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(thoraxPatient.cqmPatient.expectedValues.toObject())
+    thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(thoraxPatient.cqmPatient.expectedValues, parent: this, parse: true)
     thoraxPatient
 
   # Create a deep clone of the patient, optionally omitting the id field
@@ -26,12 +26,12 @@ class Thorax.Models.Patient extends Thorax.Model
     # clone the cqmPatient and make a new source_data_criteria collection for it
     clonedPatient.set 'cqmPatient', new cqm.models.Patient(mongoose.utils.clone(clonedPatient.get('cqmPatient')))
     clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').qdmPatient.dataElements, parent: clonedPatient, parse: true)
+    clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expectedValues, parent: clonedPatient, parse: true)
     if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
     if options.dedupName
-       clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
+      clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
     clonedPatient
 
-  getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
     @get('cqmPatient')['measure_ids'].map (m) ->
@@ -40,27 +40,31 @@ class Thorax.Models.Patient extends Thorax.Model
   getEntrySections: ->
     s for s in Thorax.Models.Patient.sections when @has(s)
   ### Patient HTML Header values ###
-  getGender: ->
-    genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
-    gender = genderElement?.dataElementCodes[0].code
-    if gender == 'M'
-      "Male"
-    else
-      "Female"
   getBirthDate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
   getBirthTime: -> @printTime @get('cqmPatient').qdmPatient.birthDatetime
   getDeathDate: -> if @get('expired') then @printDate((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
   getDeathTime: -> if @get('expired') then @printTime((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+
+  # Next 4 methods return the Code object since some calls to them need the code while others need the display name
+  getGender: ->
+    genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
+    genderElement?.dataElementCodes[0]
   getRace: ->
     raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
     unless raceElement? then "Unknown"
     else unless raceElement.dataElementCodes[0].display? then "CDC-RE: #{raceElement.dataElementCodes[0].code}"
-    else raceElement.dataElementCodes[0].display
+    else raceElement.dataElementCodes[0]
   getEthnicity: ->
     ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
     unless ethnicityElement? then "Unknown"
     else unless ethnicityElement.dataElementCodes[0].display? then "CDC-RE: #{ethnicityElement.dataElementCodes[0].code}"
-    else ethnicityElement.dataElementCodes[0].display
+    else ethnicityElement.dataElementCodes[0]
+  getPayer: ->
+    payerElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
+    unless payerElement? then "Unknown"
+    else unless payerElement.dataElementCodes[0].display? then "CDC-RE: #{payerElement.dataElementCodes[0].code}"
+    else payerElement.dataElementCodes[0]
+
   getInsurance: ->
     insurances = @get('insurance_providers')?.map (ip) -> ip.name
     insurances?.join(", ") or ''
@@ -90,18 +94,25 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').familyName = lastName
   setCqmPatientNotes: (notes) ->
     @get('cqmPatient').notes = notes
+
   setCqmPatientBirthDate: (birthdate, measure) ->
-    @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(new Date(birthdate))
+    @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(moment.utc(birthdate, 'L LT').toDate())
     sourceElement = @removeElementAndGetNewCopy('birthdate', measure.get('cqmMeasure'))
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicBirthdate()
-    sourceElement.birthDatetime = @createCQLDate(new Date(birthdate))
+      return # Patient characteristic birthdate was not found on the measure, so it won't be placed on the patient
+    sourceElement.birthDatetime = @get('cqmPatient').qdmPatient.birthDatetime.copy()
+    if sourceElement.codeListId?
+      birthdateConcept = (@getConceptsForDataElement('birthdate', measure).filter (elem) -> elem.code == birthdate)[0]
+      sourceElement.dataElementCodes[0] = @conceptToCode(birthdateConcept)
+    else
+      sourceElement.dataElementCodes[0] = new cqm.models.CQL.Code('21112-8', 'LOINC', undefined, 'Birth date')
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+
   setCqmPatientDeathDate: (deathdate, measure) ->
     sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
     if !sourceElement
       sourceElement = new cqm.models.PatientCharacteristicExpired()
-    sourceElement.expiredDatetime = @createCQLDate(new Date(deathdate))
+    sourceElement.expiredDatetime = @createCQLDate(moment.utc(deathdate, 'L LT').toDate())
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientGender: (gender, measure) ->
     sourceElement = @removeElementAndGetNewCopy('gender', measure.get('cqmMeasure'))
@@ -152,7 +163,7 @@ class Thorax.Models.Patient extends Thorax.Model
     valueSet?.concepts || []
 
   createCQLDate: (date) ->
-    new cqm.models.CQL.DateTime(date.getFullYear(),date.getMonth()+1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), date.getTimezoneOffset())
+    cqm.models.CQL.DateTime.fromJSDate(date, 0)
 
   conceptToCode: (concept) ->
     new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
@@ -210,7 +221,7 @@ class Thorax.Models.Patient extends Thorax.Model
     expectedValue
 
   getExpectedValues: (measure) ->
-    expectedValues = new Thorax.Collections.ExpectedValues()
+    expectedValues = new Thorax.Collections.ExpectedValues([], parent: this)
     measure.get('populations').each (population) =>
       expectedValues.add @getExpectedValue(population)
     expectedValues
@@ -242,29 +253,6 @@ class Thorax.Models.Patient extends Thorax.Model
       errors.push [@cid, 'deathdate', 'Date of death must have four digit year']
     if deathdate && birthdate && deathdate.isBefore birthdate
       errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
-
-    @get('source_data_criteria').each (sdc) =>
-      timingInterval = sdc.getPrimaryTimingAttribute()
-      if sdc.get(timingInterval)?.low
-        start_date = moment(sdc.get(timingInterval).low, 'X')
-      else if timingInterval == 'authorDatetime' && sdc.get(timingInterval)
-        start_date = moment(sdc.get(timingInterval), 'X')
-      else
-        start_date = null
-      end_date = if sdc.get(timingInterval)?.high then moment(sdc.get(timingInterval).high, 'X') else null
-      # patient_characteristics do not have start dates except for payer
-      if !start_date && (sdc.get('qdmCategory') != 'patient_characteristic' && sdc.get('_type') != 'QDM::PatientCharacteristicPayer')
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} must have start date"]
-      if end_date && start_date && end_date.isBefore start_date
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date cannot be before start date"]
-      if start_date && start_date.year() < 1000
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} start date must have four digit year"]
-      if end_date && end_date.year() < 1000
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date must have four digit year"]
-      if start_date && deathdate && start_date.isAfter deathdate
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('description')} start date must be before patient date of death"]
-      if end_date && birthdate && end_date.isBefore birthdate
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('description')} stop date must be after patient date of birth"]
 
     return errors if errors.length > 0
 

@@ -133,9 +133,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
             birthdate: patient.getBirthDate()
             expired: patient.get("expired")
             deathdate: patient.getDeathDate()
-            ethnicity: patient.getEthnicity()
-            race: patient.getRace()
-            gender: patient.getGender()
+            ethnicity: patient.getEthnicity().display
+            race: patient.getRace().display
+            gender: patient.getGender().display
             notes: patient.getNotes()
           }
         # Populates the population details
