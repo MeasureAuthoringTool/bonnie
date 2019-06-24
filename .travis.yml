@@ -42,7 +42,7 @@ script:
   - bundle exec rake teaspoon DIR='javascripts'
   - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
   - bundle exec brakeman -qAzw1
-  # - bundle exec bundle-audit check --update
+  - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
   - bundle exec rake test
