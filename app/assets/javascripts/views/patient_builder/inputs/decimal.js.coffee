@@ -1,11 +1,11 @@
 
-# Input view for Integer types.
-class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
-  template: JST['patient_builder/inputs/integer']
+# Input view for Decimal types.
+class Thorax.Views.InputDecimalView extends Thorax.Views.BonnieView
+  template: JST['patient_builder/inputs/decimal']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - string - Optional. Initial value of integer.
-  #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to true.
+  #   initialValue - string - Optional. Initial value of decimal.
+  #   allowNull - boolean - Optional. If a null or empty decimal is allowed. Defaults to true.
   initialize: ->
     if @initialValue?
       @value = @initialValue
@@ -27,7 +27,7 @@ class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
   handleInputChange: (e) ->
     inputValue = @$(e.target).val()
     if inputValue != ''
-      @value = parseInt(inputValue)
+      @value = parseFloat(inputValue)
       if @value == NaN
         @value = null
     else

@@ -1,5 +1,5 @@
 
-# Input view for DateTime types.
+# Input view for String types.
 class Thorax.Views.InputStringView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/string']
 
