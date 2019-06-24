@@ -25,14 +25,14 @@ before_script:
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
 script:
-  - bundle exec rake teaspoon DIR=cqm_specs USE_COVERAGE=cqm_specs
-  - bundle exec rake teaspoon DIR=helper_specs USE_COVERAGE=helper_specs
-  - bundle exec rake teaspoon DIR=integration USE_COVERAGE=integration
-  - bundle exec rake teaspoon DIR=models USE_COVERAGE=models
-  - bundle exec rake teaspoon DIR=patient_builder_tests USE_COVERAGE=patient-builder
-  - bundle exec rake teaspoon DIR=production_tests USE_COVERAGE=production
-  - bundle exec rake teaspoon DIR=views USE_COVERAGE=views
-  - bundle exec rake teaspoon DIR=javascripts USE_COVERAGE=javascripts
+  - bundle exec rake teaspoon DIR=cqm_specs
+  - bundle exec rake teaspoon DIR=helper_specs
+  - bundle exec rake teaspoon DIR=integration
+  - bundle exec rake teaspoon DIR=models
+  - bundle exec rake teaspoon DIR=patient_builder_tests
+  - bundle exec rake teaspoon DIR=production_tests
+  - bundle exec rake teaspoon DIR=views
+  - bundle exec rake teaspoon DIR=javascripts
   - codecov
   - bundle exec brakeman -qAzw1
   # - bundle exec bundle-audit check --update
