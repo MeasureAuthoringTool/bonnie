@@ -9,8 +9,8 @@ class PatientsController < ApplicationController
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
     end
-    updated_patient._id = old_patient._id
-    updated_patient.user_id = old_patient.user_id
+    updated_patient._id = old_patient._id if old_patient
+    updated_patient.user_id = current_user._id
     updated_patient.upsert
     render :json => updated_patient
   end

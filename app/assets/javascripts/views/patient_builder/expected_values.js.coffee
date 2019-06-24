@@ -56,7 +56,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
   events:
     serialize: (attr) ->
       population = @measure.get('populations').at @model.get('population_index')
-      for pc in @measure.populationCriteria() when population.has(pc)
+      for pc in @measure.populationCriteria() when population.has(pc) or pc == 'OBSERV' and population.has('observations')
         if @isNumbers || (@isMultipleObserv && (pc == 'OBSERV'))
           # Only parse existing values
           if attr[pc]

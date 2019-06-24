@@ -7,9 +7,6 @@ describe "Population state between routes", ->
     @patient = new Thorax.Models.Patient getJSONFixture('patients/CMS160v6/Expired_DENEX.json'), parse: true
     @measureToTest.get('patients').add @patient
 
-  afterAll ->
-    @measureView.remove()
-
   it "starts with the first population", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
