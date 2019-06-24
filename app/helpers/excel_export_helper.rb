@@ -32,15 +32,15 @@ module ExcelExportHelper
           calc_results[index][patient.id.to_s] = {statement_results: {}, criteria: {}}
         else
           result_criteria = {
-            'values' => []
+            'observation_values' => []
           }
           result[pop_set_or_strat[:id]]['population_relevance'].each_key do |population_criteria|
-            if population_criteria == 'values'
+            if population_criteria == 'observation_values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
               result[pop_set_or_strat[:id]]['episode_results']&.each_value do |episode|
-                result_criteria['values'].concat episode['values']
+                result_criteria['observation_values'].concat episode['observation_values']
               end
-              result_criteria['values'].sort!
+              result_criteria['observation_values'].sort!
             else
               result_criteria[population_criteria] = result[pop_set_or_strat[:id]][population_criteria]
             end
