@@ -25,15 +25,7 @@ before_script:
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
 script:
-  - bundle exec rake teaspoon DIR=cqm_specs
-  - bundle exec rake teaspoon DIR=helper_specs
-  - bundle exec rake teaspoon DIR=integration
-  - bundle exec rake teaspoon DIR=models
-  - bundle exec rake teaspoon DIR=patient_builder_tests
-  - bundle exec rake teaspoon DIR=production_tests
-  - bundle exec rake teaspoon DIR=views
-  - bundle exec rake teaspoon DIR=javascripts
-  - codecov
+  - ./script/teaspoon_tests.sh
   - bundle exec brakeman -qAzw1
   # - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
