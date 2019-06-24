@@ -262,7 +262,10 @@ Teaspoon.configure do |config|
     # be checked at the end of a run. If any aren't met the run will fail with
     # a message. Thresholds can be defined as a percentage (0-100), or nil.
 
-    # TODO: disabled for feature branch
+    # NOTE: These are disabled because we run the tests separately on travis.
+    # They are combined by codecov and coverage thresholds can be set on
+    # codecov.io.
+
     # coverage.statements = 51.3
     # coverage.branches = 34.24
     # coverage.functions = 41.47
