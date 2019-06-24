@@ -28,16 +28,16 @@
         "authorDatetime": "2012-06-14T08:00:00.000+00:00",
         "category": {
           "code": "184225006",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Computer record of patient (record artifact)",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Computer record of patient (record artifact)",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
-            "codeSystemOid": "2.16.840.1.113883.6.96",
+            
+            "system": "2.16.840.1.113883.6.96",
             "code": "445333001"
           }
         ],
@@ -51,9 +51,9 @@
         },
         "medium": {
           "code": "445666005",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Faxed report (record artifact)",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Faxed report (record artifact)",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "negationRationale": null,
@@ -63,9 +63,9 @@
         "qdmVersion": "5.4",
         "recipient": {
           "code": "453231000124104",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Primary care provider (occupation)",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Primary care provider (occupation)",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relevantPeriod": {
@@ -76,9 +76,9 @@
         },
         "sender": {
           "code": "309336000",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Pediatric oncologist (occupation)",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Pediatric oncologist (occupation)",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::CommunicationPerformed"
@@ -90,9 +90,9 @@
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystem": "LOINC",
-            "descriptor": null,
-            "codeSystemOid": "2.16.840.1.113883.6.1",
+            
+            "display": null,
+            "system": "2.16.840.1.113883.6.1",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -117,9 +117,9 @@
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
+            
+            "display": "Not Hispanic or Latino",
+            "system": "2.16.840.1.113883.6.238",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -144,9 +144,9 @@
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "American Indian or Alaska Native",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
+            
+            "display": "American Indian or Alaska Native",
+            "system": "2.16.840.1.113883.6.238",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -171,9 +171,9 @@
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystem": "AdministrativeGender",
-            "descriptor": "M",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
+            
+            "display": "M",
+            "system": "2.16.840.1.113883.5.1",
             "version": null,
             "_type": "QDM::Code"
           }

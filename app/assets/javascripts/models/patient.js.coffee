@@ -48,20 +48,21 @@ class Thorax.Models.Patient extends Thorax.Model
   # Next 4 methods return the Code object since some calls to them need the code while others need the display name
   getGender: ->
     genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
+    unless genderElement? then return {code: "Unknown", display: "Unknown"}
     genderElement?.dataElementCodes[0]
   getRace: ->
     raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
-    unless raceElement? then "Unknown"
+    unless raceElement? then return {code: "Unknown", display: "Unknown"}
     else unless raceElement.dataElementCodes[0].display? then "CDC-RE: #{raceElement.dataElementCodes[0].code}"
     else raceElement.dataElementCodes[0]
   getEthnicity: ->
     ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
-    unless ethnicityElement? then "Unknown"
+    unless ethnicityElement? then return {code: "Unknown", display: "Unknown"}
     else unless ethnicityElement.dataElementCodes[0].display? then "CDC-RE: #{ethnicityElement.dataElementCodes[0].code}"
     else ethnicityElement.dataElementCodes[0]
   getPayer: ->
     payerElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
-    unless payerElement? then "Unknown"
+    unless payerElement? then return {code: "Unknown", display: "Unknown"}
     else unless payerElement.dataElementCodes[0].display? then "CDC-RE: #{payerElement.dataElementCodes[0].code}"
     else payerElement.dataElementCodes[0]
 
@@ -105,7 +106,7 @@ class Thorax.Models.Patient extends Thorax.Model
       birthdateConcept = (@getConceptsForDataElement('birthdate', measure).filter (elem) -> elem.code == birthdate)[0]
       sourceElement.dataElementCodes[0] = @conceptToCode(birthdateConcept)
     else
-      sourceElement.dataElementCodes[0] = new cqm.models.CQL.Code('21112-8', 'LOINC', undefined, 'Birth date')
+      sourceElement.dataElementCodes[0] = new cqm.models.CQL.Code('21112-8', '2.16.840.1.113883.6.1', undefined, 'Birth date')
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
 
   setCqmPatientDeathDate: (deathdate, measure) ->

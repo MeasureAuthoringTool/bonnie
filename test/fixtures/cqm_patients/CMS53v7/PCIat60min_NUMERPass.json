@@ -40,19 +40,19 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "183452005",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Encounter, Performed: Encounter Inpatient",
         "diagnoses": [
           {
             "code": "10273003",
-            "codeSystem": "SNOMED-CT",
+            
             "version": null,
-            "descriptor": "Acute or Evolving MI",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "display": "Acute or Evolving MI",
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "dischargeDisposition": null,
@@ -64,9 +64,9 @@
             "_type": "QDM::FacilityLocation",
             "code": {
               "code": "183452005",
-              "codeSystemOid": "2.16.840.1.113883.6.96",
-              "descriptor": "Encounter Inpatient",
-              "codeSystem": "SNOMED-CT",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Encounter Inpatient",
+              
               "version": null,
               "_type": "QDM::Code"
             },
@@ -96,9 +96,9 @@
         "negationRationale": null,
         "principalDiagnosis": {
           "code": "10273003",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Acute or Evolving MI",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Acute or Evolving MI",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "qdmCategory": "encounter",
@@ -121,9 +121,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "RxNorm",
+            
             "code": "1804799",
-            "codeSystemOid": "2.16.840.1.113883.6.88"
+            "system": "2.16.840.1.113883.6.88"
           }
         ],
         "description": "Medication, Administered: Fibrinolytic Therapy",
@@ -164,9 +164,9 @@
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "164847006",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Diagnostic Study, Performed: Electrocardiogram (ECG)",
@@ -210,14 +210,14 @@
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "ICD-10-PCS",
+            
             "code": "0270346",
-            "codeSystemOid": "2.16.840.1.113883.6.4"
+            "system": "2.16.840.1.113883.6.4"
           },
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "11101003",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Procedure, Performed: PCI",
@@ -258,9 +258,9 @@
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystemOid": "2.16.840.1.113883.6.1",
-            "descriptor": null,
-            "codeSystem": "LOINC",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -289,9 +289,9 @@
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -320,9 +320,9 @@
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -351,9 +351,9 @@
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
-            "descriptor": "M",
-            "codeSystem": "AdministrativeGender",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "M",
+            
             "version": null,
             "_type": "QDM::Code"
           }

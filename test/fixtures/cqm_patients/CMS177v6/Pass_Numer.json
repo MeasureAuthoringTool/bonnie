@@ -38,19 +38,19 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "12843005",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Encounter, Performed: Face-to-Face Interaction",
         "diagnoses": [
           {
             "code": "14183003",
-            "codeSystem": "SNOMED-CT",
+            
             "version": null,
-            "descriptor": "Major Depressive Disorder-Active",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "display": "Major Depressive Disorder-Active",
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "dischargeDisposition": null,
@@ -73,9 +73,9 @@
         "negationRationale": null,
         "principalDiagnosis": {
           "code": "14183003",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Major Depressive Disorder-Active",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Major Depressive Disorder-Active",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "qdmCategory": "encounter",
@@ -98,9 +98,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "225337009",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Intervention, Performed: Suicide Risk Assessment",
@@ -138,9 +138,9 @@
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystemOid": "2.16.840.1.113883.6.1",
-            "descriptor": null,
-            "codeSystem": "LOINC",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -169,9 +169,9 @@
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -200,9 +200,9 @@
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -231,9 +231,9 @@
         "dataElementCodes": [
           {
             "code": "F",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
-            "descriptor": "F",
-            "codeSystem": "AdministrativeGender",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "F",
+            
             "version": null,
             "_type": "QDM::Code"
           }

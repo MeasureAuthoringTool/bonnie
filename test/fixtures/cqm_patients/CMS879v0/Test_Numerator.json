@@ -40,9 +40,9 @@
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
+            
             "code": "24320-4",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Assessment, Performed: Laboratory Tests for Hypertension",
@@ -73,9 +73,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "RxNorm",
+            
             "code": "200031",
-            "codeSystemOid": "2.16.840.1.113883.6.88"
+            "system": "2.16.840.1.113883.6.88"
           }
         ],
         "daysSupplied": null,
@@ -93,9 +93,9 @@
         },
         "negationRationale": {
           "code": "105480006",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": null,
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": null,
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "qdmCategory": "medication",
@@ -126,18 +126,18 @@
             "result": "44512-07-06T08:00:00+00:00",
             "code": {
               "code": "200031",
-              "codeSystem": "RxNorm",
+              
               "version": null,
-              "descriptor": null,
-              "codeSystemOid": "2.16.840.1.113883.6.88"
+              "display": null,
+              "system": "2.16.840.1.113883.6.88"
             }
           }
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
+            
             "code": "24320-4",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Laboratory Test, Performed: Laboratory Tests for Hypertension",
@@ -178,9 +178,9 @@
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystemOid": "2.16.840.1.113883.6.1",
-            "descriptor": null,
-            "codeSystem": "LOINC",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -209,9 +209,9 @@
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -240,9 +240,9 @@
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -271,9 +271,9 @@
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
-            "descriptor": "M",
-            "codeSystem": "AdministrativeGender",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "M",
+            
             "version": null,
             "_type": "QDM::Code"
           }

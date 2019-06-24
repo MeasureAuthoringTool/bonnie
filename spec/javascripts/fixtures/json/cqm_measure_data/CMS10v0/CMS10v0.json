@@ -1,4 +1,5 @@
 {
+  "_id": "5d1241e231fe5f83c94d73c4",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS10v0",
@@ -10,6 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
+      "_id": "5d1241e231fe5f83c94d73c6",
       "cql": "library DocumentationofCurrentMedicationsintheMedicalRecord version '0.0.004'\n\nusing QDM version '5.0.2'\n\nvalueset \"Medical or Other reason not done\": 'urn:oid:2.16.840.1.113883.3.600.1.1502' \n\nvalueset \"Medications Encounter Code Set\": 'urn:oid:2.16.840.1.113883.3.600.1.1834' \n\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836' \n\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1' \n\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837' \n\nvalueset \"Current Medications Documented SNMD\": 'urn:oid:2.16.840.1.113883.3.600.1.462' \n\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"SDE Ethnicity\": [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\n\ndefine \"SDE Payer\": [\"Patient Characteristic Payer\": \"Payer\"]\n\ndefine \"SDE Race\": [\"Patient Characteristic Race\": \"Race\"]\n\ndefine \"SDE Sex\": [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\n\ndefine \"In Demographic\": AgeInYearsAt(start of \"Measurement Period\") >= 18\n\ndefine \"Encounter\": [\"Encounter, Performed\":\"Medications Encounter Code Set\"]\n\ndefine \"Encounters during MP\": \"Encounter\" Encounter where Encounter.relevantPeriod during \"Measurement Period\"\n\ndefine \"IPP\": \"In Demographic\" and exists \"Encounters during MP\"\n\ndefine \"Numerator\": \"Medications Documented\"\n\ndefine \"Denominator\": \"IPP\"\n\ndefine \"Medications Documented\": [\"Procedure, Performed\": \"Current Medications Documented SNMD\"] Procedure\nwith \"Encounters during MP\" Encounter\nsuch that Procedure.relevantPeriod during Encounter.relevantPeriod\n\ndefine \"meds not documented for medical reason\": [\"Procedure, Not Performed\": \"Current Medications Documented SNMD\"] NotPerformed\nwhere NotPerformed.negationRationale in \"Medical or Other reason not done\"\n\ndefine \"DenException\": \"meds not documented for medical reason\"\n\n",
       "elm": {
         "library": {
@@ -2298,30 +2300,39 @@
       "library_version": "0.0.004",
       "statement_dependencies": [
         {
+          "_id": "5d1241e231fe5f83c94d73c7",
           "statement_name": "Patient"
         },
         {
+          "_id": "5d1241e231fe5f83c94d73c8",
           "statement_name": "SDE Ethnicity"
         },
         {
+          "_id": "5d1241e231fe5f83c94d73c9",
           "statement_name": "SDE Payer"
         },
         {
+          "_id": "5d1241e231fe5f83c94d73ca",
           "statement_name": "SDE Race"
         },
         {
+          "_id": "5d1241e231fe5f83c94d73cb",
           "statement_name": "SDE Sex"
         },
         {
+          "_id": "5d1241e231fe5f83c94d73cc",
           "statement_name": "In Demographic"
         },
         {
+          "_id": "5d1241e231fe5f83c94d73cd",
           "statement_name": "Encounter"
         },
         {
+          "_id": "5d1241e231fe5f83c94d73ce",
           "statement_name": "Encounters during MP",
           "statement_references": [
             {
+              "_id": "5d1241e231fe5f83c94d73cf",
               "hqmf_id": null,
               "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
               "statement_name": "Encounter"
@@ -2329,14 +2340,17 @@
           ]
         },
         {
+          "_id": "5d1241e231fe5f83c94d73d0",
           "statement_name": "IPP",
           "statement_references": [
             {
+              "_id": "5d1241e231fe5f83c94d73d1",
               "hqmf_id": null,
               "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
               "statement_name": "In Demographic"
             },
             {
+              "_id": "5d1241e231fe5f83c94d73d2",
               "hqmf_id": null,
               "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
               "statement_name": "Encounters during MP"
@@ -2344,9 +2358,11 @@
           ]
         },
         {
+          "_id": "5d1241e231fe5f83c94d73d3",
           "statement_name": "Medications Documented",
           "statement_references": [
             {
+              "_id": "5d1241e231fe5f83c94d73d4",
               "hqmf_id": null,
               "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
               "statement_name": "Encounters during MP"
@@ -2354,9 +2370,11 @@
           ]
         },
         {
+          "_id": "5d1241e231fe5f83c94d73d5",
           "statement_name": "Numerator",
           "statement_references": [
             {
+              "_id": "5d1241e231fe5f83c94d73d6",
               "hqmf_id": null,
               "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
               "statement_name": "Medications Documented"
@@ -2364,9 +2382,11 @@
           ]
         },
         {
+          "_id": "5d1241e231fe5f83c94d73d7",
           "statement_name": "Denominator",
           "statement_references": [
             {
+              "_id": "5d1241e231fe5f83c94d73d8",
               "hqmf_id": null,
               "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
               "statement_name": "IPP"
@@ -2374,12 +2394,15 @@
           ]
         },
         {
+          "_id": "5d1241e231fe5f83c94d73d9",
           "statement_name": "meds not documented for medical reason"
         },
         {
+          "_id": "5d1241e231fe5f83c94d73da",
           "statement_name": "DenException",
           "statement_references": [
             {
+              "_id": "5d1241e231fe5f83c94d73db",
               "hqmf_id": null,
               "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
               "statement_name": "meds not documented for medical reason"
@@ -2389,7 +2412,7 @@
       ]
     }
   ],
-  "created_at": null,
+  "created_at": "2019-06-25T15:46:42.094Z",
   "description": "Percentage of visits for patients aged 18 years and older for which the eligible professional attests to documenting a list of current medications using all immediate resources available on the date of the encounter.  This list must include ALL known prescriptions, over-the-counters, herbals, and vitamin/mineral/dietary (nutritional) supplements AND must contain the medications' name, dosage, frequency and route of administration.",
   "hqmf_id": "40280582-5859-673B-0158-E42103C30732",
   "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
@@ -2898,6 +2921,9 @@
     }
   },
   "measure_scoring": "PROPORTION",
+  "patient_ids": [
+
+  ],
   "population_criteria": {
     "IPP": {
       "conjunction?": true,
@@ -2970,28 +2996,34 @@
   },
   "population_sets": [
     {
+      "_id": "5d1241e231fe5f83c94d73e3",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEXCEP": {
+          "_id": "5d1241e231fe5f83c94d73e8",
           "hqmf_id": "021C08A5-A3E9-4D8D-8289-733A6086A5D3",
           "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
           "statement_name": "DenException"
         },
         "DENOM": {
+          "_id": "5d1241e231fe5f83c94d73e6",
           "hqmf_id": "932E90DC-E06B-44E7-B18A-F0F13764C68F",
           "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
           "statement_name": "Denominator"
         },
         "IPP": {
+          "_id": "5d1241e231fe5f83c94d73e5",
           "hqmf_id": "3C0C0434-CF42-472D-8EBF-E9EE1A81522A",
           "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
           "statement_name": "IPP"
         },
         "NUMER": {
+          "_id": "5d1241e231fe5f83c94d73e7",
           "hqmf_id": "4CE7D439-06C4-4B16-92C1-FD0C2D12FCB6",
           "library_name": "DocumentationofCurrentMedicationsintheMedicalRecord",
           "statement_name": "Numerator"
         },
+        "_id": "5d1241e231fe5f83c94d73e4",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
@@ -2999,6 +3031,7 @@
   ],
   "source_data_criteria": [
     {
+      "_id": "5d1241e231fe5f83c94d7256",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1.1834",
@@ -3013,9 +3046,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
+        "_id": "5d1241e231fe5f83c94d73dc",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d0be6b731fe5f2ce542f9cd"
+        "value": "5d1241e231fe5f83c94d7256"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -3028,6 +3062,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
+      "_id": "5d1241e231fe5f83c94d7257",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1.462",
@@ -3038,9 +3073,10 @@
       "description": "Procedure, Not Performed: Current Medications Documented SNMD",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
+        "_id": "5d1241e231fe5f83c94d73dd",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d0be6b731fe5f2ce542f9ce"
+        "value": "5d1241e231fe5f83c94d7257"
       },
       "incisionDatetime": null,
       "method": null,
@@ -3057,6 +3093,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
+      "_id": "5d1241e231fe5f83c94d7258",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1.462",
@@ -3067,9 +3104,10 @@
       "description": "Procedure, Performed: Current Medications Documented SNMD",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
+        "_id": "5d1241e231fe5f83c94d73de",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d0be6b731fe5f2ce542f9cf"
+        "value": "5d1241e231fe5f83c94d7258"
       },
       "incisionDatetime": null,
       "method": null,
@@ -3086,6 +3124,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
+      "_id": "5d1241e231fe5f83c94d7259",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -3093,9 +3132,10 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
+        "_id": "5d1241e231fe5f83c94d73df",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d0be6b731fe5f2ce542f9d0"
+        "value": "5d1241e231fe5f83c94d7259"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -3104,6 +3144,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
+      "_id": "5d1241e231fe5f83c94d725a",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -3111,9 +3152,10 @@
       "description": "Patient Characteristic Sex: ONC Administrative Sex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
+        "_id": "5d1241e231fe5f83c94d73e0",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d0be6b731fe5f2ce542f9d1"
+        "value": "5d1241e231fe5f83c94d725a"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -3122,6 +3164,7 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
+      "_id": "5d1241e231fe5f83c94d725b",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -3129,9 +3172,10 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
+        "_id": "5d1241e231fe5f83c94d73e1",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d0be6b731fe5f2ce542f9d2"
+        "value": "5d1241e231fe5f83c94d725b"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -3140,6 +3184,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
+      "_id": "5d1241e231fe5f83c94d725c",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -3147,9 +3192,10 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
+        "_id": "5d1241e231fe5f83c94d73e2",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d0be6b731fe5f2ce542f9d3"
+        "value": "5d1241e231fe5f83c94d725c"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -3160,14 +3206,15 @@
     }
   ],
   "title": "Documentation of Current Medications in the Medical Record",
-  "updated_at": null,
+  "updated_at": "2019-06-25T15:46:42.094Z",
+  "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d0be6b731fe5f2ce542f9d4",
-    "5d0be6b731fe5f2ce542f9d5",
-    "5d0be6b731fe5f2ce542f9d6",
-    "5d0be6b731fe5f2ce542f9d7",
-    "5d0be6b731fe5f2ce542f9d8",
-    "5d0be6b731fe5f2ce542f9d9",
-    "5d0be6b731fe5f2ce542f9da"
+    "5d1241e231fe5f83c94d725d",
+    "5d1241e231fe5f83c94d725e",
+    "5d1241e231fe5f83c94d725f",
+    "5d1241e231fe5f83c94d7260",
+    "5d1241e231fe5f83c94d7261",
+    "5d1241e231fe5f83c94d7262",
+    "5d1241e231fe5f83c94d7263"
   ]
 }

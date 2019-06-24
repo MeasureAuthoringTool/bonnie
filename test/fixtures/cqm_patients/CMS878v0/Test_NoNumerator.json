@@ -40,9 +40,9 @@
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
+            
             "code": "72166-2",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Assessment, Performed: Tobacco Use Status",
@@ -74,9 +74,9 @@
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystemOid": "2.16.840.1.113883.6.1",
-            "descriptor": null,
-            "codeSystem": "LOINC",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -105,9 +105,9 @@
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -136,9 +136,9 @@
         "dataElementCodes": [
           {
             "code": "2106-3",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "White",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "White",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -167,9 +167,9 @@
         "dataElementCodes": [
           {
             "code": "F",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
-            "descriptor": "F",
-            "codeSystem": "AdministrativeGender",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "F",
+            
             "version": null,
             "_type": "QDM::Code"
           }

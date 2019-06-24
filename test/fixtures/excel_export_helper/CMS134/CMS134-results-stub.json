@@ -65,9 +65,9 @@
                 "dataElementCodes": [
                   {
                     "code": "F",
-                    "codeSystem": "AdministrativeGender",
-                    "descriptor": "F",
-                    "codeSystemOid": "2.16.840.1.113883.5.1",
+                    
+                    "display": "F",
+                    "system": "2.16.840.1.113883.5.1",
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -96,7 +96,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -222,9 +222,9 @@
                 "dataElementCodes": [
                   {
                     "code": "F",
-                    "codeSystem": "AdministrativeGender",
-                    "descriptor": "F",
-                    "codeSystemOid": "2.16.840.1.113883.5.1",
+                    
+                    "display": "F",
+                    "system": "2.16.840.1.113883.5.1",
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -247,9 +247,9 @@
                 "dataElementCodes": [
                   {
                     "code": "F",
-                    "codeSystem": "AdministrativeGender",
-                    "descriptor": "F",
-                    "codeSystemOid": "2.16.840.1.113883.5.1",
+                    
+                    "display": "F",
+                    "system": "2.16.840.1.113883.5.1",
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -366,7 +366,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -404,7 +404,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -442,7 +442,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -480,7 +480,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -543,7 +543,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -581,7 +581,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -777,9 +777,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -803,9 +803,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -834,9 +834,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -900,9 +900,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -965,7 +965,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -1013,7 +1013,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "190372001"
                   }
                 ],
@@ -1043,7 +1043,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "190372001"
                   }
                 ],
@@ -1073,7 +1073,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "190372001"
                   }
                 ],
@@ -1128,7 +1128,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "190372001"
                   }
                 ],
@@ -1169,9 +1169,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -1710,9 +1710,9 @@
                 "dataElementCodes": [
                   {
                     "code": "F",
-                    "codeSystem": "AdministrativeGender",
-                    "descriptor": "F",
-                    "codeSystemOid": "2.16.840.1.113883.5.1",
+                    
+                    "display": "F",
+                    "system": "2.16.840.1.113883.5.1",
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -1741,7 +1741,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -1813,7 +1813,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -1893,7 +1893,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -1931,7 +1931,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -1976,7 +1976,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -2056,7 +2056,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -2155,9 +2155,9 @@
                 "dataElementCodes": [
                   {
                     "code": "F",
-                    "codeSystem": "AdministrativeGender",
-                    "descriptor": "F",
-                    "codeSystemOid": "2.16.840.1.113883.5.1",
+                    
+                    "display": "F",
+                    "system": "2.16.840.1.113883.5.1",
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -2180,9 +2180,9 @@
                 "dataElementCodes": [
                   {
                     "code": "F",
-                    "codeSystem": "AdministrativeGender",
-                    "descriptor": "F",
-                    "codeSystemOid": "2.16.840.1.113883.5.1",
+                    
+                    "display": "F",
+                    "system": "2.16.840.1.113883.5.1",
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -2299,7 +2299,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -2372,7 +2372,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -2445,7 +2445,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -2518,7 +2518,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -2616,7 +2616,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -2689,7 +2689,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -2762,7 +2762,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -2842,7 +2842,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -2881,7 +2881,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -2961,7 +2961,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -3000,7 +3000,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -3080,7 +3080,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -3148,7 +3148,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -3228,7 +3228,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -3267,7 +3267,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -3347,7 +3347,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -3411,7 +3411,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -3441,7 +3441,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -3476,7 +3476,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -3506,7 +3506,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -3536,7 +3536,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -3591,7 +3591,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -3621,7 +3621,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -3699,9 +3699,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -3725,9 +3725,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -3756,9 +3756,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -3822,9 +3822,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -3887,7 +3887,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "HCPCS",
+                    
                     "code": "G0438"
                   }
                 ],
@@ -3970,7 +3970,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "190372001"
                   }
                 ],
@@ -4000,7 +4000,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "190372001"
                   }
                 ],
@@ -4030,7 +4030,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "190372001"
                   }
                 ],
@@ -4085,7 +4085,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "190372001"
                   }
                 ],
@@ -4126,9 +4126,9 @@
                 "dataElementCodes": [
                   {
                     "code": "21112-8",
-                    "codeSystem": "LOINC",
-                    "descriptor": null,
-                    "codeSystemOid": null,
+                    
+                    "display": null,
+                    "system": null,
                     "version": null,
                     "_type": "QDM::Code"
                   }
@@ -4181,7 +4181,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "SNOMED-CT",
+                    
                     "code": "236499007"
                   }
                 ],
@@ -4246,7 +4246,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4326,7 +4326,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4365,7 +4365,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4445,7 +4445,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4484,7 +4484,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4564,7 +4564,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4603,7 +4603,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4683,7 +4683,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4747,7 +4747,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4827,7 +4827,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4866,7 +4866,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4946,7 +4946,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -4985,7 +4985,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],
@@ -5065,7 +5065,7 @@
               {
                 "dataElementCodes": [
                   {
-                    "codeSystem": "LOINC",
+                    
                     "code": "11218-5"
                   }
                 ],

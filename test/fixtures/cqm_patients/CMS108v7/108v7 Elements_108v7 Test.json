@@ -40,17 +40,17 @@
           {
             "result": {
               "code": "0SP909Z",
-              "codeSystem": "ICD-10-PCS",
+              
               "version": null,
-              "descriptor": null,
-              "codeSystemOid": "2.16.840.1.113883.6.4"
+              "display": null,
+              "system": "2.16.840.1.113883.6.4"
             },
             "code": {
               "code": "112943005",
-              "codeSystem": "SNOMED-CT",
+              
               "version": null,
-              "descriptor": "Hip Replacement Surgery",
-              "codeSystemOid": "2.16.840.1.113883.6.96"
+              "display": "Hip Replacement Surgery",
+              "system": "2.16.840.1.113883.6.96"
             }
           },
           {
@@ -60,28 +60,28 @@
             },
             "code": {
               "code": "1037045",
-              "codeSystem": "RxNorm",
+              
               "version": null,
-              "descriptor": null,
-              "codeSystemOid": "2.16.840.1.113883.6.88"
+              "display": null,
+              "system": "2.16.840.1.113883.6.88"
             }
           },
           {
             "result": "44342-10-06T08:00:00+00:00",
             "code": {
               "code": "1736470",
-              "codeSystem": "RxNorm",
+              
               "version": null,
-              "descriptor": null,
-              "codeSystemOid": "2.16.840.1.113883.6.88"
+              "display": null,
+              "system": "2.16.840.1.113883.6.88"
             }
           }
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
+            
             "code": "72136-5",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Assessment, Performed: Risk for venous thromboembolism",
@@ -96,9 +96,9 @@
         },
         "method": {
           "code": "008Q0ZZ",
-          "codeSystem": "ICD-10-PCS",
-          "descriptor": "General Surgery",
-          "codeSystemOid": "2.16.840.1.113883.6.4",
+          
+          "display": "General Surgery",
+          "system": "2.16.840.1.113883.6.4",
           "version": null
         },
         "negationRationale": null,
@@ -108,9 +108,9 @@
         "qdmVersion": "5.4",
         "reason": {
           "code": "133918004",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Comfort Measures",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Comfort Measures",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relatedTo": [
@@ -135,9 +135,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "442023007",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Device, Applied: Venous foot pumps (VFP)",
@@ -157,9 +157,9 @@
         "qdmVersion": "5.4",
         "reason": {
           "code": "195155004",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Hemorrhagic Stroke",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Hemorrhagic Stroke",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relevantPeriod": {
@@ -179,9 +179,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "428411000124104",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Device, Applied: Intermittent pneumatic compression devices (IPC)",
@@ -196,9 +196,9 @@
         },
         "negationRationale": {
           "code": "1037045",
-          "codeSystem": "RxNorm",
-          "descriptor": null,
-          "codeSystemOid": "2.16.840.1.113883.6.88",
+          
+          "display": null,
+          "system": "2.16.840.1.113883.6.88",
           "version": null
         },
         "qdmCategory": "device",
@@ -222,9 +222,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "442023007",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Device, Ordered: Venous foot pumps (VFP)",
@@ -244,9 +244,9 @@
         "qdmVersion": "5.4",
         "reason": {
           "code": "0SP909Z",
-          "codeSystem": "ICD-10-PCS",
-          "descriptor": "Hip Replacement Surgery",
-          "codeSystemOid": "2.16.840.1.113883.6.4",
+          
+          "display": "Hip Replacement Surgery",
+          "system": "2.16.840.1.113883.6.4",
           "version": null
         },
         "_type": "QDM::DeviceOrder"
@@ -259,9 +259,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "348681001",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Device, Ordered: Graduated compression stockings (GCS)",
@@ -276,9 +276,9 @@
         },
         "negationRationale": {
           "code": "195155004",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": null,
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": null,
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "qdmCategory": "device",
@@ -296,9 +296,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "RxNorm",
+            
             "code": "1037045",
-            "codeSystemOid": "2.16.840.1.113883.6.88"
+            "system": "2.16.840.1.113883.6.88"
           }
         ],
         "description": "Medication, Administered: Direct Thrombin Inhibitor",
@@ -309,8 +309,8 @@
         "frequency": {
           "code": null,
           "codeSystem": null,
-          "descriptor": null,
-          "codeSystemOid": null,
+          "display": null,
+          "system": null,
           "version": null
         },
         "hqmfOid": "2.16.840.1.113883.3.560.1.14",
@@ -329,9 +329,9 @@
         "qdmVersion": "5.4",
         "reason": {
           "code": "4525004",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Emergency Department Visit",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Emergency Department Visit",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "relevantPeriod": {
@@ -342,9 +342,9 @@
         },
         "route": {
           "code": "418114005",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Intravenous route",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Intravenous route",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "_type": "QDM::MedicationAdministered"
@@ -357,9 +357,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "RxNorm",
+            
             "code": "1361226",
-            "codeSystemOid": "2.16.840.1.113883.6.88"
+            "system": "2.16.840.1.113883.6.88"
           }
         ],
         "description": "Medication, Administered: Low Dose Unfractionated Heparin for VTE Prophylaxis",
@@ -376,9 +376,9 @@
         },
         "negationRationale": {
           "code": "861356",
-          "codeSystem": "RxNorm",
-          "descriptor": null,
-          "codeSystemOid": "2.16.840.1.113883.6.88",
+          
+          "display": null,
+          "system": "2.16.840.1.113883.6.88",
           "version": null
         },
         "qdmCategory": "medication",
@@ -403,9 +403,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "RxNorm",
+            
             "code": "1361226",
-            "codeSystemOid": "2.16.840.1.113883.6.88"
+            "system": "2.16.840.1.113883.6.88"
           }
         ],
         "daysSupplied": null,
@@ -423,9 +423,9 @@
         },
         "negationRationale": {
           "code": "101421000119107",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": null,
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": null,
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "qdmCategory": "medication",
@@ -453,9 +453,9 @@
         "codeListId": null,
         "dataElementCodes": [
           {
-            "codeSystem": "RxNorm",
+            
             "code": "855288",
-            "codeSystemOid": "2.16.840.1.113883.6.88"
+            "system": "2.16.840.1.113883.6.88"
           }
         ],
         "daysSupplied": null,
@@ -467,8 +467,8 @@
         "frequency": {
           "code": null,
           "codeSystem": null,
-          "descriptor": null,
-          "codeSystemOid": null,
+          "display": null,
+          "system": null,
           "version": null
         },
         "hqmfOid": "2.16.840.1.113883.3.560.1.17",
@@ -487,9 +487,9 @@
         "qdmVersion": "5.4",
         "reason": {
           "code": "195080001",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Atrial Fibrillation/Flutter",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Atrial Fibrillation/Flutter",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "refills": 9,
@@ -501,9 +501,9 @@
         },
         "route": {
           "code": "34206005",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": "Subcutaneous route",
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          
+          "display": "Subcutaneous route",
+          "system": "2.16.840.1.113883.6.96",
           "version": null
         },
         "setting": null,
@@ -522,9 +522,9 @@
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystemOid": "2.16.840.1.113883.6.1",
-            "descriptor": null,
-            "codeSystem": "LOINC",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -553,9 +553,9 @@
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -584,9 +584,9 @@
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
+            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -615,9 +615,9 @@
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
-            "descriptor": "M",
-            "codeSystem": "AdministrativeGender",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "M",
+            
             "version": null,
             "_type": "QDM::Code"
           }

@@ -30,9 +30,9 @@ gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_pati
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'cqm-integration'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
-gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'master'
+gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'frontend_codes'
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
-gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
+gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'frontend_codes_2.0'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
