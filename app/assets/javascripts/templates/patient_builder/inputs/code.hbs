@@ -2,7 +2,7 @@
   <div class="code-control-valueset form-group col-md-12">
     <label for="valueset_{{cid}}" class="sr-only">value set</label>
     <select autocomplete="off" name="valueset" id="valueset_{{@cid}}" class="form-control">
-      <option value="">Value Set / Direct Reference Code</option>
+      <option value="--" selected>Value Set / Direct Reference Code</option>
       <option value="custom">Custom Code</option>
       {{#each cqmValueSets}}
         <option value="{{oid}}">{{display_name}}</option>

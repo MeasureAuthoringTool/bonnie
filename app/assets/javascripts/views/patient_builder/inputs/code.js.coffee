@@ -18,6 +18,8 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     'change select[name="vs_codesystem"]': 'handleValueSetCodeSystemChange'
     'change select[name="vs_code"]': 'handleValueSetCodeChange'
     'change select[name="custom_codesystem_select"]': 'handleCustomCodeSystemChange'
+    rendered: ->
+      @$('select[name="valueset"] > option:first').prop('selected', true)
 
   #context: ->
   #  _(super).extend
@@ -36,7 +38,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     oid = @$('select[name="valueset"]').val()
 
     # user switched back to no selection
-    if oid == ''
+    if oid == '--'
       @$('.code-vs-select-input, .code-custom-input').addClass('hidden')
       @_cleanUpValueSetStructures()
       @value = null

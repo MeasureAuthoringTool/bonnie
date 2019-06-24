@@ -86,6 +86,9 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   # sets up the view for the attribute input view.
   _setupAttributeInputView: ->
+    # remove the existing view if there is one
+    @inputView.remove() if @inputView?
+
     if @currentAttributeType
       @_createInputViewForType(@currentAttributeType)
     else
