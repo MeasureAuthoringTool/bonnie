@@ -159,11 +159,8 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   # Helper that builds up the custom code system dropdown based on all code systems in the measure.
   _populateCustomCodeSystemDropdown: ->
     @allCodeSystems = [{oid: '', name: 'Custom'}]
-    @cqmValueSets.forEach (valueSet) =>
-      valueSet.concepts.forEach (concept) =>
-        codeSystem = @allCodeSystems.find (codeSystem) -> codeSystem.oid == concept.code_system_oid
-        if !codeSystem?
-          @allCodeSystems.push({ oid: concept.code_system_oid, name: concept.code_system_name})
+    for oid, name of @codeSystemMap
+      @allCodeSystems.push {oid: oid, name: name}
 
     # wipeout code system selection and replace options
     codeSystemSelect = @$('select[name="custom_codesystem_select"]').empty()
