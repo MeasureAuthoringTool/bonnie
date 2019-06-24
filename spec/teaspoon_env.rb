@@ -46,21 +46,14 @@ Teaspoon.configure do |config|
     # Specify a file matcher as a regular expression and all matching files
     # will be loaded when the suite is run. These files need to be within an
     # asset path. You can add asset paths using the `config.asset_paths`.
-    suite.matcher = if ENV['dir'] == 'cqm_specs'
-                      '{spec/javascripts}/cqm_specs/**/*_spec.{js,js.coffee,coffee}'
-                    elsif ENV['dir'] == 'helper_specs'
-                      '{spec/javascripts}/helper_specs/**/*_spec.{js,js.coffee,coffee}'
-                    elsif ENV['dir'] == 'integration'
-                      '{spec/javascripts}/integration/**/*_spec.{js,js.coffee,coffee}'
-                    elsif ENV['dir'] == 'models'
-                      '{spec/javascripts}/models/**/*_spec.{js,js.coffee,coffee}'
-                    elsif ENV['dir'] == 'production_tests'
-                      '{spec/javascripts}/production_tests/**/*_spec.{js,js.coffee,coffee}'
-                    elsif ENV['dir'] == 'views'
-                      '{spec/javascripts}/views/**/*_spec.{js,js.coffee,coffee}'
-                    elsif ENV['dir'] == 'patient_builder_tests'
-                      '{spec/javascripts}/patient_builder_tests/**/*_spec.{js,js.coffee,coffee}'
+    suite.matcher = if ENV['DIR'] == 'javascripts'
+                      '{spec/javascripts}/*_spec.{js,js.coffee,coffee}'
+                    elsif ENV['DIR']
+                      "{spec/javascripts}/#{ENV['DIR']}/**/*_spec.{js,js.coffee,coffee}"
                     else
+                      # Due to the large number of tests, running them all at
+                      # once may cause a failure. It is suggested that if such
+                      # an issue occurs, they be run directory by directory
                       '{spec/javascripts}/**/*_spec.{js,js.coffee,coffee}'
                     end
 

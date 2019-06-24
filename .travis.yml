@@ -25,29 +25,19 @@ before_script:
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
 script:
-  - codecov
-  - bundle exec rake teaspoon dir=cqm_specs
-  - bash <(curl -s https://codecov.io/bash) -cF coffeeScript1
-  - bundle exec rake teaspoon dir=helper_specs
-  - bash <(curl -s https://codecov.io/bash) -cF coffeeScript2
-  - bundle exec rake teaspoon dir=integration
-  - bash <(curl -s https://codecov.io/bash) -cF coffeeScript3
-  - bundle exec rake teaspoon dir=models
-  - bash <(curl -s https://codecov.io/bash) -cF coffeeScript4
-  - bundle exec rake teaspoon dir=patient_builder_tests
-  - bash <(curl -s https://codecov.io/bash) -cF coffeeScript5
-  - bundle exec rake teaspoon dir=production_tests
-  - bash <(curl -s https://codecov.io/bash) -cF coffeeScript6
-  - bundle exec rake teaspoon dir=views
-  - bash <(curl -s https://codecov.io/bash) -cF coffeeScript7
-  - bundle exec teaspoon spec/javascripts/cql_calculator_spec.js.coffee
-  - bash <(curl -s https://codecov.io/bash) -cF coffeeScript8
+  - bundle exec rake teaspoon DIR=cqm_specs
+  - bundle exec rake teaspoon DIR=helper_specs
+  - bundle exec rake teaspoon DIR=integration
+  - bundle exec rake teaspoon DIR=models
+  - bundle exec rake teaspoon DIR=patient_builder_tests
+  - bundle exec rake teaspoon DIR=production_tests
+  - bundle exec rake teaspoon DIR=views
+  - bundle exec rake teaspoon DIR=javascripts
   - bundle exec brakeman -qAzw1
   # - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
   - bundle exec rake test
-  - bash <(curl -s https://codecov.io/bash) -cF ruby
   - yarn install
   - yarn audit
 notifications:
