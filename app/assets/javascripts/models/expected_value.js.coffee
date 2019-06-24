@@ -7,6 +7,24 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     # sort OBSERV when it is set to make comparison w actuals easier
     if @has 'OBSERV' and Array.isArray(@get('OBSERV'))
       @set 'OBSERV', @get('OBSERV').sort()
+    @on 'change', @changeExpectedValue, this
+
+  changeExpectedValue: (expectedValue) ->
+    mongooseExpectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
+    if !mongooseExpectedValue
+      @collection.parent.get('cqmPatient').expectedValues.push({population_index: expectedValue.get('population_index'), measure_id: expectedValue.get('measure_id')})
+      mongooseExpectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
+    if expectedValue.has('IPP') then mongooseExpectedValue.IPP = expectedValue.get('IPP')
+    if expectedValue.has('DENOM') then mongooseExpectedValue.DENOM = expectedValue.get('DENOM')
+    if expectedValue.has('DENEX') then mongooseExpectedValue.DENEX = expectedValue.get('DENEX')
+    if expectedValue.has('DENEXCEP') then mongooseExpectedValue.DENEXCEP = expectedValue.get('DENEXCEP')
+    if expectedValue.has('NUMER') then mongooseExpectedValue.NUMER = expectedValue.get('NUMER')
+    if expectedValue.has('NUMEX') then mongooseExpectedValue.NUMEX = expectedValue.get('NUMEX')
+    if expectedValue.has('MSRPOPL') then mongooseExpectedValue.MSRPOPL = expectedValue.get('MSRPOPL')
+    if expectedValue.has('MSRPOPLEX') then mongooseExpectedValue.MSRPOPLEX = expectedValue.get('MSRPOPLEX')
+    if expectedValue.has('OBSERV') then mongooseExpectedValue.OBSERV = expectedValue.get('OBSERV')
+    if expectedValue.has('OBSERV_UNIT') then mongooseExpectedValue.OBSERV_UNIT = expectedValue.get('OBSERV_UNIT')
+    if expectedValue.has('STRAT') then mongooseExpectedValue.STRAT = expectedValue.get('STRAT')
 
   populationCriteria: ->
     defaults = _(@pick(Thorax.Models.Measure.allPopulationCodes)).keys()
@@ -58,7 +76,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
   compareObservs: (val1, val2) ->
     return ExpectedValue.prepareObserv(val1) == ExpectedValue.prepareObserv(val2)
-  
+
   @floorToCQLPrecision: (num) ->
     Number(Math.floor(num + 'e' + 8) + 'e-' + 8);
 
@@ -69,3 +87,6 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
 class Thorax.Collections.ExpectedValues extends Thorax.Collection
   model: Thorax.Models.ExpectedValue
+
+  initialize: (models, options) ->
+    @parent = options?.parent

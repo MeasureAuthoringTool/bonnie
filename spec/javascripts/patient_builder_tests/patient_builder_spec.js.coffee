@@ -91,25 +91,37 @@ describe 'PatientBuilderView', ->
       expect(cqmPatient.familyName).toEqual 'LAST NAME'
       expect(cqmPatient.givenNames[0]).toEqual 'FIRST NAME'
       birthdateElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
-      expect(birthdateElement.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
+      # If the measure doesn't have birthDate as a data criteria, the patient is not forced to have one
+      expect(birthdateElement).toBeUndefined()
       expect(cqmPatient.qdmPatient.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
       expect(thoraxPatient.getBirthDate()).toEqual '1/2/1993'
       expect(thoraxPatient.getNotes()).toEqual 'EXAMPLE NOTES FOR TEST'
-      expect(thoraxPatient.getGender()).toEqual 'Female'
+      expect(thoraxPatient.getGender().display).toEqual 'Female'
       genderElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
       expect(genderElement.dataElementCodes[0].code).toEqual 'F'
       raceElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
       expect(raceElement.dataElementCodes[0].code).toEqual '2131-1'
       expect(raceElement.dataElementCodes[0].display).toEqual 'Other Race'
-      expect(thoraxPatient.getRace()).toEqual 'Other Race'
+      expect(thoraxPatient.getRace().display).toEqual 'Other Race'
       ethnicityElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
       expect(ethnicityElement.dataElementCodes[0].code).toEqual '2135-2'
       expect(ethnicityElement.dataElementCodes[0].display).toEqual 'Hispanic or Latino'
-      expect(thoraxPatient.getEthnicity()).toEqual 'Hispanic or Latino'
+      expect(thoraxPatient.getEthnicity().display).toEqual 'Hispanic or Latino'
       payerElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
       expect(payerElement.dataElementCodes[0].code).toEqual '1'
       expect(payerElement.dataElementCodes[0].display).toEqual 'MEDICARE'
       expect(@patientBuilder.model.get('payer')).toEqual '1'
+
+    it "displayes correct values on the UI after saving", ->
+      expect(@patientBuilder.$(':input[name=last]')[0].value).toEqual 'LAST NAME'
+      expect(@patientBuilder.$(':input[name=first]')[0].value).toEqual 'FIRST NAME'
+      expect(@patientBuilder.$(':input[name=birthdate]')[0].value).toEqual '01/02/1993'
+      expect(@patientBuilder.$(':input[name=birthtime]')[0].value).toEqual '1:15 PM'
+      expect(@patientBuilder.$(':input[name=notes]')[0].value).toEqual 'EXAMPLE NOTES FOR TEST'
+      expect(@patientBuilder.$('select[name=race]')[0].value).toEqual '2131-1'
+      expect(@patientBuilder.$('select[name=ethnicity]')[0].value).toEqual '2135-2'
+      expect(@patientBuilder.$('select[name=gender]')[0].value).toEqual 'F'
+      expect(@patientBuilder.$('select[name=payer]')[0].value).toEqual '1'
 
     it "tries to save the patient correctly", ->
       expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
@@ -336,7 +348,7 @@ describe 'PatientBuilderView', ->
         $codelist.val(code).change()
 
     # FIXME Our test JSON doesn't yet support value sets very well... write these tests when we have a source of value sets independent of the measures
-    it "adds a code", ->
+    xit "adds a code", ->
 
     afterEach -> @patientBuilder.remove()
 
@@ -495,8 +507,7 @@ describe 'PatientBuilderView', ->
         @patientBuilder.$("input[type=checkbox][name=#{population}]:first").click()
         @patientBuilder.$("button[data-call-method=save]").click() if save
 
-    xit "auto unselects DENOM and IPP when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM and IPP when IPP is unselected", ->
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 1
       expect(expectedValues.get('DENOM')).toEqual 1
@@ -507,16 +518,14 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    xit "auto selects DENOM and IPP when NUMER is selected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto selects DENOM and IPP when NUMER is selected", ->
       @selectPopulationEV('NUMER', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 1
       expect(expectedValues.get('DENOM')).toEqual 1
       expect(expectedValues.get('NUMER')).toEqual 1
 
-    xit "auto unselects DENOM when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM when IPP is unselected", ->
       @selectPopulationEV('DENOM', false)
       @selectPopulationEV('IPP', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
@@ -524,8 +533,7 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    xit "auto unselects DENOM and NUMER when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM and NUMER when IPP is unselected", ->
       @selectPopulationEV('NUMER', false)
       @selectPopulationEV('IPP', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
@@ -533,16 +541,14 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    xit "auto selects DENOM and IPP when NUMER is selected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto selects DENOM and IPP when NUMER is selected", ->
       @selectPopulationEV('NUMER', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 1
       expect(expectedValues.get('DENOM')).toEqual 1
       expect(expectedValues.get('NUMER')).toEqual 1
 
-    xit "auto unselects DENOM when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM when IPP is unselected", ->
       @selectPopulationEV('DENOM', false)
       @selectPopulationEV('IPP', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
@@ -550,29 +556,49 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
 
-    xit "auto unselects DENOM and NUMER when IPP is unselected", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "auto unselects DENOM and NUMER when IPP is unselected", ->
       @selectPopulationEV('NUMER', false)
       @selectPopulationEV('IPP', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 0
       expect(expectedValues.get('DENOM')).toEqual 0
       expect(expectedValues.get('NUMER')).toEqual 0
+
+    it 'updates the values of the frontend mongoose model', ->
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      mongooseExpectecValue = (expectedValues.collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is 0 && val.measure_id is '7B2A9277-43DA-4D99-9BEE-6AC271A07747')[0]
+      expect(mongooseExpectecValue.IPP).toEqual 1
+      expect(mongooseExpectecValue.DENOM).toEqual 1
+      expect(mongooseExpectecValue.NUMER).toEqual 0
+      @selectPopulationEV('IPP', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(mongooseExpectecValue.IPP).toEqual 0
+      expect(mongooseExpectecValue.DENOM).toEqual 0
+      expect(mongooseExpectecValue.NUMER).toEqual 0
+      @selectPopulationEV('NUMER', false)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(mongooseExpectecValue.IPP).toEqual 1
+      expect(mongooseExpectecValue.DENOM).toEqual 1
+      expect(mongooseExpectecValue.NUMER).toEqual 1
 
     afterEach -> @patientBuilder.remove()
 
   describe "setting expected values for CV measure", ->
     beforeEach ->
       cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
-      patients = new Thorax.Collections.Patients getJSONFixture('cqm_patients/CMS32v7/patients.json'), parse: true
+      patientsJSON = []
+      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visit_1 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits 1 Excl_2 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits 2 Excl_2 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits_2 ED.json'))
+      patients = new Thorax.Collections.Patients patientsJSON, parse: true
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       @patientBuilder.appendTo 'body'
       @setPopulationVal = (population, value=0, save=true) ->
         @patientBuilder.$("input[type=number][name=#{population}]:first").val(value).change()
         @patientBuilder.$("button[data-call-method=save]").click() if save
 
-    xit "IPP removal removes membership of all populations in CV measures", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "IPP removal removes membership of all populations in CV measures", ->
       @setPopulationVal('IPP', 0, true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 0
@@ -580,8 +606,7 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('MSRPOPLEX')).toEqual 0
       expect(expectedValues.get('OBSERV')).toEqual undefined
 
-    xit "MSRPOPLEX addition adds membership to all populations in CV measures", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "MSRPOPLEX addition adds membership to all populations in CV measures", ->
       # First set IPP to 0 to zero out all population membership
       @setPopulationVal('IPP', 0, true)
       @setPopulationVal('MSRPOPLEX', 4, true)
@@ -592,8 +617,7 @@ describe 'PatientBuilderView', ->
       # 4 MSRPOPLEX and 4 MSRPOPL means there should be no OBSERVs
       expect(expectedValues.get('OBSERV')).toEqual undefined
 
-    xit "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
-      # SKIP: Re-enable with Expected Values Work
+    it "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
       # First set IPP to 0 to zero out all population membership
       @setPopulationVal('IPP', 0, true)
       @setPopulationVal('MSRPOPLEX', 3, true)
