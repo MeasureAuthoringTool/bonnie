@@ -78,6 +78,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     @inputView = switch type
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
+      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'Quantity' then new Thorax.Views.InputQuantityView()
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
       when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
