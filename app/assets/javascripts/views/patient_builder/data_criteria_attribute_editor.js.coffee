@@ -82,7 +82,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'Quantity' then new Thorax.Views.InputQuantityView()
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
       when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
-      when 'Integer' then new Thorax.Views.InputIntegerView({ allowNull: false })
+      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
       when 'Ratio' then new Thorax.Views.InputRatioView()
       else null
