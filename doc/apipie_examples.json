@@ -73,7 +73,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-406422-dkyWRSvbegwK9Caj5hWB3ebvuS26S1vZdzuYFFdtldXvuOXKRJ-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821970\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CCDELookback_v5_4_Artifacts.zip\"\nContent-Length: 33409\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculate_sdes\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1841605-ekd5r4bK6bg7FlsFZrlnjfRMFcgdubKXgflYmrrIHZlz0ibt7I-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535083\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CCDELookback_v5_4_Artifacts.zip\"\nContent-Length: 33409\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculate_sdes\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
         "url": "/api_v1/measures/FA75DE85-A934-45D7-A2F7-C700A756078B"
@@ -89,10 +89,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821972\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1607725-oda34qcvLWgePdCEzJa7caJB2SBBiQSxLZ70cNaxeAp5KuldU6-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535084\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
+        "url": "/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -105,10 +105,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821974\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1605006-uupglBeZhFBRfMzKgvFtau4356362elwt0a3zf1cdj7WrTKKSr-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535085\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
+        "url": "/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -121,10 +121,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821976\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1606642-mfWQzkWFzx4PpPUSvtg7qIP9qbYEfoT0IjvnqHHNH144PTjJpE-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535087\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
+        "url": "/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -137,27 +137,11 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821978\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821978\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1606642-mfWQzkWFzx4PpPUSvtg7qIP9qbYEfoT0IjvnqHHNH144PTjJpE-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535087\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "A measure with this HQMF Set ID already exists.",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
+        "url": "/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133"
       },
       "code": "409",
       "show_in_doc": 1,
@@ -170,10 +154,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-409045-hxozot5PRJDawXE1rJdXaVvbBhw6kfXMOVZ6ejPYYm0WsCnE9L-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821982\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_missing_vs_oid_Artifacts.zip\"\nContent-Length: 37118\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1341477-GMqwgYu69EA6uRpPksRmCX1cYrxQD6dCfgbxsoNgX0VLlU2WMZ-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535090\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_missing_vs_oid_Artifacts.zip\"\nContent-Length: 37118\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
-        "messages": "The measure is missing value sets. The following value sets are missing: [2.16.840.1.113883.3.464.1003.106.12.1005]"
+        "messages": "Measure loading process encountered error: The HQMF file references the following valuesets not present in the CQL: [\"2.16.840.1.113883.3.464.1003.106.12.1005\"]"
       },
       "code": "400",
       "show_in_doc": 1,
@@ -186,10 +170,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nrelease\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_release\"\nContent-Length: 9\n\nFake 1234\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-412996-kbp2uOBLggOwVscjObX5bLdAxt46rYjIHDdvuRhasIzyDbcQpG-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821984\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_missing_vs_oid_Artifacts.zip\"\nContent-Length: 37118\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nrelease\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_release\"\nContent-Length: 9\n\nFake 1234\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1609200-fBDspEGrKxqCTG7EeiEFQ6wYKuj6wSzeMEedcNLIEhPL7EhjGb-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535091\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
-        "messages": "Error Loading VSAC Value Sets. VSAC value set (2.16.840.1.113883.3.526.3.1496) not found or is empty. Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets."
+        "messages": "VSAC value set (2.16.840.1.113762.1.4.1) not found or is empty. Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets."
       },
       "code": "400",
       "show_in_doc": 1,
@@ -202,10 +186,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821984\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_missing_vs_oid_Artifacts.zip\"\nContent-Length: 37118\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535091\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
-        "messages": "Error Loading VSAC Value Sets. VSAC session expired. Please re-enter VSAC username and password to try again."
+        "messages": "VSAC session expired. Please try again."
       },
       "code": "400",
       "show_in_doc": 1,
@@ -218,7 +202,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_bad_hqmf_Artifacts.zip\"\nContent-Length: 36975\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-407827-SVf3KPUWildCQoYnZe751wzOugkHMaOEl3lkAd3NqU0awLF4lw-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821985\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_bad_hqmf_Artifacts.zip\"\nContent-Length: 36975\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-19368-1jKscvMkRmzS9OjJebQKGegcw1vPRhHmJZ7zwIUUkpJaKQWoBz-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535091\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."
@@ -234,7 +218,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nrelease\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-407530-mz5MNj1IDq2aMt6hgTBphkqyWK1Fa5uI9O4COS6yuk77yk5je4-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821986\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CCDELookback_v5_4_Artifacts.zip\"\nContent-Length: 33409\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculate_sdes\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nrelease\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1340332-qDkdAeo5N0sQCFixZE9g4F3ns06VcjDyUW9YA4EE0JCIPzmoyt-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535093\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CCDELookback_v5_4_Artifacts.zip\"\nContent-Length: 33409\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculate_sdes\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
         "url": "/api_v1/measures/FA75DE85-A934-45D7-A2F7-C700A756078B"
@@ -250,7 +234,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS52_v5_4_Artifacts.zip\"\nContent-Length: 74443\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 8\n\naddition\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821992\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS52_v5_4_Artifacts.zip\"\nContent-Length: 74443\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 8\n\naddition\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535095\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "Invalid parameter 'calculation_type': Must be one of: <code>episode</code>, <code>patient</code>."
@@ -266,7 +250,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "Missing parameter: calculation_type"
@@ -282,7 +266,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"\nContent-Length: 14\n\nnot-a-file.gif\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821993\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"\nContent-Length: 14\n\nnot-a-file.gif\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535095\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export."
@@ -298,7 +282,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS160v6.json\"\nContent-Length: 74126\nContent-Type: \nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821993\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS160v6.json\"\nContent-Length: 915113\nContent-Type: \nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535095\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export."
@@ -314,7 +298,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "Missing parameter: measure_file"
@@ -330,23 +314,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS52_v5_4_Artifacts.zip\"\nContent-Length: 74443\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nno\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821994\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Invalid parameter 'measure_type': Must be one of: <code>eh</code>, <code>ep</code>."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"not_mat_export.zip\"\nContent-Length: 86701\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821994\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"not_mat_export.zip\"\nContent-Length: 86701\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535095\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export."
@@ -362,10 +330,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-407827-SVf3KPUWildCQoYnZe751wzOugkHMaOEl3lkAd3NqU0awLF4lw-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821995\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1609629-hsdv5ugf6ebI6OKEyX2foDete7xH0b9hLCfmLgSJarp7d6RoHj-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535095\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
+        "url": "/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -378,10 +346,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821998\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nSecond Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nOnly Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1609088-X9viqkKaxsKedIxyNP6DxSdt0hdNXeQPeydzTFPCtRDV9BXjWb-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535102\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nSecond Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nThird Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
+        "url": "/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -394,10 +362,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548822002\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nSecond Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nOnly Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1608142-QFKHeYeumf3K4nJxmBU7sxVQrgKGJyUbvzX6BnaTclos5ipYYl-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535105\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nSecond Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nThird Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
+        "url": "/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -410,23 +378,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548822005\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nSecond Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nOnly Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts.zip\"\nContent-Length: 404114\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-577483-RDS6FaiN30Hlb2caVW7CoAUdiJndTD99eRUJCpeT2oUPGGeudg-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548822007\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts.zip\"\nContent-Length: 404114\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-10225-to7tqRBRNUWhNJMWx7Lk0mcFxNDsDyQs9u5YEogT2r3kucsgxN-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535106\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
         "url": "/api_v1/measures/244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
@@ -442,10 +394,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts_missing_component.zip\"\nContent-Length: 357915\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-578533-UrXkHvMexIZFfh9FkdWOf0TUXtSHRipWXasE6Mfz4T5u7ZDVo3-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548822026\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts_missing_component.zip\"\nContent-Length: 357915\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 63\n\nTGT-6419-6d3iKu7iVFqcwvwrpEU9qhwGJJQpmASaF6ScDp5lmDtlncaOYt-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535119\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
-        "messages": "The measure could not be loaded, there may be an error in the CQL logic."
+        "messages": "Measure loading process encountered error: Elm library AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk referenced but not found."
       },
       "code": "400",
       "show_in_doc": 1,
@@ -458,7 +410,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts_missing_file.zip\"\nContent-Length: 441048\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-578533-UrXkHvMexIZFfh9FkdWOf0TUXtSHRipWXasE6Mfz4T5u7ZDVo3-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548822035\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts_missing_file.zip\"\nContent-Length: 441048\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 63\n\nTGT-6419-6d3iKu7iVFqcwvwrpEU9qhwGJJQpmASaF6ScDp5lmDtlncaOYt-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535120\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export."
@@ -492,18 +444,15 @@
       "request_data": null,
       "response_data": [
         {
-          "_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
-          "cms_id": "CMS347v1",
-          "continuous_variable": false,
-          "created_at": "2017-09-08T21:50:22.993Z",
-          "description": "Percentage of the following patients-all considered at high risk of cardiovascular events who were prescribed or were on statin therapy during the measurement period: *Adults aged >= 21 years who were previously diagnosed with or currently have an active diagnosis of clinical atherosclerotic cardiovascular disease (ASCVD); OR *Adults aged >=21 years who have ever had  a fasting or direct low-density lipoprotein cholesterol (LDL-C) level >= 190 mg/dL or were previously diagnosed with or currently have an active diagnosis of familial or pure hypercholesterolemia; OR *Adults aged 40-75 years with a diagnosis of diabetes with a fasting or direct LDL-C level of 70-189 mg/dL",
-          "episode_of_care": false,
-          "hqmf_id": "2C91C286-5E2E-5497-015E-2E70F6B20012",
-          "hqmf_set_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
-          "hqmf_version_number": 1,
-          "title": "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease",
-          "type": "ep",
-          "updated_at": "2019-01-29T20:19:46.556Z"
+          "_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+          "cms_id": "CMS134v6",
+          "created_at": "2019-06-10T17:44:37.194Z",
+          "description": "The percentage of patients 18-75 years of age with diabetes who had a nephropathy screening test or evidence of nephropathy during the measurement period",
+          "hqmf_id": "40280382-5FA6-FE85-0160-0918E74D2075",
+          "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+          "hqmf_version_number": "0",
+          "title": "Diabetes: Medical Attention for Nephropathy",
+          "updated_at": "2019-06-10T17:44:37.194Z"
         }
       ],
       "code": "200",
@@ -528,25 +477,21 @@
     },
     {
       "verb": "GET",
-      "path": "/api_v1/measures/5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
+      "path": "/api_v1/measures/7B2A9277-43DA-4D99-9BEE-6AC271A07747",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "cms_id": "CMS347v1",
-        "continuous_variable": false,
-        "created_at": "2017-09-08T21:50:22.993Z",
-        "description": "Percentage of the following patients-all considered at high risk of cardiovascular events who were prescribed or were on statin therapy during the measurement period: *Adults aged >= 21 years who were previously diagnosed with or currently have an active diagnosis of clinical atherosclerotic cardiovascular disease (ASCVD); OR *Adults aged >=21 years who have ever had  a fasting or direct low-density lipoprotein cholesterol (LDL-C) level >= 190 mg/dL or were previously diagnosed with or currently have an active diagnosis of familial or pure hypercholesterolemia; OR *Adults aged 40-75 years with a diagnosis of diabetes with a fasting or direct LDL-C level of 70-189 mg/dL",
-        "episode_of_care": false,
-        "hqmf_id": "2C91C286-5E2E-5497-015E-2E70F6B20012",
-        "hqmf_set_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
-        "hqmf_version_number": 1,
-        "id": "59b3109e5cc975e11c000000",
-        "title": "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease",
-        "type": "ep",
-        "updated_at": "2019-01-29T20:19:58.640Z"
+        "cms_id": "CMS134v6",
+        "created_at": "2019-06-10T17:44:37.194Z",
+        "description": "The percentage of patients 18-75 years of age with diabetes who had a nephropathy screening test or evidence of nephropathy during the measurement period",
+        "hqmf_id": "40280382-5FA6-FE85-0160-0918E74D2075",
+        "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+        "hqmf_version_number": "0",
+        "title": "Diabetes: Medical Attention for Nephropathy",
+        "updated_at": "2019-06-10T17:44:37.194Z"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -561,7 +506,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821991\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1845800-aJdlhRg0YwbX6rfwI6YyAeO3DT2PfMUlRw3ZbDnQiUFxiR9oIr-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535095\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "No measure found for this HQMF Set ID."
@@ -577,7 +522,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip\"\nContent-Length: 36937\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-407827-SVf3KPUWildCQoYnZe751wzOugkHMaOEl3lkAd3NqU0awLF4lw-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821995\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8_mismatch_hqmf_set_id.zip\"\nContent-Length: 31285\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1609629-hsdv5ugf6ebI6OKEyX2foDete7xH0b9hLCfmLgSJarp7d6RoHj-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535095\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
         "messages": "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."
@@ -593,26 +538,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nbar\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nbaz\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548821998\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS32v8.zip\"\nContent-Length: 30903\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nbar\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nbaz\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nbam\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1609324-E4NK175OUeS0ixzo4WAPxPaNzuHVMvaYuJkzBkLbLgVRfY2Sy1-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535102\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "PUT",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_Artifacts.zip\"\nContent-Length: 36765\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nbar\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nbaz\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-79130-CDXwD6qFFOTdTqCxJX2eCNKBzYuLzlb3xaNOY3kssXdnQNETaB-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548822002\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"
+        "url": "/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -625,7 +554,7 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts.zip\"\nContent-Length: 404114\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-577483-RDS6FaiN30Hlb2caVW7CoAUdiJndTD99eRUJCpeT2oUPGGeudg-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1548822007\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts.zip\"\nContent-Length: 404114\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 64\n\nTGT-21226-3hXsLAY9Q1LgC7CL2jTRseydo3Na2kIVXdWYrX1grcBctLBbJy-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1561535106\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "success",
         "url": "/api_v1/measures/244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
