@@ -83,6 +83,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
       when 'Integer' then new Thorax.Views.InputIntegerView({ allowNull: false })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
+      when 'Ratio' then new Thorax.Views.InputRatioView()
       else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
