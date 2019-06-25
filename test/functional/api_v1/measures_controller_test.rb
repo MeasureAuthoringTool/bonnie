@@ -127,26 +127,24 @@ module ApiV1
     end
 
     test "should create api_v1_measure initial" do
-      skip('BONNIE-2057')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_Artifacts.zip'),'application/zip')
-      @request.env["CONTENT_TYPE"] = "multipart/form-data"
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      @request.env['CONTENT_TYPE'] = 'multipart/form-data'
 
-      measure = CQM::Measure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
       assert_nil measure
 
-      VCR.use_cassette("api_valid_vsac_response", @vcr_options) do
+      VCR.use_cassette('api_valid_vsac_response', @vcr_options) do
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
-        skip('BONNIE-2057')
         assert_response :success
-        expected_response = { "status" => "success", "url" => "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"}
+        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133'}
         assert_equal expected_response, JSON.parse(response.body)
       end
 
-      measure = CQM::Measure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
-      assert_equal "40280582-5859-673B-0158-DAEF8B750647", measure['hqmf_id']
+      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      assert_equal '40280382-6240-B6B9-0162-4E22168A0727', measure['hqmf_id']
       assert_equal @user.id, measure.user_id
       measure.value_sets.each { |vs| assert_equal @user.id, vs.user_id }
       assert_equal "PATIENT", measure.calculation_method
