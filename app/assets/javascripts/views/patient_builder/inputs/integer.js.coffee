@@ -6,6 +6,7 @@ class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
   # Expected options to be passed in using the constructor options hash:
   #   initialValue - string - Optional. Initial value of integer.
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to true.
+  #   placeholder - string - Optional. placeholder text to show. will use 'integer' if not specified
   initialize: ->
     if @initialValue?
       @value = @initialValue

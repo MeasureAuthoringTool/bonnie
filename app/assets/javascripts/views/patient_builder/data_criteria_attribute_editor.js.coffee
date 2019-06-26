@@ -17,6 +17,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         name: path
         title: @model.getAttributeTitle(path)
         isArray: info.instance == 'Array'
+        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray
         types: @_determineAttributeTypeList(path, info)
       )
 
@@ -89,13 +90,21 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
 
+  _createCompositeInputViewForSchema: (schema, typeName) ->
+    @showInputViewPlaceholder = false
+    @inputView = new Thorax.Views.InputCompositeView(schema: schema, typeName: typeName, cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap())
+    @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
+
   # sets up the view for the attribute input view.
   _setupAttributeInputView: ->
     # remove the existing view if there is one
     @inputView.remove() if @inputView?
 
     if @currentAttributeType
-      @_createInputViewForType(@currentAttributeType)
+      if @currentAttribute.isComposite
+        @_createCompositeInputViewForSchema(@dataElement.schema.paths[@currentAttribute.name].schema, @currentAttributeType)
+      else
+        @_createInputViewForType(@currentAttributeType)
     else
       @inputView = null
       @showInputViewPlaceholder = false
@@ -123,7 +132,10 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
     # If it is an interval, it may be one of DateTime or one of Quantity
     else if info.instance == 'Interval'
-      return ['Interval<DateTime>', 'Interval<Quantity>']
+      if path == 'referenceRange'
+        return ['Interval<Quantity>']
+      else
+        return ['Interval<DateTime>']
 
     # If it is an embedded type, we have to make guesses about the type
     else if info.instance == 'Embedded'

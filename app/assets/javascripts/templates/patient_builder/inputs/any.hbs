@@ -1,0 +1,19 @@
+<div class="row any-input-view">
+  <div class="any-type-select form-group col-md-3">
+    <label for="type_{{cid}}" class="sr-only">{{attributeName}} type selection</label>
+    <select autocomplete="off" name="type" id="type_{{@cid}}" class="form-control">
+      <option value="">{{attributeName}}</option>
+      {{#each types}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="any-input-entry col-md-9">
+    {{#if inputView}}
+      {{view inputView}}
+    {{else}}
+      <div class="any-input-no-selection">Select a type for {{attributeName}} field.</div>
+    {{/if}}
+  </div>
+</div>

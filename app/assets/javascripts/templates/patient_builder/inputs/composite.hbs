@@ -1,0 +1,11 @@
+<div class="row composite-input">
+  {{#each componentViews}}
+    <div class="col-md-12">
+      {{#if showPlaceholder}}
+        No InputView available for {{type}} found.
+      {{else}}
+        {{view view}}
+      {{/if}}
+    </div>
+  {{/each}}
+</div>

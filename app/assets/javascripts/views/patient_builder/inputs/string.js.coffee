@@ -6,6 +6,7 @@ class Thorax.Views.InputStringView extends Thorax.Views.BonnieView
   # Expected options to be passed in using the constructor options hash:
   #   initialValue - string - Optional. Initial value of string.
   #   allowNull - boolean - Optional. If a null or empty string is allowed. Defaults to true.
+  #   placeholder - string - Optional. placeholder text to show. will use 'string' if not specified
   initialize: ->
     if @initialValue?
       @value = @initialValue
