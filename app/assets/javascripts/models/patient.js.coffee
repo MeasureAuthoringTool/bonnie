@@ -25,9 +25,10 @@ class Thorax.Models.Patient extends Thorax.Model
     clonedPatient = @.clone()
     # clone the cqmPatient and make a new source_data_criteria collection for it
     clonedPatient.set 'cqmPatient', new cqm.models.Patient(mongoose.utils.clone(clonedPatient.get('cqmPatient')))
+    if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
+    clonedPatient.set '_id', clonedPatient.get('cqmPatient')._id.toString()
     clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').qdmPatient.dataElements, parent: clonedPatient, parse: true)
     clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expectedValues, parent: clonedPatient, parse: true)
-    if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
     if options.dedupName
       clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
     clonedPatient
