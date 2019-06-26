@@ -239,7 +239,11 @@ class PatientExport
   end
 
   def self.add_formatted_patient_field(patient, value)
-    if value == 'expired' && patient[value] == nil
+    if value == 'ethnicity'
+      return CQM::Patient::ETHNICITY_NAME_MAP[patient[value]]
+    elsif value == 'race'
+      return CQM::Patient::RACE_NAME_MAP[patient[value]]
+    elsif value == 'expired' && patient[value] == nil
       return false
     else
       return patient[value]

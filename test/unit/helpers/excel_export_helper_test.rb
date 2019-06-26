@@ -36,16 +36,16 @@ class ExcelExportHelperTest < ActionController::TestCase
     # modify the backend results keys to match the keys of our patients. The results stub's keys
     # are random since it was generated from a fixture
     @backend_results = {}
-    @backend_results['5a58e9b6942c6d4bb26bb2f6'] = backend_results['5b4675d11f994e831b2146b1'] # Visit_1ED
-    @backend_results['5a593ff0942c6d0773593dff'] = backend_results['5b4675d11f994e831b2146b8'] # Visit_1Excl_2Ed
-    @backend_results['5a593d66942c6d0773593d97'] = backend_results['5b4675d11f994e831b2146c0'] # Visits_2ED
-    @backend_results['5a5940ba942c6d0c717eeece'] = backend_results['5b4675d11f994e831b2146c8'] # Visits_2Excl_2ED
+    @backend_results['5d0be2df31fe5f2b58dd2253'] = backend_results['5b4675d11f994e831b2146b1'] # Visit_1ED
+    @backend_results['5d0be2df31fe5f2b58dd2271'] = backend_results['5b4675d11f994e831b2146b8'] # Visit_1Excl_2Ed
+    @backend_results['5d0be2df31fe5f2b58dd2261'] = backend_results['5b4675d11f994e831b2146c0'] # Visits_2ED
+    @backend_results['5d0be2df31fe5f2b58dd2281'] = backend_results['5b4675d11f994e831b2146c8'] # Visits_2Excl_2ED
 
     @unpretty_backend_results = {}
-    @unpretty_backend_results['5a58e9b6942c6d4bb26bb2f6'] = unpretty_backend_results['5b474ad52f8e3a17057c855f'] # Visit_1ED
-    @unpretty_backend_results['5a593ff0942c6d0773593dff'] = unpretty_backend_results['5b474ad52f8e3a17057c8566'] # Visit_1Excl_2Ed
-    @unpretty_backend_results['5a593d66942c6d0773593d97'] = unpretty_backend_results['5b474ad52f8e3a17057c856e'] # Visits_2ED
-    @unpretty_backend_results['5a5940ba942c6d0c717eeece'] = unpretty_backend_results['5b474ad52f8e3a17057c8576'] # Visits_2Excl_2ED
+    @unpretty_backend_results['5d0be2df31fe5f2b58dd2253'] = unpretty_backend_results['5b474ad52f8e3a17057c855f'] # Visit_1ED
+    @unpretty_backend_results['5d0be2df31fe5f2b58dd2271'] = unpretty_backend_results['5b474ad52f8e3a17057c8566'] # Visit_1Excl_2Ed
+    @unpretty_backend_results['5d0be2df31fe5f2b58dd2261'] = unpretty_backend_results['5b474ad52f8e3a17057c856e'] # Visits_2ED
+    @unpretty_backend_results['5d0be2df31fe5f2b58dd2281'] = unpretty_backend_results['5b474ad52f8e3a17057c8576'] # Visits_2Excl_2ED
 
     @simple_backend_results = {}
 
@@ -66,10 +66,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     @simple_statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'statement_details.json')))
 
     # The front end results use cids as keys but the backend results use ids.
-    @cid_to_measure_id_map = { 'c320': '5a58e9b6942c6d4bb26bb2f6',
-                               'c468': '5a593d66942c6d0773593d97',
-                               'c495': '5a593ff0942c6d0773593dff',
-                               'c523': '5a5940ba942c6d0c717eeece' }.with_indifferent_access
+    @cid_to_measure_id_map = { 'c320': '5d0be2df31fe5f2b58dd2253',
+                               'c468': '5d0be2df31fe5f2b58dd2261',
+                               'c495': '5d0be2df31fe5f2b58dd2271',
+                               'c523': '5d0be2df31fe5f2b58dd2281' }.with_indifferent_access
 
     @simple_cid_to_measure_id_map = { 'c358': '5a58f001942c6d500fc8cb92',
                                       'c552': '5a73955cb848465f695c4ecb'}.with_indifferent_access

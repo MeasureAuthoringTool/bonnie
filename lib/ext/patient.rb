@@ -1,5 +1,8 @@
 module CQM
   class Patient
+    RACE_NAME_MAP={'1002-5' => 'American Indian or Alaska Native','2028-9' => 'Asian','2054-5' => 'Black or African American','2076-8' => 'Native Hawaiian or Other Pacific Islander','2106-3' => 'White','2131-1' => 'Other'}
+    ETHNICITY_NAME_MAP={'2186-5'=>'Not Hispanic or Latino', '2135-2'=>'Hispanic Or Latino'}
+
     belongs_to :user
     scope :by_user, ->(user) { where({'user_id'=>user.id}) }
     scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({ 'user_id' => user.id, 'measure_ids' => hqmf_set_id }) }
