@@ -86,7 +86,7 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       post :create, {measure_file: 'not-a-file.gif', calculation_type: 'episode', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}, {format: 'multipart/form-data'}
       assert_response :bad_request
-      expected_response = { 'status' => 'error', 'messages' => 'Invalid parameter 'measure_file': Must be a valid MAT Export.' }
+      expected_response = { 'status' => 'error', 'messages' => "Invalid parameter 'measure_file': Must be a valid MAT Export." }
       assert_equal expected_response, JSON.parse(response.body)
     end
 
@@ -95,7 +95,7 @@ module ApiV1
       not_zip_file = fixture_file_upload(File.join('test','fixtures','measures','CMS160v6','cqm_measures','CMS160v6.json'))
       post :create, {measure_file: not_zip_file, calculation_type: 'episode', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}, {format: 'multipart/form-data'}
       assert_response :bad_request
-      expected_response = { 'status' => 'error', 'messages' => 'Invalid parameter 'measure_file': Must be a valid MAT Export.' }
+      expected_response = { 'status' => 'error', 'messages' => "Invalid parameter 'measure_file': Must be a valid MAT Export." }
       assert_equal expected_response, JSON.parse(response.body)
     end
 
@@ -104,7 +104,7 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       post :create, {measure_file: measure_file, calculation_type: 'episode', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}, {'Content-Type' => 'multipart/form-data'}
       assert_response :bad_request
-      expected_response = { 'status' => 'error', 'messages' => 'Invalid parameter 'measure_file': Must be a valid MAT Export.' }
+      expected_response = { 'status' => 'error', 'messages' => "Invalid parameter 'measure_file': Must be a valid MAT Export." }
       assert_equal expected_response, JSON.parse(response.body)
     end
 
@@ -113,7 +113,7 @@ module ApiV1
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       post :create, {measure_file: measure_file, calculation_type: 'addition', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}, {'Content-Type' => 'multipart/form-data'}
       assert_response :bad_request
-      expected_response = { 'status' => 'error', 'messages' => 'Invalid parameter 'calculation_type': Must be one of: <code>episode</code>, <code>patient</code>.' }
+      expected_response = { 'status' => 'error', 'messages' => "Invalid parameter 'calculation_type': Must be one of: <code>episode</code>, <code>patient</code>." }
       assert_equal expected_response, JSON.parse(response.body)
     end
 
@@ -288,7 +288,7 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode'}, {'Content-Type' => 'multipart/form-data'}
         assert_response :bad_request
-        expected_response = {'status'=>'error', 'messages'=>'Measure loading process encountered error: The HQMF file references the following valuesets not present in the CQL: ['2.16.840.1.113883.3.464.1003.106.12.1005']'}
+        expected_response = {'status'=>'error', 'messages'=>'Measure loading process encountered error: The HQMF file references the following valuesets not present in the CQL: ["2.16.840.1.113883.3.464.1003.106.12.1005"]'}
         assert_equal expected_response, JSON.parse(response.body)
       end
     end
@@ -449,7 +449,7 @@ module ApiV1
       end
 
       assert_response :bad_request
-      expected_response = {'status'=>'error', 'messages'=>'Invalid parameter 'measure_file': Must be a valid MAT Export.'}
+      expected_response = {'status'=>'error', 'messages'=>"Invalid parameter 'measure_file': Must be a valid MAT Export."}
       assert_equal expected_response, JSON.parse(response.body)
     end
 
@@ -474,7 +474,7 @@ module ApiV1
         }, {'Content-Type' => 'multipart/form-data'}
       end
       assert_response :bad_request
-      expected_response = {'status'=>'error', 'messages'=>'Measure loading process encountered error: Elm library AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk referenced but not found.'}
+      expected_response = {'status'=>'error', 'messages'=>"Measure loading process encountered error: Elm library AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk referenced but not found."}
       assert_equal expected_response, JSON.parse(response.body)
     end
   end
