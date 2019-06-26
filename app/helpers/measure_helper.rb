@@ -82,7 +82,8 @@ module MeasureHelper
       }
       if details.present?
         back_end_version[:json][:details] = details
-        front_end_version[:body] += " Details: #{details}"
+        # Strip off the <#RuntimeError: ... > from the details because it causes issues in html
+        front_end_version[:body] += " Details: #{details.sub(/^#<.*Error: /, '').sub(/>$/, '')}"
       end
       super(front_end_version: front_end_version, back_end_version: back_end_version)
     end
