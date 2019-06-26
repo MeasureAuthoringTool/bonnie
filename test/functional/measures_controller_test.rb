@@ -43,7 +43,7 @@ include Devise::Test::ControllerHelpers
       assert_response :redirect
 
       measure = CQM::Measure.where({hqmf_set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
-      assert_equal '40280382-6240-B6B9-0162-4E22168A0727', measure['hqmf_id']
+      assert_equal '40280382-5FA6-FE85-015F-B5969D1D0264', measure['hqmf_id']
     end
   end
 
@@ -207,12 +207,12 @@ include Devise::Test::ControllerHelpers
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8.zip', 'application/zip')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8_bad_valuesets.zip'), 'application/zip')
 
       post :create, {
         vsac_query_type: 'release',
         vsac_query_profile: 'Latest eCQM',
-        vsac_query_release: 'eCQM Update 2018-05-04',
+        vsac_query_release: 'Fake 1234',
         vsac_query_measure_defined: 'false',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
@@ -222,7 +222,7 @@ include Devise::Test::ControllerHelpers
 
       assert_response :redirect
       assert_equal 'Error Loading VSAC Value Sets', flash[:error][:title]
-      assert_equal 'VSAC value set (2.16.840.1.113762.1.4.151561) not found or is empty.', flash[:error][:summary]
+      assert_equal 'VSAC value set (2.16.840.1.113762.1.4.1) not found or is empty.', flash[:error][:summary]
       assert flash[:error][:body].starts_with?('Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets.')
     end
   end
@@ -372,16 +372,16 @@ include Devise::Test::ControllerHelpers
         calculation_type: 'patient'
       }
 
-      assert_equal 2, CQM::Measure.count
-      assert_equal 2, CQM::MeasurePackage.count
-      assert_equal 35, CQM::ValueSet.count
+      assert_equal 3, CQM::Measure.count
+      assert_equal 3, CQM::MeasurePackage.count
+      assert_equal 71, CQM::ValueSet.count
 
       delete :destroy, {id: CQM::Measure.where({cms_id: 'CMS134v8'}).first.id}
       assert_response :success
 
-      assert_equal 1, CQM::Measure.count
-      assert_equal 1, CQM::MeasurePackage.count
-      assert_equal 7, CQM::ValueSet.count
+      assert_equal 2, CQM::Measure.count
+      assert_equal 2, CQM::MeasurePackage.count
+      assert_equal 26, CQM::ValueSet.count
     end
   end
 
@@ -489,7 +489,7 @@ include Devise::Test::ControllerHelpers
   test 'update with hqmf set id mismatch' do
     # Upload the initial file
     VCR.use_cassette('valid_vsac_response_hqmf_set_id_mismatch', @vcr_options) do
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8.zip', 'application/zip')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
       class << measure_file
         attr_reader :tempfile
       end
@@ -533,11 +533,11 @@ include Devise::Test::ControllerHelpers
 
   test 'create/finalize/update a measure' do
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
-    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/zip')
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS32v888_updated_cms_id.zip'), 'application/zip')
     class << update_measure_file
       attr_reader :tempfile
     end
@@ -562,29 +562,27 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_response :redirect
-    measure = CQM::Measure.where({hqmf_id: '40280582-5859-673B-0158-DAEF8B750647'}).first
-    assert_equal '762B1B52-40BF-4596-B34F-4963188E7FF7', measure.hqmf_set_id
-    assert_equal 15, measure.value_sets.count
+    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
+    assert_equal '3FD13096-2C8F-40B5-9297-B714E8DE9133', measure.hqmf_set_id
+    assert_equal 10, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
     assert_nil measure.calculate_sdes
 
-    assert_equal 1, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001'}).count
-    assert_equal 745, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001' && vs.version == 'MU2 Update 2017-01-06'}).first.concepts.count
+    assert_equal 1, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113762.1.4.1'}).count
+    assert_equal 3, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113762.1.4.1111.143'}).first.concepts.count
 
     # Finalize the measure that was just created
-    post :finalize, {'t679'=>{'hqmf_id'=>'40280582-5859-673B-0158-DAEF8B750647', 'titles' => ['ps1','ps2','ps1strat1','ps1strat2','ps2strat1','ps2strat2']}}
-    measure = CQM::Measure.where({hqmf_id: '40280582-5859-673B-0158-DAEF8B750647'}).first
+    post :finalize, {t679: { hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727', titles: ['ps1','ps1strat1','ps1strat2','ps1strat3'] } }
+    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
 
     assert_equal 'ps1', measure.population_sets[0].title
-    assert_equal 'ps2', measure.population_sets[1].title
     assert_equal 'ps1strat1', measure.population_sets[0].stratifications[0].title
     assert_equal 'ps1strat2', measure.population_sets[0].stratifications[1].title
-    assert_equal 'ps2strat1', measure.population_sets[1].stratifications[0].title
-    assert_equal 'ps2strat2', measure.population_sets[1].stratifications[1].title
-    assert_equal '762B1B52-40BF-4596-B34F-4963188E7FF7', measure.hqmf_set_id
-    assert_equal 15, measure.value_sets.count
+    assert_equal 'ps1strat3', measure.population_sets[0].stratifications[2].title
+    assert_equal '3FD13096-2C8F-40B5-9297-B714E8DE9133', measure.hqmf_set_id
+    assert_equal 10, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
@@ -601,22 +599,23 @@ include Devise::Test::ControllerHelpers
         measure_file: update_measure_file,
         measure_type: 'eh',
         calculation_type: 'episode',
-        hqmf_set_id: '762B1B52-40BF-4596-B34F-4963188E7FF7'
+        hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'
       }
     end
     assert_response :redirect
-    assert_equal 1, CQM::Measure.where({hqmf_id: '40280582-5859-673B-0158-DAEF8B750647'}).size
-    measure = CQM::Measure.where({hqmf_id: '40280582-5859-673B-0158-DAEF8B750647'}).first
+    assert_equal 1, CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).size
+    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
     assert_not_equal measure_id_before, measure._id
-    assert_equal '762B1B52-40BF-4596-B34F-4963188E7FF7', measure.hqmf_set_id
-    assert_equal 15, measure.value_sets.count
+    assert_equal '3FD13096-2C8F-40B5-9297-B714E8DE9133', measure.hqmf_set_id
+    assert_equal 'CMS32v888', measure.cms_id
+    assert_equal 10, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
     assert_nil measure.calculate_sdes
 
-    assert_equal 1, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001'}).count
-    assert_equal 516, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001' && vs.version == 'eCQM Update 2017-05-05'}).first.concepts.count
+    assert_equal 1, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113762.1.4.1'}).count
+    assert_equal 3, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113762.1.4.1111.143'}).first.concepts.count
   end
 
   test 'load HQMF bad xml' do
@@ -674,7 +673,7 @@ include Devise::Test::ControllerHelpers
       }
     end
     assert_response :redirect
-    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
+    measure = CQM::Measure.where({hqmf_id: '40280382-5FA6-FE85-015F-B5969D1D0264'}).first
     assert_equal '3BBFC929-50C8-44B8-8D34-82BE75C08A70', measure.hqmf_set_id
 
     assert_equal false, measure.calculation_method == 'EPISODE_OF_CARE'
@@ -691,7 +690,7 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_response :redirect
-    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
+    measure = CQM::Measure.where({hqmf_id: '40280382-5FA6-FE85-015F-B5969D1D0264'}).first
     assert_equal '3BBFC929-50C8-44B8-8D34-82BE75C08A70', measure.hqmf_set_id
 
     assert_equal false, measure.calculation_method == 'EPISODE_OF_CARE'
@@ -703,7 +702,7 @@ include Devise::Test::ControllerHelpers
     class << measure_file
       attr_reader :tempfile
     end
-    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/zip')
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS32v888_updated_cms_id.zip'), 'application/zip')
     class << update_measure_file
       attr_reader :tempfile
     end
@@ -746,6 +745,7 @@ include Devise::Test::ControllerHelpers
 
     measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
     assert_equal true, measure.calculate_sdes
+    assert_equal 'CMS32v888', measure.cms_id
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
   end
 
