@@ -117,7 +117,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         if info.schema.paths._type? # Use the default _type if exists to get info
           return [info.schema.paths._type.defaultValue.replace(/QDM::/, '')]
         else if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
-          return ['ID']
+          return ['Id']
         else
           return ['???'] # TODO: Handle situation of unknown type better.
       else if info.caster.instance # if this is a schema array we may be able to ask for the caster's instance type
@@ -140,7 +140,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     # If it is an embedded type, we have to make guesses about the type
     else if info.instance == 'Embedded'
       if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
-        return ['ID']
+        return ['Id']
       else
         return ['???'] # TODO: Handle situation of unknown type better.
     else
