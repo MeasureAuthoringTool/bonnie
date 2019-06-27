@@ -19,7 +19,6 @@ def load_measure_fixtures_from_folder(fixture_path, user = nil)
       end
     end
   end
-  CQM::Measure.find(measure_id).package = CQM::MeasurePackage.find(measure_package_id) unless measure_id.nil? || measure_package_id.nil?
 end
 
 def add_collection(collection)

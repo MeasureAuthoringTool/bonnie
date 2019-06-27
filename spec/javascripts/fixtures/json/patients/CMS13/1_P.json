@@ -51,8 +51,8 @@
   "ethnicity": {
     "code": "2186-5",
     "name": "Not Hispanic or Latino",
-    "codeSystem": "CDC Race",
-    "codeSystemOid": "2.16.840.1.113883.6.238"
+    
+    "system": "2.16.840.1.113883.6.238"
   },
   "expected_values": [
     {
@@ -87,8 +87,7 @@
   "race": {
     "code": "1002-5",
     "name": "American Indian or Alaska Native",
-    "codeSystemOid": "2.16.840.1.113883.6.238",
-    "codeSystem": "CDC Race"
+    "system": "2.16.840.1.113883.6.238"
   },
   "religious_affiliation": null,
   "source_data_criteria": [

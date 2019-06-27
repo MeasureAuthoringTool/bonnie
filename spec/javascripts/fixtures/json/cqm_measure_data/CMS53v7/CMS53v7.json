@@ -1,5 +1,5 @@
 {
-  "_id": "5d08119bd7c8ac1d93249e76",
+  "_id": "5d1241e131fe5f83c94d7203",
   "calculate_sdes": null,
   "calculation_method": "EPISODE_OF_CARE",
   "cms_id": "CMS53v7",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d08119bd7c8ac1d93249e77",
+      "_id": "5d1241e131fe5f83c94d7205",
       "cql": "library PrimaryPCIReceivedWithin90MinutesofHospitalArrival version '7.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Acute or Evolving MI\": 'urn:oid:2.16.840.1.113883.3.666.5.3022'\r\nvalueset \"Ambulatory surgical center\": 'urn:oid:2.16.840.1.113883.3.666.5.687'\r\nvalueset \"Aortic balloon pump insertion\": 'urn:oid:2.16.840.1.113883.3.666.5.1151'\r\nvalueset \"Cardiopulmonary arrest\": 'urn:oid:2.16.840.1.113883.3.666.5.748'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Endotracheal Intubation\": 'urn:oid:2.16.840.1.113762.1.4.1045.69'\r\nvalueset \"Fibrinolytic Therapy\": 'urn:oid:2.16.840.1.113883.3.666.5.736'\r\nvalueset \"Transfer From Emergency Department (ED) Locations\": 'urn:oid:2.16.840.1.113883.3.666.5.3006'\r\nvalueset \"Transfer From Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.3013'\r\nvalueset \"Transfer From Outpatient\": 'urn:oid:2.16.840.1.113883.3.67.1.101.950'\r\nvalueset \"Ventricular Assist Device placement\": 'urn:oid:2.16.840.1.113883.3.666.5.3015'\r\nvalueset \"PCI\": 'urn:oid:2.16.840.1.113762.1.4.1045.67'\r\nvalueset \"Electrocardiogram (ECG)\": 'urn:oid:2.16.840.1.113883.3.666.5.735'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Exception Procedures\":\r\n\t( [\"Procedure, Performed\": \"Endotracheal Intubation\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Aortic balloon pump insertion\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Ventricular Assist Device placement\"]\r\n\t)\r\n\r\ndefine \"Denominator Exceptions\":\r\n\t( \"Procedure Exceptions Within 90 Minutes of Arrival\"\r\n\t\t\tunion \"Diagnosis Exception\"\r\n\t)\r\n\r\ndefine \"Diagnostic Electrocardiogram\":\r\n\t[\"Diagnostic Study, Performed\": \"Electrocardiogram (ECG)\"]\r\n\r\ndefine \"Fibrinolytic\":\r\n\t[\"Medication, Administered\": \"Fibrinolytic Therapy\"]\r\n\r\ndefine \"PCI Procedure\":\r\n\t[\"Procedure, Performed\": \"PCI\"]\r\n\r\ndefine \"Denominator Exclusions\":\r\n\t\"Denominator\" DenominatorEncounter\r\n\t\twhere DenominatorEncounter.admissionSource in \"Ambulatory surgical center\"\r\n\t\t\tor DenominatorEncounter.admissionSource in \"Transfer From Outpatient\"\r\n\t\t\tor DenominatorEncounter.admissionSource in \"Transfer From Emergency Department (ED) Locations\"\r\n\t\t\tor DenominatorEncounter.admissionSource in \"Transfer From Inpatient\"\r\n\r\ndefine \"AMI Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\twith [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\tsuch that Global.CalendarAgeInYearsAt(BirthDate.birthDatetime, start of Encounter.relevantPeriod)>= 18\r\n\t\t\t\tand Encounter.principalDiagnosis in \"Acute or Evolving MI\"\r\n\r\ndefine \"Inpatient Encounters\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\twhere Global.\"LengthInDays\"(Encounter.relevantPeriod)<= 120\r\n\t\t\tand Encounter.relevantPeriod ends during \"Measurement Period\"\r\n\r\ndefine \"Diagnosis Exception\":\r\n\t\"Inpatient Encounters\" Encounter\r\n\t\twith [\"Diagnosis\": \"Cardiopulmonary arrest\"] CardiacArrest\r\n\t\t\tsuch that CardiacArrest.prevalencePeriod starts 90 minutes or less on or after start of Global.Hospitalization(Encounter)\r\n\r\ndefine \"Initial Population\":\r\n\t\"Inpatient Encounters\"\r\n\t\tintersect \"AMI Encounter\"\r\n\r\ndefine \"Numerator\":\r\n\t\"Initial Population\" QualifyingEncounter\r\n\t\twith \"PCI Procedure\" PCI\r\n\t\t\tsuch that PCI.relevantPeriod starts 90 minutes or less on or after Global.\"Hospital Arrival Time\"(QualifyingEncounter)\r\n\r\ndefine \"Procedure Exceptions Within 90 Minutes of Arrival\":\r\n\t\"Inpatient Encounters\" Encounter\r\n\t\twith \"Exception Procedures\" ExceptionProcedures\r\n\t\t\tsuch that ExceptionProcedures.relevantPeriod starts 90 minutes or less on or after Global.\"Hospital Arrival Time\"(Encounter)\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\" QualifyingEncounter\r\n\t\tlet FirstPCI: First(\"PCI Procedure\" FirstPCI\r\n\t\t\t\twhere FirstPCI.relevantPeriod starts on or after Global.\"Hospital Arrival Time\"(QualifyingEncounter)\r\n\t\t\t\tsort by start of relevantPeriod\r\n\t\t)\r\n\t\twith \"Diagnostic Electrocardiogram\" ECG\r\n\t\t\tsuch that ECG.relevantPeriod starts during Global.\"Hospitalization\"(QualifyingEncounter)\r\n\t\t\t\tor ECG.relevantPeriod starts 1 hour or less on or before Global.\"Hospital Arrival Time\"(QualifyingEncounter)\r\n\t\twhere FirstPCI.relevantPeriod starts 1440 minutes or less on or after Global.\"Hospital Arrival Time\"(QualifyingEncounter)\r\n\t\t\tand not exists ( \"Fibrinolytic\" FibrinolyticTherapy\r\n\t\t\t\t\twhere FibrinolyticTherapy.relevantPeriod starts after Global.\"Hospital Arrival Time\"(QualifyingEncounter)\r\n\t\t\t\t\t\tand FibrinolyticTherapy.relevantPeriod starts before start of FirstPCI.relevantPeriod\r\n\t\t\t)\r\n",
       "elm": {
         "library": {
@@ -8076,35 +8076,35 @@
       "library_version": "7.1.000",
       "statement_dependencies": [
         {
-          "_id": "5d08119bd7c8ac1d93249e78",
+          "_id": "5d1241e131fe5f83c94d7206",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e79",
+          "_id": "5d1241e131fe5f83c94d7207",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e7a",
+          "_id": "5d1241e131fe5f83c94d7208",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e7b",
+          "_id": "5d1241e131fe5f83c94d7209",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e7c",
+          "_id": "5d1241e131fe5f83c94d720a",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e7d",
+          "_id": "5d1241e131fe5f83c94d720b",
           "statement_name": "Exception Procedures"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e7e",
+          "_id": "5d1241e131fe5f83c94d720c",
           "statement_name": "Inpatient Encounters",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249e7f",
+              "_id": "5d1241e131fe5f83c94d720d",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "LengthInDays"
@@ -8112,29 +8112,29 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e80",
+          "_id": "5d1241e131fe5f83c94d720e",
           "statement_name": "Procedure Exceptions Within 90 Minutes of Arrival",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249e81",
+              "_id": "5d1241e131fe5f83c94d720f",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Inpatient Encounters"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e82",
+              "_id": "5d1241e131fe5f83c94d7210",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Exception Procedures"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e83",
+              "_id": "5d1241e131fe5f83c94d7211",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e84",
+              "_id": "5d1241e131fe5f83c94d7212",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
@@ -8142,23 +8142,23 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e85",
+          "_id": "5d1241e131fe5f83c94d7213",
           "statement_name": "Diagnosis Exception",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249e86",
+              "_id": "5d1241e131fe5f83c94d7214",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Inpatient Encounters"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e87",
+              "_id": "5d1241e131fe5f83c94d7215",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e88",
+              "_id": "5d1241e131fe5f83c94d7216",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization"
@@ -8166,17 +8166,17 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e89",
+          "_id": "5d1241e131fe5f83c94d7217",
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249e8a",
+              "_id": "5d1241e131fe5f83c94d7218",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Procedure Exceptions Within 90 Minutes of Arrival"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e8b",
+              "_id": "5d1241e131fe5f83c94d7219",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Diagnosis Exception"
@@ -8184,23 +8184,23 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e8c",
+          "_id": "5d1241e131fe5f83c94d721a",
           "statement_name": "Diagnostic Electrocardiogram"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e8d",
+          "_id": "5d1241e131fe5f83c94d721b",
           "statement_name": "Fibrinolytic"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e8e",
+          "_id": "5d1241e131fe5f83c94d721c",
           "statement_name": "PCI Procedure"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e8f",
+          "_id": "5d1241e131fe5f83c94d721d",
           "statement_name": "AMI Encounter",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249e90",
+              "_id": "5d1241e131fe5f83c94d721e",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
@@ -8208,17 +8208,17 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e91",
+          "_id": "5d1241e131fe5f83c94d721f",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249e92",
+              "_id": "5d1241e131fe5f83c94d7220",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Inpatient Encounters"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e93",
+              "_id": "5d1241e131fe5f83c94d7221",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "AMI Encounter"
@@ -8226,71 +8226,71 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249e94",
+          "_id": "5d1241e131fe5f83c94d7222",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249e95",
+              "_id": "5d1241e131fe5f83c94d7223",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Initial Population"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e96",
+              "_id": "5d1241e131fe5f83c94d7224",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "PCI Procedure"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e97",
+              "_id": "5d1241e131fe5f83c94d7225",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e98",
+              "_id": "5d1241e131fe5f83c94d7226",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Diagnostic Electrocardiogram"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e99",
+              "_id": "5d1241e131fe5f83c94d7227",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e9a",
+              "_id": "5d1241e131fe5f83c94d7228",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e9b",
+              "_id": "5d1241e131fe5f83c94d7229",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e9c",
+              "_id": "5d1241e131fe5f83c94d722a",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e9d",
+              "_id": "5d1241e131fe5f83c94d722b",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e9e",
+              "_id": "5d1241e131fe5f83c94d722c",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Fibrinolytic"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249e9f",
+              "_id": "5d1241e131fe5f83c94d722d",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
@@ -8298,11 +8298,11 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249ea0",
+          "_id": "5d1241e131fe5f83c94d722e",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249ea1",
+              "_id": "5d1241e131fe5f83c94d722f",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Denominator"
@@ -8310,29 +8310,29 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249ea2",
+          "_id": "5d1241e131fe5f83c94d7230",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249ea3",
+              "_id": "5d1241e131fe5f83c94d7231",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "Initial Population"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249ea4",
+              "_id": "5d1241e131fe5f83c94d7232",
               "hqmf_id": null,
               "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
               "statement_name": "PCI Procedure"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249ea5",
+              "_id": "5d1241e131fe5f83c94d7233",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
             },
             {
-              "_id": "5d08119bd7c8ac1d93249ea6",
+              "_id": "5d1241e131fe5f83c94d7234",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospital Arrival Time"
@@ -8342,7 +8342,7 @@
       ]
     },
     {
-      "_id": "5d08119bd7c8ac1d93249ea7",
+      "_id": "5d1241e131fe5f83c94d7235",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -8396,7 +8396,7 @@
                 "localId": "2",
                 "locator": "5:1-5:87",
                 "name": "LOINC:2.46",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "version": "urn:hl7:version:2.46",
                 "accessLevel": "Public"
               },
@@ -8404,7 +8404,7 @@
                 "localId": "3",
                 "locator": "6:1-6:97",
                 "name": "SNOMEDCT:2016-03",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2016-03",
                 "accessLevel": "Public"
               }
@@ -17006,15 +17006,15 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d08119bd7c8ac1d93249ea8",
+          "_id": "5d1241e131fe5f83c94d7236",
           "statement_name": "LengthInDays"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249ea9",
+          "_id": "5d1241e131fe5f83c94d7237",
           "statement_name": "Hospital Arrival Time",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249eaa",
+              "_id": "5d1241e131fe5f83c94d7238",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization Locations"
@@ -17022,19 +17022,19 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249eab",
+          "_id": "5d1241e131fe5f83c94d7239",
           "statement_name": "Hospitalization Locations"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249eac",
+          "_id": "5d1241e131fe5f83c94d723a",
           "statement_name": "Hospitalization"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249ead",
+          "_id": "5d1241e131fe5f83c94d723b",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d08119bd7c8ac1d93249eae",
+              "_id": "5d1241e131fe5f83c94d723c",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -17042,13 +17042,13 @@
           ]
         },
         {
-          "_id": "5d08119bd7c8ac1d93249eaf",
+          "_id": "5d1241e131fe5f83c94d723d",
           "statement_name": "ToDate"
         }
       ]
     }
   ],
-  "created_at": "2019-06-17T22:18:03.638Z",
+  "created_at": "2019-06-25T15:46:41.967Z",
   "description": "Acute myocardial infarction (AMI) patients with a diagnostic ECG and ST-segment elevation, who receive a primary percutaneous coronary intervention (PCI) during their hospital stay, and the time from hospital arrival to PCI is 90 minutes or less",
   "hqmf_id": "40280382-610B-E7A4-0161-BE5CF659426C",
   "hqmf_set_id": "84B9D0B5-0CAF-4E41-B345-3492A23C2E9F",
@@ -17601,63 +17601,63 @@
   },
   "population_sets": [
     {
-      "_id": "5d08119bd7c8ac1d93249ebd",
+      "_id": "5d1241e131fe5f83c94d724b",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d08119bd7c8ac1d93249ec3",
+          "_id": "5d1241e131fe5f83c94d7251",
           "hqmf_id": "BC6ABA5A-EF35-4ED9-A6FB-2A7B0AB77C2E",
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "Denominator Exclusions"
         },
         "DENEXCEP": {
-          "_id": "5d08119bd7c8ac1d93249ec2",
+          "_id": "5d1241e131fe5f83c94d7250",
           "hqmf_id": "4698D4AA-4E2E-4910-AB68-1C889690FEBE",
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "Denominator Exceptions"
         },
         "DENOM": {
-          "_id": "5d08119bd7c8ac1d93249ec0",
+          "_id": "5d1241e131fe5f83c94d724e",
           "hqmf_id": "6E0F1E96-06BA-4BC2-885F-2FB247B41E8B",
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d08119bd7c8ac1d93249ebf",
+          "_id": "5d1241e131fe5f83c94d724d",
           "hqmf_id": "EAF94835-9BC5-467F-B055-40C923D82F7C",
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d08119bd7c8ac1d93249ec1",
+          "_id": "5d1241e131fe5f83c94d724f",
           "hqmf_id": "4681B8EB-4083-47AC-A7DE-9102482BACFD",
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "Numerator"
         },
-        "_id": "5d08119bd7c8ac1d93249ebe",
+        "_id": "5d1241e131fe5f83c94d724c",
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
-          "_id": "5d08119bd7c8ac1d93249ec4",
+          "_id": "5d1241e131fe5f83c94d7252",
           "hqmf_id": null,
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249ec5",
+          "_id": "5d1241e131fe5f83c94d7253",
           "hqmf_id": null,
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249ec6",
+          "_id": "5d1241e131fe5f83c94d7254",
           "hqmf_id": null,
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d08119bd7c8ac1d93249ec7",
+          "_id": "5d1241e131fe5f83c94d7255",
           "hqmf_id": null,
           "library_name": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
           "statement_name": "SDE Sex"
@@ -17668,7 +17668,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d08119bd7c8ac1d93249c3b",
+      "_id": "5d1241e131fe5f83c94d6fc8",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -17683,10 +17683,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb0",
+        "_id": "5d1241e131fe5f83c94d723e",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c3b"
+        "value": "5d1241e131fe5f83c94d6fc8"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17699,7 +17699,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c3c",
+      "_id": "5d1241e131fe5f83c94d6fc9",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -17707,10 +17707,10 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb1",
+        "_id": "5d1241e131fe5f83c94d723f",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c3c"
+        "value": "5d1241e131fe5f83c94d6fc9"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -17720,7 +17720,7 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c3d",
+      "_id": "5d1241e131fe5f83c94d6fca",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -17728,10 +17728,10 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb2",
+        "_id": "5d1241e131fe5f83c94d7240",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c3d"
+        "value": "5d1241e131fe5f83c94d6fca"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -17740,7 +17740,7 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c3e",
+      "_id": "5d1241e131fe5f83c94d6fcb",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.3015",
@@ -17751,10 +17751,10 @@
       "description": "Procedure, Performed: VentricularAssistDeviceplacement",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb3",
+        "_id": "5d1241e131fe5f83c94d7241",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c3e"
+        "value": "5d1241e131fe5f83c94d6fcb"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17771,7 +17771,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c3f",
+      "_id": "5d1241e131fe5f83c94d6fcc",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.748",
@@ -17781,10 +17781,10 @@
       "description": "Diagnosis: Cardiopulmonaryarrest",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb4",
+        "_id": "5d1241e131fe5f83c94d7242",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c3f"
+        "value": "5d1241e131fe5f83c94d6fcc"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17795,7 +17795,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c40",
+      "_id": "5d1241e131fe5f83c94d6fcd",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.1151",
@@ -17806,10 +17806,10 @@
       "description": "Procedure, Performed: Aorticballoonpumpinsertion",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb5",
+        "_id": "5d1241e131fe5f83c94d7243",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c40"
+        "value": "5d1241e131fe5f83c94d6fcd"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17826,7 +17826,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c41",
+      "_id": "5d1241e131fe5f83c94d6fce",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -17834,10 +17834,10 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb6",
+        "_id": "5d1241e131fe5f83c94d7244",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c41"
+        "value": "5d1241e131fe5f83c94d6fce"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -17846,7 +17846,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c42",
+      "_id": "5d1241e131fe5f83c94d6fcf",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
@@ -17861,10 +17861,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb7",
+        "_id": "5d1241e131fe5f83c94d7245",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c42"
+        "value": "5d1241e131fe5f83c94d6fcf"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17877,7 +17877,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c43",
+      "_id": "5d1241e131fe5f83c94d6fd0",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.67",
@@ -17888,10 +17888,10 @@
       "description": "Procedure, Performed: PCI",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb8",
+        "_id": "5d1241e131fe5f83c94d7246",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c43"
+        "value": "5d1241e131fe5f83c94d6fd0"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17908,7 +17908,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c44",
+      "_id": "5d1241e131fe5f83c94d6fd1",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -17916,10 +17916,10 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eb9",
+        "_id": "5d1241e131fe5f83c94d7247",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c44"
+        "value": "5d1241e131fe5f83c94d6fd1"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -17928,7 +17928,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c45",
+      "_id": "5d1241e131fe5f83c94d6fd2",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.69",
@@ -17939,10 +17939,10 @@
       "description": "Procedure, Performed: EndotrachealIntubation",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249eba",
+        "_id": "5d1241e131fe5f83c94d7248",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c45"
+        "value": "5d1241e131fe5f83c94d6fd2"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17959,7 +17959,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c46",
+      "_id": "5d1241e131fe5f83c94d6fd3",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.736",
       "dataElementCodes": [
@@ -17970,10 +17970,10 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249ebb",
+        "_id": "5d1241e131fe5f83c94d7249",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c46"
+        "value": "5d1241e131fe5f83c94d6fd3"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -17986,7 +17986,7 @@
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d08119bd7c8ac1d93249c47",
+      "_id": "5d1241e131fe5f83c94d6fd4",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.735",
       "components": null,
@@ -17997,10 +17997,10 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": "5d08119bd7c8ac1d93249ebc",
+        "_id": "5d1241e131fe5f83c94d724a",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119bd7c8ac1d93249c47"
+        "value": "5d1241e131fe5f83c94d6fd4"
       },
       "method": null,
       "negationRationale": null,
@@ -18017,29 +18017,29 @@
     }
   ],
   "title": "Primary PCI Received Within 90 Minutes of Hospital Arrival",
-  "updated_at": "2019-06-17T22:18:03.638Z",
+  "updated_at": "2019-06-25T15:46:41.967Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d08119bd7c8ac1d93249c48",
-    "5d08119bd7c8ac1d93249c49",
-    "5d08119bd7c8ac1d93249c4a",
-    "5d08119bd7c8ac1d93249c4b",
-    "5d08119bd7c8ac1d93249c4c",
-    "5d08119bd7c8ac1d93249c4d",
-    "5d08119bd7c8ac1d93249c4e",
-    "5d08119bd7c8ac1d93249c4f",
-    "5d08119bd7c8ac1d93249c50",
-    "5d08119bd7c8ac1d93249c51",
-    "5d08119bd7c8ac1d93249c52",
-    "5d08119bd7c8ac1d93249c53",
-    "5d08119bd7c8ac1d93249c54",
-    "5d08119bd7c8ac1d93249c55",
-    "5d08119bd7c8ac1d93249c56",
-    "5d08119bd7c8ac1d93249c57",
-    "5d08119bd7c8ac1d93249c58",
-    "5d08119bd7c8ac1d93249c59",
-    "5d08119bd7c8ac1d93249c5a",
-    "5d08119bd7c8ac1d93249c5b",
-    "5d08119bd7c8ac1d93249c5c"
+    "5d1241e131fe5f83c94d6fd5",
+    "5d1241e131fe5f83c94d6fd6",
+    "5d1241e131fe5f83c94d6fd7",
+    "5d1241e131fe5f83c94d6fd8",
+    "5d1241e131fe5f83c94d6fd9",
+    "5d1241e131fe5f83c94d6fda",
+    "5d1241e131fe5f83c94d6fdb",
+    "5d1241e131fe5f83c94d6fdc",
+    "5d1241e131fe5f83c94d6fdd",
+    "5d1241e131fe5f83c94d6fde",
+    "5d1241e131fe5f83c94d6fdf",
+    "5d1241e131fe5f83c94d6fe0",
+    "5d1241e131fe5f83c94d6fe1",
+    "5d1241e131fe5f83c94d6fe2",
+    "5d1241e131fe5f83c94d6fe3",
+    "5d1241e131fe5f83c94d6fe4",
+    "5d1241e131fe5f83c94d6fe5",
+    "5d1241e131fe5f83c94d6fe6",
+    "5d1241e131fe5f83c94d6fe7",
+    "5d1241e131fe5f83c94d6fe8",
+    "5d1241e131fe5f83c94d6fe9"
   ]
 }

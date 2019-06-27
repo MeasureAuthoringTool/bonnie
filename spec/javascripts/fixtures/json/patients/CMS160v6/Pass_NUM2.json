@@ -39,27 +39,26 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d0be2de31fe5f2b58dd2217",
+    "_id": "5d1400d431fe5fd3cacb0b40",
     "birthDatetime": "1965-04-13T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d0be2de31fe5f2b58dd2218",
+        "_id": "5d1400d431fe5fd3cacb0b41",
         "authorDatetime": "2012-08-31T14:35:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.67.1.101.11.723",
         "components": [
 
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
             "code": "44261-6",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Assessment, Performed: PHQ-9 Tool",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
         "id": {
-          "_id": "5d0be2de31fe5f2b58dd2219",
+          "_id": "5d1400d431fe5fd3cacb0b42",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb7763b848463d625b33d9"
@@ -75,21 +74,20 @@
         "_type": "QDM::AssessmentPerformed"
       },
       {
-        "_id": "5d0be2de31fe5f2b58dd221a",
+        "_id": "5d1400d431fe5fd3cacb0b43",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-06-08T14:35:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.113883.3.67.1.101.3.2444",
         "dataElementCodes": [
           {
-            "codeSystem": "ICD-10-CM",
             "code": "F33.9",
-            "codeSystemOid": "2.16.840.1.113883.6.90"
+            "system": "2.16.840.1.113883.6.90"
           }
         ],
         "description": "Diagnosis: Major Depression Including Remission",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
         "id": {
-          "_id": "5d0be2de31fe5f2b58dd221b",
+          "_id": "5d1400d431fe5fd3cacb0b44",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb7763b848463d625b33d6"
@@ -108,21 +106,20 @@
         "_type": "QDM::Diagnosis"
       },
       {
-        "_id": "5d0be2de31fe5f2b58dd221c",
+        "_id": "5d1400d431fe5fd3cacb0b45",
         "anatomicalLocationSite": null,
         "authorDatetime": "2013-11-08T14:35:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.67.1.101.1.128",
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
             "code": "81319007",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Diagnosis: Bipolar Disorder",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
         "id": {
-          "_id": "5d0be2de31fe5f2b58dd221d",
+          "_id": "5d1400d431fe5fd3cacb0b46",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb7763b848463d625b33d7"
@@ -141,15 +138,14 @@
         "_type": "QDM::Diagnosis"
       },
       {
-        "_id": "5d0be2de31fe5f2b58dd221e",
+        "_id": "5d1400d431fe5fd3cacb0b47",
         "admissionSource": null,
         "authorDatetime": "2012-06-08T14:30:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
         "dataElementCodes": [
           {
-            "codeSystem": "CPT",
             "code": "99201",
-            "codeSystemOid": "2.16.840.1.113883.6.12"
+            "system": "2.16.840.1.113883.6.12"
           }
         ],
         "description": "Encounter, Performed: Office Visit",
@@ -162,7 +158,7 @@
         ],
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
-          "_id": "5d0be2de31fe5f2b58dd221f",
+          "_id": "5d1400d431fe5fd3cacb0b48",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb7763b848463d625b33d8"
@@ -186,15 +182,14 @@
         "_type": "QDM::EncounterPerformed"
       },
       {
-        "_id": "5d0be2de31fe5f2b58dd2212",
+        "_id": "5d1400d431fe5fd3cacb0b3b",
         "birthDatetime": "1965-04-13T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystemOid": "2.16.840.1.113883.6.1",
-            "descriptor": null,
-            "codeSystem": "LOINC",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
             "version": null,
             "_type": "QDM::Code"
           }
@@ -202,10 +197,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": "5d0be2de31fe5f2b58dd2220",
+          "_id": "5d1400d431fe5fd3cacb0b49",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2de31fe5f2b58dd2212"
+          "value": "5d1400d431fe5fd3cacb0b3b"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -214,14 +209,13 @@
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d0be2de31fe5f2b58dd2213",
+        "_id": "5d1400d431fe5fd3cacb0b3c",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -229,10 +223,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": "5d0be2de31fe5f2b58dd2221",
+          "_id": "5d1400d431fe5fd3cacb0b4a",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2de31fe5f2b58dd2213"
+          "value": "5d1400d431fe5fd3cacb0b3c"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -241,14 +235,13 @@
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d0be2de31fe5f2b58dd2214",
+        "_id": "5d1400d431fe5fd3cacb0b3d",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -256,10 +249,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": "5d0be2de31fe5f2b58dd2222",
+          "_id": "5d1400d431fe5fd3cacb0b4b",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2de31fe5f2b58dd2214"
+          "value": "5d1400d431fe5fd3cacb0b3d"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -268,14 +261,13 @@
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d0be2de31fe5f2b58dd2215",
+        "_id": "5d1400d431fe5fd3cacb0b3e",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "F",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
-            "descriptor": "F",
-            "codeSystem": "AdministrativeGender",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "F",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -283,10 +275,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": "5d0be2de31fe5f2b58dd2223",
+          "_id": "5d1400d431fe5fd3cacb0b4c",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2de31fe5f2b58dd2215"
+          "value": "5d1400d431fe5fd3cacb0b3e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",

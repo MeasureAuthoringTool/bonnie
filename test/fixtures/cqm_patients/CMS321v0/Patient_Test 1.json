@@ -94,7 +94,7 @@
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
+            
             "code": "59458-0"
           }
         ],
@@ -127,11 +127,11 @@
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
+            
             "code": "401196007"
           },
           {
-            "codeSystem": "LOINC",
+            
             "code": "52552-7"
           }
         ],
@@ -162,7 +162,7 @@
         "authorDatetime": "2012-12-04T08:00:00.000+00:00",
         "dataElementCodes": [
           {
-            "codeSystem": "HCPCS",
+            
             "code": "G0438"
           }
         ],
@@ -208,9 +208,9 @@
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystem": "LOINC",
-            "descriptor": null,
-            "codeSystemOid": null,
+            
+            "display": null,
+            "system": null,
             "version": null,
             "_type": "QDM::Code"
           }
@@ -237,9 +237,9 @@
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
+            
+            "display": "Not Hispanic or Latino",
+            "system": "2.16.840.1.113883.6.238",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -266,9 +266,9 @@
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystem": "CDC Race",
-            "descriptor": "American Indian or Alaska Native",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
+            
+            "display": "American Indian or Alaska Native",
+            "system": "2.16.840.1.113883.6.238",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -295,9 +295,9 @@
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystem": "AdministrativeGender",
-            "descriptor": "M",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
+            
+            "display": "M",
+            "system": "2.16.840.1.113883.5.1",
             "version": null,
             "_type": "QDM::Code"
           }

@@ -88,6 +88,17 @@ class Thorax.Models.Measure extends Thorax.Model
   valueSets: ->
     @get('cqmValueSets')
 
+  codeSystemMap: ->
+    return @_codeSystemMap if @_codeSystemMap?
+
+    @_codeSystemMap = {}
+    @get('cqmValueSets').forEach (valueSet) =>
+      valueSet.concepts.forEach (concept) =>
+        if !@_codeSystemMap.hasOwnProperty(concept.code_system_oid)
+          @_codeSystemMap[concept.code_system_oid] = concept.code_system_name
+
+    return @_codeSystemMap
+
   hasCode: (code, code_system) ->
     for vs in @valueSets()
       _(vs.concepts).any (c) ->
