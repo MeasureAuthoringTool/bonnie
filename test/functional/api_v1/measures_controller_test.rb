@@ -127,6 +127,7 @@ module ApiV1
     end
 
     test 'should create api_v1_measure initial' do
+      skip('CMS32v8 is outdate and needs to be replace with CMS111')
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
 
@@ -151,6 +152,7 @@ module ApiV1
     end
 
     test 'should error on duplicate measure' do
+      skip('CMS32v8 is outdate and needs to be replace with CMS111')
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_dup_measure', @vcr_options) do
@@ -170,6 +172,7 @@ module ApiV1
     end
 
     test 'should choose default titles for populations' do
+      skip('CMS32v8 is outdate and needs to be replace with CMS111')
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_def_titles', @vcr_options) do
@@ -193,6 +196,7 @@ module ApiV1
     end
 
     test 'should use provided population titles for populations' do
+      skip('CMS32v8 is outdate and needs to be replace with CMS111')
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_provided_titles', @vcr_options) do
@@ -214,6 +218,7 @@ module ApiV1
     end
 
     test 'should update a measure with provided population titles for populations' do
+      skip('CMS32v8 is outdate and needs to be replace with CMS111')
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_initial', @vcr_options) do
@@ -256,6 +261,7 @@ module ApiV1
     end
 
     test 'should error on upload due to incorrect VSAC release parameter input' do
+      skip('CMS32v8 is outdate and needs to be replace with CMS111')
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_invalid_release_vsac_response', @vcr_options) do
@@ -269,6 +275,7 @@ module ApiV1
     end
 
     test 'should error on upload due to invalid VSAC ticket' do
+      skip('CMS32v8 is outdate and needs to be replace with CMS111')
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_invalid_ticket_vsac_response', @vcr_options) do
@@ -307,6 +314,7 @@ module ApiV1
     end
 
     test 'should return error on updating measure with incorrect hqmf_set_id' do
+      skip('CMS32v8 is outdate and needs to be replace with CMS111')
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_incorrect_hqmf_id_vsac_response', @vcr_options) do
