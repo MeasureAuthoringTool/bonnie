@@ -65,7 +65,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
     # There shouldn't be a dataElement saved without codes, but if there is, add default
     if !(@model.get('qdmDataElement').dataElementCodes?.length)
-      @ensureDataElementHasCode()
+      @addDefaultCodeToDataElement()
     else
       # Add existing codes onto view
       for code in @model.get('qdmDataElement').dataElementCodes
@@ -208,10 +208,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     code_to_delete = $(e.target).model().get("code")
     @model.get('qdmDataElement').dataElementCodes.pop({code: code_to_delete})
     $(e.target).model().destroy()
-    @ensureDataElementHasCode()
+    @addDefaultCodeToDataElement()
 
-  ensureDataElementHasCode: ->
-    # add default code unless dataElementCodes.length
+  addDefaultCodeToDataElement: ->
     if !(@model.get('qdmDataElement').dataElementCodes?.length)
       code_list_id = @model.get('codeListId')
       concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
