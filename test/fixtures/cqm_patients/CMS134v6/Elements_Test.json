@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5b6b2161b848461165a3b783"
+    "$oid": "5d14f7ec31fe5ff6f1e7d44a"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -26,13 +26,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d1400d331fe5fd3cacb0aea"
+      "$oid": "5d14f7ec31fe5ff6f1e7d44b"
     },
     "birthDatetime": "1970-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0aeb"
+          "$oid": "5d14f7ec31fe5ff6f1e7d44c"
         },
         "anatomicalLocationSite": {
           "code": "129151000119102",
@@ -52,15 +52,15 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0aec"
+            "$oid": "5d14f7ec31fe5ff6f1e7d44d"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c2f6cb848464add087399"
         },
         "prevalencePeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -78,7 +78,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0aed"
+          "$oid": "5d14f7ec31fe5ff6f1e7d44e"
         },
         "admissionSource": {
           "code": "185460008",
@@ -124,7 +124,7 @@
         "facilityLocations": [
           {
             "_id": {
-              "$oid": "5d1400d331fe5fd3cacb0aee"
+              "$oid": "5d14f7ec31fe5ff6f1e7d44f"
             },
             "_type": "QDM::FacilityLocation",
             "code": {
@@ -135,8 +135,8 @@
               "_type": "QDM::Code"
             },
             "locationPeriod": {
-              "low": "2012-07-23T08:00:00.000+00:00",
-              "high": "2012-07-23T09:00:00.000+00:00",
+              "low": "2012-07-23T08:00:00.000Z",
+              "high": "2012-07-23T09:00:00.000Z",
               "lowClosed": true,
               "highClosed": true,
               "_type": "QDM::Interval"
@@ -145,7 +145,7 @@
           },
           {
             "_id": {
-              "$oid": "5d1400d331fe5fd3cacb0aef"
+              "$oid": "5d14f7ec31fe5ff6f1e7d450"
             },
             "_type": "QDM::FacilityLocation",
             "code": {
@@ -156,8 +156,8 @@
               "_type": "QDM::Code"
             },
             "locationPeriod": {
-              "low": "2012-07-23T09:00:00.000+00:00",
-              "high": "2012-07-23T10:00:00.000+00:00",
+              "low": "2012-07-23T09:00:00.000Z",
+              "high": "2012-07-23T10:00:00.000Z",
               "lowClosed": true,
               "highClosed": true,
               "_type": "QDM::Interval"
@@ -168,7 +168,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0af0"
+            "$oid": "5d14f7ec31fe5ff6f1e7d451"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -190,8 +190,8 @@
         "qdmTitle": "Encounter, Performed",
         "qdmVersion": "5.4",
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -199,7 +199,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0af1"
+          "$oid": "5d14f7ec31fe5ff6f1e7d452"
         },
         "codeListId": "2.16.840.1.113883.3.526.3.1139",
         "dataElementCodes": [
@@ -222,7 +222,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.13",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0af2"
+            "$oid": "5d14f7ec31fe5ff6f1e7d453"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -233,8 +233,8 @@
         "qdmTitle": "Medication, Active",
         "qdmVersion": "5.4",
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -248,7 +248,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0af3"
+          "$oid": "5d14f7ec31fe5ff6f1e7d454"
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -262,7 +262,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.45",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0af4"
+            "$oid": "5d14f7ec31fe5ff6f1e7d455"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -283,7 +283,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0af5"
+          "$oid": "5d14f7ec31fe5ff6f1e7d456"
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -297,7 +297,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.46",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0af6"
+            "$oid": "5d14f7ec31fe5ff6f1e7d457"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -315,8 +315,8 @@
           "version": null
         },
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -336,7 +336,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0af7"
+          "$oid": "5d14f7ec31fe5ff6f1e7d458"
         },
         "anatomicalLocationSite": {
           "code": "12843005",
@@ -359,7 +359,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0af8"
+            "$oid": "5d14f7ec31fe5ff6f1e7d459"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -390,8 +390,8 @@
           "version": null
         },
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -411,7 +411,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0af9"
+          "$oid": "5d14f7ec31fe5ff6f1e7d45a"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
@@ -451,7 +451,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0afa"
+            "$oid": "5d14f7ec31fe5ff6f1e7d45b"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -467,8 +467,8 @@
         "qdmVersion": "5.4",
         "reason": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -478,7 +478,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0afb"
+          "$oid": "5d14f7ec31fe5ff6f1e7d45c"
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1024",
@@ -495,7 +495,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0afc"
+            "$oid": "5d14f7ec31fe5ff6f1e7d45d"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -531,8 +531,8 @@
           "highClosed": true
         },
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -551,7 +551,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0afd"
+          "$oid": "5d14f7ec31fe5ff6f1e7d45e"
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1024",
@@ -599,7 +599,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0afe"
+            "$oid": "5d14f7ec31fe5ff6f1e7d45f"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -614,8 +614,8 @@
         "reason": null,
         "referenceRange": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -626,7 +626,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0ae5"
+          "$oid": "5d14f7ec31fe5ff6f1e7d446"
         },
         "birthDatetime": "1970-01-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -643,11 +643,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0aff"
+            "$oid": "5d14f7ec31fe5ff6f1e7d460"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d1400d331fe5fd3cacb0ae5"
+          "value": "5d14f7ec31fe5ff6f1e7d446"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -657,7 +657,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0ae6"
+          "$oid": "5d14f7ec31fe5ff6f1e7d447"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -673,11 +673,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0b00"
+            "$oid": "5d14f7ec31fe5ff6f1e7d461"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d1400d331fe5fd3cacb0ae6"
+          "value": "5d14f7ec31fe5ff6f1e7d447"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -687,7 +687,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0ae7"
+          "$oid": "5d14f7ec31fe5ff6f1e7d448"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -703,11 +703,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0b01"
+            "$oid": "5d14f7ec31fe5ff6f1e7d462"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d1400d331fe5fd3cacb0ae7"
+          "value": "5d14f7ec31fe5ff6f1e7d448"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -717,7 +717,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d331fe5fd3cacb0ae8"
+          "$oid": "5d14f7ec31fe5ff6f1e7d449"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -733,11 +733,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5d1400d331fe5fd3cacb0b02"
+            "$oid": "5d14f7ec31fe5ff6f1e7d463"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d1400d331fe5fd3cacb0ae8"
+          "value": "5d14f7ec31fe5ff6f1e7d449"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",

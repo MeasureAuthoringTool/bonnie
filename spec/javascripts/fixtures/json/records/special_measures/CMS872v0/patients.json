@@ -11,7 +11,7 @@
     "ethnicity": {
       "code": "2186-5",
       "name": "Not Hispanic or Latino",
-      
+      "codeSystem": "CDC Race"
     },
     "expected_values": [
       {
@@ -37,7 +37,7 @@
         "end_time": null,
         "financial_responsibility_type": {
           "code": "SELF",
-          
+          "codeSystem": "HL7 Relationship Code"
         },
         "health_record_field": null,
         "member_id": "1234567890",
@@ -125,7 +125,7 @@
     "race": {
       "code": "1002-5",
       "name": "American Indian or Alaska Native",
-      
+      "codeSystem": "CDC Race"
     },
     "religious_affiliation": null,
     "source_data_criteria": [
@@ -271,7 +271,7 @@
     "ethnicity": {
       "code": "2186-5",
       "name": "Not Hispanic or Latino",
-      
+      "codeSystem": "CDC Race"
     },
     "expected_values": [
       {
@@ -297,7 +297,7 @@
         "end_time": null,
         "financial_responsibility_type": {
           "code": "SELF",
-          
+          "codeSystem": "HL7 Relationship Code"
         },
         "health_record_field": null,
         "member_id": "1234567890",
@@ -385,7 +385,7 @@
     "race": {
       "code": "1002-5",
       "name": "American Indian or Alaska Native",
-      
+      "codeSystem": "CDC Race"
     },
     "religious_affiliation": null,
     "source_data_criteria": [
@@ -529,7 +529,7 @@
     "ethnicity": {
       "code": "2186-5",
       "name": "Not Hispanic or Latino",
-      
+      "codeSystem": "CDC Race"
     },
     "expected_values": [
       {
@@ -555,7 +555,7 @@
         "end_time": null,
         "financial_responsibility_type": {
           "code": "SELF",
-          
+          "codeSystem": "HL7 Relationship Code"
         },
         "health_record_field": null,
         "member_id": "1234567890",
@@ -643,7 +643,7 @@
     "race": {
       "code": "1002-5",
       "name": "American Indian or Alaska Native",
-      
+      "codeSystem": "CDC Race"
     },
     "religious_affiliation": null,
     "source_data_criteria": [

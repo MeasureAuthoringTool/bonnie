@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5ad08c06b8484651bb40d494"
+    "$oid": "5d14f7eb31fe5ff6f1e7d3c6"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -25,13 +25,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d1400d731fe5fd3cacb0c34"
+      "$oid": "5d14f7eb31fe5ff6f1e7d3c7"
     },
     "birthDatetime": "1970-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d1400d731fe5fd3cacb0c35"
+          "$oid": "5d14f7eb31fe5ff6f1e7d3c8"
         },
         "admissionSource": null,
         "authorDatetime": "2012-04-13T08:00:00.000+00:00",
@@ -53,7 +53,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
           "_id": {
-            "$oid": "5d1400d731fe5fd3cacb0c36"
+            "$oid": "5d14f7eb31fe5ff6f1e7d3c9"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -70,8 +70,8 @@
         "qdmTitle": "Encounter, Performed",
         "qdmVersion": "5.4",
         "relevantPeriod": {
-          "low": "2012-04-13T08:00:00.000+00:00",
-          "high": "2012-04-13T08:15:00.000+00:00",
+          "low": "2012-04-13T08:00:00.000Z",
+          "high": "2012-04-13T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -79,7 +79,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d731fe5fd3cacb0c2f"
+          "$oid": "5d14f7eb31fe5ff6f1e7d3c2"
         },
         "birthDatetime": "1970-01-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -96,11 +96,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5d1400d731fe5fd3cacb0c37"
+            "$oid": "5d14f7eb31fe5ff6f1e7d3ca"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d1400d731fe5fd3cacb0c2f"
+          "value": "5d14f7eb31fe5ff6f1e7d3c2"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -110,7 +110,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d731fe5fd3cacb0c30"
+          "$oid": "5d14f7eb31fe5ff6f1e7d3c3"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -126,11 +126,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5d1400d731fe5fd3cacb0c38"
+            "$oid": "5d14f7eb31fe5ff6f1e7d3cb"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d1400d731fe5fd3cacb0c30"
+          "value": "5d14f7eb31fe5ff6f1e7d3c3"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -140,7 +140,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d731fe5fd3cacb0c31"
+          "$oid": "5d14f7eb31fe5ff6f1e7d3c4"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -156,11 +156,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5d1400d731fe5fd3cacb0c39"
+            "$oid": "5d14f7eb31fe5ff6f1e7d3cc"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d1400d731fe5fd3cacb0c31"
+          "value": "5d14f7eb31fe5ff6f1e7d3c4"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -170,7 +170,7 @@
       },
       {
         "_id": {
-          "$oid": "5d1400d731fe5fd3cacb0c32"
+          "$oid": "5d14f7eb31fe5ff6f1e7d3c5"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -186,11 +186,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5d1400d731fe5fd3cacb0c3a"
+            "$oid": "5d14f7eb31fe5ff6f1e7d3cd"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d1400d731fe5fd3cacb0c32"
+          "value": "5d14f7eb31fe5ff6f1e7d3c5"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
