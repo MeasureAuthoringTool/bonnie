@@ -150,35 +150,6 @@ class ExcelExportHelperTest < ActionController::TestCase
     compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, patient_details.keys.length)
   end
 
-  test 'excel file is generated if there is a patient that fails to convert but still calculates ' do
-    skip('Not sure what happened to the get_results_with_failed_patients function')
-    backend_results_with_failed_patients = get_results_with_failed_patients(@simple_patients, @simple_backend_results)
-
-    converted_results = ExcelExportHelper.convert_results_for_excel_export(backend_results_with_failed_patients, @simple_measure, @simple_patients)
-    statement_details = ExcelExportHelper.get_statement_details_from_measure(@simple_measure)
-    population_details = ExcelExportHelper.get_population_details_from_measure(@simple_measure, backend_results_with_failed_patients)
-    patient_details = ExcelExportHelper.get_patient_details(@simple_patients)
-    backend_excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, @simple_measure.hqmf_set_id)
-    backend_excel_file = Tempfile.new(['backend-excel-export-failed-patients', '.xlsx'])
-    backend_excel_file.write backend_excel_package.to_stream.read
-    backend_excel_file.rewind
-    backend_excel_spreadsheet = Roo::Spreadsheet.open(backend_excel_file.path)
-
-    get :excel_export, calc_results: @simple_calc_results.to_json,
-                       patient_details: @simple_patient_details.to_json,
-                       population_details: @simple_population_details.to_json,
-                       statement_details: @simple_statement_details.to_json,
-                       file_name: 'frontend-excel-export-failed-patients',
-                       measure_hqmf_set_id: @simple_measure.hqmf_set_id
-
-    frontend_excel_file = Tempfile.new(['frontend-excel-export-failed-patients', '.xlsx'])
-    frontend_excel_file.write(response.body)
-    frontend_excel_file.rewind
-    frontend_excel_spreadsheet = Roo::Spreadsheet.open(frontend_excel_file.path)
-
-    compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet)
-  end
-
   test 'result truncation truncates long strings' do
     long_string = 'a' * 400000
     truncated_string = PatientExport.truncate_result(long_string)
