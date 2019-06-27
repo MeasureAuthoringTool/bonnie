@@ -1,12 +1,14 @@
-<div class="form-group">
-  <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Attributes<input class="sr-only" disabled></label>
-  <div class="existing-values">
-    {{#each displayAttributes class="existing-values" item-context=valueWithDateContext}}
-      <span>
-        <span title="{{name}}">{{title}}</span>: {{value}}
-        <button class="btn btn-link close delete" data-attribute-name="{{name}}"{{#if isArrayValue}} data-attribute-index="{{index}}"{{/if}}
-             data-call-method="removeValue">× <span class="sr-only">Delete</span></button>
-      </span>
-    {{/each}}
+{{#if hasUserConfigurableAttributes}}
+  <div class="form-group">
+    <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Attributes<input class="sr-only" disabled></label>
+    <div class="existing-values">
+      {{#each displayAttributes class="existing-values" item-context=valueWithDateContext}}
+        <span>
+          <span title="{{name}}">{{title}}</span>: {{value}}
+          <button class="btn btn-link close delete" data-attribute-name="{{name}}"{{#if isArrayValue}} data-attribute-index="{{index}}"{{/if}}
+              data-call-method="removeValue">× <span class="sr-only">Delete</span></button>
+        </span>
+      {{/each}}
+    </div>
   </div>
-</div>
+{{/if}}

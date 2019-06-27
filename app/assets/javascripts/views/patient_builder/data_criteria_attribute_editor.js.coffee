@@ -20,6 +20,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray
         types: @_determineAttributeTypeList(path, info)
       )
+    @hasUserConfigurableAttributes = @attributeList.length > 0
 
   events:
     'change select[name="attribute_name"]': 'attributeNameChange'

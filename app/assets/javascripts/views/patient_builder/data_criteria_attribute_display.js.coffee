@@ -6,6 +6,11 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
   #   model - Thorax.Models.SourceDataCriteria - The source data criteria we are displaying attributes for
   initialize: ->
     @dataElement = @model.get('qdmDataElement')
+    @hasUserConfigurableAttributes = false
+    @dataElement.schema.eachPath (path, info) =>
+      # go on to the next one if it is an attribute that should be skipped
+      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
+      @hasUserConfigurableAttributes = true
 
   context: ->
     # build list of non-null attributes and their string representation
@@ -48,7 +53,7 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     else if value.isInterval
       lowString = if value.low? then @_stringifyValue(value.low) else "null"
       highString = if value.high? then @_stringifyValue(value.high) else "null"
-      return "#{lowString} - #{highString} "
+      return "#{lowString} - #{highString}"
 
     else
       return value.toString()
