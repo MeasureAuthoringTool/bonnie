@@ -101,13 +101,13 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['CMS_ID'] = nil
 
     assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: measure with HQMF set id A4B9763C-847E-4E02-BB7E-ACC596E90E2C found\n" \
-                  "\e[32m[Success]\e[0m\tSuccessfully wrote CMS160v6_bonnie@example.com_2019-02-15.zip\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
+                  "\e[32m[Success]\e[0m\tSuccessfully wrote CMS160v6_bonnie@example.com_2019-06-27.zip\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
-    assert(File.exist?('CMS160v6_bonnie@example.com_2019-02-15.zip'))
-    file_content = File.binread('CMS160v6_bonnie@example.com_2019-02-15.zip')
+    assert(File.exist?('CMS160v6_bonnie@example.com_2019-06-27.zip'))
+    file_content = File.binread('CMS160v6_bonnie@example.com_2019-06-27.zip')
     measure = CQM::Measure.find_by(hqmf_set_id: @hqmf_set_id_2)
     assert_equal(measure.package.file.data, file_content)
-    File.delete('CMS160v6_bonnie@example.com_2019-02-15.zip')
+    File.delete('CMS160v6_bonnie@example.com_2019-06-27.zip')
 
     # access the package with cms_id
     ENV['EMAIL'] = @email
@@ -115,12 +115,12 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['CMS_ID'] = 'CMS160v6'
 
     assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS160v6: found\n" \
-                  "\e[32m[Success]\e[0m\tSuccessfully wrote CMS160v6_bonnie@example.com_2019-02-15.zip\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
+                  "\e[32m[Success]\e[0m\tSuccessfully wrote CMS160v6_bonnie@example.com_2019-06-27.zip\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
-    assert(File.exist?('CMS160v6_bonnie@example.com_2019-02-15.zip'))
-    file_content = File.binread('CMS160v6_bonnie@example.com_2019-02-15.zip')
+    assert(File.exist?('CMS160v6_bonnie@example.com_2019-06-27.zip'))
+    file_content = File.binread('CMS160v6_bonnie@example.com_2019-06-27.zip')
     measure = CQM::Measure.find_by(cms_id: 'CMS160v6')
     assert_equal(measure.package.file.data, file_content)
-    File.delete('CMS160v6_bonnie@example.com_2019-02-15.zip')
+    File.delete('CMS160v6_bonnie@example.com_2019-06-27.zip')
   end
 end

@@ -2,7 +2,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
   template: JST['measure/value_sets/value_sets']
 
   initialize: ->
-    @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
+    @summaryValueSets = [] # array of {generic value set display, oid, and code}
     @terminology = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex') # all value set names, OID, and versions
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]

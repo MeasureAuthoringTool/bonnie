@@ -1,5 +1,5 @@
 {
-  "_id": "5d08119cd7c8ac1d9324a57c",
+  "_id": "5d1241e231fe5f83c94d790c",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS232v0",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
   "cql_libraries": [
     {
-      "_id": "5d08119cd7c8ac1d9324a57d",
+      "_id": "5d1241e231fe5f83c94d790d",
       "cql": "library AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination version '0.4.000'\r\n\r\nusing QDM version '5.4'\r\n\r\ninclude MATGlobalCommonFunctions version '4.0.000' called Global\r\n\r\nvalueset \"Allergy to Eggs\": 'urn:oid:2.16.840.1.113883.3.526.3.1253'\r\nvalueset \"Allergy to Influenza Vaccine\": 'urn:oid:2.16.840.1.113883.3.526.3.1256'\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Egg Substance\": 'urn:oid:2.16.840.1.113883.3.526.3.1537'\r\nvalueset \"Encounter-Influenza\": 'urn:oid:2.16.840.1.113883.3.526.3.1252'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Influenza Vaccination\": 'urn:oid:2.16.840.1.113883.3.526.3.402'\r\nvalueset \"Influenza Vaccination Declined\": 'urn:oid:2.16.840.1.113883.3.526.3.1255'\r\nvalueset \"Influenza Vaccine\": 'urn:oid:2.16.840.1.113883.3.526.3.1254'\r\nvalueset \"Intolerance to Influenza Vaccine\": 'urn:oid:2.16.840.1.113883.3.526.3.1257'\r\nvalueset \"Medical Reason\": 'urn:oid:2.16.840.1.113883.3.526.3.1007'\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Patient Reason\": 'urn:oid:2.16.840.1.113883.3.526.3.1008'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Previous Receipt of Influenza Vaccine\": 'urn:oid:2.16.840.1.113883.3.526.3.1185'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"System Reason\": 'urn:oid:2.16.840.1.113883.3.526.3.1009'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Influenza Season Including August and September of the Prior Year\":\r\n\tInterval[start of \"Measurement Period\" - 153 days, start of \"Measurement Period\" + 90 days]\r\n\r\ndefine \"Influenza Season\":\r\n\tInterval[start of \"Measurement Period\" - 92 days, start of \"Measurement Period\" + 90 days]\r\n\r\ndefine \"Allergy or Intolerance to Influenza Vaccine\":\r\n\t[\"Allergy/Intolerance\": \"Influenza Vaccine\"] FluVaccineAllergyIntolerance\r\n\t\twhere FluVaccineAllergyIntolerance.prevalencePeriod overlaps after \"Influenza Season\"\r\n\r\ndefine \"Influenza Immunization Administered\":\r\n\t[\"Immunization, Administered\": \"Influenza Vaccine\"] AdministeredFluVaccine\r\n\t\twhere AdministeredFluVaccine.authorDatetime during \"Influenza Season Including August and September of the Prior Year\"\r\n\r\ndefine \"Diagnosis of Allergy to Egg\":\r\n\t[\"Diagnosis\": \"Allergy to Eggs\"] EggAllergy\r\n\t\twhere EggAllergy.prevalencePeriod overlaps after \"Influenza Season\"\r\n\r\ndefine \"Diagnosis of Allergy to Influenza Vaccine\":\r\n\t[\"Diagnosis\": \"Allergy to Influenza Vaccine\"] FluVaccineAllergyDiagnosis\r\n\t\twhere FluVaccineAllergyDiagnosis.prevalencePeriod overlaps after \"Influenza Season\"\r\n\r\ndefine \"Diagnosis of Intolerance to Influenza Vaccine\":\r\n\t[\"Diagnosis\": \"Intolerance to Influenza Vaccine\"] FluVaccineIntoleranceDiagnosis\r\n\t\twhere FluVaccineIntoleranceDiagnosis.prevalencePeriod overlaps after \"Influenza Season\"\r\n\r\ndefine \"Egg Substance Allergy\":\r\n\t[\"Allergy/Intolerance\": \"Egg Substance\"] AllergyEggSubstance\r\n\t\twhere AllergyEggSubstance.prevalencePeriod overlaps after \"Influenza Season\"\r\n\r\ndefine \"Intolerance of Influenza Vaccination Procedure\":\r\n\t[\"Allergy/Intolerance\": \"Influenza Vaccination\"] FluVaccinationIntolerance\r\n\t\twhere FluVaccinationIntolerance.prevalencePeriod overlaps after \"Influenza Season\"\r\n\r\ndefine \"Encounter During Influenza Season\":\r\n\t[\"Encounter, Performed\": \"Encounter-Influenza\"] FluEncounter\r\n\t\twhere FluEncounter.relevantPeriod starts during \"Influenza Season\"\r\n\r\ndefine \"Medical Patient or System Reason for Not Administering Influenza Vaccine\":\r\n\t[\"Immunization, Not Administered\": \"Influenza Vaccine\"] NoFluVaccine\r\n\t\twhere NoFluVaccine.authorDatetime during \"Influenza Season Including August and September of the Prior Year\"\r\n\t\t\tand ( NoFluVaccine.negationRationale in \"Medical Reason\"\r\n\t\t\t\t\tor NoFluVaccine.negationRationale in \"Patient Reason\"\r\n\t\t\t\t\tor NoFluVaccine.negationRationale in \"System Reason\"\r\n\t\t\t)\r\n\r\ndefine \"Medical Patient or System Reason for Not Performing Influenza Vaccination\":\r\n\t[\"Procedure, Not Performed\": \"Influenza Vaccination\"] NoFluVaccination\r\n\t\twhere NoFluVaccination.authorDatetime during \"Influenza Season Including August and September of the Prior Year\"\r\n\t\t\tand ( NoFluVaccination.negationRationale in \"Medical Reason\"\r\n\t\t\t\t\tor NoFluVaccination.negationRationale in \"Patient Reason\"\r\n\t\t\t\t\tor NoFluVaccination.negationRationale in \"System Reason\"\r\n\t\t\t)\r\n\r\ndefine \"Numerator\":\r\n\texists \"Influenza Vaccination Procedure\"\r\n\t\tor exists \"Influenza Immunization Administered\"\r\n\t\tor exists \"Patient Reported Previous Receipt of Influenza Vaccine\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\t\tand exists \"Encounter During Influenza Season\"\r\n\r\ndefine \"Annual Wellness Visit Encounter\":\r\n\t[\"Encounter, Performed\": \"Annual Wellness Visit\"] QualifyingEncounter\r\n\t\twhere QualifyingEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t)\r\n\t\tand exists \"Annual Wellness Visit Encounter\"\r\n\r\ndefine \"Denominator Exceptions\":\r\n\texists \"Patient Declined Influenza Vaccination\"\r\n\t\tor exists \"Medical Patient or System Reason for Not Performing Influenza Vaccination\"\r\n\t\tor exists \"Medical Patient or System Reason for Not Administering Influenza Vaccine\"\r\n\t\tor exists \"Diagnosis of Allergy to Egg\"\r\n\t\tor exists \"Egg Substance Allergy\"\r\n\t\tor exists \"Diagnosis of Allergy to Influenza Vaccine\"\r\n\t\tor exists \"Diagnosis of Intolerance to Influenza Vaccine\"\r\n\t\tor exists \"Intolerance of Influenza Vaccination Procedure\"\r\n\t\tor exists \"Allergy or Intolerance to Influenza Vaccine\"\r\n\r\ndefine \"Influenza Vaccination Procedure\":\r\n\t[\"Procedure, Performed\": \"Influenza Vaccination\"] FluVaccination\r\n\t\twhere FluVaccination.relevantPeriod starts during \"Influenza Season Including August and September of the Prior Year\"\r\n\r\ndefine \"Patient Declined Influenza Vaccination\":\r\n\t[\"Communication, Performed\": \"Influenza Vaccination Declined\"] CommunicateFluVaccinationDeclined\r\n\t\twhere CommunicateFluVaccinationDeclined.authorDatetime during \"Influenza Season Including August and September of the Prior Year\"\r\n\r\ndefine \"Patient Reported Previous Receipt of Influenza Vaccine\":\r\n\t[\"Communication, Performed\": \"Previous Receipt of Influenza Vaccine\"] CommunicatePreviousReceiptFluVaccine\r\n\t\twhere CommunicatePreviousReceiptFluVaccine.authorDatetime during \"Influenza Season Including August and September of the Prior Year\"",
       "elm": {
         "library": {
@@ -9018,39 +9018,39 @@
       "library_version": "0.4.000",
       "statement_dependencies": [
         {
-          "_id": "5d08119cd7c8ac1d9324a57e",
+          "_id": "5d1241e231fe5f83c94d790e",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a57f",
+          "_id": "5d1241e231fe5f83c94d790f",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a580",
+          "_id": "5d1241e231fe5f83c94d7910",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a581",
+          "_id": "5d1241e231fe5f83c94d7911",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a582",
+          "_id": "5d1241e231fe5f83c94d7912",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a583",
+          "_id": "5d1241e231fe5f83c94d7913",
           "statement_name": "Influenza Season Including August and September of the Prior Year"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a584",
+          "_id": "5d1241e231fe5f83c94d7914",
           "statement_name": "Influenza Season"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a585",
+          "_id": "5d1241e231fe5f83c94d7915",
           "statement_name": "Allergy or Intolerance to Influenza Vaccine",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a586",
+              "_id": "5d1241e231fe5f83c94d7916",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season"
@@ -9058,11 +9058,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a587",
+          "_id": "5d1241e231fe5f83c94d7917",
           "statement_name": "Influenza Immunization Administered",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a588",
+              "_id": "5d1241e231fe5f83c94d7918",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season Including August and September of the Prior Year"
@@ -9070,11 +9070,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a589",
+          "_id": "5d1241e231fe5f83c94d7919",
           "statement_name": "Diagnosis of Allergy to Egg",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a58a",
+              "_id": "5d1241e231fe5f83c94d791a",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season"
@@ -9082,11 +9082,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a58b",
+          "_id": "5d1241e231fe5f83c94d791b",
           "statement_name": "Diagnosis of Allergy to Influenza Vaccine",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a58c",
+              "_id": "5d1241e231fe5f83c94d791c",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season"
@@ -9094,11 +9094,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a58d",
+          "_id": "5d1241e231fe5f83c94d791d",
           "statement_name": "Diagnosis of Intolerance to Influenza Vaccine",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a58e",
+              "_id": "5d1241e231fe5f83c94d791e",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season"
@@ -9106,11 +9106,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a58f",
+          "_id": "5d1241e231fe5f83c94d791f",
           "statement_name": "Egg Substance Allergy",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a590",
+              "_id": "5d1241e231fe5f83c94d7920",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season"
@@ -9118,11 +9118,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a591",
+          "_id": "5d1241e231fe5f83c94d7921",
           "statement_name": "Intolerance of Influenza Vaccination Procedure",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a592",
+              "_id": "5d1241e231fe5f83c94d7922",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season"
@@ -9130,11 +9130,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a593",
+          "_id": "5d1241e231fe5f83c94d7923",
           "statement_name": "Encounter During Influenza Season",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a594",
+              "_id": "5d1241e231fe5f83c94d7924",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season"
@@ -9142,11 +9142,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a595",
+          "_id": "5d1241e231fe5f83c94d7925",
           "statement_name": "Medical Patient or System Reason for Not Administering Influenza Vaccine",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a596",
+              "_id": "5d1241e231fe5f83c94d7926",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season Including August and September of the Prior Year"
@@ -9154,11 +9154,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a597",
+          "_id": "5d1241e231fe5f83c94d7927",
           "statement_name": "Medical Patient or System Reason for Not Performing Influenza Vaccination",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a598",
+              "_id": "5d1241e231fe5f83c94d7928",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season Including August and September of the Prior Year"
@@ -9166,11 +9166,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a599",
+          "_id": "5d1241e231fe5f83c94d7929",
           "statement_name": "Influenza Vaccination Procedure",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a59a",
+              "_id": "5d1241e231fe5f83c94d792a",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season Including August and September of the Prior Year"
@@ -9178,11 +9178,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a59b",
+          "_id": "5d1241e231fe5f83c94d792b",
           "statement_name": "Patient Reported Previous Receipt of Influenza Vaccine",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a59c",
+              "_id": "5d1241e231fe5f83c94d792c",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season Including August and September of the Prior Year"
@@ -9190,23 +9190,23 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a59d",
+          "_id": "5d1241e231fe5f83c94d792d",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a59e",
+              "_id": "5d1241e231fe5f83c94d792e",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Vaccination Procedure"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a59f",
+              "_id": "5d1241e231fe5f83c94d792f",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Immunization Administered"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5a0",
+              "_id": "5d1241e231fe5f83c94d7930",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Patient Reported Previous Receipt of Influenza Vaccine"
@@ -9214,21 +9214,21 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5a1",
+          "_id": "5d1241e231fe5f83c94d7931",
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5a2",
+          "_id": "5d1241e231fe5f83c94d7932",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a5a3",
+              "_id": "5d1241e231fe5f83c94d7933",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5a4",
+              "_id": "5d1241e231fe5f83c94d7934",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Annual Wellness Visit Encounter"
@@ -9236,17 +9236,17 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5a5",
+          "_id": "5d1241e231fe5f83c94d7935",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a5a6",
+              "_id": "5d1241e231fe5f83c94d7936",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Initial Population"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5a7",
+              "_id": "5d1241e231fe5f83c94d7937",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Encounter During Influenza Season"
@@ -9254,11 +9254,11 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5a8",
+          "_id": "5d1241e231fe5f83c94d7938",
           "statement_name": "Patient Declined Influenza Vaccination",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a5a9",
+              "_id": "5d1241e231fe5f83c94d7939",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Influenza Season Including August and September of the Prior Year"
@@ -9266,59 +9266,59 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5aa",
+          "_id": "5d1241e231fe5f83c94d793a",
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a5ab",
+              "_id": "5d1241e231fe5f83c94d793b",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Patient Declined Influenza Vaccination"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5ac",
+              "_id": "5d1241e231fe5f83c94d793c",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Medical Patient or System Reason for Not Performing Influenza Vaccination"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5ad",
+              "_id": "5d1241e231fe5f83c94d793d",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Medical Patient or System Reason for Not Administering Influenza Vaccine"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5ae",
+              "_id": "5d1241e231fe5f83c94d793e",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Diagnosis of Allergy to Egg"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5af",
+              "_id": "5d1241e231fe5f83c94d793f",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Egg Substance Allergy"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5b0",
+              "_id": "5d1241e231fe5f83c94d7940",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Diagnosis of Allergy to Influenza Vaccine"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5b1",
+              "_id": "5d1241e231fe5f83c94d7941",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Diagnosis of Intolerance to Influenza Vaccine"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5b2",
+              "_id": "5d1241e231fe5f83c94d7942",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Intolerance of Influenza Vaccination Procedure"
             },
             {
-              "_id": "5d08119cd7c8ac1d9324a5b3",
+              "_id": "5d1241e231fe5f83c94d7943",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
               "statement_name": "Allergy or Intolerance to Influenza Vaccine"
@@ -9328,7 +9328,7 @@
       ]
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5b4",
+      "_id": "5d1241e231fe5f83c94d7944",
       "cql": "library MATGlobalCommonFunctions version '4.0.000'\n\nusing QDM version '5.4'\n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Encounter\":\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\n\ndefine \"Inpatient Encounter\":\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\ndefine function \"ToDate\"(Value DateTime ):\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime ):\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime ):\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime ):\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) X\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\ndefine function \"LengthInDays\"(Value Interval<DateTime> ):\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) EDEncounter\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\" ):\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\n\t\t)\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\" ):\n\tFirst((Encounter.facilityLocations)HospitalLocation\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\n\t\t\tsort by start of locationPeriod\n\t)\n\n",
       "elm": {
         "library": {
@@ -17943,11 +17943,11 @@
       "library_version": "4.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d08119cd7c8ac1d9324a5b5",
+          "_id": "5d1241e231fe5f83c94d7945",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d08119cd7c8ac1d9324a5b6",
+              "_id": "5d1241e231fe5f83c94d7946",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -17955,13 +17955,13 @@
           ]
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5b7",
+          "_id": "5d1241e231fe5f83c94d7947",
           "statement_name": "ToDate"
         }
       ]
     }
   ],
-  "created_at": "2019-06-17T22:18:04.698Z",
+  "created_at": "2019-06-25T15:46:42.796Z",
   "description": "Percentage of patients ages 65 and older with an Annual Wellness Visit (AWV) during the measurement period who received an influenza immunization OR who reported previous receipt of an influenza immunization",
   "hqmf_id": "40280382-610B-E7A4-0161-71A2F6F424B4",
   "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
@@ -18481,57 +18481,57 @@
   },
   "population_sets": [
     {
-      "_id": "5d08119cd7c8ac1d9324a5ca",
+      "_id": "5d1241e231fe5f83c94d795a",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEXCEP": {
-          "_id": "5d08119cd7c8ac1d9324a5cf",
+          "_id": "5d1241e231fe5f83c94d795f",
           "hqmf_id": "2D21E70E-781D-45ED-B0CF-176EC6C68983",
           "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
           "statement_name": "Denominator Exceptions"
         },
         "DENOM": {
-          "_id": "5d08119cd7c8ac1d9324a5cd",
+          "_id": "5d1241e231fe5f83c94d795d",
           "hqmf_id": "E50E1E9D-3767-45EE-B434-945C60AA70DC",
           "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d08119cd7c8ac1d9324a5cc",
+          "_id": "5d1241e231fe5f83c94d795c",
           "hqmf_id": "9CE72C97-55C1-40B7-8695-C2A317F1481D",
           "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d08119cd7c8ac1d9324a5ce",
+          "_id": "5d1241e231fe5f83c94d795e",
           "hqmf_id": "796B3698-513C-4A41-BD80-2513B29D1FE7",
           "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
           "statement_name": "Numerator"
         },
-        "_id": "5d08119cd7c8ac1d9324a5cb",
+        "_id": "5d1241e231fe5f83c94d795b",
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
-          "_id": "5d08119cd7c8ac1d9324a5d0",
+          "_id": "5d1241e231fe5f83c94d7960",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5d1",
+          "_id": "5d1241e231fe5f83c94d7961",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5d2",
+          "_id": "5d1241e231fe5f83c94d7962",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d08119cd7c8ac1d9324a5d3",
+          "_id": "5d1241e231fe5f83c94d7963",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
           "statement_name": "SDE Sex"
@@ -18542,7 +18542,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d08119cd7c8ac1d9324a3b3",
+      "_id": "5d1241e231fe5f83c94d7743",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -18550,10 +18550,10 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5b8",
+        "_id": "5d1241e231fe5f83c94d7948",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3b3"
+        "value": "5d1241e231fe5f83c94d7743"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -18563,7 +18563,7 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3b4",
+      "_id": "5d1241e231fe5f83c94d7744",
       "authorDatetime": null,
       "category": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1255",
@@ -18573,10 +18573,10 @@
       "description": "Communication, Performed: InfluenzaVaccinationDeclined",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.132",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5b9",
+        "_id": "5d1241e231fe5f83c94d7949",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3b4"
+        "value": "5d1241e231fe5f83c94d7744"
       },
       "medium": null,
       "negationRationale": null,
@@ -18590,7 +18590,7 @@
       "_type": "QDM::CommunicationPerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3b5",
+      "_id": "5d1241e231fe5f83c94d7745",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1252",
@@ -18605,10 +18605,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5ba",
+        "_id": "5d1241e231fe5f83c94d794a",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3b5"
+        "value": "5d1241e231fe5f83c94d7745"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -18621,7 +18621,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3b6",
+      "_id": "5d1241e231fe5f83c94d7746",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.402",
@@ -18632,10 +18632,10 @@
       "description": "Procedure, Not Performed: InfluenzaVaccination",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5bb",
+        "_id": "5d1241e231fe5f83c94d794b",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3b6"
+        "value": "5d1241e231fe5f83c94d7746"
       },
       "incisionDatetime": null,
       "method": null,
@@ -18652,7 +18652,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3b7",
+      "_id": "5d1241e231fe5f83c94d7747",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.402",
@@ -18663,10 +18663,10 @@
       "description": "Procedure, Performed: InfluenzaVaccination",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5bc",
+        "_id": "5d1241e231fe5f83c94d794c",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3b7"
+        "value": "5d1241e231fe5f83c94d7747"
       },
       "incisionDatetime": null,
       "method": null,
@@ -18683,7 +18683,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3b8",
+      "_id": "5d1241e231fe5f83c94d7748",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.402",
       "dataElementCodes": [
@@ -18692,10 +18692,10 @@
       "description": "Allergy/Intolerance: InfluenzaVaccination",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5bd",
+        "_id": "5d1241e231fe5f83c94d794d",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3b8"
+        "value": "5d1241e231fe5f83c94d7748"
       },
       "prevalencePeriod": null,
       "qdmCategory": "allergy",
@@ -18707,7 +18707,7 @@
       "_type": "QDM::AllergyIntolerance"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3b9",
+      "_id": "5d1241e231fe5f83c94d7749",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -18715,10 +18715,10 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5be",
+        "_id": "5d1241e231fe5f83c94d794e",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3b9"
+        "value": "5d1241e231fe5f83c94d7749"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -18727,7 +18727,7 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3ba",
+      "_id": "5d1241e231fe5f83c94d774a",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1257",
@@ -18737,10 +18737,10 @@
       "description": "Diagnosis: IntolerancetoInfluenzaVaccine",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5bf",
+        "_id": "5d1241e231fe5f83c94d794f",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3ba"
+        "value": "5d1241e231fe5f83c94d774a"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -18751,7 +18751,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3bb",
+      "_id": "5d1241e231fe5f83c94d774b",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1254",
       "dataElementCodes": [
@@ -18761,10 +18761,10 @@
       "dosage": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.112",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c0",
+        "_id": "5d1241e231fe5f83c94d7950",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3bb"
+        "value": "5d1241e231fe5f83c94d774b"
       },
       "negationRationale": null,
       "qdmCategory": "immunization",
@@ -18777,7 +18777,7 @@
       "_type": "QDM::ImmunizationAdministered"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3bc",
+      "_id": "5d1241e231fe5f83c94d774c",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1254",
       "dataElementCodes": [
@@ -18786,10 +18786,10 @@
       "description": "Allergy/Intolerance: InfluenzaVaccine",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c1",
+        "_id": "5d1241e231fe5f83c94d7951",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3bc"
+        "value": "5d1241e231fe5f83c94d774c"
       },
       "prevalencePeriod": null,
       "qdmCategory": "allergy",
@@ -18801,7 +18801,7 @@
       "_type": "QDM::AllergyIntolerance"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3bd",
+      "_id": "5d1241e231fe5f83c94d774d",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1254",
       "dataElementCodes": [
@@ -18811,10 +18811,10 @@
       "dosage": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.112",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c2",
+        "_id": "5d1241e231fe5f83c94d7952",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3bd"
+        "value": "5d1241e231fe5f83c94d774d"
       },
       "negationRationale": null,
       "qdmCategory": "immunization",
@@ -18827,7 +18827,7 @@
       "_type": "QDM::ImmunizationAdministered"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3be",
+      "_id": "5d1241e231fe5f83c94d774e",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1240",
@@ -18842,10 +18842,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c3",
+        "_id": "5d1241e231fe5f83c94d7953",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3be"
+        "value": "5d1241e231fe5f83c94d774e"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -18858,7 +18858,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3bf",
+      "_id": "5d1241e231fe5f83c94d774f",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1256",
@@ -18868,10 +18868,10 @@
       "description": "Diagnosis: AllergytoInfluenzaVaccine",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c4",
+        "_id": "5d1241e231fe5f83c94d7954",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3bf"
+        "value": "5d1241e231fe5f83c94d774f"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -18882,7 +18882,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3c0",
+      "_id": "5d1241e231fe5f83c94d7750",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -18890,10 +18890,10 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c5",
+        "_id": "5d1241e231fe5f83c94d7955",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3c0"
+        "value": "5d1241e231fe5f83c94d7750"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -18902,7 +18902,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3c1",
+      "_id": "5d1241e231fe5f83c94d7751",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1537",
       "dataElementCodes": [
@@ -18911,10 +18911,10 @@
       "description": "Allergy/Intolerance: EggSubstance",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c6",
+        "_id": "5d1241e231fe5f83c94d7956",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3c1"
+        "value": "5d1241e231fe5f83c94d7751"
       },
       "prevalencePeriod": null,
       "qdmCategory": "allergy",
@@ -18926,7 +18926,7 @@
       "_type": "QDM::AllergyIntolerance"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3c2",
+      "_id": "5d1241e231fe5f83c94d7752",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1253",
@@ -18936,10 +18936,10 @@
       "description": "Diagnosis: AllergytoEggs",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c7",
+        "_id": "5d1241e231fe5f83c94d7957",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3c2"
+        "value": "5d1241e231fe5f83c94d7752"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -18950,7 +18950,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3c3",
+      "_id": "5d1241e231fe5f83c94d7753",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -18958,10 +18958,10 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c8",
+        "_id": "5d1241e231fe5f83c94d7958",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3c3"
+        "value": "5d1241e231fe5f83c94d7753"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -18970,7 +18970,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a3c4",
+      "_id": "5d1241e231fe5f83c94d7754",
       "authorDatetime": null,
       "category": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1185",
@@ -18980,10 +18980,10 @@
       "description": "Communication, Performed: PreviousReceiptofInfluenzaVaccine",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.132",
       "id": {
-        "_id": "5d08119cd7c8ac1d9324a5c9",
+        "_id": "5d1241e231fe5f83c94d7959",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a3c4"
+        "value": "5d1241e231fe5f83c94d7754"
       },
       "medium": null,
       "negationRationale": null,
@@ -18998,28 +18998,28 @@
     }
   ],
   "title": "Annual Wellness Assessment: Preventive Care (Influenza Vaccination)",
-  "updated_at": "2019-06-17T22:18:04.698Z",
+  "updated_at": "2019-06-25T15:46:42.796Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d08119cd7c8ac1d9324a3c5",
-    "5d08119cd7c8ac1d9324a3c6",
-    "5d08119cd7c8ac1d9324a3c7",
-    "5d08119cd7c8ac1d9324a3c8",
-    "5d08119cd7c8ac1d9324a3c9",
-    "5d08119cd7c8ac1d9324a3ca",
-    "5d08119cd7c8ac1d9324a3cb",
-    "5d08119cd7c8ac1d9324a3cc",
-    "5d08119cd7c8ac1d9324a3cd",
-    "5d08119cd7c8ac1d9324a3ce",
-    "5d08119cd7c8ac1d9324a3cf",
-    "5d08119cd7c8ac1d9324a3d0",
-    "5d08119cd7c8ac1d9324a3d1",
-    "5d08119cd7c8ac1d9324a3d2",
-    "5d08119cd7c8ac1d9324a3d3",
-    "5d08119cd7c8ac1d9324a3d4",
-    "5d08119cd7c8ac1d9324a3d5",
-    "5d08119cd7c8ac1d9324a3d6",
-    "5d08119cd7c8ac1d9324a3d7",
-    "5d08119cd7c8ac1d9324a3d8"
+    "5d1241e231fe5f83c94d7755",
+    "5d1241e231fe5f83c94d7756",
+    "5d1241e231fe5f83c94d7757",
+    "5d1241e231fe5f83c94d7758",
+    "5d1241e231fe5f83c94d7759",
+    "5d1241e231fe5f83c94d775a",
+    "5d1241e231fe5f83c94d775b",
+    "5d1241e231fe5f83c94d775c",
+    "5d1241e231fe5f83c94d775d",
+    "5d1241e231fe5f83c94d775e",
+    "5d1241e231fe5f83c94d775f",
+    "5d1241e231fe5f83c94d7760",
+    "5d1241e231fe5f83c94d7761",
+    "5d1241e231fe5f83c94d7762",
+    "5d1241e231fe5f83c94d7763",
+    "5d1241e231fe5f83c94d7764",
+    "5d1241e231fe5f83c94d7765",
+    "5d1241e231fe5f83c94d7766",
+    "5d1241e231fe5f83c94d7767",
+    "5d1241e231fe5f83c94d7768"
   ]
 }

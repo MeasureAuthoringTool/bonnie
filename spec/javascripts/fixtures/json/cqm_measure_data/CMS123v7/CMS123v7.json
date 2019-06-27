@@ -1,5 +1,5 @@
 {
-  "_id": "5d081197d7c8ac1d93246a85",
+  "_id": "5d1241de31fe5f83c94d3e0d",
   "calculate_sdes": true,
   "calculation_method": "PATIENT",
   "cms_id": "CMS123v7",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d081197d7c8ac1d93246a86",
+      "_id": "5d1241de31fe5f83c94d3e0f",
       "cql": "library DiabetesFootExam version '7.5.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude Adult_Outpatient_Encounters version '1.1.000' called AdultOutpatientEncounters\r\ninclude Hospice version '1.0.000' called Hospice\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\n\r\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Bilateral amputation of leg below or above knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1056'\r\nvalueset \"Diabetes\": 'urn:oid:2.16.840.1.113883.3.464.1003.103.12.1001'\r\nvalueset \"Left\": 'urn:oid:2.16.840.1.113883.3.464.1003.122.12.1036'\r\nvalueset \"Left Unilateral Amputation Procedure Above or Below Knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1072'\r\nvalueset \"Right\": 'urn:oid:2.16.840.1.113883.3.464.1003.122.12.1035'\r\nvalueset \"Right Unilateral Amputation Procedure Above or Below Knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1073'\r\nvalueset \"Unilateral Amputation Procedure Below or Above Knee, Unspecified Laterality\": 'urn:oid:2.16.840.1.113883.3.464.1003.103.12.1022'\r\nvalueset \"Unilateral Amputation Below or Above Knee, Unspecified Laterality\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1059'\r\nvalueset \"Left Unilateral Amputation Above or Below Knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1058'\r\nvalueset \"Right Unilateral Amputation Above or Below Knee\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1057'\r\n\r\ncode \"Diabetic foot examination (regime/therapy)\": '401191002' from \"SNOMEDCT:2017-09\" display 'Diabetic foot examination (regime/therapy)'\r\ncode \"Monofilament foot sensation test (procedure)\": '134388005' from \"SNOMEDCT:2017-09\" display 'Monofilament foot sensation test (procedure)'\r\ncode \"Pedal pulse taking (procedure)\": '91161007' from \"SNOMEDCT:2017-09\" display 'Pedal pulse taking (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists ( \"Sensory Foot Exam\" )\r\n\t\tand exists ( \"Visual Foot Exam\" )\r\n\t\tand exists ( \"Pedal Pulse Checked\" )\r\n\r\ndefine \"Pedal Pulse Checked\":\r\n\t[\"Assessment, Performed\": \"Pedal pulse taking (procedure)\"] PedalPulseCheck\r\n\t\twhere PedalPulseCheck.result is not null\r\n\t\t\tand PedalPulseCheck.authorDatetime during \"Measurement Period\"\r\n\r\ndefine \"Visual Foot Exam\":\r\n\t[\"Assessment, Performed\": \"Diabetic foot examination (regime/therapy)\"] FootExamVisual\r\n\t\twhere FootExamVisual.result is not null\r\n\t\t\tand FootExamVisual.authorDatetime during \"Measurement Period\"\r\n\r\ndefine \"Bilateral Lower Extremity Amputation\":\r\n\t[\"Diagnosis\": \"Bilateral amputation of leg below or above knee\"] LowerBilateralAmputation\r\n\t\twhere LowerBilateralAmputation.prevalencePeriod starts on or before end of \"Measurement Period\"\r\n\r\ndefine \"Sensory Foot Exam\":\r\n\t[\"Assessment, Performed\": \"Monofilament foot sensation test (procedure)\"] MonofilamentTest\r\n\t\twhere MonofilamentTest.result is not null\r\n\t\t\tand MonofilamentTest.authorDatetime during \"Measurement Period\"\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tHospice.\"Has Hospice\"\r\n\t\tor exists ( \"Bilateral Lower Extremity Amputation\" )\r\n\t\tor ( exists ( \"Left Lower Extremity Amputation\" )\r\n\t\t\t\tand exists ( \"Right Lower Extremity Amputation\" )\r\n\t\t)\r\n\r\ndefine \"Initial Population\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")in Interval[18, 75 )\r\n\t)\r\n\t\tand exists ( AdultOutpatientEncounters.\"Qualifying Encounters\" )\r\n\t\tand exists ( [\"Diagnosis\": \"Diabetes\"] Diabetes\r\n\t\t\t\twhere Diabetes.prevalencePeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n\r\ndefine \"Left Lower Extremity Amputation\":\r\n\t( ( ( [\"Diagnosis\": \"Unilateral Amputation Below or Above Knee, Unspecified Laterality\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Unilateral Amputation Procedure Below or Above Knee, Unspecified Laterality\"] ) UnilateralAmputation\r\n\t\t\twhere UnilateralAmputation.anatomicalLocationSite in \"Left\"\r\n\t)\r\n\t\tunion ( [\"Diagnosis\": \"Left Unilateral Amputation Above or Below Knee\"]\r\n\t\t\t\tunion [\"Procedure, Performed\": \"Left Unilateral Amputation Procedure Above or Below Knee\"]\r\n\t\t) ) LeftLowerAmputation\r\n\t\twhere Coalesce(LeftLowerAmputation.prevalencePeriod, LeftLowerAmputation.relevantPeriod)starts on or before end of \"Measurement Period\"\r\n\r\ndefine \"Right Lower Extremity Amputation\":\r\n\t( ( ( [\"Diagnosis\": \"Unilateral Amputation Below or Above Knee, Unspecified Laterality\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Unilateral Amputation Procedure Below or Above Knee, Unspecified Laterality\"] ) UnilateralAmputation\r\n\t\t\twhere UnilateralAmputation.anatomicalLocationSite in \"Right\"\r\n\t)\r\n\t\tunion ( [\"Diagnosis\": \"Right Unilateral Amputation Above or Below Knee\"]\r\n\t\t\t\tunion [\"Procedure, Performed\": \"Right Unilateral Amputation Procedure Above or Below Knee\"]\r\n\t\t) ) RightLowerAmputation\r\n\t\twhere Coalesce(RightLowerAmputation.prevalencePeriod, RightLowerAmputation.relevantPeriod)starts on or before end of \"Measurement Period\"\r\n",
       "elm": {
         "library": {
@@ -90,7 +90,7 @@
                 "localId": "5",
                 "locator": "11:1-11:97",
                 "name": "SNOMEDCT:2017-09",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2017-09",
                 "accessLevel": "Public"
               }
@@ -7084,37 +7084,37 @@
       "library_version": "7.5.000",
       "statement_dependencies": [
         {
-          "_id": "5d081197d7c8ac1d93246a87",
+          "_id": "5d1241de31fe5f83c94d3e10",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a88",
+          "_id": "5d1241de31fe5f83c94d3e11",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a89",
+          "_id": "5d1241de31fe5f83c94d3e12",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a8a",
+          "_id": "5d1241de31fe5f83c94d3e13",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a8b",
+          "_id": "5d1241de31fe5f83c94d3e14",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a8c",
+          "_id": "5d1241de31fe5f83c94d3e15",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d081197d7c8ac1d93246a8d",
+              "_id": "5d1241de31fe5f83c94d3e16",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d081197d7c8ac1d93246a8e",
+              "_id": "5d1241de31fe5f83c94d3e17",
               "hqmf_id": null,
               "library_name": "Adult_Outpatient_Encounters",
               "statement_name": "Qualifying Encounters"
@@ -7122,11 +7122,11 @@
           ]
         },
         {
-          "_id": "5d081197d7c8ac1d93246a8f",
+          "_id": "5d1241de31fe5f83c94d3e18",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d081197d7c8ac1d93246a90",
+              "_id": "5d1241de31fe5f83c94d3e19",
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
               "statement_name": "Initial Population"
@@ -7134,35 +7134,35 @@
           ]
         },
         {
-          "_id": "5d081197d7c8ac1d93246a91",
+          "_id": "5d1241de31fe5f83c94d3e1a",
           "statement_name": "Sensory Foot Exam"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a92",
+          "_id": "5d1241de31fe5f83c94d3e1b",
           "statement_name": "Visual Foot Exam"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a93",
+          "_id": "5d1241de31fe5f83c94d3e1c",
           "statement_name": "Pedal Pulse Checked"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a94",
+          "_id": "5d1241de31fe5f83c94d3e1d",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d081197d7c8ac1d93246a95",
+              "_id": "5d1241de31fe5f83c94d3e1e",
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
               "statement_name": "Sensory Foot Exam"
             },
             {
-              "_id": "5d081197d7c8ac1d93246a96",
+              "_id": "5d1241de31fe5f83c94d3e1f",
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
               "statement_name": "Visual Foot Exam"
             },
             {
-              "_id": "5d081197d7c8ac1d93246a97",
+              "_id": "5d1241de31fe5f83c94d3e20",
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
               "statement_name": "Pedal Pulse Checked"
@@ -7170,41 +7170,41 @@
           ]
         },
         {
-          "_id": "5d081197d7c8ac1d93246a98",
+          "_id": "5d1241de31fe5f83c94d3e21",
           "statement_name": "Bilateral Lower Extremity Amputation"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a99",
+          "_id": "5d1241de31fe5f83c94d3e22",
           "statement_name": "Left Lower Extremity Amputation"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a9a",
+          "_id": "5d1241de31fe5f83c94d3e23",
           "statement_name": "Right Lower Extremity Amputation"
         },
         {
-          "_id": "5d081197d7c8ac1d93246a9b",
+          "_id": "5d1241de31fe5f83c94d3e24",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5d081197d7c8ac1d93246a9c",
+              "_id": "5d1241de31fe5f83c94d3e25",
               "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
             },
             {
-              "_id": "5d081197d7c8ac1d93246a9d",
+              "_id": "5d1241de31fe5f83c94d3e26",
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
               "statement_name": "Bilateral Lower Extremity Amputation"
             },
             {
-              "_id": "5d081197d7c8ac1d93246a9e",
+              "_id": "5d1241de31fe5f83c94d3e27",
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
               "statement_name": "Left Lower Extremity Amputation"
             },
             {
-              "_id": "5d081197d7c8ac1d93246a9f",
+              "_id": "5d1241de31fe5f83c94d3e28",
               "hqmf_id": null,
               "library_name": "DiabetesFootExam",
               "statement_name": "Right Lower Extremity Amputation"
@@ -7214,7 +7214,7 @@
       ]
     },
     {
-      "_id": "5d081197d7c8ac1d93246aa0",
+      "_id": "5d1241de31fe5f83c94d3e29",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -7268,7 +7268,7 @@
                 "localId": "2",
                 "locator": "5:1-5:87",
                 "name": "LOINC:2.46",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "version": "urn:hl7:version:2.46",
                 "accessLevel": "Public"
               },
@@ -7276,7 +7276,7 @@
                 "localId": "3",
                 "locator": "6:1-6:97",
                 "name": "SNOMEDCT:2016-03",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2016-03",
                 "accessLevel": "Public"
               }
@@ -15878,11 +15878,11 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d081197d7c8ac1d93246aa1",
+          "_id": "5d1241de31fe5f83c94d3e2a",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d081197d7c8ac1d93246aa2",
+              "_id": "5d1241de31fe5f83c94d3e2b",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -15890,13 +15890,13 @@
           ]
         },
         {
-          "_id": "5d081197d7c8ac1d93246aa3",
+          "_id": "5d1241de31fe5f83c94d3e2c",
           "statement_name": "ToDate"
         }
       ]
     },
     {
-      "_id": "5d081197d7c8ac1d93246aa4",
+      "_id": "5d1241de31fe5f83c94d3e2d",
       "cql": "library Adult_Outpatient_Encounters version '1.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Preventive Care Services - Established Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1025'\r\nvalueset \"Preventive Care Services-Initial Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1023'\r\nvalueset \"Home Healthcare Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1016'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Qualifying Encounters\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Annual Wellness Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services - Established Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services-Initial Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Home Healthcare Services\"] ) ValidEncounter\r\n\t\twhere ValidEncounter.relevantPeriod during \"Measurement Period\"\r\n",
       "elm": {
         "library": {
@@ -15950,7 +15950,7 @@
                 "localId": "2",
                 "locator": "5:1-5:87",
                 "name": "LOINC:2.46",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "version": "urn:hl7:version:2.46",
                 "accessLevel": "Public"
               },
@@ -15958,7 +15958,7 @@
                 "localId": "3",
                 "locator": "6:1-6:97",
                 "name": "SNOMEDCT:2016-03",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2016-03",
                 "accessLevel": "Public"
               }
@@ -16834,13 +16834,13 @@
       "library_version": "1.1.000",
       "statement_dependencies": [
         {
-          "_id": "5d081197d7c8ac1d93246aa5",
+          "_id": "5d1241de31fe5f83c94d3e2e",
           "statement_name": "Qualifying Encounters"
         }
       ]
     },
     {
-      "_id": "5d081197d7c8ac1d93246aa6",
+      "_id": "5d1241de31fe5f83c94d3e2f",
       "cql": "library Hospice version '1.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2017-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-03'\r\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\r\n\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n",
       "elm": {
         "library": {
@@ -16894,7 +16894,7 @@
                 "localId": "2",
                 "locator": "5:1-5:87",
                 "name": "LOINC:2.46",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "version": "urn:hl7:version:2.46",
                 "accessLevel": "Public"
               },
@@ -16902,7 +16902,7 @@
                 "localId": "3",
                 "locator": "6:1-6:97",
                 "name": "SNOMEDCT:2016-03",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2016-03",
                 "accessLevel": "Public"
               },
@@ -16910,7 +16910,7 @@
                 "localId": "4",
                 "locator": "7:1-7:97",
                 "name": "SNOMEDCT:2017-03",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2017-03",
                 "accessLevel": "Public"
               },
@@ -16918,7 +16918,7 @@
                 "localId": "5",
                 "locator": "8:1-8:97",
                 "name": "SNOMEDCT:2017-09",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2017-09",
                 "accessLevel": "Public"
               }
@@ -18725,13 +18725,13 @@
       "library_version": "1.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d081197d7c8ac1d93246aa7",
+          "_id": "5d1241de31fe5f83c94d3e30",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-06-17T22:17:59.142Z",
+  "created_at": "2019-06-25T15:46:38.844Z",
   "description": "The percentage of patients 18-75 years of age with diabetes (type 1 and type 2) who received a foot exam (visual inspection and sensory exam with mono filament and a pulse exam) during the measurement year",
   "hqmf_id": "40280382-62C4-DE26-0162-FE2505800CC9",
   "hqmf_set_id": "C0D72444-7C26-4863-9B51-8080F8928A85",
@@ -19283,57 +19283,57 @@
   },
   "population_sets": [
     {
-      "_id": "5d081197d7c8ac1d93246abf",
+      "_id": "5d1241de31fe5f83c94d3e48",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d081197d7c8ac1d93246ac4",
+          "_id": "5d1241de31fe5f83c94d3e4d",
           "hqmf_id": "169882FC-8B2E-4632-862C-3081579CB7AD",
           "library_name": "DiabetesFootExam",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5d081197d7c8ac1d93246ac2",
+          "_id": "5d1241de31fe5f83c94d3e4b",
           "hqmf_id": "181114D4-30C3-4373-883B-1089B4B5F78C",
           "library_name": "DiabetesFootExam",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d081197d7c8ac1d93246ac1",
+          "_id": "5d1241de31fe5f83c94d3e4a",
           "hqmf_id": "7567276B-C419-4192-9302-B74184432984",
           "library_name": "DiabetesFootExam",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d081197d7c8ac1d93246ac3",
+          "_id": "5d1241de31fe5f83c94d3e4c",
           "hqmf_id": "1B37DBE9-2193-4846-95BD-A3F3DFF21D5A",
           "library_name": "DiabetesFootExam",
           "statement_name": "Numerator"
         },
-        "_id": "5d081197d7c8ac1d93246ac0",
+        "_id": "5d1241de31fe5f83c94d3e49",
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
-          "_id": "5d081197d7c8ac1d93246ac5",
+          "_id": "5d1241de31fe5f83c94d3e4e",
           "hqmf_id": null,
           "library_name": "DiabetesFootExam",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d081197d7c8ac1d93246ac6",
+          "_id": "5d1241de31fe5f83c94d3e4f",
           "hqmf_id": null,
           "library_name": "DiabetesFootExam",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d081197d7c8ac1d93246ac7",
+          "_id": "5d1241de31fe5f83c94d3e50",
           "hqmf_id": null,
           "library_name": "DiabetesFootExam",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d081197d7c8ac1d93246ac8",
+          "_id": "5d1241de31fe5f83c94d3e51",
           "hqmf_id": null,
           "library_name": "DiabetesFootExam",
           "statement_name": "SDE Sex"
@@ -19344,7 +19344,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d081196d7c8ac1d93246765",
+      "_id": "5d1241de31fe5f83c94d3aed",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -19352,10 +19352,10 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aa8",
+        "_id": "5d1241de31fe5f83c94d3e31",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246765"
+        "value": "5d1241de31fe5f83c94d3aed"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -19365,7 +19365,7 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d081196d7c8ac1d93246766",
+      "_id": "5d1241de31fe5f83c94d3aee",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -19373,10 +19373,10 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aa9",
+        "_id": "5d1241de31fe5f83c94d3e32",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246766"
+        "value": "5d1241de31fe5f83c94d3aee"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -19385,7 +19385,7 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d081196d7c8ac1d93246767",
+      "_id": "5d1241de31fe5f83c94d3aef",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.113.12.1056",
@@ -19395,10 +19395,10 @@
       "description": "Diagnosis: Bilateralamputationoflegbeloworaboveknee",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aaa",
+        "_id": "5d1241de31fe5f83c94d3e33",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246767"
+        "value": "5d1241de31fe5f83c94d3aef"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19409,7 +19409,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d081196d7c8ac1d93246768",
+      "_id": "5d1241de31fe5f83c94d3af0",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.113.12.1057",
@@ -19419,10 +19419,10 @@
       "description": "Diagnosis: RightUnilateralAmputationAboveorBelowKnee",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aab",
+        "_id": "5d1241de31fe5f83c94d3e34",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246768"
+        "value": "5d1241de31fe5f83c94d3af0"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19433,7 +19433,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d081196d7c8ac1d93246769",
+      "_id": "5d1241de31fe5f83c94d3af1",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.113.12.1059",
@@ -19443,10 +19443,10 @@
       "description": "Diagnosis: UnilateralAmputationBeloworAboveKneeUnspecifiedLaterality",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aac",
+        "_id": "5d1241de31fe5f83c94d3e35",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246769"
+        "value": "5d1241de31fe5f83c94d3af1"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19457,7 +19457,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d081196d7c8ac1d9324676a",
+      "_id": "5d1241de31fe5f83c94d3af2",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.113.12.1072",
@@ -19468,10 +19468,10 @@
       "description": "Procedure, Performed: LeftUnilateralAmputationProcedureAboveorBelowKnee",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aad",
+        "_id": "5d1241de31fe5f83c94d3e36",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d9324676a"
+        "value": "5d1241de31fe5f83c94d3af2"
       },
       "incisionDatetime": null,
       "method": null,
@@ -19488,7 +19488,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d9324676b",
+      "_id": "5d1241de31fe5f83c94d3af3",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1023",
@@ -19503,10 +19503,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aae",
+        "_id": "5d1241de31fe5f83c94d3e37",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d9324676b"
+        "value": "5d1241de31fe5f83c94d3af3"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19519,7 +19519,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d9324676c",
+      "_id": "5d1241de31fe5f83c94d3af4",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -19534,10 +19534,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aaf",
+        "_id": "5d1241de31fe5f83c94d3e38",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d9324676c"
+        "value": "5d1241de31fe5f83c94d3af4"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19550,7 +19550,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d9324676d",
+      "_id": "5d1241de31fe5f83c94d3af5",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.113.12.1073",
@@ -19561,10 +19561,10 @@
       "description": "Procedure, Performed: RightUnilateralAmputationProcedureAboveorBelowKnee",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab0",
+        "_id": "5d1241de31fe5f83c94d3e39",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d9324676d"
+        "value": "5d1241de31fe5f83c94d3af5"
       },
       "incisionDatetime": null,
       "method": null,
@@ -19581,7 +19581,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d9324676e",
+      "_id": "5d1241de31fe5f83c94d3af6",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.113.12.1058",
@@ -19591,10 +19591,10 @@
       "description": "Diagnosis: LeftUnilateralAmputationAboveorBelowKnee",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab1",
+        "_id": "5d1241de31fe5f83c94d3e3a",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d9324676e"
+        "value": "5d1241de31fe5f83c94d3af6"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19605,7 +19605,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d081196d7c8ac1d9324676f",
+      "_id": "5d1241de31fe5f83c94d3af7",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -19614,10 +19614,10 @@
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab2",
+        "_id": "5d1241de31fe5f83c94d3e3b",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d9324676f"
+        "value": "5d1241de31fe5f83c94d3af7"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -19628,7 +19628,7 @@
       "_type": "QDM::InterventionOrder"
     },
     {
-      "_id": "5d081196d7c8ac1d93246770",
+      "_id": "5d1241de31fe5f83c94d3af8",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -19637,10 +19637,10 @@
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab3",
+        "_id": "5d1241de31fe5f83c94d3e3c",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246770"
+        "value": "5d1241de31fe5f83c94d3af8"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -19654,7 +19654,7 @@
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d93246771",
+      "_id": "5d1241de31fe5f83c94d3af9",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -19662,10 +19662,10 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab4",
+        "_id": "5d1241de31fe5f83c94d3e3d",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246771"
+        "value": "5d1241de31fe5f83c94d3af9"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -19674,7 +19674,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d081196d7c8ac1d93246772",
+      "_id": "5d1241de31fe5f83c94d3afa",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1240",
@@ -19689,10 +19689,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab5",
+        "_id": "5d1241de31fe5f83c94d3e3e",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246772"
+        "value": "5d1241de31fe5f83c94d3afa"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19705,7 +19705,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d93246773",
+      "_id": "5d1241de31fe5f83c94d3afb",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1016",
@@ -19720,10 +19720,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab6",
+        "_id": "5d1241de31fe5f83c94d3e3f",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246773"
+        "value": "5d1241de31fe5f83c94d3afb"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19736,7 +19736,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d93246774",
+      "_id": "5d1241de31fe5f83c94d3afc",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1025",
@@ -19751,10 +19751,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab7",
+        "_id": "5d1241de31fe5f83c94d3e40",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246774"
+        "value": "5d1241de31fe5f83c94d3afc"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19767,7 +19767,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d93246775",
+      "_id": "5d1241de31fe5f83c94d3afd",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
@@ -19782,10 +19782,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab8",
+        "_id": "5d1241de31fe5f83c94d3e41",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246775"
+        "value": "5d1241de31fe5f83c94d3afd"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -19798,7 +19798,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d93246776",
+      "_id": "5d1241de31fe5f83c94d3afe",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -19806,10 +19806,10 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d081197d7c8ac1d93246ab9",
+        "_id": "5d1241de31fe5f83c94d3e42",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246776"
+        "value": "5d1241de31fe5f83c94d3afe"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -19818,7 +19818,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d081196d7c8ac1d93246777",
+      "_id": "5d1241de31fe5f83c94d3aff",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.103.12.1001",
@@ -19828,10 +19828,10 @@
       "description": "Diagnosis: Diabetes",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d081197d7c8ac1d93246aba",
+        "_id": "5d1241de31fe5f83c94d3e43",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246777"
+        "value": "5d1241de31fe5f83c94d3aff"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -19842,7 +19842,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d081196d7c8ac1d93246778",
+      "_id": "5d1241de31fe5f83c94d3b00",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.103.12.1022",
@@ -19853,10 +19853,10 @@
       "description": "Procedure, Performed: UnilateralAmputationProcedureBeloworAboveKneeUnspecifiedLaterality",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d081197d7c8ac1d93246abb",
+        "_id": "5d1241de31fe5f83c94d3e44",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246778"
+        "value": "5d1241de31fe5f83c94d3b00"
       },
       "incisionDatetime": null,
       "method": null,
@@ -19873,7 +19873,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d93246779",
+      "_id": "5d1241de31fe5f83c94d3b01",
       "authorDatetime": null,
       "codeListId": "drc-529dc4d622e3c7acea52e699b35e8154cd879f8e64e48c790de34a6585ea4ba4",
       "components": null,
@@ -19883,10 +19883,10 @@
       "description": "Assessment, Performed: Assessment, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081197d7c8ac1d93246abc",
+        "_id": "5d1241de31fe5f83c94d3e45",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d93246779"
+        "value": "5d1241de31fe5f83c94d3b01"
       },
       "method": null,
       "negationRationale": null,
@@ -19899,7 +19899,7 @@
       "_type": "QDM::AssessmentPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d9324677a",
+      "_id": "5d1241de31fe5f83c94d3b02",
       "authorDatetime": null,
       "codeListId": "drc-33211b1978e0fee5a3a65e4ecd35fe3f70cd065128690cbc4530e298f87c742c",
       "components": null,
@@ -19909,10 +19909,10 @@
       "description": "Assessment, Performed: Assessment, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081197d7c8ac1d93246abd",
+        "_id": "5d1241de31fe5f83c94d3e46",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d9324677a"
+        "value": "5d1241de31fe5f83c94d3b02"
       },
       "method": null,
       "negationRationale": null,
@@ -19925,7 +19925,7 @@
       "_type": "QDM::AssessmentPerformed"
     },
     {
-      "_id": "5d081196d7c8ac1d9324677b",
+      "_id": "5d1241de31fe5f83c94d3b03",
       "authorDatetime": null,
       "codeListId": "drc-37129ce483571cc63df7966e306dcddb2c35dd3bf3aa768a1ce357089d34706b",
       "components": null,
@@ -19935,10 +19935,10 @@
       "description": "Assessment, Performed: Assessment, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": "5d081197d7c8ac1d93246abe",
+        "_id": "5d1241de31fe5f83c94d3e47",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d081196d7c8ac1d9324677b"
+        "value": "5d1241de31fe5f83c94d3b03"
       },
       "method": null,
       "negationRationale": null,
@@ -19952,38 +19952,38 @@
     }
   ],
   "title": "Diabetes: Foot Exam",
-  "updated_at": "2019-06-17T22:17:59.142Z",
+  "updated_at": "2019-06-25T15:46:38.844Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d081197d7c8ac1d9324677c",
-    "5d081197d7c8ac1d9324677d",
-    "5d081197d7c8ac1d9324677e",
-    "5d081197d7c8ac1d9324677f",
-    "5d081197d7c8ac1d93246780",
-    "5d081197d7c8ac1d93246781",
-    "5d081197d7c8ac1d93246782",
-    "5d081197d7c8ac1d93246783",
-    "5d081197d7c8ac1d93246784",
-    "5d081197d7c8ac1d93246785",
-    "5d081197d7c8ac1d93246786",
-    "5d081197d7c8ac1d93246787",
-    "5d081197d7c8ac1d93246788",
-    "5d081197d7c8ac1d93246789",
-    "5d081197d7c8ac1d9324678a",
-    "5d081197d7c8ac1d9324678b",
-    "5d081197d7c8ac1d9324678c",
-    "5d081197d7c8ac1d9324678d",
-    "5d081197d7c8ac1d9324678e",
-    "5d081197d7c8ac1d9324678f",
-    "5d081197d7c8ac1d93246790",
-    "5d081197d7c8ac1d93246791",
-    "5d081197d7c8ac1d93246792",
-    "5d081197d7c8ac1d93246793",
-    "5d081197d7c8ac1d93246794",
-    "5d081197d7c8ac1d93246795",
-    "5d081197d7c8ac1d93246796",
-    "5d081197d7c8ac1d93246797",
-    "5d081197d7c8ac1d93246798",
-    "5d081197d7c8ac1d93246799"
+    "5d1241de31fe5f83c94d3b04",
+    "5d1241de31fe5f83c94d3b05",
+    "5d1241de31fe5f83c94d3b06",
+    "5d1241de31fe5f83c94d3b07",
+    "5d1241de31fe5f83c94d3b08",
+    "5d1241de31fe5f83c94d3b09",
+    "5d1241de31fe5f83c94d3b0a",
+    "5d1241de31fe5f83c94d3b0b",
+    "5d1241de31fe5f83c94d3b0c",
+    "5d1241de31fe5f83c94d3b0d",
+    "5d1241de31fe5f83c94d3b0e",
+    "5d1241de31fe5f83c94d3b0f",
+    "5d1241de31fe5f83c94d3b10",
+    "5d1241de31fe5f83c94d3b11",
+    "5d1241de31fe5f83c94d3b12",
+    "5d1241de31fe5f83c94d3b13",
+    "5d1241de31fe5f83c94d3b14",
+    "5d1241de31fe5f83c94d3b15",
+    "5d1241de31fe5f83c94d3b16",
+    "5d1241de31fe5f83c94d3b17",
+    "5d1241de31fe5f83c94d3b18",
+    "5d1241de31fe5f83c94d3b19",
+    "5d1241de31fe5f83c94d3b1a",
+    "5d1241de31fe5f83c94d3b1b",
+    "5d1241de31fe5f83c94d3b1c",
+    "5d1241de31fe5f83c94d3b1d",
+    "5d1241de31fe5f83c94d3b1e",
+    "5d1241de31fe5f83c94d3b1f",
+    "5d1241de31fe5f83c94d3b20",
+    "5d1241de31fe5f83c94d3b21"
   ]
 }
