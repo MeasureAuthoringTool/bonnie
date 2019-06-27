@@ -23,25 +23,24 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d0be2dd31fe5f2b58dd21f5",
+    "_id": "5d1400d431fe5fd3cacb0b1e",
     "birthDatetime": "1986-03-12T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d0be2dd31fe5f2b58dd21f6",
+        "_id": "5d1400d431fe5fd3cacb0b1f",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-01-11T06:50:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.67.1.101.1.278",
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
             "code": "102879009",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Diagnosis: Delivery - Diagnosis",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd21f7",
+          "_id": "5d1400d431fe5fd3cacb0b20",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb77c8b848463d625b5aab"
@@ -60,21 +59,20 @@
         "_type": "QDM::Diagnosis"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd21f8",
+        "_id": "5d1400d431fe5fd3cacb0b21",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-12-20T08:50:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.67.1.101.1.278",
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
             "code": "102879009",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Diagnosis: Delivery - Diagnosis",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd21f9",
+          "_id": "5d1400d431fe5fd3cacb0b22",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb77c8b848463d625b5aac"
@@ -93,24 +91,23 @@
         "_type": "QDM::Diagnosis"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd21fa",
+        "_id": "5d1400d431fe5fd3cacb0b23",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-01-10T09:30:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113762.1.4.1078.5",
         "components": [
 
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "ICD-10-PCS",
             "code": "10D07Z6",
-            "codeSystemOid": "2.16.840.1.113883.6.4"
+            "system": "2.16.840.1.113883.6.4"
           }
         ],
         "description": "Procedure, Performed: Delivery - Procedure",
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd21fb",
+          "_id": "5d1400d431fe5fd3cacb0b24",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb77c8b848463d625b5aad"
@@ -135,24 +132,23 @@
         "_type": "QDM::ProcedurePerformed"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd21fc",
+        "_id": "5d1400d431fe5fd3cacb0b25",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-12-20T08:40:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113762.1.4.1078.5",
         "components": [
 
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "SNOMED-CT",
             "code": "5556001",
-            "codeSystemOid": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96"
           }
         ],
         "description": "Procedure, Performed: Delivery - Procedure",
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd21fd",
+          "_id": "5d1400d431fe5fd3cacb0b26",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb77c8b848463d625b5aae"
@@ -177,23 +173,22 @@
         "_type": "QDM::ProcedurePerformed"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd21fe",
+        "_id": "5d1400d431fe5fd3cacb0b27",
         "authorDatetime": "2011-12-20T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.67.1.101.1.279",
         "components": [
 
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
             "code": "5195-3",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Laboratory Test, Performed: HBsAg",
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd21ff",
+          "_id": "5d1400d431fe5fd3cacb0b28",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb77c8b848463d625b5aaf"
@@ -218,23 +213,22 @@
         "_type": "QDM::LaboratoryTestPerformed"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd2200",
+        "_id": "5d1400d431fe5fd3cacb0b29",
         "authorDatetime": "2012-04-20T13:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.67.1.101.1.279",
         "components": [
 
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
             "code": "5195-3",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Laboratory Test, Performed: HBsAg",
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd2201",
+          "_id": "5d1400d431fe5fd3cacb0b2a",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5aeb77c8b848463d625b5ab0"
@@ -259,15 +253,14 @@
         "_type": "QDM::LaboratoryTestPerformed"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd21f0",
+        "_id": "5d1400d431fe5fd3cacb0b19",
         "birthDatetime": "1986-03-12T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystemOid": "2.16.840.1.113883.6.1",
-            "descriptor": null,
-            "codeSystem": "LOINC",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
             "version": null,
             "_type": "QDM::Code"
           }
@@ -275,10 +268,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd2202",
+          "_id": "5d1400d431fe5fd3cacb0b2b",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2dd31fe5f2b58dd21f0"
+          "value": "5d1400d431fe5fd3cacb0b19"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -287,14 +280,13 @@
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd21f1",
+        "_id": "5d1400d431fe5fd3cacb0b1a",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -302,10 +294,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd2203",
+          "_id": "5d1400d431fe5fd3cacb0b2c",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2dd31fe5f2b58dd21f1"
+          "value": "5d1400d431fe5fd3cacb0b1a"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -314,14 +306,13 @@
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd21f2",
+        "_id": "5d1400d431fe5fd3cacb0b1b",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2131-1",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Other",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Other",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -329,10 +320,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd2204",
+          "_id": "5d1400d431fe5fd3cacb0b2d",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2dd31fe5f2b58dd21f2"
+          "value": "5d1400d431fe5fd3cacb0b1b"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -341,14 +332,13 @@
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d0be2dd31fe5f2b58dd21f3",
+        "_id": "5d1400d431fe5fd3cacb0b1c",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "F",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
-            "descriptor": "F",
-            "codeSystem": "AdministrativeGender",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "F",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -356,10 +346,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": "5d0be2dd31fe5f2b58dd2205",
+          "_id": "5d1400d431fe5fd3cacb0b2e",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2dd31fe5f2b58dd21f3"
+          "value": "5d1400d431fe5fd3cacb0b1c"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",

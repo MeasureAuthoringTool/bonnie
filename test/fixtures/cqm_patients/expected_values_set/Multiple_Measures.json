@@ -106,9 +106,9 @@
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystem": "LOINC",
-            "descriptor": null,
-            "codeSystemOid": null,
+            
+            "display": null,
+            "system": null,
             "version": null,
             "_type": "QDM::Code"
           }
@@ -137,9 +137,9 @@
         "dataElementCodes": [
           {
             "code": "F",
-            "codeSystem": "AdministrativeGender",
-            "descriptor": "F",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
+            
+            "display": "F",
+            "system": "2.16.840.1.113883.5.1",
             "version": null,
             "_type": "QDM::Code"
           }

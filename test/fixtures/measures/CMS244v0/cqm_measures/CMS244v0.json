@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5cfe9714d7c8aced5e9b7a76"
+    "$oid": "5d14f85931fe5ff6fc6901c7"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7a77"
+        "$oid": "5d14f85931fe5ff6fc6901c8"
       },
       "cql": "library AnnualWellnessAssessmentPreventiveCareScreeningforDepression version '0.4.000'\r\n\r\nusing QDM version '5.4'\r\n\r\ninclude MATGlobalCommonFunctions version '4.0.000' called Global\r\n\r\ncodesystem \"LOINC\": 'urn:oid:2.16.840.1.113883.6.1'\r\n\r\nvalueset \"Adult Depression Screening\": 'urn:oid:2.16.840.1.113883.3.600.2449'\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Bipolar Diagnosis\": 'urn:oid:2.16.840.1.113883.3.600.450'\r\nvalueset \"Depression diagnosis\": 'urn:oid:2.16.840.1.113883.3.600.145'\r\nvalueset \"Depression Screening  Encounter Codes\": 'urn:oid:2.16.840.1.113883.3.600.1916'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Medical or Other reason not done\": 'urn:oid:2.16.840.1.113883.3.600.1.1502'\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Patient Reason refused\": 'urn:oid:2.16.840.1.113883.3.600.791'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC\" display 'Birthdate'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Initial Population\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t)\r\n\t\tand exists \"Annual Wellness Visit Encounter\"\r\n\r\ndefine \"Annual Wellness Visit Encounter\":\r\n\t[\"Encounter, Performed\": \"Annual Wellness Visit\"] QualifyingEncounter\r\n\t\twhere QualifyingEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Depression Screening Encounter within 12 Months Prior to AWV\":\r\n\t[\"Encounter, Performed\": \"Depression Screening  Encounter Codes\"] OtherQualifyingEncounter\r\n\t\twith \"Annual Wellness Visit Encounter\" WellnessEncounter\r\n\t\t\tsuch that OtherQualifyingEncounter.relevantPeriod 12 months or less on or before day of \r\n\t\t\tend of WellnessEncounter.relevantPeriod\r\n\r\ndefine \"Numerator\":\r\n\texists ( [\"Assessment, Performed\": \"Adult Depression Screening\"] DepressionScreening\r\n\t\t\twith ( \"Annual Wellness Visit Encounter\"\r\n\t\t\t\tunion \"Depression Screening Encounter within 12 Months Prior to AWV\" ) AllQualifyingEncounters\r\n\t\t\t\tsuch that DepressionScreening.authorDatetime during AllQualifyingEncounters.relevantPeriod\r\n\t)\r\n\r\ndefine \"Has Diagnosis of Bipolar\":\r\n\t[\"Diagnosis\": \"Bipolar Diagnosis\"] Bipolar\r\n\t\twith \"Annual Wellness Visit Encounter\" WellnessEncounter\r\n\t\t\tsuch that Bipolar.prevalencePeriod overlaps before WellnessEncounter.relevantPeriod\r\n\r\ndefine \"Has Diagnosis of Depression\":\r\n\t[\"Diagnosis\": \"Depression diagnosis\"] Depression\r\n\t\twith \"Annual Wellness Visit Encounter\" WellnessEncounter\r\n\t\t\tsuch that Depression.prevalencePeriod overlaps before WellnessEncounter.relevantPeriod\r\n\r\ndefine \"Has No Depression Screening Due to Medical Reason\":\r\n\texists [\"Assessment, Not Performed\": \"Medical or Other reason not done\"] MedicalReason\r\n\t\twith ( \"Annual Wellness Visit Encounter\"\r\n\t\t\tunion \"Depression Screening Encounter within 12 Months Prior to AWV\" ) AllQualifyingEncounters\r\n\t\t\tsuch that MedicalReason.negationRationale in \"Medical or Other reason not done\"\r\n\t\t\t\tand MedicalReason.authorDatetime during AllQualifyingEncounters.relevantPeriod\r\n\r\ndefine \"Has No Depression Screening Due to Patient Refusal\":\r\n\texists [\"Assessment, Not Performed\": \"Patient Reason refused\"] PatientReason\r\n\t\twith ( \"Annual Wellness Visit Encounter\"\r\n\t\t\tunion \"Depression Screening Encounter within 12 Months Prior to AWV\" ) AllQualifyingEncounters\r\n\t\t\tsuch that PatientReason.negationRationale in \"Patient Reason refused\"\r\n\t\t\t\tand PatientReason.authorDatetime during AllQualifyingEncounters.relevantPeriod\r\n\r\ndefine \"Denominator Exceptions\":\r\n\t\"Has No Depression Screening Due to Medical Reason\"\r\n\t\tor \"Has No Depression Screening Due to Patient Refusal\"\r\n\r\ndefine \"Denominator Exclusions\":\r\n\texists \"Has Diagnosis of Depression\"\r\n\t\tor exists \"Has Diagnosis of Bipolar\"",
       "elm": {
@@ -80,7 +80,7 @@
                 "localId": "3",
                 "locator": "7:1-7:51",
                 "name": "LOINC",
-                "id": "LOINC",
+                "id": "2.16.840.1.113883.6.1",
                 "accessLevel": "Public"
               }
             ]
@@ -5619,49 +5619,49 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a78"
+            "$oid": "5d14f85931fe5ff6fc6901c9"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a79"
+            "$oid": "5d14f85931fe5ff6fc6901ca"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a7a"
+            "$oid": "5d14f85931fe5ff6fc6901cb"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a7b"
+            "$oid": "5d14f85931fe5ff6fc6901cc"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a7c"
+            "$oid": "5d14f85931fe5ff6fc6901cd"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a7d"
+            "$oid": "5d14f85931fe5ff6fc6901ce"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a7e"
+            "$oid": "5d14f85931fe5ff6fc6901cf"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a7f"
+                "$oid": "5d14f85931fe5ff6fc6901d0"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -5669,7 +5669,7 @@
             },
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a80"
+                "$oid": "5d14f85931fe5ff6fc6901d1"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5679,13 +5679,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a81"
+            "$oid": "5d14f85931fe5ff6fc6901d2"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a82"
+                "$oid": "5d14f85931fe5ff6fc6901d3"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5695,13 +5695,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a83"
+            "$oid": "5d14f85931fe5ff6fc6901d4"
           },
           "statement_name": "Depression Screening Encounter within 12 Months Prior to AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a84"
+                "$oid": "5d14f85931fe5ff6fc6901d5"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5711,13 +5711,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a85"
+            "$oid": "5d14f85931fe5ff6fc6901d6"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a86"
+                "$oid": "5d14f85931fe5ff6fc6901d7"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5725,7 +5725,7 @@
             },
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a87"
+                "$oid": "5d14f85931fe5ff6fc6901d8"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5735,13 +5735,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a88"
+            "$oid": "5d14f85931fe5ff6fc6901d9"
           },
           "statement_name": "Has Diagnosis of Bipolar",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a89"
+                "$oid": "5d14f85931fe5ff6fc6901da"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5751,13 +5751,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a8a"
+            "$oid": "5d14f85931fe5ff6fc6901db"
           },
           "statement_name": "Has Diagnosis of Depression",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a8b"
+                "$oid": "5d14f85931fe5ff6fc6901dc"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5767,13 +5767,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a8c"
+            "$oid": "5d14f85931fe5ff6fc6901dd"
           },
           "statement_name": "Has No Depression Screening Due to Medical Reason",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a8d"
+                "$oid": "5d14f85931fe5ff6fc6901de"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5781,7 +5781,7 @@
             },
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a8e"
+                "$oid": "5d14f85931fe5ff6fc6901df"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5791,13 +5791,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a8f"
+            "$oid": "5d14f85931fe5ff6fc6901e0"
           },
           "statement_name": "Has No Depression Screening Due to Patient Refusal",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a90"
+                "$oid": "5d14f85931fe5ff6fc6901e1"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5805,7 +5805,7 @@
             },
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a91"
+                "$oid": "5d14f85931fe5ff6fc6901e2"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5815,13 +5815,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a92"
+            "$oid": "5d14f85931fe5ff6fc6901e3"
           },
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a93"
+                "$oid": "5d14f85931fe5ff6fc6901e4"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5829,7 +5829,7 @@
             },
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a94"
+                "$oid": "5d14f85931fe5ff6fc6901e5"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5839,13 +5839,13 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a95"
+            "$oid": "5d14f85931fe5ff6fc6901e6"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a96"
+                "$oid": "5d14f85931fe5ff6fc6901e7"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5853,7 +5853,7 @@
             },
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a97"
+                "$oid": "5d14f85931fe5ff6fc6901e8"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -5865,7 +5865,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7a98"
+        "$oid": "5d14f85931fe5ff6fc6901e9"
       },
       "cql": "library MATGlobalCommonFunctions version '4.0.000'\n\nusing QDM version '5.4'\n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Encounter\":\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\n\ndefine \"Inpatient Encounter\":\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\ndefine function \"ToDate\"(Value DateTime ):\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime ):\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime ):\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime ):\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) X\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\ndefine function \"LengthInDays\"(Value Interval<DateTime> ):\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) EDEncounter\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\" ):\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\n\t\t)\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\" ):\n\tFirst((Encounter.facilityLocations)HospitalLocation\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\n\t\t\tsort by start of locationPeriod\n\t)\n\n",
       "elm": {
@@ -14482,13 +14482,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a99"
+            "$oid": "5d14f85931fe5ff6fc6901ea"
           },
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5cfe9714d7c8aced5e9b7a9a"
+                "$oid": "5d14f85931fe5ff6fc6901eb"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -14498,14 +14498,14 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7a9b"
+            "$oid": "5d14f85931fe5ff6fc6901ec"
           },
           "statement_name": "ToDate"
         }
       ]
     }
   ],
-  "created_at": "2019-06-10T17:44:52.782Z",
+  "created_at": "2019-06-27T17:09:45.133Z",
   "description": "Percentage of patients ages 65 and older with an Annual Wellness Visit (AWV) during the measurement period who were screened for depression in the 12 months before or during the AWV",
   "hqmf_id": "40280382-610B-E7A4-0161-719269642490",
   "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
@@ -15043,13 +15043,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7aa7"
+        "$oid": "5d14f85931fe5ff6fc6901f8"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7aad"
+            "$oid": "5d14f85931fe5ff6fc6901fe"
           },
           "hqmf_id": "6CC06565-F17D-43C4-9526-97CA8252B953",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -15057,7 +15057,7 @@
         },
         "DENEXCEP": {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7aac"
+            "$oid": "5d14f85931fe5ff6fc6901fd"
           },
           "hqmf_id": "D3288D08-24B2-4DCA-9D04-812450A17FB7",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -15065,7 +15065,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7aaa"
+            "$oid": "5d14f85931fe5ff6fc6901fb"
           },
           "hqmf_id": "C301CC35-5382-459A-BC24-7CFC258C8EC3",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -15073,7 +15073,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7aa9"
+            "$oid": "5d14f85931fe5ff6fc6901fa"
           },
           "hqmf_id": "17831B5C-7A75-4E61-82BB-9BFA8125C039",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -15081,21 +15081,21 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7aab"
+            "$oid": "5d14f85931fe5ff6fc6901fc"
           },
           "hqmf_id": "E3707ABC-C966-440E-8FBA-12F124F9987E",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7aa8"
+          "$oid": "5d14f85931fe5ff6fc6901f9"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7aae"
+            "$oid": "5d14f85931fe5ff6fc6901ff"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -15103,7 +15103,7 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7aaf"
+            "$oid": "5d14f85931fe5ff6fc690200"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -15111,7 +15111,7 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7ab0"
+            "$oid": "5d14f85931fe5ff6fc690201"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -15119,7 +15119,7 @@
         },
         {
           "_id": {
-            "$oid": "5cfe9714d7c8aced5e9b7ab1"
+            "$oid": "5d14f85931fe5ff6fc690202"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -15132,7 +15132,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b781d"
+        "$oid": "5d14f85831fe5ff6fc68ff6e"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -15142,11 +15142,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7a9c"
+          "$oid": "5d14f85931fe5ff6fc6901ed"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b781d"
+        "value": "5d14f85831fe5ff6fc68ff6e"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -15157,7 +15157,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b781e"
+        "$oid": "5d14f85831fe5ff6fc68ff6f"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -15174,11 +15174,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7a9d"
+          "$oid": "5d14f85931fe5ff6fc6901ee"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b781e"
+        "value": "5d14f85831fe5ff6fc68ff6f"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -15192,7 +15192,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b781f"
+        "$oid": "5d14f85831fe5ff6fc68ff70"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -15202,11 +15202,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7a9e"
+          "$oid": "5d14f85931fe5ff6fc6901ef"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b781f"
+        "value": "5d14f85831fe5ff6fc68ff70"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -15216,7 +15216,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7820"
+        "$oid": "5d14f85831fe5ff6fc68ff71"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.2449",
@@ -15228,11 +15228,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7a9f"
+          "$oid": "5d14f85931fe5ff6fc6901f0"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b7820"
+        "value": "5d14f85831fe5ff6fc68ff71"
       },
       "method": null,
       "negationRationale": null,
@@ -15246,7 +15246,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7821"
+        "$oid": "5d14f85831fe5ff6fc68ff72"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -15256,11 +15256,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7aa0"
+          "$oid": "5d14f85931fe5ff6fc6901f1"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b7821"
+        "value": "5d14f85831fe5ff6fc68ff72"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -15270,7 +15270,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7822"
+        "$oid": "5d14f85831fe5ff6fc68ff73"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1.1502",
@@ -15282,11 +15282,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7aa1"
+          "$oid": "5d14f85931fe5ff6fc6901f2"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b7822"
+        "value": "5d14f85831fe5ff6fc68ff73"
       },
       "method": null,
       "negationRationale": null,
@@ -15300,7 +15300,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7823"
+        "$oid": "5d14f85831fe5ff6fc68ff74"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.791",
@@ -15312,11 +15312,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7aa2"
+          "$oid": "5d14f85931fe5ff6fc6901f3"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b7823"
+        "value": "5d14f85831fe5ff6fc68ff74"
       },
       "method": null,
       "negationRationale": null,
@@ -15330,7 +15330,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7824"
+        "$oid": "5d14f85831fe5ff6fc68ff75"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -15342,11 +15342,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7aa3"
+          "$oid": "5d14f85931fe5ff6fc6901f4"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b7824"
+        "value": "5d14f85831fe5ff6fc68ff75"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -15358,7 +15358,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7825"
+        "$oid": "5d14f85831fe5ff6fc68ff76"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -15368,11 +15368,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7aa4"
+          "$oid": "5d14f85931fe5ff6fc6901f5"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b7825"
+        "value": "5d14f85831fe5ff6fc68ff76"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -15382,7 +15382,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7826"
+        "$oid": "5d14f85831fe5ff6fc68ff77"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -15394,11 +15394,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7aa5"
+          "$oid": "5d14f85931fe5ff6fc6901f6"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b7826"
+        "value": "5d14f85831fe5ff6fc68ff77"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -15410,7 +15410,7 @@
     },
     {
       "_id": {
-        "$oid": "5cfe9714d7c8aced5e9b7827"
+        "$oid": "5d14f85831fe5ff6fc68ff78"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -15427,11 +15427,11 @@
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
         "_id": {
-          "$oid": "5cfe9714d7c8aced5e9b7aa6"
+          "$oid": "5d14f85931fe5ff6fc6901f7"
         },
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5cfe9714d7c8aced5e9b7827"
+        "value": "5d14f85831fe5ff6fc68ff78"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -15445,25 +15445,25 @@
     }
   ],
   "title": "Annual Wellness Assessment: Preventive Care (Screening for Depression)",
-  "updated_at": "2019-06-10T17:44:52.782Z",
+  "updated_at": "2019-06-27T17:09:45.133Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5cfe9714d7c8aced5e9b782a",
-    "5cfe9714d7c8aced5e9b782b",
-    "5cfe9714d7c8aced5e9b782c",
-    "5cfe9714d7c8aced5e9b782d",
-    "5cfe9714d7c8aced5e9b782e",
-    "5cfe9714d7c8aced5e9b782f",
-    "5cfe9714d7c8aced5e9b7830",
-    "5cfe9714d7c8aced5e9b7831",
-    "5cfe9714d7c8aced5e9b7832",
-    "5cfe9714d7c8aced5e9b7833",
-    "5cfe9714d7c8aced5e9b7834",
-    "5cfe9714d7c8aced5e9b7835",
-    "5cfe9714d7c8aced5e9b7836",
-    "5cfe9714d7c8aced5e9b7837",
-    "5cfe9714d7c8aced5e9b7838"
+    "5d14f85931fe5ff6fc68ff7b",
+    "5d14f85931fe5ff6fc68ff7c",
+    "5d14f85931fe5ff6fc68ff7d",
+    "5d14f85931fe5ff6fc68ff7e",
+    "5d14f85931fe5ff6fc68ff7f",
+    "5d14f85931fe5ff6fc68ff80",
+    "5d14f85931fe5ff6fc68ff81",
+    "5d14f85931fe5ff6fc68ff82",
+    "5d14f85931fe5ff6fc68ff83",
+    "5d14f85931fe5ff6fc68ff84",
+    "5d14f85931fe5ff6fc68ff85",
+    "5d14f85931fe5ff6fc68ff86",
+    "5d14f85931fe5ff6fc68ff87",
+    "5d14f85931fe5ff6fc68ff88",
+    "5d14f85931fe5ff6fc68ff89"
   ]
 }

@@ -22,27 +22,26 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d0be2e331fe5f2b58dd2367",
+    "_id": "5d1400d931fe5fd3cacb0c90",
     "birthDatetime": "1940-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d0be2e331fe5f2b58dd2368",
+        "_id": "5d1400d931fe5fd3cacb0c91",
         "authorDatetime": "2012-07-31T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.600.1482",
         "components": [
 
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
             "code": "24320-4",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Assessment, Performed: Laboratory Tests for Hypertension",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
         "id": {
-          "_id": "5d0be2e331fe5f2b58dd2369",
+          "_id": "5d1400d931fe5fd3cacb0c92",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b61b693b84846662484a6e5"
@@ -58,14 +57,13 @@
         "_type": "QDM::AssessmentPerformed"
       },
       {
-        "_id": "5d0be2e331fe5f2b58dd236a",
+        "_id": "5d1400d931fe5fd3cacb0c93",
         "authorDatetime": "2012-07-31T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.526.3.1184",
         "dataElementCodes": [
           {
-            "codeSystem": "RxNorm",
             "code": "200031",
-            "codeSystemOid": "2.16.840.1.113883.6.88"
+            "system": "2.16.840.1.113883.6.88"
           }
         ],
         "daysSupplied": null,
@@ -74,16 +72,15 @@
         "frequency": null,
         "hqmfOid": "2.16.840.1.113883.3.560.1.78",
         "id": {
-          "_id": "5d0be2e331fe5f2b58dd236b",
+          "_id": "5d1400d931fe5fd3cacb0c94",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b61b693b84846662484a6e6"
         },
         "negationRationale": {
           "code": "105480006",
-          "codeSystem": "SNOMED-CT",
-          "descriptor": null,
-          "codeSystemOid": "2.16.840.1.113883.6.96",
+          "system": "2.16.840.1.113883.6.96",
+          "display": null,
           "version": null
         },
         "qdmCategory": "medication",
@@ -104,32 +101,30 @@
         "_type": "QDM::MedicationOrder"
       },
       {
-        "_id": "5d0be2e331fe5f2b58dd236c",
+        "_id": "5d1400d931fe5fd3cacb0c95",
         "authorDatetime": "2012-07-31T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.600.1482",
         "components": [
           {
             "result": "44512-07-06T08:00:00+00:00",
             "code": {
               "code": "200031",
-              "codeSystem": "RxNorm",
               "version": null,
               "descriptor": null,
-              "codeSystemOid": "2.16.840.1.113883.6.88"
+              "system": "2.16.840.1.113883.6.88"
             }
           }
         ],
         "dataElementCodes": [
           {
-            "codeSystem": "LOINC",
             "code": "24320-4",
-            "codeSystemOid": "2.16.840.1.113883.6.1"
+            "system": "2.16.840.1.113883.6.1"
           }
         ],
         "description": "Laboratory Test, Performed: Laboratory Tests for Hypertension",
         "hqmfOid": "2.16.840.1.113883.3.560.1.5",
         "id": {
-          "_id": "5d0be2e331fe5f2b58dd236d",
+          "_id": "5d1400d931fe5fd3cacb0c96",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b61b693b84846662484a6e7"
@@ -154,15 +149,14 @@
         "_type": "QDM::LaboratoryTestPerformed"
       },
       {
-        "_id": "5d0be2e331fe5f2b58dd2362",
+        "_id": "5d1400d931fe5fd3cacb0c8b",
         "birthDatetime": "1940-01-01T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "21112-8",
-            "codeSystemOid": "2.16.840.1.113883.6.1",
-            "descriptor": null,
-            "codeSystem": "LOINC",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
             "version": null,
             "_type": "QDM::Code"
           }
@@ -170,10 +164,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": "5d0be2e331fe5f2b58dd236e",
+          "_id": "5d1400d931fe5fd3cacb0c97",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2e331fe5f2b58dd2362"
+          "value": "5d1400d931fe5fd3cacb0c8b"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -182,14 +176,13 @@
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d0be2e331fe5f2b58dd2363",
+        "_id": "5d1400d931fe5fd3cacb0c8c",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "2186-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -197,10 +190,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": "5d0be2e331fe5f2b58dd236f",
+          "_id": "5d1400d931fe5fd3cacb0c98",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2e331fe5f2b58dd2363"
+          "value": "5d1400d931fe5fd3cacb0c8c"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -209,14 +202,13 @@
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d0be2e331fe5f2b58dd2364",
+        "_id": "5d1400d931fe5fd3cacb0c8d",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "1002-5",
-            "codeSystemOid": "2.16.840.1.113883.6.238",
-            "descriptor": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -224,10 +216,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": "5d0be2e331fe5f2b58dd2370",
+          "_id": "5d1400d931fe5fd3cacb0c99",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2e331fe5f2b58dd2364"
+          "value": "5d1400d931fe5fd3cacb0c8d"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -236,14 +228,13 @@
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d0be2e331fe5f2b58dd2365",
+        "_id": "5d1400d931fe5fd3cacb0c8e",
         "codeListId": null,
         "dataElementCodes": [
           {
             "code": "M",
-            "codeSystemOid": "2.16.840.1.113883.5.1",
-            "descriptor": "M",
-            "codeSystem": "AdministrativeGender",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "M",
             "version": null,
             "_type": "QDM::Code"
           }
@@ -251,10 +242,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": "5d0be2e331fe5f2b58dd2371",
+          "_id": "5d1400d931fe5fd3cacb0c9a",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2e331fe5f2b58dd2365"
+          "value": "5d1400d931fe5fd3cacb0c8e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",

@@ -1,5 +1,5 @@
 {
-  "_id": "5d08119cd7c8ac1d9324a790",
+  "_id": "5d1241e331fe5f83c94d7b20",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS233v0",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
   "cql_libraries": [
     {
-      "_id": "5d08119cd7c8ac1d9324a791",
+      "_id": "5d1241e331fe5f83c94d7b21",
       "cql": "library AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer version '0.4.000'\r\n\r\nusing QDM version '5.4'\r\n\r\ninclude Hospice version '2.0.000' called Hospice\r\ninclude MATGlobalCommonFunctions version '4.0.000' called Global\r\n\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Colonoscopy\": 'urn:oid:2.16.840.1.113883.3.464.1003.108.12.1020'\r\nvalueset \"CT Colonography\": 'urn:oid:2.16.840.1.113883.3.464.1003.108.12.1038'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Fecal Occult Blood Test (FOBT)\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1011'\r\nvalueset \"FIT DNA\": 'urn:oid:2.16.840.1.113883.3.464.1003.108.12.1039'\r\nvalueset \"Flexible Sigmoidoscopy\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1010'\r\nvalueset \"Malignant Neoplasm of Colon\": 'urn:oid:2.16.840.1.113883.3.464.1003.108.12.1001'\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Total Colectomy\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1019'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Colonoscopy Performed\":\r\n\t[\"Procedure, Performed\": \"Colonoscopy\"] Colonoscopy\r\n\t\twhere Colonoscopy.relevantPeriod ends 10 years or less on or before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"CT Colonography Performed\":\r\n\t[\"Procedure, Performed\": \"CT Colonography\"] Colonography\r\n\t\twhere Colonography.relevantPeriod ends 5 years or less on or before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Malignant Neoplasm\":\r\n\t[\"Diagnosis\": \"Malignant Neoplasm of Colon\"] ColorectalCancer\r\n\t\twhere ColorectalCancer.prevalencePeriod starts on or before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Fecal Occult Blood Test Performed\":\r\n\t[\"Laboratory Test, Performed\": \"Fecal Occult Blood Test (FOBT)\"] FecalOccultResult\r\n\t\twhere FecalOccultResult.result is not null\r\n\t\t\tand FecalOccultResult.authorDatetime during \"Measurement Period\"\r\n\r\ndefine \"Flexible Sigmoidoscopy Performed\":\r\n\t[\"Procedure, Performed\": \"Flexible Sigmoidoscopy\"] FlexibleSigmoidoscopy\r\n\t\twhere FlexibleSigmoidoscopy.relevantPeriod ends 5 years or less on or before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Fecal Immunochemical Test DNA Performed\":\r\n\t[\"Laboratory Test, Performed\": \"FIT DNA\"] FitDNA\r\n\t\twhere FitDNA.result is not null\r\n\t\t\tand FitDNA.authorDatetime occurs 3 years or less on or before \r\n\t\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Colonoscopy Performed\"\r\n\t\tor exists \"Fecal Occult Blood Test Performed\"\r\n\t\tor exists \"Flexible Sigmoidoscopy Performed\"\r\n\t\tor exists \"Fecal Immunochemical Test DNA Performed\"\r\n\t\tor exists \"CT Colonography Performed\"\r\n\r\ndefine \"Annual Wellness Visit Encounter\":\r\n\t[\"Encounter, Performed\": \"Annual Wellness Visit\"] QualifyingEncounter\r\n\t\twhere QualifyingEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t\t\tand exists \"Annual Wellness Visit Encounter\"\r\n\r\ndefine \"Total Colectomy Performed\":\r\n\t[\"Procedure, Performed\": \"Total Colectomy\"] Colectomy\r\n\t\twhere Colectomy.relevantPeriod starts on or before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\t\tand exists [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 75\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tHospice.\"Has Hospice\"\r\n\t\tor exists \"Malignant Neoplasm\"\r\n\t\tor exists \"Total Colectomy Performed\"",
       "elm": {
         "library": {
@@ -6095,79 +6095,79 @@
       "library_version": "0.4.000",
       "statement_dependencies": [
         {
-          "_id": "5d08119dd7c8ac1d9324a792",
+          "_id": "5d1241e331fe5f83c94d7b22",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a793",
+          "_id": "5d1241e331fe5f83c94d7b23",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a794",
+          "_id": "5d1241e331fe5f83c94d7b24",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a795",
+          "_id": "5d1241e331fe5f83c94d7b25",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a796",
+          "_id": "5d1241e331fe5f83c94d7b26",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a797",
+          "_id": "5d1241e331fe5f83c94d7b27",
           "statement_name": "Colonoscopy Performed"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a798",
+          "_id": "5d1241e331fe5f83c94d7b28",
           "statement_name": "CT Colonography Performed"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a799",
+          "_id": "5d1241e331fe5f83c94d7b29",
           "statement_name": "Malignant Neoplasm"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a79a",
+          "_id": "5d1241e331fe5f83c94d7b2a",
           "statement_name": "Fecal Occult Blood Test Performed"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a79b",
+          "_id": "5d1241e331fe5f83c94d7b2b",
           "statement_name": "Flexible Sigmoidoscopy Performed"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a79c",
+          "_id": "5d1241e331fe5f83c94d7b2c",
           "statement_name": "Fecal Immunochemical Test DNA Performed"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a79d",
+          "_id": "5d1241e331fe5f83c94d7b2d",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d08119dd7c8ac1d9324a79e",
+              "_id": "5d1241e331fe5f83c94d7b2e",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "Colonoscopy Performed"
             },
             {
-              "_id": "5d08119dd7c8ac1d9324a79f",
+              "_id": "5d1241e331fe5f83c94d7b2f",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "Fecal Occult Blood Test Performed"
             },
             {
-              "_id": "5d08119dd7c8ac1d9324a7a0",
+              "_id": "5d1241e331fe5f83c94d7b30",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "Flexible Sigmoidoscopy Performed"
             },
             {
-              "_id": "5d08119dd7c8ac1d9324a7a1",
+              "_id": "5d1241e331fe5f83c94d7b31",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "Fecal Immunochemical Test DNA Performed"
             },
             {
-              "_id": "5d08119dd7c8ac1d9324a7a2",
+              "_id": "5d1241e331fe5f83c94d7b32",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "CT Colonography Performed"
@@ -6175,21 +6175,21 @@
           ]
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7a3",
+          "_id": "5d1241e331fe5f83c94d7b33",
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7a4",
+          "_id": "5d1241e331fe5f83c94d7b34",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d08119dd7c8ac1d9324a7a5",
+              "_id": "5d1241e331fe5f83c94d7b35",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d08119dd7c8ac1d9324a7a6",
+              "_id": "5d1241e331fe5f83c94d7b36",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "Annual Wellness Visit Encounter"
@@ -6197,21 +6197,21 @@
           ]
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7a7",
+          "_id": "5d1241e331fe5f83c94d7b37",
           "statement_name": "Total Colectomy Performed"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7a8",
+          "_id": "5d1241e331fe5f83c94d7b38",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d08119dd7c8ac1d9324a7a9",
+              "_id": "5d1241e331fe5f83c94d7b39",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "Initial Population"
             },
             {
-              "_id": "5d08119dd7c8ac1d9324a7aa",
+              "_id": "5d1241e331fe5f83c94d7b3a",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
@@ -6219,23 +6219,23 @@
           ]
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7ab",
+          "_id": "5d1241e331fe5f83c94d7b3b",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5d08119dd7c8ac1d9324a7ac",
+              "_id": "5d1241e331fe5f83c94d7b3c",
               "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
             },
             {
-              "_id": "5d08119dd7c8ac1d9324a7ad",
+              "_id": "5d1241e331fe5f83c94d7b3d",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "Malignant Neoplasm"
             },
             {
-              "_id": "5d08119dd7c8ac1d9324a7ae",
+              "_id": "5d1241e331fe5f83c94d7b3e",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
               "statement_name": "Total Colectomy Performed"
@@ -6245,7 +6245,7 @@
       ]
     },
     {
-      "_id": "5d08119dd7c8ac1d9324a7af",
+      "_id": "5d1241e331fe5f83c94d7b3f",
       "cql": "library MATGlobalCommonFunctions version '4.0.000'\n\nusing QDM version '5.4'\n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Encounter\":\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\n\ndefine \"Inpatient Encounter\":\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\ndefine function \"ToDate\"(Value DateTime ):\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime ):\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime ):\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime ):\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) X\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\ndefine function \"LengthInDays\"(Value Interval<DateTime> ):\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) EDEncounter\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\" ):\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\n\t\t)\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\" ):\n\tFirst((Encounter.facilityLocations)HospitalLocation\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\n\t\t\tsort by start of locationPeriod\n\t)\n\n",
       "elm": {
         "library": {
@@ -14860,11 +14860,11 @@
       "library_version": "4.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d08119dd7c8ac1d9324a7b0",
+          "_id": "5d1241e331fe5f83c94d7b40",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d08119dd7c8ac1d9324a7b1",
+              "_id": "5d1241e331fe5f83c94d7b41",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -14872,13 +14872,13 @@
           ]
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7b2",
+          "_id": "5d1241e331fe5f83c94d7b42",
           "statement_name": "ToDate"
         }
       ]
     },
     {
-      "_id": "5d08119dd7c8ac1d9324a7b3",
+      "_id": "5d1241e331fe5f83c94d7b43",
       "cql": "library Hospice version '2.0.000'\n\nusing QDM version '5.4'\n\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15' \n\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Has Hospice\":\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\n\t\t\t)\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\n\t)\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\n\t\t)\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\n\t\t)\n\n",
       "elm": {
         "library": {
@@ -14932,7 +14932,7 @@
                 "localId": "2",
                 "locator": "5:1-5:97",
                 "name": "SNOMEDCT:2017-09",
-                "id": "SNOMED-CT",
+                "id": "2.16.840.1.113883.6.96",
                 "version": "urn:hl7:version:2017-09",
                 "accessLevel": "Public"
               }
@@ -16713,13 +16713,13 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d08119dd7c8ac1d9324a7b4",
+          "_id": "5d1241e331fe5f83c94d7b44",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-06-17T22:18:04.996Z",
+  "created_at": "2019-06-25T15:46:43.116Z",
   "description": "Percentage of patients ages 65 to 75 with an Annual Wellness Visit (AWV) during the measurement period who had one of the following:\n- A colonoscopy during or in the nine years before the measurement period\n- A flexible sigmoidoscopy during or in the four years before the measurement period\n- A fecal occult blood test during the measurement period\n- Fecal Immunochemical Test-Deoxyribose Nucleic Acid (FIT-DNA) during or in the two years before the measurement period\n- Computed tomography (CT) colonography during or in the four years before the measurement period",
   "hqmf_id": "40280382-610B-E7A4-0161-6C6D76CB2060",
   "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
@@ -17239,57 +17239,57 @@
   },
   "population_sets": [
     {
-      "_id": "5d08119dd7c8ac1d9324a7c4",
+      "_id": "5d1241e331fe5f83c94d7b54",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d08119dd7c8ac1d9324a7c9",
+          "_id": "5d1241e331fe5f83c94d7b59",
           "hqmf_id": "EF2B5169-2D2B-4FFF-8184-371E8ADB05EE",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5d08119dd7c8ac1d9324a7c7",
+          "_id": "5d1241e331fe5f83c94d7b57",
           "hqmf_id": "1E84F192-9E6B-4986-A6E9-5759BD56C95B",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d08119dd7c8ac1d9324a7c6",
+          "_id": "5d1241e331fe5f83c94d7b56",
           "hqmf_id": "4ACFE61C-D850-47C3-AC4A-0FCDB312B1D4",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d08119dd7c8ac1d9324a7c8",
+          "_id": "5d1241e331fe5f83c94d7b58",
           "hqmf_id": "67F580AF-AF7A-41B3-9982-ACEAC77F99E7",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
           "statement_name": "Numerator"
         },
-        "_id": "5d08119dd7c8ac1d9324a7c5",
+        "_id": "5d1241e331fe5f83c94d7b55",
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
-          "_id": "5d08119dd7c8ac1d9324a7ca",
+          "_id": "5d1241e331fe5f83c94d7b5a",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7cb",
+          "_id": "5d1241e331fe5f83c94d7b5b",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7cc",
+          "_id": "5d1241e331fe5f83c94d7b5c",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d08119dd7c8ac1d9324a7cd",
+          "_id": "5d1241e331fe5f83c94d7b5d",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
           "statement_name": "SDE Sex"
@@ -17300,7 +17300,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d08119cd7c8ac1d9324a5d4",
+      "_id": "5d1241e231fe5f83c94d7964",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -17315,10 +17315,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7b5",
+        "_id": "5d1241e331fe5f83c94d7b45",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5d4"
+        "value": "5d1241e231fe5f83c94d7964"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17331,7 +17331,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5d5",
+      "_id": "5d1241e231fe5f83c94d7965",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
@@ -17339,10 +17339,10 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7b6",
+        "_id": "5d1241e331fe5f83c94d7b46",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5d5"
+        "value": "5d1241e231fe5f83c94d7965"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -17352,7 +17352,7 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5d6",
+      "_id": "5d1241e231fe5f83c94d7966",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
@@ -17360,10 +17360,10 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7b7",
+        "_id": "5d1241e331fe5f83c94d7b47",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5d6"
+        "value": "5d1241e231fe5f83c94d7966"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -17372,7 +17372,7 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5d7",
+      "_id": "5d1241e231fe5f83c94d7967",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.108.12.1038",
@@ -17383,10 +17383,10 @@
       "description": "Procedure, Performed: CTColonography",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7b8",
+        "_id": "5d1241e331fe5f83c94d7b48",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5d7"
+        "value": "5d1241e231fe5f83c94d7967"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17403,7 +17403,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5d8",
+      "_id": "5d1241e231fe5f83c94d7968",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.108.12.1001",
@@ -17413,10 +17413,10 @@
       "description": "Diagnosis: MalignantNeoplasmofColon",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7b9",
+        "_id": "5d1241e331fe5f83c94d7b49",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5d8"
+        "value": "5d1241e231fe5f83c94d7968"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17427,7 +17427,7 @@
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5d9",
+      "_id": "5d1241e231fe5f83c94d7969",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1240",
@@ -17442,10 +17442,10 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7ba",
+        "_id": "5d1241e331fe5f83c94d7b4a",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5d9"
+        "value": "5d1241e231fe5f83c94d7969"
       },
       "lengthOfStay": null,
       "negationRationale": null,
@@ -17458,7 +17458,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5da",
+      "_id": "5d1241e231fe5f83c94d796a",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -17467,10 +17467,10 @@
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7bb",
+        "_id": "5d1241e331fe5f83c94d7b4b",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5da"
+        "value": "5d1241e231fe5f83c94d796a"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -17481,7 +17481,7 @@
       "_type": "QDM::InterventionOrder"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5db",
+      "_id": "5d1241e231fe5f83c94d796b",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -17490,10 +17490,10 @@
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7bc",
+        "_id": "5d1241e331fe5f83c94d7b4c",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5db"
+        "value": "5d1241e231fe5f83c94d796b"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -17507,7 +17507,7 @@
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5dc",
+      "_id": "5d1241e231fe5f83c94d796c",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
@@ -17515,10 +17515,10 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7bd",
+        "_id": "5d1241e331fe5f83c94d7b4d",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5dc"
+        "value": "5d1241e231fe5f83c94d796c"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -17527,7 +17527,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5dd",
+      "_id": "5d1241e231fe5f83c94d796d",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.108.12.1020",
@@ -17538,10 +17538,10 @@
       "description": "Procedure, Performed: Colonoscopy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7be",
+        "_id": "5d1241e331fe5f83c94d7b4e",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5dd"
+        "value": "5d1241e231fe5f83c94d796d"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17558,7 +17558,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5de",
+      "_id": "5d1241e231fe5f83c94d796e",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.198.12.1010",
@@ -17569,10 +17569,10 @@
       "description": "Procedure, Performed: FlexibleSigmoidoscopy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7bf",
+        "_id": "5d1241e331fe5f83c94d7b4f",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5de"
+        "value": "5d1241e231fe5f83c94d796e"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17589,7 +17589,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5df",
+      "_id": "5d1241e231fe5f83c94d796f",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.198.12.1011",
       "components": null,
@@ -17599,10 +17599,10 @@
       "description": "Laboratory Test, Performed: FecalOccultBloodTest(FOBT)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7c0",
+        "_id": "5d1241e331fe5f83c94d7b50",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5df"
+        "value": "5d1241e231fe5f83c94d796f"
       },
       "method": null,
       "negationRationale": null,
@@ -17619,7 +17619,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5e0",
+      "_id": "5d1241e231fe5f83c94d7970",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
@@ -17627,10 +17627,10 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7c1",
+        "_id": "5d1241e331fe5f83c94d7b51",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5e0"
+        "value": "5d1241e231fe5f83c94d7970"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -17639,7 +17639,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5e1",
+      "_id": "5d1241e231fe5f83c94d7971",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.198.12.1019",
@@ -17650,10 +17650,10 @@
       "description": "Procedure, Performed: TotalColectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7c2",
+        "_id": "5d1241e331fe5f83c94d7b52",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5e1"
+        "value": "5d1241e231fe5f83c94d7971"
       },
       "incisionDatetime": null,
       "method": null,
@@ -17670,7 +17670,7 @@
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d08119cd7c8ac1d9324a5e2",
+      "_id": "5d1241e231fe5f83c94d7972",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.108.12.1039",
       "components": null,
@@ -17680,10 +17680,10 @@
       "description": "Laboratory Test, Performed: FITDNA",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
-        "_id": "5d08119dd7c8ac1d9324a7c3",
+        "_id": "5d1241e331fe5f83c94d7b53",
         "namingSystem": null,
         "qdmVersion": "5.4",
-        "value": "5d08119cd7c8ac1d9324a5e2"
+        "value": "5d1241e231fe5f83c94d7972"
       },
       "method": null,
       "negationRationale": null,
@@ -17701,26 +17701,26 @@
     }
   ],
   "title": "Annual Wellness Assessment: Preventive Care (Screening for Colorectal Cancer)",
-  "updated_at": "2019-06-17T22:18:04.996Z",
+  "updated_at": "2019-06-25T15:46:43.116Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d08119cd7c8ac1d9324a5e3",
-    "5d08119cd7c8ac1d9324a5e4",
-    "5d08119cd7c8ac1d9324a5e5",
-    "5d08119cd7c8ac1d9324a5e6",
-    "5d08119cd7c8ac1d9324a5e7",
-    "5d08119cd7c8ac1d9324a5e8",
-    "5d08119cd7c8ac1d9324a5e9",
-    "5d08119cd7c8ac1d9324a5ea",
-    "5d08119cd7c8ac1d9324a5eb",
-    "5d08119cd7c8ac1d9324a5ec",
-    "5d08119cd7c8ac1d9324a5ed",
-    "5d08119cd7c8ac1d9324a5ee",
-    "5d08119cd7c8ac1d9324a5ef",
-    "5d08119cd7c8ac1d9324a5f0",
-    "5d08119cd7c8ac1d9324a5f1",
-    "5d08119cd7c8ac1d9324a5f2",
-    "5d08119cd7c8ac1d9324a5f3",
-    "5d08119cd7c8ac1d9324a5f4"
+    "5d1241e331fe5f83c94d7973",
+    "5d1241e331fe5f83c94d7974",
+    "5d1241e331fe5f83c94d7975",
+    "5d1241e331fe5f83c94d7976",
+    "5d1241e331fe5f83c94d7977",
+    "5d1241e331fe5f83c94d7978",
+    "5d1241e331fe5f83c94d7979",
+    "5d1241e331fe5f83c94d797a",
+    "5d1241e331fe5f83c94d797b",
+    "5d1241e331fe5f83c94d797c",
+    "5d1241e331fe5f83c94d797d",
+    "5d1241e331fe5f83c94d797e",
+    "5d1241e331fe5f83c94d797f",
+    "5d1241e331fe5f83c94d7980",
+    "5d1241e331fe5f83c94d7981",
+    "5d1241e331fe5f83c94d7982",
+    "5d1241e331fe5f83c94d7983",
+    "5d1241e331fe5f83c94d7984"
   ]
 }

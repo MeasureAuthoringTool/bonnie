@@ -57,12 +57,19 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    # TODO: Make proper use of the CodeSelectionView and update it for use with CQM models
     codes = @model.get('codes')
-    concepts = @model.valueSet()?.concepts
-    codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
+    code_list_id = @model.get('codeListId')
+    concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
+
+    # There shouldn't be a dataElement saved without codes, but if there is, add default
+    if !(@model.get('qdmDataElement').dataElementCodes?.length)
+      @addDefaultCodeToDataElement()
+    else
+      # Add existing codes onto view
+      for code in @model.get('qdmDataElement').dataElementCodes
+        codes.add({codeset: @measure.codeSystemMap()[code.system] || code.system, code: code.code})
 
     @timingAttributeViews = []
     for timingAttr in @model.getPrimaryTimingAttributes()
@@ -196,6 +203,24 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     @model.destroy()
 
+  removeCode: (e) ->
+    e.preventDefault()
+    code_to_delete = $(e.target).model().get("code")
+    @model.get('qdmDataElement').dataElementCodes.pop({code: code_to_delete})
+    $(e.target).model().destroy()
+    @addDefaultCodeToDataElement()
+
+  addDefaultCodeToDataElement: ->
+    if !(@model.get('qdmDataElement').dataElementCodes?.length)
+      code_list_id = @model.get('codeListId')
+      concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
+      # Make sure there is a default code that can be added
+      if concepts?.length
+        @model.get('qdmDataElement').dataElementCodes = [{system: concepts[0].code_system_oid, code: concepts[0].code}]
+        cql_code = new cqm.models.CQL.Code(concepts[0].code, concepts[0].code_system_oid)
+        @model.get('codes').add({codeset: @measure.codeSystemMap()[cql_code.system] || cql_code.system, code: cql_code.code})
+
+
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
   events:
@@ -228,7 +253,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     if codeSet isnt 'custom'
       blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
       $codeList.append("<option value>#{blankEntry}</option>")
-      for concept in @concepts when concept.code_system_name is codeSet and !concept.black_list
+      for concept in @concepts when concept.code_system_name is codeSet
         $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
     @$('.codelist-control').focus()
 
@@ -244,7 +269,15 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     if @model.get('codeset') is 'custom'
       @model.set('codeset', @model.get('custom_codeset'))
       @model.set('code', @model.get('custom_code'))
-    @codes.add @model.clone() unless @codes.any (c) => c.get('codeset') is @model.get('codeset') and c.get('code') is @model.get('code')
+    duplicate_exists = @codes.any (c) => c.get('codeset') is @model.get('codeset') and c.get('code') is @model.get('code')
+    if !duplicate_exists
+      @codes.add @model.clone()
+      code_system_name = this.model.get('codeset')
+      # Try to resolve code system name to an oid, if not (probably a custom code) default to the name
+      code_system_oid = (@concepts.find (concept) -> concept.code_system_name is code_system_name)?.code_system_oid || code_system_name
+      cql_code = new cqm.models.CQL.Code(this.model.get('code'), code_system_oid)
+      @parent.model.get('qdmDataElement').dataElementCodes.push(cql_code)
+
     # Reset model to default values
     @model.clear()
     @$('select').val('')
