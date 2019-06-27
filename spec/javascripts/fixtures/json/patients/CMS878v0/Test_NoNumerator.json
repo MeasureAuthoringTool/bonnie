@@ -1,5 +1,5 @@
 {
-  "_id": "5d12420931fe5f83eb817753",
+  "_id": "5b61b47fb848461e81031467",
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
@@ -22,13 +22,13 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d12420931fe5f83eb817754",
+    "_id": "5d1400d931fe5fd3cacb0ca0",
     "birthDatetime": "1976-07-04T05:23:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d12420931fe5f83eb817755",
+        "_id": "5d1400d931fe5fd3cacb0ca1",
         "authorDatetime": "2012-07-30T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113762.1.4.1110.27",
         "components": [
 
         ],
@@ -41,7 +41,7 @@
         "description": "Assessment, Performed: Tobacco Use Status",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
         "id": {
-          "_id": "5d12420931fe5f83eb817756",
+          "_id": "5d1400d931fe5fd3cacb0ca2",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b61b47fb848461e81031468"
@@ -57,7 +57,7 @@
         "_type": "QDM::AssessmentPerformed"
       },
       {
-        "_id": "5d12420931fe5f83eb81774f",
+        "_id": "5d1400d931fe5fd3cacb0c9b",
         "birthDatetime": "1976-07-04T05:23:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
@@ -72,10 +72,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": "5d12420931fe5f83eb817757",
+          "_id": "5d1400d931fe5fd3cacb0ca3",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d12420931fe5f83eb81774f"
+          "value": "5d1400d931fe5fd3cacb0c9b"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -84,7 +84,7 @@
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d12420931fe5f83eb817750",
+        "_id": "5d1400d931fe5fd3cacb0c9c",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -98,10 +98,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": "5d12420931fe5f83eb817758",
+          "_id": "5d1400d931fe5fd3cacb0ca4",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d12420931fe5f83eb817750"
+          "value": "5d1400d931fe5fd3cacb0c9c"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -110,7 +110,7 @@
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d12420931fe5f83eb817751",
+        "_id": "5d1400d931fe5fd3cacb0c9d",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -124,10 +124,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": "5d12420931fe5f83eb817759",
+          "_id": "5d1400d931fe5fd3cacb0ca5",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d12420931fe5f83eb817751"
+          "value": "5d1400d931fe5fd3cacb0c9d"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -136,7 +136,7 @@
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d12420931fe5f83eb817752",
+        "_id": "5d1400d931fe5fd3cacb0c9e",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -150,10 +150,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": "5d12420931fe5f83eb81775a",
+          "_id": "5d1400d931fe5fd3cacb0ca6",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d12420931fe5f83eb817752"
+          "value": "5d1400d931fe5fd3cacb0c9e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
@@ -196,7 +196,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b61b47fb848461e81031468",
+          "coded_entry_id": {
+            "$oid": "5b61b47fb848461e81031468"
+          },
           "code_source": "DEFAULT"
         },
         {

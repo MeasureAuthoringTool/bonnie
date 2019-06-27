@@ -27,19 +27,18 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d0be2e531fe5f2b58dd23d9"
+      "$oid": "5d1400da31fe5fd3cacb0d02"
     },
     "birthDatetime": "1989-07-12T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d0be2e531fe5f2b58dd23da"
+          "$oid": "5d1400da31fe5fd3cacb0d03"
         },
         "authorDatetime": "2010-02-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.423",
         "dataElementCodes": [
           {
-            
             "code": "301542",
             "system": "2.16.840.1.113883.6.88"
           }
@@ -48,7 +47,7 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.119",
         "id": {
           "_id": {
-            "$oid": "5d0be2e531fe5f2b58dd23db"
+            "$oid": "5d1400da31fe5fd3cacb0d04"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -70,14 +69,13 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2e531fe5f2b58dd23dc"
+          "$oid": "5d1400da31fe5fd3cacb0d05"
         },
         "admissionSource": null,
         "authorDatetime": "2012-12-14T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.424",
         "dataElementCodes": [
           {
-            
             "code": "183452005",
             "system": "2.16.840.1.113883.6.96"
           }
@@ -86,10 +84,9 @@
         "diagnoses": [
           {
             "code": "111297002",
-            
             "version": null,
-            "display": "Ischemic Stroke",
-            "system": "2.16.840.1.113883.6.96"
+            "system": "2.16.840.1.113883.6.96",
+            "display": "Ischemic Stroke"
           }
         ],
         "dischargeDisposition": null,
@@ -99,7 +96,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.79",
         "id": {
           "_id": {
-            "$oid": "5d0be2e531fe5f2b58dd23dd"
+            "$oid": "5d1400da31fe5fd3cacb0d06"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -112,9 +109,8 @@
         "negationRationale": null,
         "principalDiagnosis": {
           "code": "111297002",
-          
-          "display": "Ischemic Stroke",
           "system": "2.16.840.1.113883.6.96",
+          "display": "Ischemic Stroke",
           "version": null
         },
         "qdmCategory": "encounter",
@@ -131,7 +127,7 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2e531fe5f2b58dd23d4"
+          "$oid": "5d1400da31fe5fd3cacb0cfd"
         },
         "birthDatetime": "1989-07-12T08:00:00.000+00:00",
         "codeListId": null,
@@ -140,7 +136,6 @@
             "code": "21112-8",
             "system": "2.16.840.1.113883.6.1",
             "display": null,
-            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -149,11 +144,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5d0be2e531fe5f2b58dd23de"
+            "$oid": "5d1400da31fe5fd3cacb0d07"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2e531fe5f2b58dd23d4"
+          "value": "5d1400da31fe5fd3cacb0cfd"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -163,7 +158,7 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2e531fe5f2b58dd23d5"
+          "$oid": "5d1400da31fe5fd3cacb0cfe"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -171,7 +166,6 @@
             "code": "2186-5",
             "system": "2.16.840.1.113883.6.238",
             "display": "Not Hispanic or Latino",
-            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -180,11 +174,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5d0be2e531fe5f2b58dd23df"
+            "$oid": "5d1400da31fe5fd3cacb0d08"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2e531fe5f2b58dd23d5"
+          "value": "5d1400da31fe5fd3cacb0cfe"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -194,7 +188,7 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2e531fe5f2b58dd23d6"
+          "$oid": "5d1400da31fe5fd3cacb0cff"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -202,7 +196,6 @@
             "code": "1002-5",
             "system": "2.16.840.1.113883.6.238",
             "display": "American Indian or Alaska Native",
-            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -211,11 +204,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5d0be2e531fe5f2b58dd23e0"
+            "$oid": "5d1400da31fe5fd3cacb0d09"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2e531fe5f2b58dd23d6"
+          "value": "5d1400da31fe5fd3cacb0cff"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -225,7 +218,7 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2e531fe5f2b58dd23d7"
+          "$oid": "5d1400da31fe5fd3cacb0d00"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -233,7 +226,6 @@
             "code": "M",
             "system": "2.16.840.1.113883.5.1",
             "display": "M",
-            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -242,11 +234,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5d0be2e531fe5f2b58dd23e1"
+            "$oid": "5d1400da31fe5fd3cacb0d0a"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2e531fe5f2b58dd23d7"
+          "value": "5d1400da31fe5fd3cacb0d00"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",

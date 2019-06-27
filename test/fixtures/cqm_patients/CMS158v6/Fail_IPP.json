@@ -26,33 +26,30 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d0be2de31fe5f2b58dd220b"
+      "$oid": "5d1400d431fe5fd3cacb0b34"
     },
     "birthDatetime": "1984-06-21T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d0be2de31fe5f2b58dd220c"
+          "$oid": "5d1400d431fe5fd3cacb0b35"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-03-06T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113762.1.4.1078.5",
         "components": [
 
         ],
         "dataElementCodes": [
           {
-            
             "code": "10745001",
             "system": "2.16.840.1.113883.6.96"
           },
           {
-            
             "code": "10D00Z0",
             "system": "2.16.840.1.113883.6.4"
           },
           {
-            ,
             "code": "59400",
             "system": "2.16.840.1.113883.6.12"
           }
@@ -61,7 +58,7 @@
         "hqmfOid": "2.16.840.1.113883.3.560.1.6",
         "id": {
           "_id": {
-            "$oid": "5d0be2de31fe5f2b58dd220d"
+            "$oid": "5d1400d431fe5fd3cacb0b36"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
@@ -88,7 +85,7 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2de31fe5f2b58dd2206"
+          "$oid": "5d1400d431fe5fd3cacb0b2f"
         },
         "birthDatetime": "1984-06-21T08:00:00.000+00:00",
         "codeListId": null,
@@ -97,7 +94,6 @@
             "code": "21112-8",
             "system": "2.16.840.1.113883.6.1",
             "display": null,
-            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -106,11 +102,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
           "_id": {
-            "$oid": "5d0be2de31fe5f2b58dd220e"
+            "$oid": "5d1400d431fe5fd3cacb0b37"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2de31fe5f2b58dd2206"
+          "value": "5d1400d431fe5fd3cacb0b2f"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -120,7 +116,7 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2de31fe5f2b58dd2207"
+          "$oid": "5d1400d431fe5fd3cacb0b30"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -128,7 +124,6 @@
             "code": "2186-5",
             "system": "2.16.840.1.113883.6.238",
             "display": "Not Hispanic or Latino",
-            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -137,11 +132,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
           "_id": {
-            "$oid": "5d0be2de31fe5f2b58dd220f"
+            "$oid": "5d1400d431fe5fd3cacb0b38"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2de31fe5f2b58dd2207"
+          "value": "5d1400d431fe5fd3cacb0b30"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -151,7 +146,7 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2de31fe5f2b58dd2208"
+          "$oid": "5d1400d431fe5fd3cacb0b31"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -159,7 +154,6 @@
             "code": "1002-5",
             "system": "2.16.840.1.113883.6.238",
             "display": "American Indian or Alaska Native",
-            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -168,11 +162,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
           "_id": {
-            "$oid": "5d0be2de31fe5f2b58dd2210"
+            "$oid": "5d1400d431fe5fd3cacb0b39"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2de31fe5f2b58dd2208"
+          "value": "5d1400d431fe5fd3cacb0b31"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -182,7 +176,7 @@
       },
       {
         "_id": {
-          "$oid": "5d0be2de31fe5f2b58dd2209"
+          "$oid": "5d1400d431fe5fd3cacb0b32"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -190,7 +184,6 @@
             "code": "F",
             "system": "2.16.840.1.113883.5.1",
             "display": "F",
-            
             "version": null,
             "_type": "QDM::Code"
           }
@@ -199,11 +192,11 @@
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
           "_id": {
-            "$oid": "5d0be2de31fe5f2b58dd2211"
+            "$oid": "5d1400d431fe5fd3cacb0b3a"
           },
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d0be2de31fe5f2b58dd2209"
+          "value": "5d1400d431fe5fd3cacb0b32"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",

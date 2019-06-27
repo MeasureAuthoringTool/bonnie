@@ -1,5 +1,5 @@
 {
-  "_id": "5d12420a31fe5f83eb8177a9",
+  "_id": "5b6b2821b848461165a3e886",
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
@@ -23,13 +23,13 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d12420a31fe5f83eb8177aa",
+    "_id": "5d1400d931fe5fd3cacb0cb8",
     "birthDatetime": "1970-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d12420a31fe5f83eb8177ab",
+        "_id": "5d1400d931fe5fd3cacb0cb9",
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "drc-522a38859e8337cb6214742610b449c149172dccc97f176b0b580b4d3f975004",
         "components": [
           {
             "result": {
@@ -76,7 +76,7 @@
         "description": "Assessment, Performed: Risk for venous thromboembolism",
         "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177ac",
+          "_id": "5d1400d931fe5fd3cacb0cba",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870f6"
@@ -100,7 +100,7 @@
         },
         "relatedTo": [
           {
-            "_id": "5d12420a31fe5f83eb8177ad",
+            "_id": "5d1400d931fe5fd3cacb0cbb",
             "namingSystem": null,
             "qdmVersion": "5.4",
             "value": "5b6c247cb848464add0870ee"
@@ -110,10 +110,10 @@
         "_type": "QDM::AssessmentPerformed"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177ae",
+        "_id": "5d1400d931fe5fd3cacb0cbc",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.230",
         "dataElementCodes": [
           {
             "code": "442023007",
@@ -123,7 +123,7 @@
         "description": "Device, Applied: Venous foot pumps (VFP)",
         "hqmfOid": "2.16.840.1.113883.3.560.1.10",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177af",
+          "_id": "5d1400d931fe5fd3cacb0cbd",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870ee"
@@ -140,18 +140,18 @@
           "version": null
         },
         "relevantPeriod": {
-          "low": "2012-08-01T08:00:00.000Z",
-          "high": "9999-12-31T23:59:59.000Z",
+          "low": "2012-08-01T08:00:00.000+00:00",
+          "high": "9999-12-31T23:59:59.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
         "_type": "QDM::DeviceApplied"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177b0",
+        "_id": "5d1400d931fe5fd3cacb0cbe",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.214",
         "dataElementCodes": [
           {
             "code": "428411000124104",
@@ -161,7 +161,7 @@
         "description": "Device, Applied: Intermittent pneumatic compression devices (IPC)",
         "hqmfOid": "2.16.840.1.113883.3.560.1.110",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177b1",
+          "_id": "5d1400d931fe5fd3cacb0cbf",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870ef"
@@ -178,17 +178,17 @@
         "qdmVersion": "5.4",
         "reason": null,
         "relevantPeriod": {
-          "low": "2012-08-01T08:00:00.000Z",
-          "high": "9999-12-31T23:59:59.000Z",
+          "low": "2012-08-01T08:00:00.000+00:00",
+          "high": "9999-12-31T23:59:59.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
         "_type": "QDM::DeviceApplied"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177b2",
+        "_id": "5d1400d931fe5fd3cacb0cc0",
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.230",
         "dataElementCodes": [
           {
             "code": "442023007",
@@ -198,7 +198,7 @@
         "description": "Device, Ordered: Venous foot pumps (VFP)",
         "hqmfOid": "2.16.840.1.113883.3.560.1.37",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177b3",
+          "_id": "5d1400d931fe5fd3cacb0cc1",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870f0"
@@ -217,9 +217,9 @@
         "_type": "QDM::DeviceOrder"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177b4",
+        "_id": "5d1400d931fe5fd3cacb0cc2",
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.256",
         "dataElementCodes": [
           {
             "code": "348681001",
@@ -229,7 +229,7 @@
         "description": "Device, Ordered: Graduated compression stockings (GCS)",
         "hqmfOid": "2.16.840.1.113883.3.560.1.137",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177b5",
+          "_id": "5d1400d931fe5fd3cacb0cc3",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870f1"
@@ -248,9 +248,9 @@
         "_type": "QDM::DeviceOrder"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177b6",
+        "_id": "5d1400d931fe5fd3cacb0cc4",
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.205",
         "dataElementCodes": [
           {
             "code": "1037045",
@@ -270,7 +270,7 @@
         },
         "hqmfOid": "2.16.840.1.113883.3.560.1.14",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177b7",
+          "_id": "5d1400d931fe5fd3cacb0cc5",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870f2"
@@ -287,8 +287,8 @@
           "version": null
         },
         "relevantPeriod": {
-          "low": "2012-08-01T08:00:00.000Z",
-          "high": "9999-12-31T23:59:59.000Z",
+          "low": "2012-08-01T08:00:00.000+00:00",
+          "high": "9999-12-31T23:59:59.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -301,9 +301,9 @@
         "_type": "QDM::MedicationAdministered"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177b8",
+        "_id": "5d1400d931fe5fd3cacb0cc6",
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113762.1.4.1045.39",
         "dataElementCodes": [
           {
             "code": "1361226",
@@ -315,7 +315,7 @@
         "frequency": null,
         "hqmfOid": "2.16.840.1.113883.3.560.1.114",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177b9",
+          "_id": "5d1400d931fe5fd3cacb0cc7",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870f3"
@@ -332,8 +332,8 @@
         "qdmVersion": "5.4",
         "reason": null,
         "relevantPeriod": {
-          "low": "2012-08-01T08:00:00.000Z",
-          "high": "9999-12-31T23:59:59.000Z",
+          "low": "2012-08-01T08:00:00.000+00:00",
+          "high": "9999-12-31T23:59:59.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -341,9 +341,9 @@
         "_type": "QDM::MedicationAdministered"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177ba",
+        "_id": "5d1400d931fe5fd3cacb0cc8",
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113762.1.4.1045.39",
         "dataElementCodes": [
           {
             "code": "1361226",
@@ -356,7 +356,7 @@
         "frequency": null,
         "hqmfOid": "2.16.840.1.113883.3.560.1.78",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177bb",
+          "_id": "5d1400d931fe5fd3cacb0cc9",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870f4"
@@ -374,8 +374,8 @@
         "reason": null,
         "refills": null,
         "relevantPeriod": {
-          "low": "2012-08-01T08:00:00.000Z",
-          "high": "9999-12-31T23:59:59.000Z",
+          "low": "2012-08-01T08:00:00.000+00:00",
+          "high": "9999-12-31T23:59:59.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -385,9 +385,9 @@
         "_type": "QDM::MedicationOrder"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177bc",
+        "_id": "5d1400d931fe5fd3cacb0cca",
         "authorDatetime": "2012-08-01T08:00:00.000+00:00",
-        "codeListId": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.232",
         "dataElementCodes": [
           {
             "code": "855288",
@@ -408,7 +408,7 @@
         },
         "hqmfOid": "2.16.840.1.113883.3.560.1.17",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177bd",
+          "_id": "5d1400d931fe5fd3cacb0ccb",
           "namingSystem": null,
           "qdmVersion": "5.4",
           "value": "5b6c247cb848464add0870f5"
@@ -426,8 +426,8 @@
         },
         "refills": 9,
         "relevantPeriod": {
-          "low": "2012-08-01T08:00:00.000Z",
-          "high": "9999-12-31T23:59:59.000Z",
+          "low": "2012-08-01T08:00:00.000+00:00",
+          "high": "9999-12-31T23:59:59.000+00:00",
           "lowClosed": true,
           "highClosed": true
         },
@@ -445,7 +445,7 @@
         "_type": "QDM::MedicationOrder"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177a5",
+        "_id": "5d1400d931fe5fd3cacb0cb3",
         "birthDatetime": "1970-01-01T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
@@ -460,10 +460,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177be",
+          "_id": "5d1400d931fe5fd3cacb0ccc",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d12420a31fe5f83eb8177a5"
+          "value": "5d1400d931fe5fd3cacb0cb3"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -472,7 +472,7 @@
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177a6",
+        "_id": "5d1400d931fe5fd3cacb0cb4",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -486,10 +486,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177bf",
+          "_id": "5d1400d931fe5fd3cacb0ccd",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d12420a31fe5f83eb8177a6"
+          "value": "5d1400d931fe5fd3cacb0cb4"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
@@ -498,7 +498,7 @@
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177a7",
+        "_id": "5d1400d931fe5fd3cacb0cb5",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -512,10 +512,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177c0",
+          "_id": "5d1400d931fe5fd3cacb0cce",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d12420a31fe5f83eb8177a7"
+          "value": "5d1400d931fe5fd3cacb0cb5"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
@@ -524,7 +524,7 @@
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d12420a31fe5f83eb8177a8",
+        "_id": "5d1400d931fe5fd3cacb0cb6",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -538,10 +538,10 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": "5d12420a31fe5f83eb8177c1",
+          "_id": "5d1400d931fe5fd3cacb0ccf",
           "namingSystem": null,
           "qdmVersion": "5.4",
-          "value": "5d12420a31fe5f83eb8177a8"
+          "value": "5d1400d931fe5fd3cacb0cb6"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
@@ -643,7 +643,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c247cb848464add0870f6",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870f6"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -677,7 +679,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c247cb848464add0870ee",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870ee"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -705,7 +709,9 @@
             ]
           },
           "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.205",
-          "coded_entry_id": "5b6c247cb848464add0870ef",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870ef"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -766,7 +772,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c247cb848464add0870f2",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870f2"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -794,7 +802,9 @@
             ]
           },
           "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.211",
-          "coded_entry_id": "5b6c247cb848464add0870f3",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870f3"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -822,7 +832,9 @@
             ]
           },
           "negation_code_list_id": "2.16.840.1.113883.3.464.1003.105.12.1004",
-          "coded_entry_id": "5b6c247cb848464add0870f4",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870f4"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -856,7 +868,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c247cb848464add0870f0",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870f0"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -884,7 +898,9 @@
             ]
           },
           "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.212",
-          "coded_entry_id": "5b6c247cb848464add0870f1",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870f1"
+          },
           "code_source": "DEFAULT"
         },
         {
@@ -952,7 +968,9 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": "5b6c247cb848464add0870f5",
+          "coded_entry_id": {
+            "$oid": "5b6c247cb848464add0870f5"
+          },
           "code_source": "DEFAULT"
         },
         {
