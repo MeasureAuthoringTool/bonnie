@@ -1,7 +1,7 @@
 <div class="row">
   <div class="code-control-valueset form-group col-md-12">
     <label for="valueset_{{cid}}" class="sr-only">value set</label>
-    <select autocomplete="off" name="valueset" id="valueset_{{@cid}}" class="form-control">
+    <select autocomplete="off" name="valueset" id="valueset_{{cid}}" class="form-control">
       <option value="--" selected>Value Set / Direct Reference Code</option>
       <option value="custom">Custom Code</option>
       {{#each cqmValueSets}}
@@ -14,19 +14,19 @@
 <div class="row code-vs-select-input hidden">
   <div class="code-control-system form-group col-md-4">
     <label for="vs_codesystem_{{cid}}" class="sr-only">code system</label>
-    <select autocomplete="off" name="vs_codesystem" id="vs_codesystem_{{@cid}}" class="form-control"></select>
+    <select autocomplete="off" name="vs_codesystem" id="vs_codesystem_{{cid}}" class="form-control"></select>
   </div>
 
   <div class="code-control-code form-group col-md-8">
     <label for="vs_code_{{cid}}" class="sr-only">code system</label>
-    <select autocomplete="off" name="vs_code" id="vs_code_{{@cid}}" class="form-control"></select>
+    <select autocomplete="off" name="vs_code" id="vs_code_{{cid}}" class="form-control"></select>
   </div>
 </div>
 
 <div class="row code-custom-input hidden">
   <div class="code-control-system form-group col-md-4">
     <label for="custom_codesystem_select_{{cid}}" class="sr-only">code system selection</label>
-    <select autocomplete="off" name="custom_codesystem_select" id="custom_codesystem_select_{{@cid}}" class="form-control"></select>
+    <select autocomplete="off" name="custom_codesystem_select" id="custom_codesystem_select_{{cid}}" class="form-control"></select>
   </div>
 
   <div class="code-control-custom-system form-group col-md-4">

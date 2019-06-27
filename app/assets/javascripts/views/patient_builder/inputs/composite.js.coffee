@@ -49,6 +49,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
   _createInputViewForType: (type, placeholderText) ->
     inputView = switch type
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
+      when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'Quantity' then new Thorax.Views.InputQuantityView()
