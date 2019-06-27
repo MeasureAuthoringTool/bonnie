@@ -76,6 +76,14 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         @dataElement[@currentAttribute.name] = @inputView.value
       @trigger 'attributesModified', @
 
+      # reset back to no selections
+      @$('select[name="attribute_type"]').val('')
+      @$('select[name="attribute_name"]').val('')
+      @currentAttribute = null
+      @currentAttributeType = null
+      @_setupAttributeInputView()
+      @render()
+
   _createInputViewForType: (type) ->
     @inputView = switch type
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
