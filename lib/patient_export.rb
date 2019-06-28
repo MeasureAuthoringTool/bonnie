@@ -240,12 +240,9 @@ class PatientExport
 
   def self.add_formatted_patient_field(patient, value)
     if value == 'ethnicity'
-      return Record::ETHNICITY_NAME_MAP[patient[value]]
+      return CQM::Patient::ETHNICITY_NAME_MAP[patient[value]]
     elsif value == 'race'
-      return Record::RACE_NAME_MAP[patient[value]]
-    elsif value == 'birthdate' || value == 'deathdate'
-      time = Time.at(patient[value]).strftime("%m/%d/%Y") unless patient[value].nil?
-      return time
+      return CQM::Patient::RACE_NAME_MAP[patient[value]]
     elsif value == 'expired' && patient[value] == nil
       return false
     else
