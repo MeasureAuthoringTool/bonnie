@@ -36,16 +36,16 @@ class ExcelExportHelperTest < ActionController::TestCase
     # modify the backend results keys to match the keys of our patients. The results stub's keys
     # are random since it was generated from a fixture
     @backend_results = {}
-    @backend_results['5a58e9b6942c6d4bb26bb2f6'] = backend_results['5b4675d11f994e831b2146b1'] # Visit_1ED
-    @backend_results['5a593ff0942c6d0773593dff'] = backend_results['5b4675d11f994e831b2146b8'] # Visit_1Excl_2Ed
-    @backend_results['5a593d66942c6d0773593d97'] = backend_results['5b4675d11f994e831b2146c0'] # Visits_2ED
-    @backend_results['5a5940ba942c6d0c717eeece'] = backend_results['5b4675d11f994e831b2146c8'] # Visits_2Excl_2ED
+    @backend_results['5d14f7e731fe5ff6f1e7d2a1'] = backend_results['5b4675d11f994e831b2146b1'] # Visit_1ED
+    @backend_results['5d14f7e831fe5ff6f1e7d2f5'] = backend_results['5b4675d11f994e831b2146b8'] # Visit_1Excl_2Ed
+    @backend_results['5d14f7e831fe5ff6f1e7d2e5'] = backend_results['5b4675d11f994e831b2146c0'] # Visits_2ED
+    @backend_results['5d14f7e831fe5ff6f1e7d305'] = backend_results['5b4675d11f994e831b2146c8'] # Visits_2Excl_2ED
 
     @unpretty_backend_results = {}
-    @unpretty_backend_results['5a58e9b6942c6d4bb26bb2f6'] = unpretty_backend_results['5b474ad52f8e3a17057c855f'] # Visit_1ED
-    @unpretty_backend_results['5a593ff0942c6d0773593dff'] = unpretty_backend_results['5b474ad52f8e3a17057c8566'] # Visit_1Excl_2Ed
-    @unpretty_backend_results['5a593d66942c6d0773593d97'] = unpretty_backend_results['5b474ad52f8e3a17057c856e'] # Visits_2ED
-    @unpretty_backend_results['5a5940ba942c6d0c717eeece'] = unpretty_backend_results['5b474ad52f8e3a17057c8576'] # Visits_2Excl_2ED
+    @unpretty_backend_results['5d14f7e731fe5ff6f1e7d2a1'] = unpretty_backend_results['5b474ad52f8e3a17057c855f'] # Visit_1ED
+    @unpretty_backend_results['5d14f7e831fe5ff6f1e7d2f5'] = unpretty_backend_results['5b474ad52f8e3a17057c8566'] # Visit_1Excl_2Ed
+    @unpretty_backend_results['5d14f7e831fe5ff6f1e7d2e5'] = unpretty_backend_results['5b474ad52f8e3a17057c856e'] # Visits_2ED
+    @unpretty_backend_results['5d14f7e831fe5ff6f1e7d305'] = unpretty_backend_results['5b474ad52f8e3a17057c8576'] # Visits_2Excl_2ED
 
     @simple_backend_results = {}
 
@@ -66,10 +66,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     @simple_statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'statement_details.json')))
 
     # The front end results use cids as keys but the backend results use ids.
-    @cid_to_measure_id_map = { 'c320': '5a58e9b6942c6d4bb26bb2f6',
-                               'c468': '5a593d66942c6d0773593d97',
-                               'c495': '5a593ff0942c6d0773593dff',
-                               'c523': '5a5940ba942c6d0c717eeece' }.with_indifferent_access
+    @cid_to_measure_id_map = { 'c320': '5d14f7e731fe5ff6f1e7d2a1',
+                               'c468': '5d14f7e831fe5ff6f1e7d2e5',
+                               'c495': '5d14f7e831fe5ff6f1e7d2f5',
+                               'c523': '5d14f7e831fe5ff6f1e7d305' }.with_indifferent_access
 
     @simple_cid_to_measure_id_map = { 'c358': '5a58f001942c6d500fc8cb92',
                                       'c552': '5a73955cb848465f695c4ecb'}.with_indifferent_access
@@ -78,9 +78,8 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'backend results are converted' do
-    skip('ExcelExportHelper needs update')
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
-    @calc_results.observation_values.zip(converted_results.observation_values).each do |calc_result, converted_result|
+    @calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
         assert_equal calc_result[cid], converted_result[id]
       end
@@ -88,10 +87,8 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'backend results are converted if pretty is not present' do
-    skip('ExcelExportHelper needs update')
     converted_unpretty_results = ExcelExportHelper.convert_results_for_excel_export(@unpretty_backend_results, @measure, @patients)
-    skip('calc results dont match expected')
-    @calc_results_unpretty.observation_values.zip(converted_unpretty_results.observation_values).each do |calc_result, converted_result|
+    @calc_results_unpretty.values.zip(converted_unpretty_results.values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
         assert_equal calc_result[cid], converted_result[id]
       end
@@ -99,7 +96,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'patient details are extracted' do
-    skip('ExcelExportHelper needs update')
     patient_details = ExcelExportHelper.get_patient_details(@patients)
     @cid_to_measure_id_map.with_indifferent_access.each_pair do |cid, measure_id|
       assert_equal @patient_details[cid].keys, patient_details[measure_id].keys
@@ -114,7 +110,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'population details are extracted' do
-    skip('ExcelExportHelper needs update')
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
     @population_details.keys.each do |key|
       @population_details[key]['criteria'] = (CQM::Measure::ALL_POPULATION_CODES & @population_details[key]['criteria']) + ['index']
@@ -126,13 +121,11 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'statement details are extracted' do
-    skip('ExcelExportHelper needs update')
     statement_details = ExcelExportHelper.get_statement_details_from_measure(@measure)
     assert_equal @statement_details, statement_details
   end
 
   test 'excel file is generated' do
-    skip('ExcelExportHelper needs update')
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     statement_details = ExcelExportHelper.get_statement_details_from_measure(@measure)
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
@@ -154,35 +147,6 @@ class ExcelExportHelperTest < ActionController::TestCase
     frontend_excel_file.write(response.body)
     frontend_excel_file.rewind
     frontend_excel_spreadsheet = Roo::Spreadsheet.open(frontend_excel_file.path)
-    compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, patient_details.keys.length)
-  end
-
-  test 'excel file is generated if there is a patient that fails to convert but still calculates ' do
-    skip('front end does not validate ucum units that are not caculated')
-    backend_results_with_failed_patients = get_results_with_failed_patients(@simple_patients, @simple_backend_results)
-
-    converted_results = ExcelExportHelper.convert_results_for_excel_export(backend_results_with_failed_patients, @simple_measure, @simple_patients)
-    statement_details = ExcelExportHelper.get_statement_details_from_measure(@simple_measure)
-    population_details = ExcelExportHelper.get_population_details_from_measure(@simple_measure, backend_results_with_failed_patients)
-    patient_details = ExcelExportHelper.get_patient_details(@simple_patients)
-    backend_excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, @simple_measure.hqmf_set_id)
-    backend_excel_file = Tempfile.new(['backend-excel-export-failed-patients', '.xlsx'])
-    backend_excel_file.write backend_excel_package.to_stream.read
-    backend_excel_file.rewind
-    backend_excel_spreadsheet = Roo::Spreadsheet.open(backend_excel_file.path)
-
-    get :excel_export, calc_results: @simple_calc_results.to_json,
-                       patient_details: @simple_patient_details.to_json,
-                       population_details: @simple_population_details.to_json,
-                       statement_details: @simple_statement_details.to_json,
-                       file_name: 'frontend-excel-export-failed-patients',
-                       measure_hqmf_set_id: @simple_measure.hqmf_set_id
-
-    frontend_excel_file = Tempfile.new(['frontend-excel-export-failed-patients', '.xlsx'])
-    frontend_excel_file.write(response.body)
-    frontend_excel_file.rewind
-    frontend_excel_spreadsheet = Roo::Spreadsheet.open(frontend_excel_file.path)
-
     compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, patient_details.keys.length)
   end
 
