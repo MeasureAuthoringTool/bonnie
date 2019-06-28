@@ -17,7 +17,7 @@ namespace :bonnie do
           begin
             user = User.find(measure.user_id)
             hqmf_set_id = measure.hqmf_set_id
-            @api_v1_patients = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+            @api_v1_patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
             @calculator_options = { doPretty: true }
 
             calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @calculator_options)

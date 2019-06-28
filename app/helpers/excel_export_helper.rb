@@ -26,15 +26,14 @@ module ExcelExportHelper
     pop_sets_and_strats.each_with_index do |pop_set_or_strat, index|
       patients.each do |patient|
         calc_results[index] = {} unless calc_results[index]
-        result = results[patient.id.to_s]
+        result = results[patient.qdmPatient.id.to_s]
         if result.nil?
           # if there was no result for a patient (due to error in conversion or calculation), set empty results
-          calc_results[index][patient.id.to_s] = {statement_results: {}, criteria: {}}
+          calc_results[index][patient.qdmPatient.id.to_s] = {statement_results: {}, criteria: {}}
         else
           result_criteria = {
             'observation_values' => []
           }
-
           result[pop_set_or_strat[:id]]['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'observation_values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
@@ -46,7 +45,7 @@ module ExcelExportHelper
               result_criteria[population_criteria] = result[pop_set_or_strat[:id]][population_criteria]
             end
           end
-          calc_results[index][patient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[pop_set_or_strat[:id]]['statement_results']), criteria: result_criteria}
+          calc_results[index][patient.qdmPatient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[pop_set_or_strat[:id]]['statement_results']), criteria: result_criteria}
         end
       end
     end
@@ -72,21 +71,23 @@ module ExcelExportHelper
   def self.get_patient_details(patients)
     patient_details = ActiveSupport::HashWithIndifferentAccess.new
     patients.each do |patient|
-      next if patient_details[patient.id.to_s]
-      expected_values = patient.expected_values
+      next if patient_details[patient.qdmPatient.id.to_s]
+      expected_values = patient.expectedValues
       expected_values.each do |ev|
         ev["OBSERV"] = [] if !ev.key?("OBSERV") || ev["OBSERV"].nil?
       end
-      patient_details[patient.id.to_s] = {
-        first: patient.first,
-        last: patient.last,
+      expired_datetime = patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicExpired }.expiredDatetime unless patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicExpired }.nil?
+      expired_datetime = expired_datetime.strftime("%m/%d/%Y") unless expired_datetime.nil?
+      patient_details[patient.qdmPatient.id.to_s] = {
+        first: patient.givenNames[0],
+        last: patient.familyName,
         expected_values: expected_values,
-        birthdate: patient.birthdate,
-        expired: patient.expired,
-        deathdate: patient.deathdate,
-        ethnicity: patient.ethnicity['code'],
-        race: patient.race['code'],
-        gender: patient.gender,
+        birthdate: patient.qdmPatient.birthDatetime.strftime("%m/%d/%Y"),
+        expired: patient.qdmPatient.dataElements.any? { |x| x.class == QDM::PatientCharacteristicExpired },
+        deathdate: expired_datetime,
+        ethnicity: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicEthnicity }.dataElementCodes[0]['code'],
+        race: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicRace }.dataElementCodes[0]['code'],
+        gender: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicSex }.dataElementCodes[0]['code'],
         notes: patient.notes
       }
     end
