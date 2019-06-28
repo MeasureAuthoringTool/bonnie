@@ -77,17 +77,18 @@ module ExcelExportHelper
         ev["OBSERV"] = [] if !ev.key?("OBSERV") || ev["OBSERV"].nil?
       end
       expired_datetime = patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicExpired }.expiredDatetime unless patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicExpired }.nil?
+      expired_datetime = expired_datetime.strftime("%m/%d/%Y") unless expired_datetime.nil?
       patient_details[patient.qdmPatient.id.to_s] = {
         first: patient.givenNames[0],
         last: patient.familyName,
         expected_values: expected_values,
-        birthdate: patient.qdmPatient.birthDatetime.to_i,
-        expired: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicExpired },
+        birthdate: patient.qdmPatient.birthDatetime.strftime("%m/%d/%Y"),
+        expired: patient.qdmPatient.dataElements.any? { |x| x.class == QDM::PatientCharacteristicExpired },
         deathdate: expired_datetime,
         ethnicity: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicEthnicity }.dataElementCodes[0]['code'],
         race: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicRace }.dataElementCodes[0]['code'],
         gender: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicSex }.dataElementCodes[0]['code'],
-        notes: patient.qdmPatient.extendedData['notes']
+        notes: patient.notes
       }
     end
     patient_details
