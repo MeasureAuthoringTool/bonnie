@@ -3,11 +3,12 @@
     <div class="control-label"><i class="fa fa-balance-scale" aria-hidden="true"></i> Low</div>
     <div class="quantity-control-nullable">
       <div class="col-md-2 quantity-null-toggle">
-        <label for="start_quantity_{{cid}}_is_defined" class="sr-only">low quantity is defined</label>
-        <input type="checkbox" name="start_quantity_is_defined" id="start_quantity_{{cid}}_is_defined" value="true" {{#if start_quantity_is_defined}}checked{{/if}}/>
+        <label for="low_quantity_{{cid}}_is_defined" class="sr-only">low quantity is defined</label>
+        <input type="checkbox" name="low_quantity_is_defined" id="low_quantity_{{cid}}_is_defined" value="true" {{#if lowIsDefined}}checked{{/if}}/>
       </div>
-
-      {{view lowView}}
+      <div class="col-md-11">
+        {{view lowView}}
+      </div>
     </div>
   </div>
 
@@ -15,11 +16,12 @@
     <div class="control-label"><i class="fa fa-balance-scale" aria-hidden="true"></i> High</div>
     <div class="quantity-control-nullable">
       <div class="quantity-null-toggle">
-        <label for="end_quantity_{{cid}}_is_defined" class="sr-only">high quantity is defined</label>
-        <input type="checkbox" name="end_quantity_is_defined" id="end_quantity_{{cid}}_is_defined" value="true" {{#if end_quantity_is_defined}}checked{{/if}}/>
+        <label for="high_quantity_{{cid}}_is_defined" class="sr-only">high quantity is defined</label>
+        <input type="checkbox" name="high_quantity_is_defined" id="high_quantity_{{cid}}_is_defined" value="true" {{#if highIsDefined}}checked{{/if}}/>
       </div>
-
-      {{view highView}}
+      <div class="col-md-11">
+        {{view highView}}
+      </div>
     </div>
   </div>
 </div>

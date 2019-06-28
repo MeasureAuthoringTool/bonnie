@@ -24,6 +24,12 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
   hasValidValue: ->
     @value?
 
+  disableFields: ->
+    @$('input').prop('disabled', true)
+
+  enableFields: ->
+    @$('input').prop('disabled', false)
+
   handleInputChange: (e) ->
     inputData = @serialize()
     try
