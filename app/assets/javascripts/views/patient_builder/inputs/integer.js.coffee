@@ -4,7 +4,7 @@ class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/integer']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - string - Optional. Initial value of integer.
+  #   initialValue - integer - Optional. Initial value of integer.
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to true.
   #   placeholder - string - Optional. placeholder text to show. will use 'integer' if not specified
   initialize: ->

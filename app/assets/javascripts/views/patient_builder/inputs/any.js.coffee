@@ -7,10 +7,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
   #   cqmValueSets - List of CQM Value sets. Required.
   #   codeSystemMap - Map of code system oids to code system names. Required.
   initialize: ->
-    if @initialValue?
-      @value = @initialValue.clone()
-    else
-      @value = null
+    @value = null
 
     @types = ['Code', 'Quantity', 'DateTime', 'Ratio', 'Integer', 'Decimal', 'Time']
     @currentType = ''

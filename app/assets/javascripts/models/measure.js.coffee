@@ -18,7 +18,7 @@ class Thorax.Models.Measure extends Thorax.Model
     thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
     thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
     if attrs.value_sets?
-      thoraxMeasure.cqmValueSets = attrs.value_sets.map (vs) -> new cqm.models.ValueSet(vs)
+      thoraxMeasure.cqmValueSets = attrs.value_sets #.map (vs) -> new cqm.models.ValueSet(vs)
     else
       thoraxMeasure.cqmValueSets = []
 

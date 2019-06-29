@@ -3,8 +3,9 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/code']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - CQL Quantity - Optional. Initial value of datetime.
-  #   cqmValueSets - List of CQM Value sets. Optional. W
+  #   initialValue - CQL Code - Optional. Initial value of code.
+  #   cqmValueSets - List of CQM Value sets. Optional.
+  #   codeSystemMap - Code system map of system oid to system names.
   initialize: ->
     if @initialValue?
       @value = @initialValue.clone()

@@ -22,6 +22,9 @@ class Thorax.Views.InputIntervalQuantityView extends Thorax.Views.BonnieView
 
   events:
     'change input[type=checkbox]': 'handleCheckboxChange'
+    rendered: ->
+      @lowView.disableFields() unless @lowIsDefined
+      @highView.disableFields() unless @lowIsDefined
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not

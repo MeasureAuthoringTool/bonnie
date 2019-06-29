@@ -1,0 +1,3 @@
+describe 'InputView', ->
+
+  describe 'TimeView', ->
