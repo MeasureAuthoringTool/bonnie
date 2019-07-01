@@ -403,6 +403,68 @@ namespace :bonnie do
 
   end
 
+  desc %{Converts Bonnie measures to new CQM Measures
+    user email is optional and can be passed in by EMAIL
+    If no email is provided, rake task will run on all measures
+  $ rake bonnie:cql:convert_qdm_to_new_qdm EMAIL=xxx}  
+  task :convert_qdm_to_new_qdm => :environment do
+    # TODO: Convert measures data elements to updated QDM?
+    user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+    raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
+    bonnie_patients = user ? CQM::Patient.by_user(user) : CQM::Patient.all
+    count = 0
+    puts "Total patients in account: #{bonnie_patients.count}"
+    bonnie_patients.no_timeout.each do |bonnie_patient|
+      begin
+        updated_data_elements = []
+        # TODO: May need to make a new qdmPatient instead of updating fields
+        updated_qdm_patient = bonnie_patient.qdmPatient
+        updated_qdm_patient.qdmVersion = "5.5"
+        updated_qdm_patient.dataElements.each do |element|
+          begin
+            updated_element = Object.const_get(element._type).new()
+            updated_element.fields.keys.each do |field|
+              # TODO: Special check for some fields that are arrays like facility locations
+              if field.is_a?(Array)
+                field = field[0]
+              end
+              unless field == '_id' || field == 'qdmVersion' || field == 'qdmTitle' || field == 'hqmfOid' || field == 'qdmCategory' || field == 'qdmStatus'
+                if element[field]
+                  updated_element[field] = element[field]
+                end
+              end
+            end
+            updated_element.patient = updated_qdm_patient
+            updated_data_elements << updated_element
+          rescue Exception => e
+            puts e
+          end
+        end
+        puts updated_qdm_patient
+        updated_qdm_patient.dataElements.destroy_all
+        updated_data_elements.each { |item| updated_qdm_patient.dataElements << item }
+        bonnie_patient.qdmPatient = updated_qdm_patient
+        updated_qdm_patient.save!
+        bonnie_patient.save!
+        count += 1
+        puts count
+      rescue ExecJS::ProgramError, StandardError => e
+        # if there was a conversion failure we should record the resulting failure message with the hds model in a
+        # separate collection to return
+        user = User.find_by _id: bonnie_patient.user_id
+        if bonnie_patient.measure_ids.first.nil?
+          puts "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
+        elsif CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first.nil?
+          puts "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient.measure_ids.first}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
+        else
+          measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first
+          puts "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
+        end
+      end
+    end
+    puts count
+  end
+
   task :update_value_set_versions => :environment do
     User.all.each do |user|
       puts "Updating value sets for user " + user.email
