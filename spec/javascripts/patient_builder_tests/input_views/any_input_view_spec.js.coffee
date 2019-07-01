@@ -11,5 +11,5 @@ describe 'InputView', ->
       view = new Thorax.Views.InputAnyView(attributeName: 'attributeNameTest', cqmValueSets: @measure, codeSystemMap: @measure.codeSystemMap())
       view.render()
       expect(view.hasValidValue()).toBe false
-      expect(view.currentType).toEqual '' 
+      expect(view.currentType).toEqual ''
       expect(view.value).toBe null

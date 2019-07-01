@@ -8,7 +8,8 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   #   codeSystemMap - Code system map of system oid to system names.
   initialize: ->
     if @initialValue?
-      @value = @initialValue.clone()
+      @value = @initialValue
+      #
     else
       @value = null
 
@@ -20,7 +21,49 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     'change select[name="vs_code"]': 'handleValueSetCodeChange'
     'change select[name="custom_codesystem_select"]': 'handleCustomCodeSystemChange'
     rendered: ->
-      @$('select[name="valueset"] > option:first').prop('selected', true)
+      # if there is a value on render, we have to set all the things correspondingly
+      if @value?
+        value = @value # local copy, because this will modify value when causing re-selection
+        valueSet = @_findValueSetForCode(@value)
+
+        # if there is a value set for this code, make all the modifications for the code to be selected
+        if valueSet?
+          @$("select[name=\"valueset\"] > option[value=\"#{valueSet.oid}\"]").prop('selected', true)
+          @handleValueSetChange()
+          @$("select[name=\"vs_codesystem\"] > option[value=\"#{value.system}\"]").prop('selected', true)
+          @handleValueSetCodeSystemChange()
+          @$("select[name=\"vs_code\"] > option[value=\"#{value.code}\"]").prop('selected', true)
+          @handleValueSetCodeChange()
+
+        # initial is not found in a value set
+        else
+          @$("select[name=\"valueset\"] > option[value=\"custom\"]").prop('selected', true)
+          @handleValueSetChange()
+          isCustomCodeSystem = !(@allCodeSystems.find (codeSystem) -> codeSystem.oid == value.system)?
+
+          # if the code system is in the measure, select it, otherwise select custom and fillthat
+          if !isCustomCodeSystem
+            @$("select[name=\"custom_codesystem_select\"] > option[value=\"#{value.system}\"]").prop('selected', true)
+          else
+            @$("select[name=\"custom_codesystem_select\"] > option[value=\"custom\"]").prop('selected', true)
+
+          @handleCustomCodeSystemChange()
+          @$('input[name="custom_codesystem"]').val(value.system) if isCustomCodeSystem
+          @$('input[name="custom_code"]').val(value.code)
+          @handleCustomInputChange()
+
+      # if there is no initial value
+      else
+        @$('select[name="valueset"] > option:first').prop('selected', true)
+
+  # when an initial code is passed in we need to find if it is in a value set and
+  # populate the dropdowns appropiately
+  _findValueSetForCode: (code) ->
+    valueSet = @cqmValueSets.find (valueSet) =>
+      matchingConcept = valueSet.concepts.find (concept) =>
+        return concept.code_system_oid == code.system && concept.code == code.code
+      return matchingConcept?
+    return valueSet
 
   #context: ->
   #  _(super).extend
