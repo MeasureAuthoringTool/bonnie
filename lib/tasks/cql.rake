@@ -214,7 +214,7 @@ namespace :bonnie do
         if cql_val_set[:version] == "" && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "").count < 1 && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "N/A").count < 1
           differences.push('value_sets')
         elsif cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
-          differences.push('value_sets') 
+          differences.push('value_sets')
         end
       end
 
@@ -229,13 +229,47 @@ namespace :bonnie do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
       raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
       bonnie_patients = user ? Record.by_user(user) : Record.all
-      count = 0
+      fail_count = 0
+      dataElementWhiteList = ['Communication From Patient to Provider',
+                              'Communication From Provider to Patient',
+                              'Communication From Provider to Provider',
+                              'Medication, Allergy',
+                              'Risk Category Assessment',
+                              'Communication',
+                              'Diagnostic Study, Result',
+                              'Medication, Intolerance',
+                              'Procedure Intolerance',
+                              'Substance, Allergy',
+                              'Diagnosis, Active',
+                              'Diagnosis, Resolved',
+                              'Immunization, Intolerance',
+                              'Assessment, Performed',
+                              'Medication, Order',
+                              'Physical Exam',
+                              'Patient Characteristic Clinical Trial Participant',
+                              'Medication, Dispensed']
       bonnie_patients.no_timeout.each do |bonnie_patient|
         begin
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
           cqm_patient.user = bonnie_patient.user
           cqm_patient.save!
-          count += 1
+          # Verify Measure was converted properly
+          diff = patient_conversion_diff(bonnie_patient, cqm_patient)
+          if diff.empty?
+            print ".".green
+          else
+            puts "\nConversion Difference".yellow
+            patient_user = User.find_by(_id: bonnie_patient[:user_id])
+            puts "Patient #{bonnie_patient.first} #{bonnie_patient.last} with id #{bonnie_patient._id} in account #{patient_user.email}".light_blue
+            diff.each_entry do |element|
+              if element.split(':')[0].in?(dataElementWhiteList)
+                puts "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported".white
+              else
+                puts "--- #{element} --- Is different from CQL Record and this is unexpected".red
+              end
+            end
+            fail_count += 1
+          end
         rescue ExecJS::ProgramError, StandardError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return
@@ -250,7 +284,33 @@ namespace :bonnie do
           end
         end
       end
-      puts count
+      puts "\n**** Done converting ****"
+      puts "Successful Conversions: #{bonnie_patients.count - fail_count}"
+      puts "Unsuccessful/Failed Conversions: #{fail_count}"
+    end
+
+    def self.patient_conversion_diff(record, cqm_patient)
+      differences = []
+
+      differences.push('givenNames') if record.first != cqm_patient.givenNames[0]
+      differences.push('familyName') if record.last != cqm_patient.familyName
+
+      # record.measure_ids contains a nil at the end
+      differences.push('measure_ids') if record.measure_ids.compact != cqm_patient.measure_ids
+      differences.push('user_id') if record.user_id != cqm_patient.user_id
+      differences.push('expectedValues') if record.expected_values != cqm_patient.expectedValues
+      differences.push('source_data_criteria') if record.source_data_criteria != cqm_patient.qdmPatient.extendedData['source_data_criteria']
+      differences.push('birthDatetime') if Time.at(record.birthdate).utc != cqm_patient.qdmPatient.birthDatetime
+
+      # Retrieve the codeListIds from the dataElements
+      dataElementsCodeListIds = cqm_patient.qdmPatient.dataElements.map{ |n| n.codeListId }
+      record.source_data_criteria.each do |sdc|
+        if sdc[:id] != 'MeasurePeriod' && !dataElementsCodeListIds.include?(sdc[:code_list_id])
+          differences.push(sdc['description'])
+        end
+      end
+
+      differences
     end
 
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
