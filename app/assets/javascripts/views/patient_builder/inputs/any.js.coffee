@@ -37,8 +37,8 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
       @trigger 'valueChanged', @
     else
       @value = null
-      @inputView = null
       @inputView?.remove()
+      @inputView = null
       @trigger 'valueChanged', @
 
     @currentType = type
@@ -57,7 +57,6 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'Quantity' then new Thorax.Views.InputQuantityView()
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
-      when 'String' then new Thorax.Views.InputStringView({ allowNull: false, placeholder: placeholderText })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false, placeholder: placeholderText })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })
       when 'Ratio' then new Thorax.Views.InputRatioView()
