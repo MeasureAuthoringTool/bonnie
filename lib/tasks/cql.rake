@@ -230,25 +230,25 @@ namespace :bonnie do
       raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
       bonnie_patients = user ? Record.by_user(user) : Record.all
       fail_count = 0
-      dataElementWhiteList = ['Communication From Patient to Provider',
-                              'Communication From Provider To Patient',
-                              'Communication From Provider to Patient',
-                              'Communication From Provider to Provider',
-                              'Medication, Allergy',
-                              'Risk Category Assessment',
-                              'Communication',
-                              'Diagnostic Study, Result',
-                              'Medication, Intolerance',
-                              'Procedure Intolerance',
-                              'Substance, Allergy',
-                              'Diagnosis, Active',
-                              'Diagnosis, Resolved',
-                              'Immunization, Intolerance',
-                              'Assessment, Performed',
-                              'Medication, Order',
-                              'Physical Exam',
-                              'Patient Characteristic Clinical Trial Participant',
-                              'Medication, Dispensed']
+      data_element_white_list = ['Communication From Patient to Provider',
+                                 'Communication From Provider To Patient',
+                                 'Communication From Provider to Patient',
+                                 'Communication From Provider to Provider',
+                                 'Medication, Allergy',
+                                 'Risk Category Assessment',
+                                 'Communication',
+                                 'Diagnostic Study, Result',
+                                 'Medication, Intolerance',
+                                 'Procedure Intolerance',
+                                 'Substance, Allergy',
+                                 'Diagnosis, Active',
+                                 'Diagnosis, Resolved',
+                                 'Immunization, Intolerance',
+                                 'Assessment, Performed',
+                                 'Medication, Order',
+                                 'Physical Exam',
+                                 'Patient Characteristic Clinical Trial Participant',
+                                 'Medication, Dispensed']
       bonnie_patients.no_timeout.each do |bonnie_patient|
         begin
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
@@ -263,7 +263,7 @@ namespace :bonnie do
             patient_user = User.find_by(_id: bonnie_patient[:user_id])
             puts "Patient #{bonnie_patient.first} #{bonnie_patient.last} with id #{bonnie_patient._id} in account #{patient_user.email}".light_blue
             diff.each_entry do |element|
-              if element.split(':')[0].in?(dataElementWhiteList)
+              if element.split(':')[0].in?(data_element_white_list)
                 puts "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported".white
               else
                 puts "--- #{element} --- Is different from CQL Record and this is unexpected".red
@@ -304,11 +304,9 @@ namespace :bonnie do
       differences.push('birthDatetime') if Time.at(record.birthdate).utc != cqm_patient.qdmPatient.birthDatetime
 
       # Retrieve the codeListIds from the dataElements
-      dataElementsCodeListIds = cqm_patient.qdmPatient.dataElements.map{ |n| n.codeListId }
+      data_elements_code_list_ids = cqm_patient.qdmPatient.dataElements.map(&:codeListId)
       record.source_data_criteria.each do |sdc|
-        if sdc[:id] != 'MeasurePeriod' && !dataElementsCodeListIds.include?(sdc[:code_list_id])
-          differences.push(sdc['description'])
-        end
+        differences.push(sdc['description']) if sdc[:id] != 'MeasurePeriod' && !data_elements_code_list_ids.include?(sdc[:code_list_id])
       end
 
       differences
