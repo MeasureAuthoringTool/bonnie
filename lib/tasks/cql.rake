@@ -315,8 +315,8 @@ namespace :bonnie do
         elsif data_elements.length > 1 && !sdc['end_date'].nil? && data_elements.all? { |x| x.has_attribute?(:relevantPeriod) }
           differences.push('dataElements end time does not match') if data_elements.none? { |x| x.relevantPeriod.high == Time.at(sdc['end_date']/1000).utc.to_datetime }
         elsif data_elements.length == 1 && data_elements[0].has_attribute?(:relevantPeriod)
-          differences.push('dataElements start time does not match') unless sdc['start_date'].nil? && Time.at(sdc['start_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.low
-          differences.push('dataElements end time does not match') unless sdc['end_date'].nil? && Time.at(sdc['end_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.high
+          differences.push('dataElements start time does not match') if !sdc['start_date'].nil? && Time.at(sdc['start_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.low
+          differences.push('dataElements end time does not match') if !sdc['end_date'].nil? && Time.at(sdc['end_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.high
         end
         differences.push(sdc['description']) unless data_elements_code_list_ids.include?(sdc[:code_list_id])
       end
