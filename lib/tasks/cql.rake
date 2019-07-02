@@ -231,24 +231,24 @@ namespace :bonnie do
       bonnie_patients = user ? Record.by_user(user) : Record.all
       fail_count = 0
       data_element_white_list = ['Communication From Patient to Provider',
-                                 'Communication From Provider To Patient',
                                  'Communication From Provider to Patient',
                                  'Communication From Provider to Provider',
-                                 'Medication, Allergy',
+                                 'Medication Allergy',
                                  'Risk Category Assessment',
                                  'Communication',
                                  'Diagnostic Study, Result',
-                                 'Medication, Intolerance',
+                                 'Medication Intolerance',
                                  'Procedure Intolerance',
-                                 'Substance, Allergy',
-                                 'Diagnosis, Active',
-                                 'Diagnosis, Resolved',
-                                 'Immunization, Intolerance',
-                                 'Assessment, Performed',
-                                 'Medication, Order',
+                                 'Substance Allergy',
+                                 'Diagnosis Active',
+                                 'Diagnosis Resolved',
+                                 'Immunization Intolerance',
+                                 'Assessment Performed',
+                                 'Medication Order',
                                  'Physical Exam',
                                  'Patient Characteristic Clinical Trial Participant',
-                                 'Medication, Dispensed']
+                                 'Medication Dispensed']
+      data_element_white_list.map!(&:downcase)
       bonnie_patients.no_timeout.each do |bonnie_patient|
         begin
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
@@ -263,7 +263,9 @@ namespace :bonnie do
             patient_user = User.find_by(_id: bonnie_patient[:user_id])
             puts "Patient #{bonnie_patient.first} #{bonnie_patient.last} with id #{bonnie_patient._id} in account #{patient_user.email}".light_blue
             diff.each_entry do |element|
-              if element.split(':')[0].in?(data_element_white_list)
+              # Get the data element name and remove commas if there are any
+              element = element.split(':')[0].delete(',')
+              if element.downcase.in?(data_element_white_list)
                 puts "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported".white
               else
                 puts "--- #{element} --- Is different from CQL Record and this is unexpected".red
@@ -306,7 +308,17 @@ namespace :bonnie do
       # Retrieve the codeListIds from the dataElements
       data_elements_code_list_ids = cqm_patient.qdmPatient.dataElements.map(&:codeListId)
       record.source_data_criteria.each do |sdc|
-        differences.push(sdc['description']) if sdc[:id] != 'MeasurePeriod' && !data_elements_code_list_ids.include?(sdc[:code_list_id])
+        next unless sdc[:id] != 'MeasurePeriod'
+        data_elements = cqm_patient.qdmPatient.dataElements.select { |x| x.codeListId == sdc[:code_list_id] }
+        if data_elements.length > 1 && !sdc['start_date'].nil? && data_elements.all? { |x| x.has_attribute?(:relevantPeriod) }
+          differences.push('dataElements start time does not match') if data_elements.none? { |x| x.relevantPeriod.low == Time.at(sdc['start_date']/1000).utc.to_datetime }
+        elsif data_elements.length > 1 && !sdc['end_date'].nil? && data_elements.all? { |x| x.has_attribute?(:relevantPeriod) }
+          differences.push('dataElements end time does not match') if data_elements.none? { |x| x.relevantPeriod.high == Time.at(sdc['end_date']/1000).utc.to_datetime }
+        elsif data_elements.length == 1 && data_elements[0].has_attribute?(:relevantPeriod)
+          differences.push('dataElements start time does not match') unless sdc['start_date'].nil? && Time.at(sdc['start_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.low
+          differences.push('dataElements end time does not match') unless sdc['end_date'].nil? && Time.at(sdc['end_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.high
+        end
+        differences.push(sdc['description']) unless data_elements_code_list_ids.include?(sdc[:code_list_id])
       end
 
       differences
