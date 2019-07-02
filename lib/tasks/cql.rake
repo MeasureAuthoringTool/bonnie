@@ -231,6 +231,7 @@ namespace :bonnie do
       bonnie_patients = user ? Record.by_user(user) : Record.all
       fail_count = 0
       dataElementWhiteList = ['Communication From Patient to Provider',
+                              'Communication From Provider To Patient',
                               'Communication From Provider to Patient',
                               'Communication From Provider to Provider',
                               'Medication, Allergy',
