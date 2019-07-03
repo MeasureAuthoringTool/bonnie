@@ -50,6 +50,8 @@ Teaspoon.configure do |config|
                       '{spec/javascripts}/*_spec.{js,js.coffee,coffee}'
                     elsif ENV['DIR']
                       "{spec/javascripts}/#{ENV['DIR']}/**/*_spec.{js,js.coffee,coffee}"
+                    elsif ENV['FILE']
+                      "#{ENV['FILE']}"
                     else
                       # Due to the large number of tests, running them all at
                       # once may cause a failure. It is suggested that if such
@@ -91,7 +93,12 @@ Teaspoon.configure do |config|
     # Rails' asset `debug: true` and `config.assets.debug = true` options. By
     # default, Teaspoon expands all assets to provide more valuable stack
     # traces that reference individual source files.
-    suite.expand_assets = true
+    if ENV['CI'] == 'true'
+      suite.expand_assets = false
+    else
+      suite.expand_assets = true
+    end
+
 
     # Non-.js file extensions Teaspoon should consider JavaScript files
     # suite.js_extensions = [/(\.js)?.coffee/, /(\.js)?.es6/, ".es6.js"]
