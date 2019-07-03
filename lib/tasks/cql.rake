@@ -236,7 +236,7 @@ namespace :bonnie do
                                  'Medication Allergy',
                                  'Risk Category Assessment',
                                  'Communication',
-                                 'Diagnostic Study, Result',
+                                 'Diagnostic Study Result',
                                  'Medication Intolerance',
                                  'Procedure Intolerance',
                                  'Substance Allergy',
@@ -303,20 +303,21 @@ namespace :bonnie do
       differences.push('user_id') if record.user_id != cqm_patient.user_id
       differences.push('expectedValues') if record.expected_values != cqm_patient.expectedValues
       differences.push('source_data_criteria') if record.source_data_criteria != cqm_patient.qdmPatient.extendedData['source_data_criteria']
-      differences.push('birthDatetime') if Time.at(record.birthdate).utc != cqm_patient.qdmPatient.birthDatetime
+      # There are some birthdates that are very very old and the conversion has them at one day off. These are expected
+      differences.push('birthDatetime') if Time.at(record.birthdate).utc != cqm_patient.qdmPatient.birthDatetime && Time.at(record.birthdate).utc.year > 1500
 
       # Retrieve the codeListIds from the dataElements
       data_elements_code_list_ids = cqm_patient.qdmPatient.dataElements.map(&:codeListId)
       record.source_data_criteria.each do |sdc|
-        next unless sdc[:id] != 'MeasurePeriod'
+        next if sdc[:id] == 'MeasurePeriod'
         data_elements = cqm_patient.qdmPatient.dataElements.select { |x| x.codeListId == sdc[:code_list_id] }
         if data_elements.length > 1 && !sdc['start_date'].nil? && data_elements.all? { |x| x.has_attribute?(:relevantPeriod) }
-          differences.push('dataElements start time does not match') if data_elements.none? { |x| x.relevantPeriod.low == Time.at(sdc['start_date']/1000).utc.to_datetime }
+          differences.push(sdc['description'] + ' start time does not match') if data_elements.none? { |x| x.relevantPeriod.low == Time.at(sdc['start_date']/1000).utc.to_datetime }
         elsif data_elements.length > 1 && !sdc['end_date'].nil? && data_elements.all? { |x| x.has_attribute?(:relevantPeriod) }
-          differences.push('dataElements end time does not match') if data_elements.none? { |x| x.relevantPeriod.high == Time.at(sdc['end_date']/1000).utc.to_datetime }
+          differences.push(sdc['description'] + ' end time does not match') if data_elements.none? { |x| x.relevantPeriod.high == Time.at(sdc['end_date']/1000).utc.to_datetime }
         elsif data_elements.length == 1 && data_elements[0].has_attribute?(:relevantPeriod)
-          differences.push('dataElements start time does not match') if !sdc['start_date'].nil? && Time.at(sdc['start_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.low
-          differences.push('dataElements end time does not match') if !sdc['end_date'].nil? && Time.at(sdc['end_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.high
+          differences.push(sdc['description'] + ' start time does not match') if !sdc['start_date'].nil? && Time.at(sdc['start_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.low
+          differences.push(sdc['description'] + ' end time does not match') if !sdc['end_date'].nil? && Time.at(sdc['end_date']/1000).utc.to_datetime != data_elements[0].relevantPeriod.high
         end
         differences.push(sdc['description']) unless data_elements_code_list_ids.include?(sdc[:code_list_id])
       end
