@@ -7,12 +7,13 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if !@isPeriodType() then @set('end_date', undefined)
+    @set('negation', @get('qdmDataElement').negationRationale?)
 
   clone: ->
     # Clone the QDM::DataElement
     dataElementType = @get('qdmDataElement')._type.replace(/QDM::/, '')
     clonedDataElement = new cqm.models[dataElementType](mongoose.utils.clone(@get('qdmDataElement')))
-    
+
     # build the initial attributes object similar to how it is done in the collection parse.
     dataElementAsObject = clonedDataElement.toObject()
     dataElementAsObject.description = @get('description')

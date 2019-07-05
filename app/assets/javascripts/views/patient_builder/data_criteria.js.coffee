@@ -60,6 +60,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     codes = @model.get('codes')
     code_list_id = @model.get('codeListId')
     concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
+    @cqmValueSets = @measure.get('cqmValueSets')
+
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
 
@@ -97,6 +99,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @attributeEditorView = new Thorax.Views.DataCriteriaAttributeEditorView(model: @model)
     @listenTo @attributeEditorView, 'attributesModified', @attributesModified
 
+    # view that allows for negating the data criteria, will not display on non-negateable data criteria
+    @negationRationaleView = new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('qdmDataElement').negationRationale })
+    @listenTo @negationRationaleView, 'valueChanged', @updateAttributeFromInputChange
+
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
@@ -132,6 +138,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+    'change .negation-select': 'toggleNegationSelect'
 
   updateAttributeFromInputChange: (inputView) ->
     @model.get('qdmDataElement')[inputView.attributeName] = inputView.value
@@ -194,6 +201,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     return false
 
   isExpanded: -> @$('form').is ':visible'
+
+  toggleNegationSelect: (e) ->
+    if $(e.target).is(":checked")
+      @$('.negationRationaleCodeEntry').removeClass('hidden')
+    else
+      @$('.negationRationaleCodeEntry').addClass('hidden')
+      @model.get('qdmDataElement').negationRationale = null
+      @model.set('negation', false)
 
   toggleDetails: (e) ->
     e.preventDefault()
@@ -265,8 +280,9 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     if codeSet isnt 'custom'
       blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
       $codeList.append("<option value>#{blankEntry}</option>")
-      for concept in @concepts when concept.code_system_name is codeSet
-        $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
+      if codeSet == ''
+        for concept in @concepts when concept.code_system_name is codeSet
+          $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
     @$('.codelist-control').focus()
 
   updateConcepts: (concepts) ->
@@ -286,7 +302,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
       @codes.add @model.clone()
       code_system_name = this.model.get('codeset')
       # Try to resolve code system name to an oid, if not (probably a custom code) default to the name
-      code_system_oid = (@concepts.find (concept) -> concept.code_system_name is code_system_name)?.code_system_oid || code_system_name
+      code_system_oid = (@concepts?.find (concept) -> concept.code_system_name is code_system_name)?.code_system_oid || code_system_name
       cql_code = new cqm.models.CQL.Code(this.model.get('code'), code_system_oid)
       @parent.model.get('qdmDataElement').dataElementCodes.push(cql_code)
 
