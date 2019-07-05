@@ -10,6 +10,7 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
   #   attributeTitle - String - Optional. The human friendly name of the attribute.
   #   defaultYear - Integer - Optional. The default year to use when a default date needs to be created.
   #                           This should be the measurement period. Defaults to 2012.
+  #   allowNull - boolean - Optional. If a null DateTime is allowed to be null. Defaults to true.
   initialize: ->
     if @initialValue?
       @value = @initialValue.copy()
@@ -18,6 +19,9 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
 
     if !@defaultYear?
       @defaultYear = 2012
+
+    if !@hasOwnProperty('allowNull')
+      @allowNull = true
 
   events:
     'change input[type=checkbox]': 'handleCheckboxChange'
@@ -39,6 +43,11 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
       date_is_defined: @value?
       date: moment.utc(@value.toJSDate()).format('L') if @value?
       time: moment.utc(@value.toJSDate()).format('LT') if @value?
+
+  # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
+  # if the add button should be active or not
+  hasValidValue: ->
+    @allowNull || @value?
 
   # handle the cases the null checkbox being changed
   handleCheckboxChange: (e) ->

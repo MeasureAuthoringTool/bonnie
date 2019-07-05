@@ -415,12 +415,133 @@
     }
   }
 
+  .quantity-interval-start {
+    padding-right: 2px;
+  }
+  .quantity-control-end {
+    padding-left: 2px;
+  }
+  .quantity-control-nullable {
+    .make-row(0);
+    .quantity-null-toggle {
+      input {
+        margin-right: 5px;
+      }
+      line-height: 34px;
+      text-align: right;
+      .make-md-column(1; 0);
+    }
+    .quantity-control-value {
+      padding-left: 0px;
+      margin-bottom: 0px;
+    }
+    .quantity-control-unit {
+      padding-right: 0px;
+      margin-bottom: 0px;
+    }
+  }
+
+  .time-control-nullable {
+    .make-row(0);
+    .time-null-toggle {
+      input {
+        margin-right: 5px;
+      }
+      line-height: 34px;
+      text-align: right;
+      .make-md-column(1; 0);
+    }
+    .time-control-time {
+      .make-md-column(11; 0);
+    }
+  }
+
   .datetime-interval-start {
     padding-right: 3px;
   }
 
   .datetime-interval-end {
     padding-left: 3px;
+  }
+
+  .attribute-editor-view {
+    .attribute-name-select {
+      padding-right: 2px;
+    }
+    .attribute-type-select {
+      padding-left: 2px;
+    }
+    .input-container {
+      position: relative;
+    }
+    .input-view-container {
+      margin-right: 45px;
+    }
+    .input-placeholder {
+      min-height: 49px;
+    }
+    .input-add {
+      position: absolute;
+      right: 0px;
+      bottom: 15px;
+    }
+  }
+
+  .any-input-view {
+    .any-type-select {
+      padding-right: 2px;
+    }
+    .any-input-entry {
+      padding-left: 2px;
+    }
+    .datetime-interval-start {
+      .make-md-column(12; 0);
+      padding: 0 15px;
+    }
+    .any-input-no-selection {
+      line-height: 34px;
+    }
+  }
+
+  .quantity-input {
+    .quantity-control-value {
+      padding-right: 2px;
+    }
+    .quantity-control-unit {
+      padding-left: 2px;
+    }
+  }
+
+  .code-custom-input, .code-vs-select-input {
+    .code-control-system {
+      padding-right: 2px;
+    }
+    .code-control-custom-system {
+      padding-right: 2px;
+      padding-left: 2px;
+    }
+    .code-control-code {
+      padding-left: 2px;
+    }
+  }
+
+  .ratio-input {
+    position: relative;
+    .quantity-control-value, .quantity-control-unit {
+      margin-bottom: 0px;
+    }
+    .ratio-colon {
+      position: absolute;
+      left: 50%;
+      font-size: 22px;
+      margin-left: -3px;
+    }
+    .ratio-numerator {
+      padding-right: 4px;
+    }
+    .ratio-denominator {
+      padding-left: 4px;
+    }
   }
 
   .logic-pager {
