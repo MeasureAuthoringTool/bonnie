@@ -9,6 +9,7 @@ describe 'InputView', ->
         view = new Thorax.Views.InputDateTimeView(initialValue: date)
         view.render()
 
+        expect(view.hasValidValue()).toBe true
         expect(view.$el.find("input[name='date_is_defined']").prop('checked')).toBe true
         expect(view.$el.find("input[name='date']").val()).toEqual  "02/23/2012"
         expect(view.$el.find("input[name='date']").prop('disabled')).toBe false
