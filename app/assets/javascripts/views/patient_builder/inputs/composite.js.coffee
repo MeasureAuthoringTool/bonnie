@@ -3,7 +3,6 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/composite']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - string - Optional. Initial value of composite.
   #   schema - MongooseSchema - Mongoose schema type.
   #   cqmValueSets - Array<CQM.ValueSet> - All valuesets on the measure.
   #   codeSystemMap - The mapping of code systems oids to code system names.

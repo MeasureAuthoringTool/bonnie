@@ -50,6 +50,8 @@ Teaspoon.configure do |config|
                       '{spec/javascripts}/*_spec.{js,js.coffee,coffee}'
                     elsif ENV['DIR']
                       "{spec/javascripts}/#{ENV['DIR']}/**/*_spec.{js,js.coffee,coffee}"
+                    elsif ENV['FILE']
+                      ENV['FILE']
                     else
                       # Due to the large number of tests, running them all at
                       # once may cause a failure. It is suggested that if such
