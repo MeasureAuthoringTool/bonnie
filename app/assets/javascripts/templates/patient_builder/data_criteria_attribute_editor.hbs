@@ -1,0 +1,45 @@
+{{#if hasUserConfigurableAttributes}}
+  <div class="attribute-editor-view">
+    <div class="row form-group">
+      <div class="col-md-7 attribute-name-select">
+        <label for="attribute_name_{{@cid}}" class="sr-only">attribute</label>
+        <select autocomplete="off"  name="attribute_name" id="attribute_name_{{@cid}}" class="form-control">
+          <option value="">--</option>
+          {{#each attributeList}}
+            <option value="{{name}}"{{#ifCond name '==' ../currentAttribute.name}} selected="selected"{{/ifCond}}>{{title}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="col-md-5 attribute-type-select">
+        <label for="attribute_type_{{@cid}}" class="sr-only">type</label>
+        <select autocomplete="off" name="attribute_type" id="attribute_type_{{@cid}}" class="form-control">
+          {{#if currentAttribute}}
+            {{#each currentAttribute.types}}
+              <option value="{{this}}"{{#ifCond this '==' ../currentAttributeType}} selected="selected"{{/ifCond}}>{{this}}</option>
+            {{/each}}
+          {{else}}
+            <option value="">--</option>
+          {{/if}}
+        </select>
+      </div>
+    </div>
+
+    {{#if currentAttribute}}
+      <div class="input-container">
+        <div class="input-view-container">
+          {{#if showInputViewPlaceholder}}
+            <div class="input-placeholder">There is no input view implemented for {{currentAttributeType}} yet.</div>
+          {{else}}
+            {{view inputView}}
+          {{/if}}
+        </div>
+        <div class="input-add">
+          {{#button "addValue" class="btn btn-primary" disabled="disabled"}}
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span class="sr-only">add attribute value</span>
+          {{/button}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}

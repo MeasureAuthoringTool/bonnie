@@ -82,6 +82,11 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     criteriaType
 
   @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
+
+  # the attributes to skip in user attribute view and editing fields
+  @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', '_id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
+    .concat(@PRIMARY_TIMING_ATTRIBUTES)
+
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
     return @getPrimaryTimingAttributes()[0].name
@@ -104,10 +109,56 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     'prevalencePeriod': 'Prevalence Period'
     'participationPeriod': 'Participation Period'
     'authorDatetime': 'Author DateTime'
+    'locationPeriod': 'Location Period'
+    'activeDatetime': 'Active DateTime'
+    'admissionSource': 'Admission Source'
+    'anatomicalLocationSite': 'Anatomical Location Site'
+    'category': 'Category'
+    'cause': 'Cause'
+    'birthDatetime': 'Birth DateTime'
+    'components': 'Components'
+    'expiredDatetime': 'Expiration DateTime'
+    'daysSupplied': 'Days Supplied'
+    'diagnoses': 'Diagnoses'
+    'dischargeDisposition': 'Discharge Disposition'
+    'dispenserId': 'Dispenser ID'
+    'dosage': 'Dosage'
+    'facilityLocations': 'Facility Locations'
+    'facilityLocation': 'Facility Location'
+    'frequency': 'Frequency'
+    'incisionDatetime': 'Incision DateTime'
+    'lengthOfStay': 'Length of Stay'
+    'locationPeriod': 'Location Period'
+    'medium': 'Medium'
+    'method': 'Method'
+    'negationRationale': 'Negation Rationale'
+    'ordinality': 'Ordinality'
+    'prescriberId': 'Prescriber ID'
+    'principalDiagnosis': 'Principal Diagnosis'
+    'reason': 'Reason'
+    'recipient': 'Recipient'
+    'referenceRange': 'Reference Range'
+    'refills': 'Refills'
+    'relatedTo': 'Related To'
+    'relationship': 'Relationship'
+    'result': 'Result'
+    'resultDatetime': 'Result DateTime'
+    'route': 'Route'
+    'sender': 'Sender'
+    'setting': 'Setting'
+    'severity': 'Severity'
+    'status': 'Status'
+    'supply': 'Supply'
+    'targetOutcome': 'Target Outcome'
+    'type': 'Type'
 
   getAttributeType: (attributeName) ->
     attrInfo = @get('qdmDataElement').schema.path(attributeName)
     return attrInfo.instance
+
+  # return the human friendly title for an attribute, if it exists, otherwise return the name.
+  getAttributeTitle: (attributeName) ->
+    Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[attributeName] || attributeName
 
 Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
