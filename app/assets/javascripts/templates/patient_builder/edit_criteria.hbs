@@ -56,6 +56,22 @@
       {{view attributeDisplayView}}
       {{view attributeEditorView}}
 
+      {{#if canHaveNegation}}
+        <div class="form-group">
+          <div class="checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select">
+              <span>NOT PERFORMED</span>
+            </label>
+          </div>
+          <span class="sr-only">Negation Rationale Code</span>
+          <div class="negationRationaleCodeEntry {{#unless negation}} hidden{{/unless}}">
+            <label class="control-label"><i class="fa fa-ban" aria-hidden="true"></i> Negation Rationale<input class="sr-only" disabled></label>
+            {{view negationRationaleView}}
+          </div>
+        </div>
+      {{/if}}
+
       <div class="criteria-delete">
         <div class="pull-right">
           {{#button "showDelete" class="btn btn-danger-inverse criteria-delete-check"}}
