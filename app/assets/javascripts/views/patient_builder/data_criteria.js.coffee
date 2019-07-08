@@ -60,7 +60,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     codes = @model.get('codes')
     code_list_id = @model.get('codeListId')
     concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
-    @cqmValueSets = @measure.get('cqmValueSets')
 
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
@@ -100,7 +99,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @listenTo @attributeEditorView, 'attributesModified', @attributesModified
 
     # view that allows for negating the data criteria, will not display on non-negateable data criteria
-    @negationRationaleView = new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('qdmDataElement').negationRationale })
+    @negationRationaleView = new Thorax.Views.InputCodeView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('qdmDataElement').negationRationale })
     @listenTo @negationRationaleView, 'valueChanged', @updateAttributeFromInputChange
 
     @model.on 'highlight', (type) =>
