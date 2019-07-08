@@ -413,21 +413,35 @@ namespace :bonnie do
     bonnie_patients = user ? CQM::Patient.by_user(user) : CQM::Patient.all
     count = 0
     puts "Total patients in account: #{bonnie_patients.count}"
+    ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
     bonnie_patients.no_timeout.each do |bonnie_patient|
       begin
         new_data_elements = []
+        diff = []
         updated_qdm_patient = bonnie_patient.qdmPatient
         updated_qdm_patient.qdmVersion = "5.5"
         updated_qdm_patient.dataElements.each do |element|
           begin
-            ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
             type_fields = Object.const_get(element._type).fields.keys - ignored_fields
             new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
             new_data_element.patient = updated_qdm_patient
+            diff << validate_patient_data(element, new_data_element)
             new_data_elements << new_data_element
           rescue Exception => e
             puts e
             puts element
+          end
+        end
+
+        diff.each do |element_diff|
+          if element_diff.empty?
+            puts ".".green
+          else
+            puts "\nConversion Difference".yellow
+            puts "Patient #{bonnie_patient.givenNames[0]} #{bonnie_patient.familyName} with id #{bonnie_patient._id} in account #{user.email}".light_blue
+            element_diff.each_entry do |element|
+              puts "--- #{element} --- Is different from CQL Record, this is unexpected".light_red
+            end
           end
         end
         # Remove all old data elements from the patient
@@ -456,6 +470,24 @@ namespace :bonnie do
     end
     puts count
   end
+
+  def validate_patient_data(old_data_element, new_data_element)
+    ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
+    make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition']
+    differences = []
+    (new_data_element.fields.keys - ignored_fields).each do |key|
+      ode = ''
+      binding.pry if key == 'dischargeDisposition' && !old_data_element[key].nil?
+      if !old_data_element[key].nil? && key.in?(make_keys_to_symbols)
+        ode = old_data_element[key].deep_symbolize_keys
+      else
+        ode = old_data_element[key]
+      end
+      differences.push(key) if ode != new_data_element[key]
+    end
+    differences
+  end
+
 
   task :update_value_set_versions => :environment do
     User.all.each do |user|
