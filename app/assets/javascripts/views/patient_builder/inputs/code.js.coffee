@@ -113,6 +113,11 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     # populate code dropdown and select the first code
     @_populateValueSetCodeDropdown()
 
+  # reset to nothing selected
+  resetCodeSelection: ->
+    @$('select[name="valueset"] > option:first').prop('selected', true)
+    @handleValueSetChange()
+
   # Event listener for code system change on selecting from a value set
   handleValueSetCodeChange: (e) ->
     codeSystemOid = @$('select[name="vs_codesystem"]').val()
