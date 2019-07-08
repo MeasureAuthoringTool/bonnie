@@ -209,7 +209,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.negationRationaleCodeEntry').addClass('hidden')
       @model.get('qdmDataElement').negationRationale = null
       @model.set('negation', false, {silent: true})
-    @triggerMaterialize()
+    @negationRationaleView.resetCodeSelection()
 
   toggleDetails: (e) ->
     e.preventDefault()
