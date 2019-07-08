@@ -208,7 +208,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     else
       @$('.negationRationaleCodeEntry').addClass('hidden')
       @model.get('qdmDataElement').negationRationale = null
-      @model.set('negation', false)
+      @model.set('negation', false, {silent: true})
+    @triggerMaterialize()
 
   toggleDetails: (e) ->
     e.preventDefault()
@@ -236,6 +237,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @model.get('qdmDataElement').dataElementCodes.pop({code: code_to_delete})
     $(e.target).model().destroy()
     @addDefaultCodeToDataElement()
+    @triggerMaterialize()
 
   addDefaultCodeToDataElement: ->
     if !(@model.get('qdmDataElement').dataElementCodes?.length)
