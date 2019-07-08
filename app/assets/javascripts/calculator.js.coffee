@@ -21,4 +21,5 @@
     result.state = 'cancelled' for key, result of @resultsCache when result.state == 'pending'
 
   clearResult: (population, patient, options) ->
+    delete @resultsCache[@cacheKey(population, patient, { doPretty: true })]
     delete @resultsCache[@cacheKey(population, patient, options)]
