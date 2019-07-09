@@ -10,12 +10,12 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
     @patient.on 'materialize', => @render()
 
   context: ->
-    # Go through each source data criteria on the patient and examine the codes, looking for those not in any
+    # Go through each data element on the patient and examine the codes, looking for those not in any
     # measure value set; at the moment, we just note the data criteria don't have ANY codes in a value set
     missingCodes = []
-    @patient.get('source_data_criteria').each (dc) =>
-      if (dc.get('codes').all (code) => !@measure.hasCode(code.get('code'), code.get('codeset')))
-        missingCodes.push dc.get('description')
+    for dc in @patient.get('cqmPatient').qdmPatient.dataElements
+      for code in dc.dataElementCodes
+        missingCodes.push dc.description if !@measure.hasCode(code.code, code.system) && dc.description
 
     hasElementsWithMissingCodes: missingCodes.length > 0
     elementsWithMissingCodes: missingCodes
