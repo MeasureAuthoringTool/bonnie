@@ -423,6 +423,12 @@ namespace :bonnie do
         updated_qdm_patient.dataElements.each do |element|
           begin
             type_fields = Object.const_get(element._type).fields.keys - ignored_fields
+            # Remove the transfer of sender and recipient if it is a CommunicationPerformed
+            # dataElement. This is because sender and recipient changed from a QDM::Coda datatype
+            # to a QDM::Entity datatype
+            if element._type == "QDM::CommunicationPerformed"
+              type_fields -= %w{sender recipient}
+            end
             new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
             new_data_element.patient = updated_qdm_patient
             diff << validate_patient_data(element, new_data_element)
@@ -473,7 +479,7 @@ namespace :bonnie do
 
   def validate_patient_data(old_data_element, new_data_element)
     ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
-    make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition', 'negationRationale', 'reason', 'dosage', 'supply', 'frequency', 'anatomicalLocationSite', 'severity', 'status', 'method', 'admissionSource', 'route', 'referenceRange', 'setting']
+    make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition', 'negationRationale', 'reason', 'dosage', 'supply', 'frequency', 'anatomicalLocationSite', 'severity', 'status', 'method', 'admissionSource', 'route', 'referenceRange', 'setting', 'sender', 'recipient']
     differences = []
     (new_data_element.fields.keys - ignored_fields).each do |key|
       ode = ''
@@ -486,7 +492,6 @@ namespace :bonnie do
     end
     differences
   end
-
 
   task :update_value_set_versions => :environment do
     User.all.each do |user|
