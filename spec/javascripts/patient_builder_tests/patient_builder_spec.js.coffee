@@ -38,7 +38,14 @@ describe 'PatientBuilderView', ->
     expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
     expect(@$el.find(":input[name='birthtime']")).toHaveValue @patient.getBirthTime()
     expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
+    expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
+
+  it 'displays a warning if codes on dataElements do not exist on measure', ->
+    @measure.attributes.cqmValueSets = []
+    patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
+    patientBuilder.render()
+    expect(patientBuilder.html()).toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
   it 'does not display compare patient results button when there is no history', ->
     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()

@@ -15,7 +15,7 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
     missingCodes = []
     for dc in @patient.get('cqmPatient').qdmPatient.dataElements
       for code in dc.dataElementCodes
-        missingCodes.push dc.description unless @measure.hasCode(code.code, code.system)
+        missingCodes.push dc.description if !@measure.hasCode(code.code, code.system) && dc.description
 
     hasElementsWithMissingCodes: missingCodes.length > 0
     elementsWithMissingCodes: missingCodes
