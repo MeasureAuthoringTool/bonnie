@@ -21,16 +21,28 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
       @$('.time-picker').timepicker(template: false, defaultTime: false).on 'changeTime.timepicker', _.bind(@handleChange, this)
 
   createDefault: ->
-    todayInMP = new Date()
-    todayInMP.setYear(@defaultYear)
+    time = new cqm.models.CQL.DateTime(2000, 1, 1, 8, 0, 0, 0, 0).getTime()
+    @getTimeString(time)
 
-    # create CQL Times
-    return new cqm.models.CQL.DateTime(2000, 1, 1, 8, 0, 0, 0, 0).getTime()
+  getTimeString:  (time) ->
+    # Build time string with format HH:MM PP
+    isAm = true
+    if time.hour >= 12
+      isAm = false
+      time.hour = time.hour - 12
+
+    if isAm
+      end = ' AM'
+    else
+      end = ' PM'
+
+    timeString = time.hour + ':' + time.minute + end
+    timeString
 
   context: ->
     _(super).extend
       time_is_defined: @value?
-      time: moment.utc(@value.toJSDate()).format('LT') if @value?
+      time: @getTimeString(@value) if @value?
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
@@ -43,9 +55,9 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
     # check the status of the checkbox and disable/enable fields
     if @$("input[name='time_is_defined']").prop("checked")
       @$("input[name='time']").prop('disabled', false)
-      defaultDate = @createDefault()
-      @$("input[name='time']").val(moment.utc(defaultDate.toJSDate()).format('LT'))
-      @$("input[name='time']").timepicker('setTime', moment.utc(defaultDate.toJSDate()).format('LT'))
+      defaultTime = @createDefault()
+      @$("input[name='time']").val(defaultTime)
+      @$("input[name='time']").timepicker('setTime', defaultTime)
     else
       @$("input[name='time']").prop('disabled', true).val("")
 
