@@ -102,7 +102,7 @@ class Thorax.Models.Measure extends Thorax.Model
   hasCode: (code, code_system) ->
     for vs in @valueSets()
       _(vs.concepts).any (c) ->
-        c.code == code && c.code_system_name == code_system
+        c.code == code && c.code_system_oid == code_system
 
   @referencesFor: (criteriaType) ->
     [{key: "Related To", title: "Related To"}]
