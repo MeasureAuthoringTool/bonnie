@@ -435,7 +435,7 @@ namespace :bonnie do
 
         diff.each do |element_diff|
           if element_diff.empty?
-            puts ".".green
+            print ".".green
           else
             puts "\nConversion Difference".yellow
             puts "Patient #{bonnie_patient.givenNames[0]} #{bonnie_patient.familyName} with id #{bonnie_patient._id} in account #{user.email}".light_blue
@@ -473,13 +473,12 @@ namespace :bonnie do
 
   def validate_patient_data(old_data_element, new_data_element)
     ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
-    make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition']
+    make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition', 'negationRationale', 'reason', 'dosage', 'supply', 'frequency', 'anatomicalLocationSite', 'severity', 'status', 'method', 'admissionSource', 'route', 'referenceRange', 'setting']
     differences = []
     (new_data_element.fields.keys - ignored_fields).each do |key|
       ode = ''
-      binding.pry if key == 'dischargeDisposition' && !old_data_element[key].nil?
       if !old_data_element[key].nil? && key.in?(make_keys_to_symbols)
-        ode = old_data_element[key].deep_symbolize_keys
+        ode = old_data_element[key].symbolize_keys
       else
         ode = old_data_element[key]
       end
