@@ -478,7 +478,7 @@ namespace :bonnie do
   end
 
   def validate_patient_data(old_data_element, new_data_element)
-    ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
+    ignored_fields = ['_id', 'qdmVersion', 'hqmfOid']
     make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition', 'negationRationale', 'reason', 'dosage', 'supply', 'frequency', 'anatomicalLocationSite', 'severity', 'status', 'method', 'admissionSource', 'route', 'referenceRange', 'setting', 'sender', 'recipient']
     differences = []
     (new_data_element.fields.keys - ignored_fields).each do |key|
