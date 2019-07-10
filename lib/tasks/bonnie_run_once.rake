@@ -416,6 +416,7 @@ namespace :bonnie do
     ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
     bonnie_patients.no_timeout.each do |bonnie_patient|
       begin
+        print ".".green
         new_data_elements = []
         diff = []
         updated_qdm_patient = bonnie_patient.qdmPatient
@@ -424,12 +425,13 @@ namespace :bonnie do
           begin
             type_fields = Object.const_get(element._type).fields.keys - ignored_fields
             # Remove the transfer of sender and recipient if it is a CommunicationPerformed
-            # dataElement. This is because sender and recipient changed from a QDM::Coda datatype
+            # dataElement. This is because sender and recipient changed from a QDM::Code datatype
             # to a QDM::Entity datatype
             if element._type == "QDM::CommunicationPerformed"
               type_fields -= %w{sender recipient}
             end
             new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
+            new_data_element.attributes['id'] = element.attributes['id']['value']
             new_data_element.patient = updated_qdm_patient
             diff << validate_patient_data(element, new_data_element)
             new_data_elements << new_data_element
@@ -440,13 +442,16 @@ namespace :bonnie do
         end
 
         diff.each do |element_diff|
-          if element_diff.empty?
-            print ".".green
-          else
+          unless element_diff.empty?
+            user = User.find_by _id: bonnie_patient.user_id
             puts "\nConversion Difference".yellow
-            puts "Patient #{bonnie_patient.givenNames[0]} #{bonnie_patient.familyName} with id #{bonnie_patient._id} in account #{user.email}".light_blue
+            puts "Patient #{bonnie_patient.givenNames[0]} #{bonnie_patient.familyName} with id #{bonnie_patient._id} in account #{user.email}".yellow
             element_diff.each_entry do |element|
-              puts "--- #{element} --- Is different from CQL Record, this is unexpected".light_red
+              if element == 'sender' || element == 'recipient'
+                puts "--- #{element} --- Is different from CQL Record, this is expected because sender & recipient were type QDM::Code in 5.4 and are now type QDM::Entity in 5.5, so data is lost".light_blue
+              else
+                puts "--- #{element} --- Is different from CQL Record, this is unexpected".light_red
+              end
             end
           end
         end
@@ -454,10 +459,6 @@ namespace :bonnie do
         updated_qdm_patient.dataElements.destroy_all
         # Add all new data elements to the patient
         new_data_elements.each { |item| updated_qdm_patient.dataElements << item }
-        # TODO: This line may not be needed
-        bonnie_patient.qdmPatient = updated_qdm_patient
-        # TODO: One of these two lines may not be needed
-        updated_qdm_patient.save!
         bonnie_patient.save!
         count += 1
       rescue ExecJS::ProgramError, StandardError => e
@@ -479,16 +480,20 @@ namespace :bonnie do
 
   def validate_patient_data(old_data_element, new_data_element)
     ignored_fields = ['_id', 'qdmVersion', 'hqmfOid']
-    make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition', 'negationRationale', 'reason', 'dosage', 'supply', 'frequency', 'anatomicalLocationSite', 'severity', 'status', 'method', 'admissionSource', 'route', 'referenceRange', 'setting', 'sender', 'recipient']
+    make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition', 'negationRationale', 'reason', 'dosage', 'supply', 'frequency', 'anatomicalLocationSite', 'severity', 'status', 'method', 'admissionSource', 'route', 'referenceRange', 'setting']
     differences = []
-    (new_data_element.fields.keys - ignored_fields).each do |key|
+    (old_data_element.fields.keys - ignored_fields).each do |key|
       ode = ''
-      if !old_data_element[key].nil? && key.in?(make_keys_to_symbols)
-        ode = old_data_element[key].symbolize_keys
+      if !old_data_element.attributes[key].nil? && key.in?(make_keys_to_symbols)
+        ode = old_data_element.attributes[key].symbolize_keys
       else
-        ode = old_data_element[key]
+        ode = old_data_element.attributes[key]
       end
-      differences.push(key) if ode != new_data_element[key]
+      if key == 'id'
+        differences.push(key) if ode['value'] != new_data_element.attributes[key]
+      elsif ode != new_data_element.attributes[key]
+        differences.push(key)
+      end
     end
     differences
   end
