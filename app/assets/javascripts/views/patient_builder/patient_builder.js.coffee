@@ -96,6 +96,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('#deathdate.date-picker, #birthdate.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@materialize, this)
       @$('#deathtime.time-picker, #birthtime.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
 
+      metadataFields = ['gender', 'race', 'ethnicity']
+      for field in metadataFields
+        select = @$("##{field}")
+        unless select.val()?
+          select.find('option:first').prop('selected', true)
+
       unless @inPatientDashboard
         @$('#criteriaElements, #populationLogic') #these get affixed when user scrolls past a defined offset
           .on 'affix.bs.affix', _.bind(@setAffix, this) # when applying affix
