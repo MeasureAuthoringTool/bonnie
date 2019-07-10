@@ -36,7 +36,10 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
     else
       end = ' PM'
 
-    timeString = time.hour + ':' + time.minute + end
+    # Pad hour/minute if only 1 digit
+    paddedHour = String("0" + time.hour).slice(-2)
+    paddedMin = String("0" + time.minute).slice(-2)
+    timeString = paddedHour + ':' + paddedMin + end
     timeString
 
   context: ->
