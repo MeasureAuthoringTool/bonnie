@@ -480,19 +480,19 @@ namespace :bonnie do
 
   def validate_patient_data(old_data_element, new_data_element)
     ignored_fields = ['_id', 'qdmVersion', 'hqmfOid']
-    make_keys_to_symbols = ['relevantPeriod', 'lengthOfStay', 'prevalencePeriod', 'dischargeDisposition', 'negationRationale', 'reason', 'dosage', 'supply', 'frequency', 'anatomicalLocationSite', 'severity', 'status', 'method', 'admissionSource', 'route', 'referenceRange', 'setting']
     differences = []
     (old_data_element.fields.keys - ignored_fields).each do |key|
-      ode = ''
-      if !old_data_element.attributes[key].nil? && key.in?(make_keys_to_symbols)
-        ode = old_data_element.attributes[key].symbolize_keys
-      else
-        ode = old_data_element.attributes[key]
-      end
+      ode = old_data_element.attributes[key]
       if key == 'id'
         differences.push(key) if ode['value'] != new_data_element.attributes[key]
       elsif ode != new_data_element.attributes[key]
-        differences.push(key)
+        begin
+          ode = old_data_element.attributes[key].symbolize_keys
+        rescue StandardError => e
+          differences.push(key)
+        end
+        # Check to see if symbolizing the keys was all that was necessary to make the values equal
+        differences.push(key) if ode != new_data_element.attributes[key]
       end
     end
     differences
