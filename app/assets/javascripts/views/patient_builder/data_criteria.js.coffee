@@ -281,7 +281,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     if codeSet isnt 'custom'
       blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
       $codeList.append("<option value>#{blankEntry}</option>")
-      if codeSet == ''
+      if codeSet isnt ''
         for concept in @concepts when concept.code_system_name is codeSet
           $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
     @$('.codelist-control').focus()
