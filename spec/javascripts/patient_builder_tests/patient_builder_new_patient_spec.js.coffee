@@ -15,13 +15,13 @@ describe 'Patient Builder New Patient', ->
     bonnie.measures = @bonnie_measures_old
 
   it 'should select default ethnicity option', ->
-    expect(@patientBuilder.$('#ethnicity').val()).toEqual ''
-    expect(@patientBuilder.$('#ethnicity option:selected').text()).toEqual 'Choose an Ethnicity'
+    expect(@patientBuilder.$('#ethnicity').val()).toEqual '2135-2'
+    expect(@patientBuilder.$('#ethnicity option:selected').text()).toEqual 'Hispanic or Latino'
 
   it 'should select default gender option', ->
-    expect(@patientBuilder.$('#gender').val()).toEqual ''
-    expect(@patientBuilder.$('#gender option:selected').text()).toEqual 'Choose a Gender'
+    expect(@patientBuilder.$('#gender').val()).toEqual 'F'
+    expect(@patientBuilder.$('#gender option:selected').text()).toEqual 'Female'
 
   it 'should select default race option', ->
-    expect(@patientBuilder.$('#race').val()).toEqual ''
-    expect(@patientBuilder.$('#race option:selected').text()).toEqual 'Choose a Race'
+    expect(@patientBuilder.$('#race').val()).toEqual '1002-5'
+    expect(@patientBuilder.$('#race option:selected').text()).toEqual 'American Indian or Alaska Native'

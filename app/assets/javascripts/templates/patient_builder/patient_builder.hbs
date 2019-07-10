@@ -68,7 +68,6 @@
         <div class="form-group">
           <label for="race" class="control-label">Race</label>
           <select id="race" name="race" class="form-control">
-            <option value = "">Choose a Race</option>
             {{#each race_codes}}
               <option value="{{code}}">{{display_name}}</option>
             {{/each}}
@@ -78,7 +77,6 @@
         <div class="form-group">
           <label for="ethnicity" class="control-label">Ethnicity</label>
           <select id="ethnicity" name="ethnicity" class="form-control">
-            <option value = "">Choose an Ethnicity</option>
             {{#each ethnicity_codes}}
               <option value="{{code}}">{{display_name}}</option>
             {{/each}}
@@ -114,7 +112,6 @@
         <div class="form-group">
           <label for="gender" class="control-label">Gender</label>
           <select id="gender" name="gender" class="form-control">
-            <option value = "">Choose a Gender</option>
             {{#each gender_codes}}
               <option value="{{code}}">{{display_name}}</option>
             {{/each}}
