@@ -87,16 +87,17 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   _createInputViewForType: (type) ->
     @inputView = switch type
+      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
+      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false })
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
+      when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
+      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
       when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
-      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'Quantity' then new Thorax.Views.InputQuantityView()
-      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
-      when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
-      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
-      when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
       when 'Ratio' then new Thorax.Views.InputRatioView()
+      when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
+      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
@@ -143,7 +144,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     # If this is an any type, there will be more options than one.
     else if info.instance == 'Any'
       # TODO: Filter these more if possible
-      return ['Code', 'Quantity', 'DateTime', 'Ratio', 'Integer', 'Decimal', 'Time']
+      return ['Date', 'Code', 'Quantity', 'DateTime', 'Ratio', 'Integer', 'Decimal', 'Time']
 
     # It this is an AnyEntity type
     else if info.instance == 'AnyEntity'
