@@ -406,8 +406,8 @@ namespace :bonnie do
   desc %{Converts Bonnie patients from 5.4 to 5.5 cqm-models
     user email is optional and can be passed in by EMAIL
     If no email is provided, rake task will run on all measures
-  $ rake bonnie:convert_qdm_to_new_qdm EMAIL=xxx}
-  task :convert_qdm_to_new_qdm => :environment do
+  $ rake bonnie:convert_patients_qdm_5_4_to_5_5 EMAIL=xxx}
+  task :convert_patients_qdm_5_4_to_5_5 => :environment do
     user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
     raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
     bonnie_patients = user ? CQM::Patient.by_user(user) : CQM::Patient.all
@@ -431,7 +431,7 @@ namespace :bonnie do
               type_fields -= %w{sender recipient}
             end
             new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
-            new_data_element.attributes['id'] = element.attributes['id']['value']
+            new_data_element.attributes['id'] = element.attributes['id']['value'] unless element.attributes['id'].nil?
             new_data_element.patient = updated_qdm_patient
             diff << validate_patient_data(element, new_data_element)
             new_data_elements << new_data_element
@@ -459,7 +459,12 @@ namespace :bonnie do
         updated_qdm_patient.dataElements.destroy_all
         # Add all new data elements to the patient
         new_data_elements.each { |item| updated_qdm_patient.dataElements << item }
-        bonnie_patient.save!
+        begin
+          bonnie_patient.save!
+        rescue Mongo::Error => e
+          user = User.find_by _id: bonnie_patient.user_id
+          print_error("#{e}: #{user.email}, first: #{user.givenNames[0]}, last: #{user.familyName}")
+        end
         count += 1
       rescue ExecJS::ProgramError, StandardError => e
         # if there was a conversion failure we should record the resulting failure message with the hds model in a
@@ -482,17 +487,15 @@ namespace :bonnie do
     ignored_fields = ['_id', 'qdmVersion', 'hqmfOid']
     differences = []
     (old_data_element.fields.keys - ignored_fields).each do |key|
-      ode = old_data_element.attributes[key]
       if key == 'id'
-        differences.push(key) if ode['value'] != new_data_element.attributes[key]
-      elsif ode != new_data_element.attributes[key]
+        differences.push(key) if old_data_element.attributes[key]['value'] != new_data_element.attributes[key]
+      elsif old_data_element.attributes[key] != new_data_element.attributes[key]
         begin
-          ode = old_data_element.attributes[key].symbolize_keys
+          # Check to see if symbolizing the keys was all that was necessary to make the values equal
+          differences.push(key) if old_data_element.attributes[key].symbolize_keys != new_data_element.attributes[key]
         rescue StandardError => e
           differences.push(key)
         end
-        # Check to see if symbolizing the keys was all that was necessary to make the values equal
-        differences.push(key) if ode != new_data_element.attributes[key]
       end
     end
     differences
