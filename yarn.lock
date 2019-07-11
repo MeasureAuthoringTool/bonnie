@@ -326,17 +326,16 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cql-execution@^1.3.3:
+"cql-execution@https://github.com/cqframework/cql-execution":
   version "1.3.4"
-  resolved "https://registry.yarnpkg.com/cql-execution/-/cql-execution-1.3.4.tgz#8b9be14756062318be708533436674675b1c5cfc"
-  integrity sha512-o0NxnrrWke5mQLco+8CBl/9T8PtQtDsuvJcwi4D9j//IhTlU2xjbuZxfrTo9D7nS85RuhAHJwpXqoAXcSaE6cg==
+  resolved "https://github.com/cqframework/cql-execution#cf599c9720b5f0d1338d838d3059b11f52b9b91e"
   dependencies:
     moment "^2.20.1"
     ucum "0.0.7"
 
 "cqm-execution@https://github.com/projecttacoma/cqm-execution":
   version "2.0.0"
-  resolved "https://github.com/projecttacoma/cqm-execution#8c3d12486a766b6878aa6315cd2863075822f249"
+  resolved "https://github.com/projecttacoma/cqm-execution#4fde9dfe4aac01a265d11c92d65165a0ef2c5937"
   dependencies:
     cqm-models "https://github.com/projecttacoma/cqm-models"
     lodash "^4.17.5"
@@ -344,9 +343,9 @@ cql-execution@^1.3.3:
 
 "cqm-models@https://github.com/projecttacoma/cqm-models":
   version "2.0.0"
-  resolved "https://github.com/projecttacoma/cqm-models#b2b5856295755ac4324d8326588cf9d18ae6fe98"
+  resolved "https://github.com/projecttacoma/cqm-models#26e00e673714b41e3f88ae8304fff4ca8378864a"
   dependencies:
-    cql-execution "^1.3.3"
+    cql-execution "https://github.com/cqframework/cql-execution"
     mongoose "^5.4.14"
 
 create-ecdh@^4.0.0:
