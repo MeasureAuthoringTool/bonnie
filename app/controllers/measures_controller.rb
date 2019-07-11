@@ -115,17 +115,17 @@ class MeasuresController < ApplicationController
                       value_set_loader: build_vs_loader(params, false),
                       user: user)
       end
-      check_measures_for_unsupported_data_elements(measures)
-      return measures, main_hqmf_set_id
+    check_measures_for_unsupported_data_elements(measures)
+    return measures, main_hqmf_set_id
   end
 
   def check_measures_for_unsupported_data_elements(measures)
-    measures.each { |measure| 
+    measures.each do |measure| 
       if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
         measure.destroy_self_and_child_docs
         raise MeasureLoadingUnsupportedDataElement.new("Related Person")
       end
-    }
+    end
   end
 
   def retrieve_measure_details(params)
