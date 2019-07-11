@@ -436,9 +436,11 @@ namespace :bonnie do
               element.diagnoses.each do |diagnosis|
                 diagnoses << QDM::DiagnosisComponent.new(code: diagnosis)
               end
-            elsif element.respond_to?('principalDiagnosis')
+            end
+            if element.respond_to?('principalDiagnosis')
               diagnoses << QDM::DiagnosisComponent.new(code: element.principalDiagnosis, rank: 1)
             end
+
             new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
             new_data_element.attributes['id'] = element.attributes['id']['value'] unless element.attributes['id'].nil?
             new_data_element.diagnoses = diagnoses unless diagnoses.empty?
