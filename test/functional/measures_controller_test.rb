@@ -180,6 +180,31 @@ include Devise::Test::ControllerHelpers
     end
   end
 
+  test 'upload MAT with unsupported Related Person QDM data element' do
+    # This cassette represents an exchange with the VSAC authentication server that
+    # results in an unauthorized response. This cassette is used in measures_controller_test.rb
+    VCR.use_cassette('unsupported_QDM_data_element', @vcr_options) do
+
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'EBMF_v5_8_Artifacts.zip'), 'application/zip')
+      # Post is sent with fake VSAC creds
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
+
+      assert_response :redirect
+      assert_equal 'Error Loading Measure', flash[:error][:title]
+      assert_equal 'Unsupported Data Element Used In Measure.', flash[:error][:summary]
+      assert_equal 'Bonnie does not support the Related Person QDM Data Element used in this measure.', flash[:error][:body]
+
+    end
+  end
+
   test 'upload MAT with no VSAC creds or ticket_granting_ticket in session' do
     # Ensure measure is not loaded to begin with
     measure = CQM::Measure.where({hqmf_set_id: '762B1B52-40BF-4596-B34F-4963188E7FF7'}).first
