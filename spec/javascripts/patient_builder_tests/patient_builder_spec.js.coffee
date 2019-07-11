@@ -77,7 +77,6 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$(':input[name=last]').val("LAST NAME")
       @patientBuilder.$(':input[name=first]').val("FIRST NAME")
-      @patientBuilder.$('select[name=payer]').val('1')
       @patientBuilder.$('select[name=gender]').val('F')
       @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
       @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
@@ -86,11 +85,10 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$(':input[name=notes]').val('EXAMPLE NOTES FOR TEST')
       @patientBuilder.$("button[data-call-method=save]").click()
 
-    it "dynamically loads race, ethnicity, gender and payer codes from measure", ->
+    it "dynamically loads race, ethnicity, and gender codes from measure", ->
       expect(@patientBuilder.$('select[name=race]')[0].options.length).toEqual 6
       expect(@patientBuilder.$('select[name=ethnicity]')[0].options.length).toEqual 2
       expect(@patientBuilder.$('select[name=gender]')[0].options.length).toEqual 2
-      expect(@patientBuilder.$('select[name=payer]')[0].options.length).toEqual 155
 
     it "serializes the attributes correctly", ->
       thoraxPatient = @patientBuilder.model
@@ -114,11 +112,6 @@ describe 'PatientBuilderView', ->
       expect(ethnicityElement.dataElementCodes[0].code).toEqual '2135-2'
       expect(ethnicityElement.dataElementCodes[0].display).toEqual 'Hispanic or Latino'
       expect(thoraxPatient.getEthnicity().display).toEqual 'Hispanic or Latino'
-      # TODO: Determine whether or not we want to always have a payer characteristic
-      # payerElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
-      # expect(payerElement.dataElementCodes[0].code).toEqual '1'
-      # expect(payerElement.dataElementCodes[0].display).toEqual 'MEDICARE'
-      # expect(@patientBuilder.model.get('payer')).toEqual '1'
 
     it "displayes correct values on the UI after saving", ->
       expect(@patientBuilder.$(':input[name=last]')[0].value).toEqual 'LAST NAME'
@@ -129,7 +122,6 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.$('select[name=race]')[0].value).toEqual '2131-1'
       expect(@patientBuilder.$('select[name=ethnicity]')[0].value).toEqual '2135-2'
       expect(@patientBuilder.$('select[name=gender]')[0].value).toEqual 'F'
-      expect(@patientBuilder.$('select[name=payer]')[0].value).toEqual '1'
 
     it "tries to save the patient correctly", ->
       expect(@patientBuilder.originalModel.save).toHaveBeenCalled()

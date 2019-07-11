@@ -232,8 +232,13 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   removeCode: (e) ->
     e.preventDefault()
-    code_to_delete = $(e.target).model().get("code")
-    @model.get('qdmDataElement').dataElementCodes.pop({code: code_to_delete})
+    codeToDelete = $(e.target).model().get('code')
+    codeSystemToDelete = $(e.target).model().get('codeset')
+    codesToKeep = []
+    for code in @model.get('qdmDataElement').dataElementCodes
+      unless code.code is codeToDelete and @measure.codeSystemMap()[code.system] is codeSystemToDelete
+        codesToKeep.push(code)
+    @model.get('qdmDataElement').dataElementCodes = codesToKeep
     $(e.target).model().destroy()
     @addDefaultCodeToDataElement()
     @triggerMaterialize()
@@ -260,8 +265,6 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
       @validateForAddition()
     'keyup input[name=custom_code]': 'validateForAddition'
     'keyup input[name=custom_codeset]': 'validateForAddition'
-    rendered: ->
-      @$('select.codeset-control').selectBoxIt('native': true)
 
   initialize: ->
     @model = new Thorax.Model
