@@ -40,14 +40,14 @@ module MeasureHelper
   end
 
   class MeasureLoadingUnsupportedDataElement < SharedError
-    def initialize(dataElementName)
+    def initialize(data_element_name)
       front_end_version = {
         title: "Error Loading Measure",
         summary: "Unsupported Data Element Used In Measure.", 
-        body: "Bonnie does not support the " + dataElementName + " QDM Data Element used in this measure."
+        body: "Bonnie does not support the " + data_element_name + " QDM Data Element used in this measure."
       }
       back_end_version = {
-        json: {status: "error", messages: "Bonnie does not support the " + dataElementName + " QDM Data Element used in this measure."},
+        json: {status: "error", messages: "Bonnie does not support the " + data_element_name + " QDM Data Element used in this measure."},
         status: :conflict
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
