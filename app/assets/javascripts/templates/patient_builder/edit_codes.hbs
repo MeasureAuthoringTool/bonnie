@@ -1,29 +1,28 @@
-<div class="row">
-  <div class="col-md-3">
-    <label class="sr-only" for="codeset_{{@cid}}">Select code set dropdown</label>
-    <select id="codeset_{{@cid}}" name="codeset" class="codeset-control selectBoxIt-native">
-      <option value="">Code Set</option>
+<div class="row code-vs-select-input">
+  <div class="col-md-3 code-control-system">
+    <label class="sr-only" for="codeset_{{@cid}}">Select code system dropdown</label>
+    <select id="codeset_{{@cid}}" name="codeset" class="form-control">
+      <option value="">Code System</option>
       {{#each codeSets}}
       <option>{{this}}</option>
       {{/each}}
       <option value="custom">Custom</option>
     </select>
-    
   </div>
 
   {{#ifCond codeset '==' 'custom'}}
-    <div class="col-md-4">
+    <div class="col-md-4 code-control-custom-system">
       <label for="custom_codeset_{{@cid}}" class="sr-only">input</label>
-      <input type="text" name="custom_codeset" id="custom_codeset_{{@cid}}" class="form-control" placeholder="code set">
+      <input type="text" name="custom_codeset" id="custom_codeset_{{@cid}}" class="form-control" placeholder="code system">
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 code-control-code">
       <label for="custom_code_{{@cid}}" class="sr-only">units</label>
       <input type="text" name="custom_code" id="custom_code_{{@cid}}" class="form-control" placeholder="code">
     </div>
   {{/ifCond}}
 
   {{#ifCond codeset '!=' 'custom'}}
-  <div class="col-md-8">
+  <div class="col-md-8 code-control-code">
     <label for="code_{{@cid}}" class="sr-only">code value</label>
     <select name="code" id="code_{{@cid}}" class="form-control codelist-control">
       <option value="">--</option>
