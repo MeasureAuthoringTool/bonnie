@@ -23,7 +23,7 @@ class Thorax.Views.InputRatioView extends Thorax.Views.BonnieView
 
   updateValueFromSubviews: ->
     if @numeratorView.hasValidValue() && @denominatorView.hasValidValue()
-      @value = new cqm.models.CQL.Ratio(numerator: @numeratorView.value, denominator: @denominatorView.value)
+      @value = new cqm.models.CQL.Ratio(@numeratorView.value, @denominatorView.value)
     else
       @value = null
     @trigger 'valueChanged', @
