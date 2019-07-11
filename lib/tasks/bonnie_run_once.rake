@@ -430,13 +430,24 @@ namespace :bonnie do
             if element._type == "QDM::CommunicationPerformed"
               type_fields -= %w{sender recipient}
             end
+
+            diagnoses = []
+            if element.respond_to?('diagnoses')
+              element.diagnoses.each do |diagnosis|
+                diagnoses << QDM::DiagnosisComponent.new(code: diagnosis)
+              end
+            elsif element.respond_to?('principalDiagnosis')
+              diagnoses << QDM::DiagnosisComponent.new(code: element.principalDiagnosis, rank: 1)
+            end
             new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
             new_data_element.attributes['id'] = element.attributes['id']['value'] unless element.attributes['id'].nil?
+            new_data_element.diagnoses = diagnoses unless diagnoses.empty?
             new_data_element.patient = updated_qdm_patient
             diff << validate_patient_data(element, new_data_element)
             new_data_elements << new_data_element
           rescue Exception => e
             puts e
+            puts e.backtrace
             puts element
           end
         end
@@ -489,6 +500,12 @@ namespace :bonnie do
     (old_data_element.fields.keys - ignored_fields).each do |key|
       if key == 'id'
         differences.push(key) if old_data_element.attributes[key]['value'] != new_data_element.attributes[key]
+      elsif key == 'diagnoses'
+        index = 0
+        old_data_element.diagnoses.each do |original_diagnosis|
+          differences.push(key) if original_diagnosis['code'] != new_data_element.diagnoses[index]['code'][:code]
+          index += 1
+        end
       elsif old_data_element.attributes[key] != new_data_element.attributes[key]
         begin
           # Check to see if symbolizing the keys was all that was necessary to make the values equal
