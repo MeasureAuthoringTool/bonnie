@@ -24,27 +24,33 @@ describe 'InputView', ->
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
       expect(view.value).toEqual new cqm.models.CQL.Interval(
-        new cqm.models.CQL.Quantity(value: 200, unit: 'mg'),
-        new cqm.models.CQL.Quantity(value: 400, unit: ''))
+        new cqm.models.CQL.Quantity(200, 'mg'),
+        new cqm.models.CQL.Quantity(400, ''))
 
       view.$('.quantity-interval-end input[name="value_unit"]').val('mg').change()
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Interval(
-        new cqm.models.CQL.Quantity(value: 200, unit: 'mg'),
-        new cqm.models.CQL.Quantity(value: 400, unit: 'mg'))
+      expected = new cqm.models.CQL.Interval(new cqm.models.CQL.Quantity(200, 'mg'), new cqm.models.CQL.Quantity(400, 'mg'))
+      expect(view.value.high.value).toEqual(expected.high.value)
+      expect(view.value.high.unit).toEqual(expected.high.unit)
+      expect(view.value.low.value).toEqual(expected.low.value)
+      expect(view.value.low.unit).toEqual(expected.low.unit)
 
     it 'starts with initial quantity and becomes invalid after bad unit entry, valid again after fix', ->
       view = new Thorax.Views.InputIntervalQuantityView(initialValue: new cqm.models.CQL.Interval(
-        new cqm.models.CQL.Quantity(value: 200, unit: 'mg')
-        new cqm.models.CQL.Quantity(value: 400, unit: 'mg')))
+        new cqm.models.CQL.Quantity(200, 'mg')
+        new cqm.models.CQL.Quantity(400, 'mg')))
       view.render()
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Interval(
-        new cqm.models.CQL.Quantity(value: 200, unit: 'mg')
-        new cqm.models.CQL.Quantity(value: 400, unit: 'mg'))
+      expected = new cqm.models.CQL.Interval(
+        new cqm.models.CQL.Quantity(200, 'mg')
+        new cqm.models.CQL.Quantity(400, 'mg'))
+      expect(view.value.high.value).toEqual(expected.high.value)
+      expect(view.value.high.unit).toEqual(expected.high.unit)
+      expect(view.value.low.value).toEqual(expected.low.value)
+      expect(view.value.low.unit).toEqual(expected.low.unit)
       expect(view.$('.quantity-interval-start input[name="value_value"]').val()).toEqual '200'
       expect(view.$('.quantity-interval-start input[name="value_unit"]').val()).toEqual 'mg'
       expect(view.$('.quantity-interval-end input[name="value_value"]').val()).toEqual '400'
@@ -61,19 +67,26 @@ describe 'InputView', ->
       view.$('.quantity-interval-end input[name="value_unit"]').val('kg').change()
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Interval(
-        new cqm.models.CQL.Quantity(value: 200, unit: 'mg')
-        new cqm.models.CQL.Quantity(value: 400, unit: 'kg'))
+      expected = new cqm.models.CQL.Interval(
+        new cqm.models.CQL.Quantity(200, 'mg')
+        new cqm.models.CQL.Quantity(400, 'kg'))
+      expect(view.value.high.value).toEqual(expected.high.value)
+      expect(view.value.high.unit).toEqual(expected.high.unit)
+      expect(view.value.low.value).toEqual(expected.low.value)
+      expect(view.value.low.unit).toEqual(expected.low.unit)
 
     it 'starts with initial quantity with no low value', ->
       view = new Thorax.Views.InputIntervalQuantityView(initialValue: new cqm.models.CQL.Interval(
-        null, new cqm.models.CQL.Quantity(value: 400, unit: 'mg')))
+        null, new cqm.models.CQL.Quantity(400, 'mg')))
       view.render()
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Interval(
-        null, new cqm.models.CQL.Quantity(value: 400, unit: 'mg'))
+      expected = new cqm.models.CQL.Interval(
+        null, new cqm.models.CQL.Quantity(400, 'mg'))
+      expect(view.value.low).toBeNull()
+      expect(view.value.high.value).toEqual(expected.high.value)
+      expect(view.value.high.unit).toEqual(expected.high.unit)
       expect(view.$('input[name="low_quantity_is_defined"]').prop('checked')).toBe false
       expect(view.$('.quantity-interval-start input[name="value_value"]').val()).toEqual ''
       expect(view.$('.quantity-interval-start input[name="value_value"]').prop('disabled')).toBe true
@@ -87,13 +100,16 @@ describe 'InputView', ->
 
     it 'starts with initial quantity with no high value', ->
       view = new Thorax.Views.InputIntervalQuantityView(initialValue: new cqm.models.CQL.Interval(
-        new cqm.models.CQL.Quantity(value: 400, unit: 'mg'), null))
+        new cqm.models.CQL.Quantity(400, 'mg'), null))
       view.render()
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Interval(
-        new cqm.models.CQL.Quantity(value: 400, unit: 'mg'), null)
+      expected = new cqm.models.CQL.Interval(
+        new cqm.models.CQL.Quantity(400, 'mg'), null)
+      expect(view.value.low.value).toEqual(expected.low.value)
+      expect(view.value.low.unit).toEqual(expected.low.unit)
+      expect(view.value.high).toBeNull()
       expect(view.$('input[name="low_quantity_is_defined"]').prop('checked')).toBe true
       expect(view.$('.quantity-interval-start input[name="value_value"]').val()).toEqual '400'
       expect(view.$('.quantity-interval-start input[name="value_value"]').prop('disabled')).toBe false
@@ -107,8 +123,8 @@ describe 'InputView', ->
 
     it 'starts with initial quantity with defined ends, and becomes [null, null] after check boxes', ->
       view = new Thorax.Views.InputIntervalQuantityView(initialValue: new cqm.models.CQL.Interval(
-        new cqm.models.CQL.Quantity(value: 200, unit: 'mg')
-        new cqm.models.CQL.Quantity(value: 400, unit: 'mg')))
+        new cqm.models.CQL.Quantity(200, 'mg')
+        new cqm.models.CQL.Quantity(400, 'mg')))
       view.render()
       spyOn(view, 'trigger')
 
@@ -117,8 +133,11 @@ describe 'InputView', ->
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.$('.quantity-interval-start input[name="value_value"]').prop('disabled')).toBe true
       expect(view.$('.quantity-interval-start input[name="value_unit"]').prop('disabled')).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Interval(
-        null, new cqm.models.CQL.Quantity(value: 400, unit: 'mg'))
+      expected = new cqm.models.CQL.Interval(
+        null, new cqm.models.CQL.Quantity(400, 'mg'))
+      expect(view.value.high.value).toEqual(expected.high.value)
+      expect(view.value.high.unit).toEqual(expected.high.unit)
+      expect(view.value.low).toBeNull()
 
       # uncheck high quantity
       view.$('input[name="high_quantity_is_defined"]').prop('checked', false).change()

@@ -33,7 +33,7 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
   handleInputChange: (e) ->
     inputData = @serialize()
     try
-      @value = new cqm.models.CQL.Quantity(value: inputData.value_value, unit: inputData.value_unit)
+      @value = new cqm.models.CQL.Quantity(parseFloat(inputData.value_value), inputData.value_unit)
       @$('.quantity-control-unit').removeClass('has-error')
     catch error
       @value = null

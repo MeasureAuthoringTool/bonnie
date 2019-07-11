@@ -13,20 +13,20 @@ describe 'InputView', ->
       view.$('input[name="value_value"]').val('200').change()
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Quantity(value: 200, unit: '')
+      expect(view.value).toEqual new cqm.models.CQL.Quantity(200, '')
 
       view.$('input[name="value_unit"]').val('mg').change()
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Quantity(value: 200, unit: 'mg')
-    
+      expect(view.value).toEqual new cqm.models.CQL.Quantity(200, 'mg')
+
     it 'starts with initial quantity and becomes invalid after bad unit entry, valid again after fix', ->
-      view = new Thorax.Views.InputQuantityView(initialValue: new cqm.models.CQL.Quantity(value: 200, unit: 'm'))
+      view = new Thorax.Views.InputQuantityView(initialValue: new cqm.models.CQL.Quantity(200, 'm'))
       view.render()
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Quantity(value: 200, unit: 'm')
+      expect(view.value).toEqual new cqm.models.CQL.Quantity(200, 'm')
       expect(view.$('input[name="value_value"]').val()).toEqual '200'
       expect(view.$('input[name="value_unit"]').val()).toEqual 'm'
 
@@ -42,7 +42,7 @@ describe 'InputView', ->
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.$('.quantity-control-unit').hasClass('has-error')).toBe false
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.Quantity(value: 200, unit: 'cm')
+      expect(view.value).toEqual new cqm.models.CQL.Quantity(200, 'cm')
     
     it 'can disable and enable all entry fields', ->
       view = new Thorax.Views.InputQuantityView()

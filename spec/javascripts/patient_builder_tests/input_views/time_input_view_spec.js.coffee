@@ -9,7 +9,7 @@ describe 'InputView', ->
       expect(view.value).toBe null
       expect(view.$el.find("input[name='time_is_defined']").prop('checked')).toBe false
       expect(view.$el.find("input[name='time']").val()).toEqual ""
-    
+
     it 'can start with no value, not allowing null', ->
       view = new Thorax.Views.InputTimeView(allowNull: false)
       view.render()
@@ -24,7 +24,7 @@ describe 'InputView', ->
       view = new Thorax.Views.InputTimeView(initialValue: time)
       view.render()
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.DateTime(0, 1, 1, 8, 15, 0, 0, 0)
+      expect(view.value).toEqual new cqm.models.CQL.DateTime(0, 1, 1, 8, 15, 0, 0, null)
       expect(view.$el.find("input[name='time_is_defined']").prop('checked')).toBe true
       expect(view.$el.find("input[name='time']").val()).toEqual "8:15 AM"
 
@@ -40,7 +40,7 @@ describe 'InputView', ->
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
       expect(view.$el.find("input[name='time']").val()).toEqual "8:00 AM"
-      expect(view.value).toEqual new cqm.models.CQL.DateTime(0, 1, 1, 8, 0, 0, 0, 0)
+      expect(view.value).toEqual new cqm.models.CQL.DateTime(0, 1, 1, 8, 0, 0, 0, null)
 
     it 'can start with a value, not allowing null, then unchecked to be null', ->
       date = new cqm.models.CQL.DateTime(2012, 2, 23, 8, 15, 0, 0, 0)
@@ -67,4 +67,4 @@ describe 'InputView', ->
       view.$el.find("input[name='time']").val('9:45 AM').timepicker('setTime', '9:45 AM')
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toEqual new cqm.models.CQL.DateTime(0, 1, 1, 9, 45, 0, 0, 0)
+      expect(view.value).toEqual new cqm.models.CQL.DateTime(0, 1, 1, 9, 45, 0, 0, null)
