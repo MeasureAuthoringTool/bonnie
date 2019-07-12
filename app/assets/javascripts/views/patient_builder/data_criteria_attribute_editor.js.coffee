@@ -17,7 +17,8 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         name: path
         title: @model.getAttributeTitle(path)
         isArray: info.instance == 'Array'
-        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray
+        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray || info.instance == "AnyEntity"
+        isEntity: info.instance == "AnyEntity"
         types: @_determineAttributeTypeList(path, info)
       )
     @hasUserConfigurableAttributes = @attributeList.length > 0
@@ -112,7 +113,11 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
     if @currentAttributeType
       if @currentAttribute.isComposite
-        @_createCompositeInputViewForSchema(@dataElement.schema.paths[@currentAttribute.name].schema, @currentAttributeType)
+        schema = if @currentAttribute.isEntity # if it is entity, grab the correct schema
+                   cqm.models["#{@currentAttributeType}Schema"]
+                 else
+                   @dataElement.schema.paths[@currentAttribute.name].schema
+        @_createCompositeInputViewForSchema(schema, @currentAttributeType)
       else
         @_createInputViewForType(@currentAttributeType)
     else
@@ -140,6 +145,10 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       # TODO: Filter these more if possible
       return ['Code', 'Quantity', 'DateTime', 'Ratio', 'Integer', 'Decimal', 'Time']
 
+    # It this is an AnyEntity type
+    else if info.instance == 'AnyEntity'
+      return ['PatientEntity', 'CarePartner', 'Practitioner', 'Organization']
+
     # If it is an interval, it may be one of DateTime or one of Quantity
     else if info.instance == 'Interval'
       if path == 'referenceRange'
@@ -150,7 +159,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     # If it is an embedded type, we have to make guesses about the type
     else if info.instance == 'Embedded'
       if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
-        return ['Id']
+        return if info.schema.paths.qdmVersion.defaultValue == '5.5' then ['Identifier'] else ['Id']
       else
         return ['???'] # TODO: Handle situation of unknown type better.
     else
