@@ -432,14 +432,17 @@ namespace :bonnie do
             end
 
             diagnoses = []
+            # element is treated as a 5.5 model so principalDiagnosis does not return on the element
+            # but still exists in the attributes. That is why respond_to? doesn't work
+            if !element.attributes['principalDiagnosis'].nil?
+              diagnoses << QDM::DiagnosisComponent.new(code: element.attributes['principalDiagnosis'], rank: 1)
+            end
             if element.respond_to?('diagnoses')
               element.diagnoses.each do |diagnosis|
                 diagnoses << QDM::DiagnosisComponent.new(code: diagnosis)
               end
             end
-            if element.respond_to?('principalDiagnosis')
-              diagnoses << QDM::DiagnosisComponent.new(code: element.principalDiagnosis, rank: 1)
-            end
+            
 
             new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
             new_data_element.attributes['id'] = element.attributes['id']['value'] unless element.attributes['id'].nil?
