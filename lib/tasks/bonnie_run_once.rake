@@ -434,19 +434,26 @@ namespace :bonnie do
             diagnoses = []
             # element is treated as a 5.5 model so principalDiagnosis does not return on the element
             # but still exists in the attributes. That is why respond_to? doesn't work
-            if !element.attributes['principalDiagnosis'].nil?
+            if element.attributes['principalDiagnosis'].present?
               diagnoses << QDM::DiagnosisComponent.new(code: element.attributes['principalDiagnosis'], rank: 1)
             end
-            if element.respond_to?('diagnoses')
+            if element.respond_to?('diagnoses') && element.diagnoses.present?
               element.diagnoses.each do |diagnosis|
                 diagnoses << QDM::DiagnosisComponent.new(code: diagnosis)
               end
             end
             
+            relateds = []
+            if element.respond_to?('relatedTo') && element.relatedTo.present?
+              element.relatedTo.each do |related|
+                relateds << related['value']
+              end
+            end
 
             new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
-            new_data_element.attributes['id'] = element.attributes['id']['value'] unless element.attributes['id'].nil?
+            new_data_element.attributes['id'] = element.attributes['id']['value'] if element.attributes['id'].present?
             new_data_element.diagnoses = diagnoses unless diagnoses.empty?
+            new_data_element.relatedTo = relateds unless relateds.empty?
             new_data_element.patient = updated_qdm_patient
             diff << validate_patient_data(element, new_data_element)
             new_data_elements << new_data_element
@@ -465,6 +472,8 @@ namespace :bonnie do
             element_diff.each_entry do |element|
               if element == 'sender' || element == 'recipient'
                 puts "--- #{element} --- Is different from CQL Record, this is expected because sender & recipient were type QDM::Code in 5.4 and are now type QDM::Entity in 5.5, so data is lost".light_blue
+              elsif element == 'diagnoses'
+                puts "--- #{element} --- Is different from CQL Record, this may be caused by the fact that there was a PrincipalDiagnosis on the element as well that got put in diagnoses with a rank of 1. This is expected".light_yellow
               else
                 puts "--- #{element} --- Is different from CQL Record, this is unexpected".light_red
               end
@@ -505,7 +514,13 @@ namespace :bonnie do
     (old_data_element.fields.keys - ignored_fields).each do |key|
       if key == 'id'
         differences.push(key) if old_data_element.attributes[key]['value'] != new_data_element.attributes[key]
-      elsif key == 'diagnoses'
+      elsif key == 'relatedTo' && old_data_element.attributes[key].present?
+        index = 0
+        old_data_element.relatedTo.each do |related|
+          differences.push(key) if related['value'] != new_data_element.attributes['relatedTo'][index]
+          index += 1
+        end
+      elsif key == 'diagnoses' && old_data_element.attributes[key].present?
         index = 0
         old_data_element.diagnoses.each do |original_diagnosis|
           differences.push(key) if original_diagnosis['code'] != new_data_element.diagnoses[index]['code'][:code]
