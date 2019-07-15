@@ -1,5 +1,5 @@
 {
-  "_id": "5c12f47cb848466c63f9afca",
+  "_id": "5d27902f31fe5f6f3e4d103d",
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
@@ -24,11 +24,11 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d1400da31fe5fd3cacb0d02",
+    "_id": "5d27902f31fe5f6f3e4d103e",
     "birthDatetime": "1989-07-12T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d1400da31fe5fd3cacb0d03",
+        "_id": "5d27902f31fe5f6f3e4d103f",
         "authorDatetime": "2010-02-01T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.117.1.7.1.423",
         "dataElementCodes": [
@@ -38,29 +38,25 @@
           }
         ],
         "description": "Allergy/Intolerance: Statin Allergen",
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.119",
-        "id": {
-          "_id": "5d1400da31fe5fd3cacb0d04",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5c12f47cb848466c63f9afcb"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
+        "id": "5d27902f31fe5f6f3e4d103f",
         "prevalencePeriod": {
-          "low": "2010-02-01T08:00:00.000+00:00",
-          "high": "9999-12-31T23:59:59.000+00:00",
+          "low": "2010-02-01T08:00:00.000Z",
+          "high": "9999-12-31T23:59:59.000Z",
           "lowClosed": true,
           "highClosed": true
         },
         "qdmCategory": "allergy",
         "qdmStatus": "intolerance",
         "qdmTitle": "Allergy/Intolerance",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
+        "recorder": null,
         "severity": null,
         "type": null,
         "_type": "QDM::AllergyIntolerance"
       },
       {
-        "_id": "5d1400da31fe5fd3cacb0d05",
+        "_id": "5d27902f31fe5f6f3e4d1041",
         "admissionSource": null,
         "authorDatetime": "2012-12-14T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.117.1.7.1.424",
@@ -73,48 +69,47 @@
         "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
         "diagnoses": [
           {
-            "code": "111297002",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Ischemic Stroke"
+            "_id": "5d2797d131fe5f747c2af21e",
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "111297002",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Ischemic Stroke",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           }
         ],
         "dischargeDisposition": null,
         "facilityLocations": [
 
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
-        "id": {
-          "_id": "5d1400da31fe5fd3cacb0d06",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5c12f47cb848466c63f9afcc"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d27902f31fe5f6f3e4d1041",
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": {
-          "code": "111297002",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Ischemic Stroke",
-          "version": null
-        },
+        "participant": null,
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
-          "low": "2012-12-14T08:00:00.000+00:00",
-          "high": "2012-12-14T08:15:00.000+00:00",
+          "low": "2012-12-14T08:00:00.000Z",
+          "high": "2012-12-14T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
         "_type": "QDM::EncounterPerformed"
       },
       {
-        "_id": "5d1400da31fe5fd3cacb0cfd",
+        "_id": "5d27902f31fe5f6f3e4d1039",
         "birthDatetime": "1989-07-12T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
@@ -128,20 +123,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
-        "id": {
-          "_id": "5d1400da31fe5fd3cacb0d07",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400da31fe5fd3cacb0cfd"
-        },
+        "id": "5d27902f31fe5f6f3e4d1039",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d1400da31fe5fd3cacb0cfe",
+        "_id": "5d27902f31fe5f6f3e4d103a",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -154,20 +144,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-        "id": {
-          "_id": "5d1400da31fe5fd3cacb0d08",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400da31fe5fd3cacb0cfe"
-        },
+        "id": "5d27902f31fe5f6f3e4d103a",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d1400da31fe5fd3cacb0cff",
+        "_id": "5d27902f31fe5f6f3e4d103b",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -180,20 +165,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-        "id": {
-          "_id": "5d1400da31fe5fd3cacb0d09",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400da31fe5fd3cacb0cff"
-        },
+        "id": "5d27902f31fe5f6f3e4d103b",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d1400da31fe5fd3cacb0d00",
+        "_id": "5d27902f31fe5f6f3e4d103c",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -206,16 +186,11 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-        "id": {
-          "_id": "5d1400da31fe5fd3cacb0d0a",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400da31fe5fd3cacb0d00"
-        },
+        "id": "5d27902f31fe5f6f3e4d103c",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -245,9 +220,7 @@
               "301542"
             ]
           },
-          "coded_entry_id": {
-            "$oid": "5c12f47cb848466c63f9afcb"
-          },
+          "coded_entry_id": "5c12f47cb848466c63f9afcb",
           "code_source": "DEFAULT"
         },
         {
@@ -282,9 +255,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5c12f47cb848466c63f9afcc"
-          },
+          "coded_entry_id": "5c12f47cb848466c63f9afcc",
           "code_source": "DEFAULT"
         },
         {
@@ -305,7 +276,7 @@
       "description_category": null,
       "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": "501fdba3044a111b98000001"
 }

@@ -1,5 +1,5 @@
 {
-  "_id": "5d1241e331fe5f83c94d7e15",
+  "_id": "5d27851531fe5f6eb014c0de",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS238v0",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
   "cql_libraries": [
     {
-      "_id": "5d1241e331fe5f83c94d7e16",
+      "_id": "5d27851531fe5f6eb014c0df",
       "cql": "library AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination version '0.4.000'\r\n\r\nusing QDM version '5.4'\r\n\r\ninclude MATGlobalCommonFunctions version '4.0.000' called Global\r\ninclude Hospice version '2.0.000' called Hospice\r\n\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Pneumococcal Vaccine\": 'urn:oid:2.16.840.1.113883.3.464.1003.110.12.1027'\r\nvalueset \"Pneumococcal Vaccine Administered\": 'urn:oid:2.16.840.1.113883.3.464.1003.110.12.1034'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists ( [\"Immunization, Administered\": \"Pneumococcal Vaccine\"] PneumococcalVaccine\r\n\t\t\twhere PneumococcalVaccine.authorDatetime on or before \r\n\t\t\tend of \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Procedure, Performed\": \"Pneumococcal Vaccine Administered\"] PneumococcalVaccineGiven\r\n\t\t\t\twhere PneumococcalVaccineGiven.relevantPeriod starts on or before \r\n\t\t\t\tend of \"Measurement Period\"\r\n\t\t)\r\n\r\ndefine \"Annual Wellness Visit Encounter\":\r\n\t[\"Encounter, Performed\": \"Annual Wellness Visit\"] QualifyingEncounter\r\n\t\twhere QualifyingEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t\t\tand exists \"Annual Wellness Visit Encounter\"\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tHospice.\"Has Hospice\"",
       "elm": {
         "library": {
@@ -2563,41 +2563,41 @@
       "library_version": "0.4.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241e331fe5f83c94d7e17",
+          "_id": "5d27851531fe5f6eb014c0e0",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e18",
+          "_id": "5d27851531fe5f6eb014c0e1",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e19",
+          "_id": "5d27851531fe5f6eb014c0e2",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e1a",
+          "_id": "5d27851531fe5f6eb014c0e3",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e1b",
+          "_id": "5d27851531fe5f6eb014c0e4",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e1c",
+          "_id": "5d27851531fe5f6eb014c0e5",
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e1d",
+          "_id": "5d27851531fe5f6eb014c0e6",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d1241e331fe5f83c94d7e1e",
+              "_id": "5d27851531fe5f6eb014c0e7",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d1241e331fe5f83c94d7e1f",
+              "_id": "5d27851531fe5f6eb014c0e8",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
               "statement_name": "Annual Wellness Visit Encounter"
@@ -2605,11 +2605,11 @@
           ]
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e20",
+          "_id": "5d27851531fe5f6eb014c0e9",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d1241e331fe5f83c94d7e21",
+              "_id": "5d27851531fe5f6eb014c0ea",
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
               "statement_name": "Initial Population"
@@ -2617,15 +2617,15 @@
           ]
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e22",
+          "_id": "5d27851531fe5f6eb014c0eb",
           "statement_name": "Numerator"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e23",
+          "_id": "5d27851531fe5f6eb014c0ec",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5d1241e331fe5f83c94d7e24",
+              "_id": "5d27851531fe5f6eb014c0ed",
               "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
@@ -2635,7 +2635,7 @@
       ]
     },
     {
-      "_id": "5d1241e331fe5f83c94d7e25",
+      "_id": "5d27851531fe5f6eb014c0ee",
       "cql": "library MATGlobalCommonFunctions version '4.0.000'\n\nusing QDM version '5.4'\n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Encounter\":\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\n\ndefine \"Inpatient Encounter\":\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\ndefine function \"ToDate\"(Value DateTime ):\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime ):\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime ):\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime ):\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) X\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\ndefine function \"LengthInDays\"(Value Interval<DateTime> ):\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) EDEncounter\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\" ):\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\n\t\t)\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\" ):\n\tFirst((Encounter.facilityLocations)HospitalLocation\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\n\t\t\tsort by start of locationPeriod\n\t)\n\n",
       "elm": {
         "library": {
@@ -11250,11 +11250,11 @@
       "library_version": "4.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241e331fe5f83c94d7e26",
+          "_id": "5d27851531fe5f6eb014c0ef",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d1241e331fe5f83c94d7e27",
+              "_id": "5d27851531fe5f6eb014c0f0",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -11262,13 +11262,13 @@
           ]
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e28",
+          "_id": "5d27851531fe5f6eb014c0f1",
           "statement_name": "ToDate"
         }
       ]
     },
     {
-      "_id": "5d1241e331fe5f83c94d7e29",
+      "_id": "5d27851531fe5f6eb014c0f2",
       "cql": "library Hospice version '2.0.000'\n\nusing QDM version '5.4'\n\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15' \n\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Has Hospice\":\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\n\t\t\t)\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\n\t)\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\n\t\t)\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\n\t\t)\n\n",
       "elm": {
         "library": {
@@ -13103,13 +13103,13 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241e331fe5f83c94d7e2a",
+          "_id": "5d27851531fe5f6eb014c0f3",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-06-25T15:46:43.418Z",
+  "created_at": "2019-07-11T18:51:01.260Z",
   "description": "Percentage of patients ages 65 and older with an Annual Wellness Visit (AWV) during the measurement period who have ever received a pneumococcal vaccination",
   "hqmf_id": "40280382-610B-E7A4-0161-6CA42CCD212A",
   "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
@@ -13677,57 +13677,57 @@
   },
   "population_sets": [
     {
-      "_id": "5d1241e331fe5f83c94d7e35",
+      "_id": "5d27851531fe5f6eb014c0fe",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d1241e331fe5f83c94d7e3a",
+          "_id": "5d27851531fe5f6eb014c103",
           "hqmf_id": "660502CA-E58D-432E-9F05-0EEB388E132E",
           "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5d1241e331fe5f83c94d7e38",
+          "_id": "5d27851531fe5f6eb014c101",
           "hqmf_id": "967656D6-0F3B-4B2D-889D-9AF9B848BC05",
           "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d1241e331fe5f83c94d7e37",
+          "_id": "5d27851531fe5f6eb014c100",
           "hqmf_id": "23455CFC-3E51-4A88-B451-2A2018DF54B9",
           "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d1241e331fe5f83c94d7e39",
+          "_id": "5d27851531fe5f6eb014c102",
           "hqmf_id": "A7679E48-968B-498A-BC5C-0AC9FEA22838",
           "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
           "statement_name": "Numerator"
         },
-        "_id": "5d1241e331fe5f83c94d7e36",
+        "_id": "5d27851531fe5f6eb014c0ff",
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
-          "_id": "5d1241e331fe5f83c94d7e3b",
+          "_id": "5d27851531fe5f6eb014c104",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e3c",
+          "_id": "5d27851531fe5f6eb014c105",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e3d",
+          "_id": "5d27851531fe5f6eb014c106",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d1241e331fe5f83c94d7e3e",
+          "_id": "5d27851531fe5f6eb014c107",
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
           "statement_name": "SDE Sex"
@@ -13738,7 +13738,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d1241e331fe5f83c94d7d34",
+      "_id": "5d27851531fe5f6eb014bffd",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -13752,15 +13752,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e2b",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d34"
-      },
+      "id": "5d27851531fe5f6eb014bffd",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13769,7 +13765,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d35",
+      "_id": "5d27851531fe5f6eb014bffe",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.110.12.1034",
@@ -13779,40 +13775,33 @@
       ],
       "description": "Procedure, Performed: PneumococcalVaccineAdministered",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e2c",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d35"
-      },
+      "id": "5d27851531fe5f6eb014bffe",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d36",
+      "_id": "5d27851531fe5f6eb014bfff",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e2d",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d36"
-      },
+      "id": "5d27851531fe5f6eb014bfff",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
       "qdmTitle": "Patient Characteristic Payer",
@@ -13821,7 +13810,7 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d37",
+      "_id": "5d27851531fe5f6eb014c000",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -13829,22 +13818,18 @@
       ],
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e2e",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d37"
-      },
+      "id": "5d27851531fe5f6eb014c000",
       "negationRationale": null,
       "qdmCategory": "intervention",
       "qdmStatus": "order",
       "qdmTitle": "Intervention, Order",
       "qdmVersion": "5.4",
       "reason": null,
+      "requester": null,
       "_type": "QDM::InterventionOrder"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d38",
+      "_id": "5d27851531fe5f6eb014c001",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -13852,37 +13837,29 @@
       ],
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e2f",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d38"
-      },
+      "id": "5d27851531fe5f6eb014c001",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "intervention",
       "qdmStatus": "performed",
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d39",
+      "_id": "5d27851531fe5f6eb014c002",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e30",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d39"
-      },
+      "id": "5d27851531fe5f6eb014c002",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
       "qdmTitle": "Patient Characteristic Sex",
@@ -13890,19 +13867,14 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d3a",
+      "_id": "5d27851531fe5f6eb014c003",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e31",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d3a"
-      },
+      "id": "5d27851531fe5f6eb014c003",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
       "qdmTitle": "Patient Characteristic Ethnicity",
@@ -13910,7 +13882,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d3b",
+      "_id": "5d27851531fe5f6eb014c004",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.110.12.1027",
       "dataElementCodes": [
@@ -13919,36 +13891,28 @@
       "description": "Immunization, Administered: PneumococcalVaccine",
       "dosage": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.112",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e32",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d3b"
-      },
+      "id": "5d27851531fe5f6eb014c004",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "immunization",
       "qdmStatus": "administered",
       "qdmTitle": "Immunization, Administered",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.140",
       "reason": null,
+      "relevantDatetime": null,
       "route": null,
       "_type": "QDM::ImmunizationAdministered"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d3c",
+      "_id": "5d27851531fe5f6eb014c005",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e33",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d3c"
-      },
+      "id": "5d27851531fe5f6eb014c005",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
       "qdmTitle": "Patient Characteristic Race",
@@ -13956,7 +13920,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d1241e331fe5f83c94d7d3d",
+      "_id": "5d27851531fe5f6eb014c006",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1240",
@@ -13970,15 +13934,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241e331fe5f83c94d7e34",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e331fe5f83c94d7d3d"
-      },
+      "id": "5d27851531fe5f6eb014c006",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13988,21 +13948,21 @@
     }
   ],
   "title": "Annual Wellness Assessment: Preventive Care (Pneumococcal Vaccination)",
-  "updated_at": "2019-06-25T15:46:43.418Z",
+  "updated_at": "2019-07-11T18:51:01.260Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d1241e331fe5f83c94d7d3e",
-    "5d1241e331fe5f83c94d7d3f",
-    "5d1241e331fe5f83c94d7d40",
-    "5d1241e331fe5f83c94d7d41",
-    "5d1241e331fe5f83c94d7d42",
-    "5d1241e331fe5f83c94d7d43",
-    "5d1241e331fe5f83c94d7d44",
-    "5d1241e331fe5f83c94d7d45",
-    "5d1241e331fe5f83c94d7d46",
-    "5d1241e331fe5f83c94d7d47",
-    "5d1241e331fe5f83c94d7d48",
-    "5d1241e331fe5f83c94d7d49",
-    "5d1241e331fe5f83c94d7d4a"
+    "5d27851531fe5f6eb014c007",
+    "5d27851531fe5f6eb014c008",
+    "5d27851531fe5f6eb014c009",
+    "5d27851531fe5f6eb014c00a",
+    "5d27851531fe5f6eb014c00b",
+    "5d27851531fe5f6eb014c00c",
+    "5d27851531fe5f6eb014c00d",
+    "5d27851531fe5f6eb014c00e",
+    "5d27851531fe5f6eb014c00f",
+    "5d27851531fe5f6eb014c010",
+    "5d27851531fe5f6eb014c011",
+    "5d27851531fe5f6eb014c012",
+    "5d27851531fe5f6eb014c013"
   ]
 }

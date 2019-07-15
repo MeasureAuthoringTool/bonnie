@@ -1,5 +1,5 @@
 {
-  "_id": "5d1241db31fe5f83c94d18b4",
+  "_id": "5d27841531fe5f6eb007507f",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS759v1",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d1241db31fe5f83c94d18b6",
+      "_id": "5d27841531fe5f6eb0075081",
       "cql": "library TestMedicareFeeForService version '1.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Medicare Fee For Service\": 'urn:oid:2.16.840.1.113883.3.1240.15.2.4008'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Medicare Fee\":\r\n\t\"Interesting Encounter\" Enc\r\n\t\twith [\"Patient Characteristic Payer\": \"Medicare Fee For Service\"] Fee\r\n\t\t\tsuch that Fee.relevantPeriod overlaps Enc.relevantPeriod\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Interesting Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Medicare Fee\"\r\n",
       "elm": {
         "library": {
@@ -1686,35 +1686,35 @@
       "library_version": "1.0.001",
       "statement_dependencies": [
         {
-          "_id": "5d1241db31fe5f83c94d18b7",
+          "_id": "5d27841531fe5f6eb0075082",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d1241db31fe5f83c94d18b8",
+          "_id": "5d27841531fe5f6eb0075083",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d1241db31fe5f83c94d18b9",
+          "_id": "5d27841531fe5f6eb0075084",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d1241db31fe5f83c94d18ba",
+          "_id": "5d27841531fe5f6eb0075085",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d1241db31fe5f83c94d18bb",
+          "_id": "5d27841531fe5f6eb0075086",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d1241db31fe5f83c94d18bc",
+          "_id": "5d27841531fe5f6eb0075087",
           "statement_name": "Interesting Encounter"
         },
         {
-          "_id": "5d1241db31fe5f83c94d18bd",
+          "_id": "5d27841531fe5f6eb0075088",
           "statement_name": "Medicare Fee",
           "statement_references": [
             {
-              "_id": "5d1241db31fe5f83c94d18be",
+              "_id": "5d27841531fe5f6eb0075089",
               "hqmf_id": null,
               "library_name": "TestMedicareFeeForService",
               "statement_name": "Interesting Encounter"
@@ -1722,11 +1722,11 @@
           ]
         },
         {
-          "_id": "5d1241db31fe5f83c94d18bf",
+          "_id": "5d27841531fe5f6eb007508a",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d1241db31fe5f83c94d18c0",
+              "_id": "5d27841531fe5f6eb007508b",
               "hqmf_id": null,
               "library_name": "TestMedicareFeeForService",
               "statement_name": "Interesting Encounter"
@@ -1734,11 +1734,11 @@
           ]
         },
         {
-          "_id": "5d1241db31fe5f83c94d18c1",
+          "_id": "5d27841531fe5f6eb007508c",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d1241db31fe5f83c94d18c2",
+              "_id": "5d27841531fe5f6eb007508d",
               "hqmf_id": null,
               "library_name": "TestMedicareFeeForService",
               "statement_name": "Initial Population"
@@ -1746,11 +1746,11 @@
           ]
         },
         {
-          "_id": "5d1241db31fe5f83c94d18c3",
+          "_id": "5d27841531fe5f6eb007508e",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d1241db31fe5f83c94d18c4",
+              "_id": "5d27841531fe5f6eb007508f",
               "hqmf_id": null,
               "library_name": "TestMedicareFeeForService",
               "statement_name": "Medicare Fee"
@@ -1760,7 +1760,7 @@
       ]
     }
   ],
-  "created_at": "2019-06-25T15:46:35.016Z",
+  "created_at": "2019-07-11T18:46:45.343Z",
   "description": "Testing valueset Medicare Fee For Service",
   "hqmf_id": "40280582-61AF-07AC-0162-494D9AC800C6",
   "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
@@ -2195,28 +2195,28 @@
   },
   "population_sets": [
     {
-      "_id": "5d1241db31fe5f83c94d18cb",
+      "_id": "5d27841531fe5f6eb0075096",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
-          "_id": "5d1241db31fe5f83c94d18ce",
+          "_id": "5d27841531fe5f6eb0075099",
           "hqmf_id": "491E8DFA-2829-4168-BC6A-CABD309670A9",
           "library_name": "TestMedicareFeeForService",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d1241db31fe5f83c94d18cd",
+          "_id": "5d27841531fe5f6eb0075098",
           "hqmf_id": "7FB0245E-BF10-4D09-8B8D-1A1761F43D53",
           "library_name": "TestMedicareFeeForService",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d1241db31fe5f83c94d18cf",
+          "_id": "5d27841531fe5f6eb007509a",
           "hqmf_id": "2E00A29E-E406-494A-9FA9-916F8C24556A",
           "library_name": "TestMedicareFeeForService",
           "statement_name": "Numerator"
         },
-        "_id": "5d1241db31fe5f83c94d18cc",
+        "_id": "5d27841531fe5f6eb0075097",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
@@ -2224,19 +2224,14 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d1241da31fe5f83c94d17a0",
+      "_id": "5d27841531fe5f6eb0074f6b",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
-      "id": {
-        "_id": "5d1241db31fe5f83c94d18c5",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d17a0"
-      },
+      "id": "5d27841531fe5f6eb0074f6b",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
       "qdmTitle": "Patient Characteristic Payer",
@@ -2245,19 +2240,14 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d1241da31fe5f83c94d17a1",
+      "_id": "5d27841531fe5f6eb0074f6c",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-      "id": {
-        "_id": "5d1241db31fe5f83c94d18c6",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d17a1"
-      },
+      "id": "5d27841531fe5f6eb0074f6c",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
       "qdmTitle": "Patient Characteristic Ethnicity",
@@ -2265,19 +2255,14 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d1241da31fe5f83c94d17a2",
+      "_id": "5d27841531fe5f6eb0074f6d",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-      "id": {
-        "_id": "5d1241db31fe5f83c94d18c7",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d17a2"
-      },
+      "id": "5d27841531fe5f6eb0074f6d",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
       "qdmTitle": "Patient Characteristic Sex",
@@ -2285,19 +2270,14 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d1241da31fe5f83c94d17a3",
+      "_id": "5d27841531fe5f6eb0074f6e",
       "codeListId": "2.16.840.1.113883.3.1240.15.2.4008",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Payer: MedicareFeeForService",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
-      "id": {
-        "_id": "5d1241db31fe5f83c94d18c8",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d17a3"
-      },
+      "id": "5d27841531fe5f6eb0074f6e",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
       "qdmTitle": "Patient Characteristic Payer",
@@ -2306,19 +2286,14 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d1241da31fe5f83c94d17a4",
+      "_id": "5d27841531fe5f6eb0074f6f",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-      "id": {
-        "_id": "5d1241db31fe5f83c94d18c9",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d17a4"
-      },
+      "id": "5d27841531fe5f6eb0074f6f",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
       "qdmTitle": "Patient Characteristic Race",
@@ -2326,7 +2301,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d1241da31fe5f83c94d17a5",
+      "_id": "5d27841531fe5f6eb0074f70",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1060",
@@ -2340,15 +2315,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241db31fe5f83c94d18ca",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d17a5"
-      },
+      "id": "5d27841531fe5f6eb0074f70",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -2358,14 +2329,14 @@
     }
   ],
   "title": "Test Medicare Fee For Service",
-  "updated_at": "2019-06-25T15:46:35.016Z",
+  "updated_at": "2019-07-11T18:46:45.343Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d1241da31fe5f83c94d17a6",
-    "5d1241da31fe5f83c94d17a7",
-    "5d1241da31fe5f83c94d17a8",
-    "5d1241da31fe5f83c94d17a9",
-    "5d1241da31fe5f83c94d17aa",
-    "5d1241da31fe5f83c94d17ab"
+    "5d27841531fe5f6eb0074f71",
+    "5d27841531fe5f6eb0074f72",
+    "5d27841531fe5f6eb0074f73",
+    "5d27841531fe5f6eb0074f74",
+    "5d27841531fe5f6eb0074f75",
+    "5d27841531fe5f6eb0074f76"
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "_id": "5d1241da31fe5f83c94d1777",
+  "_id": "5d27840e31fe5f6eb006f333",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS720v0",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d1241da31fe5f83c94d1779",
+      "_id": "5d27840e31fe5f6eb006f335",
       "cql": "library MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients version '0.0.014'\n\nusing QDM version '5.0.2'\n\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1' \n\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836' \n\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837' \n\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591' \n\nvalueset \"Psychiatric/Mental Health Patient\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.299' \n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \n\nvalueset \"Hospital Settings\": 'urn:oid:2.16.840.1.113762.1.4.1111.126' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"SDE Ethnicity\": [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\n\ndefine \"SDE Payer\": [\"Patient Characteristic Payer\": \"Payer\"]\n\ndefine \"SDE Race\": [\"Patient Characteristic Race\": \"Race\"]\n\ndefine \"SDE Sex\": [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\n\ndefine \"Inpatient Encounter\": [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\twhere Encounter.lengthOfStay <= 120 days\r\n\t\t\tand Encounter.relevantPeriod ends during \"Measurement Period\"\n\ndefine \"Startification1\": \"Inpatient Encounter\" Encounter\r\nwhere not (Encounter.principalDiagnosis in \"Psychiatric/Mental Health Patient\")\n\ndefine \"Stratification2\": \"Inpatient Encounter\" Encounter\r\nwhere Encounter.principalDiagnosis in \"Psychiatric/Mental Health Patient\"\n\ndefine \"Initial Population\": \"Inpatient Encounter\" Encounter\r\nwith [\"Encounter, Performed\": \"Emergency Department Visit\"] ED\r\nsuch that ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\n\r\n/*intersect \"Related ED Visit\"(Encounter)*/\n\ndefine \"Measure Population\": \"Initial Population\"\n\ndefine \"Measure Population Exclusion\": \"Inpatient Encounter\" Encounter\r\nwith [\"Encounter, Performed\": \"Emergency Department Visit\"] ED\r\nsuch that ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\nand ED.admissionSource in \"Hospital Settings\" \r\n /*6 hours or less before or ends with start of ED.relevantPeriod*/\n\ndefine function \"Related ED Visit\"(\"Encounter\" \"Encounter, Performed\" ): Last(\r\n    [\"Encounter, Performed\": \"Emergency Department Visit\"]ED\r\n      where ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\n      sort by start of relevantPeriod\r\n  )\n\ndefine function \"Measure Observation\"(\"Encounter\" \"Encounter, Performed\" ): duration in minutes of \"Related ED Visit\"(Encounter).locationPeriod\n\n",
       "elm": {
         "library": {
@@ -4105,35 +4105,35 @@
       "library_version": "0.0.014",
       "statement_dependencies": [
         {
-          "_id": "5d1241da31fe5f83c94d177a",
+          "_id": "5d27840e31fe5f6eb006f336",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d1241da31fe5f83c94d177b",
+          "_id": "5d27840e31fe5f6eb006f337",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d1241da31fe5f83c94d177c",
+          "_id": "5d27840e31fe5f6eb006f338",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d1241da31fe5f83c94d177d",
+          "_id": "5d27840e31fe5f6eb006f339",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d1241da31fe5f83c94d177e",
+          "_id": "5d27840e31fe5f6eb006f33a",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d1241da31fe5f83c94d177f",
+          "_id": "5d27840e31fe5f6eb006f33b",
           "statement_name": "Inpatient Encounter"
         },
         {
-          "_id": "5d1241da31fe5f83c94d1780",
+          "_id": "5d27840e31fe5f6eb006f33c",
           "statement_name": "Startification1",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d1781",
+              "_id": "5d27840e31fe5f6eb006f33d",
               "hqmf_id": null,
               "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
               "statement_name": "Inpatient Encounter"
@@ -4141,11 +4141,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d1782",
+          "_id": "5d27840e31fe5f6eb006f33e",
           "statement_name": "Stratification2",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d1783",
+              "_id": "5d27840e31fe5f6eb006f33f",
               "hqmf_id": null,
               "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
               "statement_name": "Inpatient Encounter"
@@ -4153,11 +4153,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d1784",
+          "_id": "5d27840e31fe5f6eb006f340",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d1785",
+              "_id": "5d27840e31fe5f6eb006f341",
               "hqmf_id": null,
               "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
               "statement_name": "Inpatient Encounter"
@@ -4165,11 +4165,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d1786",
+          "_id": "5d27840e31fe5f6eb006f342",
           "statement_name": "Measure Population",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d1787",
+              "_id": "5d27840e31fe5f6eb006f343",
               "hqmf_id": null,
               "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
               "statement_name": "Initial Population"
@@ -4177,11 +4177,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d1788",
+          "_id": "5d27840e31fe5f6eb006f344",
           "statement_name": "Measure Population Exclusion",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d1789",
+              "_id": "5d27840e31fe5f6eb006f345",
               "hqmf_id": null,
               "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
               "statement_name": "Inpatient Encounter"
@@ -4189,21 +4189,21 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d178a",
+          "_id": "5d27840e31fe5f6eb006f346",
           "statement_name": "Related ED Visit"
         },
         {
-          "_id": "5d1241da31fe5f83c94d178b",
+          "_id": "5d27840e31fe5f6eb006f347",
           "statement_name": "Measure Observation",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d178c",
+              "_id": "5d27840e31fe5f6eb006f348",
               "hqmf_id": null,
               "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
               "statement_name": "Related ED Visit"
             },
             {
-              "_id": "5d1241da31fe5f83c94d178d",
+              "_id": "5d27840e31fe5f6eb006f349",
               "hqmf_id": null,
               "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
               "statement_name": "Related ED Visit"
@@ -4213,7 +4213,7 @@
       ]
     }
   ],
-  "created_at": "2019-06-25T15:46:34.891Z",
+  "created_at": "2019-07-11T18:46:38.494Z",
   "description": "Median time from emergency department admission to time of discharge from the emergency room for patients admitted to the facility from the emergency department.",
   "hqmf_id": "40280582-5801-9EE4-0158-2A28FC7E02A9",
   "hqmf_set_id": "28AC347D-2F91-4A0C-9395-2602134BAA89",
@@ -4722,20 +4722,20 @@
   },
   "population_sets": [
     {
-      "_id": "5d1241da31fe5f83c94d1794",
+      "_id": "5d27840e31fe5f6eb006f350",
       "observations": [
         {
-          "_id": "5d1241da31fe5f83c94d179d",
+          "_id": "5d27840e31fe5f6eb006f359",
           "aggregation_type": null,
           "hqmf_id": "F23ECA5C-7966-4C7D-8AD9-B036178DD6A0",
           "observation_function": {
-            "_id": "5d1241da31fe5f83c94d179e",
+            "_id": "5d27840e31fe5f6eb006f35a",
             "hqmf_id": "F23ECA5C-7966-4C7D-8AD9-B036178DD6A0",
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
             "statement_name": "Measure Observation"
           },
           "observation_parameter": {
-            "_id": "5d1241da31fe5f83c94d179f",
+            "_id": "5d27840e31fe5f6eb006f35b",
             "hqmf_id": "F23ECA5C-7966-4C7D-8AD9-B036178DD6A0",
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
             "statement_name": "Measure Population"
@@ -4745,32 +4745,32 @@
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "IPP": {
-          "_id": "5d1241da31fe5f83c94d1796",
+          "_id": "5d27840e31fe5f6eb006f352",
           "hqmf_id": "C0453186-3FB8-4B23-9982-73F8FB89E98E",
           "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
           "statement_name": "Initial Population"
         },
         "MSRPOPL": {
-          "_id": "5d1241da31fe5f83c94d1797",
+          "_id": "5d27840e31fe5f6eb006f353",
           "hqmf_id": "1B13DDD1-75DB-438F-864D-3BF354BE1D1D",
           "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
           "statement_name": "Measure Population"
         },
         "MSRPOPLEX": {
-          "_id": "5d1241da31fe5f83c94d1798",
+          "_id": "5d27840e31fe5f6eb006f354",
           "hqmf_id": "3D2EE623-8D48-4087-B40F-C988F1CD7E59",
           "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
           "statement_name": "Measure Population Exclusion"
         },
-        "_id": "5d1241da31fe5f83c94d1795",
+        "_id": "5d27840e31fe5f6eb006f351",
         "_type": "CQM::ContinuousVariablePopulationMap"
       },
       "stratifications": [
         {
-          "_id": "5d1241da31fe5f83c94d1799",
+          "_id": "5d27840e31fe5f6eb006f355",
           "hqmf_id": "E3AF2258-5600-44D7-BC45-6FB1DEE281EB",
           "statement": {
-            "_id": "5d1241da31fe5f83c94d179a",
+            "_id": "5d27840e31fe5f6eb006f356",
             "hqmf_id": "E3AF2258-5600-44D7-BC45-6FB1DEE281EB",
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
             "statement_name": "Startification1"
@@ -4779,10 +4779,10 @@
           "title": "Stratification 1"
         },
         {
-          "_id": "5d1241da31fe5f83c94d179b",
+          "_id": "5d27840e31fe5f6eb006f357",
           "hqmf_id": "3D907EEE-1B75-4603-998E-DD90558C8C2C",
           "statement": {
-            "_id": "5d1241da31fe5f83c94d179c",
+            "_id": "5d27840e31fe5f6eb006f358",
             "hqmf_id": "3D907EEE-1B75-4603-998E-DD90558C8C2C",
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
             "statement_name": "Stratification2"
@@ -4796,7 +4796,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d1241da31fe5f83c94d0f3a",
+      "_id": "5d27840e31fe5f6eb006eaf6",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -4810,15 +4810,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d178e",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d0f3a"
-      },
+      "id": "5d27840e31fe5f6eb006eaf6",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -4827,7 +4823,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241da31fe5f83c94d0f3b",
+      "_id": "5d27840e31fe5f6eb006eaf7",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
@@ -4841,15 +4837,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d178f",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d0f3b"
-      },
+      "id": "5d27840e31fe5f6eb006eaf7",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -4858,19 +4850,14 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241da31fe5f83c94d0f3c",
+      "_id": "5d27840e31fe5f6eb006eaf8",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d1790",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d0f3c"
-      },
+      "id": "5d27840e31fe5f6eb006eaf8",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
       "qdmTitle": "Patient Characteristic Payer",
@@ -4879,19 +4866,14 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d1241da31fe5f83c94d0f3d",
+      "_id": "5d27840e31fe5f6eb006eaf9",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Sex: ONC Administrative Sex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d1791",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d0f3d"
-      },
+      "id": "5d27840e31fe5f6eb006eaf9",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
       "qdmTitle": "Patient Characteristic Sex",
@@ -4899,19 +4881,14 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d1241da31fe5f83c94d0f3e",
+      "_id": "5d27840e31fe5f6eb006eafa",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d1792",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d0f3e"
-      },
+      "id": "5d27840e31fe5f6eb006eafa",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
       "qdmTitle": "Patient Characteristic Ethnicity",
@@ -4919,19 +4896,14 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d1241da31fe5f83c94d0f3f",
+      "_id": "5d27840e31fe5f6eb006eafb",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d1793",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241da31fe5f83c94d0f3f"
-      },
+      "id": "5d27840e31fe5f6eb006eafb",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
       "qdmTitle": "Patient Characteristic Race",
@@ -4940,16 +4912,16 @@
     }
   ],
   "title": "Median Time from ED Arrival to ED Departure for Admitted ED Patients",
-  "updated_at": "2019-06-25T15:46:34.891Z",
+  "updated_at": "2019-07-11T18:46:38.494Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d1241da31fe5f83c94d0f40",
-    "5d1241da31fe5f83c94d0f41",
-    "5d1241da31fe5f83c94d0f42",
-    "5d1241da31fe5f83c94d0f43",
-    "5d1241da31fe5f83c94d0f44",
-    "5d1241da31fe5f83c94d0f45",
-    "5d1241da31fe5f83c94d0f46",
-    "5d1241da31fe5f83c94d0f47"
+    "5d27840e31fe5f6eb006eafc",
+    "5d27840e31fe5f6eb006eafd",
+    "5d27840e31fe5f6eb006eafe",
+    "5d27840e31fe5f6eb006eaff",
+    "5d27840e31fe5f6eb006eb00",
+    "5d27840e31fe5f6eb006eb01",
+    "5d27840e31fe5f6eb006eb02",
+    "5d27840e31fe5f6eb006eb03"
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "_id": "5d1241d831fe5f83c94cf2f0",
+  "_id": "5d27840831fe5f6eb006a390",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS134v6",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d1241d831fe5f83c94cf2f2",
+      "_id": "5d27840831fe5f6eb006a392",
       "cql": "library DiabetesMedicalAttentionforNephropathy version '6.1.003'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude Hospice version '0.1.000' called Hospice\r\ninclude MATGlobalCommonFunctions version '1.0.000' called Global\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"ACE Inhibitor or ARB\": 'urn:oid:2.16.840.1.113883.3.526.3.1139'\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Diabetes\": 'urn:oid:2.16.840.1.113883.3.464.1003.103.12.1001'\r\nvalueset \"Diabetic Nephropathy\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1004'\r\nvalueset \"Dialysis Education\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1016'\r\nvalueset \"Dialysis Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1013'\r\nvalueset \"ESRD Monthly Outpatient Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1014'\r\nvalueset \"Face-to-Face Interaction\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1048'\r\nvalueset \"Glomerulonephritis and Nephrotic Syndrome\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1018'\r\nvalueset \"Home Healthcare Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1016'\r\nvalueset \"Hypertensive Chronic Kidney Disease\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1017'\r\nvalueset \"Kidney Transplant\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1012'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Other Services Related to Dialysis\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1015'\r\nvalueset \"Preventive Care Services - Established Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1025'\r\nvalueset \"Preventive Care Services-Initial Office Visit, 18 and Up\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1023'\r\nvalueset \"Proteinuria\": 'urn:oid:2.16.840.1.113883.3.526.3.1003'\r\nvalueset \"Urine Protein Tests\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1024'\r\nvalueset \"Vascular Access for Dialysis\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1011'\r\nvalueset \"Kidney Failure\": 'urn:oid:2.16.840.1.113883.3.464.1003.109.12.1028'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Renal Procedures\":\r\n\t( [\"Procedure, Performed\": \"Kidney Transplant\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Vascular Access for Dialysis\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Dialysis Services\"]\r\n\t)\r\n\r\ndefine \"Renal Interventions\":\r\n\t[\"Intervention, Performed\": \"Other Services Related to Dialysis\"]\r\n\t\tunion [\"Intervention, Performed\": \"Dialysis Education\"]\r\n\r\ndefine \"Qualifying Encounters\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Face-to-Face Interaction\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services - Established Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services-Initial Office Visit, 18 and Up\"]\r\n\t\tunion [\"Encounter, Performed\": \"Home Healthcare Services\"]\r\n\t\tunion [\"Encounter, Performed\": \"Annual Wellness Visit\"] ) ValidEncounter\r\n\t\twhere ValidEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Protein Urea Lab Test\":\r\n\t[\"Laboratory Test, Performed\": \"Urine Protein Tests\"] ProteinUrea\r\n\t\twhere ProteinUrea.result is not null\r\n\r\ndefine \"Nephropathy Diagnoses\":\r\n\t( [\"Diagnosis\": \"Hypertensive Chronic Kidney Disease\"]\r\n\t\tunion [\"Diagnosis\": \"Kidney Failure\"]\r\n\t\tunion [\"Diagnosis\": \"Glomerulonephritis and Nephrotic Syndrome\"]\r\n\t\tunion [\"Diagnosis\": \"Diabetic Nephropathy\"]\r\n\t\tunion [\"Diagnosis\": \"Proteinuria\"] ) NephropathyDiagnoses\r\n\t\twhere NephropathyDiagnoses.prevalencePeriod overlaps \"Measurement Period\"\r\n\r\ndefine \"ESRD Encounter\":\r\n\t[\"Encounter, Performed\": \"ESRD Monthly Outpatient Services\"]\r\n\r\ndefine \"Active ACEI or ARB Medications\":\r\n\t[\"Medication, Active\": \"ACE Inhibitor or ARB\"] ACEIorARB\r\n\t\twhere ACEIorARB.relevantPeriod overlaps \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 18\r\n\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 75\r\n\t\t\tand exists ( \"Qualifying Encounters\" )\r\n\t\t\tand exists ( [\"Diagnosis\": \"Diabetes\"] DiabetesDx\r\n\t\t\t\t\twhere DiabetesDx.prevalencePeriod overlaps \"Measurement Period\"\r\n\t\t\t)\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists ( \"Active ACEI or ARB Medications\" )\r\n\t\tor exists ( \"Nephropathy Diagnoses\" )\r\n\t\tor exists ( \"Nephropathy Screenings\" )\r\n\r\ndefine \"In Hospice\":\r\n\tHospice.\"Has Hospice\"\r\n\r\ndefine \"Denominator Exclusions\":\r\n\t\"In Hospice\"\r\n\r\ndefine \"Nephropathy Screenings\":\r\n\t( \"Renal Procedures\"\r\n\t\tunion \"Renal Interventions\"\r\n\t\tunion \"ESRD Encounter\"\r\n\t\tunion \"Protein Urea Lab Test\" ) NephropathyScreenings\r\n\t\twhere NephropathyScreenings.relevantPeriod during \"Measurement Period\"\r\n",
       "elm": {
         "library": {
@@ -6249,71 +6249,71 @@
       "library_version": "6.1.003",
       "statement_dependencies": [
         {
-          "_id": "5d1241d831fe5f83c94cf2f3",
+          "_id": "5d27840831fe5f6eb006a393",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2f4",
+          "_id": "5d27840831fe5f6eb006a394",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2f5",
+          "_id": "5d27840831fe5f6eb006a395",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2f6",
+          "_id": "5d27840831fe5f6eb006a396",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2f7",
+          "_id": "5d27840831fe5f6eb006a397",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2f8",
+          "_id": "5d27840831fe5f6eb006a398",
           "statement_name": "Renal Procedures"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2f9",
+          "_id": "5d27840831fe5f6eb006a399",
           "statement_name": "Renal Interventions"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2fa",
+          "_id": "5d27840831fe5f6eb006a39a",
           "statement_name": "Qualifying Encounters"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2fb",
+          "_id": "5d27840831fe5f6eb006a39b",
           "statement_name": "Protein Urea Lab Test"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2fc",
+          "_id": "5d27840831fe5f6eb006a39c",
           "statement_name": "Nephropathy Diagnoses"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2fd",
+          "_id": "5d27840831fe5f6eb006a39d",
           "statement_name": "ESRD Encounter"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2fe",
+          "_id": "5d27840831fe5f6eb006a39e",
           "statement_name": "Active ACEI or ARB Medications"
         },
         {
-          "_id": "5d1241d831fe5f83c94cf2ff",
+          "_id": "5d27840831fe5f6eb006a39f",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d1241d831fe5f83c94cf300",
+              "_id": "5d27840831fe5f6eb006a3a0",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d1241d831fe5f83c94cf301",
+              "_id": "5d27840831fe5f6eb006a3a1",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d1241d831fe5f83c94cf302",
+              "_id": "5d27840831fe5f6eb006a3a2",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "Qualifying Encounters"
@@ -6321,11 +6321,11 @@
           ]
         },
         {
-          "_id": "5d1241d831fe5f83c94cf303",
+          "_id": "5d27840831fe5f6eb006a3a3",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d1241d831fe5f83c94cf304",
+              "_id": "5d27840831fe5f6eb006a3a4",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "Initial Population"
@@ -6333,29 +6333,29 @@
           ]
         },
         {
-          "_id": "5d1241d831fe5f83c94cf305",
+          "_id": "5d27840831fe5f6eb006a3a5",
           "statement_name": "Nephropathy Screenings",
           "statement_references": [
             {
-              "_id": "5d1241d831fe5f83c94cf306",
+              "_id": "5d27840831fe5f6eb006a3a6",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "Renal Procedures"
             },
             {
-              "_id": "5d1241d831fe5f83c94cf307",
+              "_id": "5d27840831fe5f6eb006a3a7",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "Renal Interventions"
             },
             {
-              "_id": "5d1241d831fe5f83c94cf308",
+              "_id": "5d27840831fe5f6eb006a3a8",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "ESRD Encounter"
             },
             {
-              "_id": "5d1241d831fe5f83c94cf309",
+              "_id": "5d27840831fe5f6eb006a3a9",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "Protein Urea Lab Test"
@@ -6363,23 +6363,23 @@
           ]
         },
         {
-          "_id": "5d1241d831fe5f83c94cf30a",
+          "_id": "5d27840831fe5f6eb006a3aa",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d1241d831fe5f83c94cf30b",
+              "_id": "5d27840831fe5f6eb006a3ab",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "Active ACEI or ARB Medications"
             },
             {
-              "_id": "5d1241d831fe5f83c94cf30c",
+              "_id": "5d27840831fe5f6eb006a3ac",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "Nephropathy Diagnoses"
             },
             {
-              "_id": "5d1241d831fe5f83c94cf30d",
+              "_id": "5d27840831fe5f6eb006a3ad",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "Nephropathy Screenings"
@@ -6387,11 +6387,11 @@
           ]
         },
         {
-          "_id": "5d1241d831fe5f83c94cf30e",
+          "_id": "5d27840831fe5f6eb006a3ae",
           "statement_name": "In Hospice",
           "statement_references": [
             {
-              "_id": "5d1241d831fe5f83c94cf30f",
+              "_id": "5d27840831fe5f6eb006a3af",
               "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
@@ -6399,11 +6399,11 @@
           ]
         },
         {
-          "_id": "5d1241d831fe5f83c94cf310",
+          "_id": "5d27840831fe5f6eb006a3b0",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5d1241d831fe5f83c94cf311",
+              "_id": "5d27840831fe5f6eb006a3b1",
               "hqmf_id": null,
               "library_name": "DiabetesMedicalAttentionforNephropathy",
               "statement_name": "In Hospice"
@@ -6413,7 +6413,7 @@
       ]
     },
     {
-      "_id": "5d1241d831fe5f83c94cf312",
+      "_id": "5d27840831fe5f6eb006a3b2",
       "cql": "library MATGlobalCommonFunctions version '1.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/*TotalLengthOfStay calculates the difference in calendar days between the start and end of the given stay interval.*/\r\n\r\ndefine function \"TotalLengthOfStay\"(Stay Interval<DateTime>):\r\n\tdifference in days between start of Stay and end of Stay\r\n",
       "elm": {
         "library": {
@@ -10475,11 +10475,11 @@
       "library_version": "1.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241d831fe5f83c94cf313",
+          "_id": "5d27840831fe5f6eb006a3b3",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d1241d831fe5f83c94cf314",
+              "_id": "5d27840831fe5f6eb006a3b4",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -10487,13 +10487,13 @@
           ]
         },
         {
-          "_id": "5d1241d831fe5f83c94cf315",
+          "_id": "5d27840831fe5f6eb006a3b5",
           "statement_name": "ToDate"
         }
       ]
     },
     {
-      "_id": "5d1241d831fe5f83c94cf316",
+      "_id": "5d27840831fe5f6eb006a3b6",
       "cql": "library Hospice version '0.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2017-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-03'\r\n\r\nvalueset \"Discharged to Health Care Facility for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.207'\r\nvalueset \"Discharged to Home for Hospice Care\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.209'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-03\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-03\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n",
       "elm": {
         "library": {
@@ -12384,13 +12384,13 @@
       "library_version": "0.1.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241d831fe5f83c94cf317",
+          "_id": "5d27840831fe5f6eb006a3b7",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-06-25T15:46:32.534Z",
+  "created_at": "2019-07-11T18:46:32.616Z",
   "description": "The percentage of patients 18-75 years of age with diabetes who had a nephropathy screening test or evidence of nephropathy during the measurement period",
   "hqmf_id": "40280382-5FA6-FE85-0160-0918E74D2075",
   "hqmf_set_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
@@ -12958,34 +12958,34 @@
   },
   "population_sets": [
     {
-      "_id": "5d1241d831fe5f83c94cf333",
+      "_id": "5d27840831fe5f6eb006a3d3",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d1241d831fe5f83c94cf338",
+          "_id": "5d27840831fe5f6eb006a3d8",
           "hqmf_id": "F82CC93D-C1A2-4E10-A087-81D666395C48",
           "library_name": "DiabetesMedicalAttentionforNephropathy",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5d1241d831fe5f83c94cf336",
+          "_id": "5d27840831fe5f6eb006a3d6",
           "hqmf_id": "B735F4BD-DFAE-45E3-BAA9-E09BDF731B8E",
           "library_name": "DiabetesMedicalAttentionforNephropathy",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d1241d831fe5f83c94cf335",
+          "_id": "5d27840831fe5f6eb006a3d5",
           "hqmf_id": "6CD39B4B-16E6-4FD4-9241-527F9F4A48D0",
           "library_name": "DiabetesMedicalAttentionforNephropathy",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d1241d831fe5f83c94cf337",
+          "_id": "5d27840831fe5f6eb006a3d7",
           "hqmf_id": "ECFD4C68-90F8-4143-8298-21798069AE8E",
           "library_name": "DiabetesMedicalAttentionforNephropathy",
           "statement_name": "Numerator"
         },
-        "_id": "5d1241d831fe5f83c94cf334",
+        "_id": "5d27840831fe5f6eb006a3d4",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
@@ -12993,7 +12993,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d1241d831fe5f83c94cec9d",
+      "_id": "5d27840831fe5f6eb0069d3d",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1048",
@@ -13007,15 +13007,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf318",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cec9d"
-      },
+      "id": "5d27840831fe5f6eb0069d3d",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13024,7 +13020,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cec9e",
+      "_id": "5d27840831fe5f6eb0069d3e",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1013",
@@ -13034,28 +13030,26 @@
       ],
       "description": "Procedure, Performed: DialysisServices",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf319",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cec9e"
-      },
+      "id": "5d27840831fe5f6eb0069d3e",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cec9f",
+      "_id": "5d27840831fe5f6eb0069d3f",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1012",
@@ -13065,40 +13059,33 @@
       ],
       "description": "Procedure, Performed: KidneyTransplant",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf31a",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cec9f"
-      },
+      "id": "5d27840831fe5f6eb0069d3f",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca0",
+      "_id": "5d27840831fe5f6eb0069d40",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf31b",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca0"
-      },
+      "id": "5d27840831fe5f6eb0069d40",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
       "qdmTitle": "Patient Characteristic Sex",
@@ -13106,7 +13093,7 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca1",
+      "_id": "5d27840831fe5f6eb0069d41",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1014",
@@ -13120,15 +13107,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf31c",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca1"
-      },
+      "id": "5d27840831fe5f6eb0069d41",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13137,7 +13120,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca2",
+      "_id": "5d27840831fe5f6eb0069d42",
       "codeListId": "2.16.840.1.113883.3.526.3.1139",
       "dataElementCodes": [
 
@@ -13146,22 +13129,19 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf31d",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca2"
-      },
+      "id": "5d27840831fe5f6eb0069d42",
       "qdmCategory": "medication",
       "qdmStatus": "active",
       "qdmTitle": "Medication, Active",
       "qdmVersion": "5.4",
+      "recorder": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationActive"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca3",
+      "_id": "5d27840831fe5f6eb0069d43",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1028",
@@ -13170,22 +13150,18 @@
       ],
       "description": "Diagnosis: KidneyFailure",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf31e",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca3"
-      },
+      "id": "5d27840831fe5f6eb0069d43",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca4",
+      "_id": "5d27840831fe5f6eb0069d44",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1025",
@@ -13199,15 +13175,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf31f",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca4"
-      },
+      "id": "5d27840831fe5f6eb0069d44",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13216,7 +13188,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca5",
+      "_id": "5d27840831fe5f6eb0069d45",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1004",
@@ -13225,22 +13197,18 @@
       ],
       "description": "Diagnosis: DiabeticNephropathy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf320",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca5"
-      },
+      "id": "5d27840831fe5f6eb0069d45",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca6",
+      "_id": "5d27840831fe5f6eb0069d46",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1016",
@@ -13254,15 +13222,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf321",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca6"
-      },
+      "id": "5d27840831fe5f6eb0069d46",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13271,7 +13235,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca7",
+      "_id": "5d27840831fe5f6eb0069d47",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -13279,22 +13243,18 @@
       ],
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf322",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca7"
-      },
+      "id": "5d27840831fe5f6eb0069d47",
       "negationRationale": null,
       "qdmCategory": "intervention",
       "qdmStatus": "order",
       "qdmTitle": "Intervention, Order",
       "qdmVersion": "5.4",
       "reason": null,
+      "requester": null,
       "_type": "QDM::InterventionOrder"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca8",
+      "_id": "5d27840831fe5f6eb0069d48",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -13302,25 +13262,22 @@
       ],
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf323",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca8"
-      },
+      "id": "5d27840831fe5f6eb0069d48",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "intervention",
       "qdmStatus": "performed",
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94ceca9",
+      "_id": "5d27840831fe5f6eb0069d49",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1015",
       "dataElementCodes": [
@@ -13328,37 +13285,29 @@
       ],
       "description": "Intervention, Performed: OtherServicesRelatedtoDialysis",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf324",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94ceca9"
-      },
+      "id": "5d27840831fe5f6eb0069d49",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "intervention",
       "qdmStatus": "performed",
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecaa",
+      "_id": "5d27840831fe5f6eb0069d4a",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf325",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecaa"
-      },
+      "id": "5d27840831fe5f6eb0069d4a",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
       "qdmTitle": "Patient Characteristic Race",
@@ -13366,7 +13315,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecab",
+      "_id": "5d27840831fe5f6eb0069d4b",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
@@ -13380,15 +13329,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf326",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecab"
-      },
+      "id": "5d27840831fe5f6eb0069d4b",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13397,7 +13342,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecac",
+      "_id": "5d27840831fe5f6eb0069d4c",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1017",
@@ -13406,34 +13351,25 @@
       ],
       "description": "Diagnosis: HypertensiveChronicKidneyDisease",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf327",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecac"
-      },
+      "id": "5d27840831fe5f6eb0069d4c",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecad",
+      "_id": "5d27840831fe5f6eb0069d4d",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf328",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecad"
-      },
+      "id": "5d27840831fe5f6eb0069d4d",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
       "qdmTitle": "Patient Characteristic Payer",
@@ -13442,7 +13378,7 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecae",
+      "_id": "5d27840831fe5f6eb0069d4e",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -13456,15 +13392,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf329",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecae"
-      },
+      "id": "5d27840831fe5f6eb0069d4e",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13473,7 +13405,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecaf",
+      "_id": "5d27840831fe5f6eb0069d4f",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1018",
@@ -13482,22 +13414,18 @@
       ],
       "description": "Diagnosis: GlomerulonephritisandNephroticSyndrome",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf32a",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecaf"
-      },
+      "id": "5d27840831fe5f6eb0069d4f",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecb0",
+      "_id": "5d27840831fe5f6eb0069d50",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1016",
       "dataElementCodes": [
@@ -13505,25 +13433,22 @@
       ],
       "description": "Intervention, Performed: DialysisEducation",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf32b",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecb0"
-      },
+      "id": "5d27840831fe5f6eb0069d50",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "intervention",
       "qdmStatus": "performed",
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecb1",
+      "_id": "5d27840831fe5f6eb0069d51",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1240",
@@ -13537,15 +13462,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf32c",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecb1"
-      },
+      "id": "5d27840831fe5f6eb0069d51",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13554,7 +13475,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecb2",
+      "_id": "5d27840831fe5f6eb0069d52",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1011",
@@ -13564,40 +13485,33 @@
       ],
       "description": "Procedure, Performed: VascularAccessforDialysis",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf32d",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecb2"
-      },
+      "id": "5d27840831fe5f6eb0069d52",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecb3",
+      "_id": "5d27840831fe5f6eb0069d53",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf32e",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecb3"
-      },
+      "id": "5d27840831fe5f6eb0069d53",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
       "qdmTitle": "Patient Characteristic Ethnicity",
@@ -13605,7 +13519,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecb4",
+      "_id": "5d27840831fe5f6eb0069d54",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1024",
       "components": null,
@@ -13614,20 +13528,17 @@
       ],
       "description": "Laboratory Test, Performed: UrineProteinTests",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf32f",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecb4"
-      },
+      "id": "5d27840831fe5f6eb0069d54",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -13635,7 +13546,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecb5",
+      "_id": "5d27840831fe5f6eb0069d55",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.103.12.1001",
@@ -13644,22 +13555,18 @@
       ],
       "description": "Diagnosis: Diabetes",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf330",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecb5"
-      },
+      "id": "5d27840831fe5f6eb0069d55",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecb6",
+      "_id": "5d27840831fe5f6eb0069d56",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1023",
@@ -13673,15 +13580,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf331",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecb6"
-      },
+      "id": "5d27840831fe5f6eb0069d56",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -13690,7 +13593,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d831fe5f83c94cecb7",
+      "_id": "5d27840831fe5f6eb0069d57",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1003",
@@ -13699,57 +13602,53 @@
       ],
       "description": "Diagnosis: Proteinuria",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241d831fe5f83c94cf332",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d831fe5f83c94cecb7"
-      },
+      "id": "5d27840831fe5f6eb0069d57",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     }
   ],
   "title": "Diabetes: Medical Attention for Nephropathy",
-  "updated_at": "2019-06-25T15:46:32.534Z",
+  "updated_at": "2019-07-11T18:46:32.616Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d1241d831fe5f83c94cecb8",
-    "5d1241d831fe5f83c94cecb9",
-    "5d1241d831fe5f83c94cecba",
-    "5d1241d831fe5f83c94cecbb",
-    "5d1241d831fe5f83c94cecbc",
-    "5d1241d831fe5f83c94cecbd",
-    "5d1241d831fe5f83c94cecbe",
-    "5d1241d831fe5f83c94cecbf",
-    "5d1241d831fe5f83c94cecc0",
-    "5d1241d831fe5f83c94cecc1",
-    "5d1241d831fe5f83c94cecc2",
-    "5d1241d831fe5f83c94cecc3",
-    "5d1241d831fe5f83c94cecc4",
-    "5d1241d831fe5f83c94cecc5",
-    "5d1241d831fe5f83c94cecc6",
-    "5d1241d831fe5f83c94cecc7",
-    "5d1241d831fe5f83c94cecc8",
-    "5d1241d831fe5f83c94cecc9",
-    "5d1241d831fe5f83c94cecca",
-    "5d1241d831fe5f83c94ceccb",
-    "5d1241d831fe5f83c94ceccc",
-    "5d1241d831fe5f83c94ceccd",
-    "5d1241d831fe5f83c94cecce",
-    "5d1241d831fe5f83c94ceccf",
-    "5d1241d831fe5f83c94cecd0",
-    "5d1241d831fe5f83c94cecd1",
-    "5d1241d831fe5f83c94cecd2",
-    "5d1241d831fe5f83c94cecd3",
-    "5d1241d831fe5f83c94cecd4",
-    "5d1241d831fe5f83c94cecd5",
-    "5d1241d831fe5f83c94cecd6",
-    "5d1241d831fe5f83c94cecd7",
-    "5d1241d831fe5f83c94cecd8"
+    "5d27840831fe5f6eb0069d58",
+    "5d27840831fe5f6eb0069d59",
+    "5d27840831fe5f6eb0069d5a",
+    "5d27840831fe5f6eb0069d5b",
+    "5d27840831fe5f6eb0069d5c",
+    "5d27840831fe5f6eb0069d5d",
+    "5d27840831fe5f6eb0069d5e",
+    "5d27840831fe5f6eb0069d5f",
+    "5d27840831fe5f6eb0069d60",
+    "5d27840831fe5f6eb0069d61",
+    "5d27840831fe5f6eb0069d62",
+    "5d27840831fe5f6eb0069d63",
+    "5d27840831fe5f6eb0069d64",
+    "5d27840831fe5f6eb0069d65",
+    "5d27840831fe5f6eb0069d66",
+    "5d27840831fe5f6eb0069d67",
+    "5d27840831fe5f6eb0069d68",
+    "5d27840831fe5f6eb0069d69",
+    "5d27840831fe5f6eb0069d6a",
+    "5d27840831fe5f6eb0069d6b",
+    "5d27840831fe5f6eb0069d6c",
+    "5d27840831fe5f6eb0069d6d",
+    "5d27840831fe5f6eb0069d6e",
+    "5d27840831fe5f6eb0069d6f",
+    "5d27840831fe5f6eb0069d70",
+    "5d27840831fe5f6eb0069d71",
+    "5d27840831fe5f6eb0069d72",
+    "5d27840831fe5f6eb0069d73",
+    "5d27840831fe5f6eb0069d74",
+    "5d27840831fe5f6eb0069d75",
+    "5d27840831fe5f6eb0069d76",
+    "5d27840831fe5f6eb0069d77",
+    "5d27840831fe5f6eb0069d78"
   ]
 }
