@@ -515,16 +515,12 @@ namespace :bonnie do
       if key == 'id'
         differences.push(key) if old_data_element.attributes[key]['value'] != new_data_element.attributes[key]
       elsif key == 'relatedTo' && old_data_element.attributes[key].present?
-        index = 0
-        old_data_element.relatedTo.each do |related|
+        old_data_element.relatedTo.each_with_index do |related, index|
           differences.push(key) if related['value'] != new_data_element.attributes['relatedTo'][index]
-          index += 1
         end
       elsif key == 'diagnoses' && old_data_element.attributes[key].present?
-        index = 0
-        old_data_element.diagnoses.each do |original_diagnosis|
+        old_data_element.diagnoses.each_with_index do |related, index|
           differences.push(key) if original_diagnosis['code'] != new_data_element.diagnoses[index]['code'][:code]
-          index += 1
         end
       elsif old_data_element.attributes[key] != new_data_element.attributes[key]
         begin
