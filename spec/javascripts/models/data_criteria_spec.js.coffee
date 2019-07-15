@@ -32,11 +32,9 @@ describe "SourceDataCriteria", ->
     expect(dataCriteria.isPeriodType()).toBe true
     expect(dataCriteria.getPrimaryTimingAttribute()).toBe 'prevalencePeriod'
 
-  it "specifies 'Assessment, Performed' to have an authorDatetime", ->
-    patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS160v6/Pass_NUM2.json')], parse: true
-    patient = patients.first()
-
-    dataCriteria = patient.get('source_data_criteria').at(0)
-    expect(dataCriteria.getCriteriaType()).toBe 'assessment_performed'
+  it "specifies 'Assessment, Recommended' to have an authorDatetime", ->
+    dataElement = new cqm.models.AssessmentRecommended()
+    dataCriteria = new Thorax.Models.SourceDataCriteria({qdmDataElement: dataElement})
+    expect(dataCriteria.getCriteriaType()).toBe 'assessment_recommended'
     expect(dataCriteria.isPeriodType()).toBe false
     expect(dataCriteria.getPrimaryTimingAttribute()).toBe 'authorDatetime'
