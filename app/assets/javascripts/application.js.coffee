@@ -46,7 +46,6 @@
 #= require cqm_calculator
 #= require calculator_selector
 #= require router
-#= require measure_libraries
 #= require_self
 #= require_tree .
 
