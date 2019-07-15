@@ -32,9 +32,3 @@ Rake::Task[:test].clear # rake has a default test task, if we do not clear it th
 task :test => [:test_unit] do
   system("open coverage/index.html")
 end
-
-# HIDE HDS Rake tasks
-Rake::Task["bundle:activate"].clear_comments
-Rake::Task["bundle:import"].clear_comments
-Rake::Task["bundle:list"].clear_comments
-Rake::Task["bundle:merge"].clear_comments

@@ -37,8 +37,6 @@
 #= require costanza/js/costanza
 #= require costanza/thorax
 #
-#= require cql_qdm_patientapi
-#
 #= require helpers
 #= require_tree ./templates
 #= require_tree ./models
