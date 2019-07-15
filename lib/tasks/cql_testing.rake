@@ -164,38 +164,6 @@ namespace :bonnie do
       fixture_exporter.try_export_measure_package(File.join(fixture_path,'cqm_measure_packages'))
     end
 
-    desc %{Export patient fixtures for a given account. Uses vsac credentials from environmental vars.
-      Exports into test/fixtures/cqm_patients/<CMS_ID> and spec/javascripts/fixtures/json/cqm_patients/<CMS_ID>
-      example: bundle exec rake bonnie:fixtures:generate_cqm_patient_fixtures_from_cql_patients[bonnie-fixtures@mitre.org]}
-    task :generate_cqm_patient_fixtures_from_cql_patients, [:email] => [:environment] do |task, args|
-      email = args[:email]
-      user = User.find_by email: args[:email]
-      cms_ids = {}
-      failed_exports = []
-      CqlMeasure.by_user(user).each do |measure|
-        Record.where(measure_ids: measure.hqmf_set_id, user_id: BSON::ObjectId.from_string(user.id)).each do |record|
-          begin
-            patient = CQMConverter.to_cqm(record)
-            patient._id = record._id if record._id
-
-            backend_fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: [patient])
-            backend_fixture_path = File.join('test', 'fixtures', 'cqm_patients', measure.cms_id)
-            backend_fixture_exporter.export_records_as_individual_files(backend_fixture_path)
-
-            frontend_fixture_exporter = FrontendFixtureExporter.new(user, measure: measure, records: [patient])
-            frontend_fixture_path = File.join('spec', 'javascripts', 'fixtures', 'json', 'patients', measure.cms_id)
-            frontend_fixture_exporter.export_records_as_individual_files(frontend_fixture_path)
-          rescue StandardError => e
-            failed_exports << "measure.hqmf_set_id: #{measure.hqmf_set_id}\n\trecord._id: #{record._id}\n\terror: #{e}"
-          end
-        end
-      end
-      unless failed_exports.empty?
-        puts "Failed to export the following patients:"
-        failed_exports.each {|failed_export| puts failed_export }
-      end
-    end
-
     def get_cqm_measure(user, cms_hqmf, measure_id)
       if (!cms_hqmf.casecmp('cms').zero? && !cms_hqmf.casecmp('hqmf').zero?)
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
