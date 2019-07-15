@@ -5,7 +5,7 @@ describe 'cqm.models', ->
 
   it 'can be used to create a QDMPatient', ->
     qdmPatient = new cqm.models.QDMPatient()
-    expect(qdmPatient.qdmVersion).toEqual '5.4'
+    expect(qdmPatient.qdmVersion).toEqual '5.5'
 
   it 'can be used to access cql-execution', ->
     cql = cqm.models.CQL

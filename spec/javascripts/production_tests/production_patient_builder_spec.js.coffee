@@ -179,7 +179,8 @@ describe 'Production_PatientBuilderView', ->
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
-    it 'Communication calculates correctly', ->
+    xit 'Communication calculates correctly', ->
+      # TODO: Find another measure to use. Communication.sender/recipient are now Entity Types
       patient = @patients.at(1) # Communication Pass
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
