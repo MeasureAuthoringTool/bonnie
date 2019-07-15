@@ -333,17 +333,21 @@ core-util-is@~1.0.0:
     moment "^2.20.1"
     ucum "0.0.7"
 
-"cqm-execution@https://github.com/projecttacoma/cqm-execution/#2019-standards-update":
+"cqm-execution@https://github.com/projecttacoma/cqm-execution#status-date":
   version "2.0.0"
   resolved "https://github.com/projecttacoma/cqm-execution/#0f21099256dacee1452b7c87cf2c46afccb22960"
   dependencies:
-    cqm-models "https://github.com/projecttacoma/cqm-models#2019-standards-update"
+    cqm-models "https://github.com/projecttacoma/cqm-models#status-date"
     lodash "^4.17.5"
     moment "^2.21.0"
 
-"cqm-models@https://github.com/projecttacoma/cqm-models#2019-standards-update":
+"cqm-models@https://github.com/projecttacoma/cqm-models#status-date":
   version "2.0.0"
+<<<<<<< HEAD
   resolved "https://github.com/projecttacoma/cqm-models#e3a66445ef41ac49ca47d187ce7a1822a05829fb"
+=======
+  resolved "https://github.com/projecttacoma/cqm-models#31b97ca588c0dd4dda3fd97f393b6a03f3fdcb69"
+>>>>>>> Remove 'Date' as an option for 'Result'
   dependencies:
     cql-execution "https://github.com/cqframework/cql-execution#master"
     mongoose "^5.4.14"

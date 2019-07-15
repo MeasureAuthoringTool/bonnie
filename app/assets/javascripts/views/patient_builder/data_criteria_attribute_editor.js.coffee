@@ -144,7 +144,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     # If this is an any type, there will be more options than one.
     else if info.instance == 'Any'
       # TODO: Filter these more if possible
-      return ['Date', 'Code', 'Quantity', 'DateTime', 'Ratio', 'Integer', 'Decimal', 'Time']
+      return ['Code', 'Quantity', 'Ratio', 'Integer', 'Decimal', 'DateTime', 'Time']
 
     # It this is an AnyEntity type
     else if info.instance == 'AnyEntity'
