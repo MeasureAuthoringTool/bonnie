@@ -17,7 +17,7 @@ gem 'hqmf2js', '~> 1.4'
 gem 'hquery-patient-api', '~> 1.1'
 # gem 'cqm-parsers', '~> 0.2.1'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => '2019-standards-update'
 gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => '2019-standards-update'
 
 # gem 'cqm-parsers', :path => '../cqm-parsers'
