@@ -1,5 +1,5 @@
 {
-  "_id": "5b6b2161b848461165a3b783",
+  "_id": "5d278e7531fe5f6f3e4c6095",
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
@@ -23,11 +23,11 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d1400d331fe5fd3cacb0aea",
+    "_id": "5d278e7531fe5f6f3e4c6096",
     "birthDatetime": "1970-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d1400d331fe5fd3cacb0aeb",
+        "_id": "5d278e7531fe5f6f3e4c6097",
         "anatomicalLocationSite": {
           "code": "129151000119102",
           "system": "2.16.840.1.113883.6.96",
@@ -43,23 +43,19 @@
           }
         ],
         "description": "Diagnosis: Kidney Failure",
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0aec",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add087399"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+        "id": "5d278e7531fe5f6f3e4c6097",
         "prevalencePeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
         "qdmCategory": "condition",
         "qdmTitle": "Diagnosis",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+        "recorder": null,
         "severity": {
           "code": "12178007",
           "system": "2.16.840.1.113883.6.96",
@@ -69,7 +65,7 @@
         "_type": "QDM::Diagnosis"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0aed",
+        "_id": "5d278e7531fe5f6f3e4c6099",
         "admissionSource": {
           "code": "185460008",
           "system": "2.16.840.1.113883.6.96",
@@ -87,22 +83,46 @@
         "description": "Encounter, Performed: Face-to-Face Interaction",
         "diagnoses": [
           {
-            "code": "129151000119102",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Kidney Failure"
+            "_id": "5d2797a031fe5f747c2aa273",
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "129151000119102",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Kidney Failure",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           },
           {
-            "code": "12178007",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Proteinuria"
+            "_id": "5d2797a031fe5f747c2aa274",
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "12178007",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Proteinuria",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           },
           {
-            "code": "105401000119101",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Diabetes"
+            "_id": "5d2797a031fe5f747c2aa275",
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "105401000119101",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Diabetes",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           }
         ],
         "dischargeDisposition": {
@@ -113,9 +133,7 @@
         },
         "facilityLocations": [
           {
-            "_id": {
-              "$oid": "5d1400d331fe5fd3cacb0aee"
-            },
+            "_id": "5d278e7531fe5f6f3e4c609a",
             "_type": "QDM::FacilityLocation",
             "code": {
               "code": "4525004",
@@ -125,8 +143,8 @@
               "_type": "QDM::Code"
             },
             "locationPeriod": {
-              "low": "2012-07-23T08:00:00.000+00:00",
-              "high": "2012-07-23T09:00:00.000+00:00",
+              "low": "2012-07-23T08:00:00.000Z",
+              "high": "2012-07-23T09:00:00.000Z",
               "lowClosed": true,
               "highClosed": true,
               "_type": "QDM::Interval"
@@ -134,9 +152,7 @@
             "qdmVersion": "5.4"
           },
           {
-            "_id": {
-              "$oid": "5d1400d331fe5fd3cacb0aef"
-            },
+            "_id": "5d278e7531fe5f6f3e4c609b",
             "_type": "QDM::FacilityLocation",
             "code": {
               "code": "185463005",
@@ -146,8 +162,8 @@
               "_type": "QDM::Code"
             },
             "locationPeriod": {
-              "low": "2012-07-23T09:00:00.000+00:00",
-              "high": "2012-07-23T10:00:00.000+00:00",
+              "low": "2012-07-23T09:00:00.000Z",
+              "high": "2012-07-23T10:00:00.000Z",
               "lowClosed": true,
               "highClosed": true,
               "_type": "QDM::Interval"
@@ -155,38 +171,29 @@
             "qdmVersion": "5.4"
           }
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0af0",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add08739a"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d278e7531fe5f6f3e4c6099",
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": {
-          "code": "105401000119101",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Diabetes",
-          "version": null
-        },
+        "participant": null,
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
         "_type": "QDM::EncounterPerformed"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0af1",
+        "_id": "5d278e7531fe5f6f3e4c609d",
         "codeListId": "2.16.840.1.113883.3.526.3.1139",
         "dataElementCodes": [
           {
@@ -205,20 +212,17 @@
           "display": null,
           "version": null
         },
-        "hqmfOid": "2.16.840.1.113883.3.560.1.13",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0af2",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add08739d"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
+        "id": "5d278e7531fe5f6f3e4c609d",
         "qdmCategory": "medication",
         "qdmStatus": "active",
         "qdmTitle": "Medication, Active",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
+        "recorder": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -231,7 +235,7 @@
         "_type": "QDM::MedicationActive"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0af3",
+        "_id": "5d278e7531fe5f6f3e4c609f",
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113762.1.4.1108.15",
         "dataElementCodes": [
@@ -241,28 +245,24 @@
           }
         ],
         "description": "Intervention, Order: Hospice care ambulatory",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.45",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0af4",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add08739e"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
+        "id": "5d278e7531fe5f6f3e4c609f",
         "negationRationale": null,
         "qdmCategory": "intervention",
         "qdmStatus": "order",
         "qdmTitle": "Intervention, Order",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": {
           "code": "G0438",
           "system": "2.16.840.1.113883.6.285",
           "display": "Annual Wellness Visit",
           "version": null
         },
+        "requester": null,
         "_type": "QDM::InterventionOrder"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0af5",
+        "_id": "5d278e7531fe5f6f3e4c60a1",
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113762.1.4.1108.15",
         "dataElementCodes": [
@@ -272,27 +272,24 @@
           }
         ],
         "description": "Intervention, Performed: Hospice care ambulatory",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.46",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0af6",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add08739f"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+        "id": "5d278e7531fe5f6f3e4c60a1",
         "negationRationale": null,
+        "performer": null,
         "qdmCategory": "intervention",
         "qdmStatus": "performed",
         "qdmTitle": "Intervention, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": {
           "code": "129151000119102",
           "system": "2.16.840.1.113883.6.96",
           "display": "Kidney Failure",
           "version": null
         },
+        "relevantDatetime": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -311,7 +308,7 @@
         "_type": "QDM::InterventionPerformed"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0af7",
+        "_id": "5d278e7531fe5f6f3e4c60a3",
         "anatomicalLocationSite": {
           "code": "12843005",
           "system": "2.16.840.1.113883.6.96",
@@ -330,13 +327,8 @@
           }
         ],
         "description": "Procedure, Performed: Dialysis Services",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.6",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0af8",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add0873a1"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
+        "id": "5d278e7531fe5f6f3e4c60a3",
         "incisionDatetime": "2012-07-12T08:00:00.000+00:00",
         "method": {
           "code": "11218-5",
@@ -345,25 +337,23 @@
           "version": null
         },
         "negationRationale": null,
-        "ordinality": {
-          "code": "127013003",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Diabetic Nephropathy",
-          "version": null
-        },
+        "performer": null,
+        "priority": null,
         "qdmCategory": "procedure",
         "qdmStatus": "performed",
         "qdmTitle": "Procedure, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
+        "rank": null,
         "reason": {
           "code": "12178007",
           "system": "2.16.840.1.113883.6.96",
           "display": "Proteinuria",
           "version": null
         },
+        "relevantDatetime": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -382,7 +372,7 @@
         "_type": "QDM::ProcedurePerformed"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0af9",
+        "_id": "5d278e7531fe5f6f3e4c60a5",
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1012",
@@ -418,25 +408,23 @@
           }
         ],
         "description": "Procedure, Performed: Kidney Transplant",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.6",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0afa",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add0873a3"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
+        "id": "5d278e7531fe5f6f3e4c60a5",
         "incisionDatetime": null,
         "method": null,
         "negationRationale": null,
-        "ordinality": null,
+        "performer": null,
+        "priority": null,
         "qdmCategory": "procedure",
         "qdmStatus": "performed",
         "qdmTitle": "Procedure, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
+        "rank": null,
         "reason": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -445,7 +433,7 @@
         "_type": "QDM::ProcedurePerformed"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0afb",
+        "_id": "5d278e7531fe5f6f3e4c60a7",
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1024",
         "components": [
@@ -458,13 +446,8 @@
           }
         ],
         "description": "Laboratory Test, Performed: Urine Protein Tests",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.5",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0afc",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add0873a4"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+        "id": "5d278e7531fe5f6f3e4c60a7",
         "method": {
           "code": "180272001",
           "system": "2.16.840.1.113883.6.96",
@@ -472,10 +455,11 @@
           "version": null
         },
         "negationRationale": null,
+        "performer": null,
         "qdmCategory": "laboratory_test",
         "qdmStatus": "performed",
         "qdmTitle": "Laboratory Test, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": {
           "code": "129151000119102",
           "system": "2.16.840.1.113883.6.96",
@@ -494,9 +478,10 @@
           "lowClosed": true,
           "highClosed": true
         },
+        "relevantDatetime": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -514,7 +499,7 @@
         "_type": "QDM::LaboratoryTestPerformed"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0afd",
+        "_id": "5d278e7531fe5f6f3e4c60a9",
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1024",
         "components": [
@@ -558,24 +543,21 @@
           }
         ],
         "description": "Laboratory Test, Performed: Urine Protein Tests",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.5",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0afe",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add0873a6"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+        "id": "5d278e7531fe5f6f3e4c60a9",
         "method": null,
         "negationRationale": null,
+        "performer": null,
         "qdmCategory": "laboratory_test",
         "qdmStatus": "performed",
         "qdmTitle": "Laboratory Test, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": null,
         "referenceRange": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
-          "low": "2012-07-23T08:00:00.000+00:00",
-          "high": "2012-07-23T08:15:00.000+00:00",
+          "low": "2012-07-23T08:00:00.000Z",
+          "high": "2012-07-23T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -585,7 +567,7 @@
         "_type": "QDM::LaboratoryTestPerformed"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0ae5",
+        "_id": "5d278e7531fe5f6f3e4c6091",
         "birthDatetime": "1970-01-01T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
@@ -599,20 +581,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0aff",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d331fe5fd3cacb0ae5"
-        },
+        "id": "5d278e7531fe5f6f3e4c6091",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0ae6",
+        "_id": "5d278e7531fe5f6f3e4c6092",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -625,20 +602,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0b00",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d331fe5fd3cacb0ae6"
-        },
+        "id": "5d278e7531fe5f6f3e4c6092",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0ae7",
+        "_id": "5d278e7531fe5f6f3e4c6093",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -651,20 +623,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0b01",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d331fe5fd3cacb0ae7"
-        },
+        "id": "5d278e7531fe5f6f3e4c6093",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d1400d331fe5fd3cacb0ae8",
+        "_id": "5d278e7531fe5f6f3e4c6094",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -677,16 +644,11 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-        "id": {
-          "_id": "5d1400d331fe5fd3cacb0b02",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d331fe5fd3cacb0ae8"
-        },
+        "id": "5d278e7531fe5f6f3e4c6094",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -724,9 +686,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add08739e"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add08739e",
           "code_source": "DEFAULT"
         },
         {
@@ -765,9 +725,7 @@
               "129151000119102"
             ]
           },
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add087399"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add087399",
           "code_source": "USER_DEFINED"
         },
         {
@@ -870,9 +828,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add08739a"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add08739a",
           "code_source": "DEFAULT"
         },
         {
@@ -918,9 +874,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add08739f"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add08739f",
           "code_source": "DEFAULT"
         },
         {
@@ -994,9 +948,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add0873a4"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add0873a4",
           "code_source": "DEFAULT"
         },
         {
@@ -1060,9 +1012,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add0873a6"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add0873a6",
           "code_source": "USER_DEFINED"
         },
         {
@@ -1117,9 +1067,7 @@
               "1000001"
             ]
           },
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add08739d"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add08739d",
           "code_source": "DEFAULT"
         },
         {
@@ -1191,9 +1139,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add0873a1"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add0873a1",
           "code_source": "USER_DEFINED"
         },
         {
@@ -1249,9 +1195,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5b6c2f6cb848464add0873a3"
-          },
+          "coded_entry_id": "5b6c2f6cb848464add0873a3",
           "code_source": "USER_DEFINED"
         },
         {
@@ -1272,7 +1216,7 @@
       "description_category": null,
       "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": "501fdba3044a111b98000001"
 }

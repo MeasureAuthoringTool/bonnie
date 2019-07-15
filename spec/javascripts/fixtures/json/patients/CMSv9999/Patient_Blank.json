@@ -1,5 +1,5 @@
 {
-  "_id": "5af5b02db848462db95f11f3",
+  "_id": "5d278c7331fe5f6f3e4baa73",
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
@@ -112,11 +112,11 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d1400d831fe5fd3cacb0c4e",
+    "_id": "5d278c7331fe5f6f3e4baa74",
     "birthDatetime": "1970-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d1400d831fe5fd3cacb0c49",
+        "_id": "5d278c7331fe5f6f3e4baa6f",
         "birthDatetime": "1970-01-01T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
@@ -130,20 +130,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
-        "id": {
-          "_id": "5d1400d831fe5fd3cacb0c4f",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d831fe5fd3cacb0c49"
-        },
+        "id": "5d278c7331fe5f6f3e4baa6f",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d1400d831fe5fd3cacb0c4a",
+        "_id": "5d278c7331fe5f6f3e4baa70",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -156,20 +151,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-        "id": {
-          "_id": "5d1400d831fe5fd3cacb0c50",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d831fe5fd3cacb0c4a"
-        },
+        "id": "5d278c7331fe5f6f3e4baa70",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d1400d831fe5fd3cacb0c4b",
+        "_id": "5d278c7331fe5f6f3e4baa71",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -182,20 +172,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-        "id": {
-          "_id": "5d1400d831fe5fd3cacb0c51",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d831fe5fd3cacb0c4b"
-        },
+        "id": "5d278c7331fe5f6f3e4baa71",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d1400d831fe5fd3cacb0c4c",
+        "_id": "5d278c7331fe5f6f3e4baa72",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -208,16 +193,11 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-        "id": {
-          "_id": "5d1400d831fe5fd3cacb0c52",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d831fe5fd3cacb0c4c"
-        },
+        "id": "5d278c7331fe5f6f3e4baa72",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -242,7 +222,7 @@
       "description_category": null,
       "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": "501fdba3044a111b98000001"
 }

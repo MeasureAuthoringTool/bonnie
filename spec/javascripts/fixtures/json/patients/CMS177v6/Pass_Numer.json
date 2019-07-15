@@ -1,5 +1,5 @@
 {
-  "_id": "5a58ecb2942c6d500fc8ca0b",
+  "_id": "5d278b4d31fe5f6f3e4b457c",
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
     {
@@ -22,11 +22,11 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d1400d531fe5fd3cacb0b62",
+    "_id": "5d278b4d31fe5f6f3e4b457d",
     "birthDatetime": "1995-12-13T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d1400d531fe5fd3cacb0b63",
+        "_id": "5d278b4d31fe5f6f3e4b457e",
         "admissionSource": null,
         "authorDatetime": "2012-02-11T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1048",
@@ -39,48 +39,47 @@
         "description": "Encounter, Performed: Face-to-Face Interaction",
         "diagnoses": [
           {
-            "code": "14183003",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Major Depressive Disorder-Active"
+            "_id": "5d27975131fe5f747c2a22c0",
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "14183003",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Major Depressive Disorder-Active",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           }
         ],
         "dischargeDisposition": null,
         "facilityLocations": [
 
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
-        "id": {
-          "_id": "5d1400d531fe5fd3cacb0b64",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb7763b848463d625b33d2"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d278b4d31fe5f6f3e4b457e",
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": {
-          "code": "14183003",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Major Depressive Disorder-Active",
-          "version": null
-        },
+        "participant": null,
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
-          "low": "2012-02-11T08:00:00.000+00:00",
-          "high": "2012-02-11T08:15:00.000+00:00",
+          "low": "2012-02-11T08:00:00.000Z",
+          "high": "2012-02-11T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
         "_type": "QDM::EncounterPerformed"
       },
       {
-        "_id": "5d1400d531fe5fd3cacb0b65",
+        "_id": "5d278b4d31fe5f6f3e4b4580",
         "authorDatetime": "2012-02-11T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.526.3.1484",
         "dataElementCodes": [
@@ -90,22 +89,19 @@
           }
         ],
         "description": "Intervention, Performed: Suicide Risk Assessment",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.46",
-        "id": {
-          "_id": "5d1400d531fe5fd3cacb0b66",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb7763b848463d625b33d4"
-        },
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
+        "id": "5d278b4d31fe5f6f3e4b4580",
         "negationRationale": null,
+        "performer": null,
         "qdmCategory": "intervention",
         "qdmStatus": "performed",
         "qdmTitle": "Intervention, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
-          "low": "2012-02-11T08:00:00.000+00:00",
-          "high": "2012-02-11T08:15:00.000+00:00",
+          "low": "2012-02-11T08:00:00.000Z",
+          "high": "2012-02-11T08:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -114,7 +110,7 @@
         "_type": "QDM::InterventionPerformed"
       },
       {
-        "_id": "5d1400d531fe5fd3cacb0b5d",
+        "_id": "5d278b4d31fe5f6f3e4b4578",
         "birthDatetime": "1995-12-13T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": [
@@ -128,20 +124,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
-        "id": {
-          "_id": "5d1400d531fe5fd3cacb0b67",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d531fe5fd3cacb0b5d"
-        },
+        "id": "5d278b4d31fe5f6f3e4b4578",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d1400d531fe5fd3cacb0b5e",
+        "_id": "5d278b4d31fe5f6f3e4b4579",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -154,20 +145,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-        "id": {
-          "_id": "5d1400d531fe5fd3cacb0b68",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d531fe5fd3cacb0b5e"
-        },
+        "id": "5d278b4d31fe5f6f3e4b4579",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
-        "_id": "5d1400d531fe5fd3cacb0b5f",
+        "_id": "5d278b4d31fe5f6f3e4b457a",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -180,20 +166,15 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-        "id": {
-          "_id": "5d1400d531fe5fd3cacb0b69",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d531fe5fd3cacb0b5f"
-        },
+        "id": "5d278b4d31fe5f6f3e4b457a",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d1400d531fe5fd3cacb0b60",
+        "_id": "5d278b4d31fe5f6f3e4b457b",
         "codeListId": null,
         "dataElementCodes": [
           {
@@ -206,16 +187,11 @@
         ],
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-        "id": {
-          "_id": "5d1400d531fe5fd3cacb0b6a",
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d1400d531fe5fd3cacb0b60"
-        },
+        "id": "5d278b4d31fe5f6f3e4b457b",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -263,9 +239,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5aeb7763b848463d625b33d2"
-          },
+          "coded_entry_id": "5aeb7763b848463d625b33d2",
           "code_source": "DEFAULT"
         },
         {
@@ -294,9 +268,7 @@
             ]
           },
           "negation_code_list_id": "",
-          "coded_entry_id": {
-            "$oid": "5aeb7763b848463d625b33d4"
-          },
+          "coded_entry_id": "5aeb7763b848463d625b33d4",
           "code_source": "DEFAULT"
         },
         {
@@ -317,7 +289,7 @@
       "description_category": null,
       "insurance_providers": "[]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": "501fdba3044a111b98000001"
 }
