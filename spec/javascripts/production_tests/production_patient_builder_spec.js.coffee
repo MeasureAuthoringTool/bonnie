@@ -32,7 +32,7 @@ describe 'Production_PatientBuilderView', ->
 
       it 'should have expired code', ->
         expired_code = @result.get('statement_results').DepressionUtilizationofthePHQ9Tool['Expired'].raw[0].getCode()
-        expect(expired_code[0].hasMatch(new cql.Code('419099009', '2.16.840.1.113883.6.96'))).toBe(true)
+        expect(expired_code[0].hasMatch(new cqm.models.CQL.Code('419099009', '2.16.840.1.113883.6.96'))).toBe(true)
 
   describe 'CMS722 Tests', ->
     beforeAll ->
