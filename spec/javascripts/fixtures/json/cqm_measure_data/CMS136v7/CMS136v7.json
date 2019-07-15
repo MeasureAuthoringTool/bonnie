@@ -1,5 +1,5 @@
 {
-  "_id": "5d1241da31fe5f83c94d0ecc",
+  "_id": "5d27840d31fe5f6eb006ea88",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS136v7",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d1241da31fe5f83c94d0ece",
+      "_id": "5d27840e31fe5f6eb006ea8a",
       "cql": "library FollowUpCareforChildrenPrescribedADHDMedicationADD version '7.1.006'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\ninclude Hospice version '1.0.000' called Hospice\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"ADHD Medications\": 'urn:oid:2.16.840.1.113883.3.464.1003.196.12.1171'\r\nvalueset \"Ambulatory\": 'urn:oid:2.16.840.1.113883.3.464.1003.122.12.1003'\r\nvalueset \"Behavioral Health Follow-up Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1054'\r\nvalueset \"Discharge Services- Observation Care\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1039'\r\nvalueset \"Home Healthcare Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1016'\r\nvalueset \"Hospital Observation Care - Initial\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1002'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\nvalueset \"Mental Health Diagnoses\": 'urn:oid:2.16.840.1.113883.3.464.1003.105.12.1004'\r\nvalueset \"Narcolepsy\": 'urn:oid:2.16.840.1.113883.3.464.1003.114.12.1011'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Outpatient Consultation\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1008'\r\nvalueset \"Preventive Care, Established Office Visit, 0 to 17\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1024'\r\nvalueset \"Preventive Care Services - Group Counseling\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1027'\r\nvalueset \"Preventive Care Services-Individual Counseling\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1026'\r\nvalueset \"Preventive Care Services, Initial Office Visit, 0 to 17\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1022'\r\nvalueset \"Psych Visit - Diagnostic Evaluation\": 'urn:oid:2.16.840.1.113883.3.526.3.1492'\r\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'\r\nvalueset \"Psychotherapy and Pharmacologic Management\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1055'\r\nvalueset \"Substance Abuse\": 'urn:oid:2.16.840.1.113883.3.464.1003.106.12.1004'\r\nvalueset \"Telehealth Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1031'\r\nvalueset \"Telephone Management\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1053'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator 1\":\r\n\t\"Initial Population 1\"\r\n\r\ndefine \"Denominator 2\":\r\n\t\"Initial Population 2\"\r\n\r\ndefine \"Qualifying Encounter\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Home Healthcare Services\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care, Established Office Visit, 0 to 17\"]\r\n\t\tunion [\"Encounter, Performed\": \"Preventive Care Services, Initial Office Visit, 0 to 17\"] ) ValidEncounter\r\n\t\twhere ValidEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Qualifying Numerator Encounter\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Hospital Observation Care - Initial\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Preventive Care Services - Group Counseling\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Behavioral Health Follow-up Visit\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Preventive Care Services-Individual Counseling\"]\r\n\t\t\tunion ( [\"Encounter, Performed\": \"Psychotherapy and Pharmacologic Management\"] PsychPharmMgmt\r\n\t\t\t\t\twhere exists ( PsychPharmMgmt.facilityLocations Location\r\n\t\t\t\t\t\t\twhere Location.code in \"Ambulatory\"\r\n\t\t\t\t\t)\r\n\t\t\t)\r\n\t\t\tunion [\"Encounter, Performed\": \"Discharge Services- Observation Care\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Outpatient Consultation\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Home Healthcare Services\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Preventive Care Services, Initial Office Visit, 0 to 17\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Preventive Care, Established Office Visit, 0 to 17\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Psych Visit - Diagnostic Evaluation\"]\r\n\t\t\tunion [\"Encounter, Performed\": \"Psych Visit - Psychotherapy\"]\r\n\t)\r\n\r\ndefine \"Narcolepsy Exclusion\":\r\n\t[\"Diagnosis\": \"Narcolepsy\"] Narcolepsy\r\n\t\twhere Narcolepsy.prevalencePeriod starts before end \"Measurement Period\"\r\n\r\ndefine \"First ADHD Medication Dispensed\":\r\n\tFirst([\"Medication, Dispensed\": \"ADHD Medications\"] FirstADHDMedication\r\n\t\t\twhere FirstADHDMedication.authorDatetime 60 days or less after start \"Measurement Period\"\r\n\t\t\t\tor FirstADHDMedication.authorDatetime 90 days or less on or before start \"Measurement Period\"\r\n\t\t\tsort by authorDatetime\r\n\t)\r\n\r\ndefine \"Encounters 300 Days After Initial ADHD Medication\":\r\n\t\"Qualifying Numerator Encounter\" ValidNumeratorEncounter\r\n\t\twith \"First ADHD Medication Dispensed\" InitialADHDMedication\r\n\t\t\tsuch that ValidNumeratorEncounter.relevantPeriod starts 31 days or more after day of InitialADHDMedication.authorDatetime\r\n\t\t\t\tand ValidNumeratorEncounter.relevantPeriod starts 300 days or less after day of InitialADHDMedication.authorDatetime\r\n\r\ndefine \"Encounter 30 Days After Initial ADHD Medication\":\r\n\texists ( \"Qualifying Numerator Encounter\" ValidNumeratorEncounter\r\n\t\t\twith \"First ADHD Medication Dispensed\" InitialADHDMedication\r\n\t\t\t\tsuch that ValidNumeratorEncounter.relevantPeriod starts 30 days or less after day of InitialADHDMedication.authorDatetime\r\n\t)\r\n\r\ndefine \"ADHD Medications Taken For 300 Days After First ADHD Medication Dispensed\":\r\n\t[\"Medication, Active\": \"ADHD Medications\"] ActiveADHDMedications\r\n\t\twith \"First ADHD Medication Dispensed\" InitialADHDMedication\r\n\t\t\tsuch that ActiveADHDMedications.relevantPeriod starts 300 days or less on or after day of InitialADHDMedication.authorDatetime\r\n\r\ndefine \"Previously On ADHD Medication Exclusion\":\r\n\t[\"Medication, Active\": \"ADHD Medications\"] ActiveADHDMedication\r\n\t\twith \"First ADHD Medication Dispensed\" InitialADHDMedication\r\n\t\t\tsuch that ActiveADHDMedication.relevantPeriod starts 120 days or less before day of InitialADHDMedication.authorDatetime\r\n\r\ndefine \"Has ADHD Cumulative Medication Duration Greater Than or Equal to 210 Days\":\r\n\t\"Cumulative Medication Duration\"(\"ADHD Medications Taken For 300 Days After First ADHD Medication Dispensed\")>= 210\r\n\r\ndefine \"Two or More Followup Encounters\":\r\n\tCount(\"Encounters 300 Days After Initial ADHD Medication\")>= 2\r\n\r\ndefine \"Telehealth Services or Telephone Management\":\r\n\t( [\"Encounter, Performed\": \"Telehealth Services\"]\r\n\t\tunion [\"Encounter, Performed\": \"Telephone Management\"] ) TelehealthEncounter\r\n\t\twith \"First ADHD Medication Dispensed\" InitialADHDMedication\r\n\t\t\tsuch that TelehealthEncounter.relevantPeriod starts 31 days or more after day of InitialADHDMedication.authorDatetime\r\n\t\t\t\tand TelehealthEncounter.relevantPeriod starts 300 days or less after day of InitialADHDMedication.authorDatetime\r\n\r\ndefine \"Numerator 2\":\r\n\t\"Encounter 30 Days After Initial ADHD Medication\"\r\n\t\tand ( ( \"Two or More Followup Encounters\" )\r\n\t\t\t\tor ( exists ( \"Encounters 300 Days After Initial ADHD Medication\" )\r\n\t\t\t\t\t\tand exists ( \"Telehealth Services or Telephone Management\" )\r\n\t\t\t\t)\r\n\t\t)\r\n\r\ndefine \"Inpatient Stay with Qualifying Diagnosis within 300 Days of Initial ADHD Dispense\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] InpatientStay\r\n\t\twith \"First ADHD Medication Dispensed\" InitalADHDMedication\r\n\t\t\tsuch that InpatientStay.relevantPeriod starts 300 days or less after day of InitalADHDMedication.authorDatetime\r\n\t\twhere ( InpatientStay.principalDiagnosis in \"Mental Health Diagnoses\"\r\n\t\t\t\tor InpatientStay.principalDiagnosis in \"Substance Abuse\"\r\n\t\t)\r\n\r\ndefine \"Denominator Exclusions 2\":\r\n\tHospice.\"Has Hospice\"\r\n\t\tor exists ( \"Narcolepsy Exclusion\" )\r\n\t\tor exists ( \"Inpatient Stay with Qualifying Diagnosis within 300 Days of Initial ADHD Dispense\" )\r\n\t\tor exists ( \"Previously On ADHD Medication Exclusion\" )\r\n\r\ndefine \"Initial Population 2\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 6\r\n\t\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 12\r\n\t)\r\n\t\tand exists ( \"Qualifying Encounter\" )\r\n\t\tand \"Has ADHD Cumulative Medication Duration Greater Than or Equal to 210 Days\"\r\n\t\tand \"First ADHD Medication Dispensed\" is not null\r\n\r\ndefine \"Numerator 1\":\r\n\t\"Encounter 30 Days After Initial ADHD Medication\"\r\n\r\ndefine \"Inpatient Stay with Qualifying Diagnosis within 30 Days of Initial ADHD Dispense\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] InpatientStay\r\n\t\twith \"First ADHD Medication Dispensed\" InitalADHDMedication\r\n\t\t\tsuch that InpatientStay.relevantPeriod starts 30 days or less after day of InitalADHDMedication.authorDatetime\r\n\t\twhere ( InpatientStay.principalDiagnosis in \"Mental Health Diagnoses\"\r\n\t\t\t\tor InpatientStay.principalDiagnosis in \"Substance Abuse\"\r\n\t\t)\r\n\r\ndefine \"Denominator Exclusions 1\":\r\n\tHospice.\"Has Hospice\"\r\n\t\tor exists ( \"Narcolepsy Exclusion\" )\r\n\t\tor exists ( \"Inpatient Stay with Qualifying Diagnosis within 30 Days of Initial ADHD Dispense\" )\r\n\t\tor exists ( \"Previously On ADHD Medication Exclusion\" )\r\n\r\ndefine \"Initial Population 1\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 6\r\n\t\t\t\tand Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 12\r\n\t)\r\n\t\tand exists ( \"Qualifying Encounter\" )\r\n\t\tand \"First ADHD Medication Dispensed\" is not null\r\n\r\ndefine function \"Cumulative Medication Duration\"(Medication List<\"Medication, Active\">):\r\n\tSum((collapse(Medication.relevantPeriod))CumulativeMedication\r\n\t\t\treturn duration in days of CumulativeMedication\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -14364,57 +14364,57 @@
       "library_version": "7.1.006",
       "statement_dependencies": [
         {
-          "_id": "5d1241da31fe5f83c94d0ecf",
+          "_id": "5d27840e31fe5f6eb006ea8b",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ed0",
+          "_id": "5d27840e31fe5f6eb006ea8c",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ed1",
+          "_id": "5d27840e31fe5f6eb006ea8d",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ed2",
+          "_id": "5d27840e31fe5f6eb006ea8e",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ed3",
+          "_id": "5d27840e31fe5f6eb006ea8f",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ed4",
+          "_id": "5d27840e31fe5f6eb006ea90",
           "statement_name": "Qualifying Encounter"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ed5",
+          "_id": "5d27840e31fe5f6eb006ea91",
           "statement_name": "First ADHD Medication Dispensed"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ed6",
+          "_id": "5d27840e31fe5f6eb006ea92",
           "statement_name": "Initial Population 1",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0ed7",
+              "_id": "5d27840e31fe5f6eb006ea93",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0ed8",
+              "_id": "5d27840e31fe5f6eb006ea94",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0ed9",
+              "_id": "5d27840e31fe5f6eb006ea95",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Qualifying Encounter"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0eda",
+              "_id": "5d27840e31fe5f6eb006ea96",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14422,11 +14422,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0edb",
+          "_id": "5d27840e31fe5f6eb006ea97",
           "statement_name": "Denominator 1",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0edc",
+              "_id": "5d27840e31fe5f6eb006ea98",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Initial Population 1"
@@ -14434,11 +14434,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0edd",
+          "_id": "5d27840e31fe5f6eb006ea99",
           "statement_name": "ADHD Medications Taken For 300 Days After First ADHD Medication Dispensed",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0ede",
+              "_id": "5d27840e31fe5f6eb006ea9a",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14446,21 +14446,21 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0edf",
+          "_id": "5d27840e31fe5f6eb006ea9b",
           "statement_name": "Cumulative Medication Duration"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ee0",
+          "_id": "5d27840e31fe5f6eb006ea9c",
           "statement_name": "Has ADHD Cumulative Medication Duration Greater Than or Equal to 210 Days",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0ee1",
+              "_id": "5d27840e31fe5f6eb006ea9d",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Cumulative Medication Duration"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0ee2",
+              "_id": "5d27840e31fe5f6eb006ea9e",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "ADHD Medications Taken For 300 Days After First ADHD Medication Dispensed"
@@ -14468,35 +14468,35 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ee3",
+          "_id": "5d27840e31fe5f6eb006ea9f",
           "statement_name": "Initial Population 2",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0ee4",
+              "_id": "5d27840e31fe5f6eb006eaa0",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0ee5",
+              "_id": "5d27840e31fe5f6eb006eaa1",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0ee6",
+              "_id": "5d27840e31fe5f6eb006eaa2",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Qualifying Encounter"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0ee7",
+              "_id": "5d27840e31fe5f6eb006eaa3",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Has ADHD Cumulative Medication Duration Greater Than or Equal to 210 Days"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0ee8",
+              "_id": "5d27840e31fe5f6eb006eaa4",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14504,11 +14504,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ee9",
+          "_id": "5d27840e31fe5f6eb006eaa5",
           "statement_name": "Denominator 2",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0eea",
+              "_id": "5d27840e31fe5f6eb006eaa6",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Initial Population 2"
@@ -14516,25 +14516,25 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0eeb",
+          "_id": "5d27840e31fe5f6eb006eaa7",
           "statement_name": "Qualifying Numerator Encounter"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0eec",
+          "_id": "5d27840e31fe5f6eb006eaa8",
           "statement_name": "Narcolepsy Exclusion"
         },
         {
-          "_id": "5d1241da31fe5f83c94d0eed",
+          "_id": "5d27840e31fe5f6eb006eaa9",
           "statement_name": "Encounters 300 Days After Initial ADHD Medication",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0eee",
+              "_id": "5d27840e31fe5f6eb006eaaa",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Qualifying Numerator Encounter"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0eef",
+              "_id": "5d27840e31fe5f6eb006eaab",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14542,17 +14542,17 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ef0",
+          "_id": "5d27840e31fe5f6eb006eaac",
           "statement_name": "Encounter 30 Days After Initial ADHD Medication",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0ef1",
+              "_id": "5d27840e31fe5f6eb006eaad",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Qualifying Numerator Encounter"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0ef2",
+              "_id": "5d27840e31fe5f6eb006eaae",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14560,11 +14560,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ef3",
+          "_id": "5d27840e31fe5f6eb006eaaf",
           "statement_name": "Previously On ADHD Medication Exclusion",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0ef4",
+              "_id": "5d27840e31fe5f6eb006eab0",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14572,11 +14572,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ef5",
+          "_id": "5d27840e31fe5f6eb006eab1",
           "statement_name": "Two or More Followup Encounters",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0ef6",
+              "_id": "5d27840e31fe5f6eb006eab2",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Encounters 300 Days After Initial ADHD Medication"
@@ -14584,11 +14584,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ef7",
+          "_id": "5d27840e31fe5f6eb006eab3",
           "statement_name": "Telehealth Services or Telephone Management",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0ef8",
+              "_id": "5d27840e31fe5f6eb006eab4",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14596,29 +14596,29 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0ef9",
+          "_id": "5d27840e31fe5f6eb006eab5",
           "statement_name": "Numerator 2",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0efa",
+              "_id": "5d27840e31fe5f6eb006eab6",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Encounter 30 Days After Initial ADHD Medication"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0efb",
+              "_id": "5d27840e31fe5f6eb006eab7",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Two or More Followup Encounters"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0efc",
+              "_id": "5d27840e31fe5f6eb006eab8",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Encounters 300 Days After Initial ADHD Medication"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0efd",
+              "_id": "5d27840e31fe5f6eb006eab9",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Telehealth Services or Telephone Management"
@@ -14626,11 +14626,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0efe",
+          "_id": "5d27840e31fe5f6eb006eaba",
           "statement_name": "Inpatient Stay with Qualifying Diagnosis within 300 Days of Initial ADHD Dispense",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0eff",
+              "_id": "5d27840e31fe5f6eb006eabb",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14638,29 +14638,29 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0f00",
+          "_id": "5d27840e31fe5f6eb006eabc",
           "statement_name": "Denominator Exclusions 2",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0f01",
+              "_id": "5d27840e31fe5f6eb006eabd",
               "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0f02",
+              "_id": "5d27840e31fe5f6eb006eabe",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Narcolepsy Exclusion"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0f03",
+              "_id": "5d27840e31fe5f6eb006eabf",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Inpatient Stay with Qualifying Diagnosis within 300 Days of Initial ADHD Dispense"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0f04",
+              "_id": "5d27840e31fe5f6eb006eac0",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Previously On ADHD Medication Exclusion"
@@ -14668,11 +14668,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0f05",
+          "_id": "5d27840e31fe5f6eb006eac1",
           "statement_name": "Numerator 1",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0f06",
+              "_id": "5d27840e31fe5f6eb006eac2",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Encounter 30 Days After Initial ADHD Medication"
@@ -14680,11 +14680,11 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0f07",
+          "_id": "5d27840e31fe5f6eb006eac3",
           "statement_name": "Inpatient Stay with Qualifying Diagnosis within 30 Days of Initial ADHD Dispense",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0f08",
+              "_id": "5d27840e31fe5f6eb006eac4",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "First ADHD Medication Dispensed"
@@ -14692,29 +14692,29 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0f09",
+          "_id": "5d27840e31fe5f6eb006eac5",
           "statement_name": "Denominator Exclusions 1",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0f0a",
+              "_id": "5d27840e31fe5f6eb006eac6",
               "hqmf_id": null,
               "library_name": "Hospice",
               "statement_name": "Has Hospice"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0f0b",
+              "_id": "5d27840e31fe5f6eb006eac7",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Narcolepsy Exclusion"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0f0c",
+              "_id": "5d27840e31fe5f6eb006eac8",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Inpatient Stay with Qualifying Diagnosis within 30 Days of Initial ADHD Dispense"
             },
             {
-              "_id": "5d1241da31fe5f83c94d0f0d",
+              "_id": "5d27840e31fe5f6eb006eac9",
               "hqmf_id": null,
               "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
               "statement_name": "Previously On ADHD Medication Exclusion"
@@ -14724,7 +14724,7 @@
       ]
     },
     {
-      "_id": "5d1241da31fe5f83c94d0f0e",
+      "_id": "5d27840e31fe5f6eb006eaca",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -23388,11 +23388,11 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241da31fe5f83c94d0f0f",
+          "_id": "5d27840e31fe5f6eb006eacb",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d1241da31fe5f83c94d0f10",
+              "_id": "5d27840e31fe5f6eb006eacc",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -23400,13 +23400,13 @@
           ]
         },
         {
-          "_id": "5d1241da31fe5f83c94d0f11",
+          "_id": "5d27840e31fe5f6eb006eacd",
           "statement_name": "ToDate"
         }
       ]
     },
     {
-      "_id": "5d1241da31fe5f83c94d0f12",
+      "_id": "5d27840e31fe5f6eb006eace",
       "cql": "library Hospice version '1.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\ncodesystem \"SNOMEDCT:2017-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-03'\r\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\r\n\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Has Hospice\":\r\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t)\r\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\r\n\t)\r\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\r\n\t\t)\r\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\r\n\t\t)\r\n",
       "elm": {
         "library": {
@@ -25291,13 +25291,13 @@
       "library_version": "1.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241da31fe5f83c94d0f13",
+          "_id": "5d27840e31fe5f6eb006eacf",
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-06-25T15:46:34.423Z",
+  "created_at": "2019-07-11T18:46:38.000Z",
   "description": "Percentage of children 6-12 years of age and newly dispensed a medication for attention-deficit/hyperactivity disorder (ADHD) who had appropriate follow-up care.  Two rates are reported.  \na. Percentage of children who had one follow-up visit with a practitioner with prescribing authority during the 30-Day Initiation Phase.\nb. Percentage of children who remained on ADHD medication for at least 210 days and who, in addition to the visit in the Initiation Phase, had at least two additional follow-up visits with a practitioner within 270 days (9 months) after the Initiation Phase ended.",
   "hqmf_id": "40280382-5FA6-FE85-015F-B6E40A6805A8",
   "hqmf_set_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
@@ -26029,67 +26029,67 @@
   },
   "population_sets": [
     {
-      "_id": "5d1241da31fe5f83c94d0f2e",
+      "_id": "5d27840e31fe5f6eb006eaea",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d1241da31fe5f83c94d0f33",
+          "_id": "5d27840e31fe5f6eb006eaef",
           "hqmf_id": "EEFB7B2B-774E-408B-8886-24F409CE66E3",
           "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
           "statement_name": "Denominator Exclusions 1"
         },
         "DENOM": {
-          "_id": "5d1241da31fe5f83c94d0f31",
+          "_id": "5d27840e31fe5f6eb006eaed",
           "hqmf_id": "3955A9EB-54B2-44D6-A67A-C02FACB1CCB1",
           "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
           "statement_name": "Denominator 1"
         },
         "IPP": {
-          "_id": "5d1241da31fe5f83c94d0f30",
+          "_id": "5d27840e31fe5f6eb006eaec",
           "hqmf_id": "BA0360DF-716A-48ED-95C2-4D0378E35A2C",
           "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
           "statement_name": "Initial Population 1"
         },
         "NUMER": {
-          "_id": "5d1241da31fe5f83c94d0f32",
+          "_id": "5d27840e31fe5f6eb006eaee",
           "hqmf_id": "A8941A64-EEA3-4826-9433-86D5895C3E67",
           "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
           "statement_name": "Numerator 1"
         },
-        "_id": "5d1241da31fe5f83c94d0f2f",
+        "_id": "5d27840e31fe5f6eb006eaeb",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
     },
     {
-      "_id": "5d1241da31fe5f83c94d0f34",
+      "_id": "5d27840e31fe5f6eb006eaf0",
       "population_set_id": "PopulationCriteria2",
       "populations": {
         "DENEX": {
-          "_id": "5d1241da31fe5f83c94d0f39",
+          "_id": "5d27840e31fe5f6eb006eaf5",
           "hqmf_id": "9B31A46D-9EB2-47EB-9681-26E76851569A",
           "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
           "statement_name": "Denominator Exclusions 2"
         },
         "DENOM": {
-          "_id": "5d1241da31fe5f83c94d0f37",
+          "_id": "5d27840e31fe5f6eb006eaf3",
           "hqmf_id": "D50AC577-B89D-441A-AE4D-DDE41E327EF9",
           "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
           "statement_name": "Denominator 2"
         },
         "IPP": {
-          "_id": "5d1241da31fe5f83c94d0f36",
+          "_id": "5d27840e31fe5f6eb006eaf2",
           "hqmf_id": "578F04AA-F634-4878-99A0-D221E0598F15",
           "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
           "statement_name": "Initial Population 2"
         },
         "NUMER": {
-          "_id": "5d1241da31fe5f83c94d0f38",
+          "_id": "5d27840e31fe5f6eb006eaf4",
           "hqmf_id": "EA4B3FD1-3167-4C6F-99A0-5DE1855A74FB",
           "library_name": "FollowUpCareforChildrenPrescribedADHDMedicationADD",
           "statement_name": "Numerator 2"
         },
-        "_id": "5d1241da31fe5f83c94d0f35",
+        "_id": "5d27840e31fe5f6eb006eaf1",
         "_type": "CQM::ProportionPopulationMap"
       },
       "title": "Population Criteria Section"
@@ -26097,7 +26097,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d1241d931fe5f83c94d052b",
+      "_id": "5d27840d31fe5f6eb006e0e7",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1026",
@@ -26111,15 +26111,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f14",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d052b"
-      },
+      "id": "5d27840d31fe5f6eb006e0e7",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26128,19 +26124,14 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d052c",
+      "_id": "5d27840d31fe5f6eb006e0e8",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f15",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d052c"
-      },
+      "id": "5d27840d31fe5f6eb006e0e8",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
       "qdmTitle": "Patient Characteristic Payer",
@@ -26149,7 +26140,7 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d1241d931fe5f83c94d052d",
+      "_id": "5d27840d31fe5f6eb006e0e9",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1022",
@@ -26163,15 +26154,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f16",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d052d"
-      },
+      "id": "5d27840d31fe5f6eb006e0e9",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26180,19 +26167,14 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d052e",
+      "_id": "5d27840d31fe5f6eb006e0ea",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f17",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d052e"
-      },
+      "id": "5d27840d31fe5f6eb006e0ea",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
       "qdmTitle": "Patient Characteristic Sex",
@@ -26200,7 +26182,7 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d1241d931fe5f83c94d052f",
+      "_id": "5d27840d31fe5f6eb006e0eb",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1008",
@@ -26214,15 +26196,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f18",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d052f"
-      },
+      "id": "5d27840d31fe5f6eb006e0eb",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26231,7 +26209,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0530",
+      "_id": "5d27840d31fe5f6eb006e0ec",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1031",
@@ -26245,15 +26223,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f19",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0530"
-      },
+      "id": "5d27840d31fe5f6eb006e0ec",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26262,7 +26236,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0531",
+      "_id": "5d27840d31fe5f6eb006e0ed",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1024",
@@ -26276,15 +26250,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f1a",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0531"
-      },
+      "id": "5d27840d31fe5f6eb006e0ed",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26293,7 +26263,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0532",
+      "_id": "5d27840d31fe5f6eb006e0ee",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1492",
@@ -26307,15 +26277,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f1b",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0532"
-      },
+      "id": "5d27840d31fe5f6eb006e0ee",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26324,7 +26290,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0533",
+      "_id": "5d27840d31fe5f6eb006e0ef",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1496",
@@ -26338,15 +26304,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f1c",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0533"
-      },
+      "id": "5d27840d31fe5f6eb006e0ef",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26355,7 +26317,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0534",
+      "_id": "5d27840d31fe5f6eb006e0f0",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -26369,15 +26331,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f1d",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0534"
-      },
+      "id": "5d27840d31fe5f6eb006e0f0",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26386,7 +26344,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0535",
+      "_id": "5d27840d31fe5f6eb006e0f1",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1060",
@@ -26400,15 +26358,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f1e",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0535"
-      },
+      "id": "5d27840d31fe5f6eb006e0f1",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26417,7 +26371,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0536",
+      "_id": "5d27840d31fe5f6eb006e0f2",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1054",
@@ -26431,15 +26385,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f1f",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0536"
-      },
+      "id": "5d27840d31fe5f6eb006e0f2",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26448,7 +26398,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0537",
+      "_id": "5d27840d31fe5f6eb006e0f3",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1039",
@@ -26462,15 +26412,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f20",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0537"
-      },
+      "id": "5d27840d31fe5f6eb006e0f3",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26479,7 +26425,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0538",
+      "_id": "5d27840d31fe5f6eb006e0f4",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1171",
       "dataElementCodes": [
@@ -26487,28 +26433,26 @@
       ],
       "daysSupplied": null,
       "description": "Medication, Dispensed: ADHDMedications",
+      "dispenser": null,
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.49",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f21",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0538"
-      },
+      "id": "5d27840d31fe5f6eb006e0f4",
       "negationRationale": null,
+      "prescriber": null,
       "qdmCategory": "medication",
       "qdmStatus": "dispensed",
       "qdmTitle": "Medication, Dispensed",
       "qdmVersion": "5.4",
       "refills": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "supply": null,
       "_type": "QDM::MedicationDispensed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0539",
+      "_id": "5d27840d31fe5f6eb006e0f5",
       "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1171",
       "dataElementCodes": [
 
@@ -26517,22 +26461,19 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f22",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0539"
-      },
+      "id": "5d27840d31fe5f6eb006e0f5",
       "qdmCategory": "medication",
       "qdmStatus": "active",
       "qdmTitle": "Medication, Active",
       "qdmVersion": "5.4",
+      "recorder": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationActive"
     },
     {
-      "_id": "5d1241d931fe5f83c94d053a",
+      "_id": "5d27840d31fe5f6eb006e0f6",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -26540,22 +26481,18 @@
       ],
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f23",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d053a"
-      },
+      "id": "5d27840d31fe5f6eb006e0f6",
       "negationRationale": null,
       "qdmCategory": "intervention",
       "qdmStatus": "order",
       "qdmTitle": "Intervention, Order",
       "qdmVersion": "5.4",
       "reason": null,
+      "requester": null,
       "_type": "QDM::InterventionOrder"
     },
     {
-      "_id": "5d1241d931fe5f83c94d053b",
+      "_id": "5d27840d31fe5f6eb006e0f7",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
       "dataElementCodes": [
@@ -26563,37 +26500,29 @@
       ],
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f24",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d053b"
-      },
+      "id": "5d27840d31fe5f6eb006e0f7",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "intervention",
       "qdmStatus": "performed",
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d053c",
+      "_id": "5d27840d31fe5f6eb006e0f8",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f25",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d053c"
-      },
+      "id": "5d27840d31fe5f6eb006e0f8",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
       "qdmTitle": "Patient Characteristic Ethnicity",
@@ -26601,7 +26530,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d1241d931fe5f83c94d053d",
+      "_id": "5d27840d31fe5f6eb006e0f9",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1016",
@@ -26615,15 +26544,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f26",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d053d"
-      },
+      "id": "5d27840d31fe5f6eb006e0f9",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26632,7 +26557,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d053e",
+      "_id": "5d27840d31fe5f6eb006e0fa",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1002",
@@ -26646,15 +26571,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f27",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d053e"
-      },
+      "id": "5d27840d31fe5f6eb006e0fa",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26663,19 +26584,14 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d053f",
+      "_id": "5d27840d31fe5f6eb006e0fb",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f28",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d053f"
-      },
+      "id": "5d27840d31fe5f6eb006e0fb",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
       "qdmTitle": "Patient Characteristic Race",
@@ -26683,7 +26599,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0540",
+      "_id": "5d27840d31fe5f6eb006e0fc",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1027",
@@ -26697,15 +26613,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f29",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0540"
-      },
+      "id": "5d27840d31fe5f6eb006e0fc",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26714,7 +26626,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0541",
+      "_id": "5d27840d31fe5f6eb006e0fd",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.114.12.1011",
@@ -26723,22 +26635,18 @@
       ],
       "description": "Diagnosis: Narcolepsy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f2a",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0541"
-      },
+      "id": "5d27840d31fe5f6eb006e0fd",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0542",
+      "_id": "5d27840d31fe5f6eb006e0fe",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1055",
@@ -26752,15 +26660,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f2b",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0542"
-      },
+      "id": "5d27840d31fe5f6eb006e0fe",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26769,7 +26673,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0543",
+      "_id": "5d27840d31fe5f6eb006e0ff",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1053",
@@ -26783,15 +26687,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f2c",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0543"
-      },
+      "id": "5d27840d31fe5f6eb006e0ff",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26800,7 +26700,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241d931fe5f83c94d0544",
+      "_id": "5d27840d31fe5f6eb006e100",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
@@ -26814,15 +26714,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241da31fe5f83c94d0f2d",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241d931fe5f83c94d0544"
-      },
+      "id": "5d27840d31fe5f6eb006e100",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -26832,41 +26728,41 @@
     }
   ],
   "title": "Follow-Up Care for Children Prescribed ADHD Medication (ADD)",
-  "updated_at": "2019-06-25T15:46:34.423Z",
+  "updated_at": "2019-07-11T18:46:38.000Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d1241da31fe5f83c94d0545",
-    "5d1241da31fe5f83c94d0546",
-    "5d1241da31fe5f83c94d0547",
-    "5d1241da31fe5f83c94d0548",
-    "5d1241da31fe5f83c94d0549",
-    "5d1241da31fe5f83c94d054a",
-    "5d1241da31fe5f83c94d054b",
-    "5d1241da31fe5f83c94d054c",
-    "5d1241da31fe5f83c94d054d",
-    "5d1241da31fe5f83c94d054e",
-    "5d1241da31fe5f83c94d054f",
-    "5d1241da31fe5f83c94d0550",
-    "5d1241da31fe5f83c94d0551",
-    "5d1241da31fe5f83c94d0552",
-    "5d1241da31fe5f83c94d0553",
-    "5d1241da31fe5f83c94d0554",
-    "5d1241da31fe5f83c94d0555",
-    "5d1241da31fe5f83c94d0556",
-    "5d1241da31fe5f83c94d0557",
-    "5d1241da31fe5f83c94d0558",
-    "5d1241da31fe5f83c94d0559",
-    "5d1241da31fe5f83c94d055a",
-    "5d1241da31fe5f83c94d055b",
-    "5d1241da31fe5f83c94d055c",
-    "5d1241da31fe5f83c94d055d",
-    "5d1241da31fe5f83c94d055e",
-    "5d1241da31fe5f83c94d055f",
-    "5d1241da31fe5f83c94d0560",
-    "5d1241da31fe5f83c94d0561",
-    "5d1241da31fe5f83c94d0562",
-    "5d1241da31fe5f83c94d0563",
-    "5d1241da31fe5f83c94d0564",
-    "5d1241da31fe5f83c94d0565"
+    "5d27840d31fe5f6eb006e101",
+    "5d27840d31fe5f6eb006e102",
+    "5d27840d31fe5f6eb006e103",
+    "5d27840d31fe5f6eb006e104",
+    "5d27840d31fe5f6eb006e105",
+    "5d27840d31fe5f6eb006e106",
+    "5d27840d31fe5f6eb006e107",
+    "5d27840d31fe5f6eb006e108",
+    "5d27840d31fe5f6eb006e109",
+    "5d27840d31fe5f6eb006e10a",
+    "5d27840d31fe5f6eb006e10b",
+    "5d27840d31fe5f6eb006e10c",
+    "5d27840d31fe5f6eb006e10d",
+    "5d27840d31fe5f6eb006e10e",
+    "5d27840d31fe5f6eb006e10f",
+    "5d27840d31fe5f6eb006e110",
+    "5d27840d31fe5f6eb006e111",
+    "5d27840d31fe5f6eb006e112",
+    "5d27840d31fe5f6eb006e113",
+    "5d27840d31fe5f6eb006e114",
+    "5d27840d31fe5f6eb006e115",
+    "5d27840d31fe5f6eb006e116",
+    "5d27840d31fe5f6eb006e117",
+    "5d27840d31fe5f6eb006e118",
+    "5d27840d31fe5f6eb006e119",
+    "5d27840d31fe5f6eb006e11a",
+    "5d27840d31fe5f6eb006e11b",
+    "5d27840d31fe5f6eb006e11c",
+    "5d27840d31fe5f6eb006e11d",
+    "5d27840d31fe5f6eb006e11e",
+    "5d27840d31fe5f6eb006e11f",
+    "5d27840d31fe5f6eb006e120",
+    "5d27840d31fe5f6eb006e121"
   ]
 }

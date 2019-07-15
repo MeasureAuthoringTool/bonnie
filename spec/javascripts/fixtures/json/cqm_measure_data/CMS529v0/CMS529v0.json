@@ -1,5 +1,5 @@
 {
-  "_id": "5d1241e431fe5f83c94d8a20",
+  "_id": "5d27859c31fe5f6eb01bd4a7",
   "calculate_sdes": true,
   "calculation_method": "PATIENT",
   "cms_id": "CMS529v0",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d1241e431fe5f83c94d8a22",
+      "_id": "5d27859c31fe5f6eb01bd4a9",
       "cql": "library CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData version '0.1.016'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\n\r\ncodesystem \"LOINC:2.58\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.58'\r\ncodesystem \"LOINC:2.63\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.63'\r\n\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Bicarbonate Lab Test\": 'urn:oid:2.16.840.1.113762.1.4.1045.138'\r\nvalueset \"Body Temperature LOINC\": 'urn:oid:2.16.840.1.113762.1.4.1045.152'\r\nvalueset \"Body Weight\": 'urn:oid:2.16.840.1.113762.1.4.1045.159'\r\nvalueset \"Creatinine Lab Test\": 'urn:oid:2.16.840.1.113883.3.666.5.2363'\r\nvalueset \"Glucose Lab Test\": 'urn:oid:2.16.840.1.113762.1.4.1045.134'\r\nvalueset \"Hematocrit lab test\": 'urn:oid:2.16.840.1.113762.1.4.1045.114'\r\nvalueset \"Medicare payer\": 'urn:oid:2.16.840.1.113762.1.4.1104.10'\r\nvalueset \"Potassium Lab Test\": 'urn:oid:2.16.840.1.113762.1.4.1045.117'\r\nvalueset \"Sodium Lab Test V\": 'urn:oid:2.16.840.1.113762.1.4.1045.119'\r\nvalueset \"White Blood Cells Count Lab Test\": 'urn:oid:2.16.840.1.113762.1.4.1045.129'\r\nvalueset \"Acute care hospital Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.666.5.2289'\r\n\r\ncode \"Heart rate\": '8867-4' from \"LOINC:2.58\" display 'Heart rate'\r\ncode \"Oxygen saturation in Arterial blood by Pulse oximetry\": '59408-5' from \"LOINC:2.63\" display 'Oxygen saturation in Arterial blood by Pulse oximetry'\r\ncode \"Respiratory rate\": '9279-1' from \"LOINC:2.63\" display 'Respiratory rate'\r\ncode \"Systolic blood pressure\": '8480-6' from \"LOINC:2.58\" display 'Systolic blood pressure'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Initial Population\":\r\n\t\"IP Encounters\"\r\n\r\ndefine \"Numerator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Results\":\r\n\t{\n\t    // First physical exams\r\n\t\tfirstHR: \"FirstPhysicalExam\"([\"Physical Exam, Performed\": \"Heart rate\"]),\r\n\t\tfirstSBP: \"FirstPhysicalExam\"([\"Physical Exam, Performed\": \"Systolic blood pressure\"]),\r\n\t\tfirstRR: \"FirstPhysicalExam\"([\"Physical Exam, Performed\": \"Respiratory rate\"]),\r\n\t\tfirstTemp: \"FirstPhysicalExam\"([\"Physical Exam, Performed\": \"Body Temperature LOINC\"]),\r\n\t\tfirstO2S: \"FirstPhysicalExam\"([\"Physical Exam, Performed\": \"Oxygen saturation in Arterial blood by Pulse oximetry\"]),\n\t    // Weight uses lab test timing\r\n\t\tfirstWeight: \"FirstPhysicalExamWithLabTiming\"([\"Physical Exam, Performed\": \"Body Weight\"]),\n\t\n\t    // First lab tests\r\n\t\tfirstHemat: \"FirstLabTest\"([\"Laboratory Test, Performed\": \"Hematocrit lab test\"]),\r\n\t\tfirstWBC: \"FirstLabTest\"([\"Laboratory Test, Performed\": \"White Blood Cells Count Lab Test\"]),\r\n\t\tfirstPotass: \"FirstLabTest\"([\"Laboratory Test, Performed\": \"Potassium Lab Test\"]),\r\n\t\tfirstSodium: \"FirstLabTest\"([\"Laboratory Test, Performed\": \"Sodium Lab Test V\"]),\r\n\t\tfirstBicarb: \"FirstLabTest\"([\"Laboratory Test, Performed\": \"Bicarbonate Lab Test\"]),\r\n\t\tfirstCreat: \"FirstLabTest\"([\"Laboratory Test, Performed\": \"Creatinine Lab Test\"]),\r\n\t\tfirstGlucose: \"FirstLabTest\"([\"Laboratory Test, Performed\": \"Glucose Lab Test\"])\r\n\t}\r\n\r\ndefine \"IP Encounters\":\r\n\tfrom\r\n\t\t[\"Encounter, Performed\": \"Acute care hospital Inpatient Encounter\"] Encounter,\r\n\t\t[\"Patient Characteristic\": \"Payer\"] Payer,\r\n\t\t[\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\twhere Payer.code in \"Medicare payer\"\r\n\t\t\tand Global.\"Hospitalization Length of Stay\"(Encounter)< 365\r\n\t\t\tand Encounter.relevantPeriod ends during \"Measurement Period\"\r\n\t\t\tand Global.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of Encounter.relevantPeriod)>= 65\r\n\t\treturn Encounter\r\n\r\ndefine function \"FirstPhysicalExamWithLabTiming\"(exam List<QDM.PositivePhysicalExamPerformed>):\r\n\t\"IP Encounters\" Encounter\r\n\t\treturn First(exam e\r\n\t\t\t\twhere e.relevantPeriod starts during Interval[start of Encounter.relevantPeriod - 1440 minutes, start of Encounter.relevantPeriod + 1440 minutes]\r\n\t\t\t\tsort by start of relevantPeriod\r\n\t\t).result\r\n\r\ndefine function \"FirstLabTest\"(lab List<QDM.PositiveLaboratoryTestPerformed>):\r\n\t\"IP Encounters\" Encounter\r\n\t\treturn First(lab l\r\n\t\t\t\twhere l.resultDatetime during Interval[start of Encounter.relevantPeriod - 1440 minutes, start of Encounter.relevantPeriod + 1440 minutes]\r\n\t\t\t\tsort by start of relevantPeriod\r\n\t\t).result\r\n\r\ndefine function \"FirstPhysicalExam\"(exam List<QDM.PositivePhysicalExamPerformed>):\r\n\t\"IP Encounters\" Encounter\r\n\t\treturn First(exam e\r\n\t\t\t\twhere e.relevantPeriod starts during Interval[start of Encounter.relevantPeriod - 1440 minutes, start of Encounter.relevantPeriod + 120 minutes]\r\n\t\t\t\tsort by start of relevantPeriod\r\n\t\t).result\r\n",
       "elm": {
         "library": {
@@ -7092,21 +7092,21 @@
       "library_version": "0.1.016",
       "statement_dependencies": [
         {
-          "_id": "5d1241e431fe5f83c94d8a23",
+          "_id": "5d27859c31fe5f6eb01bd4aa",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a24",
+          "_id": "5d27859c31fe5f6eb01bd4ab",
           "statement_name": "IP Encounters",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a25",
+              "_id": "5d27859c31fe5f6eb01bd4ac",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization Length of Stay"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a26",
+              "_id": "5d27859c31fe5f6eb01bd4ad",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
@@ -7114,11 +7114,11 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a27",
+          "_id": "5d27859c31fe5f6eb01bd4ae",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a28",
+              "_id": "5d27859c31fe5f6eb01bd4af",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "IP Encounters"
@@ -7126,11 +7126,11 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a29",
+          "_id": "5d27859c31fe5f6eb01bd4b0",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a2a",
+              "_id": "5d27859c31fe5f6eb01bd4b1",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "Initial Population"
@@ -7138,11 +7138,11 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a2b",
+          "_id": "5d27859c31fe5f6eb01bd4b2",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a2c",
+              "_id": "5d27859c31fe5f6eb01bd4b3",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "Initial Population"
@@ -7150,11 +7150,11 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a2d",
+          "_id": "5d27859c31fe5f6eb01bd4b4",
           "statement_name": "FirstPhysicalExam",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a2e",
+              "_id": "5d27859c31fe5f6eb01bd4b5",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "IP Encounters"
@@ -7162,11 +7162,11 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a2f",
+          "_id": "5d27859c31fe5f6eb01bd4b6",
           "statement_name": "FirstPhysicalExamWithLabTiming",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a30",
+              "_id": "5d27859c31fe5f6eb01bd4b7",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "IP Encounters"
@@ -7174,11 +7174,11 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a31",
+          "_id": "5d27859c31fe5f6eb01bd4b8",
           "statement_name": "FirstLabTest",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a32",
+              "_id": "5d27859c31fe5f6eb01bd4b9",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "IP Encounters"
@@ -7186,83 +7186,83 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a33",
+          "_id": "5d27859c31fe5f6eb01bd4ba",
           "statement_name": "Results",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a34",
+              "_id": "5d27859c31fe5f6eb01bd4bb",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstPhysicalExam"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a35",
+              "_id": "5d27859c31fe5f6eb01bd4bc",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstPhysicalExam"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a36",
+              "_id": "5d27859c31fe5f6eb01bd4bd",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstPhysicalExam"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a37",
+              "_id": "5d27859c31fe5f6eb01bd4be",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstPhysicalExam"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a38",
+              "_id": "5d27859c31fe5f6eb01bd4bf",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstPhysicalExam"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a39",
+              "_id": "5d27859c31fe5f6eb01bd4c0",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstPhysicalExamWithLabTiming"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a3a",
+              "_id": "5d27859c31fe5f6eb01bd4c1",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstLabTest"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a3b",
+              "_id": "5d27859c31fe5f6eb01bd4c2",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstLabTest"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a3c",
+              "_id": "5d27859c31fe5f6eb01bd4c3",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstLabTest"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a3d",
+              "_id": "5d27859c31fe5f6eb01bd4c4",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstLabTest"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a3e",
+              "_id": "5d27859c31fe5f6eb01bd4c5",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstLabTest"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a3f",
+              "_id": "5d27859c31fe5f6eb01bd4c6",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstLabTest"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a40",
+              "_id": "5d27859c31fe5f6eb01bd4c7",
               "hqmf_id": null,
               "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
               "statement_name": "FirstLabTest"
@@ -7272,7 +7272,7 @@
       ]
     },
     {
-      "_id": "5d1241e431fe5f83c94d8a41",
+      "_id": "5d27859c31fe5f6eb01bd4c8",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -15936,17 +15936,17 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241e431fe5f83c94d8a42",
+          "_id": "5d27859c31fe5f6eb01bd4c9",
           "statement_name": "Hospitalization Length of Stay",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a43",
+              "_id": "5d27859c31fe5f6eb01bd4ca",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "LengthInDays"
             },
             {
-              "_id": "5d1241e431fe5f83c94d8a44",
+              "_id": "5d27859c31fe5f6eb01bd4cb",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization"
@@ -15954,19 +15954,19 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a45",
+          "_id": "5d27859c31fe5f6eb01bd4cc",
           "statement_name": "LengthInDays"
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a46",
+          "_id": "5d27859c31fe5f6eb01bd4cd",
           "statement_name": "Hospitalization"
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a47",
+          "_id": "5d27859c31fe5f6eb01bd4ce",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d1241e431fe5f83c94d8a48",
+              "_id": "5d27859c31fe5f6eb01bd4cf",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -15974,13 +15974,13 @@
           ]
         },
         {
-          "_id": "5d1241e431fe5f83c94d8a49",
+          "_id": "5d27859c31fe5f6eb01bd4d0",
           "statement_name": "ToDate"
         }
       ]
     }
   ],
-  "created_at": "2019-06-25T15:46:44.338Z",
+  "created_at": "2019-07-11T18:53:16.099Z",
   "description": "This logic is intended to extract electronic clinical data. This is not an electronic clinical quality measure and this logic will not produce measure results. Instead, it will produce a file containing the data that CMS will link with administrative claims to risk adjust the hybrid HWR outcome measure. It is designed to extract the first captured set of vital signs and basic laboratory results obtained on adult Medicare fee-for-service patients admitted to acute care short stay hospitals.",
   "hqmf_id": "40280382-5FA6-FE85-0160-128121CF2479",
   "hqmf_set_id": "FA75DE85-A934-45D7-A2F7-C700A756078B",
@@ -16417,33 +16417,33 @@
   },
   "population_sets": [
     {
-      "_id": "5d1241e431fe5f83c94d8a5a",
+      "_id": "5d27859c31fe5f6eb01bd4e1",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
-          "_id": "5d1241e431fe5f83c94d8a5d",
+          "_id": "5d27859c31fe5f6eb01bd4e4",
           "hqmf_id": "B4C75BE6-6F53-42E3-9C63-13AB374685DE",
           "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d1241e431fe5f83c94d8a5c",
+          "_id": "5d27859c31fe5f6eb01bd4e3",
           "hqmf_id": "33719872-9241-4DF9-BF73-D7BDE6D44929",
           "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
           "statement_name": "IP Encounters"
         },
         "NUMER": {
-          "_id": "5d1241e431fe5f83c94d8a5e",
+          "_id": "5d27859c31fe5f6eb01bd4e5",
           "hqmf_id": "ADE8C6B6-A77C-49E1-BB2A-728A5AA7BB06",
           "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
           "statement_name": "Numerator"
         },
-        "_id": "5d1241e431fe5f83c94d8a5b",
+        "_id": "5d27859c31fe5f6eb01bd4e2",
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
-          "_id": "5d1241e431fe5f83c94d8a5f",
+          "_id": "5d27859c31fe5f6eb01bd4e6",
           "hqmf_id": null,
           "library_name": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
           "statement_name": "Results"
@@ -16454,7 +16454,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d1241e431fe5f83c94d88ee",
+      "_id": "5d27859b31fe5f6eb01bd375",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -16462,19 +16462,14 @@
       ],
       "description": "Patient Characteristic: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.53",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a4a",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88ee"
-      },
+      "id": "5d27859b31fe5f6eb01bd375",
       "qdmCategory": "patient_characteristic",
       "qdmTitle": "Patient Characteristic",
       "qdmVersion": "5.4",
       "_type": "QDM::PatientCharacteristic"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88ef",
+      "_id": "5d27859b31fe5f6eb01bd376",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.152",
@@ -16484,25 +16479,22 @@
       ],
       "description": "Physical Exam, Performed: BodyTemperatureLOINC",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.62",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a4b",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88ef"
-      },
+      "id": "5d27859b31fe5f6eb01bd376",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "physical_exam",
       "qdmStatus": "performed",
       "qdmTitle": "Physical Exam, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "_type": "QDM::PhysicalExamPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f0",
+      "_id": "5d27859b31fe5f6eb01bd377",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
@@ -16516,15 +16508,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a4c",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f0"
-      },
+      "id": "5d27859b31fe5f6eb01bd377",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -16533,7 +16521,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f1",
+      "_id": "5d27859b31fe5f6eb01bd378",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.159",
@@ -16543,25 +16531,22 @@
       ],
       "description": "Physical Exam, Performed: BodyWeight",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.62",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a4d",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f1"
-      },
+      "id": "5d27859b31fe5f6eb01bd378",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "physical_exam",
       "qdmStatus": "performed",
       "qdmTitle": "Physical Exam, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "_type": "QDM::PhysicalExamPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f2",
+      "_id": "5d27859b31fe5f6eb01bd379",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.134",
       "components": null,
@@ -16570,20 +16555,17 @@
       ],
       "description": "Laboratory Test, Performed: GlucoseLabTest",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a4e",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f2"
-      },
+      "id": "5d27859b31fe5f6eb01bd379",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -16591,7 +16573,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f3",
+      "_id": "5d27859b31fe5f6eb01bd37a",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.129",
       "components": null,
@@ -16600,20 +16582,17 @@
       ],
       "description": "Laboratory Test, Performed: WhiteBloodCellsCountLabTest",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a4f",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f3"
-      },
+      "id": "5d27859b31fe5f6eb01bd37a",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -16621,7 +16600,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f4",
+      "_id": "5d27859b31fe5f6eb01bd37b",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.138",
       "components": null,
@@ -16630,20 +16609,17 @@
       ],
       "description": "Laboratory Test, Performed: BicarbonateLabTest",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a50",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f4"
-      },
+      "id": "5d27859b31fe5f6eb01bd37b",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -16651,7 +16627,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f5",
+      "_id": "5d27859b31fe5f6eb01bd37c",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.117",
       "components": null,
@@ -16660,20 +16636,17 @@
       ],
       "description": "Laboratory Test, Performed: PotassiumLabTest",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a51",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f5"
-      },
+      "id": "5d27859b31fe5f6eb01bd37c",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -16681,7 +16654,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f6",
+      "_id": "5d27859b31fe5f6eb01bd37d",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.114",
       "components": null,
@@ -16690,20 +16663,17 @@
       ],
       "description": "Laboratory Test, Performed: Hematocritlabtest",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a52",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f6"
-      },
+      "id": "5d27859b31fe5f6eb01bd37d",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -16711,7 +16681,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f7",
+      "_id": "5d27859b31fe5f6eb01bd37e",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.2363",
       "components": null,
@@ -16720,20 +16690,17 @@
       ],
       "description": "Laboratory Test, Performed: CreatinineLabTest",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a53",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f7"
-      },
+      "id": "5d27859b31fe5f6eb01bd37e",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -16741,7 +16708,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f8",
+      "_id": "5d27859b31fe5f6eb01bd37f",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.2289",
@@ -16755,15 +16722,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a54",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f8"
-      },
+      "id": "5d27859b31fe5f6eb01bd37f",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -16772,7 +16735,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88f9",
+      "_id": "5d27859b31fe5f6eb01bd380",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.119",
       "components": null,
@@ -16781,20 +16744,17 @@
       ],
       "description": "Laboratory Test, Performed: SodiumLabTestV",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a55",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88f9"
-      },
+      "id": "5d27859b31fe5f6eb01bd380",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -16802,7 +16762,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88fa",
+      "_id": "5d27859b31fe5f6eb01bd381",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "drc-3f0693cb371bd1e4897e23e2f3d8a1e7514ee188e6432d4ca26a1a9c739d1ed5",
@@ -16812,25 +16772,22 @@
       ],
       "description": "Physical Exam, Performed: Physical Exam, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.62",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a56",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88fa"
-      },
+      "id": "5d27859b31fe5f6eb01bd381",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "physical_exam",
       "qdmStatus": "performed",
       "qdmTitle": "Physical Exam, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "_type": "QDM::PhysicalExamPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88fb",
+      "_id": "5d27859b31fe5f6eb01bd382",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "drc-5288c3d17d0f24d203a005a7643c2d10bb205b6e62a79b2bc10f9b7757191637",
@@ -16840,25 +16797,22 @@
       ],
       "description": "Physical Exam, Performed: Physical Exam, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.62",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a57",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88fb"
-      },
+      "id": "5d27859b31fe5f6eb01bd382",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "physical_exam",
       "qdmStatus": "performed",
       "qdmTitle": "Physical Exam, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "_type": "QDM::PhysicalExamPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88fc",
+      "_id": "5d27859b31fe5f6eb01bd383",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "drc-c1f61825d13c60f07759c8dada377e6750a31ee6c2a31c1236f489e2b93482b6",
@@ -16868,25 +16822,22 @@
       ],
       "description": "Physical Exam, Performed: Physical Exam, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.62",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a58",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88fc"
-      },
+      "id": "5d27859b31fe5f6eb01bd383",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "physical_exam",
       "qdmStatus": "performed",
       "qdmTitle": "Physical Exam, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "_type": "QDM::PhysicalExamPerformed"
     },
     {
-      "_id": "5d1241e431fe5f83c94d88fd",
+      "_id": "5d27859b31fe5f6eb01bd384",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "drc-d20f2fc48045688c795dd40ecdb30e2500a3e8e90fb984c2f4450b2ca529e690",
@@ -16896,48 +16847,45 @@
       ],
       "description": "Physical Exam, Performed: Physical Exam, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.62",
-      "id": {
-        "_id": "5d1241e431fe5f83c94d8a59",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241e431fe5f83c94d88fd"
-      },
+      "id": "5d27859b31fe5f6eb01bd384",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "physical_exam",
       "qdmStatus": "performed",
       "qdmTitle": "Physical Exam, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "_type": "QDM::PhysicalExamPerformed"
     }
   ],
   "title": "Core Clinical Data Elements for the Hybrid Hospital-Wide Readmission (HWR) Measure with Claims and Electronic Health Record Data",
-  "updated_at": "2019-06-25T15:46:44.338Z",
+  "updated_at": "2019-07-11T18:53:16.099Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d1241e431fe5f83c94d88fe",
-    "5d1241e431fe5f83c94d88ff",
-    "5d1241e431fe5f83c94d8900",
-    "5d1241e431fe5f83c94d8901",
-    "5d1241e431fe5f83c94d8902",
-    "5d1241e431fe5f83c94d8903",
-    "5d1241e431fe5f83c94d8904",
-    "5d1241e431fe5f83c94d8905",
-    "5d1241e431fe5f83c94d8906",
-    "5d1241e431fe5f83c94d8907",
-    "5d1241e431fe5f83c94d8908",
-    "5d1241e431fe5f83c94d8909",
-    "5d1241e431fe5f83c94d890a",
-    "5d1241e431fe5f83c94d890b",
-    "5d1241e431fe5f83c94d890c",
-    "5d1241e431fe5f83c94d890d",
-    "5d1241e431fe5f83c94d890e",
-    "5d1241e431fe5f83c94d890f",
-    "5d1241e431fe5f83c94d8910",
-    "5d1241e431fe5f83c94d8911",
-    "5d1241e431fe5f83c94d8912"
+    "5d27859c31fe5f6eb01bd385",
+    "5d27859c31fe5f6eb01bd386",
+    "5d27859c31fe5f6eb01bd387",
+    "5d27859c31fe5f6eb01bd388",
+    "5d27859c31fe5f6eb01bd389",
+    "5d27859c31fe5f6eb01bd38a",
+    "5d27859c31fe5f6eb01bd38b",
+    "5d27859c31fe5f6eb01bd38c",
+    "5d27859c31fe5f6eb01bd38d",
+    "5d27859c31fe5f6eb01bd38e",
+    "5d27859c31fe5f6eb01bd38f",
+    "5d27859c31fe5f6eb01bd390",
+    "5d27859c31fe5f6eb01bd391",
+    "5d27859c31fe5f6eb01bd392",
+    "5d27859c31fe5f6eb01bd393",
+    "5d27859c31fe5f6eb01bd394",
+    "5d27859c31fe5f6eb01bd395",
+    "5d27859c31fe5f6eb01bd396",
+    "5d27859c31fe5f6eb01bd397",
+    "5d27859c31fe5f6eb01bd398",
+    "5d27859c31fe5f6eb01bd399"
   ]
 }

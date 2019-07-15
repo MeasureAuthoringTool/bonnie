@@ -1,5 +1,5 @@
 {
-  "_id": "5d1241e131fe5f83c94d6ef1",
+  "_id": "5d27845f31fe5f6eb00bdb6a",
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
   "cms_id": "CMS108v7",
@@ -11,7 +11,7 @@
   "composite_hqmf_set_id": null,
   "cql_libraries": [
     {
-      "_id": "5d1241e131fe5f83c94d6ef3",
+      "_id": "5d27845f31fe5f6eb00bdb6c",
       "cql": "library VenousThromboembolismProphylaxis version '7.4.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\ninclude VTEICU version '2.4.000' called VTEICU\r\n\r\ncodesystem \"LOINC:2.63\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.63'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Atrial Fibrillation/Flutter\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.202'\r\nvalueset \"Comfort Measures\": 'urn:oid:1.3.6.1.4.1.33895.1.3.0.45'\r\nvalueset \"Direct Thrombin Inhibitor\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.205'\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"General or Neuraxial Anesthesia\": 'urn:oid:2.16.840.1.113883.3.666.5.1743'\r\nvalueset \"General Surgery\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.255'\r\nvalueset \"Glycoprotein IIb/IIIa Inhibitors\": 'urn:oid:2.16.840.1.113762.1.4.1045.41'\r\nvalueset \"Graduated compression stockings (GCS)\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.256'\r\nvalueset \"Gynecological Surgery\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.257'\r\nvalueset \"Hemorrhagic Stroke\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.212'\r\nvalueset \"Hip Fracture Surgery\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.258'\r\nvalueset \"Hip Replacement Surgery\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.259'\r\nvalueset \"Injectable Factor Xa Inhibitor for VTE Prophylaxis\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.211'\r\nvalueset \"INR\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.213'\r\nvalueset \"Intermittent pneumatic compression devices (IPC)\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.214'\r\nvalueset \"Intracranial Neurosurgery\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.260'\r\nvalueset \"Intravenous route\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.222'\r\nvalueset \"Ischemic Stroke\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.247'\r\nvalueset \"Knee Replacement Surgery\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.261'\r\nvalueset \"Low Dose Unfractionated Heparin for VTE Prophylaxis\": 'urn:oid:2.16.840.1.113762.1.4.1045.39'\r\nvalueset \"Low Molecular Weight Heparin for VTE Prophylaxis\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.219'\r\nvalueset \"Low Risk\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.400'\r\nvalueset \"Medical Reason\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.473'\r\nvalueset \"Mental Health Diagnoses\": 'urn:oid:2.16.840.1.113883.3.464.1003.105.12.1004'\r\nvalueset \"Obstetrics\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.263'\r\nvalueset \"Obstetrics VTE\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.264'\r\nvalueset \"Oral Factor Xa Inhibitor for VTE Prophylaxis or VTE Treatment\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.134'\r\nvalueset \"Patient Refusal\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.93'\r\nvalueset \"Principal\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.14'\r\nvalueset \"Subcutaneous route\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.223'\r\nvalueset \"Unfractionated Heparin\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.218'\r\nvalueset \"Urological Surgery\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.272'\r\nvalueset \"Venous foot pumps (VFP)\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.230'\r\nvalueset \"Venous Thromboembolism\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.279'\r\nvalueset \"Warfarin\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.232'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Risk for venous thromboembolism\": '72136-5' from \"LOINC:2.63\" display 'Risk for venous thromboembolism'\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"ED Visit\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Initial Population\":\r\n\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\"\r\n\r\ndefine \"No VTE Prophylaxis Device Applied or Ordered\":\r\n\t[\"Device, Not Applied\": \"Intermittent pneumatic compression devices (IPC)\"]\r\n\t\tunion [\"Device, Not Applied\": \"Venous foot pumps (VFP)\"]\r\n\t\tunion [\"Device, Not Applied\": \"Graduated compression stockings (GCS)\"]\r\n\t\tunion [\"Device, Not Ordered\": \"Intermittent pneumatic compression devices (IPC)\"]\r\n\t\tunion [\"Device, Not Ordered\": \"Venous foot pumps (VFP)\"]\r\n\t\tunion [\"Device, Not Ordered\": \"Graduated compression stockings (GCS)\"]\r\n\r\ndefine \"No VTE Prophylaxis Device Due to Medical Reason During ED Visit\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\"ED Visit\" EDVisit,\r\n\t\t\"No VTE Prophylaxis Device Applied or Ordered\" NoVTEDevice\r\n\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand NoVTEDevice.negationRationale in \"Medical Reason\"\r\n\t\t\tand NoVTEDevice.authorDatetime during EDVisit.relevantPeriod\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"No VTE Prophylaxis Device Due to Medical Reason on Day of or Day After Admission\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\"No VTE Prophylaxis Device Applied or Ordered\" NoVTEDevice\r\n\t\twhere NoVTEDevice.negationRationale in \"Medical Reason\"\r\n\t\t\tand NoVTEDevice.authorDatetime during VTEICU.\"CalendarDayOfOrDayAfter\"(start of QualifyingEncounter.relevantPeriod)\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"No VTE Prophylaxis Medication Administered or Ordered\":\r\n\t[\"Medication, Not Administered\": \"Low Dose Unfractionated Heparin for VTE Prophylaxis\"]\r\n\t\tunion [\"Medication, Not Administered\": \"Low Molecular Weight Heparin for VTE Prophylaxis\"]\r\n\t\tunion [\"Medication, Not Administered\": \"Injectable Factor Xa Inhibitor for VTE Prophylaxis\"]\r\n\t\tunion [\"Medication, Not Administered\": \"Warfarin\"]\r\n\t\tunion [\"Medication, Not Ordered\": \"Low Dose Unfractionated Heparin for VTE Prophylaxis\"]\r\n\t\tunion [\"Medication, Not Ordered\": \"Low Molecular Weight Heparin for VTE Prophylaxis\"]\r\n\t\tunion [\"Medication, Not Ordered\": \"Injectable Factor Xa Inhibitor for VTE Prophylaxis\"]\r\n\t\tunion [\"Medication, Not Ordered\": \"Warfarin\"]\r\n\r\ndefine \"No VTE Prophylaxis Medication Due to Medical Reason During ED Visit\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\"ED Visit\" EDVisit,\r\n\t\t\"No VTE Prophylaxis Medication Administered or Ordered\" NoVTEMedication\r\n\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand NoVTEMedication.negationRationale in \"Medical Reason\"\r\n\t\t\tand NoVTEMedication.authorDatetime during EDVisit.relevantPeriod\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"No VTE Prophylaxis Medication Due to Medical Reason on Day of or Day After Admission\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\"No VTE Prophylaxis Medication Administered or Ordered\" NoVTEMedication\r\n\t\twhere NoVTEMedication.negationRationale in \"Medical Reason\"\r\n\t\t\tand NoVTEMedication.authorDatetime during VTEICU.\"CalendarDayOfOrDayAfter\"(start of QualifyingEncounter.relevantPeriod)\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"No VTE Prophylaxis Device Due to Medical Reason on Day of or Day After Procedure\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t[\"Procedure, Performed\": \"General or Neuraxial Anesthesia\"] AnesthesiaProcedure,\r\n\t\t\"No VTE Prophylaxis Device Applied or Ordered\" NoVTEDevice\r\n\t\twhere NoVTEDevice.negationRationale in \"Medical Reason\"\r\n\t\t\tand AnesthesiaProcedure.relevantPeriod ends 1 day after day of start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand NoVTEDevice.authorDatetime during VTEICU.\"CalendarDayOfOrDayAfter\"(end of AnesthesiaProcedure.relevantPeriod)\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"Admission Without VTE or Obstetrical Conditions\":\r\n\t( Global.\"Inpatient Encounter\" InpatientEncounter\r\n\t\t\twhere not ( exists ( InpatientEncounter.diagnoses EncounterDiagnoses\r\n\t\t\t\t\t\twhere ( EncounterDiagnoses in \"Obstetrics\"\r\n\t\t\t\t\t\t\t\tor EncounterDiagnoses in \"Venous Thromboembolism\"\r\n\t\t\t\t\t\t\t\tor EncounterDiagnoses in \"Obstetrics VTE\"\r\n\t\t\t\t\t\t)\r\n\t\t\t\t)\r\n\t\t\t)\r\n\t)\r\n\t\tintersect ( Global.\"Inpatient Encounter\" InpatientEncounter\r\n\t\t\t\twithout ( [\"Diagnosis\": \"Obstetrics\"]\r\n\t\t\t\t\tunion [\"Diagnosis\": \"Venous Thromboembolism\"]\r\n\t\t\t\t\tunion [\"Diagnosis\": \"Obstetrics VTE\"] ) Diagnosis\r\n\t\t\t\t\tsuch that Diagnosis.prevalencePeriod starts during Global.\"Hospitalization\"(InpatientEncounter)\r\n\t\t)\r\n\r\ndefine \"No VTE Prophylaxis Medication Due to Medical Reason on Day of or Day After Procedure\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t[\"Procedure, Performed\": \"General or Neuraxial Anesthesia\"] AnesthesiaProcedure,\r\n\t\t\"No VTE Prophylaxis Medication Administered or Ordered\" NoVTEMedication\r\n\t\twhere NoVTEMedication.negationRationale in \"Medical Reason\"\r\n\t\t\tand AnesthesiaProcedure.relevantPeriod ends 1 day after day of start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand NoVTEMedication.authorDatetime during VTEICU.\"CalendarDayOfOrDayAfter\"(end of AnesthesiaProcedure.relevantPeriod)\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"Encounter Less Than 2 Days\":\r\n\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\twhere Global.\"LengthInDays\"(QualifyingEncounter.relevantPeriod)< 2\r\n\r\ndefine \"SCIP VTE Selected Surgery\":\r\n\t[\"Procedure, Performed\": \"General Surgery\"]\r\n\t\tunion [\"Procedure, Performed\": \"Gynecological Surgery\"]\r\n\t\tunion [\"Procedure, Performed\": \"Hip Fracture Surgery\"]\r\n\t\tunion [\"Procedure, Performed\": \"Hip Replacement Surgery\"]\r\n\t\tunion [\"Procedure, Performed\": \"Intracranial Neurosurgery\"]\r\n\t\tunion [\"Procedure, Performed\": \"Knee Replacement Surgery\"]\r\n\t\tunion [\"Procedure, Performed\": \"Urological Surgery\"]\r\n\r\ndefine \"Intervention Comfort Measures\":\r\n\t[\"Intervention, Order\": \"Comfort Measures\"]\r\n\t\tunion [\"Intervention, Performed\": \"Comfort Measures\"]\r\n\r\ndefine \"Intervention Comfort Measures on Day of or Day After Start of Hospitalization\":\r\n\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\twith \"Intervention Comfort Measures\" ComfortMeasures\r\n\t\t\tsuch that Coalesce(start of ComfortMeasures.relevantPeriod, ComfortMeasures.authorDatetime)1 day or less on or after day of start of Global.\"Hospitalization\"(QualifyingEncounter)\r\n\r\ndefine \"Intervention Comfort Measures on Day of or Day After Procedure\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t[\"Procedure, Performed\": \"General or Neuraxial Anesthesia\"] AnesthesiaProcedure,\r\n\t\t\"Intervention Comfort Measures\" ComfortMeasures\r\n\t\twhere AnesthesiaProcedure.relevantPeriod ends 1 day after day of start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand Coalesce(start of ComfortMeasures.relevantPeriod, ComfortMeasures.authorDatetime)1 day or less on or after day of end of AnesthesiaProcedure.relevantPeriod\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"VTE Prophylaxis by Medication Administered or Device Applied\":\r\n\t( [\"Medication, Administered\": \"Low Dose Unfractionated Heparin for VTE Prophylaxis\"] VTEMedication\r\n\t\t\twhere VTEMedication.route in \"Subcutaneous route\"\r\n\t)\r\n\t\tunion [\"Medication, Administered\": \"Low Molecular Weight Heparin for VTE Prophylaxis\"]\r\n\t\tunion [\"Medication, Administered\": \"Injectable Factor Xa Inhibitor for VTE Prophylaxis\"]\r\n\t\tunion [\"Medication, Administered\": \"Warfarin\"]\r\n\t\tunion [\"Device, Applied\": \"Intermittent pneumatic compression devices (IPC)\"]\r\n\t\tunion [\"Device, Applied\": \"Venous foot pumps (VFP)\"]\r\n\t\tunion [\"Device, Applied\": \"Graduated compression stockings (GCS)\"]\r\n\r\ndefine \"VTE Prophylaxis Received on Day of or Day After Admission or Procedure\":\r\n\t( from\r\n\t\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\t\"VTE Prophylaxis by Medication Administered or Device Applied\" HasVTEProphylaxis\r\n\t\t\twhere HasVTEProphylaxis.relevantPeriod starts during VTEICU.\"CalendarDayOfOrDayAfter\"(start of QualifyingEncounter.relevantPeriod)\r\n\t\t\treturn QualifyingEncounter\r\n\t)\r\n\t\tunion ( from\r\n\t\t\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\t\t[\"Procedure, Performed\": \"General or Neuraxial Anesthesia\"] AnesthesiaProcedure,\r\n\t\t\t\t\"VTE Prophylaxis by Medication Administered or Device Applied\" HasVTEProphylaxis\r\n\t\t\t\twhere AnesthesiaProcedure.relevantPeriod ends 1 day after day of start of QualifyingEncounter.relevantPeriod\r\n\t\t\t\t\tand HasVTEProphylaxis.relevantPeriod starts during VTEICU.\"CalendarDayOfOrDayAfter\"(end of AnesthesiaProcedure.relevantPeriod)\r\n\t\t\t\treturn QualifyingEncounter\r\n\t\t)\r\n\r\ndefine \"Medication Oral Factor Xa Inhibitor Administered on Day of or Day After Admission or Procedure\":\r\n\t( from\r\n\t\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\t[\"Medication, Administered\": \"Oral Factor Xa Inhibitor for VTE Prophylaxis or VTE Treatment\"] FactorXaMedication\r\n\t\t\twhere FactorXaMedication.relevantPeriod starts during VTEICU.\"CalendarDayOfOrDayAfter\"(start of QualifyingEncounter.relevantPeriod)\r\n\t\t\treturn QualifyingEncounter\r\n\t)\r\n\t\tunion ( from\r\n\t\t\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\t\t[\"Procedure, Performed\": \"General or Neuraxial Anesthesia\"] AnesthesiaProcedure,\r\n\t\t\t\t[\"Medication, Administered\": \"Oral Factor Xa Inhibitor for VTE Prophylaxis or VTE Treatment\"] FactorXaMedication\r\n\t\t\t\twhere AnesthesiaProcedure.relevantPeriod ends 1 day after day of start of QualifyingEncounter.relevantPeriod\r\n\t\t\t\t\tand FactorXaMedication.relevantPeriod starts during VTEICU.\"CalendarDayOfOrDayAfter\"(end of AnesthesiaProcedure.relevantPeriod)\r\n\t\t\t\treturn QualifyingEncounter\r\n\t\t)\r\n\r\ndefine \"Encounter With Prior or Present Diagnosis of Atrial Fibrillation or VTE\":\r\n\t( \"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\t\twith [\"Diagnosis\": \"Atrial Fibrillation/Flutter\"] AtrialFibrillation\r\n\t\t\t\tsuch that AtrialFibrillation.prevalencePeriod starts on or before end of QualifyingEncounter.relevantPeriod\r\n\t)\r\n\t\tunion ( \"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\t\t\twhere exists ( QualifyingEncounter.diagnoses EncounterDiagnosis\r\n\t\t\t\t\t\twhere EncounterDiagnosis in \"Atrial Fibrillation/Flutter\"\r\n\t\t\t\t)\r\n\t\t)\r\n\t\tunion ( \"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\t\t\twith [\"Diagnosis\": \"Venous Thromboembolism\"] VTEDiagnosis\r\n\t\t\t\t\tsuch that VTEDiagnosis.prevalencePeriod starts before start of QualifyingEncounter.relevantPeriod\r\n\t\t)\r\n\r\ndefine \"Encounter With ICU Location Stay 1 Day or More\":\r\n\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\twhere exists ( QualifyingEncounter.facilityLocations Location\r\n\t\t\t\twhere Location.code in \"Intensive Care Unit\"\r\n\t\t\t\t\tand Global.\"LengthInDays\"(Location.locationPeriod)>= 1\r\n\t\t\t\t\tand Location.locationPeriod starts during VTEICU.\"CalendarDayOfOrDayAfter\"(start of QualifyingEncounter.relevantPeriod)\r\n\t\t)\r\n\r\ndefine \"Encounter With Principal Diagnosis of Mental Disorder or Stroke\":\r\n\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\twhere QualifyingEncounter.principalDiagnosis in \"Mental Health Diagnoses\"\r\n\t\t\tor QualifyingEncounter.principalDiagnosis in \"Hemorrhagic Stroke\"\r\n\t\t\tor QualifyingEncounter.principalDiagnosis in \"Ischemic Stroke\"\r\n\r\ndefine \"Encounter With Principal Procedure of SCIP VTE Selected Surgery\":\r\n\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\twith ( \"SCIP VTE Selected Surgery\" Procedure\r\n\t\t\twhere Procedure.ordinality in \"Principal\" ) SelectedProcedure\r\n\t\t\tsuch that SelectedProcedure.relevantPeriod during QualifyingEncounter.relevantPeriod\r\n\r\ndefine \"Denominator Exclusions\":\r\n\t\"Encounter Less Than 2 Days\"\r\n\t\tunion \"Encounter With ICU Location Stay 1 Day or More\"\r\n\t\tunion \"Encounter With Principal Diagnosis of Mental Disorder or Stroke\"\r\n\t\tunion \"Encounter With Principal Procedure of SCIP VTE Selected Surgery\"\r\n\t\tunion \"Intervention Comfort Measures on Day of or Day After Start of Hospitalization\"\r\n\t\tunion \"Intervention Comfort Measures on Day of or Day After Procedure\"\r\n\r\ndefine \"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\":\r\n\t( Global.\"Inpatient Encounter\" InpatientEncounter\r\n\t\t\twith [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\t\tsuch that Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of InpatientEncounter.relevantPeriod)>= 18\r\n\t)\r\n\t\tintersect \"Admission Without VTE or Obstetrical Conditions\"\r\n\r\ndefine \"Encounter With Prior or Present Procedure of Hip or Knee Replacement Surgery\":\r\n\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\twith ( [\"Procedure, Performed\": \"Hip Replacement Surgery\"]\r\n\t\t\tunion [\"Procedure, Performed\": \"Knee Replacement Surgery\"] ) HipKneeProcedure\r\n\t\t\tsuch that HipKneeProcedure.relevantPeriod starts on or before end of QualifyingEncounter.relevantPeriod\r\n\r\ndefine \"Low Risk for VTE or Anticoagulant Administered\":\r\n\t\"Low Risk for VTE or Anticoagulant Administered During ED Visit\"\r\n\t\tunion \"Low Risk for VTE or Anticoagulant Administered on Day of or Day After Admission\"\r\n\t\tunion \"Low Risk for VTE or Anticoagulant Administered on Day of or Day After Procedure\"\r\n\r\ndefine \"No VTE Prophylaxis Due to Medical Reason\":\r\n\t( \"No VTE Prophylaxis Medication Due to Medical Reason During ED Visit\"\r\n\t\t\tintersect \"No VTE Prophylaxis Device Due to Medical Reason During ED Visit\"\r\n\t)\r\n\t\tunion ( \"No VTE Prophylaxis Medication Due to Medical Reason on Day of or Day After Admission\"\r\n\t\t\t\tintersect \"No VTE Prophylaxis Device Due to Medical Reason on Day of or Day After Admission\"\r\n\t\t)\r\n\t\tunion ( \"No VTE Prophylaxis Medication Due to Medical Reason on Day of or Day After Procedure\"\r\n\t\t\t\tintersect \"No VTE Prophylaxis Device Due to Medical Reason on Day of or Day After Procedure\"\r\n\t\t)\r\n\r\ndefine \"No VTE Prophylaxis Due to Patient Refusal During ED Visit\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\"ED Visit\" EDVisit,\r\n\t\t\"No VTE Prophylaxis Medication or Device Due to Patient Refusal\" PatientRefusal\r\n\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand PatientRefusal.authorDatetime during EDVisit.relevantPeriod\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"No VTE Prophylaxis Due to Patient Refusal on Day of or Day After Admission\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\"No VTE Prophylaxis Medication or Device Due to Patient Refusal\" PatientRefusal\r\n\t\twhere PatientRefusal.authorDatetime during VTEICU.\"CalendarDayOfOrDayAfter\"(start of QualifyingEncounter.relevantPeriod)\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"No VTE Prophylaxis Due to Patient Refusal on Day of or Day After Procedure\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t[\"Procedure, Performed\": \"General or Neuraxial Anesthesia\"] AnesthesiaProcedure,\r\n\t\t\"No VTE Prophylaxis Medication or Device Due to Patient Refusal\" PatientRefusal\r\n\t\twhere AnesthesiaProcedure.relevantPeriod ends 1 day after day of start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand PatientRefusal.authorDatetime during VTEICU.\"CalendarDayOfOrDayAfter\"(end of AnesthesiaProcedure.relevantPeriod)\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"No VTE Prophylaxis Medication or Device Due to Patient Refusal\":\r\n\t( \"No VTE Prophylaxis Medication Administered or Ordered\"\r\n\t\tunion \"No VTE Prophylaxis Device Applied or Ordered\" ) NoVTEProphylaxis\r\n\t\twhere NoVTEProphylaxis.negationRationale in \"Patient Refusal\"\r\n\r\ndefine \"No VTE Prophylaxis Due to Patient Refusal\":\r\n\t\"No VTE Prophylaxis Due to Patient Refusal During ED Visit\"\r\n\t\tunion \"No VTE Prophylaxis Due to Patient Refusal on Day of or Day After Admission\"\r\n\t\tunion \"No VTE Prophylaxis Due to Patient Refusal on Day of or Day After Procedure\"\r\n\r\ndefine \"Numerator\":\r\n\t\"VTE Prophylaxis Received on Day of or Day After Admission or Procedure\"\r\n\t\tunion ( \"Medication Oral Factor Xa Inhibitor Administered on Day of or Day After Admission or Procedure\"\r\n\t\t\t\tintersect ( \"Encounter With Prior or Present Diagnosis of Atrial Fibrillation or VTE\"\r\n\t\t\t\t\t\tunion \"Encounter With Prior or Present Procedure of Hip or Knee Replacement Surgery\"\r\n\t\t\t\t)\r\n\t\t)\r\n\t\tunion \"Low Risk for VTE or Anticoagulant Administered\"\r\n\t\tunion \"No VTE Prophylaxis Due to Medical Reason\"\r\n\t\tunion \"No VTE Prophylaxis Due to Patient Refusal\"\r\n\r\ndefine \"Is In Low Risk for VTE or On Anticoagulant\":\r\n\t( [\"Assessment, Performed\": \"Risk for venous thromboembolism\"] VTERiskAssessment\r\n\t\t\twhere VTERiskAssessment.result in \"Low Risk\"\r\n\t)\r\n\t\tunion ( [\"Laboratory Test, Performed\": \"INR\"] INRLabTest\r\n\t\t\t\twhere INRLabTest.result > 3.0\r\n\t\t\t\treturn \"Assessment, Performed\" { id: INRLabTest.id, authorDatetime: INRLabTest.resultDatetime }\r\n\t\t)\r\n\t\tunion ( ( [\"Medication, Administered\": \"Unfractionated Heparin\"] UnfractionatedHeparin\r\n\t\t\t\t\twhere UnfractionatedHeparin.route in \"Intravenous route\"\r\n\t\t\t)\r\n\t\t\t\tunion [\"Medication, Administered\": \"Direct Thrombin Inhibitor\"]\r\n\t\t\t\tunion [\"Medication, Administered\": \"Glycoprotein IIb/IIIa Inhibitors\"] AnticoagulantMedication\r\n\t\t\t\t\treturn \"Assessment, Performed\" { id: AnticoagulantMedication.id, authorDatetime: start of AnticoagulantMedication.relevantPeriod }\r\n\t\t)\r\n\r\ndefine \"Low Risk for VTE or Anticoagulant Administered During ED Visit\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t\"ED Visit\" EDVisit,\r\n\t\t\"Is In Low Risk for VTE or On Anticoagulant\" VTERiskAssessment\r\n\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand VTERiskAssessment.authorDatetime during EDVisit.relevantPeriod\r\n\t\treturn QualifyingEncounter\r\n\r\ndefine \"Low Risk for VTE or Anticoagulant Administered on Day of or Day After Admission\":\r\n\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter\r\n\t\twith \"Is In Low Risk for VTE or On Anticoagulant\" VTERiskAssessment\r\n\t\t\tsuch that VTERiskAssessment.authorDatetime during VTEICU.\"CalendarDayOfOrDayAfter\"(start of QualifyingEncounter.relevantPeriod)\r\n\r\ndefine \"Low Risk for VTE or Anticoagulant Administered on Day of or Day After Procedure\":\r\n\tfrom\r\n\t\t\"Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions\" QualifyingEncounter,\r\n\t\t[\"Procedure, Performed\": \"General or Neuraxial Anesthesia\"] AnesthesiaProcedure,\r\n\t\t\"Is In Low Risk for VTE or On Anticoagulant\" VTERiskAssessment\r\n\t\twhere AnesthesiaProcedure.relevantPeriod ends 1 day after day of start of QualifyingEncounter.relevantPeriod\r\n\t\t\tand VTERiskAssessment.authorDatetime during VTEICU.\"CalendarDayOfOrDayAfter\"(end of AnesthesiaProcedure.relevantPeriod)\r\n\t\treturn QualifyingEncounter\r\n",
       "elm": {
         "library": {
@@ -33070,43 +33070,43 @@
       "library_version": "7.4.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241e131fe5f83c94d6ef4",
+          "_id": "5d27845f31fe5f6eb00bdb6d",
           "statement_name": "Patient"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6ef5",
+          "_id": "5d27845f31fe5f6eb00bdb6e",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6ef6",
+          "_id": "5d27845f31fe5f6eb00bdb6f",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6ef7",
+          "_id": "5d27845f31fe5f6eb00bdb70",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6ef8",
+          "_id": "5d27845f31fe5f6eb00bdb71",
           "statement_name": "SDE Sex"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6ef9",
+          "_id": "5d27845f31fe5f6eb00bdb72",
           "statement_name": "Admission Without VTE or Obstetrical Conditions",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6efa",
+              "_id": "5d27845f31fe5f6eb00bdb73",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Inpatient Encounter"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6efb",
+              "_id": "5d27845f31fe5f6eb00bdb74",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Inpatient Encounter"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6efc",
+              "_id": "5d27845f31fe5f6eb00bdb75",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization"
@@ -33114,23 +33114,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6efd",
+          "_id": "5d27845f31fe5f6eb00bdb76",
           "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6efe",
+              "_id": "5d27845f31fe5f6eb00bdb77",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Inpatient Encounter"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6eff",
+              "_id": "5d27845f31fe5f6eb00bdb78",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "CalendarAgeInYearsAt"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f00",
+              "_id": "5d27845f31fe5f6eb00bdb79",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Admission Without VTE or Obstetrical Conditions"
@@ -33138,11 +33138,11 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f01",
+          "_id": "5d27845f31fe5f6eb00bdb7a",
           "statement_name": "Initial Population",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f02",
+              "_id": "5d27845f31fe5f6eb00bdb7b",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
@@ -33150,11 +33150,11 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f03",
+          "_id": "5d27845f31fe5f6eb00bdb7c",
           "statement_name": "Denominator",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f04",
+              "_id": "5d27845f31fe5f6eb00bdb7d",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Initial Population"
@@ -33162,31 +33162,31 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f05",
+          "_id": "5d27845f31fe5f6eb00bdb7e",
           "statement_name": "ED Visit"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f06",
+          "_id": "5d27845f31fe5f6eb00bdb7f",
           "statement_name": "No VTE Prophylaxis Device Applied or Ordered"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f07",
+          "_id": "5d27845f31fe5f6eb00bdb80",
           "statement_name": "No VTE Prophylaxis Device Due to Medical Reason During ED Visit",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f08",
+              "_id": "5d27845f31fe5f6eb00bdb81",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f09",
+              "_id": "5d27845f31fe5f6eb00bdb82",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "ED Visit"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f0a",
+              "_id": "5d27845f31fe5f6eb00bdb83",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Device Applied or Ordered"
@@ -33194,23 +33194,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f0b",
+          "_id": "5d27845f31fe5f6eb00bdb84",
           "statement_name": "No VTE Prophylaxis Device Due to Medical Reason on Day of or Day After Admission",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f0c",
+              "_id": "5d27845f31fe5f6eb00bdb85",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f0d",
+              "_id": "5d27845f31fe5f6eb00bdb86",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Device Applied or Ordered"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f0e",
+              "_id": "5d27845f31fe5f6eb00bdb87",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33218,27 +33218,27 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f0f",
+          "_id": "5d27845f31fe5f6eb00bdb88",
           "statement_name": "No VTE Prophylaxis Medication Administered or Ordered"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f10",
+          "_id": "5d27845f31fe5f6eb00bdb89",
           "statement_name": "No VTE Prophylaxis Medication Due to Medical Reason During ED Visit",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f11",
+              "_id": "5d27845f31fe5f6eb00bdb8a",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f12",
+              "_id": "5d27845f31fe5f6eb00bdb8b",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "ED Visit"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f13",
+              "_id": "5d27845f31fe5f6eb00bdb8c",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication Administered or Ordered"
@@ -33246,23 +33246,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f14",
+          "_id": "5d27845f31fe5f6eb00bdb8d",
           "statement_name": "No VTE Prophylaxis Medication Due to Medical Reason on Day of or Day After Admission",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f15",
+              "_id": "5d27845f31fe5f6eb00bdb8e",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f16",
+              "_id": "5d27845f31fe5f6eb00bdb8f",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication Administered or Ordered"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f17",
+              "_id": "5d27845f31fe5f6eb00bdb90",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33270,23 +33270,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f18",
+          "_id": "5d27845f31fe5f6eb00bdb91",
           "statement_name": "No VTE Prophylaxis Device Due to Medical Reason on Day of or Day After Procedure",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f19",
+              "_id": "5d27845f31fe5f6eb00bdb92",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f1a",
+              "_id": "5d27845f31fe5f6eb00bdb93",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Device Applied or Ordered"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f1b",
+              "_id": "5d27845f31fe5f6eb00bdb94",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33294,23 +33294,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f1c",
+          "_id": "5d27845f31fe5f6eb00bdb95",
           "statement_name": "No VTE Prophylaxis Medication Due to Medical Reason on Day of or Day After Procedure",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f1d",
+              "_id": "5d27845f31fe5f6eb00bdb96",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f1e",
+              "_id": "5d27845f31fe5f6eb00bdb97",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication Administered or Ordered"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f1f",
+              "_id": "5d27845f31fe5f6eb00bdb98",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33318,17 +33318,17 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f20",
+          "_id": "5d27845f31fe5f6eb00bdb99",
           "statement_name": "Encounter Less Than 2 Days",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f21",
+              "_id": "5d27845f31fe5f6eb00bdb9a",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f22",
+              "_id": "5d27845f31fe5f6eb00bdb9b",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "LengthInDays"
@@ -33336,37 +33336,37 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f23",
+          "_id": "5d27845f31fe5f6eb00bdb9c",
           "statement_name": "SCIP VTE Selected Surgery"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f24",
+          "_id": "5d27845f31fe5f6eb00bdb9d",
           "statement_name": "Intervention Comfort Measures"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f25",
+          "_id": "5d27845f31fe5f6eb00bdb9e",
           "statement_name": "Intervention Comfort Measures on Day of or Day After Start of Hospitalization",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f26",
+              "_id": "5d27845f31fe5f6eb00bdb9f",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f27",
+              "_id": "5d27845f31fe5f6eb00bdba0",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Intervention Comfort Measures"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f28",
+              "_id": "5d27845f31fe5f6eb00bdba1",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f29",
+              "_id": "5d27845f31fe5f6eb00bdba2",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "Hospitalization"
@@ -33374,17 +33374,17 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f2a",
+          "_id": "5d27845f31fe5f6eb00bdba3",
           "statement_name": "Intervention Comfort Measures on Day of or Day After Procedure",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f2b",
+              "_id": "5d27845f31fe5f6eb00bdba4",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f2c",
+              "_id": "5d27845f31fe5f6eb00bdba5",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Intervention Comfort Measures"
@@ -33392,45 +33392,45 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f2d",
+          "_id": "5d27845f31fe5f6eb00bdba6",
           "statement_name": "VTE Prophylaxis by Medication Administered or Device Applied"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f2e",
+          "_id": "5d27845f31fe5f6eb00bdba7",
           "statement_name": "VTE Prophylaxis Received on Day of or Day After Admission or Procedure",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f2f",
+              "_id": "5d27845f31fe5f6eb00bdba8",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f30",
+              "_id": "5d27845f31fe5f6eb00bdba9",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "VTE Prophylaxis by Medication Administered or Device Applied"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f31",
+              "_id": "5d27845f31fe5f6eb00bdbaa",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f32",
+              "_id": "5d27845f31fe5f6eb00bdbab",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f33",
+              "_id": "5d27845f31fe5f6eb00bdbac",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "VTE Prophylaxis by Medication Administered or Device Applied"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f34",
+              "_id": "5d27845f31fe5f6eb00bdbad",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33438,29 +33438,29 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f35",
+          "_id": "5d27845f31fe5f6eb00bdbae",
           "statement_name": "Medication Oral Factor Xa Inhibitor Administered on Day of or Day After Admission or Procedure",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f36",
+              "_id": "5d27845f31fe5f6eb00bdbaf",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f37",
+              "_id": "5d27845f31fe5f6eb00bdbb0",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f38",
+              "_id": "5d27845f31fe5f6eb00bdbb1",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f39",
+              "_id": "5d27845f31fe5f6eb00bdbb2",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33468,23 +33468,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f3a",
+          "_id": "5d27845f31fe5f6eb00bdbb3",
           "statement_name": "Encounter With Prior or Present Diagnosis of Atrial Fibrillation or VTE",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f3b",
+              "_id": "5d27845f31fe5f6eb00bdbb4",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f3c",
+              "_id": "5d27845f31fe5f6eb00bdbb5",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f3d",
+              "_id": "5d27845f31fe5f6eb00bdbb6",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
@@ -33492,23 +33492,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f3e",
+          "_id": "5d27845f31fe5f6eb00bdbb7",
           "statement_name": "Encounter With ICU Location Stay 1 Day or More",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f3f",
+              "_id": "5d27845f31fe5f6eb00bdbb8",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f40",
+              "_id": "5d27845f31fe5f6eb00bdbb9",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "LengthInDays"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f41",
+              "_id": "5d27845f31fe5f6eb00bdbba",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33516,11 +33516,11 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f42",
+          "_id": "5d27845f31fe5f6eb00bdbbb",
           "statement_name": "Encounter With Principal Diagnosis of Mental Disorder or Stroke",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f43",
+              "_id": "5d27845f31fe5f6eb00bdbbc",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
@@ -33528,17 +33528,17 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f44",
+          "_id": "5d27845f31fe5f6eb00bdbbd",
           "statement_name": "Encounter With Principal Procedure of SCIP VTE Selected Surgery",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f45",
+              "_id": "5d27845f31fe5f6eb00bdbbe",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f46",
+              "_id": "5d27845f31fe5f6eb00bdbbf",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "SCIP VTE Selected Surgery"
@@ -33546,41 +33546,41 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f47",
+          "_id": "5d27845f31fe5f6eb00bdbc0",
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f48",
+              "_id": "5d27845f31fe5f6eb00bdbc1",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter Less Than 2 Days"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f49",
+              "_id": "5d27845f31fe5f6eb00bdbc2",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With ICU Location Stay 1 Day or More"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f4a",
+              "_id": "5d27845f31fe5f6eb00bdbc3",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Principal Diagnosis of Mental Disorder or Stroke"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f4b",
+              "_id": "5d27845f31fe5f6eb00bdbc4",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Principal Procedure of SCIP VTE Selected Surgery"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f4c",
+              "_id": "5d27845f31fe5f6eb00bdbc5",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Intervention Comfort Measures on Day of or Day After Start of Hospitalization"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f4d",
+              "_id": "5d27845f31fe5f6eb00bdbc6",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Intervention Comfort Measures on Day of or Day After Procedure"
@@ -33588,11 +33588,11 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f4e",
+          "_id": "5d27845f31fe5f6eb00bdbc7",
           "statement_name": "Encounter With Prior or Present Procedure of Hip or Knee Replacement Surgery",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f4f",
+              "_id": "5d27845f31fe5f6eb00bdbc8",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
@@ -33600,27 +33600,27 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f50",
+          "_id": "5d27845f31fe5f6eb00bdbc9",
           "statement_name": "Is In Low Risk for VTE or On Anticoagulant"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f51",
+          "_id": "5d27845f31fe5f6eb00bdbca",
           "statement_name": "Low Risk for VTE or Anticoagulant Administered During ED Visit",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f52",
+              "_id": "5d27845f31fe5f6eb00bdbcb",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f53",
+              "_id": "5d27845f31fe5f6eb00bdbcc",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "ED Visit"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f54",
+              "_id": "5d27845f31fe5f6eb00bdbcd",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Is In Low Risk for VTE or On Anticoagulant"
@@ -33628,23 +33628,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f55",
+          "_id": "5d27845f31fe5f6eb00bdbce",
           "statement_name": "Low Risk for VTE or Anticoagulant Administered on Day of or Day After Admission",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f56",
+              "_id": "5d27845f31fe5f6eb00bdbcf",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f57",
+              "_id": "5d27845f31fe5f6eb00bdbd0",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Is In Low Risk for VTE or On Anticoagulant"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f58",
+              "_id": "5d27845f31fe5f6eb00bdbd1",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33652,23 +33652,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f59",
+          "_id": "5d27845f31fe5f6eb00bdbd2",
           "statement_name": "Low Risk for VTE or Anticoagulant Administered on Day of or Day After Procedure",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f5a",
+              "_id": "5d27845f31fe5f6eb00bdbd3",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f5b",
+              "_id": "5d27845f31fe5f6eb00bdbd4",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Is In Low Risk for VTE or On Anticoagulant"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f5c",
+              "_id": "5d27845f31fe5f6eb00bdbd5",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33676,23 +33676,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f5d",
+          "_id": "5d27845f31fe5f6eb00bdbd6",
           "statement_name": "Low Risk for VTE or Anticoagulant Administered",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f5e",
+              "_id": "5d27845f31fe5f6eb00bdbd7",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Low Risk for VTE or Anticoagulant Administered During ED Visit"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f5f",
+              "_id": "5d27845f31fe5f6eb00bdbd8",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Low Risk for VTE or Anticoagulant Administered on Day of or Day After Admission"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f60",
+              "_id": "5d27845f31fe5f6eb00bdbd9",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Low Risk for VTE or Anticoagulant Administered on Day of or Day After Procedure"
@@ -33700,41 +33700,41 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f61",
+          "_id": "5d27845f31fe5f6eb00bdbda",
           "statement_name": "No VTE Prophylaxis Due to Medical Reason",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f62",
+              "_id": "5d27845f31fe5f6eb00bdbdb",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication Due to Medical Reason During ED Visit"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f63",
+              "_id": "5d27845f31fe5f6eb00bdbdc",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Device Due to Medical Reason During ED Visit"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f64",
+              "_id": "5d27845f31fe5f6eb00bdbdd",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication Due to Medical Reason on Day of or Day After Admission"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f65",
+              "_id": "5d27845f31fe5f6eb00bdbde",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Device Due to Medical Reason on Day of or Day After Admission"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f66",
+              "_id": "5d27845f31fe5f6eb00bdbdf",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication Due to Medical Reason on Day of or Day After Procedure"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f67",
+              "_id": "5d27845f31fe5f6eb00bdbe0",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Device Due to Medical Reason on Day of or Day After Procedure"
@@ -33742,17 +33742,17 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f68",
+          "_id": "5d27845f31fe5f6eb00bdbe1",
           "statement_name": "No VTE Prophylaxis Medication or Device Due to Patient Refusal",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f69",
+              "_id": "5d27845f31fe5f6eb00bdbe2",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication Administered or Ordered"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f6a",
+              "_id": "5d27845f31fe5f6eb00bdbe3",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Device Applied or Ordered"
@@ -33760,23 +33760,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f6b",
+          "_id": "5d27845f31fe5f6eb00bdbe4",
           "statement_name": "No VTE Prophylaxis Due to Patient Refusal During ED Visit",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f6c",
+              "_id": "5d27845f31fe5f6eb00bdbe5",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f6d",
+              "_id": "5d27845f31fe5f6eb00bdbe6",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "ED Visit"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f6e",
+              "_id": "5d27845f31fe5f6eb00bdbe7",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication or Device Due to Patient Refusal"
@@ -33784,23 +33784,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f6f",
+          "_id": "5d27845f31fe5f6eb00bdbe8",
           "statement_name": "No VTE Prophylaxis Due to Patient Refusal on Day of or Day After Admission",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f70",
+              "_id": "5d27845f31fe5f6eb00bdbe9",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f71",
+              "_id": "5d27845f31fe5f6eb00bdbea",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication or Device Due to Patient Refusal"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f72",
+              "_id": "5d27845f31fe5f6eb00bdbeb",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33808,23 +33808,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f73",
+          "_id": "5d27845f31fe5f6eb00bdbec",
           "statement_name": "No VTE Prophylaxis Due to Patient Refusal on Day of or Day After Procedure",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f74",
+              "_id": "5d27845f31fe5f6eb00bdbed",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Age Range and Without VTE Diagnosis or Obstetrical Conditions"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f75",
+              "_id": "5d27845f31fe5f6eb00bdbee",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Medication or Device Due to Patient Refusal"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f76",
+              "_id": "5d27845f31fe5f6eb00bdbef",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "CalendarDayOfOrDayAfter"
@@ -33832,23 +33832,23 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f77",
+          "_id": "5d27845f31fe5f6eb00bdbf0",
           "statement_name": "No VTE Prophylaxis Due to Patient Refusal",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f78",
+              "_id": "5d27845f31fe5f6eb00bdbf1",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Due to Patient Refusal During ED Visit"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f79",
+              "_id": "5d27845f31fe5f6eb00bdbf2",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Due to Patient Refusal on Day of or Day After Admission"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f7a",
+              "_id": "5d27845f31fe5f6eb00bdbf3",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Due to Patient Refusal on Day of or Day After Procedure"
@@ -33856,47 +33856,47 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f7b",
+          "_id": "5d27845f31fe5f6eb00bdbf4",
           "statement_name": "Numerator",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f7c",
+              "_id": "5d27845f31fe5f6eb00bdbf5",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "VTE Prophylaxis Received on Day of or Day After Admission or Procedure"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f7d",
+              "_id": "5d27845f31fe5f6eb00bdbf6",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Medication Oral Factor Xa Inhibitor Administered on Day of or Day After Admission or Procedure"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f7e",
+              "_id": "5d27845f31fe5f6eb00bdbf7",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Prior or Present Diagnosis of Atrial Fibrillation or VTE"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f7f",
+              "_id": "5d27845f31fe5f6eb00bdbf8",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Encounter With Prior or Present Procedure of Hip or Knee Replacement Surgery"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f80",
+              "_id": "5d27845f31fe5f6eb00bdbf9",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "Low Risk for VTE or Anticoagulant Administered"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f81",
+              "_id": "5d27845f31fe5f6eb00bdbfa",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Due to Medical Reason"
             },
             {
-              "_id": "5d1241e131fe5f83c94d6f82",
+              "_id": "5d27845f31fe5f6eb00bdbfb",
               "hqmf_id": null,
               "library_name": "VenousThromboembolismProphylaxis",
               "statement_name": "No VTE Prophylaxis Due to Patient Refusal"
@@ -33906,7 +33906,7 @@
       ]
     },
     {
-      "_id": "5d1241e131fe5f83c94d6f83",
+      "_id": "5d27845f31fe5f6eb00bdbfc",
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -42570,11 +42570,11 @@
       "library_version": "2.0.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241e131fe5f83c94d6f84",
+          "_id": "5d27845f31fe5f6eb00bdbfd",
           "statement_name": "Inpatient Encounter",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f85",
+              "_id": "5d27845f31fe5f6eb00bdbfe",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "LengthInDays"
@@ -42582,19 +42582,19 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f86",
+          "_id": "5d27845f31fe5f6eb00bdbff",
           "statement_name": "LengthInDays"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f87",
+          "_id": "5d27845f31fe5f6eb00bdc00",
           "statement_name": "Hospitalization"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f88",
+          "_id": "5d27845f31fe5f6eb00bdc01",
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f89",
+              "_id": "5d27845f31fe5f6eb00bdc02",
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
               "statement_name": "ToDate"
@@ -42602,13 +42602,13 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f8a",
+          "_id": "5d27845f31fe5f6eb00bdc03",
           "statement_name": "ToDate"
         }
       ]
     },
     {
-      "_id": "5d1241e131fe5f83c94d6f8b",
+      "_id": "5d27845f31fe5f6eb00bdc04",
       "cql": "library VTEICU version '2.4.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\r\n\r\ndefine function \"CalendarDayOfOrDayAfter\"(StartValue DateTime):\r\n\tInterval[StartValue, ToDate(StartValue + 2 days))\r\n\r\ndefine function \"Start of First ICU\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"First Intensive Care Unit\"(Encounter).locationPeriod\r\n\r\ndefine function \"First Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst(Encounter.facilityLocations L\r\n\t\t\twhere L.code in \"Intensive Care Unit\"\r\n\t\t\t\tand L.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
         "library": {
@@ -44489,11 +44489,11 @@
       "library_version": "2.4.000",
       "statement_dependencies": [
         {
-          "_id": "5d1241e131fe5f83c94d6f8c",
+          "_id": "5d27845f31fe5f6eb00bdc05",
           "statement_name": "CalendarDayOfOrDayAfter",
           "statement_references": [
             {
-              "_id": "5d1241e131fe5f83c94d6f8d",
+              "_id": "5d27845f31fe5f6eb00bdc06",
               "hqmf_id": null,
               "library_name": "VTEICU",
               "statement_name": "ToDate"
@@ -44501,13 +44501,13 @@
           ]
         },
         {
-          "_id": "5d1241e131fe5f83c94d6f8e",
+          "_id": "5d27845f31fe5f6eb00bdc07",
           "statement_name": "ToDate"
         }
       ]
     }
   ],
-  "created_at": "2019-06-25T15:46:41.619Z",
+  "created_at": "2019-07-11T18:47:59.568Z",
   "description": "This measure assesses the number of patients who received VTE prophylaxis or have documentation why no VTE prophylaxis was given the day of or the day after hospital admission or surgery end date for surgeries that start the day of or the day after hospital admission",
   "hqmf_id": "40280382-6258-7581-0162-693C3D8A07C9",
   "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
@@ -45059,57 +45059,57 @@
   },
   "population_sets": [
     {
-      "_id": "5d1241e131fe5f83c94d6fbe",
+      "_id": "5d27845f31fe5f6eb00bdc37",
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
-          "_id": "5d1241e131fe5f83c94d6fc3",
+          "_id": "5d27845f31fe5f6eb00bdc3c",
           "hqmf_id": "F1F2E59E-7C86-4452-BDA0-F4780B9D5DB3",
           "library_name": "VenousThromboembolismProphylaxis",
           "statement_name": "Denominator Exclusions"
         },
         "DENOM": {
-          "_id": "5d1241e131fe5f83c94d6fc1",
+          "_id": "5d27845f31fe5f6eb00bdc3a",
           "hqmf_id": "09606A11-0379-443E-867A-F4AD06925A2A",
           "library_name": "VenousThromboembolismProphylaxis",
           "statement_name": "Denominator"
         },
         "IPP": {
-          "_id": "5d1241e131fe5f83c94d6fc0",
+          "_id": "5d27845f31fe5f6eb00bdc39",
           "hqmf_id": "765CF691-B343-4AB4-8383-485A64987A93",
           "library_name": "VenousThromboembolismProphylaxis",
           "statement_name": "Initial Population"
         },
         "NUMER": {
-          "_id": "5d1241e131fe5f83c94d6fc2",
+          "_id": "5d27845f31fe5f6eb00bdc3b",
           "hqmf_id": "C69FBE2B-1216-4862-BAD8-753B1B59677E",
           "library_name": "VenousThromboembolismProphylaxis",
           "statement_name": "Numerator"
         },
-        "_id": "5d1241e131fe5f83c94d6fbf",
+        "_id": "5d27845f31fe5f6eb00bdc38",
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
-          "_id": "5d1241e131fe5f83c94d6fc4",
+          "_id": "5d27845f31fe5f6eb00bdc3d",
           "hqmf_id": null,
           "library_name": "VenousThromboembolismProphylaxis",
           "statement_name": "SDE Ethnicity"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6fc5",
+          "_id": "5d27845f31fe5f6eb00bdc3e",
           "hqmf_id": null,
           "library_name": "VenousThromboembolismProphylaxis",
           "statement_name": "SDE Payer"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6fc6",
+          "_id": "5d27845f31fe5f6eb00bdc3f",
           "hqmf_id": null,
           "library_name": "VenousThromboembolismProphylaxis",
           "statement_name": "SDE Race"
         },
         {
-          "_id": "5d1241e131fe5f83c94d6fc7",
+          "_id": "5d27845f31fe5f6eb00bdc40",
           "hqmf_id": null,
           "library_name": "VenousThromboembolismProphylaxis",
           "statement_name": "SDE Sex"
@@ -45120,7 +45120,7 @@
   ],
   "source_data_criteria": [
     {
-      "_id": "5d1241df31fe5f83c94d4435",
+      "_id": "5d27845d31fe5f6eb00bb0ae",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.230",
@@ -45129,23 +45129,20 @@
       ],
       "description": "Device, Applied: Venousfootpumps(VFP)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.13",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f8f",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4435"
-      },
+      "id": "5d27845d31fe5f6eb00bb0ae",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "device",
       "qdmStatus": "applied",
       "qdmTitle": "Device, Applied",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "_type": "QDM::DeviceApplied"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4436",
+      "_id": "5d27845d31fe5f6eb00bb0af",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.230",
@@ -45154,23 +45151,20 @@
       ],
       "description": "Device, Not Applied: Venousfootpumps(VFP)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.13",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f90",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4436"
-      },
+      "id": "5d27845d31fe5f6eb00bb0af",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "device",
       "qdmStatus": "applied",
       "qdmTitle": "Device, Applied",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "_type": "QDM::DeviceApplied"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4437",
+      "_id": "5d27845d31fe5f6eb00bb0b0",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.230",
       "dataElementCodes": [
@@ -45178,34 +45172,25 @@
       ],
       "description": "Device, Ordered: Venousfootpumps(VFP)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.15",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f91",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4437"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b0",
       "negationRationale": null,
       "qdmCategory": "device",
       "qdmStatus": "order",
       "qdmTitle": "Device, Order",
       "qdmVersion": "5.4",
       "reason": null,
+      "requester": null,
       "_type": "QDM::DeviceOrder"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4438",
+      "_id": "5d27845d31fe5f6eb00bb0b1",
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f92",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4438"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b1",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
       "qdmTitle": "Patient Characteristic Sex",
@@ -45213,7 +45198,7 @@
       "_type": "QDM::PatientCharacteristicSex"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4439",
+      "_id": "5d27845d31fe5f6eb00bb0b2",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.205",
       "dataElementCodes": [
@@ -45223,24 +45208,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f93",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4439"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b2",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d443a",
+      "_id": "5d27845d31fe5f6eb00bb0b3",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.1743",
@@ -45250,28 +45232,26 @@
       ],
       "description": "Procedure, Performed: GeneralorNeuraxialAnesthesia",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f94",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d443a"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b3",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d443b",
+      "_id": "5d27845d31fe5f6eb00bb0b4",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.218",
       "dataElementCodes": [
@@ -45281,24 +45261,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f95",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d443b"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b4",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d443c",
+      "_id": "5d27845d31fe5f6eb00bb0b5",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.213",
       "components": null,
@@ -45307,20 +45284,17 @@
       ],
       "description": "Laboratory Test, Performed: INR",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f96",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d443c"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b5",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "laboratory_test",
       "qdmStatus": "performed",
       "qdmTitle": "Laboratory Test, Performed",
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -45328,7 +45302,7 @@
       "_type": "QDM::LaboratoryTestPerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d443d",
+      "_id": "5d27845d31fe5f6eb00bb0b6",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.255",
@@ -45338,28 +45312,26 @@
       ],
       "description": "Procedure, Performed: GeneralSurgery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f97",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d443d"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b6",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d443e",
+      "_id": "5d27845d31fe5f6eb00bb0b7",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.134",
       "dataElementCodes": [
@@ -45369,24 +45341,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f98",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d443e"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b7",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d443f",
+      "_id": "5d27845d31fe5f6eb00bb0b8",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.279",
@@ -45395,22 +45364,18 @@
       ],
       "description": "Diagnosis: VenousThromboembolism",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f99",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d443f"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b8",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4440",
+      "_id": "5d27845d31fe5f6eb00bb0b9",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.257",
@@ -45420,28 +45385,26 @@
       ],
       "description": "Procedure, Performed: GynecologicalSurgery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f9a",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4440"
-      },
+      "id": "5d27845d31fe5f6eb00bb0b9",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4441",
+      "_id": "5d27845d31fe5f6eb00bb0ba",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.259",
@@ -45451,40 +45414,33 @@
       ],
       "description": "Procedure, Performed: HipReplacementSurgery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f9b",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4441"
-      },
+      "id": "5d27845d31fe5f6eb00bb0ba",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4442",
+      "_id": "5d27845d31fe5f6eb00bb0bb",
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f9c",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4442"
-      },
+      "id": "5d27845d31fe5f6eb00bb0bb",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
       "qdmTitle": "Patient Characteristic Race",
@@ -45492,7 +45448,7 @@
       "_type": "QDM::PatientCharacteristicRace"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4443",
+      "_id": "5d27845d31fe5f6eb00bb0bc",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.211",
       "dataElementCodes": [
@@ -45502,24 +45458,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f9d",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4443"
-      },
+      "id": "5d27845d31fe5f6eb00bb0bc",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4444",
+      "_id": "5d27845d31fe5f6eb00bb0bd",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.211",
       "dataElementCodes": [
@@ -45529,24 +45482,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f9e",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4444"
-      },
+      "id": "5d27845d31fe5f6eb00bb0bd",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4445",
+      "_id": "5d27845d31fe5f6eb00bb0be",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.211",
       "dataElementCodes": [
@@ -45557,13 +45507,9 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6f9f",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4445"
-      },
+      "id": "5d27845d31fe5f6eb00bb0be",
       "negationRationale": null,
+      "prescriber": null,
       "qdmCategory": "medication",
       "qdmStatus": "order",
       "qdmTitle": "Medication, Order",
@@ -45577,7 +45523,7 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4446",
+      "_id": "5d27845d31fe5f6eb00bb0bf",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.202",
@@ -45586,22 +45532,18 @@
       ],
       "description": "Diagnosis: AtrialFibrillation/Flutter",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa0",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4446"
-      },
+      "id": "5d27845d31fe5f6eb00bb0bf",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4447",
+      "_id": "5d27845d31fe5f6eb00bb0c0",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.272",
@@ -45611,28 +45553,26 @@
       ],
       "description": "Procedure, Performed: UrologicalSurgery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa1",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4447"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c0",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4448",
+      "_id": "5d27845d31fe5f6eb00bb0c1",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.264",
@@ -45641,34 +45581,25 @@
       ],
       "description": "Diagnosis: ObstetricsVTE",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa2",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4448"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c1",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4449",
+      "_id": "5d27845d31fe5f6eb00bb0c2",
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa3",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4449"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c2",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
       "qdmTitle": "Patient Characteristic Payer",
@@ -45677,7 +45608,7 @@
       "_type": "QDM::PatientCharacteristicPayer"
     },
     {
-      "_id": "5d1241df31fe5f83c94d444a",
+      "_id": "5d27845d31fe5f6eb00bb0c3",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.260",
@@ -45687,28 +45618,26 @@
       ],
       "description": "Procedure, Performed: IntracranialNeurosurgery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa4",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d444a"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c3",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d444b",
+      "_id": "5d27845d31fe5f6eb00bb0c4",
       "authorDatetime": null,
       "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
       "dataElementCodes": [
@@ -45716,22 +45645,18 @@
       ],
       "description": "Intervention, Order: ComfortMeasures",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa5",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d444b"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c4",
       "negationRationale": null,
       "qdmCategory": "intervention",
       "qdmStatus": "order",
       "qdmTitle": "Intervention, Order",
       "qdmVersion": "5.4",
       "reason": null,
+      "requester": null,
       "_type": "QDM::InterventionOrder"
     },
     {
-      "_id": "5d1241df31fe5f83c94d444c",
+      "_id": "5d27845d31fe5f6eb00bb0c5",
       "authorDatetime": null,
       "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
       "dataElementCodes": [
@@ -45739,25 +45664,22 @@
       ],
       "description": "Intervention, Performed: ComfortMeasures",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa6",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d444c"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c5",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "intervention",
       "qdmStatus": "performed",
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::InterventionPerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d444d",
+      "_id": "5d27845d31fe5f6eb00bb0c6",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.261",
@@ -45767,28 +45689,26 @@
       ],
       "description": "Procedure, Performed: KneeReplacementSurgery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa7",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d444d"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c6",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d444e",
+      "_id": "5d27845d31fe5f6eb00bb0c7",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.232",
       "dataElementCodes": [
@@ -45798,24 +45718,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa8",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d444e"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c7",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d444f",
+      "_id": "5d27845d31fe5f6eb00bb0c8",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.232",
       "dataElementCodes": [
@@ -45825,24 +45742,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fa9",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d444f"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c8",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4450",
+      "_id": "5d27845d31fe5f6eb00bb0c9",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.232",
       "dataElementCodes": [
@@ -45853,13 +45767,9 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6faa",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4450"
-      },
+      "id": "5d27845d31fe5f6eb00bb0c9",
       "negationRationale": null,
+      "prescriber": null,
       "qdmCategory": "medication",
       "qdmStatus": "order",
       "qdmTitle": "Medication, Order",
@@ -45873,7 +45783,7 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4451",
+      "_id": "5d27845d31fe5f6eb00bb0ca",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -45887,15 +45797,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fab",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4451"
-      },
+      "id": "5d27845d31fe5f6eb00bb0ca",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -45904,7 +45810,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4452",
+      "_id": "5d27845d31fe5f6eb00bb0cb",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.256",
@@ -45913,23 +45819,20 @@
       ],
       "description": "Device, Applied: Graduatedcompressionstockings(GCS)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.13",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fac",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4452"
-      },
+      "id": "5d27845d31fe5f6eb00bb0cb",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "device",
       "qdmStatus": "applied",
       "qdmTitle": "Device, Applied",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "_type": "QDM::DeviceApplied"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4453",
+      "_id": "5d27845d31fe5f6eb00bb0cc",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.256",
@@ -45938,23 +45841,20 @@
       ],
       "description": "Device, Not Applied: Graduatedcompressionstockings(GCS)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.13",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fad",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4453"
-      },
+      "id": "5d27845d31fe5f6eb00bb0cc",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "device",
       "qdmStatus": "applied",
       "qdmTitle": "Device, Applied",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "_type": "QDM::DeviceApplied"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4454",
+      "_id": "5d27845d31fe5f6eb00bb0cd",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.256",
       "dataElementCodes": [
@@ -45962,22 +45862,18 @@
       ],
       "description": "Device, Ordered: Graduatedcompressionstockings(GCS)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.15",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fae",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4454"
-      },
+      "id": "5d27845d31fe5f6eb00bb0cd",
       "negationRationale": null,
       "qdmCategory": "device",
       "qdmStatus": "order",
       "qdmTitle": "Device, Order",
       "qdmVersion": "5.4",
       "reason": null,
+      "requester": null,
       "_type": "QDM::DeviceOrder"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4455",
+      "_id": "5d27845d31fe5f6eb00bb0ce",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.258",
@@ -45987,28 +45883,26 @@
       ],
       "description": "Procedure, Performed: HipFractureSurgery",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6faf",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4455"
-      },
+      "id": "5d27845d31fe5f6eb00bb0ce",
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "performer": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
       "_type": "QDM::ProcedurePerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4456",
+      "_id": "5d27845d31fe5f6eb00bb0cf",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.263",
@@ -46017,22 +45911,18 @@
       ],
       "description": "Diagnosis: Obstetrics",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb0",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4456"
-      },
+      "id": "5d27845d31fe5f6eb00bb0cf",
       "prevalencePeriod": null,
       "qdmCategory": "condition",
       "qdmTitle": "Diagnosis",
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+      "recorder": null,
       "severity": null,
       "_type": "QDM::Diagnosis"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4457",
+      "_id": "5d27845d31fe5f6eb00bb0d0",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.41",
       "dataElementCodes": [
@@ -46042,36 +45932,28 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb1",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4457"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d0",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4458",
+      "_id": "5d27845d31fe5f6eb00bb0d1",
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
 
       ],
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb2",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4458"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d1",
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
       "qdmTitle": "Patient Characteristic Ethnicity",
@@ -46079,7 +45961,7 @@
       "_type": "QDM::PatientCharacteristicEthnicity"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4459",
+      "_id": "5d27845d31fe5f6eb00bb0d2",
       "admissionSource": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
@@ -46093,15 +45975,11 @@
 
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb3",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4459"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d2",
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "participant": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -46110,7 +45988,7 @@
       "_type": "QDM::EncounterPerformed"
     },
     {
-      "_id": "5d1241df31fe5f83c94d445a",
+      "_id": "5d27845d31fe5f6eb00bb0d3",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.39",
       "dataElementCodes": [
@@ -46120,24 +45998,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb4",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d445a"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d3",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d445b",
+      "_id": "5d27845d31fe5f6eb00bb0d4",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.39",
       "dataElementCodes": [
@@ -46147,24 +46022,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb5",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d445b"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d4",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d445c",
+      "_id": "5d27845d31fe5f6eb00bb0d5",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1045.39",
       "dataElementCodes": [
@@ -46175,13 +46047,9 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb6",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d445c"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d5",
       "negationRationale": null,
+      "prescriber": null,
       "qdmCategory": "medication",
       "qdmStatus": "order",
       "qdmTitle": "Medication, Order",
@@ -46195,7 +46063,7 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d1241df31fe5f83c94d445d",
+      "_id": "5d27845d31fe5f6eb00bb0d6",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.219",
       "dataElementCodes": [
@@ -46205,24 +46073,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb7",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d445d"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d6",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d445e",
+      "_id": "5d27845d31fe5f6eb00bb0d7",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.219",
       "dataElementCodes": [
@@ -46232,24 +46097,21 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb8",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d445e"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d7",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "medication",
       "qdmStatus": "administered",
       "qdmTitle": "Medication, Administered",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationAdministered"
     },
     {
-      "_id": "5d1241df31fe5f83c94d445f",
+      "_id": "5d27845d31fe5f6eb00bb0d8",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.219",
       "dataElementCodes": [
@@ -46260,13 +46122,9 @@
       "dosage": null,
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fb9",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d445f"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d8",
       "negationRationale": null,
+      "prescriber": null,
       "qdmCategory": "medication",
       "qdmStatus": "order",
       "qdmTitle": "Medication, Order",
@@ -46280,7 +46138,7 @@
       "_type": "QDM::MedicationOrder"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4460",
+      "_id": "5d27845d31fe5f6eb00bb0d9",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.214",
@@ -46289,23 +46147,20 @@
       ],
       "description": "Device, Applied: Intermittentpneumaticcompressiondevices(IPC)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.13",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fba",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4460"
-      },
+      "id": "5d27845d31fe5f6eb00bb0d9",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "device",
       "qdmStatus": "applied",
       "qdmTitle": "Device, Applied",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "_type": "QDM::DeviceApplied"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4461",
+      "_id": "5d27845d31fe5f6eb00bb0da",
       "anatomicalLocationSite": null,
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.214",
@@ -46314,23 +46169,20 @@
       ],
       "description": "Device, Not Applied: Intermittentpneumaticcompressiondevices(IPC)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.13",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fbb",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4461"
-      },
+      "id": "5d27845d31fe5f6eb00bb0da",
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "device",
       "qdmStatus": "applied",
       "qdmTitle": "Device, Applied",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "_type": "QDM::DeviceApplied"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4462",
+      "_id": "5d27845d31fe5f6eb00bb0db",
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.117.1.7.1.214",
       "dataElementCodes": [
@@ -46338,22 +46190,18 @@
       ],
       "description": "Device, Ordered: Intermittentpneumaticcompressiondevices(IPC)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.15",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fbc",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4462"
-      },
+      "id": "5d27845d31fe5f6eb00bb0db",
       "negationRationale": null,
       "qdmCategory": "device",
       "qdmStatus": "order",
       "qdmTitle": "Device, Order",
       "qdmVersion": "5.4",
       "reason": null,
+      "requester": null,
       "_type": "QDM::DeviceOrder"
     },
     {
-      "_id": "5d1241df31fe5f83c94d4463",
+      "_id": "5d27845d31fe5f6eb00bb0dc",
       "authorDatetime": null,
       "codeListId": "drc-522a38859e8337cb6214742610b449c149172dccc97f176b0b580b4d3f975004",
       "components": null,
@@ -46362,70 +46210,69 @@
       ],
       "description": "Assessment, Performed: Assessment, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
-      "id": {
-        "_id": "5d1241e131fe5f83c94d6fbd",
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d1241df31fe5f83c94d4463"
-      },
+      "id": "5d27845d31fe5f6eb00bb0dc",
       "method": null,
       "negationRationale": null,
+      "performer": null,
       "qdmCategory": "assessment",
       "qdmStatus": "performed",
       "qdmTitle": "Assessment, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relatedTo": null,
+      "relevantDatetime": null,
+      "relevantPeriod": null,
       "result": null,
       "_type": "QDM::AssessmentPerformed"
     }
   ],
   "title": "Venous Thromboembolism Prophylaxis",
-  "updated_at": "2019-06-25T15:46:41.619Z",
+  "updated_at": "2019-07-11T18:47:59.568Z",
   "user_id": "501fdba3044a111b98000001",
   "value_set_ids": [
-    "5d1241e131fe5f83c94d446b",
-    "5d1241e131fe5f83c94d446c",
-    "5d1241e131fe5f83c94d446d",
-    "5d1241e131fe5f83c94d446e",
-    "5d1241e131fe5f83c94d446f",
-    "5d1241e131fe5f83c94d4470",
-    "5d1241e131fe5f83c94d4471",
-    "5d1241e131fe5f83c94d4472",
-    "5d1241e131fe5f83c94d4473",
-    "5d1241e131fe5f83c94d4474",
-    "5d1241e131fe5f83c94d4475",
-    "5d1241e131fe5f83c94d4476",
-    "5d1241e131fe5f83c94d4477",
-    "5d1241e131fe5f83c94d4478",
-    "5d1241e131fe5f83c94d4479",
-    "5d1241e131fe5f83c94d447a",
-    "5d1241e131fe5f83c94d447b",
-    "5d1241e131fe5f83c94d447c",
-    "5d1241e131fe5f83c94d447d",
-    "5d1241e131fe5f83c94d447e",
-    "5d1241e131fe5f83c94d447f",
-    "5d1241e131fe5f83c94d4480",
-    "5d1241e131fe5f83c94d4481",
-    "5d1241e131fe5f83c94d4482",
-    "5d1241e131fe5f83c94d4483",
-    "5d1241e131fe5f83c94d4484",
-    "5d1241e131fe5f83c94d4485",
-    "5d1241e131fe5f83c94d4486",
-    "5d1241e131fe5f83c94d4487",
-    "5d1241e131fe5f83c94d4488",
-    "5d1241e131fe5f83c94d4489",
-    "5d1241e131fe5f83c94d448a",
-    "5d1241e131fe5f83c94d448b",
-    "5d1241e131fe5f83c94d448c",
-    "5d1241e131fe5f83c94d448d",
-    "5d1241e131fe5f83c94d448e",
-    "5d1241e131fe5f83c94d448f",
-    "5d1241e131fe5f83c94d4490",
-    "5d1241e131fe5f83c94d4491",
-    "5d1241e131fe5f83c94d4492",
-    "5d1241e131fe5f83c94d4493",
-    "5d1241e131fe5f83c94d4494",
-    "5d1241e131fe5f83c94d4495",
-    "5d1241e131fe5f83c94d4496"
+    "5d27845e31fe5f6eb00bb0e4",
+    "5d27845e31fe5f6eb00bb0e5",
+    "5d27845e31fe5f6eb00bb0e6",
+    "5d27845e31fe5f6eb00bb0e7",
+    "5d27845e31fe5f6eb00bb0e8",
+    "5d27845e31fe5f6eb00bb0e9",
+    "5d27845e31fe5f6eb00bb0ea",
+    "5d27845e31fe5f6eb00bb0eb",
+    "5d27845e31fe5f6eb00bb0ec",
+    "5d27845e31fe5f6eb00bb0ed",
+    "5d27845e31fe5f6eb00bb0ee",
+    "5d27845e31fe5f6eb00bb0ef",
+    "5d27845e31fe5f6eb00bb0f0",
+    "5d27845e31fe5f6eb00bb0f1",
+    "5d27845e31fe5f6eb00bb0f2",
+    "5d27845e31fe5f6eb00bb0f3",
+    "5d27845e31fe5f6eb00bb0f4",
+    "5d27845e31fe5f6eb00bb0f5",
+    "5d27845e31fe5f6eb00bb0f6",
+    "5d27845e31fe5f6eb00bb0f7",
+    "5d27845e31fe5f6eb00bb0f8",
+    "5d27845e31fe5f6eb00bb0f9",
+    "5d27845e31fe5f6eb00bb0fa",
+    "5d27845e31fe5f6eb00bb0fb",
+    "5d27845e31fe5f6eb00bb0fc",
+    "5d27845e31fe5f6eb00bb0fd",
+    "5d27845e31fe5f6eb00bb0fe",
+    "5d27845e31fe5f6eb00bb0ff",
+    "5d27845e31fe5f6eb00bb100",
+    "5d27845e31fe5f6eb00bb101",
+    "5d27845e31fe5f6eb00bb102",
+    "5d27845e31fe5f6eb00bb103",
+    "5d27845e31fe5f6eb00bb104",
+    "5d27845e31fe5f6eb00bb105",
+    "5d27845e31fe5f6eb00bb106",
+    "5d27845e31fe5f6eb00bb107",
+    "5d27845e31fe5f6eb00bb108",
+    "5d27845e31fe5f6eb00bb109",
+    "5d27845e31fe5f6eb00bb10a",
+    "5d27845e31fe5f6eb00bb10b",
+    "5d27845e31fe5f6eb00bb10c",
+    "5d27845e31fe5f6eb00bb10d",
+    "5d27845e31fe5f6eb00bb10e",
+    "5d27845e31fe5f6eb00bb10f"
   ]
 }
