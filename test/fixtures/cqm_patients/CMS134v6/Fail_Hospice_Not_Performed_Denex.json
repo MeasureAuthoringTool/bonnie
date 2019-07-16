@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f7e931fe5ff6f1e7d314"
+    "$oid": "5d278b8331fe5f6f3e4b5860"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -26,13 +26,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d14f7e931fe5ff6f1e7d315"
+      "$oid": "5d278b8331fe5f6f3e4b5861"
     },
     "birthDatetime": "1937-07-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d316"
+          "$oid": "5d278b8331fe5f6f3e4b5862"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "1949-02-17T09:00:00.000+00:00",
@@ -44,14 +44,9 @@
           }
         ],
         "description": "Diagnosis: Diabetes",
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d317"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb7764b848463d625b3424"
+          "$oid": "5d278b8331fe5f6f3e4b5862"
         },
         "prevalencePeriod": {
           "low": "1949-02-17T09:00:00.000Z",
@@ -61,14 +56,14 @@
         },
         "qdmCategory": "condition",
         "qdmTitle": "Diagnosis",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
         "severity": null,
         "_type": "QDM::Diagnosis"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d318"
+          "$oid": "5d278b8331fe5f6f3e4b5864"
         },
         "admissionSource": null,
         "authorDatetime": "2012-02-02T08:45:00.000+00:00",
@@ -87,25 +82,20 @@
         "facilityLocations": [
 
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d319"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb7764b848463d625b3425"
+          "$oid": "5d278b8331fe5f6f3e4b5864"
         },
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": null,
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-02-02T08:45:00.000Z",
           "high": "2012-02-02T08:45:00.000Z",
@@ -116,7 +106,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d31a"
+          "$oid": "5d278b8331fe5f6f3e4b5866"
         },
         "authorDatetime": "2012-01-31T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -127,14 +117,9 @@
           }
         ],
         "description": "Intervention, Order: Hospice care ambulatory",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.145",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d31b"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb7764b848463d625b3426"
+          "$oid": "5d278b8331fe5f6f3e4b5866"
         },
         "negationRationale": {
           "code": "4525004",
@@ -145,13 +130,13 @@
         "qdmCategory": "intervention",
         "qdmStatus": "order",
         "qdmTitle": "Intervention, Order",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": null,
         "_type": "QDM::InterventionOrder"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d310"
+          "$oid": "5d278b8331fe5f6f3e4b585c"
         },
         "birthDatetime": "1937-07-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -167,22 +152,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d31c"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e931fe5ff6f1e7d310"
+          "$oid": "5d278b8331fe5f6f3e4b585c"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d311"
+          "$oid": "5d278b8331fe5f6f3e4b585d"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -197,22 +177,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d31d"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e931fe5ff6f1e7d311"
+          "$oid": "5d278b8331fe5f6f3e4b585d"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d312"
+          "$oid": "5d278b8331fe5f6f3e4b585e"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -227,22 +202,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d31e"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e931fe5ff6f1e7d312"
+          "$oid": "5d278b8331fe5f6f3e4b585e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d313"
+          "$oid": "5d278b8331fe5f6f3e4b585f"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -257,17 +227,12 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d31f"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e931fe5ff6f1e7d313"
+          "$oid": "5d278b8331fe5f6f3e4b585f"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -381,7 +346,7 @@
       "description_category": null,
       "insurance_providers": "[]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": {
     "$oid": "501fdba3044a111b98000001"

@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f7eb31fe5ff6f1e7d412"
+    "$oid": "5d278e5a31fe5f6f3e4c5615"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -25,13 +25,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d14f7eb31fe5ff6f1e7d413"
+      "$oid": "5d278e5a31fe5f6f3e4c5616"
     },
     "birthDatetime": "1976-07-04T05:23:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d14f7eb31fe5ff6f1e7d414"
+          "$oid": "5d278e5a31fe5f6f3e4c5617"
         },
         "authorDatetime": "2012-07-30T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113762.1.4.1110.27",
@@ -45,28 +45,26 @@
           }
         ],
         "description": "Assessment, Performed: Tobacco Use Status",
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.117",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
         "id": {
-          "_id": {
-            "$oid": "5d14f7eb31fe5ff6f1e7d415"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b61b47fb848461e81031468"
+          "$oid": "5d278e5a31fe5f6f3e4c5617"
         },
         "method": null,
         "negationRationale": null,
         "qdmCategory": "assessment",
         "qdmStatus": "performed",
         "qdmTitle": "Assessment, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": null,
+        "relatedTo": null,
+        "relevantDatetime": null,
+        "relevantPeriod": null,
         "result": "44367-05-28T08:00:00.000+00:00",
         "_type": "QDM::AssessmentPerformed"
       },
       {
         "_id": {
-          "$oid": "5d14f7eb31fe5ff6f1e7d40e"
+          "$oid": "5d278e5a31fe5f6f3e4c5611"
         },
         "birthDatetime": "1976-07-04T05:23:00.000+00:00",
         "codeListId": null,
@@ -82,22 +80,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": {
-            "$oid": "5d14f7eb31fe5ff6f1e7d416"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7eb31fe5ff6f1e7d40e"
+          "$oid": "5d278e5a31fe5f6f3e4c5611"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5d14f7eb31fe5ff6f1e7d40f"
+          "$oid": "5d278e5a31fe5f6f3e4c5612"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -112,22 +105,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": {
-            "$oid": "5d14f7eb31fe5ff6f1e7d417"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7eb31fe5ff6f1e7d40f"
+          "$oid": "5d278e5a31fe5f6f3e4c5612"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5d14f7eb31fe5ff6f1e7d410"
+          "$oid": "5d278e5a31fe5f6f3e4c5613"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -142,22 +130,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": {
-            "$oid": "5d14f7eb31fe5ff6f1e7d418"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7eb31fe5ff6f1e7d410"
+          "$oid": "5d278e5a31fe5f6f3e4c5613"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5d14f7eb31fe5ff6f1e7d411"
+          "$oid": "5d278e5a31fe5f6f3e4c5614"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -172,17 +155,12 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": {
-            "$oid": "5d14f7eb31fe5ff6f1e7d419"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7eb31fe5ff6f1e7d411"
+          "$oid": "5d278e5a31fe5f6f3e4c5614"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -243,7 +221,7 @@
       "description_category": null,
       "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": {
     "$oid": "501fdba3044a111b98000001"

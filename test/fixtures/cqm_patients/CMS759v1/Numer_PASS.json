@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f7ea31fe5ff6f1e7d37a"
+    "$oid": "5d278bd331fe5f6f3e4b750f"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -25,13 +25,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d14f7ea31fe5ff6f1e7d37b"
+      "$oid": "5d278bd331fe5f6f3e4b7510"
     },
     "birthDatetime": "1990-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d14f7ea31fe5ff6f1e7d37c"
+          "$oid": "5d278bd331fe5f6f3e4b7511"
         },
         "codeListId": "2.16.840.1.113883.3.1240.15.2.4008",
         "dataElementCodes": [
@@ -41,19 +41,14 @@
           }
         ],
         "description": "Patient Characteristic Payer: Medicare Fee For Service",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.405",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ea31fe5ff6f1e7d37d"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb7736b848463d625b2155"
+          "$oid": "5d278bd331fe5f6f3e4b7511"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "payer",
         "qdmTitle": "Patient Characteristic Payer",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-03-14T08:00:00.000Z",
           "high": "2012-03-14T08:15:00.000Z",
@@ -64,7 +59,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ea31fe5ff6f1e7d37e"
+          "$oid": "5d278bd331fe5f6f3e4b7513"
         },
         "admissionSource": null,
         "authorDatetime": "2012-03-14T08:00:00.000+00:00",
@@ -83,25 +78,20 @@
         "facilityLocations": [
 
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ea31fe5ff6f1e7d37f"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb7736b848463d625b2156"
+          "$oid": "5d278bd331fe5f6f3e4b7513"
         },
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": null,
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-03-14T08:00:00.000Z",
           "high": "2012-03-14T08:15:00.000Z",
@@ -112,7 +102,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ea31fe5ff6f1e7d376"
+          "$oid": "5d278bd331fe5f6f3e4b750b"
         },
         "birthDatetime": "1990-01-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -128,22 +118,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ea31fe5ff6f1e7d380"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ea31fe5ff6f1e7d376"
+          "$oid": "5d278bd331fe5f6f3e4b750b"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5d14f7ea31fe5ff6f1e7d377"
+          "$oid": "5d278bd331fe5f6f3e4b750c"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -158,22 +143,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ea31fe5ff6f1e7d381"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ea31fe5ff6f1e7d377"
+          "$oid": "5d278bd331fe5f6f3e4b750c"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5d14f7ea31fe5ff6f1e7d378"
+          "$oid": "5d278bd331fe5f6f3e4b750d"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -188,22 +168,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ea31fe5ff6f1e7d382"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ea31fe5ff6f1e7d378"
+          "$oid": "5d278bd331fe5f6f3e4b750d"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5d14f7ea31fe5ff6f1e7d379"
+          "$oid": "5d278bd331fe5f6f3e4b750e"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -218,17 +193,12 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ea31fe5ff6f1e7d383"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ea31fe5ff6f1e7d379"
+          "$oid": "5d278bd331fe5f6f3e4b750e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -313,7 +283,7 @@
       "description_category": null,
       "insurance_providers": "[]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": {
     "$oid": "501fdba3044a111b98000001"

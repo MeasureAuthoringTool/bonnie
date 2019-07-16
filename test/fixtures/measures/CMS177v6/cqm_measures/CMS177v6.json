@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f84e31fe5ff6fc6879de"
+    "$oid": "5d27840931fe5f6eb006aa93"
   },
   "calculate_sdes": null,
   "calculation_method": "EPISODE_OF_CARE",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6879e0"
+        "$oid": "5d27840931fe5f6eb006aa95"
       },
       "cql": "library ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment version '6.0.002'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Face-to-Face Interaction\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1048'\r\nvalueset \"Group Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1187'\r\nvalueset \"Major Depressive Disorder-Active\": 'urn:oid:2.16.840.1.113883.3.526.3.1491'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Outpatient Consultation\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1008'\r\nvalueset \"Psych Visit - Diagnostic Evaluation\": 'urn:oid:2.16.840.1.113883.3.526.3.1492'\r\nvalueset \"Psych Visit - Family Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1018'\r\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'\r\nvalueset \"Psychoanalysis\": 'urn:oid:2.16.840.1.113883.3.526.3.1141'\r\nvalueset \"Suicide Risk Assessment\": 'urn:oid:2.16.840.1.113883.3.526.3.1484'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\t\"Encounter with Major Depressive Disorder Diagnosis\" Enc\r\n\t\twith [\"Intervention, Performed\": \"Suicide Risk Assessment\"] Intervention\r\n\t\t\tsuch that Intervention.relevantPeriod during Enc.relevantPeriod\r\n\r\ndefine \"Encounter with Major Depressive Disorder Diagnosis\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Outpatient Consultation\"]\r\n\t\tunion [\"Encounter, Performed\": \"Face-to-Face Interaction\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Diagnostic Evaluation\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Family Psychotherapy\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Psychotherapy\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psychoanalysis\"]\r\n\t\tunion [\"Encounter, Performed\": \"Group Psychotherapy\"] ) Enc\r\n\t\twhere exists ( Enc.diagnoses Diagnosis\r\n\t\t\t\twhere Diagnosis in \"Major Depressive Disorder-Active\"\r\n\t\t)\r\n\t\t\tand Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\t\"Encounter with Major Depressive Disorder Diagnosis\" Enc\r\n\t\twhere AgeInYearsAt(start of \"Measurement Period\")>= 6\r\n\t\t\tand AgeInYearsAt(start of \"Measurement Period\")< 17\r\n",
       "elm": {
@@ -3041,49 +3041,49 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879e1"
+            "$oid": "5d27840931fe5f6eb006aa96"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879e2"
+            "$oid": "5d27840931fe5f6eb006aa97"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879e3"
+            "$oid": "5d27840931fe5f6eb006aa98"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879e4"
+            "$oid": "5d27840931fe5f6eb006aa99"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879e5"
+            "$oid": "5d27840931fe5f6eb006aa9a"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879e6"
+            "$oid": "5d27840931fe5f6eb006aa9b"
           },
           "statement_name": "Encounter with Major Depressive Disorder Diagnosis"
         },
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879e7"
+            "$oid": "5d27840931fe5f6eb006aa9c"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f84e31fe5ff6fc6879e8"
+                "$oid": "5d27840931fe5f6eb006aa9d"
               },
               "hqmf_id": null,
               "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
@@ -3093,13 +3093,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879e9"
+            "$oid": "5d27840931fe5f6eb006aa9e"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f84e31fe5ff6fc6879ea"
+                "$oid": "5d27840931fe5f6eb006aa9f"
               },
               "hqmf_id": null,
               "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
@@ -3109,13 +3109,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879eb"
+            "$oid": "5d27840931fe5f6eb006aaa0"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f84e31fe5ff6fc6879ec"
+                "$oid": "5d27840931fe5f6eb006aaa1"
               },
               "hqmf_id": null,
               "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
@@ -3126,7 +3126,7 @@
       ]
     }
   ],
-  "created_at": "2019-06-27T17:09:34.322Z",
+  "created_at": "2019-07-11T18:46:33.303Z",
   "description": "Percentage of patient visits for those patients aged 6 through 17 years with a\ndiagnosis of major depressive disorder with an assessment for suicide risk",
   "hqmf_id": "40280382-5FA6-FE85-0160-0498BA791EE8",
   "hqmf_set_id": "848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3",
@@ -3646,13 +3646,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6879fa"
+        "$oid": "5d27840931fe5f6eb006aaaf"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENOM": {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879fd"
+            "$oid": "5d27840931fe5f6eb006aab2"
           },
           "hqmf_id": "FB9470CF-9D17-4D21-A56C-DD50333C41DB",
           "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
@@ -3660,7 +3660,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879fc"
+            "$oid": "5d27840931fe5f6eb006aab1"
           },
           "hqmf_id": "814DC710-4366-4E53-8747-EA68A1D82146",
           "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
@@ -3668,14 +3668,14 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5d14f84e31fe5ff6fc6879fe"
+            "$oid": "5d27840931fe5f6eb006aab3"
           },
           "hqmf_id": "487BEADB-29B5-43D7-8E33-F0E40184E27B",
           "library_name": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879fb"
+          "$oid": "5d27840931fe5f6eb006aab0"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
@@ -3685,7 +3685,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878b4"
+        "$oid": "5d27840931fe5f6eb006a969"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -3701,16 +3701,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879ed"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878b4"
+        "$oid": "5d27840931fe5f6eb006a969"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -3720,7 +3715,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878b5"
+        "$oid": "5d27840931fe5f6eb006a96a"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -3729,12 +3724,7 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879ee"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878b5"
+        "$oid": "5d27840931fe5f6eb006a96a"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -3745,7 +3735,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878b6"
+        "$oid": "5d27840931fe5f6eb006a96b"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -3754,12 +3744,7 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879ef"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878b6"
+        "$oid": "5d27840931fe5f6eb006a96b"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -3769,7 +3754,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878b7"
+        "$oid": "5d27840931fe5f6eb006a96c"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -3785,16 +3770,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f0"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878b7"
+        "$oid": "5d27840931fe5f6eb006a96c"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -3804,7 +3784,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878b8"
+        "$oid": "5d27840931fe5f6eb006a96d"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -3820,16 +3800,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f1"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878b8"
+        "$oid": "5d27840931fe5f6eb006a96d"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -3839,7 +3814,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878b9"
+        "$oid": "5d27840931fe5f6eb006a96e"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -3855,16 +3830,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f2"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878b9"
+        "$oid": "5d27840931fe5f6eb006a96e"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -3874,7 +3844,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878ba"
+        "$oid": "5d27840931fe5f6eb006a96f"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -3890,16 +3860,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f3"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878ba"
+        "$oid": "5d27840931fe5f6eb006a96f"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -3909,7 +3874,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878bb"
+        "$oid": "5d27840931fe5f6eb006a970"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -3925,16 +3890,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f4"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878bb"
+        "$oid": "5d27840931fe5f6eb006a970"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -3944,7 +3904,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878bc"
+        "$oid": "5d27840931fe5f6eb006a971"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -3953,12 +3913,7 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f5"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878bc"
+        "$oid": "5d27840931fe5f6eb006a971"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -3968,7 +3923,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878bd"
+        "$oid": "5d27840931fe5f6eb006a972"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -3984,16 +3939,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f6"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878bd"
+        "$oid": "5d27840931fe5f6eb006a972"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -4003,7 +3953,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878be"
+        "$oid": "5d27840931fe5f6eb006a973"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -4012,12 +3962,7 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f7"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878be"
+        "$oid": "5d27840931fe5f6eb006a973"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -4027,7 +3972,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878bf"
+        "$oid": "5d27840931fe5f6eb006a974"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1484",
@@ -4037,12 +3982,7 @@
       "description": "Intervention, Performed: SuicideRiskAssessment",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f8"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878bf"
+        "$oid": "5d27840931fe5f6eb006a974"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -4050,6 +3990,7 @@
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -4057,7 +3998,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f84e31fe5ff6fc6878c0"
+        "$oid": "5d27840931fe5f6eb006a975"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -4073,16 +4014,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f84e31fe5ff6fc6879f9"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f84e31fe5ff6fc6878c0"
+        "$oid": "5d27840931fe5f6eb006a975"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -4092,24 +4028,24 @@
     }
   ],
   "title": "Child and Adolescent Major Depressive Disorder (MDD): Suicide Risk Assessment",
-  "updated_at": "2019-06-27T17:09:34.322Z",
+  "updated_at": "2019-07-11T18:46:33.303Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5d14f84e31fe5ff6fc6878c1",
-    "5d14f84e31fe5ff6fc6878c2",
-    "5d14f84e31fe5ff6fc6878c3",
-    "5d14f84e31fe5ff6fc6878c4",
-    "5d14f84e31fe5ff6fc6878c5",
-    "5d14f84e31fe5ff6fc6878c6",
-    "5d14f84e31fe5ff6fc6878c7",
-    "5d14f84e31fe5ff6fc6878c8",
-    "5d14f84e31fe5ff6fc6878c9",
-    "5d14f84e31fe5ff6fc6878ca",
-    "5d14f84e31fe5ff6fc6878cb",
-    "5d14f84e31fe5ff6fc6878cc",
-    "5d14f84e31fe5ff6fc6878cd",
-    "5d14f84e31fe5ff6fc6878ce"
+    "5d27840931fe5f6eb006a976",
+    "5d27840931fe5f6eb006a977",
+    "5d27840931fe5f6eb006a978",
+    "5d27840931fe5f6eb006a979",
+    "5d27840931fe5f6eb006a97a",
+    "5d27840931fe5f6eb006a97b",
+    "5d27840931fe5f6eb006a97c",
+    "5d27840931fe5f6eb006a97d",
+    "5d27840931fe5f6eb006a97e",
+    "5d27840931fe5f6eb006a97f",
+    "5d27840931fe5f6eb006a980",
+    "5d27840931fe5f6eb006a981",
+    "5d27840931fe5f6eb006a982",
+    "5d27840931fe5f6eb006a983"
   ]
 }

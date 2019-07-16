@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f7e831fe5ff6f1e7d2f4"
+    "$oid": "5d278b6831fe5f6f3e4b4f06"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -61,13 +61,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d14f7e831fe5ff6f1e7d2f5"
+      "$oid": "5d278b6831fe5f6f3e4b4f07"
     },
     "birthDatetime": "1994-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d14f7e831fe5ff6f1e7d2f6"
+          "$oid": "5d278b6831fe5f6f3e4b4f08"
         },
         "admissionSource": null,
         "authorDatetime": "2012-06-10T05:00:00.000+00:00",
@@ -81,40 +81,40 @@
         "description": "Encounter, Performed: Emergency Department Visit",
         "diagnoses": [
           {
-            "code": "10278007",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Psychiatric/Mental Health Diagnosis"
+            "_id": {
+              "$oid": "5d27975431fe5f747c2a26f5"
+            },
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "10278007",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Psychiatric/Mental Health Diagnosis",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           }
         ],
         "dischargeDisposition": null,
         "facilityLocations": [
 
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e831fe5ff6f1e7d2f7"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb77ccb848463d625b5d4d"
+          "$oid": "5d278b6831fe5f6f3e4b4f08"
         },
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": {
-          "code": "10278007",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Psychiatric/Mental Health Diagnosis",
-          "version": null
-        },
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-06-10T05:00:00.000Z",
           "high": "2012-06-10T05:25:00.000Z",
@@ -125,7 +125,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7e831fe5ff6f1e7d2f8"
+          "$oid": "5d278b6831fe5f6f3e4b4f0a"
         },
         "admissionSource": null,
         "authorDatetime": "2012-06-10T09:00:00.000+00:00",
@@ -139,10 +139,20 @@
         "description": "Encounter, Performed: Emergency Department Visit",
         "diagnoses": [
           {
-            "code": "10278007",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Psychiatric/Mental Health Diagnosis"
+            "_id": {
+              "$oid": "5d27975431fe5f747c2a26f6"
+            },
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "10278007",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Psychiatric/Mental Health Diagnosis",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           }
         ],
         "dischargeDisposition": {
@@ -154,30 +164,20 @@
         "facilityLocations": [
 
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e831fe5ff6f1e7d2f9"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb77ccb848463d625b5d4f"
+          "$oid": "5d278b6831fe5f6f3e4b4f0a"
         },
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": {
-          "code": "10278007",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Psychiatric/Mental Health Diagnosis",
-          "version": null
-        },
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-06-10T09:00:00.000Z",
           "high": "2012-06-10T09:15:00.000Z",
@@ -188,7 +188,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7e831fe5ff6f1e7d2fa"
+          "$oid": "5d278b6831fe5f6f3e4b4f0c"
         },
         "admissionSource": null,
         "authorDatetime": "2012-06-11T09:15:00.000+00:00",
@@ -207,25 +207,20 @@
         "facilityLocations": [
 
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e831fe5ff6f1e7d2fb"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb77ccb848463d625b5d51"
+          "$oid": "5d278b6831fe5f6f3e4b4f0c"
         },
         "lengthOfStay": {
           "value": 3,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": null,
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-06-11T09:15:00.000Z",
           "high": "2012-06-14T08:15:00.000Z",
@@ -236,7 +231,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7e831fe5ff6f1e7d2f0"
+          "$oid": "5d278b6831fe5f6f3e4b4f02"
         },
         "birthDatetime": "1994-01-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -252,22 +247,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e831fe5ff6f1e7d2fc"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e831fe5ff6f1e7d2f0"
+          "$oid": "5d278b6831fe5f6f3e4b4f02"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5d14f7e831fe5ff6f1e7d2f1"
+          "$oid": "5d278b6831fe5f6f3e4b4f03"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -282,22 +272,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e831fe5ff6f1e7d2fd"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e831fe5ff6f1e7d2f1"
+          "$oid": "5d278b6831fe5f6f3e4b4f03"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5d14f7e831fe5ff6f1e7d2f2"
+          "$oid": "5d278b6831fe5f6f3e4b4f04"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -312,22 +297,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e831fe5ff6f1e7d2fe"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e831fe5ff6f1e7d2f2"
+          "$oid": "5d278b6831fe5f6f3e4b4f04"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5d14f7e831fe5ff6f1e7d2f3"
+          "$oid": "5d278b6831fe5f6f3e4b4f05"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -342,17 +322,12 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e831fe5ff6f1e7d2ff"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e831fe5ff6f1e7d2f3"
+          "$oid": "5d278b6831fe5f6f3e4b4f05"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -488,7 +463,7 @@
       "description_category": null,
       "insurance_providers": "[]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
