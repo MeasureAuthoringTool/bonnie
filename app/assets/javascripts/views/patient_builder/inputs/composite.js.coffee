@@ -27,7 +27,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
         showPlaceholder: !view?
         type: type
       }
-    @showLabels = !['Identifier', 'Id'].includes(@typeName)
+    @showLabels = @typeName != 'Identifier'
 
   _determineType: (path, info) ->
     # If it is an interval, it may be one of DateTime or one of Quantity
