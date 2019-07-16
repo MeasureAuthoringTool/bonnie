@@ -18,8 +18,8 @@ class VsacUtilControllerTest < ActionController::TestCase
       assert_response :success
 
       profile_names = JSON.parse(response.body)
-      assert_equal 18, profile_names['profileNames'].length
-      assert_equal 'eCQM Update 2018-05-04', profile_names['latestProfile']
+      assert_equal 24, profile_names['profileNames'].length
+      assert_equal 'eCQM Update 2019-05-10', profile_names['latestProfile']
     end
   end
 
@@ -27,7 +27,7 @@ class VsacUtilControllerTest < ActionController::TestCase
     VCR.use_cassette('vsac_util_get_program_names') do
       get :program_names
       assert_response :success
-      assert_equal ['CMS Hybrid', 'CMS eCQM', 'HL7 C-CDA'], JSON.parse(response.body)['programNames']
+      assert_equal ["CMS Hybrid", "CMS Pre-rulemaking eCQM", "CMS eCQM", "HL7 C-CDA"], JSON.parse(response.body)['programNames']
     end
   end
 
@@ -38,7 +38,7 @@ class VsacUtilControllerTest < ActionController::TestCase
 
       release_names = JSON.parse(response.body)
       assert_equal 'CMS eCQM', release_names['programName']
-      assert_equal 14, release_names['releaseNames'].length
+      assert_equal 16, release_names['releaseNames'].length
     end
   end
 

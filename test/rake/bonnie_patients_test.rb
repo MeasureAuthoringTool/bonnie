@@ -352,7 +352,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     # Open up the file and assert the file contains 4 lines, one for each patient.
     f = File.open('cms104v2_export_patients_test.json', 'r')
     assert_equal 4, f.readlines.size
-    # File.delete('cms104v2_export_patients_test.json') if File.exist?('cms104v2_export_patients_test.json')
+    File.delete('cms104v2_export_patients_test.json') if File.exist?('cms104v2_export_patients_test.json')
   end
 
   test 'successful import of patients'  do
