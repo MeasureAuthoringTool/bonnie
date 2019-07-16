@@ -7,42 +7,41 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - Ruby
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
   response:
     status:
       code: 200
       message: ''
     headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '954'
+      - '1246'
       Date:
-      - Mon, 21 May 2018 21:53:37 GMT
+      - Tue, 16 Jul 2019 12:00:23 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!oUxT1bltgNVJ2tLm9OGvBt4MxRMcjqZK7jiNL8jYqrAKAazpE8uqpMW3hlIYJpy5nQlLZtvWqOl/9iI=;
-        expires=Mon, 21-May-2018 23:53:38 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!TdQLjdfunpZPJv3NtNHn4GsLooFbU73lwcPjOFx3rrMtEohxnylJJTdkXQe1xdrd7EI4J22+keXw1K4=;
+        expires=Tue, 16-Jul-2019 14:00:23 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -51,6 +50,12 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <ProfileList>
             <profile>Most Recent Code System Versions in VSAC</profile>
+            <profile>C-CDA R2.1 2019-06-28</profile>
+            <profile>eCQM Update 2019-05-10</profile>
+            <profile>CMS Pre-rulemaking eCQM 2019-05-10</profile>
+            <profile>RCKMS Release 1.0 2018-10-31</profile>
+            <profile>eCQM Update 2018-09-17</profile>
+            <profile>C-CDA R2.1 2018-06-15</profile>
             <profile>eCQM Update 2018-05-04</profile>
             <profile>C-CDA R2.1 2018-02-01</profile>
             <profile>CMS 2018 IQR Voluntary Hybrid Reporting</profile>
@@ -70,7 +75,7 @@ http_interactions:
             <profile>MU2 Update 2012-10-25</profile>
         </ProfileList>
     http_version: 
-  recorded_at: Mon, 21 May 2018 21:53:38 GMT
+  recorded_at: Tue, 16 Jul 2019 12:00:23 GMT
 - request:
     method: get
     uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
@@ -78,48 +83,47 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - Ruby
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
   response:
     status:
       code: 200
       message: ''
     headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
       Content-Type:
       - application/json
       Content-Length:
       - '72'
       Date:
-      - Mon, 21 May 2018 21:53:37 GMT
+      - Tue, 16 Jul 2019 12:00:23 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!mLJkt+c8dNNwynPNtNHn4GsLooFbU61r8IrzooaFDVLitiwqLZoiHFOePzVvEXf4KMKTyhkQN0Bvwbc=;
-        expires=Mon, 21-May-2018 23:53:38 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!JfCpG2w5FOGTR13NtNHn4GsLooFbU2+qunwQYaWUi8vJTdBERf7/rxui64OZioiHSy0WZ7LleHEpB8w=;
+        expires=Tue, 16-Jul-2019 14:00:23 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: '{"name":"eCQM Update 2018-05-04","requestTime":"2018-05-21 05:53:38
-        PM"}'
+      string: '{"name":"eCQM Update 2019-05-10","requestTime":"2019-07-16 08:00:23
+        AM"}'
     http_version: 
-  recorded_at: Mon, 21 May 2018 21:53:38 GMT
-recorded_with: VCR 3.0.3
+  recorded_at: Tue, 16 Jul 2019 12:00:23 GMT
+recorded_with: VCR 4.0.0

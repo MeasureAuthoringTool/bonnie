@@ -7,38 +7,37 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - Ruby
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
   response:
     status:
       code: 200
       message: ''
     headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
       Content-Type:
       - application/json
       Content-Length:
-      - '910'
+      - '1192'
       Date:
-      - Sun, 01 Apr 2018 16:19:05 GMT
+      - Tue, 16 Jul 2019 12:00:23 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!Srmk0Ha0bYxamQfm9OGvBt4MxRMcjgaE0BdCsJMibsloasAbDvN/Z4lIa3iwVQwc1KoWVlemA80+kiE=;
-        expires=Sun, 01-Apr-2018 18:19:05 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!npUtnbyV1BMNlyDNtNHn4GsLooFbU8VykaQervusAWPWix2IehVRqP2zyDRrff/Fv8CggxTmwkM1Nls=;
+        expires=Tue, 16-Jul-2019 14:00:24 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -51,14 +50,17 @@ http_interactions:
         Elements and Hybrid Measures use a set of core clinical data elements, clinical
         variables from electronic health records (EHRs), that are routinely collected
         and can be feasibly extracted for use in risk-adjusted hospital-level hybrid
-        outcome measures."},{"name":"CMS eCQM","description":"eCQMs use data from
-        electronic health records (EHR) and/or health information technology systems
-        to measure health care quality. eCQM value sets specify terminology codes
-        required for eCQM measurement and are updated by CMS one or more times each
-        year."},{"name":"HL7 C-CDA","description":"Consolidated Clinical Document
+        outcome measures."},{"name":"CMS Pre-rulemaking eCQM","description":"CMS pre-rulemaking
+        eCQMs include measures that are developed, but specifications are not finalized
+        for reporting in a CMS program. The Pre-rulemaking eCQM value sets specify
+        terminology codes for use in these pre-rulemaking eCQMs."},{"name":"CMS eCQM","description":"eCQMs
+        use data from electronic health records (EHR) and/or health information technology
+        systems to measure health care quality. eCQM value sets specify terminology
+        codes required for eCQM measurement and are updated by CMS one or more times
+        each year."},{"name":"HL7 C-CDA","description":"Consolidated Clinical Document
         Architecture (C-CDA) value sets provide standardized terminology data elements
         for exchanging templated clinical information (e.g., Allergies, Encounters,
         Immunizations, Problems, Procedures, etc.) from electronic health records."}]}'
     http_version: 
-  recorded_at: Sun, 01 Apr 2018 16:19:05 GMT
-recorded_with: VCR 3.0.3
+  recorded_at: Tue, 16 Jul 2019 12:00:24 GMT
+recorded_with: VCR 4.0.0
