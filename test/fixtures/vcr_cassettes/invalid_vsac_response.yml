@@ -4,19 +4,13 @@ http_interactions:
     method: post
     uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: username=invaliduser&password=invalidpassword
     headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Length:
-      - '45'
-      Content-Type:
-      - application/x-www-form-urlencoded
       User-Agent:
-      - Ruby
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
   response:
     status:
       code: 401
@@ -40,19 +34,19 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 29 Jan 2019 21:10:35 GMT
+      - Tue, 16 Jul 2019 11:59:19 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!8yQVUX+fmbXq94XNtNHn4GsLooFbU87KLOtjAGJdfcpjqXq9WbBIJdYO1ZSG828Hi073MGGUhbHd8ws=;
-        expires=Tue, 29-Jan-2019 23:10:35 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!eRqM2NtZ2n18tE3NtNHn4GsLooFbU14UxvXhOnb5GWb4ylVopzXHM4r2xBCn3zJQUKSYkRsA1WagRrA=;
+        expires=Tue, 16-Jul-2019 13:59:19 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 29 Jan 2019 21:10:35 GMT
-recorded_with: VCR 3.0.3
+  recorded_at: Tue, 16 Jul 2019 11:59:19 GMT
+recorded_with: VCR 4.0.0
