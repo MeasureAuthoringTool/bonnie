@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f7ed31fe5ff6f1e7d485"
+    "$oid": "5d278e8931fe5f6f3e4c67c0"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -27,13 +27,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d14f7ed31fe5ff6f1e7d486"
+      "$oid": "5d278e8931fe5f6f3e4c67c1"
     },
     "birthDatetime": "1955-11-24T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d14f7ed31fe5ff6f1e7d487"
+          "$oid": "5d278e8931fe5f6f3e4c67c2"
         },
         "admissionSource": null,
         "authorDatetime": "2012-11-12T08:00:00.000+00:00",
@@ -47,17 +47,27 @@
         "description": "Encounter, Performed: Encounter Inpatient",
         "diagnoses": [
           {
-            "code": "10273003",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Acute or Evolving MI"
+            "_id": {
+              "$oid": "5d2797a231fe5f747c2aa5c4"
+            },
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "10273003",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Acute or Evolving MI",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           }
         ],
         "dischargeDisposition": null,
         "facilityLocations": [
           {
             "_id": {
-              "$oid": "5d14f7ed31fe5ff6f1e7d488"
+              "$oid": "5d278e8931fe5f6f3e4c67c3"
             },
             "_type": "QDM::FacilityLocation",
             "code": {
@@ -77,30 +87,20 @@
             "qdmVersion": "5.4"
           }
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ed31fe5ff6f1e7d489"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b758aa7b8484609983b84a7"
+          "$oid": "5d278e8931fe5f6f3e4c67c2"
         },
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": {
-          "code": "10273003",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Acute or Evolving MI",
-          "version": null
-        },
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-11-12T08:00:00.000Z",
           "high": "2012-11-12T08:15:00.000Z",
@@ -111,7 +111,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ed31fe5ff6f1e7d48a"
+          "$oid": "5d278e8931fe5f6f3e4c67c5"
         },
         "authorDatetime": "2012-11-12T09:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.666.5.736",
@@ -124,21 +124,17 @@
         "description": "Medication, Administered: Fibrinolytic Therapy",
         "dosage": null,
         "frequency": null,
-        "hqmfOid": "2.16.840.1.113883.3.560.1.14",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.45",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ed31fe5ff6f1e7d48b"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b758aa7b8484609983b84aa"
+          "$oid": "5d278e8931fe5f6f3e4c67c5"
         },
         "negationRationale": null,
         "qdmCategory": "medication",
         "qdmStatus": "administered",
         "qdmTitle": "Medication, Administered",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-11-12T09:00:00.000Z",
           "high": "2012-11-12T09:15:00.000Z",
@@ -150,7 +146,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ed31fe5ff6f1e7d48c"
+          "$oid": "5d278e8931fe5f6f3e4c67c7"
         },
         "authorDatetime": "2012-11-12T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.666.5.735",
@@ -165,22 +161,18 @@
         ],
         "description": "Diagnostic Study, Performed: Electrocardiogram (ECG)",
         "facilityLocation": null,
-        "hqmfOid": "2.16.840.1.113883.3.560.1.3",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ed31fe5ff6f1e7d48d"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b758aa7b8484609983b84a8"
+          "$oid": "5d278e8931fe5f6f3e4c67c7"
         },
         "method": null,
         "negationRationale": null,
         "qdmCategory": "diagnostic_study",
         "qdmStatus": "performed",
         "qdmTitle": "Diagnostic Study, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-11-12T08:00:00.000Z",
           "high": "2012-11-12T08:30:00.000Z",
@@ -194,7 +186,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ed31fe5ff6f1e7d48e"
+          "$oid": "5d278e8931fe5f6f3e4c67c9"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-11-12T09:00:00.000+00:00",
@@ -213,24 +205,21 @@
           }
         ],
         "description": "Procedure, Performed: PCI",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.6",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ed31fe5ff6f1e7d48f"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b758aa7b8484609983b84a9"
+          "$oid": "5d278e8931fe5f6f3e4c67c9"
         },
         "incisionDatetime": null,
         "method": null,
         "negationRationale": null,
-        "ordinality": null,
+        "priority": null,
         "qdmCategory": "procedure",
         "qdmStatus": "performed",
         "qdmTitle": "Procedure, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
+        "rank": null,
         "reason": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-11-12T09:00:00.000Z",
           "high": "2012-11-12T09:15:00.000Z",
@@ -243,7 +232,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ed31fe5ff6f1e7d481"
+          "$oid": "5d278e8931fe5f6f3e4c67bc"
         },
         "birthDatetime": "1955-11-24T08:00:00.000+00:00",
         "codeListId": null,
@@ -259,22 +248,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ed31fe5ff6f1e7d490"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ed31fe5ff6f1e7d481"
+          "$oid": "5d278e8931fe5f6f3e4c67bc"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5d14f7ed31fe5ff6f1e7d482"
+          "$oid": "5d278e8931fe5f6f3e4c67bd"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -289,22 +273,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ed31fe5ff6f1e7d491"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ed31fe5ff6f1e7d482"
+          "$oid": "5d278e8931fe5f6f3e4c67bd"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5d14f7ed31fe5ff6f1e7d483"
+          "$oid": "5d278e8931fe5f6f3e4c67be"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -319,22 +298,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ed31fe5ff6f1e7d492"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ed31fe5ff6f1e7d483"
+          "$oid": "5d278e8931fe5f6f3e4c67be"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5d14f7ed31fe5ff6f1e7d484"
+          "$oid": "5d278e8931fe5f6f3e4c67bf"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -349,17 +323,12 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ed31fe5ff6f1e7d493"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ed31fe5ff6f1e7d484"
+          "$oid": "5d278e8931fe5f6f3e4c67bf"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -535,7 +504,7 @@
       "description_category": null,
       "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": {
     "$oid": "501fdba3044a111b98000001"

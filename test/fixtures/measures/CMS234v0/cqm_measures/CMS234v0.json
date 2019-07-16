@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f85831fe5ff6fc68fce4"
+    "$oid": "5d27851531fe5f6eb014bfc2"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fce5"
+        "$oid": "5d27851531fe5f6eb014bfc3"
       },
       "cql": "library AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer version '0.5.000'\r\n\r\nusing QDM version '5.4'\r\n\r\ninclude MATGlobalCommonFunctions version '4.0.000' called Global\r\ninclude Hospice version '2.0.000' called Hospice\r\n\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Bilateral Mastectomy\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1005'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Female\": 'urn:oid:2.16.840.1.113883.3.560.100.2'\r\nvalueset \"History of bilateral mastectomy\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1068'\r\nvalueset \"Left\": 'urn:oid:2.16.840.1.113883.3.464.1003.122.12.1036'\r\nvalueset \"Mammography\": 'urn:oid:2.16.840.1.113883.3.464.1003.108.12.1018'\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Right\": 'urn:oid:2.16.840.1.113883.3.464.1003.122.12.1035'\r\nvalueset \"Status Post Left Mastectomy\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1069'\r\nvalueset \"Status Post Right Mastectomy\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1070'\r\nvalueset \"Unilateral Mastectomy\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1020'\r\nvalueset \"Unilateral Mastectomy, Unspecified Laterality\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1071'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Bilateral Mastectomy Procedure\":\r\n\t[\"Procedure, Performed\": \"Bilateral Mastectomy\"] BilateralMastectomyPerformed\r\n\t\twhere BilateralMastectomyPerformed.relevantPeriod ends before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"History Bilateral Mastectomy\":\r\n\t[\"Diagnosis\": \"History of bilateral mastectomy\"] BilateralMastectomyHistory\r\n\t\twhere BilateralMastectomyHistory.prevalencePeriod starts before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Left Mastectomy\":\r\n\t( [\"Diagnosis\": \"Status Post Left Mastectomy\"]\r\n\t\tunion ( [\"Diagnosis\": \"Unilateral Mastectomy, Unspecified Laterality\"] UnilateralMastectomyDiagnosis\r\n\t\t\t\twhere UnilateralMastectomyDiagnosis.anatomicalLocationSite in \"Left\"\r\n\t\t) ) LeftMastectomy\r\n\t\twhere LeftMastectomy.prevalencePeriod starts before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Right Mastectomy\":\r\n\t( [\"Diagnosis\": \"Status Post Right Mastectomy\"]\r\n\t\tunion ( [\"Diagnosis\": \"Unilateral Mastectomy, Unspecified Laterality\"] UnilateralMastectomyDiagnosis\r\n\t\t\t\twhere UnilateralMastectomyDiagnosis.anatomicalLocationSite in \"Right\"\r\n\t\t) ) RightMastectomy\r\n\t\twhere RightMastectomy.prevalencePeriod starts before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Numerator\":\r\n\texists ( [\"Diagnostic Study, Performed\": \"Mammography\"] Mammogram\r\n\t\t\twhere ( Mammogram.relevantPeriod ends 27 months or less before day of \r\n\t\t\t\tend \"Measurement Period\"\r\n\t\t\t)\r\n\t)\r\n\r\ndefine \"Annual Wellness Visit Encounter\":\r\n\t[\"Encounter, Performed\": \"Annual Wellness Visit\"] QualifyingEncounter\r\n\t\twhere QualifyingEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Unilateral Mastectomy Procedure\":\r\n\t[\"Procedure, Performed\": \"Unilateral Mastectomy\"] UnilateralMastectomy\r\n\t\twhere UnilateralMastectomy.relevantPeriod ends before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t\t\tand exists \"Annual Wellness Visit Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\t\tand exists [\"Patient Characteristic Sex\": \"Female\"]\r\n\t\tand exists [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")<= 74\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tHospice.\"Has Hospice\"\r\n\t\tor ( Count(\"Unilateral Mastectomy Procedure\")= 2 )\r\n\t\tor ( exists \"Right Mastectomy\"\r\n\t\t\t\tand exists \"Left Mastectomy\"\r\n\t\t)\r\n\t\tor exists \"History Bilateral Mastectomy\"\r\n\t\tor exists \"Bilateral Mastectomy Procedure\"",
       "elm": {
@@ -6114,85 +6114,85 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fce6"
+            "$oid": "5d27851531fe5f6eb014bfc4"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fce7"
+            "$oid": "5d27851531fe5f6eb014bfc5"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fce8"
+            "$oid": "5d27851531fe5f6eb014bfc6"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fce9"
+            "$oid": "5d27851531fe5f6eb014bfc7"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcea"
+            "$oid": "5d27851531fe5f6eb014bfc8"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fceb"
+            "$oid": "5d27851531fe5f6eb014bfc9"
           },
           "statement_name": "Bilateral Mastectomy Procedure"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcec"
+            "$oid": "5d27851531fe5f6eb014bfca"
           },
           "statement_name": "History Bilateral Mastectomy"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fced"
+            "$oid": "5d27851531fe5f6eb014bfcb"
           },
           "statement_name": "Left Mastectomy"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcee"
+            "$oid": "5d27851531fe5f6eb014bfcc"
           },
           "statement_name": "Right Mastectomy"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcef"
+            "$oid": "5d27851531fe5f6eb014bfcd"
           },
           "statement_name": "Numerator"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcf0"
+            "$oid": "5d27851531fe5f6eb014bfce"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcf1"
+            "$oid": "5d27851531fe5f6eb014bfcf"
           },
           "statement_name": "Unilateral Mastectomy Procedure"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcf2"
+            "$oid": "5d27851531fe5f6eb014bfd0"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcf3"
+                "$oid": "5d27851531fe5f6eb014bfd1"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -6200,7 +6200,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcf4"
+                "$oid": "5d27851531fe5f6eb014bfd2"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -6210,13 +6210,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcf5"
+            "$oid": "5d27851531fe5f6eb014bfd3"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcf6"
+                "$oid": "5d27851531fe5f6eb014bfd4"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -6224,7 +6224,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcf7"
+                "$oid": "5d27851531fe5f6eb014bfd5"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -6234,13 +6234,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fcf8"
+            "$oid": "5d27851531fe5f6eb014bfd6"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcf9"
+                "$oid": "5d27851531fe5f6eb014bfd7"
               },
               "hqmf_id": null,
               "library_name": "Hospice",
@@ -6248,7 +6248,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcfa"
+                "$oid": "5d27851531fe5f6eb014bfd8"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -6256,7 +6256,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcfb"
+                "$oid": "5d27851531fe5f6eb014bfd9"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -6264,7 +6264,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcfc"
+                "$oid": "5d27851531fe5f6eb014bfda"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -6272,7 +6272,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcfd"
+                "$oid": "5d27851531fe5f6eb014bfdb"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -6280,7 +6280,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fcfe"
+                "$oid": "5d27851531fe5f6eb014bfdc"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -6292,7 +6292,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fcff"
+        "$oid": "5d27851531fe5f6eb014bfdd"
       },
       "cql": "library MATGlobalCommonFunctions version '4.0.000'\n\nusing QDM version '5.4'\n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Encounter\":\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\n\ndefine \"Inpatient Encounter\":\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\ndefine function \"ToDate\"(Value DateTime ):\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime ):\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime ):\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime ):\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) X\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\ndefine function \"LengthInDays\"(Value Interval<DateTime> ):\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) EDEncounter\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\" ):\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\n\t\t)\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\" ):\n\tFirst((Encounter.facilityLocations)HospitalLocation\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\n\t\t\tsort by start of locationPeriod\n\t)\n\n",
       "elm": {
@@ -14909,13 +14909,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd00"
+            "$oid": "5d27851531fe5f6eb014bfde"
           },
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68fd01"
+                "$oid": "5d27851531fe5f6eb014bfdf"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -14925,7 +14925,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd02"
+            "$oid": "5d27851531fe5f6eb014bfe0"
           },
           "statement_name": "ToDate"
         }
@@ -14933,7 +14933,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fd03"
+        "$oid": "5d27851531fe5f6eb014bfe1"
       },
       "cql": "library Hospice version '2.0.000'\n\nusing QDM version '5.4'\n\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15' \n\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Has Hospice\":\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\n\t\t\t)\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\n\t)\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\n\t\t)\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\n\t\t)\n\n",
       "elm": {
@@ -16770,14 +16770,14 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd04"
+            "$oid": "5d27851531fe5f6eb014bfe2"
           },
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-06-27T17:09:44.676Z",
+  "created_at": "2019-07-11T18:51:01.132Z",
   "description": "Percentage of female patients ages 65 to 74 with an Annual Wellness Visit (AWV) during the measurement period who received a mammogram during or in the year before the measurement period",
   "hqmf_id": "40280582-6621-2797-0166-455ED5DC11BF",
   "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
@@ -17314,13 +17314,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fd15"
+        "$oid": "5d27851531fe5f6eb014bff3"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd1a"
+            "$oid": "5d27851531fe5f6eb014bff8"
           },
           "hqmf_id": "D7087CF0-CE52-436D-AC87-399129A22D79",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -17328,7 +17328,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd18"
+            "$oid": "5d27851531fe5f6eb014bff6"
           },
           "hqmf_id": "135A107E-BDA4-4D65-8170-FD860A9B3CDC",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -17336,7 +17336,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd17"
+            "$oid": "5d27851531fe5f6eb014bff5"
           },
           "hqmf_id": "D6ECCA89-793C-4048-AD29-B3C029DC09A1",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -17344,21 +17344,21 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd19"
+            "$oid": "5d27851531fe5f6eb014bff7"
           },
           "hqmf_id": "2A579D5B-AE89-4483-B5F8-D21A15B5FE92",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd16"
+          "$oid": "5d27851531fe5f6eb014bff4"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd1b"
+            "$oid": "5d27851531fe5f6eb014bff9"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -17366,7 +17366,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd1c"
+            "$oid": "5d27851531fe5f6eb014bffa"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -17374,7 +17374,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd1d"
+            "$oid": "5d27851531fe5f6eb014bffb"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -17382,7 +17382,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68fd1e"
+            "$oid": "5d27851531fe5f6eb014bffc"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -17395,7 +17395,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb49"
+        "$oid": "5d27851431fe5f6eb014be27"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -17411,16 +17411,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd05"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb49"
+        "$oid": "5d27851431fe5f6eb014be27"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -17430,7 +17425,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb4a"
+        "$oid": "5d27851431fe5f6eb014be28"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -17441,12 +17436,7 @@
       "description": "Diagnosis: StatusPostRightMastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd06"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb4a"
+        "$oid": "5d27851431fe5f6eb014be28"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17458,7 +17448,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb4b"
+        "$oid": "5d27851431fe5f6eb014be29"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -17467,12 +17457,7 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd07"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb4b"
+        "$oid": "5d27851431fe5f6eb014be29"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -17483,7 +17468,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb4c"
+        "$oid": "5d27851431fe5f6eb014be2a"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -17494,12 +17479,7 @@
       "description": "Diagnosis: StatusPostLeftMastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd08"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb4c"
+        "$oid": "5d27851431fe5f6eb014be2a"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17511,7 +17491,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb4d"
+        "$oid": "5d27851431fe5f6eb014be2b"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -17520,12 +17500,7 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd09"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb4d"
+        "$oid": "5d27851431fe5f6eb014be2b"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -17535,7 +17510,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb4e"
+        "$oid": "5d27851431fe5f6eb014be2c"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -17547,22 +17522,19 @@
       "description": "Procedure, Performed: UnilateralMastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd0a"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb4e"
+        "$oid": "5d27851431fe5f6eb014be2c"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -17570,7 +17542,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb4f"
+        "$oid": "5d27851431fe5f6eb014be2d"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -17582,22 +17554,19 @@
       "description": "Procedure, Performed: BilateralMastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd0b"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb4f"
+        "$oid": "5d27851431fe5f6eb014be2d"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -17605,7 +17574,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb50"
+        "$oid": "5d27851431fe5f6eb014be2e"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.108.12.1018",
@@ -17617,12 +17586,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd0c"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb50"
+        "$oid": "5d27851431fe5f6eb014be2e"
       },
       "method": null,
       "negationRationale": null,
@@ -17631,6 +17595,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -17639,7 +17604,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb51"
+        "$oid": "5d27851431fe5f6eb014be2f"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -17650,12 +17615,7 @@
       "description": "Diagnosis: Historyofbilateralmastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd0d"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb51"
+        "$oid": "5d27851431fe5f6eb014be2f"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17667,7 +17627,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb52"
+        "$oid": "5d27851431fe5f6eb014be30"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -17683,16 +17643,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd0e"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb52"
+        "$oid": "5d27851431fe5f6eb014be30"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -17702,7 +17657,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb53"
+        "$oid": "5d27851431fe5f6eb014be31"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -17712,12 +17667,7 @@
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd0f"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb53"
+        "$oid": "5d27851431fe5f6eb014be31"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -17729,7 +17679,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb54"
+        "$oid": "5d27851431fe5f6eb014be32"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -17739,12 +17689,7 @@
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd10"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb54"
+        "$oid": "5d27851431fe5f6eb014be32"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -17752,6 +17697,7 @@
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -17759,7 +17705,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb55"
+        "$oid": "5d27851431fe5f6eb014be33"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -17768,12 +17714,7 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd11"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb55"
+        "$oid": "5d27851431fe5f6eb014be33"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -17783,7 +17724,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb56"
+        "$oid": "5d27851431fe5f6eb014be34"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -17792,12 +17733,7 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd12"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb56"
+        "$oid": "5d27851431fe5f6eb014be34"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -17807,7 +17743,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb57"
+        "$oid": "5d27851431fe5f6eb014be35"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -17818,12 +17754,7 @@
       "description": "Diagnosis: UnilateralMastectomyUnspecifiedLaterality",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd13"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb57"
+        "$oid": "5d27851431fe5f6eb014be35"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -17835,7 +17766,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fb58"
+        "$oid": "5d27851431fe5f6eb014be36"
       },
       "codeListId": "2.16.840.1.113883.3.560.100.2",
       "dataElementCodes": [
@@ -17844,12 +17775,7 @@
       "description": "Patient Characteristic Sex: Female",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68fd14"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fb58"
+        "$oid": "5d27851431fe5f6eb014be36"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -17859,31 +17785,31 @@
     }
   ],
   "title": "Annual Wellness Assessment: Preventive Care (Screening for Breast Cancer)",
-  "updated_at": "2019-06-27T17:09:44.676Z",
+  "updated_at": "2019-07-11T18:51:01.132Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5d14f85831fe5ff6fc68fb59",
-    "5d14f85831fe5ff6fc68fb5a",
-    "5d14f85831fe5ff6fc68fb5b",
-    "5d14f85831fe5ff6fc68fb5c",
-    "5d14f85831fe5ff6fc68fb5d",
-    "5d14f85831fe5ff6fc68fb5e",
-    "5d14f85831fe5ff6fc68fb5f",
-    "5d14f85831fe5ff6fc68fb60",
-    "5d14f85831fe5ff6fc68fb61",
-    "5d14f85831fe5ff6fc68fb62",
-    "5d14f85831fe5ff6fc68fb63",
-    "5d14f85831fe5ff6fc68fb64",
-    "5d14f85831fe5ff6fc68fb65",
-    "5d14f85831fe5ff6fc68fb66",
-    "5d14f85831fe5ff6fc68fb67",
-    "5d14f85831fe5ff6fc68fb68",
-    "5d14f85831fe5ff6fc68fb69",
-    "5d14f85831fe5ff6fc68fb6a",
-    "5d14f85831fe5ff6fc68fb6b",
-    "5d14f85831fe5ff6fc68fb6c",
-    "5d14f85831fe5ff6fc68fb6d"
+    "5d27851531fe5f6eb014be37",
+    "5d27851531fe5f6eb014be38",
+    "5d27851531fe5f6eb014be39",
+    "5d27851531fe5f6eb014be3a",
+    "5d27851531fe5f6eb014be3b",
+    "5d27851531fe5f6eb014be3c",
+    "5d27851531fe5f6eb014be3d",
+    "5d27851531fe5f6eb014be3e",
+    "5d27851531fe5f6eb014be3f",
+    "5d27851531fe5f6eb014be40",
+    "5d27851531fe5f6eb014be41",
+    "5d27851531fe5f6eb014be42",
+    "5d27851531fe5f6eb014be43",
+    "5d27851531fe5f6eb014be44",
+    "5d27851531fe5f6eb014be45",
+    "5d27851531fe5f6eb014be46",
+    "5d27851531fe5f6eb014be47",
+    "5d27851531fe5f6eb014be48",
+    "5d27851531fe5f6eb014be49",
+    "5d27851531fe5f6eb014be4a",
+    "5d27851531fe5f6eb014be4b"
   ]
 }

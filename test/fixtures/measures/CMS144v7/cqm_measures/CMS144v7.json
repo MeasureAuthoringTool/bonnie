@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f85431fe5ff6fc68c36c"
+    "$oid": "5d27845d31fe5f6eb00baffa"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c36e"
+        "$oid": "5d27845d31fe5f6eb00baffc"
       },
       "cql": "library HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD version '7.1.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ninclude MATGlobalCommonFunctions version '2.0.000' called Global\r\n\r\ncodesystem \"LOINC:2.63\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.63'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Allergy to Beta Blocker Therapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1177'\r\nvalueset \"Arrhythmia\": 'urn:oid:2.16.840.1.113883.3.526.3.366'\r\nvalueset \"Asthma\": 'urn:oid:2.16.840.1.113883.3.526.3.362'\r\nvalueset \"Atrioventricular Block\": 'urn:oid:2.16.840.1.113883.3.526.3.367'\r\nvalueset \"Beta Blocker Therapy for LVSD\": 'urn:oid:2.16.840.1.113883.3.526.3.1184'\r\nvalueset \"Beta Blocker Therapy Ingredient\": 'urn:oid:2.16.840.1.113883.3.526.3.1493'\r\nvalueset \"Bradycardia\": 'urn:oid:2.16.840.1.113883.3.526.3.412'\r\nvalueset \"Cardiac Pacer\": 'urn:oid:2.16.840.1.113883.3.526.3.1193'\r\nvalueset \"Cardiac Pacer in Situ\": 'urn:oid:2.16.840.1.113883.3.526.3.368'\r\nvalueset \"Care Services in Long-Term Residential Facility\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1014'\r\nvalueset \"Discharge Services - Hospital Inpatient\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1007'\r\nvalueset \"Ejection Fraction\": 'urn:oid:2.16.840.1.113883.3.526.3.1134'\r\nvalueset \"Heart Failure\": 'urn:oid:2.16.840.1.113883.3.526.3.376'\r\nvalueset \"Home Healthcare Services\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1016'\r\nvalueset \"Hypotension\": 'urn:oid:2.16.840.1.113883.3.526.3.370'\r\nvalueset \"Intolerance to Beta Blocker Therapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1178'\r\nvalueset \"Left Ventricular Systolic Dysfunction\": 'urn:oid:2.16.840.1.113883.3.526.3.1091'\r\nvalueset \"Medical Reason\": 'urn:oid:2.16.840.1.113883.3.526.3.1007'\r\nvalueset \"Moderate or Severe\": 'urn:oid:2.16.840.1.113883.3.526.3.1092'\r\nvalueset \"Moderate or Severe LVSD\": 'urn:oid:2.16.840.1.113883.3.526.3.1090'\r\nvalueset \"Nursing Facility Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1012'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Outpatient Consultation\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1008'\r\nvalueset \"Patient Provider Interaction\": 'urn:oid:2.16.840.1.113883.3.526.3.1012'\r\nvalueset \"Patient Reason\": 'urn:oid:2.16.840.1.113883.3.526.3.1008'\r\nvalueset \"System Reason\": 'urn:oid:2.16.840.1.113883.3.526.3.1009'\r\n\r\ncode \"Heart rate\": '8867-4' from \"LOINC:2.63\" display 'Heart rate'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Moderate or Severe LVSD Findings\":\r\n\t( [\"Diagnostic Study, Performed\": \"Ejection Fraction\"] EjectionFraction\r\n\t\t\twhere EjectionFraction.result < 40 '%'\r\n\t)\r\n\t\tunion [\"Diagnosis\": \"Moderate or Severe LVSD\"]\r\n\t\tunion ( [\"Diagnosis\": \"Left Ventricular Systolic Dysfunction\"] LVSD\r\n\t\t\t\twhere LVSD.severity in \"Moderate or Severe\"\r\n\t\t)\r\n\r\ndefine \"Inpatient Discharge During Measurement Period\":\r\n\t[\"Encounter, Performed\": \"Discharge Services - Hospital Inpatient\"] InpatientEncounter\r\n\t\twhere InpatientEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Face to Face Encounter During Measurement Period\":\r\n\t( [\"Encounter, Performed\": \"Care Services in Long-Term Residential Facility\"]\r\n\t\tunion [\"Encounter, Performed\": \"Home Healthcare Services\"]\r\n\t\tunion [\"Encounter, Performed\": \"Nursing Facility Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Outpatient Consultation\"] ) FaceToFaceEncounter\r\n\t\twhere FaceToFaceEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Heart Failure Outpatient Encounter\":\r\n\t\"Face to Face Encounter During Measurement Period\" FaceToFaceEncounter\r\n\t\twith [\"Diagnosis\": \"Heart Failure\"] HeartFailure\r\n\t\t\tsuch that HeartFailure.prevalencePeriod overlaps FaceToFaceEncounter.relevantPeriod\r\n\r\ndefine \"Heart Failure Inpatient Encounter\":\r\n\t\"Inpatient Discharge During Measurement Period\" InpatientEncounter\r\n\t\twith [\"Diagnosis\": \"Heart Failure\"] HeartFailure\r\n\t\t\tsuch that HeartFailure.prevalencePeriod overlaps InpatientEncounter.relevantPeriod\r\n\r\ndefine \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\":\r\n\t\"Heart Failure Inpatient Encounter\" HFInpatientEncounter\r\n\t\twith \"Moderate or Severe LVSD Findings\" InpatientLVSDFindings\r\n\t\t\tsuch that InpatientLVSDFindings.prevalencePeriod starts before end of HFInpatientEncounter.relevantPeriod\r\n\t\t\t\tor InpatientLVSDFindings.relevantPeriod starts before end of HFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\":\r\n\t\"Heart Failure Outpatient Encounter\" HFOutpatientEncounter\r\n\t\twith \"Moderate or Severe LVSD Findings\" OutpatientLVSDFindings\r\n\t\t\tsuch that OutpatientLVSDFindings.prevalencePeriod starts before end of HFOutpatientEncounter.relevantPeriod\r\n\t\t\t\tor OutpatientLVSDFindings.relevantPeriod starts before end of HFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Allergy or Intolerance to Beta Blocker Therapy Ingredient Outpatient\":\r\n\t[\"Allergy/Intolerance\": \"Beta Blocker Therapy Ingredient\"] BetaBlockerAllergyIntolerance\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that BetaBlockerAllergyIntolerance.prevalencePeriod overlaps after ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Allergy or Intolerance to Beta Blocker Therapy Ingredient Inpatient\":\r\n\t[\"Allergy/Intolerance\": \"Beta Blocker Therapy Ingredient\"] BetaBlockerAllergyIntolerance\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that BetaBlockerAllergyIntolerance.prevalencePeriod overlaps after ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Arrhythmia Diagnosis Outpatient\":\r\n\t[\"Diagnosis\": \"Arrhythmia\"] Arrhythmia\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that Arrhythmia.prevalencePeriod overlaps ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Arrhythmia Diagnosis Inpatient\":\r\n\t[\"Diagnosis\": \"Arrhythmia\"] Arrhythmia\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that Arrhythmia.prevalencePeriod overlaps ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Asthma Diagnosis Outpatient\":\r\n\t[\"Diagnosis\": \"Asthma\"] Asthma\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that Asthma.prevalencePeriod overlaps ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Asthma Diagnosis Inpatient\":\r\n\t[\"Diagnosis\": \"Asthma\"] Asthma\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that Asthma.prevalencePeriod overlaps ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Atrioventricular Block Diagnosis Outpatient\":\r\n\t[\"Diagnosis\": \"Atrioventricular Block\"] AtrioventricularBlock\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that AtrioventricularBlock.prevalencePeriod overlaps ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Atrioventricular Block Diagnosis Inpatient\":\r\n\t[\"Diagnosis\": \"Atrioventricular Block\"] AtrioventricularBlock\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that AtrioventricularBlock.prevalencePeriod overlaps ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Beta Blocker Therapy for LVSD Ordered Outpatient\":\r\n\t[\"Medication, Order\": \"Beta Blocker Therapy for LVSD\"] BetaBlockerOrdered\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that BetaBlockerOrdered.authorDatetime during ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Beta Blocker Therapy for LVSD Ordered Inpatient\":\r\n\t[\"Medication, Order\": \"Beta Blocker Therapy for LVSD\"] BetaBlockerOrdered\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that BetaBlockerOrdered.authorDatetime during ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Bradycardia Diagnosis Outpatient\":\r\n\t[\"Diagnosis\": \"Bradycardia\"] Bradycardia\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that Bradycardia.prevalencePeriod overlaps ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Bradycardia Diagnosis Inpatient\":\r\n\t[\"Diagnosis\": \"Bradycardia\"] Bradycardia\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that Bradycardia.prevalencePeriod overlaps ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Cardiac Pacer Device Implanted Outpatient\":\r\n\t[\"Device, Applied\": \"Cardiac Pacer\"] ImplantedCardiacPacer\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that ImplantedCardiacPacer.relevantPeriod overlaps after ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Cardiac Pacer Device Implanted Inpatient\":\r\n\t[\"Device, Applied\": \"Cardiac Pacer\"] ImplantedCardiacPacer\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that ImplantedCardiacPacer.relevantPeriod overlaps after ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Consecutive Heart Rates Less Than 50 Outpatient\":\r\n\tfrom\r\n\t\t[\"Physical Exam, Performed\": \"Heart rate\"] HeartRate,\r\n\t\t\"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\tlet PriorHeartRate: Last([\"Physical Exam, Performed\": \"Heart rate\"] MostRecentPriorHeartRate\r\n\t\t\t\twhere MostRecentPriorHeartRate.relevantPeriod during ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\t\t\t\t\tand MostRecentPriorHeartRate.relevantPeriod starts before start of HeartRate.relevantPeriod\r\n\t\t\t\tsort by start of relevantPeriod\r\n\t\t)\r\n\t\twhere HeartRate.relevantPeriod during ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\t\t\tand HeartRate.result < 50 '{Beats}/min'\r\n\t\t\tand PriorHeartRate.result < 50 '{Beats}/min'\r\n\r\ndefine \"Consecutive Heart Rates Less Than 50 Inpatient\":\r\n\tfrom\r\n\t\t[\"Physical Exam, Performed\": \"Heart rate\"] HeartRate,\r\n\t\t\"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\tlet PriorHeartRate: Last([\"Physical Exam, Performed\": \"Heart rate\"] MostRecentPriorHeartRate\r\n\t\t\t\twhere MostRecentPriorHeartRate.relevantPeriod during ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\t\t\t\t\tand MostRecentPriorHeartRate.relevantPeriod starts before start of HeartRate.relevantPeriod\r\n\t\t\t\tsort by start of relevantPeriod\r\n\t\t)\r\n\t\twhere HeartRate.relevantPeriod during ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\t\t\tand HeartRate.result < 50 '{Beats}/min'\r\n\t\t\tand PriorHeartRate.result < 50 '{Beats}/min'\r\n\r\ndefine \"Currently Taking Beta Blocker Therapy for LVSD Outpatient\":\r\n\t[\"Medication, Active\": \"Beta Blocker Therapy for LVSD\"] ActiveBetaBlocker\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that ActiveBetaBlocker.relevantPeriod overlaps after ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Currently Taking Beta Blocker Therapy for LVSD Inpatient\":\r\n\t[\"Medication, Active\": \"Beta Blocker Therapy for LVSD\"] ActiveBetaBlocker\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that ActiveBetaBlocker.relevantPeriod overlaps after ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Denominator 1\":\r\n\t\"Initial Population 1\"\r\n\t\tand exists \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\"\r\n\r\ndefine \"Denominator 2\":\r\n\t\"Initial Population 2\"\r\n\t\tand exists \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\"\r\n\r\ndefine \"Diagnosis of Allergy to Beta Blocker Therapy Outpatient\":\r\n\t[\"Diagnosis\": \"Allergy to Beta Blocker Therapy\"] BetaBlockerAllergyDiagnosis\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that BetaBlockerAllergyDiagnosis.prevalencePeriod overlaps after ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Diagnosis of Allergy to Beta Blocker Therapy Inpatient\":\r\n\t[\"Diagnosis\": \"Allergy to Beta Blocker Therapy\"] BetaBlockerAllergyDiagnosis\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that BetaBlockerAllergyDiagnosis.prevalencePeriod overlaps after ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Diagnosis of Cardiac Pacer in Situ Outpatient\":\r\n\t[\"Diagnosis\": \"Cardiac Pacer in Situ\"] CardiacPacerDiagnosis\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that CardiacPacerDiagnosis.prevalencePeriod starts before end of ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Diagnosis of Cardiac Pacer in Situ Inpatient\":\r\n\t[\"Diagnosis\": \"Cardiac Pacer in Situ\"] CardiacPacerDiagnosis\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that CardiacPacerDiagnosis.prevalencePeriod starts before end of ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Diagnosis of Intolerance to Beta Blocker Therapy Outpatient\":\r\n\t[\"Diagnosis\": \"Intolerance to Beta Blocker Therapy\"] BetaBlockerIntoleranceDiagnosis\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that BetaBlockerIntoleranceDiagnosis.prevalencePeriod overlaps after ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Diagnosis of Intolerance to Beta Blocker Therapy Inpatient\":\r\n\t[\"Diagnosis\": \"Intolerance to Beta Blocker Therapy\"] BetaBlockerIntoleranceDiagnosis\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that BetaBlockerIntoleranceDiagnosis.prevalencePeriod overlaps after ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Hypotension Diagnosis Outpatient\":\r\n\t[\"Diagnosis\": \"Hypotension\"] Hypotension\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that Hypotension.prevalencePeriod overlaps ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\r\ndefine \"Hypotension Diagnosis Inpatient\":\r\n\t[\"Diagnosis\": \"Hypotension\"] Hypotension\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that Hypotension.prevalencePeriod overlaps ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\r\ndefine \"Numerator 1\":\r\n\texists \"Beta Blocker Therapy for LVSD Ordered Outpatient\"\r\n\t\tor exists \"Currently Taking Beta Blocker Therapy for LVSD Outpatient\"\r\n\r\ndefine \"Numerator 2\":\r\n\texists \"Beta Blocker Therapy for LVSD Ordered Inpatient\"\r\n\t\tor exists \"Currently Taking Beta Blocker Therapy for LVSD Inpatient\"\r\n\r\ndefine \"Qualifying Encounter\":\r\n\t( [\"Encounter, Performed\": \"Care Services in Long-Term Residential Facility\"]\r\n\t\tunion [\"Encounter, Performed\": \"Home Healthcare Services\"]\r\n\t\tunion [\"Encounter, Performed\": \"Nursing Facility Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Outpatient Consultation\"]\r\n\t\tunion [\"Encounter, Performed\": \"Patient Provider Interaction\"] ) ValidEncounter\r\n\t\twhere ValidEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Atrioventricular Block Without Cardiac Pacer Inpatient\":\r\n\texists \"Atrioventricular Block Diagnosis Inpatient\"\r\n\t\tand not exists \"Diagnosis of Cardiac Pacer in Situ Inpatient\"\r\n\t\tand not exists \"Cardiac Pacer Device Implanted Inpatient\"\r\n\r\ndefine \"Atrioventricular Block Without Cardiac Pacer Outpatient\":\r\n\texists \"Atrioventricular Block Diagnosis Outpatient\"\r\n\t\tand not exists \"Diagnosis of Cardiac Pacer in Situ Outpatient\"\r\n\t\tand not exists \"Cardiac Pacer Device Implanted Outpatient\"\r\n\r\ndefine \"Denominator Exceptions 1\":\r\n\texists \"Consecutive Heart Rates Less Than 50 Outpatient\"\r\n\t\tor exists \"Medical Patient or System Reason for Not Ordering Beta Blocker for LVSD Outpatient\"\r\n\t\tor exists \"Arrhythmia Diagnosis Outpatient\"\r\n\t\tor exists \"Hypotension Diagnosis Outpatient\"\r\n\t\tor exists \"Asthma Diagnosis Outpatient\"\r\n\t\tor exists \"Diagnosis of Allergy to Beta Blocker Therapy Outpatient\"\r\n\t\tor exists \"Diagnosis of Intolerance to Beta Blocker Therapy Outpatient\"\r\n\t\tor exists \"Bradycardia Diagnosis Outpatient\"\r\n\t\tor exists \"Allergy or Intolerance to Beta Blocker Therapy Ingredient Outpatient\"\r\n\t\tor \"Atrioventricular Block Without Cardiac Pacer Outpatient\"\r\n\r\ndefine \"Denominator Exceptions 2\":\r\n\texists \"Consecutive Heart Rates Less Than 50 Inpatient\"\r\n\t\tor exists \"Medical Patient or System Reason for Not Ordering Beta Blocker for LVSD Inpatient\"\r\n\t\tor exists \"Arrhythmia Diagnosis Inpatient\"\r\n\t\tor exists \"Hypotension Diagnosis Inpatient\"\r\n\t\tor exists \"Asthma Diagnosis Inpatient\"\r\n\t\tor exists \"Diagnosis of Allergy to Beta Blocker Therapy Inpatient\"\r\n\t\tor exists \"Diagnosis of Intolerance to Beta Blocker Therapy Inpatient\"\r\n\t\tor exists \"Bradycardia Diagnosis Inpatient\"\r\n\t\tor exists \"Allergy or Intolerance to Beta Blocker Therapy Ingredient Inpatient\"\r\n\t\tor \"Atrioventricular Block Without Cardiac Pacer Inpatient\"\r\n\r\ndefine \"Medical Patient or System Reason for Not Ordering Beta Blocker for LVSD Inpatient\":\r\n\t[\"Medication, Not Ordered\": \"Beta Blocker Therapy for LVSD\"] NoBetaBlockerOrdered\r\n\t\twith \"Heart Failure Inpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFInpatientEncounter\r\n\t\t\tsuch that NoBetaBlockerOrdered.authorDatetime during ModerateOrSevereLVSDHFInpatientEncounter.relevantPeriod\r\n\t\t\t\tand ( NoBetaBlockerOrdered.negationRationale in \"Medical Reason\"\r\n\t\t\t\t\t\tor NoBetaBlockerOrdered.negationRationale in \"Patient Reason\"\r\n\t\t\t\t\t\tor NoBetaBlockerOrdered.negationRationale in \"System Reason\"\r\n\t\t\t\t)\r\n\r\ndefine \"Medical Patient or System Reason for Not Ordering Beta Blocker for LVSD Outpatient\":\r\n\t[\"Medication, Not Ordered\": \"Beta Blocker Therapy for LVSD\"] NoBetaBlockerOrdered\r\n\t\twith \"Heart Failure Outpatient Encounter with Moderate or Severe LVSD\" ModerateOrSevereLVSDHFOutpatientEncounter\r\n\t\t\tsuch that NoBetaBlockerOrdered.authorDatetime during ModerateOrSevereLVSDHFOutpatientEncounter.relevantPeriod\r\n\t\t\t\tand ( NoBetaBlockerOrdered.negationRationale in \"Medical Reason\"\r\n\t\t\t\t\t\tor NoBetaBlockerOrdered.negationRationale in \"Patient Reason\"\r\n\t\t\t\t\t\tor NoBetaBlockerOrdered.negationRationale in \"System Reason\"\r\n\t\t\t\t)\r\n\r\ndefine \"Initial Population 1\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 18\r\n\t)\r\n\t\tand Count(\"Qualifying Encounter\")>= 2\r\n\t\tand exists \"Heart Failure Outpatient Encounter\"\r\n\r\ndefine \"Initial Population 2\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 18\r\n\t)\r\n\t\tand exists \"Heart Failure Inpatient Encounter\"\r\n",
       "elm": {
@@ -27084,61 +27084,61 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c36f"
+            "$oid": "5d27845d31fe5f6eb00baffd"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c370"
+            "$oid": "5d27845d31fe5f6eb00baffe"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c371"
+            "$oid": "5d27845d31fe5f6eb00bafff"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c372"
+            "$oid": "5d27845d31fe5f6eb00bb000"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c373"
+            "$oid": "5d27845d31fe5f6eb00bb001"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c374"
+            "$oid": "5d27845d31fe5f6eb00bb002"
           },
           "statement_name": "Moderate or Severe LVSD Findings"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c375"
+            "$oid": "5d27845d31fe5f6eb00bb003"
           },
           "statement_name": "Inpatient Discharge During Measurement Period"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c376"
+            "$oid": "5d27845d31fe5f6eb00bb004"
           },
           "statement_name": "Face to Face Encounter During Measurement Period"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c377"
+            "$oid": "5d27845d31fe5f6eb00bb005"
           },
           "statement_name": "Heart Failure Outpatient Encounter",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c378"
+                "$oid": "5d27845d31fe5f6eb00bb006"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27148,13 +27148,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c379"
+            "$oid": "5d27845d31fe5f6eb00bb007"
           },
           "statement_name": "Heart Failure Inpatient Encounter",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c37a"
+                "$oid": "5d27845d31fe5f6eb00bb008"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27164,13 +27164,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c37b"
+            "$oid": "5d27845d31fe5f6eb00bb009"
           },
           "statement_name": "Heart Failure Inpatient Encounter with Moderate or Severe LVSD",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c37c"
+                "$oid": "5d27845d31fe5f6eb00bb00a"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27178,7 +27178,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c37d"
+                "$oid": "5d27845d31fe5f6eb00bb00b"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27188,13 +27188,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c37e"
+            "$oid": "5d27845d31fe5f6eb00bb00c"
           },
           "statement_name": "Heart Failure Outpatient Encounter with Moderate or Severe LVSD",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c37f"
+                "$oid": "5d27845d31fe5f6eb00bb00d"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27202,7 +27202,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c380"
+                "$oid": "5d27845d31fe5f6eb00bb00e"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27212,13 +27212,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c381"
+            "$oid": "5d27845d31fe5f6eb00bb00f"
           },
           "statement_name": "Allergy or Intolerance to Beta Blocker Therapy Ingredient Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c382"
+                "$oid": "5d27845d31fe5f6eb00bb010"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27228,13 +27228,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c383"
+            "$oid": "5d27845d31fe5f6eb00bb011"
           },
           "statement_name": "Allergy or Intolerance to Beta Blocker Therapy Ingredient Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c384"
+                "$oid": "5d27845d31fe5f6eb00bb012"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27244,13 +27244,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c385"
+            "$oid": "5d27845d31fe5f6eb00bb013"
           },
           "statement_name": "Arrhythmia Diagnosis Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c386"
+                "$oid": "5d27845d31fe5f6eb00bb014"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27260,13 +27260,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c387"
+            "$oid": "5d27845d31fe5f6eb00bb015"
           },
           "statement_name": "Arrhythmia Diagnosis Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c388"
+                "$oid": "5d27845d31fe5f6eb00bb016"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27276,13 +27276,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c389"
+            "$oid": "5d27845d31fe5f6eb00bb017"
           },
           "statement_name": "Asthma Diagnosis Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c38a"
+                "$oid": "5d27845d31fe5f6eb00bb018"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27292,13 +27292,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c38b"
+            "$oid": "5d27845d31fe5f6eb00bb019"
           },
           "statement_name": "Asthma Diagnosis Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c38c"
+                "$oid": "5d27845d31fe5f6eb00bb01a"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27308,13 +27308,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c38d"
+            "$oid": "5d27845d31fe5f6eb00bb01b"
           },
           "statement_name": "Atrioventricular Block Diagnosis Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c38e"
+                "$oid": "5d27845d31fe5f6eb00bb01c"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27324,13 +27324,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c38f"
+            "$oid": "5d27845d31fe5f6eb00bb01d"
           },
           "statement_name": "Atrioventricular Block Diagnosis Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c390"
+                "$oid": "5d27845d31fe5f6eb00bb01e"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27340,13 +27340,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c391"
+            "$oid": "5d27845d31fe5f6eb00bb01f"
           },
           "statement_name": "Beta Blocker Therapy for LVSD Ordered Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c392"
+                "$oid": "5d27845d31fe5f6eb00bb020"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27356,13 +27356,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c393"
+            "$oid": "5d27845d31fe5f6eb00bb021"
           },
           "statement_name": "Beta Blocker Therapy for LVSD Ordered Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c394"
+                "$oid": "5d27845d31fe5f6eb00bb022"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27372,13 +27372,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c395"
+            "$oid": "5d27845d31fe5f6eb00bb023"
           },
           "statement_name": "Bradycardia Diagnosis Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c396"
+                "$oid": "5d27845d31fe5f6eb00bb024"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27388,13 +27388,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c397"
+            "$oid": "5d27845d31fe5f6eb00bb025"
           },
           "statement_name": "Bradycardia Diagnosis Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c398"
+                "$oid": "5d27845d31fe5f6eb00bb026"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27404,13 +27404,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c399"
+            "$oid": "5d27845d31fe5f6eb00bb027"
           },
           "statement_name": "Cardiac Pacer Device Implanted Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c39a"
+                "$oid": "5d27845d31fe5f6eb00bb028"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27420,13 +27420,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c39b"
+            "$oid": "5d27845d31fe5f6eb00bb029"
           },
           "statement_name": "Cardiac Pacer Device Implanted Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c39c"
+                "$oid": "5d27845d31fe5f6eb00bb02a"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27436,13 +27436,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c39d"
+            "$oid": "5d27845d31fe5f6eb00bb02b"
           },
           "statement_name": "Consecutive Heart Rates Less Than 50 Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c39e"
+                "$oid": "5d27845d31fe5f6eb00bb02c"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27452,13 +27452,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c39f"
+            "$oid": "5d27845d31fe5f6eb00bb02d"
           },
           "statement_name": "Consecutive Heart Rates Less Than 50 Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3a0"
+                "$oid": "5d27845d31fe5f6eb00bb02e"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27468,13 +27468,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3a1"
+            "$oid": "5d27845d31fe5f6eb00bb02f"
           },
           "statement_name": "Currently Taking Beta Blocker Therapy for LVSD Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3a2"
+                "$oid": "5d27845d31fe5f6eb00bb030"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27484,13 +27484,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3a3"
+            "$oid": "5d27845d31fe5f6eb00bb031"
           },
           "statement_name": "Currently Taking Beta Blocker Therapy for LVSD Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3a4"
+                "$oid": "5d27845d31fe5f6eb00bb032"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27500,19 +27500,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3a5"
+            "$oid": "5d27845d31fe5f6eb00bb033"
           },
           "statement_name": "Qualifying Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3a6"
+            "$oid": "5d27845d31fe5f6eb00bb034"
           },
           "statement_name": "Initial Population 1",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3a7"
+                "$oid": "5d27845d31fe5f6eb00bb035"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -27520,7 +27520,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3a8"
+                "$oid": "5d27845d31fe5f6eb00bb036"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27528,7 +27528,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3a9"
+                "$oid": "5d27845d31fe5f6eb00bb037"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27538,13 +27538,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3aa"
+            "$oid": "5d27845d31fe5f6eb00bb038"
           },
           "statement_name": "Denominator 1",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3ab"
+                "$oid": "5d27845d31fe5f6eb00bb039"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27552,7 +27552,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3ac"
+                "$oid": "5d27845d31fe5f6eb00bb03a"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27562,13 +27562,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3ad"
+            "$oid": "5d27845d31fe5f6eb00bb03b"
           },
           "statement_name": "Initial Population 2",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3ae"
+                "$oid": "5d27845d31fe5f6eb00bb03c"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -27576,7 +27576,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3af"
+                "$oid": "5d27845d31fe5f6eb00bb03d"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27586,13 +27586,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3b0"
+            "$oid": "5d27845d31fe5f6eb00bb03e"
           },
           "statement_name": "Denominator 2",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3b1"
+                "$oid": "5d27845d31fe5f6eb00bb03f"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27600,7 +27600,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3b2"
+                "$oid": "5d27845d31fe5f6eb00bb040"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27610,13 +27610,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3b3"
+            "$oid": "5d27845d31fe5f6eb00bb041"
           },
           "statement_name": "Diagnosis of Allergy to Beta Blocker Therapy Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3b4"
+                "$oid": "5d27845d31fe5f6eb00bb042"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27626,13 +27626,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3b5"
+            "$oid": "5d27845d31fe5f6eb00bb043"
           },
           "statement_name": "Diagnosis of Allergy to Beta Blocker Therapy Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3b6"
+                "$oid": "5d27845d31fe5f6eb00bb044"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27642,13 +27642,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3b7"
+            "$oid": "5d27845d31fe5f6eb00bb045"
           },
           "statement_name": "Diagnosis of Cardiac Pacer in Situ Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3b8"
+                "$oid": "5d27845d31fe5f6eb00bb046"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27658,13 +27658,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3b9"
+            "$oid": "5d27845d31fe5f6eb00bb047"
           },
           "statement_name": "Diagnosis of Cardiac Pacer in Situ Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3ba"
+                "$oid": "5d27845d31fe5f6eb00bb048"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27674,13 +27674,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3bb"
+            "$oid": "5d27845d31fe5f6eb00bb049"
           },
           "statement_name": "Diagnosis of Intolerance to Beta Blocker Therapy Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3bc"
+                "$oid": "5d27845d31fe5f6eb00bb04a"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27690,13 +27690,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3bd"
+            "$oid": "5d27845d31fe5f6eb00bb04b"
           },
           "statement_name": "Diagnosis of Intolerance to Beta Blocker Therapy Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3be"
+                "$oid": "5d27845d31fe5f6eb00bb04c"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27706,13 +27706,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3bf"
+            "$oid": "5d27845d31fe5f6eb00bb04d"
           },
           "statement_name": "Hypotension Diagnosis Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3c0"
+                "$oid": "5d27845d31fe5f6eb00bb04e"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27722,13 +27722,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3c1"
+            "$oid": "5d27845d31fe5f6eb00bb04f"
           },
           "statement_name": "Hypotension Diagnosis Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3c2"
+                "$oid": "5d27845d31fe5f6eb00bb050"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27738,13 +27738,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3c3"
+            "$oid": "5d27845d31fe5f6eb00bb051"
           },
           "statement_name": "Numerator 1",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3c4"
+                "$oid": "5d27845d31fe5f6eb00bb052"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27752,7 +27752,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3c5"
+                "$oid": "5d27845d31fe5f6eb00bb053"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27762,13 +27762,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3c6"
+            "$oid": "5d27845d31fe5f6eb00bb054"
           },
           "statement_name": "Numerator 2",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3c7"
+                "$oid": "5d27845d31fe5f6eb00bb055"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27776,7 +27776,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3c8"
+                "$oid": "5d27845d31fe5f6eb00bb056"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27786,13 +27786,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3c9"
+            "$oid": "5d27845d31fe5f6eb00bb057"
           },
           "statement_name": "Atrioventricular Block Without Cardiac Pacer Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3ca"
+                "$oid": "5d27845d31fe5f6eb00bb058"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27800,7 +27800,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3cb"
+                "$oid": "5d27845d31fe5f6eb00bb059"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27808,7 +27808,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3cc"
+                "$oid": "5d27845d31fe5f6eb00bb05a"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27818,13 +27818,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3cd"
+            "$oid": "5d27845d31fe5f6eb00bb05b"
           },
           "statement_name": "Atrioventricular Block Without Cardiac Pacer Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3ce"
+                "$oid": "5d27845d31fe5f6eb00bb05c"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27832,7 +27832,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3cf"
+                "$oid": "5d27845d31fe5f6eb00bb05d"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27840,7 +27840,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3d0"
+                "$oid": "5d27845d31fe5f6eb00bb05e"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27850,13 +27850,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3d1"
+            "$oid": "5d27845d31fe5f6eb00bb05f"
           },
           "statement_name": "Medical Patient or System Reason for Not Ordering Beta Blocker for LVSD Outpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3d2"
+                "$oid": "5d27845d31fe5f6eb00bb060"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27866,13 +27866,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3d3"
+            "$oid": "5d27845d31fe5f6eb00bb061"
           },
           "statement_name": "Denominator Exceptions 1",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3d4"
+                "$oid": "5d27845d31fe5f6eb00bb062"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27880,7 +27880,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3d5"
+                "$oid": "5d27845d31fe5f6eb00bb063"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27888,7 +27888,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3d6"
+                "$oid": "5d27845d31fe5f6eb00bb064"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27896,7 +27896,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3d7"
+                "$oid": "5d27845d31fe5f6eb00bb065"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27904,7 +27904,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3d8"
+                "$oid": "5d27845d31fe5f6eb00bb066"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27912,7 +27912,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3d9"
+                "$oid": "5d27845d31fe5f6eb00bb067"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27920,7 +27920,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3da"
+                "$oid": "5d27845d31fe5f6eb00bb068"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27928,7 +27928,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3db"
+                "$oid": "5d27845d31fe5f6eb00bb069"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27936,7 +27936,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3dc"
+                "$oid": "5d27845d31fe5f6eb00bb06a"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27944,7 +27944,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3dd"
+                "$oid": "5d27845d31fe5f6eb00bb06b"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27954,13 +27954,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3de"
+            "$oid": "5d27845d31fe5f6eb00bb06c"
           },
           "statement_name": "Medical Patient or System Reason for Not Ordering Beta Blocker for LVSD Inpatient",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3df"
+                "$oid": "5d27845d31fe5f6eb00bb06d"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27970,13 +27970,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3e0"
+            "$oid": "5d27845d31fe5f6eb00bb06e"
           },
           "statement_name": "Denominator Exceptions 2",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e1"
+                "$oid": "5d27845d31fe5f6eb00bb06f"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27984,7 +27984,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e2"
+                "$oid": "5d27845d31fe5f6eb00bb070"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -27992,7 +27992,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e3"
+                "$oid": "5d27845d31fe5f6eb00bb071"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -28000,7 +28000,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e4"
+                "$oid": "5d27845d31fe5f6eb00bb072"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -28008,7 +28008,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e5"
+                "$oid": "5d27845d31fe5f6eb00bb073"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -28016,7 +28016,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e6"
+                "$oid": "5d27845d31fe5f6eb00bb074"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -28024,7 +28024,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e7"
+                "$oid": "5d27845d31fe5f6eb00bb075"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -28032,7 +28032,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e8"
+                "$oid": "5d27845d31fe5f6eb00bb076"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -28040,7 +28040,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3e9"
+                "$oid": "5d27845d31fe5f6eb00bb077"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -28048,7 +28048,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3ea"
+                "$oid": "5d27845d31fe5f6eb00bb078"
               },
               "hqmf_id": null,
               "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -28060,7 +28060,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85531fe5ff6fc68c3eb"
+        "$oid": "5d27845d31fe5f6eb00bb079"
       },
       "cql": "library MATGlobalCommonFunctions version '2.0.000'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"LOINC:2.46\": 'urn:oid:2.16.840.1.113883.6.1' version 'urn:hl7:version:2.46'\r\ncodesystem \"SNOMEDCT:2016-03\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-03'\r\n\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC:2.46\" display 'Birth date'\r\ncode \"Dead\": '419099009' from \"SNOMEDCT:2016-03\" display 'Dead'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"Encounter\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\r\n\r\ndefine \"Inpatient Encounter\":\r\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\r\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\r\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\r\n\r\ndefine function \"ToDate\"(Value DateTime):\r\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\r\n\r\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\r\n\r\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime):\r\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\r\n\r\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\r\n\r\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime):\r\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\r\n\r\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime):\r\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\r\n\r\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime):\r\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\r\n\r\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) X\r\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\r\n\r\ndefine function \"LengthInDays\"(Value Interval<DateTime>):\r\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\r\n\r\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\"):\r\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\r\n\t) ) EDEncounter\r\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\r\n\r\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\"):\r\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\r\n\r\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\r\n\r\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\r\n\r\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\r\n\r\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\"):\r\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\r\n\t\t\tsort by start of locationPeriod\r\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\r\n\r\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\"):\r\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\r\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\r\n\t\t)\r\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\r\n\r\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\"):\r\n\tFirst((Encounter.facilityLocations)HospitalLocation\r\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\r\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\r\n\t\t\tsort by start of locationPeriod\r\n\t)\r\n",
       "elm": {
@@ -36726,13 +36726,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3ec"
+            "$oid": "5d27845d31fe5f6eb00bb07a"
           },
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85531fe5ff6fc68c3ed"
+                "$oid": "5d27845d31fe5f6eb00bb07b"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -36742,14 +36742,14 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c3ee"
+            "$oid": "5d27845d31fe5f6eb00bb07c"
           },
           "statement_name": "ToDate"
         }
       ]
     }
   ],
-  "created_at": "2019-06-27T17:09:40.992Z",
+  "created_at": "2019-07-11T18:47:57.260Z",
   "description": "Percentage of patients aged 18 years and older with a diagnosis of heart failure (HF) with a current or prior left ventricular ejection fraction (LVEF) < 40% who were prescribed beta-blocker therapy either within a 12-month period when seen in the outpatient setting OR at each hospital discharge",
   "hqmf_id": "40280382-6240-B6B9-0162-547042330BA8",
   "hqmf_set_id": "8439F671-2932-4D4C-88CA-EA5FAEACC89A",
@@ -37290,13 +37290,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5d14f85531fe5ff6fc68c40c"
+        "$oid": "5d27845d31fe5f6eb00bb09a"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEXCEP": {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c411"
+            "$oid": "5d27845d31fe5f6eb00bb09f"
           },
           "hqmf_id": "920C2B5A-5F6B-4A32-8A5B-0DB7D4BFFDE4",
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37304,7 +37304,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c40f"
+            "$oid": "5d27845d31fe5f6eb00bb09d"
           },
           "hqmf_id": "D9E6BC34-DBAA-4C4D-BC38-DC1B4FD99FD1",
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37312,7 +37312,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c40e"
+            "$oid": "5d27845d31fe5f6eb00bb09c"
           },
           "hqmf_id": "FF41D325-76E0-4566-A25A-8C408AC1EE7C",
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37320,21 +37320,21 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c410"
+            "$oid": "5d27845d31fe5f6eb00bb09e"
           },
           "hqmf_id": "26D7073D-0C8C-4848-9B80-BEE422A2C581",
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
           "statement_name": "Numerator 1"
         },
         "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c40d"
+          "$oid": "5d27845d31fe5f6eb00bb09b"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c412"
+            "$oid": "5d27845d31fe5f6eb00bb0a0"
           },
           "hqmf_id": null,
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37342,7 +37342,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c413"
+            "$oid": "5d27845d31fe5f6eb00bb0a1"
           },
           "hqmf_id": null,
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37350,7 +37350,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c414"
+            "$oid": "5d27845d31fe5f6eb00bb0a2"
           },
           "hqmf_id": null,
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37358,7 +37358,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c415"
+            "$oid": "5d27845d31fe5f6eb00bb0a3"
           },
           "hqmf_id": null,
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37369,13 +37369,13 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85531fe5ff6fc68c416"
+        "$oid": "5d27845d31fe5f6eb00bb0a4"
       },
       "population_set_id": "PopulationCriteria2",
       "populations": {
         "DENEXCEP": {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c41b"
+            "$oid": "5d27845d31fe5f6eb00bb0a9"
           },
           "hqmf_id": "9BDB3B97-C1C7-4F35-9BA0-A354C204369B",
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37383,7 +37383,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c419"
+            "$oid": "5d27845d31fe5f6eb00bb0a7"
           },
           "hqmf_id": "68E9F779-6446-4FE1-A120-4CF69F1F782B",
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37391,7 +37391,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c418"
+            "$oid": "5d27845d31fe5f6eb00bb0a6"
           },
           "hqmf_id": "F7EE681D-64D5-48BB-9F93-D88A36A24647",
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37399,21 +37399,21 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c41a"
+            "$oid": "5d27845d31fe5f6eb00bb0a8"
           },
           "hqmf_id": "973E2DFA-192A-474E-A963-A93D691380B3",
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
           "statement_name": "Numerator 2"
         },
         "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c417"
+          "$oid": "5d27845d31fe5f6eb00bb0a5"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c41c"
+            "$oid": "5d27845d31fe5f6eb00bb0aa"
           },
           "hqmf_id": null,
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37421,7 +37421,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c41d"
+            "$oid": "5d27845d31fe5f6eb00bb0ab"
           },
           "hqmf_id": null,
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37429,7 +37429,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c41e"
+            "$oid": "5d27845d31fe5f6eb00bb0ac"
           },
           "hqmf_id": null,
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37437,7 +37437,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85531fe5ff6fc68c41f"
+            "$oid": "5d27845d31fe5f6eb00bb0ad"
           },
           "hqmf_id": null,
           "library_name": "HeartFailureHFBetaBlockerTherapyforLeftVentricularSystolicDysfunctionLVSD",
@@ -37450,7 +37450,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c013"
+        "$oid": "5d27845d31fe5f6eb00baca1"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -37461,12 +37461,7 @@
       "description": "Diagnosis: LeftVentricularSystolicDysfunction",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3ef"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c013"
+        "$oid": "5d27845d31fe5f6eb00baca1"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -37478,7 +37473,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c014"
+        "$oid": "5d27845d31fe5f6eb00baca2"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -37487,12 +37482,7 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f0"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c014"
+        "$oid": "5d27845d31fe5f6eb00baca2"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -37502,7 +37492,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c015"
+        "$oid": "5d27845d31fe5f6eb00baca3"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -37518,16 +37508,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f1"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c015"
+        "$oid": "5d27845d31fe5f6eb00baca3"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -37537,7 +37522,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c016"
+        "$oid": "5d27845d31fe5f6eb00baca4"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -37548,12 +37533,7 @@
       "description": "Diagnosis: Arrhythmia",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f2"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c016"
+        "$oid": "5d27845d31fe5f6eb00baca4"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -37565,7 +37545,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c017"
+        "$oid": "5d27845d31fe5f6eb00baca5"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -37581,16 +37561,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f3"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c017"
+        "$oid": "5d27845d31fe5f6eb00baca5"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -37600,7 +37575,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c018"
+        "$oid": "5d27845d31fe5f6eb00baca6"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -37616,16 +37591,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f4"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c018"
+        "$oid": "5d27845d31fe5f6eb00baca6"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -37635,7 +37605,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c019"
+        "$oid": "5d27845d31fe5f6eb00baca7"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -37644,12 +37614,7 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f5"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c019"
+        "$oid": "5d27845d31fe5f6eb00baca7"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -37659,7 +37624,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c01a"
+        "$oid": "5d27845d31fe5f6eb00baca8"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -37670,12 +37635,7 @@
       "description": "Diagnosis: HeartFailure",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f6"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c01a"
+        "$oid": "5d27845d31fe5f6eb00baca8"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -37687,7 +37647,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c01b"
+        "$oid": "5d27845d31fe5f6eb00baca9"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -37703,16 +37663,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f7"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c01b"
+        "$oid": "5d27845d31fe5f6eb00baca9"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -37722,7 +37677,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c01c"
+        "$oid": "5d27845d31fe5f6eb00bacaa"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -37738,16 +37693,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f8"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c01c"
+        "$oid": "5d27845d31fe5f6eb00bacaa"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -37757,7 +37707,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c01d"
+        "$oid": "5d27845d31fe5f6eb00bacab"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -37768,12 +37718,7 @@
       "description": "Diagnosis: ModerateorSevereLVSD",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3f9"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c01d"
+        "$oid": "5d27845d31fe5f6eb00bacab"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -37785,7 +37730,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c01e"
+        "$oid": "5d27845d31fe5f6eb00bacac"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -37801,16 +37746,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3fa"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c01e"
+        "$oid": "5d27845d31fe5f6eb00bacac"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -37820,7 +37760,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c01f"
+        "$oid": "5d27845d31fe5f6eb00bacad"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -37831,12 +37771,7 @@
       "description": "Diagnosis: CardiacPacerinSitu",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3fb"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c01f"
+        "$oid": "5d27845d31fe5f6eb00bacad"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -37848,7 +37783,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c020"
+        "$oid": "5d27845d31fe5f6eb00bacae"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -37857,12 +37792,7 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3fc"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c020"
+        "$oid": "5d27845d31fe5f6eb00bacae"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -37873,7 +37803,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c021"
+        "$oid": "5d27845d31fe5f6eb00bacaf"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -37884,12 +37814,7 @@
       "description": "Device, Applied: CardiacPacer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.13",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3fd"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c021"
+        "$oid": "5d27845d31fe5f6eb00bacaf"
       },
       "negationRationale": null,
       "qdmCategory": "device",
@@ -37897,12 +37822,13 @@
       "qdmTitle": "Device, Applied",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "_type": "QDM::DeviceApplied"
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c022"
+        "$oid": "5d27845d31fe5f6eb00bacb0"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1134",
@@ -37914,12 +37840,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3fe"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c022"
+        "$oid": "5d27845d31fe5f6eb00bacb0"
       },
       "method": null,
       "negationRationale": null,
@@ -37928,6 +37849,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -37936,7 +37858,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c023"
+        "$oid": "5d27845d31fe5f6eb00bacb1"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1493",
@@ -37946,12 +37868,7 @@
       "description": "Allergy/Intolerance: BetaBlockerTherapyIngredient",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c3ff"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c023"
+        "$oid": "5d27845d31fe5f6eb00bacb1"
       },
       "prevalencePeriod": null,
       "qdmCategory": "allergy",
@@ -37964,7 +37881,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c024"
+        "$oid": "5d27845d31fe5f6eb00bacb2"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -37975,12 +37892,7 @@
       "description": "Diagnosis: Hypotension",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c400"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c024"
+        "$oid": "5d27845d31fe5f6eb00bacb2"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -37992,7 +37904,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c025"
+        "$oid": "5d27845d31fe5f6eb00bacb3"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -38003,12 +37915,7 @@
       "description": "Diagnosis: Asthma",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c401"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c025"
+        "$oid": "5d27845d31fe5f6eb00bacb3"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -38020,7 +37927,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c026"
+        "$oid": "5d27845d31fe5f6eb00bacb4"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -38031,12 +37938,7 @@
       "description": "Diagnosis: AtrioventricularBlock",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c402"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c026"
+        "$oid": "5d27845d31fe5f6eb00bacb4"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -38048,7 +37950,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c027"
+        "$oid": "5d27845d31fe5f6eb00bacb5"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -38059,12 +37961,7 @@
       "description": "Diagnosis: Bradycardia",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c403"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c027"
+        "$oid": "5d27845d31fe5f6eb00bacb5"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -38076,7 +37973,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c028"
+        "$oid": "5d27845d31fe5f6eb00bacb6"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -38085,12 +37982,7 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c404"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c028"
+        "$oid": "5d27845d31fe5f6eb00bacb6"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -38100,7 +37992,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c029"
+        "$oid": "5d27845d31fe5f6eb00bacb7"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -38111,12 +38003,7 @@
       "description": "Diagnosis: IntolerancetoBetaBlockerTherapy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c405"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c029"
+        "$oid": "5d27845d31fe5f6eb00bacb7"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -38128,7 +38015,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c02a"
+        "$oid": "5d27845d31fe5f6eb00bacb8"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1184",
@@ -38141,12 +38028,7 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c406"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c02a"
+        "$oid": "5d27845d31fe5f6eb00bacb8"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -38163,7 +38045,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c02b"
+        "$oid": "5d27845d31fe5f6eb00bacb9"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1184",
@@ -38176,12 +38058,7 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c407"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c02b"
+        "$oid": "5d27845d31fe5f6eb00bacb9"
       },
       "negationRationale": null,
       "qdmCategory": "medication",
@@ -38198,7 +38075,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c02c"
+        "$oid": "5d27845d31fe5f6eb00bacba"
       },
       "codeListId": "2.16.840.1.113883.3.526.3.1184",
       "dataElementCodes": [
@@ -38209,24 +38086,20 @@
       "frequency": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c408"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c02c"
+        "$oid": "5d27845d31fe5f6eb00bacba"
       },
       "qdmCategory": "medication",
       "qdmStatus": "active",
       "qdmTitle": "Medication, Active",
       "qdmVersion": "5.4",
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "route": null,
       "_type": "QDM::MedicationActive"
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c02d"
+        "$oid": "5d27845d31fe5f6eb00bacbb"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -38242,16 +38115,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c409"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c02d"
+        "$oid": "5d27845d31fe5f6eb00bacbb"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -38261,7 +38129,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c02e"
+        "$oid": "5d27845d31fe5f6eb00bacbc"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -38272,12 +38140,7 @@
       "description": "Diagnosis: AllergytoBetaBlockerTherapy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c40a"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c02e"
+        "$oid": "5d27845d31fe5f6eb00bacbc"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -38289,7 +38152,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85431fe5ff6fc68c02f"
+        "$oid": "5d27845d31fe5f6eb00bacbd"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -38301,12 +38164,7 @@
       "description": "Physical Exam, Performed: Physical Exam, Performed",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.62",
       "id": {
-        "_id": {
-          "$oid": "5d14f85531fe5ff6fc68c40b"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85431fe5ff6fc68c02f"
+        "$oid": "5d27845d31fe5f6eb00bacbd"
       },
       "method": null,
       "negationRationale": null,
@@ -38315,52 +38173,53 @@
       "qdmTitle": "Physical Exam, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "_type": "QDM::PhysicalExamPerformed"
     }
   ],
   "title": "Heart Failure (HF): Beta-Blocker Therapy for Left Ventricular Systolic Dysfunction (LVSD)",
-  "updated_at": "2019-06-27T17:09:40.992Z",
+  "updated_at": "2019-07-11T18:47:57.260Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5d14f85431fe5ff6fc68c030",
-    "5d14f85431fe5ff6fc68c031",
-    "5d14f85431fe5ff6fc68c032",
-    "5d14f85431fe5ff6fc68c033",
-    "5d14f85431fe5ff6fc68c034",
-    "5d14f85431fe5ff6fc68c035",
-    "5d14f85431fe5ff6fc68c036",
-    "5d14f85431fe5ff6fc68c037",
-    "5d14f85431fe5ff6fc68c038",
-    "5d14f85431fe5ff6fc68c039",
-    "5d14f85431fe5ff6fc68c03a",
-    "5d14f85431fe5ff6fc68c03b",
-    "5d14f85431fe5ff6fc68c03c",
-    "5d14f85431fe5ff6fc68c03d",
-    "5d14f85431fe5ff6fc68c03e",
-    "5d14f85431fe5ff6fc68c03f",
-    "5d14f85431fe5ff6fc68c040",
-    "5d14f85431fe5ff6fc68c041",
-    "5d14f85431fe5ff6fc68c042",
-    "5d14f85431fe5ff6fc68c043",
-    "5d14f85431fe5ff6fc68c044",
-    "5d14f85431fe5ff6fc68c045",
-    "5d14f85431fe5ff6fc68c046",
-    "5d14f85431fe5ff6fc68c047",
-    "5d14f85431fe5ff6fc68c048",
-    "5d14f85431fe5ff6fc68c049",
-    "5d14f85431fe5ff6fc68c04a",
-    "5d14f85431fe5ff6fc68c04b",
-    "5d14f85431fe5ff6fc68c04c",
-    "5d14f85431fe5ff6fc68c04d",
-    "5d14f85431fe5ff6fc68c04e",
-    "5d14f85431fe5ff6fc68c04f",
-    "5d14f85431fe5ff6fc68c050",
-    "5d14f85431fe5ff6fc68c051",
-    "5d14f85431fe5ff6fc68c052",
-    "5d14f85431fe5ff6fc68c053"
+    "5d27845d31fe5f6eb00bacbe",
+    "5d27845d31fe5f6eb00bacbf",
+    "5d27845d31fe5f6eb00bacc0",
+    "5d27845d31fe5f6eb00bacc1",
+    "5d27845d31fe5f6eb00bacc2",
+    "5d27845d31fe5f6eb00bacc3",
+    "5d27845d31fe5f6eb00bacc4",
+    "5d27845d31fe5f6eb00bacc5",
+    "5d27845d31fe5f6eb00bacc6",
+    "5d27845d31fe5f6eb00bacc7",
+    "5d27845d31fe5f6eb00bacc8",
+    "5d27845d31fe5f6eb00bacc9",
+    "5d27845d31fe5f6eb00bacca",
+    "5d27845d31fe5f6eb00baccb",
+    "5d27845d31fe5f6eb00baccc",
+    "5d27845d31fe5f6eb00baccd",
+    "5d27845d31fe5f6eb00bacce",
+    "5d27845d31fe5f6eb00baccf",
+    "5d27845d31fe5f6eb00bacd0",
+    "5d27845d31fe5f6eb00bacd1",
+    "5d27845d31fe5f6eb00bacd2",
+    "5d27845d31fe5f6eb00bacd3",
+    "5d27845d31fe5f6eb00bacd4",
+    "5d27845d31fe5f6eb00bacd5",
+    "5d27845d31fe5f6eb00bacd6",
+    "5d27845d31fe5f6eb00bacd7",
+    "5d27845d31fe5f6eb00bacd8",
+    "5d27845d31fe5f6eb00bacd9",
+    "5d27845d31fe5f6eb00bacda",
+    "5d27845d31fe5f6eb00bacdb",
+    "5d27845d31fe5f6eb00bacdc",
+    "5d27845d31fe5f6eb00bacdd",
+    "5d27845d31fe5f6eb00bacde",
+    "5d27845d31fe5f6eb00bacdf",
+    "5d27845d31fe5f6eb00bace0",
+    "5d27845d31fe5f6eb00bace1"
   ]
 }

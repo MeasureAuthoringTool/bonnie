@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f85831fe5ff6fc68ff3f"
+    "$oid": "5d27851531fe5f6eb014c21d"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68ff40"
+        "$oid": "5d27851531fe5f6eb014c21e"
       },
       "cql": "library AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis version '0.4.000'\r\n\r\nusing QDM version '5.4'\r\n\r\ninclude MATGlobalCommonFunctions version '4.0.000' called Global\r\ninclude Hospice version '2.0.000' called Hospice\r\n\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"DXA (Dual energy Xray Absorptiometry) Scan of the Hip or Spine\": 'urn:oid:2.16.840.1.113883.3.464.1003.198.12.1130'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Female\": 'urn:oid:2.16.840.1.113883.3.560.100.2'\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Osteoporosis\": 'urn:oid:2.16.840.1.113883.3.464.1003.113.12.1038'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Numerator\":\r\n\texists [\"Diagnostic Study, Performed\": \"DXA (Dual energy Xray Absorptiometry) Scan of the Hip or Spine\"] DXAScan\r\n\t\twhere DXAScan.authorDatetime on or before \r\n\t\tend of \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\texists [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t\t\tand exists \"Annual Wellness Visit Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\t\tand exists [\"Patient Characteristic Sex\": \"Female\"]\r\n\t\tand exists ( [\"Patient Characteristic Birthdate\"] BirthDate\r\n\t\t\t\twhere Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")<= 85\r\n\t\t)\r\n\r\ndefine \"Annual Wellness Visit Encounter\":\r\n\t[\"Encounter, Performed\": \"Annual Wellness Visit\"] QualifyingEncounter\r\n\t\twhere QualifyingEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Osteoporosis Diagnosis\":\r\n\t[\"Diagnosis\": \"Osteoporosis\"] Osteoporosis\r\n\t\twith \"Annual Wellness Visit Encounter\" QualifyingEncounter\r\n\t\t\tsuch that Osteoporosis.prevalencePeriod starts before start of QualifyingEncounter.relevantPeriod\r\n\r\ndefine \"Denominator Exclusions\":\r\n\tHospice.\"Has Hospice\"\r\n\t\tor exists \"Osteoporosis Diagnosis\"",
       "elm": {
@@ -3322,55 +3322,55 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff41"
+            "$oid": "5d27851531fe5f6eb014c21f"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff42"
+            "$oid": "5d27851531fe5f6eb014c220"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff43"
+            "$oid": "5d27851531fe5f6eb014c221"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff44"
+            "$oid": "5d27851531fe5f6eb014c222"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff45"
+            "$oid": "5d27851531fe5f6eb014c223"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff46"
+            "$oid": "5d27851531fe5f6eb014c224"
           },
           "statement_name": "Numerator"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff47"
+            "$oid": "5d27851531fe5f6eb014c225"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff48"
+            "$oid": "5d27851531fe5f6eb014c226"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68ff49"
+                "$oid": "5d27851531fe5f6eb014c227"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -3378,7 +3378,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68ff4a"
+                "$oid": "5d27851531fe5f6eb014c228"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -3388,13 +3388,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff4b"
+            "$oid": "5d27851531fe5f6eb014c229"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68ff4c"
+                "$oid": "5d27851531fe5f6eb014c22a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -3402,7 +3402,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68ff4d"
+                "$oid": "5d27851531fe5f6eb014c22b"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -3412,13 +3412,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff4e"
+            "$oid": "5d27851531fe5f6eb014c22c"
           },
           "statement_name": "Osteoporosis Diagnosis",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68ff4f"
+                "$oid": "5d27851531fe5f6eb014c22d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -3428,13 +3428,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff50"
+            "$oid": "5d27851531fe5f6eb014c22e"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68ff51"
+                "$oid": "5d27851531fe5f6eb014c22f"
               },
               "hqmf_id": null,
               "library_name": "Hospice",
@@ -3442,7 +3442,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68ff52"
+                "$oid": "5d27851531fe5f6eb014c230"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -3454,7 +3454,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68ff53"
+        "$oid": "5d27851531fe5f6eb014c231"
       },
       "cql": "library MATGlobalCommonFunctions version '4.0.000'\n\nusing QDM version '5.4'\n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Encounter\":\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\n\ndefine \"Inpatient Encounter\":\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\ndefine function \"ToDate\"(Value DateTime ):\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime ):\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime ):\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime ):\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) X\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\ndefine function \"LengthInDays\"(Value Interval<DateTime> ):\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) EDEncounter\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\" ):\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\n\t\t)\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\" ):\n\tFirst((Encounter.facilityLocations)HospitalLocation\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\n\t\t\tsort by start of locationPeriod\n\t)\n\n",
       "elm": {
@@ -12071,13 +12071,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff54"
+            "$oid": "5d27851531fe5f6eb014c232"
           },
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68ff55"
+                "$oid": "5d27851531fe5f6eb014c233"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -12087,7 +12087,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff56"
+            "$oid": "5d27851531fe5f6eb014c234"
           },
           "statement_name": "ToDate"
         }
@@ -12095,7 +12095,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68ff57"
+        "$oid": "5d27851531fe5f6eb014c235"
       },
       "cql": "library Hospice version '2.0.000'\n\nusing QDM version '5.4'\n\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15' \n\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Has Hospice\":\n\texists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\n\t\t\twhere ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\n\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\n\t\t\t)\n\t\t\t\tand DischargeHospice.relevantPeriod ends during \"Measurement Period\"\n\t)\n\t\tor exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\n\t\t\t\twhere HospiceOrder.authorDatetime during \"Measurement Period\"\n\t\t)\n\t\tor exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\n\t\t\t\twhere HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\n\t\t)\n\n",
       "elm": {
@@ -13932,14 +13932,14 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff58"
+            "$oid": "5d27851531fe5f6eb014c236"
           },
           "statement_name": "Has Hospice"
         }
       ]
     }
   ],
-  "created_at": "2019-06-27T17:09:44.923Z",
+  "created_at": "2019-07-11T18:51:01.420Z",
   "description": "Percentage of female patients ages 65 to 85 with an annual wellness visit (AWV) during the measurement period who have ever received a dual x-ray absorptiometry (DXA) scan",
   "hqmf_id": "40280382-610B-E7A4-0161-719B483B24A5",
   "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
@@ -14460,13 +14460,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68ff64"
+        "$oid": "5d27851531fe5f6eb014c242"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff69"
+            "$oid": "5d27851531fe5f6eb014c247"
           },
           "hqmf_id": "B61F4260-87FB-4121-88CA-87C3FF220119",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -14474,7 +14474,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff67"
+            "$oid": "5d27851531fe5f6eb014c245"
           },
           "hqmf_id": "F35026DE-CCFB-4F8D-9EE2-2DE0A5CAF291",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -14482,7 +14482,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff66"
+            "$oid": "5d27851531fe5f6eb014c244"
           },
           "hqmf_id": "E037600A-4222-4720-B211-90EED677A597",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -14490,21 +14490,21 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff68"
+            "$oid": "5d27851531fe5f6eb014c246"
           },
           "hqmf_id": "0A3EC3CC-BEAB-47BA-A3D3-86D6774AF02B",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff65"
+          "$oid": "5d27851531fe5f6eb014c243"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff6a"
+            "$oid": "5d27851531fe5f6eb014c248"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -14512,7 +14512,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff6b"
+            "$oid": "5d27851531fe5f6eb014c249"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -14520,7 +14520,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff6c"
+            "$oid": "5d27851531fe5f6eb014c24a"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -14528,7 +14528,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68ff6d"
+            "$oid": "5d27851531fe5f6eb014c24b"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -14541,7 +14541,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe2a"
+        "$oid": "5d27851531fe5f6eb014c108"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -14557,16 +14557,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff59"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe2a"
+        "$oid": "5d27851531fe5f6eb014c108"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -14576,7 +14571,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe2b"
+        "$oid": "5d27851531fe5f6eb014c109"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -14585,12 +14580,7 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff5a"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe2b"
+        "$oid": "5d27851531fe5f6eb014c109"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -14601,7 +14591,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe2c"
+        "$oid": "5d27851531fe5f6eb014c10a"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -14612,12 +14602,7 @@
       "description": "Diagnosis: Osteoporosis",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff5b"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe2c"
+        "$oid": "5d27851531fe5f6eb014c10a"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -14629,7 +14614,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe2d"
+        "$oid": "5d27851531fe5f6eb014c10b"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -14639,12 +14624,7 @@
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff5c"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe2d"
+        "$oid": "5d27851531fe5f6eb014c10b"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -14656,7 +14636,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe2e"
+        "$oid": "5d27851531fe5f6eb014c10c"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -14666,12 +14646,7 @@
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff5d"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe2e"
+        "$oid": "5d27851531fe5f6eb014c10c"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -14679,6 +14654,7 @@
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -14686,7 +14662,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe2f"
+        "$oid": "5d27851531fe5f6eb014c10d"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -14695,12 +14671,7 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff5e"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe2f"
+        "$oid": "5d27851531fe5f6eb014c10d"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -14710,7 +14681,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe30"
+        "$oid": "5d27851531fe5f6eb014c10e"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -14719,12 +14690,7 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff5f"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe30"
+        "$oid": "5d27851531fe5f6eb014c10e"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -14734,7 +14700,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe31"
+        "$oid": "5d27851531fe5f6eb014c10f"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -14743,12 +14709,7 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff60"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe31"
+        "$oid": "5d27851531fe5f6eb014c10f"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -14758,7 +14719,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe32"
+        "$oid": "5d27851531fe5f6eb014c110"
       },
       "codeListId": "2.16.840.1.113883.3.560.100.2",
       "dataElementCodes": [
@@ -14767,12 +14728,7 @@
       "description": "Patient Characteristic Sex: Female",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff61"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe32"
+        "$oid": "5d27851531fe5f6eb014c110"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -14782,7 +14738,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe33"
+        "$oid": "5d27851531fe5f6eb014c111"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.198.12.1130",
@@ -14794,12 +14750,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff62"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe33"
+        "$oid": "5d27851531fe5f6eb014c111"
       },
       "method": null,
       "negationRationale": null,
@@ -14808,6 +14759,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -14816,7 +14768,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68fe34"
+        "$oid": "5d27851531fe5f6eb014c112"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -14832,16 +14784,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68ff63"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85831fe5ff6fc68fe34"
+        "$oid": "5d27851531fe5f6eb014c112"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -14851,24 +14798,24 @@
     }
   ],
   "title": "Annual Wellness Assessment: Preventive Care (Screening for Osteoporosis)",
-  "updated_at": "2019-06-27T17:09:44.923Z",
+  "updated_at": "2019-07-11T18:51:01.420Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5d14f85831fe5ff6fc68fe35",
-    "5d14f85831fe5ff6fc68fe36",
-    "5d14f85831fe5ff6fc68fe37",
-    "5d14f85831fe5ff6fc68fe38",
-    "5d14f85831fe5ff6fc68fe39",
-    "5d14f85831fe5ff6fc68fe3a",
-    "5d14f85831fe5ff6fc68fe3b",
-    "5d14f85831fe5ff6fc68fe3c",
-    "5d14f85831fe5ff6fc68fe3d",
-    "5d14f85831fe5ff6fc68fe3e",
-    "5d14f85831fe5ff6fc68fe3f",
-    "5d14f85831fe5ff6fc68fe40",
-    "5d14f85831fe5ff6fc68fe41",
-    "5d14f85831fe5ff6fc68fe42"
+    "5d27851531fe5f6eb014c113",
+    "5d27851531fe5f6eb014c114",
+    "5d27851531fe5f6eb014c115",
+    "5d27851531fe5f6eb014c116",
+    "5d27851531fe5f6eb014c117",
+    "5d27851531fe5f6eb014c118",
+    "5d27851531fe5f6eb014c119",
+    "5d27851531fe5f6eb014c11a",
+    "5d27851531fe5f6eb014c11b",
+    "5d27851531fe5f6eb014c11c",
+    "5d27851531fe5f6eb014c11d",
+    "5d27851531fe5f6eb014c11e",
+    "5d27851531fe5f6eb014c11f",
+    "5d27851531fe5f6eb014c120"
   ]
 }
