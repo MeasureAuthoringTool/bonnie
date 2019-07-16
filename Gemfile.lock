@@ -8,14 +8,14 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: b13a25e9145010778e16f4dca56edfbae3efd556
+  revision: 8c74b7e4b1b799f350cdc4bdcdca3c41bbd5419f
   branch: 2019-standards-update
   specs:
     cqm-models (2.0.0)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: f6844256930f9e9ff516ce90dcfa43ff706e8a4d
+  revision: 1b45d1561e58bc24bacfca798f55380ef580a386
   branch: 2019-standards-update
   specs:
     cqm-parsers (0.2.1)
@@ -461,6 +461,7 @@ DEPENDENCIES
   rails (~> 4.2.11)
   rails_best_practices
   reek
+  rest-client
   roo (~> 2.7)
   rubocop
   rubyzip (>= 1.2.1)

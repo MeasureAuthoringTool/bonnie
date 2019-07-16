@@ -15,6 +15,9 @@ gem "non-stupid-digest-assets"
 
 gem 'hqmf2js', '~> 1.4'
 gem 'hquery-patient-api', '~> 1.1'
+
+gem 'rest-client'
+
 # gem 'cqm-parsers', '~> 0.2.1'
 
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => '2019-standards-update'
