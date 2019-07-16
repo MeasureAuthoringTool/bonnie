@@ -5,7 +5,6 @@ require_relative '../lib/tasks/fixture_helper'
 ENV["APIPIE_RECORD"] = "examples"
 require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
-require './lib/ext/record'
 require 'rake'
 WebMock.enable!
 

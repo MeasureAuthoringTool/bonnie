@@ -19,8 +19,7 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
       options = {}
 
       r = BonnieBackendCalculator.calculate(@measure, patients, options)
-
-      assert_equal "complete", r["5cfe974ad7c8aced6ef7c625"]["PopulationCriteria1"]["state"]
+      assert_equal "complete", r["5d278bbd31fe5f6f3e4b6d36"]["PopulationCriteria1"]["state"]
     end
   end
 
