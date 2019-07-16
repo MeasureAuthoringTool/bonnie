@@ -39,8 +39,8 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
 
     # If it is an embedded type, we have to make guesses about the type
     else if info.instance == 'Embedded'
-      if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
-        return if info.schema.paths.qdmVersion.defaultValue == '5.5' then 'Identifier' else 'Id'
+      if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Identifer
+        return 'Identifier'
       else
         return '???' # TODO: Handle situation of unknown type better.
     else
