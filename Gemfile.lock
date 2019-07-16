@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: d0167a91e5cc984c38cd3982d847ec81b8be5ac4
+  revision: 8c74b7e4b1b799f350cdc4bdcdca3c41bbd5419f
   branch: 2019-standards-update
   specs:
     cqm-models (2.0.0)
@@ -417,6 +417,7 @@ DEPENDENCIES
   rails (~> 4.2.11)
   rails_best_practices
   reek
+  rest-client
   roo (~> 2.7)
   rubocop
   rubyzip (>= 1.2.1)
