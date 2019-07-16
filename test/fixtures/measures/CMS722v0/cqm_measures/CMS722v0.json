@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f85031fe5ff6fc68999d"
+    "$oid": "5d27841531fe5f6eb0075182"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc68999f"
+        "$oid": "5d27841531fe5f6eb0075184"
       },
       "cql": "library Test31 version '0.0.014'\n\nusing QDM version '5.0.2'\n\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1' \n\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836' \n\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837' \n\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591' \n\nvalueset \"Live Birth Newborn Born in Hospital\": 'urn:oid:2.16.840.1.113762.1.4.1046.6' \n\nvalueset \"Newborn Hearing Screen Left\": 'urn:oid:2.16.840.1.114222.4.1.214079.1.1.3' \n\nvalueset \"Newborn Hearing Screen Right\": 'urn:oid:2.16.840.1.114222.4.1.214079.1.1.4' \n\nvalueset \"Medical Reasons\": 'urn:oid:2.16.840.1.114222.4.1.214079.1.1.7' \n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \n\nvalueset \"Patient Expired\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.309' \n\nvalueset \"Pass Or Refer\": 'urn:oid:2.16.840.1.114222.4.1.214079.1.1.6' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"SDE Ethnicity\": [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\n\ndefine \"SDE Payer\": [\"Patient Characteristic Payer\": \"Payer\"]\n\ndefine \"SDE Race\": [\"Patient Characteristic Race\": \"Race\"]\n\ndefine \"SDE Sex\": [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\n\ndefine \"Inpatient Encounters\": [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\n    where Encounter.lengthOfStay <= 120 days \n        and Encounter.relevantPeriod ends during \"Measurement Period\"\n\ndefine \"Encounter with Diagnosis of Live Birth\": \"Inpatient Encounters\" Inpatient\nintersect [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\n        where Encounter.diagnosis in \"Live Birth Newborn Born in Hospital\"\n\ndefine \"Initial Population\": exists \"Encounter with Diagnosis of Live Birth\" \nor exists \"DX LiveBirthNewbornBornInHospital\"\n\ndefine \"Denominator\": \"Initial Population\"\n\ndefine \"Newborn Hearing Screening Left\": [\"Diagnostic Study, Performed\": \"Newborn Hearing Screen Left\"] Screenleft\nwhere Screenleft.result as Code in \"Pass Or Refer\"\nand Screenleft.result is not null\n\ndefine \"Newborn Hearing Screening Right\": [\"Diagnostic Study, Performed\": \"Newborn Hearing Screen Right\"] Screenright\r\nwhere Screenright.result as Code in \"Pass Or Refer\"\r\nand Screenright.result is not null\n\ndefine \"Denominator Exclusions\": [\"Encounter, Performed\": \"Encounter Inpatient\"]Encounter \r\n without [\"Diagnostic Study, Performed\": \"Newborn Hearing Screen Left\"] Left\r\n   such that Left.relevantPeriod during Encounter.relevantPeriod \r\n without [\"Diagnostic Study, Performed\": \"Newborn Hearing Screen Right\"] Right \r\n   such that Right.relevantPeriod during Encounter.relevantPeriod \r\n      where Encounter.dischargeDisposition in \"Patient Expired\"\n\ndefine \"Medical Reason Left\": [\"Diagnostic Study, Not Performed\": \"Newborn Hearing Screen Left\"] Screen\n    where Screen.negationRationale in \"Medical Reasons\"\n\ndefine \"Medical Reason Right\": [\"Diagnostic Study, Not Performed\": \"Newborn Hearing Screen Right\"] Screen\n    where Screen.negationRationale in \"Medical Reasons\"\n\ndefine \"Numerator\": \"Encounter Inpatient\" Encounter\nwhere exists \"Left Screen or Medical Reason\" and exists\n \"Right Screen or Medical Reason\"\n\ndefine \"DX LiveBirthNewbornBornInHospital\": [\"Diagnosis\": \"Live Birth Newborn Born in Hospital\"] Diagnosis\nwith \"Inpatient Encounters\" Inpatient\nsuch that Diagnosis.prevalencePeriod starts during Inpatient.relevantPeriod\n\ndefine \"Left Screen or Medical Reason\": distinct ((\r\n[\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n    with \"Newborn Hearing Screening Left\" ScreenLeft\r\n        such that ScreenLeft.relevantPeriod during E.relevantPeriod\r\n)\r\nunion (\r\n[\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n    with \"Medical Reason Left\" MedicalLeft\r\n        such that MedicalLeft.authorDatetime during E.relevantPeriod\r\n))\n\ndefine \"Right Screen or Medical Reason\": distinct ((\r\n[\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n    with \"Newborn Hearing Screening Right\" ScreenRight\r\n        such that ScreenRight.relevantPeriod during E.relevantPeriod\r\n)\r\nunion (\r\n[\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n    with \"Medical Reason Right\" MedicalRight\r\n        such that MedicalRight.authorDatetime during E.relevantPeriod\r\n))\r\n\r\n/*from [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter,\r\n\"Newborn Hearing Screening Right\" ScreenRight,\r\n\"Medical Reason Right\" MedicalRight\r\nwhere ScreenRight.relevantPeriod during Encounter.relevantPeriod \r\nor MedicalRight.relevantPeriod during Encounter.relevantPeriod\r\nreturn Encounter*/\n\n",
       "elm": {
@@ -7309,49 +7309,49 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899a0"
+            "$oid": "5d27841531fe5f6eb0075185"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899a1"
+            "$oid": "5d27841531fe5f6eb0075186"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899a2"
+            "$oid": "5d27841531fe5f6eb0075187"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899a3"
+            "$oid": "5d27841531fe5f6eb0075188"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899a4"
+            "$oid": "5d27841531fe5f6eb0075189"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899a5"
+            "$oid": "5d27841531fe5f6eb007518a"
           },
           "statement_name": "Inpatient Encounters"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899a6"
+            "$oid": "5d27841531fe5f6eb007518b"
           },
           "statement_name": "Encounter with Diagnosis of Live Birth",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899a7"
+                "$oid": "5d27841531fe5f6eb007518c"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7361,13 +7361,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899a8"
+            "$oid": "5d27841531fe5f6eb007518d"
           },
           "statement_name": "DX LiveBirthNewbornBornInHospital",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899a9"
+                "$oid": "5d27841531fe5f6eb007518e"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7377,13 +7377,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899aa"
+            "$oid": "5d27841531fe5f6eb007518f"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899ab"
+                "$oid": "5d27841531fe5f6eb0075190"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7391,7 +7391,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899ac"
+                "$oid": "5d27841531fe5f6eb0075191"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7401,13 +7401,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899ad"
+            "$oid": "5d27841531fe5f6eb0075192"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899ae"
+                "$oid": "5d27841531fe5f6eb0075193"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7417,43 +7417,43 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899af"
+            "$oid": "5d27841531fe5f6eb0075194"
           },
           "statement_name": "Newborn Hearing Screening Left"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899b0"
+            "$oid": "5d27841531fe5f6eb0075195"
           },
           "statement_name": "Newborn Hearing Screening Right"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899b1"
+            "$oid": "5d27841531fe5f6eb0075196"
           },
           "statement_name": "Denominator Exclusions"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899b2"
+            "$oid": "5d27841531fe5f6eb0075197"
           },
           "statement_name": "Medical Reason Left"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899b3"
+            "$oid": "5d27841531fe5f6eb0075198"
           },
           "statement_name": "Medical Reason Right"
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899b4"
+            "$oid": "5d27841531fe5f6eb0075199"
           },
           "statement_name": "Left Screen or Medical Reason",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899b5"
+                "$oid": "5d27841531fe5f6eb007519a"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7461,7 +7461,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899b6"
+                "$oid": "5d27841531fe5f6eb007519b"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7471,13 +7471,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899b7"
+            "$oid": "5d27841531fe5f6eb007519c"
           },
           "statement_name": "Right Screen or Medical Reason",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899b8"
+                "$oid": "5d27841531fe5f6eb007519d"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7485,7 +7485,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899b9"
+                "$oid": "5d27841531fe5f6eb007519e"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7495,13 +7495,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899ba"
+            "$oid": "5d27841531fe5f6eb007519f"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899bb"
+                "$oid": "5d27841531fe5f6eb00751a0"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7509,7 +7509,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85031fe5ff6fc6899bc"
+                "$oid": "5d27841531fe5f6eb00751a1"
               },
               "hqmf_id": null,
               "library_name": "Test31",
@@ -7520,7 +7520,7 @@
       ]
     }
   ],
-  "created_at": "2019-06-27T17:09:36.143Z",
+  "created_at": "2019-07-11T18:46:45.494Z",
   "description": "This measure assesses the proportion of births that have been screened for hearing loss before hospital discharge",
   "hqmf_id": "40280582-5859-673B-0158-FE5B071107FE",
   "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
@@ -8025,13 +8025,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6899c7"
+        "$oid": "5d27841531fe5f6eb00751ac"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899cc"
+            "$oid": "5d27841531fe5f6eb00751b1"
           },
           "hqmf_id": "448D0D64-F1B1-4BA9-9643-F3302D883039",
           "library_name": "Test31",
@@ -8039,7 +8039,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899ca"
+            "$oid": "5d27841531fe5f6eb00751af"
           },
           "hqmf_id": "4BC20BAA-62B0-47D6-8BF5-DB3CEB614635",
           "library_name": "Test31",
@@ -8047,7 +8047,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899c9"
+            "$oid": "5d27841531fe5f6eb00751ae"
           },
           "hqmf_id": "89648B81-8986-41B0-B31F-79C1A7BC0A62",
           "library_name": "Test31",
@@ -8055,14 +8055,14 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5d14f85031fe5ff6fc6899cb"
+            "$oid": "5d27841531fe5f6eb00751b0"
           },
           "hqmf_id": "C26E71ED-3E42-4F5A-B0C5-D129EC4318FC",
           "library_name": "Test31",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899c8"
+          "$oid": "5d27841531fe5f6eb00751ad"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
@@ -8072,7 +8072,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898bb"
+        "$oid": "5d27841531fe5f6eb00750a0"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -8088,16 +8088,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899bd"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898bb"
+        "$oid": "5d27841531fe5f6eb00750a0"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -8107,7 +8102,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898bc"
+        "$oid": "5d27841531fe5f6eb00750a1"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.114222.4.1.214079.1.1.4",
@@ -8119,12 +8114,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899be"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898bc"
+        "$oid": "5d27841531fe5f6eb00750a1"
       },
       "method": null,
       "negationRationale": null,
@@ -8133,6 +8123,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -8141,7 +8132,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898bd"
+        "$oid": "5d27841531fe5f6eb00750a2"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.114222.4.1.214079.1.1.4",
@@ -8153,12 +8144,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899bf"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898bd"
+        "$oid": "5d27841531fe5f6eb00750a2"
       },
       "method": null,
       "negationRationale": null,
@@ -8167,6 +8153,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -8175,7 +8162,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898be"
+        "$oid": "5d27841531fe5f6eb00750a3"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -8186,12 +8173,7 @@
       "description": "Diagnosis: Live Birth Newborn Born in Hospital",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899c0"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898be"
+        "$oid": "5d27841531fe5f6eb00750a3"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -8203,7 +8185,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898bf"
+        "$oid": "5d27841531fe5f6eb00750a4"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.114222.4.1.214079.1.1.3",
@@ -8215,12 +8197,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899c1"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898bf"
+        "$oid": "5d27841531fe5f6eb00750a4"
       },
       "method": null,
       "negationRationale": null,
@@ -8229,6 +8206,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -8237,7 +8215,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898c0"
+        "$oid": "5d27841531fe5f6eb00750a5"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.114222.4.1.214079.1.1.3",
@@ -8249,12 +8227,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899c2"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898c0"
+        "$oid": "5d27841531fe5f6eb00750a5"
       },
       "method": null,
       "negationRationale": null,
@@ -8263,6 +8236,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -8271,7 +8245,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898c1"
+        "$oid": "5d27841531fe5f6eb00750a6"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -8280,12 +8254,7 @@
       "description": "Patient Characteristic Payer: Payer Source of Payment",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899c3"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898c1"
+        "$oid": "5d27841531fe5f6eb00750a6"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -8296,7 +8265,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898c2"
+        "$oid": "5d27841531fe5f6eb00750a7"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -8305,12 +8274,7 @@
       "description": "Patient Characteristic Sex: ONC Administrative Sex Administrative",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899c4"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898c2"
+        "$oid": "5d27841531fe5f6eb00750a7"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -8320,7 +8284,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898c3"
+        "$oid": "5d27841531fe5f6eb00750a8"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -8329,12 +8293,7 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899c5"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898c3"
+        "$oid": "5d27841531fe5f6eb00750a8"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -8344,7 +8303,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85031fe5ff6fc6898c4"
+        "$oid": "5d27841531fe5f6eb00750a9"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -8353,12 +8312,7 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": {
-          "$oid": "5d14f85031fe5ff6fc6899c6"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85031fe5ff6fc6898c4"
+        "$oid": "5d27841531fe5f6eb00750a9"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -8368,21 +8322,21 @@
     }
   ],
   "title": "Test31",
-  "updated_at": "2019-06-27T17:09:36.143Z",
+  "updated_at": "2019-07-11T18:46:45.494Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5d14f85031fe5ff6fc6898c5",
-    "5d14f85031fe5ff6fc6898c6",
-    "5d14f85031fe5ff6fc6898c7",
-    "5d14f85031fe5ff6fc6898c8",
-    "5d14f85031fe5ff6fc6898c9",
-    "5d14f85031fe5ff6fc6898ca",
-    "5d14f85031fe5ff6fc6898cb",
-    "5d14f85031fe5ff6fc6898cc",
-    "5d14f85031fe5ff6fc6898cd",
-    "5d14f85031fe5ff6fc6898ce",
-    "5d14f85031fe5ff6fc6898cf"
+    "5d27841531fe5f6eb00750aa",
+    "5d27841531fe5f6eb00750ab",
+    "5d27841531fe5f6eb00750ac",
+    "5d27841531fe5f6eb00750ad",
+    "5d27841531fe5f6eb00750ae",
+    "5d27841531fe5f6eb00750af",
+    "5d27841531fe5f6eb00750b0",
+    "5d27841531fe5f6eb00750b1",
+    "5d27841531fe5f6eb00750b2",
+    "5d27841531fe5f6eb00750b3",
+    "5d27841531fe5f6eb00750b4"
   ]
 }

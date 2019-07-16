@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f7ec31fe5ff6f1e7d44a"
+    "$oid": "5d278e7531fe5f6f3e4c6095"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -26,13 +26,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d14f7ec31fe5ff6f1e7d44b"
+      "$oid": "5d278e7531fe5f6f3e4c6096"
     },
     "birthDatetime": "1970-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d44c"
+          "$oid": "5d278e7531fe5f6f3e4c6097"
         },
         "anatomicalLocationSite": {
           "code": "129151000119102",
@@ -49,14 +49,9 @@
           }
         ],
         "description": "Diagnosis: Kidney Failure",
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d44d"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add087399"
+          "$oid": "5d278e7531fe5f6f3e4c6097"
         },
         "prevalencePeriod": {
           "low": "2012-07-23T08:00:00.000Z",
@@ -66,7 +61,7 @@
         },
         "qdmCategory": "condition",
         "qdmTitle": "Diagnosis",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
         "severity": {
           "code": "12178007",
@@ -78,7 +73,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d44e"
+          "$oid": "5d278e7531fe5f6f3e4c6099"
         },
         "admissionSource": {
           "code": "185460008",
@@ -97,22 +92,52 @@
         "description": "Encounter, Performed: Face-to-Face Interaction",
         "diagnoses": [
           {
-            "code": "129151000119102",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Kidney Failure"
+            "_id": {
+              "$oid": "5d2797a031fe5f747c2aa273"
+            },
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "129151000119102",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Kidney Failure",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           },
           {
-            "code": "12178007",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Proteinuria"
+            "_id": {
+              "$oid": "5d2797a031fe5f747c2aa274"
+            },
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "12178007",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Proteinuria",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           },
           {
-            "code": "105401000119101",
-            "version": null,
-            "system": "2.16.840.1.113883.6.96",
-            "display": "Diabetes"
+            "_id": {
+              "$oid": "5d2797a031fe5f747c2aa275"
+            },
+            "_type": "QDM::DiagnosisComponent",
+            "code": {
+              "code": "105401000119101",
+              "system": "2.16.840.1.113883.6.96",
+              "display": "Diabetes",
+              "version": null,
+              "_type": "QDM::Code"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": null,
+            "qdmVersion": "5.5"
           }
         ],
         "dischargeDisposition": {
@@ -124,7 +149,7 @@
         "facilityLocations": [
           {
             "_id": {
-              "$oid": "5d14f7ec31fe5ff6f1e7d44f"
+              "$oid": "5d278e7531fe5f6f3e4c609a"
             },
             "_type": "QDM::FacilityLocation",
             "code": {
@@ -145,7 +170,7 @@
           },
           {
             "_id": {
-              "$oid": "5d14f7ec31fe5ff6f1e7d450"
+              "$oid": "5d278e7531fe5f6f3e4c609b"
             },
             "_type": "QDM::FacilityLocation",
             "code": {
@@ -165,30 +190,20 @@
             "qdmVersion": "5.4"
           }
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d451"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add08739a"
+          "$oid": "5d278e7531fe5f6f3e4c6099"
         },
         "lengthOfStay": {
           "value": 0,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": {
-          "code": "105401000119101",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Diabetes",
-          "version": null
-        },
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-07-23T08:00:00.000Z",
           "high": "2012-07-23T08:15:00.000Z",
@@ -199,7 +214,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d452"
+          "$oid": "5d278e7531fe5f6f3e4c609d"
         },
         "codeListId": "2.16.840.1.113883.3.526.3.1139",
         "dataElementCodes": [
@@ -219,19 +234,15 @@
           "display": null,
           "version": null
         },
-        "hqmfOid": "2.16.840.1.113883.3.560.1.13",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.44",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d453"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add08739d"
+          "$oid": "5d278e7531fe5f6f3e4c609d"
         },
         "qdmCategory": "medication",
         "qdmStatus": "active",
         "qdmTitle": "Medication, Active",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-07-23T08:00:00.000Z",
           "high": "2012-07-23T08:15:00.000Z",
@@ -248,7 +259,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d454"
+          "$oid": "5d278e7531fe5f6f3e4c609f"
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -259,20 +270,15 @@
           }
         ],
         "description": "Intervention, Order: Hospice care ambulatory",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.45",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d455"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add08739e"
+          "$oid": "5d278e7531fe5f6f3e4c609f"
         },
         "negationRationale": null,
         "qdmCategory": "intervention",
         "qdmStatus": "order",
         "qdmTitle": "Intervention, Order",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": {
           "code": "G0438",
           "system": "2.16.840.1.113883.6.285",
@@ -283,7 +289,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d456"
+          "$oid": "5d278e7531fe5f6f3e4c60a1"
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -294,26 +300,22 @@
           }
         ],
         "description": "Intervention, Performed: Hospice care ambulatory",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.46",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d457"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add08739f"
+          "$oid": "5d278e7531fe5f6f3e4c60a1"
         },
         "negationRationale": null,
         "qdmCategory": "intervention",
         "qdmStatus": "performed",
         "qdmTitle": "Intervention, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": {
           "code": "129151000119102",
           "system": "2.16.840.1.113883.6.96",
           "display": "Kidney Failure",
           "version": null
         },
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-07-23T08:00:00.000Z",
           "high": "2012-07-23T08:15:00.000Z",
@@ -336,7 +338,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d458"
+          "$oid": "5d278e7531fe5f6f3e4c60a3"
         },
         "anatomicalLocationSite": {
           "code": "12843005",
@@ -356,14 +358,9 @@
           }
         ],
         "description": "Procedure, Performed: Dialysis Services",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.6",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d459"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add0873a1"
+          "$oid": "5d278e7531fe5f6f3e4c60a3"
         },
         "incisionDatetime": "2012-07-12T08:00:00.000+00:00",
         "method": {
@@ -373,22 +370,19 @@
           "version": null
         },
         "negationRationale": null,
-        "ordinality": {
-          "code": "127013003",
-          "system": "2.16.840.1.113883.6.96",
-          "display": "Diabetic Nephropathy",
-          "version": null
-        },
+        "priority": null,
         "qdmCategory": "procedure",
         "qdmStatus": "performed",
         "qdmTitle": "Procedure, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
+        "rank": null,
         "reason": {
           "code": "12178007",
           "system": "2.16.840.1.113883.6.96",
           "display": "Proteinuria",
           "version": null
         },
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-07-23T08:00:00.000Z",
           "high": "2012-07-23T08:15:00.000Z",
@@ -411,7 +405,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d45a"
+          "$oid": "5d278e7531fe5f6f3e4c60a5"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
@@ -448,24 +442,21 @@
           }
         ],
         "description": "Procedure, Performed: Kidney Transplant",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.6",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d45b"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add0873a3"
+          "$oid": "5d278e7531fe5f6f3e4c60a5"
         },
         "incisionDatetime": null,
         "method": null,
         "negationRationale": null,
-        "ordinality": null,
+        "priority": null,
         "qdmCategory": "procedure",
         "qdmStatus": "performed",
         "qdmTitle": "Procedure, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
+        "rank": null,
         "reason": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-07-23T08:00:00.000Z",
           "high": "2012-07-23T08:15:00.000Z",
@@ -478,7 +469,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d45c"
+          "$oid": "5d278e7531fe5f6f3e4c60a7"
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1024",
@@ -492,14 +483,9 @@
           }
         ],
         "description": "Laboratory Test, Performed: Urine Protein Tests",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.5",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d45d"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add0873a4"
+          "$oid": "5d278e7531fe5f6f3e4c60a7"
         },
         "method": {
           "code": "180272001",
@@ -511,7 +497,7 @@
         "qdmCategory": "laboratory_test",
         "qdmStatus": "performed",
         "qdmTitle": "Laboratory Test, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": {
           "code": "129151000119102",
           "system": "2.16.840.1.113883.6.96",
@@ -530,6 +516,7 @@
           "lowClosed": true,
           "highClosed": true
         },
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-07-23T08:00:00.000Z",
           "high": "2012-07-23T08:15:00.000Z",
@@ -551,7 +538,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d45e"
+          "$oid": "5d278e7531fe5f6f3e4c60a9"
         },
         "authorDatetime": "2012-07-23T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.109.12.1024",
@@ -596,23 +583,19 @@
           }
         ],
         "description": "Laboratory Test, Performed: Urine Protein Tests",
-        "hqmfOid": "2.16.840.1.113883.3.560.1.5",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d45f"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5b6c2f6cb848464add0873a6"
+          "$oid": "5d278e7531fe5f6f3e4c60a9"
         },
         "method": null,
         "negationRationale": null,
         "qdmCategory": "laboratory_test",
         "qdmStatus": "performed",
         "qdmTitle": "Laboratory Test, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": null,
         "referenceRange": null,
+        "relevantDatetime": null,
         "relevantPeriod": {
           "low": "2012-07-23T08:00:00.000Z",
           "high": "2012-07-23T08:15:00.000Z",
@@ -626,7 +609,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d446"
+          "$oid": "5d278e7531fe5f6f3e4c6091"
         },
         "birthDatetime": "1970-01-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -642,22 +625,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d460"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ec31fe5ff6f1e7d446"
+          "$oid": "5d278e7531fe5f6f3e4c6091"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d447"
+          "$oid": "5d278e7531fe5f6f3e4c6092"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -672,22 +650,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d461"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ec31fe5ff6f1e7d447"
+          "$oid": "5d278e7531fe5f6f3e4c6092"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d448"
+          "$oid": "5d278e7531fe5f6f3e4c6093"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -702,22 +675,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d462"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ec31fe5ff6f1e7d448"
+          "$oid": "5d278e7531fe5f6f3e4c6093"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5d14f7ec31fe5ff6f1e7d449"
+          "$oid": "5d278e7531fe5f6f3e4c6094"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -732,17 +700,12 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": {
-            "$oid": "5d14f7ec31fe5ff6f1e7d463"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7ec31fe5ff6f1e7d449"
+          "$oid": "5d278e7531fe5f6f3e4c6094"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -1328,7 +1291,7 @@
       "description_category": null,
       "insurance_providers": "[{\"author_datetime\":null,\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": {
     "$oid": "501fdba3044a111b98000001"

@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f85931fe5ff6fc69076a"
+    "$oid": "5d27851631fe5f6eb014ca48"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -20,7 +20,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69076c"
+        "$oid": "5d27851631fe5f6eb014ca4a"
       },
       "cql": "library AWATestComposite version '0.0.008'\r\n\r\nusing QDM version '5.4'\r\n\r\ninclude CompositeFunctions version '0.1.000' called Composite\r\ninclude AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination version '0.4.000' called ComponentMeasurePneumococcal\r\ninclude AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer version '0.4.000' called ComponentMeasureColorectal\r\ninclude AnnualWellnessAssessmentPreventiveCareScreeningforDepression version '0.4.000' called ComponentMeasureDepression\r\ninclude AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk version '0.4.000' called ComponentMeasureFalls\r\ninclude AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis version '0.4.000' called ComponentMeasureOsteoporosis\r\ninclude AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination version '0.4.000' called ComponentMeasureInfluenza\r\ninclude AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer version '0.5.000' called ComponentMeasureBreast\r\n\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Is In ComponentMeasurePneumococcal Denominator\":\r\n\tComponentMeasurePneumococcal.\"Initial Population\"\r\n\t\tand ComponentMeasurePneumococcal.\"Denominator\"\r\n\t\tand not ComponentMeasurePneumococcal.\"Denominator Exclusions\"\r\n\r\ndefine \"Is In ComponentMeasurePneumococcal Numerator\":\r\n\tComponentMeasurePneumococcal.\"Initial Population\"\r\n\t\tand ComponentMeasurePneumococcal.\"Denominator\"\r\n\t\tand not ComponentMeasurePneumococcal.\"Denominator Exclusions\"\r\n\t\tand ComponentMeasurePneumococcal.\"Numerator\"\r\n\r\ndefine \"Is In ComponentMeasureColorectal Numerator\":\r\n\tComponentMeasureColorectal.\"Initial Population\"\r\n\t\tand ComponentMeasureColorectal.\"Denominator\"\r\n\t\tand not ComponentMeasureColorectal.\"Denominator Exclusions\"\r\n\t\tand ComponentMeasureColorectal.\"Numerator\"\r\n\r\ndefine \"Is In ComponentMeasureDepression Numerator\":\r\n\tComponentMeasureDepression.\"Initial Population\"\r\n\t\tand ComponentMeasureDepression.\"Denominator\"\r\n\t\tand not ComponentMeasureDepression.\"Denominator Exclusions\"\r\n\t\tand ComponentMeasureDepression.\"Numerator\"\r\n\r\ndefine \"Is In ComponentMeasureFalls Denominator\":\r\n\tComponentMeasureFalls.\"Initial Population\"\r\n\t\tand ComponentMeasureFalls.\"Denominator\"\r\n\t\tand not ComponentMeasureFalls.\"Denominator Exclusions\"\r\n\r\ndefine \"Is In ComponentMeasureFalls Numerator\":\r\n\tComponentMeasureFalls.\"Initial Population\"\r\n\t\tand ComponentMeasureFalls.\"Denominator\"\r\n\t\tand not ComponentMeasureFalls.\"Denominator Exclusions\"\r\n\t\tand ComponentMeasureFalls.\"Numerator\"\r\n\r\ndefine \"Is In ComponentMeasureInfluenza Denominator\":\r\n\tComponentMeasureInfluenza.\"Initial Population\"\r\n\t\tand ComponentMeasureInfluenza.\"Denominator\"\r\n\t\tand not ( ComponentMeasureInfluenza.\"Denominator Exceptions\"\r\n\t\t\t\tand not ComponentMeasureInfluenza.\"Numerator\"\r\n\t\t)\r\n\r\ndefine \"Is In ComponentMeasureInfluenza Numerator\":\r\n\tComponentMeasureInfluenza.\"Initial Population\"\r\n\t\tand ComponentMeasureInfluenza.\"Denominator\"\r\n\t\tand ComponentMeasureInfluenza.\"Numerator\"\r\n\r\ndefine \"Is In ComponentMeasureOsteoporosis Denominator\":\r\n\tComponentMeasureOsteoporosis.\"Initial Population\"\r\n\t\tand ComponentMeasureOsteoporosis.\"Denominator\"\r\n\t\tand not ComponentMeasureOsteoporosis.\"Denominator Exclusions\"\r\n\r\ndefine \"Is In ComponentMeasureOsteoporosis Numerator\":\r\n\tComponentMeasureOsteoporosis.\"Initial Population\"\r\n\t\tand ComponentMeasureOsteoporosis.\"Denominator\"\r\n\t\tand not ComponentMeasureOsteoporosis.\"Denominator Exclusions\"\r\n\t\tand ComponentMeasureOsteoporosis.\"Numerator\"\r\n\r\ndefine \"Is In ComponentMeasureColorectal Denominator\":\r\n\tComponentMeasureColorectal.\"Initial Population\"\r\n\t\tand ComponentMeasureColorectal.\"Denominator\"\r\n\t\tand not ComponentMeasureColorectal.\"Denominator Exclusions\"\r\n\r\ndefine \"Is In ComponentMeasureDepression Denominator\":\r\n\tComponentMeasureDepression.\"Initial Population\"\r\n\t\tand ComponentMeasureDepression.\"Denominator\"\r\n\t\tand not ComponentMeasureDepression.\"Denominator Exclusions\"\r\n\t\tand not ( ComponentMeasureDepression.\"Denominator Exceptions\"\r\n\t\t\t\tand not ComponentMeasureDepression.\"Numerator\"\r\n\t\t)\r\n\r\ndefine \"Is In ComponentMeasureBreast Denominator\":\r\n\tComponentMeasureBreast.\"Initial Population\"\r\n\t\tand ComponentMeasureBreast.\"Denominator\"\r\n\t\tand not ComponentMeasureBreast.\"Denominator Exclusions\"\r\n\r\ndefine \"Is In ComponentMeasureBreast Numerator\":\r\n\tComponentMeasureBreast.\"Initial Population\"\r\n\t\tand ComponentMeasureBreast.\"Denominator\"\r\n\t\tand not ComponentMeasureBreast.\"Denominator Exclusions\"\r\n\t\tand ComponentMeasureBreast.\"Numerator\"\r\n\r\ndefine \"Initial Population\":\r\n\t[\"Patient Characteristic Birthdate\"] Pt\r\n\t\twhere ComponentMeasurePneumococcal.\"Initial Population\"\r\n\t\t\tor ComponentMeasureColorectal.\"Initial Population\"\r\n\t\t\tor ComponentMeasureDepression.\"Initial Population\"\r\n\t\t\tor ComponentMeasureFalls.\"Initial Population\"\r\n\t\t\tor ComponentMeasureOsteoporosis.\"Initial Population\"\r\n\t\t\tor ComponentMeasureInfluenza.\"Initial Population\"\r\n\t\t\tor ComponentMeasureBreast.\"Initial Population\"\r\n\r\ndefine \"Measure Population\":\r\n\t[\"Patient Characteristic Birthdate\"] Pt\r\n\t\twhere ComponentMeasurePneumococcal.\"Denominator\"\r\n\t\t\tor ComponentMeasureColorectal.\"Denominator\"\r\n\t\t\tor ComponentMeasureDepression.\"Denominator\"\r\n\t\t\tor ComponentMeasureFalls.\"Denominator\"\r\n\t\t\tor ComponentMeasureOsteoporosis.\"Denominator\"\r\n\t\t\tor ComponentMeasureInfluenza.\"Denominator\"\r\n\t\t\tor ComponentMeasureBreast.\"Denominator\"\r\n\r\ndefine \"Numerator Score\":\r\n\tComposite.ToScore(\"Is In ComponentMeasurePneumococcal Numerator\")+ Composite.ToScore(\"Is In ComponentMeasureColorectal Numerator\")+ Composite.ToScore(\"Is In ComponentMeasureDepression Numerator\")+ Composite.ToScore(\"Is In ComponentMeasureFalls Numerator\")+ Composite.ToScore(\"Is In ComponentMeasureOsteoporosis Numerator\")+ Composite.ToScore(\"Is In ComponentMeasureInfluenza Numerator\")+ Composite.ToScore(\"Is In ComponentMeasureBreast Numerator\")\r\n\r\ndefine \"Denominator Score\":\r\n\tComposite.ToScore(\"Is In ComponentMeasurePneumococcal Denominator\")+ Composite.ToScore(\"Is In ComponentMeasureColorectal Denominator\")+ Composite.ToScore(\"Is In ComponentMeasureDepression Denominator\")+ Composite.ToScore(\"Is In ComponentMeasureFalls Denominator\")+ Composite.ToScore(\"Is In ComponentMeasureOsteoporosis Denominator\")+ Composite.ToScore(\"Is In ComponentMeasureInfluenza Denominator\")+ Composite.ToScore(\"Is In ComponentMeasureBreast Denominator\")\r\n\r\ndefine \"Measure Population Exclusions\":\r\n\t[\"Patient Characteristic Birthdate\"] Pt\r\n\t\twhere ComponentMeasurePneumococcal.\"Denominator Exclusions\"\r\n\t\t\tand ComponentMeasureColorectal.\"Denominator Exclusions\"\r\n\t\t\tand ComponentMeasureDepression.\"Denominator Exclusions\"\r\n\t\t\tand ComponentMeasureFalls.\"Denominator Exclusions\"\r\n\t\t\tand ComponentMeasureOsteoporosis.\"Denominator Exclusions\"\r\n\t\t\tand ComponentMeasureBreast.\"Denominator Exclusions\"\r\n\r\ndefine function \"Measure Observation\"(patient \"Patient Characteristic Birthdate\"):\r\n\t\"Numerator Score\" / \"Denominator Score\"",
       "elm": {
@@ -11469,43 +11469,43 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69076d"
+            "$oid": "5d27851631fe5f6eb014ca4b"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69076e"
+            "$oid": "5d27851631fe5f6eb014ca4c"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69076f"
+            "$oid": "5d27851631fe5f6eb014ca4d"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690770"
+            "$oid": "5d27851631fe5f6eb014ca4e"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690771"
+            "$oid": "5d27851631fe5f6eb014ca4f"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690772"
+            "$oid": "5d27851631fe5f6eb014ca50"
           },
           "statement_name": "Is In ComponentMeasurePneumococcal Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690773"
+                "$oid": "5d27851631fe5f6eb014ca51"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -11513,7 +11513,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690774"
+                "$oid": "5d27851631fe5f6eb014ca52"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -11521,7 +11521,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690775"
+                "$oid": "5d27851631fe5f6eb014ca53"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -11531,13 +11531,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690776"
+            "$oid": "5d27851631fe5f6eb014ca54"
           },
           "statement_name": "Is In ComponentMeasurePneumococcal Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690777"
+                "$oid": "5d27851631fe5f6eb014ca55"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -11545,7 +11545,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690778"
+                "$oid": "5d27851631fe5f6eb014ca56"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -11553,7 +11553,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690779"
+                "$oid": "5d27851631fe5f6eb014ca57"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -11561,7 +11561,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69077a"
+                "$oid": "5d27851631fe5f6eb014ca58"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -11571,13 +11571,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69077b"
+            "$oid": "5d27851631fe5f6eb014ca59"
           },
           "statement_name": "Is In ComponentMeasureColorectal Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69077c"
+                "$oid": "5d27851631fe5f6eb014ca5a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -11585,7 +11585,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69077d"
+                "$oid": "5d27851631fe5f6eb014ca5b"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -11593,7 +11593,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69077e"
+                "$oid": "5d27851631fe5f6eb014ca5c"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -11601,7 +11601,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69077f"
+                "$oid": "5d27851631fe5f6eb014ca5d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -11611,13 +11611,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690780"
+            "$oid": "5d27851631fe5f6eb014ca5e"
           },
           "statement_name": "Is In ComponentMeasureDepression Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690781"
+                "$oid": "5d27851631fe5f6eb014ca5f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11625,7 +11625,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690782"
+                "$oid": "5d27851631fe5f6eb014ca60"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11633,7 +11633,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690783"
+                "$oid": "5d27851631fe5f6eb014ca61"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11641,7 +11641,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690784"
+                "$oid": "5d27851631fe5f6eb014ca62"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11651,13 +11651,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690785"
+            "$oid": "5d27851631fe5f6eb014ca63"
           },
           "statement_name": "Is In ComponentMeasureFalls Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690786"
+                "$oid": "5d27851631fe5f6eb014ca64"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -11665,7 +11665,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690787"
+                "$oid": "5d27851631fe5f6eb014ca65"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -11673,7 +11673,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690788"
+                "$oid": "5d27851631fe5f6eb014ca66"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -11683,13 +11683,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690789"
+            "$oid": "5d27851631fe5f6eb014ca67"
           },
           "statement_name": "Is In ComponentMeasureFalls Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69078a"
+                "$oid": "5d27851631fe5f6eb014ca68"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -11697,7 +11697,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69078b"
+                "$oid": "5d27851631fe5f6eb014ca69"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -11705,7 +11705,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69078c"
+                "$oid": "5d27851631fe5f6eb014ca6a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -11713,7 +11713,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69078d"
+                "$oid": "5d27851631fe5f6eb014ca6b"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -11723,13 +11723,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69078e"
+            "$oid": "5d27851631fe5f6eb014ca6c"
           },
           "statement_name": "Is In ComponentMeasureInfluenza Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69078f"
+                "$oid": "5d27851631fe5f6eb014ca6d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -11737,7 +11737,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690790"
+                "$oid": "5d27851631fe5f6eb014ca6e"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -11745,7 +11745,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690791"
+                "$oid": "5d27851631fe5f6eb014ca6f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -11753,7 +11753,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690792"
+                "$oid": "5d27851631fe5f6eb014ca70"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -11763,13 +11763,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690793"
+            "$oid": "5d27851631fe5f6eb014ca71"
           },
           "statement_name": "Is In ComponentMeasureInfluenza Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690794"
+                "$oid": "5d27851631fe5f6eb014ca72"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -11777,7 +11777,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690795"
+                "$oid": "5d27851631fe5f6eb014ca73"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -11785,7 +11785,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690796"
+                "$oid": "5d27851631fe5f6eb014ca74"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -11795,13 +11795,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690797"
+            "$oid": "5d27851631fe5f6eb014ca75"
           },
           "statement_name": "Is In ComponentMeasureOsteoporosis Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690798"
+                "$oid": "5d27851631fe5f6eb014ca76"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -11809,7 +11809,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690799"
+                "$oid": "5d27851631fe5f6eb014ca77"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -11817,7 +11817,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69079a"
+                "$oid": "5d27851631fe5f6eb014ca78"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -11827,13 +11827,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69079b"
+            "$oid": "5d27851631fe5f6eb014ca79"
           },
           "statement_name": "Is In ComponentMeasureOsteoporosis Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69079c"
+                "$oid": "5d27851631fe5f6eb014ca7a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -11841,7 +11841,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69079d"
+                "$oid": "5d27851631fe5f6eb014ca7b"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -11849,7 +11849,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69079e"
+                "$oid": "5d27851631fe5f6eb014ca7c"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -11857,7 +11857,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69079f"
+                "$oid": "5d27851631fe5f6eb014ca7d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -11867,13 +11867,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907a0"
+            "$oid": "5d27851631fe5f6eb014ca7e"
           },
           "statement_name": "Is In ComponentMeasureColorectal Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907a1"
+                "$oid": "5d27851631fe5f6eb014ca7f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -11881,7 +11881,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907a2"
+                "$oid": "5d27851631fe5f6eb014ca80"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -11889,7 +11889,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907a3"
+                "$oid": "5d27851631fe5f6eb014ca81"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -11899,13 +11899,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907a4"
+            "$oid": "5d27851631fe5f6eb014ca82"
           },
           "statement_name": "Is In ComponentMeasureDepression Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907a5"
+                "$oid": "5d27851631fe5f6eb014ca83"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11913,7 +11913,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907a6"
+                "$oid": "5d27851631fe5f6eb014ca84"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11921,7 +11921,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907a7"
+                "$oid": "5d27851631fe5f6eb014ca85"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11929,7 +11929,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907a8"
+                "$oid": "5d27851631fe5f6eb014ca86"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11937,7 +11937,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907a9"
+                "$oid": "5d27851631fe5f6eb014ca87"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -11947,13 +11947,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907aa"
+            "$oid": "5d27851631fe5f6eb014ca88"
           },
           "statement_name": "Is In ComponentMeasureBreast Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ab"
+                "$oid": "5d27851631fe5f6eb014ca89"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -11961,7 +11961,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ac"
+                "$oid": "5d27851631fe5f6eb014ca8a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -11969,7 +11969,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ad"
+                "$oid": "5d27851631fe5f6eb014ca8b"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -11979,13 +11979,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907ae"
+            "$oid": "5d27851631fe5f6eb014ca8c"
           },
           "statement_name": "Is In ComponentMeasureBreast Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907af"
+                "$oid": "5d27851631fe5f6eb014ca8d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -11993,7 +11993,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b0"
+                "$oid": "5d27851631fe5f6eb014ca8e"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -12001,7 +12001,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b1"
+                "$oid": "5d27851631fe5f6eb014ca8f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -12009,7 +12009,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b2"
+                "$oid": "5d27851631fe5f6eb014ca90"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -12019,13 +12019,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907b3"
+            "$oid": "5d27851631fe5f6eb014ca91"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b4"
+                "$oid": "5d27851631fe5f6eb014ca92"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -12033,7 +12033,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b5"
+                "$oid": "5d27851631fe5f6eb014ca93"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -12041,7 +12041,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b6"
+                "$oid": "5d27851631fe5f6eb014ca94"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -12049,7 +12049,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b7"
+                "$oid": "5d27851631fe5f6eb014ca95"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -12057,7 +12057,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b8"
+                "$oid": "5d27851631fe5f6eb014ca96"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -12065,7 +12065,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907b9"
+                "$oid": "5d27851631fe5f6eb014ca97"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -12073,7 +12073,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ba"
+                "$oid": "5d27851631fe5f6eb014ca98"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -12083,13 +12083,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907bb"
+            "$oid": "5d27851631fe5f6eb014ca99"
           },
           "statement_name": "Measure Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907bc"
+                "$oid": "5d27851631fe5f6eb014ca9a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -12097,7 +12097,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907bd"
+                "$oid": "5d27851631fe5f6eb014ca9b"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -12105,7 +12105,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907be"
+                "$oid": "5d27851631fe5f6eb014ca9c"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -12113,7 +12113,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907bf"
+                "$oid": "5d27851631fe5f6eb014ca9d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -12121,7 +12121,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c0"
+                "$oid": "5d27851631fe5f6eb014ca9e"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -12129,7 +12129,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c1"
+                "$oid": "5d27851631fe5f6eb014ca9f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -12137,7 +12137,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c2"
+                "$oid": "5d27851631fe5f6eb014caa0"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -12147,13 +12147,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907c3"
+            "$oid": "5d27851631fe5f6eb014caa1"
           },
           "statement_name": "Numerator Score",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c4"
+                "$oid": "5d27851631fe5f6eb014caa2"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12161,7 +12161,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c5"
+                "$oid": "5d27851631fe5f6eb014caa3"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12169,7 +12169,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c6"
+                "$oid": "5d27851631fe5f6eb014caa4"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12177,7 +12177,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c7"
+                "$oid": "5d27851631fe5f6eb014caa5"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12185,7 +12185,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c8"
+                "$oid": "5d27851631fe5f6eb014caa6"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12193,7 +12193,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907c9"
+                "$oid": "5d27851631fe5f6eb014caa7"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12201,7 +12201,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ca"
+                "$oid": "5d27851631fe5f6eb014caa8"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12209,7 +12209,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907cb"
+                "$oid": "5d27851631fe5f6eb014caa9"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12217,7 +12217,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907cc"
+                "$oid": "5d27851631fe5f6eb014caaa"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12225,7 +12225,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907cd"
+                "$oid": "5d27851631fe5f6eb014caab"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12233,7 +12233,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ce"
+                "$oid": "5d27851631fe5f6eb014caac"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12241,7 +12241,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907cf"
+                "$oid": "5d27851631fe5f6eb014caad"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12249,7 +12249,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d0"
+                "$oid": "5d27851631fe5f6eb014caae"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12257,7 +12257,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d1"
+                "$oid": "5d27851631fe5f6eb014caaf"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12267,13 +12267,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907d2"
+            "$oid": "5d27851631fe5f6eb014cab0"
           },
           "statement_name": "Denominator Score",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d3"
+                "$oid": "5d27851631fe5f6eb014cab1"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12281,7 +12281,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d4"
+                "$oid": "5d27851631fe5f6eb014cab2"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12289,7 +12289,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d5"
+                "$oid": "5d27851631fe5f6eb014cab3"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12297,7 +12297,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d6"
+                "$oid": "5d27851631fe5f6eb014cab4"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12305,7 +12305,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d7"
+                "$oid": "5d27851631fe5f6eb014cab5"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12313,7 +12313,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d8"
+                "$oid": "5d27851631fe5f6eb014cab6"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12321,7 +12321,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907d9"
+                "$oid": "5d27851631fe5f6eb014cab7"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12329,7 +12329,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907da"
+                "$oid": "5d27851631fe5f6eb014cab8"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12337,7 +12337,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907db"
+                "$oid": "5d27851631fe5f6eb014cab9"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12345,7 +12345,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907dc"
+                "$oid": "5d27851631fe5f6eb014caba"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12353,7 +12353,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907dd"
+                "$oid": "5d27851631fe5f6eb014cabb"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12361,7 +12361,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907de"
+                "$oid": "5d27851631fe5f6eb014cabc"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12369,7 +12369,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907df"
+                "$oid": "5d27851631fe5f6eb014cabd"
               },
               "hqmf_id": null,
               "library_name": "CompositeFunctions",
@@ -12377,7 +12377,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907e0"
+                "$oid": "5d27851631fe5f6eb014cabe"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12387,13 +12387,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907e1"
+            "$oid": "5d27851631fe5f6eb014cabf"
           },
           "statement_name": "Measure Population Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907e2"
+                "$oid": "5d27851631fe5f6eb014cac0"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -12401,7 +12401,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907e3"
+                "$oid": "5d27851631fe5f6eb014cac1"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -12409,7 +12409,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907e4"
+                "$oid": "5d27851631fe5f6eb014cac2"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -12417,7 +12417,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907e5"
+                "$oid": "5d27851631fe5f6eb014cac3"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -12425,7 +12425,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907e6"
+                "$oid": "5d27851631fe5f6eb014cac4"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -12433,7 +12433,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907e7"
+                "$oid": "5d27851631fe5f6eb014cac5"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -12443,13 +12443,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907e8"
+            "$oid": "5d27851631fe5f6eb014cac6"
           },
           "statement_name": "Measure Observation",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907e9"
+                "$oid": "5d27851631fe5f6eb014cac7"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12457,7 +12457,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ea"
+                "$oid": "5d27851631fe5f6eb014cac8"
               },
               "hqmf_id": null,
               "library_name": "AWATestComposite",
@@ -12469,7 +12469,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc6907eb"
+        "$oid": "5d27851631fe5f6eb014cac9"
       },
       "cql": null,
       "elm": {
@@ -13920,13 +13920,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907ec"
+            "$oid": "5d27851631fe5f6eb014caca"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ed"
+                "$oid": "5d27851631fe5f6eb014cacb"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -13934,7 +13934,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907ee"
+                "$oid": "5d27851631fe5f6eb014cacc"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -13944,19 +13944,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907ef"
+            "$oid": "5d27851631fe5f6eb014cacd"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907f0"
+            "$oid": "5d27851631fe5f6eb014cace"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907f1"
+                "$oid": "5d27851631fe5f6eb014cacf"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
@@ -13966,13 +13966,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907f2"
+            "$oid": "5d27851631fe5f6eb014cad0"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907f3"
+                "$oid": "5d27851631fe5f6eb014cad1"
               },
               "hqmf_id": null,
               "library_name": "Hospice",
@@ -13982,7 +13982,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907f4"
+            "$oid": "5d27851631fe5f6eb014cad2"
           },
           "statement_name": "Numerator"
         }
@@ -13990,7 +13990,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc6907f5"
+        "$oid": "5d27851631fe5f6eb014cad3"
       },
       "cql": null,
       "elm": {
@@ -18763,13 +18763,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907f6"
+            "$oid": "5d27851631fe5f6eb014cad4"
           },
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907f7"
+                "$oid": "5d27851631fe5f6eb014cad5"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -18779,7 +18779,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907f8"
+            "$oid": "5d27851631fe5f6eb014cad6"
           },
           "statement_name": "ToDate"
         }
@@ -18787,7 +18787,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc6907f9"
+        "$oid": "5d27851631fe5f6eb014cad7"
       },
       "cql": null,
       "elm": {
@@ -19828,7 +19828,7 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907fa"
+            "$oid": "5d27851631fe5f6eb014cad8"
           },
           "statement_name": "Has Hospice"
         }
@@ -19836,7 +19836,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc6907fb"
+        "$oid": "5d27851631fe5f6eb014cad9"
       },
       "cql": null,
       "elm": {
@@ -23263,13 +23263,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907fc"
+            "$oid": "5d27851631fe5f6eb014cada"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907fd"
+                "$oid": "5d27851631fe5f6eb014cadb"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -23277,7 +23277,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc6907fe"
+                "$oid": "5d27851631fe5f6eb014cadc"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23287,19 +23287,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6907ff"
+            "$oid": "5d27851631fe5f6eb014cadd"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690800"
+            "$oid": "5d27851631fe5f6eb014cade"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690801"
+                "$oid": "5d27851631fe5f6eb014cadf"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23307,7 +23307,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690802"
+                "$oid": "5d27851631fe5f6eb014cae0"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -23317,13 +23317,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690803"
+            "$oid": "5d27851631fe5f6eb014cae1"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690804"
+                "$oid": "5d27851631fe5f6eb014cae2"
               },
               "hqmf_id": null,
               "library_name": "Hospice",
@@ -23331,7 +23331,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690805"
+                "$oid": "5d27851631fe5f6eb014cae3"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23339,7 +23339,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690806"
+                "$oid": "5d27851631fe5f6eb014cae4"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23349,25 +23349,25 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690807"
+            "$oid": "5d27851631fe5f6eb014cae5"
           },
           "statement_name": "Malignant Neoplasm"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690808"
+            "$oid": "5d27851631fe5f6eb014cae6"
           },
           "statement_name": "Total Colectomy Performed"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690809"
+            "$oid": "5d27851631fe5f6eb014cae7"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69080a"
+                "$oid": "5d27851631fe5f6eb014cae8"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23375,7 +23375,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69080b"
+                "$oid": "5d27851631fe5f6eb014cae9"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23383,7 +23383,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69080c"
+                "$oid": "5d27851631fe5f6eb014caea"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23391,7 +23391,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69080d"
+                "$oid": "5d27851631fe5f6eb014caeb"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23399,7 +23399,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69080e"
+                "$oid": "5d27851631fe5f6eb014caec"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
@@ -23409,31 +23409,31 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69080f"
+            "$oid": "5d27851631fe5f6eb014caed"
           },
           "statement_name": "Colonoscopy Performed"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690810"
+            "$oid": "5d27851631fe5f6eb014caee"
           },
           "statement_name": "Fecal Occult Blood Test Performed"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690811"
+            "$oid": "5d27851631fe5f6eb014caef"
           },
           "statement_name": "Flexible Sigmoidoscopy Performed"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690812"
+            "$oid": "5d27851631fe5f6eb014caf0"
           },
           "statement_name": "Fecal Immunochemical Test DNA Performed"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690813"
+            "$oid": "5d27851631fe5f6eb014caf1"
           },
           "statement_name": "CT Colonography Performed"
         }
@@ -23441,7 +23441,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690814"
+        "$oid": "5d27851631fe5f6eb014caf2"
       },
       "cql": null,
       "elm": {
@@ -26545,13 +26545,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690815"
+            "$oid": "5d27851631fe5f6eb014caf3"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690816"
+                "$oid": "5d27851631fe5f6eb014caf4"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -26559,7 +26559,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690817"
+                "$oid": "5d27851631fe5f6eb014caf5"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26569,19 +26569,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690818"
+            "$oid": "5d27851631fe5f6eb014caf6"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690819"
+            "$oid": "5d27851631fe5f6eb014caf7"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69081a"
+                "$oid": "5d27851631fe5f6eb014caf8"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26591,13 +26591,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69081b"
+            "$oid": "5d27851631fe5f6eb014caf9"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69081c"
+                "$oid": "5d27851631fe5f6eb014cafa"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26605,7 +26605,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69081d"
+                "$oid": "5d27851631fe5f6eb014cafb"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26615,13 +26615,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69081e"
+            "$oid": "5d27851631fe5f6eb014cafc"
           },
           "statement_name": "Has Diagnosis of Depression",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69081f"
+                "$oid": "5d27851631fe5f6eb014cafd"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26631,13 +26631,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690820"
+            "$oid": "5d27851631fe5f6eb014cafe"
           },
           "statement_name": "Has Diagnosis of Bipolar",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690821"
+                "$oid": "5d27851631fe5f6eb014caff"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26647,13 +26647,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690822"
+            "$oid": "5d27851631fe5f6eb014cb00"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690823"
+                "$oid": "5d27851631fe5f6eb014cb01"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26661,7 +26661,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690824"
+                "$oid": "5d27851631fe5f6eb014cb02"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26671,13 +26671,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690825"
+            "$oid": "5d27851631fe5f6eb014cb03"
           },
           "statement_name": "Depression Screening Encounter within 12 Months Prior to AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690826"
+                "$oid": "5d27851631fe5f6eb014cb04"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26687,13 +26687,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690827"
+            "$oid": "5d27851631fe5f6eb014cb05"
           },
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690828"
+                "$oid": "5d27851631fe5f6eb014cb06"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26701,7 +26701,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690829"
+                "$oid": "5d27851631fe5f6eb014cb07"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26711,13 +26711,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69082a"
+            "$oid": "5d27851631fe5f6eb014cb08"
           },
           "statement_name": "Has No Depression Screening Due to Medical Reason",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69082b"
+                "$oid": "5d27851631fe5f6eb014cb09"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26725,7 +26725,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69082c"
+                "$oid": "5d27851631fe5f6eb014cb0a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26735,13 +26735,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69082d"
+            "$oid": "5d27851631fe5f6eb014cb0b"
           },
           "statement_name": "Has No Depression Screening Due to Patient Refusal",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69082e"
+                "$oid": "5d27851631fe5f6eb014cb0c"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26749,7 +26749,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69082f"
+                "$oid": "5d27851631fe5f6eb014cb0d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforDepression",
@@ -26761,7 +26761,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690830"
+        "$oid": "5d27851631fe5f6eb014cb0e"
       },
       "cql": null,
       "elm": {
@@ -30628,13 +30628,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690831"
+            "$oid": "5d27851631fe5f6eb014cb0f"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690832"
+                "$oid": "5d27851631fe5f6eb014cb10"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -30642,7 +30642,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690833"
+                "$oid": "5d27851631fe5f6eb014cb11"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30652,19 +30652,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690834"
+            "$oid": "5d27851631fe5f6eb014cb12"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690835"
+            "$oid": "5d27851631fe5f6eb014cb13"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690836"
+                "$oid": "5d27851631fe5f6eb014cb14"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30674,13 +30674,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690837"
+            "$oid": "5d27851631fe5f6eb014cb15"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690838"
+                "$oid": "5d27851631fe5f6eb014cb16"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30688,7 +30688,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690839"
+                "$oid": "5d27851631fe5f6eb014cb17"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30696,7 +30696,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69083a"
+                "$oid": "5d27851631fe5f6eb014cb18"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30704,7 +30704,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69083b"
+                "$oid": "5d27851631fe5f6eb014cb19"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30714,13 +30714,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69083c"
+            "$oid": "5d27851631fe5f6eb014cb1a"
           },
           "statement_name": "Not Ambulatory 12 Months Before or During AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69083d"
+                "$oid": "5d27851631fe5f6eb014cb1b"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30730,13 +30730,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69083e"
+            "$oid": "5d27851631fe5f6eb014cb1c"
           },
           "statement_name": "Ambulatory Status Assessed 12 Months Before or During AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69083f"
+                "$oid": "5d27851631fe5f6eb014cb1d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30746,13 +30746,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690840"
+            "$oid": "5d27851631fe5f6eb014cb1e"
           },
           "statement_name": "Not Ambulatory 12 Months or More Before AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690841"
+                "$oid": "5d27851631fe5f6eb014cb1f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30762,13 +30762,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690842"
+            "$oid": "5d27851631fe5f6eb014cb20"
           },
           "statement_name": "Hospice 12 Months Before or During AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690843"
+                "$oid": "5d27851631fe5f6eb014cb21"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30778,13 +30778,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690844"
+            "$oid": "5d27851631fe5f6eb014cb22"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690845"
+                "$oid": "5d27851631fe5f6eb014cb23"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -30796,7 +30796,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690846"
+        "$oid": "5d27851631fe5f6eb014cb24"
       },
       "cql": null,
       "elm": {
@@ -35796,13 +35796,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690847"
+            "$oid": "5d27851631fe5f6eb014cb25"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690848"
+                "$oid": "5d27851631fe5f6eb014cb26"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -35810,7 +35810,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690849"
+                "$oid": "5d27851631fe5f6eb014cb27"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35820,19 +35820,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69084a"
+            "$oid": "5d27851631fe5f6eb014cb28"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69084b"
+            "$oid": "5d27851631fe5f6eb014cb29"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69084c"
+                "$oid": "5d27851631fe5f6eb014cb2a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35840,7 +35840,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69084d"
+                "$oid": "5d27851631fe5f6eb014cb2b"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35850,13 +35850,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69084e"
+            "$oid": "5d27851631fe5f6eb014cb2c"
           },
           "statement_name": "Encounter During Influenza Season",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69084f"
+                "$oid": "5d27851631fe5f6eb014cb2d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35866,19 +35866,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690850"
+            "$oid": "5d27851631fe5f6eb014cb2e"
           },
           "statement_name": "Influenza Season"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690851"
+            "$oid": "5d27851631fe5f6eb014cb2f"
           },
           "statement_name": "Denominator Exceptions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690852"
+                "$oid": "5d27851631fe5f6eb014cb30"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35886,7 +35886,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690853"
+                "$oid": "5d27851631fe5f6eb014cb31"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35894,7 +35894,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690854"
+                "$oid": "5d27851631fe5f6eb014cb32"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35902,7 +35902,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690855"
+                "$oid": "5d27851631fe5f6eb014cb33"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35910,7 +35910,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690856"
+                "$oid": "5d27851631fe5f6eb014cb34"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35918,7 +35918,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690857"
+                "$oid": "5d27851631fe5f6eb014cb35"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35926,7 +35926,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690858"
+                "$oid": "5d27851631fe5f6eb014cb36"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35934,7 +35934,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690859"
+                "$oid": "5d27851631fe5f6eb014cb37"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35942,7 +35942,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69085a"
+                "$oid": "5d27851631fe5f6eb014cb38"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35952,13 +35952,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69085b"
+            "$oid": "5d27851631fe5f6eb014cb39"
           },
           "statement_name": "Patient Declined Influenza Vaccination",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69085c"
+                "$oid": "5d27851631fe5f6eb014cb3a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35968,19 +35968,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69085d"
+            "$oid": "5d27851631fe5f6eb014cb3b"
           },
           "statement_name": "Influenza Season Including August and September of the Prior Year"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69085e"
+            "$oid": "5d27851631fe5f6eb014cb3c"
           },
           "statement_name": "Medical Patient or System Reason for Not Performing Influenza Vaccination",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69085f"
+                "$oid": "5d27851631fe5f6eb014cb3d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -35990,13 +35990,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690860"
+            "$oid": "5d27851631fe5f6eb014cb3e"
           },
           "statement_name": "Medical Patient or System Reason for Not Administering Influenza Vaccine",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690861"
+                "$oid": "5d27851631fe5f6eb014cb3f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36006,13 +36006,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690862"
+            "$oid": "5d27851631fe5f6eb014cb40"
           },
           "statement_name": "Diagnosis of Allergy to Egg",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690863"
+                "$oid": "5d27851631fe5f6eb014cb41"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36022,13 +36022,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690864"
+            "$oid": "5d27851631fe5f6eb014cb42"
           },
           "statement_name": "Egg Substance Allergy",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690865"
+                "$oid": "5d27851631fe5f6eb014cb43"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36038,13 +36038,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690866"
+            "$oid": "5d27851631fe5f6eb014cb44"
           },
           "statement_name": "Diagnosis of Allergy to Influenza Vaccine",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690867"
+                "$oid": "5d27851631fe5f6eb014cb45"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36054,13 +36054,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690868"
+            "$oid": "5d27851631fe5f6eb014cb46"
           },
           "statement_name": "Diagnosis of Intolerance to Influenza Vaccine",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690869"
+                "$oid": "5d27851631fe5f6eb014cb47"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36070,13 +36070,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69086a"
+            "$oid": "5d27851631fe5f6eb014cb48"
           },
           "statement_name": "Intolerance of Influenza Vaccination Procedure",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69086b"
+                "$oid": "5d27851631fe5f6eb014cb49"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36086,13 +36086,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69086c"
+            "$oid": "5d27851631fe5f6eb014cb4a"
           },
           "statement_name": "Allergy or Intolerance to Influenza Vaccine",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69086d"
+                "$oid": "5d27851631fe5f6eb014cb4b"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36102,13 +36102,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69086e"
+            "$oid": "5d27851631fe5f6eb014cb4c"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69086f"
+                "$oid": "5d27851631fe5f6eb014cb4d"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36116,7 +36116,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690870"
+                "$oid": "5d27851631fe5f6eb014cb4e"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36124,7 +36124,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690871"
+                "$oid": "5d27851631fe5f6eb014cb4f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36134,13 +36134,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690872"
+            "$oid": "5d27851631fe5f6eb014cb50"
           },
           "statement_name": "Influenza Vaccination Procedure",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690873"
+                "$oid": "5d27851631fe5f6eb014cb51"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36150,13 +36150,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690874"
+            "$oid": "5d27851631fe5f6eb014cb52"
           },
           "statement_name": "Influenza Immunization Administered",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690875"
+                "$oid": "5d27851631fe5f6eb014cb53"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36166,13 +36166,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690876"
+            "$oid": "5d27851631fe5f6eb014cb54"
           },
           "statement_name": "Patient Reported Previous Receipt of Influenza Vaccine",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690877"
+                "$oid": "5d27851631fe5f6eb014cb55"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination",
@@ -36184,7 +36184,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690878"
+        "$oid": "5d27851631fe5f6eb014cb56"
       },
       "cql": null,
       "elm": {
@@ -38046,13 +38046,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690879"
+            "$oid": "5d27851631fe5f6eb014cb57"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69087a"
+                "$oid": "5d27851631fe5f6eb014cb58"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -38060,7 +38060,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69087b"
+                "$oid": "5d27851631fe5f6eb014cb59"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -38070,19 +38070,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69087c"
+            "$oid": "5d27851631fe5f6eb014cb5a"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69087d"
+            "$oid": "5d27851631fe5f6eb014cb5b"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69087e"
+                "$oid": "5d27851631fe5f6eb014cb5c"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -38090,7 +38090,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69087f"
+                "$oid": "5d27851631fe5f6eb014cb5d"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -38100,13 +38100,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690880"
+            "$oid": "5d27851631fe5f6eb014cb5e"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690881"
+                "$oid": "5d27851631fe5f6eb014cb5f"
               },
               "hqmf_id": null,
               "library_name": "Hospice",
@@ -38114,7 +38114,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690882"
+                "$oid": "5d27851631fe5f6eb014cb60"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -38124,13 +38124,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690883"
+            "$oid": "5d27851631fe5f6eb014cb61"
           },
           "statement_name": "Osteoporosis Diagnosis",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690884"
+                "$oid": "5d27851631fe5f6eb014cb62"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
@@ -38140,7 +38140,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690885"
+            "$oid": "5d27851631fe5f6eb014cb63"
           },
           "statement_name": "Numerator"
         }
@@ -38148,7 +38148,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690886"
+        "$oid": "5d27851631fe5f6eb014cb64"
       },
       "cql": null,
       "elm": {
@@ -41550,13 +41550,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690887"
+            "$oid": "5d27851631fe5f6eb014cb65"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690888"
+                "$oid": "5d27851631fe5f6eb014cb66"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -41564,7 +41564,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690889"
+                "$oid": "5d27851631fe5f6eb014cb67"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -41574,19 +41574,19 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69088a"
+            "$oid": "5d27851631fe5f6eb014cb68"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69088b"
+            "$oid": "5d27851631fe5f6eb014cb69"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69088c"
+                "$oid": "5d27851631fe5f6eb014cb6a"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -41594,7 +41594,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69088d"
+                "$oid": "5d27851631fe5f6eb014cb6b"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -41604,13 +41604,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69088e"
+            "$oid": "5d27851631fe5f6eb014cb6c"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc69088f"
+                "$oid": "5d27851631fe5f6eb014cb6d"
               },
               "hqmf_id": null,
               "library_name": "Hospice",
@@ -41618,7 +41618,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690890"
+                "$oid": "5d27851631fe5f6eb014cb6e"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -41626,7 +41626,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690891"
+                "$oid": "5d27851631fe5f6eb014cb6f"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -41634,7 +41634,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690892"
+                "$oid": "5d27851631fe5f6eb014cb70"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -41642,7 +41642,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690893"
+                "$oid": "5d27851631fe5f6eb014cb71"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -41650,7 +41650,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85931fe5ff6fc690894"
+                "$oid": "5d27851631fe5f6eb014cb72"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
@@ -41660,37 +41660,37 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690895"
+            "$oid": "5d27851631fe5f6eb014cb73"
           },
           "statement_name": "Unilateral Mastectomy Procedure"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690896"
+            "$oid": "5d27851631fe5f6eb014cb74"
           },
           "statement_name": "Right Mastectomy"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690897"
+            "$oid": "5d27851631fe5f6eb014cb75"
           },
           "statement_name": "Left Mastectomy"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690898"
+            "$oid": "5d27851631fe5f6eb014cb76"
           },
           "statement_name": "History Bilateral Mastectomy"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc690899"
+            "$oid": "5d27851631fe5f6eb014cb77"
           },
           "statement_name": "Bilateral Mastectomy Procedure"
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69089a"
+            "$oid": "5d27851631fe5f6eb014cb78"
           },
           "statement_name": "Numerator"
         }
@@ -41698,7 +41698,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69089b"
+        "$oid": "5d27851631fe5f6eb014cb79"
       },
       "cql": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><cqlLookUp><library>CompositeFunctions</library><version>0.1.000</version><usingModel>QDM</usingModel><usingModelVersion>5.4</usingModelVersion><cqlContext>Patient</cqlContext><codeSystems/><valuesets/><codes/><parameters><parameter id=\"6f5f4201-eaa5-4ecd-afcb-6abe422c4457\" name=\"Measurement Period\" readOnly=\"true\"><logic>Interval&lt;DateTime&gt;</logic></parameter></parameters><definitions/><functions><function context=\"Patient\" id=\"ec7af393-7575-429d-a1bd-1d36ac3c708a\" name=\"ToScore\"><logic>if value then 1 \n\telse 0</logic><comment/><arguments><argument argumentName=\"value\" id=\"NCKBtObe7zueCpoT\" type=\"Boolean\"/></arguments></function></functions><includeLibrarys/></cqlLookUp>",
       "elm": {
@@ -41972,14 +41972,14 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc69089c"
+            "$oid": "5d27851631fe5f6eb014cb7a"
           },
           "statement_name": "ToScore"
         }
       ]
     }
   ],
-  "created_at": "2019-06-27T17:09:45.516Z",
+  "created_at": "2019-07-11T18:51:02.500Z",
   "description": "",
   "hqmf_id": "40280582-6621-2797-0166-4034035B100A",
   "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
@@ -42418,18 +42418,18 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc6908cd"
+        "$oid": "5d27851631fe5f6eb014cbab"
       },
       "observations": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6908d6"
+            "$oid": "5d27851631fe5f6eb014cbb4"
           },
           "aggregation_type": null,
           "hqmf_id": "365731EE-CF21-4ACC-BBDB-3951944F2463",
           "observation_function": {
             "_id": {
-              "$oid": "5d14f85931fe5ff6fc6908d7"
+              "$oid": "5d27851631fe5f6eb014cbb5"
             },
             "hqmf_id": "365731EE-CF21-4ACC-BBDB-3951944F2463",
             "library_name": "AWATestComposite",
@@ -42437,7 +42437,7 @@
           },
           "observation_parameter": {
             "_id": {
-              "$oid": "5d14f85931fe5ff6fc6908d8"
+              "$oid": "5d27851631fe5f6eb014cbb6"
             },
             "hqmf_id": "365731EE-CF21-4ACC-BBDB-3951944F2463",
             "library_name": "AWATestComposite",
@@ -42449,7 +42449,7 @@
       "populations": {
         "IPP": {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6908cf"
+            "$oid": "5d27851631fe5f6eb014cbad"
           },
           "hqmf_id": "6112447B-5BA2-4750-BFF0-F1550D0D83A4",
           "library_name": "AWATestComposite",
@@ -42457,7 +42457,7 @@
         },
         "MSRPOPL": {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6908d0"
+            "$oid": "5d27851631fe5f6eb014cbae"
           },
           "hqmf_id": "4D76F3D2-9D1B-41D4-8965-4265F5B69EE5",
           "library_name": "AWATestComposite",
@@ -42465,21 +42465,21 @@
         },
         "MSRPOPLEX": {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6908d1"
+            "$oid": "5d27851631fe5f6eb014cbaf"
           },
           "hqmf_id": "2ADC88C8-6715-4BAD-8B61-816289798632",
           "library_name": "AWATestComposite",
           "statement_name": "Measure Population Exclusions"
         },
         "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908ce"
+          "$oid": "5d27851631fe5f6eb014cbac"
         },
         "_type": "CQM::ContinuousVariablePopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6908d2"
+            "$oid": "5d27851631fe5f6eb014cbb0"
           },
           "hqmf_id": null,
           "library_name": "AWATestComposite",
@@ -42487,7 +42487,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6908d3"
+            "$oid": "5d27851631fe5f6eb014cbb1"
           },
           "hqmf_id": null,
           "library_name": "AWATestComposite",
@@ -42495,7 +42495,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6908d4"
+            "$oid": "5d27851631fe5f6eb014cbb2"
           },
           "hqmf_id": null,
           "library_name": "AWATestComposite",
@@ -42503,7 +42503,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85931fe5ff6fc6908d5"
+            "$oid": "5d27851631fe5f6eb014cbb3"
           },
           "hqmf_id": null,
           "library_name": "AWATestComposite",
@@ -42516,7 +42516,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690203"
+        "$oid": "5d27851531fe5f6eb014c4e1"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -42532,16 +42532,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc69089d"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690203"
+        "$oid": "5d27851531fe5f6eb014c4e1"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -42551,7 +42546,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690204"
+        "$oid": "5d27851531fe5f6eb014c4e2"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -42567,16 +42562,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc69089e"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690204"
+        "$oid": "5d27851531fe5f6eb014c4e2"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -42586,7 +42576,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690205"
+        "$oid": "5d27851531fe5f6eb014c4e3"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1254",
@@ -42596,12 +42586,7 @@
       "description": "Allergy/Intolerance: InfluenzaVaccine",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc69089f"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690205"
+        "$oid": "5d27851531fe5f6eb014c4e3"
       },
       "prevalencePeriod": null,
       "qdmCategory": "allergy",
@@ -42614,7 +42599,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690206"
+        "$oid": "5d27851531fe5f6eb014c4e4"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1254",
@@ -42625,12 +42610,7 @@
       "dosage": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.112",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a0"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690206"
+        "$oid": "5d27851531fe5f6eb014c4e4"
       },
       "negationRationale": null,
       "qdmCategory": "immunization",
@@ -42639,12 +42619,13 @@
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.140",
       "reason": null,
+      "relevantDatetime": null,
       "route": null,
       "_type": "QDM::ImmunizationAdministered"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690207"
+        "$oid": "5d27851531fe5f6eb014c4e5"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1254",
@@ -42655,12 +42636,7 @@
       "dosage": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.112",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a1"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690207"
+        "$oid": "5d27851531fe5f6eb014c4e5"
       },
       "negationRationale": null,
       "qdmCategory": "immunization",
@@ -42669,12 +42645,13 @@
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.140",
       "reason": null,
+      "relevantDatetime": null,
       "route": null,
       "_type": "QDM::ImmunizationAdministered"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690208"
+        "$oid": "5d27851531fe5f6eb014c4e6"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.402",
@@ -42684,12 +42661,7 @@
       "description": "Allergy/Intolerance: InfluenzaVaccination",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a2"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690208"
+        "$oid": "5d27851531fe5f6eb014c4e6"
       },
       "prevalencePeriod": null,
       "qdmCategory": "allergy",
@@ -42702,7 +42674,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690209"
+        "$oid": "5d27851531fe5f6eb014c4e7"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -42714,22 +42686,19 @@
       "description": "Procedure, Performed: InfluenzaVaccination",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a3"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690209"
+        "$oid": "5d27851531fe5f6eb014c4e7"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -42737,7 +42706,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69020a"
+        "$oid": "5d27851531fe5f6eb014c4e8"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -42749,22 +42718,19 @@
       "description": "Procedure, Not Performed: InfluenzaVaccination",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a4"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69020a"
+        "$oid": "5d27851531fe5f6eb014c4e8"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -42772,7 +42738,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69020b"
+        "$oid": "5d27851531fe5f6eb014c4e9"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -42783,12 +42749,7 @@
       "description": "Diagnosis: StatusPostLeftMastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a5"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69020b"
+        "$oid": "5d27851531fe5f6eb014c4e9"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -42800,7 +42761,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69020c"
+        "$oid": "5d27851531fe5f6eb014c4ea"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -42811,12 +42772,7 @@
       "description": "Diagnosis: UnilateralMastectomyUnspecifiedLaterality",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a6"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69020c"
+        "$oid": "5d27851531fe5f6eb014c4ea"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -42828,7 +42784,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69020d"
+        "$oid": "5d27851531fe5f6eb014c4eb"
       },
       "authorDatetime": null,
       "category": null,
@@ -42839,12 +42795,7 @@
       "description": "Communication, Performed: InfluenzaVaccinationDeclined",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.132",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a7"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69020d"
+        "$oid": "5d27851531fe5f6eb014c4eb"
       },
       "medium": null,
       "negationRationale": null,
@@ -42852,14 +42803,14 @@
       "qdmStatus": "performed",
       "qdmTitle": "Communication, Performed",
       "qdmVersion": "5.4",
-      "recipient": null,
-      "relevantPeriod": null,
-      "sender": null,
+      "receivedDatetime": null,
+      "relatedTo": null,
+      "sentDatetime": null,
       "_type": "QDM::CommunicationPerformed"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69020e"
+        "$oid": "5d27851531fe5f6eb014c4ec"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.118.11.1219",
@@ -42870,12 +42821,7 @@
       "description": "Assessment, Performed: AmbulatoryStatus",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a8"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69020e"
+        "$oid": "5d27851531fe5f6eb014c4ec"
       },
       "method": null,
       "negationRationale": null,
@@ -42884,12 +42830,15 @@
       "qdmTitle": "Assessment, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relatedTo": null,
+      "relevantDatetime": null,
+      "relevantPeriod": null,
       "result": null,
       "_type": "QDM::AssessmentPerformed"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69020f"
+        "$oid": "5d27851531fe5f6eb014c4ed"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -42905,16 +42854,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908a9"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69020f"
+        "$oid": "5d27851531fe5f6eb014c4ed"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -42924,7 +42868,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690210"
+        "$oid": "5d27851531fe5f6eb014c4ee"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -42935,12 +42879,7 @@
       "description": "Diagnosis: Depressiondiagnosis",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908aa"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690210"
+        "$oid": "5d27851531fe5f6eb014c4ee"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -42952,7 +42891,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690211"
+        "$oid": "5d27851531fe5f6eb014c4ef"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -42963,12 +42902,7 @@
       "description": "Diagnosis: Osteoporosis",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908ab"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690211"
+        "$oid": "5d27851531fe5f6eb014c4ef"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -42980,7 +42914,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690212"
+        "$oid": "5d27851531fe5f6eb014c4f0"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -42992,22 +42926,19 @@
       "description": "Procedure, Performed: BilateralMastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908ac"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690212"
+        "$oid": "5d27851531fe5f6eb014c4f0"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -43015,7 +42946,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690213"
+        "$oid": "5d27851531fe5f6eb014c4f1"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -43024,12 +42955,7 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908ad"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690213"
+        "$oid": "5d27851531fe5f6eb014c4f1"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -43040,7 +42966,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690214"
+        "$oid": "5d27851531fe5f6eb014c4f2"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43051,12 +42977,7 @@
       "description": "Diagnosis: AllergytoInfluenzaVaccine",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908ae"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690214"
+        "$oid": "5d27851531fe5f6eb014c4f2"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -43068,7 +42989,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690215"
+        "$oid": "5d27851531fe5f6eb014c4f3"
       },
       "codeListId": "2.16.840.1.113883.3.560.100.2",
       "dataElementCodes": [
@@ -43077,12 +42998,7 @@
       "description": "Patient Characteristic Sex: Female",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908af"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690215"
+        "$oid": "5d27851531fe5f6eb014c4f3"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -43092,7 +43008,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690216"
+        "$oid": "5d27851531fe5f6eb014c4f4"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43103,12 +43019,7 @@
       "description": "Diagnosis: BipolarDiagnosis",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b0"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690216"
+        "$oid": "5d27851531fe5f6eb014c4f4"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -43120,7 +43031,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690217"
+        "$oid": "5d27851531fe5f6eb014c4f5"
       },
       "authorDatetime": null,
       "category": null,
@@ -43131,12 +43042,7 @@
       "description": "Communication, Performed: PreviousReceiptofInfluenzaVaccine",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.132",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b1"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690217"
+        "$oid": "5d27851531fe5f6eb014c4f5"
       },
       "medium": null,
       "negationRationale": null,
@@ -43144,14 +43050,14 @@
       "qdmStatus": "performed",
       "qdmTitle": "Communication, Performed",
       "qdmVersion": "5.4",
-      "recipient": null,
-      "relevantPeriod": null,
-      "sender": null,
+      "receivedDatetime": null,
+      "relatedTo": null,
+      "sentDatetime": null,
       "_type": "QDM::CommunicationPerformed"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690218"
+        "$oid": "5d27851531fe5f6eb014c4f6"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43162,12 +43068,7 @@
       "description": "Diagnosis: AllergytoEggs",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b2"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690218"
+        "$oid": "5d27851531fe5f6eb014c4f6"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -43179,7 +43080,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690219"
+        "$oid": "5d27851531fe5f6eb014c4f7"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43191,22 +43092,19 @@
       "description": "Procedure, Performed: Colonoscopy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b3"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690219"
+        "$oid": "5d27851531fe5f6eb014c4f7"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -43214,7 +43112,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69021a"
+        "$oid": "5d27851531fe5f6eb014c4f8"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43226,22 +43124,19 @@
       "description": "Procedure, Performed: FlexibleSigmoidoscopy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b4"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69021a"
+        "$oid": "5d27851531fe5f6eb014c4f8"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -43249,7 +43144,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69021b"
+        "$oid": "5d27851531fe5f6eb014c4f9"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43261,22 +43156,19 @@
       "description": "Procedure, Performed: PneumococcalVaccineAdministered",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b5"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69021b"
+        "$oid": "5d27851531fe5f6eb014c4f9"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -43284,7 +43176,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69021c"
+        "$oid": "5d27851531fe5f6eb014c4fa"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -43300,16 +43192,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b6"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69021c"
+        "$oid": "5d27851531fe5f6eb014c4fa"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -43319,7 +43206,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69021d"
+        "$oid": "5d27851531fe5f6eb014c4fb"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43331,22 +43218,19 @@
       "description": "Procedure, Performed: CTColonography",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b7"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69021d"
+        "$oid": "5d27851531fe5f6eb014c4fb"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -43354,7 +43238,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69021e"
+        "$oid": "5d27851531fe5f6eb014c4fc"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -43364,12 +43248,7 @@
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b8"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69021e"
+        "$oid": "5d27851531fe5f6eb014c4fc"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -43381,7 +43260,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69021f"
+        "$oid": "5d27851531fe5f6eb014c4fd"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -43391,12 +43270,7 @@
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908b9"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69021f"
+        "$oid": "5d27851531fe5f6eb014c4fd"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -43404,6 +43278,7 @@
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -43411,7 +43286,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690220"
+        "$oid": "5d27851531fe5f6eb014c4fe"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43422,12 +43297,7 @@
       "description": "Diagnosis: Historyofbilateralmastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908ba"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690220"
+        "$oid": "5d27851531fe5f6eb014c4fe"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -43439,7 +43309,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690221"
+        "$oid": "5d27851531fe5f6eb014c4ff"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.198.12.1011",
@@ -43450,12 +43320,7 @@
       "description": "Laboratory Test, Performed: FecalOccultBloodTest(FOBT)",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908bb"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690221"
+        "$oid": "5d27851531fe5f6eb014c4ff"
       },
       "method": null,
       "negationRationale": null,
@@ -43465,6 +43330,7 @@
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -43473,7 +43339,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690222"
+        "$oid": "5d27851531fe5f6eb014c500"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43484,12 +43350,7 @@
       "description": "Diagnosis: MalignantNeoplasmofColon",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908bc"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690222"
+        "$oid": "5d27851531fe5f6eb014c500"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -43501,7 +43362,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690223"
+        "$oid": "5d27851531fe5f6eb014c501"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43512,12 +43373,7 @@
       "description": "Diagnosis: IntolerancetoInfluenzaVaccine",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908bd"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690223"
+        "$oid": "5d27851531fe5f6eb014c501"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -43529,7 +43385,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690224"
+        "$oid": "5d27851531fe5f6eb014c502"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43541,22 +43397,19 @@
       "description": "Procedure, Performed: UnilateralMastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908be"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690224"
+        "$oid": "5d27851531fe5f6eb014c502"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -43564,7 +43417,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690225"
+        "$oid": "5d27851531fe5f6eb014c503"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -43573,12 +43426,7 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908bf"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690225"
+        "$oid": "5d27851531fe5f6eb014c503"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -43588,7 +43436,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690226"
+        "$oid": "5d27851531fe5f6eb014c504"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43599,12 +43447,7 @@
       "description": "Diagnosis: StatusPostRightMastectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c0"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690226"
+        "$oid": "5d27851531fe5f6eb014c504"
       },
       "prevalencePeriod": null,
       "qdmCategory": "condition",
@@ -43616,7 +43459,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690227"
+        "$oid": "5d27851531fe5f6eb014c505"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.110.12.1027",
@@ -43627,12 +43470,7 @@
       "dosage": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.112",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c1"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690227"
+        "$oid": "5d27851531fe5f6eb014c505"
       },
       "negationRationale": null,
       "qdmCategory": "immunization",
@@ -43641,12 +43479,13 @@
       "qdmVersion": "5.4",
       "qrdaOid": "2.16.840.1.113883.10.20.24.3.140",
       "reason": null,
+      "relevantDatetime": null,
       "route": null,
       "_type": "QDM::ImmunizationAdministered"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690228"
+        "$oid": "5d27851531fe5f6eb014c506"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.108.12.1039",
@@ -43657,12 +43496,7 @@
       "description": "Laboratory Test, Performed: FITDNA",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c2"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690228"
+        "$oid": "5d27851531fe5f6eb014c506"
       },
       "method": null,
       "negationRationale": null,
@@ -43672,6 +43506,7 @@
       "qdmVersion": "5.4",
       "reason": null,
       "referenceRange": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -43680,7 +43515,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690229"
+        "$oid": "5d27851531fe5f6eb014c507"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.198.12.1130",
@@ -43692,12 +43527,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c3"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690229"
+        "$oid": "5d27851531fe5f6eb014c507"
       },
       "method": null,
       "negationRationale": null,
@@ -43706,6 +43536,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -43714,7 +43545,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69022a"
+        "$oid": "5d27851531fe5f6eb014c508"
       },
       "anatomicalLocationSite": null,
       "authorDatetime": null,
@@ -43726,22 +43557,19 @@
       "description": "Procedure, Performed: TotalColectomy",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.67",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c4"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69022a"
+        "$oid": "5d27851531fe5f6eb014c508"
       },
       "incisionDatetime": null,
       "method": null,
       "negationRationale": null,
-      "ordinality": null,
+      "priority": null,
       "qdmCategory": "procedure",
       "qdmStatus": "performed",
       "qdmTitle": "Procedure, Performed",
       "qdmVersion": "5.4",
+      "rank": null,
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -43749,7 +43577,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69022b"
+        "$oid": "5d27851531fe5f6eb014c509"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -43758,12 +43586,7 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c5"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69022b"
+        "$oid": "5d27851531fe5f6eb014c509"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -43773,7 +43596,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69022c"
+        "$oid": "5d27851531fe5f6eb014c50a"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.526.3.1537",
@@ -43783,12 +43606,7 @@
       "description": "Allergy/Intolerance: EggSubstance",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.119",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c6"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69022c"
+        "$oid": "5d27851531fe5f6eb014c50a"
       },
       "prevalencePeriod": null,
       "qdmCategory": "allergy",
@@ -43801,7 +43619,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69022d"
+        "$oid": "5d27851531fe5f6eb014c50b"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.108.12.1018",
@@ -43813,12 +43631,7 @@
       "facilityLocation": null,
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c7"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69022d"
+        "$oid": "5d27851531fe5f6eb014c50b"
       },
       "method": null,
       "negationRationale": null,
@@ -43827,6 +43640,7 @@
       "qdmTitle": "Diagnostic Study, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "resultDatetime": null,
@@ -43835,7 +43649,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69022e"
+        "$oid": "5d27851531fe5f6eb014c50c"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.2449",
@@ -43846,12 +43660,7 @@
       "description": "Assessment, Performed: AdultDepressionScreening",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c8"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69022e"
+        "$oid": "5d27851531fe5f6eb014c50c"
       },
       "method": null,
       "negationRationale": null,
@@ -43860,12 +43669,15 @@
       "qdmTitle": "Assessment, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relatedTo": null,
+      "relevantDatetime": null,
+      "relevantPeriod": null,
       "result": null,
       "_type": "QDM::AssessmentPerformed"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc69022f"
+        "$oid": "5d27851531fe5f6eb014c50d"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.791",
@@ -43876,12 +43688,7 @@
       "description": "Assessment, Performed: PatientReasonrefused",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908c9"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc69022f"
+        "$oid": "5d27851531fe5f6eb014c50d"
       },
       "method": null,
       "negationRationale": null,
@@ -43890,12 +43697,15 @@
       "qdmTitle": "Assessment, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relatedTo": null,
+      "relevantDatetime": null,
+      "relevantPeriod": null,
       "result": null,
       "_type": "QDM::AssessmentPerformed"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690230"
+        "$oid": "5d27851531fe5f6eb014c50e"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -43904,12 +43714,7 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908ca"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690230"
+        "$oid": "5d27851531fe5f6eb014c50e"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -43919,7 +43724,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690231"
+        "$oid": "5d27851531fe5f6eb014c50f"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.118.12.1028",
@@ -43930,12 +43735,7 @@
       "description": "Assessment, Performed: FallsScreening",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908cb"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690231"
+        "$oid": "5d27851531fe5f6eb014c50f"
       },
       "method": null,
       "negationRationale": null,
@@ -43944,12 +43744,15 @@
       "qdmTitle": "Assessment, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relatedTo": null,
+      "relevantDatetime": null,
+      "relevantPeriod": null,
       "result": null,
       "_type": "QDM::AssessmentPerformed"
     },
     {
       "_id": {
-        "$oid": "5d14f85931fe5ff6fc690232"
+        "$oid": "5d27851531fe5f6eb014c510"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.600.1.1502",
@@ -43960,12 +43763,7 @@
       "description": "Assessment, Performed: MedicalorOtherreasonnotdone",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": {
-          "$oid": "5d14f85931fe5ff6fc6908cc"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85931fe5ff6fc690232"
+        "$oid": "5d27851531fe5f6eb014c510"
       },
       "method": null,
       "negationRationale": null,
@@ -43974,69 +43772,72 @@
       "qdmTitle": "Assessment, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relatedTo": null,
+      "relevantDatetime": null,
+      "relevantPeriod": null,
       "result": null,
       "_type": "QDM::AssessmentPerformed"
     }
   ],
   "title": "AWA Test Composite",
-  "updated_at": "2019-06-27T17:09:45.516Z",
+  "updated_at": "2019-07-11T18:51:02.500Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5d14f85931fe5ff6fc690235",
-    "5d14f85931fe5ff6fc690236",
-    "5d14f85931fe5ff6fc690237",
-    "5d14f85931fe5ff6fc690238",
-    "5d14f85931fe5ff6fc690239",
-    "5d14f85931fe5ff6fc69023a",
-    "5d14f85931fe5ff6fc69023b",
-    "5d14f85931fe5ff6fc69023c",
-    "5d14f85931fe5ff6fc69023d",
-    "5d14f85931fe5ff6fc69023e",
-    "5d14f85931fe5ff6fc69023f",
-    "5d14f85931fe5ff6fc690240",
-    "5d14f85931fe5ff6fc690241",
-    "5d14f85931fe5ff6fc690242",
-    "5d14f85931fe5ff6fc690243",
-    "5d14f85931fe5ff6fc690244",
-    "5d14f85931fe5ff6fc690245",
-    "5d14f85931fe5ff6fc690246",
-    "5d14f85931fe5ff6fc690247",
-    "5d14f85931fe5ff6fc690248",
-    "5d14f85931fe5ff6fc690249",
-    "5d14f85931fe5ff6fc69024a",
-    "5d14f85931fe5ff6fc69024b",
-    "5d14f85931fe5ff6fc69024c",
-    "5d14f85931fe5ff6fc69024d",
-    "5d14f85931fe5ff6fc69024e",
-    "5d14f85931fe5ff6fc69024f",
-    "5d14f85931fe5ff6fc690250",
-    "5d14f85931fe5ff6fc690251",
-    "5d14f85931fe5ff6fc690252",
-    "5d14f85931fe5ff6fc690253",
-    "5d14f85931fe5ff6fc690254",
-    "5d14f85931fe5ff6fc690255",
-    "5d14f85931fe5ff6fc690256",
-    "5d14f85931fe5ff6fc690257",
-    "5d14f85931fe5ff6fc690258",
-    "5d14f85931fe5ff6fc690259",
-    "5d14f85931fe5ff6fc69025a",
-    "5d14f85931fe5ff6fc69025b",
-    "5d14f85931fe5ff6fc69025c",
-    "5d14f85931fe5ff6fc69025d",
-    "5d14f85931fe5ff6fc69025e",
-    "5d14f85931fe5ff6fc69025f",
-    "5d14f85931fe5ff6fc690260",
-    "5d14f85931fe5ff6fc690261",
-    "5d14f85931fe5ff6fc690262",
-    "5d14f85931fe5ff6fc690263",
-    "5d14f85931fe5ff6fc690264",
-    "5d14f85931fe5ff6fc690265",
-    "5d14f85931fe5ff6fc690266",
-    "5d14f85931fe5ff6fc690267",
-    "5d14f85931fe5ff6fc690268",
-    "5d14f85931fe5ff6fc690269",
-    "5d14f85931fe5ff6fc69026a"
+    "5d27851631fe5f6eb014c513",
+    "5d27851631fe5f6eb014c514",
+    "5d27851631fe5f6eb014c515",
+    "5d27851631fe5f6eb014c516",
+    "5d27851631fe5f6eb014c517",
+    "5d27851631fe5f6eb014c518",
+    "5d27851631fe5f6eb014c519",
+    "5d27851631fe5f6eb014c51a",
+    "5d27851631fe5f6eb014c51b",
+    "5d27851631fe5f6eb014c51c",
+    "5d27851631fe5f6eb014c51d",
+    "5d27851631fe5f6eb014c51e",
+    "5d27851631fe5f6eb014c51f",
+    "5d27851631fe5f6eb014c520",
+    "5d27851631fe5f6eb014c521",
+    "5d27851631fe5f6eb014c522",
+    "5d27851631fe5f6eb014c523",
+    "5d27851631fe5f6eb014c524",
+    "5d27851631fe5f6eb014c525",
+    "5d27851631fe5f6eb014c526",
+    "5d27851631fe5f6eb014c527",
+    "5d27851631fe5f6eb014c528",
+    "5d27851631fe5f6eb014c529",
+    "5d27851631fe5f6eb014c52a",
+    "5d27851631fe5f6eb014c52b",
+    "5d27851631fe5f6eb014c52c",
+    "5d27851631fe5f6eb014c52d",
+    "5d27851631fe5f6eb014c52e",
+    "5d27851631fe5f6eb014c52f",
+    "5d27851631fe5f6eb014c530",
+    "5d27851631fe5f6eb014c531",
+    "5d27851631fe5f6eb014c532",
+    "5d27851631fe5f6eb014c533",
+    "5d27851631fe5f6eb014c534",
+    "5d27851631fe5f6eb014c535",
+    "5d27851631fe5f6eb014c536",
+    "5d27851631fe5f6eb014c537",
+    "5d27851631fe5f6eb014c538",
+    "5d27851631fe5f6eb014c539",
+    "5d27851631fe5f6eb014c53a",
+    "5d27851631fe5f6eb014c53b",
+    "5d27851631fe5f6eb014c53c",
+    "5d27851631fe5f6eb014c53d",
+    "5d27851631fe5f6eb014c53e",
+    "5d27851631fe5f6eb014c53f",
+    "5d27851631fe5f6eb014c540",
+    "5d27851631fe5f6eb014c541",
+    "5d27851631fe5f6eb014c542",
+    "5d27851631fe5f6eb014c543",
+    "5d27851631fe5f6eb014c544",
+    "5d27851631fe5f6eb014c545",
+    "5d27851631fe5f6eb014c546",
+    "5d27851631fe5f6eb014c547",
+    "5d27851631fe5f6eb014c548"
   ]
 }

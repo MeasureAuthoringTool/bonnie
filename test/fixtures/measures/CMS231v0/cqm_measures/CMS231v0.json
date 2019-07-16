@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f85831fe5ff6fc68f6f8"
+    "$oid": "5d27851431fe5f6eb014b9d6"
   },
   "calculate_sdes": null,
   "calculation_method": "PATIENT",
@@ -14,7 +14,7 @@
   "cql_libraries": [
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68f6f9"
+        "$oid": "5d27851431fe5f6eb014b9d7"
       },
       "cql": "library AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk version '0.4.000'\r\n\r\nusing QDM version '5.4'\r\n\r\ninclude MATGlobalCommonFunctions version '4.0.000' called Global\r\n\r\ncodesystem \"LOINC\": 'urn:oid:2.16.840.1.113883.6.1'\r\ncodesystem \"SNOMEDCT:2017-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2017-09'\r\n\r\nvalueset \"Ambulatory Status\": 'urn:oid:2.16.840.1.113883.3.464.1003.118.11.1219'\r\nvalueset \"Annual Wellness Visit\": 'urn:oid:2.16.840.1.113883.3.526.3.1240'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Falls Screening\": 'urn:oid:2.16.840.1.113883.3.464.1003.118.12.1028'\r\nvalueset \"Hospice care ambulatory\": 'urn:oid:2.16.840.1.113762.1.4.1108.15'\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Patient not ambulatory\": 'urn:oid:2.16.840.1.113883.3.464.1003.118.12.1009'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\n\r\ncode \"Birthdate\": '21112-8' from \"LOINC\" display 'Birthdate'\r\ncode \"Discharge to healthcare facility for hospice care (procedure)\": '428371000124100' from \"SNOMEDCT:2017-09\" display 'Discharge to healthcare facility for hospice care (procedure)'\r\ncode \"Discharge to home for hospice care (procedure)\": '428361000124107' from \"SNOMEDCT:2017-09\" display 'Discharge to home for hospice care (procedure)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Initial Population\":\r\n\texists ( [\"Patient Characteristic Birthdate\"] Birthdate\r\n\t\t\twhere Global.\"CalendarAgeInYearsAt\"(Birthdate.birthDatetime, start of \"Measurement Period\")>= 65\r\n\t)\r\n\t\tand exists \"Annual Wellness Visit Encounter\"\r\n\r\ndefine \"Annual Wellness Visit Encounter\":\r\n\t[\"Encounter, Performed\": \"Annual Wellness Visit\"] QualifyingEncounter\r\n\t\twhere QualifyingEncounter.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Ambulatory Status Assessed 12 Months Before or During AWV\":\r\n\t[\"Assessment, Performed\": \"Ambulatory Status\"] AmbulatoryStatusAssessed\r\n\t\twith \"Annual Wellness Visit Encounter\" WellnessVisit\r\n\t\t\tsuch that AmbulatoryStatusAssessed.authorDatetime 12 months or less on or before day of \r\n\t\t\tend of WellnessVisit.relevantPeriod\r\n\t\t\t\tand AmbulatoryStatusAssessed.result is not null\r\n\r\ndefine \"Not Ambulatory 12 Months Before or During AWV\":\r\n\texists ( \"Ambulatory Status Assessed 12 Months Before or During AWV\" AmbulatoryStatusAssessed\r\n\t\t\twhere AmbulatoryStatusAssessed.result in \"Patient not ambulatory\"\r\n\t)\r\n\r\ndefine \"Hospice 12 Months Before or During AWV\":\r\n\texists ( \"Annual Wellness Visit Encounter\" WellnessVisit\r\n\t\t\twith [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\r\n\t\t\t\tsuch that ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\r\n\t\t\t\t\t\tor DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\r\n\t\t\t\t)\r\n\t\t\t\t\tand DischargeHospice.relevantPeriod ends 12 months or less on or before day of \r\n\t\t\t\t\tend of WellnessVisit.relevantPeriod\r\n\t)\r\n\t\tor exists ( \"Annual Wellness Visit Encounter\" WellnessVisit\r\n\t\t\t\twith [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\r\n\t\t\t\t\tsuch that HospiceOrder.authorDatetime 12 months or less on or before day of \r\n\t\t\t\t\tend of WellnessVisit.relevantPeriod\r\n\t\t)\r\n\t\tor exists ( \"Annual Wellness Visit Encounter\" WellnessVisit\r\n\t\t\t\twith [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\r\n\t\t\t\t\tsuch that HospicePerformed.relevantPeriod 12 months or less on or before day of \r\n\t\t\t\t\tend of WellnessVisit.relevantPeriod\r\n\t\t)\r\n\r\ndefine \"Not Ambulatory 12 Months or More Before AWV\":\r\n\tLast([\"Assessment, Performed\": \"Ambulatory Status\"] PriorAmbulatoryStatus\r\n\t\t\twith \"Annual Wellness Visit Encounter\" WellnessVisit\r\n\t\t\t\tsuch that PriorAmbulatoryStatus.authorDatetime 12 months or more on or before day of \r\n\t\t\t\tend of WellnessVisit.relevantPeriod\r\n\t\t\tsort by authorDatetime\r\n\t).result in \"Patient not ambulatory\"\r\n\r\ndefine \"Numerator\":\r\n\texists [\"Assessment, Performed\": \"Falls Screening\"] FallsScreen\r\n\t\twith \"Annual Wellness Visit Encounter\" WellnessVisit\r\n\t\t\tsuch that FallsScreen.authorDatetime 12 months or less on or before day of \r\n\t\t\tend of WellnessVisit.relevantPeriod\r\n\r\ndefine \"Denominator Exclusions\":\r\n\t\"Not Ambulatory 12 Months Before or During AWV\"\r\n\t\tor ( \"Not Ambulatory 12 Months or More Before AWV\"\r\n\t\t\t\tand not exists \"Ambulatory Status Assessed 12 Months Before or During AWV\"\r\n\t\t)\r\n\t\tor \"Hospice 12 Months Before or During AWV\"",
       "elm": {
@@ -6969,49 +6969,49 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f6fa"
+            "$oid": "5d27851431fe5f6eb014b9d8"
           },
           "statement_name": "Patient"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f6fb"
+            "$oid": "5d27851431fe5f6eb014b9d9"
           },
           "statement_name": "SDE Ethnicity"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f6fc"
+            "$oid": "5d27851431fe5f6eb014b9da"
           },
           "statement_name": "SDE Payer"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f6fd"
+            "$oid": "5d27851431fe5f6eb014b9db"
           },
           "statement_name": "SDE Race"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f6fe"
+            "$oid": "5d27851431fe5f6eb014b9dc"
           },
           "statement_name": "SDE Sex"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f6ff"
+            "$oid": "5d27851431fe5f6eb014b9dd"
           },
           "statement_name": "Annual Wellness Visit Encounter"
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f700"
+            "$oid": "5d27851431fe5f6eb014b9de"
           },
           "statement_name": "Initial Population",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f701"
+                "$oid": "5d27851431fe5f6eb014b9df"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -7019,7 +7019,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f702"
+                "$oid": "5d27851431fe5f6eb014b9e0"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7029,13 +7029,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f703"
+            "$oid": "5d27851431fe5f6eb014b9e1"
           },
           "statement_name": "Denominator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f704"
+                "$oid": "5d27851431fe5f6eb014b9e2"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7045,13 +7045,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f705"
+            "$oid": "5d27851431fe5f6eb014b9e3"
           },
           "statement_name": "Ambulatory Status Assessed 12 Months Before or During AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f706"
+                "$oid": "5d27851431fe5f6eb014b9e4"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7061,13 +7061,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f707"
+            "$oid": "5d27851431fe5f6eb014b9e5"
           },
           "statement_name": "Not Ambulatory 12 Months Before or During AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f708"
+                "$oid": "5d27851431fe5f6eb014b9e6"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7077,13 +7077,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f709"
+            "$oid": "5d27851431fe5f6eb014b9e7"
           },
           "statement_name": "Hospice 12 Months Before or During AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f70a"
+                "$oid": "5d27851431fe5f6eb014b9e8"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7091,7 +7091,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f70b"
+                "$oid": "5d27851431fe5f6eb014b9e9"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7099,7 +7099,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f70c"
+                "$oid": "5d27851431fe5f6eb014b9ea"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7109,13 +7109,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f70d"
+            "$oid": "5d27851431fe5f6eb014b9eb"
           },
           "statement_name": "Not Ambulatory 12 Months or More Before AWV",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f70e"
+                "$oid": "5d27851431fe5f6eb014b9ec"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7125,13 +7125,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f70f"
+            "$oid": "5d27851431fe5f6eb014b9ed"
           },
           "statement_name": "Numerator",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f710"
+                "$oid": "5d27851431fe5f6eb014b9ee"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7141,13 +7141,13 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f711"
+            "$oid": "5d27851431fe5f6eb014b9ef"
           },
           "statement_name": "Denominator Exclusions",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f712"
+                "$oid": "5d27851431fe5f6eb014b9f0"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7155,7 +7155,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f713"
+                "$oid": "5d27851431fe5f6eb014b9f1"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7163,7 +7163,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f714"
+                "$oid": "5d27851431fe5f6eb014b9f2"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7171,7 +7171,7 @@
             },
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f715"
+                "$oid": "5d27851431fe5f6eb014b9f3"
               },
               "hqmf_id": null,
               "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -7183,7 +7183,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68f716"
+        "$oid": "5d27851431fe5f6eb014b9f4"
       },
       "cql": "library MATGlobalCommonFunctions version '4.0.000'\n\nusing QDM version '5.4'\n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \nvalueset \"Intensive Care Unit\": 'urn:oid:2.16.840.1.113762.1.4.1110.23' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"Encounter\":\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"]\n\ndefine \"Inpatient Encounter\":\n\t[\"Encounter, Performed\": \"Encounter Inpatient\"] EncounterInpatient\n\t\twhere \"LengthInDays\"(EncounterInpatient.relevantPeriod)<= 120\n\t\t\tand EncounterInpatient.relevantPeriod ends during \"Measurement Period\"\n\n/*ToDate takes a given DateTime value and returns a DateTime with the time components \"zeroed\", and the timezone of the input value, for example, given the DateTime @2012-01-01T06:30:00.0Z, this function will return @2012-01-01T00:00:00.0Z.*/\ndefine function \"ToDate\"(Value DateTime ):\n\tDateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)\n\n/*CalendarAgeInDaysAt calculates the calendar age (meaning the age without considering time components) in days.*/\ndefine function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tdays between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInDays calculates the calendar age (meaning the age without considering time components) in days as of today*/\ndefine function \"CalendarAgeInDays\"(BirthDateTime DateTime ):\n\tCalendarAgeInDaysAt(BirthDateTime, Today())\n\n/*CalendarAgeInMonthsAt calculates the calendar age (meaning the age without considering time components) in months.*/\ndefine function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tmonths between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInMonths calculates the calendar age (meaning the age without considering time components) in months as of today.*/\ndefine function \"CalendarAgeInMonths\"(BirthDateTime DateTime ):\n\tCalendarAgeInMonthsAt(BirthDateTime, Today())\n\n/*CalendarAgeInYearsAt calculates the calendar age (meaning the age without considering time components) in years.*/\ndefine function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n\tyears between ToDate(BirthDateTime)and ToDate(AsOf)\n\n/*CalendarAgeInYears calculates the calendar age (meaning the age without considering time components) in years as of today.*/\ndefine function \"CalendarAgeInYears\"(BirthDateTime DateTime ):\n\tCalendarAgeInYearsAt(BirthDateTime, Today())\n\n/*Hospitalization returns the total interval for admission to discharge for the given encounter, or for the admission of any immediately prior emergency department visit to the discharge of the given encounter.*/\ndefine function \"Hospitalization\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) X\n\t\treturn if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]\n\n/*calculates the difference in calendar days between the start and end of the given interval.*/\ndefine function \"LengthInDays\"(Value Interval<DateTime> ):\n\tdifference in days between start of Value and end of Value\n\n/* returns list of all locations within an encounter, including locations for immediately prior ED visit.  If data contains many encounters within 1 hour before the start of encounter error will occur indicating the hospitalization cannot be determined*/\ndefine function \"Hospitalization Locations\"(Encounter \"Encounter, Performed\" ):\n\t( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n\t\t\twhere EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n\t) ) EDEncounter\n\t\treturn if EDEncounter is null then Encounter.facilityLocations else flatten { EDEncounter.facilityLocations, Encounter.facilityLocations }\n\n/*Returns the length of stay in days (i.e. the number of days between admission and discharge) for the given encounter, or from the admission of any immediately prior emergency department visit to the discharge of the encounter*/\ndefine function \"Hospitalization Length of Stay\"(Encounter \"Encounter, Performed\" ):\n\tLengthInDays(\"Hospitalization\"(Encounter))\n\n/*Returns admission time for an encounter or for immediately prior emergency department visit.  If the data contain many encounters within 1 hour before the start of the encounter an error indicating hospitalization cannot be determined\n*/\ndefine function \"Hospital Admission Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of \"Hospitalization\"(Encounter)\n\n/*Hospital Discharge Time returns the discharge time for an encounter*/\ndefine function \"Hospital Discharge Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Encounter.relevantPeriod\n\n/*Returns earliest arrival time for an encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined\n*/\ndefine function \"Hospital Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of First((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the latest departure time for encounter including any prior ED visit. If the data contain multiple encounters within 1 hour before the start of the encounter, an error will occur indicating it cannot be unambiguously determined*/\ndefine function \"Hospital Departure Time\"(Encounter \"Encounter, Performed\" ):\n\tend of Last((\"Hospitalization Locations\"(Encounter))HospitalLocation\n\t\t\tsort by start of locationPeriod\n\t).locationPeriod\n\n/*Returns the arrival time in the ED for the encounter.  If the data contain multiple encounters within 1 hour before the start of the encounter or multiple ED locations an error will occur indicating it cannot be determined\n*/\ndefine function \"Emergency Department Arrival Time\"(Encounter \"Encounter, Performed\" ):\n\tstart of ( singleton from ( ( \"Hospitalization Locations\"(Encounter)) HospitalLocation\n\t\t\t\twhere HospitalLocation.code in \"Emergency Department Visit\"\n\t\t)\n\t).locationPeriod\n\n/*First Inpatient Intensive Care Unit returns the first intensive care unit for\nthe given encounter, without considering any immediately prior emergency\ndepartment visit.*/\ndefine function \"First Inpatient Intensive Care Unit\"(Encounter \"Encounter, Performed\" ):\n\tFirst((Encounter.facilityLocations)HospitalLocation\n\t\t\twhere HospitalLocation.code in \"Intensive Care Unit\"\n\t\t\t\tand HospitalLocation.locationPeriod during Encounter.relevantPeriod\n\t\t\tsort by start of locationPeriod\n\t)\n\n",
       "elm": {
@@ -15800,13 +15800,13 @@
       "statement_dependencies": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f717"
+            "$oid": "5d27851431fe5f6eb014b9f5"
           },
           "statement_name": "CalendarAgeInYearsAt",
           "statement_references": [
             {
               "_id": {
-                "$oid": "5d14f85831fe5ff6fc68f718"
+                "$oid": "5d27851431fe5f6eb014b9f6"
               },
               "hqmf_id": null,
               "library_name": "MATGlobalCommonFunctions",
@@ -15816,14 +15816,14 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f719"
+            "$oid": "5d27851431fe5f6eb014b9f7"
           },
           "statement_name": "ToDate"
         }
       ]
     }
   ],
-  "created_at": "2019-06-27T17:09:44.088Z",
+  "created_at": "2019-07-11T18:51:00.335Z",
   "description": "Percentage of patients ages 65 and older with an Annual Wellness Visit (AWV) during the measurement period who were screened for falls risk in the 12 months before or during the AWV",
   "hqmf_id": "40280382-610B-E7A4-0161-6CC42D3D2167",
   "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
@@ -16328,13 +16328,13 @@
   "population_sets": [
     {
       "_id": {
-        "$oid": "5d14f85831fe5ff6fc68f724"
+        "$oid": "5d27851431fe5f6eb014ba02"
       },
       "population_set_id": "PopulationCriteria1",
       "populations": {
         "DENEX": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f729"
+            "$oid": "5d27851431fe5f6eb014ba07"
           },
           "hqmf_id": "B6D5424F-E911-4688-9759-5BC7FCEBCA2E",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -16342,7 +16342,7 @@
         },
         "DENOM": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f727"
+            "$oid": "5d27851431fe5f6eb014ba05"
           },
           "hqmf_id": "D8E4FFD1-8B7B-4B3F-A9A3-9BF8DC51E529",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -16350,7 +16350,7 @@
         },
         "IPP": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f726"
+            "$oid": "5d27851431fe5f6eb014ba04"
           },
           "hqmf_id": "8DF5C762-DA90-4D43-BCD2-F266F6E75F83",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -16358,21 +16358,21 @@
         },
         "NUMER": {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f728"
+            "$oid": "5d27851431fe5f6eb014ba06"
           },
           "hqmf_id": "2B35FE50-8557-4415-9AC5-5F32225C427E",
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
           "statement_name": "Numerator"
         },
         "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f725"
+          "$oid": "5d27851431fe5f6eb014ba03"
         },
         "_type": "CQM::ProportionPopulationMap"
       },
       "supplemental_data_elements": [
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f72a"
+            "$oid": "5d27851431fe5f6eb014ba08"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -16380,7 +16380,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f72b"
+            "$oid": "5d27851431fe5f6eb014ba09"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -16388,7 +16388,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f72c"
+            "$oid": "5d27851431fe5f6eb014ba0a"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -16396,7 +16396,7 @@
         },
         {
           "_id": {
-            "$oid": "5d14f85831fe5ff6fc68f72d"
+            "$oid": "5d27851431fe5f6eb014ba0b"
           },
           "hqmf_id": null,
           "library_name": "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk",
@@ -16409,7 +16409,7 @@
   "source_data_criteria": [
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f60b"
+        "$oid": "5d27851431fe5f6eb014b8e9"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -16425,16 +16425,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f71a"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f60b"
+        "$oid": "5d27851431fe5f6eb014b8e9"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -16444,7 +16439,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f60c"
+        "$oid": "5d27851431fe5f6eb014b8ea"
       },
       "codeListId": "2.16.840.1.114222.4.11.3591",
       "dataElementCodes": [
@@ -16453,12 +16448,7 @@
       "description": "Patient Characteristic Payer: Payer",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.58",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f71b"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f60c"
+        "$oid": "5d27851431fe5f6eb014b8ea"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "payer",
@@ -16469,7 +16459,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f60d"
+        "$oid": "5d27851431fe5f6eb014b8eb"
       },
       "codeListId": "2.16.840.1.113762.1.4.1",
       "dataElementCodes": [
@@ -16478,12 +16468,7 @@
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f71c"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f60d"
+        "$oid": "5d27851431fe5f6eb014b8eb"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "gender",
@@ -16493,7 +16478,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f60e"
+        "$oid": "5d27851431fe5f6eb014b8ec"
       },
       "codeListId": "2.16.840.1.114222.4.11.837",
       "dataElementCodes": [
@@ -16502,12 +16487,7 @@
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f71d"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f60e"
+        "$oid": "5d27851431fe5f6eb014b8ec"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "ethnicity",
@@ -16517,7 +16497,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f60f"
+        "$oid": "5d27851431fe5f6eb014b8ed"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.118.11.1219",
@@ -16528,12 +16508,7 @@
       "description": "Assessment, Performed: AmbulatoryStatus",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f71e"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f60f"
+        "$oid": "5d27851431fe5f6eb014b8ed"
       },
       "method": null,
       "negationRationale": null,
@@ -16542,12 +16517,15 @@
       "qdmTitle": "Assessment, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relatedTo": null,
+      "relevantDatetime": null,
+      "relevantPeriod": null,
       "result": null,
       "_type": "QDM::AssessmentPerformed"
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f610"
+        "$oid": "5d27851431fe5f6eb014b8ee"
       },
       "codeListId": "2.16.840.1.114222.4.11.836",
       "dataElementCodes": [
@@ -16556,12 +16534,7 @@
       "description": "Patient Characteristic Race: Race",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f71f"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f610"
+        "$oid": "5d27851431fe5f6eb014b8ee"
       },
       "qdmCategory": "patient_characteristic",
       "qdmStatus": "race",
@@ -16571,7 +16544,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f611"
+        "$oid": "5d27851431fe5f6eb014b8ef"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -16581,12 +16554,7 @@
       "description": "Intervention, Order: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.35",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f720"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f611"
+        "$oid": "5d27851431fe5f6eb014b8ef"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -16598,7 +16566,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f612"
+        "$oid": "5d27851431fe5f6eb014b8f0"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113762.1.4.1108.15",
@@ -16608,12 +16576,7 @@
       "description": "Intervention, Performed: Hospicecareambulatory",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.36",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f721"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f612"
+        "$oid": "5d27851431fe5f6eb014b8f0"
       },
       "negationRationale": null,
       "qdmCategory": "intervention",
@@ -16621,6 +16584,7 @@
       "qdmTitle": "Intervention, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relevantDatetime": null,
       "relevantPeriod": null,
       "result": null,
       "status": null,
@@ -16628,7 +16592,7 @@
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f613"
+        "$oid": "5d27851431fe5f6eb014b8f1"
       },
       "authorDatetime": null,
       "codeListId": "2.16.840.1.113883.3.464.1003.118.12.1028",
@@ -16639,12 +16603,7 @@
       "description": "Assessment, Performed: FallsScreening",
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.117",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f722"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f613"
+        "$oid": "5d27851431fe5f6eb014b8f1"
       },
       "method": null,
       "negationRationale": null,
@@ -16653,12 +16612,15 @@
       "qdmTitle": "Assessment, Performed",
       "qdmVersion": "5.4",
       "reason": null,
+      "relatedTo": null,
+      "relevantDatetime": null,
+      "relevantPeriod": null,
       "result": null,
       "_type": "QDM::AssessmentPerformed"
     },
     {
       "_id": {
-        "$oid": "5d14f85731fe5ff6fc68f614"
+        "$oid": "5d27851431fe5f6eb014b8f2"
       },
       "admissionSource": null,
       "authorDatetime": null,
@@ -16674,16 +16636,11 @@
       ],
       "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
       "id": {
-        "_id": {
-          "$oid": "5d14f85831fe5ff6fc68f723"
-        },
-        "namingSystem": null,
-        "qdmVersion": "5.4",
-        "value": "5d14f85731fe5ff6fc68f614"
+        "$oid": "5d27851431fe5f6eb014b8f2"
       },
       "lengthOfStay": null,
       "negationRationale": null,
-      "principalDiagnosis": null,
+      "priority": null,
       "qdmCategory": "encounter",
       "qdmStatus": "performed",
       "qdmTitle": "Encounter, Performed",
@@ -16693,25 +16650,25 @@
     }
   ],
   "title": "Annual Wellness Assessment: Preventive Care (Screening for Falls Risk)",
-  "updated_at": "2019-06-27T17:09:44.088Z",
+  "updated_at": "2019-07-11T18:51:00.335Z",
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
   },
   "value_set_ids": [
-    "5d14f85831fe5ff6fc68f615",
-    "5d14f85831fe5ff6fc68f616",
-    "5d14f85831fe5ff6fc68f617",
-    "5d14f85831fe5ff6fc68f618",
-    "5d14f85831fe5ff6fc68f619",
-    "5d14f85831fe5ff6fc68f61a",
-    "5d14f85831fe5ff6fc68f61b",
-    "5d14f85831fe5ff6fc68f61c",
-    "5d14f85831fe5ff6fc68f61d",
-    "5d14f85831fe5ff6fc68f61e",
-    "5d14f85831fe5ff6fc68f61f",
-    "5d14f85831fe5ff6fc68f620",
-    "5d14f85831fe5ff6fc68f621",
-    "5d14f85831fe5ff6fc68f622",
-    "5d14f85831fe5ff6fc68f623"
+    "5d27851431fe5f6eb014b8f3",
+    "5d27851431fe5f6eb014b8f4",
+    "5d27851431fe5f6eb014b8f5",
+    "5d27851431fe5f6eb014b8f6",
+    "5d27851431fe5f6eb014b8f7",
+    "5d27851431fe5f6eb014b8f8",
+    "5d27851431fe5f6eb014b8f9",
+    "5d27851431fe5f6eb014b8fa",
+    "5d27851431fe5f6eb014b8fb",
+    "5d27851431fe5f6eb014b8fc",
+    "5d27851431fe5f6eb014b8fd",
+    "5d27851431fe5f6eb014b8fe",
+    "5d27851431fe5f6eb014b8ff",
+    "5d27851431fe5f6eb014b900",
+    "5d27851431fe5f6eb014b901"
   ]
 }

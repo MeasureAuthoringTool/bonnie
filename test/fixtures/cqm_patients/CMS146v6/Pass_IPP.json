@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "5d14f7e931fe5ff6f1e7d324"
+    "$oid": "5d278b8c31fe5f6f3e4b5b75"
   },
   "bundleId": "5a57e977942c6d1e61d32f14",
   "expectedValues": [
@@ -26,13 +26,13 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d14f7e931fe5ff6f1e7d325"
+      "$oid": "5d278b8c31fe5f6f3e4b5b76"
     },
     "birthDatetime": "2000-02-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d326"
+          "$oid": "5d278b8c31fe5f6f3e4b5b77"
         },
         "anatomicalLocationSite": null,
         "authorDatetime": "2012-02-07T08:00:00.000+00:00",
@@ -48,14 +48,9 @@
           }
         ],
         "description": "Diagnosis: Acute Pharyngitis",
-        "hqmfOid": "2.16.840.1.113883.10.20.28.3.110",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d327"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb77d7b848463d625b60da"
+          "$oid": "5d278b8c31fe5f6f3e4b5b77"
         },
         "prevalencePeriod": {
           "low": "2012-02-07T08:00:00.000Z",
@@ -65,14 +60,14 @@
         },
         "qdmCategory": "condition",
         "qdmTitle": "Diagnosis",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
         "severity": null,
         "_type": "QDM::Diagnosis"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d328"
+          "$oid": "5d278b8c31fe5f6f3e4b5b79"
         },
         "admissionSource": null,
         "authorDatetime": "2012-02-07T08:00:00.000+00:00",
@@ -95,25 +90,20 @@
         "facilityLocations": [
 
         ],
-        "hqmfOid": "2.16.840.1.113883.3.560.1.79",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d329"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb77d7b848463d625b60db"
+          "$oid": "5d278b8c31fe5f6f3e4b5b79"
         },
         "lengthOfStay": {
           "value": 2,
           "unit": "days"
         },
         "negationRationale": null,
-        "principalDiagnosis": null,
+        "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
         "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-02-07T08:00:00.000Z",
           "high": "2012-02-09T08:15:00.000Z",
@@ -124,7 +114,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d32a"
+          "$oid": "5d278b8c31fe5f6f3e4b5b7b"
         },
         "authorDatetime": "2012-02-09T08:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.464.1003.196.12.1001",
@@ -138,20 +128,15 @@
         "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
         "dosage": null,
         "frequency": null,
-        "hqmfOid": "2.16.840.1.113883.3.560.1.17",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d32b"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5aeb77d7b848463d625b60dc"
+          "$oid": "5d278b8c31fe5f6f3e4b5b7b"
         },
         "negationRationale": null,
         "qdmCategory": "medication",
         "qdmStatus": "order",
         "qdmTitle": "Medication, Order",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "reason": null,
         "refills": null,
         "relevantPeriod": {
@@ -167,7 +152,7 @@
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d320"
+          "$oid": "5d278b8c31fe5f6f3e4b5b71"
         },
         "birthDatetime": "2000-02-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -183,22 +168,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d32c"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e931fe5ff6f1e7d320"
+          "$oid": "5d278b8c31fe5f6f3e4b5b71"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d321"
+          "$oid": "5d278b8c31fe5f6f3e4b5b72"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -213,22 +193,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d32d"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e931fe5ff6f1e7d321"
+          "$oid": "5d278b8c31fe5f6f3e4b5b72"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicEthnicity"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d322"
+          "$oid": "5d278b8c31fe5f6f3e4b5b73"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -243,22 +218,17 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d32e"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e931fe5ff6f1e7d322"
+          "$oid": "5d278b8c31fe5f6f3e4b5b73"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
         "_id": {
-          "$oid": "5d14f7e931fe5ff6f1e7d323"
+          "$oid": "5d278b8c31fe5f6f3e4b5b74"
         },
         "codeListId": null,
         "dataElementCodes": [
@@ -273,17 +243,12 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
         "id": {
-          "_id": {
-            "$oid": "5d14f7e931fe5ff6f1e7d32f"
-          },
-          "namingSystem": null,
-          "qdmVersion": "5.4",
-          "value": "5d14f7e931fe5ff6f1e7d323"
+          "$oid": "5d278b8c31fe5f6f3e4b5b74"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
-        "qdmVersion": "5.4",
+        "qdmVersion": "5.5",
         "_type": "QDM::PatientCharacteristicSex"
       }
     ],
@@ -409,7 +374,7 @@
       "description_category": null,
       "insurance_providers": "[]"
     },
-    "qdmVersion": "5.4"
+    "qdmVersion": "5.5"
   },
   "user_id": {
     "$oid": "501fdba3044a111b98000001"
