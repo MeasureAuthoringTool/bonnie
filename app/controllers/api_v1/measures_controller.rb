@@ -36,7 +36,7 @@ module ApiV1
         return false unless value.is_a?(Rack::Test::UploadedFile) || value.is_a?(ActionDispatch::Http::UploadedFile)
         # Understand which sort of measure_file we are retrieving
         extension = File.extname(value.original_filename).downcase if value
-        return Measures::CqlLoader.mat_cql_export?(value) if extension == '.zip'
+        return Measures::MATMeasureFiles.valid_zip?(value) if extension == '.zip'
         false
       end
 
