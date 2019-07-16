@@ -427,16 +427,13 @@ namespace :bonnie do
             # Remove the transfer of sender and recipient if it is a CommunicationPerformed
             # dataElement. This is because sender and recipient changed from a QDM::Code datatype
             # to a QDM::Entity datatype
-            if element._type == "QDM::CommunicationPerformed"
-              type_fields -= %w{sender recipient}
-            end
+            type_fields -= %w{sender recipient} if element._type == "QDM::CommunicationPerformed"
 
             diagnoses = []
             # element is treated as a 5.5 model so principalDiagnosis does not return on the element
             # but still exists in the attributes. That is why respond_to? doesn't work
-            if element.attributes['principalDiagnosis'].present?
-              diagnoses << QDM::DiagnosisComponent.new(code: element.attributes['principalDiagnosis'], rank: 1)
-            end
+            diagnoses << QDM::DiagnosisComponent.new(code: element.attributes['principalDiagnosis'], rank: 1) if element.attributes['principalDiagnosis'].present?
+            
             if element.respond_to?('diagnoses') && element.diagnoses.present?
               element.diagnoses.each do |diagnosis|
                 diagnoses << QDM::DiagnosisComponent.new(code: diagnosis)
