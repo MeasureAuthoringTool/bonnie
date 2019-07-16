@@ -32,7 +32,7 @@ gem 'protected_attributes'
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
-
+gem 'rest-client'
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
 gem 'roo', '~> 2.7'
 
