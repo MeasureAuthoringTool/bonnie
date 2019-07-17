@@ -451,6 +451,7 @@ namespace :bonnie do
             new_data_element.attributes['id'] = element.attributes['id']['value'] if element.attributes['id'].present?
             new_data_element.diagnoses = diagnoses unless diagnoses.empty?
             new_data_element.relatedTo = relateds unless relateds.empty?
+            new_data_element.relevantDatetime = element['relevantPeriod']['low'] if element._type == 'QDM::AdverseEvent' && element['relevantPeriod'].present?
             new_data_element.patient = updated_qdm_patient
             diff << validate_patient_data(element, new_data_element)
             new_data_elements << new_data_element
@@ -519,6 +520,8 @@ namespace :bonnie do
         old_data_element.diagnoses.each_with_index do |original_diagnosis, index|
           differences.push(key) if original_diagnosis['code'] != new_data_element.diagnoses[index]['code'][:code]
         end
+      elsif key == 'relevantDatetime' && old_data_element.attributes['relevantPeriod'].present? && old_data_element._type == 'QDM::AdverseEvent'
+        differences.push(key) if old_data_element['relevantPeriod']['low'] != new_data_element.relevantDatetime
       elsif old_data_element.attributes[key] != new_data_element.attributes[key]
         begin
           # Check to see if symbolizing the keys was all that was necessary to make the values equal
