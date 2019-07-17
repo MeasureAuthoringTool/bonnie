@@ -34,13 +34,15 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       codeSystemName = @parent.measure.codeSystemMap()[value.system] || value.system
       return "#{codeSystemName}: #{value.code}"
 
-    # DateTime or Time
+    # Date, DateTime or Time
     else if value.isDateTime
       if value.isTime() # if it is a "Time"
         # The year, month, day get discarded so don't matter
         return moment(new Date(2012, 1, 1, value.hour, value.minute, value.second)).format('LT')
       else
         return moment.utc(value.toJSDate()).format('L LT')
+    else if value.isDate
+      return moment.utc(value.toJSDate()).format('L')
 
     # if this appears to be a mongoose complex type
     else if value.schema?

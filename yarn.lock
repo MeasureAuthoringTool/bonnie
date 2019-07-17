@@ -333,9 +333,9 @@ core-util-is@~1.0.0:
     moment "^2.20.1"
     ucum "0.0.7"
 
-"cqm-execution@https://github.com/projecttacoma/cqm-execution/#2019-standards-update":
+"cqm-execution@https://github.com/projecttacoma/cqm-execution#2019-standards-update":
   version "2.0.0"
-  resolved "https://github.com/projecttacoma/cqm-execution/#0f21099256dacee1452b7c87cf2c46afccb22960"
+  resolved "https://github.com/projecttacoma/cqm-execution#0f21099256dacee1452b7c87cf2c46afccb22960"
   dependencies:
     cqm-models "https://github.com/projecttacoma/cqm-models#2019-standards-update"
     lodash "^4.17.5"
@@ -765,9 +765,9 @@ mongoose-legacy-pluralize@1.0.2:
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
 mongoose@^5.4.14:
-  version "5.6.4"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.6.4.tgz#049ca8ad5ac16a528c23a20301579f7ac92fdb0e"
-  integrity sha512-mwMpa82uGvxSmkwTbxCmXb8/Nn9+2e+X61DiGFV9ZeenTsJKcdjc0QMGwDyDEkLcnYwQ5VrQbiB9548RZbFgVw==
+  version "5.6.5"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.6.5.tgz#fdddf9a3c588a670b81b23bec203440f5ddf2876"
+  integrity sha512-c8bIo8mxbf1ybwo9jgPKcJRICQBlIMKwDWt2A+M7h0AutroQ5EqzRAYOK1vrHwwwq00EcJyVwjVBW2wv8E9Wfw==
   dependencies:
     async "2.6.2"
     bson "~1.1.1"
