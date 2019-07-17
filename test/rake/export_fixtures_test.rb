@@ -74,7 +74,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
         /CMS32/
       ) { Rake::Task['bonnie:fixtures:generate_cqm_patient_fixtures_from_cql_patients'].invoke('bonnie@example.com') }
       assert_equal 12, `ls -l test/fixtures/cqm_patients/CMS* | wc -l`.to_i
-      assert_equal 11, `ls -l spec/javascripts/fixtures/json/patients/CMS* | wc -l`.to_i
+      assert_equal 12, `ls -l spec/javascripts/fixtures/json/patients/CMS* | wc -l`.to_i
     ensure
       FileUtils.rm_r 'test/fixtures/cqm_patients'
       FileUtils.mv 'test/fixtures/cqm_patients.back', 'test/fixtures/cqm_patients'
