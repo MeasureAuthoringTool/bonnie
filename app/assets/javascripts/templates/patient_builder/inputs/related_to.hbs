@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="form-group col-md-12">
+    <label for="related_to_id_{{@cid}}" class="sr-only">field value</label>
+    <select name="related_to" id="related_to_id_{{@cid}}" class="form-control">
+      <option value="">--</option>
+      {{#each sourceDataCriteria.models tag="select" name=""}}
+        <option value="{{attributes.id}}">{{attributes.qdmDataElement.description}}</option>
+      {{/each}}
+    </select>
+  </div>
+</div>

@@ -22,9 +22,21 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       # if is array type we need to list each element
       if info.instance == 'Array'
         @dataElement[path].forEach (elem, index) =>
-          displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(elem, true), isArrayValue: true, index: index })
+          if path == 'relatedTo'
+            id = elem
+            display = Thorax.Views.InputRelatedToView.getDisplayFromId(@parent.model.collection.parent.get('source_data_criteria'), id)
+            value = "#{@_stringifyValue(display.description, true)} #{@_stringifyValue(display.timing, true)}"
+            displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: value, isArrayValue: true, index: index })
+          else
+            displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(elem, true), isArrayValue: true, index: index })
       else
-        displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(@dataElement[path], true) })
+        if path == 'relatedTo'
+          id = @dataElement[path]
+          display = Thorax.Views.InputRelatedToView.getDisplayFromId(@parent.model.collection.parent.get('source_data_criteria'), id)
+          value = "#{@_stringifyValue(display.description, true)} #{@_stringifyValue(display.timing, true)}"
+          timing = displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: value })
+        else
+          displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(@dataElement[path], true) })
 
     _(super).extend
       displayAttributes: displayAttributes
