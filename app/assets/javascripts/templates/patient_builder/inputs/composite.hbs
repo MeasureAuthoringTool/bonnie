@@ -1,5 +1,10 @@
 <div class="row composite-input">
   {{#each componentViews}}
+    {{#if ../showLabels}}
+      <div class="col-md-12">
+        <span class="composite-label control-label" title="{{name}}"><i class="fa fa-chevron-right" aria-hidden="true"></i> {{title}}</span>
+      </div>
+    {{/if}}
     <div class="col-md-12">
       {{#if showPlaceholder}}
         No InputView available for {{type}} found.

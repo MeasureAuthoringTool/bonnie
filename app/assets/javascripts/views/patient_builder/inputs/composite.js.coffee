@@ -12,11 +12,11 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
 
     @componentViews = []
     @schema.eachPath (path, info) =>
-      # go on to the next one if it is an attribute that should be skipped
-      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
+      # go on to the next one if it is an attribute that should be skipped. Note that we want to include id here.
+      return if _.without(Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES, 'id').includes(path)
 
       type = @_determineType(path, info)
-      view = @_createInputViewForType(type, path)
+      view = @_createInputViewForType(type, path, info)
       if view?
         @listenTo(view, 'valueChanged', @handleComponentUpdate)
 
@@ -27,6 +27,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
         showPlaceholder: !view?
         type: type
       }
+    @showLabels = @typeName != 'Identifier'
 
   _determineType: (path, info) ->
     # If it is an interval, it may be one of DateTime or one of Quantity
@@ -38,14 +39,14 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
 
     # If it is an embedded type, we have to make guesses about the type
     else if info.instance == 'Embedded'
-      if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
-        return 'Id'
+      if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Identifer
+        return 'Identifier'
       else
         return '???' # TODO: Handle situation of unknown type better.
     else
       return info.instance
 
-  _createInputViewForType: (type, placeholderText) ->
+  _createInputViewForType: (type, placeholderText, info) ->
     inputView = switch type
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
       when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
@@ -58,6 +59,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'Any' then new Thorax.Views.InputAnyView({ attributeName: placeholderText, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
+      when 'Identifier' then new Thorax.Views.InputCompositeView({ schema: info.schema, typeName: type })
       else null
 
   handleComponentUpdate: ->

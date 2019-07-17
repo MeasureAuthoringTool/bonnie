@@ -40,11 +40,46 @@ describe 'InputView', ->
       expect(@facilityLocationView.componentViews.map((view) -> view.name)).toContain('code')
       expect(@facilityLocationView.componentViews.map((view) -> view.name)).toContain('locationPeriod')
 
-    xit 'populates ResultComponent views', ->
-      # TODO: Find measure that uses this
+    it 'populates ResultComponent views', ->
+      resultComponentView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.ResultComponentSchema,
+        typeName: 'ResultComponent',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      resultComponentView.render()
+      expect(resultComponentView.componentViews.length).toEqual 3
+      expect(resultComponentView.componentViews.map((view) -> view.name)).toContain('referenceRange')
+      expect(resultComponentView.componentViews.map((view) -> view.name)).toContain('code')
+      expect(resultComponentView.componentViews.map((view) -> view.name)).toContain('result')
 
-    xit 'populates Id views', ->
-      # TODO: Find measure that uses this
+    it 'populates Identifier views', ->
+      identifierView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.IdentifierSchema,
+        typeName: 'Identifier',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      identifierView.render()
+      expect(identifierView.componentViews.length).toEqual 2
+      expect(identifierView.componentViews.map((view) -> view.name)).toContain('namingSystem')
+      expect(identifierView.componentViews.map((view) -> view.name)).toContain('value')
+
+    it 'populates Practitioner entity views', ->
+      practitionerEntityView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.PractitionerSchema,
+        typeName: 'Practitioner',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      practitionerEntityView.render()
+      expect(practitionerEntityView.componentViews.length).toEqual 5
+      expect(practitionerEntityView.componentViews.map((view) -> view.name)).toContain('id')
+      expect(practitionerEntityView.componentViews.map((view) -> view.name)).toContain('identifier')
+      expect(practitionerEntityView.componentViews.map((view) -> view.name)).toContain('role')
+      expect(practitionerEntityView.componentViews.map((view) -> view.name)).toContain('specialty')
+      expect(practitionerEntityView.componentViews.map((view) -> view.name)).toContain('qualification')
+
+      # expect the first one to be identifier and to not show the labels.
+      expect(practitionerEntityView.componentViews[0].name).toEqual('identifier')
+      expect(practitionerEntityView.componentViews[0].view.showLabels).toBe(false)
 
     it 'allows for a Component to be added', ->
       expect(@view.value).toBeNull()
