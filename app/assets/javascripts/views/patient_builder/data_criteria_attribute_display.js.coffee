@@ -22,14 +22,14 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       # if is array type we need to list each element
       if info.instance == 'Array'
         @dataElement[path].forEach (elem, index) =>
-          displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(elem), isArrayValue: true, index: index })
+          displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(elem, true), isArrayValue: true, index: index })
       else
-        displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(@dataElement[path]) })
+        displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(@dataElement[path], true) })
 
     _(super).extend
       displayAttributes: displayAttributes
 
-  _stringifyValue: (value) ->
+  _stringifyValue: (value, topLevel=false) ->
     if value instanceof cqm.models.CQL.Code
       codeSystemName = @parent.measure.codeSystemMap()[value.system] || value.system
       return "#{codeSystemName}: #{value.code}"
@@ -46,9 +46,14 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     else if value.schema?
       attrStrings = []
       value.schema.eachPath (path, info) =>
-        return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path) || !value[path]?
-        attrStrings.push @_stringifyValue(value[path])
-      return attrStrings.join(', ')
+        return if _.without(Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES, 'id').includes(path) || !value[path]?
+        attrStrings.push path + ": " + @_stringifyValue(value[path])
+      attrString = attrStrings.join(', ')
+      if value._type?
+        attrString = "[#{value._type.replace('QDM::','')}] #{attrString}"
+      if !topLevel
+        attrString = "{ #{attrString} }"
+      return attrString
 
     # if this is an interval
     else if value.isInterval
