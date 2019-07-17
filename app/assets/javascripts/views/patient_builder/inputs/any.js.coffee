@@ -53,11 +53,12 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
 
   _createInputViewForType: (type, placeholderText) ->
     return switch type
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
-      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
-      when 'Quantity' then new Thorax.Views.InputQuantityView()
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
-      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false, placeholder: placeholderText })
+      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false })
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })
+      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false, placeholder: placeholderText })
+      when 'Quantity' then new Thorax.Views.InputQuantityView()
       when 'Ratio' then new Thorax.Views.InputRatioView()
+      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       else null
