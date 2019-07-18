@@ -21,8 +21,8 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
         @listenTo(view, 'valueChanged', @handleComponentUpdate)
 
       @componentViews.push {
-        title: path
-        name: path # TODO get pretty names made
+        title: Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[path] || path
+        name: path
         view: view
         showPlaceholder: !view?
         type: type

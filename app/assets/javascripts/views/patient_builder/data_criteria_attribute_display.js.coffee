@@ -49,7 +49,7 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       attrStrings = []
       value.schema.eachPath (path, info) =>
         return if _.without(Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES, 'id').includes(path) || !value[path]?
-        attrStrings.push path + ": " + @_stringifyValue(value[path])
+        attrStrings.push @model.getAttributeTitle(path) + ": " + @_stringifyValue(value[path])
       attrString = attrStrings.join(', ')
       if value._type?
         attrString = "[#{value._type.replace('QDM::','')}] #{attrString}"

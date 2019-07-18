@@ -72,6 +72,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     # double check we have a currently selected attribute and a valid value
     if @currentAttribute? && @inputView?.hasValidValue()
       if @currentAttribute.isArray
+        @dataElement[@currentAttribute.name] = [] if !@dataElement[@currentAttribute.name]?
         @dataElement[@currentAttribute.name].push(@inputView.value)
       else
         @dataElement[@currentAttribute.name] = @inputView.value
