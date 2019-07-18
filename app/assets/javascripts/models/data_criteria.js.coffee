@@ -82,7 +82,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       criteriaType = "#{criteriaType}_#{@get('qdmDataElement').qdmStatus}"
     criteriaType
 
-  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
+  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'relevantDatetime', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
 
   # the attributes to skip in user attribute view and editing fields
   @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', '_id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
@@ -104,9 +104,10 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
         )
     return primaryTimingAttributes
 
-  # TODO: Complete this or find a more appropiate location for this
+  # Mapping of attribute name to human friendly titles. This is globally acessible and used by view classes for labels.
   @ATTRIBUTE_TITLE_MAP:
     'relevantPeriod': 'Relevant Period'
+    'relevantDatetime': 'Relevant DateTime'
     'prevalencePeriod': 'Prevalence Period'
     'participationPeriod': 'Participation Period'
     'authorDatetime': 'Author DateTime'
@@ -117,26 +118,36 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     'category': 'Category'
     'cause': 'Cause'
     'birthDatetime': 'Birth DateTime'
+    'code': 'Code'
     'components': 'Components'
     'expiredDatetime': 'Expiration DateTime'
     'daysSupplied': 'Days Supplied'
     'diagnoses': 'Diagnoses'
     'dischargeDisposition': 'Discharge Disposition'
-    'dispenserId': 'Dispenser ID'
+    'dispenser': 'Dispenser'
     'dosage': 'Dosage'
     'facilityLocations': 'Facility Locations'
     'facilityLocation': 'Facility Location'
     'frequency': 'Frequency'
+    'identifier': 'Identifier'
     'incisionDatetime': 'Incision DateTime'
     'lengthOfStay': 'Length of Stay'
     'locationPeriod': 'Location Period'
     'medium': 'Medium'
     'method': 'Method'
+    'namingSystem': 'Naming System'
     'negationRationale': 'Negation Rationale'
     'ordinality': 'Ordinality'
-    'prescriberId': 'Prescriber ID'
+    'participant': 'Participant'
+    'performer': 'Performer'
+    'prescriber': 'Prescriber'
+    'presentOnAdmissionIndicator': 'Present on Admission Indicator'
     'principalDiagnosis': 'Principal Diagnosis'
+    'priority': 'Priority'
+    'qualification': 'Qualification'
+    'rank': 'Rank'
     'reason': 'Reason'
+    'receivedDatetime': 'Received DateTime'
     'recipient': 'Recipient'
     'referenceRange': 'Reference Range'
     'refills': 'Refills'
@@ -144,14 +155,21 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     'relationship': 'Relationship'
     'result': 'Result'
     'resultDatetime': 'Result DateTime'
+    'requester': 'Requester'
+    'recorder': 'Recorder'
+    'role': 'Role'
     'route': 'Route'
     'sender': 'Sender'
+    'sentDatetime': 'Sent DateTime'
     'setting': 'Setting'
     'severity': 'Severity'
+    'statusDate': 'Status Date'
+    'specialty': 'Specialty'
     'status': 'Status'
     'supply': 'Supply'
     'targetOutcome': 'Target Outcome'
     'type': 'Type'
+    'value': 'Value'
 
   getAttributeType: (attributeName) ->
     attrInfo = @get('qdmDataElement').schema.path(attributeName)
