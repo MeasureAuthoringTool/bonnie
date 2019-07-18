@@ -89,6 +89,14 @@ class MeasuresController < ApplicationController
         measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
         measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
         measure.save!
+        if measure.composite?
+          measure.component_hqmf_set_ids.each do |hqmf_set_id|
+            component_measure = CQM::Measure.by_user(current_user).where(hqmf_set_id: hqmf_set_id).first
+            component_measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
+            component_measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
+            component_measure.save!
+          end
+        end
       end
 
     else
