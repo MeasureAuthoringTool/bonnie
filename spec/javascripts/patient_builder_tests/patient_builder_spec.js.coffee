@@ -40,7 +40,6 @@ describe 'PatientBuilderView', ->
     expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
     expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
-
   it 'displays a warning if codes on dataElements do not exist on measure', ->
     @measure.attributes.cqmValueSets = []
     patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
@@ -51,6 +50,22 @@ describe 'PatientBuilderView', ->
     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
 
   it "toggles patient expiration correctly", ->
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMSvfffff/CMSv0.json', 'cqm_measure_data/CMSvfffff/value_sets.json'
+    @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMSvfffff/John_Smith.json')], parse: true
+    @patient = @patients.models[0]
+    @bonnie_measures_old = bonnie.measures
+    bonnie.measures = new Thorax.Collections.Measures()
+    bonnie.measures.add @measure
+    @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
+    # TODO: don't rely on first() for this. What should the criteria be?
+    @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
+    # Normally the first criteria can't have a value (wrong type); for testing we allow it
+    @patientDataElement = @patientBuilder.patients.first().get("cqmPatient").qdmPatient.dataElements[0]
+    @patientBuilder.render()
+    spyOn(@patientBuilder.model, 'materialize')
+    spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
+    @$el = @patientBuilder.$el
+
     @patientBuilder.appendTo 'body'
     # Press deceased check box and enter death date
     @patientBuilder.$('input[type=checkbox][name=expired]:first').click()
