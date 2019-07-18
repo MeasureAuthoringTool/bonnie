@@ -52,6 +52,33 @@ describe 'InputView', ->
       expect(resultComponentView.componentViews.map((view) -> view.name)).toContain('code')
       expect(resultComponentView.componentViews.map((view) -> view.name)).toContain('result')
 
+    it 'populates DiagnosisComponent views and allows for null rank and presentOnAdmissionIndicator', ->
+      diagnosisComponentView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.DiagnosisComponentSchema,
+        typeName: 'DiagnosisComponent',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      diagnosisComponentView.render()
+      expect(diagnosisComponentView.componentViews.length).toEqual 3
+      expect(diagnosisComponentView.componentViews.map((view) -> view.name)).toContain('code')
+      expect(diagnosisComponentView.componentViews.map((view) -> view.name)).toContain('presentOnAdmissionIndicator')
+      expect(diagnosisComponentView.componentViews.map((view) -> view.name)).toContain('rank')
+
+      # should be false and have no value because no code
+      expect(diagnosisComponentView.hasValidValue()).toBe false
+      expect(diagnosisComponentView.value).toBe null
+
+      # choose the diabetes valueset to set a code
+      codeView = diagnosisComponentView.componentViews[0]
+      expect(codeView.name).toEqual('code')
+      codeView.view.$('select[name="valueset"] > option[value="2.16.840.1.113883.3.464.1003.103.12.1001"]').prop('selected', true).change()
+
+      # check the value
+      expect(diagnosisComponentView.hasValidValue()).toBe true
+      expect(diagnosisComponentView.value.code).toEqual new cqm.models.CQL.Code("105401000119101", "2.16.840.1.113883.6.96", undefined, "Diabetes mellitus due to pancreatic injury (disorder)")
+      expect(diagnosisComponentView.value.presentOnAdmissionIndicator).toBe null
+      expect(diagnosisComponentView.value.rank).toBe null
+
     it 'populates Identifier views', ->
       identifierView = new Thorax.Views.InputCompositeView
         schema: cqm.models.IdentifierSchema,

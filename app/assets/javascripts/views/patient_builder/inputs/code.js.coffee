@@ -6,12 +6,15 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   #   initialValue - CQL Code - Optional. Initial value of code.
   #   cqmValueSets - List of CQM Value sets. Optional.
   #   codeSystemMap - Code system map of system oid to system names.
+  #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
   initialize: ->
     if @initialValue?
       @value = @initialValue
-      #
     else
       @value = null
+
+    if !@hasOwnProperty('allowNull')
+      @allowNull = false
 
   events:
     'change input': 'handleCustomInputChange'
@@ -71,7 +74,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    @value?
+    @allowNull || @value?
 
   # Event listener for the custom code input fields
   handleCustomInputChange: (e) ->
