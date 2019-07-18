@@ -231,8 +231,8 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   highlightPatientData: (dataCriteriaIDs) ->
     if @highlightPatientDataEnabled == true && @latestResult
       for dataCriteriaID in dataCriteriaIDs
-        dataCriteria = _.find(@latestResult.patient.get('source_data_criteria').models, (sdc) -> sdc.get('_id').toString() == dataCriteriaID)
-        dataCriteria.trigger('highlight', Thorax.Views.EditCriteriaView.highlight.valid)
+        dataCriteria = _.find(@latestResult.patient.get('source_data_criteria').models, (sdc) -> sdc.get('qdmDataElement')._id.toString() == dataCriteriaID)
+        dataCriteria?.trigger('highlight', Thorax.Views.EditCriteriaView.highlight.valid)
 
   ###*
   # Clears all highlighted patient data. Called by the CqlStatement if its statement is mouseout'd.
