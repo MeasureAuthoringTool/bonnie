@@ -14,6 +14,13 @@ describe 'InputView', ->
       expect(view.value).toBe null
       expect(view.$('select[name="valueset"]').val()).toBe '--'
 
+    it 'starts with no valid value but allows for null', ->
+      view = new Thorax.Views.InputCodeView(cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), allowNull: true)
+      view.render()
+      expect(view.hasValidValue()).toBe true
+      expect(view.value).toBe null
+      expect(view.$('select[name="valueset"]').val()).toBe '--'
+
     it 'starts with value in measure value sets', ->
       # in "Bipolar Disorder" oid "2.16.840.1.113883.3.67.1.101.1.128"
       initialCode = new cqm.models.CQL.Code('191618007', '2.16.840.1.113883.6.96', undefined, "Bipolar affective disorder, current episode manic (disorder)")
