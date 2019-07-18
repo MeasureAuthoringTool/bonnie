@@ -2,6 +2,11 @@
 class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/composite']
 
+  # Mapping of type to list of attributes that should allow null values
+  @OPTIONAL_ATTRS = {
+    'DiagnosisComponent': ['rank', 'presentOnAdmissionIndicator']
+  }
+
   # Expected options to be passed in using the constructor options hash:
   #   schema - MongooseSchema - Mongoose schema type.
   #   cqmValueSets - Array<CQM.ValueSet> - All valuesets on the measure.
@@ -46,21 +51,24 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
     else
       return info.instance
 
-  _createInputViewForType: (type, placeholderText, info) ->
+  _createInputViewForType: (type, attributeName, info) ->
     inputView = switch type
-      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
-      when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
-      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
-      when 'Quantity' then new Thorax.Views.InputQuantityView()
-      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
-      when 'String' then new Thorax.Views.InputStringView({ allowNull: false, placeholder: placeholderText })
-      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false, placeholder: placeholderText })
-      when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })
-      when 'Ratio' then new Thorax.Views.InputRatioView()
-      when 'Any' then new Thorax.Views.InputAnyView({ attributeName: placeholderText, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
+      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Time' then new Thorax.Views.InputTimeView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Quantity' then new Thorax.Views.InputQuantityView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'String' then new Thorax.Views.InputStringView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Decimal' then new Thorax.Views.InputDecimalView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Ratio' then new Thorax.Views.InputRatioView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Any' then new Thorax.Views.InputAnyView({ attributeName: attributeName, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Identifier' then new Thorax.Views.InputCompositeView({ schema: info.schema, typeName: type })
       else null
+
+  _attrShouldAllowNull: (attributeName) ->
+    return Thorax.Views.InputCompositeView.OPTIONAL_ATTRS[@typeName]?.includes(attributeName)
 
   handleComponentUpdate: ->
     componentsValues = @_getAllComponentValuesIfValid()
