@@ -132,21 +132,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @model.setCqmPatientDeathDate(deathdate, @measure) if deathdate
       @model.setCqmPatientRace(attr.race, @measure) if attr.race
       @model.setCqmPatientEthnicity(attr.ethnicity, @measure) if attr.ethnicity
-      # TODO investigate wether we should remove race/ethnicity like this
-      # @model.setCqmPatientPayer(attr.payer, @measure) if attr.payer
       @model.setCqmPatientNotes(attr.notes) if attr.notes
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
-    # birthdatetime = moment.utc(@model.get('birthdate'), 'X') if @model.has('birthdate') && !!@model.get('birthdate')
-    # deathdatetime = moment.utc(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
     _(super).extend
       measureTitle: @cqmMeasure.title
       measureDescription: @cqmMeasure.description
-      # birthdate: birthdatetime?.format('L')
-      # birthtime: birthdatetime?.format('LT')
-      # deathdate: deathdatetime?.format('L')
-      # deathtime: deathdatetime?.format('LT')
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
@@ -248,6 +240,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     expiredElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
     if expiredElement
       @model.get('cqmPatient').qdmPatient.dataElements.remove(expiredElement)
+    @materialize()
     @$('#expired').focus()
 
   setAffix: ->

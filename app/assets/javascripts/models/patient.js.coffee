@@ -31,6 +31,7 @@ class Thorax.Models.Patient extends Thorax.Model
     clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expectedValues, parent: clonedPatient, parse: true)
     if options.dedupName
       clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
+    clonedPatient.set 'expired', (clonedPatient.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
     clonedPatient
 
   getValidMeasureIds: (measures) ->
@@ -104,17 +105,20 @@ class Thorax.Models.Patient extends Thorax.Model
       return # Patient characteristic birthdate was not found on the measure, so it won't be placed on the patient
     sourceElement.birthDatetime = @get('cqmPatient').qdmPatient.birthDatetime.copy()
     if sourceElement.codeListId?
-      birthdateConcept = (@getConceptsForDataElement('birthdate', measure).filter (elem) -> elem.code == birthdate)[0]
+      birthdateConcept = @getConceptsForDataElement('birthdate', measure)[0]
       sourceElement.dataElementCodes[0] = @conceptToCode(birthdateConcept)
-    else
-      sourceElement.dataElementCodes[0] = new cqm.models.CQL.Code('21112-8', '2.16.840.1.113883.6.1', undefined, 'Birth date')
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
-
   setCqmPatientDeathDate: (deathdate, measure) ->
     sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicExpired()
-    sourceElement.expiredDatetime = @createCQLDate(moment.utc(deathdate, 'L LT').toDate())
+      return # Patient characteristic expired was not found on the measure, so it won't be placed on the patient    
+    if (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').expiredDatetime
+      sourceElement.expiredDatetime = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').expiredDatetime.copy()
+    if !sourceElement.expiredDatetime
+      sourceElement.expiredDatetime = @createCQLDate(moment.utc(deathdate, 'L LT').toDate())
+    if sourceElement.codeListId?
+      deathdateConcept = @getConceptsForDataElement('expired', measure)[0]
+      sourceElement.dataElementCodes[0] = @conceptToCode(deathdateConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
   setCqmPatientGender: (gender, measure) ->
     sourceElement = @removeElementAndGetNewCopy('gender', measure.get('cqmMeasure'))
@@ -178,34 +182,6 @@ class Thorax.Models.Patient extends Thorax.Model
 
   materialize: ->
     @trigger 'materialize'
-    # # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
-    # # "changed" functionality because that doesn't capture new sub-models
-    # patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
-    # return if @previousPatientJSON == patientJSON
-    # @previousPatientJSON = patientJSON
-
-    # $.ajax
-    #   url:         "#{@urlRoot}/materialize"
-    #   type:        'POST'
-    #   dataType:    'json'
-    #   contentType: 'application/json'
-    #   data:        JSON.stringify @toJSON()
-    #   processData: false
-    # .done (data) =>
-    #   # We only want to overwrite certain fields; if the server doesn't provide them, we want them emptied
-    #   defaults = {}
-    #   defaults[section] = [] for section in Thorax.Models.Patient.sections
-    #   @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
-    #   for criterium, i in @get('source_data_criteria').models
-    #     criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
-    #     # if we already have codes, then we know we're up to date; no change is necessary
-    #     if criterium.get('codes').isEmpty()
-    #       criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
-    #   @previousPatientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections) # Capture post-materialize changes too
-    #   @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
-    #   $('#ariaalerts').html "This patient has been updated" #tell SR something changed
-    # .fail ->
-    #   bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
 
   getExpectedValue: (population) ->
     measure = population.collection.parent
@@ -239,7 +215,7 @@ class Thorax.Models.Patient extends Thorax.Model
     errors = []
     birthdate = if @get('cqmPatient').qdmPatient.birthDatetime then moment(@get('cqmPatient').qdmPatient.birthDatetime, 'X') else null
     expiredElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
-    deathdate = if @get('expired') && expiredElement.expiredDatetime then moment(expiredElement.expiredDatetime, 'X') else null
+    deathdate = if @get('expired') && expiredElement?.expiredDatetime then moment(expiredElement.expiredDatetime, 'X') else null
 
     unless @getFirstName()?.length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
