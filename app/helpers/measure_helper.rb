@@ -196,9 +196,15 @@ module MeasureHelper
     existing = CQM::Measure.by_user(user).where({:hqmf_set_id=> target_id}).first
     raise MeasureUpdateMeasureNotFound.new if existing.nil?
     measure_details = extract_measure_details_from_measure(existing)
+    original_year = existing.measure_period['low']['value'][0..3]
 
     measures, main_hqmf_set_id = extract_measures!(uploaded_file.tempfile, measure_details, value_set_loader)
     raise MeasureLoadingUpdatingWithMismatchedMeasure.new if main_hqmf_set_id != existing.hqmf_set_id
+    # Maintain the year shift if there was one
+    measures.each do |measure|
+      measure.measure_period[:low][:value] = original_year + '01010000' # Jan 1, 00:00
+      measure.measure_period[:high][:value] = original_year + '12312359' # Dec 31, 23:59
+    end
     delete_for_update(existing, user)
     save_and_post_process(measures, user)
     return measures, main_hqmf_set_id
@@ -235,7 +241,7 @@ module MeasureHelper
           params[:vsac_query_release]
         end
     else
-      vsac_options[:profile] = 
+      vsac_options[:profile] =
         if get_defaults_from_vsac
           params.fetch(:vsac_query_profile, api.get_latest_profile_for_program(APP_CONFIG['vsac']['default_program']))
         else
