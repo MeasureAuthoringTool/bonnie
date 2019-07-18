@@ -104,7 +104,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
         )
     return primaryTimingAttributes
 
-  # TODO: Complete this or find a more appropiate location for this
+  # Mapping of attribute name to human friendly titles. This is globally acessible and used by view classes for labels.
   @ATTRIBUTE_TITLE_MAP:
     'relevantPeriod': 'Relevant Period'
     'relevantDatetime': 'Relevant DateTime'
