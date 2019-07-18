@@ -112,8 +112,9 @@ class Thorax.Models.Patient extends Thorax.Model
     sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
     if !sourceElement
       return # Patient characteristic expired was not found on the measure, so it won't be placed on the patient    
-    if (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').expiredDatetime
-      sourceElement.expiredDatetime = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').expiredDatetime.copy()
+    expiredElement = @get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired'
+    if expiredElement and expiredElement.expiredDatetime
+      sourceElement.expiredDatetime = expiredElement.expiredDatetime.copy()
     if !sourceElement.expiredDatetime
       sourceElement.expiredDatetime = @createCQLDate(moment.utc(deathdate, 'L LT').toDate())
     if sourceElement.codeListId?
@@ -140,13 +141,6 @@ class Thorax.Models.Patient extends Thorax.Model
       sourceElement = new cqm.models.PatientCharacteristicEthnicity()
     ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
     sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
-    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
-  setCqmPatientPayer: (payer, measure) ->
-    sourceElement = @removeElementAndGetNewCopy('payer', measure.get('cqmMeasure'))
-    if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicPayer()
-    payerConcept = (@getConceptsForDataElement('payer', measure).filter (elem) -> elem.code == payer)[0]
-    sourceElement.dataElementCodes[0] = @conceptToCode(payerConcept)
     @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
 
   removeElementAndGetNewCopy: (elementType, cqmMeasure) ->
