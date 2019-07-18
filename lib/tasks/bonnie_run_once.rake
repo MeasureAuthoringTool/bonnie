@@ -408,51 +408,53 @@ namespace :bonnie do
     If no email is provided, rake task will run on all measures
   $ rake bonnie:convert_patients_qdm_5_4_to_5_5 EMAIL=xxx}
   task :convert_patients_qdm_5_4_to_5_5 => :environment do
-    user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+    user = User.find_by email: ENV['EMAIL'] if ENV['EMAIL']
     raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
-    bonnie_patients = user ? CQM::Patient.by_user(user) : CQM::Patient.all
+    bonnie_patients = user ? Mongoid.default_client.database['cqm_patients'].find(user_id: user._id) : Mongoid.default_client.database['cqm_patients'].find()
     count = 0
     puts "Total patients in account: #{bonnie_patients.count}"
     ignored_fields = ['_id', 'qdmVersion', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmStatus']
-    bonnie_patients.no_timeout.each do |bonnie_patient|
+    bonnie_patients.each do |bonnie_patient|
       begin
         print ".".green
         new_data_elements = []
         diff = []
-        updated_qdm_patient = bonnie_patient.qdmPatient
-        updated_qdm_patient.qdmVersion = "5.5"
-        updated_qdm_patient.dataElements.each do |element|
+        updated_qdm_patient = bonnie_patient['qdmPatient']
+        updated_qdm_patient['qdmVersion'] = "5.5"
+        updated_qdm_patient['dataElements'].each do |element|
           begin
-            type_fields = Object.const_get(element._type).fields.keys - ignored_fields
+            type_fields = Object.const_get(element['_type']).fields.keys - ignored_fields
             # Remove the transfer of sender and recipient if it is a CommunicationPerformed
             # dataElement. This is because sender and recipient changed from a QDM::Code datatype
             # to a QDM::Entity datatype
-            type_fields -= %w{sender recipient} if element._type == "QDM::CommunicationPerformed"
+            type_fields -= %w{sender recipient} if element['_type'] == 'QDM::CommunicationPerformed'
 
             diagnoses = []
             # element is treated as a 5.5 model so principalDiagnosis does not return on the element
             # but still exists in the attributes. That is why respond_to? doesn't work
-            diagnoses << QDM::DiagnosisComponent.new(code: element.attributes['principalDiagnosis'], rank: 1) if element.attributes['principalDiagnosis'].present?
-            
-            if element.respond_to?('diagnoses') && element.diagnoses.present?
-              element.diagnoses.each do |diagnosis|
+            diagnoses << QDM::DiagnosisComponent.new(code: element['principalDiagnosis'], rank: 1) if element['principalDiagnosis'].present?
+
+            if element['diagnoses'].present?
+              element['diagnoses'].each do |diagnosis|
                 diagnoses << QDM::DiagnosisComponent.new(code: diagnosis)
               end
             end
-            
+
             relateds = []
-            if element.respond_to?('relatedTo') && element.relatedTo.present?
-              element.relatedTo.each do |related|
+            if element['relatedTo'].present?
+              element['relatedTo'].each do |related|
                 relateds << related['value']
               end
             end
 
-            new_data_element = Object.const_get(element._type).new(element.as_json(only: type_fields))
-            new_data_element.attributes['id'] = element.attributes['id']['value'] if element.attributes['id'].present?
+            (element.keys - type_fields).each do |ignored_field|
+              element.delete(ignored_field)
+            end
+            new_data_element = Object.const_get(element['_type']).new(element)
+            new_data_element.id = element['id']['value'] if element['id'].present?
             new_data_element.diagnoses = diagnoses unless diagnoses.empty?
             new_data_element.relatedTo = relateds unless relateds.empty?
-            new_data_element.relevantDatetime = element['relevantPeriod']['low'] if element._type == 'QDM::AdverseEvent' && element['relevantPeriod'].present?
-            new_data_element.patient = updated_qdm_patient
+            new_data_element.relevantDatetime = element['relevantPeriod']['low'] if element['_type'] == 'QDM::AdverseEvent' && element['relevantPeriod'].present?
             diff << validate_patient_data(element, new_data_element)
             new_data_elements << new_data_element
           rescue Exception => e
@@ -464,9 +466,9 @@ namespace :bonnie do
 
         diff.each do |element_diff|
           unless element_diff.empty?
-            user = User.find_by _id: bonnie_patient.user_id
+            user = User.find_by _id: bonnie_patient['user_id']
             puts "\nConversion Difference".yellow
-            puts "Patient #{bonnie_patient.givenNames[0]} #{bonnie_patient.familyName} with id #{bonnie_patient._id} in account #{user.email}".yellow
+            puts "Patient #{bonnie_patient['givenNames'][0]} #{bonnie_patient['familyName']} with id #{bonnie_patient['_id']} in account #{user.email}".yellow
             element_diff.each_entry do |element|
               if element == 'sender' || element == 'recipient'
                 puts "--- #{element} --- Is different from CQL Record, this is expected because sender & recipient were type QDM::Code in 5.4 and are now type QDM::Entity in 5.5, so data is lost".light_blue
@@ -479,27 +481,27 @@ namespace :bonnie do
           end
         end
         # Remove all old data elements from the patient
-        updated_qdm_patient.dataElements.destroy_all
+        updated_qdm_patient['dataElements'] = []
         # Add all new data elements to the patient
-        new_data_elements.each { |item| updated_qdm_patient.dataElements << item }
+        new_data_elements.each { |item| updated_qdm_patient['dataElements'] << item.as_document }
         begin
-          bonnie_patient.save!
+          Mongoid.default_client.database['cqm_patients'].update_one({_id: bonnie_patient['_id']}, bonnie_patient)
         rescue Mongo::Error => e
-          user = User.find_by _id: bonnie_patient.user_id
+          user = User.find_by _id: bonnie_patient['user_id']
           print_error("#{e}: #{user.email}, first: #{user.givenNames[0]}, last: #{user.familyName}")
         end
         count += 1
       rescue ExecJS::ProgramError, StandardError => e
         # if there was a conversion failure we should record the resulting failure message with the hds model in a
         # separate collection to return
-        user = User.find_by _id: bonnie_patient.user_id
-        if bonnie_patient.measure_ids.first.nil?
-          puts "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
-        elsif CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first.nil?
-          puts "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient.measure_ids.first}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
+        user = User.find_by _id: bonnie_patient['user_id']
+        if bonnie_patient['measure_ids'].first.nil?
+          puts "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
+        elsif CQM::Measure.where(hqmf_set_id: bonnie_patient['measure_ids'].first, user_id: bonnie_patient['user_id']).first.nil?
+          puts "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient['measure_ids'].first}\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
         else
-          measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first
-          puts "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}".light_red
+          measure = CQM::Measure.where(hqmf_set_id: bonnie_patient['measure_ids'].first, user_id: bonnie_patient['user_id']).first
+          puts "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
         end
       end
     end
@@ -509,23 +511,23 @@ namespace :bonnie do
   def validate_patient_data(old_data_element, new_data_element)
     ignored_fields = ['_id', 'qdmVersion', 'hqmfOid']
     differences = []
-    (old_data_element.fields.keys - ignored_fields).each do |key|
+    (old_data_element.keys - ignored_fields).each do |key|
       if key == 'id'
-        differences.push(key) if old_data_element.attributes[key]['value'] != new_data_element.attributes[key]
-      elsif key == 'relatedTo' && old_data_element.attributes[key].present?
-        old_data_element.relatedTo.each_with_index do |related, index|
-          differences.push(key) if related['value'] != new_data_element.attributes['relatedTo'][index]
+        differences.push(key) if old_data_element[key]['value'] != new_data_element[key]
+      elsif key == 'relatedTo' && old_data_element[key].present?
+        old_data_element['relatedTo'].each_with_index do |related, index|
+          differences.push(key) if related['value'] != new_data_element['relatedTo'][index]
         end
-      elsif key == 'diagnoses' && old_data_element.attributes[key].present?
-        old_data_element.diagnoses.each_with_index do |original_diagnosis, index|
+      elsif key == 'diagnoses' && old_data_element[key].present?
+        old_data_element['diagnoses'].each_with_index do |original_diagnosis, index|
           differences.push(key) if original_diagnosis['code'] != new_data_element.diagnoses[index]['code'][:code]
         end
-      elsif key == 'relevantDatetime' && old_data_element.attributes['relevantPeriod'].present? && old_data_element._type == 'QDM::AdverseEvent'
+      elsif key == 'relevantDatetime' && old_data_element['relevantPeriod'].present? && old_data_element['_type'] == 'QDM::AdverseEvent'
         differences.push(key) if old_data_element['relevantPeriod']['low'] != new_data_element.relevantDatetime
-      elsif old_data_element.attributes[key] != new_data_element.attributes[key]
+      elsif old_data_element[key] != new_data_element[key]
         begin
           # Check to see if symbolizing the keys was all that was necessary to make the values equal
-          differences.push(key) if old_data_element.attributes[key].symbolize_keys != new_data_element.attributes[key]
+          differences.push(key) if old_data_element[key].symbolize_keys != new_data_element[key]
         rescue StandardError => e
           differences.push(key)
         end
