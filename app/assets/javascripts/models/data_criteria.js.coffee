@@ -118,6 +118,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     'category': 'Category'
     'cause': 'Cause'
     'birthDatetime': 'Birth DateTime'
+    'code': 'Code'
     'components': 'Components'
     'expiredDatetime': 'Expiration DateTime'
     'daysSupplied': 'Days Supplied'
