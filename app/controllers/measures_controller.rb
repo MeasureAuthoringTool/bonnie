@@ -84,6 +84,8 @@ class MeasuresController < ApplicationController
       year_shift = year.to_i - original_year.to_i
       if (params[:measurement_period_shift_dates] == "true")
         successful_patient_shift = shift_years(measure, year_shift)
+      else # No patients to shift dates on, so just save to measure
+        successful_patient_shift = true
       end
       if successful_patient_shift
         measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
