@@ -133,6 +133,7 @@ namespace :bonnie do
       bonnie_cql_measures = user ? CqlMeasure.by_user(user) : CqlMeasure.all
 
       fail_count = 0
+      with_differences = 0
       puts "**** Starting to convert measures! ****\n\n"
       bonnie_cql_measures.each do |measure|
         begin
@@ -148,6 +149,7 @@ namespace :bonnie do
             cqm_measure.package = cqm_package
           end
           cqm_measure.save!
+
           # Verify Measure was converted properly
           diff = measure_conversion_diff(measure, cqm_measure)
           if diff.empty?
@@ -159,7 +161,7 @@ namespace :bonnie do
             diff.each_entry do |element|
               puts "--- #{element} --- Is different from CQL measure".light_blue
             end
-            fail_count += 1
+            with_differences += 1
           end
         rescue StandardError => e
           fail_count += 1
@@ -172,7 +174,8 @@ namespace :bonnie do
       end
       puts "\n**** Done converting ****"
       puts "Successful Conversions: #{bonnie_cql_measures.count - fail_count}"
-      puts "Unsuccessful/Failed Conversions: #{fail_count}"
+      puts "Conversions With Differences: #{with_differences}"
+      puts "Failed Conversions: #{fail_count}"
     end
 
     def self.measure_conversion_diff(cql_measure, cqm_measure)
@@ -213,7 +216,7 @@ namespace :bonnie do
       cql_measure[:value_set_oid_version_objects].each do |cql_val_set|
         if cql_val_set[:version] == "" && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "").count < 1 && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "N/A").count < 1
           differences.push('value_sets')
-        elsif cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
+        elsif cql_val_set[:version] != "" && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
           differences.push('value_sets')
         end
       end
@@ -230,6 +233,7 @@ namespace :bonnie do
       raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
       bonnie_patients = user ? Record.by_user(user) : Record.all
       fail_count = 0
+      with_differences = 0
       data_element_white_list = ['Communication From Patient to Provider',
                                  'Communication From Provider to Patient',
                                  'Communication From Provider to Provider',
@@ -247,7 +251,8 @@ namespace :bonnie do
                                  'Medication Order',
                                  'Physical Exam',
                                  'Patient Characteristic Clinical Trial Participant',
-                                 'Medication Dispensed']
+                                 'Medication Dispensed',
+                                'source_data_criteria']
       data_element_white_list.map!(&:downcase)
       bonnie_patients.no_timeout.each do |bonnie_patient|
         begin
@@ -259,18 +264,20 @@ namespace :bonnie do
           if diff.empty?
             print ".".green
           else
-            puts "\nConversion Difference".yellow
-            patient_user = User.find_by(_id: bonnie_patient[:user_id])
-            puts "Patient #{bonnie_patient.first} #{bonnie_patient.last} with id #{bonnie_patient._id} in account #{patient_user.email}".light_blue
             diff.each_entry do |element|
               # Get the data element name and remove commas if there are any to compare against the white list
               if element.split(':')[0].delete(',').downcase.in?(data_element_white_list)
-                puts "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported".white
+                # Un-comment to print out expected differences
+                # puts "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported".white
+                with_differences += 1
               else
+                puts "\nConversion Difference".yellow
+                patient_user = User.find_by(_id: bonnie_patient[:user_id])
+                puts "Patient #{bonnie_patient.first} #{bonnie_patient.last} with id #{bonnie_patient._id} in account #{patient_user.email}".light_blue
                 puts "--- #{element} --- Is different from CQL Record and this is unexpected".red
+                fail_count += 1
               end
             end
-            fail_count += 1
           end
         rescue ExecJS::ProgramError, StandardError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
@@ -288,7 +295,8 @@ namespace :bonnie do
       end
       puts "\n**** Done converting ****"
       puts "Successful Conversions: #{bonnie_patients.count - fail_count}"
-      puts "Unsuccessful/Failed Conversions: #{fail_count}"
+      puts "Expected Differences: #{with_differences}"
+      puts "Failed/Unexpected Conversions: #{fail_count}"
     end
 
     def self.patient_conversion_diff(record, cqm_patient)
