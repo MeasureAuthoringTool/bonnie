@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 89de54c5d08439bcf54144e8643f139b2a926993
+  revision: 6e29f1de97c890f08a1131ac2bc97924c69448ee
   branch: cqm_patient_conversion
   specs:
     cql_qdm_patientapi (1.3.2)
@@ -36,8 +36,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
-  revision: 0c9c7344a64aee2e27a767d879c664be1f01a0d6
-  branch: master
+  revision: 573c43e6fb7a97c46841e3e8fa4e676b8ac2cb8d
+  branch: cqm_patient_conversion
   specs:
     cqm-converter (1.0.3)
       activesupport
