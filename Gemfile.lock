@@ -372,9 +372,8 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (2.7.2)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
+    uglifier (4.1.20)
+      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
@@ -449,7 +448,7 @@ DEPENDENCIES
   teaspoon-jasmine
   therubyracer
   thin (~> 1.7.2)
-  uglifier (~> 2.7.2)
+  uglifier (~> 4.1.20)
   vcr
   webmock (~> 2.3.1)
   zip-zip
