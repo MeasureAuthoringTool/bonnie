@@ -66,6 +66,7 @@ group :test, :development do
   gem 'pry-byebug'
   gem 'thin', '~> 1.7.2'
   gem 'capistrano-rails'
+  gem 'capistrano-yarn'
   gem 'rvm1-capistrano3', require: false
 end
 
@@ -82,7 +83,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '~> 2.7.2'
+  gem 'uglifier', '~> 4.1.20'
 end
 
 gem 'foreman'
