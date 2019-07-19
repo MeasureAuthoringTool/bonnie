@@ -50,8 +50,8 @@ describe 'PatientBuilderView', ->
     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
 
   it "toggles patient expiration correctly", ->
-    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMSvfffff/CMSv0.json', 'cqm_measure_data/CMSvfffff/value_sets.json'
-    @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMSvfffff/John_Smith.json')], parse: true
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMSv5555/CMSv5555.json', 'cqm_measure_data/CMSv5555/value_sets.json'
+    @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMSv5555/John_Smith.json')], parse: true
     @patient = @patients.models[0]
     @bonnie_measures_old = bonnie.measures
     bonnie.measures = new Thorax.Collections.Measures()
