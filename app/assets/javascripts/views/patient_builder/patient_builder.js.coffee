@@ -22,6 +22,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @birthtime = @model.getBirthTime()
     @deathdate = @model.getDeathDate()
     @deathtime = @model.getDeathTime()
+    @missingExpired = !(@cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'expired')[0]?
     @race = @model.getRace().code
     @gender = @model.getGender().code
     @ethnicity = @model.getEthnicity().code
@@ -74,7 +75,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   events:
     'blur :text': (e) -> @materialize()
     'change select': (e) -> @materialize()
-    'click .deceased-checkbox': 'toggleDeceased'
+    'click #expired': 'toggleDeceased'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
     # toggle showing the measure description
