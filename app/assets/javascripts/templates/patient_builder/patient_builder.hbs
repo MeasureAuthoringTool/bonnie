@@ -104,9 +104,16 @@
               </div>
             </div>
           {{else}}
-            <div class="checkbox deceased-checkbox">
-                <input type="checkbox" id="expired" name="expired" {{#if missingExpired}}disabled{{/if}}> Deceased
-            </div>
+            {{#if missingExpired}}
+              <div title="The measure is missing Patient Characteristic Expired. Please re-package and re-upload the measure." class="checkbox deceased-checkbox" aria-hidden="true">
+                <span for="expired" class="sr-only">The measure is missing Patient Characteristic Expired. Please re-package and re-upload the measure.</span>
+                <input type="checkbox" id="expired" name="expired" disabled> Deceased
+              </div>
+            {{else}}
+              <div class="checkbox deceased-checkbox" aria-hidden="true">
+                <input type="checkbox" id="expired" name="expired"> Deceased
+              </div>
+            {{/if}}
           {{/if}}
         </div>
 
