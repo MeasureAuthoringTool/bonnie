@@ -800,6 +800,24 @@ include Devise::Test::ControllerHelpers
     assert_equal 1984, patient.qdmPatient.dataElements.first.relevantPeriod.high.year
   end
 
+  test 'update measurement period without updating patients' do
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    measure = CQM::Measure.where({cms_id: 'CMS32v7'}).first
+    measure_id = measure.id
+    assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
+    post :measurement_period, {
+      year: '1984',
+      id: measure.id.to_s,
+      measurement_period_shift_dates: 'false'
+    }
+    measure = CQM::Measure.where(id: measure_id).first
+    assert_equal '1984', measure.measure_period['low']['value'].slice(0,4)
+    patient = CQM::Patient.by_user(@user).first
+    assert_equal 1994, patient.qdmPatient.birthDatetime.year
+    assert_equal 2012, patient.qdmPatient.dataElements.first.authorDatetime.year
+    assert_equal 2012, patient.qdmPatient.dataElements.first.relevantPeriod.high.year
+  end
+
   test 'data element goes outside of date range after conversion and fails' do
     load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
     measure = CQM::Measure.where({cms_id: 'CMS32v7'}).first
