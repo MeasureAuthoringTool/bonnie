@@ -252,7 +252,8 @@ namespace :bonnie do
                                  'Physical Exam',
                                  'Patient Characteristic Clinical Trial Participant',
                                  'Medication Dispensed',
-                                'source_data_criteria']
+                                 'source_data_criteria']
+
       data_element_white_list.map!(&:downcase)
       bonnie_patients.no_timeout.each do |bonnie_patient|
         begin
