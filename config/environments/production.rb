@@ -13,7 +13,7 @@ Bonnie::Application.configure do
 
   # Compress JavaScripts and CSS
   require 'ext/selective_assets_compressor'
-  config.assets.js_compressor = SelectiveAssetsCompressor.new
+  config.assets.js_compressor = SelectiveAssetsCompressor.new(harmony: true, mangle: { keep_fnames: true }, compress: { unused: false })
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
