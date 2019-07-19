@@ -52,6 +52,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     if @cqmMeasure.component or @cqmMeasure.composite
       @compositeSharingWarningView = new Thorax.Views.CompositeSharingWarning()
+    debugger
     @patientCharacteristicCheckerView = new Thorax.Views.PatientCharacteristicChecker(patient: @model, measure: @measure)
 
   dataCriteriaCategories: ->
@@ -236,8 +237,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   removeDeathDate: (e) ->
     e.preventDefault()
     @model.set 'expired', false
-    @model.set 'deathtime', null
-    @model.set 'deathdate', null
+    @model.set 'deathtime', undefined
+    @model.set 'deathdate', undefined
     expiredElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')?[0]
     if expiredElement
       @model.get('cqmPatient').qdmPatient.dataElements.remove(expiredElement)

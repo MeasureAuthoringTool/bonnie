@@ -44,8 +44,8 @@ class Thorax.Models.Patient extends Thorax.Model
   ### Patient HTML Header values ###
   getBirthDate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
   getBirthTime: -> @printTime @get('cqmPatient').qdmPatient.birthDatetime
-  getDeathDate: -> if @get('expired') then @printDate((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
-  getDeathTime: -> if @get('expired') then @printTime((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime) else ''
+  getDeathDate: -> if @get('expired') then @printDate((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime)
+  getDeathTime: -> if @get('expired') then @printTime((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime)
 
   # Next 4 methods return the Code object since some calls to them need the code while others need the display name
   getGender: ->
