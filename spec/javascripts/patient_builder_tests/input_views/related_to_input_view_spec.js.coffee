@@ -4,7 +4,8 @@ describe 'RelatedToView', ->
     high = cqm.models.CQL.DateTime.parse('1984-01-02T00:00:00.000+00:00')
     relevantPeriod = new cqm.models.CQL.Interval(low, high, true, true)
     @careGoal = new Thorax.Models.SourceDataCriteria({qdmDataElement: new cqm.models.CareGoal(relevantPeriod: relevantPeriod)})
-    @communicationPerformed = new Thorax.Models.SourceDataCriteria({qdmDataElement: new cqm.models.CommunicationPerformed(authorDateTime: high)})
+    @communicationPerformed = new Thorax.Models.SourceDataCriteria({qdmDataElement: new cqm.models.CommunicationPerformed(description: 'Communication, Performed', authorDateTime: high)})
+    @communicationPerformedNullTiming = new Thorax.Models.SourceDataCriteria({qdmDataElement: new cqm.models.CommunicationPerformed(description: 'Communication, PerformedNull', authorDateTime: null)})
     @assessmentPerformed = new Thorax.Models.SourceDataCriteria({qdmDataElement: new cqm.models.AssessmentPerformed(description: 'Assessment, Performed', relevantPeriod: relevantPeriod)})
 
   it 'is displayed for Care Goal', ->
@@ -27,6 +28,7 @@ describe 'RelatedToView', ->
       cqmPatient = new cqm.models.Patient({qdmPatient: new cqm.models.QDMPatient()})
       cqmPatient.qdmPatient.dataElements.push(@careGoal.get('qdmDataElement'))
       cqmPatient.qdmPatient.dataElements.push(@communicationPerformed.get('qdmDataElement'))
+      cqmPatient.qdmPatient.dataElements.push(@communicationPerformedNullTiming.get('qdmDataElement'))
       cqmPatient.qdmPatient.dataElements.push(@assessmentPerformed.get('qdmDataElement'))
       expectedValues = [ {
         measure_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
@@ -45,7 +47,6 @@ describe 'RelatedToView', ->
       careGoalKey = editCriteriaViewKeys[0]
       communicationPerformedKey = editCriteriaViewKeys[1]
       assessmentPerformedKey = editCriteriaViewKeys[2]
-      careGoalKey = editCriteriaViewKeys[0]
       @careGoalEditCriteriaView = @patientBuilder.editCriteriaCollectionView.children[careGoalKey]
       @careGoalEditCriteriaView.$('select[name="attribute_name"]').val('relatedTo').change()
 
@@ -53,16 +54,30 @@ describe 'RelatedToView', ->
       @patientBuilder.remove()
 
     it 'RelatedTo list populates with other data elements', ->
-      expect(@careGoalEditCriteriaView.$('select[name="related_to"]')[0].options.length).toEqual 3 # includes '--'
+      expect(@careGoalEditCriteriaView.$('select[name="related_to"]')[0].options.length).toEqual 4 # includes '--'
       expect(@careGoalEditCriteriaView.$('select[name="related_to"]')).not.toContainText 'CareGoal'
 
-    it 'Adding relatedTo adds id to patient and displays data element with timing attribute', ->
+    it 'Adding relatedTo adds id to patient and displays data element with Interval timing attribute', ->
       @careGoalEditCriteriaView.$('select[name="related_to"] > option:last').prop('selected', true).change()
       dataElementText = @careGoalEditCriteriaView.$('select[name="related_to"] > option:last').text()
       dataElementTiming = '01/01/1984 12:00 AM - 01/02/1984 12:00 AM'
       @careGoalEditCriteriaView.$('button[data-call-method="addValue"]').click()
       existingValues = @careGoalEditCriteriaView.$('.existing-values').text().trim()
       expect(existingValues.includes(dataElementText)).toBe true
+      expect(existingValues.includes(dataElementTiming)).toBe true
+
+    it 'Adding relatedTo adds id to patient and displays data element with DateTime timing attribute', ->
+      @careGoalEditCriteriaView.$('select[name="related_to"]').prop('selectedIndex', 2).change()
+      dataElementTiming = 'null'
+      @careGoalEditCriteriaView.$('button[data-call-method="addValue"]').click()
+      existingValues = @careGoalEditCriteriaView.$('.existing-values').text().trim()
+      expect(existingValues.includes(dataElementTiming)).toBe true
+
+    it 'Adding relatedTo adds id to patient and displays data element with null DateTime timing attribute', ->
+      @careGoalEditCriteriaView.$('select[name="related_to"]').prop('selectedIndex', 3).change()
+      dataElementTiming = '01/01/1984 12:00 AM'
+      @careGoalEditCriteriaView.$('button[data-call-method="addValue"]').click()
+      existingValues = @careGoalEditCriteriaView.$('.existing-values').text().trim()
       expect(existingValues.includes(dataElementTiming)).toBe true
 
 

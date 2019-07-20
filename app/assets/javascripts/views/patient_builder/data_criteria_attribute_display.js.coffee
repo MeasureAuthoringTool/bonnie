@@ -42,6 +42,9 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       displayAttributes: displayAttributes
 
   _stringifyValue: (value, topLevel=false) ->
+    if !value?
+      return 'null'
+
     if value instanceof cqm.models.CQL.Code
       codeSystemName = @parent.measure.codeSystemMap()[value.system] || value.system
       return "#{codeSystemName}: #{value.code}"

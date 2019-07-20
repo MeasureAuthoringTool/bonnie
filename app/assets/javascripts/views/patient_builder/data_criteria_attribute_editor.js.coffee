@@ -17,7 +17,8 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         name: path
         title: @model.getAttributeTitle(path)
         isArray: info.instance == 'Array'
-        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray
+        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray || info.instance == "AnyEntity"
+        isEntity: info.instance == "AnyEntity"
         isRelatedTo: path == 'relatedTo'
         types: @_determineAttributeTypeList(path, info)
       )

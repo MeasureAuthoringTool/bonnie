@@ -12,7 +12,11 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   clone: ->
     # Clone the QDM::DataElement
     dataElementType = @get('qdmDataElement')._type.replace(/QDM::/, '')
-    clonedDataElement = new cqm.models[dataElementType](mongoose.utils.clone(@get('qdmDataElement')))
+    dataElementClone = mongoose.utils.clone(@get('qdmDataElement'))
+    # We need unique ids for each data element added to the patient
+    delete dataElementClone.id
+    delete dataElementClone._id
+    clonedDataElement = new cqm.models[dataElementType](dataElementClone)
 
     # build the initial attributes object similar to how it is done in the collection parse.
     dataElementAsObject = clonedDataElement.toObject()
