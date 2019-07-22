@@ -91,6 +91,8 @@ group :test, :development do
   gem 'thin', '~> 1.7.2'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
+  gem 'parallel'
+  gem 'ruby-progressbar'
 end
 
 group :production do
