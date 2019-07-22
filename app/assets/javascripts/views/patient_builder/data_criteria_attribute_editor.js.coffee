@@ -19,6 +19,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         isArray: info.instance == 'Array'
         isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray || info.instance == "AnyEntity"
         isEntity: info.instance == "AnyEntity"
+        isRelatedTo: path == 'relatedTo'
         types: @_determineAttributeTypeList(path, info)
       )
     @hasUserConfigurableAttributes = @attributeList.length > 0
@@ -29,7 +30,10 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     rendered: ->
       # make sure the correct type attribute is selected
       if @currentAttribute
-        @$("select[name=\"attribute_type\"] > option[value=\"#{@currentAttributeType}\"]").prop('selected', true)
+        if @currentAttribute.isRelatedTo
+          @$("select[name=\"attribute_type\"] > option[value=\"Data Element\"]").prop('selected', true)
+        else
+          @$("select[name=\"attribute_type\"] > option[value=\"#{@currentAttributeType}\"]").prop('selected', true)
         @updateAddButtonStatus()
       else
         @$("select[name=\"attribute_type\"] > option:first").prop('selected', true)
@@ -71,11 +75,16 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     e.preventDefault()
     # double check we have a currently selected attribute and a valid value
     if @currentAttribute? && @inputView?.hasValidValue()
+      if @inputView.value.isRelatedTo
+        value = @inputView.value.id
+      else
+        value = @inputView.value
+
       if @currentAttribute.isArray
         @dataElement[@currentAttribute.name] = [] if !@dataElement[@currentAttribute.name]?
-        @dataElement[@currentAttribute.name].push(@inputView.value)
+        @dataElement[@currentAttribute.name].push(value)
       else
-        @dataElement[@currentAttribute.name] = @inputView.value
+        @dataElement[@currentAttribute.name] = value
       @trigger 'attributesModified', @
 
       # reset back to no selections
@@ -99,6 +108,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
+      when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.parent.parent.model.get('source_data_criteria'), currentDataElementId: @dataElement.id)
       else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
@@ -120,6 +130,8 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
                  else
                    @dataElement.schema.paths[@currentAttribute.name].schema
         @_createCompositeInputViewForSchema(schema, @currentAttributeType)
+      else if @currentAttribute.isRelatedTo
+        @_createInputViewForType('relatedTo') # Use custom view for relatedTo, not String
       else
         @_createInputViewForType(@currentAttributeType)
     else
