@@ -9,10 +9,6 @@ describe 'PatientBuilderView', ->
     bonnie.measures = new Thorax.Collections.Measures()
     bonnie.measures.add @measure
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
-    # TODO: don't rely on first() for this. What should the criteria be?
-    @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
-    # Normally the first criteria can't have a value (wrong type); for testing we allow it
-    @patientDataElement = @patientBuilder.patients.first().get("cqmPatient").qdmPatient.dataElements[0]
     @patientBuilder.render()
     spyOn(@patientBuilder.model, 'materialize')
     spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
@@ -40,7 +36,6 @@ describe 'PatientBuilderView', ->
     expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
     expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
-
   it 'displays a warning if codes on dataElements do not exist on measure', ->
     @measure.attributes.cqmValueSets = []
     patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
@@ -51,26 +46,37 @@ describe 'PatientBuilderView', ->
     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
 
   it "toggles patient expiration correctly", ->
-    @patientBuilder.appendTo 'body'
+    measure = loadMeasureWithValueSets 'cqm_measure_data/CMSv5555/CMSv5555.json', 'cqm_measure_data/CMSv5555/value_sets.json'
+    patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMSv5555/John_Smith.json')], parse: true
+    patient = patients.models[0]
+    bonnie_measures_old = bonnie.measures
+    bonnie.measures = new Thorax.Collections.Measures()
+    bonnie.measures.add measure
+    patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: patients)
+    patientBuilder.render()
+    spyOn(patientBuilder.model, 'materialize')
+    spyOn(patientBuilder.originalModel, 'save').and.returnValue(true)
+    patientBuilder.appendTo 'body'
+
     # Press deceased check box and enter death date
-    @patientBuilder.$('input[type=checkbox][name=expired]:first').click()
-    @patientBuilder.$(':input[name=deathdate]').val('01/02/1994')
-    @patientBuilder.$(':input[name=deathtime]').val('1:15 PM')
-    @patientBuilder.$("button[data-call-method=save]").click()
-    expect(@patientBuilder.model.get('expired')).toEqual true
-    expect(@patientBuilder.model.get('deathdate')).toEqual '01/02/1994'
-    expect(@patientBuilder.model.get('deathtime')).toEqual "1:15 PM"
-    expiredElement = (@patientBuilder.model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    patientBuilder.$('input[type=checkbox][name=expired]:first').click()
+    patientBuilder.$(':input[name=deathdate]').val('01/02/1994')
+    patientBuilder.$(':input[name=deathtime]').val('1:15 PM')
+    patientBuilder.$("button[data-call-method=save]").click()
+    expect(patientBuilder.model.get('expired')).toEqual true
+    expect(patientBuilder.model.get('deathdate')).toEqual '01/02/1994'
+    expect(patientBuilder.model.get('deathtime')).toEqual "1:15 PM"
+    expiredElement = (patientBuilder.model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
     expect(expiredElement.expiredDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1994,1,2,13,15,0,0,0).toString())
     # Remove deathdate from patient
-    @patientBuilder.$("button[data-call-method=removeDeathDate]").click()
-    @patientBuilder.$("button[data-call-method=save]").click()
-    expect(@patientBuilder.model.get('expired')).toEqual false
-    expect(@patientBuilder.model.get('deathdate')).toEqual null
-    expect(@patientBuilder.model.get('deathtime')).toEqual null
-    expiredElement = (@patientBuilder.model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    patientBuilder.$("button[data-call-method=removeDeathDate]").click()
+    patientBuilder.$("button[data-call-method=save]").click()
+    expect(patientBuilder.model.get('expired')).toEqual false
+    expect(patientBuilder.model.get('deathdate')).toEqual undefined
+    expect(patientBuilder.model.get('deathtime')).toEqual undefined
+    expiredElement = (patientBuilder.model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
     expect(expiredElement).not.toExist()
-    @patientBuilder.remove()
+    patientBuilder.remove()
 
   describe "setting basic attributes and saving", ->
     beforeEach ->
