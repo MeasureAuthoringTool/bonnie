@@ -46,7 +46,7 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
     post :measurement_period, {
       year: '1984',
       id: measure.id.to_s,
-      measurement_period_shift_dates: 'false'
+      measurement_period_shift_dates: nil
     }
     measure = CQM::Measure.where(id: measure_id).first
     assert_equal '1984', measure.measure_period['low']['value'].slice(0,4)
