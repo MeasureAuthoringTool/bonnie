@@ -82,13 +82,23 @@ class MeasuresController < ApplicationController
     if is_valid_year
       original_year = measure.measure_period['low']['value'][0..3]
       year_shift = year.to_i - original_year.to_i
-      if (params[:measurement_period_shift_dates] == "true")
-        successful_patient_shift = shift_years(measure, year_shift)
-      end
+      successful_patient_shift = if !params[:measurement_period_shift_dates].nil?
+                                   shift_years(measure, year_shift)
+                                 else # No patients to shift dates on, so just save to measure
+                                   true
+                                 end
       if successful_patient_shift
         measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
         measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
         measure.save!
+        if measure.composite?
+          measure.component_hqmf_set_ids.each do |hqmf_set_id|
+            component_measure = CQM::Measure.by_user(current_user).where(hqmf_set_id: hqmf_set_id).first
+            component_measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
+            component_measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
+            component_measure.save!
+          end
+        end
       end
 
     else

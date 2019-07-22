@@ -9,6 +9,7 @@ class PatientsController < ApplicationController
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
     end
+    populate_measure_ids_if_composite_measures(updated_patient)
     updated_patient._id = old_patient._id if old_patient
     updated_patient.user_id = current_user._id
     updated_patient.upsert

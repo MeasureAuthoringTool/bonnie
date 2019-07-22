@@ -10,6 +10,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
       cms_id: @measure.get('cqmMeasure').cms_id
       hqmf_set_id: @measure.get('cqmMeasure').hqmf_set_id
       measurePeriodYear: @measure.getMeasurePeriodYear()
+      component: @measure.get('cqmMeasure').component
       cql: true # Hide certain features in handlebars if the measure is cql.
 
   # Navigates to the Patient Dashboard
