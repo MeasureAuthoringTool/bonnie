@@ -1,0 +1,11 @@
+{{#if hasMissingCharacteristicDataType}}
+  <div class="alert alert-warning">
+    Warning: The Measure is missing patient characteristics that are being added to the patient. 
+    Please repackage the measure in the Measure Authoring Tool with the necessary patient characteristic elements:
+    <ul>
+    {{#each missingCharacteristicsElements}}
+      <li>{{this}}</li>
+    {{/each}}
+    </ul>
+  </div>
+{{/if}}
