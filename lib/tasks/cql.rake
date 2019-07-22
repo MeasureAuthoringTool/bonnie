@@ -134,8 +134,8 @@ namespace :bonnie do
 
       fail_count = 0
       puts "**** Starting to convert measures! ****\n\n"
-      conversionResults = Parallel.map(bonnie_cql_measures.pluck(:_id).freeze, in_processes: Parallel::processor_count, progress: "Converting Measures") do |measure_id|
-        resultInfo = { id: measure_id }
+      conversion_results = Parallel.map(bonnie_cql_measures.pluck(:_id).freeze, in_processes: Parallel.processor_count, progress: "Converting Measures") do |measure_id|
+        result_info = { id: measure_id }
         begin
           measure = CqlMeasure.find(measure_id)
           cqm_measure = CQM::Converter::BonnieMeasure.to_cqm(measure)
@@ -153,30 +153,30 @@ namespace :bonnie do
           # Verify Measure was converted properly
           diff = measure_conversion_diff(measure, cqm_measure)
           if diff.empty?
-            resultInfo[:status] = :success
+            result_info[:status] = :success
           else
-            resultInfo[:status] = :fail
-            errorString = ""
-            errorString << "\nConversion Difference\n".yellow
+            result_info[:status] = :fail
+            error_string = ""
+            error_string << "\nConversion Difference\n".yellow
             measure_user = User.find_by(_id: measure[:user_id])
-            errorString << "Measure #{measure.cms_id}: #{measure.title} with id #{measure._id} in account #{measure_user.email}\n".light_blue
+            error_string << "Measure #{measure.cms_id}: #{measure.title} with id #{measure._id} in account #{measure_user.email}\n".light_blue
             diff.each_entry do |element|
-              errorString << "--- #{element} --- Is different from CQL measure\n".light_blue
+              error_string << "--- #{element} --- Is different from CQL measure\n".light_blue
             end
-            resultInfo[:message] = errorString
+            result_info[:message] = error_string
           end
         rescue StandardError => e
-          resultInfo[:status] = :fail
-          resultInfo[:message] = "\nMeasure  #{measure.title} #{measure.cms_id} with id #{measure._id} failed with message: #{e.message}\n".red
+          result_info[:status] = :fail
+          result_info[:message] = "\nMeasure  #{measure.title} #{measure.cms_id} with id #{measure._id} failed with message: #{e.message}\n".red
         rescue ExecJS::ProgramError => e
-          resultInfo[:status] = :fail
+          result_info[:status] = :fail
           # if there was a conversion failure we should record the resulting failure message with the measure
-          resultInfo[:message] = "\nMeasure  #{measure.title} #{measure.cms_id} with id #{measure._id} failed with message: #{e.message}\n".red
+          result_info[:message] = "\nMeasure  #{measure.title} #{measure.cms_id} with id #{measure._id} failed with message: #{e.message}\n".red
         end
-        resultInfo
+        result_info
       end
 
-      fail_count = conversionResults.count { |resultInfo| resultInfo[:status] == :fail }
+      fail_count = conversion_results.count { |result_info| result_info[:status] == :fail }
       puts "\n**** Done converting ****"
       puts "Successful Conversions: #{bonnie_cql_measures.count - fail_count}"
       puts "Unsuccessful/Failed Conversions: #{fail_count}"
@@ -185,10 +185,8 @@ namespace :bonnie do
         f.write "\n**** Done converting ****\n"
         f.write "Successful Conversions: #{bonnie_cql_measures.count - fail_count}\n"
         f.write "Unsuccessful/Failed Conversions: #{fail_count}\n"
-        conversionResults.each do |resultInfo|
-          if resultInfo[:status] == :fail
-            f.write(resultInfo[:message])
-          end
+        conversion_results.each do |result_info|
+          f.write(result_info[:message]) if result_info[:status] == :fail
         end
       end
       puts "Wrote info to convert_measures.log"
@@ -268,8 +266,8 @@ namespace :bonnie do
                                  'Patient Characteristic Clinical Trial Participant',
                                  'Medication Dispensed']
       data_element_white_list.map!(&:downcase)
-      conversionResults = Parallel.map(bonnie_patients.pluck(:_id).freeze, in_processes: Parallel::processor_count, progress: "Converting Patients") do |bonnie_patient_id|
-        resultInfo = { id: bonnie_patient_id }
+      conversion_results = Parallel.map(bonnie_patients.pluck(:_id).freeze, in_processes: Parallel.processor_count, progress: "Converting Patients") do |bonnie_patient_id|
+        result_info = { id: bonnie_patient_id }
         begin
           bonnie_patient = Record.find(bonnie_patient_id)
           cqm_patient = CQMConverter.to_cqm(bonnie_patient)
@@ -278,44 +276,44 @@ namespace :bonnie do
           # Verify Measure was converted properly
           diff = patient_conversion_diff(bonnie_patient, cqm_patient)
           if diff.empty?
-            resultInfo[:status] = :success
+            result_info[:status] = :success
           else
-            errorString = ""
-            errorString << "\nConversion Difference\n".yellow
+            error_string = ""
+            error_string << "\nConversion Difference\n".yellow
             patient_user = User.find_by(_id: bonnie_patient[:user_id])
-            errorString << "Patient #{bonnie_patient.first} #{bonnie_patient.last} with id #{bonnie_patient._id} in account #{patient_user.email}\n".light_blue
+            error_string << "Patient #{bonnie_patient.first} #{bonnie_patient.last} with id #{bonnie_patient._id} in account #{patient_user.email}\n".light_blue
             diff.each_entry do |element|
               # Get the data element name and remove commas if there are any to compare against the white list
-              if element.split(':')[0].delete(',').downcase.in?(data_element_white_list)
-                errorString << "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported\n".white
-              else
-                errorString <<  "--- #{element} --- Is different from CQL Record and this is unexpected\n".red
-              end
+              error_string << if element.split(':')[0].delete(',').downcase.in?(data_element_white_list)
+                                "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported\n".white
+                              else
+                                "--- #{element} --- Is different from CQL Record and this is unexpected\n".red
+                              end
             end
-            resultInfo[:status] = :fail
-            resultInfo[:message] = errorString
+            result_info[:status] = :fail
+            result_info[:message] = error_string
           end
         rescue ExecJS::ProgramError, StandardError => e
           # if there was a conversion failure we should record the resulting failure message with the hds model in a
           # separate collection to return
-          errorString = ""
+          error_string = ""
           user = User.find_by _id: bonnie_patient.user_id
           if bonnie_patient.measure_ids.first.nil?
-            errorString << "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}\n".light_red
+            error_string << "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}\n".light_red
           elsif CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first.nil?
-            errorString << "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient.measure_ids.first}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}\n".light_red
+            error_string << "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient.measure_ids.first}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}\n".light_red
           else
             measure = CQM::Measure.where(hqmf_set_id: bonnie_patient.measure_ids.first, user_id: bonnie_patient.user_id).first
-            errorString << "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}\n".light_red
+            error_string << "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient._id}\n  Conversion failed with message: #{e.message}\n".light_red
           end
-          resultInfo[:status] = :fail
-          resultInfo[:message] = errorString
+          result_info[:status] = :fail
+          result_info[:message] = error_string
         end
         GC.start
-        resultInfo
+        result_info
       end
 
-      fail_count = conversionResults.count { |resultInfo| resultInfo[:status] == :fail }
+      fail_count = conversion_results.count { |result_info| result_info[:status] == :fail }
       puts "\n**** Done converting ****"
       puts "Successful Conversions: #{bonnie_patients.count - fail_count}"
       puts "Unsuccessful/Failed Conversions: #{fail_count}"
@@ -324,10 +322,8 @@ namespace :bonnie do
         f.write "\n**** Done converting ****\n"
         f.write "Successful Conversions: #{bonnie_patients.count - fail_count}\n"
         f.write "Unsuccessful/Failed Conversions: #{fail_count}\n"
-        conversionResults.each do |resultInfo|
-          if resultInfo[:status] == :fail
-            f.write(resultInfo[:message])
-          end
+        conversion_results.each do |result_info|
+          f.write(result_info[:message]) if result_info[:status] == :fail
         end
       end
       puts "Wrote info to convert_patients.log"
