@@ -364,6 +364,8 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments, ExcludedMethods.
 # ExcludedMethods: refine
 Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/bonnie_run_once.rake'
   Max: 479
 
 # Offense count: 13
@@ -661,6 +663,7 @@ Style/RaiseArgs:
     - 'lib/tasks/cql_testing.rake'
     - 'lib/tasks/rebuild_package.rake'
     - 'lib/util/cql_to_elm_helper.rb'
+    - 'lib/tasks/bonnie_run_once.rake'
 
 # Offense count: 37
 # Cop supports --auto-correct.
