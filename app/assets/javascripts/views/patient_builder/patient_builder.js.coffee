@@ -157,6 +157,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   drop: (e, ui) ->
     patientDataCriteria = $(ui.draggable).model().clone()
+    patientDataCriteria.setNewId()
     patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
 
     # create default values for all primary timing attributes
