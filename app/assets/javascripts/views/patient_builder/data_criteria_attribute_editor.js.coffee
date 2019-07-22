@@ -130,7 +130,6 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
                  else
                    @dataElement.schema.paths[@currentAttribute.name].schema
         @_createCompositeInputViewForSchema(schema, @currentAttributeType)
-        @_createCompositeInputViewForSchema(@dataElement.schema.paths[@currentAttribute.name].schema, @currentAttributeType)
       else if @currentAttribute.isRelatedTo
         @_createInputViewForType('relatedTo') # Use custom view for relatedTo, not String
       else
