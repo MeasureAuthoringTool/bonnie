@@ -194,6 +194,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
     droppedCriteria = $(ui.draggable).model().clone()
+    droppedCriteria.setNewId()
+
     targetCriteria = $(e.target).model()
     @copyTimingAttributes(droppedCriteria, targetCriteria)
     @trigger 'bonnie:dropCriteria', droppedCriteria

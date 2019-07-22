@@ -13,9 +13,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     # Clone the QDM::DataElement
     dataElementType = @get('qdmDataElement')._type.replace(/QDM::/, '')
     dataElementClone = mongoose.utils.clone(@get('qdmDataElement'))
-    # We need unique ids for each data element added to the patient
-    delete dataElementClone.id
-    delete dataElementClone._id
     clonedDataElement = new cqm.models[dataElementType](dataElementClone)
 
     # build the initial attributes object similar to how it is done in the collection parse.
@@ -25,6 +22,14 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
     # make and return the new SDC
     return new Thorax.Models.SourceDataCriteria(dataElementAsObject)
+
+  setNewId: ->
+    # Create and set a new id for the data element
+    new_id = new mongoose.Types.ObjectId()
+    @get('qdmDataElement')._id = new_id
+    @get('qdmDataElement').id = new_id.toString()
+    @set '_id', new_id
+    @set 'id', new_id.toString()
 
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
 
