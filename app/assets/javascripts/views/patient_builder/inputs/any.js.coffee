@@ -6,6 +6,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
   #   attributeName - The name of the attribute. Required
   #   cqmValueSets - List of CQM Value sets. Required.
   #   codeSystemMap - Map of code system oids to code system names. Required.
+  #   defaultYear - Default year to use for Date/DateTime input views.
   initialize: ->
     @value = null
 
@@ -54,8 +55,8 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
   _createInputViewForType: (type, placeholderText) ->
     return switch type
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
-      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear()})
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
+      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear })
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false, placeholder: placeholderText })
       when 'Quantity' then new Thorax.Views.InputQuantityView()

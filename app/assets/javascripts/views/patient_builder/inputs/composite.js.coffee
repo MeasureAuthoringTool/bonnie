@@ -64,7 +64,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Ratio' then new Thorax.Views.InputRatioView({ allowNull: @_attrShouldAllowNull(attributeName) })
-      when 'Any' then new Thorax.Views.InputAnyView({ attributeName: attributeName, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Any' then new Thorax.Views.InputAnyView({ attributeName: attributeName, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName), defaultYear: @defaultYear })
       when 'Identifier' then new Thorax.Views.InputCompositeView({ schema: info.schema, typeName: type })
       else null
 
