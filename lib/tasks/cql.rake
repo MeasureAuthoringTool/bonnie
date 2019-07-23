@@ -155,7 +155,7 @@ namespace :bonnie do
           if diff.empty?
             result_info[:status] = :success
           else
-            result_info[:status] = :fail
+            result_info[:status] = :diffs
             error_string = ""
             error_string << "\nConversion Difference\n".yellow
             measure_user = User.find_by(_id: measure[:user_id])
@@ -177,14 +177,17 @@ namespace :bonnie do
       end
 
       fail_count = conversion_results.count { |result_info| result_info[:status] == :fail }
+      with_diff_count = conversion_results.count { |result_info| result_info[:status] == :diff }
       puts "\n**** Done converting ****"
       puts "Successful Conversions: #{bonnie_cql_measures.count - fail_count}"
-      puts "Unsuccessful/Failed Conversions: #{fail_count}"
+      puts "Conversions With Differences: #{with_diff_count}"
+      puts "Failed Conversions: #{fail_count}"
 
       File.open("convert_measures.log", 'w') do |f|
         f.write "\n**** Done converting ****\n"
         f.write "Successful Conversions: #{bonnie_cql_measures.count - fail_count}\n"
-        f.write "Unsuccessful/Failed Conversions: #{fail_count}\n"
+        f.write "Conversions With Differences: #{with_diff_count}\n"
+        f.write "Failed Conversions: #{fail_count}\n"
         conversion_results.each do |result_info|
           f.write(result_info[:message]) if result_info[:status] == :fail
         end
@@ -230,7 +233,7 @@ namespace :bonnie do
       cql_measure[:value_set_oid_version_objects].each do |cql_val_set|
         if cql_val_set[:version] == "" && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "").count < 1 && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: "N/A").count < 1
           differences.push('value_sets')
-        elsif cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
+        elsif cql_val_set[:version] != "" && cqm_measure.value_sets.where(oid: cql_val_set[:oid], version: cql_val_set[:version]).count < 1
           differences.push('value_sets')
         end
       end
@@ -244,9 +247,9 @@ namespace :bonnie do
     $ rake bonnie:cql:convert_patients EMAIL=xxx}
     task :convert_patients => :environment do
       user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      log_expected_diffs = ENV.fetch("LOG_EXPECTED", false)
       raise StandardError.new("Could not find user #{ENV["EMAIL"]}.") if ENV["EMAIL"] && user.nil?
       bonnie_patients = user ? Record.by_user(user) : Record.all
-      fail_count = 0
       data_element_white_list = ['Communication From Patient to Provider',
                                  'Communication From Provider to Patient',
                                  'Communication From Provider to Provider',
@@ -264,7 +267,9 @@ namespace :bonnie do
                                  'Medication Order',
                                  'Physical Exam',
                                  'Patient Characteristic Clinical Trial Participant',
-                                 'Medication Dispensed']
+                                 'Medication Dispensed',
+                                 'source_data_criteria']
+
       data_element_white_list.map!(&:downcase)
       conversion_results = Parallel.map(bonnie_patients.pluck(:_id).freeze, in_processes: Parallel.processor_count, progress: "Converting Patients") do |bonnie_patient_id|
         result_info = { id: bonnie_patient_id }
@@ -278,19 +283,20 @@ namespace :bonnie do
           if diff.empty?
             result_info[:status] = :success
           else
-            error_string = ""
-            error_string << "\nConversion Difference\n".yellow
+            error_string = "\nConversion Difference\n".yellow
             patient_user = User.find_by(_id: bonnie_patient[:user_id])
             error_string << "Patient #{bonnie_patient.first} #{bonnie_patient.last} with id #{bonnie_patient._id} in account #{patient_user.email}\n".light_blue
             diff.each_entry do |element|
+              next if element == 'source_data_criteria' # super whitelist of one. every patient should have this removed
               # Get the data element name and remove commas if there are any to compare against the white list
-              error_string << if element.split(':')[0].delete(',').downcase.in?(data_element_white_list)
-                                "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported\n".white
-                              else
-                                "--- #{element} --- Is different from CQL Record and this is unexpected\n".red
-                              end
+              if element.split(':')[0].delete(',').downcase.in?(data_element_white_list)
+                error_string << "--- #{element} --- Is different from CQL Record, but this is expected and no longer supported\n".white if log_expected_diffs
+                result_info[:status] = :diff unless result_info[:status] == :fail
+              else
+                error_string << "--- #{element} --- Is different from CQL Record and this is unexpected\n".red
+                result_info[:status] = :fail
+              end
             end
-            result_info[:status] = :fail
             result_info[:message] = error_string
           end
         rescue ExecJS::ProgramError, StandardError => e
@@ -314,16 +320,20 @@ namespace :bonnie do
       end
 
       fail_count = conversion_results.count { |result_info| result_info[:status] == :fail }
+      with_diff_count = conversion_results.count { |result_info| result_info[:status] == :diff }
       puts "\n**** Done converting ****"
       puts "Successful Conversions: #{bonnie_patients.count - fail_count}"
-      puts "Unsuccessful/Failed Conversions: #{fail_count}"
+      puts "Expected Differences: #{with_diff_count}"
+      puts "Failed/Unexpected Conversions: #{fail_count}"
 
       File.open("convert_patients.log", 'w') do |f|
         f.write "\n**** Done converting ****\n"
         f.write "Successful Conversions: #{bonnie_patients.count - fail_count}\n"
-        f.write "Unsuccessful/Failed Conversions: #{fail_count}\n"
+        f.write "Expected Differences: #{with_diff_count}\n"
+        f.write "Failed/Unexpected Conversions: #{fail_count}\n"
         conversion_results.each do |result_info|
           f.write(result_info[:message]) if result_info[:status] == :fail
+          f.write(result_info[:message]) if result_info[:status] == :diff && log_expected_diffs
         end
       end
       puts "Wrote info to convert_patients.log"
