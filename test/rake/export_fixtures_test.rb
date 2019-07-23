@@ -35,6 +35,7 @@ class ExportFixturesTest < ActiveSupport::TestCase
 
     assert_equal CQM::Measure.find_by(cms_id: 'CMS32v7').package.file, @cms32_file
     assert_nil CQM::Measure.find_by(cms_id: 'CMS134v6').package
+    File.delete('convert_measures.log') if File.exist?('convert_measures.log')
   end
 
   test "patients convert to CQM format properly" do
@@ -55,6 +56,8 @@ class ExportFixturesTest < ActiveSupport::TestCase
     assert_equal converted_patient.measure_ids.length, 1
     assert_not_nil converted_patient[:measure_ids]
     assert_not_nil converted_patient[:qdmPatient]
+    File.delete('convert_measures.log') if File.exist?('convert_measures.log')
+    File.delete('convert_patients.log') if File.exist?('convert_patients.log')
   end
 
   test "generate_cqm_patient_fixtures description" do
