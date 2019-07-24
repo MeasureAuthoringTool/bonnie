@@ -98,11 +98,11 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
   _createInputViewForType: (type) ->
     @inputView = switch type
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
-      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false })
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false })
+      when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
-      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView()
+      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
       when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
       when 'Quantity' then new Thorax.Views.InputQuantityView()
       when 'Ratio' then new Thorax.Views.InputRatioView()
@@ -115,7 +115,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   _createCompositeInputViewForSchema: (schema, typeName) ->
     @showInputViewPlaceholder = false
-    @inputView = new Thorax.Views.InputCompositeView(schema: schema, typeName: typeName, cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap())
+    @inputView = new Thorax.Views.InputCompositeView(schema: schema, typeName: typeName, cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear())
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
 
   # sets up the view for the attribute input view.
