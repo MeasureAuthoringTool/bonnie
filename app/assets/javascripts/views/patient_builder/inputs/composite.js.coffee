@@ -12,6 +12,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
   #   cqmValueSets - Array<CQM.ValueSet> - All valuesets on the measure.
   #   codeSystemMap - The mapping of code systems oids to code system names.
   #   typeName = The name of the type we should be constructing
+  #   defaultYear = The default year if there is a DateTime input view
   initialize: ->
     @value = null
 
@@ -53,9 +54,9 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
 
   _createInputViewForType: (type, attributeName, info) ->
     inputView = switch type
-      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ allowNull: @_attrShouldAllowNull(attributeName), defaultYear: @defaultYear })
       when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView({ allowNull: @_attrShouldAllowNull(attributeName) })
-      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: @_attrShouldAllowNull(attributeName), defaultYear: @defaultYear })
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Quantity' then new Thorax.Views.InputQuantityView({ allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName) })
@@ -63,7 +64,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Ratio' then new Thorax.Views.InputRatioView({ allowNull: @_attrShouldAllowNull(attributeName) })
-      when 'Any' then new Thorax.Views.InputAnyView({ attributeName: attributeName, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Any' then new Thorax.Views.InputAnyView({ attributeName: attributeName, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName), defaultYear: @defaultYear })
       when 'Identifier' then new Thorax.Views.InputCompositeView({ schema: info.schema, typeName: type })
       else null
 

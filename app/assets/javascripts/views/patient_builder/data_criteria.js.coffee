@@ -148,7 +148,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
 
   isDuringMeasurePeriod: ->
-    moment.utc(@model.get('start_date')).year() is moment.utc(@model.get('end_date')).year() is moment.utc(@model.measure().get('cqmMeasure').measure_period.low.value).year()
+    timingAttribute = @model.get('qdmDataElement')[@model.getPrimaryTimingAttribute()]
+    if !timingAttribute?
+      return false
+
+    if timingAttribute.isInterval
+      timingAttribute.low.year is timingAttribute.high.year is @model.measure().getMeasurePeriodYear()
+    else
+      timingAttribute.year is @model.measure().getMeasurePeriodYear()
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->
