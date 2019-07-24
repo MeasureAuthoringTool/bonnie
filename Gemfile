@@ -24,13 +24,13 @@ gem 'hquery-patient-api', '~> 1.1'
 # gem 'cqm-parsers', '~> 0.2.1'
 
 # gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master_bonnie'
-gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
+gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'cqm_patient_conversion'
 # gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 # gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'cqm-integration'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
-gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'master'
+gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'cqm_patient_conversion'
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
 gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
 
@@ -91,6 +91,8 @@ group :test, :development do
   gem 'thin', '~> 1.7.2'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
+  gem 'parallel'
+  gem 'ruby-progressbar'
 end
 
 group :production do
