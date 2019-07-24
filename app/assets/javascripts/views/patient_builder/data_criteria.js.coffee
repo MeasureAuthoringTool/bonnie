@@ -153,7 +153,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       return false
 
     if timingAttribute.isInterval
-      timingAttribute.low.year is timingAttribute.high.year is @model.measure().getMeasurePeriodYear()
+      timingAttribute.low?.year is timingAttribute.high?.year is @model.measure().getMeasurePeriodYear()
     else
       timingAttribute.year is @model.measure().getMeasurePeriodYear()
 
