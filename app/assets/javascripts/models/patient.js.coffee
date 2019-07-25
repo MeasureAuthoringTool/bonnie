@@ -102,7 +102,7 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(moment.utc(birthdate, 'L LT').toDate())
     sourceElement = @removeElementAndGetNewCopy('birthdate', measure.get('cqmMeasure'))
     if !sourceElement
-      return # Patient characteristic birthdate was not found on the measure, so it won't be placed on the patient
+      sourceElement = new cqm.models.PatientCharacteristicBirthdate() # Patient characteristic birthdate was not found on the measure, so its created without a code
     sourceElement.birthDatetime = @get('cqmPatient').qdmPatient.birthDatetime.copy()
     if sourceElement.codeListId?
       birthdateConcept = @getConceptsForDataElement('birthdate', measure)[0]
@@ -111,7 +111,7 @@ class Thorax.Models.Patient extends Thorax.Model
   setCqmPatientDeathDate: (deathdate, measure) ->
     sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
     if !sourceElement
-      return # Patient characteristic expired was not found on the measure, so it won't be placed on the patient    
+      sourceElement = new cqm.models.PatientCharacteristicExpired() # Patient characteristic expired was not found on the measure, so its created without a code
     expiredElement = @get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired'
     if expiredElement and expiredElement.expiredDatetime
       sourceElement.expiredDatetime = expiredElement.expiredDatetime.copy()
