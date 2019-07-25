@@ -102,8 +102,8 @@ describe 'PatientBuilderView', ->
       expect(cqmPatient.familyName).toEqual 'LAST NAME'
       expect(cqmPatient.givenNames[0]).toEqual 'FIRST NAME'
       birthdateElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
-      # If the measure doesn't have birthDate as a data criteria, the patient is not forced to have one
-      expect(birthdateElement).toBeUndefined()
+      # If the measure doesn't have birthDate as a data criteria, the patient is forced to have one without a code
+      expect(birthdateElement).not.toBeUndefined()
       expect(cqmPatient.qdmPatient.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
       expect(thoraxPatient.getBirthDate()).toEqual '01/02/1993'
       expect(thoraxPatient.getNotes()).toEqual 'EXAMPLE NOTES FOR TEST'
