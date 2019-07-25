@@ -111,7 +111,7 @@ class Thorax.Models.Patient extends Thorax.Model
   setCqmPatientDeathDate: (deathdate, measure) ->
     sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
     if !sourceElement
-      sourceElement = new cqm.models.PatientCharacteristicExpired() # Patient characteristic birthdate was not found on the measure, so its created without a code
+      sourceElement = new cqm.models.PatientCharacteristicExpired() # Patient characteristic expired was not found on the measure, so its created without a code
     expiredElement = @get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired'
     if expiredElement and expiredElement.expiredDatetime
       sourceElement.expiredDatetime = expiredElement.expiredDatetime.copy()
