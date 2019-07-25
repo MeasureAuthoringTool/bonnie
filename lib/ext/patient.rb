@@ -7,6 +7,9 @@ module CQM
     scope :by_user, ->(user) { where({'user_id'=>user.id}) }
     scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({ 'user_id' => user.id, 'measure_ids' => hqmf_set_id }) }
 
+    index 'user_id' => 1
+    index 'user_id' => 1, 'measure_ids' => 1
+
     has_and_belongs_to_many :measures, class_name: 'CQM::Measure'
 
     # Updates the population set structure of the expected values to match the population set structure
