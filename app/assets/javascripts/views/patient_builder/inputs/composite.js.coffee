@@ -4,7 +4,11 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
 
   # Mapping of type to list of attributes that should allow null values
   @OPTIONAL_ATTRS = {
-    'DiagnosisComponent': ['rank', 'presentOnAdmissionIndicator']
+    'DiagnosisComponent': ['rank', 'presentOnAdmissionIndicator'],
+    'PatientEntity': ['identifier'], # 'id' should also be here, but mongoid will autogenerate one so we require
+    'CarePartner': ['identifier', 'relationship'], # 'id' same as above
+    'Practitioner': ['identifier', 'role', 'specialty', 'qualification'], # 'id' same as above
+    'Organization': ['identifier', 'type'], # 'id' same as above
   }
 
   # Expected options to be passed in using the constructor options hash:
@@ -34,6 +38,13 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
         type: type
       }
     @showLabels = @typeName != 'Identifier'
+
+    if !@hasOwnProperty('allowNull')
+      @allowNull = false
+
+  events:
+    rendered: ->
+      @handleComponentUpdate()
 
   _determineType: (path, info) ->
     # If it is an interval, it may be one of DateTime or one of Quantity
@@ -65,7 +76,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
       when 'Decimal' then new Thorax.Views.InputDecimalView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Ratio' then new Thorax.Views.InputRatioView({ allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Any' then new Thorax.Views.InputAnyView({ attributeName: attributeName, cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName), defaultYear: @defaultYear })
-      when 'Identifier' then new Thorax.Views.InputCompositeView({ schema: info.schema, typeName: type })
+      when 'Identifier' then new Thorax.Views.InputCompositeView({ schema: info.schema, typeName: type, allowNull: @_attrShouldAllowNull(attributeName)})
       else null
 
   _attrShouldAllowNull: (attributeName) ->
@@ -100,4 +111,4 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    @value?
+    @allowNull || @value?
