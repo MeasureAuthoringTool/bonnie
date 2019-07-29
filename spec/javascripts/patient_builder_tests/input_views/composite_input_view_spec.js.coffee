@@ -175,20 +175,6 @@ describe 'InputView', ->
       @facilityLocationView.$('input[name="end_date_is_defined"]').click()
       expect(@facilityLocationView.value._type).toEqual('QDM::FacilityLocation')
 
-    it 'allows for a FacilityLocation to be added', ->
-      expect(@facilityLocationView.value).toBeNull()
-      # Both valueset/code and locationPeriod must be input
-      @facilityLocationView.$('select[name="valueset"]').val("2.16.840.1.113883.3.464.1003.101.12.1001").change()
-      # No need to set code, one is selected by default
-      expect(@facilityLocationView.value._type).toEqual('QDM::FacilityLocation') # null locationPeriod by default is allowed
-
-      # Enable start and populate with default datetime
-      @facilityLocationView.$('input[name="start_date_is_defined"]').click()
-      expect(@facilityLocationView.value._type).toEqual('QDM::FacilityLocation')
-
-      # Enable end and populate with default datetime
-      @facilityLocationView.$('input[name="end_date_is_defined"]').click()
-      expect(@facilityLocationView.value._type).toEqual('QDM::FacilityLocation')
 
 validateEntityOptionalInputs = (entityView) ->
   expect(entityView.hasValidValue()).toBe false
