@@ -17,10 +17,10 @@ class PopulationsControllerTest  < ActionController::TestCase
     # This particular test measure has multiple stratifications, and therefore can have their titles changed
     measure = CQM::Measure.by_user(@user).where(hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133').first
     assert_equal('Population Criteria Section', measure.population_sets[0].title)
-    post :update, {measure_id: measure.id.to_s,
-                   id: 'PopulationCriteria1', title: 'ps1'}
-    post :update, {measure_id: measure.id.to_s,
-                   id: 'PopulationCriteria1 - Stratification 2', title: 'ps1strat2'}
+    put :update, {measure_id: measure.id.to_s, id: '0',
+                  population_set_id: 'PopulationCriteria1', title: 'ps1'}
+    put :update, {measure_id: measure.id.to_s, id: '0',
+                  population_set_id: 'PopulationCriteria1 - Stratification 2', title: 'ps1strat2'}
     measure = CQM::Measure.by_user(@user).where(hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133').first
     assert_equal('ps1', measure.population_sets[0].title)
     assert_equal('ps1strat2', measure.population_sets[0].stratifications[1].title)
