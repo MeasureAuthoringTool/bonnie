@@ -9,6 +9,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
     'CarePartner': ['identifier', 'relationship'], # 'id' same as above
     'Practitioner': ['identifier', 'role', 'specialty', 'qualification'], # 'id' same as above
     'Organization': ['identifier', 'type'], # 'id' same as above
+    'Identifier': ['namingSystem', 'value'],
   }
 
   # Expected options to be passed in using the constructor options hash:
@@ -17,6 +18,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
   #   codeSystemMap - The mapping of code systems oids to code system names.
   #   typeName = The name of the type we should be constructing
   #   defaultYear = The default year if there is a DateTime input view
+  #   allowNull = Whether or not this input should allow no entry
   initialize: ->
     @value = null
 
