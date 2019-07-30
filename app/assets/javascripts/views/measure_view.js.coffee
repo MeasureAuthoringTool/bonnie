@@ -142,10 +142,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         # Populates the population details
         if (population_details[pop.cid] == undefined)
           population_details[pop.cid] = {title: pop.get("title"), statement_relevance: result.get("statement_relevance")}
-          criteria = []
-          for popAttrs of pop.attributes
-            if (popAttrs != "title" && popAttrs != "sub_id" && popAttrs != "title")
-              criteria.push(popAttrs)
+          criteria = pop.populationCriteria()
+          if pop.get('observations')?.length > 0
+            criteria.push('OBSERV')
           population_details[pop.cid]["criteria"] = criteria
 
     $.fileDownload "patients/excel_export",
