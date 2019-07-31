@@ -106,7 +106,7 @@ class PatientsController < ApplicationController
       patient.measure_ids = measure_ids
       patient.save
     end
-    render nothing: true
+    redirect_to root_path
   end
 
 private
