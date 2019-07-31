@@ -78,7 +78,9 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     patient.attributes.cqmPatient.measure_ids = _.difference(patient.get('cqmPatient').measure_ids, ids);
     remaining = (patient.get('cqmPatient').measure_ids.filter (id) -> id != null ).length
     if remaining > 0
-      patient.save {cqmPatient: patient.get('cqmPatient')}
+      # Remove patient from throrax collections so UI is up to date when user goes back to dashboard
+      @measure.collection.models.forEach (mes) -> mes.attributes.patients.remove(patient) if ids.includes(mes.attributes.cqmMeasure.hqmf_set_id)
+      patient.save {cqmPatient: patient.get('cqmPatient')}, {silent: true}
     else
       @patientDestroy(patient,result)
 
