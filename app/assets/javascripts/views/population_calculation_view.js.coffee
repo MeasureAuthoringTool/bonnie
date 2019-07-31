@@ -82,7 +82,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
       @measure.collection.models.forEach (mes) -> mes.attributes.patients.remove(patient) if ids.includes(mes.attributes.cqmMeasure.hqmf_set_id)
       patient.save {cqmPatient: patient.get('cqmPatient')}, {silent: true}
     else
-      @patientDestroy(patient,result)
+      @patientDestroy(patient, result)
 
   clonePatient: (e) ->
     result = $(e.target).model().result
