@@ -1,4 +1,4 @@
-class Thorax.Views.EditCodesDisplayView extends Thorax.Views.BonnieView
+class Thorax.Views.EditCodesDisplayView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes_display']
 
   initialize: ->
