@@ -249,5 +249,5 @@ class Thorax.Collections.Codes extends Thorax.Collection
   toJSON: ->
     json = {}
     for codeSystem, codes of @groupBy 'codeSystem'
-      json[codeSystemem:w] = _(codes).map (c) -> c.get('code')
+      json[codeSystem] = _(codes).map (c) -> c.get('code')
     json

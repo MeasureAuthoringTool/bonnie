@@ -57,20 +57,12 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    codes = @model.get('codes')
+    codes = @model.get('qdmDataElement').dataElementCodes
     code_list_id = @model.get('codeListId')
     concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
 
-    @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
-    @editCodeSelectionView.updateConcepts(concepts) if concepts
-
-    # There shouldn't be a dataElement saved without codes, but if there is, add default
-    if !(@model.get('qdmDataElement').dataElementCodes?.length)
-      @addDefaultCodeToDataElement()
-    else
-      # Add existing codes onto view
-      for code in @model.get('qdmDataElement').dataElementCodes
-        codes.add({codeset: @measure.codeSystemMap()[code.system] || code.system, code: code.code})
+    @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure
+    @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure
 
     @timingAttributeViews = []
     for timingAttr in @model.getPrimaryTimingAttributes()
@@ -106,7 +98,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.criteria-data').addClass(type)
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
 
-  # When we create the form and populate it, we want to convert times to moment-formatted dates
+  updateCodes: (codes) ->
+    @model.get('qdmDataElement').dataElementCodes = codes
+    if codes.length is 0
+      @editCodeSelectionView.addDefaultCodeToDataElement()
+    else
+      @editCodeSelectionView.codes = codes
+      @editCodesDisplayView.codes = codes
+      @editCodesDisplayView.render()
+      @triggerMaterialize()
+
   context: ->
     desc = @parseDataElementDescription(@model.get('description'))
     definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
@@ -115,6 +116,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     primaryTimingAttributeName = @model.getPrimaryTimingAttribute()
     primaryTimingValue = @model.get('qdmDataElement')[primaryTimingAttributeName]
     _(super).extend
+      # When we create the form and populate it, we want to convert times to moment-formatted dates
       start_date: moment.utc(primaryTimingValue.low.toJSDate()).format('L') if primaryTimingValue?.low?
       start_time: moment.utc(primaryTimingValue.low.toJSDate()).format('LT') if primaryTimingValue?.low?
       start_date: moment.utc(primaryTimingValue.toJSDate()).format('L') if primaryTimingValue?.isDateTime
