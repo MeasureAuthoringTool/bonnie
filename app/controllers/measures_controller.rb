@@ -29,7 +29,7 @@ class MeasuresController < ApplicationController
     end
 
     begin
-      vsac_tgt = get_ticket_granting_ticket
+      vsac_tgt = obtain_ticket_granting_ticket
     rescue Util::VSAC::VSACError => e
       raise convert_vsac_error_into_shared_error(e)
     end
@@ -195,7 +195,7 @@ class MeasuresController < ApplicationController
     end
   end
 
-  def get_ticket_granting_ticket
+  def obtain_ticket_granting_ticket
     # Retreive a (possibly) existing ticket granting ticket
     ticket_granting_ticket = session[:vsac_tgt]
 
