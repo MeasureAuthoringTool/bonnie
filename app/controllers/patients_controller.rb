@@ -1,3 +1,5 @@
+require "cqm_report"
+
 class PatientsController < ApplicationController
   before_filter :authenticate_user!
 
@@ -153,8 +155,12 @@ private
   def qrda_patient_export(patient, measure)
     start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
     end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
-    qrda_exporter = HealthDataStandards::Export::Cat1.new 'r5'
-    qrda_exporter.export(patient, measure, start_time, end_time, nil, 'r5')
+    options = { start_time: start_time, end_time: end_time }
+    qdm_record = ::CQMConverter.to_qdm(patient)
+    cqm_patient_hash = {givenNames: qdm_record.givenNames, familyName: qdm_record.familyName, qdmPatient: qdm_record, id: qdm_record.id.to_s}
+    # by using a struct we are replicating the cqmPatient structure from cqm-models that reports is expecting for QRDA export
+    cqm_patient = Struct.new(*cqm_patient_hash.keys).new(*cqm_patient_hash.values)
+    Qrda1R5.new(cqm_patient, measure, options).render
   end
 
   def html_patient_export(patient, measure)
