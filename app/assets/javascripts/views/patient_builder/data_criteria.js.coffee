@@ -61,8 +61,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     code_list_id = @model.get('codeListId')
     concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
 
-    @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure
-    @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure
+    @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure, parent: @
+    @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure, parent: @
 
     @timingAttributeViews = []
     for timingAttr in @model.getPrimaryTimingAttributes()

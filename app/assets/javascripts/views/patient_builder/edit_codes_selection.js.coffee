@@ -4,9 +4,6 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
   initialize: ->
     @model = new Thorax.Model
     @updateCodeSystems() if @concepts?
-    # There shouldn't be a dataElement saved without codes, but if there is, add default
-    if @codes?.length is 0
-      @addDefaultCodeToDataElement()
 
   events:
     'change select[name=codesystem]': (e) ->
