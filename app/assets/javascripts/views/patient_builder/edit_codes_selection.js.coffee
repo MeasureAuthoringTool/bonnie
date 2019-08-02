@@ -34,8 +34,6 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
       cqlCode = new cqm.models.CQL.Code(code, systemOid)
       @codes.push(cqlCode)
       @parent.updateCodes(@codes)
-    else
-      console.log(@codes)
 
     @$('select').val('')
     # Let the selectBoxIt() select box know that its value may have changed
