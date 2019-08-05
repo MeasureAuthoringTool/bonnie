@@ -258,8 +258,6 @@ module MeasureHelper
 
     return Measures::VSACValueSetLoader.new(
       options: retrieve_vasc_options(params, get_defaults_from_vsac),
-      username: params[:vsac_username],
-      password: params[:vsac_password],
       ticket_granting_ticket: vsac_tgt_object
     )
   end
