@@ -31,7 +31,7 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     duplicate_exists = @codes.some (c) => @codeSystemMap[c.system] is system and c.code is code
     if !duplicate_exists
       index = @codes.length
-      cqlCode = new cqm.models.CQL.Code(code, systemOid)
+      cqlCode = new cqm.models.CQL.Code(code, systemOid, null, null)
       @codes.push(cqlCode)
       @parent.updateCodes(@codes)
 
@@ -46,7 +46,7 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
       code_list_id = @parent.model.get('codeListId')
       # Make sure there is a default code that can be added
       if @concepts?.length
-        cql_code = new cqm.models.CQL.Code(@concepts[0].code, @concepts[0].code_system_oid)
+        cql_code = new cqm.models.CQL.Code(@concepts[0].code, @concepts[0].code_system_oid, null, null)
         @parent.updateCodes([cql_code])
 
   validateForAddition: ->

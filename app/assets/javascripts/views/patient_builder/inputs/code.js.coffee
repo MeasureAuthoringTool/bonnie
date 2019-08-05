@@ -126,7 +126,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     codeSystemOid = @$('select[name="vs_codesystem"]').val()
     code = @$('select[name="vs_code"]').val()
     selectedConcept = @valueSet.concepts.find (concept) -> concept.code_system_oid == codeSystemOid && concept.code == code
-    @value = new cqm.models.CQL.Code(selectedConcept.code, selectedConcept.code_system_oid, undefined, selectedConcept.display_name)
+    @value = new cqm.models.CQL.Code(selectedConcept.code, selectedConcept.code_system_oid, null, selectedConcept.display_name || null)
     @trigger 'valueChanged', @
 
   # Helper function that builds up a list of code systems in the given value set then builds out the code system select box.
@@ -164,7 +164,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
 
     # set to the first one in the list
     selectedConcept = @selectedCodeSystem.codes[0]
-    @value = new cqm.models.CQL.Code(selectedConcept.code, selectedConcept.code_system_oid, undefined, selectedConcept.display_name)
+    @value = new cqm.models.CQL.Code(selectedConcept.code, selectedConcept.code_system_oid, null, selectedConcept.display_name || null)
     @trigger 'valueChanged', @
 
   # cleans up value set selection stuff
@@ -195,14 +195,14 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     # custom code system
     if codeSystemOid == ''
       if (customCodeSystem != '' && customCode != '')
-        @value = new cqm.models.CQL.Code(customCode, customCodeSystem, undefined, customCode)
+        @value = new cqm.models.CQL.Code(customCode, customCodeSystem, null, customCode || null)
       else
         @value = null
 
     # only custom code, use oid of selected code system
     else
       if customCode != ''
-        @value = new cqm.models.CQL.Code(customCode, codeSystemOid, undefined, customCode)
+        @value = new cqm.models.CQL.Code(customCode, codeSystemOid, null, customCode || null)
       else
         @value = null
 
