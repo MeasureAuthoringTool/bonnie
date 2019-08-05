@@ -421,6 +421,8 @@ include Devise::Test::ControllerHelpers
     class << measure_file
       attr_reader :tempfile
     end
+    # give it a fake VSAC ticket to get through the check for one
+    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
@@ -433,6 +435,8 @@ include Devise::Test::ControllerHelpers
     class << measure_file
       attr_reader :tempfile
     end
+    # give it a fake VSAC ticket to get through the check for one
+    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
@@ -446,6 +450,8 @@ include Devise::Test::ControllerHelpers
     class << measure_file
       attr_reader :tempfile
     end
+    # give it a fake VSAC ticket to get through the check for one
+    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
 
@@ -500,7 +506,6 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: update_measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
