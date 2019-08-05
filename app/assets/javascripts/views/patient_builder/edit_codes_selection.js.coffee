@@ -28,7 +28,7 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     systemOid = @codeSystemMapReversed[system] || system
 
     # add the code unless there is a pre-existing code with the same codesystem/code
-    duplicate_exists = @codes.some (c) => @codeSystemMap[c.system] is system and c.code is code
+    duplicate_exists = @codes.some (c) => (@codeSystemMap[c.system] is system or c.system is system) and c.code is code
     if !duplicate_exists
       index = @codes.length
       cqlCode = new cqm.models.CQL.Code(code, systemOid, null, null)
