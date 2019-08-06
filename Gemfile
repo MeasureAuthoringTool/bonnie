@@ -14,9 +14,11 @@ gem 'less-rails'
 gem "non-stupid-digest-assets"
 
 # gem 'cqm-parsers', '~> 0.2.1'
+# gem 'cqm-reports', '~> 2.0.1'
 
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => '2019-standards-update'
 gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => '2019-standards-update'
+gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => '2019-standards-update'
 
 # gem 'cqm-parsers', :path => '../cqm-parsers'
 # gem 'cqm-models', :path => '../cqm-models'
