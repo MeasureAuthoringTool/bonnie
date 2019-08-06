@@ -96,13 +96,13 @@
     <div class="summary-card">
       <% if results.length > 1%>
         <% 
-          title = measure.populations[pop_index]['title'] 
+          title =  extract_measure_details_from_measure(measure)['population_titles'][pop_index]
           title = "Sub Measure #{('a'..'zz').to_a[pop_index]}" if title.blank?
         %>
         <h2>Population: <%= title %></h2>
       <% end %>
 
-      <% summary = result['summary'] %>
+      <% summary = result[1]['summary'] %>
       <table>
         <tbody>
           <tr>
@@ -118,7 +118,7 @@
             <td>Passing</td>
           </tr>
           <tr>
-            <td class="percentage"><%= result['coverage']%>%</td>
+            <td class="percentage"><%= result[1]['coverage']%>%</td>
             <td>Coverage</td>
           </tr>
         </tbody>
@@ -126,7 +126,7 @@
     </div>
     <br>
     <% records.each_with_index do |record, index| %>
-    <% patient_result = result['differences'][record.medical_record_number] %>
+    <% patient_result = result[1]['differences'].values.select{|difference| difference['medicalRecordNumber'] == record.qdmPatient.id.to_s}.first %>
       <br>
       <table>
         <tr>
@@ -134,12 +134,12 @@
             <h2>
               <span class="<%= patient_result['status'] %>"><%= patient_result['status'] %>: </span>
               <% unless html_errors[record.id] %>
-                <a href="<%= File.join(".","html","#{index+1}_#{record.last}_#{record.first}.html")%>"><%=record.last%>, <%=record.first%></a>
+                <a href="<%= File.join(".","html","#{index+1}_#{record.familyName}_#{record.givenNames[0]}.html")%>"><%=record.familyName%>, <%=record.givenNames[0]%></a>
               <% else %>
-                <%=record.last%>, <%=record.first%>
+                <%=record.familyName%>, <%=record.givenNames[0]%>
               <% end %>
               <% unless qrda_errors[record.id] %>
-                <a class="btn" href="<%= File.join(".","qrda","#{index+1}_#{record.last}_#{record.first}.xml")%>">qrda</a>
+                <a class="btn" href="<%= File.join(".","qrda","#{index+1}_#{record.familyName}_#{record.givenNames[0]}.xml")%>">qrda</a>
               <% end %>
             </h2>
           </td>
@@ -178,7 +178,7 @@
         </tr>
         <% HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code| %>
           <% 
-            comparison = patient_result['comparisons'][code] 
+            comparison = patient_result['comparisons'].values.select {|comparison| comparison['name'] == code}.first
             if comparison 
           %>
             <tr>

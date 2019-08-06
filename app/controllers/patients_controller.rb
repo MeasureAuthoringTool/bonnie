@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
   before_filter :authenticate_user!
+  prepend_view_path( Rails.root.join('lib/templates/') )
 
   def update
     old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
@@ -56,15 +57,15 @@ class PatientsController < ApplicationController
         # attach the QRDA export, or the error
         begin
           qrda = qrda_patient_export(patient, patient_measure) # allow error to stop execution before header is written
-          zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
+          zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.familyName}_#{patient.givenNames[0]}.xml"))
           zip.puts qrda
         rescue Exception => e
           qrda_errors[patient.id] = e
         end
         # attach the HTML export, or the error
         begin
-          html = html_patient_export(patient, if current_user.portfolio? then [] else patient_measure end) # allow error to stop execution before header is written
-          zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
+          html = QdmPatient.new(patient,true).render
+          zip.put_next_entry(File.join("html","#{index+1}_#{patient.familyName}_#{patient.givenNames[0]}.html"))
           zip.puts html
         rescue Exception => e
           html_errors[patient.id] = e
@@ -74,7 +75,7 @@ class PatientsController < ApplicationController
       if (params[:results] && !params[:patients])
         measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
-        zip.puts measure_patients_summary(patients, params[:results].observation_values, qrda_errors, html_errors, measure)
+        zip.puts measure_patients_summary(patients, params[:results], qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
@@ -124,36 +125,19 @@ private
     CQM::Measure.where(hqmf_set_id: patient.measure_ids.first)
   end
 
-  # TODO: update this once we are using new patient model and cqm-reports (its partially updated)
   def qrda_patient_export(patient, measure)
-    start_time = Time.zone.at(measure.measure_period['low']['value'].to_i)
-    end_time = Time.zone.at(measure.measure_period['high']['value'].to_i)
-    options = {
-      start_time: Time.new(start_time.year, start_time.month, start_time.day),
-      end_time: Time.new(end_time.year, end_time.month, end_time.day)
-    }
-    qrda_exporter = Qrda1R5.new(patient, measure, options)
-    qrda_exporter.render
-  end
-
-  # TODO: update this once we are using new patient model, change to point to something from cqm-reports
-  def html_patient_export(patient, measure)
-    value_sets = measure.map(&:value_sets).flatten unless measure.empty?
-    html_exporter = HealthDataStandards::Export::HTML.new
-    html_exporter.export(patient, measure, value_sets)
-  end
-
-  # TODO: update this once we are using new patient model, change to point to something from cqm-reports
-  def measure_patients_summary(patients, results, qrda_errors, html_errors, measure)
-    # restructure differences for output
-    results.each do |r|
-      r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].observation_values)
-      r[:differences].observation_values.each {|d| d[:comparisons] = convert_to_hash(:name, d[:comparisons].observation_values)}
+    start_time = Time.zone.at(measure[0].measure_period['low']['value'].to_i)
+    end_time = Time.zone.at(measure[0].measure_period['high']['value'].to_i)
+    options = { start_time: start_time, end_time: end_time }
+    if patient.qdmPatient.get_data_elements('patient_characteristic', 'payer').empty?
+      payer_codes = [{ 'code' => '1', 'system' => '2.16.840.1.113883.3.221.5', 'codeSystem' => 'SOP' }]
+      patient.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: payer_codes, relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
     end
-    results
-    rendering_context = HealthDataStandards::Export::RenderingContext.new
-    rendering_context.template_helper = HealthDataStandards::Export::TemplateHelper.new('html', 'patient_summary', Rails.root.join('lib', 'templates'))
-    rendering_context.render(:template => 'index', :locals => {records: patients, results: results, qrda_errors: qrda_errors, html_errors: html_errors, measure: measure})
+    Qrda1R5.new(patient, measure, options).render
+  end
+
+  def measure_patients_summary(patients, results, qrda_errors, html_errors, measure)
+    render_to_string partial: "index.html.erb", locals: {measure: measure, results: results, records: patients, html_errors: html_errors, qrda_errors: qrda_errors}
   end
 
 end
