@@ -21,7 +21,7 @@ class Thorax.Views.DeletePatientDialog extends Thorax.Views.BonnieView
   submit: ->
     selected = []
     $.each($('div#measureTitles input[type=checkbox]:checked'), -> selected.push($(this).attr('value')))
-    @submitCallback(@model, selected, @result)
+    @submitCallback(@model, selected, @difference)
     @deletePatientDialog.modal('hide')
     @$('form').submit()
 
