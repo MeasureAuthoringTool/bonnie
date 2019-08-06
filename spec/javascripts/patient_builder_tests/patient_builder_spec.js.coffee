@@ -549,33 +549,6 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeLow]').length).toEqual(0)
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
 
-    it "EditCriteriaValueView displays correct systems", ->
-      measure = loadMeasureWithValueSets('cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json')
-      bonnie.measures.add(measure, { parse: true })
-      patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS160v6/Expired_DENEX.json')], parse: true
-      patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: measure)
-      dataCriteria = patientBuilder.model.get('source_data_criteria').first()
-      editCriteriaView = new Thorax.Views.EditCriteriaView(model: dataCriteria, measure: measure)
-      editCodeSelectionView = editCriteriaView.editCodeSelectionView
-
-      # The dateria saved to the patient with codeListId:2.16.840.1.113883.3.67.1.101.1.254 should have:
-      # 2 Code Systems
-      # A total of 2 codes
-      expect(editCodeSelectionView.codeSets.length).toEqual(2)
-      expect(editCodeSelectionView.codeSets.includes("SNOMED-CT")).toBe true
-      expect(editCodeSelectionView.codeSets.includes("ICD-10-CM")).toBe true
-
-
-    it "EditCriteriaValueView does not have duplicated codes in dropdown", ->
-      measure = loadMeasureWithValueSets('cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json')
-      bonnie.measures.add(measure, { parse: true })
-      patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS160v6/Expired_DENEX.json')], parse: true
-      patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: measure)
-      dataCriteria = patientBuilder.model.get('source_data_criteria').first()
-      editCriteriaView = new Thorax.Views.EditCriteriaView(model: dataCriteria, measure: measure)
-      editCodeSelectionView = editCriteriaView.editCodeSelectionView
-      codesInDropdown = {}
-
   describe 'Composite Measure', ->
 
     beforeEach ->

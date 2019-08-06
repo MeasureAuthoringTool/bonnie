@@ -41,15 +41,7 @@
 
       <div class="form-group">
         <label class="control-label"><i class="fa fa-code" aria-hidden="true"></i> Codes<input class="sr-only" disabled></label>
-
-        {{#collection codes class="existing-values"}}
-        <span>
-          {{codeset}}:
-          {{code}}
-          {{#button "removeCode" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
-        </span>
-        {{/collection}}
-
+        {{view editCodesDisplayView}}
         {{view editCodeSelectionView}}
       </div>
 
