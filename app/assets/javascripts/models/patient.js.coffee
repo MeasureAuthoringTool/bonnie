@@ -166,7 +166,7 @@ class Thorax.Models.Patient extends Thorax.Model
     cqm.models.CQL.DateTime.fromJSDate(date, 0)
 
   conceptToCode: (concept) ->
-    new cqm.models.CQL.Code(concept.code, concept.code_system_oid, undefined, concept.display_name)
+    new cqm.models.CQL.Code(concept.code, concept.code_system_oid, null, concept.display_name || null)
 
   printDate: (date) ->
     (date.month.toString().padStart(2, '0') + '/' + date.day.toString().padStart(2, '0') + '/' + date.year) if date
