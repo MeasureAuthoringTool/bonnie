@@ -108,6 +108,42 @@ describe 'InputView', ->
       expect(practitionerEntityView.componentViews[0].name).toEqual('identifier')
       expect(practitionerEntityView.componentViews[0].view.showLabels).toBe(false)
 
+    it 'allows for optional PatientEntity fields', ->
+      patientEntityView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.PatientEntitySchema,
+        typeName: 'PatientEntity',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      patientEntityView.render()
+      validateEntityOptionalInputs(patientEntityView)
+
+    it 'allows for optional CarePartner fields', ->
+      carePartnerEntityView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.CarePartnerSchema,
+        typeName: 'CarePartner',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      carePartnerEntityView.render()
+      validateEntityOptionalInputs(carePartnerEntityView)
+
+    it 'allows for optional Practitioner fields', ->
+      practitionerEntityView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.PractitionerSchema,
+        typeName: 'Practitioner',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      practitionerEntityView.render()
+      validateEntityOptionalInputs(practitionerEntityView)
+
+    it 'allows for optional Organization fields', ->
+      organizationEntityView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.OrganizationSchema,
+        typeName: 'Organization',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      organizationEntityView.render()
+      validateEntityOptionalInputs(organizationEntityView)
+
     it 'allows for a Component to be added', ->
       expect(@view.value).toBeNull()
       # Both the valueset/code and the result must be valid to add a Component
@@ -138,3 +174,11 @@ describe 'InputView', ->
       # Enable end and populate with default datetime
       @facilityLocationView.$('input[name="end_date_is_defined"]').click()
       expect(@facilityLocationView.value._type).toEqual('QDM::FacilityLocation')
+
+
+validateEntityOptionalInputs = (entityView) ->
+  expect(entityView.hasValidValue()).toBe false
+
+  # Though ids should be optional, mongoose requires an id field so we make it required
+  entityView.$('input[placeholder="id"]').val('foo').change()
+  expect(entityView.hasValidValue()).toBe true
