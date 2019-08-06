@@ -75,7 +75,7 @@ describe 'InputView', ->
 
       # check the value
       expect(diagnosisComponentView.hasValidValue()).toBe true
-      expect(diagnosisComponentView.value.code).toEqual new cqm.models.CQL.Code("105401000119101", "2.16.840.1.113883.6.96", undefined, "Diabetes mellitus due to pancreatic injury (disorder)")
+      expect(diagnosisComponentView.value.code).toEqual new cqm.models.CQL.Code("105401000119101", "2.16.840.1.113883.6.96", null, "Diabetes mellitus due to pancreatic injury (disorder)")
       expect(diagnosisComponentView.value.presentOnAdmissionIndicator).toBe null
       expect(diagnosisComponentView.value.rank).toBe null
 

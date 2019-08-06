@@ -1,39 +1,5 @@
-<div class="row code-vs-select-input">
-  <div class="col-md-3 code-control-system">
-    <label class="sr-only" for="codeset_{{@cid}}">Select code system dropdown</label>
-    <select id="codeset_{{@cid}}" name="codeset" class="form-control">
-      <option value="">Code System</option>
-      {{#each codeSets}}
-      <option>{{this}}</option>
-      {{/each}}
-      <option value="custom">Custom</option>
-    </select>
-  </div>
-
-  {{#ifCond codeset '==' 'custom'}}
-    <div class="col-md-4 code-control-custom-system">
-      <label for="custom_codeset_{{@cid}}" class="sr-only">input</label>
-      <input type="text" name="custom_codeset" id="custom_codeset_{{@cid}}" class="form-control" placeholder="code system">
-    </div>
-    <div class="col-md-4 code-control-code">
-      <label for="custom_code_{{@cid}}" class="sr-only">units</label>
-      <input type="text" name="custom_code" id="custom_code_{{@cid}}" class="form-control" placeholder="code">
-    </div>
-  {{/ifCond}}
-
-  {{#ifCond codeset '!=' 'custom'}}
-  <div class="col-md-8 code-control-code">
-    <label for="code_{{@cid}}" class="sr-only">code value</label>
-    <select name="code" id="code_{{@cid}}" class="form-control codelist-control">
-      <option value="">--</option>
-    </select>
-  </div>
-  {{/ifCond}}
-
-  <div class="col-md-1">
-    {{#button "addCode" class="btn btn-primary pull-right" disabled="disabled"}}
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      <span class="sr-only">add code</span>
-    {{/button}}
-  </div>
+<div class="form-group">
+  <label class="control-label"><i class="fa fa-code" aria-hidden="true"></i> Codes<input class="sr-only" disabled></label>
+  {{view editCodesDisplayView}}
+  {{view editCodeSelectionView}}
 </div>

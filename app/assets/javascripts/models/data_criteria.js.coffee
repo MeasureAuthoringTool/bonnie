@@ -242,12 +242,12 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
 
 class Thorax.Collections.Codes extends Thorax.Collection
   parse: (results, options) ->
-    codes = for codeset, codes of results
-      {codeset, code} for code in codes
+    codes = for codeSystem, codes of results
+      {codeSystem, code} for code in codes
     _(codes).flatten()
 
   toJSON: ->
     json = {}
-    for codeset, codes of @groupBy 'codeset'
-      json[codeset] = _(codes).map (c) -> c.get('code')
+    for codeSystem, codes of @groupBy 'codeSystem'
+      json[codeSystem] = _(codes).map (c) -> c.get('code')
     json
