@@ -1,0 +1,311 @@
+{
+  "_id": {
+    "$oid": "5d48729c9026d30000bab6d1"
+  },
+  "bundleId": null,
+  "expectedValues": [
+    {
+      "population_index": 0,
+      "measure_id": "4DC3E7AA-8777-4749-A1E4-37E942036076",
+      "IPP": 2,
+      "MSRPOPL": 2,
+      "MSRPOPLEX": 1,
+      "OBSERV_UNIT": " mins",
+      "OBSERV": [
+        15
+      ]
+    },
+    {
+      "population_index": 1,
+      "measure_id": "4DC3E7AA-8777-4749-A1E4-37E942036076",
+      "STRAT": 2,
+      "IPP": 2,
+      "MSRPOPL": 2,
+      "MSRPOPLEX": 1,
+      "OBSERV_UNIT": " mins",
+      "OBSERV": [
+        15
+      ]
+    },
+    {
+      "population_index": 2,
+      "measure_id": "4DC3E7AA-8777-4749-A1E4-37E942036076",
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "MSRPOPLEX": 0,
+      "OBSERV_UNIT": " mins",
+      "OBSERV": null
+    },
+    {
+      "population_index": 3,
+      "measure_id": "4DC3E7AA-8777-4749-A1E4-37E942036076",
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "MSRPOPLEX": 0,
+      "OBSERV_UNIT": ""
+    }
+  ],
+  "familyName": "2 ED",
+  "givenNames": [
+    "Visits 1 Excl"
+  ],
+  "measure_ids": [
+    "4DC3E7AA-8777-4749-A1E4-37E942036076"
+  ],
+  "notes": null,
+  "provider_ids": [
+
+  ],
+  "qdmPatient": {
+    "_id": {
+      "$oid": "5d48811757a11e8a91276486"
+    },
+    "birthDatetime": "1994-01-01T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": {
+          "$oid": "5d4877549026d30000bab7f9"
+        },
+        "admissionSource": null,
+        "authorDatetime": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
+        "dataElementCodes": [
+          {
+            "system": "2.16.840.1.113883.6.96",
+            "code": "4525004"
+          }
+        ],
+        "description": "Encounter, Performed: EmergencyDepartmentVisit",
+        "diagnoses": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::DiagnosisComponent",
+            "_id": "5d4877bf9026d30000bab8b8",
+            "code": {
+              "code": "10278007",
+              "system": "2.16.840.1.113883.6.96",
+              "version": null,
+              "display": "Factitious purpura (disorder)"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": 1
+          }
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": {
+          "$oid": "5d4877549026d30000bab7f9"
+        },
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-06-10T05:00:00.000Z",
+          "high": "2012-06-10T05:25:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": {
+          "$oid": "5d4878089026d30000bab93d"
+        },
+        "admissionSource": null,
+        "authorDatetime": null,
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
+        "dataElementCodes": [
+          {
+            "system": "2.16.840.1.113883.6.96",
+            "code": "4525004"
+          }
+        ],
+        "description": "Encounter, Performed: EmergencyDepartmentVisit",
+        "diagnoses": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::DiagnosisComponent",
+            "_id": "5d48784b9026d30000baba0e",
+            "code": {
+              "code": "10278007",
+              "system": "2.16.840.1.113883.6.96",
+              "version": null,
+              "display": "Factitious purpura (disorder)"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": 1
+          }
+        ],
+        "dischargeDisposition": {
+          "code": "371828006",
+          "system": "2.16.840.1.113883.6.96",
+          "display": "Patient deceased during stay (discharge status = dead) (finding)",
+          "version": null
+        },
+        "facilityLocations": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": {
+          "$oid": "5d4878089026d30000bab93d"
+        },
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-06-10T09:00:00.000Z",
+          "high": "2012-06-10T09:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": {
+          "$oid": "5d4878709026d30000baba56"
+        },
+        "admissionSource": null,
+        "authorDatetime": null,
+        "codeListId": "2.16.840.1.113883.3.666.5.307",
+        "dataElementCodes": [
+          {
+            "system": "2.16.840.1.113883.6.96",
+            "code": "183452005"
+          }
+        ],
+        "description": "Encounter, Performed: EncounterInpatient",
+        "diagnoses": null,
+        "dischargeDisposition": null,
+        "facilityLocations": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": {
+          "$oid": "5d4878709026d30000baba56"
+        },
+        "lengthOfStay": {
+          "value": 3,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-06-11T09:15:00.000Z",
+          "high": "2012-06-14T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": {
+          "$oid": "5d48728057a11e8a91275c32"
+        },
+        "codeListId": "2.16.840.1.113762.1.4.1",
+        "dataElementCodes": [
+          {
+            "code": "M",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "Male"
+          }
+        ],
+        "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+        "id": {
+          "$oid": "5d48728057a11e8a91275c32"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicSex"
+      },
+      {
+        "_id": {
+          "$oid": "5d4881179026d30000bace8c"
+        },
+        "birthDatetime": "1994-01-01T08:00:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": null,
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+        "id": {
+          "$oid": "5d4881179026d30000bace8c"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": {
+          "$oid": "5d48728057a11e8a91275c34"
+        },
+        "codeListId": "2.16.840.1.114222.4.11.836",
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native"
+          }
+        ],
+        "description": "Patient Characteristic Race: Race",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+        "id": {
+          "$oid": "5d48728057a11e8a91275c34"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": {
+          "$oid": "5d48728057a11e8a91275c33"
+        },
+        "codeListId": "2.16.840.1.114222.4.11.837",
+        "dataElementCodes": [
+          {
+            "code": "2135-2",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Hispanic or Latino"
+          }
+        ],
+        "description": "Patient Characteristic Ethnicity: Ethnicity",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+        "id": {
+          "$oid": "5d48728057a11e8a91275c33"
+        },
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      }
+    ],
+    "extendedData": null,
+    "qdmVersion": "5.5"
+  },
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  }
+}
