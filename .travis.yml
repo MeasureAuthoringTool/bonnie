@@ -24,7 +24,6 @@ before_script:
   - wget http://chromedriver.storage.googleapis.com/2.44/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
-before_script:
   - mkdir ${PWD}/mongodb-linux-x86_64-3.4.4/data
   - ${PWD}/mongodb-linux-x86_64-3.4.4/bin/mongod --dbpath ${PWD}/mongodb-linux-x86_64-3.4.4/data --logpath ${PWD}/mongodb-linux-x86_64-3.4.4/mongodb.log --fork
 script:
