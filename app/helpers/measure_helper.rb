@@ -217,9 +217,7 @@ module MeasureHelper
 
   def turn_exception_into_shared_error_if_needed(error)
     return error if error.is_a?(SharedError)
-    if error.inspect.include? 'Verify the QDM version of the measure package is correct.'
-      return MeasureLoadingBadPackage.new(error.inspect)
-    end
+    return MeasureLoadingBadPackage.new(error.inspect) if error.inspect.include? 'Verify the QDM version of the measure package is correct.'
     return MeasureLoadingOther.new(Rails.env.development? ? error.inspect : nil)
   end
 
