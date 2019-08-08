@@ -10,8 +10,9 @@ include Devise::Test::ControllerHelpers
     dump_database
     users_set = File.join('users', 'base_set')
     patients_set = File.join('cqm_patients', 'CMS32v7')
+    strat_measure_patients_set = File.join('cqm_patients', 'CMSv0')
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
-    collection_fixtures(users_set, patients_set)
+    collection_fixtures(users_set, patients_set, strat_measure_patients_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, CQM::Patient.all)
     sign_in @user
@@ -420,6 +421,8 @@ include Devise::Test::ControllerHelpers
     class << measure_file
       attr_reader :tempfile
     end
+    # give it a fake VSAC ticket to get through the check for one
+    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
@@ -432,6 +435,8 @@ include Devise::Test::ControllerHelpers
     class << measure_file
       attr_reader :tempfile
     end
+    # give it a fake VSAC ticket to get through the check for one
+    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
@@ -445,6 +450,8 @@ include Devise::Test::ControllerHelpers
     class << measure_file
       attr_reader :tempfile
     end
+    # give it a fake VSAC ticket to get through the check for one
+    session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
 
@@ -499,7 +506,6 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: update_measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -513,6 +519,38 @@ include Devise::Test::ControllerHelpers
       # Verify measure has not been deleted or modified
       measure_after = CQM::Measure.where({hqmf_set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
       assert_equal measure, measure_after
+    end
+  end
+
+  test 'update measure doesnt affect expected values' do
+    measure = nil
+    # Use the valid vsac response recording each time attempting to upload measure
+    VCR.use_cassette('measure_loading_does_not_alter_expected_values', @vcr_options) do
+      sign_in @user
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'MedianAdmitDecisionTime_v5_8_Artifacts.zip'), 'application/zip')
+      class << measure_file
+        attr_reader :tempfile
+      end
+      patient_before = CQM::Patient.where({measure_ids: ['845E4012-4A98-413B-82C6-675E1E84B385']}).first
+      # Assert measure is not yet loaded
+      measure = CQM::Measure.where({hqmf_set_id: '845E4012-4A98-413B-82C6-675E1E84B385'}).first
+      assert_nil measure
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
+      assert_response :redirect
+      measure = CQM::Measure.where({hqmf_set_id: '845E4012-4A98-413B-82C6-675E1E84B385'}).first
+      assert_not_nil measure
+      patient_after = CQM::Patient.where({measure_ids: ['845E4012-4A98-413B-82C6-675E1E84B385']}).first
+      assert_equal patient_before.expectedValues.to_s, patient_after.expectedValues.to_s
+
     end
   end
 

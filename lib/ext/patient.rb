@@ -30,6 +30,10 @@ module CQM
     #    expected_value_set - The set removed, added, or changed.
     def update_expected_value_structure!(measure)
       measure_population_count = measure.population_sets.count
+      # add stratifications to the count
+      measure.population_sets.each do |population_set|
+        measure_population_count += population_set.stratifications.count
+      end
 
       # keep track of the population indexes we have seen so we can reject duplicates
       population_indexes_found = Hash.new { |h, k| h[k] = [] } # make is so uninitialized keys are set to []
@@ -96,8 +100,30 @@ module CQM
         next unless expected_value_set['measure_id'] == measure.hqmf_set_id
 
         pop_idx = expected_value_set['population_index']
+        is_stratification = false
+
+        # if the population index is greater than the count of population sets, then it is a
+        # stratification, we need to determine the corresponding population_set
+        if pop_idx >= measure.population_sets.count
+          actual_pop_idx = nil
+          is_stratification = true
+          # create a counter to count down as we traverse stratifications
+          # once this runs out, we have found the corresponding population_set
+          remaining_idx = pop_idx - measure.population_sets.count
+          measure.population_sets.each_with_index do |population_set, index|
+            if remaining_idx >= population_set.stratifications.count
+              remaining_idx -= population_set.stratifications.count
+            else
+              actual_pop_idx = index
+              break
+            end
+          end
+          pop_idx = actual_pop_idx
+        end
+
         expected_value_population_set = expected_value_set.keys & CQM::Measure::ALL_POPULATION_CODES
         measure_population_set = measure.population_sets[pop_idx].bonnie_result_criteria_names
+        measure_population_set += ['STRAT'] if is_stratification
 
         # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
         added_populations = measure_population_set - expected_value_population_set
