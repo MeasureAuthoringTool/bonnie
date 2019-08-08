@@ -28,7 +28,7 @@ module MeasureHelper
     def initialize(measure_hqmf_set_id)
       front_end_version = {
         title: "Error Loading Measure",
-        summary: "A version of this measure is already loaded.", 
+        summary: "A version of this measure is already loaded.",
         body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."
       }
       back_end_version = {
@@ -43,7 +43,7 @@ module MeasureHelper
     def initialize(data_element_name)
       front_end_version = {
         title: "Error Loading Measure",
-        summary: "Unsupported Data Element Used In Measure.", 
+        summary: "Unsupported Data Element Used In Measure.",
         body: "Bonnie does not support the " + data_element_name + " QDM Data Element used in this measure."
       }
       back_end_version = {
@@ -74,7 +74,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Uploading Measure",
         summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
-        body: "Measure loading process encountered error: #{loading_exception_message} Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.".html_safe
+        body: "Measure loading process encountered error: #{loading_exception_message.sub(/^#<.*Error: /, '').sub(/>$/, '')} Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.".html_safe
       }
       back_end_version = {
         json: {status: "error", messages: "Measure loading process encountered error: #{loading_exception_message}"},
@@ -163,7 +163,7 @@ module MeasureHelper
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
-  
+
   class VSACError < SharedError
     def initialize(message)
       front_end_version = {
@@ -217,6 +217,9 @@ module MeasureHelper
 
   def turn_exception_into_shared_error_if_needed(error)
     return error if error.is_a?(SharedError)
+    if error.inspect.include? 'Verify the QDM version of the measure package is correct.'
+      return MeasureLoadingBadPackage.new(error.inspect)
+    end
     return MeasureLoadingOther.new(Rails.env.development? ? error.inspect : nil)
   end
 
