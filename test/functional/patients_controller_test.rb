@@ -161,7 +161,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "export patients" do
-    records_set = File.join("records", "core_measures", "CMS134v6")
+    records_set = File.join("records", "core_measures", "CMS158v6")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measure_with_patients(@measure, Record.all)

@@ -30,6 +30,7 @@ gem 'cqm-converter', '~> 1.0.4'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
 # gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'bonnie-patch'
+gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'bonnie_export'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'

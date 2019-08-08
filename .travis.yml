@@ -9,10 +9,13 @@ rvm:
   - "2.4.5"
 before_install:
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
   - npm install -g coffeelint
   - npm install -g istanbul
-services: mongodb
+  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.4.4.tgz
+  - tar xzf mongodb-linux-x86_64-3.4.4.tgz
+  - ${PWD}/mongodb-linux-x86_64-3.4.4/bin/mongod --version
+services:
+  - xvfb
 bundler_args: --without test development
 before_script:
   - git config --global user.email "travis@travis.ci"
@@ -21,6 +24,8 @@ before_script:
   - wget http://chromedriver.storage.googleapis.com/2.44/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip -d /tmp/chromedriver
   - export PATH=$PATH:/tmp/chromedriver
+  - mkdir ${PWD}/mongodb-linux-x86_64-3.4.4/data
+  - ${PWD}/mongodb-linux-x86_64-3.4.4/bin/mongod --dbpath ${PWD}/mongodb-linux-x86_64-3.4.4/data --logpath ${PWD}/mongodb-linux-x86_64-3.4.4/mongodb.log --fork
 script:
   - bundle exec rake teaspoon
   - bundle exec brakeman -qAzw1
