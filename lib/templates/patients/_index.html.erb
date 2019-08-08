@@ -176,22 +176,18 @@
           <th>Expected</th>
           <th>Actual</th>
         </tr>
-        <% HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code| %>
-          <% 
-            comparison = patient_result['comparisons'].values.select {|comparison| comparison['name'] == code}.first
-            if comparison 
-          %>
+        <% patient_result['comparisons'].values.each do |comparison| %>
+            <% comparison['name'] = 'OBSERV_1' if comparison['name'] == 'OBSERV'%>
             <tr>
               <% if (comparison['match'] == 'true') %>
                 <td class="pass">&#10003;</td>
               <% else %>
                 <td class="fail">&times;</td>
               <% end %>
-              <td><%= code %></td>
+              <td><%= comparison['name'] %></td>
               <td><%= comparison['expected'] %><%= comparison['unit'] %></td>
               <td><%= comparison['actual'] %><%= comparison['unit'] %></td>
             </tr>
-          <% end %>
         <% end %>
       </table>
     <% end %>
