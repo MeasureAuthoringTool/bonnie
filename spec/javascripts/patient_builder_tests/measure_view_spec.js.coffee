@@ -113,6 +113,31 @@
       @measureView.$("button[data-call-method=exportExcelPatients]").click()
       expect($.fileDownload).toHaveBeenCalled()
 
+    it 'can click share patients button', ->
+      bonnie.isPortfolio = true
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
+      spyOn(@measureView, 'sharePatients')
+      @measureView.$("button[data-call-method=sharePatients]").click()
+      expect(@measureView.sharePatients).toHaveBeenCalled()
+      @measureView.remove()
+      bonnie.isPortfolio = false
+
+    it 'can remove patient belonging to multiple measures', ->
+      secondMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS10v0/CMS10v0.json', 'cqm_measure_data/CMS10v0/value_sets.json'
+      bonnie.measures.add secondMeasure
+      patient = @cqlPatients.models[0]
+      patient.attributes.cqmPatient.measure_ids.push(secondMeasure.attributes.cqmMeasure.hqmf_set_id)
+      expect(patient.attributes.cqmPatient.measure_ids.length).toEqual(2)
+      @measureView.populationCalculation.adjustMeasureIds(patient, secondMeasure.attributes.cqmMeasure.hqmf_set_id, null)
+      expect(patient.attributes.cqmPatient.measure_ids.length).toEqual(1)
+
+    it 'share patients button not available for non-portfolio users', ->
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
+      expect(@measureView.$("button[data-call-method=sharePatients]")).not.toExist()
+      @measureView.remove()
+
     describe 'value sets view', ->
       it 'exists', ->
         expect(@cqlMeasureValueSetsView.$('.value_sets')).toExist()
