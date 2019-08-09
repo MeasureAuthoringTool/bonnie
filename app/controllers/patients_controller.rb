@@ -1,6 +1,6 @@
 class PatientsController < ApplicationController
   before_filter :authenticate_user!
-  prepend_view_path( Rails.root.join('lib/templates/') )
+  prepend_view_path(Rails.root.join('lib/templates/'))
 
   def update
     old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
