@@ -68,6 +68,15 @@ include Devise::Test::ControllerHelpers
     assert_equal 1, json["expectedValues"].length
   end
 
+  test "share patients" do
+    patients_set = File.join('cqm_patients', 'CMS32v7')
+    collection_fixtures(patients_set)
+    associate_user_with_patients(@user,CQM::Patient.all)
+    post :share_patients, {hqmf_set_id: "3FD13096-2C8F-40B5-9297-B714E8DE9133", selected: ["123456", "789012345"]}
+    assert_response :redirect
+    CQM::Patient.by_user(@user).all.each { |patient| assert_equal patient.measure_ids, ["123456", "789012345", "3FD13096-2C8F-40B5-9297-B714E8DE9133"]}
+  end
+
   test "create patient for component measure of composite measure" do
     load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
     assert_equal 0, CQM::Patient.count
