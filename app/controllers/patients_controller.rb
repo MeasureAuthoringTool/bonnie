@@ -126,8 +126,8 @@ private
   end
 
   def qrda_patient_export(patient, measure)
-    start_time = Time.zone.at(measure[0].measure_period['low']['value'].to_i)
-    end_time = Time.zone.at(measure[0].measure_period['high']['value'].to_i)
+    start_time = DateTime.parse(measure[0].measure_period['low']['value'])
+    end_time = DateTime.parse(measure[0].measure_period['high']['value'])
     options = { start_time: start_time, end_time: end_time }
     if patient.qdmPatient.get_data_elements('patient_characteristic', 'payer').empty?
       payer_codes = [{ 'code' => '1', 'system' => '2.16.840.1.113883.3.221.5', 'codeSystem' => 'SOP' }]
