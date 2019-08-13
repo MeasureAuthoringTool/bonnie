@@ -28,9 +28,6 @@ PreCommit:
     on_fail: warn
   RuboCop:
     enabled: true
-  Reek:
-    enabled: true
-    on_fail: warn
   LocalPathsInGemfile:
     enabled: true
     on_warn: fail

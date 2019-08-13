@@ -52,7 +52,6 @@ group :test, :development, :ci do
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'rails_best_practices'
-  gem 'reek'
   gem 'webmock', '~> 2.3.1'
   gem 'vcr'
   gem 'bundler-audit'
