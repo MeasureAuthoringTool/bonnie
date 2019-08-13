@@ -74,7 +74,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
   isPeriodType: ->
-    @getPrimaryTimingAttribute() != 'authorDatetime'
+    @getPrimaryTimingAttribute() not in ['authorDatetime', 'resultDatetime']
 
   # determines if a data criteria describes an issue or problem with a person
   # allergy/intolerance, diagnosis, and symptom fall into this
@@ -100,6 +100,11 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
+    for attr in @getPrimaryTimingAttributes()
+      return attr.name if @get('qdmDataElement')[attr.name]?.low? || @get('qdmDataElement')[attr.name]?.high? || @get('qdmDataElement')[attr.name]?.isDateTime?
+    # ResultDatetime is not a primary timing attribute, but will be displayed if no other dates are available
+    if @get('qdmDataElement')['resultDatetime']?.isDateTime?
+      return 'resultDatetime'
     return @getPrimaryTimingAttributes()[0].name
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
