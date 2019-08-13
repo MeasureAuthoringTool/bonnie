@@ -102,6 +102,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   getPrimaryTimingAttribute: ->
     for attr in @getPrimaryTimingAttributes()
       return attr.name if @get('qdmDataElement')[attr.name]?.low? || @get('qdmDataElement')[attr.name]?.high? || @get('qdmDataElement')[attr.name]?.isDateTime?
+    # Fall back to returning the first primary timing attribute if none of the timing attributes have values
     return @getPrimaryTimingAttributes()[0].name
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
