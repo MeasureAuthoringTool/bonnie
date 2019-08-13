@@ -446,12 +446,12 @@ describe 'PatientBuilderView', ->
 
   describe "setting expected values for CV measure", ->
     beforeEach ->
-      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
+      cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS903v0/CMS903v0.json', 'cqm_measure_data/CMS903v0/value_sets.json'
       patientsJSON = []
-      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visit_1 ED.json'))
-      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits 1 Excl_2 ED.json'))
-      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits 2 Excl_2 ED.json'))
-      patientsJSON.push(getJSONFixture('patients/CMS32v7/Visits_2 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS903v0/Visit_1 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS903v0/Visits 1 Excl_2 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS903v0/Visits 2 Excl_2 ED.json'))
+      patientsJSON.push(getJSONFixture('patients/CMS903v0/Visits_2 ED.json'))
       patients = new Thorax.Collections.Patients patientsJSON, parse: true
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       @patientBuilder.appendTo 'body'
@@ -610,9 +610,9 @@ describe 'Direct Reference Code Usage', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS903v0/CMS903v0.json', 'cqm_measure_data/CMS903v0/value_sets.json'
     bonnie.measures.add(@measure, { parse: true })
-    @patient = new Thorax.Models.Patient getJSONFixture('patients/CMS32v7/Visits 2 Excl_2 ED.json'), parse: true
+    @patient = new Thorax.Models.Patient getJSONFixture('patients/CMS903v0/Visits 2 Excl_2 ED.json'), parse: true
 
   xit 'Field Value Dropdown should contain direct reference code element', ->
     # SKIP: Re-enable with Patient Builder Code Work
@@ -628,7 +628,7 @@ describe 'Direct Reference Code Usage', ->
   it 'Adding direct reference code element should calculate correctly', ->
     population = @measure.get('populations').first()
     results = population.calculate(@patient)
-    library = "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients"
+    library = "LikeCMS32"
     statementResults = results.get("statement_results")
     titleOfClauseThatUsesDrc = statementResults[library]['Measure Population Exclusions'].raw[0].dischargeDisposition.display
     expect(titleOfClauseThatUsesDrc).toBe "Patient deceased during stay (discharge status = dead) (finding)"
