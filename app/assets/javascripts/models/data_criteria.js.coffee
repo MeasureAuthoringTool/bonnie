@@ -92,7 +92,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       criteriaType = "#{criteriaType}_#{@get('qdmDataElement').qdmStatus}"
     criteriaType
 
-  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'relevantDatetime', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
+  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'relevantDatetime', 'prevalencePeriod', 'participationPeriod', 'authorDatetime', 'resultDatetime']
 
   # the attributes to skip in user attribute view and editing fields
   @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', '_id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
@@ -102,9 +102,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   getPrimaryTimingAttribute: ->
     for attr in @getPrimaryTimingAttributes()
       return attr.name if @get('qdmDataElement')[attr.name]?.low? || @get('qdmDataElement')[attr.name]?.high? || @get('qdmDataElement')[attr.name]?.isDateTime?
-    # ResultDatetime is not a primary timing attribute, but will be displayed if no other dates are available
-    if @get('qdmDataElement')['resultDatetime']?.isDateTime?
-      return 'resultDatetime'
     return @getPrimaryTimingAttributes()[0].name
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
