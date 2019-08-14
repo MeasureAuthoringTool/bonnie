@@ -58,6 +58,7 @@
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
       )
     catch error
+      console.log(error)
       bonnie.showError({
         title: 'Measure Calculation Error',
         summary: "There was an error calculating measure #{measure.get('cqmMeasure').cms_id}.",
@@ -141,6 +142,7 @@
       )
       console.log "finished BATCH calculation of #{cqmMeasure.cms_id}"
     catch error
+      console.log(error)
       bonnie.showError({
         title: 'Measure Calculation Error',
         summary: "There was an error calculating measure #{measure.get('cqmMeasure').cms_id}.",
