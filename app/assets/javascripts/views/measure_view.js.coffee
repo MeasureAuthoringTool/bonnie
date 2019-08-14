@@ -56,6 +56,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       isPrimaryView: @isPrimaryView
 
   initialize: ->
+    if bonnie.isPortfolio
+      @measureMetadataView = new Thorax.Views.MeasureMetadataView model: @model
     @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("source_data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
     # Determine which population logic view use
     populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
@@ -204,3 +206,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       d3.select(@el).select('.d3-measure-viz').datum(@model.get('cqmMeasure').population_criteria).call(@measureViz)
       @$('rect').popover()
       if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()
+
+class Thorax.Views.MeasureMetadataView extends Thorax.Views.BonnieView
+  template: JST['measure/measure_metadata']
+
+  initialize: ->
+    @hqmf_version_number = @model.get('cqmMeasure').hqmf_version_number
+    @cql_libraries = @model.get('cqmMeasure').cql_libraries
