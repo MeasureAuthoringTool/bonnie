@@ -39,7 +39,7 @@
         populationSetId = measure_population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
 
-        if populationSetResults.observation_values 
+        if populationSetResults.observation_values
           populationSetResults.observation_values.sort()
         else
           populationSetResults.observation_values = []
@@ -58,8 +58,11 @@
         console.log "finished calculation of #{cqmMeasure.cms_id} - #{patient.getFirstName()} #{patient.getLastName()}"
       )
     catch error
-      console.log error
-      result.state = 'cancelled'
+      bonnie.showError({
+        title: 'Measure Calculation Error',
+        summary: "There was an error calculating measure #{measure.get('cqmMeasure').cms_id}.",
+        body: "One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>#{error.message}</b>"
+      })
     return result
 
   calculateAll: (measure, patients, options = {}) ->
@@ -126,7 +129,7 @@
         populationSetId = population.get('population_set_id')
         populationSetResults = patientResults[populationSetId]
 
-        if populationSetResults.observation_values 
+        if populationSetResults.observation_values
           populationSetResults.observation_values.sort()
         else
           populationSetResults.observation_values = []
@@ -138,7 +141,10 @@
       )
       console.log "finished BATCH calculation of #{cqmMeasure.cms_id}"
     catch error
-      console.log error
-      results.forEach((result) -> result.state = 'cancelled')
+      bonnie.showError({
+        title: 'Measure Calculation Error',
+        summary: "There was an error calculating measure #{measure.get('cqmMeasure').cms_id}.",
+        body: "One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>#{error.message}</b>"
+      })
 
     return results
