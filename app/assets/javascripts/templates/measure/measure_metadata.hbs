@@ -1,0 +1,19 @@
+<div class="metadata-row metadata-table">
+  <table class="table table-condensed">
+    <caption scope="col" style="text-align: center;">Measure Metadata</caption>
+    <tr>
+      <th scope="col" style="text-align: left;">Name</th>
+      <th scope="col" style="text-align: center;">Version</th>
+    </tr>
+    <tr>
+      <td style="text-align: left;">HQMF Version Number</td>
+      <td style="text-align: center;">{{hqmf_version_number}}</td>
+    </tr>
+    {{#each cql_libraries}}
+      <tr>
+        <td style="text-align: left; word-break: break-all">{{library_name}}</td>
+        <td style="text-align: center;">{{library_version}}</td>
+      </tr>
+    {{/each}}
+  </table>
+</div>
