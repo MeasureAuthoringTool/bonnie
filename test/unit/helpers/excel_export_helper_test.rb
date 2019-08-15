@@ -140,11 +140,11 @@ class ExcelExportHelperTest < ActionController::TestCase
     backend_excel_spreadsheet = Roo::Spreadsheet.open(backend_excel_file.path)
 
     get :excel_export, params: {calc_results: @calc_results.to_json,
-                       patient_details: @patient_details.to_json,
-                       population_details: @population_details.to_json,
-                       statement_details: @statement_details.to_json,
-                       file_name: 'frontend-excel-export',
-                       measure_hqmf_set_id: @measure.hqmf_set_id}
+                                patient_details: @patient_details.to_json,
+                                population_details: @population_details.to_json,
+                                statement_details: @statement_details.to_json,
+                                file_name: 'frontend-excel-export',
+                                measure_hqmf_set_id: @measure.hqmf_set_id}
 
     frontend_excel_file = Tempfile.new(['frontend-excel-export', '.xlsx'])
     frontend_excel_file.write(response.body)
