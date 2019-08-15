@@ -59,6 +59,8 @@
       )
     catch error
       console.log(error)
+      @clearResult(population, patient, options)
+      result = new Thorax.Models.Result({}, population: population, patient: patient)
       bonnie.showError({
         title: 'Measure Calculation Error',
         summary: "There was an error calculating measure #{measure.get('cqmMeasure').cms_id}.",
