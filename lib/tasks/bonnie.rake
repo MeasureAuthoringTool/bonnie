@@ -579,11 +579,6 @@ namespace :bonnie do
           expected_value['measure_id'] = dest_measure.hqmf_set_id
         end
       end
-      patient.qdmPatient.extendedData['source_data_criteria'].each do |sdc|
-        if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != dest_measure.hqmf_set_id
-          sdc['hqmf_set_id'] = dest_measure.hqmf_set_id
-        end
-      end
       patient.save
     end
   end
