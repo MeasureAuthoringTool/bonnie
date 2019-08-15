@@ -33,7 +33,8 @@
       "STRAT": 0,
       "IPP": 0,
       "MSRPOPL": 0,
-      "MSRPOPLEX": 0
+      "MSRPOPLEX": 0,
+      "OBSERV_UNIT": ""
     },
     {
       "population_index": 3,
@@ -41,7 +42,8 @@
       "STRAT": 0,
       "IPP": 0,
       "MSRPOPL": 0,
-      "MSRPOPLEX": 0
+      "MSRPOPLEX": 0,
+      "OBSERV_UNIT": ""
     }
   ],
   "familyName": "1 ED",
@@ -57,7 +59,7 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d487d8957a11e8a91276474"
+      "$oid": "5d52db7b57a11ec4f54862f5"
     },
     "birthDatetime": "1994-01-01T08:00:00.000+00:00",
     "dataElements": [
@@ -66,12 +68,14 @@
           "$oid": "5d487d099026d30000bac57c"
         },
         "admissionSource": null,
-        "authorDatetime": null,
+        "authorDatetime": "2012-06-10T05:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
         "dataElementCodes": [
           {
+            "code": "4525004",
             "system": "2.16.840.1.113883.6.96",
-            "code": "4525004"
+            "version": null,
+            "display": null
           }
         ],
         "description": "Encounter, Performed: EmergencyDepartmentVisit",
@@ -83,6 +87,7 @@
             "code": {
               "code": "10278007",
               "system": "2.16.840.1.113883.6.96",
+              "version": null,
               "display": "Factitious purpura (disorder)"
             },
             "presentOnAdmissionIndicator": null,
@@ -90,7 +95,25 @@
           }
         ],
         "dischargeDisposition": null,
-        "facilityLocations": null,
+        "facilityLocations": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::FacilityLocation",
+            "_id": "5d519959e68a270000d5d01d",
+            "code": {
+              "code": "183452005",
+              "system": "2.16.840.1.113883.6.96",
+              "version": null,
+              "display": "Emergency hospital admission (procedure)"
+            },
+            "locationPeriod": {
+              "low": "2012-06-10T05:00:00.000+00:00",
+              "high": "2012-06-10T05:15:00.000+00:00",
+              "lowClosed": true,
+              "highClosed": true
+            }
+          }
+        ],
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
           "$oid": "5d487d099026d30000bac57c"
@@ -118,12 +141,14 @@
           "$oid": "5d487d519026d30000bac66d"
         },
         "admissionSource": null,
-        "authorDatetime": null,
+        "authorDatetime": "2012-06-10T05:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.666.5.307",
         "dataElementCodes": [
           {
+            "code": "183452005",
             "system": "2.16.840.1.113883.6.96",
-            "code": "183452005"
+            "version": null,
+            "display": null
           }
         ],
         "description": "Encounter, Performed: EncounterInpatient",
@@ -161,6 +186,7 @@
           {
             "code": "M",
             "system": "2.16.840.1.113883.5.1",
+            "version": null,
             "display": "Male"
           }
         ],
@@ -177,7 +203,7 @@
       },
       {
         "_id": {
-          "$oid": "5d487d889026d30000bac74f"
+          "$oid": "5d52db7ab825f000006d451e"
         },
         "birthDatetime": "1994-01-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -185,7 +211,7 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "$oid": "5d487d889026d30000bac74f"
+          "$oid": "5d52db7ab825f000006d451e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -202,6 +228,7 @@
           {
             "code": "1002-5",
             "system": "2.16.840.1.113883.6.238",
+            "version": null,
             "display": "American Indian or Alaska Native"
           }
         ],
@@ -225,6 +252,7 @@
           {
             "code": "2186-5",
             "system": "2.16.840.1.113883.6.238",
+            "version": null,
             "display": "Not Hispanic or Latino"
           }
         ],

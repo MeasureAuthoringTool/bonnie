@@ -60,7 +60,7 @@
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d48811757a11e8a91276486"
+      "$oid": "5d51a41657a11e0c6d696a17"
     },
     "birthDatetime": "1994-01-01T08:00:00.000+00:00",
     "dataElements": [
@@ -73,8 +73,10 @@
         "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
         "dataElementCodes": [
           {
+            "code": "4525004",
             "system": "2.16.840.1.113883.6.96",
-            "code": "4525004"
+            "version": null,
+            "display": null
           }
         ],
         "description": "Encounter, Performed: EmergencyDepartmentVisit",
@@ -94,7 +96,25 @@
           }
         ],
         "dischargeDisposition": null,
-        "facilityLocations": null,
+        "facilityLocations": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::FacilityLocation",
+            "_id": "5d519b9ae68a270000d5d350",
+            "code": {
+              "code": "183452005",
+              "system": "2.16.840.1.113883.6.96",
+              "version": null,
+              "display": "Emergency hospital admission (procedure)"
+            },
+            "locationPeriod": {
+              "low": "2012-08-12T05:00:00.000+00:00",
+              "high": "2012-08-12T05:15:00.000+00:00",
+              "lowClosed": true,
+              "highClosed": true
+            }
+          }
+        ],
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
           "$oid": "5d4877549026d30000bab7f9"
@@ -126,8 +146,10 @@
         "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
         "dataElementCodes": [
           {
+            "code": "4525004",
             "system": "2.16.840.1.113883.6.96",
-            "code": "4525004"
+            "version": null,
+            "display": null
           }
         ],
         "description": "Encounter, Performed: EmergencyDepartmentVisit",
@@ -152,7 +174,25 @@
           "display": "Patient deceased during stay (discharge status = dead) (finding)",
           "version": null
         },
-        "facilityLocations": null,
+        "facilityLocations": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::FacilityLocation",
+            "_id": "5d51a409e68a270000d5d54d",
+            "code": {
+              "code": "183452005",
+              "system": "2.16.840.1.113883.6.96",
+              "version": null,
+              "display": "Emergency hospital admission (procedure)"
+            },
+            "locationPeriod": {
+              "low": "2012-06-10T05:00:00.000+00:00",
+              "high": "2012-06-10T05:15:00.000+00:00",
+              "lowClosed": true,
+              "highClosed": true
+            }
+          }
+        ],
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
         "id": {
           "$oid": "5d4878089026d30000bab93d"
@@ -184,8 +224,10 @@
         "codeListId": "2.16.840.1.113883.3.666.5.307",
         "dataElementCodes": [
           {
+            "code": "183452005",
             "system": "2.16.840.1.113883.6.96",
-            "code": "183452005"
+            "version": null,
+            "display": null
           }
         ],
         "description": "Encounter, Performed: EncounterInpatient",
@@ -208,7 +250,7 @@
         "qdmVersion": "5.5",
         "relevantPeriod": {
           "low": "2012-06-11T09:15:00.000Z",
-          "high": "2012-06-14T08:15:00.000Z",
+          "high": "2012-06-14T09:15:00.000Z",
           "lowClosed": true,
           "highClosed": true
         },
@@ -223,6 +265,7 @@
           {
             "code": "M",
             "system": "2.16.840.1.113883.5.1",
+            "version": null,
             "display": "Male"
           }
         ],
@@ -239,7 +282,7 @@
       },
       {
         "_id": {
-          "$oid": "5d4881179026d30000bace8c"
+          "$oid": "5d51a416e68a270000d5d56e"
         },
         "birthDatetime": "1994-01-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -247,7 +290,7 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "$oid": "5d4881179026d30000bace8c"
+          "$oid": "5d51a416e68a270000d5d56e"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
@@ -264,6 +307,7 @@
           {
             "code": "1002-5",
             "system": "2.16.840.1.113883.6.238",
+            "version": null,
             "display": "American Indian or Alaska Native"
           }
         ],
@@ -287,6 +331,7 @@
           {
             "code": "2135-2",
             "system": "2.16.840.1.113883.6.238",
+            "version": null,
             "display": "Hispanic or Latino"
           }
         ],
