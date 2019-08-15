@@ -34,14 +34,14 @@ http_interactions:
       Content-Length:
       - '1223'
       Date:
-      - Tue, 16 Jul 2019 12:00:23 GMT
+      - Wed, 14 Aug 2019 17:43:03 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!7HOxlax8RoUsfrrNtNHn4GsLooFbU+SeAR/jXs9xuHZKmkJ2TUgs0Hx5VXhAnSswwlh6h2w4rVZp8Dw=;
-        expires=Tue, 16-Jul-2019 14:00:24 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!GNRJkXoeqpLu80Xm9OGvBt4MxRMcjihklDXUbvmdWkct3j1gbs0MMxX1uuXxpFK3tL8CLIZDYjbb1Us=;
+        expires=Wed, 14-Aug-2019 19:43:04 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -60,5 +60,5 @@ http_interactions:
         EH Update 2013-04-01","releaseDate":20130401},{"name":"MU2 Update 2012-12-21","releaseDate":20121221},{"name":"MU2
         Update 2012-10-25","releaseDate":20121025}]}'
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 12:00:24 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Wed, 14 Aug 2019 17:43:04 GMT
+recorded_with: VCR 5.0.0

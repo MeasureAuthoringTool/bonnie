@@ -1,4 +1,4 @@
-class CompareVersion
+@CompareVersion = class CompareVersion
   # code from https://stackoverflow.com/questions/7717109/how-can-i-compare-arbitrary-version-numbers
   @compare: (a, b) ->
     re = /(\.0)+[^\.]*$/

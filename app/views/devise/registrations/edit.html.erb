@@ -46,19 +46,6 @@
     </div>
   </div>
 
-  <% if resource.is_portfolio? %>
-    <div class="form-group row">
-      <div class="col-md-12">
-        <div class="input-group input-group-lg">
-          <div class="checkbox">
-            <%= f.check_box :crosswalk_enabled, checked: resource.crosswalk_enabled %>
-            <%= label_tag :crosswalk_enabled, "Enable cross walk checking", class: "control-label" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
 <h1>Change Password</h1>
   <div class="form-group row">
     <div class="col-md-6">

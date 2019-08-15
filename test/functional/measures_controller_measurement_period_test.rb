@@ -25,7 +25,7 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
     measure = CQM::Measure.where({cms_id: 'CMS32v7'}).first
     measure_id = measure.id
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
-    post :measurement_period, {
+    post :measurement_period, params: {
       year: '1984',
       id: measure.id.to_s,
       measurement_period_shift_dates: 'true'
@@ -43,7 +43,7 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
     measure = CQM::Measure.where({cms_id: 'CMS32v7'}).first
     measure_id = measure.id
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
-    post :measurement_period, {
+    post :measurement_period, params: {
       year: '1984',
       id: measure.id.to_s,
       measurement_period_shift_dates: nil
@@ -66,7 +66,7 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
     # shift this date will cause a RangeError
     patient.qdmPatient.dataElements.first.authorDatetime.change(year: 1972)
     patient.save!
-    post :measurement_period, {
+    post :measurement_period, params: {
       year: '0003',
       id: measure.id.to_s,
       measurement_period_shift_dates: 'true'
@@ -105,7 +105,7 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
   def check_invalid_year(year)
     measure = CQM::Measure.first
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
-    post :measurement_period, {
+    post :measurement_period, params: {
       year: year,
       id: measure.id.to_s,
       measurement_period_shift_dates: 'true'

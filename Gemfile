@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.11'
+gem 'rails', '~> 5.0'
 
 # There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
 # https://github.com/capistrano/rails/issues/111
-gem 'sprockets', '~> 2.8'
+gem 'sprockets', '~> 3.0'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
-gem 'sprockets-rails'
+gem 'sprockets-rails', '2.3.3'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
@@ -16,11 +16,11 @@ gem "non-stupid-digest-assets"
 # gem 'cqm-parsers', '~> 0.2.1'
 # gem 'cqm-reports', '~> 2.0.1'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => '2019-standards-update'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => '2019-standards-update-mongoid-6'
 gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => '2019-standards-update'
 gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => '2019-standards-update'
 
-# gem 'cqm-parsers', :path => '../cqm-parsers'
+# gem 'cqm-parsers', :path => '../../workspace2/cqm-parsers'
 # gem 'cqm-models', :path => '../cqm-models'
 # gem 'cqm-reports', :path => '../cqm-reports'
 
@@ -30,7 +30,8 @@ gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
 gem 'mongoid'
-gem 'protected_attributes'
+gem 'protected_attributes_continued'
+# Hopefullt an intermediate solution
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
@@ -40,7 +41,7 @@ gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
-gem 'apipie-rails', :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
+gem 'apipie-rails'#, :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
 gem "doorkeeper-mongodb", '~> 4.1.0'
@@ -69,6 +70,7 @@ group :test, :development do
   gem 'capistrano-rails'
   gem 'capistrano-yarn'
   gem 'rvm1-capistrano3', require: false
+  gem 'rails-controller-testing'
 end
 
 group :production do

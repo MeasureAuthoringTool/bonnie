@@ -27,11 +27,6 @@
     </div>
 
     <%= javascript_include_tag "application" %>
-    <% if current_user.crosswalk_enabled %>
-      <script>
-        <%= HQMF2JS::Generator::JS.crosswalk_functions.html_safe %>
-      </script>
-    <% end %>
     <% @measures.each do |measure| %>
       <script src="<%= measure_url(measure, format: :js) %>"></script>
     <% end %>

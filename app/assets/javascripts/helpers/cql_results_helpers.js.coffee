@@ -2,7 +2,7 @@
 # Contains helpers that generate useful data for coverage and highlighing. These structures are added to the Result
 # object in the CQLCalculator.
 ###
-class CQLResultsHelpers
+@CQLResultsHelpers = class CQLResultsHelpers
 
   ###*
   # Builds the `statement_relevance` map. This map gets added to the Result attributes that the calculator returns.

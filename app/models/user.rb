@@ -1,4 +1,4 @@
-require 'protected_attributes'
+require 'protected_attributes_continued'
 class User
   include ActiveModel::MassAssignmentSecurity
   include Mongoid::Document

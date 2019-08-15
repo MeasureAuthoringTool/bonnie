@@ -21,14 +21,14 @@ require File.expand_path('config/application', __dir__)
 
 Bonnie::Application.load_tasks
 
-Rake::TestTask.new(:test_unit) do |t|
-  t.libs << "test"
-  t.test_files = FileList['test/**/*_test.rb']
-  t.verbose = true
-  t.ruby_opts = ['-W1']
-end
+# Rake::TestTask.new(:test_unit) do |t|
+#   t.libs << "test"
+#   t.test_files = FileList['test/**/*_test.rb']
+#   t.verbose = true
+#   t.ruby_opts = ['-W1']
+# end
 
-Rake::Task[:test].clear # rake has a default test task, if we do not clear it the following lines will append to it and the tests get run twice
-task :test => [:test_unit] do
-  system("open coverage/index.html")
-end
+# Rake::Task[:test].clear # rake has a default test task, if we do not clear it the following lines will append to it and the tests get run twice
+# task :test => [:test_unit] do
+#   system("open coverage/index.html")
+# end

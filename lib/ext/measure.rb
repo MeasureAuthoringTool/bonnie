@@ -2,7 +2,7 @@ module CQM
   # Measure contains the information necessary to represent the CQL version of a Clinical Quality Measure,
   # As needed by the Bonnie & Cypress applications
   class Measure
-    belongs_to :user
+    belongs_to :user, optional: true
     scope :by_user, ->(user) { where user_id: user.id }
     index 'user_id' => 1
     index 'user_id' => 1, 'hqmf_set_id' => 1

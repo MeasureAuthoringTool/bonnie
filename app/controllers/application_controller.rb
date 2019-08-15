@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_filter :authenticate_user!, except: [:page_not_found, :server_error]
-  before_filter :log_additional_data
+  before_action :authenticate_user!, except: [:page_not_found, :server_error]
+  before_action :log_additional_data
   layout :layout_by_resource
 
   after_action :allow_no_iframe

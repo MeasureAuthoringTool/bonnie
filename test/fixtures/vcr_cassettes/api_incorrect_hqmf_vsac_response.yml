@@ -32,23 +32,23 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '65'
+      - '66'
       Date:
-      - Tue, 16 Jul 2019 11:59:42 GMT
+      - Wed, 14 Aug 2019 17:42:15 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!hCezZxNMcxcD1Ebm9OGvBt4MxRMcjooXTW5PSVVJ8q8sLziLvnK9yid2BkJ1yRPNlESK4M1YyTn8c/g=;
-        expires=Tue, 16-Jul-2019 13:59:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!Ae/YVZxs7RW6fjfm9OGvBt4MxRMcjoy1YOiQxlV0YcEA0aHoLCYNO/KwHmUWtYauwh3pE9TpAaBn8YY=;
+        expires=Wed, 14-Aug-2019 19:42:15 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: TGT-229777-b7DupsjqMT7gXq7BcdPknukrvcso7aadQ22zbyFybQxNSi9ZuV-cas
+      string: TGT-1670202-wogo9QFhcB7Xkxc0CWV0MMkGW9TTCZ2HkacoRy1hXpGvcKBOqt-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:42 GMT
+  recorded_at: Wed, 14 Aug 2019 17:42:15 GMT
 - request:
     method: get
     uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
@@ -83,20 +83,20 @@ http_interactions:
       Content-Length:
       - '72'
       Date:
-      - Tue, 16 Jul 2019 11:59:42 GMT
+      - Wed, 14 Aug 2019 17:42:15 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!/bAeNcPkYegGX5vm9OGvBt4MxRMcjumWf/6KFMSHQ8T1c/9YbPG+SuFF8Ja2cxz2+rw5SnilAdIVykw=;
-        expires=Tue, 16-Jul-2019 13:59:42 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!RqP76l9MZWL4qC/m9OGvBt4MxRMcjh4QXGAiQHRYG3YPbeQY6U/C07NphlE5Kr44cVTAZcRfX0v7Pto=;
+        expires=Wed, 14-Aug-2019 19:42:15 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: '{"name":"eCQM Update 2019-05-10","requestTime":"2019-07-16 07:59:42
-        AM"}'
+      string: '{"name":"eCQM Update 2019-05-10","requestTime":"2019-08-14 01:42:15
+        PM"}'
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:42 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Wed, 14 Aug 2019 17:42:15 GMT
+recorded_with: VCR 5.0.0
