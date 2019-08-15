@@ -20,7 +20,7 @@ gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :bran
 gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => '2019-standards-update'
 gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => '2019-standards-update'
 
-# gem 'cqm-parsers', :path => '../../workspace2/cqm-parsers'
+# gem 'cqm-parsers', :path => '../cqm-parsers'
 # gem 'cqm-models', :path => '../cqm-models'
 # gem 'cqm-reports', :path => '../cqm-reports'
 
@@ -41,7 +41,7 @@ gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
-gem 'apipie-rails'#, :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
+gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
 gem "doorkeeper-mongodb", '~> 4.1.0'
