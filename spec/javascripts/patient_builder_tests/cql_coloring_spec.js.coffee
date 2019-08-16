@@ -1,5 +1,5 @@
 describe 'CQL', ->
-  beforeAll ->
+  beforeEach ->
     bonnie.measures = new Thorax.Collections.Measures()
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS10v0/CMS10v0.json', 'cqm_measure_data/CMS10v0/value_sets.json'
@@ -11,7 +11,7 @@ describe 'CQL', ->
 
   describe 'Coverage', ->
     describe 'first patient has correct', ->
-      beforeAll ->
+      beforeEach ->
         @measure.get('patients').add @patient1
         @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
         @measureView = @measureLayoutView.showMeasure()
@@ -63,7 +63,7 @@ describe 'CQL', ->
         expect(MedsNotDocumented.find(".clause-uncovered").length).toBe(0)
 
     describe 'both patients have correct', ->
-      beforeAll ->
+      beforeEach ->
         @measure.get('patients').add @patient1
         @measure.get('patients').add @patient2
         @population = @measure.get('populations').first()
@@ -116,9 +116,34 @@ describe 'CQL', ->
         expect(MedsNotDocumented.find(".clause-covered").length).toBe(11)
         expect(MedsNotDocumented.find(".clause-uncovered").length).toBe(0)
 
+  describe 'Errors', ->
+    beforeEach ->
+      @measure.get('patients').add @patient1
+      @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient1, measure: @measure)
+      @patientBuilder.render()
+      @patientBuilder.appendTo('body')
+
+    afterEach ->
+      @patientBuilder.remove()
+
+    it 'clears coloring if patient starts erroring', ->
+      # Initial calculation shows highlighting
+      expect($($(".cql-statement")[0]).find('.clause-true').length).toBe(5)
+      # Updates to patient show highlighting if no errors
+      @patient1.materialize()
+      @measure.get('populations').at(0).calculate(@patient1)
+      @patientBuilder.populationLogicView.showRationale(@patient1)
+      expect($($(".cql-statement")[0]).find('.clause-true').length).toBe(5)
+      @measure.get('cqmMeasure').measure_period = null
+      # Updates to patient show no highlighting if error occurs
+      @patient1.materialize()
+      @measure.get('populations').at(0).calculate(@patient1)
+      @patientBuilder.populationLogicView.showRationale(@patient1)
+      expect($($(".cql-statement")[0]).find('.clause-true').length).toBe(0)
+
   describe 'Coloring', ->
     describe 'first patient has correct', ->
-      beforeAll ->
+      beforeEach ->
         @measure.get('patients').add @patient1
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient1, measure: @measure)
         @patientBuilder.render()
@@ -169,7 +194,7 @@ describe 'CQL', ->
         expect(MedsNotDocumented.find(".clause-false").length).toBe(0)
 
     describe 'second patient has correct', ->
-      beforeAll ->
+      beforeEach ->
         @measure.get('patients').add @patient2
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient2, measure: @measure)
         @patientBuilder.render()

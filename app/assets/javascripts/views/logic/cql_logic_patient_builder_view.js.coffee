@@ -15,5 +15,8 @@ class Thorax.Views.CqlPatientBuilderLogic extends Thorax.Views.BonnieView
   showRationale: (result) ->
     for pop in @population_names
       @results[pop] = result.get(pop)
-    @cqlLogicView.showRationale result
+    if !result.isPopulated()
+      @cqlLogicView.clearRationale()
+    else
+      @cqlLogicView.showRationale result
     @render()
