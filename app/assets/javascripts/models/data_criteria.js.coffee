@@ -19,6 +19,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     dataElementAsObject = clonedDataElement.toObject()
     dataElementAsObject.description = @get('description')
     dataElementAsObject.qdmDataElement = clonedDataElement
+    dataElementAsObject.qdmDataElement.description = dataElementAsObject.description
 
     # make and return the new SDC
     return new Thorax.Models.SourceDataCriteria(dataElementAsObject)

@@ -38,3 +38,10 @@ describe "SourceDataCriteria", ->
     expect(dataCriteria.getCriteriaType()).toBe 'assessment_recommended'
     expect(dataCriteria.isPeriodType()).toBe false
     expect(dataCriteria.getPrimaryTimingAttribute()).toBe 'authorDatetime'
+
+  it "copies description onto qdmDataElement when cloned", ->
+    dataElement = new cqm.models.AssessmentRecommended()
+    dataElement.description = 'WithoutSpaces'
+    dataCriteria = new Thorax.Models.SourceDataCriteria({qdmDataElement: dataElement, description: 'With Spaces'})
+    expect(dataCriteria.clone().get('qdmDataElement').description).toBe 'With Spaces'
+
