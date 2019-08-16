@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require_relative '../lib/tasks/fixture_helper'
 
-user = User.create(email: 'bonnie@example.com', password: 'b0nn13', approved: true, admin: true)
+user = User.create(email: 'bonnie@example.com', password: 'b0nn13p455', approved: true, admin: true)
 user.save!
 
 if ENV['DEMO'] == 'true'
