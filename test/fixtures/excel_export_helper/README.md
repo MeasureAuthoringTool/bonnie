@@ -18,7 +18,7 @@ result = pop.calculate(patient, {doPretty: true})
 CMS903-results-stub.json represents the results from CMS903
 and was made by replacing the contents of the "is correct for patient with no episodes" test in
 cqm-execution/spec/models/calculator_spec.js with the below code, copying over the CMS903 fixutres temporarily into you local cqm-execution repo and setting a breakpoint at the end of this test to run 'JSON.stringify(calculationResults, null, 2)' in the debug console for the fixture's content
-(you also may need to temporarily comment out the "CqmModels.QDMPatientSchema.clearDataElementCache()" line for the execution/lib/models/calculator.js file)
+(make sure to run `yarn install` and verify your branch in cqm-execution before generating the fixture)
 ```
 const valueSets = getJSONFixture('cqm_measures/CMS903v0/value_sets.json');
 valueSetsArray = valueSets['4DC3E7AA-8777-4749-A1E4-37E942036076'];
