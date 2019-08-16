@@ -88,8 +88,12 @@
       jasmine.getJSONFixtures().clearCache()
       bonnie.measures = new Thorax.Collections.Measures()
       @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
+      @measureWithError = loadMeasureWithValueSets 'cqm_measure_data/CMS136v7/CMS136v7.json', 'cqm_measure_data/CMS136v7/value_sets.json'
       bonnie.measures.add @cqlMeasure
+      bonnie.measures.add @measureWithError
+
       @cqlPatients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS134v6/Elements_Test.json')], parse: true
+      @patientsWithError = new Thorax.Collections.Patients [getJSONFixture('patients/CMS136v7/Pass_IPP1.json')], parse: true
 
       @cqlMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
       @cqlMeasureValueSetsView.appendTo 'body'
@@ -137,6 +141,16 @@
       @measureView.appendTo 'body'
       expect(@measureView.$("button[data-call-method=sharePatients]")).not.toExist()
       @measureView.remove()
+
+    it 'shows error dialog if cql calculation error occurs', ->
+      spyOn(bonnie, 'showError')
+      @measureWithError.get('populations').at(0).calculate(@patientsWithError.at(0))
+      expect(bonnie.showError).toHaveBeenCalled()
+
+    it 'shows error dialog if error occurs in batch cql calculation', ->
+      spyOn(bonnie, 'showError')
+      bonnie.cqm_calculator.calculateAll @measureWithError, @patientsWithError
+      expect(bonnie.showError).toHaveBeenCalled()
 
     describe 'value sets view', ->
       it 'exists', ->
