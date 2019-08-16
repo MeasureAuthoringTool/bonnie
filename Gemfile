@@ -62,6 +62,7 @@ group :test, :development, :ci do
   gem 'brakeman'
   gem 'selenium-webdriver'
   gem 'codecov', :require => false
+  gem 'rails-controller-testing'
 end
 
 group :test, :development do
