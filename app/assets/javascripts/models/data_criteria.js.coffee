@@ -74,7 +74,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
   isPeriodType: ->
-    @getPrimaryTimingAttribute() != 'authorDatetime'
+    @getPrimaryTimingAttribute() not in ['authorDatetime', 'resultDatetime']
 
   # determines if a data criteria describes an issue or problem with a person
   # allergy/intolerance, diagnosis, and symptom fall into this
@@ -92,7 +92,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       criteriaType = "#{criteriaType}_#{@get('qdmDataElement').qdmStatus}"
     criteriaType
 
-  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'relevantDatetime', 'prevalencePeriod', 'participationPeriod', 'authorDatetime']
+  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'relevantDatetime', 'prevalencePeriod', 'participationPeriod', 'authorDatetime', 'resultDatetime']
 
   # the attributes to skip in user attribute view and editing fields
   @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', '_id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
@@ -100,7 +100,11 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
-    return @getPrimaryTimingAttributes()[0].name
+    timingAttributes = @getPrimaryTimingAttributes()
+    for attr in timingAttributes
+      return attr.name if @get('qdmDataElement')[attr.name]?.low? || @get('qdmDataElement')[attr.name]?.high? || @get('qdmDataElement')[attr.name]?.isDateTime?
+    # Fall back to returning the first primary timing attribute if none of the timing attributes have values
+    return timingAttributes[0].name
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
   getPrimaryTimingAttributes: ->
