@@ -71,7 +71,6 @@ group :test, :development do
   gem 'capistrano-rails'
   gem 'capistrano-yarn'
   gem 'rvm1-capistrano3', require: false
-  gem 'rails-controller-testing'
 end
 
 group :production do
