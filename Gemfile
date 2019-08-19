@@ -31,7 +31,6 @@ gem 'zip-zip'
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
 gem 'mongoid'
 gem 'protected_attributes_continued'
-# Hopefullt an intermediate solution
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
