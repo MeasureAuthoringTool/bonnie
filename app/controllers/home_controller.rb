@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  # before_action :authenticate_user!, :except => [:show]
+  before_action :authenticate_user!, :except => [:show]
 
   def index
     @measures = CQM::Measure.by_user(current_user).only(:id)
