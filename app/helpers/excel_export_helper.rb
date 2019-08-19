@@ -83,12 +83,12 @@ module ExcelExportHelper
         expected_values: expected_values,
         birthdate: patient.qdmPatient.birthDatetime.strftime("%m/%d/%Y"),
         expired: patient.qdmPatient.dataElements.any? { |x| x.class == QDM::PatientCharacteristicExpired },
-        deathdate: expired_datetime,
         ethnicity: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicEthnicity }.dataElementCodes[0]['code'],
         race: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicRace }.dataElementCodes[0]['code'],
         gender: patient.qdmPatient.dataElements.detect { |x| x.class == QDM::PatientCharacteristicSex }.dataElementCodes[0]['code'],
         notes: patient.notes
       }
+      patient_details[patient.qdmPatient.id.to_s][:deathdate] = expired_datetime unless expired_datetime.nil?
     end
     patient_details
   end

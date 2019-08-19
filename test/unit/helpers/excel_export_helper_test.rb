@@ -36,16 +36,16 @@ class ExcelExportHelperTest < ActionController::TestCase
     # modify the backend results keys to match the keys of our patients. The results stub's keys
     # are random since it was generated from a fixture
     @backend_results = {}
-    @backend_results['5d52db7b57a11ec4f54862f5'] = backend_results['5d519ae757a11e0c6d6969ea'] # Visit_1ED
-    @backend_results['5d51a41657a11e0c6d696a17'] = backend_results['5d51a41657a11e0c6d696a17'] # Visit_1Excl_2Ed
-    @backend_results['5d52dcaa57a11ed9def3b57c'] = backend_results['5d519b7157a11e0c6d6969fc'] # Visits_2ED
-    @backend_results['5d51a46e57a11e0c6d696a20'] = backend_results['5d51a46e57a11e0c6d696a20'] # Visits_2Excl_2ED
+    @backend_results['5d56bb4b57a11ec4241eaf42'] = backend_results['5d56f42954eb3a09352b7b71'] # Visit_1ED
+    @backend_results['5d51a41657a11e0c6d696a17'] = backend_results['5d56f42954eb3a09352b7b85'] # Visit_1Excl_2Ed
+    @backend_results['5d56bd2d57a11ec4241eaf78'] = backend_results['5d56f42954eb3a09352b7b7a'] # Visits_2ED
+    @backend_results['5d56bb2457a11ec4241eaf32'] = backend_results['5d56f42954eb3a09352b7b91'] # Visits_2Excl_2ED
 
     @unpretty_backend_results = {}
-    @unpretty_backend_results['5d52db7b57a11ec4f54862f5'] = unpretty_backend_results['5d519ae757a11e0c6d6969ea'] # Visit_1ED
-    @unpretty_backend_results['5d51a41657a11e0c6d696a17'] = unpretty_backend_results['5d51a41657a11e0c6d696a17'] # Visit_1Excl_2Ed
-    @unpretty_backend_results['5d52dcaa57a11ed9def3b57c'] = unpretty_backend_results['5d519b7157a11e0c6d6969fc'] # Visits_2ED
-    @unpretty_backend_results['5d51a46e57a11e0c6d696a20'] = unpretty_backend_results['5d51a46e57a11e0c6d696a20'] # Visits_2Excl_2ED
+    @unpretty_backend_results['5d56bb4b57a11ec4241eaf42'] = unpretty_backend_results['5d56f52c88bb460fd4c08be3'] # Visit_1ED
+    @unpretty_backend_results['5d51a41657a11e0c6d696a17'] = unpretty_backend_results['5d56f52c88bb460fd4c08bf7'] # Visit_1Excl_2Ed
+    @unpretty_backend_results['5d56bd2d57a11ec4241eaf78'] = unpretty_backend_results['5d56f52c88bb460fd4c08bec'] # Visits_2ED
+    @unpretty_backend_results['5d56bb2457a11ec4241eaf32'] = unpretty_backend_results['5d56f52c88bb460fd4c08c03'] # Visits_2Excl_2ED
 
     @simple_backend_results = {}
 
@@ -66,10 +66,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     @simple_statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'statement_details.json')))
 
     # The front end results use cids as keys but the backend results use ids.
-    @cid_to_measure_id_map = { 'c455': '5d52db7b57a11ec4f54862f5',
-                               'c464': '5d52dcaa57a11ed9def3b57c',
+    @cid_to_measure_id_map = { 'c455': '5d56bb4b57a11ec4241eaf42',
+                               'c464': '5d56bd2d57a11ec4241eaf78',
                                'c433': '5d51a41657a11e0c6d696a17',
-                               'c444': '5d51a46e57a11e0c6d696a20' }.with_indifferent_access
+                               'c444': '5d56bb2457a11ec4241eaf32' }.with_indifferent_access
 
     @simple_cid_to_measure_id_map = { 'c358': '5a58f001942c6d500fc8cb92',
                                       'c552': '5a73955cb848465f695c4ecb'}.with_indifferent_access
@@ -96,19 +96,13 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'patient details are extracted' do
-    skip('Fixture for CMS32 cannot be updated as it uses logic incompatible with QDM 5.5')
     patient_details = ExcelExportHelper.get_patient_details(@patients)
     @cid_to_measure_id_map.with_indifferent_access.each_pair do |cid, measure_id|
-      # patient_details.each_key do |key|
-      #   patient_details[key].delete('deathdate')
-      # end
-      # binding.pry if patient_details[measure_id].keys != @patient_details[cid].keys
       assert_equal @patient_details[cid].keys, patient_details[measure_id].keys
       @patient_details[cid].each_key do |key|
         if @patient_details[cid][key].nil?
           assert_nil patient_details[measure_id][key]
         else
-          #binding.pry if patient_details[measure_id][key] != @patient_details[cid][key]
           assert_equal @patient_details[cid][key], patient_details[measure_id][key]
         end
       end
@@ -171,8 +165,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   def compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, number_of_patients)
-    skip('Fixture for CMS32 cannot be updated as it uses logic incompatible with QDM 5.5')
-
     # Verify the sheet titles are the same
     assert_equal backend_excel_spreadsheet.sheets, frontend_excel_spreadsheet.sheets
 

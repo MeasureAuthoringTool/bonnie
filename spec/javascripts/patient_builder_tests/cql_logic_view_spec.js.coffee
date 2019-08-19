@@ -17,24 +17,23 @@ describe 'CqlLogicView', ->
   describe 'sorting', ->
     beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
+      @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS903v0/CMS903v0.json', 'cqm_measure_data/CMS903v0/value_sets.json'
 
     it 'proof of concept', ->
       populationSet = @measure.get('populations').first()
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: populationSet)
       populationLogicView.render()
-
-      visit1ED = getJSONFixture 'patients/CMS32v7/Visit_1 ED.json'
-      visits1Excl2ED = getJSONFixture 'patients/CMS32v7/Visits 1 Excl_2 ED.json'
-      visits2Excl2ED = getJSONFixture 'patients/CMS32v7/Visits 2 Excl_2 ED.json'
-      visits2ED = getJSONFixture 'patients/CMS32v7/Visits_2 ED.json'
+      visit1ED = getJSONFixture 'patients/CMS903v0/Visit_1 ED.json'
+      visits1Excl2ED = getJSONFixture 'patients/CMS903v0/Visits 1 Excl_2 ED.json'
+      visits2Excl2ED = getJSONFixture 'patients/CMS903v0/Visits 2 Excl_2 ED.json'
+      visits2ED = getJSONFixture 'patients/CMS903v0/Visits_2 ED.json'
       testPatients = new Thorax.Collections.Patients [visit1ED, visits1Excl2ED, visits2Excl2ED, visits2ED], parse: true
-      expectedResults = getJSONFixture 'cqm_measure_data/CMS32v7/expected_results.json'
+      expectedResults = getJSONFixture 'cqm_measure_data/CMS903v0/expected_results.json'
       results = populationSet.calculate(testPatients.first())
 
-      results.get('clause_results')['MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients']
+      results.get('clause_results')['LikeCMS32']
 
-      compareResults = JSON.stringify(_.map(results.get('clause_results')['MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients'],
+      compareResults = JSON.stringify(_.map(results.get('clause_results')['LikeCMS32'],
         (clauseResult) -> _.omit(clauseResult, 'raw')))
 
       expect(compareResults).toEqual(JSON.stringify(expectedResults))
@@ -46,7 +45,7 @@ describe 'CqlLogicView', ->
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: populationSet)
       populationLogicView.render()
 
-      expect(populationLogicView.allStatementViews.length).toBe(8)
+      expect(populationLogicView.allStatementViews.length).toBe(13)
 
       expect(populationLogicView.populationStatementViews.length).toBe(4)
       expect(populationLogicView.populationStatementViews[0].name).toEqual('Initial Population')
@@ -59,22 +58,22 @@ describe 'CqlLogicView', ->
       expect(populationLogicView.populationStatementViews[3].cqlPopulations).toEqual(['OBSERV_1'])
 
       expect(populationLogicView.defineStatementViews.length).toBe(1)
-      expect(populationLogicView.defineStatementViews[0].name).toEqual('ED Visit')
+      expect(populationLogicView.defineStatementViews[0].name).toEqual('Emergency Department ED Visit')
 
       expect(populationLogicView.unusedStatementViews.length).toBe(3)
-      expect(populationLogicView.unusedStatementViews[0].name).toEqual('Stratification 1')
-      expect(populationLogicView.unusedStatementViews[1].name).toEqual('Stratification 2')
-      expect(populationLogicView.unusedStatementViews[2].name).toEqual('Stratification 3')
+      expect(populationLogicView.unusedStatementViews[1].name).toEqual('Strat1')
+      expect(populationLogicView.unusedStatementViews[0].name).toEqual('Strat2')
+      expect(populationLogicView.unusedStatementViews[2].name).toEqual('Strat3')
 
     it 'sorts logic properly for observation measure with stratification', ->
       populationSet = @measure.get('populations').at(1)
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: populationSet)
       populationLogicView.render()
 
-      expect(populationLogicView.allStatementViews.length).toBe(8)
+      expect(populationLogicView.allStatementViews.length).toBe(13)
 
       expect(populationLogicView.populationStatementViews.length).toBe(5)
-      expect(populationLogicView.populationStatementViews[0].name).toEqual('Stratification 1')
+      expect(populationLogicView.populationStatementViews[0].name).toEqual('Strat1')
       expect(populationLogicView.populationStatementViews[0].cqlPopulations).toEqual(['STRAT'])
       expect(populationLogicView.populationStatementViews[1].name).toEqual('Initial Population')
       expect(populationLogicView.populationStatementViews[1].cqlPopulations).toEqual(['IPP'])
@@ -86,11 +85,11 @@ describe 'CqlLogicView', ->
       expect(populationLogicView.populationStatementViews[4].cqlPopulations).toEqual(['OBSERV_1'])
 
       expect(populationLogicView.defineStatementViews.length).toBe(1)
-      expect(populationLogicView.defineStatementViews[0].name).toEqual('ED Visit')
+      expect(populationLogicView.defineStatementViews[0].name).toEqual('Emergency Department ED Visit')
 
       expect(populationLogicView.unusedStatementViews.length).toBe(2)
-      expect(populationLogicView.unusedStatementViews[0].name).toEqual('Stratification 2')
-      expect(populationLogicView.unusedStatementViews[1].name).toEqual('Stratification 3')
+      expect(populationLogicView.unusedStatementViews[0].name).toEqual('Strat2')
+      expect(populationLogicView.unusedStatementViews[1].name).toEqual('Strat3')
 
     it 'sorts logic properly for proportion measure', ->
       measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
