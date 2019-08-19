@@ -1,5 +1,5 @@
 {
-  "5d519ae757a11e0c6d6969ea": {
+  "5d56f52c88bb460fd4c08be3": {
     "PopulationSet_1": {
       "IPP": 1,
       "observation_values": [
@@ -8,7 +8,7 @@
       "MSRPOPL": 1,
       "MSRPOPLEX": 0,
       "episode_results": {
-        "5d487d099026d30000bac57c": {
+        "5d56f52c88bb460fd4c08be4": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 0,
@@ -64,7 +64,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08beb",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -73,7 +73,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08beb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -99,7 +99,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08bea",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -108,7 +108,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08bea"
               }
             ],
             "library_name": "LikeCMS32",
@@ -127,7 +127,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08be8",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -136,7 +136,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08be8"
               }
             ],
             "library_name": "LikeCMS32",
@@ -155,7 +155,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -163,7 +163,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -203,7 +203,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -215,7 +214,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -241,7 +241,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -249,7 +249,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -289,7 +289,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -301,7 +300,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -350,7 +350,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -358,7 +358,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -398,7 +398,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -410,7 +409,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -436,7 +436,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -444,7 +444,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -484,7 +484,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -496,7 +495,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -520,7 +520,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d519ae757a11e0c6d6969ea",
+      "patient": "5d56f52c88bb460fd4c08be3",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -533,7 +533,7 @@
       "MSRPOPLEX": 0,
       "STRAT": 1,
       "episode_results": {
-        "5d487d099026d30000bac57c": {
+        "5d56f52c88bb460fd4c08be4": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 0,
@@ -591,7 +591,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08beb",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -600,7 +600,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08beb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -626,7 +626,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08bea",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -635,7 +635,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08bea"
               }
             ],
             "library_name": "LikeCMS32",
@@ -654,7 +654,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08be8",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -663,7 +663,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08be8"
               }
             ],
             "library_name": "LikeCMS32",
@@ -682,7 +682,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -690,7 +690,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -730,7 +730,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -742,7 +741,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -768,7 +768,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -776,7 +776,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -816,7 +816,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -828,7 +827,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -877,7 +877,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -885,7 +885,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -925,7 +925,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -937,7 +936,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -963,7 +963,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -971,7 +971,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -1011,7 +1011,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -1023,7 +1022,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1047,7 +1047,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d519ae757a11e0c6d6969ea",
+      "patient": "5d56f52c88bb460fd4c08be3",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -1058,7 +1058,7 @@
       "MSRPOPLEX": 0,
       "STRAT": 0,
       "episode_results": {
-        "5d487d099026d30000bac57c": {
+        "5d56f52c88bb460fd4c08be4": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
@@ -1114,7 +1114,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08beb",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -1123,7 +1123,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08beb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1149,7 +1149,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08bea",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -1158,7 +1158,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08bea"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1177,7 +1177,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08be8",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -1186,7 +1186,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08be8"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1205,7 +1205,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -1213,7 +1213,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -1253,7 +1253,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -1265,7 +1264,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1291,7 +1291,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -1299,7 +1299,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -1339,7 +1339,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -1351,7 +1350,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1400,7 +1400,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -1408,7 +1408,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -1448,7 +1448,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -1460,7 +1459,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1486,7 +1486,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -1494,7 +1494,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -1534,7 +1534,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -1546,7 +1545,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1570,7 +1570,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d519ae757a11e0c6d6969ea",
+      "patient": "5d56f52c88bb460fd4c08be3",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -1581,7 +1581,7 @@
       "MSRPOPLEX": 0,
       "STRAT": 0,
       "episode_results": {
-        "5d487d099026d30000bac57c": {
+        "5d56f52c88bb460fd4c08be4": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
@@ -1637,7 +1637,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08beb",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -1646,7 +1646,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08beb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1672,7 +1672,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08bea",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -1681,7 +1681,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08bea"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1700,7 +1700,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08be8",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -1709,7 +1709,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08be8"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1728,7 +1728,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -1736,7 +1736,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -1776,7 +1776,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -1788,7 +1787,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1814,7 +1814,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -1822,7 +1822,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -1862,7 +1862,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -1874,7 +1873,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -1923,7 +1923,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -1931,7 +1931,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -1971,7 +1971,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -1983,7 +1982,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2009,7 +2009,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487d099026d30000bac57c",
+                "_id": "5d56f52c88bb460fd4c08be4",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2017,7 +2017,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -2057,7 +2057,6 @@
                     "id": "5d519959e68a270000d5d01d"
                   }
                 ],
-                "id": "5d487d099026d30000bac57c",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -2069,7 +2068,8 @@
                   "high": "2012-06-10T05:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08be4"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2093,12 +2093,12 @@
         }
       },
       "clause_results": null,
-      "patient": "5d519ae757a11e0c6d6969ea",
+      "patient": "5d56f52c88bb460fd4c08be3",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     }
   },
-  "5d519b7157a11e0c6d6969fc": {
+  "5d56f52c88bb460fd4c08bec": {
     "PopulationSet_1": {
       "IPP": 2,
       "observation_values": [
@@ -2108,7 +2108,7 @@
       "MSRPOPL": 2,
       "MSRPOPLEX": 0,
       "episode_results": {
-        "5d487de69026d30000bac9c6": {
+        "5d56f52c88bb460fd4c08bed": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 0,
@@ -2116,7 +2116,7 @@
             15
           ]
         },
-        "5d487dfe9026d30000baca25": {
+        "5d56f52c88bb460fd4c08bef": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 0,
@@ -2172,7 +2172,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08bf6",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -2181,7 +2181,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08bf6"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2207,7 +2207,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08bf5",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -2216,7 +2216,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08bf5"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2235,7 +2235,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08bf3",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -2244,7 +2244,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08bf3"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2263,7 +2263,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2271,7 +2271,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -2296,7 +2296,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -2305,7 +2304,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -2316,7 +2316,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2324,7 +2324,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -2364,7 +2364,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -2376,7 +2375,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2402,7 +2402,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2410,7 +2410,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -2435,7 +2435,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -2444,7 +2443,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -2455,7 +2455,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2463,7 +2463,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -2503,7 +2503,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -2515,7 +2514,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2564,7 +2564,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2572,7 +2572,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -2597,7 +2597,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -2606,7 +2605,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -2617,7 +2617,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2625,7 +2625,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -2665,7 +2665,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -2677,7 +2676,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2703,7 +2703,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2711,7 +2711,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -2751,7 +2751,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -2763,7 +2762,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2788,7 +2788,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -2796,7 +2796,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -2821,7 +2821,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -2830,7 +2829,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2841,7 +2841,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d519b7157a11e0c6d6969fc",
+      "patient": "5d56f52c88bb460fd4c08bec",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -2854,14 +2854,14 @@
       "MSRPOPLEX": 0,
       "STRAT": 1,
       "episode_results": {
-        "5d487de69026d30000bac9c6": {
+        "5d56f52c88bb460fd4c08bed": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
           "STRAT": 0,
           "observation_values": []
         },
-        "5d487dfe9026d30000baca25": {
+        "5d56f52c88bb460fd4c08bef": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 0,
@@ -2919,7 +2919,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08bf6",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -2928,7 +2928,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08bf6"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2954,7 +2954,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08bf5",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -2963,7 +2963,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08bf5"
               }
             ],
             "library_name": "LikeCMS32",
@@ -2982,7 +2982,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08bf3",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -2991,7 +2991,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08bf3"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3010,7 +3010,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3018,7 +3018,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -3043,7 +3043,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -3052,7 +3051,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -3063,7 +3063,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3071,7 +3071,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -3111,7 +3111,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -3123,7 +3122,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3149,7 +3149,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3157,7 +3157,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -3182,7 +3182,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -3191,7 +3190,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -3202,7 +3202,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3210,7 +3210,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -3250,7 +3250,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -3262,7 +3261,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3311,7 +3311,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3319,7 +3319,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -3344,7 +3344,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -3353,7 +3352,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -3364,7 +3364,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3372,7 +3372,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -3412,7 +3412,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -3424,7 +3423,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3450,7 +3450,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3458,7 +3458,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -3498,7 +3498,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -3510,7 +3509,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3535,7 +3535,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3543,7 +3543,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -3568,7 +3568,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -3577,7 +3576,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3588,7 +3588,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d519b7157a11e0c6d6969fc",
+      "patient": "5d56f52c88bb460fd4c08bec",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -3599,14 +3599,14 @@
       "MSRPOPLEX": 0,
       "STRAT": 0,
       "episode_results": {
-        "5d487de69026d30000bac9c6": {
+        "5d56f52c88bb460fd4c08bed": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
           "STRAT": 0,
           "observation_values": []
         },
-        "5d487dfe9026d30000baca25": {
+        "5d56f52c88bb460fd4c08bef": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
@@ -3662,7 +3662,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08bf6",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -3671,7 +3671,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08bf6"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3697,7 +3697,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08bf5",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -3706,7 +3706,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08bf5"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3725,7 +3725,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08bf3",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -3734,7 +3734,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08bf3"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3753,7 +3753,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3761,7 +3761,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -3786,7 +3786,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -3795,7 +3794,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -3806,7 +3806,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3814,7 +3814,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -3854,7 +3854,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -3866,7 +3865,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -3892,7 +3892,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3900,7 +3900,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -3925,7 +3925,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -3934,7 +3933,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -3945,7 +3945,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -3953,7 +3953,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -3993,7 +3993,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -4005,7 +4004,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4054,7 +4054,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4062,7 +4062,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -4087,7 +4087,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -4096,7 +4095,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -4107,7 +4107,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4115,7 +4115,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -4155,7 +4155,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -4167,7 +4166,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4193,7 +4193,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4201,7 +4201,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -4241,7 +4241,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -4253,7 +4252,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4278,7 +4278,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4286,7 +4286,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -4311,7 +4311,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -4320,7 +4319,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4331,7 +4331,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d519b7157a11e0c6d6969fc",
+      "patient": "5d56f52c88bb460fd4c08bec",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -4344,7 +4344,7 @@
       "MSRPOPLEX": 0,
       "STRAT": 1,
       "episode_results": {
-        "5d487de69026d30000bac9c6": {
+        "5d56f52c88bb460fd4c08bed": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 0,
@@ -4353,7 +4353,7 @@
             15
           ]
         },
-        "5d487dfe9026d30000baca25": {
+        "5d56f52c88bb460fd4c08bef": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
@@ -4409,7 +4409,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08bf6",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -4418,7 +4418,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08bf6"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4444,7 +4444,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08bf5",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -4453,7 +4453,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08bf5"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4472,7 +4472,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08bf3",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -4481,7 +4481,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08bf3"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4500,7 +4500,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4508,7 +4508,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -4533,7 +4533,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -4542,7 +4541,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -4553,7 +4553,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4561,7 +4561,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -4601,7 +4601,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -4613,7 +4612,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4639,7 +4639,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4647,7 +4647,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -4672,7 +4672,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -4681,7 +4680,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -4692,7 +4692,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4700,7 +4700,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -4740,7 +4740,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -4752,7 +4751,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4801,7 +4801,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4809,7 +4809,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -4834,7 +4834,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -4843,7 +4842,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               },
               {
                 "dataElementCodes": [
@@ -4854,7 +4854,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4862,7 +4862,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -4902,7 +4902,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -4914,7 +4913,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -4940,7 +4940,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487dfe9026d30000baca25",
+                "_id": "5d56f52c88bb460fd4c08bef",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -4948,7 +4948,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T09:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": [
@@ -4988,7 +4988,6 @@
                     "id": "5d519b6ce68a270000d5d2da"
                   }
                 ],
-                "id": "5d487dfe9026d30000baca25",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5000,7 +4999,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bef"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5025,7 +5025,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487de69026d30000bac9c6",
+                "_id": "5d56f52c88bb460fd4c08bed",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5033,7 +5033,7 @@
                 "qdmVersion": "5.5",
                 "_type": "QDM::EncounterPerformed",
                 "admissionSource": null,
-                "authorDatetime": null,
+                "authorDatetime": "2012-06-10T05:00:00.000+00:00",
                 "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
                 "description": "Encounter, Performed: EmergencyDepartmentVisit",
                 "diagnoses": null,
@@ -5058,7 +5058,6 @@
                     "id": "5d519ac4e68a270000d5d17a"
                   }
                 ],
-                "id": "5d487de69026d30000bac9c6",
                 "lengthOfStay": null,
                 "negationRationale": null,
                 "priority": null,
@@ -5067,7 +5066,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bed"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5078,12 +5078,12 @@
         }
       },
       "clause_results": null,
-      "patient": "5d519b7157a11e0c6d6969fc",
+      "patient": "5d56f52c88bb460fd4c08bec",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     }
   },
-  "5d51a41657a11e0c6d696a17": {
+  "5d56f52c88bb460fd4c08bf7": {
     "PopulationSet_1": {
       "IPP": 2,
       "observation_values": [
@@ -5092,7 +5092,7 @@
       "MSRPOPL": 2,
       "MSRPOPLEX": 1,
       "episode_results": {
-        "5d4877549026d30000bab7f9": {
+        "5d56f52c88bb460fd4c08bf8": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 0,
@@ -5100,7 +5100,7 @@
             15
           ]
         },
-        "5d4878089026d30000bab93d": {
+        "5d56f52c88bb460fd4c08bfb": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 1,
@@ -5154,7 +5154,7 @@
                     "display": "Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08c02",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -5163,7 +5163,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08c02"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5189,7 +5189,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08c01",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -5198,7 +5198,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08c01"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5217,7 +5217,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08bff",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -5226,7 +5226,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08bff"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5245,7 +5245,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5293,7 +5293,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5305,7 +5304,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -5316,7 +5316,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5369,7 +5369,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5381,7 +5380,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5407,7 +5407,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5455,7 +5455,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5467,7 +5466,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -5478,7 +5478,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5531,7 +5531,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5543,7 +5542,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5592,7 +5592,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5640,7 +5640,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5652,7 +5651,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -5663,7 +5663,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5716,7 +5716,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5728,7 +5727,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5747,7 +5747,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5800,7 +5800,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5812,7 +5811,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5831,7 +5831,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5879,7 +5879,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5891,7 +5890,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -5902,7 +5902,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -5955,7 +5955,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -5967,7 +5966,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -5991,7 +5991,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d51a41657a11e0c6d696a17",
+      "patient": "5d56f52c88bb460fd4c08bf7",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -6004,7 +6004,7 @@
       "MSRPOPLEX": 1,
       "STRAT": 2,
       "episode_results": {
-        "5d4877549026d30000bab7f9": {
+        "5d56f52c88bb460fd4c08bf8": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 0,
@@ -6013,7 +6013,7 @@
             15
           ]
         },
-        "5d4878089026d30000bab93d": {
+        "5d56f52c88bb460fd4c08bfb": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 1,
@@ -6069,7 +6069,7 @@
                     "display": "Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08c02",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -6078,7 +6078,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08c02"
               }
             ],
             "library_name": "LikeCMS32",
@@ -6104,7 +6104,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08c01",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -6113,7 +6113,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08c01"
               }
             ],
             "library_name": "LikeCMS32",
@@ -6132,7 +6132,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08bff",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -6141,7 +6141,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08bff"
               }
             ],
             "library_name": "LikeCMS32",
@@ -6160,7 +6160,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6208,7 +6208,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6220,7 +6219,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -6231,7 +6231,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6284,7 +6284,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6296,7 +6295,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -6322,7 +6322,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6370,7 +6370,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6382,7 +6381,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -6393,7 +6393,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6446,7 +6446,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6458,7 +6457,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -6507,7 +6507,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6555,7 +6555,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6567,7 +6566,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -6578,7 +6578,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6631,7 +6631,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6643,7 +6642,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -6662,7 +6662,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6715,7 +6715,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6727,7 +6726,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -6746,7 +6746,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6794,7 +6794,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6806,7 +6805,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -6817,7 +6817,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -6870,7 +6870,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -6882,7 +6881,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -6906,7 +6906,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d51a41657a11e0c6d696a17",
+      "patient": "5d56f52c88bb460fd4c08bf7",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -6917,14 +6917,14 @@
       "MSRPOPLEX": 0,
       "STRAT": 0,
       "episode_results": {
-        "5d4877549026d30000bab7f9": {
+        "5d56f52c88bb460fd4c08bf8": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
           "STRAT": 0,
           "observation_values": []
         },
-        "5d4878089026d30000bab93d": {
+        "5d56f52c88bb460fd4c08bfb": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
@@ -6980,7 +6980,7 @@
                     "display": "Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08c02",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -6989,7 +6989,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08c02"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7015,7 +7015,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08c01",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -7024,7 +7024,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08c01"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7043,7 +7043,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08bff",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -7052,7 +7052,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08bff"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7071,7 +7071,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7119,7 +7119,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7131,7 +7130,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -7142,7 +7142,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7195,7 +7195,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7207,7 +7206,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7233,7 +7233,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7281,7 +7281,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7293,7 +7292,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -7304,7 +7304,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7357,7 +7357,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7369,7 +7368,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7418,7 +7418,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7466,7 +7466,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7478,7 +7477,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -7489,7 +7489,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7542,7 +7542,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7554,7 +7553,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7573,7 +7573,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7626,7 +7626,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7638,7 +7637,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7657,7 +7657,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7705,7 +7705,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7717,7 +7716,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -7728,7 +7728,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -7781,7 +7781,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -7793,7 +7792,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7817,7 +7817,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d51a41657a11e0c6d696a17",
+      "patient": "5d56f52c88bb460fd4c08bf7",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -7828,14 +7828,14 @@
       "MSRPOPLEX": 0,
       "STRAT": 0,
       "episode_results": {
-        "5d4877549026d30000bab7f9": {
+        "5d56f52c88bb460fd4c08bf8": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
           "STRAT": 0,
           "observation_values": []
         },
-        "5d4878089026d30000bab93d": {
+        "5d56f52c88bb460fd4c08bfb": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
@@ -7891,7 +7891,7 @@
                     "display": "Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08c02",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -7900,7 +7900,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08c02"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7926,7 +7926,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08c01",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -7935,7 +7935,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08c01"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7954,7 +7954,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08bff",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -7963,7 +7963,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08bff"
               }
             ],
             "library_name": "LikeCMS32",
@@ -7982,7 +7982,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8030,7 +8030,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8042,7 +8041,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -8053,7 +8053,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8106,7 +8106,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8118,7 +8117,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -8144,7 +8144,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8192,7 +8192,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8204,7 +8203,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -8215,7 +8215,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8268,7 +8268,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8280,7 +8279,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -8329,7 +8329,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8377,7 +8377,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8389,7 +8388,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -8400,7 +8400,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8453,7 +8453,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8465,7 +8464,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -8484,7 +8484,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8537,7 +8537,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8549,7 +8548,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -8568,7 +8568,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4877549026d30000bab7f9",
+                "_id": "5d56f52c88bb460fd4c08bf8",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8616,7 +8616,6 @@
                     "id": "5d519b9ae68a270000d5d350"
                   }
                 ],
-                "id": "5d4877549026d30000bab7f9",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8628,7 +8627,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bf8"
               },
               {
                 "dataElementCodes": [
@@ -8639,7 +8639,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d4878089026d30000bab93d",
+                "_id": "5d56f52c88bb460fd4c08bfb",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8692,7 +8692,6 @@
                     "id": "5d51a409e68a270000d5d54d"
                   }
                 ],
-                "id": "5d4878089026d30000bab93d",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8704,7 +8703,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08bfb"
               }
             ],
             "library_name": "LikeCMS32",
@@ -8728,25 +8728,25 @@
         }
       },
       "clause_results": null,
-      "patient": "5d51a41657a11e0c6d696a17",
+      "patient": "5d56f52c88bb460fd4c08bf7",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     }
   },
-  "5d51a46e57a11e0c6d696a20": {
+  "5d56f52c88bb460fd4c08c03": {
     "PopulationSet_1": {
       "IPP": 2,
       "observation_values": [],
       "MSRPOPL": 2,
       "MSRPOPLEX": 2,
       "episode_results": {
-        "5d487b309026d30000bac0a2": {
+        "5d56f52c88bb460fd4c08c04": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 1,
           "observation_values": []
         },
-        "5d487bce9026d30000bac229": {
+        "5d56f52c88bb460fd4c08c07": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 1,
@@ -8800,7 +8800,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08c0e",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -8809,7 +8809,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08c0e"
               }
             ],
             "library_name": "LikeCMS32",
@@ -8835,7 +8835,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08c0d",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -8844,7 +8844,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08c0d"
               }
             ],
             "library_name": "LikeCMS32",
@@ -8863,7 +8863,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08c0b",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -8872,7 +8872,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08c0b"
               }
             ],
             "library_name": "LikeCMS32",
@@ -8891,7 +8891,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -8944,7 +8944,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -8956,7 +8955,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -8967,7 +8967,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9020,7 +9020,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9032,7 +9031,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -9058,7 +9058,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9111,7 +9111,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9123,7 +9122,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -9134,7 +9134,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9187,7 +9187,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9199,7 +9198,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -9248,7 +9248,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9301,7 +9301,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9313,7 +9312,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -9324,7 +9324,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9377,7 +9377,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9389,7 +9388,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -9408,7 +9408,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9461,7 +9461,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9473,7 +9472,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -9484,7 +9484,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9537,7 +9537,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9549,7 +9548,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -9568,7 +9568,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9621,7 +9621,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9633,7 +9632,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -9644,7 +9644,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9697,7 +9697,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9709,7 +9708,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -9733,7 +9733,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d51a46e57a11e0c6d696a20",
+      "patient": "5d56f52c88bb460fd4c08c03",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -9744,14 +9744,14 @@
       "MSRPOPLEX": 2,
       "STRAT": 2,
       "episode_results": {
-        "5d487b309026d30000bac0a2": {
+        "5d56f52c88bb460fd4c08c04": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 1,
           "STRAT": 1,
           "observation_values": []
         },
-        "5d487bce9026d30000bac229": {
+        "5d56f52c88bb460fd4c08c07": {
           "IPP": 1,
           "MSRPOPL": 1,
           "MSRPOPLEX": 1,
@@ -9807,7 +9807,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08c0e",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -9816,7 +9816,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08c0e"
               }
             ],
             "library_name": "LikeCMS32",
@@ -9842,7 +9842,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08c0d",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -9851,7 +9851,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08c0d"
               }
             ],
             "library_name": "LikeCMS32",
@@ -9870,7 +9870,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08c0b",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -9879,7 +9879,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08c0b"
               }
             ],
             "library_name": "LikeCMS32",
@@ -9898,7 +9898,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -9951,7 +9951,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -9963,7 +9962,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -9974,7 +9974,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10027,7 +10027,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10039,7 +10038,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -10065,7 +10065,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10118,7 +10118,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10130,7 +10129,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -10141,7 +10141,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10194,7 +10194,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10206,7 +10205,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -10255,7 +10255,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10308,7 +10308,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10320,7 +10319,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -10331,7 +10331,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10384,7 +10384,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10396,7 +10395,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -10415,7 +10415,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10468,7 +10468,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10480,7 +10479,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -10491,7 +10491,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10544,7 +10544,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10556,7 +10555,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -10575,7 +10575,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10628,7 +10628,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10640,7 +10639,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -10651,7 +10651,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10704,7 +10704,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10716,7 +10715,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -10740,7 +10740,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d51a46e57a11e0c6d696a20",
+      "patient": "5d56f52c88bb460fd4c08c03",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -10751,14 +10751,14 @@
       "MSRPOPLEX": 0,
       "STRAT": 0,
       "episode_results": {
-        "5d487b309026d30000bac0a2": {
+        "5d56f52c88bb460fd4c08c04": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
           "STRAT": 0,
           "observation_values": []
         },
-        "5d487bce9026d30000bac229": {
+        "5d56f52c88bb460fd4c08c07": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
@@ -10814,7 +10814,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08c0e",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -10823,7 +10823,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08c0e"
               }
             ],
             "library_name": "LikeCMS32",
@@ -10849,7 +10849,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08c0d",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -10858,7 +10858,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08c0d"
               }
             ],
             "library_name": "LikeCMS32",
@@ -10877,7 +10877,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08c0b",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -10886,7 +10886,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08c0b"
               }
             ],
             "library_name": "LikeCMS32",
@@ -10905,7 +10905,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -10958,7 +10958,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -10970,7 +10969,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -10981,7 +10981,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11034,7 +11034,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11046,7 +11045,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -11072,7 +11072,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11125,7 +11125,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11137,7 +11136,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -11148,7 +11148,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11201,7 +11201,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11213,7 +11212,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -11262,7 +11262,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11315,7 +11315,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11327,7 +11326,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -11338,7 +11338,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11391,7 +11391,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11403,7 +11402,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -11422,7 +11422,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11475,7 +11475,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11487,7 +11486,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -11498,7 +11498,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11551,7 +11551,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11563,7 +11562,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -11582,7 +11582,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11635,7 +11635,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11647,7 +11646,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -11658,7 +11658,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11711,7 +11711,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11723,7 +11722,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -11747,7 +11747,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d51a46e57a11e0c6d696a20",
+      "patient": "5d56f52c88bb460fd4c08c03",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     },
@@ -11758,14 +11758,14 @@
       "MSRPOPLEX": 0,
       "STRAT": 0,
       "episode_results": {
-        "5d487b309026d30000bac0a2": {
+        "5d56f52c88bb460fd4c08c04": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
           "STRAT": 0,
           "observation_values": []
         },
-        "5d487bce9026d30000bac229": {
+        "5d56f52c88bb460fd4c08c07": {
           "IPP": 0,
           "MSRPOPL": 0,
           "MSRPOPLEX": 0,
@@ -11821,7 +11821,7 @@
                     "display": "Not Hispanic or Latino"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c33",
+                "_id": "5d56f52c88bb460fd4c08c0e",
                 "qdmTitle": "Patient Characteristic Ethnicity",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
                 "qdmCategory": "patient_characteristic",
@@ -11830,7 +11830,7 @@
                 "_type": "QDM::PatientCharacteristicEthnicity",
                 "codeListId": "2.16.840.1.114222.4.11.837",
                 "description": "Patient Characteristic Ethnicity: Ethnicity",
-                "id": "5d48728057a11e8a91275c33"
+                "id": "5d56f52c88bb460fd4c08c0e"
               }
             ],
             "library_name": "LikeCMS32",
@@ -11856,7 +11856,7 @@
                     "display": "American Indian or Alaska Native"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c34",
+                "_id": "5d56f52c88bb460fd4c08c0d",
                 "qdmTitle": "Patient Characteristic Race",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
                 "qdmCategory": "patient_characteristic",
@@ -11865,7 +11865,7 @@
                 "_type": "QDM::PatientCharacteristicRace",
                 "codeListId": "2.16.840.1.114222.4.11.836",
                 "description": "Patient Characteristic Race: Race",
-                "id": "5d48728057a11e8a91275c34"
+                "id": "5d56f52c88bb460fd4c08c0d"
               }
             ],
             "library_name": "LikeCMS32",
@@ -11884,7 +11884,7 @@
                     "display": "Male"
                   }
                 ],
-                "_id": "5d48728057a11e8a91275c32",
+                "_id": "5d56f52c88bb460fd4c08c0b",
                 "qdmTitle": "Patient Characteristic Sex",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
                 "qdmCategory": "patient_characteristic",
@@ -11893,7 +11893,7 @@
                 "_type": "QDM::PatientCharacteristicSex",
                 "codeListId": "2.16.840.1.113762.1.4.1",
                 "description": "Patient Characteristic Sex: ONCAdministrativeSex",
-                "id": "5d48728057a11e8a91275c32"
+                "id": "5d56f52c88bb460fd4c08c0b"
               }
             ],
             "library_name": "LikeCMS32",
@@ -11912,7 +11912,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -11965,7 +11965,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -11977,7 +11976,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -11988,7 +11988,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12041,7 +12041,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12053,7 +12052,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -12079,7 +12079,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12132,7 +12132,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12144,7 +12143,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -12155,7 +12155,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12208,7 +12208,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12220,7 +12219,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -12269,7 +12269,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12322,7 +12322,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12334,7 +12333,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -12345,7 +12345,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12398,7 +12398,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12410,7 +12409,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -12429,7 +12429,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12482,7 +12482,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12494,7 +12493,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -12505,7 +12505,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12558,7 +12558,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12570,7 +12569,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -12589,7 +12589,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487b309026d30000bac0a2",
+                "_id": "5d56f52c88bb460fd4c08c04",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12642,7 +12642,6 @@
                     "id": "5d51a440e68a270000d5d5c8"
                   }
                 ],
-                "id": "5d487b309026d30000bac0a2",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12654,7 +12653,8 @@
                   "high": "2012-06-10T05:25:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c04"
               },
               {
                 "dataElementCodes": [
@@ -12665,7 +12665,7 @@
                     "display": null
                   }
                 ],
-                "_id": "5d487bce9026d30000bac229",
+                "_id": "5d56f52c88bb460fd4c08c07",
                 "qdmTitle": "Encounter, Performed",
                 "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
                 "qdmCategory": "encounter",
@@ -12718,7 +12718,6 @@
                     "id": "5d51a466e68a270000d5d5f2"
                   }
                 ],
-                "id": "5d487bce9026d30000bac229",
                 "lengthOfStay": {
                   "value": 0,
                   "unit": "days"
@@ -12730,7 +12729,8 @@
                   "high": "2012-06-10T09:15:00.000+00:00",
                   "lowClosed": true,
                   "highClosed": true
-                }
+                },
+                "id": "5d56f52c88bb460fd4c08c07"
               }
             ],
             "library_name": "LikeCMS32",
@@ -12754,7 +12754,7 @@
         }
       },
       "clause_results": null,
-      "patient": "5d51a46e57a11e0c6d696a20",
+      "patient": "5d56f52c88bb460fd4c08c03",
       "measure": "5d48728057a11e8a91275c11",
       "state": "complete"
     }

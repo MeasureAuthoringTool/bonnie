@@ -49,18 +49,18 @@
   "measure_ids": [
     "4DC3E7AA-8777-4749-A1E4-37E942036076"
   ],
-  "notes": null,
+  "notes": "",
   "provider_ids": [
 
   ],
   "qdmPatient": {
-    "_id": "5d519b7157a11e0c6d6969fc",
+    "_id": "5d56bd2d57a11ec4241eaf78",
     "birthDatetime": "1994-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
         "_id": "5d487de69026d30000bac9c6",
         "admissionSource": null,
-        "authorDatetime": null,
+        "authorDatetime": "2012-06-10T05:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
         "dataElementCodes": [
           {
@@ -112,7 +112,7 @@
       {
         "_id": "5d487dfe9026d30000baca25",
         "admissionSource": null,
-        "authorDatetime": null,
+        "authorDatetime": "2012-06-10T09:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
         "dataElementCodes": [
           {
@@ -181,7 +181,7 @@
       {
         "_id": "5d487e039026d30000baca49",
         "admissionSource": null,
-        "authorDatetime": "2012-08-05T08:00:00.000+00:00",
+        "authorDatetime": "2012-06-11T09:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.666.5.307",
         "dataElementCodes": [
           {
@@ -236,13 +236,13 @@
         "_type": "QDM::PatientCharacteristicSex"
       },
       {
-        "_id": "5d519b71e68a270000d5d2fb",
+        "_id": "5d56bd28bb460c0000638b41",
         "birthDatetime": "1994-01-01T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": null,
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
-        "id": "5d519b71e68a270000d5d2fb",
+        "id": "5d56bd28bb460c0000638b41",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",

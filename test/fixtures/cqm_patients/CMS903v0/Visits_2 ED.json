@@ -51,13 +51,13 @@
   "measure_ids": [
     "4DC3E7AA-8777-4749-A1E4-37E942036076"
   ],
-  "notes": null,
+  "notes": "",
   "provider_ids": [
 
   ],
   "qdmPatient": {
     "_id": {
-      "$oid": "5d52dcaa57a11ed9def3b57c"
+      "$oid": "5d56bd2d57a11ec4241eaf78"
     },
     "birthDatetime": "1994-01-01T08:00:00.000+00:00",
     "dataElements": [
@@ -257,7 +257,7 @@
       },
       {
         "_id": {
-          "$oid": "5d52dcaab825f000006d4674"
+          "$oid": "5d56bd28bb460c0000638b41"
         },
         "birthDatetime": "1994-01-01T08:00:00.000+00:00",
         "codeListId": null,
@@ -265,7 +265,7 @@
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
         "id": {
-          "$oid": "5d52dcaab825f000006d4674"
+          "$oid": "5d56bd28bb460c0000638b41"
         },
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
