@@ -58,7 +58,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   initialize: ->
     if bonnie.isPortfolio
       @measureMetadataView = new Thorax.Views.MeasureMetadataView model: @model
-    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("source_data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
     # Determine which population logic view use
     populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
 
@@ -81,7 +80,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @$('.d3-measure-viz').empty()
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('.btn-viz-chords').show()
-      @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).dataCriteria(@model.get('source_data_criteria')).measurePopulation(population).measureValueSets(@model.valueSets())
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
@@ -199,13 +197,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     e.preventDefault()
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
-
-  toggleVisualization: (e) ->
-    @$('.btn-viz-chords, .btn-viz-text, .measure-viz, .d3-measure-viz').toggle()
-    if @$('.d3-measure-viz').children().length == 0
-      d3.select(@el).select('.d3-measure-viz').datum(@model.get('cqmMeasure').population_criteria).call(@measureViz)
-      @$('rect').popover()
-      if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()
 
 class Thorax.Views.MeasureMetadataView extends Thorax.Views.BonnieView
   template: JST['measure/measure_metadata']
