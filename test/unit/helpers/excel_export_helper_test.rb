@@ -36,16 +36,16 @@ class ExcelExportHelperTest < ActionController::TestCase
     # modify the backend results keys to match the keys of our patients. The results stub's keys
     # are random since it was generated from a fixture
     @backend_results = {}
-    @backend_results['5d56bb4b57a11ec4241eaf42'] = backend_results['5d56f42954eb3a09352b7b71'] # Visit_1ED
-    @backend_results['5d51a41657a11e0c6d696a17'] = backend_results['5d56f42954eb3a09352b7b85'] # Visit_1Excl_2Ed
-    @backend_results['5d56bd2d57a11ec4241eaf78'] = backend_results['5d56f42954eb3a09352b7b7a'] # Visits_2ED
-    @backend_results['5d56bb2457a11ec4241eaf32'] = backend_results['5d56f42954eb3a09352b7b91'] # Visits_2Excl_2ED
+    @backend_results['5d5bf1d257a11e76234d2d4f'] = backend_results['5d5bf1d257a11e76234d2d4f'] # Visit_1ED
+    @backend_results['5d5bf29f57a11e76234d2d6a'] = backend_results['5d5bf29f57a11e76234d2d6a'] # Visit_1Excl_2Ed
+    @backend_results['5d5bf27057a11e76234d2d61'] = backend_results['5d5bf27057a11e76234d2d61'] # Visits_2ED
+    @backend_results['5d5bf2cc57a11e76234d2d73'] = backend_results['5d5bf2cc57a11e76234d2d73'] # Visits_2Excl_2ED
 
     @unpretty_backend_results = {}
-    @unpretty_backend_results['5d56bb4b57a11ec4241eaf42'] = unpretty_backend_results['5d56f52c88bb460fd4c08be3'] # Visit_1ED
-    @unpretty_backend_results['5d51a41657a11e0c6d696a17'] = unpretty_backend_results['5d56f52c88bb460fd4c08bf7'] # Visit_1Excl_2Ed
-    @unpretty_backend_results['5d56bd2d57a11ec4241eaf78'] = unpretty_backend_results['5d56f52c88bb460fd4c08bec'] # Visits_2ED
-    @unpretty_backend_results['5d56bb2457a11ec4241eaf32'] = unpretty_backend_results['5d56f52c88bb460fd4c08c03'] # Visits_2Excl_2ED
+    @unpretty_backend_results['5d5bf1d257a11e76234d2d4f'] = unpretty_backend_results['5d5bf1d257a11e76234d2d4f'] # Visit_1ED
+    @unpretty_backend_results['5d5bf29f57a11e76234d2d6a'] = unpretty_backend_results['5d5bf29f57a11e76234d2d6a'] # Visit_1Excl_2Ed
+    @unpretty_backend_results['5d5bf27057a11e76234d2d61'] = unpretty_backend_results['5d5bf27057a11e76234d2d61'] # Visits_2ED
+    @unpretty_backend_results['5d5bf2cc57a11e76234d2d73'] = unpretty_backend_results['5d5bf2cc57a11e76234d2d73'] # Visits_2Excl_2ED
 
     @simple_backend_results = {}
 
@@ -66,10 +66,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     @simple_statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'statement_details.json')))
 
     # The front end results use cids as keys but the backend results use ids.
-    @cid_to_measure_id_map = { 'c455': '5d56bb4b57a11ec4241eaf42',
-                               'c464': '5d56bd2d57a11ec4241eaf78',
-                               'c433': '5d51a41657a11e0c6d696a17',
-                               'c444': '5d56bb2457a11ec4241eaf32' }.with_indifferent_access
+    @cid_to_measure_id_map = { 'c1366': '5d5bf1d257a11e76234d2d4f', # Visit_1ED
+                               'c1375': '5d5bf27057a11e76234d2d61', # Visits_2ED
+                               'c1386': '5d5bf29f57a11e76234d2d6a', # Visit_1Excl_2Ed
+                               'c1397': '5d5bf2cc57a11e76234d2d73' }.with_indifferent_access # Visits_2Excl_2ED
 
     @simple_cid_to_measure_id_map = { 'c358': '5a58f001942c6d500fc8cb92',
                                       'c552': '5a73955cb848465f695c4ecb'}.with_indifferent_access
@@ -114,10 +114,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     @population_details.keys.each do |key|
       @population_details[key]['criteria'] = (CQM::Measure::ALL_POPULATION_CODES & @population_details[key]['criteria']) + ['index']
     end
-    assert_equal @population_details['c366'], population_details[0]
-    assert_equal @population_details['c367'], population_details[1]
-    assert_equal @population_details['c368'], population_details[2]
-    assert_equal @population_details['c369'], population_details[3]
+    assert_equal @population_details['c966'], population_details[0]
+    assert_equal @population_details['c967'], population_details[1]
+    assert_equal @population_details['c968'], population_details[2]
+    assert_equal @population_details['c969'], population_details[3]
   end
 
   test 'statement details are extracted' do
