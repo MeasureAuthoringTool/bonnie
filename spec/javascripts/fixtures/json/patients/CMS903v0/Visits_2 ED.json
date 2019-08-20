@@ -1,5 +1,5 @@
 {
-  "_id": "5d487d9d9026d30000bac792",
+  "_id": "5d5af84f4987880000ce1c36",
   "bundleId": null,
   "expectedValues": [
     {
@@ -21,7 +21,10 @@
       "IPP": 0,
       "MSRPOPL": 0,
       "MSRPOPLEX": 0,
-      "OBSERV_UNIT": ""
+      "OBSERV_UNIT": "",
+      "OBSERV": [
+
+      ]
     },
     {
       "population_index": 2,
@@ -30,7 +33,10 @@
       "IPP": 0,
       "MSRPOPL": 0,
       "MSRPOPLEX": 0,
-      "OBSERV_UNIT": ""
+      "OBSERV_UNIT": "",
+      "OBSERV": [
+
+      ]
     },
     {
       "population_index": 3,
@@ -39,7 +45,10 @@
       "IPP": 0,
       "MSRPOPL": 0,
       "MSRPOPLEX": 0,
-      "OBSERV_UNIT": ""
+      "OBSERV_UNIT": "",
+      "OBSERV": [
+
+      ]
     }
   ],
   "familyName": "2 ED",
@@ -54,132 +63,11 @@
 
   ],
   "qdmPatient": {
-    "_id": "5d56bd2d57a11ec4241eaf78",
+    "_id": "5d5bf27057a11e76234d2d61",
     "birthDatetime": "1994-01-01T08:00:00.000+00:00",
     "dataElements": [
       {
-        "_id": "5d487de69026d30000bac9c6",
-        "admissionSource": null,
-        "authorDatetime": "2012-06-10T05:00:00.000+00:00",
-        "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
-        "dataElementCodes": [
-          {
-            "code": "4525004",
-            "system": "2.16.840.1.113883.6.96",
-            "version": null,
-            "display": null
-          }
-        ],
-        "description": "Encounter, Performed: EmergencyDepartmentVisit",
-        "diagnoses": null,
-        "dischargeDisposition": null,
-        "facilityLocations": [
-          {
-            "qdmVersion": "5.5",
-            "_type": "QDM::FacilityLocation",
-            "_id": "5d519ac4e68a270000d5d17a",
-            "code": {
-              "code": "183452005",
-              "system": "2.16.840.1.113883.6.96",
-              "version": null,
-              "display": "Emergency hospital admission (procedure)"
-            },
-            "locationPeriod": {
-              "low": "2012-06-10T05:00:00.000+00:00",
-              "high": "2012-06-10T05:15:00.000+00:00",
-              "lowClosed": true,
-              "highClosed": true
-            }
-          }
-        ],
-        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-        "id": "5d487de69026d30000bac9c6",
-        "lengthOfStay": null,
-        "negationRationale": null,
-        "priority": null,
-        "qdmCategory": "encounter",
-        "qdmStatus": "performed",
-        "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.5",
-        "relevantPeriod": {
-          "low": "2012-06-10T05:00:00.000Z",
-          "high": "2012-06-10T05:25:00.000Z",
-          "lowClosed": true,
-          "highClosed": true
-        },
-        "_type": "QDM::EncounterPerformed"
-      },
-      {
-        "_id": "5d487dfe9026d30000baca25",
-        "admissionSource": null,
-        "authorDatetime": "2012-06-10T09:00:00.000+00:00",
-        "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
-        "dataElementCodes": [
-          {
-            "code": "4525004",
-            "system": "2.16.840.1.113883.6.96",
-            "version": null,
-            "display": null
-          }
-        ],
-        "description": "Encounter, Performed: EmergencyDepartmentVisit",
-        "diagnoses": [
-          {
-            "qdmVersion": "5.5",
-            "_type": "QDM::DiagnosisComponent",
-            "_id": "5d487f199026d30000bacbf0",
-            "code": {
-              "code": "10278007",
-              "system": "2.16.840.1.113883.6.96",
-              "version": null,
-              "display": "Factitious purpura (disorder)"
-            },
-            "presentOnAdmissionIndicator": null,
-            "rank": 1
-          }
-        ],
-        "dischargeDisposition": null,
-        "facilityLocations": [
-          {
-            "qdmVersion": "5.5",
-            "_type": "QDM::FacilityLocation",
-            "_id": "5d519b6ce68a270000d5d2da",
-            "code": {
-              "code": "183452005",
-              "system": "2.16.840.1.113883.6.96",
-              "version": null,
-              "display": "Emergency hospital admission (procedure)"
-            },
-            "locationPeriod": {
-              "low": "2012-06-10T05:00:00.000+00:00",
-              "high": "2012-06-10T05:25:00.000+00:00",
-              "lowClosed": true,
-              "highClosed": true
-            }
-          }
-        ],
-        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-        "id": "5d487dfe9026d30000baca25",
-        "lengthOfStay": {
-          "value": 0,
-          "unit": "days"
-        },
-        "negationRationale": null,
-        "priority": null,
-        "qdmCategory": "encounter",
-        "qdmStatus": "performed",
-        "qdmTitle": "Encounter, Performed",
-        "qdmVersion": "5.5",
-        "relevantPeriod": {
-          "low": "2012-06-10T09:00:00.000Z",
-          "high": "2012-06-10T09:15:00.000Z",
-          "lowClosed": true,
-          "highClosed": true
-        },
-        "_type": "QDM::EncounterPerformed"
-      },
-      {
-        "_id": "5d487e039026d30000baca49",
+        "_id": "5d5af8934987880000ce1c51",
         "admissionSource": null,
         "authorDatetime": "2012-06-11T09:00:00.000+00:00",
         "codeListId": "2.16.840.1.113883.3.666.5.307",
@@ -191,12 +79,12 @@
             "display": null
           }
         ],
-        "description": "Encounter, Performed: EncounterInpatient",
+        "description": "Encounter, Performed: Encounter Inpatient",
         "diagnoses": null,
         "dischargeDisposition": null,
         "facilityLocations": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
-        "id": "5d487e039026d30000baca49",
+        "id": "5d5af8934987880000ce1c51",
         "lengthOfStay": {
           "value": 3,
           "unit": "days"
@@ -216,7 +104,128 @@
         "_type": "QDM::EncounterPerformed"
       },
       {
-        "_id": "5d48728057a11e8a91275c32",
+        "_id": "5d5af8da4987880000ce1d02",
+        "admissionSource": null,
+        "authorDatetime": "2012-06-10T09:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
+        "dataElementCodes": [
+          {
+            "code": "4525004",
+            "system": "2.16.840.1.113883.6.96",
+            "version": null,
+            "display": null
+          }
+        ],
+        "description": "Encounter, Performed: Emergency Department Visit",
+        "diagnoses": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::DiagnosisComponent",
+            "_id": "5d5bf1f194fa810000bd4aeb",
+            "code": {
+              "code": "10278007",
+              "system": "2.16.840.1.113883.6.96",
+              "version": null,
+              "display": "Factitious purpura (disorder)"
+            },
+            "presentOnAdmissionIndicator": null,
+            "rank": 1
+          }
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::FacilityLocation",
+            "_id": "5d5af9254987880000ce1dc5",
+            "code": {
+              "code": "183452005",
+              "system": "2.16.840.1.113883.6.96",
+              "version": null,
+              "display": "Emergency hospital admission (procedure)"
+            },
+            "locationPeriod": {
+              "low": "2012-06-10T05:00:00.000+00:00",
+              "high": "2012-06-10T05:25:00.000+00:00",
+              "lowClosed": true,
+              "highClosed": true
+            }
+          }
+        ],
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d5af8da4987880000ce1d02",
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-06-10T09:00:00.000Z",
+          "high": "2012-06-10T09:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5d5af9704987880000ce1e20",
+        "admissionSource": null,
+        "authorDatetime": "2012-06-10T05:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
+        "dataElementCodes": [
+          {
+            "code": "4525004",
+            "system": "2.16.840.1.113883.6.96",
+            "version": null,
+            "display": null
+          }
+        ],
+        "description": "Encounter, Performed: Emergency Department Visit",
+        "diagnoses": null,
+        "dischargeDisposition": null,
+        "facilityLocations": [
+          {
+            "qdmVersion": "5.5",
+            "_type": "QDM::FacilityLocation",
+            "_id": "5d5af9c34987880000ce1e9b",
+            "code": {
+              "code": "183452005",
+              "system": "2.16.840.1.113883.6.96",
+              "version": null,
+              "display": "Emergency hospital admission (procedure)"
+            },
+            "locationPeriod": {
+              "low": "2012-06-10T05:00:00.000+00:00",
+              "high": "2012-06-10T05:15:00.000+00:00",
+              "lowClosed": true,
+              "highClosed": true
+            }
+          }
+        ],
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d5af9704987880000ce1e20",
+        "lengthOfStay": null,
+        "negationRationale": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-06-10T05:00:00.000Z",
+          "high": "2012-06-10T05:25:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5d5af61c57a11e1d3a9dc3a3",
         "codeListId": "2.16.840.1.113762.1.4.1",
         "dataElementCodes": [
           {
@@ -228,7 +237,7 @@
         ],
         "description": "Patient Characteristic Sex: ONCAdministrativeSex",
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
-        "id": "5d48728057a11e8a91275c32",
+        "id": "5d5af61c57a11e1d3a9dc3a3",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "gender",
         "qdmTitle": "Patient Characteristic Sex",
@@ -236,13 +245,13 @@
         "_type": "QDM::PatientCharacteristicSex"
       },
       {
-        "_id": "5d56bd28bb460c0000638b41",
+        "_id": "5d5bf27094fa810000bd4b5b",
         "birthDatetime": "1994-01-01T08:00:00.000+00:00",
         "codeListId": null,
         "dataElementCodes": null,
         "description": null,
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
-        "id": "5d56bd28bb460c0000638b41",
+        "id": "5d5bf27094fa810000bd4b5b",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "birthdate",
         "qdmTitle": "Patient Characteristic Birthdate",
@@ -250,7 +259,7 @@
         "_type": "QDM::PatientCharacteristicBirthdate"
       },
       {
-        "_id": "5d48728057a11e8a91275c34",
+        "_id": "5d5af61c57a11e1d3a9dc3a5",
         "codeListId": "2.16.840.1.114222.4.11.836",
         "dataElementCodes": [
           {
@@ -262,7 +271,7 @@
         ],
         "description": "Patient Characteristic Race: Race",
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
-        "id": "5d48728057a11e8a91275c34",
+        "id": "5d5af61c57a11e1d3a9dc3a5",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "race",
         "qdmTitle": "Patient Characteristic Race",
@@ -270,7 +279,7 @@
         "_type": "QDM::PatientCharacteristicRace"
       },
       {
-        "_id": "5d48728057a11e8a91275c33",
+        "_id": "5d5af61c57a11e1d3a9dc3a4",
         "codeListId": "2.16.840.1.114222.4.11.837",
         "dataElementCodes": [
           {
@@ -282,7 +291,7 @@
         ],
         "description": "Patient Characteristic Ethnicity: Ethnicity",
         "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
-        "id": "5d48728057a11e8a91275c33",
+        "id": "5d5af61c57a11e1d3a9dc3a4",
         "qdmCategory": "patient_characteristic",
         "qdmStatus": "ethnicity",
         "qdmTitle": "Patient Characteristic Ethnicity",

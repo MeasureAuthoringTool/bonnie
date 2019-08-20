@@ -44,7 +44,7 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [15] }
-    expect(result.get('episode_results')['5d487d099026d30000bac57c']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5d5af7364987880000ce1889']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed', ->
     patient = @patients.at(3) # 2 ED Visits
@@ -58,7 +58,7 @@ describe 'Continuous Variable Calculations', ->
     episode_ids = patient.get('source_data_criteria').map((sdc) -> sdc.get('id'))
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [15] }
-    expect(result.get('episode_results')[episode_ids[0]]).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')[episode_ids[2]]).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [25] }
     expect(result.get('episode_results')[episode_ids[1]]).toEqual(expectedEpisodeResults)
@@ -75,7 +75,7 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [15] }
-    expect(result.get('episode_results')[episode_ids[0]]).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')[episode_ids[2]]).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, observation_values: [] }
     expect(result.get('episode_results')[episode_ids[1]]).toEqual(expectedEpisodeResults)
@@ -91,7 +91,7 @@ describe 'Continuous Variable Calculations', ->
     episode_ids = patient.get('source_data_criteria').map((sdc) -> sdc.get('id'))
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, observation_values: [] }
-    expect(result.get('episode_results')[episode_ids[0]]).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')[episode_ids[2]]).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, observation_values: [] }
     expect(result.get('episode_results')[episode_ids[1]]).toEqual(expectedEpisodeResults)
