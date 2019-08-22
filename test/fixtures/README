@@ -18,9 +18,10 @@ CMS177 - Episode of care based measure
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,core_measures/CMS177v6,bonnie-fixtures@mitre.org,CMS177v6]
 bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS177v6
 
-CMS32 - Episode of care based measure with multiple stratifications
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,core_measures/CMS32v7,bonnie-fixtures@mitre.org,CMS32v7]
-bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS32v7
+# TODO: CMS32 has been replaced by CMS903 'LikeCMS32', bonnie-fixutres needs to be updated to contain this new measure before it can be exported
+CMS903 - Episode of care based measure with multiple stratifications
+bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,core_measures/CMS903v0,bonnie-fixtures@mitre.org,CMS903v0]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS903v0
 
 NOTE: Move exported packages into the test/fixtures/cql_measure/exports/core_measures/ directory or export them from within
 that directory.

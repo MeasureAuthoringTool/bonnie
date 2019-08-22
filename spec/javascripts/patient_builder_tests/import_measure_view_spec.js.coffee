@@ -39,7 +39,7 @@ describe 'ImportMeasure view', ->
         importView.remove()
 
       it 'remembers we are NOT calculating SDEs', ->
-        measure - loadMeasureWithValueSets 'cqm_measure_data/CMS32v7/CMS32v7.json', 'cqm_measure_data/CMS32v7/value_sets.json'
+        measure - loadMeasureWithValueSets 'cqm_measure_data/CMS903v0/CMS903v0.json', 'cqm_measure_data/CMS903v0/value_sets.json'
         importView = new Thorax.Views.ImportMeasure(model: measure)
         importView.appendTo 'body'
         importView.render()

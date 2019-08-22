@@ -10,42 +10,42 @@ class ExcelExportHelperTest < ActionController::TestCase
     dump_database
     users_set = File.join('users', 'base_set')
 
-    # CMS32 has stratifications and covers most of the edge cases
+    # CMS903 has stratifications and covers most of the edge cases
     # CMS134 is a simpler measure and also has a patient that fails due to invalid ucum units
 
-    patients_set = File.join('cqm_patients', 'CMS32v7')
+    patients_set = File.join('cqm_patients', 'CMS903v0')
     simple_patients_set = File.join('cqm_patients', 'CMS134v6')
 
     collection_fixtures(users_set, patients_set, simple_patients_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, CQM::Patient.all)
 
-    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
     load_measure_fixtures_from_folder(File.join('measures', 'CMS134v6'), @user)
 
-    @measure = CQM::Measure.where({'cms_id' => 'CMS32v7'}).first
+    @measure = CQM::Measure.where({'cms_id' => 'CMS903v0'}).first
     @patients = CQM::Patient.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
 
     @simple_measure = CQM::Measure.where({'cms_id' => 'CMS134v6'}).first
     @simple_patients = CQM::Patient.by_user(@user).where({:measure_ids.in => [@simple_measure.hqmf_set_id]})
 
-    backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'CMS32-results-stub.json')))
-    unpretty_backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'CMS32-unpretty-results-stub.json')))
+    backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'CMS903-results-stub.json')))
+    unpretty_backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'CMS903-unpretty-results-stub.json')))
     simple_backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'CMS134-results-stub.json')))
 
     # modify the backend results keys to match the keys of our patients. The results stub's keys
     # are random since it was generated from a fixture
     @backend_results = {}
-    @backend_results['5d14f7e731fe5ff6f1e7d2a1'] = backend_results['5b4675d11f994e831b2146b1'] # Visit_1ED
-    @backend_results['5d14f7e831fe5ff6f1e7d2f5'] = backend_results['5b4675d11f994e831b2146b8'] # Visit_1Excl_2Ed
-    @backend_results['5d14f7e831fe5ff6f1e7d2e5'] = backend_results['5b4675d11f994e831b2146c0'] # Visits_2ED
-    @backend_results['5d14f7e831fe5ff6f1e7d305'] = backend_results['5b4675d11f994e831b2146c8'] # Visits_2Excl_2ED
+    @backend_results['5d5bf1d257a11e76234d2d4f'] = backend_results['5d5bf1d257a11e76234d2d4f'] # Visit_1ED
+    @backend_results['5d5bf29f57a11e76234d2d6a'] = backend_results['5d5bf29f57a11e76234d2d6a'] # Visit_1Excl_2Ed
+    @backend_results['5d5bf27057a11e76234d2d61'] = backend_results['5d5bf27057a11e76234d2d61'] # Visits_2ED
+    @backend_results['5d5bf2cc57a11e76234d2d73'] = backend_results['5d5bf2cc57a11e76234d2d73'] # Visits_2Excl_2ED
 
     @unpretty_backend_results = {}
-    @unpretty_backend_results['5d14f7e731fe5ff6f1e7d2a1'] = unpretty_backend_results['5b474ad52f8e3a17057c855f'] # Visit_1ED
-    @unpretty_backend_results['5d14f7e831fe5ff6f1e7d2f5'] = unpretty_backend_results['5b474ad52f8e3a17057c8566'] # Visit_1Excl_2Ed
-    @unpretty_backend_results['5d14f7e831fe5ff6f1e7d2e5'] = unpretty_backend_results['5b474ad52f8e3a17057c856e'] # Visits_2ED
-    @unpretty_backend_results['5d14f7e831fe5ff6f1e7d305'] = unpretty_backend_results['5b474ad52f8e3a17057c8576'] # Visits_2Excl_2ED
+    @unpretty_backend_results['5d5bf1d257a11e76234d2d4f'] = unpretty_backend_results['5d5bf1d257a11e76234d2d4f'] # Visit_1ED
+    @unpretty_backend_results['5d5bf29f57a11e76234d2d6a'] = unpretty_backend_results['5d5bf29f57a11e76234d2d6a'] # Visit_1Excl_2Ed
+    @unpretty_backend_results['5d5bf27057a11e76234d2d61'] = unpretty_backend_results['5d5bf27057a11e76234d2d61'] # Visits_2ED
+    @unpretty_backend_results['5d5bf2cc57a11e76234d2d73'] = unpretty_backend_results['5d5bf2cc57a11e76234d2d73'] # Visits_2Excl_2ED
 
     @simple_backend_results = {}
 
@@ -55,21 +55,21 @@ class ExcelExportHelperTest < ActionController::TestCase
 
     # These are the objects from the front end (measure-view.js.coffee) to compare with the ones we process
     # from the back end.  see test/fixtures/excel_export_helper/README.md for more details
-    @calc_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'calc_results.json')))
-    @calc_results_unpretty = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'calc_results_unpretty.json')))
-    @patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'patient_details.json')))
-    @population_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'population_details.json')))
-    @statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'statement_details.json')))
+    @calc_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'calc_results.json')))
+    @calc_results_unpretty = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'calc_results_unpretty.json')))
+    @patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'patient_details.json')))
+    @population_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'population_details.json')))
+    @statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'statement_details.json')))
     @simple_calc_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'calc_results.json')))
     @simple_patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'patient_details.json')))
     @simple_population_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'population_details.json')))
     @simple_statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'statement_details.json')))
 
     # The front end results use cids as keys but the backend results use ids.
-    @cid_to_measure_id_map = { 'c320': '5d14f7e731fe5ff6f1e7d2a1',
-                               'c468': '5d14f7e831fe5ff6f1e7d2e5',
-                               'c495': '5d14f7e831fe5ff6f1e7d2f5',
-                               'c523': '5d14f7e831fe5ff6f1e7d305' }.with_indifferent_access
+    @cid_to_measure_id_map = { 'c1366': '5d5bf1d257a11e76234d2d4f', # Visit_1ED
+                               'c1375': '5d5bf27057a11e76234d2d61', # Visits_2ED
+                               'c1386': '5d5bf29f57a11e76234d2d6a', # Visit_1Excl_2Ed
+                               'c1397': '5d5bf2cc57a11e76234d2d73' }.with_indifferent_access # Visits_2Excl_2ED
 
     @simple_cid_to_measure_id_map = { 'c358': '5a58f001942c6d500fc8cb92',
                                       'c552': '5a73955cb848465f695c4ecb'}.with_indifferent_access
@@ -78,7 +78,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'backend results are converted' do
-    skip('Fixture for CMS32 cannot be updated as it uses logic incompatible with QDM 5.5')
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     @calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
@@ -88,7 +87,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'backend results are converted if pretty is not present' do
-    skip('Fixture for CMS32 cannot be updated as it uses logic incompatible with QDM 5.5')
     converted_unpretty_results = ExcelExportHelper.convert_results_for_excel_export(@unpretty_backend_results, @measure, @patients)
     @calc_results_unpretty.values.zip(converted_unpretty_results.values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
@@ -98,7 +96,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'patient details are extracted' do
-    skip('Fixture for CMS32 cannot be updated as it uses logic incompatible with QDM 5.5')
     patient_details = ExcelExportHelper.get_patient_details(@patients)
     @cid_to_measure_id_map.with_indifferent_access.each_pair do |cid, measure_id|
       assert_equal @patient_details[cid].keys, patient_details[measure_id].keys
@@ -117,10 +114,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     @population_details.keys.each do |key|
       @population_details[key]['criteria'] = (CQM::Measure::ALL_POPULATION_CODES & @population_details[key]['criteria']) + ['index']
     end
-    assert_equal @population_details['c89'], population_details[0]
-    assert_equal @population_details['c90'], population_details[1]
-    assert_equal @population_details['c91'], population_details[2]
-    assert_equal @population_details['c92'], population_details[3]
+    assert_equal @population_details['c966'], population_details[0]
+    assert_equal @population_details['c967'], population_details[1]
+    assert_equal @population_details['c968'], population_details[2]
+    assert_equal @population_details['c969'], population_details[3]
   end
 
   test 'statement details are extracted' do
@@ -168,8 +165,6 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   def compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, number_of_patients)
-    skip('Fixture for CMS32 cannot be updated as it uses logic incompatible with QDM 5.5')
-
     # Verify the sheet titles are the same
     assert_equal backend_excel_spreadsheet.sheets, frontend_excel_spreadsheet.sheets
 

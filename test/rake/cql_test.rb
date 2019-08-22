@@ -130,19 +130,18 @@ class CqlTest < ActiveSupport::TestCase
   end
 
   test 'cql measure stats' do
-    skip("MUST UPDATE THE RAKE TASKS FOR NEW MODEL")
     users_set = File.join('users', 'base_set')
-    cql_measures_set_1 = File.join('cql_measures', 'core_measures', 'CMS177v6')
-    cql_measures_set_2 = File.join('cql_measures', 'core_measures', 'CMS160v6')
-    cql_measures_set_3 = File.join('cql_measures', 'core_measures', 'CMS32v7')
+    cqm_measures_set_1 = File.join('measures', 'CMS177v6')
+    cqm_measures_set_2 = File.join('measures', 'CMS160v6')
+    cqm_measures_set_3 = File.join('measures', 'CMS903v0')
     collection_fixtures(users_set)
-    add_collection(cql_measures_set_1)
-    add_collection(cql_measures_set_2)
-    add_collection(cql_measures_set_3)
+    load_measure_fixtures_from_folder(cqm_measures_set_1)
+    load_measure_fixtures_from_folder(cqm_measures_set_2)
+    load_measure_fixtures_from_folder(cqm_measures_set_3)
 
     @hqmf_set_id_1 = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
     @hqmf_set_id_2 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
-    @hqmf_set_id_3 = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    @hqmf_set_id_3 = '4DC3E7AA-8777-4749-A1E4-37E942036076'
 
     @second_user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user, CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1))
