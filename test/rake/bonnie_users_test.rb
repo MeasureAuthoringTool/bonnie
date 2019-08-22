@@ -87,14 +87,14 @@ class BonnieUsersTest < ActiveSupport::TestCase
   test "move measure" do
     source_email = 'bonnie@example.com'
     dest_email = 'user_admin@example.com'
-    source_hqmf_set_id = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    source_hqmf_set_id = '4DC3E7AA-8777-4749-A1E4-37E942036076'
 
-    patients_set = File.join("cqm_patients", "CMS32v7")
+    patients_set = File.join("cqm_patients", "CMS903v0")
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set, patients_set)
     source_user = User.by_email('bonnie@example.com').first
     dest_user = User.by_email('user_admin@example.com').first
-    load_measure_fixtures_from_folder(File.join("measures", "CMS32v7"), source_user)
+    load_measure_fixtures_from_folder(File.join("measures", "CMS903v0"), source_user)
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(source_user, CQM::Patient.all)
 
@@ -118,7 +118,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     ENV['SOURCE_EMAIL'] = "asdf@gmail.com"
     ENV['DEST_EMAIL'] = dest_email
-    ENV['CMS_ID'] = "CMS32v7"
+    ENV['CMS_ID'] = "CMS903v0"
 
     err = assert_raises RuntimeError do
       Rake::Task['bonnie:users:move_measure'].execute
@@ -129,7 +129,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     ENV['SOURCE_EMAIL'] = source_email
     ENV['DEST_EMAIL'] = "fdsa@gmail.com"
-    ENV['CMS_ID'] = "CMS32v7"
+    ENV['CMS_ID'] = "CMS903v0"
 
     err = assert_raises RuntimeError do
       Rake::Task['bonnie:users:move_measure'].execute
@@ -151,7 +151,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     ENV['SOURCE_EMAIL'] = source_email
     ENV['DEST_EMAIL'] = dest_email
-    ENV['CMS_ID'] = "CMS32v7"
+    ENV['CMS_ID'] = "CMS903v0"
 
     vs_count_measure = measure.value_sets.count
     vs_count_user = CQM::ValueSet.where(user_id: source_user).count

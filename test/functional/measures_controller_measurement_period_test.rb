@@ -10,7 +10,7 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
     users_set = File.join('users', 'base_set')
-    patients_set = File.join('cqm_patients', 'CMS32v7')
+    patients_set = File.join('cqm_patients', 'CMS903v0')
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
     collection_fixtures(users_set, patients_set)
     @user = User.by_email('bonnie@example.com').first
@@ -21,8 +21,8 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
   end
 
   test 'update measurement period' do
-    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
-    measure = CQM::Measure.where({cms_id: 'CMS32v7'}).first
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
+    measure = CQM::Measure.where({cms_id: 'CMS903v0'}).first
     measure_id = measure.id
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     post :measurement_period, {
@@ -39,8 +39,8 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
   end
 
   test 'update measurement period without updating patients' do
-    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
-    measure = CQM::Measure.where({cms_id: 'CMS32v7'}).first
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
+    measure = CQM::Measure.where({cms_id: 'CMS903v0'}).first
     measure_id = measure.id
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     post :measurement_period, {
@@ -57,8 +57,8 @@ class MeasuresControllerMeasurementPeriodTest < ActionController::TestCase
   end
 
   test 'data element goes outside of date range after conversion and fails' do
-    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
-    measure = CQM::Measure.where({cms_id: 'CMS32v7'}).first
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
+    measure = CQM::Measure.where({cms_id: 'CMS903v0'}).first
     measure_id = measure.id
     assert_equal '2012', measure.measure_period['low']['value'].slice(0,4)
     patient = CQM::Patient.by_user(@user).first

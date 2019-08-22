@@ -9,7 +9,7 @@ include Devise::Test::ControllerHelpers
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
     users_set = File.join('users', 'base_set')
-    patients_set = File.join('cqm_patients', 'CMS32v7')
+    patients_set = File.join('cqm_patients', 'CMS903v0')
     strat_measure_patients_set = File.join('cqm_patients', 'CMSv0')
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
     collection_fixtures(users_set, patients_set, strat_measure_patients_set)
@@ -49,15 +49,14 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'upload CQL using measure_defined and valid VSAC creds' do
-    skip('CMS32v8 is outdate and needs to be replace with CMS111')
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette('profile_query', @vcr_options) do
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
 
       post :create, {
         vsac_query_type: 'profile',
@@ -71,21 +70,20 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
-      assert_equal '40280382-6240-B6B9-0162-4E22168A0727', measure['hqmf_id']
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+      assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
     end
   end
 
   test 'upload CQL using release and valid VSAC creds' do
-    skip('CMS32v8 is outdate and needs to be replace with CMS111')
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette('release_query', @vcr_options) do
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
 
       post :create, {
         vsac_query_type: 'release',
@@ -98,21 +96,20 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
-      assert_equal '40280382-6240-B6B9-0162-4E22168A0727', measure['hqmf_id']
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+      assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
     end
   end
 
   test 'upload CQL using profile, draft, and valid VSAC creds' do
-    skip('CMS32v8 is outdate and needs to be replace with CMS111')
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette('profile_draft_query', @vcr_options) do
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
 
       post :create, {
         vsac_query_type: 'profile',
@@ -126,8 +123,8 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
-      assert_equal '40280382-6240-B6B9-0162-4E22168A0727', measure['hqmf_id']
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+      assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
     end
   end
 
@@ -230,14 +227,13 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'upload MAT with that cause value sets not found error' do
-    skip('CMS32v8 is outdate and needs to be replace with CMS111')
     VCR.use_cassette('vsac_not_found', @vcr_options) do
       # Ensure measure is not loaded to begin with
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8_bad_valuesets.zip'), 'application/zip')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
 
       post :create, {
         vsac_query_type: 'release',
@@ -252,7 +248,7 @@ include Devise::Test::ControllerHelpers
 
       assert_response :redirect
       assert_equal 'Error Loading VSAC Value Sets', flash[:error][:title]
-      assert_equal 'VSAC value set (2.16.840.1.113762.1.4.1) not found or is empty.', flash[:error][:summary]
+      assert_equal 'VSAC value set (2.16.840.1.113883.3.117.1.7.1.87) not found or is empty.', flash[:error][:summary]
       assert flash[:error][:body].starts_with?('Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets.')
     end
   end
@@ -377,9 +373,8 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'measure destroy' do
-    skip('CMS32v8 is outdate and needs to be replace with CMS111')
     VCR.use_cassette('measure_destroy', @vcr_options) do
-      measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
+      measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
       measure_file2 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS134v8.zip'), 'application/zip')
 
       post :create, {
@@ -555,10 +550,9 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'update with hqmf set id mismatch' do
-    skip('CMS32v8 is outdate and needs to be replace with CMS111')
     # Upload the initial file
     VCR.use_cassette('valid_vsac_response_hqmf_set_id_mismatch', @vcr_options) do
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
       class << measure_file
         attr_reader :tempfile
       end
@@ -573,7 +567,7 @@ include Devise::Test::ControllerHelpers
         calculation_type: 'patient'
       }
       # Upload a modified version of the initial file with a mismatching hqmf_set_id
-      update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS32v8_mismatch_hqmf_set_id.zip'), 'application/zip')
+      update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0_mismatch_hqmf_set_id.zip'), 'application/zip')
       class << update_measure_file
         attr_reader :tempfile2
       end
@@ -585,7 +579,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: update_measure_file,
-        hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+        hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
       }
 
       # Verify that the controller detects the mismatching hqmf_set_id and rejects
@@ -595,19 +589,18 @@ include Devise::Test::ControllerHelpers
       assert_response :redirect
 
       # Verify that the initial file remained unchanged
-      measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
-      assert_equal '3FD13096-2C8F-40B5-9297-B714E8DE9133', measure.hqmf_set_id
+      measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
+      assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
     end
   end
 
   test 'create/finalize/update a measure' do
-    skip('CMS32v8 is outdate and needs to be replace with CMS111')
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
-    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS32v888_updated_cms_id.zip'), 'application/zip')
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS903v999_updated_cms_id.zip'), 'application/zip')
     class << update_measure_file
       attr_reader :tempfile
     end
@@ -615,7 +608,7 @@ include Devise::Test::ControllerHelpers
     measure = nil
     # associate a patient with the measure about to be created so the patient will be rebuilt
     p = CQM::Patient.by_user(@user).first
-    p.measure_ids = ['3FD13096-2C8F-40B5-9297-B714E8DE9133']
+    p.measure_ids = ['4DC3E7AA-8777-4749-A1E4-37E942036076']
     p.save
 
     VCR.use_cassette('initial_response', @vcr_options) do
@@ -632,8 +625,8 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_response :redirect
-    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
-    assert_equal '3FD13096-2C8F-40B5-9297-B714E8DE9133', measure.hqmf_set_id
+    measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
+    assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
     assert_equal 10, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
@@ -644,14 +637,14 @@ include Devise::Test::ControllerHelpers
     assert_equal 3, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113762.1.4.1111.143'}).first.concepts.count
 
     # Finalize the measure that was just created
-    post :finalize, {t679: { hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727', titles: ['ps1','ps1strat1','ps1strat2','ps1strat3'] } }
-    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
+    post :finalize, {t679: { hqmf_id: '40280382667FECC30167190FAE723AAE', titles: ['ps1','ps1strat1','ps1strat2','ps1strat3'] } }
+    measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
 
     assert_equal 'ps1', measure.population_sets[0].title
     assert_equal 'ps1strat1', measure.population_sets[0].stratifications[0].title
     assert_equal 'ps1strat2', measure.population_sets[0].stratifications[1].title
     assert_equal 'ps1strat3', measure.population_sets[0].stratifications[2].title
-    assert_equal '3FD13096-2C8F-40B5-9297-B714E8DE9133', measure.hqmf_set_id
+    assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
     assert_equal 10, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
@@ -669,15 +662,15 @@ include Devise::Test::ControllerHelpers
         measure_file: update_measure_file,
         measure_type: 'eh',
         calculation_type: 'episode',
-        hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+        hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
       }
     end
     assert_response :redirect
-    assert_equal 1, CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).size
-    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
+    assert_equal 1, CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).size
+    measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
     assert_not_equal measure_id_before, measure._id
-    assert_equal '3FD13096-2C8F-40B5-9297-B714E8DE9133', measure.hqmf_set_id
-    assert_equal 'CMS32v888', measure.cms_id
+    assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
+    assert_equal 'CMS903v999', measure.cms_id
     assert_equal 10, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
@@ -767,13 +760,12 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'create/finalize/update a measure calculating SDEs' do
-    skip('CMS32v8 is outdate and needs to be replace with CMS111')
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS32v8.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
-    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS32v888_updated_cms_id.zip'), 'application/zip')
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS903v999_updated_cms_id.zip'), 'application/zip')
     class << update_measure_file
       attr_reader :tempfile
     end
@@ -781,7 +773,7 @@ include Devise::Test::ControllerHelpers
     measure = nil
     # associate a patient with the measure about to be created so the patient will be rebuilt
     p = CQM::Patient.by_user(@user).first
-    p.measure_ids = ['3FD13096-2C8F-40B5-9297-B714E8DE9133']
+    p.measure_ids = ['4DC3E7AA-8777-4749-A1E4-37E942036076']
     p.save
 
     VCR.use_cassette('initial_response_calc_SDEs', @vcr_options) do
@@ -797,7 +789,7 @@ include Devise::Test::ControllerHelpers
         calc_sde: 'true'
       }
     end
-    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
+    measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
     assert_equal true, measure.calculate_sdes
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
 
@@ -810,13 +802,13 @@ include Devise::Test::ControllerHelpers
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: update_measure_file,
-        hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+        hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
       }
     end
 
-    measure = CQM::Measure.where({hqmf_id: '40280382-6240-B6B9-0162-4E22168A0727'}).first
+    measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
     assert_equal true, measure.calculate_sdes
-    assert_equal 'CMS32v888', measure.cms_id
+    assert_equal 'CMS903v999', measure.cms_id
     assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
   end
 end

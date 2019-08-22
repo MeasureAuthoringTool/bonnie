@@ -127,11 +127,10 @@ module ApiV1
     end
 
     test 'should create api_v1_measure initial' do
-      skip('CMS32v8 is outdate and needs to be replace with CMS111')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
 
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_nil measure
 
       VCR.use_cassette('api_valid_vsac_response', @vcr_options) do
@@ -140,20 +139,19 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {'Content-Type' => 'multipart/form-data'}
         assert_response :success
-        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133'}
+        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
       end
 
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
-      assert_equal '40280382-6240-B6B9-0162-4E22168A0727', measure['hqmf_id']
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+      assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
       assert_equal @user.id, measure.user_id
       measure.value_sets.each { |vs| assert_equal @user.id, vs.user_id }
       assert_equal 'PATIENT', measure.calculation_method
     end
 
     test 'should error on duplicate measure' do
-      skip('CMS32v8 is outdate and needs to be replace with CMS111')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_dup_measure', @vcr_options) do
         # get ticket_granting_ticket
@@ -161,19 +159,18 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {'Content-Type' => 'multipart/form-data'}
         assert_response :success
-        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133'}
+        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
 
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {'Content-Type' => 'multipart/form-data'}
         assert_response :conflict
-        expected_response = { 'status' => 'error', 'messages' => 'A measure with this HQMF Set ID already exists.', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133'}
+        expected_response = { 'status' => 'error', 'messages' => 'A measure with this HQMF Set ID already exists.', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
       end
     end
 
     test 'should choose default titles for populations' do
-      skip('CMS32v8 is outdate and needs to be replace with CMS111')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_def_titles', @vcr_options) do
         # get ticket_granting_ticket
@@ -181,10 +178,10 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {'Content-Type' => 'multipart/form-data'}
         assert_response :ok
-        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133'}
+        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
 
-        measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+        measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
         assert_equal 1, measure.population_sets.size
         assert_equal 3, measure.population_sets[0].stratifications.size
 
@@ -196,8 +193,7 @@ module ApiV1
     end
 
     test 'should use provided population titles for populations' do
-      skip('CMS32v8 is outdate and needs to be replace with CMS111')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_provided_titles', @vcr_options) do
         # get ticket_granting_ticket
@@ -205,10 +201,10 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', population_titles: ['First Pop', 'First Strat', 'Second Strat', 'Third Strat']}, {'Content-Type' => 'multipart/form-data'}
         assert_response :ok
-        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133'}
+        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
 
-        measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+        measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
         assert_equal 1, measure.population_sets.size
         assert_equal 'First Pop', measure.population_sets[0].title
         assert_equal 'First Strat', measure.population_sets[0].stratifications[0].title
@@ -218,8 +214,7 @@ module ApiV1
     end
 
     test 'should update a measure with provided population titles for populations' do
-      skip('CMS32v8 is outdate and needs to be replace with CMS111')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_initial', @vcr_options) do
         # get ticket_granting_ticket
@@ -227,10 +222,10 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', population_titles: ['First Pop', 'First Strat', 'Second Strat', 'Third Strat']}, {'Content-Type' => 'multipart/form-data'}
         assert_response :ok
-        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133'}
+        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
       end
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_equal 1, measure.population_sets.size
       assert_equal 3, measure.population_sets[0].stratifications.size
       assert_equal 'First Pop', measure.population_sets[0].title
@@ -246,12 +241,12 @@ module ApiV1
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
-        put :update, {id: '3FD13096-2C8F-40B5-9297-B714E8DE9133', vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', population_titles: %w[Foo bar baz bam]}, {'Content-Type' => 'multipart/form-data'}
+        put :update, {id: '4DC3E7AA-8777-4749-A1E4-37E942036076', vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', population_titles: %w[Foo bar baz bam]}, {'Content-Type' => 'multipart/form-data'}
         assert_response :ok
-        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133' }
+        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076' }
         assert_equal expected_response, JSON.parse(response.body)
       end
-      measure = CQM::Measure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_equal 1, measure.population_sets.size
       assert_equal 3, measure.population_sets[0].stratifications.size
       assert_equal 'First Pop', measure.population_sets[0].title
@@ -261,22 +256,20 @@ module ApiV1
     end
 
     test 'should error on upload due to incorrect VSAC release parameter input' do
-      skip('CMS32v8 is outdate and needs to be replace with CMS111')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_invalid_release_vsac_response', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'release', vsac_query_release: 'Fake 1234', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode'}, {'Content-Type' => 'multipart/form-data'}
         assert_response :bad_request
-        expected_response = {'status'=>'error', 'messages'=>'VSAC value set (2.16.840.1.113762.1.4.1) not found or is empty. Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets.'}
+        expected_response = {'status'=>'error', 'messages'=>'VSAC value set (2.16.840.1.113883.3.117.1.7.1.87) not found or is empty. Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets.'}
         assert_equal expected_response, JSON.parse(response.body)
       end
     end
 
     test 'should error on upload due to invalid VSAC ticket' do
-      skip('CMS32v8 is outdate and needs to be replace with CMS111')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_invalid_ticket_vsac_response', @vcr_options) do
         ticket = 'foo'
@@ -314,8 +307,7 @@ module ApiV1
     end
 
     test 'should return error on updating measure with incorrect hqmf_set_id' do
-      skip('CMS32v8 is outdate and needs to be replace with CMS111')
-      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_incorrect_hqmf_id_vsac_response', @vcr_options) do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
@@ -323,11 +315,11 @@ module ApiV1
 
         post :create, {measure_file: measure_file, calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}, {'Content-Type' => 'multipart/form-data'}
         assert_response :success
-        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/3FD13096-2C8F-40B5-9297-B714E8DE9133'}
+        expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
 
-        measure_update_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS32v8_mismatch_hqmf_set_id.zip'),'application/zip')
-        put :update, {id: '3FD13096-2C8F-40B5-9297-B714E8DE9133', measure_file: measure_update_file, calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}, {'Content-Type' => 'multipart/form-data'}
+        measure_update_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0_mismatch_hqmf_set_id.zip'),'application/zip')
+        put :update, {id: '4DC3E7AA-8777-4749-A1E4-37E942036076', measure_file: measure_update_file, calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}, {'Content-Type' => 'multipart/form-data'}
         assert_response :not_found
         expected_response = { 'status' => 'error', 'messages' => 'The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure.'}
         assert_equal expected_response, JSON.parse(response.body)

@@ -1,0 +1,21 @@
+{
+  "LikeCMS32": {
+    "SDE Ethnicity": "define \"SDE Ethnicity\":\n  [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]",
+    "SDE Payer": "define \"SDE Payer\":\n  [\"Patient Characteristic Payer\": \"Payer\"]",
+    "SDE Race": "define \"SDE Race\":\n  [\"Patient Characteristic Race\": \"Race\"]",
+    "SDE Sex": "define \"SDE Sex\":\n  [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]",
+    "Emergency Department ED Visit": "define \"Emergency Department ED Visit\":\n  [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n    where EDVisit.relevantPeriod during \"Measurement Period\"",
+    "Strat2": "define \"Strat2\":\n  \"Emergency Department ED Visit\" EDVisit\n    where EDVisit.dischargeDisposition in \"Discharge To Acute Care Facility\"",
+    "Initial Population": "define \"Initial Population\":\n  [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n    where EDVisit.relevantPeriod during \"Measurement Period\"",
+    "ArrivalTime": "define function \"ArrivalTime\"(Enc \"Encounter, Performed\" ):\n  First(Enc.facilityLocations Location\n      return start of Location.locationPeriod\n      sort ascending\n  )",
+    "Observation Services Order": "define function \"Observation Services Order\"(Enc \"Encounter, Performed\" ):\n  Last([\"Encounter, Order\": \"Observation Services\"] ObservationOrder\n      where ObservationOrder.authorDatetime during Enc.relevantPeriod\n      sort by authorDatetime\n  )",
+    "Departure Time": "define function \"Departure Time\"(Enc \"Encounter, Performed\" ):\n  Last(Enc.facilityLocations Location\n      return \n      end of Location.locationPeriod\n      sort ascending\n  )",
+    "Arrival to Observation Order or Departure Time": "define function \"Arrival to Observation Order or Departure Time\"(Enc \"Encounter, Performed\" ):\n  duration in minutes of Interval[\"ArrivalTime\"(Enc), Coalesce(\"Observation Services Order\"(Enc).authorDatetime, \"Departure Time\"(Enc))]",
+    "Measure Observation": "define function \"Measure Observation\"(Enc \"Encounter, Performed\" ):\n  \"Arrival to Observation Order or Departure Time\"(Enc)",
+    "Measure Population": "define \"Measure Population\":\n  \"Initial Population\" EDVisit\n    where \"Measure Observation\"(EDVisit)is not null",
+    "Measure Population Exclusions": "define \"Measure Population Exclusions\":\n  ( \"Emergency Department ED Visit\" EDVisit\n      where EDVisit.dischargeDisposition ~ \"Patient deceased during stay (discharge status = dead) (finding)\"\n  )\n    union ( \"Emergency Department ED Visit\" EDVisit\n        with [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\n          such that EDVisit.relevantPeriod ends 1 hour or less before or on start of Encounter.relevantPeriod\n    )",
+    "Strat1": "define \"Strat1\":\n  \"Emergency Department ED Visit\" EDVisit\n    where exists ( EDVisit.diagnoses Diag\n        where Diag.rank = 1\n          and Diag.code in \"Psychiatric/Mental Health Diagnosis\"\n    )",
+    "GetPrincipalDiagnosisCode": "define function \"GetPrincipalDiagnosisCode\"(Enc \"Encounter, Performed\" ):\n  singleton from ( Enc.diagnoses Diag\n      where Diag.rank = 1\n      return Diag.code\n  )",
+    "Strat3": "define \"Strat3\":\n  \"Emergency Department ED Visit\" EDVisit\n    let DiagCode: GetPrincipalDiagnosisCode(EDVisit)\n    where ( DiagCode is null\n        or not ( DiagCode in \"Psychiatric/Mental Health Diagnosis\" )\n    )\n      and not ( EDVisit.dischargeDisposition in \"Discharge To Acute Care Facility\" )"
+  }
+}

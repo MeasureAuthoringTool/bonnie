@@ -5,16 +5,16 @@ class BonnieDbTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    patients_set = File.join('cqm_patients', 'CMS32v7')
+    patients_set = File.join('cqm_patients', 'CMS903v0')
     users_set = File.join('users', 'base_set')
     collection_fixtures(users_set, patients_set)
     @email = 'bonnie@example.com'
     @user = User.by_email('bonnie@example.com').first
 
-    @hqmf_set_id_1 = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    @hqmf_set_id_1 = '4DC3E7AA-8777-4749-A1E4-37E942036076'
     @hqmf_set_id_2 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
     @hqmf_set_id_3 = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
-    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @user)
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
     load_measure_fixtures_from_folder(File.join('measures', 'CMS177v6'), @user)
     CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1).first.package.delete
@@ -82,15 +82,15 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['EMAIL'] = @email
     ENV['HQMF_SET_ID'] = @hqmf_set_id_1
 
-    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: measure with HQMF set id 3FD13096-2C8F-40B5-9297-B714E8DE9133 found\n" \
+    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: measure with HQMF set id 4DC3E7AA-8777-4749-A1E4-37E942036076 found\n" \
                   "\e[31m[Error]\e[0m\t\tNo package found for this measure.\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     # check no package from fixture with hqmf set id
     ENV['EMAIL'] = @email
     ENV['HQMF_SET_ID'] = nil
-    ENV['CMS_ID'] = 'CMS32v7'
+    ENV['CMS_ID'] = 'CMS903v0'
 
-    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS32v7: found\n" \
+    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS903v0: found\n" \
                   "\e[31m[Error]\e[0m\t\tNo package found for this measure.\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     # check package exists for uploaded package

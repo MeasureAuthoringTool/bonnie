@@ -5,20 +5,20 @@ class BonniePatientsTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    patients_set = File.join('cqm_patients', 'CMS32v7')
+    patients_set = File.join('cqm_patients', 'CMS903v0')
     users_set = File.join('users', 'base_set')
     collection_fixtures(users_set, patients_set)
 
     @source_email = 'bonnie@example.com'
     @dest_email = 'user_admin@example.com'
-    @source_hqmf_set_id = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    @source_hqmf_set_id = '4DC3E7AA-8777-4749-A1E4-37E942036076'
     @dest2_hqmf_set_id = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
     @dest_hqmf_set_id = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
 
     @source_user = User.by_email('bonnie@example.com').first
     @dest_user = User.by_email('user_admin@example.com').first
 
-    load_measure_fixtures_from_folder(File.join('measures', 'CMS32v7'), @source_user) # '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @source_user) # '4DC3E7AA-8777-4749-A1E4-37E942036076'
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @source_user) # 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
     load_measure_fixtures_from_folder(File.join('measures', 'CMS177v6'), @dest_user) # '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
 
@@ -167,39 +167,6 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, dest_patients.count)
   end
 
-  test 'copy_measure_patients updates source data criteria' do
-    ENV['SOURCE_EMAIL'] = @source_email
-    ENV['DEST_EMAIL'] = @dest_email
-    ENV['SOURCE_HQMF_SET_ID'] = @source_hqmf_set_id
-    ENV['DEST_HQMF_SET_ID'] = @dest_hqmf_set_id
-
-    source_patients = CQM::Patient.where(measure_ids:@source_hqmf_set_id)
-    dest_measures = CQM::Measure.where(hqmf_set_id:@dest_hqmf_set_id)
-    assert_equal dest_measures.length, 1
-    dest_measure = dest_measures.first
-
-    # Make fake sdc items in measure as if measure has relevant sdc
-    source_patients.each do |patient|
-      patient.qdmPatient.extendedData['source_data_criteria'].each do |_sdc|
-        fake_sdc = QDM::EncounterPerformed.new description: "fake"
-        dest_measure.source_data_criteria << fake_sdc
-      end
-      dest_measure.save
-    end
-
-    assert_output(
-      "Copying patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
-      ) { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
-
-    dest_patients = CQM::Patient.where(measure_ids:@dest_hqmf_set_id)
-    dest_patients.each do |patient|
-      patient.qdmPatient.extendedData['source_data_criteria'].each do |sdc|
-        assert_equal(sdc['hqmf_set_id'], @dest_hqmf_set_id) if sdc['hqmf_set_id']
-      end
-    end
-  end
-
   test 'move_patients_csv moves patients' do
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'good_transfers.csv')
 
@@ -212,9 +179,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, user_patients.count)
 
     assert_output(
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS903v0:LikeCMS32 found\n" +
       "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
+      "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS903v0:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = CQM::Patient.where(measure_ids:@source_hqmf_set_id)
@@ -242,13 +209,13 @@ class BonniePatientsTest < ActiveSupport::TestCase
       # test 1 user not found failure
       "\e[#{31}m#{"[Error]"}\e[0m\t\ttest1@example.com not found\n" +
       # test 2 dest measure not found
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS903v0:LikeCMS32 found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS903v0:LikeCMS32 to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
       # test 3 source measure not found
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:LikeCMS32 not found\n" +
       "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = CQM::Patient.where(measure_ids:@source_hqmf_set_id)
@@ -267,8 +234,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     # need to associate the last measure with this user account to test duplicate cms ids
     associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
     measure = CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id).first
-    measure.cms_id = "CMS32v7"
-    measure.title = "Median Time from ED Arrival to ED Departure for Discharged ED Patients"
+    measure.cms_id = "CMS903v0"
+    measure.title = "LikeCMS32"
     measure.save
 
     source_patients = CQM::Patient.where(measure_ids:@source_hqmf_set_id)
@@ -281,17 +248,17 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     assert_output(
       # test 1 source title incorrect for duplicate cms ids
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Test 1 Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS903v0:Test 1 LikeCMS32 not found\n" +
       "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Test 1 Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS903v0:Test 1 LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n" +
       # test 2 destination title incorrect for duplicate cms ids
       "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Test 2 Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS160v6:Depression Utilization of the PHQ-9 Tool to CMS32v7:Test 2 Median Time from ED Arrival to ED Departure for Discharged ED Patients\n\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS903v0:Test 2 LikeCMS32 not found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS160v6:Depression Utilization of the PHQ-9 Tool to CMS903v0:Test 2 LikeCMS32\n\n" +
       # test 3 measure title and cms id are duplicates
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients not unique\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS903v0:LikeCMS32 not unique\n" +
       "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS903v0:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = CQM::Patient.where(measure_ids:@source_hqmf_set_id)
@@ -310,7 +277,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     # need to associate the last measure with this user account to test duplicate cms ids
     associate_user_with_measures(@source_user, CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id))
     measure = CQM::Measure.where(hqmf_set_id: @dest_hqmf_set_id).first
-    measure.cms_id = 'CMS32v7'
+    measure.cms_id = 'CMS903v0'
     measure.save
 
     source_patients = CQM::Patient.where(measure_ids:@source_hqmf_set_id)
@@ -322,9 +289,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, user_patients.count)
 
     assert_output(
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS903v0:LikeCMS32 found\n" +
       "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
+      "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS903v0:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = CQM::Patient.where(measure_ids:@source_hqmf_set_id)
