@@ -7,20 +7,14 @@ GIT
       json
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-models
-  revision: c12e879bc2831e91e7d0775342dcb8dedf62c2d3
-  branch: 2019-standards-update
-  specs:
-    cqm-models (2.0.0)
-
-GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 42224a2247fad4a7c6391353b3fe1c751fc63a0d
-  branch: 2019-standards-update
+  revision: 173cea288b8f46149639d845df155f45ca55a619
+  branch: bonnie_version
   specs:
     cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
+      cqm-models (~> 3.0.0)
       erubis (~> 2.7.0)
       highline (~> 1.7.0)
       log4r (~> 1.1.10)
@@ -33,21 +27,6 @@ GIT
       rubyzip (~> 1.2.2)
       typhoeus
       uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-reports
-  revision: c7e4c9ef6dad3d5f9d7ec76d70586fcdaa58d22a
-  branch: 2019-standards-update
-  specs:
-    cqm-reports (2.0.1)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
       zip-zip (~> 0.3)
 
 GIT
@@ -153,6 +132,17 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.5)
+    cqm-models (3.0.0)
+    cqm-reports (3.0.0.pre.alpha.1)
+      cqm-models (~> 3.0.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (~> 1.10)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
@@ -398,9 +388,9 @@ DEPENDENCIES
   codecov
   coffee-rails
   colorize
-  cqm-models!
+  cqm-models (~> 3.0.0)
   cqm-parsers!
-  cqm-reports!
+  cqm-reports (~> 3.0.0.pre.alpha.1)
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
