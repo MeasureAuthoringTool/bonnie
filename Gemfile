@@ -13,12 +13,13 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
+gem 'cqm-models', '~> 3.0.0'
 # gem 'cqm-parsers', '~> 0.2.1'
-# gem 'cqm-reports', '~> 2.0.1'
+gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => '2019-standards-update'
-gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => '2019-standards-update'
-gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => '2019-standards-update'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
+# gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
+# gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'master'
 
 # gem 'cqm-parsers', :path => '../cqm-parsers'
 # gem 'cqm-models', :path => '../cqm-models'
