@@ -1,5 +1,5 @@
 defaults: &defaults
-  version: 4.0.0-rc1
+  version: 4.0.0
   enable_logging: true
   enable_rationale: true
   check_crosswalk: false
@@ -12,7 +12,7 @@ defaults: &defaults
     default_release: eCQM Update 2018-05-04
   enable_client_error_email: true
   # oldest version of QDM that can be loaded
-  support_qdm_version: 5.4
+  support_qdm_version: 5.5
   # Place holder email addresses for email alerts. This email is not valid.
   # This email should be configured in a '<root>/config/email.yml' file
   # for deployments.
