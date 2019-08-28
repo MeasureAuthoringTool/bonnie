@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: 73a0fed59ee6531416fe1eb6053f6871a0058bea
+  revision: 1f6825ca97f0ba7d61c73fe97fa05955c049e2de
   branch: bonnie_export
   specs:
     cqm-reports (1.0.0.0)
@@ -101,7 +101,7 @@ GEM
       zip-zip (~> 0.3)
     brakeman (4.0.1)
     browser (2.5.0)
-    bson (4.3.0)
+    bson (4.5.0)
     builder (3.2.3)
     bundler-audit (0.6.0)
       bundler (~> 1.2)
@@ -244,8 +244,8 @@ GEM
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    macaddr (1.7.1)
-      systemu (~> 2.6.2)
+    macaddr (1.7.2)
+      systemu (~> 2.6.5)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     maruku (0.7.2)
@@ -371,7 +371,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-ole (1.2.11.8)
     ruby-progressbar (1.9.0)
-    rubyzip (1.2.2)
+    rubyzip (1.2.3)
     rvm1-capistrano3 (1.3.2.2)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
