@@ -377,7 +377,7 @@ include Devise::Test::ControllerHelpers
       measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
       measure_file2 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS134v8.zip'), 'application/zip')
 
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -387,7 +387,7 @@ include Devise::Test::ControllerHelpers
         measure_type: 'ep',
         calculation_type: 'patient'
       }
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -402,7 +402,7 @@ include Devise::Test::ControllerHelpers
       assert_equal 3, CQM::MeasurePackage.count
       assert_equal 71, CQM::ValueSet.count
 
-      delete :destroy, {id: CQM::Measure.where({cms_id: 'CMS134v8'}).first.id}
+      delete :destroy, params: {id: CQM::Measure.where({cms_id: 'CMS134v8'}).first.id}
       assert_response :success
 
       assert_equal 2, CQM::Measure.count
@@ -556,7 +556,7 @@ include Devise::Test::ControllerHelpers
       class << measure_file
         attr_reader :tempfile
       end
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -572,7 +572,7 @@ include Devise::Test::ControllerHelpers
         attr_reader :tempfile2
       end
       # The hqmf_set_id of the initial file is sent along with the create request
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -612,7 +612,7 @@ include Devise::Test::ControllerHelpers
     p.save
 
     VCR.use_cassette('initial_response', @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -637,7 +637,7 @@ include Devise::Test::ControllerHelpers
     assert_equal 3, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113762.1.4.1111.143'}).first.concepts.count
 
     # Finalize the measure that was just created
-    post :finalize, {t679: { hqmf_id: '40280382667FECC30167190FAE723AAE', titles: ['ps1','ps1strat1','ps1strat2','ps1strat3'] } }
+    post :finalize, params: {t679: { hqmf_id: '40280382667FECC30167190FAE723AAE', titles: ['ps1','ps1strat1','ps1strat2','ps1strat3'] } }
     measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
 
     assert_equal 'ps1', measure.population_sets[0].title
@@ -653,7 +653,7 @@ include Devise::Test::ControllerHelpers
 
     # Update the measure
     VCR.use_cassette('update_response', @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -777,7 +777,7 @@ include Devise::Test::ControllerHelpers
     p.save
 
     VCR.use_cassette('initial_response_calc_SDEs', @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -795,7 +795,7 @@ include Devise::Test::ControllerHelpers
 
     # Update the measure
     VCR.use_cassette('update_response_calc_SDEs', @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
