@@ -32,26 +32,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '65'
+      - '66'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!2U4ilvqMrs8JmWbm9OGvBt4MxRMcjmXCaON3Mb495f5fi6gxJFMvz2lmPL/0Rcy48x5M/Wa7BvtA0PQ=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!bCX2rR/nGyca/V7m9OGvBt4MxRMcjgFEihsNLg/u22xBtSJiLr2WUnaPZqpBzWZ3wPDFjBLI5aTaJns=;
+        expires=Wed, 14-Aug-2019 19:43:36 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas
+      string: TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:36 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -81,26 +81,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!m87oPtGr6k6sJtrNtNHn4GsLooFbU/AlNkHDW0BzfsDbE4DaXYJENfjOlu1fLbKKLEzhEMFkBwAo4Wo=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!CSWwoTWPADfPS+7NtNHn4GsLooFbU7ZAZ/Y/tWtlQsigV4Ls+1YYqckJ0azXxhEI/GlTl4rsdLcLbqA=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381656-2EZItLM6WrpAyIq3mEds-cas
+      string: ST-2478821-sTQ4ohcdME4tVlGHFoJC-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -130,26 +130,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!59kWWCDq55PzcCjm9OGvBt4MxRMcjhK2jAlXT2kk8R3+xm009uRccTqHUxSWlEq4E8VHeQo+NK09taw=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!N9Bpju/ty3uaU5bm9OGvBt4MxRMcjqx5H74U34nDEu/rOsYcees9BvFwsjG8s+zryVhAXWpSsY/AZDc=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381650-fv2TwXM6tlMUYQe24ymB-cas
+      string: ST-2478825-yK7vOc0mYxp56VySVCgn-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -179,12 +179,12 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!MxWx8oNGpV39i/vNtNHn4GsLooFbUw71i+yE2HzuFzFbIsTdL1f1PiuQ7ACmIj/JejnFt8nWthzyi2I=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!tbOYfleUtje4K+Pm9OGvBt4MxRMcjiIGjOBuB8qMkhhO8veLxk2acPakTJnXnvrWNDH54bWi216THK8=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -193,12 +193,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381649-kSVlkEZPQBLJ6fiq74Oa-cas
+      string: ST-2478824-RMTNm23hsU2czkGjL5lr-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -228,26 +228,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!e4J8+3GPU6YDNUfm9OGvBt4MxRMcjq2rhajP6lSsZMMoZ5M0+4n5e6q3z5zhaUkvHymaoQJg3TraUNE=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!Cc3HM9tXI+bnfEjNtNHn4GsLooFbUzAxwWKwA+LkeUJNieXWkWG4rc1aCu33mKdOvACA7ZAoFrJVx8I=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381655-Mx9mnCHuHkghXtSLecQw-cas
+      string: ST-2478823-l1AeSXqhHhhkSa9dhuzS-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -277,26 +277,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!m4tP2W3vvhqiDvvNtNHn4GsLooFbU5Yzmyl06UqvJJuFMlh28Rqza2NhFElhpp+b81hWUyo+EcNOqUY=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!8kVjyw6oAlalSvrm9OGvBt4MxRMcjjvkRU8XE5bXRct/323aYekOKzNVcAeaE/78JskNMIoLLcn6OhY=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381653-SnVJ5So4etWcUUOOUAw5-cas
+      string: ST-2478820-vC9vQhLjLXALCdLvnUEN-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -326,12 +326,12 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!EDvfqceV1B6F3/bm9OGvBt4MxRMcjgWoFmE9kqXB4DO7cPTj2g5fGoq7uzNigtpfFqbROYTnjS65k2s=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!CDvIh+BZDrN0s2vm9OGvBt4MxRMcjrvm2wg3WcFKkwv+R/3KpasCPKVpT1Qd/+1nFi3Xp6h0u96vB0c=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -340,12 +340,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381654-ymDsEvCVGnz6GMaFWXCh-cas
+      string: ST-2478828-Hlujq0SZcNK3fUEBJVwG-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -375,26 +375,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!NdwWeQYR+YThN13m9OGvBt4MxRMcjgVwL4LS2RAvHqZhq/YdJ8Q/j7NGksOPMRu+dhreFLogucMZ21U=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!S9Tm58MpnSUuRZPm9OGvBt4MxRMcjrelqI302CnBehuF32U21aq/XN6Z7qlVGu3s8iUSg5ufenvS8uM=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381660-vGVjfgJ5m7QkVezUb4TL-cas
+      string: ST-2478822-Izf0PbHWNi3eiYdfQqPr-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -424,12 +424,12 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!MrkOMqiYzOBarl3m9OGvBt4MxRMcjom1YWiBIN3YJs8b5Eog7foSjxdOA2mN1Kko/0b4YV4nUIWmbzo=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!DB72RYE1gDSYzEzm9OGvBt4MxRMcjjDtsv4m5Heh25rQAYbX1kOpYAKCL8QzApaXoA/B+2LjmVOyV6E=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -438,12 +438,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381658-YnUaNe7D63zIjSvJVb2J-cas
+      string: ST-2478827-SG3MdAnWc7jXFdyKxsNM-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -473,26 +473,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!jcxFa8sp8s/H2vrm9OGvBt4MxRMcjuZa+3/sxk0XiEOoEsvnvWDQrXQBL+Vf2If06dmWdp3uUUIcsw4=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!BYFpHjS4GGFfiprm9OGvBt4MxRMcjgM1pt6iVrZS8Z/qKmHb5njaZuyA+q2ONJUraC0OeLXXuyZPpWM=;
+        expires=Wed, 14-Aug-2019 19:43:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381657-1sahRRNPYW3RK7iZi4Th-cas
+      string: ST-2478826-G1Q9IBva95UQGQad5zHj-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -522,26 +522,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!W8E9WLteKE27wNDm9OGvBt4MxRMcjhJPPm2Yq0cdQ8iEz1A8CteAwzJipk6eeo/WQXH+FlJVZVO/Kk8=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!Z9dEB4vAePG3+7nNtNHn4GsLooFbU+ASXbKnRbZzZftPTpa+su2r7omXsuNmJLtVNVwVCI+tOOg7uDM=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381659-E5foH0cM2CGdggy9Lq0I-cas
+      string: ST-2478848-3k1aGZKzGeU0gV2hMRX9-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -571,26 +571,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:38 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!4mV7DwC2mjVbFEbNtNHn4GsLooFbU9+pka+5kfz1idQIqN2JO2i8P3XsNAnyk9SBraehv5Ol2L7hEDU=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!Hk+aYXYkTt+KpIDm9OGvBt4MxRMcjviKFCpIXZb6y5NOVby76I3ULyVvKqxwhMiOxxky4DlwRkYozOk=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381651-ReXriNy2YCn4o7Z9fV6W-cas
+      string: ST-2478847-S0Ac2miTGFgiqwQ0DXfD-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -620,12 +620,12 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!k0XupU9kN6HOH0DNtNHn4GsLooFbU3QI/DiQZFEd57OP845BQcnO1uHwDHYYClacXIV+0Z2AsDfmGaA=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!oiKBYaHaCTqtp83NtNHn4GsLooFbUxxc5JAve8/KOCcqn7cj5f8EZ+/CB8ajl2FcX/XMy2qLzIHV94Y=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -634,12 +634,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381652-WFrgOuDi1DVeyA0vokRi-cas
+      string: ST-2478849-rDeyByFJPBfzbVxemkLQ-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-229651-eULDwFohQw6sDGgnEkEyRjPbk2fduBcKNQiRsXnGQv1cxeN492-cas?service=http://umlsks.nlm.nih.gov
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-1671454-yqOficnOnRxXd7bSAzZYbHKU6o3eRBkAj74ztUTNuYuBB41l52-cas?service=http://umlsks.nlm.nih.gov
     body:
       encoding: US-ASCII
       string: ''
@@ -669,26 +669,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '34'
+      - '35'
       Date:
-      - Tue, 16 Jul 2019 11:59:03 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!v3EOkWS5Z+I2vTrm9OGvBt4MxRMcjvORN98k4dkSs36XpAyqXr3hwyIiSsYP5YdLRBRBlxKojF+t6Bs=;
-        expires=Tue, 16-Jul-2019 13:59:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!oK9/GTKQi8IBhxbNtNHn4GsLooFbU13H60qpeSYuscn99JTqluBWhaqFo1fb1bVTMJC1DI1BUkgW80I=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-381663-Ry7GT6yNtM7k4xlGu4gl-cas
+      string: ST-2478846-VCYDtAiSeJgYc4SfJ1LM-cas
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:04 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&profile=Latest%20eCQM&ticket=ST-381663-Ry7GT6yNtM7k4xlGu4gl-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&profile=Latest%20eCQM&ticket=ST-2478827-SG3MdAnWc7jXFdyKxsNM-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -710,9 +710,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!Sq3dl2e8Cw/Hv2bm9OGvBt4MxRMcjqTiHxQYAJpCXYCT/A0BP7VKmovDEp6DCvH2qos/2QLP/vBMby8=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=6E905CA0F54A396C3D6FE602BB14B8C1; Path=/vsac; HttpOnly;Secure
+      - BIGipServervsacweb_p=!ViOLo5a0mM5BXCLNtNHn4GsLooFbU7S+AajZPQWYEIIKOgUt82lHNjL9dYOJzUlJSHEE+K1xAIqofbY=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=0296382C94AC3E8B00C780859D301D93; Path=/vsac; HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -724,11 +724,11 @@ http_interactions:
       Content-Length:
       - '1356'
       Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
+      - Wed, 14 Aug 2019 17:43:38 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -750,10 +750,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&profile=Latest%20eCQM&ticket=ST-381652-WFrgOuDi1DVeyA0vokRi-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&profile=Latest%20eCQM&ticket=ST-2478825-yK7vOc0mYxp56VySVCgn-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -775,9 +775,143 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!aPyyeXsT7uWHrPvm9OGvBt4MxRMcjoyIYopAyOy55gu5Sx3PviI/qBeU4tg9+3AN8D+RGMUrJQOIicw=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=4C3F7DD47CC5425F878D6D9953F45D9E; Path=/vsac; HttpOnly;Secure
+      - BIGipServervsacweb_p=!uMdcowq0vrEwVtbm9OGvBt4MxRMcjsp5HAUsgrOspomicc6ltWKamHLDXOGS4l7MpCKQHwteKWj9a2Q=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=EDB81D3C389EA2096A5868B03911A10A; Path=/vsac; HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '1765'
+      Date:
+      - Wed, 14 Aug 2019 17:43:37 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.836" displayName="Race" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="1002-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="American Indian or Alaska Native"/>
+                    <ns0:Concept code="2028-9" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Asian"/>
+                    <ns0:Concept code="2054-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Black or African American"/>
+                    <ns0:Concept code="2076-8" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Native Hawaiian or Other Pacific Islander"/>
+                    <ns0:Concept code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="White"/>
+                    <ns0:Concept code="2131-1" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Other Race"/>
+                </ns0:ConceptList>
+                <ns0:Source>Centers for Disease Control National Center for Health Statistics</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
+                <ns0:Type>Extensional</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2012-10-25</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1616&profile=Latest%20eCQM&ticket=ST-2478824-RMTNm23hsU2czkGjL5lr-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!j+fjwinXk3TTC/bm9OGvBt4MxRMcjs6CvYEU0+KXXPidToVCFYH6X88pygqhbO4JKnXAdmF7vv7stFQ=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=7C43AC27B6240937A6008FFBF986E2B4; Path=/vsac; HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '1195'
+      Date:
+      - Wed, 14 Aug 2019 17:43:37 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1616" displayName="BH Counseling for Depression" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="428201000124103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Counseling for depression (procedure)"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1742:BH Counseling for depression SNOMED)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&profile=Latest%20eCQM&ticket=ST-2478826-G1Q9IBva95UQGQad5zHj-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!JPrj46bpDPqMMZfm9OGvBt4MxRMcjoxUictqyNgHz8QuiJZDJHh5oOxKeUpkgkKs/UkWZdLJYjPMDB8=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=DD913CBD7A289D32A68FE09DF2368045; Path=/vsac; HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -789,7 +923,7 @@ http_interactions:
       Content-Length:
       - '1128'
       Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -815,10 +949,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1604&profile=Latest%20eCQM&ticket=ST-381655-Mx9mnCHuHkghXtSLecQw-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1604&profile=Latest%20eCQM&ticket=ST-2478820-vC9vQhLjLXALCdLvnUEN-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -840,9 +974,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!/JzKZsf8bTdYbPzm9OGvBt4MxRMcjlPS6gNjHE4zB7YI3tqnvuI8WuTlC1SK/aEzCplUv7p68rTeIE0=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=3B344AECE24A1C4C5A39EBA1A576E1AD; Path=/vsac; HttpOnly;Secure
+      - BIGipServervsacweb_p=!AXOrCYNTeOYKSwnm9OGvBt4MxRMcji6QnL9ltxUV3T5bUZSeJtAXkuD3mXhT5Ouy1UFSNtFRoCtkY74=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=9A15A71A40A2B3525FC0A0C1D1958BA3; Path=/vsac; HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -854,11 +988,11 @@ http_interactions:
       Content-Length:
       - '3676'
       Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
+      - Wed, 14 Aug 2019 17:43:38 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -891,10 +1025,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1.49&profile=Latest%20eCQM&ticket=ST-381654-ymDsEvCVGnz6GMaFWXCh-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.973&profile=Latest%20eCQM&ticket=ST-2478828-Hlujq0SZcNK3fUEBJVwG-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -916,9 +1050,298 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!UyaFYgZXw2h90PrNtNHn4GsLooFbUxqNvxtiZTKgDOisX2U23S1+QFQV5jmkoyBKDDawMkSeWONC9ls=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=2C75320286CECC90FC3C7496F80EF3F2; Path=/vsac; HttpOnly;Secure
+      - BIGipServervsacweb_p=!hUwlbPq/ZpdDz4/NtNHn4GsLooFbU6d8YGO9J15JF2t0Oa6xQVaIZi2Zt1XziEl+j/X5qMMQuga6QGo=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=EA29F05989041ECAFC490702282F2DC3; Path=/vsac; HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '4996'
+      Date:
+      - Wed, 14 Aug 2019 17:43:37 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.973" displayName="BH Outpatient Psychotherapy" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="108313002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Family psychotherapy procedure (regime/therapy)"/>
+                    <ns0:Concept code="183382003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Psychotherapy - behavioral (regime/therapy)"/>
+                    <ns0:Concept code="183383008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Psychotherapy - cognitive (regime/therapy)"/>
+                    <ns0:Concept code="75516001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Psychotherapy (regime/therapy)"/>
+                    <ns0:Concept code="76168009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Group psychotherapy (regime/therapy)"/>
+                    <ns0:Concept code="90791" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychiatric diagnostic evaluation"/>
+                    <ns0:Concept code="90792" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychiatric diagnostic evaluation with medical services"/>
+                    <ns0:Concept code="90832" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 30 minutes with patient"/>
+                    <ns0:Concept code="90834" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 45 minutes with patient"/>
+                    <ns0:Concept code="90837" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 60 minutes with patient"/>
+                    <ns0:Concept code="GZ50ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Interactive"/>
+                    <ns0:Concept code="GZ51ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Behavioral"/>
+                    <ns0:Concept code="GZ52ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Cognitive"/>
+                    <ns0:Concept code="GZ53ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Interpersonal"/>
+                    <ns0:Concept code="GZ54ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Psychoanalysis"/>
+                    <ns0:Concept code="GZ55ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Psychodynamic"/>
+                    <ns0:Concept code="GZ56ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Supportive"/>
+                    <ns0:Concept code="GZ58ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Cognitive-Behavioral"/>
+                    <ns0:Concept code="GZ59ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Psychophysiological"/>
+                    <ns0:Concept code="GZ72ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Family Psychotherapy"/>
+                    <ns0:Concept code="GZHZZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Group Psychotherapy"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1779:BH Outpatient psychotherapy SNOMED),(2.16.840.1.113883.3.1257.1.1807:BH Outpatient psychotherapy ICD-10-PCS),(2.16.840.1.113883.3.526.2.1923:Psych Visit - Diagnostic Evaluation),(2.16.840.1.113883.3.526.2.1927:Psych Visit - Psychotherapy)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1505&profile=Latest%20eCQM&ticket=ST-2478849-rDeyByFJPBfzbVxemkLQ-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!bdDZgBJyiZ5E//PNtNHn4GsLooFbU4FH7G1uBLxWEUgIS0Mq5wwTAP5UrqrfGmdRHzy4NNKuHNdG4jo=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=B933CBD8ABF3DFD712951F064797D769; Path=/vsac; HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '13937'
+      Date:
+      - Wed, 14 Aug 2019 17:43:38 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.112 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1505" displayName="BH Condition Involving Unipolar Depression" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="14183003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Chronic major depressive disorder, single episode (disorder)"/>
+                    <ns0:Concept code="15193003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe recurrent major depression with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="15639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate major depression, single episode (disorder)"/>
+                    <ns0:Concept code="18818009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate recurrent major depression (disorder)"/>
+                    <ns0:Concept code="191610000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive episodes, mild (disorder)"/>
+                    <ns0:Concept code="191611001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive episodes, moderate (disorder)"/>
+                    <ns0:Concept code="191613003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive episodes, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="19527009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Single episode of major depression in full remission (disorder)"/>
+                    <ns0:Concept code="20250007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression, single episode, with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="25922000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder, single episode with postpartum onset (disorder)"/>
+                    <ns0:Concept code="2618002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Chronic recurrent major depressive disorder (disorder)"/>
+                    <ns0:Concept code="268621008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive episodes (disorder)"/>
+                    <ns0:Concept code="28475009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe recurrent major depression with psychotic features (disorder)"/>
+                    <ns0:Concept code="30605009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression in partial remission (disorder)"/>
+                    <ns0:Concept code="319768000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive disorder with melancholic features (disorder)"/>
+                    <ns0:Concept code="320751009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression, melancholic type (disorder)"/>
+                    <ns0:Concept code="33078009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe recurrent major depression with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="33135002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depression in partial remission (disorder)"/>
+                    <ns0:Concept code="33736005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="35489007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Depressive disorder (disorder)"/>
+                    <ns0:Concept code="36474008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe recurrent major depression without psychotic features (disorder)"/>
+                    <ns0:Concept code="36923009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression, single episode (disorder)"/>
+                    <ns0:Concept code="370143000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder (disorder)"/>
+                    <ns0:Concept code="38694004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive disorder with atypical features (disorder)"/>
+                    <ns0:Concept code="39809009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive disorder with catatonic features (disorder)"/>
+                    <ns0:Concept code="40379007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild recurrent major depression (disorder)"/>
+                    <ns0:Concept code="42810003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression in remission (disorder)"/>
+                    <ns0:Concept code="42925002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder, single episode with atypical features (disorder)"/>
+                    <ns0:Concept code="430852001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression, single episode, with psychotic features (disorder)"/>
+                    <ns0:Concept code="46244001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depression in full remission (disorder)"/>
+                    <ns0:Concept code="60099002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="63412003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression in full remission (disorder)"/>
+                    <ns0:Concept code="63778009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder, single episode with melancholic features (disorder)"/>
+                    <ns0:Concept code="66344007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depression (disorder)"/>
+                    <ns0:Concept code="68019004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depression in remission (disorder)"/>
+                    <ns0:Concept code="69392006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder, single episode with catatonic features (disorder)"/>
+                    <ns0:Concept code="70747007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression single episode, in partial remission (disorder)"/>
+                    <ns0:Concept code="71336009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive disorder with postpartum onset (disorder)"/>
+                    <ns0:Concept code="73867007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression with psychotic features (disorder)"/>
+                    <ns0:Concept code="75084000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression without psychotic features (disorder)"/>
+                    <ns0:Concept code="76441001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression, single episode, without psychotic features (disorder)"/>
+                    <ns0:Concept code="77911002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression, single episode, with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="78667006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Dysthymia (disorder)"/>
+                    <ns0:Concept code="79298009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild major depression, single episode (disorder)"/>
+                    <ns0:Concept code="832007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate major depression (disorder)"/>
+                    <ns0:Concept code="87512008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild major depression (disorder)"/>
+                    <ns0:Concept code="F32.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, mild"/>
+                    <ns0:Concept code="F32.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, moderate"/>
+                    <ns0:Concept code="F32.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, severe without psychotic features"/>
+                    <ns0:Concept code="F32.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, severe with psychotic features"/>
+                    <ns0:Concept code="F32.4" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, in partial remission"/>
+                    <ns0:Concept code="F32.81" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Premenstrual dysphoric disorder"/>
+                    <ns0:Concept code="F32.89" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Other specified depressive episodes"/>
+                    <ns0:Concept code="F32.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, unspecified"/>
+                    <ns0:Concept code="F33.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, mild"/>
+                    <ns0:Concept code="F33.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, moderate"/>
+                    <ns0:Concept code="F33.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent severe without psychotic features"/>
+                    <ns0:Concept code="F33.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, severe with psychotic symptoms"/>
+                    <ns0:Concept code="F33.40" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, in remission, unspecified"/>
+                    <ns0:Concept code="F33.41" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, in partial remission"/>
+                    <ns0:Concept code="F33.8" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Other recurrent depressive disorders"/>
+                    <ns0:Concept code="F33.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, unspecified"/>
+                    <ns0:Concept code="F34.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Dysthymic disorder"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1802:BH Condition involving unipolar depression ICD-10-CM),(2.16.840.1.113883.3.1257.1.1803:BH Condition involving unipolar depression SNOMED)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1533&profile=Latest%20eCQM&ticket=ST-2478823-l1AeSXqhHhhkSa9dhuzS-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!0JOZQJWIbHnFNr/NtNHn4GsLooFbU1J+Fk54qZUNDTQKRdvxxPre6IpY/ADPbWM/ujqsAvFLCQ5ZLio=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=EDFAD3F1F7AB9C272826D559B8485784; Path=/vsac; HttpOnly;Secure
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '3708'
+      Date:
+      - Wed, 14 Aug 2019 17:43:37 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1533" displayName="BH Electroconvulsive Therapy" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="11075005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Subconvulsive electroshock therapy (procedure)"/>
+                    <ns0:Concept code="231079005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Multiple electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="231080008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Multiple monitored electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="23835007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="284468008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bilateral electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="313019002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="First treatment in a course of electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="313020008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Subsequent treatment in a course of electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="90870" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Electroconvulsive therapy (includes necessary monitoring)"/>
+                    <ns0:Concept code="GZB0ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Electroconvulsive Therapy, Unilateral-Single Seizure"/>
+                    <ns0:Concept code="GZB1ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Electroconvulsive Therapy, Unilateral-Multiple Seizure"/>
+                    <ns0:Concept code="GZB2ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Electroconvulsive Therapy, Bilateral-Single Seizure"/>
+                    <ns0:Concept code="GZB3ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Electroconvulsive Therapy, Bilateral-Multiple Seizure"/>
+                    <ns0:Concept code="GZB4ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Other Electroconvulsive Therapy"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1797:BH Electroconvulsive therapy CPT),(2.16.840.1.113883.3.1257.1.1798:BH Electroconvulsive therapy ICD-10-PCS),(2.16.840.1.113883.3.1257.1.1799:BH Electroconvulsive therapy SNOMED)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1.49&profile=Latest%20eCQM&ticket=ST-2478847-S0Ac2miTGFgiqwQ0DXfD-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Set-Cookie:
+      - BIGipServervsacweb_p=!zV+GPHnoFHKrZE/m9OGvBt4MxRMcjjgGCPVXWosSkOUNUSmAvCtbpojWyxI3g9kJpHP3hdFrUUSYwQA=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=AF6B2F42F3EFEFC9ADF3A7B266C39AC4; Path=/vsac; HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -930,11 +1353,11 @@ http_interactions:
       Content-Length:
       - '14973'
       Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -988,10 +1411,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1616&profile=Latest%20eCQM&ticket=ST-381656-2EZItLM6WrpAyIq3mEds-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.950&profile=Latest%20eCQM&ticket=ST-2478821-sTQ4ohcdME4tVlGHFoJC-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1013,9 +1436,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!4fFVkz+v+no2XZ/NtNHn4GsLooFbUwB2CVZn7/DBnL97Wt/9EQ/QdXnY3i3NcdaKIR3MiAxghpLDyto=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=B2C70FC3F6C6D4ADAF50B6C73084BF8B; Path=/vsac; HttpOnly;Secure
+      - BIGipServervsacweb_p=!mHBou8RnY1GzyrTm9OGvBt4MxRMcjqFLe1d+7693YoW1aIO8XyBMUdqNm8hFxpq59n/4ltXjcwfKB74=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=F9D48AA1734D610C7680068EBCD1AE67; Path=/vsac; HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1025,9 +1448,9 @@ http_interactions:
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '1195'
+      - '6466'
       Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1039,24 +1462,54 @@ http_interactions:
       string: |
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1616" displayName="BH Counseling for Depression" version="N/A">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.950" displayName="BH Mood Stabilizer Medication" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="428201000124103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Counseling for depression (procedure)"/>
+                    <ns0:Concept code="1006801" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 150 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="151226" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 50 MG Oral Tablet"/>
+                    <ns0:Concept code="197535" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 100 MG Oral Tablet"/>
+                    <ns0:Concept code="197536" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 25 MG Oral Tablet"/>
+                    <ns0:Concept code="198075" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Perphenazine 16 MG Oral Tablet"/>
+                    <ns0:Concept code="198076" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Perphenazine 2 MG Oral Tablet"/>
+                    <ns0:Concept code="198077" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Perphenazine 4 MG Oral Tablet"/>
+                    <ns0:Concept code="198078" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Perphenazine 8 MG Oral Tablet"/>
+                    <ns0:Concept code="199888" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 25 MG Oral Tablet"/>
+                    <ns0:Concept code="199889" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 100 MG Oral Tablet"/>
+                    <ns0:Concept code="199890" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 200 MG Oral Tablet"/>
+                    <ns0:Concept code="205315" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 25 MG Oral Capsule"/>
+                    <ns0:Concept code="205316" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 15 MG Oral Capsule"/>
+                    <ns0:Concept code="283536" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="oxcarbazepine 60 MG/ML Oral Suspension"/>
+                    <ns0:Concept code="309374" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 200 MG Oral Tablet"/>
+                    <ns0:Concept code="312136" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="oxcarbazepine 150 MG Oral Tablet"/>
+                    <ns0:Concept code="312137" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="oxcarbazepine 300 MG Oral Tablet"/>
+                    <ns0:Concept code="312138" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="oxcarbazepine 600 MG Oral Tablet"/>
+                    <ns0:Concept code="429212" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 50 MG Oral Tablet"/>
+                    <ns0:Concept code="476177" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 100 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="476179" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 25 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="721773" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 12.5 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="848722" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 1 MG Oral Tablet"/>
+                    <ns0:Concept code="848728" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 10 MG Oral Tablet"/>
+                    <ns0:Concept code="848732" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 12 MG Oral Tablet"/>
+                    <ns0:Concept code="848736" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 2 MG Oral Tablet"/>
+                    <ns0:Concept code="848740" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 4 MG Oral Tablet"/>
+                    <ns0:Concept code="848744" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 6 MG Oral Tablet"/>
+                    <ns0:Concept code="848748" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 8 MG Oral Tablet"/>
+                    <ns0:Concept code="859824" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="fluphenazine decanoate 25 MG/ML Injectable Solution"/>
+                    <ns0:Concept code="996921" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 200 MG Disintegrating Oral Tablet"/>
                 </ns0:ConceptList>
                 <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
                 <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1742:BH Counseling for depression SNOMED)</ns0:Definition>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1810:BH Mood Stabilizer Medication RxNorm)</ns0:Definition>
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-08-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&profile=Latest%20eCQM&ticket=ST-381650-fv2TwXM6tlMUYQe24ymB-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&profile=Latest%20eCQM&ticket=ST-2478846-VCYDtAiSeJgYc4SfJ1LM-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1078,163 +1531,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!UZ8zL6jgQxT8uY3m9OGvBt4MxRMcjr3dsRRb3+hZaViLgnvomWwkNt2KCIODYz3bfNi8iQNr1TKlC5Y=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=F296B6C30FAF6E332CE1922A97445F87; Path=/vsac; HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '1765'
-      Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.836" displayName="Race" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="1002-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="American Indian or Alaska Native"/>
-                    <ns0:Concept code="2028-9" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Asian"/>
-                    <ns0:Concept code="2054-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Black or African American"/>
-                    <ns0:Concept code="2076-8" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Native Hawaiian or Other Pacific Islander"/>
-                    <ns0:Concept code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="White"/>
-                    <ns0:Concept code="2131-1" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.2" displayName="Other Race"/>
-                </ns0:ConceptList>
-                <ns0:Source>Centers for Disease Control National Center for Health Statistics</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
-                <ns0:Type>Extensional</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2012-10-25</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.973&profile=Latest%20eCQM&ticket=ST-381651-ReXriNy2YCn4o7Z9fV6W-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!1lsOS04lyUV68qLNtNHn4GsLooFbUwW8UjZG2LZG9jZP6L8ge7d2J54YTdSwzJeLZcmwvDA9Dji8epU=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=D438F70D1E446FAA843BB711BB510B2B; Path=/vsac; HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '4996'
-      Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.973" displayName="BH Outpatient Psychotherapy" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="108313002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Family psychotherapy procedure (regime/therapy)"/>
-                    <ns0:Concept code="183382003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Psychotherapy - behavioral (regime/therapy)"/>
-                    <ns0:Concept code="183383008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Psychotherapy - cognitive (regime/therapy)"/>
-                    <ns0:Concept code="75516001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Psychotherapy (regime/therapy)"/>
-                    <ns0:Concept code="76168009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Group psychotherapy (regime/therapy)"/>
-                    <ns0:Concept code="90791" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychiatric diagnostic evaluation"/>
-                    <ns0:Concept code="90792" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychiatric diagnostic evaluation with medical services"/>
-                    <ns0:Concept code="90832" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 30 minutes with patient"/>
-                    <ns0:Concept code="90834" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 45 minutes with patient"/>
-                    <ns0:Concept code="90837" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Psychotherapy, 60 minutes with patient"/>
-                    <ns0:Concept code="GZ50ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Interactive"/>
-                    <ns0:Concept code="GZ51ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Behavioral"/>
-                    <ns0:Concept code="GZ52ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Cognitive"/>
-                    <ns0:Concept code="GZ53ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Interpersonal"/>
-                    <ns0:Concept code="GZ54ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Psychoanalysis"/>
-                    <ns0:Concept code="GZ55ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Psychodynamic"/>
-                    <ns0:Concept code="GZ56ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Supportive"/>
-                    <ns0:Concept code="GZ58ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Cognitive-Behavioral"/>
-                    <ns0:Concept code="GZ59ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Individual Psychotherapy, Psychophysiological"/>
-                    <ns0:Concept code="GZ72ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Family Psychotherapy"/>
-                    <ns0:Concept code="GZHZZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Group Psychotherapy"/>
-                </ns0:ConceptList>
-                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1779:BH Outpatient psychotherapy SNOMED),(2.16.840.1.113883.3.1257.1.1807:BH Outpatient psychotherapy ICD-10-PCS),(2.16.840.1.113883.3.526.2.1923:Psych Visit - Diagnostic Evaluation),(2.16.840.1.113883.3.526.2.1927:Psych Visit - Psychotherapy)</ns0:Definition>
-                <ns0:Type>Grouping</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&profile=Latest%20eCQM&ticket=ST-381653-SnVJ5So4etWcUUOOUAw5-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!qUKFu+qXoqkl8L3m9OGvBt4MxRMcjog6v+4HADjribNilDQDURP7hPk2LSW0zb7Zq8Ims0jtPm5U41E=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=1DC1375F6BF742245323D92789B85D51; Path=/vsac; HttpOnly;Secure
+      - BIGipServervsacweb_p=!80FdaPQrEBYuHpLNtNHn4GsLooFbU404d1fvSyhq/zn54wW8JKo20U9DUIBZwC4g6krQRSM8Y2hVWZ8=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=BF04320C40A8F0C4BEF07D4024E6A1F7; Path=/vsac; HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1246,11 +1545,11 @@ http_interactions:
       Content-Length:
       - '27696'
       Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -1432,10 +1731,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1504&profile=Latest%20eCQM&ticket=ST-381657-1sahRRNPYW3RK7iZi4Th-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1504&profile=Latest%20eCQM&ticket=ST-2478822-Izf0PbHWNi3eiYdfQqPr-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1457,9 +1756,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!TZ7o0e/sIKyzzKvNtNHn4GsLooFbU47OBlK1Lq71NGjYz458+OSpu+vSPLNZoSjm34f308hGx+B9+SQ=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=A83869945188A5F0DD675FA44EF55798; Path=/vsac; HttpOnly;Secure
+      - BIGipServervsacweb_p=!GKtp7RoevFCmdVbm9OGvBt4MxRMcjlpr+ki1ufh1p1gl8LmDqQIXvsLkswFozUcABg1LFk/rVDa+ZlY=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=8E79FCD0A7DDD62EE9D464E0E669E001; Path=/vsac; HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1471,11 +1770,11 @@ http_interactions:
       Content-Length:
       - '29828'
       Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -1635,10 +1934,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1533&profile=Latest%20eCQM&ticket=ST-381658-YnUaNe7D63zIjSvJVb2J-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.972&profile=Latest%20eCQM&ticket=ST-2478848-3k1aGZKzGeU0gV2hMRX9-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1660,181 +1959,9 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       Set-Cookie:
-      - BIGipServervsacweb_p=!Fj+/TsCpopVScCzm9OGvBt4MxRMcju8mig0Yh5n5tCI0rD/ThHLAqvzaHImCay5NJebGy/vYUT28idY=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=C1BB97173DD181CC09E7D30DC5B27386; Path=/vsac; HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '3708'
-      Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1533" displayName="BH Electroconvulsive Therapy" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="11075005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Subconvulsive electroshock therapy (procedure)"/>
-                    <ns0:Concept code="231079005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Multiple electroconvulsive therapy (procedure)"/>
-                    <ns0:Concept code="231080008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Multiple monitored electroconvulsive therapy (procedure)"/>
-                    <ns0:Concept code="23835007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Electroconvulsive therapy (procedure)"/>
-                    <ns0:Concept code="284468008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Bilateral electroconvulsive therapy (procedure)"/>
-                    <ns0:Concept code="313019002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="First treatment in a course of electroconvulsive therapy (procedure)"/>
-                    <ns0:Concept code="313020008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Subsequent treatment in a course of electroconvulsive therapy (procedure)"/>
-                    <ns0:Concept code="90870" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2019" displayName="Electroconvulsive therapy (includes necessary monitoring)"/>
-                    <ns0:Concept code="GZB0ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Electroconvulsive Therapy, Unilateral-Single Seizure"/>
-                    <ns0:Concept code="GZB1ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Electroconvulsive Therapy, Unilateral-Multiple Seizure"/>
-                    <ns0:Concept code="GZB2ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Electroconvulsive Therapy, Bilateral-Single Seizure"/>
-                    <ns0:Concept code="GZB3ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Electroconvulsive Therapy, Bilateral-Multiple Seizure"/>
-                    <ns0:Concept code="GZB4ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2019" displayName="Other Electroconvulsive Therapy"/>
-                </ns0:ConceptList>
-                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1797:BH Electroconvulsive therapy CPT),(2.16.840.1.113883.3.1257.1.1798:BH Electroconvulsive therapy ICD-10-PCS),(2.16.840.1.113883.3.1257.1.1799:BH Electroconvulsive therapy SNOMED)</ns0:Definition>
-                <ns0:Type>Grouping</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.950&profile=Latest%20eCQM&ticket=ST-381649-kSVlkEZPQBLJ6fiq74Oa-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!rJO0BBSdlRg0fN7m9OGvBt4MxRMcjokzuBBFgFVQSHVdSJtOCb+7NEbgGtGeKYvEVn16A3a5uN3KKEM=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=8EC90D07BF95D64D740AE5D4EF5962A8; Path=/vsac; HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '6466'
-      Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.950" displayName="BH Mood Stabilizer Medication" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="1006801" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 150 MG Disintegrating Oral Tablet"/>
-                    <ns0:Concept code="151226" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 50 MG Oral Tablet"/>
-                    <ns0:Concept code="197535" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 100 MG Oral Tablet"/>
-                    <ns0:Concept code="197536" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 25 MG Oral Tablet"/>
-                    <ns0:Concept code="198075" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Perphenazine 16 MG Oral Tablet"/>
-                    <ns0:Concept code="198076" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Perphenazine 2 MG Oral Tablet"/>
-                    <ns0:Concept code="198077" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Perphenazine 4 MG Oral Tablet"/>
-                    <ns0:Concept code="198078" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Perphenazine 8 MG Oral Tablet"/>
-                    <ns0:Concept code="199888" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 25 MG Oral Tablet"/>
-                    <ns0:Concept code="199889" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 100 MG Oral Tablet"/>
-                    <ns0:Concept code="199890" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 200 MG Oral Tablet"/>
-                    <ns0:Concept code="205315" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 25 MG Oral Capsule"/>
-                    <ns0:Concept code="205316" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="topiramate 15 MG Oral Capsule"/>
-                    <ns0:Concept code="283536" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="oxcarbazepine 60 MG/ML Oral Suspension"/>
-                    <ns0:Concept code="309374" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 200 MG Oral Tablet"/>
-                    <ns0:Concept code="312136" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="oxcarbazepine 150 MG Oral Tablet"/>
-                    <ns0:Concept code="312137" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="oxcarbazepine 300 MG Oral Tablet"/>
-                    <ns0:Concept code="312138" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="oxcarbazepine 600 MG Oral Tablet"/>
-                    <ns0:Concept code="429212" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 50 MG Oral Tablet"/>
-                    <ns0:Concept code="476177" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 100 MG Disintegrating Oral Tablet"/>
-                    <ns0:Concept code="476179" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 25 MG Disintegrating Oral Tablet"/>
-                    <ns0:Concept code="721773" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 12.5 MG Disintegrating Oral Tablet"/>
-                    <ns0:Concept code="848722" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 1 MG Oral Tablet"/>
-                    <ns0:Concept code="848728" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 10 MG Oral Tablet"/>
-                    <ns0:Concept code="848732" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 12 MG Oral Tablet"/>
-                    <ns0:Concept code="848736" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 2 MG Oral Tablet"/>
-                    <ns0:Concept code="848740" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 4 MG Oral Tablet"/>
-                    <ns0:Concept code="848744" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 6 MG Oral Tablet"/>
-                    <ns0:Concept code="848748" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="iloperidone 8 MG Oral Tablet"/>
-                    <ns0:Concept code="859824" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="fluphenazine decanoate 25 MG/ML Injectable Solution"/>
-                    <ns0:Concept code="996921" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2019-01" displayName="Clozapine 200 MG Disintegrating Oral Tablet"/>
-                </ns0:ConceptList>
-                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1810:BH Mood Stabilizer Medication RxNorm)</ns0:Definition>
-                <ns0:Type>Grouping</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-08-25</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.972&profile=Latest%20eCQM&ticket=ST-381659-E5foH0cM2CGdggy9Lq0I-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!6EQwyQDTffRh6nzNtNHn4GsLooFbUyX1c09UkTeAaGCi/8oOf1vPkX7v7Wq7olfxG0kdl8/cU7jcqvQ=;
-        expires=Tue, 16-Jul-2019 13:59:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=7143066C7D5C7591C36D7AF916EA9F59; Path=/vsac; HttpOnly;Secure
+      - BIGipServervsacweb_p=!OKO3/Mw1LOAvD9nNtNHn4GsLooFbU8sTeo5k+KYTpNGBTos+brMEmovx1LcTWi7s9RGzkhbPwb9dPyk=;
+        expires=Wed, 14-Aug-2019 19:43:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=845E72E065818C09AD40AC1EA82DA7BF; Path=/vsac; HttpOnly;Secure
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
@@ -1846,11 +1973,11 @@ http_interactions:
       Content-Length:
       - '35393'
       Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
+      - Wed, 14 Aug 2019 17:43:37 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -2053,132 +2180,5 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:05 GMT
-- request:
-    method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1505&profile=Latest%20eCQM&ticket=ST-381660-vGVjfgJ5m7QkVezUb4TL-cas
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Typhoeus - https://github.com/typhoeus/typhoeus
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Set-Cookie:
-      - BIGipServervsacweb_p=!QGXz0Ipl46Ul5c7NtNHn4GsLooFbU2KqCN8gi1M52oujJfVoTHKd1fo+HVFtymnpDqTy+MmO0Fe1JQE=;
-        expires=Tue, 16-Jul-2019 13:59:06 GMT; path=/; Httponly; Secure
-      - JSESSIONID=B6F504F8E27A5A34F8E53F731AA81501; Path=/vsac; HttpOnly;Secure
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '13937'
-      Date:
-      - Tue, 16 Jul 2019 11:59:05 GMT
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1505" displayName="BH Condition Involving Unipolar Depression" version="N/A">
-                <ns0:ConceptList>
-                    <ns0:Concept code="14183003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Chronic major depressive disorder, single episode (disorder)"/>
-                    <ns0:Concept code="15193003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe recurrent major depression with psychotic features, mood-incongruent (disorder)"/>
-                    <ns0:Concept code="15639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate major depression, single episode (disorder)"/>
-                    <ns0:Concept code="18818009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate recurrent major depression (disorder)"/>
-                    <ns0:Concept code="191610000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive episodes, mild (disorder)"/>
-                    <ns0:Concept code="191611001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive episodes, moderate (disorder)"/>
-                    <ns0:Concept code="191613003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive episodes, severe, with psychosis (disorder)"/>
-                    <ns0:Concept code="19527009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Single episode of major depression in full remission (disorder)"/>
-                    <ns0:Concept code="20250007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression, single episode, with psychotic features, mood-incongruent (disorder)"/>
-                    <ns0:Concept code="25922000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder, single episode with postpartum onset (disorder)"/>
-                    <ns0:Concept code="2618002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Chronic recurrent major depressive disorder (disorder)"/>
-                    <ns0:Concept code="268621008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive episodes (disorder)"/>
-                    <ns0:Concept code="28475009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe recurrent major depression with psychotic features (disorder)"/>
-                    <ns0:Concept code="30605009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression in partial remission (disorder)"/>
-                    <ns0:Concept code="319768000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive disorder with melancholic features (disorder)"/>
-                    <ns0:Concept code="320751009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression, melancholic type (disorder)"/>
-                    <ns0:Concept code="33078009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe recurrent major depression with psychotic features, mood-congruent (disorder)"/>
-                    <ns0:Concept code="33135002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depression in partial remission (disorder)"/>
-                    <ns0:Concept code="33736005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression with psychotic features, mood-congruent (disorder)"/>
-                    <ns0:Concept code="35489007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Depressive disorder (disorder)"/>
-                    <ns0:Concept code="36474008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe recurrent major depression without psychotic features (disorder)"/>
-                    <ns0:Concept code="36923009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression, single episode (disorder)"/>
-                    <ns0:Concept code="370143000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder (disorder)"/>
-                    <ns0:Concept code="38694004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive disorder with atypical features (disorder)"/>
-                    <ns0:Concept code="39809009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive disorder with catatonic features (disorder)"/>
-                    <ns0:Concept code="40379007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild recurrent major depression (disorder)"/>
-                    <ns0:Concept code="42810003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression in remission (disorder)"/>
-                    <ns0:Concept code="42925002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder, single episode with atypical features (disorder)"/>
-                    <ns0:Concept code="430852001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression, single episode, with psychotic features (disorder)"/>
-                    <ns0:Concept code="46244001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depression in full remission (disorder)"/>
-                    <ns0:Concept code="60099002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression with psychotic features, mood-incongruent (disorder)"/>
-                    <ns0:Concept code="63412003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression in full remission (disorder)"/>
-                    <ns0:Concept code="63778009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder, single episode with melancholic features (disorder)"/>
-                    <ns0:Concept code="66344007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depression (disorder)"/>
-                    <ns0:Concept code="68019004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depression in remission (disorder)"/>
-                    <ns0:Concept code="69392006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depressive disorder, single episode with catatonic features (disorder)"/>
-                    <ns0:Concept code="70747007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Major depression single episode, in partial remission (disorder)"/>
-                    <ns0:Concept code="71336009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Recurrent major depressive disorder with postpartum onset (disorder)"/>
-                    <ns0:Concept code="73867007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression with psychotic features (disorder)"/>
-                    <ns0:Concept code="75084000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression without psychotic features (disorder)"/>
-                    <ns0:Concept code="76441001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression, single episode, without psychotic features (disorder)"/>
-                    <ns0:Concept code="77911002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Severe major depression, single episode, with psychotic features, mood-congruent (disorder)"/>
-                    <ns0:Concept code="78667006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Dysthymia (disorder)"/>
-                    <ns0:Concept code="79298009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild major depression, single episode (disorder)"/>
-                    <ns0:Concept code="832007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Moderate major depression (disorder)"/>
-                    <ns0:Concept code="87512008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2018-09" displayName="Mild major depression (disorder)"/>
-                    <ns0:Concept code="F32.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, mild"/>
-                    <ns0:Concept code="F32.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, moderate"/>
-                    <ns0:Concept code="F32.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, severe without psychotic features"/>
-                    <ns0:Concept code="F32.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, severe with psychotic features"/>
-                    <ns0:Concept code="F32.4" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, in partial remission"/>
-                    <ns0:Concept code="F32.81" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Premenstrual dysphoric disorder"/>
-                    <ns0:Concept code="F32.89" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Other specified depressive episodes"/>
-                    <ns0:Concept code="F32.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, single episode, unspecified"/>
-                    <ns0:Concept code="F33.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, mild"/>
-                    <ns0:Concept code="F33.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, moderate"/>
-                    <ns0:Concept code="F33.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent severe without psychotic features"/>
-                    <ns0:Concept code="F33.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, severe with psychotic symptoms"/>
-                    <ns0:Concept code="F33.40" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, in remission, unspecified"/>
-                    <ns0:Concept code="F33.41" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, in partial remission"/>
-                    <ns0:Concept code="F33.8" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Other recurrent depressive disorders"/>
-                    <ns0:Concept code="F33.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Major depressive disorder, recurrent, unspecified"/>
-                    <ns0:Concept code="F34.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2019" displayName="Dysthymic disorder"/>
-                </ns0:ConceptList>
-                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
-                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
-                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1802:BH Condition involving unipolar depression ICD-10-CM),(2.16.840.1.113883.3.1257.1.1803:BH Condition involving unipolar depression SNOMED)</ns0:Definition>
-                <ns0:Type>Grouping</ns0:Type>
-                <ns0:Binding>Dynamic</ns0:Binding>
-                <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
-            </ns0:DescribedValueSet>
-        </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
-  recorded_at: Tue, 16 Jul 2019 11:59:06 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Wed, 14 Aug 2019 17:43:38 GMT
+recorded_with: VCR 5.0.0

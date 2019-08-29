@@ -1,6 +1,6 @@
 // Teaspoon includes some support files, but you can use anything from your own support path too.
 
-//= require ../../vendor/assets/components/jquery/jquery.js
+//= require_tree ../../vendor/assets/components/jquery/
 //= require_tree ./vendor
 //= require_tree ./helpers
 // PhantomJS (Teaspoons default driver) doesn't have support for Function.prototype.bind, which has caused confusion.

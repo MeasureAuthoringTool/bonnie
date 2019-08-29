@@ -34,14 +34,14 @@ http_interactions:
       Content-Length:
       - '1192'
       Date:
-      - Tue, 16 Jul 2019 12:00:23 GMT
+      - Wed, 14 Aug 2019 17:43:03 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!npUtnbyV1BMNlyDNtNHn4GsLooFbU8VykaQervusAWPWix2IehVRqP2zyDRrff/Fv8CggxTmwkM1Nls=;
-        expires=Tue, 16-Jul-2019 14:00:24 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!QFYJj1b/s6x3qejm9OGvBt4MxRMcji6L52QFeBB757CorrQJ3J3HP4jUiR71s/Bi9OWss/BAAUCkXng=;
+        expires=Wed, 14-Aug-2019 19:43:04 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -62,5 +62,5 @@ http_interactions:
         for exchanging templated clinical information (e.g., Allergies, Encounters,
         Immunizations, Problems, Procedures, etc.) from electronic health records."}]}'
     http_version: 
-  recorded_at: Tue, 16 Jul 2019 12:00:24 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Wed, 14 Aug 2019 17:43:04 GMT
+recorded_with: VCR 5.0.0

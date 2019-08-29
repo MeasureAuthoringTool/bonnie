@@ -27,7 +27,7 @@ bundle exec teaspoon
 ### To run backend Ruby tests
 
 ```
-bundle exec rake test
+bundle exec rake
 ```
 
 

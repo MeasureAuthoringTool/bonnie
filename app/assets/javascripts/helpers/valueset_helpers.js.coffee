@@ -1,7 +1,7 @@
 ###*
 # Contains helpers related to the processing and analysis of valuesets
 ###
-class ValueSetHelpers
+@ValueSetHelpers = class ValueSetHelpers
   ###*
   # Uses format of OID to determine if valueset is a direct reference code.
   # Regular valuesets OIDs have the format "#.#.#.#"

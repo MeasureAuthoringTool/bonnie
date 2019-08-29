@@ -146,7 +146,7 @@ namespace :bonnie do
     task :export_fixtures_from_packages, [:name] => [:environment] do |t, args|
       name = args[:name]
       fixture_path = File.join('test', 'fixtures', 'measures', name)
-      loading_params = HashWithIndifferentAccess.new(JSON.parse(File.read(File.join(fixture_path, "loading_params.json"))))
+      loading_params = ActiveSupport::HashWithIndifferentAccess.new(JSON.parse(File.read(File.join(fixture_path, "loading_params.json"))))
       loading_params[:vsac_username] = ENV['VSAC_USERNAME']
       loading_params[:vsac_password] =  ENV['VSAC_PASSWORD']
       measure_file = File.new File.join(fixture_path, name + '.zip')

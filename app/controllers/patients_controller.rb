@@ -1,11 +1,12 @@
 class PatientsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   prepend_view_path(Rails.root.join('lib/templates/'))
 
   def update
+    params.require(:cqmPatient).permit!
     old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
     begin
-      updated_patient = CQM::Patient.new(params["cqmPatient"])
+      updated_patient = CQM::Patient.new(params[:cqmPatient])
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
@@ -18,8 +19,9 @@ class PatientsController < ApplicationController
   end
 
   def create
+    params.require(:cqmPatient).permit!
     begin
-      patient = CQM::Patient.new(params["cqmPatient"])
+      patient = CQM::Patient.new(params[:cqmPatient])
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return

@@ -21,6 +21,7 @@ class BonnieDbTest < ActiveSupport::TestCase
 
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(@user, CQM::Patient.all)
+    associate_user_with_measures(@user, CQM::Measure.all)
   end
 
   test "resave measures" do

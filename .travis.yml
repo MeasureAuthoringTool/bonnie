@@ -46,7 +46,7 @@ script:
   - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
-  - bundle exec rake test
+  - bundle exec rake
   - yarn install
   - yarn audit
 notifications:

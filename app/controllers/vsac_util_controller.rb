@@ -2,7 +2,7 @@
 # Utility calls for VSAC operations. Provides the frontend access to VSAC program, release and profile lists as well
 # as ticket granting ticket status.
 class VsacUtilController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   respond_to :json
 
   ##
