@@ -26,7 +26,7 @@ gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :bran
 # gem 'cqm-reports', :path => '../cqm-reports'
 
 # needed for HDS
-gem 'rubyzip', '>= 1.2.1'
+gem 'rubyzip', '>= 1.3.0'
 gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
