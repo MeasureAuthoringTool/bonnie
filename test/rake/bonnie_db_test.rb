@@ -123,4 +123,11 @@ class BonnieDbTest < ActiveSupport::TestCase
     assert_equal(measure.package.file.data, file_content)
     File.delete('CMS160v6_bonnie@example.com_2019-07-11.zip')
   end
+
+  test "Update user's sensitive data" do
+    Rake::Task['bonnie:users:update_users'].execute
+    User.all.each do |user|
+      assert_match 'sb.com', user.email
+    end
+  end
 end

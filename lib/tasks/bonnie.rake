@@ -115,6 +115,17 @@ namespace :bonnie do
       measure.save_self_and_child_docs
       print_success "Moved measure"
     end
+
+    desc 'Update user sensitive data'
+    task :update_users => :environment do
+      charset = Array('a'..'z')
+      User.all.each do |user|
+        user.email = Array.new(12) { charset.sample }.join + '@sb.com'
+        user.password = Array.new(12) { charset.sample }.join + rand(1...10).to_s
+        user.telephone = "5555555555"
+        user.save
+      end
+    end
   end
 
   namespace :db do
