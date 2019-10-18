@@ -120,7 +120,8 @@ namespace :bonnie do
     task :update_users => :environment do
       charset = Array('a'..'z')
       User.all.each do |user|
-        user.email = Array.new(12) { charset.sample }.join + '@sb.com'
+        email_hash = Digest::SHA2.new(256).hexdigest user.email
+        user.email = email_hash.concat('@sb.com')
         user.password = Array.new(12) { charset.sample }.join + rand(1...10).to_s
         user.telephone = "5555555555"
         user.save
