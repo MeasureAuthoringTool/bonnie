@@ -10,7 +10,8 @@
 # WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 # GO AFTER THE REQUIRES BELOW.
 #
-#= require jquery/jquery.min
+#= require jquery/dist/jquery.min
+#= require jquery-migrate/jquery-migrate
 #= require jquery_ujs
 #= require bootstrap/dist/js/bootstrap.min
 #= require bootstrap-datepicker/js/bootstrap-datepicker
@@ -26,7 +27,7 @@
 #= require moment/min/moment.min
 #= require d3/d3
 #= require d3-tip/index
-#= require jQuery-Knob/js/jquery.knob
+#= require jQuery-Knob/dist/jquery.knob.min
 #= require jquery-selectboxit/src/javascripts/jquery.selectBoxIt.min
 #= require jquery.fileDownload/src/Scripts/jquery.fileDownload
 #= require jquery-placeholder/jquery.placeholder.min

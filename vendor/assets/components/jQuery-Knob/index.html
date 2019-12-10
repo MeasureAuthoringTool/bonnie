@@ -2,8 +2,9 @@
 <html>
     <head>
         <title>jQuery Knob demo</title>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-        <script src="js/jquery.knob.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+        <script src="dist/jquery.knob.min.js"></script>
         <script>
             $(function($) {
 
@@ -18,38 +19,33 @@
                     cancel : function () {
                         console.log("cancel : ", this);
                     },
+                    /*format : function (value) {
+                        return value + '%';
+                    },*/
                     draw : function () {
 
                         // "tron" case
                         if(this.$.data('skin') == 'tron') {
 
-                            var a = this.angle(this.cv)  // Angle
-                                , sa = this.startAngle          // Previous start angle
-                                , sat = this.startAngle         // Start angle
-                                , ea                            // Previous end angle
-                                , eat = sat + a                 // End angle
+                            this.cursorExt = 0.3;
+
+                            var a = this.arc(this.cv)  // Arc
+                                , pa                   // Previous arc
                                 , r = 1;
 
                             this.g.lineWidth = this.lineWidth;
 
-                            this.o.cursor
-                                && (sat = eat - 0.3)
-                                && (eat = eat + 0.3);
-
                             if (this.o.displayPrevious) {
-                                ea = this.startAngle + this.angle(this.v);
-                                this.o.cursor
-                                    && (sa = ea - 0.3)
-                                    && (ea = ea + 0.3);
+                                pa = this.arc(this.v);
                                 this.g.beginPath();
                                 this.g.strokeStyle = this.pColor;
-                                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
                                 this.g.stroke();
                             }
 
                             this.g.beginPath();
                             this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
-                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
                             this.g.stroke();
 
                             this.g.lineWidth = 2;
@@ -155,18 +151,20 @@ data-linecap=round
 data-fgColor="#66CC66"
 data-angleOffset=-125
 data-angleArc=250
+data-rotation=anticlockwise
             </pre>
-            <input class="knob" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" value="35">
+            <input class="knob" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="anticlockwise" value="35">
         </div>
         <div class="demo" >
-            <p>&#215; 5-digit values, step 1000</p>
+            <p>&#215; 4-digit, step 0.1</p>
             <pre>
-data-step="1000"
-data-min="-15000"
-data-max="15000"
+data-step=".1"
+data-min="-10000"
+data-max="10000"
+value="0"
 data-displayPrevious=true
             </pre>
-            <input class="knob" data-min="-15000" data-displayPrevious=true data-max="15000" data-step="1000" value="-11000">
+            <input class="knob" data-min="-10000" data-displayPrevious=true data-max="10000" data-step=".1" value="0">
         </div>
         <div style="clear:both"></div>
         <div style="text-align: center">
@@ -289,7 +287,7 @@ data-bgColor="#FFFFFF"
 data-displayInput="false"
 + some code
                 </pre>
-                <input class="infinite" data-width="150" data-thickness=".5" data-fgColor="#AAAAAA" data-bgColor="#FFFFFF" data-displayInput="false" data-cursor=true>
+                <input class="infinite" value="0" data-width="150" data-thickness=".5" data-fgColor="#AAAAAA" data-bgColor="#FFFFFF" data-displayInput="false" data-cursor=true>
             </div>
             <div style="float:left;margin-top:200px;">
                 <div class="ival" style="width:80px;text-align:center;font-size:50px;color:#AAA">0</div>
@@ -297,16 +295,9 @@ data-displayInput="false"
             </div>
         </div>
         <div style="clear:both"></div>
-        <div id="big" class="demo" style="height:800px;width:100%">
-            <p>&#215; Big !</p>
-            <pre>
-data-width="700"
-            </pre>
-            <input class="knob" data-min="-100" data-max="100" data-width="700" data-height="700" data-thickness=".3" data-cursor=true>
-        </div>
-        <div style="clear:both"></div>
-        <div style="padding:30px; margin-top:30px;">
-            <p style="font-size:20px;">jQuery Knob is &copy; 2012 Anthony Terrien and dual licensed under the MIT or GPL licenses.</p>
+        <div style="margin-top:30px;text-align:center">
+            <img src="https://raw.github.com/aterrien/jQuery-Knob/master/secretplan.jpg">
+            <p style="font-size:20px;">jQuery Knob is &copy; 2012 Anthony Terrien - MIT License</p>
         </div>
     </body>
 </html>
