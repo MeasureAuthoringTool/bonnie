@@ -8,33 +8,27 @@ jQuery Knob
 Example
 -------
 
-```html
-<input type="text" value="75" class="dial">
+    <input type="text" value="75" class="dial">
 
-<script>
+    <script>
     $(function() {
         $(".dial").knob();
     });
-</script>
-```
+    </script>
 
 Options
 -------
 
 Options are provided as attributes 'data-option':
 
-```html
-<input type="text" class="dial" data-min="-50" data-max="50">
-```
+    <input type="text" class="dial" data-min="-50" data-max="50">
 
 ... or in the "knob()" call :
 
-```javascript
-$(".dial").knob({
-    'min':-50,
-    'max':50
-});
-```
+    $(".dial").knob({
+                    'min':-50
+                    ,'max':50
+                    });
 
 The following options are supported :
 
@@ -46,14 +40,12 @@ Behaviors :
 * angleArc : arc size in degrees | default=360.
 * stopper : stop at min & max on keydown/mousewheel | default=true.
 * readOnly : disable input and events | default=false.
-* rotation : direction of progression | default=clockwise.
 
 UI :
 * cursor : display mode "cursor", cursor size could be changed passing a numeric value to the option, default width is used when passing boolean value "true" | default=gauge.
 * thickness : gauge thickness.
 * lineCap : gauge stroke endings. | default=butt, round=rounded line endings
 * width : dial width.
-* height : dial height.
 * displayInput : default=true | false=hide input.
 * displayPrevious : default=false | true=displays the previous value with transparency.
 * fgColor : foreground color.
@@ -65,13 +57,11 @@ UI :
 Hooks
 -------
 
-```html
-<script>
+    <script>
     $(".dial").knob({
-        'release' : function (v) { /*make something*/ }
-    });
-</script>
-```
+                        'release' : function (v) { /*make something*/ }
+                    });
+    </script>
 
 * 'release' : executed on release
 
@@ -94,55 +84,49 @@ Hooks
 
 * 'cancel' : triggered on [esc] keydown
 
-* 'format' : allows to format output (add unit %, ms ...)
+* 'error' : called if the browser doesn't support canvases and the plugin didn't initialize as a result
 
 The scope (this) of each hook function is the current Knob instance (refer to the demo code).
 
 Example
 -------
 
-```html
-<input type="text" value="75" class="dial">
+    <input type="text" value="75" class="dial">
 
-<script>
+    <script>
     $(".dial").knob({
-        'change' : function (v) { console.log(v); }
-    });
-</script>
-```
+                     'change' : function (v) { console.log(v); }
+                    });
+    </script>
+
 
 Dynamically configure
 -------
 
-```html
-<script>
-    $('.dial').trigger(
-        'configure',
-        {
+    <script>
+    $('.dial')
+        .trigger(
+            'configure',
+            {
             "min":10,
             "max":40,
             "fgColor":"#FF0000",
             "skin":"tron",
             "cursor":true
-        }
-    );
-</script>
-```
+            }
+        );
+    </script>
 
 Set the value
 -------
 
-```html
-<script>
+    <script>
     $('.dial')
         .val(27)
         .trigger('change');
-</script>
-```
+    </script>
 
 Supported browser
 -------
 
-Tested on Chrome, Safari, Firefox, IE>=8.0 (IE8.0 with excanvas).
-
-![secretplan](https://raw.github.com/aterrien/jQuery-Knob/master/secretplan.jpg)
+Tested on Chrome, Safari, Firefox, IE 9.0.

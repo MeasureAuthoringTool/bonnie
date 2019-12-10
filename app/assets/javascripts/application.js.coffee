@@ -27,7 +27,7 @@
 #= require moment/min/moment.min
 #= require d3/d3
 #= require d3-tip/index
-#= require jQuery-Knob/dist/jquery.knob.min
+#= require jQuery-Knob/js/jquery.knob
 #= require jquery-selectboxit/src/javascripts/jquery.selectBoxIt.min
 #= require jquery.fileDownload/src/Scripts/jquery.fileDownload
 #= require jquery-placeholder/jquery.placeholder.min
