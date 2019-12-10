@@ -12,8 +12,7 @@
 		monthsShort: ["Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čnc", "Srp", "Zář", "Říj", "Lis", "Pro"],
 		today: "Dnes",
 		clear: "Vymazat",
-		monthsTitle: "Měsíc",
 		weekStart: 1,
-		format: "dd.mm.yyyy"
+		format: "dd.m.yyyy"
 	};
 }(jQuery));

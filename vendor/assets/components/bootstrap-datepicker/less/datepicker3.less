@@ -4,9 +4,8 @@
 		width: 220px;
 	}
 	direction: ltr;
-	&-rtl {
+	&&-rtl {
 		direction: rtl;
-		&.dropdown-menu { left: auto; }
 		table tr td span {
 			float: right;
 		}
@@ -217,12 +216,6 @@
 		}
 	}
 
-	.prev, .next {
-		&.disabled {
-			visibility: hidden;
-		}
-	}
-
 	// Basic styling for calendar-week cells
 	.cw {
 		font-size: 10px;
@@ -250,6 +243,7 @@
 		min-width: 16px;
 		padding: 4px 5px;
 		line-height: @line-height-base;
+		text-shadow: 0 1px 0 #fff;
 		border-width: 1px 0;
 		margin-left: -5px;
 		margin-right: -5px;

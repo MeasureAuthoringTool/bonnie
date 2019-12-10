@@ -9,14 +9,13 @@ Methods are called on a datepicker by calling the ``datepicker`` function with a
 
 
 destroy
--------
+------
 
 Arguments: None
 
 Remove the datepicker.  Removes attached events, internal attached objects, and added HTML elements.
 
 *Alias: remove*
-
 
 show
 ----
@@ -39,21 +38,17 @@ update
 
 Arguments:
 
-* date (String|Date|Array, optional)
 * date (String|Date, optional)
-* ...
 
-Update the datepicker with given arguments or the current input value.
-The arguments can be either an array of strings, an array of Date objects, multiples strings or multiples Date objects.
-If ``date`` arguments are provided and they are Date objects, it is assumed to be "local" Date objects, and will be converted to UTC for internal use.
+Update the datepicker with given argument or the current input value.
+
+If ``date`` is provided and is a Date object, it is assumed to be a "local" date object, and will be converted to UTC for internal use.
 
 ::
 
     $('.datepicker').datepicker('update');
     $('.datepicker').datepicker('update', '2011-03-05');
-    $('.datepicker').datepicker('update', '2011-03-05', '2011-03-07');
     $('.datepicker').datepicker('update', new Date(2011, 2, 5));
-    $('.datepicker').datepicker('update', [new Date(2011, 2, 5), new Date(2011, 2, 7)]);
 
 To reset the datepicker and clear the selected date, pass an empty string with ``update``:
 
@@ -173,7 +168,7 @@ Arguments:
 
 * startDate (Date)
 
-Sets a new lower date limit on the datepicker.  See :ref:`startDate` for valid values.
+Sets a new lower date limit on the datepicker.  See :ref:`startdate` for valid values.
 
 Omit startDate (or provide an otherwise falsey value) to unset the limit.
 
@@ -185,7 +180,7 @@ Arguments:
 
 * endDate (Date)
 
-Sets a new upper date limit on the datepicker.  See :ref:`endDate` for valid values.
+Sets a new upper date limit on the datepicker.  See :ref:`enddate` for valid values.
 
 Omit endDate (or provide an otherwise falsey value) to unset the limit.
 
@@ -209,9 +204,9 @@ Arguments:
 
 * daysOfWeekDisabled (String|Array)
 
-Sets the days of week that should be disabled.  See :ref:`daysOfWeekDisabled` for valid values.
+Sets the days of week that should be disabled.  See :ref:`daysofweekdisabled` for valid values.
 
-Omit daysOfWeekDisabled (or provide an otherwise falsey value) to unset the disabled days of week.
+Omit daysOfWeekDisabled (or provide an otherwise falsey value) to unset the disabled days.
 
 
 setDaysOfWeekHighlighted
@@ -223,4 +218,4 @@ Arguments:
 
 Sets the days of week that should be highlighted.  See :ref:`daysOfWeekHighlighted` for valid values.
 
-Omit daysOfWeekHighlighted (or provide an otherwise falsey value) to unset the highlighted days of week.
+Omit daysOfWeekHighlighted (or provide an otherwise falsey value) to unset the disabled days.

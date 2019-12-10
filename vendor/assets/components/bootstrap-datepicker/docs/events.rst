@@ -39,25 +39,12 @@ changeDate
 Fired when the date is changed.
 
 
-changeMonth
------------
-
-Fired when the *view* month is changed from year view.
-
-
 changeYear
 ----------
 
 Fired when the *view* year is changed from decade view.
 
+changeMonth
+-----------
 
-changeDecade
-------------
-
-Fired when the *view* decade is changed from century view.
-
-
-changeCentury
--------------
-
-Fired when the *view* century is changed from millennium view.
+Fired when the *view* month is changed from year view.
