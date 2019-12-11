@@ -28,7 +28,7 @@ describe "Population state between routes", ->
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
-    @measureView.$('[data-toggle="tab"]').last().click()
+    @measureView.$('[data-toggle="tab"]').last().trigger('click')
 
     populationNavs = @measureView.$('[data-toggle="tab"]')
     active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
@@ -44,7 +44,7 @@ describe "Population state between routes", ->
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
-    @measureView.$('[data-toggle="tab"]').last().click()
+    @measureView.$('[data-toggle="tab"]').last().trigger('click')
     @measureView.remove()
 
     # Switch to patient builder view after removing the other view
@@ -68,7 +68,7 @@ describe "Population state between routes", ->
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
-    @measureView.$('[data-toggle="tab"]').last().click()
+    @measureView.$('[data-toggle="tab"]').last().trigger('click')
     @measureView.remove()
 
     # ensure the test starts with the second population
