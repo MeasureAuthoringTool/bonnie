@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/projecttacoma/bonnie.svg?branch=master)](https://travis-ci.com/projecttacoma/bonnie)
 ![GitHub version](https://badge.fury.io/gh/projecttacoma%2Fbonnie.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f361b542b92d45b38d61062340fea24b)](https://www.codacy.com/manual/casey-erdmann/bonnie?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=projecttacoma/bonnie&amp;utm_campaign=Badge_Grade)
 
 
 
