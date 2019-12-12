@@ -234,7 +234,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       "keyboard" : false,
       "show" : true)
     @importDialog.modal('hide')
-    @$('form').submit()
+    @$('form').trigger('submit')
 
   # FIXME: Is anything additional required for cleaning up this view on close?
   close: -> ''

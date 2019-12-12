@@ -86,14 +86,14 @@
     @navigate "measures/#{measure.get('cqmMeasure').hqmf_set_id}/patients/new"
 
   showError: (error) ->
-    return if $('.errorDialog').size() > @maxErrorCount
-    if $('.errorDialog').size() == @maxErrorCount
+    return if $('.errorDialog').length > @maxErrorCount
+    if $('.errorDialog').length == @maxErrorCount
       error.title = "Multiple Errors: #{error.title}"
       error.summary = "This page has generated multiple errors... additional errors will be suppressed. #{error.summary}"
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display()
-        
+
   showPageNotFound: ->
     @mainView.setView new Thorax.Views.ErrorView
     @breadcrumb.clear()
