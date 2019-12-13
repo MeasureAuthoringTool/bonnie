@@ -11,7 +11,6 @@
 # GO AFTER THE REQUIRES BELOW.
 #
 #= require jquery/dist/jquery.min
-#= require jquery-migrate/jquery-migrate
 #= require jquery_ujs
 #= require bootstrap/dist/js/bootstrap.min
 #= require bootstrap-datepicker/js/bootstrap-datepicker
