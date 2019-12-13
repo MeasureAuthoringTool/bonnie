@@ -23,7 +23,7 @@ describe "Population state between routes", ->
 
     @measureView.remove()
 
-  xit "changes the displayedPopulation state when selected", ->
+  it "changes the displayedPopulation state when selected", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
@@ -39,7 +39,7 @@ describe "Population state between routes", ->
 
     @measureView.remove()
 
-  xit "carries over changes between views", ->
+  it "carries over changes between views", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
