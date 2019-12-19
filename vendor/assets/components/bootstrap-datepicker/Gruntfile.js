@@ -54,7 +54,8 @@ module.exports = function(grunt){
             }
         },
         qunit: {
-            all: 'tests/tests.html'
+            main: 'tests/tests.html',
+            timezone: 'tests/timezone.html'
         },
         concat: {
             options: {
@@ -87,17 +88,37 @@ module.exports = function(grunt){
             }
         },
         less: {
-            standalone: {
-                files: {
-                    'dist/css/<%= pkg.name %>.standalone.css': 'build/build_standalone.less',
-                    'dist/css/<%= pkg.name %>3.standalone.css': 'build/build_standalone3.less'
-                }
+            options: {
+                sourceMap: true,
+                outputSourceFiles: true
             },
-            css: {
-                files: {
-                    'dist/css/<%= pkg.name %>.css': 'build/build.less',
-                    'dist/css/<%= pkg.name %>3.css': 'build/build3.less'
-                }
+            standalone_bs2: {
+                options: {
+                    sourceMapURL: '<%= pkg.name %>.standalone.css.map'
+                },
+                src: 'build/build_standalone.less',
+                dest: 'dist/css/<%= pkg.name %>.standalone.css'
+            },
+            standalone_bs3: {
+                options: {
+                    sourceMapURL: '<%= pkg.name %>3.standalone.css.map'
+                },
+                src: 'build/build_standalone3.less',
+                dest: 'dist/css/<%= pkg.name %>3.standalone.css'
+            },
+            main_bs2: {
+                options: {
+                    sourceMapURL: '<%= pkg.name %>.css.map'
+                },
+                src: 'build/build.less',
+                dest: 'dist/css/<%= pkg.name %>.css'
+            },
+            main_bs3: {
+                options: {
+                    sourceMapURL: '<%= pkg.name %>3.css.map'
+                },
+                src: 'build/build3.less',
+                dest: 'dist/css/<%= pkg.name %>3.css'
             }
         },
         usebanner: {
@@ -115,7 +136,8 @@ module.exports = function(grunt){
             options: {
                 compatibility: 'ie8',
                 keepSpecialComments: '*',
-                noAdvanced: true
+                sourceMap: true,
+                advanced: false
             },
             main: {
                 files: {
@@ -182,18 +204,6 @@ module.exports = function(grunt){
                         replacement: '"version": "' + grunt.option('newver') + '",'
                     }]
                 }
-            },
-            bower: {
-                files: [{
-                    src: 'bower.json',
-                    dest: 'bower.json'
-                }],
-                options: {
-                    replacements: [{
-                        pattern: /\"version\":\s\"[0-9\.a-z].*",/gi,
-                        replacement: '"version": "' + grunt.option('newver') + '",'
-                    }]
-                }
             }
         }
     });
@@ -206,7 +216,7 @@ module.exports = function(grunt){
     grunt.registerTask('dist-js', ['concat', 'uglify:main', 'uglify:locales']);
 
     // CSS distribution task.
-    grunt.registerTask('less-compile', ['less:standalone', 'less:css']);
+    grunt.registerTask('less-compile', 'less');
     grunt.registerTask('dist-css', ['less-compile', 'cssmin:main', 'cssmin:standalone', 'usebanner']);
 
     // Full distribution task.
@@ -215,7 +225,8 @@ module.exports = function(grunt){
     // Code check tasks.
     grunt.registerTask('lint-js', 'Lint all js files with jshint and jscs', ['jshint', 'jscs']);
     grunt.registerTask('lint-css', 'Lint all css files', ['dist-css', 'csslint:dist']);
-    grunt.registerTask('test', 'Lint files and run unit tests', ['lint-js', /*'lint-css',*/ 'qunit']);
+    grunt.registerTask('qunit-all', 'Run qunit tests', ['qunit:main', 'qunit-timezone']);
+    grunt.registerTask('test', 'Lint files and run unit tests', ['lint-js', /*'lint-css',*/ 'qunit-all']);
 
     // Version numbering task.
     // grunt bump-version --newver=X.Y.Z
@@ -245,5 +256,10 @@ module.exports = function(grunt){
                 args: ['docs/_screenshots/script/screenshot.js', abspath, outfile]
             });
         });
+    });
+
+    grunt.registerTask('qunit-timezone', 'Run timezone tests', function(){
+        process.env.TZ = 'Europe/Moscow';
+        grunt.task.run('qunit:timezone');
     });
 };
