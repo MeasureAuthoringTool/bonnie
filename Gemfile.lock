@@ -7,14 +7,20 @@ GIT
       json
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-models
+  revision: 1c6eddf8f0c51fde342d88ea8e7cafec6885ea2b
+  branch: cql-change-BONNIEMAT-608
+  specs:
+    cqm-models (3.0.0)
+
+GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: fec648a9a3350490814059f099f9afce12c2ae84
-  branch: bonnie_version
+  revision: 67467477cfe118fe089b29eea7aa71a20e4144d8
+  branch: BONNIEMAT-608-closedinterval
   specs:
     cqm-parsers (0.2.1.1)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
-      cqm-models (~> 3.0.0)
       erubis (~> 2.7.0)
       highline (~> 1.7.0)
       log4r (~> 1.1.10)
@@ -27,6 +33,21 @@ GIT
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-reports
+  revision: 105902621616294a8735a0af6f08b44262ce288e
+  branch: BONNIEMAT-608-closedintervals
+  specs:
+    cqm-reports (3.0.0.pre.alpha.2)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (~> 1.10)
+      uuid (~> 2.3)
       zip-zip (~> 0.3)
 
 GIT
@@ -132,17 +153,6 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.5)
-    cqm-models (3.0.0)
-    cqm-reports (3.0.0.pre.alpha.1)
-      cqm-models (~> 3.0.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
-      zip-zip (~> 0.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.5)
@@ -165,7 +175,7 @@ GEM
       ffi (>= 1.3.0)
     eventmachine (1.2.7)
     execjs (2.7.0)
-    ffi (1.11.1)
+    ffi (1.11.3)
     foreman (0.85.0)
       thor (~> 0.19.1)
     globalid (0.4.2)
@@ -225,7 +235,7 @@ GEM
     mongoid-tree (2.0.1)
       mongoid (>= 4.0, < 6.0)
     multi_json (1.13.1)
-    mustache (1.1.0)
+    mustache (1.1.1)
     net-scp (2.0.0)
       net-ssh (>= 2.6.5, < 6.0.0)
     net-ssh (5.2.0)
@@ -388,9 +398,9 @@ DEPENDENCIES
   codecov
   coffee-rails
   colorize
-  cqm-models (~> 3.0.0)
+  cqm-models!
   cqm-parsers!
-  cqm-reports (~> 3.0.0.pre.alpha.1)
+  cqm-reports!
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
