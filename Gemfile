@@ -14,11 +14,11 @@ gem 'less-rails'
 gem "non-stupid-digest-assets"
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', :branch => 'cql-change-BONNIEMAT-608'
-#gem 'cqm-parsers', '~> 0.2.1'
+# gem 'cqm-parsers', '~> 0.2.1'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', :branch => 'BONNIEMAT-608-closedintervals'
 
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'BONNIEMAT-608-closedinterval'
-#gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
+# gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
 # gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
 # gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'master'
 
