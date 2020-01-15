@@ -333,17 +333,17 @@ core-util-is@~1.0.0:
     moment "^2.20.1"
     ucum "0.0.7"
 
-"cqm-execution@https://github.com/projecttacoma/cqm-execution.git#5b0ec1262d4c7c7b5e775b34f274dea74c63392d":
+"cqm-execution@https://github.com/projecttacoma/cqm-execution.git#c54bf619a33265f3a7c6d3741f6a2317879a7403":
   version "3.0.0"
-  resolved "https://github.com/projecttacoma/cqm-execution.git#5b0ec1262d4c7c7b5e775b34f274dea74c63392d"
+  resolved "https://github.com/projecttacoma/cqm-execution.git#c54bf619a33265f3a7c6d3741f6a2317879a7403"
   dependencies:
-    cqm-models "https://github.com/projecttacoma/cqm-models.git#1c6eddf8f0c51fde342d88ea8e7cafec6885ea2b"
+    cqm-models "https://github.com/projecttacoma/cqm-models.git#95bd8d238a8b12f1414dfb5fd0b16880d4f2783f"
     lodash "^4.17.5"
     moment "^2.21.0"
 
-"cqm-models@https://github.com/projecttacoma/cqm-models.git#1c6eddf8f0c51fde342d88ea8e7cafec6885ea2b":
+"cqm-models@https://github.com/projecttacoma/cqm-models.git#95bd8d238a8b12f1414dfb5fd0b16880d4f2783f":
   version "3.0.0"
-  resolved "https://github.com/projecttacoma/cqm-models.git#1c6eddf8f0c51fde342d88ea8e7cafec6885ea2b"
+  resolved "https://github.com/projecttacoma/cqm-models.git#95bd8d238a8b12f1414dfb5fd0b16880d4f2783f"
   dependencies:
     cql-execution "https://github.com/cqframework/cql-execution.git#2f9eff20d13f20689ba0808620a6ffd7809b7a2f"
     mongoose "^5.4.14"
