@@ -13,9 +13,9 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'cqm-models', '~> 3.0.0'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', :branch => 'cql-change-BONNIEMAT-608'
 # gem 'cqm-parsers', '~> 0.2.1'
-gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', :branch => 'BONNIEMAT-608-closedintervals'
 
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'BONNIEMAT-614'
 # gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
