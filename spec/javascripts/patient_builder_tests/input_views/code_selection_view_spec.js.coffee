@@ -36,12 +36,12 @@ describe 'EditCodeDisplayView/EditCodeSelectionView', ->
     expect(editCodeSelectionView.codeSystems.includes("ICD-10-CM")).toBe true
 
   it "selects default code after deletion", ->
-    # delete the 2 codes on the first sdc
+# delete the 2 codes on the first sdc
     $('button[data-call-method="removeCode"]')[0].click()
     $('button[data-call-method="removeCode"]')[0].click()
 
     # the default code should still exist, along with 1 code for the other sdc
-    expect($('button[data-call-method="removeCode"]').length).toEqual(3)
+    expect($('button[data-call-method="removeCode"]').length).toEqual(2)
 
   it "displays correct text for a code on the UI", ->
     expect($('.existing-values:first').text().includes('SNOMED-CT')).toBe true
@@ -53,25 +53,25 @@ describe 'EditCodeDisplayView/EditCodeSelectionView', ->
     expect($('.existing-values:first').text().includes('3109008')).toBe true
 
   it "duplicate codes not added to the patient", ->
-    expect($('.existing-values:first')[0].childElementCount).toEqual(3)
+    expect($('.existing-values:first')[0].childElementCount).toEqual(2)
     @addCode('SNOMED-CT', '3109008')
     @addCode('SNOMED-CT', '19694002') # Code that already exists on the patient
     @addCode('ICD-10-CM', 'F34.1') # Code that already exists on the patient
-    expect($('.existing-values:first')[0].childElementCount).toEqual(4)
+    expect($('.existing-values:first')[0].childElementCount).toEqual(3)
     expect(@diagnosis_element.dataElementCodes.length).toEqual(3)
 
   it "can add and remove custom codes properly", ->
     @addCustomCode('SPAM', 'EGGS')
     @addCustomCode('BOSTON', 'POPS')
     @addCustomCode('FOO', 'BAR')
-    expect($('.existing-values:first')[0].childElementCount).toEqual(6)
+    expect($('.existing-values:first')[0].childElementCount).toEqual(5)
     $('button[data-call-method="removeCode"]')[2].click()
     $('button[data-call-method="removeCode"]')[3].click()
     expect($('.existing-values:first')[0].childElementCount).toEqual(3)
 
   it "adds default code back after removing original default codes and custom code", ->
     @addCustomCode('SPAM', 'EGGS')
-    expect($('.existing-values:first')[0].childElementCount).toEqual(4)
+    expect($('.existing-values:first')[0].childElementCount).toEqual(3)
     $('button[data-call-method="removeCode"]')[0].click()
     $('button[data-call-method="removeCode"]')[0].click()
     expect($('.existing-values:first')[0].childElementCount).toEqual(1)
@@ -89,7 +89,7 @@ describe 'EditCodeDisplayView/EditCodeSelectionView', ->
     @addCustomCode('SPAM', 'EGGS')
     @addCustomCode('BOSTON', 'POPS')
     @addCustomCode('FOO', 'BAR')
-    expect($('.existing-values:first')[0].childElementCount).toEqual(7)
+    expect($('.existing-values:first')[0].childElementCount).toEqual(6)
     expect(@diagnosis_element.dataElementCodes.length).toEqual(6)
     $('button[data-call-method="removeCode"]')[0].click()
     $('button[data-call-method="removeCode"]')[0].click()
@@ -106,7 +106,7 @@ describe 'EditCodeDisplayView/EditCodeSelectionView', ->
     @addCustomCode('SPAM', 'EGGS')
     @addCustomCode('BOSTON', 'POPS')
     @addCustomCode('FOO', 'BAR')
-    expect($('.existing-values:first')[0].childElementCount).toEqual(7)
+    expect($('.existing-values:first')[0].childElementCount).toEqual(6)
     $('button[data-call-method="removeCode"]')[5].click()
     $('button[data-call-method="removeCode"]')[4].click()
     $('button[data-call-method="removeCode"]')[3].click()
