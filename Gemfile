@@ -95,6 +95,3 @@ gem 'jquery-rails'
 
 # Browser Detection
 gem 'browser'
-
-# CVE-2020-10663: Unsafe Object Creation Vulnerability in JSON (Additional fix)
-gem "json", ">= 2.3.0"
