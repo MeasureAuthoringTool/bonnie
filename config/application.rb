@@ -5,7 +5,7 @@ require File.expand_path('boot', __dir__)
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "rails/test_unit/railtie"
-require_relative './security_patch_CVE-2020-5267'
+require_relative './security_patch_cve20205267'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
