@@ -18,7 +18,7 @@ jobs:
         chmod +x gitleaks
         echo ${GITHUB_SHA}
         echo "gitleaks --repo=${REPO} -v --pretty --redact --commit=${GITHUB_SHA} --config=gitleaks.toml"
-        ./gitleaks --repo=${REPO} -v --pretty --redact --commit=${GITHUB_SHA} --config=gitleaks.toml
+        ./gitleaks --repo=${REPO} -v --pretty --commit=${GITHUB_SHA} --config=gitleaks.toml
     - name: Slack notification
       if: failure()
       env:
