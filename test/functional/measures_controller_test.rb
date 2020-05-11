@@ -760,6 +760,8 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'create/finalize/update a measure calculating SDEs' do
+    # TODO: fix this after MAT-987 release
+    skip "fix this after MAT-987 release"
     sign_in @user
     measure_file = fixture_file_upload(File.join('test','fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
     class << measure_file
