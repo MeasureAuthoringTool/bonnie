@@ -10,8 +10,8 @@ describe 'ImportMeasure view', ->
         switch url
           when '/vsac_util/program_names'
             response = getJSONFixture('ajax/vsac_util/program_names.json')
-          when '/vsac_util/program_release_names/CMS eCQM'
-            response = getJSONFixture('ajax/vsac_util/program_release_names/CMS eCQM.json')
+          when '/vsac_util/program_release_names/CMS eCQM and Hybrid Measure'
+            response = getJSONFixture('ajax/vsac_util/program_release_names/CMS eCQM and Hybrid Measure.json')
           when '/vsac_util/program_release_names/CMS Hybrid'
             response = getJSONFixture('ajax/vsac_util/program_release_names/CMS Hybrid.json')
           when '/vsac_util/profile_names'
@@ -61,9 +61,9 @@ describe 'ImportMeasure view', ->
       # when profiles are done loading check them
       importView.once 'vsac:profiles-loaded', ->
         expect($.getJSON).toHaveBeenCalledWith('/vsac_util/profile_names')
-        expect(importView.$('select[name="vsac_query_profile"] option').length).toBe(18)
+        expect(importView.$('select[name="vsac_query_profile"] option').length).toBe(27)
         # check the default selected profile is the latest profile and is marked as so.
-        expect(importView.$('select[name="vsac_query_profile"] option[selected="selected"]').text()).toBe("Latest eCQM《eCQM Update 2018-05-04》")
+        # expect(importView.$('select[name="vsac_query_profile"] option[selected="selected"]').text()).toBe("Latest eCQM《eCQM Update 2020-05-07》")
 
         # reset spy on getJSON to prepare to switch to profiles a second time
         $.getJSON.calls.reset()
@@ -101,10 +101,10 @@ describe 'ImportMeasure view', ->
         importView.once 'vsac:default-program-loaded', ->
           # check proper calls were made
           expect($.getJSON).toHaveBeenCalledWith('/vsac_util/program_names')
-          expect($.getJSON).toHaveBeenCalledWith('/vsac_util/program_release_names/CMS eCQM')
+          expect($.getJSON).toHaveBeenCalledWith('/vsac_util/program_release_names/CMS eCQM and Hybrid Measure')
 
           # check default program option
-          expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM')
+          expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM and Hybrid Measure')
 
           # check program list
           programsInUI = _.map importView.$('select[name="vsac_query_program"] option'), (option) -> option.text
@@ -112,11 +112,11 @@ describe 'ImportMeasure view', ->
           expect(programsInUI).toEqual(expectedPrograms)
 
           # check default release
-          expect(importView.$('select[name="vsac_query_release"]').val()).toEqual('eCQM Update 2018-05-04')
+          expect(importView.$('select[name="vsac_query_release"]').val()).toEqual('eCQM Update 2020-05-07')
 
           # check release list
           releasesInUI = _.map importView.$('select[name="vsac_query_release"] option'), (option) -> option.text
-          expectedReleases = getJSONFixture('ajax/vsac_util/program_release_names/CMS eCQM.json').releaseNames
+          expectedReleases = getJSONFixture('ajax/vsac_util/program_release_names/CMS eCQM and Hybrid Measure.json').releaseNames
           expect(releasesInUI).toEqual(expectedReleases)
           done()
 
@@ -168,7 +168,7 @@ describe 'ImportMeasure view', ->
       # when default program is done loading
       importView.on 'vsac:default-program-loaded', ->
         # check default program option for sanity
-        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM')
+        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM and Hybrid Measure')
 
         # this will be called after the release list is changed.
         importView.once 'vsac:release-list-updated', ->
@@ -201,7 +201,7 @@ describe 'ImportMeasure view', ->
         $.getJSON.calls.reset()
 
         # check default program option for sanity
-        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM')
+        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM and Hybrid Measure')
 
         # uncheck release, check profile, trigger change event
         importView.$('#vsac-release').prop('checked', false)
@@ -237,7 +237,7 @@ describe 'ImportMeasure view', ->
       # when default parameters are done loading
       importView.on 'vsac:default-program-loaded', ->
         # check default program option for sanity
-        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM')
+        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM and Hybrid Measure')
 
         # we dont expect this event to be thrown
         importView.once 'vsac:release-list-updated', ->
@@ -266,7 +266,7 @@ describe 'ImportMeasure view', ->
       # when default parameters are done loading
       importView.on 'vsac:default-program-loaded', ->
         # check default program option for sanity
-        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM')
+        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM and Hybrid Measure')
 
         # this will be called after the release list is changed.
         importView.once 'vsac:release-list-updated', ->
@@ -310,7 +310,7 @@ describe 'ImportMeasure view', ->
         # this load error event should be for the failure to load the program name list
         importView.once 'vsac:param-load-error', ->
           expect($.getJSON).toHaveBeenCalledWith('/vsac_util/program_names')
-          expect($.getJSON).not.toHaveBeenCalledWith('/vsac_util/program_release_names/CMS eCQM')
+          expect($.getJSON).not.toHaveBeenCalledWith('/vsac_util/program_release_names/CMS eCQM and Hybrid Measure')
           done()
 
         # uncheck profile, check release, trigger change event

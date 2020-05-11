@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
+    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM%20and%20Hybrid%20Measure/latest%20profile
     body:
       encoding: US-ASCII
       string: ''
@@ -49,7 +49,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"name":"eCQM Update 2018-05-04","requestTime":"2018-07-02 04:57:40
         PM"}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 20:57:40 GMT
 - request:
     method: post
@@ -103,6 +103,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 20:57:40 GMT
 recorded_with: VCR 3.0.3

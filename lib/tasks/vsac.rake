@@ -7,7 +7,6 @@ namespace :bonnie do
       raise "No OID supplied" unless ENV['OID']
       raise "No USERNAME supplied" unless ENV['USERNAME']
       raise "No PASSWORD supplied" unless ENV['PASSWORD']
-      
       options = {}
       options[:release] = ENV['RELEASE'] if ENV.key?('RELEASE')
       options[:include_draft] = !!ENV['DRAFT'] if ENV.key?('DRAFT')

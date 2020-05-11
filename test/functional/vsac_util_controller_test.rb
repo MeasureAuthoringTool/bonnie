@@ -18,8 +18,8 @@ class VsacUtilControllerTest < ActionController::TestCase
       assert_response :success
 
       profile_names = JSON.parse(response.body)
-      assert_equal 18, profile_names['profileNames'].length
-      assert_equal 'eCQM Update 2018-05-04', profile_names['latestProfile']
+      assert_equal 27, profile_names['profileNames'].length
+      assert_equal 'eCQM Update 2020-05-07', profile_names['latestProfile']
     end
   end
 

@@ -51,6 +51,15 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <ProfileList>
             <profile>Most Recent Code System Versions in VSAC</profile>
+            <profile>eCQM Update 2020-05-07</profile>
+            <profile>CMS Pre-rulemaking eCQM 2020-05-07</profile>
+            <profile>CMS Pre-rulemaking eCQM 2019-08-30</profile>
+            <profile>C-CDA R2.1 2019-06-28</profile>
+            <profile>eCQM Update 2019-05-10</profile>
+            <profile>CMS Pre-rulemaking eCQM 2019-05-10</profile>
+            <profile>RCKMS Release 1.0 2018-10-31</profile>
+            <profile>eCQM Update 2018-09-17</profile>
+            <profile>C-CDA R2.1 2018-06-15</profile>
             <profile>eCQM Update 2018-05-04</profile>
             <profile>C-CDA R2.1 2018-02-01</profile>
             <profile>CMS 2018 IQR Voluntary Hybrid Reporting</profile>
@@ -69,11 +78,11 @@ http_interactions:
             <profile>MU2 Update 2012-12-21</profile>
             <profile>MU2 Update 2012-10-25</profile>
         </ProfileList>
-    http_version: 
+    http_version:
   recorded_at: Mon, 21 May 2018 21:53:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
+    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM%20and%20Hybrid%20Measure/latest%20profile
     body:
       encoding: US-ASCII
       string: ''
@@ -118,8 +127,7 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: '{"name":"eCQM Update 2018-05-04","requestTime":"2018-05-21 05:53:38
-        PM"}'
-    http_version: 
+      string: '{"name":"eCQM Update 2020-05-07","requestTime":"2020-05-11 05:54:07 PM"}'
+    http_version:
   recorded_at: Mon, 21 May 2018 21:53:38 GMT
 recorded_with: VCR 3.0.3

@@ -70,7 +70,7 @@ namespace :bonnie do
     # fileset_dir: directory containing input filesd.
     # output_dir: directory where output will be stored.
     desc "Generates oid to valueset dictonary from directory"
-    task :generate_oid_to_valuesets => [:environment] do 
+    task :generate_oid_to_valuesets => [:environment] do
       fileset_dir = File.join("test", "fixtures", "health_data_standards_svs_value_sets", ENV['fileset_dir'])
       output_dir = File.join("spec", "javascripts", "fixtures", "json", "measure_data", ENV['output_dir'])
       dict = {}
@@ -82,7 +82,7 @@ namespace :bonnie do
       File.new(output, "w+")
       File.write(output, JSON.pretty_generate(dict))
     end
-    
+
     ###
     # Loads a set of back end fixtures into the active database.
     # NOTE: This task will fail if documents in the database with the same ids already exist.
@@ -135,7 +135,7 @@ namespace :bonnie do
       File.new(file_path, "w+")
       File.write(file_path, fixture_json)
     end
-    
+
   end
 
   namespace :cql do
@@ -144,10 +144,10 @@ namespace :bonnie do
     still be replaced if no clause level annotations are found.
 
     $ bundle exec rake bonnie:cql:add_json_to_package[path/to/package.zip,true]
-  
+
     If you are using a zsh terminal, you need to use 'noglob':
     $ noglob bundle exec rake bonnie:cql:add_json_to_package[path/to/package.zip]}
-    
+
     task :add_json_to_package, [:input_package_path, :keep_elm_xml] => [:environment] do |t, args|
       input_package_path = Pathname.new(args[:input_package_path])
       keep_elm_xml = args.fetch(:keep_elm_xml, false) == 'true'
