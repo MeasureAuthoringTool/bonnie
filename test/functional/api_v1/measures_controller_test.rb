@@ -383,7 +383,7 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {
           vsac_query_type: 'profile',
-          vsac_query_profile: 'Latest eCQM',
+          vsac_query_profile: 'eCQM Update 2020-05-07',
           vsac_query_include_draft: 'false',
           vsac_query_measure_defined: 'true',
           measure_file: measure_file,
