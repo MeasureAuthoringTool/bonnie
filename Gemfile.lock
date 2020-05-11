@@ -7,27 +7,9 @@ GIT
       json
 
 GIT
-  remote: https://github.com/randym/axlsx
-  revision: c593a08b2a929dac7aa8dc418b55e26b4c49dc34
-  branch: master
-  specs:
-    axlsx (3.0.0.pre)
-      htmlentities (~> 4.3, >= 4.3.4)
-      mimemagic (~> 0.3)
-      nokogiri (~> 1.8, >= 1.8.2)
-      rubyzip (~> 1.2, >= 1.2.1)
-
-GIT
-  remote: https://github.com/smartinez87/exception_notification.git
-  revision: 6a89f3b3b1623fa24d4f7b55a662c3bf2ab6b00b
-  branch: master
-  specs:
-    exception_notification (4.3.0)
-      actionmailer (>= 4.0, < 6)
-      activesupport (>= 4.0, < 6)
-
-PATH
-  remote: ../cqm-parsers
+  remote: https://github.com/projecttacoma/cqm-parsers
+  revision: ba32fdfd0734e72ec582a02a032d7baefb494f3a
+  branch: bonnie_version
   specs:
     cqm-parsers (0.2.1.1)
       activesupport (~> 4.2.0)
@@ -46,6 +28,26 @@ PATH
       typhoeus
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/randym/axlsx
+  revision: c593a08b2a929dac7aa8dc418b55e26b4c49dc34
+  branch: master
+  specs:
+    axlsx (3.0.0.pre)
+      htmlentities (~> 4.3, >= 4.3.4)
+      mimemagic (~> 0.3)
+      nokogiri (~> 1.8, >= 1.8.2)
+      rubyzip (~> 1.2, >= 1.2.1)
+
+GIT
+  remote: https://github.com/smartinez87/exception_notification.git
+  revision: 6a89f3b3b1623fa24d4f7b55a662c3bf2ab6b00b
+  branch: master
+  specs:
+    exception_notification (4.3.0)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
 
 GEM
   remote: https://rubygems.org/
@@ -349,7 +351,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (1.4.1)
-    typhoeus (1.3.1)
+    typhoeus (1.4.0)
       ethon (>= 0.9.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
