@@ -266,13 +266,13 @@ describe 'ImportMeasure view', ->
 
         # this will be called after the release list is changed.
         importView.once 'vsac:release-list-updated', ->
-          #expect($.getJSON).not.toHaveBeenCalledWith('/vsac_util/program_release_names/CMS Hybrid')
-          expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM and Hybrid Measure')
-          expect(importView.$('select[name="vsac_query_release"]').val()).toEqual('eCQM Update 2020-05-07')
+          # expect($.getJSON).not.toHaveBeenCalledWith('/vsac_util/program_release_names/CMS Hybrid')
+          expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS Hybrid')
+          expect(importView.$('select[name="vsac_query_release"]').val()).toEqual('CMS 2018 IQR Voluntary Hybrid Reporting')
           done()
 
         # change to CMS Hybrid
-        importView.$('select[name="vsac_query_program"]').val('CMS eCQM and Hybrid Measure').change()
+        importView.$('select[name="vsac_query_program"]').val('CMS Hybrid').change()
 
       # kick off render which will kick off loading of default vsac parameters
       importView.render()
