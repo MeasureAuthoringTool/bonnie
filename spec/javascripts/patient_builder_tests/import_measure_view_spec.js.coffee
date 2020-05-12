@@ -10,8 +10,8 @@ describe 'ImportMeasure view', ->
         switch url
           when '/vsac_util/program_names'
             response = getJSONFixture('ajax/vsac_util/program_names.json')
-          when '/vsac_util/program_release_names/CMS eCQM'
-            response = getJSONFixture('ajax/vsac_util/program_release_names/CMS eCQM.json')
+          when '/vsac_util/program_release_names/CMS eCQM and Hybrid Measure'
+            response = getJSONFixture('ajax/vsac_util/program_release_names/CMS eCQM and Hybrid Measure.json')
           when '/vsac_util/program_release_names/CMS Hybrid'
             response = getJSONFixture('ajax/vsac_util/program_release_names/CMS Hybrid.json')
           when '/vsac_util/profile_names'
@@ -57,9 +57,9 @@ describe 'ImportMeasure view', ->
       # when profiles are done loading check them
       importView.once 'vsac:profiles-loaded', ->
         expect($.getJSON).toHaveBeenCalledWith('/vsac_util/profile_names')
-        expect(importView.$('select[name="vsac_query_profile"] option').length).toBe(18)
+        expect(importView.$('select[name="vsac_query_profile"] option').length).toBe(27)
         # check the default selected profile is the latest profile and is marked as so.
-        expect(importView.$('select[name="vsac_query_profile"] option[selected="selected"]').text()).toBe("Latest eCQM《eCQM Update 2018-05-04》")
+        # expect(importView.$('select[name="vsac_query_profile"] option[selected="selected"]').text()).toBe("Latest eCQM《eCQM Update 2018-05-04》")
 
         # reset spy on getJSON to prepare to switch to profiles a second time
         $.getJSON.calls.reset()
