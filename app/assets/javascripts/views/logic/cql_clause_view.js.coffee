@@ -107,7 +107,7 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
 
       # if we dont have a ref_id then we may just be a text clause. so we pass this to our parent clause
       else
-        @parent.highlightEntry()
+        @parent?.highlightEntry?()
 
   ###*
   # Event handler for the mouseout event. This will report to the CqlPopulationLogic view that highlighting should be cleared.
