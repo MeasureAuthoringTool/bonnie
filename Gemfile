@@ -15,7 +15,7 @@ gem "non-stupid-digest-assets"
 
 gem 'cqm-models', '~> 3.0.0'
 # gem 'cqm-parsers', '~> 0.2.1'
-gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
+gem 'cqm-reports', '~> 3.0.0'
 
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
 # gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
