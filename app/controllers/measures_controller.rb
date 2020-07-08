@@ -139,7 +139,7 @@ class MeasuresController < ApplicationController
   end
 
   def check_measures_for_unsupported_data_elements(measures)
-    measures.each do |measure| 
+    measures.each do |measure|
       if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
         measure.destroy_self_and_child_docs
         raise MeasureLoadingUnsupportedDataElement.new("Related Person")

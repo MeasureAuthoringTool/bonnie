@@ -180,13 +180,13 @@ module MeasureHelper
   end
 
   def create_measure(uploaded_file:, measure_details:, value_set_loader:, user:)
-    measures, main_hqmf_set_id = extract_measures!(uploaded_file.tempfile, measure_details, value_set_loader)
-    existing = CQM::Measure.by_user(user).where(hqmf_set_id: main_hqmf_set_id).first
-    raise MeasureLoadingMeasureAlreadyExists.new(main_hqmf_set_id) unless existing.nil?
-    save_and_post_process(measures, user)
-    return measures, main_hqmf_set_id
+    measure = extract_measures!(uploaded_file.tempfile, measure_details, value_set_loader)
+    existing = CQM::Measure.by_user(user).where(set_id: measure.set_id).first
+    raise MeasureLoadingMeasureAlreadyExists.new(measure.set_id) unless existing.nil?
+    save_and_post_process(measure, user)
+    return measure
   rescue StandardError => e
-    measures&.each(&:delete_self_and_child_docs)
+    measure&.delete_self_and_child_docs
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, uploaded_file, user)
     raise e
@@ -278,12 +278,10 @@ module MeasureHelper
     end
   end
 
-  def update_related_patient_records(measures, current_user)
-    measures.each do |measure|
-      # Ensure expected values on patient match those in the measure's populations
-      CQM::Patient.where(user_id: current_user.id, measure_ids: measure.hqmf_set_id).each do |patient|
-        patient.update_expected_value_structure!(measure)
-      end
+  def update_related_patient_records(measure, current_user)
+    # Ensure expected values on patient match those in the measure's populations
+    CQM::Patient.where(user_id: current_user.id, measure_ids: measure.set_id).each do |patient|
+      patient.update_expected_value_structure!(measure)
     end
   end
 
@@ -297,21 +295,18 @@ module MeasureHelper
 
   def extract_measures!(measure_file, measure_details, value_set_loader)
     loader = Measures::CqlLoader.new(measure_file, measure_details, value_set_loader)
-    measures = loader.extract_measures
-    main_hqmf_set_id = measures.last.hqmf_set_id
-    return measures, main_hqmf_set_id
+    measure = loader.extract_measures
+    return measure
   rescue Measures::MeasureLoadingInvalidPackageException => e
     raise MeasureLoadingBadPackage.new(e.message)
   rescue Util::VSAC::VSACError => e
     raise convert_vsac_error_into_shared_error(e)
   end
 
-  def save_and_post_process(measures, user)
-    measures.each do |measure|
-      measure.associate_self_and_child_docs_to_user(user)
-      measure.save_self_and_child_docs
-    end
-    update_related_patient_records(measures, user)
+  def save_and_post_process(measure, user)
+    measure.associate_self_and_child_docs_to_user(user)
+    measure.save_self_and_child_docs
+    # update_related_patient_records(measures, user)
   end
 
   def log_measure_loading_error(error, uploaded_file, user)
