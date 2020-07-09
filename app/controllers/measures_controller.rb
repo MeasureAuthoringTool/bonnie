@@ -122,7 +122,7 @@ class MeasuresController < ApplicationController
   private
 
   def persist_measure(uploaded_file, params, user)
-    measures, main_hqmf_set_id =
+    measure =
       if params[:hqmf_set_id].present?
         update_measure(uploaded_file: uploaded_file,
                       target_id: params[:hqmf_set_id],
@@ -134,8 +134,8 @@ class MeasuresController < ApplicationController
                       value_set_loader: build_vs_loader(params, false),
                       user: user)
       end
-    check_measures_for_unsupported_data_elements(measures)
-    return measures, main_hqmf_set_id
+    #check_measures_for_unsupported_data_elements(measures)
+    return measure, measure.set_id
   end
 
   def check_measures_for_unsupported_data_elements(measures)

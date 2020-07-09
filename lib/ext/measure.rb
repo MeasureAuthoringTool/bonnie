@@ -5,11 +5,11 @@ module CQM
     belongs_to :user
     scope :by_user, ->(user) { where user_id: user.id }
     index 'user_id' => 1
-    index 'user_id' => 1, 'hqmf_set_id' => 1
+    index 'user_id' => 1, 'set_id' => 1
     has_and_belongs_to_many :patients, class_name: 'CQM::Patient'
     # Find the measures matching a patient
     def self.for_patient(record)
-      where user_id: record.user_id, hqmf_set_id: { '$in' => record.measure_ids }
+      where user_id: record.user_id, set_id: { '$in' => record.measure_ids }
     end
 
     def save_self_and_child_docs
@@ -51,7 +51,7 @@ module CQM
       new_doc.user = nil
       return new_doc
     end
-    
+
   end
 
   class PopulationSet
