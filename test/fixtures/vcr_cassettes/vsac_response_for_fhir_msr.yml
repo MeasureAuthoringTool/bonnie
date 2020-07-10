@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: US-ASCII
+      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '65'
+      Date:
+      - Fri, 10 Jul 2020 17:47:54 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!lNuhPDN/n59vOjnNtNHn4GsLooFbU2Z2gEOBUsTSI5yi8o0ONuk51eSnr0NOvuPXM4e2agztwXN53kY=;
+        expires=Fri, 10-Jul-2020 19:47:54 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 2607:f220:41e:1016::40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.88 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: TGT-541110-nXnYifCpduj3tfIrcLZse9a67MdeUkP7TM6zWrdOY3SNAwCaq5-cas
+    http_version:
+  recorded_at: Fri, 10 Jul 2020 17:47:54 GMT
+recorded_with: VCR 5.0.0
