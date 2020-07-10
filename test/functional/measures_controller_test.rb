@@ -46,6 +46,7 @@ include Devise::Test::ControllerHelpers
     end
   end
 
+  # TODO: Enable/Refactor these tests as we go on adding FHIR Measure support
   # test 'upload CQL with valid VSAC creds' do
   #   # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
   #   # when the cassette needs to be generated for the first time.
