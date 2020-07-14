@@ -133,7 +133,7 @@ GEM
     commonjs (0.2.7)
     concurrent-ruby (1.1.5)
     cqm-models (3.0.0)
-    cqm-reports (3.0.0)
+    cqm-reports (3.0.1)
       cqm-models (~> 3.0.0)
       erubis (~> 2.7)
       log4r (~> 1.1)
@@ -390,7 +390,7 @@ DEPENDENCIES
   colorize
   cqm-models (~> 3.0.0)
   cqm-parsers!
-  cqm-reports (~> 3.0.0)
+  cqm-reports (~> 3.0.1)
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
