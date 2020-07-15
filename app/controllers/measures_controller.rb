@@ -69,7 +69,7 @@ class MeasuresController < ApplicationController
       measure = CQM::Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
       begin
         # TODO: should this do the same for component measures?
-        Measures::CqlLoader.update_population_set_and_strat_titles(measure, data['titles'])
+        Measures::BundleLoader.update_population_set_and_strat_titles(measure, data['titles'])
         measure.save!
       rescue Exception => e
         operator_error = true
