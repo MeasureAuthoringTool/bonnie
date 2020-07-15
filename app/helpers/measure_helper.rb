@@ -294,7 +294,7 @@ module MeasureHelper
   end
 
   def extract_measures!(measure_file, measure_details, value_set_loader)
-    loader = Measures::CqlLoader.new(measure_file, measure_details, value_set_loader)
+    loader = Measures::BundleLoader.new(measure_file, measure_details, value_set_loader)
     measure = loader.extract_measures
     return measure
   rescue Measures::MeasureLoadingInvalidPackageException => e
