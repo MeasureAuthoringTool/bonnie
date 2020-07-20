@@ -2,9 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '5.0.0'
 
-# There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
-# https://github.com/capistrano/rails/issues/111
-gem 'sprockets', '~> 2.8'
+gem 'sprockets'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
 gem 'sprockets-rails'
@@ -14,24 +12,15 @@ gem 'less-rails'
 gem "non-stupid-digest-assets"
 
 gem 'cqm-models', '~> 3.0.0'
-# gem 'cqm-parsers', '~> 0.2.1'
-
 gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'rails-5'
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'rails-5'
-# gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
-# gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'master'
-
-# gem 'cqm-parsers', :path => '../cqm-parsers'
-# gem 'cqm-models', :path => '../cqm-models'
-# gem 'cqm-reports', :path => '../cqm-reports'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
 gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
-gem 'mongoid'
-gem 'protected_attributes'
+gem 'mongoid', '6.0.0'
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
