@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.11'
+gem 'rails', '5.0.0'
 
 # There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
 # https://github.com/capistrano/rails/issues/111
@@ -15,9 +15,9 @@ gem "non-stupid-digest-assets"
 
 gem 'cqm-models', '~> 3.0.0'
 # gem 'cqm-parsers', '~> 0.2.1'
-gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
+gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'rails-5'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'rails-5'
 # gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
 # gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'master'
 
