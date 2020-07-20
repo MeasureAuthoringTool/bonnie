@@ -31,9 +31,6 @@ class User
     UserMailer.user_signup_email(self).deliver_now
   end
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :telephone, :crosswalk_enabled
-
   ## Database authenticatable
   field :email,              :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
@@ -67,7 +64,7 @@ class User
   field :approved, type:Boolean, :default => false
 
   field :crosswalk_enabled,  type:Boolean, default: false
-  
+
   has_many :cqm_measures, class_name: 'CQM::Measure'
   has_many :patients, class_name: 'CQM::Patient'
 

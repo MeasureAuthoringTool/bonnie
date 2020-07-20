@@ -48,9 +48,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    # Update select attributes directly so we can keep a more restrictive attr_accessible for other contexts
-    [:email, :admin, :portfolio, :dashboard].each { |attr| user.send("#{attr}=", params[attr]) }
-    user.save
+    user.update(user_params)
     respond_with user
   end
 
@@ -92,6 +90,10 @@ class Admin::UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.permit(:email, :admin, :portfolio, :dashboard)
+  end
 
   def require_admin!
     raise "User #{current_user.email} requesting resource requiring admin access" unless current_user.admin?
