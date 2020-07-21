@@ -22,7 +22,7 @@ class MeasuresController < ApplicationController
   end
 
   def create
-    if !params[:measure_file]
+    if params[:measure_file].blank?
       flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
@@ -139,7 +139,7 @@ class MeasuresController < ApplicationController
   end
 
   def check_measures_for_unsupported_data_elements(measures)
-    measures.each do |measure| 
+    measures.each do |measure|
       if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
         measure.destroy_self_and_child_docs
         raise MeasureLoadingUnsupportedDataElement.new("Related Person")
