@@ -2,7 +2,7 @@
 # Contains helpers that generate additional data for CQL measures. These functions provide extra data useful in working
 # with calculation results.
 ###
-class CQLMeasureHelpers
+@CQLMeasureHelpers = class CQLMeasureHelpers
 
   ###*
   # Builds a map of define statement name to the statement's text from a measure.
