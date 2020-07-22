@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.3'
+gem 'rails', '5.2.1'
 
 gem 'sprockets'
 
@@ -51,6 +51,7 @@ group :test, :development, :ci do
   gem 'brakeman'
   gem 'selenium-webdriver'
   gem 'codecov', :require => false
+  gem 'rails-controller-testing'
 end
 
 group :test, :development do
