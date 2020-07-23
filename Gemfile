@@ -30,7 +30,7 @@ gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
-gem 'apipie-rails', :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
+gem 'apipie-rails', :git => 'https://github.com/projecttacoma/apipie-rails', :branch => 'rails-5' # API documentation generation
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
 gem "doorkeeper-mongodb", '~> 4.1.0'
