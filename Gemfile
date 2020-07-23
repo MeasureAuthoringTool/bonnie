@@ -37,7 +37,7 @@ gem "doorkeeper-mongodb", '~> 4.1.0'
 
 group :test, :development, :ci do
   gem 'pry'
-  gem 'teaspoon'
+  gem 'teaspoon', '1.1.5'
   gem "overcommit"
   gem 'rubocop'
   gem 'teaspoon-jasmine'
