@@ -22,6 +22,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
+    measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
 
     # Make sure db is clean
     assert_equal 0, CQM::Measure.all.count
@@ -64,14 +65,13 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
-        measure_file: measure_file,
+        measure_file: measure_file1,
         measure_type: 'ep',
         calculation_type: 'patient',
         continuous_variable: true
       }
     end
     assert_response :redirect
-
     measure = CQM::Measure.where({composite: true}).first
     assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
     # This composite measure has 7 components and 1 composite measure
@@ -224,6 +224,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
+    measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
 
     # Make sure db is clean
     assert_equal 0, CQM::Measure.all.count
@@ -260,7 +261,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
-        measure_file: measure_file,
+        measure_file: measure_file1,
         measure_type: 'ep',
         calculation_type: 'patient',
         hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
