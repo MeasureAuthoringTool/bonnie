@@ -5,7 +5,7 @@ gem 'rails', '5.2.1'
 gem 'sprockets'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
-gem 'sprockets-rails'
+gem 'sprockets-rails', '2.3.3'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
