@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   prepend_view_path(Rails.root.join('lib/templates/'))
 
   def update
@@ -87,7 +87,7 @@ class PatientsController < ApplicationController
 
   def excel_export
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
-    package = PatientExport.export_excel_cql_file(JSON.parse(params[:calc_results]), 
+    package = PatientExport.export_excel_cql_file(JSON.parse(params[:calc_results]),
                                                   JSON.parse(params[:patient_details]),
                                                   JSON.parse(params[:population_details]),
                                                   JSON.parse(params[:statement_details]),

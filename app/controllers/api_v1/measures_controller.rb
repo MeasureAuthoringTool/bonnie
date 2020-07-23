@@ -1,7 +1,7 @@
 module ApiV1
   class MeasuresController < ApplicationController
     skip_before_action :verify_authenticity_token
-    skip_before_filter :authenticate_user!
+    skip_before_action :authenticate_user!
     before_action :doorkeeper_authorize! # Require access token for all actions
 
     include MeasureHelper
