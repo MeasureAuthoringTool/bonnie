@@ -31,7 +31,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -51,14 +51,14 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     # This composite measure has 7 components and 1 composite measure
     assert_equal 8, CQM::Measure.all.count
 
-    post :destroy, {
+    post :destroy, params: {
       id: measure.id
     }
     assert_response :success
     assert_equal 0, CQM::Measure.all.count
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -84,7 +84,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
       attr_reader :tempfile
     end
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -107,7 +107,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
       attr_reader :tempfile
     end
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -137,7 +137,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -159,7 +159,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_hqmf_set_id_mismatch.zip'), 'application/xml')
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -192,7 +192,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -212,7 +212,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
 
     # Get a component measure
     component = CQM::Measure.where({component: true}).first
-    post :destroy, {
+    post :destroy, params: {
       id: component.id
     }
     assert_response :bad_request
@@ -233,7 +233,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
@@ -254,7 +254,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
 
     # Reupload the measure
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
-      post :create, {
+      post :create, params: {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',

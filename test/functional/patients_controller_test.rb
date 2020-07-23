@@ -47,7 +47,7 @@ include Devise::Test::ControllerHelpers
   test "create" do
     assert_equal 0, CQM::Patient.count
 
-    post :create, @patient
+    post :create, params: @patient
     assert_response :success
     assert_equal 1, CQM::Patient.count
     r = CQM::Patient.first
@@ -72,7 +72,7 @@ include Devise::Test::ControllerHelpers
     patients_set = File.join('cqm_patients', 'CMS32v7')
     collection_fixtures(patients_set)
     associate_user_with_patients(@user,CQM::Patient.all)
-    post :share_patients, {hqmf_set_id: "3FD13096-2C8F-40B5-9297-B714E8DE9133", selected: ["123456", "789012345"]}
+    post :share_patients, params: {hqmf_set_id: "3FD13096-2C8F-40B5-9297-B714E8DE9133", selected: ["123456", "789012345"]}
     assert_response :redirect
     CQM::Patient.by_user(@user).all.each { |patient| assert_equal patient.measure_ids, ["123456", "789012345", "3FD13096-2C8F-40B5-9297-B714E8DE9133"]}
   end
@@ -99,7 +99,7 @@ include Devise::Test::ControllerHelpers
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"]
-    post :create, composite_patient
+    post :create, params: composite_patient
     assert_response :success
     assert_equal 1, CQM::Patient.count
     patient = CQM::Patient.first
@@ -119,7 +119,7 @@ include Devise::Test::ControllerHelpers
     updated_patient['_id'] = patient.id.to_s
     updated_patient['id'] = patient.id.to_s
 
-    post :update, updated_patient
+    post :update, params: updated_patient
     assert_response :success
     assert_equal 1, CQM::Patient.count
     retrieved_patient = CQM::Patient.first
@@ -141,7 +141,7 @@ include Devise::Test::ControllerHelpers
     associate_user_with_patients(@user, CQM::Patient.all)
     patient = CQM::Patient.first
     assert_equal 3, @user.patients.count
-    delete :destroy, {id: patient.id}
+    delete :destroy, params: {id: patient.id}
     assert_response :success
     assert_equal 2, @user.patients.count
     patient = CQM::Patient.where({id: patient.id}).first
@@ -151,12 +151,12 @@ include Devise::Test::ControllerHelpers
   test "invalid patients" do
     assert_equal 0, CQM::Patient.count
     @patient['cqmPatient']['qdmPatient']['_type'] = 'QDMPatient'
-    post :create, @patient
+    post :create, params: @patient
     assert_response :internal_server_error
     assert_equal 0, CQM::Patient.count
 
     @patient['cqmPatient']['qdmPatient'].delete('_type')
-    post :create, @patient
+    post :create, params: @patient
     assert_response :success
     assert_equal 1, CQM::Patient.count
 
@@ -165,7 +165,7 @@ include Devise::Test::ControllerHelpers
     updated_patient['cqmPatient']['givenNames'] = ['These', 'are', 'not', 'real', 'names']
     updated_patient['_id'] = CQM::Patient.first._id.to_s
     updated_patient['id'] = CQM::Patient.first.id.to_s
-    post :update, updated_patient
+    post :update, params: updated_patient
     assert_response :internal_server_error
     assert_equal 1, CQM::Patient.count
     assert_equal 1, CQM::Patient.first.givenNames.length
@@ -177,7 +177,7 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(records_set)
     associate_user_with_patients(@user, CQM::Patient.all)
     associate_measure_with_patients(@measure, CQM::Patient.all)
-    get :qrda_export, hqmf_set_id: @measure.hqmf_set_id, isCQL: 'true'
+    get :qrda_export, params: {hqmf_set_id: @measure.hqmf_set_id, isCQL: 'true'}
     assert_response :success
     assert_equal 'application/zip', response.header['Content-Type']
     assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
@@ -232,7 +232,7 @@ include Devise::Test::ControllerHelpers
 
     # Tests using different lengths of population titles.
     pop_details.each do |population_details|
-      get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details[:fixture], statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id
+      get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details[:fixture], statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id}
       assert_response :success
       assert_equal 'application/xlsx', response.header['Content-Type']
       assert_equal 'binary', response.header['Content-Transfer-Encoding']
@@ -241,14 +241,14 @@ include Devise::Test::ControllerHelpers
       temp.rewind()
       doc = Roo::Spreadsheet.open(temp.path)
       sheet1 = doc.sheet(population_details[:pop])
-      
+
       assert !sheet1.nil?
-      
+
       temp.close()
       temp.unlink()
     end
   end
-  
+
   test "Excel export composite measure" do
     measure_hqmf_set_id = "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
     calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'calc_results.json'))
@@ -256,7 +256,7 @@ include Devise::Test::ControllerHelpers
     population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'population_details.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'statement_details.json'))
 
-    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id
+    get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id}
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
@@ -294,7 +294,7 @@ include Devise::Test::ControllerHelpers
     population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'population_details.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'statement_details.json'))
 
-    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id
+    get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id}
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
@@ -345,11 +345,11 @@ include Devise::Test::ControllerHelpers
     assert_equal "Not Hispanic or Latino", row4[14]
     assert_equal "American Indian or Alaska Native", row4[15]
     assert_equal "M", row4[16]
-    
+
     temp.close()
     temp.unlink()
   end
-  
+
   test "Excel export cv measures" do
     measure_hqmf_set_id = "28AC347D-2F91-4A0C-9395-2602134BAA89"
     calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'calc_results.json'))
@@ -357,7 +357,7 @@ include Devise::Test::ControllerHelpers
     population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'population_details.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'statement_details.json'))
 
-    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id
+    get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id}
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
@@ -375,18 +375,18 @@ include Devise::Test::ControllerHelpers
     row3 = sheet1.row(3)
     assert_equal "[115]", row3[2]
     assert_equal "[115]", row3[6]
-    
+
     #Ensure that observ [nil] equals observ [nil] properly
     s1_r4 = sheet1.row(4)
     assert_equal "[nil]", s1_r4[2]
     assert_equal "[nil]", s1_r4[6]
-    
+
     #Ensure that patients whose expected observ is nil evaluate correctly when value is []
     sheet3 = doc.sheet("3 - Stratification 2")
     s3_r4 = sheet3.row(4)
     assert_equal "[]", s3_r4[3]
     assert_equal "[]", s3_r4[8]
-    
+
     temp.close()
     temp.unlink()
   end
@@ -397,8 +397,8 @@ include Devise::Test::ControllerHelpers
     population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'population_details.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'statement_details.json'))
     calc_results = {}.to_json
-    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id
-  
+    get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_hqmf_set_id: measure_hqmf_set_id}
+
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
