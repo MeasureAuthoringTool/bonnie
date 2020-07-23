@@ -36,7 +36,6 @@ class MeasuresController < ApplicationController
 
     params[:vsac_tgt] = vsac_tgt[:ticket]
     params[:vsac_tgt_expires_at] = vsac_tgt[:expires]
-
     measures, main_hqmf_set_id = persist_measure(params[:measure_file], params, current_user)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
@@ -91,7 +90,7 @@ class MeasuresController < ApplicationController
     if is_valid_year
       original_year = measure.measure_period['low']['value'][0..3]
       year_shift = year.to_i - original_year.to_i
-      successful_patient_shift = if !params[:measurement_period_shift_dates].nil?
+      successful_patient_shift = if params[:measurement_period_shift_dates].present?
                                    shift_years(measure, year_shift)
                                  else # No patients to shift dates on, so just save to measure
                                    true
