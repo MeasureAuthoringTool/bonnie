@@ -5,7 +5,7 @@ class PatientsController < ApplicationController
   def update
     old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
     begin
-      updated_patient = CQM::Patient.new(params["cqmPatient"])
+      updated_patient = CQM::Patient.new(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
@@ -19,7 +19,7 @@ class PatientsController < ApplicationController
 
   def create
     begin
-      patient = CQM::Patient.new(params["cqmPatient"])
+      patient = CQM::Patient.new(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
@@ -111,6 +111,14 @@ class PatientsController < ApplicationController
   end
 
 private
+
+  def cqm_patient_params
+    # It would be better if we could explicitely check all nested params, but given the number and depth of
+    # them, it just isn't feasible.  We will instead rely on Mongoid::Errors::UnknownAttribute to be thrown
+    # if any undeclared properties make it into the cqmPatient hash.  This is only possible because currently
+    # no models being instantiated here include the Mongoid::Attributes::Dynamic module.
+    params.require(:cqmPatient).permit!
+  end
 
   # if the patient has any existing measure ids that correspond to component measures, all 'sibling' measure ids will be added
   def populate_measure_ids_if_composite_measures(patient)
