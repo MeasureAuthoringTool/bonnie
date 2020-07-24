@@ -40,7 +40,8 @@ include Devise::Test::ControllerHelpers
       'expectedValues' => ['true'],
       'notes'=> 'Boop-Oop-a-Doop',
       'qdmPatient' => qdm_patient,
-      'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"]
+      'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"],
+      'user_id' => @user.id
     }}
   end
 
@@ -89,7 +90,8 @@ include Devise::Test::ControllerHelpers
       'givenNames'=> ['Betty'],
       'familyName'=> 'Boop',
       'qdmPatient' => qdm_patient,
-      'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C"]}}
+      'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C"],
+      'user_id' => @user.id}}
 
     expected_measure_ids = ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
