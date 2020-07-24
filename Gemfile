@@ -5,6 +5,7 @@ gem 'rails', '5.2.1'
 gem 'sprockets'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
+# Pinning sprockets-rails to 2.3.3 so that everything doesn't blow up. It might be time to start thinking about webpack.
 gem 'sprockets-rails', '2.3.3'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
@@ -37,6 +38,7 @@ gem "doorkeeper-mongodb", '~> 4.1.0'
 
 group :test, :development, :ci do
   gem 'pry'
+  # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
   gem 'teaspoon', '1.1.5'
   gem "overcommit"
   gem 'rubocop'
