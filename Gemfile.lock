@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 8b8dc48be2eb305734d24e72baf2d7535db113a9
-  branch: rails-5
+  revision: 76d3478c2204ee7caf2b7d46ae70aead448ccb0a
+  branch: MAT1385_rails_upgrade
   specs:
-    cqm-parsers (0.2.1.1)
+    cqm-parsers (3.1.0.0)
       activesupport (~> 5.0)
       builder (~> 3.1)
       cqm-models (~> 3.0.0)
@@ -11,10 +11,11 @@ GIT
       highline (~> 1.7.0)
       log4r (~> 1.1.10)
       memoist (~> 0.9.1)
-      mongoid (= 6.0.0)
-      mongoid-tree (~> 2.1.0)
+      mongoid (~> 6.4)
+      mongoid-tree (~> 2.1)
       mustache
       nokogiri (>= 1.8.5, < 1.11.0)
+      protected_attributes_continued (~> 1.4.0)
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
@@ -23,7 +24,7 @@ GIT
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
   revision: 12ebf153a7eaaac24262c21587de0ca50f8964d8
-  branch: rails-5
+  branch: MAT1385_rails_upgrade
   specs:
     cqm-reports (3.1.1)
       cqm-models (~> 3.0.0)
@@ -226,9 +227,9 @@ GEM
     minitest (5.14.1)
     mongo (2.12.2)
       bson (>= 4.8.2, < 5.0.0)
-    mongoid (6.0.0)
-      activemodel (~> 5.0)
-      mongo (~> 2.3)
+    mongoid (6.4.0)
+      activemodel (>= 5.1, < 6.0.0)
+      mongo (>= 2.5.1, < 3.0.0)
     mongoid-tree (2.1.1)
       mongoid (>= 4.0, < 8)
     multi_json (1.15.0)
@@ -251,6 +252,8 @@ GEM
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
+    protected_attributes_continued (1.4.0)
+      activemodel (>= 5.0)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -416,7 +419,7 @@ DEPENDENCIES
   less-rails
   maruku
   minitest
-  mongoid (= 6.0.0)
+  mongoid (= 6.4.0)
   multi_json
   newrelic_rpm
   non-stupid-digest-assets
