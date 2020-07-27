@@ -678,5 +678,97 @@
       "show_in_doc": 1,
       "recorded": true
     }
+  ],
+  "users#index": [
+    {
+      "verb": "GET",
+      "path": "/admin/users.json",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "_id": "501fdba3044a111b98000001",
+          "admin": false,
+          "agree_license": true,
+          "approved": true,
+          "company": "MITRE",
+          "company_url": "http://www.mitre.org/",
+          "crosswalk_enabled": false,
+          "dashboard": false,
+          "dashboard_set": false,
+          "email": "bonnie@example.com",
+          "first_name": "bonnie",
+          "last_name": "bonnie",
+          "portfolio": false,
+          "telephone": null,
+          "measure_count": 1,
+          "patient_count": 4,
+          "last_sign_in_at": "2015-07-23T18:25:43.511Z"
+        },
+        {
+          "_id": "501fdba3044a111b98000002",
+          "admin": true,
+          "agree_license": true,
+          "approved": true,
+          "company": "MITRE",
+          "company_url": "http://www.mitre.org/",
+          "crosswalk_enabled": false,
+          "dashboard": false,
+          "dashboard_set": false,
+          "email": "user_admin@example.com",
+          "first_name": "admin",
+          "last_name": "admin",
+          "portfolio": false,
+          "telephone": null,
+          "measure_count": 0,
+          "patient_count": 0,
+          "last_sign_in_at": "2015-08-23T18:25:43.511Z"
+        },
+        {
+          "_id": "501fdba3044a111b98000003",
+          "admin": false,
+          "agree_license": true,
+          "approved": true,
+          "company": "MITRE",
+          "company_url": "http://www.mitre.org/",
+          "crosswalk_enabled": false,
+          "dashboard": false,
+          "dashboard_set": false,
+          "email": "user_plain@example.com",
+          "first_name": "plain",
+          "last_name": "plain",
+          "portfolio": false,
+          "telephone": null,
+          "measure_count": 0,
+          "patient_count": 0,
+          "last_sign_in_at": "2015-06-23T18:25:43.511Z"
+        },
+        {
+          "_id": "501fdba3044a111b98000004",
+          "admin": false,
+          "agree_license": true,
+          "approved": false,
+          "company": "MITRE",
+          "company_url": "http://www.mitre.org/",
+          "crosswalk_enabled": false,
+          "dashboard": false,
+          "dashboard_set": false,
+          "email": "user_unapproved@example.com",
+          "first_name": "unapproved",
+          "last_name": "unapproved",
+          "portfolio": false,
+          "telephone": null,
+          "measure_count": 0,
+          "patient_count": 0,
+          "last_sign_in_at": "2015-05-23T18:25:43.511Z"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
   ]
 }
