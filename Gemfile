@@ -13,8 +13,8 @@ gem 'less-rails'
 gem "non-stupid-digest-assets"
 
 gem 'cqm-models', '~> 3.0.0'
-gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'rails-5'
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'rails-5'
+gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'MAT1385_rails_upgrade'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'MAT1385_rails_upgrade'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
