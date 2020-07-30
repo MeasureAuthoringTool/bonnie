@@ -52,7 +52,11 @@
       <h2 class="h1-style"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h2>
       <span class="settings-container">
         <div class="patients-settings">
-          {{#button "exportQrdaPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA <span class="sr-only">Patient Export</span>{{/button}}
+          {{#ifPortfolio}}
+              <a data-title="Portfolio Export Unavailable" data-toggle="tooltip" data-placement="bottom">{{#button "exportQrdaPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only">Patient Export</span>{{/button}}</a>
+          {{else}}
+              {{#button "exportQrdaPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA <span class="sr-only">Patient Export</span>{{/button}}
+          {{/ifPortfolio}}
           {{#button "exportExcelPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}
           {{#ifPortfolio}}
             {{#button "sharePatients" class="btn btn-default share-patients"}}<i class="fa fa-link" aria-hidden="true"></i> Share <span class="sr-only">Share</span>{{/button}}
