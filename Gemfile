@@ -13,8 +13,13 @@ gem 'less-rails'
 gem "non-stupid-digest-assets"
 
 gem 'cqm-models', '~> 3.0.0'
-gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'MAT1385_rails_upgrade'
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'MAT1385_rails_upgrade'
+gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
+
+# The cqm-parsers branch can be changed to bonnie_version once https://github.com/projecttacoma/cqm-parsers/pull/87
+# is merged, and then again to bonnie-on-fhir once https://github.com/projecttacoma/cqm-parsers/pull/88 is merged
+# and the rest of the development on that branch has been finished.
+# gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'MAT1385_rails_upgrade_bv'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
