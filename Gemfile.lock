@@ -132,8 +132,9 @@ GEM
     commonjs (0.2.7)
     concurrent-ruby (1.1.6)
     cqm-models (3.0.1)
-    cqm-reports (3.0.1)
+    cqm-reports (3.1.1)
       cqm-models (~> 3.0.0)
+      cqm-validators (~> 3.0.0)
       erubis (~> 2.7)
       log4r (~> 1.1)
       memoist (~> 0.9)
@@ -142,6 +143,8 @@ GEM
       nokogiri (~> 1.10)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
+    cqm-validators (3.0.0)
+      nokogiri (~> 1.10)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -396,7 +399,7 @@ DEPENDENCIES
   colorize
   cqm-models (~> 3.0.0)
   cqm-parsers!
-  cqm-reports (~> 3.0.0.pre.alpha.1)
+  cqm-reports (~> 3.1.1)
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)

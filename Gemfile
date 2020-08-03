@@ -13,7 +13,7 @@ gem 'less-rails'
 gem "non-stupid-digest-assets"
 
 gem 'cqm-models', '~> 3.0.0'
-gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
+gem 'cqm-reports', '~> 3.1.1'
 
 # The cqm-parsers branch can be changed to bonnie_version once https://github.com/projecttacoma/cqm-parsers/pull/87
 # is merged, and then again to bonnie-on-fhir once https://github.com/projecttacoma/cqm-parsers/pull/88 is merged
