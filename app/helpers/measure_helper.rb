@@ -73,8 +73,8 @@ module MeasureHelper
     def initialize(loading_exception_message)
       front_end_version = {
         title: "Error Uploading Measure",
-        summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.",
-        body: "Measure loading process encountered error: #{loading_exception_message.sub(/^#<.*Error: /, '').sub(/>$/, '')} Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.".html_safe
+        summary: "The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a FHIR Based Measure.",
+        body: "Please re-package and re-export your FHIR based measure from the MAT and try again.".html_safe
       }
       back_end_version = {
         json: {status: "error", messages: "Measure loading process encountered error: #{loading_exception_message}"},
