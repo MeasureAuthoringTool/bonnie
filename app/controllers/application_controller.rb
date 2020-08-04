@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
 
   def client_error
     # Grab better description of the given message and return as json
-    error_message = ErrorHelper.describe_error(params, Exception.new(params), request)
+    error_message = ErrorHelper.describe_error(params.permit!.to_h, Exception.new(params), request)
     respond_to do |format|
       format.json { render json: error_message }
     end

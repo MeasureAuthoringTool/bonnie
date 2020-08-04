@@ -75,7 +75,7 @@ class PatientsController < ApplicationController
       if (params[:results] && !params[:patients])
         measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
-        zip.puts measure_patients_summary(patients, params[:results], qrda_errors, html_errors, measure)
+        zip.puts measure_patients_summary(patients, params[:results].permit!.to_h, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload

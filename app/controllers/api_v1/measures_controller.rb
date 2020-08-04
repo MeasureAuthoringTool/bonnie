@@ -213,9 +213,10 @@ module ApiV1
     error :code => 500, :desc => "A server error occured."
     param_group :measure_upload
     def create
+      permitted_params = params.permit!.to_h
       measures, main_hqmf_set_id = create_measure(uploaded_file: params[:measure_file],
-                                                  measure_details: retrieve_measure_details(params),
-                                                  value_set_loader: build_vs_loader(params, true),
+                                                  measure_details: retrieve_measure_details(permitted_params),
+                                                  value_set_loader: build_vs_loader(permitted_params, true),
                                                   user: current_resource_owner)
 
       render json: {status: "success", url: "/api_v1/measures/#{main_hqmf_set_id}"}, status: :ok
@@ -233,7 +234,7 @@ module ApiV1
     def update
       measures, main_hqmf_set_id = update_measure(uploaded_file: params[:measure_file],
                                                   target_id: params[:id],
-                                                  value_set_loader: build_vs_loader(params, true),
+                                                  value_set_loader: build_vs_loader(params.permit!.to_h, true),
                                                   user: current_resource_owner)
 
       render json: {status: "success", url: "/api_v1/measures/#{main_hqmf_set_id}"}, status: :ok
