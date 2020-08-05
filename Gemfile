@@ -12,7 +12,6 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-# <<<<<<< HEAD
 # gem 'cqm-models', '~> 3.0.0'
 # gem 'cqm-parsers', '~> 0.2.1'
 # gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
@@ -22,10 +21,10 @@ gem "non-stupid-digest-assets"
 # gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'master'
 
  # gem 'cqm-parsers', :path => '../cqm-parsers'
- gem 'fhir-mongoid-models', :git => 'https://github.com/MeasureAuthoringTool/fhir-mongoid-models', :branch => 'develop'
+gem 'cqm-parsers', :path => '../cqm-parsers'
+gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
  # gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
 # gem 'cqm-reports', :path => '../cqm-reports'
-# =======
 # gem 'cqm-models', '~> 3.0.0'
 # gem 'cqm-reports', '~> 3.1.1'
 
@@ -33,8 +32,6 @@ gem "non-stupid-digest-assets"
 # is merged, and then again to bonnie-on-fhir once https://github.com/projecttacoma/cqm-parsers/pull/88 is merged
 # and the rest of the development on that branch has been finished.
 # gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'MAT1385_rails_upgrade_bof'
-# >>>>>>> MAT1385_rails_upgrade
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
