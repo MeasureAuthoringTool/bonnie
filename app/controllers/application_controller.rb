@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_filter :authenticate_user!, except: [:page_not_found, :server_error]
-  before_filter :log_additional_data
+  before_action :authenticate_user!, except: [:page_not_found, :server_error]
+  before_action :log_additional_data
   layout :layout_by_resource
 
   after_action :allow_no_iframe
@@ -38,14 +38,14 @@ class ApplicationController < ActionController::Base
 
   def client_error
     # Grab better description of the given message and return as json
-    error_message = ErrorHelper.describe_error(params, Exception.new(params), request)
+    error_message = ErrorHelper.describe_error(params.permit!.to_h, Exception.new(params), request)
     respond_to do |format|
       format.json { render json: error_message }
     end
   end
 
   protected
-  
+
   def log_additional_data
     request.env["exception_notifier.exception_data"] = {
       :current_user => current_user

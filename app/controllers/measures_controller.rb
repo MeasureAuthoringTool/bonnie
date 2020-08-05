@@ -22,7 +22,7 @@ class MeasuresController < ApplicationController
   end
 
   def create
-    if !params[:measure_file]
+    if params[:measure_file].blank?
       flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
@@ -36,8 +36,7 @@ class MeasuresController < ApplicationController
 
     params[:vsac_tgt] = vsac_tgt[:ticket]
     params[:vsac_tgt_expires_at] = vsac_tgt[:expires]
-
-    measures, main_hqmf_set_id = persist_measure(params[:measure_file], params, current_user)
+    measures, main_hqmf_set_id = persist_measure(params[:measure_file], params.permit!.to_h, current_user)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
     # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
@@ -91,7 +90,7 @@ class MeasuresController < ApplicationController
     if is_valid_year
       original_year = measure.measure_period['low']['value'][0..3]
       year_shift = year.to_i - original_year.to_i
-      successful_patient_shift = if !params[:measurement_period_shift_dates].nil?
+      successful_patient_shift = if params[:measurement_period_shift_dates].present?
                                    shift_years(measure, year_shift)
                                  else # No patients to shift dates on, so just save to measure
                                    true
@@ -121,17 +120,17 @@ class MeasuresController < ApplicationController
 
   private
 
-  def persist_measure(uploaded_file, params, user)
+  def persist_measure(uploaded_file, permitted_params, user)
     measure =
-      if params[:hqmf_set_id].present?
+      if permitted_params[:hqmf_set_id].present?
         update_measure(uploaded_file: uploaded_file,
-                      target_id: params[:hqmf_set_id],
-                      value_set_loader: build_vs_loader(params, false),
+                      target_id: permitted_params[:hqmf_set_id],
+                      value_set_loader: build_vs_loader(permitted_params, false),
                       user: user)
       else
         create_measure(uploaded_file: uploaded_file,
-                      measure_details: retrieve_measure_details(params),
-                      value_set_loader: build_vs_loader(params, false),
+                      measure_details: retrieve_measure_details(permitted_params),
+                      value_set_loader: build_vs_loader(permitted_params, false),
                       user: user)
       end
     #check_measures_for_unsupported_data_elements(measures)
