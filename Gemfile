@@ -20,10 +20,8 @@ gem "non-stupid-digest-assets"
 # gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
 # gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'master'
 
- # gem 'cqm-parsers', :path => '../cqm-parsers'
 gem 'cqm-parsers', :path => '../cqm-parsers'
 gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
- # gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
 # gem 'cqm-reports', :path => '../cqm-reports'
 # gem 'cqm-models', '~> 3.0.0'
 # gem 'cqm-reports', '~> 3.1.1'
