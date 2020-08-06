@@ -36,7 +36,7 @@ gem 'rubyzip', '>= 1.3.0'
 gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
-gem 'mongoid', '~> 6.4.2'
+gem 'mongoid', '~> 7.1'
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
