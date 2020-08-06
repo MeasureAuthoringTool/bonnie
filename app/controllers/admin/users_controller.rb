@@ -1,8 +1,8 @@
 class Admin::UsersController < ApplicationController
 
   protect_from_forgery
-  before_filter :authenticate_user!
-  before_filter :require_admin!
+  before_action :authenticate_user!
+  before_action :require_admin!
 
   respond_to :json
 
@@ -12,8 +12,8 @@ class Admin::UsersController < ApplicationController
     users = User.asc(:email).all.to_a # Need to convert to array so counts stick
     map = "function() { emit(this.user_id, 1); }"
     reduce = "function(user_id, counts) { return Array.sum(counts); }"
-    measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
-    patient_counts = CQM::Patient.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    patient_counts = CQM::Patient.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     users.each do |u|
       u.measure_count = measure_counts[u.id] || 0
       u.patient_count = patient_counts[u.id] || 0
@@ -48,9 +48,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    # Update select attributes directly so we can keep a more restrictive attr_accessible for other contexts
-    [:email, :admin, :portfolio, :dashboard].each { |attr| user.send("#{attr}=", params[attr]) }
-    user.save
+    user.update(user_params)
     respond_with user
   end
 
@@ -92,6 +90,10 @@ class Admin::UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.permit(:email, :admin, :portfolio, :dashboard)
+  end
 
   def require_admin!
     raise "User #{current_user.email} requesting resource requiring admin access" unless current_user.admin?

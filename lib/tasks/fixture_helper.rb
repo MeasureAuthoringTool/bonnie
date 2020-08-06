@@ -5,6 +5,13 @@ def collection_fixtures(*collection_names)
   end
 end
 
+def collection_fixtures_with_user(collection_names, user)
+  collection_names.each do |collection|
+    Mongoid.default_client[collection].drop # I think this rarely drops anything since collection_name hasnt been split out of the file name -Cole
+    add_collection(collection, user)
+  end
+end
+
 def load_measure_fixtures_from_folder(fixture_path, user = nil)
   path = File.join(Rails.root, 'test', 'fixtures', fixture_path)
   measure_id, measure_package_id = nil
@@ -21,14 +28,14 @@ def load_measure_fixtures_from_folder(fixture_path, user = nil)
   end
 end
 
-def add_collection(collection)
+def add_collection(collection, user = nil)
   # Mongoid names collections based off of the default_client argument.
   # With nested folders,the collection name is "records/X" (for example).
   # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
   collection_name = collection.split(File::SEPARATOR)[0]
 
   Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-    load_fixture_file(json_fixture_file, collection_name)
+    load_fixture_file(json_fixture_file, collection_name, user)
   end
 end
 

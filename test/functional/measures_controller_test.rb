@@ -26,7 +26,7 @@ include Devise::Test::ControllerHelpers
       assert_nil measure
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_fhir_Artifacts.zip'), 'application/zip')
 
-      post :create, {
+      post :create, params: {
           vsac_query_type: 'profile',
           vsac_query_profile: 'Latest eCQM',
           vsac_query_include_draft: 'false',
@@ -840,4 +840,5 @@ include Devise::Test::ControllerHelpers
   #   assert_equal 'CMS903v999', measure.cms_id
   #   assert_equal true, measure.calculation_method == 'EPISODE_OF_CARE'
   # end
+
 end
