@@ -20,7 +20,6 @@ class Thorax.Models.Measure extends Thorax.Model
     # Adapting FHIR model's set_id to work with QDM Model's hqmf_set_id.
     # TODO Remove once TS models implemented.
     thoraxMeasure.cqmMeasure.hqmf_set_id = attrs.set_id
-    thoraxMeasure.cqmMeasure.population_sets
 
     thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
     if attrs.value_sets?
