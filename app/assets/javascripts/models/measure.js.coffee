@@ -16,6 +16,12 @@ class Thorax.Models.Measure extends Thorax.Model
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
     thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+
+    # Adapting FHIR model's set_id to work with QDM Model's hqmf_set_id.
+    # TODO Remove once TS models implemented.
+    thoraxMeasure.cqmMeasure.hqmf_set_id = attrs.set_id
+    thoraxMeasure.cqmMeasure.population_sets
+
     thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
@@ -24,7 +30,6 @@ class Thorax.Models.Measure extends Thorax.Model
 
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
-
     stratificationPopulations = CQLMeasureHelpers.getStratificationsAsPopulationSets(thoraxMeasure.cqmMeasure.population_sets)
     # thoraxMeasure.population_sets is a combination of mongoose population_sets and mongoose stratifications
     # toObject() removes all mongoose specific fields (ie: '_id' and '_type')
@@ -45,7 +50,7 @@ class Thorax.Models.Measure extends Thorax.Model
       populationSets.add new Thorax.Models.PopulationSet(populationSet)
 
     thoraxMeasure.populations = populationSets
-    thoraxMeasure.displayedPopulation = populationSets.first()
+    thoraxMeasure.displayedPopulation # populationSets.first()
 
     # ignoring versions for diplay names
     oid_display_name_map = {}
