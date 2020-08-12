@@ -20,8 +20,8 @@
   </div>
 </div>
 
-{{!#collection class="dashboard-data" item-view='MeasureRowView'}}
-  {{!#unless cqmMeasure.component}}
+{{#collection class="dashboard-data" item-view='MeasureRowView'}}
+  {{#unless cqmMeasure.component}}
     <div class="measure">
       <div class="measure-col">
           <div class="measure-title">
@@ -134,5 +134,5 @@
       {{/collection}}
     {{/if}}
     </div>
-  {{!/unless}}
-{{!/collection}}
+  {{/unless}}
+{{/collection}}
