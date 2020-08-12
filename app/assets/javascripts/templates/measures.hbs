@@ -20,8 +20,8 @@
   </div>
 </div>
 
-{{#collection class="dashboard-data" item-view='MeasureRowView'}}
-  {{#unless cqmMeasure.component}}
+{{!#collection class="dashboard-data" item-view='MeasureRowView'}}
+  {{!#unless cqmMeasure.component}}
     <div class="measure">
       <div class="measure-col">
           <div class="measure-title">
@@ -53,6 +53,7 @@
         {{/if}}
         {{#unless cqmMeasure.composite}}
 <<<<<<< HEAD
+<<<<<<< HEAD
           <a disabled="disabled" href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
 =======
           <a href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
@@ -61,6 +62,15 @@
             <i class="fa fa-plus" aria-hidden="true"></i>
             <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
           </a>
+=======
+          <div class="btn-wrapper" data-toggle="tooltip" title="FHIR Patient creation is currently disabled. This feature will be available in future UATs.">
+            <a href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
+            </a>
+          </div>
+>>>>>>> Add tooltip to disabled new patient links
         {{/unless}}
       </div>
     {{#if multiplePopulations}}
@@ -101,6 +111,7 @@
           <div class="patient-listing-col">
             {{view "MeasureFractionView" model=differences.summary cms_id=cqmMeasure.cms_id}}
 <<<<<<< HEAD
+<<<<<<< HEAD
             <a disabled="disabled" href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
 =======
             <a href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
@@ -109,10 +120,19 @@
               <i class="fa fa-plus" aria-hidden="true"></i>
               <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
             </a>
+=======
+            <div class="btn-wrapper" data-toggle="tooltip" title="FHIR Patient creation is currently disabled. This feature will be available in future UATs.">
+              <a href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
+              </a>
+            </div>
+>>>>>>> Add tooltip to disabled new patient links
           </div>
         </div>
       {{/collection}}
     {{/if}}
     </div>
-  {{/unless}}
-{{/collection}}
+  {{!/unless}}
+{{!/collection}}
