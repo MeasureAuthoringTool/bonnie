@@ -43,13 +43,13 @@ class Thorax.Models.Measure extends Thorax.Model
       populationSet.sub_id = alphabet[index]
       populationSet.index = index
       # copy population criteria data to population
-      for popCode of populationSet.populations
-        # preserve the original population code for specifics rationale
-        populationSet[popCode] = _(code: popCode).extend(thoraxMeasure.cqmMeasure.population_criteria[popCode])
+#      for popCode of populationSet.populations
+#        # preserve the original population code for specifics rationale
+#        populationSet[popCode] = _(code: popCode).extend(thoraxMeasure.cqmMeasure.population_criteria[popCode])
       populationSets.add new Thorax.Models.PopulationSet(populationSet)
 
     thoraxMeasure.populations = populationSets
-    thoraxMeasure.displayedPopulation # populationSets.first()
+    thoraxMeasure.displayedPopulation = populationSets.first()
 
     # ignoring versions for diplay names
     oid_display_name_map = {}
