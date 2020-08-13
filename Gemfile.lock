@@ -1,14 +1,14 @@
 GIT
   remote: https://github.com/MeasureAuthoringTool/fhir-mongoid-models.git
-  revision: 544a1365f41d5b48a04743d114f9a95209083583
+  revision: 82c7fc03b773a33c816592bc9e1a169bc0e39c60
   branch: develop
   specs:
     fhir-mongoid-models (0.0.1)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 05e051742069d28491f21c672472631829259bb6
-  branch: feature/display-fhir-measure
+  revision: f97c1bcf97d83acd8fb77ba56c738dc58abb6a7a
+  branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
       activesupport (~> 5.2.1)
