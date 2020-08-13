@@ -1,4 +1,32 @@
 GIT
+  remote: https://github.com/MeasureAuthoringTool/fhir-mongoid-models.git
+  revision: 82c7fc03b773a33c816592bc9e1a169bc0e39c60
+  branch: develop
+  specs:
+    fhir-mongoid-models (0.0.1)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-parsers
+  revision: f97c1bcf97d83acd8fb77ba56c738dc58abb6a7a
+  branch: bonnie-on-fhir
+  specs:
+    cqm-parsers (0.2.1.1)
+      activesupport (~> 5.2.1)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 7.1.2)
+      mongoid-tree (~> 2.1.0)
+      mustache
+      nokogiri (>= 1.8.5, < 1.11.0)
+      rubyzip (~> 1.3)
+      typhoeus
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/randym/axlsx
   revision: 8e7b4b3b7259103452c191f73ce0bf64f66033fe
   branch: master
@@ -17,30 +45,6 @@ GIT
     exception_notification (4.4.3)
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
-
-PATH
-  remote: ../cqm-parsers
-  specs:
-    cqm-parsers (0.2.1.1)
-      activesupport (~> 5.2.1)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 7.1.2)
-      mongoid-tree (~> 2.1.0)
-      mustache
-      nokogiri (>= 1.8.5, < 1.11.0)
-      rubyzip (~> 1.3)
-      typhoeus
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-PATH
-  remote: ../fhir-mongoid-models
-  specs:
-    fhir-mongoid-models (0.0.1)
 
 GEM
   remote: https://rubygems.org/

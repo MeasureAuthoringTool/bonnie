@@ -17,8 +17,8 @@
 
     @on 'route', -> window.scrollTo(0, 0)
 
-    @applicationVersion = '<%=Bonnie::Version.current()%>';
-    @support_qdm_version = '<%= APP_CONFIG['support_qdm_version'] %>';
+    @applicationVersion = '<%=Bonnie::Version.current%>';
+    @support_fhir_version = '<%=Bonnie::Version.fhir_ver%>';
 
   routes:
     '':                                                'renderMeasures'

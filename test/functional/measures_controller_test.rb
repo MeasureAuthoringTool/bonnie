@@ -21,10 +21,10 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'Upload FHIR Measure' do
-    VCR.use_cassette('vsac_response_for_CMS104', @vcr_options) do
+    VCR.use_cassette('vsac_response_for_upload_CMS104', @vcr_options) do
       measure = CQM::Measure.where({set_id: '3F72D58F-4BCF-4AA3-A05E-EDC73197BG5F'}).first
       assert_nil measure
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_fhir_Artifacts.zip'), 'application/zip')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_Artifacts.zip'), 'application/zip')
 
       post :create, params: {
           vsac_query_type: 'profile',
@@ -42,7 +42,7 @@ include Devise::Test::ControllerHelpers
       assert_equal '42BF391F-38A3-4C0F-9ECE-DCD47E9609D9', measure.set_id
       assert_equal 'CMS104', measure.fhir_measure.title.value
       assert_equal 5, measure.libraries.size
-      assert_equal 46, measure.value_set_ids.count
+      assert_equal 48, measure.value_sets.count
     end
   end
 

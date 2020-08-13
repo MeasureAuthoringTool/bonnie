@@ -181,11 +181,11 @@ module MeasureHelper
   end
 
   def create_measure(uploaded_file:, measure_details:, value_set_loader:, user:)
-    measure = extract_measures!(uploaded_file.tempfile, measure_details, value_set_loader)
+    measure = extract_measure!(uploaded_file.tempfile, measure_details, value_set_loader)
     existing = CQM::Measure.by_user(user).where(set_id: measure.set_id).first
     raise MeasureLoadingMeasureAlreadyExists.new(measure.set_id) unless existing.nil?
     save_and_post_process(measure, user)
-    return measure
+    measure
   rescue StandardError => e
     measure&.delete_self_and_child_docs
     e = turn_exception_into_shared_error_if_needed(e)
@@ -194,23 +194,22 @@ module MeasureHelper
   end
 
   def update_measure(uploaded_file:, target_id:, value_set_loader:, user:)
-    existing = CQM::Measure.by_user(user).where({:hqmf_set_id=> target_id}).first
+    existing = CQM::Measure.by_user(user).where({:set_id=> target_id}).first
     raise MeasureUpdateMeasureNotFound.new if existing.nil?
     measure_details = extract_measure_details_from_measure(existing)
-    original_year = existing.measure_period['low']['value'][0..3]
+    # original_year = existing.measure_period['low']['value'][0..3]
 
-    measures, main_hqmf_set_id = extract_measures!(uploaded_file.tempfile, measure_details, value_set_loader)
-    raise MeasureLoadingUpdatingWithMismatchedMeasure.new if main_hqmf_set_id != existing.hqmf_set_id
+    measure = extract_measure!(uploaded_file.tempfile, measure_details, value_set_loader)
+    raise MeasureLoadingUpdatingWithMismatchedMeasure.new if measure.set_id != existing.set_id
+    # TODO: update this as while working on update measure story
     # Maintain the year shift if there was one
-    measures.each do |measure|
-      measure.measure_period[:low][:value] = original_year + '01010000' # Jan 1, 00:00
-      measure.measure_period[:high][:value] = original_year + '12312359' # Dec 31, 23:59
-    end
-    delete_for_update(existing, user)
-    save_and_post_process(measures, user)
-    return measures, main_hqmf_set_id
+    # measure.measure_period[:low][:value] = original_year + '01010000' # Jan 1, 00:00
+    # measure.measure_period[:high][:value] = original_year + '12312359' # Dec 31, 23:59
+    existing.delete
+    save_and_post_process(measure, user)
+    measure
   rescue StandardError => e
-    measures&.each(&:delete_self_and_child_docs)
+    measure&.delete_self_and_child_docs
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, uploaded_file, user)
     raise e
@@ -226,7 +225,7 @@ module MeasureHelper
     return {
       'episode_of_care' => measure.calculation_method == 'EPISODE_OF_CARE',
       'calculate_sdes' => measure.calculate_sdes,
-      'population_titles' => measure.population_sets.map(&:title) + measure.all_stratifications.map(&:title)
+      'population_titles' => '' # measure.population_sets.map(&:title) + measure.all_stratifications.map(&:title)
     }
   end
 
@@ -294,10 +293,10 @@ module MeasureHelper
     existing.delete
   end
 
-  def extract_measures!(measure_file, measure_details, value_set_loader)
+  def extract_measure!(measure_file, measure_details, value_set_loader)
     loader = Measures::BundleLoader.new(measure_file, measure_details, value_set_loader)
-    measure = loader.extract_measures
-    return measure
+    measure = loader.extract_measure
+    measure
   rescue Measures::MeasureLoadingInvalidPackageException => e
     raise MeasureLoadingBadPackage.new(e.message)
   rescue Util::VSAC::VSACError => e

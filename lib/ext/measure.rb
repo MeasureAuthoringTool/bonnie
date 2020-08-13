@@ -15,13 +15,11 @@ module CQM
     def save_self_and_child_docs
       save!
       package.save! if package.present?
-      value_sets.each(&:save!)
     end
 
     def associate_self_and_child_docs_to_user(user)
       self.user = user
       package.user = user if package.present?
-      value_sets.each { |vs| vs.user = user }
     end
 
     # note that this method doesn't change the _id of embedded documents, but that should be fine
@@ -34,13 +32,11 @@ module CQM
 
     def delete_self_and_child_docs
       package.delete if package.present?
-      value_sets.each(&:delete)
       delete
     end
 
     def destroy_self_and_child_docs
       package.destroy if package.present?
-      value_sets.each(&:destroy)
       destroy
     end
 

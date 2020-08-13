@@ -16,6 +16,11 @@ class Thorax.Models.Measure extends Thorax.Model
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
     thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+
+    # Adapting FHIR model's set_id to work with QDM Model's hqmf_set_id.
+    # TODO Remove once TS models implemented.
+    thoraxMeasure.cqmMeasure.hqmf_set_id = attrs.set_id
+
     thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
@@ -24,7 +29,6 @@ class Thorax.Models.Measure extends Thorax.Model
 
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
-
     stratificationPopulations = CQLMeasureHelpers.getStratificationsAsPopulationSets(thoraxMeasure.cqmMeasure.population_sets)
     # thoraxMeasure.population_sets is a combination of mongoose population_sets and mongoose stratifications
     # toObject() removes all mongoose specific fields (ie: '_id' and '_type')
@@ -39,9 +43,9 @@ class Thorax.Models.Measure extends Thorax.Model
       populationSet.sub_id = alphabet[index]
       populationSet.index = index
       # copy population criteria data to population
-      for popCode of populationSet.populations
-        # preserve the original population code for specifics rationale
-        populationSet[popCode] = _(code: popCode).extend(thoraxMeasure.cqmMeasure.population_criteria[popCode])
+#      for popCode of populationSet.populations
+#        # preserve the original population code for specifics rationale
+#        populationSet[popCode] = _(code: popCode).extend(thoraxMeasure.cqmMeasure.population_criteria[popCode])
       populationSets.add new Thorax.Models.PopulationSet(populationSet)
 
     thoraxMeasure.populations = populationSets
