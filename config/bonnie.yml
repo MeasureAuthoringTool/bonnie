@@ -12,7 +12,7 @@ defaults: &defaults
     default_release: eCQM Update 2020-05-07
   enable_client_error_email: true
   # oldest version of QDM that can be loaded
-  support_fhir_version: R4.0.1
+  support_fhir_version: 4.0.1
   # Place holder email addresses for email alerts. This email is not valid.
   # This email should be configured in a '<root>/config/email.yml' file
   # for deployments.
