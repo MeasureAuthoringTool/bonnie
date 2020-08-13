@@ -27,14 +27,14 @@ include Devise::Test::ControllerHelpers
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_Artifacts.zip'), 'application/zip')
 
       post :create, params: {
-          vsac_query_type: 'profile',
-          vsac_query_profile: 'Latest eCQM',
-          vsac_query_include_draft: 'false',
-          vsac_query_measure_defined: 'true',
-          vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
-          measure_file: measure_file,
-          measure_type: 'ep',
-          calculation_type: 'patient'
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
       }
 
       assert_response :redirect

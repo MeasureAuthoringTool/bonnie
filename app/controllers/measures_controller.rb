@@ -133,7 +133,7 @@ class MeasuresController < ApplicationController
                       value_set_loader: build_vs_loader(permitted_params, false),
                       user: user)
       end
-    #check_measures_for_unsupported_data_elements(measures)
+    # check_measures_for_unsupported_data_elements(measures)
     return measure, measure.set_id
   end
 
