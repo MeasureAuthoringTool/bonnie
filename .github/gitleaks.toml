@@ -140,7 +140,7 @@ title = "gitleaks config"
 	[[rules.whitelist]]
 	    regex = '''(secret_key_base:.*|secret: \'Secret\')'''
 	    description = "Ignore secret_key_base params these are allowed to be in the repo for dev and test, also ignore secret: Secret finding this is a false positive."
-
+	
 
 [[rules]]
 	description = "WP-Config"
@@ -167,5 +167,5 @@ title = "gitleaks config"
 
 [whitelist]
 	description = "Custom whitelist to exclude images and gitleaks config and any other BMAT files"
-	file = '''(backend_calculation_excel_shared_patient\.yml|moment-timezone-with-data-2010-2020\.js|jquery\.js|locales.min\.js|latest\.json|moment-timezone-with-data.min\.js|moment-timezone-with-data\.js|demo\.html|.*\.map|.*\.min\.js|ext-all\.js|app-2a09dc1c9acadab58e390b770a9565d0\.js|user_test\.rb|vcr_setup\.rb|cql_test\.rb|bonnie_users_test\.rb|user_mailer_test\.rb|registrations_controller_test\.rb|measures_controller_test\.rb|measures_controller_composite_test\.rb|invalid_vsac_response\.yml|bad_vsac_creds\.yml|backend_calculator_test\.yml|backend_calculation_json_as_default\.yml|backend_calculation_json\.yml|backend_calculation_excel_shared_patient_composite\.yml|backend_calculation_excel_no_patients\.yml|backend_calculation_excel\.yml|user_unapproved\.json|user_plain\.json|user_admin\.json|bonnie\.json|cms104v3_export_patients_test\.json|Diagnosis_Facility_Patients\.json|components\.json|calc_results\.json|108v7 Elements_108v7 Test\.json|CMS.*v.*\.json|vsac\.rake|cql_testing\.rake|seeds\.rb|local\.rb|new\.html\.erb|edit\.html\.erb|.*\.js.coffee|gitleaks\.toml)$'''
+	file = '''(backend_calculation_excel_shared_patient\.yml|patient_test.rb|moment-timezone-with-data-2010-2020\.js|jquery\.js|locales.min\.js|latest\.json|moment-timezone-with-data.min\.js|moment-timezone-with-data\.js|demo\.html|.*\.map|.*\.min\.js|ext-all\.js|app-2a09dc1c9acadab58e390b770a9565d0\.js|user_test\.rb|vcr_setup\.rb|cql_test\.rb|bonnie_users_test\.rb|user_mailer_test\.rb|registrations_controller_test\.rb|measures_controller_test\.rb|measures_controller_composite_test\.rb|invalid_vsac_response\.yml|bad_vsac_creds\.yml|backend_calculator_test\.yml|backend_calculation_json_as_default\.yml|backend_calculation_json\.yml|backend_calculation_excel_shared_patient_composite\.yml|backend_calculation_excel_no_patients\.yml|backend_calculation_excel\.yml|user_unapproved\.json|user_plain\.json|user_admin\.json|bonnie\.json|cms104v3_export_patients_test\.json|Diagnosis_Facility_Patients\.json|components\.json|calc_results\.json|108v7 Elements_108v7 Test\.json|CMS.*v.*\.json|vsac\.rake|cql_testing\.rake|seeds\.rb|local\.rb|new\.html\.erb|edit\.html\.erb|.*\.js.coffee|gitleaks\.toml)$'''
 
