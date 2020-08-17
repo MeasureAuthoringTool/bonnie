@@ -47,18 +47,7 @@ class MeasuresController < ApplicationController
 
   def destroy
     measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
-
-    if measure.component
-      render status: :bad_request, json: {error: "Component measures can't be deleted individually."}
-      return
-    elsif measure.composite
-      # If the measure if a composite, delete all the associated components
-      measure.component_hqmf_set_ids.each do |component_hqmf_set_id|
-        CQM::Measure.by_user(current_user).where(hqmf_set_id: component_hqmf_set_id).first.destroy_self_and_child_docs
-      end
-    end
     measure.destroy_self_and_child_docs
-
     render :json => measure
   end
 

@@ -63,16 +63,16 @@
     if cqmMeasure.calculate_sdes && populationSet.get('supplemental_data_elements')
       for statement in populationSet.get('supplemental_data_elements')
         # Mark all Supplemental Data Elements as relevant
-        @_markStatementRelevant(cqmMeasure.cql_libraries, statementRelevance, cqmMeasure.main_cql_library, statement.statement_name, "TRUE")
+        @_markStatementRelevant(cqmMeasure.cql_libraries, statementRelevance, cqmMeasure.title, statement.statement_name, "TRUE")
 
     for population, relevance of populationRelevance
       # If the population is values, that means we need to mark relevance for the OBSERVs
       if (population == 'observation_values')
         for observation in populationSet.get('observations')
-          @_markStatementRelevant(cqmMeasure.cql_libraries, statementRelevance, cqmMeasure.main_cql_library, observation.observation_function.statement_name, relevance)
+          @_markStatementRelevant(cqmMeasure.cql_libraries, statementRelevance, cqmMeasure.title, observation.observation_function.statement_name, relevance)
       else
         relevantStatement = populationSet.get('populations')[population].statement_name
-        @_markStatementRelevant(cqmMeasure.cql_libraries, statementRelevance, cqmMeasure.main_cql_library, relevantStatement, relevance)
+        @_markStatementRelevant(cqmMeasure.cql_libraries, statementRelevance, cqmMeasure.title, relevantStatement, relevance)
     return statementRelevance
 
   ###*

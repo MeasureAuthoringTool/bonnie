@@ -9,7 +9,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @cqmMeasure = @model.get('cqmMeasure')
     @cqmValueSets = @model.get('cqmValueSets')
     @cqmValueSetsByOid = @cqmValueSets.reduce (result, valueSet) ->
-      result[valueSet.oid] = valueSet
+      result[valueSet.id] = valueSet
       result
     , {}
 
@@ -32,14 +32,30 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   getVersionAndCodes: (oid) ->
     valueSet = @cqmValueSetsByOid[oid]
-    for code in valueSet.concepts
+    concepts = @getIncludedConcepts(valueSet.compose.include)
+    for code in concepts
       code.hasLongDisplayName = code.display_name.length > 160
 
-    codes = new Backbone.PageableCollection(@sortAndFilterCodes(valueSet.concepts), @paginationOptions)
+    codes = new Backbone.PageableCollection(@sortAndFilterCodes(concepts), @paginationOptions)
     version = valueSet.version
     if version.match(/^Draft/)
       version = "Draft"
     [version, codes]
+
+  ###
+   * Collect all the ValueSet concepts from IncludedConcept
+  ###
+  getIncludedConcepts: (valueSetIncludes) ->
+    concepts = [];
+    for codeSystem in valueSetIncludes
+      for concept in codeSystem.concept
+        concepts.push({
+          code: concept.code,
+          display_name: concept.display
+          code_system_name: codeSystem.system,
+          code_system_version: codeSystem.version
+        })
+    concepts
 
   addSummaryValueSet: (valueSet, oid, cid, name, codes) ->
     # only add value set info summaryValueSets if it isn't there already
@@ -57,8 +73,8 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         # Direct Reference Codes
         drcGuidsAndNames = {}
         for value in @model.valueSets()
-          if ValueSetHelpers.isDirectReferenceCode(value.oid)
-            drcGuidsAndNames[value.oid] = value['display_name']
+          if ValueSetHelpers.isDirectReferenceCode(value.id)
+            drcGuidsAndNames[value.id] = value['title']
 
         if library.elm.library.codes
           library.elm.library.codes.def.forEach (code) =>
@@ -77,7 +93,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         if library.elm.library.valueSets
           library.elm.library.valueSets.def.forEach (valueSet) =>
             name = valueSet.name
-            oid = valueSet.id
+            oid = @getOidFromUrl(valueSet.id)
             cid = _.uniqueId('c')
 
             [version, codes] = @getVersionAndCodes(oid)
@@ -88,6 +104,15 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
     terminology = @filterValueSets(terminology)
     @terminology.add(terminology)
+
+  ###
+   * Get the ValueSet oid from url by using REGEX: http://hl7.org/fhir/datatypes.html#oid
+   * e.g. url : 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.836'
+   * oid will be '2.16.840.1.114222.4.11.836'
+  ###
+  getOidFromUrl: (url) ->
+    re = /[0-2](\.(0|[1-9][0-9]*))+/g;
+    url.match(re) && url.match(re)[0];
 
   filterValueSets: (valueSets) ->
     # returns unique (by name and oid) value sets
