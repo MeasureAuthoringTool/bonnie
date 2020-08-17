@@ -15,7 +15,7 @@ gem "non-stupid-digest-assets"
 gem 'cqm-models', '~> 3.0.0'
 gem 'cqm-reports', '~> 3.1.1'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie_version'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
