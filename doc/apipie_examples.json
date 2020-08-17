@@ -434,5 +434,341 @@
       "show_in_doc": 1,
       "recorded": true
     }
+  ],
+  "patients#create": [
+    {
+      "verb": "POST",
+      "path": "/patients",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "cqmPatient": {
+          "bundleId": "F",
+          "expectedValues": [
+            "true"
+          ],
+          "familyName": "Boop",
+          "givenNames": [
+            "Betty"
+          ],
+          "measure_ids": [
+            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+          ],
+          "notes": "Boop-Oop-a-Doop",
+          "qdmPatient": {
+            "birthDatetime": "1930-09-09",
+            "dataElements": [
+              {
+                "dataElementCodes": [
+                  {
+                    "code": "M",
+                    "system": "2.16.840.1.113883.5.1",
+                    "display": "Male"
+                  }
+                ],
+                "_id": "5ccb0c8857a11ed7a196dc9e",
+                "qdmTitle": "Patient Characteristic Sex",
+                "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+                "qdmCategory": "patient_characteristic",
+                "qdmStatus": "gender",
+                "qdmVersion": "5.4",
+                "_type": "QDM::PatientCharacteristicSex",
+                "codeListId": "2.16.840.1.113762.1.4.1",
+                "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+                "id": {
+                  "qdmVersion": "5.4",
+                  "namingSystem": "",
+                  "value": "5ccb0c8857a11ed7a196dc9e"
+                }
+              }
+            ],
+            "extendedData": {
+              "adverse_event": "ADVERSE EVENT",
+              "encounter": "ENCOUNTER",
+              "family_history": "MYSTERIOUS"
+            },
+            "qdmVersion": "-1.3"
+          },
+          "user_id": "501fdba3044a111b98000001"
+        }
+      },
+      "response_data": {
+        "_id": "5f1b46f2c6a2db6b887193c9",
+        "bundleId": "F",
+        "expectedValues": [
+          "true"
+        ],
+        "familyName": "Boop",
+        "givenNames": [
+          "Betty"
+        ],
+        "measure_ids": [
+          "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+        ],
+        "notes": "Boop-Oop-a-Doop",
+        "provider_ids": [
+
+        ],
+        "qdmPatient": {
+          "_id": "5f1b46f2c6a2db6b887193ca",
+          "birthDatetime": "1930-09-09T00:00:00.000+00:00",
+          "dataElements": [
+            {
+              "_id": {
+                "qdmVersion": "5.4",
+                "namingSystem": null,
+                "value": "5ccb0c8857a11ed7a196dc9e"
+              },
+              "codeListId": "2.16.840.1.113762.1.4.1",
+              "dataElementCodes": [
+                {
+                  "code": "M",
+                  "system": "2.16.840.1.113883.5.1",
+                  "display": "Male"
+                }
+              ],
+              "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+              "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+              "id": {
+                "qdmVersion": "5.4",
+                "namingSystem": null,
+                "value": "5ccb0c8857a11ed7a196dc9e"
+              },
+              "qdmCategory": "patient_characteristic",
+              "qdmStatus": "gender",
+              "qdmTitle": "Patient Characteristic Sex",
+              "qdmVersion": "5.4",
+              "_type": "QDM::PatientCharacteristicSex"
+            }
+          ],
+          "extendedData": {
+            "adverse_event": "ADVERSE EVENT",
+            "encounter": "ENCOUNTER",
+            "family_history": "MYSTERIOUS"
+          },
+          "qdmVersion": "-1.3"
+        },
+        "user_id": "501fdba3044a111b98000001"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "patients#update": [
+    {
+      "verb": "POST",
+      "path": "/patients/5f1b08fdc6a2db61e731caa9",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "_id": "5f1b08fdc6a2db61e731caa9",
+        "cqmPatient": {
+          "bundleId": "F",
+          "expectedValues": [
+            "true"
+          ],
+          "familyName": "Boop",
+          "givenNames": [
+            "Betty"
+          ],
+          "measure_ids": [
+            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+          ],
+          "notes": "Boop-Oop-a-Doop",
+          "qdmPatient": {
+            "birthDatetime": "1930-09-09",
+            "dataElements": [
+              {
+                "dataElementCodes": [
+                  {
+                    "code": "M",
+                    "system": "2.16.840.1.113883.5.1",
+                    "display": "Male"
+                  }
+                ],
+                "_id": "5ccb0c8857a11ed7a196dc9e",
+                "qdmTitle": "Patient Characteristic Sex",
+                "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+                "qdmCategory": "patient_characteristic",
+                "qdmStatus": "gender",
+                "qdmVersion": "5.4",
+                "_type": "QDM::PatientCharacteristicSex",
+                "codeListId": "2.16.840.1.113762.1.4.1",
+                "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+                "id": {
+                  "qdmVersion": "5.4",
+                  "namingSystem": "",
+                  "value": "5ccb0c8857a11ed7a196dc9e"
+                }
+              }
+            ],
+            "extendedData": {
+              "adverse_event": "ADVERSE EVENT",
+              "encounter": "ENCOUNTER",
+              "family_history": "MYSTERIOUS"
+            },
+            "qdmVersion": "-1.3"
+          }
+        }
+      },
+      "response_data": {
+        "_id": "5f1b08fdc6a2db61e731caa9",
+        "bundleId": "F",
+        "expectedValues": [
+          "true"
+        ],
+        "familyName": "Boop",
+        "givenNames": [
+          "Betty"
+        ],
+        "measure_ids": [
+          "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+        ],
+        "notes": "Boop-Oop-a-Doop",
+        "provider_ids": [
+
+        ],
+        "qdmPatient": {
+          "_id": "5f1b08fdc6a2db61e731caac",
+          "birthDatetime": "1930-09-09T00:00:00.000+00:00",
+          "dataElements": [
+            {
+              "_id": {
+                "qdmVersion": "5.4",
+                "namingSystem": null,
+                "value": "5ccb0c8857a11ed7a196dc9e"
+              },
+              "codeListId": "2.16.840.1.113762.1.4.1",
+              "dataElementCodes": [
+                {
+                  "code": "M",
+                  "system": "2.16.840.1.113883.5.1",
+                  "display": "Male"
+                }
+              ],
+              "description": "Patient Characteristic Sex: ONCAdministrativeSex",
+              "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+              "id": {
+                "qdmVersion": "5.4",
+                "namingSystem": null,
+                "value": "5ccb0c8857a11ed7a196dc9e"
+              },
+              "qdmCategory": "patient_characteristic",
+              "qdmStatus": "gender",
+              "qdmTitle": "Patient Characteristic Sex",
+              "qdmVersion": "5.4",
+              "_type": "QDM::PatientCharacteristicSex"
+            }
+          ],
+          "extendedData": {
+            "adverse_event": "ADVERSE EVENT",
+            "encounter": "ENCOUNTER",
+            "family_history": "MYSTERIOUS"
+          },
+          "qdmVersion": "-1.3"
+        },
+        "user_id": "501fdba3044a111b98000001"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#index": [
+    {
+      "verb": "GET",
+      "path": "/admin/users.json",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "_id": "501fdba3044a111b98000001",
+          "admin": false,
+          "agree_license": true,
+          "approved": true,
+          "company": "MITRE",
+          "company_url": "http://www.mitre.org/",
+          "crosswalk_enabled": false,
+          "dashboard": false,
+          "dashboard_set": false,
+          "email": "bonnie@example.com",
+          "first_name": "bonnie",
+          "last_name": "bonnie",
+          "portfolio": false,
+          "telephone": null,
+          "measure_count": 1,
+          "patient_count": 4,
+          "last_sign_in_at": "2015-07-23T18:25:43.511Z"
+        },
+        {
+          "_id": "501fdba3044a111b98000002",
+          "admin": true,
+          "agree_license": true,
+          "approved": true,
+          "company": "MITRE",
+          "company_url": "http://www.mitre.org/",
+          "crosswalk_enabled": false,
+          "dashboard": false,
+          "dashboard_set": false,
+          "email": "user_admin@example.com",
+          "first_name": "admin",
+          "last_name": "admin",
+          "portfolio": false,
+          "telephone": null,
+          "measure_count": 0,
+          "patient_count": 0,
+          "last_sign_in_at": "2015-08-23T18:25:43.511Z"
+        },
+        {
+          "_id": "501fdba3044a111b98000003",
+          "admin": false,
+          "agree_license": true,
+          "approved": true,
+          "company": "MITRE",
+          "company_url": "http://www.mitre.org/",
+          "crosswalk_enabled": false,
+          "dashboard": false,
+          "dashboard_set": false,
+          "email": "user_plain@example.com",
+          "first_name": "plain",
+          "last_name": "plain",
+          "portfolio": false,
+          "telephone": null,
+          "measure_count": 0,
+          "patient_count": 0,
+          "last_sign_in_at": "2015-06-23T18:25:43.511Z"
+        },
+        {
+          "_id": "501fdba3044a111b98000004",
+          "admin": false,
+          "agree_license": true,
+          "approved": false,
+          "company": "MITRE",
+          "company_url": "http://www.mitre.org/",
+          "crosswalk_enabled": false,
+          "dashboard": false,
+          "dashboard_set": false,
+          "email": "user_unapproved@example.com",
+          "first_name": "unapproved",
+          "last_name": "unapproved",
+          "portfolio": false,
+          "telephone": null,
+          "measure_count": 0,
+          "patient_count": 0,
+          "last_sign_in_at": "2015-05-23T18:25:43.511Z"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
   ]
 }
