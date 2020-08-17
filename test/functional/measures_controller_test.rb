@@ -20,7 +20,7 @@ include Devise::Test::ControllerHelpers
     @vcr_options = {match_requests_on: [:method, :uri_no_st]}
   end
 
-  test 'Upload FHIR Measure' do
+  test 'Upload & destroy FHIR Measure' do
     VCR.use_cassette('vsac_response_for_upload_CMS104', @vcr_options) do
       measure = CQM::Measure.where({set_id: '3F72D58F-4BCF-4AA3-A05E-EDC73197BG5F'}).first
       assert_nil measure
@@ -43,6 +43,11 @@ include Devise::Test::ControllerHelpers
       assert_equal 'CMS104', measure.fhir_measure.title.value
       assert_equal 5, measure.libraries.size
       assert_equal 48, measure.value_sets.count
+
+      # delete measure
+      delete :destroy, params: { id: measure.id.to_s }
+      measure = CQM::Measure.where({set_id: '42BF391F-38A3-4C0F-9ECE-DCD47E9609D9'}).first
+      assert_nil measure
     end
   end
 
@@ -396,45 +401,6 @@ include Devise::Test::ControllerHelpers
   #     orig = measure.cql_libraries[0].statement_dependencies.select {|sd| sd.statement_name == 'Qualifying.Encounters'}[0].statement_name
   #     shown = measure_res['cql_libraries'][0]['statement_dependencies'].select {|sd| sd['statement_name'] == 'Qualifying.Encounters'}[0]['statement_name']
   #     assert_equal orig, shown
-  #   end
-  # end
-  #
-  # test 'measure destroy' do
-  #   VCR.use_cassette('measure_destroy', @vcr_options) do
-  #     measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
-  #     measure_file2 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS134v8.zip'), 'application/zip')
-  #
-  #     post :create, {
-  #       vsac_query_type: 'profile',
-  #       vsac_query_profile: 'Latest eCQM',
-  #       vsac_query_include_draft: 'false',
-  #       vsac_query_measure_defined: 'true',
-  #       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
-  #       measure_file: measure_file1,
-  #       measure_type: 'ep',
-  #       calculation_type: 'patient'
-  #     }
-  #     post :create, {
-  #       vsac_query_type: 'profile',
-  #       vsac_query_profile: 'Latest eCQM',
-  #       vsac_query_include_draft: 'false',
-  #       vsac_query_measure_defined: 'true',
-  #       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
-  #       measure_file: measure_file2,
-  #       measure_type: 'ep',
-  #       calculation_type: 'patient'
-  #     }
-  #
-  #     assert_equal 3, CQM::Measure.count
-  #     assert_equal 3, CQM::MeasurePackage.count
-  #     assert_equal 71, CQM::ValueSet.count
-  #
-  #     delete :destroy, {id: CQM::Measure.where({cms_id: 'CMS134v8'}).first.id}
-  #     assert_response :success
-  #
-  #     assert_equal 2, CQM::Measure.count
-  #     assert_equal 2, CQM::MeasurePackage.count
-  #     assert_equal 26, CQM::ValueSet.count
   #   end
   # end
   #
