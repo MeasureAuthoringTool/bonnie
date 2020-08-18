@@ -52,11 +52,13 @@
           {{view "MeasureFractionView" model=differences.summary cms_id=cqmMeasure.cms_id}}
         {{/if}}
         {{#unless cqmMeasure.composite}}
-          <a disabled="disabled" href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
-          </a>
+          <div class="btn-wrapper" data-toggle="tooltip" title="FHIR Patient creation is currently disabled. This feature will be available in future UATs.">
+            <a href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
+            </a>
+          </div>
         {{/unless}}
       </div>
     {{#if multiplePopulations}}
@@ -96,11 +98,13 @@
           </div>
           <div class="patient-listing-col">
             {{view "MeasureFractionView" model=differences.summary cms_id=cqmMeasure.cms_id}}
-            <a disabled="disabled" href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
-              <i class="fa fa-user" aria-hidden="true"></i>
-              <i class="fa fa-plus" aria-hidden="true"></i>
-              <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
-            </a>
+            <div class="btn-wrapper" data-toggle="tooltip" title="FHIR Patient creation is currently disabled. This feature will be available in future UATs.">
+              <a href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
+              </a>
+            </div>
           </div>
         </div>
       {{/collection}}

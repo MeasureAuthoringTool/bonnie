@@ -10,6 +10,7 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
   events:
     rendered: ->
       if @collection.isEmpty() then @importMeasure()
+      @$('div[data-toggle="tooltip"]').tooltip()
 
 class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 
