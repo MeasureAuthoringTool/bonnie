@@ -380,6 +380,8 @@ Metrics/ClassLength:
 
 # Offense count: 18
 Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
   Max: 35
 
 # Offense count: 55
@@ -779,3 +781,7 @@ Style/ZeroLengthPredicate:
 # URISchemes: http, https
 Layout/LineLength:
   Max: 363
+
+Style/FormatStringToken:
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
