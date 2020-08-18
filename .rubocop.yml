@@ -1,5 +1,8 @@
 inherit_from: .rubocop_todo.yml
 AllCops:
+  # Cops added by Rubocop since initial config. They make enough noise that the changes required to satisfy
+  # all warnings warrant their own ticket.  Disabling for now.
+  NewCops: disable
   TargetRubyVersion: 2.4
   Exclude:
     - 'bin/**/*'
