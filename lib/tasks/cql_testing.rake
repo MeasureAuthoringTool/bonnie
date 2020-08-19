@@ -109,7 +109,7 @@ namespace :bonnie do
     # fileset_dir: directory containing input filesd.
     # output_dir: directory where output will be stored.
     desc "Generates oid to valueset dictonary from directory"
-    task :generate_oid_to_valuesets => [:environment] do 
+    task :generate_oid_to_valuesets => [:environment] do
       fileset_dir = File.join("test", "fixtures", "health_data_standards_svs_value_sets", ENV['fileset_dir'])
       output_dir = File.join("spec", "javascripts", "fixtures", "json", "measure_data", ENV['output_dir'])
       dict = {}
@@ -121,7 +121,7 @@ namespace :bonnie do
       File.new(output, "w+")
       File.write(output, JSON.pretty_generate(dict))
     end
-    
+
     ###
     # Loads a set of back end fixtures into the active database.
     # NOTE: This task will fail if documents in the database with the same ids already exist.
@@ -146,7 +146,7 @@ namespace :bonnie do
     task :export_fixtures_from_packages, [:name] => [:environment] do |t, args|
       name = args[:name]
       fixture_path = File.join('test', 'fixtures', 'measures', name)
-      loading_params = HashWithIndifferentAccess.new(JSON.parse(File.read(File.join(fixture_path, "loading_params.json"))))
+      loading_params = ActiveSupport::HashWithIndifferentAccess.new(JSON.parse(File.read(File.join(fixture_path, "loading_params.json"))))
       loading_params[:vsac_username] = ENV['VSAC_USERNAME']
       loading_params[:vsac_password] =  ENV['VSAC_PASSWORD']
       measure_file = File.new File.join(fixture_path, name + '.zip')

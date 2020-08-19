@@ -2051,14 +2051,14 @@ http_interactions:
     headers:
       Accept:
       - "*/*"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - rest-client/2.0.2 (darwin18.6.0 x86_64) ruby/2.4.5p335
+      - rest-client/2.1.0 (darwin19.5.0 x86_64) ruby/2.4.5p335
       Content-Type:
       - application/json
       Content-Length:
       - '325452'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
       - localhost:8081
   response:
@@ -2071,21 +2071,410 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"9dcd-8zC1qouNNmmApVnh+Anip5RFiG0"
+      - W/"e51b-iATjYoJTK33UETZH6BkYS3rFY/c"
       Vary:
       - Accept-Encoding
-      Content-Encoding:
-      - gzip
       Date:
-      - Tue, 16 Jul 2019 12:00:25 GMT
+      - Fri, 24 Jul 2020 15:18:34 GMT
       Connection:
       - keep-alive
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAE+2cXW+jOBSG/wriOhdp0namvZudZtRKM2m2H6OVVquRkzhTSwQiIN12q/z3BUL4SGywKRA3ea9CjDnnxRwM+NE5b+bZtPfp83g87Z/M6NnsfNanp+Pzaf/cvHwzR85iaRGfOfZXl/nUZeQkbL4aDAd/mZfdTrh1+yPauhmNot/h44/BXbTl+cSnc2r7v1xq0WdiT2h0MF241PMCm48+s9h/kXln5j/R0fWfFw+OY0Weg+bgUPPSHH4xO+b91cAY+E82mzD/Nds4Iq/UzTbckdBN+v+evmz+pp6NK0Z+245HvWDfw93jIL/3djZjE2r8ZB7zjYE9cZZ2cPLGCbfzH/SJPDPHJZZxTYnlP5Ue8S2QaPjO+pfb+cZmPgsMpuMvMCVQ2uOccpFOXn+ByqQrRyPPjEBhX1Ehr79AYb9AYbJvRCyLBW3P1PhKXGrcutMojr59+X4fjvF3x/5tPFB3Hu3O7Bi8LJhLp5mWK2o7c2YT31lfQ157ZmTSxkRMqn1LVtYa85xQYy50ea4GLxNrGY5PaQeh2rQHV3e6OzmD4XJO3fyZpk1ZN2lrfOxq1TEXyQXamirW88yMWB5N5pr4XzTf+O6SJlNOtGOVn3e8peV7FWadN9NiY5e4r79sMg8vg8TxWc/xURt7HTNzXuvhmQWDacVDsDO/vZku+de8/PufTj068ual1MQTaxNK1qalVKxn8yZERJalNERPkCYkhIZLFfAfWnXL4XrJa4sfPht16xt6JfncbFCv0Kmy/JIneYPnUOxZ+UTELxgNnoPQqZx8/itPrDee82uRzHVUV6j39hHqPaVZpOQ9cE9RrnYO4nfT9gNcQjn/Vbmd2FYbWPHbevth3a8trJuVX+y5hrBuVr7QaZWw7rcV1hLyBJ94dQ8l301e3ebrZyPwcXh98xBq3P7MrFvcln1JVck3bt1yNoYldWx9WTcQWXkPFWQ1M4/nPUhMIblFhYYFSdx6BQsatYeU0JXs1eQsrNQ+3e76qBBr2ZWdhq9xxtV7hLZw12Z9vUtq83dy1pfSPZ1bcGtNpMR9nlv2a0BY1r6CmGaiLmtfMtJyq52NSiq9WOE668QiS4+my6L20rI65iJBLUIU1DHnlHjLaEE66nTavYg70XG3e04uuhcbfUGXiTNfWDTYDN/CdhBS78gRkgr24PUvwEci7MEzU4CO1CAX/4gCfCSGXHxTx4eQdpBLT9BZC4RUAIhEuksR0i4vOtntCIQEhASEBITUEkKqvgCpDz2qtACpBTiSW4DcGzOqtK6uBS56JxnVhxlVJ6NagCMFMro3elR9BgdCAkICQgJCOiqEVLKu2z48khonICQgJCAkJS6zT3ikOJ5ASPLUpm2QVDg+QEgJQuoDIWmOkPTPPlKDXPwjCvCRGHJl9raNkLgpSIlNfRFSSQrSLiwSZCFx+FG8hAGEBIQEhASEBIQEhASEpIqQkHGEjKMDzDh6JxnVhxlVJ6NagCMFMro3eiTSCIQEhHRQCEm7/CNxAAEhASEBIR1K/pEErznqLCSt4JHgYu0HIQVO10ZPc0ZPz9bl7FDlDlXuUOUOVe5Q5Q58CXwJfKlkpUxnvoQqd3qQJlS5A3MCcwJzUmdOSFFCihJSlMCXUOVOL8qEFCXwJR35kqJUUKaPlKKkFV+S4G8fKEWJg4JQ5e6oUpRQ5a5gLFHlDlXugJCAkICQjg0hIUUJKUoHmKKEKnd6gCNUuQNCAkICQgJCOhiEpF2KktQ4ASEBIQEhKXEZVLn7eAhJgtocdaKSxggJVe7ksQeq3KHKHarcocodEBIQEhASEBIQEhASMo6QcYSMI1S5+yDgCFXugJCAkDKzJ/KPUOUOCAkI6ajyjyR4zVFnIWkFjwQXaz8IabX6H5YklSLNnQAA
-    http_version: 
-  recorded_at: Tue, 16 Jul 2019 12:00:26 GMT
-recorded_with: VCR 4.0.0
+      string: '{"5d278bbd31fe5f6f3e4b6d36":{"PopulationCriteria1":{"DENEX":1,"DENOM":1,"IPP":1,"NUMER":0,"statement_relevance":{"DepressionUtilizationofthePHQ9Tool":{"Patient":"NA","SDE
+        Ethnicity":"NA","SDE Payer":"NA","SDE Race":"NA","SDE Sex":"NA","Depression
+        Diagnoses":"TRUE","Depression Office Visit Encounter 1":"TRUE","Depression
+        Behavioral Health Encounter 1":"TRUE","Depression Face to Face Encounter 1":"TRUE","Initial
+        Population 1":"TRUE","Depression Office Visit Encounter 2":"NA","Depression
+        Behavioral Health Encounter 2":"NA","Depression Face to Face Encounter 2":"NA","Initial
+        Population 2":"NA","Depression Office Visit Encounter 3":"NA","Depression
+        Behavioral Health Encounter 3":"NA","Depression Face to Face Encounter 3":"NA","Initial
+        Population 3":"NA","Palliative Care Order":"TRUE","Long Term Care":"TRUE","Expired":"TRUE","Denominator
+        1":"TRUE","Denominator 2":"NA","Denominator 3":"NA","Encounter Palliative
+        Care":"TRUE","Disorder Diagnoses":"TRUE","Denominator Exclusions":"TRUE","Denominator
+        Exclusion 1":"TRUE","Denominator Exclusion 2":"NA","Denominator Exclusion
+        3":"NA","Numerator 2":"NA","Numerator 1":"FALSE","Numerator 3":"NA"}},"population_relevance":{"DENEX":true,"DENOM":true,"IPP":true,"NUMER":false},"statement_results":{"DepressionUtilizationofthePHQ9Tool":{"Patient":{"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Patient","relevance":"NA","final":"NA"},"SDE
+        Ethnicity":{"raw":[{"dataElementCodes":[{"code":"2186-5","system":"2.16.840.1.113883.6.238","version":null,"display":"Not
+        Hispanic or Latino"}],"_id":"5d278bbd31fe5f6f3e4b6d31","qdmTitle":"Patient
+        Characteristic Ethnicity","hqmfOid":"2.16.840.1.113883.10.20.28.4.56","qdmCategory":"patient_characteristic","qdmStatus":"ethnicity","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicEthnicity","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d31"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Ethnicity","relevance":"NA","final":"NA"},"SDE Payer":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Payer","relevance":"NA","final":"NA"},"SDE Race":{"raw":[{"dataElementCodes":[{"code":"1002-5","system":"2.16.840.1.113883.6.238","version":null,"display":"American
+        Indian or Alaska Native"}],"_id":"5d278bbd31fe5f6f3e4b6d33","qdmTitle":"Patient
+        Characteristic Race","hqmfOid":"2.16.840.1.113883.10.20.28.4.59","qdmCategory":"patient_characteristic","qdmStatus":"race","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicRace","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d33"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Race","relevance":"NA","final":"NA"},"SDE Sex":{"raw":[{"dataElementCodes":[{"code":"M","system":"2.16.840.1.113883.5.1","version":null,"display":"M"}],"_id":"5d278bbd31fe5f6f3e4b6d34","qdmTitle":"Patient
+        Characteristic Sex","hqmfOid":"2.16.840.1.113883.10.20.28.4.55","qdmCategory":"patient_characteristic","qdmStatus":"gender","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicSex","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d34"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Sex","relevance":"NA","final":"NA"},"Depression Diagnoses":{"raw":[{"dataElementCodes":[{"code":"19694002","system":"2.16.840.1.113883.6.96","version":null,"display":null},{"code":"F34.1","system":"2.16.840.1.113883.6.90","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d37","qdmTitle":"Diagnosis","hqmfOid":"2.16.840.1.113883.10.20.28.4.110","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","qdmCategory":"condition","qdmVersion":"5.5","_type":"QDM::Diagnosis","anatomicalLocationSite":null,"authorDatetime":"2012-04-12T08:00:00.000+00:00","codeListId":"2.16.840.1.113883.3.67.1.101.1.254","description":"Diagnosis:
+        Dysthymia","id":"5d278bbd31fe5f6f3e4b6d37","prevalencePeriod":{"low":"2012-04-12T08:00:00.000+00:00","high":"9999-12-31T23:59:59.000+00:00","lowClosed":true,"highClosed":true},"severity":null}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Diagnoses","relevance":"TRUE","final":"TRUE"},"Depression Office Visit Encounter
+        1":{"raw":[{"dataElementCodes":[{"code":"99201","system":"2.16.840.1.113883.6.12","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d39","qdmTitle":"Encounter,
+        Performed","hqmfOid":"2.16.840.1.113883.10.20.28.4.5","qdmCategory":"encounter","qdmStatus":"performed","qdmVersion":"5.5","_type":"QDM::EncounterPerformed","admissionSource":null,"authorDatetime":"2012-11-04T08:00:00.000+00:00","codeListId":"2.16.840.1.113883.3.464.1003.101.12.1001","description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"id":"5d278bbd31fe5f6f3e4b6d39","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"priority":null,"relevantPeriod":{"low":"2012-11-04T08:00:00.000+00:00","high":"2012-11-04T08:15:00.000+00:00","lowClosed":true,"highClosed":true}}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 1","relevance":"TRUE","final":"TRUE"},"Depression Behavioral
+        Health Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 1","relevance":"TRUE","final":"FALSE"},"Depression
+        Face to Face Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 1","relevance":"TRUE","final":"FALSE"},"Initial Population
+        1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 1","relevance":"TRUE","final":"TRUE"},"Depression Office Visit
+        Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 2","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 2","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 2","relevance":"NA","final":"NA"},"Initial Population
+        2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 2","relevance":"NA","final":"NA"},"Depression Office Visit Encounter
+        3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 3","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 3","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 3","relevance":"NA","final":"NA"},"Initial Population
+        3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 3","relevance":"NA","final":"NA"},"Palliative Care Order":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Palliative
+        Care Order","relevance":"TRUE","final":"FALSE"},"Long Term Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Long
+        Term Care","relevance":"TRUE","final":"FALSE"},"Expired":{"raw":[{"dataElementCodes":[{"code":"419099009","system":"2.16.840.1.113883.6.96","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d32","qdmTitle":"Patient
+        Characteristic Expired","hqmfOid":"2.16.840.1.113883.10.20.28.4.57","qdmCategory":"patient_characteristic","qdmStatus":"expired","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicExpired","cause":null,"codeListId":null,"description":null,"expiredDatetime":"2012-12-04T08:00:00.000+00:00","id":"5d278bbd31fe5f6f3e4b6d32"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Expired","relevance":"TRUE","final":"TRUE"},"Denominator
+        1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        1","relevance":"TRUE","final":"TRUE"},"Denominator 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        2","relevance":"NA","final":"NA"},"Denominator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        3","relevance":"NA","final":"NA"},"Encounter Palliative Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Encounter
+        Palliative Care","relevance":"TRUE","final":"FALSE"},"Disorder Diagnoses":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Disorder
+        Diagnoses","relevance":"TRUE","final":"FALSE"},"Denominator Exclusions":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusions","relevance":"TRUE","final":"TRUE"},"Denominator Exclusion 1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 1","relevance":"TRUE","final":"TRUE"},"Denominator Exclusion 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 2","relevance":"NA","final":"NA"},"Denominator Exclusion 3":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 3","relevance":"NA","final":"NA"},"Numerator 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        2","relevance":"NA","final":"NA"},"Numerator 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        1","relevance":"FALSE","final":"UNHIT"},"Numerator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        3","relevance":"NA","final":"NA"}}},"clause_results":null,"patient":"5d278bbd31fe5f6f3e4b6d36","measure":"5d27840931fe5f6eb006a909","state":"complete"},"PopulationCriteria2":{"DENEX":0,"DENOM":0,"IPP":0,"NUMER":0,"statement_relevance":{"DepressionUtilizationofthePHQ9Tool":{"Patient":"NA","SDE
+        Ethnicity":"NA","SDE Payer":"NA","SDE Race":"NA","SDE Sex":"NA","Depression
+        Diagnoses":"TRUE","Depression Office Visit Encounter 1":"NA","Depression Behavioral
+        Health Encounter 1":"NA","Depression Face to Face Encounter 1":"NA","Initial
+        Population 1":"NA","Depression Office Visit Encounter 2":"TRUE","Depression
+        Behavioral Health Encounter 2":"TRUE","Depression Face to Face Encounter 2":"TRUE","Initial
+        Population 2":"TRUE","Depression Office Visit Encounter 3":"NA","Depression
+        Behavioral Health Encounter 3":"NA","Depression Face to Face Encounter 3":"NA","Initial
+        Population 3":"NA","Palliative Care Order":"FALSE","Long Term Care":"FALSE","Expired":"FALSE","Denominator
+        1":"NA","Denominator 2":"FALSE","Denominator 3":"NA","Encounter Palliative
+        Care":"FALSE","Disorder Diagnoses":"FALSE","Denominator Exclusions":"FALSE","Denominator
+        Exclusion 1":"NA","Denominator Exclusion 2":"FALSE","Denominator Exclusion
+        3":"NA","Numerator 2":"FALSE","Numerator 1":"NA","Numerator 3":"NA"}},"population_relevance":{"DENEX":false,"DENOM":false,"IPP":true,"NUMER":false},"statement_results":{"DepressionUtilizationofthePHQ9Tool":{"Patient":{"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Patient","relevance":"NA","final":"NA"},"SDE
+        Ethnicity":{"raw":[{"dataElementCodes":[{"code":"2186-5","system":"2.16.840.1.113883.6.238","version":null,"display":"Not
+        Hispanic or Latino"}],"_id":"5d278bbd31fe5f6f3e4b6d31","qdmTitle":"Patient
+        Characteristic Ethnicity","hqmfOid":"2.16.840.1.113883.10.20.28.4.56","qdmCategory":"patient_characteristic","qdmStatus":"ethnicity","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicEthnicity","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d31"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Ethnicity","relevance":"NA","final":"NA"},"SDE Payer":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Payer","relevance":"NA","final":"NA"},"SDE Race":{"raw":[{"dataElementCodes":[{"code":"1002-5","system":"2.16.840.1.113883.6.238","version":null,"display":"American
+        Indian or Alaska Native"}],"_id":"5d278bbd31fe5f6f3e4b6d33","qdmTitle":"Patient
+        Characteristic Race","hqmfOid":"2.16.840.1.113883.10.20.28.4.59","qdmCategory":"patient_characteristic","qdmStatus":"race","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicRace","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d33"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Race","relevance":"NA","final":"NA"},"SDE Sex":{"raw":[{"dataElementCodes":[{"code":"M","system":"2.16.840.1.113883.5.1","version":null,"display":"M"}],"_id":"5d278bbd31fe5f6f3e4b6d34","qdmTitle":"Patient
+        Characteristic Sex","hqmfOid":"2.16.840.1.113883.10.20.28.4.55","qdmCategory":"patient_characteristic","qdmStatus":"gender","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicSex","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d34"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Sex","relevance":"NA","final":"NA"},"Depression Diagnoses":{"raw":[{"dataElementCodes":[{"code":"19694002","system":"2.16.840.1.113883.6.96","version":null,"display":null},{"code":"F34.1","system":"2.16.840.1.113883.6.90","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d37","qdmTitle":"Diagnosis","hqmfOid":"2.16.840.1.113883.10.20.28.4.110","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","qdmCategory":"condition","qdmVersion":"5.5","_type":"QDM::Diagnosis","anatomicalLocationSite":null,"authorDatetime":"2012-04-12T08:00:00.000+00:00","codeListId":"2.16.840.1.113883.3.67.1.101.1.254","description":"Diagnosis:
+        Dysthymia","id":"5d278bbd31fe5f6f3e4b6d37","prevalencePeriod":{"low":"2012-04-12T08:00:00.000+00:00","high":"9999-12-31T23:59:59.000+00:00","lowClosed":true,"highClosed":true},"severity":null}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Diagnoses","relevance":"TRUE","final":"TRUE"},"Depression Office Visit Encounter
+        1":{"raw":[{"dataElementCodes":[{"code":"99201","system":"2.16.840.1.113883.6.12","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d39","qdmTitle":"Encounter,
+        Performed","hqmfOid":"2.16.840.1.113883.10.20.28.4.5","qdmCategory":"encounter","qdmStatus":"performed","qdmVersion":"5.5","_type":"QDM::EncounterPerformed","admissionSource":null,"authorDatetime":"2012-11-04T08:00:00.000+00:00","codeListId":"2.16.840.1.113883.3.464.1003.101.12.1001","description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"id":"5d278bbd31fe5f6f3e4b6d39","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"priority":null,"relevantPeriod":{"low":"2012-11-04T08:00:00.000+00:00","high":"2012-11-04T08:15:00.000+00:00","lowClosed":true,"highClosed":true}}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 1","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 1","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 1","relevance":"NA","final":"NA"},"Initial Population
+        1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 1","relevance":"NA","final":"NA"},"Depression Office Visit Encounter
+        2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 2","relevance":"TRUE","final":"FALSE"},"Depression
+        Behavioral Health Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 2","relevance":"TRUE","final":"FALSE"},"Depression
+        Face to Face Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 2","relevance":"TRUE","final":"FALSE"},"Initial Population
+        2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 2","relevance":"TRUE","final":"FALSE"},"Depression Office Visit
+        Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 3","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 3","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 3","relevance":"NA","final":"NA"},"Initial Population
+        3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 3","relevance":"NA","final":"NA"},"Palliative Care Order":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Palliative
+        Care Order","relevance":"FALSE","final":"UNHIT"},"Long Term Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Long
+        Term Care","relevance":"FALSE","final":"UNHIT"},"Expired":{"raw":[{"dataElementCodes":[{"code":"419099009","system":"2.16.840.1.113883.6.96","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d32","qdmTitle":"Patient
+        Characteristic Expired","hqmfOid":"2.16.840.1.113883.10.20.28.4.57","qdmCategory":"patient_characteristic","qdmStatus":"expired","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicExpired","cause":null,"codeListId":null,"description":null,"expiredDatetime":"2012-12-04T08:00:00.000+00:00","id":"5d278bbd31fe5f6f3e4b6d32"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Expired","relevance":"FALSE","final":"UNHIT"},"Denominator
+        1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        1","relevance":"NA","final":"NA"},"Denominator 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        2","relevance":"FALSE","final":"UNHIT"},"Denominator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        3","relevance":"NA","final":"NA"},"Encounter Palliative Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Encounter
+        Palliative Care","relevance":"FALSE","final":"UNHIT"},"Disorder Diagnoses":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Disorder
+        Diagnoses","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusions":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusions","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusion 1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 1","relevance":"NA","final":"NA"},"Denominator Exclusion 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 2","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusion 3":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 3","relevance":"NA","final":"NA"},"Numerator 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        2","relevance":"FALSE","final":"UNHIT"},"Numerator 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        1","relevance":"NA","final":"NA"},"Numerator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        3","relevance":"NA","final":"NA"}}},"clause_results":null,"patient":"5d278bbd31fe5f6f3e4b6d36","measure":"5d27840931fe5f6eb006a909","state":"complete"},"PopulationCriteria3":{"DENEX":0,"DENOM":0,"IPP":0,"NUMER":0,"statement_relevance":{"DepressionUtilizationofthePHQ9Tool":{"Patient":"NA","SDE
+        Ethnicity":"NA","SDE Payer":"NA","SDE Race":"NA","SDE Sex":"NA","Depression
+        Diagnoses":"TRUE","Depression Office Visit Encounter 1":"NA","Depression Behavioral
+        Health Encounter 1":"NA","Depression Face to Face Encounter 1":"NA","Initial
+        Population 1":"NA","Depression Office Visit Encounter 2":"NA","Depression
+        Behavioral Health Encounter 2":"NA","Depression Face to Face Encounter 2":"NA","Initial
+        Population 2":"NA","Depression Office Visit Encounter 3":"TRUE","Depression
+        Behavioral Health Encounter 3":"TRUE","Depression Face to Face Encounter 3":"TRUE","Initial
+        Population 3":"TRUE","Palliative Care Order":"FALSE","Long Term Care":"FALSE","Expired":"FALSE","Denominator
+        1":"NA","Denominator 2":"NA","Denominator 3":"FALSE","Encounter Palliative
+        Care":"FALSE","Disorder Diagnoses":"FALSE","Denominator Exclusions":"FALSE","Denominator
+        Exclusion 1":"NA","Denominator Exclusion 2":"NA","Denominator Exclusion 3":"FALSE","Numerator
+        2":"NA","Numerator 1":"NA","Numerator 3":"FALSE"}},"population_relevance":{"DENEX":false,"DENOM":false,"IPP":true,"NUMER":false},"statement_results":{"DepressionUtilizationofthePHQ9Tool":{"Patient":{"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Patient","relevance":"NA","final":"NA"},"SDE
+        Ethnicity":{"raw":[{"dataElementCodes":[{"code":"2186-5","system":"2.16.840.1.113883.6.238","version":null,"display":"Not
+        Hispanic or Latino"}],"_id":"5d278bbd31fe5f6f3e4b6d31","qdmTitle":"Patient
+        Characteristic Ethnicity","hqmfOid":"2.16.840.1.113883.10.20.28.4.56","qdmCategory":"patient_characteristic","qdmStatus":"ethnicity","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicEthnicity","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d31"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Ethnicity","relevance":"NA","final":"NA"},"SDE Payer":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Payer","relevance":"NA","final":"NA"},"SDE Race":{"raw":[{"dataElementCodes":[{"code":"1002-5","system":"2.16.840.1.113883.6.238","version":null,"display":"American
+        Indian or Alaska Native"}],"_id":"5d278bbd31fe5f6f3e4b6d33","qdmTitle":"Patient
+        Characteristic Race","hqmfOid":"2.16.840.1.113883.10.20.28.4.59","qdmCategory":"patient_characteristic","qdmStatus":"race","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicRace","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d33"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Race","relevance":"NA","final":"NA"},"SDE Sex":{"raw":[{"dataElementCodes":[{"code":"M","system":"2.16.840.1.113883.5.1","version":null,"display":"M"}],"_id":"5d278bbd31fe5f6f3e4b6d34","qdmTitle":"Patient
+        Characteristic Sex","hqmfOid":"2.16.840.1.113883.10.20.28.4.55","qdmCategory":"patient_characteristic","qdmStatus":"gender","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicSex","codeListId":null,"description":null,"id":"5d278bbd31fe5f6f3e4b6d34"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Sex","relevance":"NA","final":"NA"},"Depression Diagnoses":{"raw":[{"dataElementCodes":[{"code":"19694002","system":"2.16.840.1.113883.6.96","version":null,"display":null},{"code":"F34.1","system":"2.16.840.1.113883.6.90","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d37","qdmTitle":"Diagnosis","hqmfOid":"2.16.840.1.113883.10.20.28.4.110","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","qdmCategory":"condition","qdmVersion":"5.5","_type":"QDM::Diagnosis","anatomicalLocationSite":null,"authorDatetime":"2012-04-12T08:00:00.000+00:00","codeListId":"2.16.840.1.113883.3.67.1.101.1.254","description":"Diagnosis:
+        Dysthymia","id":"5d278bbd31fe5f6f3e4b6d37","prevalencePeriod":{"low":"2012-04-12T08:00:00.000+00:00","high":"9999-12-31T23:59:59.000+00:00","lowClosed":true,"highClosed":true},"severity":null}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Diagnoses","relevance":"TRUE","final":"TRUE"},"Depression Office Visit Encounter
+        1":{"raw":[{"dataElementCodes":[{"code":"99201","system":"2.16.840.1.113883.6.12","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d39","qdmTitle":"Encounter,
+        Performed","hqmfOid":"2.16.840.1.113883.10.20.28.4.5","qdmCategory":"encounter","qdmStatus":"performed","qdmVersion":"5.5","_type":"QDM::EncounterPerformed","admissionSource":null,"authorDatetime":"2012-11-04T08:00:00.000+00:00","codeListId":"2.16.840.1.113883.3.464.1003.101.12.1001","description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"id":"5d278bbd31fe5f6f3e4b6d39","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"priority":null,"relevantPeriod":{"low":"2012-11-04T08:00:00.000+00:00","high":"2012-11-04T08:15:00.000+00:00","lowClosed":true,"highClosed":true}}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 1","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 1","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 1","relevance":"NA","final":"NA"},"Initial Population
+        1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 1","relevance":"NA","final":"NA"},"Depression Office Visit Encounter
+        2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 2","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 2","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 2","relevance":"NA","final":"NA"},"Initial Population
+        2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 2","relevance":"NA","final":"NA"},"Depression Office Visit Encounter
+        3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 3","relevance":"TRUE","final":"FALSE"},"Depression
+        Behavioral Health Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 3","relevance":"TRUE","final":"FALSE"},"Depression
+        Face to Face Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 3","relevance":"TRUE","final":"FALSE"},"Initial Population
+        3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 3","relevance":"TRUE","final":"FALSE"},"Palliative Care Order":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Palliative
+        Care Order","relevance":"FALSE","final":"UNHIT"},"Long Term Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Long
+        Term Care","relevance":"FALSE","final":"UNHIT"},"Expired":{"raw":[{"dataElementCodes":[{"code":"419099009","system":"2.16.840.1.113883.6.96","version":null,"display":null}],"_id":"5d278bbd31fe5f6f3e4b6d32","qdmTitle":"Patient
+        Characteristic Expired","hqmfOid":"2.16.840.1.113883.10.20.28.4.57","qdmCategory":"patient_characteristic","qdmStatus":"expired","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicExpired","cause":null,"codeListId":null,"description":null,"expiredDatetime":"2012-12-04T08:00:00.000+00:00","id":"5d278bbd31fe5f6f3e4b6d32"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Expired","relevance":"FALSE","final":"UNHIT"},"Denominator
+        1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        1","relevance":"NA","final":"NA"},"Denominator 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        2","relevance":"NA","final":"NA"},"Denominator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        3","relevance":"FALSE","final":"UNHIT"},"Encounter Palliative Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Encounter
+        Palliative Care","relevance":"FALSE","final":"UNHIT"},"Disorder Diagnoses":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Disorder
+        Diagnoses","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusions":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusions","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusion 1":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 1","relevance":"NA","final":"NA"},"Denominator Exclusion 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 2","relevance":"NA","final":"NA"},"Denominator Exclusion 3":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 3","relevance":"FALSE","final":"UNHIT"},"Numerator 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        2","relevance":"NA","final":"NA"},"Numerator 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        1","relevance":"NA","final":"NA"},"Numerator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        3","relevance":"FALSE","final":"UNHIT"}}},"clause_results":null,"patient":"5d278bbd31fe5f6f3e4b6d36","measure":"5d27840931fe5f6eb006a909","state":"complete"}},"5d278b4d31fe5f6f3e4b45a1":{"PopulationCriteria1":{"DENEX":0,"DENOM":0,"IPP":0,"NUMER":0,"statement_relevance":{"DepressionUtilizationofthePHQ9Tool":{"Patient":"NA","SDE
+        Ethnicity":"NA","SDE Payer":"NA","SDE Race":"NA","SDE Sex":"NA","Depression
+        Diagnoses":"TRUE","Depression Office Visit Encounter 1":"TRUE","Depression
+        Behavioral Health Encounter 1":"TRUE","Depression Face to Face Encounter 1":"TRUE","Initial
+        Population 1":"TRUE","Depression Office Visit Encounter 2":"NA","Depression
+        Behavioral Health Encounter 2":"NA","Depression Face to Face Encounter 2":"NA","Initial
+        Population 2":"NA","Depression Office Visit Encounter 3":"NA","Depression
+        Behavioral Health Encounter 3":"NA","Depression Face to Face Encounter 3":"NA","Initial
+        Population 3":"NA","Palliative Care Order":"FALSE","Long Term Care":"FALSE","Expired":"FALSE","Denominator
+        1":"FALSE","Denominator 2":"NA","Denominator 3":"NA","Encounter Palliative
+        Care":"FALSE","Disorder Diagnoses":"FALSE","Denominator Exclusions":"FALSE","Denominator
+        Exclusion 1":"FALSE","Denominator Exclusion 2":"NA","Denominator Exclusion
+        3":"NA","Numerator 2":"NA","Numerator 1":"FALSE","Numerator 3":"NA"}},"population_relevance":{"DENEX":false,"DENOM":false,"IPP":true,"NUMER":false},"statement_results":{"DepressionUtilizationofthePHQ9Tool":{"Patient":{"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Patient","relevance":"NA","final":"NA"},"SDE
+        Ethnicity":{"raw":[{"dataElementCodes":[{"code":"2186-5","system":"2.16.840.1.113883.6.238","version":null,"display":"Not
+        Hispanic or Latino"}],"_id":"5d278b4d31fe5f6f3e4b459d","qdmTitle":"Patient
+        Characteristic Ethnicity","hqmfOid":"2.16.840.1.113883.10.20.28.4.56","qdmCategory":"patient_characteristic","qdmStatus":"ethnicity","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicEthnicity","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459d"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Ethnicity","relevance":"NA","final":"NA"},"SDE Payer":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Payer","relevance":"NA","final":"NA"},"SDE Race":{"raw":[{"dataElementCodes":[{"code":"1002-5","system":"2.16.840.1.113883.6.238","version":null,"display":"American
+        Indian or Alaska Native"}],"_id":"5d278b4d31fe5f6f3e4b459e","qdmTitle":"Patient
+        Characteristic Race","hqmfOid":"2.16.840.1.113883.10.20.28.4.59","qdmCategory":"patient_characteristic","qdmStatus":"race","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicRace","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459e"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Race","relevance":"NA","final":"NA"},"SDE Sex":{"raw":[{"dataElementCodes":[{"code":"F","system":"2.16.840.1.113883.5.1","version":null,"display":"F"}],"_id":"5d278b4d31fe5f6f3e4b459f","qdmTitle":"Patient
+        Characteristic Sex","hqmfOid":"2.16.840.1.113883.10.20.28.4.55","qdmCategory":"patient_characteristic","qdmStatus":"gender","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicSex","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459f"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Sex","relevance":"NA","final":"NA"},"Depression Diagnoses":{"raw":[{"dataElementCodes":[{"code":"F33.9","system":"2.16.840.1.113883.6.90","version":null,"display":null}],"_id":"5d278b4d31fe5f6f3e4b45a4","qdmTitle":"Diagnosis","hqmfOid":"2.16.840.1.113883.10.20.28.4.110","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","qdmCategory":"condition","qdmVersion":"5.5","_type":"QDM::Diagnosis","anatomicalLocationSite":null,"authorDatetime":"2012-06-08T14:35:00.000+00:00","codeListId":"2.16.840.113883.3.67.1.101.3.2444","description":"Diagnosis:
+        Major Depression Including Remission","id":"5d278b4d31fe5f6f3e4b45a4","prevalencePeriod":{"low":"2012-06-08T14:35:00.000+00:00","high":"9999-12-31T23:59:59.000+00:00","lowClosed":true,"highClosed":true},"severity":null}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Diagnoses","relevance":"TRUE","final":"TRUE"},"Depression Office Visit Encounter
+        1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 1","relevance":"TRUE","final":"FALSE"},"Depression
+        Behavioral Health Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 1","relevance":"TRUE","final":"FALSE"},"Depression
+        Face to Face Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 1","relevance":"TRUE","final":"FALSE"},"Initial Population
+        1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 1","relevance":"TRUE","final":"FALSE"},"Depression Office Visit
+        Encounter 2":{"raw":[{"dataElementCodes":[{"code":"99201","system":"2.16.840.1.113883.6.12","version":null,"display":null}],"_id":"5d278b4d31fe5f6f3e4b45a8","qdmTitle":"Encounter,
+        Performed","hqmfOid":"2.16.840.1.113883.10.20.28.4.5","qdmCategory":"encounter","qdmStatus":"performed","qdmVersion":"5.5","_type":"QDM::EncounterPerformed","admissionSource":null,"authorDatetime":"2012-06-08T14:30:00.000+00:00","codeListId":"2.16.840.1.113883.3.464.1003.101.12.1001","description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"id":"5d278b4d31fe5f6f3e4b45a8","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"priority":null,"relevantPeriod":{"low":"2012-06-08T14:30:00.000+00:00","high":"2012-06-08T14:50:00.000+00:00","lowClosed":true,"highClosed":true}}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 2","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 2","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 2","relevance":"NA","final":"NA"},"Initial Population
+        2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 2","relevance":"NA","final":"NA"},"Depression Office Visit Encounter
+        3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 3","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 3","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 3","relevance":"NA","final":"NA"},"Initial Population
+        3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 3","relevance":"NA","final":"NA"},"Palliative Care Order":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Palliative
+        Care Order","relevance":"FALSE","final":"UNHIT"},"Long Term Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Long
+        Term Care","relevance":"FALSE","final":"UNHIT"},"Expired":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Expired","relevance":"FALSE","final":"UNHIT"},"Denominator
+        1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        1","relevance":"FALSE","final":"UNHIT"},"Denominator 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        2","relevance":"NA","final":"NA"},"Denominator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        3","relevance":"NA","final":"NA"},"Encounter Palliative Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Encounter
+        Palliative Care","relevance":"FALSE","final":"UNHIT"},"Disorder Diagnoses":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Disorder
+        Diagnoses","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusions":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusions","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusion 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 1","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusion 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 2","relevance":"NA","final":"NA"},"Denominator Exclusion 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 3","relevance":"NA","final":"NA"},"Numerator 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        2","relevance":"NA","final":"NA"},"Numerator 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        1","relevance":"FALSE","final":"UNHIT"},"Numerator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        3","relevance":"NA","final":"NA"}}},"clause_results":null,"patient":"5d278b4d31fe5f6f3e4b45a1","measure":"5d27840931fe5f6eb006a909","state":"complete"},"PopulationCriteria2":{"DENEX":0,"DENOM":1,"IPP":1,"NUMER":1,"statement_relevance":{"DepressionUtilizationofthePHQ9Tool":{"Patient":"NA","SDE
+        Ethnicity":"NA","SDE Payer":"NA","SDE Race":"NA","SDE Sex":"NA","Depression
+        Diagnoses":"TRUE","Depression Office Visit Encounter 1":"NA","Depression Behavioral
+        Health Encounter 1":"NA","Depression Face to Face Encounter 1":"NA","Initial
+        Population 1":"NA","Depression Office Visit Encounter 2":"TRUE","Depression
+        Behavioral Health Encounter 2":"TRUE","Depression Face to Face Encounter 2":"TRUE","Initial
+        Population 2":"TRUE","Depression Office Visit Encounter 3":"NA","Depression
+        Behavioral Health Encounter 3":"NA","Depression Face to Face Encounter 3":"NA","Initial
+        Population 3":"NA","Palliative Care Order":"TRUE","Long Term Care":"TRUE","Expired":"TRUE","Denominator
+        1":"NA","Denominator 2":"TRUE","Denominator 3":"NA","Encounter Palliative
+        Care":"TRUE","Disorder Diagnoses":"TRUE","Denominator Exclusions":"TRUE","Denominator
+        Exclusion 1":"NA","Denominator Exclusion 2":"TRUE","Denominator Exclusion
+        3":"NA","Numerator 2":"TRUE","Numerator 1":"NA","Numerator 3":"NA"}},"population_relevance":{"DENEX":true,"DENOM":true,"IPP":true,"NUMER":true},"statement_results":{"DepressionUtilizationofthePHQ9Tool":{"Patient":{"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Patient","relevance":"NA","final":"NA"},"SDE
+        Ethnicity":{"raw":[{"dataElementCodes":[{"code":"2186-5","system":"2.16.840.1.113883.6.238","version":null,"display":"Not
+        Hispanic or Latino"}],"_id":"5d278b4d31fe5f6f3e4b459d","qdmTitle":"Patient
+        Characteristic Ethnicity","hqmfOid":"2.16.840.1.113883.10.20.28.4.56","qdmCategory":"patient_characteristic","qdmStatus":"ethnicity","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicEthnicity","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459d"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Ethnicity","relevance":"NA","final":"NA"},"SDE Payer":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Payer","relevance":"NA","final":"NA"},"SDE Race":{"raw":[{"dataElementCodes":[{"code":"1002-5","system":"2.16.840.1.113883.6.238","version":null,"display":"American
+        Indian or Alaska Native"}],"_id":"5d278b4d31fe5f6f3e4b459e","qdmTitle":"Patient
+        Characteristic Race","hqmfOid":"2.16.840.1.113883.10.20.28.4.59","qdmCategory":"patient_characteristic","qdmStatus":"race","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicRace","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459e"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Race","relevance":"NA","final":"NA"},"SDE Sex":{"raw":[{"dataElementCodes":[{"code":"F","system":"2.16.840.1.113883.5.1","version":null,"display":"F"}],"_id":"5d278b4d31fe5f6f3e4b459f","qdmTitle":"Patient
+        Characteristic Sex","hqmfOid":"2.16.840.1.113883.10.20.28.4.55","qdmCategory":"patient_characteristic","qdmStatus":"gender","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicSex","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459f"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Sex","relevance":"NA","final":"NA"},"Depression Diagnoses":{"raw":[{"dataElementCodes":[{"code":"F33.9","system":"2.16.840.1.113883.6.90","version":null,"display":null}],"_id":"5d278b4d31fe5f6f3e4b45a4","qdmTitle":"Diagnosis","hqmfOid":"2.16.840.1.113883.10.20.28.4.110","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","qdmCategory":"condition","qdmVersion":"5.5","_type":"QDM::Diagnosis","anatomicalLocationSite":null,"authorDatetime":"2012-06-08T14:35:00.000+00:00","codeListId":"2.16.840.113883.3.67.1.101.3.2444","description":"Diagnosis:
+        Major Depression Including Remission","id":"5d278b4d31fe5f6f3e4b45a4","prevalencePeriod":{"low":"2012-06-08T14:35:00.000+00:00","high":"9999-12-31T23:59:59.000+00:00","lowClosed":true,"highClosed":true},"severity":null}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Diagnoses","relevance":"TRUE","final":"TRUE"},"Depression Office Visit Encounter
+        1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 1","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 1","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 1","relevance":"NA","final":"NA"},"Initial Population
+        1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 1","relevance":"NA","final":"NA"},"Depression Office Visit Encounter
+        2":{"raw":[{"dataElementCodes":[{"code":"99201","system":"2.16.840.1.113883.6.12","version":null,"display":null}],"_id":"5d278b4d31fe5f6f3e4b45a8","qdmTitle":"Encounter,
+        Performed","hqmfOid":"2.16.840.1.113883.10.20.28.4.5","qdmCategory":"encounter","qdmStatus":"performed","qdmVersion":"5.5","_type":"QDM::EncounterPerformed","admissionSource":null,"authorDatetime":"2012-06-08T14:30:00.000+00:00","codeListId":"2.16.840.1.113883.3.464.1003.101.12.1001","description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"id":"5d278b4d31fe5f6f3e4b45a8","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"priority":null,"relevantPeriod":{"low":"2012-06-08T14:30:00.000+00:00","high":"2012-06-08T14:50:00.000+00:00","lowClosed":true,"highClosed":true}}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 2","relevance":"TRUE","final":"TRUE"},"Depression Behavioral
+        Health Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 2","relevance":"TRUE","final":"FALSE"},"Depression
+        Face to Face Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 2","relevance":"TRUE","final":"FALSE"},"Initial Population
+        2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 2","relevance":"TRUE","final":"TRUE"},"Depression Office Visit
+        Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 3","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 3","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 3","relevance":"NA","final":"NA"},"Initial Population
+        3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 3","relevance":"NA","final":"NA"},"Palliative Care Order":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Palliative
+        Care Order","relevance":"TRUE","final":"FALSE"},"Long Term Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Long
+        Term Care","relevance":"TRUE","final":"FALSE"},"Expired":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Expired","relevance":"TRUE","final":"FALSE"},"Denominator
+        1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        1","relevance":"NA","final":"NA"},"Denominator 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        2","relevance":"TRUE","final":"TRUE"},"Denominator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        3","relevance":"NA","final":"NA"},"Encounter Palliative Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Encounter
+        Palliative Care","relevance":"TRUE","final":"FALSE"},"Disorder Diagnoses":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Disorder
+        Diagnoses","relevance":"TRUE","final":"FALSE"},"Denominator Exclusions":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusions","relevance":"TRUE","final":"FALSE"},"Denominator Exclusion 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 1","relevance":"NA","final":"NA"},"Denominator Exclusion 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 2","relevance":"TRUE","final":"FALSE"},"Denominator Exclusion 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 3","relevance":"NA","final":"NA"},"Numerator 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        2","relevance":"TRUE","final":"TRUE"},"Numerator 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        1","relevance":"NA","final":"NA"},"Numerator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        3","relevance":"NA","final":"NA"}}},"clause_results":null,"patient":"5d278b4d31fe5f6f3e4b45a1","measure":"5d27840931fe5f6eb006a909","state":"complete"},"PopulationCriteria3":{"DENEX":0,"DENOM":0,"IPP":0,"NUMER":0,"statement_relevance":{"DepressionUtilizationofthePHQ9Tool":{"Patient":"NA","SDE
+        Ethnicity":"NA","SDE Payer":"NA","SDE Race":"NA","SDE Sex":"NA","Depression
+        Diagnoses":"TRUE","Depression Office Visit Encounter 1":"NA","Depression Behavioral
+        Health Encounter 1":"NA","Depression Face to Face Encounter 1":"NA","Initial
+        Population 1":"NA","Depression Office Visit Encounter 2":"NA","Depression
+        Behavioral Health Encounter 2":"NA","Depression Face to Face Encounter 2":"NA","Initial
+        Population 2":"NA","Depression Office Visit Encounter 3":"TRUE","Depression
+        Behavioral Health Encounter 3":"TRUE","Depression Face to Face Encounter 3":"TRUE","Initial
+        Population 3":"TRUE","Palliative Care Order":"FALSE","Long Term Care":"FALSE","Expired":"FALSE","Denominator
+        1":"NA","Denominator 2":"NA","Denominator 3":"FALSE","Encounter Palliative
+        Care":"FALSE","Disorder Diagnoses":"FALSE","Denominator Exclusions":"FALSE","Denominator
+        Exclusion 1":"NA","Denominator Exclusion 2":"NA","Denominator Exclusion 3":"FALSE","Numerator
+        2":"NA","Numerator 1":"NA","Numerator 3":"FALSE"}},"population_relevance":{"DENEX":false,"DENOM":false,"IPP":true,"NUMER":false},"statement_results":{"DepressionUtilizationofthePHQ9Tool":{"Patient":{"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Patient","relevance":"NA","final":"NA"},"SDE
+        Ethnicity":{"raw":[{"dataElementCodes":[{"code":"2186-5","system":"2.16.840.1.113883.6.238","version":null,"display":"Not
+        Hispanic or Latino"}],"_id":"5d278b4d31fe5f6f3e4b459d","qdmTitle":"Patient
+        Characteristic Ethnicity","hqmfOid":"2.16.840.1.113883.10.20.28.4.56","qdmCategory":"patient_characteristic","qdmStatus":"ethnicity","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicEthnicity","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459d"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Ethnicity","relevance":"NA","final":"NA"},"SDE Payer":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Payer","relevance":"NA","final":"NA"},"SDE Race":{"raw":[{"dataElementCodes":[{"code":"1002-5","system":"2.16.840.1.113883.6.238","version":null,"display":"American
+        Indian or Alaska Native"}],"_id":"5d278b4d31fe5f6f3e4b459e","qdmTitle":"Patient
+        Characteristic Race","hqmfOid":"2.16.840.1.113883.10.20.28.4.59","qdmCategory":"patient_characteristic","qdmStatus":"race","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicRace","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459e"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Race","relevance":"NA","final":"NA"},"SDE Sex":{"raw":[{"dataElementCodes":[{"code":"F","system":"2.16.840.1.113883.5.1","version":null,"display":"F"}],"_id":"5d278b4d31fe5f6f3e4b459f","qdmTitle":"Patient
+        Characteristic Sex","hqmfOid":"2.16.840.1.113883.10.20.28.4.55","qdmCategory":"patient_characteristic","qdmStatus":"gender","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicSex","codeListId":null,"description":null,"id":"5d278b4d31fe5f6f3e4b459f"}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"SDE
+        Sex","relevance":"NA","final":"NA"},"Depression Diagnoses":{"raw":[{"dataElementCodes":[{"code":"F33.9","system":"2.16.840.1.113883.6.90","version":null,"display":null}],"_id":"5d278b4d31fe5f6f3e4b45a4","qdmTitle":"Diagnosis","hqmfOid":"2.16.840.1.113883.10.20.28.4.110","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","qdmCategory":"condition","qdmVersion":"5.5","_type":"QDM::Diagnosis","anatomicalLocationSite":null,"authorDatetime":"2012-06-08T14:35:00.000+00:00","codeListId":"2.16.840.113883.3.67.1.101.3.2444","description":"Diagnosis:
+        Major Depression Including Remission","id":"5d278b4d31fe5f6f3e4b45a4","prevalencePeriod":{"low":"2012-06-08T14:35:00.000+00:00","high":"9999-12-31T23:59:59.000+00:00","lowClosed":true,"highClosed":true},"severity":null}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Diagnoses","relevance":"TRUE","final":"TRUE"},"Depression Office Visit Encounter
+        1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 1","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 1","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 1":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 1","relevance":"NA","final":"NA"},"Initial Population
+        1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 1","relevance":"NA","final":"NA"},"Depression Office Visit Encounter
+        2":{"raw":[{"dataElementCodes":[{"code":"99201","system":"2.16.840.1.113883.6.12","version":null,"display":null}],"_id":"5d278b4d31fe5f6f3e4b45a8","qdmTitle":"Encounter,
+        Performed","hqmfOid":"2.16.840.1.113883.10.20.28.4.5","qdmCategory":"encounter","qdmStatus":"performed","qdmVersion":"5.5","_type":"QDM::EncounterPerformed","admissionSource":null,"authorDatetime":"2012-06-08T14:30:00.000+00:00","codeListId":"2.16.840.1.113883.3.464.1003.101.12.1001","description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"id":"5d278b4d31fe5f6f3e4b45a8","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"priority":null,"relevantPeriod":{"low":"2012-06-08T14:30:00.000+00:00","high":"2012-06-08T14:50:00.000+00:00","lowClosed":true,"highClosed":true}}],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 2","relevance":"NA","final":"NA"},"Depression Behavioral
+        Health Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 2","relevance":"NA","final":"NA"},"Depression
+        Face to Face Encounter 2":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 2","relevance":"NA","final":"NA"},"Initial Population
+        2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 2","relevance":"NA","final":"NA"},"Depression Office Visit Encounter
+        3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Office Visit Encounter 3","relevance":"TRUE","final":"FALSE"},"Depression
+        Behavioral Health Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Behavioral Health Encounter 3","relevance":"TRUE","final":"FALSE"},"Depression
+        Face to Face Encounter 3":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Depression
+        Face to Face Encounter 3","relevance":"TRUE","final":"FALSE"},"Initial Population
+        3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Initial
+        Population 3","relevance":"TRUE","final":"FALSE"},"Palliative Care Order":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Palliative
+        Care Order","relevance":"FALSE","final":"UNHIT"},"Long Term Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Long
+        Term Care","relevance":"FALSE","final":"UNHIT"},"Expired":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Expired","relevance":"FALSE","final":"UNHIT"},"Denominator
+        1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        1","relevance":"NA","final":"NA"},"Denominator 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        2","relevance":"NA","final":"NA"},"Denominator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        3","relevance":"FALSE","final":"UNHIT"},"Encounter Palliative Care":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Encounter
+        Palliative Care","relevance":"FALSE","final":"UNHIT"},"Disorder Diagnoses":{"raw":[],"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Disorder
+        Diagnoses","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusions":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusions","relevance":"FALSE","final":"UNHIT"},"Denominator Exclusion 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 1","relevance":"NA","final":"NA"},"Denominator Exclusion 2":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 2","relevance":"NA","final":"NA"},"Denominator Exclusion 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Denominator
+        Exclusion 3","relevance":"FALSE","final":"UNHIT"},"Numerator 2":{"raw":true,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        2","relevance":"NA","final":"NA"},"Numerator 1":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        1","relevance":"NA","final":"NA"},"Numerator 3":{"raw":false,"library_name":"DepressionUtilizationofthePHQ9Tool","statement_name":"Numerator
+        3","relevance":"FALSE","final":"UNHIT"}}},"clause_results":null,"patient":"5d278b4d31fe5f6f3e4b45a1","measure":"5d27840931fe5f6eb006a909","state":"complete"}}}'
+  recorded_at: Fri, 24 Jul 2020 15:18:34 GMT
+recorded_with: VCR 6.0.0
