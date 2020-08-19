@@ -785,3 +785,9 @@ Layout/LineLength:
 Style/FormatStringToken:
   Exclude:
     - 'lib/tasks/bonnie.rake'
+
+Style/CaseLikeIf:
+  Exclude:
+    - 'lib/util/fixture_exporter.rb'
+    - 'lib/tasks/fixture_helper.rb'
+    - 'app/helpers/measure_helper.rb'
