@@ -21,6 +21,7 @@ end
 # by Doorkeeper.
 class StubToken
   attr_accessor :resource_owner_id
+
   def acceptable?(_value)
     true
   end
