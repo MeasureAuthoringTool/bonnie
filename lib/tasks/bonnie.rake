@@ -511,9 +511,10 @@ namespace :bonnie do
     # try to find the measure just based off of the CMS id to avoid chance of typos
     # in the title
     measures = CQM::Measure.where(user_id: user._id, cms_id: measure_id)
-    if measures.count == 0
+    case measures.count
+    when 0
       print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
-    elsif measures.count == 1
+    when 1
       measure = measures.first
     else
       # if there are duplicate CMS ids (CMSv0, for example), use the title as well
@@ -549,7 +550,7 @@ namespace :bonnie do
     print "\e[#{32}m#{"[Success]"}\e[0m\t"
     puts success_string
   end
-  
+
   # Prints a message with a warning "[Warning]" string ahead of it.
   def print_warning(warning_string)
     print "\e[#{33}m#{"[Warning]"}\e[0m\t"
@@ -609,7 +610,7 @@ def update_facilities_and_diagnoses_on_patient(patient)
             new_diagnosis['values'][0]['code_list_id'] = source_data_criterium['field_values']['DIAGNOSIS']['code_list_id']
             new_diagnosis['values'][0]['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
             new_diagnosis['values'][0]['title'] = source_data_criterium['field_values']['DIAGNOSIS']['title']
-            new_source_data_criterium_field_values['DIAGNOSIS'] = new_diagnosis 
+            new_source_data_criterium_field_values['DIAGNOSIS'] = new_diagnosis
 
           # update any 'FACILITY_LOCATION' field values that aren't collections
           elsif field_value_key == 'FACILITY_LOCATION' && (source_data_criterium['field_values']['FACILITY_LOCATION']['type'] != 'COL')

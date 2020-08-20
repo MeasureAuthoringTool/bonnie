@@ -111,7 +111,7 @@ class ExcelExportHelperTest < ActionController::TestCase
 
   test 'population details are extracted' do
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
-    @population_details.keys.each do |key|
+    @population_details.each_key do |key|
       @population_details[key]['criteria'] = (CQM::Measure::ALL_POPULATION_CODES & @population_details[key]['criteria']) + ['index']
     end
     assert_equal @population_details['c966'], population_details[0]

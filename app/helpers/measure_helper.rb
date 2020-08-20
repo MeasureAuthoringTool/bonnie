@@ -1,6 +1,7 @@
 module MeasureHelper
   class SharedError < StandardError
     attr_reader :front_end_version, :back_end_version, :operator_error
+
     def initialize(msg: "Error", front_end_version:, back_end_version:, operator_error: false)
       @front_end_version = front_end_version
       @back_end_version = back_end_version

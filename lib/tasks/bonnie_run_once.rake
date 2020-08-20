@@ -248,7 +248,7 @@ namespace :bonnie do
       a locally running CQLTranslationService JAR and updates the code_list_id field on
       data_criteria and source_data_criteria for direct reference codes. This is in run_once
       because once all of the code_list_ids have been updated to use a hash of the parameters
-      in direct reference codes, all code_list_ids for direct reference codes measures uploaded 
+      in direct reference codes, all code_list_ids for direct reference codes measures uploaded
       subsequently will be correct
     $ rake bonnie:patients:rebuild_elm_update_drc_code_list_ids)
     task :rebuild_elm_update_drc_code_list_ids => :environment do
@@ -356,7 +356,7 @@ namespace :bonnie do
         puts "-- #{key}: #{value} --"
       end
     end
-    
+
     def self.set_data_criteria_code_list_ids(json, cql_artifacts)
       # Loop over data criteria to search for data criteria that is using a single reference code.
       # Once found set the Data Criteria's 'code_list_id' to our fake oid. Do the same for source data criteria.
@@ -470,9 +470,10 @@ namespace :bonnie do
             puts "\nConversion Difference".yellow
             puts "Patient #{bonnie_patient['givenNames'][0]} #{bonnie_patient['familyName']} with id #{bonnie_patient['_id']} in account #{user.email}".yellow
             element_diff.each_entry do |element|
-              if element == 'sender' || element == 'recipient'
+              case element
+              when 'sender', 'recipient'
                 puts "--- #{element} --- Is different from CQL Record, this is expected because sender & recipient were type QDM::Code in 5.4 and are now type QDM::Entity in 5.5, so data is lost".light_blue
-              elsif element == 'diagnoses'
+              when 'diagnoses'
                 puts "--- #{element} --- Is different from CQL Record, this may be caused by the fact that there was a PrincipalDiagnosis on the element as well that got put in diagnoses with a rank of 1. This is expected".light_yellow
               else
                 puts "--- #{element} --- Is different from CQL Record, this is unexpected".light_red

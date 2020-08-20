@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'vcr_setup.rb'
+require 'vcr_setup'
 
 class MeasuresControllerTest < ActionController::TestCase
 include Devise::Test::ControllerHelpers

@@ -49,8 +49,7 @@ class CqlToElmHelper
   def self.parse_elm_response(response)
     parts = pre_process_response(response)
     # Grabs everything from the first '{' to the last '}'
-    results = parts.map { |part| part.match(/{.+}/m).to_s }
-    results
+    parts.map { |part| part.match(/{.+}/m).to_s }
   end
 
   def self.parse_multipart_response(response)
