@@ -44,7 +44,7 @@ def load_fixture_file(file, collection_name, user = nil)
   fixture_json = JSON.parse(File.read(file))
   return loaded_ids if fixture_json.empty?
   # Value_sets are arrays of objects, unlike measures etc, so we need to iterate in that case.
-  fixture_json = Array(fixture_json) unless fixture_json.is_a?(Array)
+  fixture_json = [fixture_json] unless fixture_json.is_a?(Array)
   fixture_json.each do |fj|
     convert_times(fj)
     convert_mongoid_ids(fj)
