@@ -791,3 +791,16 @@ Style/CaseLikeIf:
     - 'lib/util/fixture_exporter.rb'
     - 'lib/tasks/fixture_helper.rb'
     - 'app/helpers/measure_helper.rb'
+
+# Offense count: 1
+# Disabling until issues cited here are fixed: https://github.com/rubocop-hq/rubocop/issues/8391
+Style/ArrayCoercion:
+  Enabled: false
+
+# Offense count: 1
+Style/RedundantRegexpCharacterClass:
+  Enabled: false
+
+# Offense count: 1
+Style/RedundantRegexpEscape:
+  Enabled: false
