@@ -164,7 +164,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   _isDefineStatementView: (statementView, library) ->
     libraryName = library.library_name
     defineName = statementView.statement.define_name
-    # TODO: All statements are considered to be used statements for now, update while executing them
     isRelevant = @statementRelevance[libraryName][defineName] == 'TRUE'
     return !@population? || isRelevant
 
