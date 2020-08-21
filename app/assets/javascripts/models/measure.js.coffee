@@ -15,13 +15,13 @@ class Thorax.Models.Measure extends Thorax.Model
     thoraxMeasure = {}
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
-    thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+    thoraxMeasure.cqmMeasure = cqm.models.CqmMeasure.parse(attrs)
 
     # Adapting FHIR model's set_id to work with QDM Model's hqmf_set_id.
     # TODO Remove once TS models implemented.
     thoraxMeasure.cqmMeasure.hqmf_set_id = attrs.set_id
 
-    thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
+    thoraxMeasure._id = thoraxMeasure.cqmMeasure.id.toString()
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
     else
@@ -29,16 +29,11 @@ class Thorax.Models.Measure extends Thorax.Model
 
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
-    stratificationPopulations = CQLMeasureHelpers.getStratificationsAsPopulationSets(thoraxMeasure.cqmMeasure.population_sets)
-    # thoraxMeasure.population_sets is a combination of mongoose population_sets and mongoose stratifications
-    # toObject() removes all mongoose specific fields (ie: '_id' and '_type')
+
+    # Get a combination of mongoose population_sets and mongoose stratifications
     # This is necessary since our view treats the stratification as a population
-    popSetsAndStrats = (thoraxMeasure.cqmMeasure.population_sets.concat stratificationPopulations)
-                        .map (popSet) ->
-                          if typeof popSet.toObject == 'function'
-                            popSet.toObject()
-                          else
-                            popSet
+    popSetsAndStrats = thoraxMeasure.cqmMeasure.allPopulationSetsAndStratifications;
+
     for populationSet, index in popSetsAndStrats
       populationSet.sub_id = alphabet[index]
       populationSet.index = index

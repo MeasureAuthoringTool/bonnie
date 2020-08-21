@@ -5,7 +5,7 @@ class PatientsController < ApplicationController
   def update
     old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
     begin
-      updated_patient = CQM::Patient.new(cqm_patient_params)
+      updated_patient = CQM::Patient.transform_json(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
@@ -19,7 +19,7 @@ class PatientsController < ApplicationController
 
   def create
     begin
-      patient = CQM::Patient.new(cqm_patient_params)
+      patient = CQM::Patient.transform_json(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
@@ -32,7 +32,7 @@ class PatientsController < ApplicationController
   def destroy
     patient = CQM::Patient.by_user(current_user).find(params[:id])
     CQM::Patient.by_user(current_user).find(params[:id]).destroy
-    render :json => patient.as_document
+    render :json => patient.as_json
   end
 
   def qrda_export
