@@ -3,6 +3,6 @@
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 <title><%= @subject %></title>
 <body>
-<%= simple_format @body %>
+<%= @body.html_safe %>
 </body>
 </html>

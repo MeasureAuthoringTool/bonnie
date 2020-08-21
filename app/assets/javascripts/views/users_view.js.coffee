@@ -93,8 +93,9 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
       menubar: false,
       statusbar: false
       setup: (editor) ->
-        editor.on('change', () ->
-          editor.save();
+        editor.on('change', (e) ->
+          editor.save()
+          # TODO: How do I trigger enableSend() from here?
         );
     })
 
