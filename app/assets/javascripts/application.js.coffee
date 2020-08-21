@@ -33,6 +33,7 @@
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
+#= require tinymce/tinymce
 #
 #= require costanza/js/costanza
 #= require costanza/thorax

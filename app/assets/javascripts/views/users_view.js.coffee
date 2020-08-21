@@ -72,13 +72,14 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
 
   events:
     'ready': 'setup'
-    'keypress input:text': 'enableSend'
-    'keypress textarea': 'enableSend'
+    'keydown input:text': 'enableSend'
+    'keydown textarea': 'enableSend'
 
   setup: ->
     @emailUsersDialog = @$("#emailUsersDialog")
     @subjectField = @$("#emailSubject")
-    @bodyArea = @$("#emailBody")
+    @bodyAreaSelector = '#emailBody'
+    @bodyArea = @$(@bodyAreaSelector)
     @sendButton = @$("#sendButton")
     @enableSend();
 
@@ -87,6 +88,15 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
       "backdrop" : "static",
       "keyboard" : true,
       "show" : true).find('.modal-dialog').css('width','650px')
+    tinymce.init({
+      selector: @bodyAreaSelector,
+      menubar: false,
+      statusbar: false
+      setup: (editor) ->
+        editor.on('change', () ->
+          editor.save();
+        );
+    })
 
   enableSend: ->
     @sendButton.prop('disabled', @subjectField.val().length == 0 || @bodyArea.val().length == 0)
@@ -104,6 +114,7 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
         # Kill the subject and body areas if we've successfully sent our message
         me.subjectField.val('')
         me.bodyArea.val('')
+        tinyMCE.activeEditor.setContent('')
       'complete': @emailUsersDialog.modal('hide')
     })
 
