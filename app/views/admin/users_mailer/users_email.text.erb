@@ -1,1 +1,1 @@
-<%= strip_tags(@body) %>
+<%= ReverseMarkdown.convert(@body, unknown_tags: :drop) %>

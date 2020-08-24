@@ -91,7 +91,7 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
     tinymce.init({
       selector: @bodyAreaSelector
       height: 400
-      plugins: 'lists link'
+      plugins: 'link lists'
       toolbar: 'undo redo | formatselect | bold italic backcolor | ' + 
         'link unlink | numlist bullist outdent indent | ' +
         'alignleft aligncenter alignright | removeformat'
