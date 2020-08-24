@@ -131,9 +131,9 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.7)
-    cqm-models (3.0.1)
-    cqm-reports (3.1.1)
-      cqm-models (~> 3.0.0)
+    cqm-models (3.0.3)
+    cqm-reports (3.1.2)
+      cqm-models (~> 3.0.3)
       cqm-validators (~> 3.0.0)
       erubis (~> 2.7)
       log4r (~> 1.1)
@@ -397,9 +397,9 @@ DEPENDENCIES
   codecov
   coffee-rails
   colorize
-  cqm-models (~> 3.0.0)
+  cqm-models (~> 3.0.3)
   cqm-parsers!
-  cqm-reports (~> 3.1.1)
+  cqm-reports (~> 3.1.2)
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
