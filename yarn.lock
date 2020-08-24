@@ -313,29 +313,29 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cql-execution@~1.4.0:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/cql-execution/-/cql-execution-1.4.3.tgz#fd9f916d1f04704ebad7c2f2edbd7868cdc80557"
-  integrity sha512-+3ba2T3byPzsYcjwyBjYfAE1CS4jcnykyF2BSJyE3hV0b//TOQIAGWpMe17RZCItXSozyDfkxYdPncFCtLheWA==
+cql-execution@~1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/cql-execution/-/cql-execution-1.4.4.tgz#13b1587a7d8739150f25e5c54473d50bf8ab3e81"
+  integrity sha512-nQQopJ+c6aGcwBvZe9j6Sv1tBK6ZZyn/Ql+jWr4a+y4h59Qbsu1nd+y4+kxVkH75J9d/g/hLxw0IZl9vapTn+Q==
   dependencies:
     moment "^2.20.1"
     ucum "0.0.7"
 
-cqm-execution@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/cqm-execution/-/cqm-execution-3.0.1.tgz#ac24a708a654f4ef87b77fedb68869ddf8b87ac1"
-  integrity sha512-rSm/pAalrAmDfyhfnOlgzghO1657jxsV2pvVwcsvPH8aYUvuYJg9DUhrQptJm0nUM36CJfew28iZX0DpDNGc7g==
+cqm-execution@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/cqm-execution/-/cqm-execution-3.0.2.tgz#c6cfee9e05656aa33edf217989dfc53306c3c0d6"
+  integrity sha512-PH835J//mYhtuJ3zpclCH8irhaSNqa26986BAl5w1LNFYGUBXA8PFi29QyI2NaRAeshUHnd++JBxjS110hzjwg==
   dependencies:
-    cqm-models "~3.0.0"
-    lodash "^4.17.5"
+    cqm-models "~3.0.3"
+    lodash "^4.17.19"
     moment "^2.21.0"
 
-cqm-models@~3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/cqm-models/-/cqm-models-3.0.1.tgz#c157c2c0ab590cf55569143b9c1d8342309ac834"
-  integrity sha512-TOpM92oKYhgPmo+IkWqq1H038ZiK5SZJkKYTfz7pcH5ouOE4yUQgOiPnn7/lhiA934weynEn9FJnFjSsiXUQ9Q==
+cqm-models@~3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/cqm-models/-/cqm-models-3.0.3.tgz#7dfd77ab0a9345b33bfbf5e742b8ac488e70597d"
+  integrity sha512-soel+GkUFdOX3S9uQb3UY2hLavawCebcdIvSkveFIRyPwatdB5UUWCpWwYZ8j0JsIZGGx7TAHlvjAM0U6Wrl7Q==
   dependencies:
-    cql-execution "~1.4.0"
+    cql-execution "~1.4.4"
     mongoose "^5.7.5"
 
 create-ecdh@^4.0.0:
@@ -653,7 +653,7 @@ lodash.memoize@~3.0.3:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-3.0.4.tgz#2dcbd2c287cbc0a55cc42328bd0c736150d53e3f"
   integrity sha1-LcvSwofLwKVcxCMovQxzYVDVPj8=
 
-lodash@^4.17.5:
+lodash@^4.17.19:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
