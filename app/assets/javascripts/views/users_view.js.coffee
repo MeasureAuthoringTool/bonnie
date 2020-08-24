@@ -84,10 +84,11 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
     @enableSend()
 
   display: ->
+    me = this
     @emailUsersDialog.modal(
-      "backdrop" : "static",
-      "keyboard" : true,
-      "show" : true).find('.modal-dialog').css('width','650px')
+      backdrop: 'static'
+      keyboard: true
+      show: true).find('.modal-dialog').css('width','650px')
     tinymce.init({
       selector: @bodyAreaSelector
       height: 400
@@ -98,12 +99,12 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
       menubar: false
       statusbar: false
       setup: (editor) ->
-        editor.on('change', (e) ->
+        editor.on('change', () ->
           editor.save()
-          # TODO: How do I trigger enableSend() from here?
+          me.bodyArea.trigger('change')
         )
     })
-    # Allow tinyMCE dialogs to work in Bootstrap
+    # Allow tinymce dialogs to work in Bootstrap
     $(document).on('focusin', (e) ->
       if $(e.target).closest('.tox-tinymce-aux, .moxman-window, .tam-assetmanager-root').length
         e.stopImmediatePropagation()
@@ -124,7 +125,7 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
       'success': ->
         # Kill the subject and body areas if we've successfully sent our message
         me.subjectField.val('')
-        tinyMCE.activeEditor.setContent('')
+        tinymce.activeEditor.setContent('')
         me.bodyArea.val('')
       'complete': @emailUsersDialog.modal('hide')
     })
