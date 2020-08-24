@@ -26,7 +26,7 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
       @emailActiveUsersView = new Thorax.Views.EmailActiveUsers()
       @emailActiveUsersView.appendTo(@$el)
     @emailActiveUsersView.display()
-    
+
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
   editTemplate: JST['users/edit_user']
@@ -38,6 +38,7 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
       csrfToken: $("meta[name='csrf-token']").attr('content')
 
   events:
+    'click .email-user': 'emailUser'
     serialize: (attr) ->
       attr.admin ?= false
       attr.portfolio ?= false
@@ -59,6 +60,12 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
   showDelete: -> @$('.delete-user').toggleClass('hide')
 
   delete: -> @model.destroy()
+
+  emailUser: ->
+    if !@emailUserView
+      @emailUserView = new Thorax.Views.EmailUser({email: @model.attributes.email})
+      @emailUserView.appendTo(@$el)
+    @emailUserView.display()
 
 class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
   template: JST['users/email_users']
@@ -104,12 +111,20 @@ class Thorax.Views.EmailAllUsers extends Thorax.Views.EmailUsers
   context: ->
     _(super).extend
       token: $("meta[name='csrf-token']").attr('content')
-      email_type_label: "All"
+      email_modal_title: "Email All Users"
       email_action: "admin/users/email_all"
-      
+
 class Thorax.Views.EmailActiveUsers extends Thorax.Views.EmailUsers
   context: ->
     _(super).extend
       token: $("meta[name='csrf-token']").attr('content')
-      email_type_label: "Active"
+      email_modal_title: "Email Active Users"
       email_action: "admin/users/email_active"
+
+class Thorax.Views.EmailUser extends Thorax.Views.EmailUsers
+  context: ->
+    _(super).extend
+      token: $("meta[name='csrf-token']").attr('content')
+      email_modal_title: "Email Single User"
+      email_action: "admin/users/email_single"
+      target_email_address: @email
