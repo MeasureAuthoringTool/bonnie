@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS529v0",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": "5d27859c31fe5f6eb01bd4a9",
@@ -15983,7 +15983,7 @@
   "created_at": "2019-07-11T18:53:16.099Z",
   "description": "This logic is intended to extract electronic clinical data. This is not an electronic clinical quality measure and this logic will not produce measure results. Instead, it will produce a file containing the data that CMS will link with administrative claims to risk adjust the hybrid HWR outcome measure. It is designed to extract the first captured set of vital signs and basic laboratory results obtained on adult Medicare fee-for-service patients admitted to acute care short stay hospitals.",
   "hqmf_id": "40280382-5FA6-FE85-0160-128121CF2479",
-  "hqmf_set_id": "FA75DE85-A934-45D7-A2F7-C700A756078B",
+  "set_id": "FA75DE85-A934-45D7-A2F7-C700A756078B",
   "hqmf_version_number": "0",
   "main_cql_library": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
   "measure_attributes": [

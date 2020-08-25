@@ -135,13 +135,13 @@ end
 
 def associate_measure_with_patients(measure,patients)
   patients.each do |p|
-    p.measure_ids = [measure.hqmf_set_id]
+    p.measure_ids = [measure.set_id]
     p.save
   end
 end
 
 def associate_measures_with_patients(measures,patients)
-  measure_ids = measures.map(&:hqmf_set_id)
+  measure_ids = measures.map(&:set_id)
   patients.each do |p|
     p.measure_ids = measure_ids
     p.save

@@ -6,11 +6,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS234v0",
   "component": true,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
+  "composite_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
   "cql_libraries": [
     {
       "_id": {
@@ -16780,7 +16780,7 @@
   "created_at": "2019-07-11T18:51:01.132Z",
   "description": "Percentage of female patients ages 65 to 74 with an Annual Wellness Visit (AWV) during the measurement period who received a mammogram during or in the year before the measurement period",
   "hqmf_id": "40280582-6621-2797-0166-455ED5DC11BF",
-  "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
+  "set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
   "hqmf_version_number": "0",
   "main_cql_library": "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer",
   "measure_attributes": [

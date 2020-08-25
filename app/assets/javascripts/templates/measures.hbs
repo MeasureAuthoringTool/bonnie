@@ -25,7 +25,7 @@
     <div class="measure">
       <div class="measure-col">
           <div class="measure-title">
-            {{#link "measures/{{cqmMeasure.hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cqmMeasure.cms_id}}, Measure Title: </span>{{cqmMeasure.title}}{{/link}}
+            {{#link "measures/{{cqmMeasure.set_id}}" expand-tokens=true}}<span class="sr-only">{{cqmMeasure.cms_id}}, Measure Title: </span>{{cqmMeasure.title}}{{/link}}
             <span class="cms-id">
               <span class="sr-only">CMS ID: </span>
               {{cqmMeasure.cms_id}}
@@ -53,7 +53,7 @@
         {{/if}}
         {{#unless cqmMeasure.composite}}
           <div class="btn-wrapper" data-toggle="tooltip" title="FHIR Patient creation is currently disabled. This feature will be available in future UATs.">
-            <a href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
+            <a href="#measures/{{cqmMeasure.set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
               <i class="fa fa-user" aria-hidden="true"></i>
               <i class="fa fa-plus" aria-hidden="true"></i>
               <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
@@ -86,7 +86,7 @@
         <div class="component-measure">
           <div class="component-measure-col">
             <div class="component-measure-title">
-              {{#link "measures/{{cqmMeasure.hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cqmMeasure.cms_id}}, Measure Title: </span>{{cqmMeasure.title}}{{/link}}
+              {{#link "measures/{{cqmMeasure.set_id}}" expand-tokens=true}}<span class="sr-only">{{cqmMeasure.cms_id}}, Measure Title: </span>{{cqmMeasure.title}}{{/link}}
               <span class="sr-only">CMS ID: </span><span class="component-cms-id">{{cqmMeasure.cms_id}}</span>
             </div>
           </div>
@@ -99,7 +99,7 @@
           <div class="patient-listing-col">
             {{view "MeasureFractionView" model=differences.summary cms_id=cqmMeasure.cms_id}}
             <div class="btn-wrapper" data-toggle="tooltip" title="FHIR Patient creation is currently disabled. This feature will be available in future UATs.">
-              <a href="#measures/{{cqmMeasure.hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
+              <a href="#measures/{{cqmMeasure.set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}" disabled="true" aria-disabled="true">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>

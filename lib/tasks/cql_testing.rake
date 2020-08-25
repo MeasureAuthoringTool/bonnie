@@ -24,7 +24,7 @@ namespace :bonnie do
 
       user = User.find_by email: args[:user_email]
       cqm_measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
-      records = CQM::Patient.by_user_and_hqmf_set_id(user, cqm_measure.hqmf_set_id)
+      records = CQM::Patient.by_user_and_set_id(user, cqm_measure.set_id)
 
       fixture_exporter = FrontendFixtureExporter.new(user, measure: cqm_measure, records: records)
       fixture_exporter.export_measure_and_any_components(measure_file_path)
@@ -39,7 +39,7 @@ namespace :bonnie do
       user = User.find_by email: args[:user_email]
 
       CQM::Measure.by_user(user).each do |measure|
-        patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+        patients = CQM::Patient.by_user_and_set_id(user, measure.set_id)
 
         measure_file_path = File.join(fixtures_path, 'cqm_measure_data', measure.cms_id)
         patient_file_path = File.join(fixtures_path, 'patients', measure.cms_id)
@@ -58,7 +58,7 @@ namespace :bonnie do
 
       user = User.find_by email: args[:user_email]
       CQM::Measure.by_user(user).each do |measure|
-        patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+        patients = CQM::Patient.by_user_and_set_id(user, measure.set_id)
 
         measure_file_path = File.join(fixtures_path, 'measures', measure.cms_id, 'cqm_measures')
         patient_file_path = File.join(fixtures_path, 'cqm_patients', measure.cms_id)
@@ -94,7 +94,7 @@ namespace :bonnie do
 
       user = User.find_by email: args[:user_email]
       measure = get_cqm_measure(user, args[:cms_hqmf], args[:measure_id])
-      records = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      records = CQM::Patient.by_user_and_set_id(user, measure.set_id)
 
       fixture_exporter = BackendFixtureExporter.new(user, measure: measure, records: records)
       fixture_exporter.export_measure_and_any_components(measure_file_path)
@@ -156,7 +156,7 @@ namespace :bonnie do
       def user.save!
         nil
       end
-      measures, main_hqmf_set_id = MeasuresController.new.send :persist_measure, measure_file, loading_params, user
+      measures, main_set_id = MeasuresController.new.send :persist_measure, measure_file, loading_params, user
 
       fixture_exporter = BackendFixtureExporter.new(nil, measure: measures.reject(&:component)[0], component_measures: measures.select(&:component))
       fixture_exporter.export_measure_and_any_components(File.join(fixture_path,'cqm_measures'))
@@ -171,7 +171,7 @@ namespace :bonnie do
       CQM::Measure.by_user(user).each do |measure|
         if (cms_hqmf.casecmp('cms').zero? && measure.cms_id.casecmp(measure_id).zero?)
           return measure
-        elsif (cms_hqmf.casecmp('hqmf').zero? && measure.hqmf_set_id.casecmp(measure_id).zero?)
+        elsif (cms_hqmf.casecmp('hqmf').zero? && measure.set_id.casecmp(measure_id).zero?)
           return measure
         end
       end

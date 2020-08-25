@@ -25,14 +25,14 @@ module MeasureHelper
   end
 
   class MeasureLoadingMeasureAlreadyExists < SharedError
-    def initialize(measure_hqmf_set_id)
+    def initialize(measure_set_id)
       front_end_version = {
         title: "Error Loading Measure",
         summary: "A version of this measure is already loaded.",
         body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."
       }
       back_end_version = {
-        json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure_hqmf_set_id}"},
+        json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure_set_id}"},
         status: :conflict
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
@@ -286,8 +286,8 @@ module MeasureHelper
   end
 
   def delete_for_update(existing, user)
-    existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
-      component_measure = CQM::Measure.by_user(user).where(hqmf_set_id: component_hqmf_set_id).first
+    existing.component_set_ids.each do |component_set_id|
+      component_measure = CQM::Measure.by_user(user).where(set_id: component_set_id).first
       component_measure.delete
     end
     existing.delete

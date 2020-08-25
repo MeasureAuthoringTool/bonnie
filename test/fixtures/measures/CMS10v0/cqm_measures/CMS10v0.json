@@ -6,11 +6,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS10v0",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": {
@@ -2461,7 +2461,7 @@
   "created_at": "2019-07-11T18:48:58.098Z",
   "description": "Percentage of visits for patients aged 18 years and older for which the eligible professional attests to documenting a list of current medications using all immediate resources available on the date of the encounter.  This list must include ALL known prescriptions, over-the-counters, herbals, and vitamin/mineral/dietary (nutritional) supplements AND must contain the medications' name, dosage, frequency and route of administration.",
   "hqmf_id": "40280582-5859-673B-0158-E42103C30732",
-  "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+  "set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
   "hqmf_version_number": "0",
   "main_cql_library": "DocumentationofCurrentMedicationsintheMedicalRecord",
   "measure_attributes": [
