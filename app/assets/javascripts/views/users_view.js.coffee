@@ -75,10 +75,15 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
     'keydown input:text': 'enableSend'
     'change textarea': 'enableSend'
 
+  context: ->
+    @bodyAreaId = 'emailBody' + Date.now()
+    _(super).extend
+      body_area_id: @bodyAreaId
+
   setup: ->
     @emailUsersDialog = @$("#emailUsersDialog")
     @subjectField = @$("#emailSubject")
-    @bodyAreaSelector = '#emailBody' + @email_type_label
+    @bodyAreaSelector = '#' + @bodyAreaId
     @bodyArea = @$(@bodyAreaSelector)
     @sendButton = @$("#sendButton")
     @enableSend()
@@ -131,7 +136,6 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
     })
 
 class Thorax.Views.EmailAllUsers extends Thorax.Views.EmailUsers
-  email_type_label: "All"
   context: ->
     _(super).extend
       token: $("meta[name='csrf-token']").attr('content')
@@ -139,7 +143,6 @@ class Thorax.Views.EmailAllUsers extends Thorax.Views.EmailUsers
       email_action: "admin/users/email_all"
 
 class Thorax.Views.EmailActiveUsers extends Thorax.Views.EmailUsers
-  email_type_label: "Active"
   context: ->
     _(super).extend
       token: $("meta[name='csrf-token']").attr('content')
@@ -147,7 +150,6 @@ class Thorax.Views.EmailActiveUsers extends Thorax.Views.EmailUsers
       email_action: "admin/users/email_active"
 
 class Thorax.Views.EmailUser extends Thorax.Views.EmailUsers
-  email_type_label: "Single"
   context: ->
     _(super).extend
       token: $("meta[name='csrf-token']").attr('content')
