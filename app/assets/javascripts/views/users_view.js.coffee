@@ -18,13 +18,13 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
   emailAllUsers: ->
     if !@emailAllUsersView
       @emailAllUsersView = new Thorax.Views.EmailAllUsers()
-      @emailAllUsersView.appendTo($('body'))
+      @emailAllUsersView.appendTo($(document.body))
     @emailAllUsersView.display()
 
   emailActiveUsers: ->
     if !@emailActiveUsersView
       @emailActiveUsersView = new Thorax.Views.EmailActiveUsers()
-      @emailActiveUsersView.appendTo($('body'))
+      @emailActiveUsersView.appendTo($(document.body))
     @emailActiveUsersView.display()
 
 class Thorax.Views.User extends Thorax.Views.BonnieView
@@ -64,7 +64,7 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
   emailUser: ->
     if !@emailUserView
       @emailUserView = new Thorax.Views.EmailUser({email: @model.attributes.email})
-      @emailUserView.appendTo($('body'))
+      @emailUserView.appendTo($(document.body))
     @emailUserView.display()
 
 class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
