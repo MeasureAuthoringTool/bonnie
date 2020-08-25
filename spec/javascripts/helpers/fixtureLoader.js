@@ -5,7 +5,7 @@ loadMeasureWithValueSets = function(measurePath, valueSetsPath) {
   // stored in the database
 
   measureJSON = getJSONFixture(measurePath);
-  valuesetsJSON = getJSONFixture(valueSetsPath)[measureJSON.hqmf_set_id];
+  valuesetsJSON = getJSONFixture(valueSetsPath)[measureJSON.set_id];
   measureJSON.value_sets = valuesetsJSON;
   measure = new Thorax.Models.Measure(measureJSON, {parse: true});
   return measure;

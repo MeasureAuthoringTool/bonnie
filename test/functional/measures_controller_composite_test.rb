@@ -28,7 +28,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_equal 0, CQM::Measure.all.count
 
     # Sanity check
-    measure = CQM::Measure.where({hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
+    measure = CQM::Measure.where({set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
@@ -124,7 +124,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test "update composite measure with mismatching hqmf_set_id" do
+  test "update composite measure with mismatching set_id" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts.zip'), 'application/xml')
@@ -133,7 +133,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_equal 0, CQM::Measure.all.count
 
     # Sanity check
-    measure = CQM::Measure.where({hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
+    measure = CQM::Measure.where({set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
@@ -155,8 +155,8 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     # This composite measure has 7 components and 1 composite measure
     assert_equal 8, CQM::Measure.all.count
 
-    # Update previously loaded measure with a measure that has a different hqmf_set_id
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_hqmf_set_id_mismatch.zip'), 'application/xml')
+    # Update previously loaded measure with a measure that has a different set_id
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_set_id_mismatch.zip'), 'application/xml')
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
       post :create, params: {
@@ -168,7 +168,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient',
-        hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+        set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
       }
     end
     assert_equal "Error Updating Measure", flash[:error][:title]
@@ -188,7 +188,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_equal 0, CQM::Measure.all.count
 
     # Sanity check
-    measure = CQM::Measure.where({hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
+    measure = CQM::Measure.where({set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
@@ -230,7 +230,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_equal 0, CQM::Measure.all.count
 
     # Sanity check
-    measure = CQM::Measure.where({hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
+    measure = CQM::Measure.where({set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"}).first
     assert_nil measure
 
     VCR.use_cassette("valid_vsac_response_composite", @vcr_options) do
@@ -264,7 +264,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         measure_file: measure_file1,
         measure_type: 'ep',
         calculation_type: 'patient',
-        hqmf_set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
+        set_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"
       }
     end
     assert_response :redirect

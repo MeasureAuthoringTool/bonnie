@@ -3,7 +3,7 @@ describe 'Patient Builder New Patient', ->
   beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
-    @patient = new Thorax.Models.Patient {measure_ids: [@measure?.get('cqmMeasure').hqmf_set_id]}, parse: true
+    @patient = new Thorax.Models.Patient {measure_ids: [@measure?.get('cqmMeasure').set_id]}, parse: true
     @patients = new Thorax.Collections.Patients [@patient], parse: true
     @bonnie_measures_old = bonnie.measures
     bonnie.measures = new Thorax.Collections.Measures()

@@ -23,9 +23,9 @@
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
-    'measures/:hqmf_set_id':                           'renderMeasure'
-    'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
+    'measures/:set_id':                           'renderMeasure'
+    'measures/:measure_set_id/patients/:id/edit': 'renderPatientBuilder'
+    'measures/:measure_set_id/patients/new':      'renderPatientBuilder'
     'admin/users':                                     'renderUsers'
     # This will catch any unmatched hashes and route them to showPageNotFound
     '*path':                                            'showPageNotFound'
@@ -36,8 +36,8 @@
     dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
 
-  renderMeasure: (hqmfSetId) ->
-    measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId) if hqmfSetId
+  renderMeasure: (setId) ->
+    measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').set_id is setId) if setId
 
     if measure?
       @navigationSetup "Measure View", "dashboard"
@@ -55,9 +55,9 @@
     usersView = new Thorax.Views.Users(collection: @users)
     @mainView.setView(usersView)
 
-  renderPatientBuilder: (measureHqmfSetId, patientId) ->
-    measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is measureHqmfSetId) if measureHqmfSetId
-    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('cqmMeasure').hqmf_set_id]}, parse: true
+  renderPatientBuilder: (measuresetId, patientId) ->
+    measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').set_id is measuresetId) if measuresetId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('cqmMeasure').set_id]}, parse: true
     if measure? and patient?
       @navigationSetup "Patient Builder", "patient-builder"
       document.title += " - #{measure.get('cqmMeasure').cms_id}" if measure?
@@ -80,10 +80,10 @@
   # mode populated with data from an existing patient, ie a clone
   navigateToPatientBuilder: (patient, measure) ->
     # FIXME: Remove this when the Patients View is removed; select the first measure if a measure isn't passed in
-    measure ?= _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is patient.get('measure_ids')[0])
+    measure ?= _.find(@measures.models, (measure) -> measure.get('cqmMeasure').set_id is patient.get('measure_ids')[0])
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
     @breadcrumb.addPatient(measure, patient)
-    @navigate "measures/#{measure.get('cqmMeasure').hqmf_set_id}/patients/new"
+    @navigate "measures/#{measure.get('cqmMeasure').set_id}/patients/new"
 
   showError: (error) ->
     return if $('.errorDialog').length > @maxErrorCount

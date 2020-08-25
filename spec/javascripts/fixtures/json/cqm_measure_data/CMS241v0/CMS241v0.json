@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS241v0",
   "component": true,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
+  "composite_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
   "cql_libraries": [
     {
       "_id": "5d27851531fe5f6eb014c21e",
@@ -13890,7 +13890,7 @@
   "created_at": "2019-07-11T18:51:01.420Z",
   "description": "Percentage of female patients ages 65 to 85 with an annual wellness visit (AWV) during the measurement period who have ever received a dual x-ray absorptiometry (DXA) scan",
   "hqmf_id": "40280382-610B-E7A4-0161-719B483B24A5",
-  "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
+  "set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
   "hqmf_version_number": "0",
   "main_cql_library": "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis",
   "measure_attributes": [

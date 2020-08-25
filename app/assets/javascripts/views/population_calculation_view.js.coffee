@@ -18,14 +18,14 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @toggledPatient = null
 
   context: ->
-    _(super).extend({measure_id: @measure.get('cqmMeasure').hqmf_set_id, measure_is_composite: @measure.get('cqmMeasure').composite})
+    _(super).extend({measure_id: @measure.get('cqmMeasure').set_id, measure_is_composite: @measure.get('cqmMeasure').composite})
 
   events:
     'click .select-patient': -> @trigger 'select-patients:change'
 
   differenceContext: (difference) ->
     _(difference.toJSON()).extend
-      measure_id: @measure.get('cqmMeasure').hqmf_set_id
+      measure_id: @measure.get('cqmMeasure').set_id
       episode_of_care: @measure.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE'
       patientFirstName: difference.result.patient.getFirstName()
       patientLastName: difference.result.patient.getLastName()
@@ -61,7 +61,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     patient = @measure.get('patients').get difference.result.patient.id
     # If patient belongs to multiple measures, show dialog asking if we want to remove patient from specific measures else delete patient
     if (patient.get('cqmPatient').measure_ids.filter (id) -> id?).length > 1 && bonnie.isPortfolio
-      patientsMeasures = @measure.collection.models.filter (measure) -> patient.get('cqmPatient').measure_ids.includes(measure.get('cqmMeasure').hqmf_set_id)
+      patientsMeasures = @measure.collection.models.filter (measure) -> patient.get('cqmPatient').measure_ids.includes(measure.get('cqmMeasure').set_id)
       # Difference is needed by the patient dialog view if the user ultimately ends up removing patient from current measure
       deletePatientDialog = new Thorax.Views.DeletePatientDialog(model: patient, availableMeasures: patientsMeasures, submitCallback: @adjustMeasureIds, difference: difference)
       deletePatientDialog.appendTo(@$el)
@@ -80,10 +80,10 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     remaining = (patient.get('cqmPatient').measure_ids.filter (id) -> id != null ).length
     if remaining > 0
       # if we are removing selected patient from current measure remove from differences view
-      if ids.includes(this.measure.attributes.cqmMeasure.hqmf_set_id)
+      if ids.includes(this.measure.attributes.cqmMeasure.set_id)
         @differences.remove(difference)
       # Remove patient from throrax collections so UI is up to date when user goes back to dashboard
-      @measure.collection.models.forEach (mes) -> mes.attributes.patients.remove(patient) if ids.includes(mes.attributes.cqmMeasure.hqmf_set_id)
+      @measure.collection.models.forEach (mes) -> mes.attributes.patients.remove(patient) if ids.includes(mes.attributes.cqmMeasure.set_id)
       patient.save {cqmPatient: patient.get('cqmPatient')}, {silent: true}
     else
       @patientDestroy(patient, difference.result)

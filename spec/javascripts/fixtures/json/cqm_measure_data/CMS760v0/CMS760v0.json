@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS760v0",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": "5d27841931fe5f6eb0079f70",
@@ -2230,7 +2230,7 @@
   "created_at": "2019-07-11T18:46:49.844Z",
   "description": "testing bonnie",
   "hqmf_id": "40280582-624A-D531-0162-72E0C62000B9",
-  "hqmf_set_id": "065C9002-603F-46A3-BA0F-E2A9F1732DC3",
+  "set_id": "065C9002-603F-46A3-BA0F-E2A9F1732DC3",
   "hqmf_version_number": "0",
   "main_cql_library": "PD0329",
   "measure_attributes": [

@@ -2,9 +2,9 @@ class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
 
   populateComponents: ->
-    return unless @get('cqmMeasure').get('composite')
-    @set 'componentMeasures', new Thorax.Collection @.get('cqmMeasure').get('component_hqmf_set_ids').map(
-      (hqmfSetId) -> _.find(bonnie.measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId)
+    return unless @get('cqmMeasure').composite
+    @set 'componentMeasures', new Thorax.Collection @.get('cqmMeasure').get('component_set_ids').map(
+      (setId) -> _.find(bonnie.measures.models, (measure) -> measure.get('cqmMeasure').set_id is setId)
     )
 
   initialize: ->
@@ -13,15 +13,13 @@ class Thorax.Models.Measure extends Thorax.Model
     @_localIdCache = {}
   parse: (attrs) ->
     thoraxMeasure = {}
+    debugger;
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
     thoraxMeasure.cqmMeasure = cqm.models.CqmMeasure.parse(attrs)
 
-    # Adapting FHIR model's set_id to work with QDM Model's hqmf_set_id.
-    # TODO Remove once TS models implemented.
-    thoraxMeasure.cqmMeasure.hqmf_set_id = attrs.set_id
-
-    thoraxMeasure._id = thoraxMeasure.cqmMeasure.id.toString()
+    thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
+#    thoraxMeasure._id = attrs.fhir_measure.fhirId.toString()
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
     else
@@ -213,8 +211,8 @@ class Thorax.Collections.Measures extends Thorax.Collection
     @chain().map((m) -> m.valueSets()?.models or []).flatten().uniq((vs) -> vs.get('oid')).value()
 
   toOids: ->
-    measureToOids = {} # measure hqmf_set_id : valueSet oid
-    @each (m) => measureToOids[m.get('cqmMeausre').hqmf_set_id] = m.valueSets().pluck('oid')
+    measureToOids = {} # measure set_id : valueSet oid
+    @each (m) => measureToOids[m.get('cqmMeausre').set_id] = m.valueSets().pluck('oid')
     measureToOids
 
   deepClone: ->

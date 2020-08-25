@@ -32,7 +32,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     @set '_id', new_id
     @set 'id', new_id.toString()
 
-  measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
+  measure: -> bonnie.measures.findWhere set_id: @get('set_id')
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')
 

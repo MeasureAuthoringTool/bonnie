@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMSv5555",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": "5d30b4e108fa18d1a733c4b7",
@@ -15301,7 +15301,7 @@
   "created_at": "2019-07-18T18:05:21.942Z",
   "description": "Test",
   "hqmf_id": "2C91C3816B9A323E016B9A846885015A",
-  "hqmf_set_id": "8D708855-6933-44F1-8D10-B1618BD57D7E",
+  "set_id": "8D708855-6933-44F1-8D10-B1618BD57D7E",
   "hqmf_version_number": "0.0.004",
   "main_cql_library": "MeasureUsingNewQDMElementsandAttributes",
   "measure_attributes": [

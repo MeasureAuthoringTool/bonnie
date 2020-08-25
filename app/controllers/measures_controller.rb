@@ -36,7 +36,7 @@ class MeasuresController < ApplicationController
 
     params[:vsac_tgt] = vsac_tgt[:ticket]
     params[:vsac_tgt_expires_at] = vsac_tgt[:expires]
-    measures, main_hqmf_set_id = persist_measure(params[:measure_file], params.permit!.to_h, current_user)
+    measures, main_set_id = persist_measure(params[:measure_file], params.permit!.to_h, current_user)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
     # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
@@ -52,9 +52,9 @@ class MeasuresController < ApplicationController
   end
 
   def finalize
-    measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
+    measure_finalize_data = params.values.select {|p| p['fhir_id']}.uniq
     measure_finalize_data.each do |data|
-      measure = CQM::Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
+      measure = CQM::Measure.by_user(current_user).where(fhir_id: data['fhir_id']).first
       begin
         # TODO: should this do the same for component measures?
         Measures::BundleLoader.update_population_set_and_strat_titles(measure, data['titles'])
@@ -89,8 +89,8 @@ class MeasuresController < ApplicationController
         measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
         measure.save!
         if measure.composite?
-          measure.component_hqmf_set_ids.each do |hqmf_set_id|
-            component_measure = CQM::Measure.by_user(current_user).where(hqmf_set_id: hqmf_set_id).first
+          measure.component_set_ids.each do |set_id|
+            component_measure = CQM::Measure.by_user(current_user).where(set_id: set_id).first
             component_measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
             component_measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
             component_measure.save!
@@ -111,9 +111,9 @@ class MeasuresController < ApplicationController
 
   def persist_measure(uploaded_file, permitted_params, user)
     measure =
-      if permitted_params[:hqmf_set_id].present?
+      if permitted_params[:set_id].present?
         update_measure(uploaded_file: uploaded_file,
-                      target_id: permitted_params[:hqmf_set_id],
+                      target_id: permitted_params[:set_id],
                       value_set_loader: build_vs_loader(permitted_params, false),
                       user: user)
       else
@@ -144,7 +144,7 @@ class MeasuresController < ApplicationController
 
   def shift_years(measure, year_shift)
     # Copy the patients to make sure there are no errors before saving every patient
-    patients = CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).all.entries
+    patients = CQM::Patient.by_user_and_set_id(current_user, measure.set_id).all.entries
     errored_patients = []
     patients.each do |patient|
       begin

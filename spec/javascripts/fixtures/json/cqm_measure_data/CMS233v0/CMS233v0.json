@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS233v0",
   "component": true,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
+  "composite_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
   "cql_libraries": [
     {
       "_id": "5d27851431fe5f6eb014bdea",
@@ -16722,7 +16722,7 @@
   "created_at": "2019-07-11T18:51:00.837Z",
   "description": "Percentage of patients ages 65 to 75 with an Annual Wellness Visit (AWV) during the measurement period who had one of the following:\n- A colonoscopy during or in the nine years before the measurement period\n- A flexible sigmoidoscopy during or in the four years before the measurement period\n- A fecal occult blood test during the measurement period\n- Fecal Immunochemical Test-Deoxyribose Nucleic Acid (FIT-DNA) during or in the two years before the measurement period\n- Computed tomography (CT) colonography during or in the four years before the measurement period",
   "hqmf_id": "40280382-610B-E7A4-0161-6C6D76CB2060",
-  "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
+  "set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
   "hqmf_version_number": "0",
   "main_cql_library": "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer",
   "measure_attributes": [

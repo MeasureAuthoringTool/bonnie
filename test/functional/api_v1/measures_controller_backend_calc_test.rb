@@ -14,7 +14,7 @@ module ApiV1
       @user = User.by_email('bonnie@example.com').first
       load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @user)
       @measure = CQM::Measure.where({"cms_id" => "CMS160v6"}).first
-      @cms160_hqmf_set_id = @measure.hqmf_set_id
+      @cms160_set_id = @measure.set_id
       associate_user_with_patients(@user,CQM::Patient.all)
 
       @vcr_options = {match_requests_on: [:method, :uri_no_st]}
@@ -47,7 +47,7 @@ module ApiV1
         headers = { :Accept => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }
         request.headers.merge! headers
         stub_request(:post, BonnieBackendCalculator::CALCULATION_SERVICE_URL).to_timeout
-        get :calculated_results, params: {id: @cms160_hqmf_set_id}
+        get :calculated_results, params: {id: @cms160_set_id}
         assert_response :internal_server_error
       ensure
         # This needs to be in an ensure block because failures above this line will change global state otherwise.
@@ -57,7 +57,7 @@ module ApiV1
 
     test "should get a 406 error response if no accept header is provided" do
       VCR.use_cassette("backend_calculation_json_as_default") do
-        get :calculated_results, params: {id: @cms160_hqmf_set_id}
+        get :calculated_results, params: {id: @cms160_set_id}
         assert_response :not_acceptable
         assert_equal response.content_type, 'application/json'
         json = JSON.parse(response.body)
@@ -70,7 +70,7 @@ module ApiV1
       VCR.use_cassette("backend_calculation_json") do
         headers = { :Accept => "application/json" }
         request.headers.merge! headers
-        get :calculated_results, params: {id: @cms160_hqmf_set_id}
+        get :calculated_results, params: {id: @cms160_set_id}
         assert_response :not_acceptable
         assert_equal response.content_type, 'application/json'
 
@@ -89,7 +89,7 @@ module ApiV1
       VCR.use_cassette("backend_calculation_excel", @vcr_options) do
         headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
-        get :calculated_results, params: {id: @measure.hqmf_set_id}
+        get :calculated_results, params: {id: @measure.set_id}
         skip('Fix Excel Export after Individual Result Changes')
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
@@ -225,7 +225,7 @@ module ApiV1
       VCR.use_cassette("backend_calculation_excel_no_patients") do
         headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
-        get :calculated_results, params: {id: @cms160_hqmf_set_id}
+        get :calculated_results, params: {id: @cms160_set_id}
         skip('Fix Excel Export after Individual Result Changes')
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
