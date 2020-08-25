@@ -6,6 +6,7 @@ ENV["APIPIE_RECORD"] = "examples"
 require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'rake'
+require "minitest/mock"
 WebMock.enable!
 
 # load_tasks needs to be called exactly one time, so it's in the header area
