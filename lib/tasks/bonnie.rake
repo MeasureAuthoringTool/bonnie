@@ -313,15 +313,15 @@ namespace :bonnie do
 
     You must identify the source user by SOURCE_EMAIL,
     the destination user account by DEST_EMAIL,
-    the source measure by SOURCE_set_id,
-    and the destination measure by DEST_set_id
+    the source measure by SOURCE_SET_ID,
+    and the destination measure by DEST_SET_ID
 
-    $ rake bonnie:patients:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_set_id=100 DEST_set_id=101}
+    $ rake bonnie:patients:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_SET_ID=100 DEST_SET_ID=101}
     task :copy_measure_patients => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
-      source_set_id = ENV['SOURCE_set_id']
-      dest_set_id = ENV['DEST_set_id']
+      source_set_id = ENV['SOURCE_SET_ID']
+      dest_set_id = ENV['DEST_SET_ID']
 
       is_error = false
 
@@ -344,7 +344,7 @@ namespace :bonnie do
       unless is_error
         source_measure = CQM::Measure.find_by(user_id: source.id, set_id: source_set_id)
         if source_measure.nil?
-          print_error "measure with HQFM set id #{source_set_id} not found for account #{source_email}"
+          print_error "measure with set id #{source_set_id} not found for account #{source_email}"
           is_error = true
         end
       end
@@ -370,15 +370,15 @@ namespace :bonnie do
 
     You must identify the source user by SOURCE_EMAIL,
     the destination user account by DEST_EMAIL,
-    the source measure by SOURCE_set_id,
-    and the destination measure by DEST_set_id
+    the source measure by SOURCE_SET_ID,
+    and the destination measure by DEST_SET_ID
 
-    $ rake bonnie:patients:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_set_id=100 DEST_set_id=101}
+    $ rake bonnie:patients:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_set_id=100 DEST_SET_ID=101}
     task :move_measure_patients => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
-      source_set_id = ENV['SOURCE_set_id']
-      dest_set_id = ENV['DEST_set_id']
+      source_set_id = ENV['SOURCE_SET_ID']
+      dest_set_id = ENV['DEST_SET_ID']
 
       is_error = false
 
@@ -401,7 +401,7 @@ namespace :bonnie do
       unless is_error
         source_measure = CQM::Measure.find_by(user_id: source.id, set_id: source_set_id)
         if source_measure.nil?
-          print_error "measure with HQFM set id #{source_set_id} not found for account #{source_email}"
+          print_error "measure with set id #{source_set_id} not found for account #{source_email}"
           is_error = true
         end
       end
@@ -409,7 +409,7 @@ namespace :bonnie do
       unless is_error
         dest_measure = CQM::Measure.find_by(user_id: dest.id, set_id: dest_set_id)
         if dest_measure.nil?
-          print_error "measure with HQFM set id #{dest_set_id} not found for account #{dest_email}"
+          print_error "measure with set id #{dest_set_id} not found for account #{dest_email}"
           is_error = true
         end
       end
