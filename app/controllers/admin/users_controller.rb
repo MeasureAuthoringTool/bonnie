@@ -26,7 +26,7 @@ class Admin::UsersController < ApplicationController
 
   def email_all
     User.asc(:email).each do |user|
-      email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
+      email = Admin::UsersMailer.users_email(user, user_email_params[:subject], user_email_params[:body])
       email.deliver_now
       sleep 2 # address issues with mail throttling
     end
@@ -38,11 +38,18 @@ class Admin::UsersController < ApplicationController
     # and have at least one measure loaded
     User.asc(:email).where(:last_sign_in_at.gt => Date.today - 6.months).each do |user|
       if user.measure_count > 0
-        email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
+        email = Admin::UsersMailer.users_email(user, user_email_params[:subject], user_email_params[:body])
         email.deliver_now
         sleep 2 # address issues with mail throttling
       end
     end
+    render json: {}
+  end
+
+  def email_single
+    user = User.where(email: user_email_params[:target_email]).first
+    email = Admin::UsersMailer.users_email(user, user_email_params[:subject], user_email_params[:body])
+    email.deliver_now
     render json: {}
   end
 
@@ -93,6 +100,10 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.permit(:email, :admin, :portfolio, :dashboard)
+  end
+
+  def user_email_params
+    params.permit(:target_email, :subject, :body)
   end
 
   def require_admin!
