@@ -55,7 +55,6 @@
   @buildStatementRelevanceMap: (populationRelevance, cqmMeasure, populationSet) ->
     # build map defaulting to not applicable (NA) using cql_statement_dependencies structure
     statementRelevance = {}
-    debugger;
     for library in cqmMeasure.cql_libraries
       statementRelevance[library.library_name] = {}
       for statement in library.statement_dependencies
