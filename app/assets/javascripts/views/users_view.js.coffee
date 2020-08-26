@@ -104,7 +104,7 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
       menubar: false
       statusbar: false
       setup: (editor) ->
-        editor.on('change', () ->
+        editor.on('change', ->
           editor.save()
           me.bodyArea.trigger('change')
         )
