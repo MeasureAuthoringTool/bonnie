@@ -17,7 +17,7 @@ class Thorax.Models.Measure extends Thorax.Model
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
     thoraxMeasure.cqmMeasure = cqm.models.CqmMeasure.parse(attrs)
 
-    thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
+    thoraxMeasure._id = thoraxMeasure.cqmMeasure.id.toString()
 #    thoraxMeasure._id = attrs.fhir_measure.fhirId.toString()
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
