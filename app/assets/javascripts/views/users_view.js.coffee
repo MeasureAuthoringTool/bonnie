@@ -18,13 +18,13 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
   emailAllUsers: ->
     if !@emailAllUsersView
       @emailAllUsersView = new Thorax.Views.EmailAllUsers()
-      @emailAllUsersView.appendTo(@$el)
+      @emailAllUsersView.appendTo($(document.body))
     @emailAllUsersView.display()
 
   emailActiveUsers: ->
     if !@emailActiveUsersView
       @emailActiveUsersView = new Thorax.Views.EmailActiveUsers()
-      @emailActiveUsersView.appendTo(@$el)
+      @emailActiveUsersView.appendTo($(document.body))
     @emailActiveUsersView.display()
 
 class Thorax.Views.User extends Thorax.Views.BonnieView
@@ -64,7 +64,7 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
   emailUser: ->
     if !@emailUserView
       @emailUserView = new Thorax.Views.EmailUser({email: @model.attributes.email})
-      @emailUserView.appendTo(@$el)
+      @emailUserView.appendTo($(document.body))
     @emailUserView.display()
 
 class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
@@ -72,21 +72,47 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
 
   events:
     'ready': 'setup'
-    'keypress input:text': 'enableSend'
-    'keypress textarea': 'enableSend'
+    'keydown input:text': 'enableSend'
+    'change textarea': 'enableSend'
+
+  context: ->
+    @bodyAreaId = 'emailBody' + Date.now()
+    _(super).extend
+      body_area_id: @bodyAreaId
 
   setup: ->
     @emailUsersDialog = @$("#emailUsersDialog")
     @subjectField = @$("#emailSubject")
-    @bodyArea = @$("#emailBody")
+    @bodyAreaSelector = '#' + @bodyAreaId
+    @bodyArea = @$(@bodyAreaSelector)
     @sendButton = @$("#sendButton")
-    @enableSend();
+    @enableSend()
 
   display: ->
+    me = this
     @emailUsersDialog.modal(
-      "backdrop" : "static",
-      "keyboard" : true,
-      "show" : true).find('.modal-dialog').css('width','650px')
+      backdrop: 'static',
+      keyboard: true,
+      show: true).find('.modal-dialog').css('width','650px')
+    tinymce.init({
+      selector: @bodyAreaSelector
+      height: 400
+      plugins: 'link lists'
+      toolbar: 'undo redo | formatselect | bold italic backcolor | ' +
+        'link unlink | numlist bullist outdent indent | ' +
+        'alignleft aligncenter alignright | removeformat'
+      menubar: false
+      statusbar: false
+      setup: (editor) ->
+        editor.on('change', ->
+          editor.save()
+          me.bodyArea.trigger('change')
+        )
+    })
+    # Allow tinymce dialogs to work in Bootstrap
+    $(document).on('focusin', (e) ->
+      if $(e.target).closest('.tox-tinymce-aux, .moxman-window, .tam-assetmanager-root').length
+        e.stopImmediatePropagation()
 
   enableSend: ->
     @sendButton.prop('disabled', @subjectField.val().length == 0 || @bodyArea.val().length == 0)
@@ -103,6 +129,7 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
       'success': ->
         # Kill the subject and body areas if we've successfully sent our message
         me.subjectField.val('')
+        tinymce.activeEditor.setContent('')
         me.bodyArea.val('')
       'complete': @emailUsersDialog.modal('hide')
     })
