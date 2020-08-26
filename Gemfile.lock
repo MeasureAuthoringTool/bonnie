@@ -1,13 +1,13 @@
 GIT
   remote: https://github.com/MeasureAuthoringTool/fhir-mongoid-models.git
-  revision: 12733d3de840b2f2811f488a07578a672745b8e0
+  revision: 4c778ea07800a99219f23c960a1fb92632e058d1
   branch: develop
   specs:
     fhir-mongoid-models (0.0.1)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 92ebc4aeb020470857c5cf4062e115057b28e732
+  revision: f079645a09a5483ea4ca90ce59d27bedaab928a8
   branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: https://github.com/smartinez87/exception_notification.git
-  revision: cb6f1bc7e5a2b2ccaebc5a38a80590fb883b195c
+  revision: 921961a188262b8a0da625fcb56f19f20e7df0b6
   branch: master
   specs:
     exception_notification (4.4.3)
@@ -99,6 +99,7 @@ GEM
     arel (9.0.0)
     ast (2.4.1)
     bcrypt (3.1.15)
+    bigdecimal (2.0.0)
     brakeman (4.9.0)
     browser (4.2.0)
     bson (4.10.0)
@@ -122,8 +123,7 @@ GEM
     childprocess (3.0.0)
     code_analyzer (0.5.2)
       sexp_processor
-    codecov (0.2.5)
-      colorize
+    codecov (0.2.8)
       json
       simplecov
     coderay (1.1.3)
@@ -229,7 +229,8 @@ GEM
       mini_portile2 (~> 2.4.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
-    oj (3.10.8)
+    oj (3.10.12)
+      bigdecimal (>= 1.0, < 3)
     orm_adapter (0.5.0)
     overcommit (0.55.0)
       childprocess (>= 0.6.3, < 5)
@@ -296,6 +297,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    reverse_markdown (2.0.0)
+      nokogiri
     rexml (3.2.4)
     roo (2.8.3)
       nokogiri (~> 1)
@@ -413,6 +416,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_best_practices
   rest-client
+  reverse_markdown
   roo (~> 2.7)
   rubocop
   rubyzip (>= 1.3.0)
@@ -432,4 +436,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   1.17.3
+   2.1.4
