@@ -113,6 +113,7 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
     $(document).on('focusin', (e) ->
       if $(e.target).closest('.tox-tinymce-aux, .moxman-window, .tam-assetmanager-root').length
         e.stopImmediatePropagation()
+    )
 
   enableSend: ->
     @sendButton.prop('disabled', @subjectField.val().length == 0 || @bodyArea.val().length == 0)
