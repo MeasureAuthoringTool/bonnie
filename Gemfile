@@ -42,7 +42,7 @@ group :test, :development, :ci do
   # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
   gem 'teaspoon', '1.1.5'
   gem "overcommit"
-  gem 'rubocop'
+  gem 'rubocop', '~> 0.88.0'
   gem 'teaspoon-jasmine'
   gem 'simplecov', :require => false
   gem 'minitest'
@@ -88,3 +88,5 @@ gem 'jquery-rails'
 
 # Browser Detection
 gem 'browser'
+
+gem "reverse_markdown", "~> 2.0"
