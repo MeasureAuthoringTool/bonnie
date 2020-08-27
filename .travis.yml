@@ -1,5 +1,6 @@
 language: ruby
 cache:
+  - bundler
   - node_modules
 sudo: required
 addons:
