@@ -3,29 +3,14 @@
     <div class="measure-title">
       {{!-- This really just needs to be bold --}}
       <span class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> Measure details</span>
-      {{#if cqmMeasure.component}}
-        <span class="settings-container">
-          <div class="measure-settings">
-            <a data-title="Component measures must be updated via their composite measure." data-toggle="tooltip" data-placement="bottom">
-              {{#button "updateMeasure" class="btn btn-default update-measure" disabled="true"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
-            </a>
-            <a data-title="Component measures must be deleted via their composite measure." data-toggle="tooltip" data-placement="bottom">
-              {{#button "deleteMeasure" class="btn btn-danger delete-measure hide" disabled="true"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
-              {{#button "showDelete" class="btn btn-danger-inverse delete-icon" disabled="true"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
-            </a>
-          </div>
-          {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
-        </span>
-      {{else}}
-        <span class="settings-container">
-          <div class="measure-settings">
-              {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
-              {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
-              {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
-          </div>
-          {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
-        </span>
-      {{/if}}
+      <span class="settings-container">
+        <div class="measure-settings">
+            {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
+            {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
+            {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
+        </div>
+        {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
+      </span>
     </div>
     <div class="measure-dsp">
       <h2 class="full-title">{{cqmMeasure.title}}</h2>
