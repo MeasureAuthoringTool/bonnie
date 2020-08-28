@@ -14,7 +14,7 @@ gem "non-stupid-digest-assets"
 # gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
 
 # gem 'cqm-parsers', :path => '../cqm-parsers'
-#gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
+# gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie-on-fhir'
 gem 'fhir-mongoid-models', git: 'https://github.com/MeasureAuthoringTool/fhir-mongoid-models.git', branch: 'develop'
 
