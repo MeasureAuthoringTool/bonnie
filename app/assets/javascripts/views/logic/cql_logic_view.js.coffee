@@ -84,8 +84,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     for library in @cqmMeasure.cql_libraries
       @hasOutdatedQDM = true if @_hasOutdatedQDM(library)
       @hasCqlErrors = true if @_hasCqlErrors(library)
-      # Only top level libraries will have elm annotations
-      continue unless library.is_top_level
+
       for statement in library.elm_annotations.statements
         # skip if this is a statement the user doesn't need to see
         continue unless statement.define_name?
@@ -98,11 +97,12 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         continue unless @population?
 
         for popCode, popStatements of @population.get('populations')
-          continue unless library.is_main_library
+          #continue if popCode != 'resource_type'
+          continue unless library.is_main_library || popCode != 'resource_type'
           if statement.define_name == popStatements.statement_name
             popNames.push(popCode)
 
-        for observ, observIndex in @population.get('observations')
+        for observ, observIndex in @population.get('observations') || []
           continue unless library.is_main_library
           if statement.define_name == observ.observation_function.statement_name
             popNames.push("OBSERV_#{observIndex+1}")

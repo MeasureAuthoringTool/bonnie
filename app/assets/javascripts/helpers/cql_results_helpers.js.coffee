@@ -68,7 +68,7 @@
     for population, relevance of populationRelevance
       # If the population is values, that means we need to mark relevance for the OBSERVs
       if (population == 'observation_values')
-        for observation in populationSet.get('observations')
+        for observation in populationSet.get('observations') || []
           @_markStatementRelevant(cqmMeasure.cql_libraries, statementRelevance, cqmMeasure.main_cql_library, observation.observation_function.statement_name, relevance)
       else
         relevantStatement = populationSet.get('populations')[population].statement_name
