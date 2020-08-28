@@ -1,12 +1,6 @@
 class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
 
-  populateComponents: ->
-    return unless @get('cqmMeasure').get('composite')
-    @set 'componentMeasures', new Thorax.Collection @.get('cqmMeasure').get('component_hqmf_set_ids').map(
-      (hqmfSetId) -> _.find(bonnie.measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId)
-    )
-
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
     @set 'patients', new Thorax.Collections.Patients [], _fetched: true
@@ -15,13 +9,10 @@ class Thorax.Models.Measure extends Thorax.Model
     thoraxMeasure = {}
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
-    thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+    thoraxMeasure.cqmMeasure = cqm.models.CqmMeasure.parse(attrs)
 
-    # Adapting FHIR model's set_id to work with QDM Model's hqmf_set_id.
-    # TODO Remove once TS models implemented.
-    thoraxMeasure.cqmMeasure.hqmf_set_id = attrs.set_id
-
-    thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
+    thoraxMeasure._id = thoraxMeasure.cqmMeasure.id.toString()
+#    thoraxMeasure._id = attrs.fhir_measure.fhirId.toString()
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
     else
@@ -29,16 +20,11 @@ class Thorax.Models.Measure extends Thorax.Model
 
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
-    stratificationPopulations = CQLMeasureHelpers.getStratificationsAsPopulationSets(thoraxMeasure.cqmMeasure.population_sets)
-    # thoraxMeasure.population_sets is a combination of mongoose population_sets and mongoose stratifications
-    # toObject() removes all mongoose specific fields (ie: '_id' and '_type')
+
+    # Get a combination of mongoose population_sets and mongoose stratifications
     # This is necessary since our view treats the stratification as a population
-    popSetsAndStrats = (thoraxMeasure.cqmMeasure.population_sets.concat stratificationPopulations)
-                        .map (popSet) ->
-                          if typeof popSet.toObject == 'function'
-                            popSet.toObject()
-                          else
-                            popSet
+    popSetsAndStrats = thoraxMeasure.cqmMeasure.allPopulationSetsAndStratifications;
+
     for populationSet, index in popSetsAndStrats
       populationSet.sub_id = alphabet[index]
       populationSet.index = index
@@ -218,8 +204,8 @@ class Thorax.Collections.Measures extends Thorax.Collection
     @chain().map((m) -> m.valueSets()?.models or []).flatten().uniq((vs) -> vs.get('oid')).value()
 
   toOids: ->
-    measureToOids = {} # measure hqmf_set_id : valueSet oid
-    @each (m) => measureToOids[m.get('cqmMeausre').hqmf_set_id] = m.valueSets().pluck('oid')
+    measureToOids = {} # measure set_id : valueSet oid
+    @each (m) => measureToOids[m.get('cqmMeausre').set_id] = m.valueSets().pluck('oid')
     measureToOids
 
   deepClone: ->

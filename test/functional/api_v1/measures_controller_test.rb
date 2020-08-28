@@ -130,7 +130,7 @@ module ApiV1
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
 
-      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+      measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_nil measure
 
       VCR.use_cassette('api_valid_vsac_response', @vcr_options) do
@@ -143,7 +143,7 @@ module ApiV1
         assert_equal expected_response, JSON.parse(response.body)
       end
 
-      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+      measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
       assert_equal @user.id, measure.user_id
       measure.value_sets.each { |vs| assert_equal @user.id, vs.user_id }
@@ -183,7 +183,7 @@ module ApiV1
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
 
-        measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+        measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
         assert_equal 1, measure.population_sets.size
         assert_equal 3, measure.population_sets[0].stratifications.size
 
@@ -206,7 +206,7 @@ module ApiV1
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
 
-        measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+        measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
         assert_equal 1, measure.population_sets.size
         assert_equal 'First Pop', measure.population_sets[0].title
         assert_equal 'First Strat', measure.population_sets[0].stratifications[0].title
@@ -228,7 +228,7 @@ module ApiV1
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
       end
-      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+      measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_equal 1, measure.population_sets.size
       assert_equal 3, measure.population_sets[0].stratifications.size
       assert_equal 'First Pop', measure.population_sets[0].title
@@ -249,7 +249,7 @@ module ApiV1
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076' }
         assert_equal expected_response, JSON.parse(response.body)
       end
-      measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+      measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_equal 1, measure.population_sets.size
       assert_equal 3, measure.population_sets[0].stratifications.size
       assert_equal 'First Pop', measure.population_sets[0].title
@@ -309,7 +309,7 @@ module ApiV1
       end
     end
 
-    test 'should return error on updating measure with incorrect hqmf_set_id' do
+    test 'should return error on updating measure with incorrect set_id' do
       # TODO: fix this after MAT-987 release
       skip "fix this after MAT-987 release"
       measure_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0.zip'),'application/zip')
@@ -323,7 +323,7 @@ module ApiV1
         expected_response = { 'status' => 'success', 'url' => '/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076'}
         assert_equal expected_response, JSON.parse(response.body)
 
-        measure_update_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0_mismatch_hqmf_set_id.zip'),'application/zip')
+        measure_update_file = fixture_file_upload(File.join('test','fixtures','cqm_measure_exports','CMS903v0_mismatch_set_id.zip'),'application/zip')
         put :update, params: {id: '4DC3E7AA-8777-4749-A1E4-37E942036076', measure_file: measure_update_file, calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}
         assert_response :not_found
         expected_response = { 'status' => 'error', 'messages' => 'The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure.'}
@@ -352,7 +352,7 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, params: {vsac_query_measure_defined: 'false', vsac_query_include_draft: 'false', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', calculate_sdes: 'true'}
         assert_response :success
-        measure = CQM::Measure.where({hqmf_set_id: 'FA75DE85-A934-45D7-A2F7-C700A756078B'}).first
+        measure = CQM::Measure.where({set_id: 'FA75DE85-A934-45D7-A2F7-C700A756078B'}).first
         assert_equal true, measure.calculate_sdes
       end
     end
@@ -365,7 +365,7 @@ module ApiV1
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, params: {vsac_query_type: 'release', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', calculate_sdes: 'false'}
         assert_response :success
-        measure = CQM::Measure.where({hqmf_set_id: 'FA75DE85-A934-45D7-A2F7-C700A756078B'}).first
+        measure = CQM::Measure.where({set_id: 'FA75DE85-A934-45D7-A2F7-C700A756078B'}).first
         assert_equal false, measure.calculate_sdes
       end
     end
@@ -381,7 +381,7 @@ module ApiV1
       assert_equal 0, CQM::Measure.all.count
 
       # Sanity check
-      measure = CQM::Measure.where({hqmf_set_id: '244B4F52-C9CA-45AA-8BDB-2F005DA05BFC'}).first
+      measure = CQM::Measure.where({set_id: '244B4F52-C9CA-45AA-8BDB-2F005DA05BFC'}).first
       assert_nil measure
 
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'

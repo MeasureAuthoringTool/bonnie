@@ -176,13 +176,13 @@ namespace :bonnie do
 
     desc %{Downloads a measure package for a particular measure.
 
-    Provide either HQMF_SET_ID or CMS_ID
+    Provide either set_id or CMS_ID
 
-    $ rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org HQMF_SET_ID=8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F CMS_ID=761}
+    $ rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org set_id=8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F CMS_ID=761}
     task :download_measure_package => :environment do
       email = ENV['EMAIL']
       cms_id = ENV['CMS_ID']
-      hqmf_set_id = ENV['HQMF_SET_ID']
+      set_id = ENV['set_id']
 
       is_error = false
 
@@ -195,13 +195,13 @@ namespace :bonnie do
       end
 
       unless is_error
-        if hqmf_set_id
-          measure = CQM::Measure.find_by(user_id: user.id, hqmf_set_id: hqmf_set_id)
+        if set_id
+          measure = CQM::Measure.find_by(user_id: user.id, set_id: set_id)
           if measure.nil?
-            print_error "measure with HQFM set id #{hqmf_set_id} not found for account #{email}"
+            print_error "measure with HQFM set id #{set_id} not found for account #{email}"
             is_error = true
           else
-            print_success "#{user.email}: measure with HQMF set id #{hqmf_set_id} found"
+            print_success "#{user.email}: measure with HQMF set id #{set_id} found"
           end
         elsif cms_id
           measure = find_measure(user, '', cms_id)
@@ -210,7 +210,7 @@ namespace :bonnie do
             is_error = true
           end
         else
-          print_error 'Expected CMS_ID or HQMF_SET_ID environment variables'
+          print_error 'Expected CMS_ID or set_id environment variables'
           is_error = true
         end
       end
@@ -233,20 +233,20 @@ namespace :bonnie do
 
     desc %{Export Bonnie patients to a JSON file.
 
-    You must identify the user by EMAIL, include a HQMF_SET_ID, and
+    You must identify the user by EMAIL, include a set_id, and
     an output filename using FILENAME
 
-    $ rake bonnie:patients:export_patients EMAIL=xxx HQMF_SET_ID=1948-138412-1414 FILENAME=CMS100_pations.json}
+    $ rake bonnie:patients:export_patients EMAIL=xxx set_id=1948-138412-1414 FILENAME=CMS100_pations.json}
     task :export_patients => :environment do
       # Grab user account
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to pull patients from
-      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
+      raise "#{ENV['set_id']} set_id not found" unless measure = CQM::Measure.find_by(user_id: user._id, set_id: ENV['set_id'])
 
       # Grab the patients
-      patients = CQM::Patient.where(user_id: user._id, measure_ids: measure.hqmf_set_id)
+      patients = CQM::Patient.where(user_id: user._id, measure_ids: measure.set_id)
 
       # Write patient objects to file in JSON format
       puts 'Exporting patients...'
@@ -263,18 +263,18 @@ namespace :bonnie do
     desc %{Import Bonnie patients from a JSON file.
     The JSON file must be the one that is generated using the export_patients rake task.
 
-    You must identify the user by EMAIL, include a HQMF_SET_ID,
+    You must identify the user by EMAIL, include a set_id,
     the name of the file to be imported using FILENAME
 
-    $ rake bonnie:patients:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json}
+    $ rake bonnie:patients:import_patients EMAIL=xxx set_id=1924-55295295-23425 FILENAME=CMS100_patients.json}
     task :import_patients => :environment do
       # Grab user account
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to add patients to
-      user_measure = ENV['HQMF_SET_ID']
-      raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
+      user_measure = ENV['set_id']
+      raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(user_id: user._id, set_id: user_measure)
 
       # Import patient objects from JSON file and save
       puts "Importing patients..."
@@ -286,11 +286,11 @@ namespace :bonnie do
         patient['user_id'] = user._id
 
         patient['measure_ids'] = []
-        patient['measure_ids'] << measure.hqmf_set_id
+        patient['measure_ids'] << measure.set_id
 
         unless patient.expectedValues.nil?
           patient.expectedValues.each do |expected_value|
-            expected_value['measure_id'] = measure.hqmf_set_id
+            expected_value['measure_id'] = measure.set_id
           end
         end
 
@@ -313,15 +313,15 @@ namespace :bonnie do
 
     You must identify the source user by SOURCE_EMAIL,
     the destination user account by DEST_EMAIL,
-    the source measure by SOURCE_HQMF_SET_ID,
-    and the destination measure by DEST_HQMF_SET_ID
+    the source measure by SOURCE_SET_ID,
+    and the destination measure by DEST_SET_ID
 
-    $ rake bonnie:patients:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_HQMF_SET_ID=100 DEST_HQMF_SET_ID=101}
+    $ rake bonnie:patients:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_SET_ID=100 DEST_SET_ID=101}
     task :copy_measure_patients => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
-      source_hqmf_set_id = ENV['SOURCE_HQMF_SET_ID']
-      dest_hqmf_set_id = ENV['DEST_HQMF_SET_ID']
+      source_set_id = ENV['SOURCE_SET_ID']
+      dest_set_id = ENV['DEST_SET_ID']
 
       is_error = false
 
@@ -342,27 +342,27 @@ namespace :bonnie do
       end
 
       unless is_error
-        source_measure = CQM::Measure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        source_measure = CQM::Measure.find_by(user_id: source.id, set_id: source_set_id)
         if source_measure.nil?
-          print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
+          print_error "measure with set id #{source_set_id} not found for account #{source_email}"
           is_error = true
         end
       end
 
       unless is_error
-        dest_measure = CQM::Measure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        dest_measure = CQM::Measure.find_by(user_id: dest.id, set_id: dest_set_id)
         if dest_measure.nil?
-          print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
+          print_error "measure with HQFM set id #{dest_set_id} not found for account #{dest_email}"
           is_error = true
         end
       end
 
       unless is_error
-        puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
+        puts "Copying patients from '#{source_set_id}' in '#{source_email}' to '#{dest_set_id}' in '#{dest_email}'"
 
         move_patients(source, dest, source_measure, dest_measure, true)
 
-        print_success "Successfully copied patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
+        print_success "Successfully copied patients from '#{source_set_id}' in '#{source_email}' to '#{dest_set_id}' in '#{dest_email}'"
       end
     end
 
@@ -370,15 +370,15 @@ namespace :bonnie do
 
     You must identify the source user by SOURCE_EMAIL,
     the destination user account by DEST_EMAIL,
-    the source measure by SOURCE_HQMF_SET_ID,
-    and the destination measure by DEST_HQMF_SET_ID
+    the source measure by SOURCE_SET_ID,
+    and the destination measure by DEST_SET_ID
 
-    $ rake bonnie:patients:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_HQMF_SET_ID=100 DEST_HQMF_SET_ID=101}
+    $ rake bonnie:patients:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_set_id=100 DEST_SET_ID=101}
     task :move_measure_patients => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
-      source_hqmf_set_id = ENV['SOURCE_HQMF_SET_ID']
-      dest_hqmf_set_id = ENV['DEST_HQMF_SET_ID']
+      source_set_id = ENV['SOURCE_SET_ID']
+      dest_set_id = ENV['DEST_SET_ID']
 
       is_error = false
 
@@ -399,27 +399,27 @@ namespace :bonnie do
       end
 
       unless is_error
-        source_measure = CQM::Measure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        source_measure = CQM::Measure.find_by(user_id: source.id, set_id: source_set_id)
         if source_measure.nil?
-          print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
+          print_error "measure with set id #{source_set_id} not found for account #{source_email}"
           is_error = true
         end
       end
 
       unless is_error
-        dest_measure = CQM::Measure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        dest_measure = CQM::Measure.find_by(user_id: dest.id, set_id: dest_set_id)
         if dest_measure.nil?
-          print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
+          print_error "measure with set id #{dest_set_id} not found for account #{dest_email}"
           is_error = true
         end
       end
 
       unless is_error
-        puts "Moving patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
+        puts "Moving patients from '#{source_set_id}' in '#{source_email}' to '#{dest_set_id}' in '#{dest_email}'"
 
         move_patients(source, dest, source_measure, dest_measure)
 
-        print_success "Successfully moved patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
+        print_success "Successfully moved patients from '#{source_set_id}' in '#{source_email}' to '#{dest_set_id}' in '#{dest_email}'"
       end
     end
 
@@ -563,7 +563,7 @@ namespace :bonnie do
   # pass in the same user information for both src_user and dest_user.
   def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
     patients = []
-    src_user.patients.where(measure_ids: src_measure.hqmf_set_id).each do |patient|
+    src_user.patients.where(measure_ids: src_measure.set_id).each do |patient|
       if copy
         patients.push(patient.dup)
       else
@@ -573,10 +573,10 @@ namespace :bonnie do
 
     patients.each do |patient|
       patient.user = dest_user
-      patient.measure_ids.map! { |hqmf_set_id| hqmf_set_id == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : hqmf_set_id }
+      patient.measure_ids.map! { |set_id| set_id == src_measure.set_id ? dest_measure.set_id : set_id }
       patient.expectedValues.each do |expected_value|
-        if expected_value['measure_id'] == src_measure.hqmf_set_id
-          expected_value['measure_id'] = dest_measure.hqmf_set_id
+        if expected_value['measure_id'] == src_measure.set_id
+          expected_value['measure_id'] = dest_measure.set_id
         end
       end
       patient.save

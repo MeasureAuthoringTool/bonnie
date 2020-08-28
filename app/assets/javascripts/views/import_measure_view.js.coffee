@@ -5,7 +5,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     @programReleaseNamesCache = {}
 
   context: ->
-    hqmfSetId = @model.get('cqmMeasure').hqmf_set_id if @model?
+    setId = @model.get('cqmMeasure').set_id if @model?
     calculationTypeLabel = if @model?
       if (@model.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE') is false and @model.get('cqmMeasure').measure_scoring is 'PROPORTION' then 'Patient Based'
       else if (@model.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE') is true then 'Episode of Care'
@@ -21,7 +21,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       showLoadInformation: !@model? && @firstMeasure
       calculationTypeLabel: calculationTypeLabel
       calcSDEs: calcSDEs
-      hqmfSetId: hqmfSetId
+      setId: setId
       redirectRoute: currentRoute
       defaultProgram: Thorax.Views.ImportMeasure.defaultProgram
 

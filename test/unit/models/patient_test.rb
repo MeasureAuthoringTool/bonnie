@@ -8,11 +8,11 @@ class RecordTest < ActiveSupport::TestCase
 
     patients_set = File.join('cqm_patients', 'expected_values_set')
     @measure_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
-    @measure = CQM::Measure.where(hqmf_set_id: @measure_set_id).first
+    @measure = CQM::Measure.where(set_id: @measure_set_id).first
     user = User.create(email: 'bonnie@example.com', password: 'b0nn13p455', approved: true, admin: true)
     collection_fixtures_with_user([patients_set], user)
 
-    @composite_measure = CQM::Measure.where(hqmf_set_id: '244B4F52-C9CA-45AA-8BDB-2F005DA05BFC').first
+    @composite_measure = CQM::Measure.where(set_id: '244B4F52-C9CA-45AA-8BDB-2F005DA05BFC').first
   end
 
   # Runs the update_expected_value_structure! method on the patient and collects the changes it yields.

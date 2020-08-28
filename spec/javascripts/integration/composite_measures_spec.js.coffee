@@ -20,7 +20,7 @@ describe 'Composite Measures', ->
 
   it 'calculate correctly for a component measure', ->
     measure = new Thorax.Models.Measure @components[6], parse: true
-    measure.set('cqmValueSets', getJSONFixture(@valueSetsPath)[measure.get('cqmMeasure').hqmf_set_id]);
+    measure.set('cqmValueSets', getJSONFixture(@valueSetsPath)[measure.get('cqmMeasure').set_id]);
     population = measure.get('populations').at(0)
 
     result = population.calculate(@pt1)
@@ -37,7 +37,7 @@ describe 'Composite Measures', ->
     population.calculate(@pt1)
 
     measure = new Thorax.Models.Measure @components[6], parse: true
-    measure.set('cqmValueSets', getJSONFixture(@valueSetsPath)[measure.get('cqmMeasure').hqmf_set_id]);
+    measure.set('cqmValueSets', getJSONFixture(@valueSetsPath)[measure.get('cqmMeasure').set_id]);
     population = measure.get('populations').at(0)
 
     result = population.calculate(@pt1)

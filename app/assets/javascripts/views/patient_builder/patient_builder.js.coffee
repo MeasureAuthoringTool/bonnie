@@ -49,10 +49,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.on 'clearHighlight', =>
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
-    unless @cqmMeasure.component
-      @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
-    if @cqmMeasure.component or @cqmMeasure.composite
-      @compositeSharingWarningView = new Thorax.Views.CompositeSharingWarning()
+    @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     @patientCharacteristicCheckerView = new Thorax.Views.PatientCharacteristicChecker(patient: @model, measure: @measure)
 
   dataCriteriaCategories: ->
@@ -194,7 +191,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @render()
     @expectedValuesView.refresh(population, @model.getExpectedValues(@measure))
     @populationLogicView.setPopulation population
-    bonnie.navigate "measures/#{@measure.get('cqmMeasure').hqmf_set_id}/patients/#{@model.id}/edit"
+    bonnie.navigate "measures/#{@measure.get('cqmMeasure').set_id}/patients/#{@model.id}/edit"
 
   save: (e, callback) ->
     e.preventDefault()
@@ -209,12 +206,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         # If this patient was newly created, and it's in a component measure, the backend will populate the measure_ids
         # field with the ids of the sibling and composite measures, so we need to add this patient to those models.
         for measure_id in model.get('cqmPatient').measure_ids
-          measure = (bonnie.measures.filter (m) -> m.get('cqmMeasure').hqmf_set_id == measure_id)[0]
+          measure = (bonnie.measures.filter (m) -> m.get('cqmMeasure').set_id == measure_id)[0]
           measure.get('patients').add(model)
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
           route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
         else
-          route = if @measure then "measures/#{@measure.get('cqmMeasure').hqmf_set_id}" else "patients"
+          route = if @measure then "measures/#{@measure.get('cqmMeasure').set_id}" else "patients"
         bonnie.navigate route, trigger: true
         callback.success(model) if callback?.success
     unless status

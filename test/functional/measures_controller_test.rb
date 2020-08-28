@@ -56,7 +56,7 @@ include Devise::Test::ControllerHelpers
   #   # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
   #   # when the cassette needs to be generated for the first time.
   #   VCR.use_cassette('valid_vsac_response', @vcr_options) do
-  #     measure = CQM::Measure.where({hqmf_set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
+  #     measure = CQM::Measure.where({set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
   #     assert_nil measure
   #
   #     # Use VSAC creds from VCR, see vcr_setup.rb
@@ -84,7 +84,7 @@ include Devise::Test::ControllerHelpers
   #   # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
   #   # when the cassette needs to be generated for the first time.
   #   VCR.use_cassette('profile_query', @vcr_options) do
-  #     measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+  #     measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
   #     assert_nil measure
   #
   #     # Use VSAC creds from VCR, see vcr_setup.rb
@@ -102,7 +102,7 @@ include Devise::Test::ControllerHelpers
   #     }
   #
   #     assert_response :redirect
-  #     measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+  #     measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
   #     assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
   #   end
   # end
@@ -111,7 +111,7 @@ include Devise::Test::ControllerHelpers
   #   # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
   #   # when the cassette needs to be generated for the first time.
   #   VCR.use_cassette('release_query', @vcr_options) do
-  #     measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+  #     measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
   #     assert_nil measure
   #
   #     # Use VSAC creds from VCR, see vcr_setup.rb
@@ -128,7 +128,7 @@ include Devise::Test::ControllerHelpers
   #     }
   #
   #     assert_response :redirect
-  #     measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+  #     measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
   #     assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
   #   end
   # end
@@ -137,7 +137,7 @@ include Devise::Test::ControllerHelpers
   #   # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
   #   # when the cassette needs to be generated for the first time.
   #   VCR.use_cassette('profile_draft_query', @vcr_options) do
-  #     measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+  #     measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
   #     assert_nil measure
   #
   #     # Use VSAC creds from VCR, see vcr_setup.rb
@@ -155,7 +155,7 @@ include Devise::Test::ControllerHelpers
   #     }
   #
   #     assert_response :redirect
-  #     measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+  #     measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
   #     assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
   #   end
   # end
@@ -187,7 +187,7 @@ include Devise::Test::ControllerHelpers
   #   VCR.use_cassette('invalid_vsac_response', @vcr_options) do
   #
   #     # Ensure measure is not loaded to begin with
-  #     measure = CQM::Measure.where({hqmf_set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
+  #     measure = CQM::Measure.where({set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
   #     assert_nil measure
   #
   #     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/zip')
@@ -237,7 +237,7 @@ include Devise::Test::ControllerHelpers
   #
   # test 'upload MAT with no VSAC creds or ticket_granting_ticket in session' do
   #   # Ensure measure is not loaded to begin with
-  #   measure = CQM::Measure.where({hqmf_set_id: '762B1B52-40BF-4596-B34F-4963188E7FF7'}).first
+  #   measure = CQM::Measure.where({set_id: '762B1B52-40BF-4596-B34F-4963188E7FF7'}).first
   #   assert_nil measure
   #   session[:vsac_tgt] = nil
   #
@@ -261,7 +261,7 @@ include Devise::Test::ControllerHelpers
   # test 'upload MAT with that cause value sets not found error' do
   #   VCR.use_cassette('vsac_not_found', @vcr_options) do
   #     # Ensure measure is not loaded to begin with
-  #     measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
+  #     measure = CQM::Measure.where({set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
   #     assert_nil measure
   #
   #     # Use VSAC creds from VCR, see vcr_setup.rb
@@ -290,7 +290,7 @@ include Devise::Test::ControllerHelpers
   # test 'upload MAT with that cause value sets 500 error' do
   #   VCR.use_cassette('vsac_500_response', @vcr_options) do
   #     # Ensure measure is not loaded to begin with
-  #     measure = CQM::Measure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
+  #     measure = CQM::Measure.where({set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
   #     assert_nil measure
   #
   #     # Use VSAC creds from VCR, see vcr_setup.rb
@@ -318,7 +318,7 @@ include Devise::Test::ControllerHelpers
   #   # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
   #   # when the cassette needs to be generated for the first time.
   #   VCR.use_cassette('mat_5_4_valid_vsac_response', @vcr_options) do
-  #     measure = CQM::Measure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
+  #     measure = CQM::Measure.where({set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
   #     assert_nil measure
   #
   #     # Use VSAC creds from VCR, see vcr_setup.rb
@@ -337,7 +337,7 @@ include Devise::Test::ControllerHelpers
   #     }
   #
   #     assert_response :redirect
-  #     measure = CQM::Measure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
+  #     measure = CQM::Measure.where({set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
   #     assert_equal '40280582-5C27-8179-015C-308B1F99003B', measure['hqmf_id']
   #   end
   # end
@@ -356,7 +356,7 @@ include Devise::Test::ControllerHelpers
   #       measure_type: 'ep',
   #       calculation_type: 'patient'
   #     }
-  #     measure = CQM::Measure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
+  #     measure = CQM::Measure.where({set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
   #
   #     get :show, {id: measure.id, format: :json}
   #     assert_response :success
@@ -364,7 +364,7 @@ include Devise::Test::ControllerHelpers
   #     assert_equal measure._id.to_s, shown['_id']
   #     assert_equal measure.title, shown['title']
   #     assert_equal measure.hqmf_id, shown['hqmf_id']
-  #     assert_equal measure.hqmf_set_id, shown['hqmf_set_id']
+  #     assert_equal measure.set_id, shown['set_id']
   #     assert_equal measure.cms_id, shown['cms_id']
   #     assert_nil shown['record_ids']
   #     assert_nil shown['measure_attributes']
@@ -472,7 +472,7 @@ include Devise::Test::ControllerHelpers
   #     end
   #
   #     # Assert measure is not yet loaded
-  #     measure = CQM::Measure.where({hqmf_set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
+  #     measure = CQM::Measure.where({set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
   #     assert_nil measure
   #     post :create, {
   #       vsac_query_type: 'profile',
@@ -485,7 +485,7 @@ include Devise::Test::ControllerHelpers
   #       calculation_type: 'patient'
   #     }
   #     assert_response :redirect
-  #     measure = CQM::Measure.where({hqmf_set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
+  #     measure = CQM::Measure.where({set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
   #     assert_not_nil measure
   #     update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/zip')
   #     # Now measure successfully uploaded, try to upload again
@@ -505,7 +505,7 @@ include Devise::Test::ControllerHelpers
   #     assert_response :redirect
   #
   #     # Verify measure has not been deleted or modified
-  #     measure_after = CQM::Measure.where({hqmf_set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
+  #     measure_after = CQM::Measure.where({set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
   #     assert_equal measure, measure_after
   #   end
   # end
@@ -521,7 +521,7 @@ include Devise::Test::ControllerHelpers
   #     end
   #     patient_before = CQM::Patient.where({measure_ids: ['845E4012-4A98-413B-82C6-675E1E84B385']}).first
   #     # Assert measure is not yet loaded
-  #     measure = CQM::Measure.where({hqmf_set_id: '845E4012-4A98-413B-82C6-675E1E84B385'}).first
+  #     measure = CQM::Measure.where({set_id: '845E4012-4A98-413B-82C6-675E1E84B385'}).first
   #     assert_nil measure
   #     post :create, {
   #       vsac_query_type: 'profile',
@@ -534,7 +534,7 @@ include Devise::Test::ControllerHelpers
   #       calculation_type: 'patient'
   #     }
   #     assert_response :redirect
-  #     measure = CQM::Measure.where({hqmf_set_id: '845E4012-4A98-413B-82C6-675E1E84B385'}).first
+  #     measure = CQM::Measure.where({set_id: '845E4012-4A98-413B-82C6-675E1E84B385'}).first
   #     assert_not_nil measure
   #     patient_after = CQM::Patient.where({measure_ids: ['845E4012-4A98-413B-82C6-675E1E84B385']}).first
   #     assert_equal patient_before.expectedValues.to_s, patient_after.expectedValues.to_s
@@ -544,7 +544,7 @@ include Devise::Test::ControllerHelpers
   #
   # test 'update with hqmf set id mismatch' do
   #   # Upload the initial file
-  #   VCR.use_cassette('valid_vsac_response_hqmf_set_id_mismatch', @vcr_options) do
+  #   VCR.use_cassette('valid_vsac_response_set_id_mismatch', @vcr_options) do
   #     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
   #     class << measure_file
   #       attr_reader :tempfile
@@ -559,12 +559,12 @@ include Devise::Test::ControllerHelpers
   #       measure_type: 'ep',
   #       calculation_type: 'patient'
   #     }
-  #     # Upload a modified version of the initial file with a mismatching hqmf_set_id
-  #     update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0_mismatch_hqmf_set_id.zip'), 'application/zip')
+  #     # Upload a modified version of the initial file with a mismatching set_id
+  #     update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0_mismatch_set_id.zip'), 'application/zip')
   #     class << update_measure_file
   #       attr_reader :tempfile2
   #     end
-  #     # The hqmf_set_id of the initial file is sent along with the create request
+  #     # The set_id of the initial file is sent along with the create request
   #     post :create, {
   #       vsac_query_type: 'profile',
   #       vsac_query_profile: 'Latest eCQM',
@@ -572,10 +572,10 @@ include Devise::Test::ControllerHelpers
   #       vsac_query_measure_defined: 'true',
   #       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
   #       measure_file: update_measure_file,
-  #       hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
+  #       set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
   #     }
   #
-  #     # Verify that the controller detects the mismatching hqmf_set_id and rejects
+  #     # Verify that the controller detects the mismatching set_id and rejects
   #     assert_equal 'Error Updating Measure', flash[:error][:title]
   #     assert_equal 'The update file does not match the measure.', flash[:error][:summary]
   #     assert_equal 'You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure.', flash[:error][:body]
@@ -583,7 +583,7 @@ include Devise::Test::ControllerHelpers
   #
   #     # Verify that the initial file remained unchanged
   #     measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
-  #     assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
+  #     assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.set_id
   #   end
   # end
   #
@@ -619,7 +619,7 @@ include Devise::Test::ControllerHelpers
   #
   #   assert_response :redirect
   #   measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
-  #   assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
+  #   assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.set_id
   #   assert_equal 10, measure.value_sets.count
   #   assert_equal @user.id, measure.user_id
   #   measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
@@ -637,7 +637,7 @@ include Devise::Test::ControllerHelpers
   #   assert_equal 'ps1strat1', measure.population_sets[0].stratifications[0].title
   #   assert_equal 'ps1strat2', measure.population_sets[0].stratifications[1].title
   #   assert_equal 'ps1strat3', measure.population_sets[0].stratifications[2].title
-  #   assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
+  #   assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.set_id
   #   assert_equal 10, measure.value_sets.count
   #   assert_equal @user.id, measure.user_id
   #   measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
@@ -655,14 +655,14 @@ include Devise::Test::ControllerHelpers
   #       measure_file: update_measure_file,
   #       measure_type: 'eh',
   #       calculation_type: 'episode',
-  #       hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
+  #       set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
   #     }
   #   end
   #   assert_response :redirect
   #   assert_equal 1, CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).size
   #   measure = CQM::Measure.where({hqmf_id: '40280382667FECC30167190FAE723AAE'}).first
   #   assert_not_equal measure_id_before, measure._id
-  #   assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.hqmf_set_id
+  #   assert_equal '4DC3E7AA-8777-4749-A1E4-37E942036076', measure.set_id
   #   assert_equal 'CMS903v999', measure.cms_id
   #   assert_equal 10, measure.value_sets.count
   #   assert_equal @user.id, measure.user_id
@@ -730,7 +730,7 @@ include Devise::Test::ControllerHelpers
   #   end
   #   assert_response :redirect
   #   measure = CQM::Measure.where({hqmf_id: '40280382-5FA6-FE85-015F-B5969D1D0264'}).first
-  #   assert_equal '3BBFC929-50C8-44B8-8D34-82BE75C08A70', measure.hqmf_set_id
+  #   assert_equal '3BBFC929-50C8-44B8-8D34-82BE75C08A70', measure.set_id
   #
   #   assert_equal false, measure.calculation_method == 'EPISODE_OF_CARE'
   #
@@ -741,13 +741,13 @@ include Devise::Test::ControllerHelpers
   #       vsac_query_include_draft: 'false',
   #       vsac_query_measure_defined: 'true',
   #       measure_file: measure_file,
-  #       hqmf_set_id: measure.hqmf_set_id
+  #       set_id: measure.set_id
   #     }
   #   end
   #
   #   assert_response :redirect
   #   measure = CQM::Measure.where({hqmf_id: '40280382-5FA6-FE85-015F-B5969D1D0264'}).first
-  #   assert_equal '3BBFC929-50C8-44B8-8D34-82BE75C08A70', measure.hqmf_set_id
+  #   assert_equal '3BBFC929-50C8-44B8-8D34-82BE75C08A70', measure.set_id
   #
   #   assert_equal false, measure.calculation_method == 'EPISODE_OF_CARE'
   # end
@@ -797,7 +797,7 @@ include Devise::Test::ControllerHelpers
   #       vsac_query_measure_defined: 'true',
   #       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
   #       measure_file: update_measure_file,
-  #       hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
+  #       set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
   #     }
   #   end
   #

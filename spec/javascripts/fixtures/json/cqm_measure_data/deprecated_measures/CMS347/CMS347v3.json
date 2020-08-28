@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS347v3",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": "5cb4d730d7c8ac1deb30cd01",
@@ -31399,7 +31399,7 @@
   "created_at": "2019-04-15T19:10:40.463Z",
   "description": "Percentage of the following patients - all considered at high risk of cardiovascular events - who were prescribed or were on statin therapy during the measurement period: \n*Adults aged >= 21 years who were previously diagnosed with or currently have an active diagnosis of clinical atherosclerotic cardiovascular disease (ASCVD); OR \n*Adults aged >= 21 years who have ever had a fasting or direct low-density lipoprotein cholesterol (LDL-C) level >= 190 mg/dL or were previously diagnosed with or currently have an active diagnosis of familial or pure hypercholesterolemia; OR \n*Adults aged 40-75 years with a diagnosis of diabetes with a fasting or direct LDL-C level of 70-189 mg/dL",
   "hqmf_id": "40280382-68D3-A5FE-0169-0C78BEC911BB",
-  "hqmf_set_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
+  "set_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
   "hqmf_version_number": "0",
   "main_cql_library": "StatinTherapyforthePreventionandTreatmentofCardiovascularDisease",
   "measure_attributes": [

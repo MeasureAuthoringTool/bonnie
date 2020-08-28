@@ -33,7 +33,7 @@
     # attempt calcuation
     try
       cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient.qdmPatient], cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
-      patientResults = cqmResults[patient.get('cqmPatient').qdmPatient._id.toString()]
+      patientResults = cqmResults[patient.get('cqmPatient').id.toString()]
 
       measure.get('populations').forEach((measure_population) =>
         populationSetId = measure_population.get('population_set_id')

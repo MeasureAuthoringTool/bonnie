@@ -313,22 +313,6 @@
     return Array.isArray(supplementalDataElements) && (supplementalDataElements?.filter (d) -> d.statement_name is statementDefine).length > 0
 
   ###*
-  # Format stratifications as population sets to be added to the measure's population sets
-  # @param {object} popSets - The populationSets.
-  ###
-  @getStratificationsAsPopulationSets: (popSets) ->
-    stratificationsAsPopulationSets = []
-    for populationSet in popSets.toObject()
-      if (populationSet.stratifications)
-        for stratification in populationSet.stratifications
-          clonedSet = @deepCopyPopulationSet(populationSet)
-          clonedSet.population_set_id = stratification.stratification_id
-          clonedSet.populations.STRAT = stratification.statement
-          clonedSet.title = stratification.title
-          stratificationsAsPopulationSets.push clonedSet
-    return stratificationsAsPopulationSets
-
-  ###*
   # Returns a copy of the given population set
   # @public {original} populationSet - The population set to be copied
   ###

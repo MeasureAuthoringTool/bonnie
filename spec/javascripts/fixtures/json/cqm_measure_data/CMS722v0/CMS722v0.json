@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS722v0",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": "5d27841531fe5f6eb0075184",
@@ -7461,7 +7461,7 @@
   "created_at": "2019-07-11T18:46:45.494Z",
   "description": "This measure assesses the proportion of births that have been screened for hearing loss before hospital discharge",
   "hqmf_id": "40280582-5859-673B-0158-FE5B071107FE",
-  "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+  "set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
   "hqmf_version_number": "0",
   "main_cql_library": "Test31",
   "measure_attributes": [

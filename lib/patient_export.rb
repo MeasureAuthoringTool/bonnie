@@ -14,7 +14,7 @@ class PatientExport
   end
 
   # calc_results is a map of population/stratifications -> patients -> definitions -> results
-  def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details, measure_hqmf_set_id)
+  def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details, measure_set_id)
     Axlsx::Package.new do |package|
       package.workbook do |workbook|        
         styles = workbook.styles
@@ -185,7 +185,7 @@ class PatientExport
               end
               expected = []
               actual = []
-              patient_expected_vals = patient_details[patient_key]["expected_values"].detect { |ev| ev["measure_id"]==measure_hqmf_set_id && ev["population_index"]==pop_index }
+              patient_expected_vals = patient_details[patient_key]["expected_values"].detect { |ev| ev["measure_id"]==measure_set_id && ev["population_index"]==pop_index }
               population_criteria.each do |criteria|
                 expected.push(patient_expected_vals[criteria])
                 if criteria == "OBSERV"
