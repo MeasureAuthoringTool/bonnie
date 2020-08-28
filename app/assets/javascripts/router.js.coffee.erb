@@ -24,8 +24,8 @@
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
     'measures/:set_id':                           'renderMeasure'
-    'measures/:measure_set_id/patients/:id/edit': 'renderPatientBuilder'
-    'measures/:measure_set_id/patients/new':      'renderPatientBuilder'
+    'measures/:set_id/patients/:id/edit': 'renderPatientBuilder'
+    'measures/:set_id/patients/new':      'renderPatientBuilder'
     'admin/users':                                     'renderUsers'
     # This will catch any unmatched hashes and route them to showPageNotFound
     '*path':                                            'showPageNotFound'

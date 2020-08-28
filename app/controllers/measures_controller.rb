@@ -34,7 +34,7 @@ class MeasuresController < ApplicationController
 
     params[:vsac_tgt] = vsac_tgt[:ticket]
     params[:vsac_tgt_expires_at] = vsac_tgt[:expires]
-    measures, main_set_id = persist_measure(params[:measure_file], params.permit!.to_h, current_user)
+    persist_measure(params[:measure_file], params.permit!.to_h, current_user)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
     # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
