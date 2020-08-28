@@ -190,4 +190,23 @@ include Devise::Test::ControllerHelpers
     assert_equal "Email Sent!", mail.last.subject # This test should pass because the user has more than 0 measures, and is younger than 6 months
     assert_equal @user_admin.email, mail.last.to.first
   end
+
+  test "email single" do
+    expected_subject = "Test Email Single Subject"
+    expected_body = "email single body"
+    mock = MiniTest::Mock.new
+    mock.expect(:deliver_now, nil)
+    assert_args = lambda { |user, subject, body|
+      assert_equal user, @user
+      assert_equal subject, expected_subject
+      assert_equal body, expected_body
+      mock
+    }
+    Admin::UsersMailer.stub(:users_email, assert_args) do
+      sign_in @user_admin
+      assert @user_admin.admin?
+      post :email_single, params: {target_email: @user.email, subject: expected_subject, body: expected_body}, as: :json
+      mock.verify
+    end
+  end
 end
