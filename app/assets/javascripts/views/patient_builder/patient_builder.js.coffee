@@ -49,10 +49,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.on 'clearHighlight', =>
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
-    unless @cqmMeasure.component
-      @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
-    if @cqmMeasure.component or @cqmMeasure.composite
-      @compositeSharingWarningView = new Thorax.Views.CompositeSharingWarning()
+    @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     @patientCharacteristicCheckerView = new Thorax.Views.PatientCharacteristicChecker(patient: @model, measure: @measure)
 
   dataCriteriaCategories: ->
