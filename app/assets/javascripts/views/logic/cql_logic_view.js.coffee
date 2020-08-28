@@ -97,7 +97,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         continue unless @population?
 
         for popCode, popStatements of @population.get('populations')
-          #continue if popCode != 'resource_type'
           continue unless library.is_main_library || popCode != 'resource_type'
           if statement.define_name == popStatements.statement_name
             popNames.push(popCode)
