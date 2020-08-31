@@ -13,7 +13,7 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
     # Go through each data element on the patient and examine the codes, looking for those not in any
     # measure value set; at the moment, we just note the data criteria don't have ANY codes in a value set
     missingCodes = []
-    for dc in @patient.get('cqmPatient').qdmPatient.dataElements
+    for dc in @patient.get('cqmPatient').data_elements || []
       if dc.dataElementCodes?
         for code in dc.dataElementCodes
           missingCodes.push dc.description if !@measure.hasCode(code.code, code.system) && dc.description

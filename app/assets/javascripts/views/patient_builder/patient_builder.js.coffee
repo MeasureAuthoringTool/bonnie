@@ -11,23 +11,23 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @originalModel = @model # When we're done editing we want to update the original model
     @cqmMeasure = @measure.get('cqmMeasure')
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
-    @model.get('source_data_criteria').on 'remove', => @materialize()
-    @race_codes = @model.getConceptsForDataElement('race', @measure)
-    @ethnicity_codes = @model.getConceptsForDataElement('ethnicity', @measure)
-    @gender_codes = @model.getConceptsForDataElement('gender', @measure)
-    @payer_codes = @model.getConceptsForDataElement('payer', @measure)
-    @first = @model.getFirstName()
-    @last = @model.getLastName()
-    @birthdate = @model.getBirthDate()
-    @birthtime = @model.getBirthTime()
-    @deathdate = @model.getDeathDate()
-    @deathtime = @model.getDeathTime()
-    @missingExpired = !(@cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'expired')[0]?
-    @race = @model.getRace().code
-    @gender = @model.getGender().code
-    @ethnicity = @model.getEthnicity().code
-    @payer = @model.getPayer().code
-    @notes = @model.getNotes()
+#    @model.get('source_data_criteria').on 'remove', => @materialize()
+#    @race_codes = @model.getConceptsForDataElement('race', @measure)
+#    @ethnicity_codes = @model.getConceptsForDataElement('ethnicity', @measure)
+#    @gender_codes = @model.getConceptsForDataElement('gender', @measure)
+#    @payer_codes = @model.getConceptsForDataElement('payer', @measure)
+#    @first = @model.getFirstName()
+#    @last = @model.getLastName()
+#    @birthdate = @model.getBirthDate()
+#    @birthtime = @model.getBirthTime()
+#    @deathdate = @model.getDeathDate()
+#    @deathtime = @model.getDeathTime()
+#    @missingExpired = !(@cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == 'expired')[0]?
+#    @race = @model.getRace().code
+#    @gender = @model.getGender().code
+#    @ethnicity = @model.getEthnicity().code
+#    @payer = @model.getPayer().code
+#    @notes = @model.getNotes()
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
@@ -237,9 +237,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.set 'expired', false
     @model.set 'deathtime', undefined
     @model.set 'deathdate', undefined
-    expiredElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')?[0]
+    # TODO
+#    expiredElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')?[0]
     if expiredElement
-      @model.get('cqmPatient').qdmPatient.dataElements.remove(expiredElement)
+      @model.get('cqmPatient').fhir_patient.birthDate = null
     @materialize()
     @$('#expired').focus()
 

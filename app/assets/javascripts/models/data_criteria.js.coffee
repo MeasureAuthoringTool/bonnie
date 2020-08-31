@@ -224,12 +224,12 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   # event listener for add SDC event. if this collection belongs to a patient the
   # QDM::DataElement will be added to the DataElements array.
   addSourceDataCriteriaToPatient: (criteria) ->
-    @parent?.get('cqmPatient').qdmPatient.dataElements.push(criteria.get('qdmDataElement'));
+    @parent?.get('cqmPatient').data_elements.push(criteria.get('qdmDataElement'));
 
   # event listener for remove SDC event. if this collection belongs to a patient the
   # QDM::DataElement will be removed from the DataElements array.
   removeSourceDataCriteriaFromPatient: (criteria) ->
-    @parent?.get('cqmPatient').qdmPatient.dataElements.remove(criteria.get('qdmDataElement'));
+    @parent?.get('cqmPatient').data_elements.remove(criteria.get('qdmDataElement'));
 
   # Expect a array of QDM::DataElements to be passed in. We want to turn it into an array
   # of plain objects that will become the attributes for each SourceDataCriteria.

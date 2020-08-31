@@ -167,9 +167,17 @@ class Thorax.Models.Measure extends Thorax.Model
       return @_localIdCache[libraryName][statementName]
 
   getMeasurePeriodYear: ->
+    unless @get('cqmMeasure').measure_period
+      @get('cqmMeasure').measure_period = {
+        low: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.start?.value || '2012' },
+        high: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.end?.value || '2012' }}
     Number.parseInt(@get('cqmMeasure').measure_period.low.value[0..3])
 
   setMeasurePeriodYear: (year) ->
+    unless @get('cqmMeasure').measure_period
+      @get('cqmMeasure').measure_period = {
+        low: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.start?.value || '2012' },
+        high: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.end?.value || '2012' }}
     @get('cqmMeasure').measure_period.low.value = year + @get('cqmMeasure').measure_period.low.value[4..]
     @get('cqmMeasure').measure_period.high.value = year + @get('cqmMeasure').measure_period.high.value[4..]
 

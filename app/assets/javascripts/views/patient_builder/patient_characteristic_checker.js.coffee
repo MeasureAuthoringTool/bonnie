@@ -14,8 +14,9 @@ class Thorax.Views.PatientCharacteristicChecker extends Thorax.Views.BonnieView
     # looking for those not in the measure; 
     birthdate = @patient.getBirthDate()
     expired = @patient.get('expired')
-    expiredDataElement = (@patient.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
-    birthdateDataElement = (@patient.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
+    # TODO
+#    expiredDataElement = (@patient.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+#    birthdateDataElement = (@patient.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
     
     missingCharacteristics = []
     if birthdate and !birthdateDataElement
