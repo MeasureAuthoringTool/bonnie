@@ -36,6 +36,60 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')
 
+  category: (fhirResourceName) ->
+    category =
+      AdverseEvent:       'clinical_summary'
+      AllergyIntolerance: 'clinical_summary'
+      Condition:          'clinical_summary'
+      FamilyMemberHistory:'clinical_summary'
+      Procedure:          'clinical_summary'
+
+      Coverage: 'financial_support'
+
+      BodyStructure:    'diagnostics'
+      DiagnosticReport: 'diagnostics'
+      ImagingStudy:     'diagnostics'
+      Observation:      'diagnostics'
+      Specimen:         'diagnostics'
+
+      CarePlan:       'care_provision'
+      CareTeam:       'care_provision'
+      Goal:           'care_provision'
+      NutritionOrder: 'care_provision'
+      ServiceRequest: 'care_provision'
+
+      Claim: 'billing'
+
+      Communication:        'request_response'
+      CommunicationRequest: 'request_response'
+      DeviseRequest:        'request_response'
+      DeviseUseStatement:   'request_response'
+
+      Location: 'providers_entities'
+
+      Devise:    'material_entities'
+      Substance: 'material_entities'
+
+      Encounter: 'management'
+      flag:      'management'
+
+      Immunization:               'medications'
+      ImmunizationEvaluation:     'medications'
+      ImmunizationRecommendation: 'medications'
+      Mediation:                  'medications'
+      MedicationAdminstration:    'medications'
+      MedicationDispense:         'medications'
+      MedicationRequest:          'medications'
+      MedicationStatement:        'medications'
+
+      Patient:          'individuals'
+      Practitioner:     'individuals'
+      PractitionerRole: 'individuals'
+      RelatedPerson:    'individuals'
+
+      Task: 'workflow'
+    category[fhirResourceName]
+
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =
@@ -66,7 +120,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       symptom:                  'fa-bug'
       system_characteristic:    'fa-tachometer'
       transfer:                 'fa-random'
-    icons[@get('qdmCategory')] || 'fa-question'
+    icons[category(@get('fhir_resource').get('resourceType'))] || 'fa-question'
 
   canHaveNegation: ->
     @get('qdmDataElement').schema.path('negationRationale')?
