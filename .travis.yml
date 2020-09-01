@@ -29,6 +29,8 @@ before_script:
 script:
   - bundle exec rake teaspoon DIR='cqm_specs'
   - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='fhir_measures'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
   - bundle exec rake teaspoon DIR='helper_specs'
   - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
   - bundle exec rake teaspoon DIR='integration'
