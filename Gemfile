@@ -12,10 +12,11 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'cqm-models', '~> 3.0.3'
+# gem 'cqm-models', '~> 3.0.3'
 gem 'cqm-reports', '~> 3.1.2'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie_version'
+gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models.git', :branch => 'MAT-1708'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'MAT-1708'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
