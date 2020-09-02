@@ -237,7 +237,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.set 'expired', false
     @model.set 'deathtime', undefined
     @model.set 'deathdate', undefined
-    # TODO
 #    expiredElement = (@model.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')?[0]
     if expiredElement
       @model.get('cqmPatient').fhir_patient.birthDate = null
