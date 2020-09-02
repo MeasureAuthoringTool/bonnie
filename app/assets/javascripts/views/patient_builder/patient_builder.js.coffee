@@ -12,10 +12,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @cqmMeasure = @measure.get('cqmMeasure')
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
 #    @model.get('source_data_criteria').on 'remove', => @materialize()
-#    @race_codes = @model.getConceptsForDataElement('race', @measure)
-#    @ethnicity_codes = @model.getConceptsForDataElement('ethnicity', @measure)
-#    @gender_codes = @model.getConceptsForDataElement('gender', @measure)
-#    @payer_codes = @model.getConceptsForDataElement('payer', @measure)
+    @race_codes = @model.getConceptsForPatientProp('Race', @measure)
+    @ethnicity_codes = @model.getConceptsForPatientProp('Ethnicity', @measure)
+    @gender_codes = @genderCodes
+    @payer_codes = @model.getConceptsForPatientProp('Payer', @measure)
 #    @first = @model.getFirstName()
 #    @last = @model.getLastName()
 #    @birthdate = @model.getBirthDate()
@@ -51,6 +51,31 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     @patientCharacteristicCheckerView = new Thorax.Views.PatientCharacteristicChecker(patient: @model, measure: @measure)
+
+  genderCodes:
+    [
+      {
+        code: 'male'
+        display: 'Male'
+        definition: 'Male.'
+      }
+      {
+        code: 'female'
+        display: 'Female'
+        definition: 'Female.'
+      }
+      {
+        code: 'other'
+        display: 'Other'
+        definition: 'Other.'
+      }
+      {
+        code: 'unknown'
+        display: 'Unknown'
+        definition: 'Unknown.'
+      }
+    ]
+
 
   dataCriteriaCategories: ->
     categories = {}

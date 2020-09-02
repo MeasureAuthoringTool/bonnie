@@ -158,6 +158,10 @@ class Thorax.Models.Patient extends Thorax.Model
 #      return null
     return null;
 
+  getConceptsForPatientProp: (prop, measure) ->
+    valueSet = measure.valueSets()?.find (elem) -> elem.title == prop
+    valueSet?.compose?.include?[0]?.concept || []
+
   getConceptsForDataElement: (qdmStatus, measure) ->
     return [] unless measure.get('cqmMeasure')?.source_data_criteria?
     dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
