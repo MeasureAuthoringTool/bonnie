@@ -27,13 +27,12 @@
     result.state = 'pending'
 
     cqmMeasure = measure.get('cqmMeasure')
-    cqmValueSets = measure.valueSets()
     cqmPatient = patient.get('cqmPatient')
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient], cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
-      patientResults = cqmResults[patient.get('cqmPatient').id.toString()]
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient], cqmMeasure.value_sets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
+      patientResults = cqmResults[patient.get('cqmPatient').id]
 
       measure.get('populations').forEach((measure_population) =>
         populationSetId = measure_population.get('population_set_id')
@@ -117,12 +116,11 @@
       return results
 
     cqmMeasure = measure.get('cqmMeasure')
-    cqmValueSets = measure.valueSets()
     cqmPatients = resultsNeedingCalc.map (result) -> result.patient.get('cqmPatient')
 
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, cqmPatients, cqmValueSets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, cqmPatients, cqmMeasure.value_sets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
       # Fill result objects for everything in the measure
       resultsNeedingCalc.forEach((result) =>
         patient = result.patient

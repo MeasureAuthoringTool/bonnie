@@ -1,5 +1,5 @@
 class Thorax.Models.Measure extends Thorax.Model
-  idAttribute: '_id'
+  idAttribute: 'id'
 
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
@@ -11,12 +11,12 @@ class Thorax.Models.Measure extends Thorax.Model
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
     thoraxMeasure.cqmMeasure = cqm.models.CqmMeasure.parse(attrs)
 
-    thoraxMeasure._id = thoraxMeasure.cqmMeasure.id.toString()
-#    thoraxMeasure._id = attrs.fhir_measure.fhirId.toString()
+    # TODO: migrate to thoraxMeasure.cqmValueSets = thoraxMeasure.cqmMeasure.value_sets
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
     else
       thoraxMeasure.cqmValueSets = []
+
 
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
