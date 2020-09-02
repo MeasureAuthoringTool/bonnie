@@ -10,7 +10,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
       cms_id: @measure.get('cqmMeasure').cms_id
       set_id: @measure.get('cqmMeasure').set_id
       # TODO: defaulted measurement period to 2012, should be taken from effectivePeriod dynamically
-      measurePeriodYear: 2012 # @measure.getMeasurePeriodYear()
+      measurePeriodYear: @measure.getMeasurePeriodYear()
       component: @measure.get('cqmMeasure').component
       cql: true # Hide certain features in handlebars if the measure is cql.
 

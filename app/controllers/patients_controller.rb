@@ -10,7 +10,7 @@ class PatientsController < ApplicationController
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
     end
-    populate_measure_ids_if_composite_measures(updated_patient)
+    populate_measure_ids(updated_patient)
     updated_patient._id = old_patient._id if old_patient
     updated_patient.user_id = current_user._id
     updated_patient.upsert
@@ -24,7 +24,7 @@ class PatientsController < ApplicationController
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
     end
-    populate_measure_ids_if_composite_measures(patient)
+    populate_measure_ids(patient)
     patient.save!
     render :json => patient
   end
@@ -120,24 +120,10 @@ private
     params.require(:cqmPatient).permit!
   end
 
-  # if the patient has any existing measure ids that correspond to component measures, all 'sibling' measure ids will be added
-  def populate_measure_ids_if_composite_measures(patient)
-    # create array of unique parent composite measure ids
-    parent_measure_ids = []
-    patient['measure_ids'].each do |measure_id|
-      # component hqmf set ids are two ids with '&' in between
-      next if measure_id.nil? || !measure_id.include?("&")
-      parent_measure_ids << measure_id.split('&').first
+  def populate_measure_ids(patient)
+    unless patient['measure_ids'].nil?
+      patient['measure_ids'].uniq!
     end
-    parent_measure_ids.uniq!
-
-    # for each parent measure, get all the child ids and add them to the patient
-    parent_measure_ids.each do |parent_measure_id|
-      parent_measure = CQM::Measure.by_user(current_user).only(:component_set_ids).where(set_id: parent_measure_id).first
-      patient['measure_ids'].concat parent_measure["component_set_ids"]
-      patient['measure_ids'] << parent_measure_id
-    end
-    patient['measure_ids'].uniq!
   end
 
   def convert_to_hash(key, array)
