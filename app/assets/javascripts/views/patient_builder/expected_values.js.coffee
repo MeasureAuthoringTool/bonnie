@@ -86,7 +86,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     # get population criteria from the measure to include OBSERV
     population = @measure.get('populations').at @model.get('population_index')
     @isNumbers = @measure.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE'
-    @isMultipleObserv = population.get('observations')?.length > 0
+    @isMultipleObserv = population?.get('observations')?.length > 0
     @isCheckboxes = not @isNumbers and not @isMultipleObserv
     for pc in @measure.populationCriteria() when population.has(pc) or pc == 'OBSERV' and population.has('observations')
       @currentCriteria.push

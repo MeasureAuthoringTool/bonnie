@@ -36,6 +36,60 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')
 
+  category: (fhirResourceName) ->
+    category =
+      AdverseEvent:       'clinical_summary'
+      AllergyIntolerance: 'clinical_summary'
+      Condition:          'clinical_summary'
+      FamilyMemberHistory:'clinical_summary'
+      Procedure:          'clinical_summary'
+
+      Coverage: 'financial_support'
+
+      BodyStructure:    'diagnostics'
+      DiagnosticReport: 'diagnostics'
+      ImagingStudy:     'diagnostics'
+      Observation:      'diagnostics'
+      Specimen:         'diagnostics'
+
+      CarePlan:       'care_provision'
+      CareTeam:       'care_provision'
+      Goal:           'care_provision'
+      NutritionOrder: 'care_provision'
+      ServiceRequest: 'care_provision'
+
+      Claim: 'billing'
+
+      Communication:        'request_response'
+      CommunicationRequest: 'request_response'
+      DeviseRequest:        'request_response'
+      DeviseUseStatement:   'request_response'
+
+      Location: 'providers_entities'
+
+      Devise:    'material_entities'
+      Substance: 'material_entities'
+
+      Encounter: 'management'
+      flag:      'management'
+
+      Immunization:               'medications'
+      ImmunizationEvaluation:     'medications'
+      ImmunizationRecommendation: 'medications'
+      Mediation:                  'medications'
+      MedicationAdminstration:    'medications'
+      MedicationDispense:         'medications'
+      MedicationRequest:          'medications'
+      MedicationStatement:        'medications'
+
+      Patient:          'individuals'
+      Practitioner:     'individuals'
+      PractitionerRole: 'individuals'
+      RelatedPerson:    'individuals'
+
+      Task: 'workflow'
+    category[fhirResourceName]
+
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =
@@ -66,7 +120,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       symptom:                  'fa-bug'
       system_characteristic:    'fa-tachometer'
       transfer:                 'fa-random'
-    icons[@get('qdmCategory')] || 'fa-question'
+    icons[category(@get('fhir_resource').get('resourceType'))] || 'fa-question'
 
   canHaveNegation: ->
     @get('qdmDataElement').schema.path('negationRationale')?
@@ -224,12 +278,12 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   # event listener for add SDC event. if this collection belongs to a patient the
   # QDM::DataElement will be added to the DataElements array.
   addSourceDataCriteriaToPatient: (criteria) ->
-    @parent?.get('cqmPatient').qdmPatient.dataElements.push(criteria.get('qdmDataElement'));
+    @parent?.get('cqmPatient').data_elements.push(criteria.get('qdmDataElement'));
 
   # event listener for remove SDC event. if this collection belongs to a patient the
   # QDM::DataElement will be removed from the DataElements array.
   removeSourceDataCriteriaFromPatient: (criteria) ->
-    @parent?.get('cqmPatient').qdmPatient.dataElements.remove(criteria.get('qdmDataElement'));
+    @parent?.get('cqmPatient').data_elements.remove(criteria.get('qdmDataElement'));
 
   # Expect a array of QDM::DataElements to be passed in. We want to turn it into an array
   # of plain objects that will become the attributes for each SourceDataCriteria.
