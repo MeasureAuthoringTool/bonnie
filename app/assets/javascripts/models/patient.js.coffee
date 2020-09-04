@@ -204,20 +204,20 @@ class Thorax.Models.Patient extends Thorax.Model
     if !!@get('cqmPatient').fhir_patient.deceased
       @get('cqmPatient').fhir_patient.deceased = false
     else
-      @get('cqmPatient').fhir_patient.deceased = cqm.models.PrimitiveDateTime.parsePrimitive(moment.utc().toISOString())
+      @get('cqmPatient').fhir_patient.deceased = null
 
   validate: ->
     errors = []
-    # birthdate = if @get('cqmPatient').fhir_patient.birthDate then moment(@get('cqmPatient').fhir_patient.birthDate, 'X') else null
-    # deathdate = if @get('cqmPatient').fhir_patient.deceased then moment(@get('cqmPatient').fhir_patient.deceased, 'X') else null
-    # unless @getFirstName()?.length > 0
-    #   errors.push [@cid, 'first', 'Name fields cannot be blank']
-    # unless @getLastName()?.length > 0
-    #   errors.push [@cid, 'last', 'Name fields cannot be blank']
-    # unless birthdate
-    #   errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
-    # if @get('expired') && !deathdate
-    #   errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
+    birthdate = if @get('cqmPatient').fhir_patient.birthDate then moment(@get('cqmPatient').fhir_patient.birthDate, 'X') else null
+    deathdate = if @get('cqmPatient').fhir_patient.deceased then moment(@get('cqmPatient').fhir_patient.deceased, 'X') else null
+    unless @getFirstName()?.length > 0
+      errors.push [@cid, 'first', 'Name fields cannot be blank']
+    unless @getLastName()?.length > 0
+      errors.push [@cid, 'last', 'Name fields cannot be blank']
+    unless birthdate
+      errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
+    if @get('expired') && !deathdate
+      errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
     # if birthdate && birthdate.year() < 1000
     #   errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
     # if deathdate && deathdate.year() < 1000
