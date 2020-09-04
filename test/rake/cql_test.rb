@@ -102,15 +102,10 @@ class CqlTest < ActiveSupport::TestCase
     # Modify some of the measure model
     measure.title = 'No mat package'
     measure.elm_annotations = nil
-
-    # Remove the stored MAT package from the DB
-    package = CQM::MeasurePackage.all.first
-    package.delete
     measure.save
 
     # Confirm measure model saved corectly.
     assert_nil measure.elm_annotations
-    assert_nil measure.package
 
     VCR.use_cassette('valid_translation_response') do
       # Run rake task on all cql measures
@@ -120,9 +115,6 @@ class CqlTest < ActiveSupport::TestCase
     measure = CQM::Measure.where({set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
     # Confirm that measure title did not update.
     assert_equal measure.title, 'No mat package'
-
-    # Confirm there is still no associated MAT package.
-    assert_nil measure.package
 
     # Confirm that the ELM annotations were updated.
     assert_not_equal nil, measure.elm_annotations

@@ -10,7 +10,7 @@ class Thorax.Models.Measure extends Thorax.Model
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
     thoraxMeasure.cqmMeasure = cqm.models.CqmMeasure.parse(attrs)
-
+    thoraxMeasure.id = thoraxMeasure.cqmMeasure.id
     # TODO: migrate to thoraxMeasure.cqmValueSets = thoraxMeasure.cqmMeasure.value_sets
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
