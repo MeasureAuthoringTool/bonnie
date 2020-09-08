@@ -171,7 +171,10 @@ class Thorax.Models.Measure extends Thorax.Model
       @get('cqmMeasure').measure_period = {
         low: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.start?.value || '2012' },
         high: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.end?.value || '2012' }}
-    Number.parseInt(@get('cqmMeasure').measure_period.low.value[0..3])
+    if typeof @get('cqmMeasure').measure_period.low.value == 'string'
+      Number.parseInt(@get('cqmMeasure').measure_period.low.value[0..3])
+    else
+      Number.parseInt(@get('cqmMeasure').measure_period.low.value.getFullYear())
 
   setMeasurePeriodYear: (year) ->
     unless @get('cqmMeasure').measure_period

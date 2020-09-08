@@ -158,13 +158,13 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     for attr in timingAttributes
       return attr.name if @get('qdmDataElement')[attr.name]?.low? || @get('qdmDataElement')[attr.name]?.high? || @get('qdmDataElement')[attr.name]?.isDateTime?
     # Fall back to returning the first primary timing attribute if none of the timing attributes have values
-    return timingAttributes[0].name
+    return timingAttributes[0]?.name
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
   getPrimaryTimingAttributes: ->
     primaryTimingAttributes = []
     for timingAttr in Thorax.Models.SourceDataCriteria.PRIMARY_TIMING_ATTRIBUTES
-      if @get('qdmDataElement').schema.path(timingAttr)?
+      if @get('qdmDataElement').schema?.path(timingAttr)?
         primaryTimingAttributes.push(
           name: timingAttr
           title: Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[timingAttr]
@@ -293,7 +293,7 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
     # TODO: Replace quick and dirty option
     dataElements.forEach (dataElement) ->
       if !Thorax.Collections.SourceDataCriteria.SKIP_TYPES.includes(dataElement._type)
-        dataElementAsObject = dataElement.toObject()
+        dataElementAsObject = dataElement#.toObject()
         dataElementAsObject.qdmDataElement = dataElement
         dataElementsAsObjects.push(dataElementAsObject)
 
