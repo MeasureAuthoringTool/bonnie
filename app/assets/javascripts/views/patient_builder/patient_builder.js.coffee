@@ -151,12 +151,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       deathdate = attr.deathdate if attr.deathdate
       deathdate += " #{attr.deathtime}" if attr.deathdate && attr.deathtime
       @model.setCqmPatientDeceased(deathdate, @measure) if deathdate
-      @model.setCqmPatientRace(@raceVsFromCode(attr.race), @measure) if attr.race
-      @model.setCqmPatientEthnicity(attr.ethnicity, @measure) if attr.ethnicity
+      @model.setCqmPatientRace(@raceVsFromCode(attr.race)) if attr.race
+      @model.setCqmPatientEthnicity(@ethnicityVsFromCode(attr.ethnicity)) if attr.ethnicity
       @model.setCqmPatientNotes(attr.notes) if attr.notes?
 
-  raceVsFromCode: (code) ->
-    @race_codes.find (vs) -> vs.code == code
+  raceVsFromCode: (code) -> @race_codes.find (vs) -> vs.code == code
+  ethnicityVsFromCode: (code) -> @ethnicity_codes.find (vs) -> vs.code == code
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
