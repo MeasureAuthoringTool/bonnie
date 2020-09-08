@@ -51,18 +51,17 @@ class Thorax.Models.Patient extends Thorax.Model
   getGender: ->
     genderElement = (@get('cqmPatient')).fhir_patient.gender
     {code: genderElement?.value, display: genderElement?.value}
+
   getRace: ->
-#    raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
-#    unless raceElement? then return {code: "Unknown", display: "Unknown"}
-#    else unless raceElement.dataElementCodes[0].display? then "CDC-RE: #{raceElement.dataElementCodes[0].code}"
-#    else raceElement.dataElementCodes[0]
-    {code: "Unknown", display: "Unknown"}
+    currentRaceExt = @get('cqmPatient').fhir_patient.extension.find (ext) ->
+      ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+    {code: currentRaceExt?.value.code.value, display: currentRaceExt?.value.display.value}
+
   getEthnicity: ->
-#    ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
-#    unless ethnicityElement? then return {code: "Unknown", display: "Unknown"}
-#    else unless ethnicityElement.dataElementCodes[0].display? then "CDC-RE: #{ethnicityElement.dataElementCodes[0].code}"
-#    else ethnicityElement.dataElementCodes[0]
-    {code: "Unknown", display: "Unknown"}
+    currentEthnicityExt = @get('cqmPatient').fhir_patient.extension.find (ext) ->
+      ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+    {code: currentRaceExt?.value.code.value, display: currentRaceExt?.value.display.value}
+
   getPayer: ->
 # TODO
 #    payerElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
