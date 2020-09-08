@@ -45,7 +45,7 @@ class MeasuresController < ApplicationController
 
   def destroy
     measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
-    measure.destroy_self_and_child_docs
+    measure.destroy
     render :json => measure
   end
 
@@ -127,7 +127,7 @@ class MeasuresController < ApplicationController
   def check_measures_for_unsupported_data_elements(measures)
     measures.each do |measure|
       if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
-        measure.destroy_self_and_child_docs
+        measure.destroy
         raise MeasureLoadingUnsupportedDataElement.new("Related Person")
       end
     end
