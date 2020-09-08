@@ -53,12 +53,12 @@ class Thorax.Models.Patient extends Thorax.Model
     {code: genderElement?.value, display: genderElement?.value}
 
   getRace: ->
-    currentRaceExt = @get('cqmPatient').fhir_patient.extension.find (ext) ->
+    currentRaceExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
     {code: currentRaceExt?.value.code.value, display: currentRaceExt?.value.display.value}
 
   getEthnicity: ->
-    currentEthnicityExt = @get('cqmPatient').fhir_patient.extension.find (ext) ->
+    currentEthnicityExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
     {code: currentRaceExt?.value.code.value, display: currentRaceExt?.value.display.value}
 
@@ -237,8 +237,8 @@ class Thorax.Models.Patient extends Thorax.Model
 
   validate: ->
     errors = []
-    birthdate = if @get('cqmPatient').fhir_patient.birthDate then moment(@get('cqmPatient').fhir_patient.birthDate, 'X') else null
-    deathdate = if @get('cqmPatient').fhir_patient.deceased then moment(@get('cqmPatient').fhir_patient.deceased, 'X') else null
+    birthdate = if @get('cqmPatient').fhir_patient.birthDate then moment(@get('cqmPatient').fhir_patient.birthDate.value, "YYYY-MM-DD") else null
+    deathdate = if @get('cqmPatient').fhir_patient.deceased then moment(@get('cqmPatient').fhir_patient.deceased.value, "YYYY-MM-DD") else null
     unless @getFirstName()?.length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
     unless @getLastName()?.length > 0
@@ -247,12 +247,12 @@ class Thorax.Models.Patient extends Thorax.Model
       errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
     if @get('expired') && !deathdate
       errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
-    # if birthdate && birthdate.year() < 1000
-    #   errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
-    # if deathdate && deathdate.year() < 1000
-    #   errors.push [@cid, 'deathdate', 'Date of death must have four digit year']
-    # if deathdate && birthdate && deathdate.isBefore birthdate
-    #   errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
+    if birthdate && birthdate.year() < 1000
+      errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
+    if deathdate && deathdate.year() < 1000
+      errors.push [@cid, 'deathdate', 'Date of death must have four digit year']
+    if deathdate && birthdate && deathdate.isBefore birthdate
+      errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
 
     return errors if errors.length > 0
 
