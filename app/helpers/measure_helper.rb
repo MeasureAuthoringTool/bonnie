@@ -187,7 +187,7 @@ module MeasureHelper
     save_and_post_process(measure, user)
     measure
   rescue StandardError => e
-    measure&.delete_self_and_child_docs
+    measure&.delete
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, uploaded_file, user)
     raise e
@@ -209,7 +209,7 @@ module MeasureHelper
     save_and_post_process(measure, user)
     measure
   rescue StandardError => e
-    measure&.delete_self_and_child_docs
+    measure&.delete
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, uploaded_file, user)
     raise e
@@ -304,8 +304,8 @@ module MeasureHelper
   end
 
   def save_and_post_process(measure, user)
-    measure.associate_self_and_child_docs_to_user(user)
-    measure.save_self_and_child_docs
+    measure.user = user
+    measure.save!
     # update_related_patient_records(measures, user)
   end
 

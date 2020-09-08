@@ -111,8 +111,8 @@ namespace :bonnie do
       move_patients(source, dest, measure, measure)
       print_success("Moved patients")
 
-      measure.associate_self_and_child_docs_to_user(dest)
-      measure.save_self_and_child_docs
+      measure.user = dest
+      measure.save!
       print_success "Moved measure"
     end
   end
@@ -171,60 +171,6 @@ namespace :bonnie do
           system "rm #{f}"
         end
         puts "Keeping #{sorted.last}"
-      end
-    end
-
-    desc %{Downloads a measure package for a particular measure.
-
-    Provide either set_id or CMS_ID
-
-    $ rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org set_id=8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F CMS_ID=761}
-    task :download_measure_package => :environment do
-      email = ENV['EMAIL']
-      cms_id = ENV['CMS_ID']
-      set_id = ENV['set_id']
-
-      is_error = false
-
-      unless is_error
-        user = User.find_by(email: email)
-        if user.nil?
-          print_error "#{email} not found"
-          is_error = true
-        end
-      end
-
-      unless is_error
-        if set_id
-          measure = CQM::Measure.find_by(user_id: user.id, set_id: set_id)
-          if measure.nil?
-            print_error "measure with HQFM set id #{set_id} not found for account #{email}"
-            is_error = true
-          else
-            print_success "#{user.email}: measure with HQMF set id #{set_id} found"
-          end
-        elsif cms_id
-          measure = find_measure(user, '', cms_id)
-          unless measure
-            print_error "measure with CMS id #{cms_id} not found for account #{email}"
-            is_error = true
-          end
-        else
-          print_error 'Expected CMS_ID or set_id environment variables'
-          is_error = true
-        end
-      end
-
-      unless is_error
-        if measure.package
-          filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date}.zip"
-          file = File.open(filename, 'wb')
-          file.write(measure.package.file.data)
-          file.close
-          print_success "Successfully wrote #{measure.cms_id}_#{email}_#{measure.package.created_at.to_date}.zip"
-        else
-          print_error 'No package found for this measure.'
-        end
       end
     end
   end
@@ -549,7 +495,7 @@ namespace :bonnie do
     print "\e[#{32}m#{"[Success]"}\e[0m\t"
     puts success_string
   end
-  
+
   # Prints a message with a warning "[Warning]" string ahead of it.
   def print_warning(warning_string)
     print "\e[#{33}m#{"[Warning]"}\e[0m\t"
@@ -609,7 +555,7 @@ def update_facilities_and_diagnoses_on_patient(patient)
             new_diagnosis['values'][0]['code_list_id'] = source_data_criterium['field_values']['DIAGNOSIS']['code_list_id']
             new_diagnosis['values'][0]['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
             new_diagnosis['values'][0]['title'] = source_data_criterium['field_values']['DIAGNOSIS']['title']
-            new_source_data_criterium_field_values['DIAGNOSIS'] = new_diagnosis 
+            new_source_data_criterium_field_values['DIAGNOSIS'] = new_diagnosis
 
           # update any 'FACILITY_LOCATION' field values that aren't collections
           elsif field_value_key == 'FACILITY_LOCATION' && (source_data_criterium['field_values']['FACILITY_LOCATION']['type'] != 'COL')
