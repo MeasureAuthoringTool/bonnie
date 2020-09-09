@@ -1,0 +1,44 @@
+{
+  "id": "5f57b6ccbc86991c720f2916",
+  "notes": "This is john smith, a human person",
+  "measure_ids": [
+    "116A8764-E871-472F-9503-CA27889114DE"
+  ],
+  "fhir_patient": {
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "2054-5",
+          "display": "Black or African American",
+          "userSelected": true
+        }
+      },
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "2135-2",
+          "display": "Hispanic or Latino",
+          "userSelected": true
+        }
+      }
+    ],
+    "name": [
+      {
+        "family": "Smith",
+        "given": [
+          "John"
+        ]
+      }
+    ],
+    "gender": "unknown",
+    "birthDate": "2020-09-06",
+    "deceasedDateTime": "2020-09-01T08:00:00.000Z",
+    "id": "5f57b6ccbc86991c720f2916"
+  },
+  "created_at": "2020-09-08T16:53:17.823Z",
+  "updated_at": "2020-09-08T16:53:17.823Z"
+}
