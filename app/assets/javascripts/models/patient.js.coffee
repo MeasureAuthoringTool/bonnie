@@ -32,7 +32,7 @@ class Thorax.Models.Patient extends Thorax.Model
     clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').data_elements, parent: clonedPatient, parse: true)
     clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expected_values, parent: clonedPatient, parse: true)
     if options.dedupName
-      clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
+      clonedPatient.get('cqmPatient').fhir_patient.name[0].given[0].value = bonnie.patients.dedupName(clonedPatient)
     clonedPatient
 
   getValidMeasureIds: (measures) ->
@@ -237,8 +237,8 @@ class Thorax.Models.Patient extends Thorax.Model
 
   validate: ->
     errors = []
-    birthdate = if @get('cqmPatient').fhir_patient.birthDate then moment(@get('cqmPatient').fhir_patient.birthDate.value, "YYYY-MM-DD") else null
-    deathdate = if @get('cqmPatient').fhir_patient.deceased then moment(@get('cqmPatient').fhir_patient.deceased.value, "YYYY-MM-DD") else null
+    birthdate = if @get('cqmPatient').fhir_patient.birthDate?.value then moment(@get('cqmPatient').fhir_patient.birthDate.value, "YYYY-MM-DD") else null
+    deathdate = if @get('cqmPatient').fhir_patient.deceased?.value then moment(@get('cqmPatient').fhir_patient.deceased.value, "YYYY-MM-DD") else null
     unless @getFirstName()?.length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
     unless @getLastName()?.length > 0

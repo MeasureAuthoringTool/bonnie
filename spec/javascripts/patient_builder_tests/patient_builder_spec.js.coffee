@@ -28,13 +28,13 @@ describe 'PatientBuilderView', ->
     #   bonnie.renderPatientBuilder('non_existant_set_id', @patient.id)
     #   expect(bonnie.mainView.setView).toHaveBeenCalled()
 
-    # it 'renders the builder correctly', ->
-    #   expect(@$el.find(":input[name='first']")).toHaveValue @patient.getFirstName()
-    #   expect(@$el.find(":input[name='last']")).toHaveValue @patient.getLastName()
-    #   expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
-    #   expect(@$el.find(":input[name='birthtime']")).toHaveValue @patient.getBirthTime()
-    #   expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
-    #   expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
+    it 'renders the builder correctly', ->
+      expect(@$el.find(":input[name='first']")).toHaveValue @patient.getFirstName()
+      expect(@$el.find(":input[name='last']")).toHaveValue @patient.getLastName()
+      expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
+      expect(@$el.find(":input[name='birthtime']")).toHaveValue @patient.getBirthTime()
+      expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
+      expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
     # it 'displays a warning if codes on dataElements do not exist on measure', ->
     #   @measure.attributes.cqmValueSets = []
