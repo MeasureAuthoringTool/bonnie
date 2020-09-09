@@ -2,52 +2,50 @@ describe 'PatientBuilderView', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    # @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
-    # @measure = loadFhirMeasure 'fhir_measure_data/CMS1010V0.json'
-    # @patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS134v6/Elements_Test.json'), getJSONFixture('patients/CMS134v6/Fail_Hospice_Not_Performed_Denex.json')], parse: true
-    # @patient = @patients.models[1]
-    # @bonnie_measures_old = bonnie.measures
-    # bonnie.measures = new Thorax.Collections.Measures()
-    # bonnie.measures.add @measure
-    # @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
-    # @patientBuilder.render()
-    # spyOn(@patientBuilder.model, 'materialize')
-    # spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
-    # @$el = @patientBuilder.$el
+    @measure = loadFhirMeasure 'fhir_measure_data/CMS1010V0.json'
+    @patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/CMS1010V0/john_smith.json')], parse: true
+    @patient = @patients.models[0]
+    @bonnie_measures_old = bonnie.measures
+    bonnie.measures = new Thorax.Collections.Measures()
+    bonnie.measures.add @measure
+    @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
+    @patientBuilder.render()
+    spyOn(@patientBuilder.model, 'materialize')
+    spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
+    @$el = @patientBuilder.$el
 
   afterEach ->
     bonnie.measures = @bonnie_measures_old
 
-  # it 'should not open patient builder for non existent measure', ->
-  #   spyOn(bonnie,'showPageNotFound')
-  #   bonnie.showPageNotFound.calls.reset()
-  #   bonnie.renderPatientBuilder('non_existant_set_id', @patient.id)
-  #   expect(bonnie.showPageNotFound).toHaveBeenCalled()
+    # it 'should not open patient builder for non existent measure', ->
+    #   spyOn(bonnie,'showPageNotFound')
+    #   bonnie.showPageNotFound.calls.reset()
+    #   bonnie.renderPatientBuilder('non_existant_set_id', @patient.id)
+    #   expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
-  # it 'should set the main view when calling showPageNotFound', ->
-  #   spyOn(bonnie.mainView,'setView')
-  #   bonnie.renderPatientBuilder('non_existant_set_id', @patient.id)
-  #   expect(bonnie.mainView.setView).toHaveBeenCalled()
+    # it 'should set the main view when calling showPageNotFound', ->
+    #   spyOn(bonnie.mainView,'setView')
+    #   bonnie.renderPatientBuilder('non_existant_set_id', @patient.id)
+    #   expect(bonnie.mainView.setView).toHaveBeenCalled()
 
-  # it 'renders the builder correctly', ->
-  #   expect(@$el.find(":input[name='first']")).toHaveValue @patient.getFirstName()
-  #   expect(@$el.find(":input[name='last']")).toHaveValue @patient.getLastName()
-  #   expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
-  #   expect(@$el.find(":input[name='birthtime']")).toHaveValue @patient.getBirthTime()
-  #   expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
-  #   expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
+    # it 'renders the builder correctly', ->
+    #   expect(@$el.find(":input[name='first']")).toHaveValue @patient.getFirstName()
+    #   expect(@$el.find(":input[name='last']")).toHaveValue @patient.getLastName()
+    #   expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
+    #   expect(@$el.find(":input[name='birthtime']")).toHaveValue @patient.getBirthTime()
+    #   expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
+    #   expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
-  # it 'displays a warning if codes on dataElements do not exist on measure', ->
-  #   @measure.attributes.cqmValueSets = []
-  #   patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
-  #   patientBuilder.render()
-  #   expect(patientBuilder.html()).toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
+    # it 'displays a warning if codes on dataElements do not exist on measure', ->
+    #   @measure.attributes.cqmValueSets = []
+    #   patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
+    #   patientBuilder.render()
+    #   expect(patientBuilder.html()).toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
-  # it 'does not display compare patient results button when there is no history', ->
-  #   expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
+    # it 'does not display compare patient results button when there is no history', ->
+    #   expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
 
   it "toggles patient expiration correctly", ->
-    console.log("this is loading danmee woooooooohooooooo")
     measure = loadFhirMeasure 'fhir_measure_data/CMS1010V0.json'
     patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/CMS1010V0/john_smith.json')], parse: true
     patient = patients.models[0]
@@ -80,61 +78,63 @@ describe 'PatientBuilderView', ->
     expect(expiredElement).not.toExist()
     patientBuilder.remove()
 
-#   describe "setting basic attributes and saving", ->
-#     beforeEach ->
-#       @patientBuilder.appendTo 'body'
-#       @patientBuilder.$(':input[name=last]').val("LAST NAME")
-#       @patientBuilder.$(':input[name=first]').val("FIRST NAME")
-#       @patientBuilder.$('select[name=gender]').val('F')
-#       @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
-#       @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
-#       @patientBuilder.$('select[name=race]').val('2131-1')
-#       @patientBuilder.$('select[name=ethnicity]').val('2135-2')
-#       @patientBuilder.$(':input[name=notes]').val('EXAMPLE NOTES FOR TEST')
-#       @patientBuilder.$("button[data-call-method=save]").click()
+  describe "setting basic attributes and saving", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @patientBuilder.$(':input[name=last]').val("LAST NAME")
+      @patientBuilder.$(':input[name=first]').val("FIRST NAME")
+      @patientBuilder.$('select[name=gender]').val('female')
+      @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
+      @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
+      @patientBuilder.$('select[name=race]').val('2131-1')
+      @patientBuilder.$('select[name=ethnicity]').val('2135-2')
+      @patientBuilder.$(':input[name=notes]').val('EXAMPLE NOTES FOR TEST')
+      @patientBuilder.$("button[data-call-method=save]").click()
 
-#     it "dynamically loads race, ethnicity, and gender codes from measure", ->
-#       expect(@patientBuilder.$('select[name=race]')[0].options.length).toEqual 6
-#       expect(@patientBuilder.$('select[name=ethnicity]')[0].options.length).toEqual 2
-#       expect(@patientBuilder.$('select[name=gender]')[0].options.length).toEqual 2
+    it "dynamically loads race, ethnicity, and gender codes from measure", ->
+      expect(@patientBuilder.$('select[name=race]')[0].options.length).toEqual 6
+      expect(@patientBuilder.$('select[name=ethnicity]')[0].options.length).toEqual 2
+      expect(@patientBuilder.$('select[name=gender]')[0].options.length).toEqual 4
 
-#     it "serializes the attributes correctly", ->
-#       thoraxPatient = @patientBuilder.model
-#       cqmPatient = thoraxPatient.get('cqmPatient')
-#       expect(cqmPatient.familyName).toEqual 'LAST NAME'
-#       expect(cqmPatient.givenNames[0]).toEqual 'FIRST NAME'
-#       birthdateElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'birthdate')[0]
-#       # If the measure doesn't have birthDate as a data criteria, the patient is forced to have one without a code
-#       expect(birthdateElement).not.toBeUndefined()
-#       expect(cqmPatient.qdmPatient.birthDatetime.toString()).toEqual (new cqm.models.CQL.DateTime(1993,1,2,13,15,0,0,0).toString())
-#       expect(thoraxPatient.getBirthDate()).toEqual '01/02/1993'
-#       expect(thoraxPatient.getNotes()).toEqual 'EXAMPLE NOTES FOR TEST'
-#       expect(thoraxPatient.getGender().display).toEqual 'Female'
-#       genderElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
-#       expect(genderElement.dataElementCodes[0].code).toEqual 'F'
-#       raceElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
-#       expect(raceElement.dataElementCodes[0].code).toEqual '2131-1'
-#       expect(raceElement.dataElementCodes[0].display).toEqual 'Other Race'
-#       expect(thoraxPatient.getRace().display).toEqual 'Other Race'
-#       ethnicityElement = (cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
-#       expect(ethnicityElement.dataElementCodes[0].code).toEqual '2135-2'
-#       expect(ethnicityElement.dataElementCodes[0].display).toEqual 'Hispanic or Latino'
-#       expect(thoraxPatient.getEthnicity().display).toEqual 'Hispanic or Latino'
+    it "serializes the attributes correctly", ->
+      thoraxPatient = @patientBuilder.model
+      fhirPatient = thoraxPatient.get('cqmPatient').fhir_patient
+      expect(fhirPatient.name[0].family.value).toEqual 'LAST NAME'
+      expect(fhirPatient.name[0].given[0].value).toEqual 'FIRST NAME'
+      # If the measure doesn't have birthDate as a data criteria, the patient is forced to have one without a code
+      expect(fhirPatient.birthDate).not.toBeUndefined()
+      expect(fhirPatient.birthDate.value).toEqual "1993-01-02"
+      expect(thoraxPatient.getBirthDate()).toEqual '01/02/1993'
+      # debugger
+      expect(thoraxPatient.getNotes()).toEqual 'EXAMPLE NOTES FOR TEST'
+      expect(thoraxPatient.getGender().display).toEqual 'female'
+      expect(fhirPatient.gender.value).toEqual 'female'
 
-#     it "displayes correct values on the UI after saving", ->
-#       expect(@patientBuilder.$(':input[name=last]')[0].value).toEqual 'LAST NAME'
-#       expect(@patientBuilder.$(':input[name=first]')[0].value).toEqual 'FIRST NAME'
-#       expect(@patientBuilder.$(':input[name=birthdate]')[0].value).toEqual '01/02/1993'
-#       expect(@patientBuilder.$(':input[name=birthtime]')[0].value).toEqual '1:15 PM'
-#       expect(@patientBuilder.$(':input[name=notes]')[0].value).toEqual 'EXAMPLE NOTES FOR TEST'
-#       expect(@patientBuilder.$('select[name=race]')[0].value).toEqual '2131-1'
-#       expect(@patientBuilder.$('select[name=ethnicity]')[0].value).toEqual '2135-2'
-#       expect(@patientBuilder.$('select[name=gender]')[0].value).toEqual 'F'
+      raceElement = (fhirPatient.extension.find (ext) -> ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race")
+      expect(raceElement.value.code.value).toEqual '2131-1'
+      expect(raceElement.value.display.value).toEqual 'Other Race'
+      expect(raceElement.value.system.value).toEqual 'http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html'
+      expect(raceElement.value.userSelected.value).toEqual true
 
-#     it "tries to save the patient correctly", ->
-#       expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
+      ethnicityElement = (fhirPatient.extension.find (ext) -> ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity")
+      expect(ethnicityElement.value.code.value).toEqual '2135-2'
+      expect(ethnicityElement.value.display.value).toEqual 'Hispanic or Latino'
+      expect(ethnicityElement.value.system.value).toEqual 'http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html'
+      expect(ethnicityElement.value.userSelected.value).toEqual true
 
-#     afterEach -> @patientBuilder.remove()
+    it "displayes correct values on the UI after saving", ->
+      expect(@patientBuilder.$(':input[name=last]')[0].value).toEqual 'LAST NAME'
+      expect(@patientBuilder.$(':input[name=first]')[0].value).toEqual 'FIRST NAME'
+      expect(@patientBuilder.$(':input[name=birthdate]')[0].value).toEqual '01/02/1993'
+      expect(@patientBuilder.$(':input[name=notes]')[0].value).toEqual 'EXAMPLE NOTES FOR TEST'
+      expect(@patientBuilder.$('select[name=race]')[0].value).toEqual '2131-1'
+      expect(@patientBuilder.$('select[name=ethnicity]')[0].value).toEqual '2135-2'
+      expect(@patientBuilder.$('select[name=gender]')[0].value).toEqual 'female'
+
+    it "tries to save the patient correctly", ->
+      expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
+
+    afterEach -> @patientBuilder.remove()
 
 #   describe "changing and blurring basic fields", ->
 #     beforeEach ->
