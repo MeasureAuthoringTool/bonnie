@@ -229,12 +229,6 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('source_data_criteria').sort()
     @get('source_data_criteria').comparator = originalComparator
 
-  toggleDeceased: ->
-    if !!@get('cqmPatient').fhir_patient.deceased
-      @get('cqmPatient').fhir_patient.deceased = false
-    else
-      @get('cqmPatient').fhir_patient.deceased = null
-
   validate: ->
     errors = []
     birthdate = if @get('cqmPatient').fhir_patient.birthDate?.value then moment(@get('cqmPatient').fhir_patient.birthDate.value, "YYYY-MM-DD") else null
