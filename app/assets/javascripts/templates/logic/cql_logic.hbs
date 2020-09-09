@@ -1,27 +1,3 @@
-{{! TODO: Remove this outdated message once CQL settles for production. Currently needed because the volatile annotation structure. }}
-{{#if hasCqlErrors}}
-<p>
-  <div class="alert alert-danger">
-    <Strong>CQL Error!</strong> This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.
-  </div>
-</p>
-{{/if}}
-{{#if isOutdatedUpload}}
-<p>
-  <div class="alert alert-warning">
-    <strong>Outdated Measure!</strong> This measure appears to be uploaded with an earlier version of Bonnie Alpha. This view may not function properly until the measure is reuploaded.
-  </div>
-</p>
-{{/if}}
-{{#if hasOutdatedQDM}}
-    <p>
-    <div class="alert alert-warning">
-        <strong>Outdated Measure!</strong> This measure was written using an outdated version of QDM. Please re-package and re-export the measure from the MAT.
-    </div>
-    </p>
-{{/if}}
-
-
 <button id="show-all-results" class="show-hide-all-results btn btn-default" data-call-method="showAllResults">Show All Results</button>
 <div class="cql-logic measure-viz rationale panel-group">
   {{#each populationStatementViews}}
