@@ -59,9 +59,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   ###
   initialize: ->
     @cqmMeasure = @model.get('cqmMeasure')
-    @isOutdatedUpload = false
-    @hasCqlErrors = false
-    @hasOutdatedQDM = false
 
     @allStatementViews = []
     @allStatementResultViews = []
@@ -74,16 +71,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     if @population?
       @statementRelevance = CQLMeasureHelpers.getStatementRelevanceForPopulationSet(@cqmMeasure, @population)
 
-    # Check to see if this measure was uploaded with an older version of the
-    # loader code that did not get the clause level annotations.
-    unless @cqmMeasure.cql_libraries?
-      # Mark as an outdated and do not create any statement views.
-      @isOutdatedUpload = true
-      return
-
     for library in @cqmMeasure.cql_libraries
-      @hasOutdatedQDM = true if @_hasOutdatedQDM(library)
-      @hasCqlErrors = true if @_hasCqlErrors(library)
 
       for statement in library.elm_annotations.statements
         # skip if this is a statement the user doesn't need to see
@@ -122,20 +110,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         @_categorizeStatementView(statementView, library)
 
       @populationStatementViews.sort(@_statementComparator)
-
-  _hasOutdatedQDM: (lib) ->
-    for id in lib.elm.library.usings.def
-      if id?.localIdentifier == "QDM"
-        if !CompareVersion.equalToOrNewer id.version, bonnie.support_qdm_version
-          return true
-    return false
-
-  _hasCqlErrors: (lib) ->
-    return false unless lib.elm.library.annotation?
-    for annotation in lib.elm.library.annotation
-      if annotation.errorSeverity == "error"
-        return true
-    return false
 
   _categorizeStatementView: (statementView, library) ->
     @allStatementViews.push statementView
