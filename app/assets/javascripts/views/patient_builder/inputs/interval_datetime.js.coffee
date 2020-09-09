@@ -9,7 +9,7 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
   #   attributeName - String - Optional. The name/path of the attribue on the data element that this is editing.
   #   attributeTitle - String - Optional. The human friendly name of the attribute.
   #   defaultYear - Integer - Optional. The default year to use when a default date needs to be created.
-  #                           This should be the measurement period. Defaults to 2012.
+  #                           This should be the measurement period. Defaults to 2020.
   initialize: ->
     if @initialValue?
       @value = @initialValue.copy()
@@ -17,7 +17,7 @@ class Thorax.Views.InputIntervalDateTimeView extends Thorax.Views.BonnieView
       @value = new cqm.models.CQL.Interval(null, null)
 
     if !@defaultYear?
-      @defaultYear = 2012
+      @defaultYear = 2020
 
   events:
     'change input[type=checkbox]': 'handleCheckboxChange'

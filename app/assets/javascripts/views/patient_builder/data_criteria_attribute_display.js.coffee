@@ -53,7 +53,7 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     else if value.isDateTime
       if value.isTime() # if it is a "Time"
         # The year, month, day get discarded so don't matter
-        return moment(new Date(2012, 1, 1, value.hour, value.minute, value.second)).format('LT')
+        return moment(new Date(2020, 1, 1, value.hour, value.minute, value.second)).format('LT')
       else
         return moment.utc(value.toJSDate()).format('L LT')
     else if value.isDate
