@@ -121,9 +121,10 @@ class Thorax.Models.Patient extends Thorax.Model
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
     return if currentRaceExt && currentRaceExt.value.code.value == race.code
     # Eliminate the existing race extension, but leave others in place
-    raceFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
-      ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
-    @get('cqmPatient').fhir_patient.extension = raceFreeExtensions
+    if currentRaceExt
+      raceFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
+        ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      @get('cqmPatient').fhir_patient.extension = raceFreeExtensions
 
     # Build and assign new race extension to fhir_patient
     newRaceExtension = cqm.models.Extension.parse({
@@ -145,9 +146,10 @@ class Thorax.Models.Patient extends Thorax.Model
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
     return if currentEthnicityExt && currentEthnicityExt.value.code.value == ethnicity.code
     # Eliminate the existing ethnicity extension, but leave others in place
-    ethnicityFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
-      ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
-    @get('cqmPatient').fhir_patient.extension = ethnicityFreeExtensions
+    if currentEthnicityExt
+      ethnicityFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
+        ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      @get('cqmPatient').fhir_patient.extension = ethnicityFreeExtensions
 
     # Build and assign new ethnicity extension to fhir_patient
     newEthnicityExtension = cqm.models.Extension.parse({
