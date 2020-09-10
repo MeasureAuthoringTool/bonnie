@@ -15,7 +15,7 @@ gem "non-stupid-digest-assets"
 
 # gem 'cqm-parsers', :path => '../cqm-parsers'
 # gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'MAT-1212'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie-on-fhir'
 gem 'fhir-mongoid-models', git: 'https://github.com/MeasureAuthoringTool/fhir-mongoid-models.git', branch: 'develop'
 
 # needed for HDS
