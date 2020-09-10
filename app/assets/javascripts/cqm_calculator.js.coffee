@@ -27,6 +27,10 @@
     result.state = 'pending'
 
     cqmMeasure = measure.get('cqmMeasure')
+    cqmMeasure.measure_period = {
+      low: {value: new Date},
+      high: {value: new Date}
+    }
     cqmPatient = patient.get('cqmPatient')
 
     # attempt calcuation
@@ -116,6 +120,10 @@
       return results
 
     cqmMeasure = measure.get('cqmMeasure')
+    cqmMeasure.measure_period = {
+      low: {value: new Date},
+      high: {value: new Date}
+    }
     cqmPatients = resultsNeedingCalc.map (result) -> result.patient.get('cqmPatient')
 
     # attempt calcuation

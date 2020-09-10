@@ -36,15 +36,14 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')
 
-  category: (fhirResourceName) ->
-    category =
-      AdverseEvent:       'clinical_summary'
-      AllergyIntolerance: 'clinical_summary'
-      Condition:          'clinical_summary'
-      FamilyMemberHistory:'clinical_summary'
-      Procedure:          'clinical_summary'
+  @DATA_ELEMENT_CATEGORIES:
+      AdverseEvent:       'clinical summary'
+      AllergyIntolerance: 'clinical summary'
+      Condition:          'clinical summary'
+      FamilyMemberHistory:'clinical summary'
+      Procedure:          'clinical summary'
 
-      Coverage: 'financial_support'
+      Coverage: 'financial support'
 
       BodyStructure:    'diagnostics'
       DiagnosticReport: 'diagnostics'
@@ -52,23 +51,23 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       Observation:      'diagnostics'
       Specimen:         'diagnostics'
 
-      CarePlan:       'care_provision'
-      CareTeam:       'care_provision'
-      Goal:           'care_provision'
-      NutritionOrder: 'care_provision'
-      ServiceRequest: 'care_provision'
+      CarePlan:       'care provision'
+      CareTeam:       'care provision'
+      Goal:           'care provision'
+      NutritionOrder: 'care provision'
+      ServiceRequest: 'care provision'
 
       Claim: 'billing'
 
-      Communication:        'request_response'
-      CommunicationRequest: 'request_response'
-      DeviseRequest:        'request_response'
-      DeviseUseStatement:   'request_response'
+      Communication:        'request response'
+      CommunicationRequest: 'request response'
+      DeviseRequest:        'request response'
+      DeviseUseStatement:   'request response'
 
-      Location: 'providers_entities'
+      Location: 'providers entities'
 
-      Devise:    'material_entities'
-      Substance: 'material_entities'
+      Devise:    'material entities'
+      Substance: 'material entities'
 
       Encounter: 'management'
       flag:      'management'
@@ -77,7 +76,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       ImmunizationEvaluation:     'medications'
       ImmunizationRecommendation: 'medications'
       Mediation:                  'medications'
-      MedicationAdminstration:    'medications'
+      MedicationAdministration:    'medications'
       MedicationDispense:         'medications'
       MedicationRequest:          'medications'
       MedicationStatement:        'medications'
@@ -88,7 +87,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       RelatedPerson:    'individuals'
 
       Task: 'workflow'
-    category[fhirResourceName]
 
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
@@ -120,7 +118,9 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       symptom:                  'fa-bug'
       system_characteristic:    'fa-tachometer'
       transfer:                 'fa-random'
-    icons[category(@get('fhir_resource').get('resourceType'))] || 'fa-question'
+
+    element_category = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
+    icons[element_category] || 'fa-question'
 
   canHaveNegation: ->
     @get('qdmDataElement').schema.path('negationRationale')?
@@ -158,13 +158,13 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     for attr in timingAttributes
       return attr.name if @get('qdmDataElement')[attr.name]?.low? || @get('qdmDataElement')[attr.name]?.high? || @get('qdmDataElement')[attr.name]?.isDateTime?
     # Fall back to returning the first primary timing attribute if none of the timing attributes have values
-    return timingAttributes[0].name
+    return timingAttributes[0]?.name
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
   getPrimaryTimingAttributes: ->
     primaryTimingAttributes = []
     for timingAttr in Thorax.Models.SourceDataCriteria.PRIMARY_TIMING_ATTRIBUTES
-      if @get('qdmDataElement').schema.path(timingAttr)?
+      if @get('qdmDataElement').schema?.path(timingAttr)?
         primaryTimingAttributes.push(
           name: timingAttr
           title: Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[timingAttr]
@@ -293,7 +293,7 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
     # TODO: Replace quick and dirty option
     dataElements.forEach (dataElement) ->
       if !Thorax.Collections.SourceDataCriteria.SKIP_TYPES.includes(dataElement._type)
-        dataElementAsObject = dataElement.toObject()
+        dataElementAsObject = dataElement#.toObject()
         dataElementAsObject.qdmDataElement = dataElement
         dataElementsAsObjects.push(dataElementAsObject)
 
