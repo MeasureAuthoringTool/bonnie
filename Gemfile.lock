@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: d46b00c04d06cd76e2f1b6631e8522a4cbf5900b
-  branch: MAT-1212
+  revision: b0a0cd6ac9b2e1a8327fbe3f891da71943a08f67
+  branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
       activesupport (~> 5.2.1)
@@ -209,7 +209,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.1)
+    minitest (5.14.2)
     mongo (2.13.0)
       bson (>= 4.8.2, < 5.0.0)
     mongoid (7.1.2)
