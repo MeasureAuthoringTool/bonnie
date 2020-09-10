@@ -1,13 +1,13 @@
 GIT
   remote: https://github.com/MeasureAuthoringTool/fhir-mongoid-models.git
-  revision: 8e665e78f82e3af76904adf2ea297b35565f900f
+  revision: bb9c0607bfa0ef3a4fcc45bc3a1b4f4d7e6fbced
   branch: develop
   specs:
-    fhir-mongoid-models (0.0.2)
+    fhir-mongoid-models (0.0.3)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 0587d62cd42e55fde4918e1741275ee0be4644de
+  revision: b0a0cd6ac9b2e1a8327fbe3f891da71943a08f67
   branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
@@ -209,7 +209,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.1)
+    minitest (5.14.2)
     mongo (2.13.0)
       bson (>= 4.8.2, < 5.0.0)
     mongoid (7.1.2)

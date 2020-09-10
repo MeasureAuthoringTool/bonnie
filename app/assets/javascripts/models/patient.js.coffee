@@ -15,7 +15,7 @@ class Thorax.Models.Patient extends Thorax.Model
       thoraxPatient.cqmPatient.fhir_patient = new cqm.models.Patient()
       thoraxPatient.cqmPatient.fhir_patient.id = thoraxPatient.id
       thoraxPatient.cqmPatient.fhir_patient.name = [ new cqm.models.HumanName() ]
-#    thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
+    thoraxPatient.expired = !!thoraxPatient.cqmPatient.fhir_patient.deceased
     thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(thoraxPatient.cqmPatient.data_elements, parent: this, parse: true)
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(thoraxPatient.cqmPatient.expected_values, parent: this, parse: true)
     thoraxPatient
@@ -32,8 +32,7 @@ class Thorax.Models.Patient extends Thorax.Model
     clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').data_elements, parent: clonedPatient, parse: true)
     clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expected_values, parent: clonedPatient, parse: true)
     if options.dedupName
-      clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
-#    clonedPatient.set 'expired', (clonedPatient.get('cqmPatient').patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
+      clonedPatient.get('cqmPatient').fhir_patient.name[0].given[0].value = bonnie.patients.dedupName(clonedPatient)
     clonedPatient
 
   getValidMeasureIds: (measures) ->
@@ -45,28 +44,24 @@ class Thorax.Models.Patient extends Thorax.Model
     s for s in Thorax.Models.Patient.sections when @has(s)
   ### Patient HTML Header values ###
   getBirthDate: -> @printDate @get('cqmPatient').fhir_patient.birthDate?.value
-  getBirthTime: -> @printTime @get('cqmPatient').fhir_patient.birthDate?.value
-#  getDeathDate: -> if @get('expired') then @printDate((@get('cqmPatient').fhir_patient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime)
-  getDeathDate: -> null
-#  getDeathTime: -> if @get('expired') then @printTime((@get('cqmPatient').fhir_patient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime)
-  getDeathTime: -> null
+  getDeathDate: -> @printDate @get('cqmPatient').fhir_patient.deceased?.value
+  getDeathTime: -> @printTime @get('cqmPatient').fhir_patient.deceased?.value
 
 # Next 4 methods return the Code object since some calls to them need the code while others need the display name
   getGender: ->
     genderElement = (@get('cqmPatient')).fhir_patient.gender
     {code: genderElement?.value, display: genderElement?.value}
+
   getRace: ->
-#    raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
-#    unless raceElement? then return {code: "Unknown", display: "Unknown"}
-#    else unless raceElement.dataElementCodes[0].display? then "CDC-RE: #{raceElement.dataElementCodes[0].code}"
-#    else raceElement.dataElementCodes[0]
-    {code: "Unknown", display: "Unknown"}
+    currentRaceExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
+      ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+    {code: currentRaceExt?.value.code.value, display: currentRaceExt?.value.display.value}
+
   getEthnicity: ->
-#    ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
-#    unless ethnicityElement? then return {code: "Unknown", display: "Unknown"}
-#    else unless ethnicityElement.dataElementCodes[0].display? then "CDC-RE: #{ethnicityElement.dataElementCodes[0].code}"
-#    else ethnicityElement.dataElementCodes[0]
-    {code: "Unknown", display: "Unknown"}
+    currentEthnicityExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
+      ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+    {code: currentEthnicityExt?.value.code.value, display: currentEthnicityExt?.value.display.value}
+
   getPayer: ->
 # TODO
 #    payerElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
@@ -107,42 +102,66 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').notes = notes
 
   setCqmPatientBirthDate: (birthdate, measure) ->
-    @get('cqmPatient').fhir_patient.birthDate = cqm.models.PrimitiveDate.parsePrimitive(@createCQLDate(moment.utc(birthdate, 'L LT').toDate()))
+    string_date = moment.utc(birthdate, 'L').format("YYYY-MM-DD")
+    @get('cqmPatient').fhir_patient.birthDate = cqm.models.PrimitiveDate.parsePrimitive(string_date)
 
-  setCqmPatientDeathDate: (deathdate, measure) ->
-#    sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
-#    if !sourceElement
-#      sourceElement = new cqm.models.PatientCharacteristicExpired() # Patient characteristic expired was not found on the measure, so its created without a code
-#    expiredElement = @get('cqmPatient').patient_characteristics()?.filter (elem) -> elem.qdmStatus == 'expired'
-#    if expiredElement and expiredElement.expiredDatetime
-#      sourceElement.expiredDatetime = expiredElement.expiredDatetime.copy()
-#    if !sourceElement.expiredDatetime
-#      sourceElement.expiredDatetime = @createCQLDate(moment.utc(deathdate, 'L LT').toDate())
-#    if sourceElement.codeListId?
-#      deathdateConcept = @getConceptsForDataElement('expired', measure)[0]
-#      sourceElement.dataElementCodes[0] = @conceptToCode(deathdateConcept)
-#    @get('cqmPatient').data_elements.push(sourceElement)
-    null;
+  setCqmPatientDeceased: (deathdate, measure) ->
+    string_date = moment.utc(deathdate, "L LT").toISOString()
+    @get('cqmPatient').fhir_patient.deceased = cqm.models.PrimitiveDateTime.parsePrimitive(string_date)
+
+
   setCqmPatientGender: (gender, measure) ->
     @get('cqmPatient').fhir_patient.gender = cqm.models.AdministrativeGender.parsePrimitive(gender)
 
-  setCqmPatientRace: (race, measure) ->
-#    sourceElement = @removeElementAndGetNewCopy('race', measure.get('cqmMeasure'))
-#    if !sourceElement
-#      sourceElement = new cqm.models.PatientCharacteristicRace()
-#    raceConcept = (@getConceptsForDataElement('race', measure).filter (elem) -> elem.code == race)[0]
-#    sourceElement.dataElementCodes[0] = @conceptToCode(raceConcept)
-#    @get('cqmPatient').data_elements.push(sourceElement)
-    return "N/A"
+  setCqmPatientRace: (race) ->
+    @get('cqmPatient').fhir_patient.extension = [] unless @get('cqmPatient').fhir_patient.extension
 
-  setCqmPatientEthnicity: (ethnicity, measure) ->
-#    sourceElement = @removeElementAndGetNewCopy('ethnicity', measure.get('cqmMeasure'))
-#    if !sourceElement
-#      sourceElement = new cqm.models.PatientCharacteristicEthnicity()
-#    ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
-#    sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
-#    @get('cqmPatient').data_elements.push(sourceElement)
-    return "N/A"
+    # Exit early if this is being called with the fhir_patient's current race
+    currentRaceExt = @get('cqmPatient').fhir_patient.extension.find (ext) ->
+      ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+    return if currentRaceExt && currentRaceExt.value.code.value == race.code
+    # Eliminate the existing race extension, but leave others in place
+    if currentRaceExt
+      raceFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
+        ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      @get('cqmPatient').fhir_patient.extension = raceFreeExtensions
+
+    # Build and assign new race extension to fhir_patient
+    newRaceExtension = cqm.models.Extension.parse({
+      url: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      valueCoding: {
+        system: "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html"
+        code: race.code
+        display: race.display
+        userSelected: true
+      }
+    })
+    @get('cqmPatient').fhir_patient.extension.push(newRaceExtension)
+
+  setCqmPatientEthnicity: (ethnicity) ->
+    @get('cqmPatient').fhir_patient.extension = [] unless @get('cqmPatient').fhir_patient.extension
+
+    # Exit early if this is being called with the fhir_patient's current ethnicity
+    currentEthnicityExt = @get('cqmPatient').fhir_patient.extension.find (ext) ->
+      ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+    return if currentEthnicityExt && currentEthnicityExt.value.code.value == ethnicity.code
+    # Eliminate the existing ethnicity extension, but leave others in place
+    if currentEthnicityExt
+      ethnicityFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
+        ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      @get('cqmPatient').fhir_patient.extension = ethnicityFreeExtensions
+
+    # Build and assign new ethnicity extension to fhir_patient
+    newEthnicityExtension = cqm.models.Extension.parse({
+      url: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      valueCoding: {
+        system: "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html"
+        code: ethnicity.code
+        display: ethnicity.display
+        userSelected: true
+      }
+    })
+    @get('cqmPatient').fhir_patient.extension.push(newEthnicityExtension)
 
   removeElementAndGetNewCopy: (elementType, cqmMeasure) ->
 #    element = (@get('cqmPatient').patient_characteristics()?.filter (elem) -> elem.qdmStatus == elementType)[0]
@@ -158,6 +177,10 @@ class Thorax.Models.Patient extends Thorax.Model
 #      return null
     return null;
 
+  getConceptsForPatientProp: (prop, measure) ->
+    valueSet = measure.valueSets()?.find (elem) -> elem.title == prop
+    valueSet?.compose?.include?[0]?.concept || []
+
   getConceptsForDataElement: (qdmStatus, measure) ->
     return [] unless measure.get('cqmMeasure')?.source_data_criteria?
     dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
@@ -172,10 +195,10 @@ class Thorax.Models.Patient extends Thorax.Model
     new cqm.models.CQL.Code(concept.code, concept.code_system_oid, null, concept.display_name || null)
 
   printDate: (date) ->
-    (date.month.toString().padStart(2, '0') + '/' + date.day.toString().padStart(2, '0') + '/' + date.year) if date
+    moment(date, "YYYY-MM-DD").format("MM/DD/YYYY") if date
 
   printTime: (dateTime) ->
-    moment(dateTime).format('h:mm A') if dateTime
+    moment(dateTime, "YYYY-MM-DDTHH:mm:ss").format('h:mm A') if dateTime
 
   materialize: ->
     @trigger 'materialize'
@@ -210,23 +233,22 @@ class Thorax.Models.Patient extends Thorax.Model
 
   validate: ->
     errors = []
-    birthdate = if @get('cqmPatient').fhir_patient.birthDate then moment(@get('cqmPatient').fhir_patient.birthDate, 'X') else null
-#    expiredElement = (@get('cqmPatient').patient_characteristics()?.filter (elem) -> elem.qdmStatus == 'expired')[0]
-#    deathdate = if @get('expired') && expiredElement?.expiredDatetime then moment(expiredElement.expiredDatetime, 'X') else null
+    birthdate = if @get('cqmPatient').fhir_patient.birthDate?.value then moment(@get('cqmPatient').fhir_patient.birthDate.value, "YYYY-MM-DD") else null
+    deathdate = if @get('cqmPatient').fhir_patient.deceased?.value then moment(@get('cqmPatient').fhir_patient.deceased.value, "YYYY-MM-DD") else null
     unless @getFirstName()?.length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
     unless @getLastName()?.length > 0
       errors.push [@cid, 'last', 'Name fields cannot be blank']
     unless birthdate
       errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
-#    if @get('expired') && !deathdate
-#      errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
-#    if birthdate && birthdate.year() < 1000
-#      errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
-#    if deathdate && deathdate.year() < 1000
-#      errors.push [@cid, 'deathdate', 'Date of death must have four digit year']
-#    if deathdate && birthdate && deathdate.isBefore birthdate
-#      errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
+    if @get('expired') && !deathdate
+      errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
+    if birthdate && birthdate.year() < 1000
+      errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
+    if deathdate && deathdate.year() < 1000
+      errors.push [@cid, 'deathdate', 'Date of death must have four digit year']
+    if deathdate && birthdate && deathdate.isBefore birthdate
+      errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
 
     return errors if errors.length > 0
 
