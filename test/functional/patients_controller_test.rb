@@ -43,30 +43,65 @@ include Devise::Test::ControllerHelpers
       'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"],
       'user_id' => @user.id
     }}
+
+    @fhir_patient_params = {
+      'cqmPatient': {
+        "id": "5f57d01a583347273f9dc658",
+        "notes": "Boop-Oop-a-Doop",
+        "measure_ids": [
+          "116A8764-E871-472F-9503-CA27889114DE"
+        ],
+        "fhir_patient": {
+          "id": "5f57d01a583347273f9dc658",
+          "resourceType": "Patient",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+                "code": "2076-8",
+                "display": "Native Hawaiian or Other Pacific Islander",
+                "userSelected": true
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+                "code": "2186-5",
+                "display": "Not Hispanic or Latino",
+                "userSelected": true
+              }
+            }
+          ],
+          "name": [
+            {
+              "family": "Boop",
+              "given": [
+                "Betty"
+              ]
+            }
+          ],
+          "gender": "female",
+          "birthDate": "1903-02-01",
+          "deceasedDateTime": "2020-09-03T08:00:00.000Z"
+        }
+      }
+    }
   end
 
   test "create" do
     assert_equal 0, CQM::Patient.count
 
-    post :create, params: @patient
+    post :create, params: @fhir_patient_params
     assert_response :success
     assert_equal 1, CQM::Patient.count
     r = CQM::Patient.first
-    assert_equal "Betty", r.givenNames[0]
-    assert_equal "Boop", r.familyName
-    assert_equal "F", r.bundleId
-    assert_equal '-1.3', r.qdmPatient.qdmVersion
-    assert_equal '2.16.840.1.113883.10.20.28.4.55', r.qdmPatient.dataElements.first.hqmfOid
-    assert_equal 1, r.expectedValues.length
-    assert_equal 1, r.qdmPatient.dataElements.length
-    json = JSON.parse(response.body)
-
-    assert_equal "Betty", json["givenNames"][0]
-    assert_equal "Boop", json["familyName"]
-    assert_equal "F", json["bundleId"]
-    assert_equal '-1.3', json["qdmPatient"]["qdmVersion"]
-    assert_equal '2.16.840.1.113883.10.20.28.4.55', json["qdmPatient"]['dataElements'][0]['hqmfOid']
-    assert_equal 1, json["expectedValues"].length
+    assert_equal @user.id, r.user_id
+    assert_equal "Betty", r.fhir_patient.name[0].given[0].value
+    assert_equal "Boop", r.fhir_patient.name[0].family.value
+    assert_equal "116A8764-E871-472F-9503-CA27889114DE", r.measure_ids[0]
+    assert_equal 2, r.fhir_patient.extension.length
   end
 
   test "share patients" do
@@ -117,24 +152,20 @@ include Devise::Test::ControllerHelpers
     patient.user = @user
     patient.save!
     assert_equal 1, CQM::Patient.count
-    updated_patient = @patient
-    updated_patient['_id'] = patient.id.to_s
-    updated_patient['id'] = patient.id.to_s
 
-    post :update, params: updated_patient
+    update_params = @fhir_patient_params.merge({id: patient.id})
+    @fhir_patient_params[:cqmPatient].merge!({id: patient.id})
+    @controller.stub(:current_user, @user) do
+      post :update, params: update_params
+    end
     assert_response :success
     assert_equal 1, CQM::Patient.count
-    retrieved_patient = CQM::Patient.first
-    assert_equal "Betty", retrieved_patient.givenNames[0]
-    assert_equal "Boop", retrieved_patient.familyName
-    assert_equal '-1.3', retrieved_patient.qdmPatient.qdmVersion
-    assert_equal '2.16.840.1.113883.10.20.28.4.55', retrieved_patient.qdmPatient.dataElements.first.hqmfOid
-    json = JSON.parse(response.body)
-
-    assert_equal "Betty", json["givenNames"][0]
-    assert_equal "Boop", json["familyName"]
-    assert_equal '-1.3', json["qdmPatient"]["qdmVersion"]
-    assert_equal '2.16.840.1.113883.10.20.28.4.55', json["qdmPatient"]['dataElements'][0]['hqmfOid']
+    r = CQM::Patient.first
+    assert_equal @user.id, r.user_id
+    assert_equal "Betty", r.fhir_patient.name[0].given[0].value
+    assert_equal "Boop", r.fhir_patient.name[0].family.value
+    assert_equal "116A8764-E871-472F-9503-CA27889114DE", r.measure_ids[0]
+    assert_equal 2, r.fhir_patient.extension.length
   end
 
   test "destroy" do

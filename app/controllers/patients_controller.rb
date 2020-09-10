@@ -3,7 +3,7 @@ class PatientsController < ApplicationController
   prepend_view_path(Rails.root.join('lib/templates/'))
 
   def update
-    old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
+    old_patient = CQM::Patient.by_user(current_user).find(cqm_patient_params[:id])
     begin
       updated_patient = CQM::Patient.transform_json(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
@@ -20,6 +20,7 @@ class PatientsController < ApplicationController
   def create
     begin
       patient = CQM::Patient.transform_json(cqm_patient_params)
+      patient[:user_id] = current_user.id
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return

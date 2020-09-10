@@ -10,3 +10,8 @@ loadMeasureWithValueSets = function(measurePath, valueSetsPath) {
   measure = new Thorax.Models.Measure(measureJSON, {parse: true});
   return measure;
 }
+
+loadFhirMeasure = function(measurePath) {
+  measureJSON = getJSONFixture(measurePath);
+  return new Thorax.Models.Measure(measureJSON, {parse: true});
+}
