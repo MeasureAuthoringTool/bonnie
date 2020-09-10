@@ -77,19 +77,19 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
 
   dataCriteriaCategories: ->
-     categories = {}
-     @measure?.get('source_data_criteria').each (criteria) ->
-       resourceType = criteria.get('fhir_resource').resourceType
-       type = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType]
-       # Filter out elements with no oids(this happens if element doesn't have codeFilter associated with it)
-       filter_criteria = criteria.get('codeListId') is undefined || criteria.get('valueSetTitle') is undefined
-       unless filter_criteria
-         categories[type] ||= new Thorax.Collection
-         categories[type].add criteria unless categories[type].any (c) -> c.get('description') == criteria.get('description') && c.get('codeListId') == criteria.get('codeListId')
-     categories = _(categories).omit('transfers','derived')
-     # Pass a sorted array to the view so ordering is consistent
-     categoriesArray = ({ type: type, criteria: criteria } for type, criteria of categories)
-     _(categoriesArray).sortBy (entry) -> entry.type
+    categories = {}
+    @measure?.get('source_data_criteria').each (criteria) ->
+      resourceType = criteria.get('fhir_resource').resourceType
+      type = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType]
+      # Filter out elements with no oids(this happens if element doesn't have codeFilter associated with it)
+      filter_criteria = criteria.get('codeListId') is undefined || criteria.get('valueSetTitle') is undefined
+      unless filter_criteria
+        categories[type] ||= new Thorax.Collection
+        categories[type].add criteria unless categories[type].any (c) -> c.get('description') == criteria.get('description') && c.get('codeListId') == criteria.get('codeListId')
+    categories = _(categories).omit('transfers','derived')
+    # Pass a sorted array to the view so ordering is consistent
+    categoriesArray = ({ type: type, criteria: criteria } for type, criteria of categories)
+    _(categoriesArray).sortBy (entry) -> entry.type
 
   events:
     'blur :text': (e) -> @materialize()
@@ -254,7 +254,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   addDeathDate: (e) ->
     @model.set 'expired', true
-    @model.toggleDeceased()
+    @model.get('cqmPatient').fhir_patient.deceased = null
     @$('#deathdate').focus()
 
   removeDeathDate: (e) ->
@@ -262,7 +262,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.set 'expired', false
     @model.set 'deathtime', undefined
     @model.set 'deathdate', undefined
-    @model.toggleDeceased()
+    @model.get('cqmPatient').fhir_patient.deceased = false
     @materialize()
     @$('#expired').focus()
 

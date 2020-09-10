@@ -32,7 +32,7 @@ class Thorax.Models.Patient extends Thorax.Model
     clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').data_elements, parent: clonedPatient, parse: true)
     clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expected_values, parent: clonedPatient, parse: true)
     if options.dedupName
-      clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
+      clonedPatient.get('cqmPatient').fhir_patient.name[0].given[0].value = bonnie.patients.dedupName(clonedPatient)
     clonedPatient
 
   getValidMeasureIds: (measures) ->
@@ -60,7 +60,7 @@ class Thorax.Models.Patient extends Thorax.Model
   getEthnicity: ->
     currentEthnicityExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
-    {code: currentRaceExt?.value.code.value, display: currentRaceExt?.value.display.value}
+    {code: currentEthnicityExt?.value.code.value, display: currentEthnicityExt?.value.display.value}
 
   getPayer: ->
 # TODO
@@ -121,9 +121,10 @@ class Thorax.Models.Patient extends Thorax.Model
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
     return if currentRaceExt && currentRaceExt.value.code.value == race.code
     # Eliminate the existing race extension, but leave others in place
-    raceFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
-      ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
-    @get('cqmPatient').fhir_patient.extension = raceFreeExtensions
+    if currentRaceExt
+      raceFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
+        ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      @get('cqmPatient').fhir_patient.extension = raceFreeExtensions
 
     # Build and assign new race extension to fhir_patient
     newRaceExtension = cqm.models.Extension.parse({
@@ -145,9 +146,10 @@ class Thorax.Models.Patient extends Thorax.Model
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
     return if currentEthnicityExt && currentEthnicityExt.value.code.value == ethnicity.code
     # Eliminate the existing ethnicity extension, but leave others in place
-    ethnicityFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
-      ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
-    @get('cqmPatient').fhir_patient.extension = ethnicityFreeExtensions
+    if currentEthnicityExt
+      ethnicityFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
+        ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      @get('cqmPatient').fhir_patient.extension = ethnicityFreeExtensions
 
     # Build and assign new ethnicity extension to fhir_patient
     newEthnicityExtension = cqm.models.Extension.parse({
@@ -229,16 +231,10 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('source_data_criteria').sort()
     @get('source_data_criteria').comparator = originalComparator
 
-  toggleDeceased: ->
-    if !!@get('cqmPatient').fhir_patient.deceased
-      @get('cqmPatient').fhir_patient.deceased = false
-    else
-      @get('cqmPatient').fhir_patient.deceased = null
-
   validate: ->
     errors = []
-    birthdate = if @get('cqmPatient').fhir_patient.birthDate then moment(@get('cqmPatient').fhir_patient.birthDate.value, "YYYY-MM-DD") else null
-    deathdate = if @get('cqmPatient').fhir_patient.deceased then moment(@get('cqmPatient').fhir_patient.deceased.value, "YYYY-MM-DD") else null
+    birthdate = if @get('cqmPatient').fhir_patient.birthDate?.value then moment(@get('cqmPatient').fhir_patient.birthDate.value, "YYYY-MM-DD") else null
+    deathdate = if @get('cqmPatient').fhir_patient.deceased?.value then moment(@get('cqmPatient').fhir_patient.deceased.value, "YYYY-MM-DD") else null
     unless @getFirstName()?.length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
     unless @getLastName()?.length > 0
