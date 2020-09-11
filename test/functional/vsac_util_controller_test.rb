@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'vcr_setup.rb'
+require 'vcr_setup'
 
 class VsacUtilControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
@@ -18,8 +18,8 @@ class VsacUtilControllerTest < ActionController::TestCase
       assert_response :success
 
       profile_names = JSON.parse(response.body)
-      assert_equal 24, profile_names['profileNames'].length
-      assert_equal 'eCQM Update 2019-05-10', profile_names['latestProfile']
+      assert_equal 27, profile_names['profileNames'].length
+      assert_equal 'eCQM Update 2020-05-07', profile_names['latestProfile']
     end
   end
 
@@ -33,7 +33,7 @@ class VsacUtilControllerTest < ActionController::TestCase
 
   test 'get program_release_names' do
     VCR.use_cassette('vsac_util_get_program_release_names') do
-      get :program_release_names, program: 'CMS eCQM'
+      get :program_release_names, params: {program: 'CMS eCQM'}
       assert_response :success
 
       release_names = JSON.parse(response.body)
@@ -44,7 +44,7 @@ class VsacUtilControllerTest < ActionController::TestCase
 
   test 'get program_release_names invalid program' do
     VCR.use_cassette('vsac_util_get_program_release_names_invalid_program') do
-      get :program_release_names, program: 'Bad Program'
+      get :program_release_names, params: {program: 'Bad Program'}
       assert_response :not_found
       assert_equal 'Program not found.', JSON.parse(response.body)['error']
     end

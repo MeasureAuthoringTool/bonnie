@@ -47,11 +47,11 @@ http_interactions:
     body:
       encoding: UTF-8
       string: TGT-1609629-hsdv5ugf6ebI6OKEyX2foDete7xH0b9hLCfmLgSJarp7d6RoHj-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:55 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
+    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM%20and%20Hybrid%20Measure/latest%20profile
     body:
       encoding: US-ASCII
       string: ''
@@ -97,7 +97,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"name":"eCQM Update 2019-05-10","requestTime":"2019-06-25 07:44:55
         PM"}'
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:55 GMT
 - request:
     method: post
@@ -146,7 +146,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419601-0c5cKw9oLj1aGe0CvCzY-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: post
@@ -195,7 +195,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419600-ibcAEzgzu5U1YIkuVr0T-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: post
@@ -244,7 +244,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419603-WVcZncBsrgCbCDwd7okT-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: post
@@ -293,7 +293,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419602-R3eGClXf2zb9JHIqCzfh-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: post
@@ -342,7 +342,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419604-wnJkoNvkjblirPDX1xb6-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: post
@@ -391,7 +391,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419605-7U2mojsTvSJug0ebjaG1-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: post
@@ -440,7 +440,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419608-KohCogGVVdpFdU3NsRR0-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: post
@@ -489,7 +489,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419609-YVZqd7dBrZKEUFDRSB3g-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: post
@@ -538,7 +538,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419607-qV4CiTw04r0Zx9e9sqJ5-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -603,7 +603,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -669,7 +669,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -894,7 +894,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -963,7 +963,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -1027,7 +1027,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -1092,7 +1092,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -1158,7 +1158,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -1224,7 +1224,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:56 GMT
 - request:
     method: get
@@ -3164,7 +3164,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:57 GMT
 - request:
     method: get
@@ -3214,7 +3214,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"name":"eCQM Update 2019-05-10","requestTime":"2019-06-25 07:44:58
         PM"}'
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3263,7 +3263,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419616-FQMUOXXUnrL0q0DlZAkA-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3312,7 +3312,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419617-lsTdYOQF50LCb9Uwoa7G-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3361,7 +3361,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419615-26uqiVnyRdaQwlhbRSgF-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3410,7 +3410,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419611-DuuuQdcnbexlelbl6fsf-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3459,7 +3459,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419614-iYJLz1YFYcq6uS7lP6S7-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3508,7 +3508,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419618-66b2ZBMI9qbjRZja4Kz7-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3557,7 +3557,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419619-ZJy7tfww31KBm7UiNDFM-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3606,7 +3606,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419612-r2oxAnBV9Wf6HsMQfRav-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: post
@@ -3655,11 +3655,11 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-6419613-7yNzNuiJgfeJBQdrdqZO-cas
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:58 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.87&includeDraft=yes&profile=eCQM%20Update%202019-05-10&ticket=ST-6419617-lsTdYOQF50LCb9Uwoa7G-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.87&includeDraft=yes&profile=eCQM%20Update%202020-05-07&ticket=ST-6419617-lsTdYOQF50LCb9Uwoa7G-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -3721,7 +3721,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:59 GMT
 - request:
     method: get
@@ -3790,7 +3790,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:59 GMT
 - request:
     method: get
@@ -3854,7 +3854,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:59 GMT
 - request:
     method: get
@@ -3920,7 +3920,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:59 GMT
 - request:
     method: get
@@ -3986,7 +3986,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:59 GMT
 - request:
     method: get
@@ -4051,7 +4051,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:59 GMT
 - request:
     method: get
@@ -4116,7 +4116,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:59 GMT
 - request:
     method: get
@@ -4341,7 +4341,7 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:44:59 GMT
 - request:
     method: get
@@ -6281,6 +6281,6 @@ http_interactions:
                 <ns0:RevisionDate>2019-06-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Tue, 25 Jun 2019 23:45:00 GMT
 recorded_with: VCR 4.0.0

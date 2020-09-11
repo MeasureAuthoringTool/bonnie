@@ -111,7 +111,7 @@ class ExcelExportHelperTest < ActionController::TestCase
 
   test 'population details are extracted' do
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
-    @population_details.keys.each do |key|
+    @population_details.each_key do |key|
       @population_details[key]['criteria'] = (CQM::Measure::ALL_POPULATION_CODES & @population_details[key]['criteria']) + ['index']
     end
     assert_equal @population_details['c966'], population_details[0]
@@ -136,12 +136,12 @@ class ExcelExportHelperTest < ActionController::TestCase
     backend_excel_file.rewind
     backend_excel_spreadsheet = Roo::Spreadsheet.open(backend_excel_file.path)
 
-    get :excel_export, calc_results: @calc_results.to_json,
-                       patient_details: @patient_details.to_json,
-                       population_details: @population_details.to_json,
-                       statement_details: @statement_details.to_json,
-                       file_name: 'frontend-excel-export',
-                       measure_hqmf_set_id: @measure.hqmf_set_id
+    get :excel_export, params: { calc_results: @calc_results.to_json,
+                                 patient_details: @patient_details.to_json,
+                                 population_details: @population_details.to_json,
+                                 statement_details: @statement_details.to_json,
+                                 file_name: 'frontend-excel-export',
+                                 measure_hqmf_set_id: @measure.hqmf_set_id }
 
     frontend_excel_file = Tempfile.new(['frontend-excel-export', '.xlsx'])
     frontend_excel_file.write(response.body)

@@ -1,6 +1,6 @@
 {
   "name": "bonnie",
-  "version": "4.0.2",
+  "version": "4.1.1",
   "description": "A tool for testing electronic clinical quality measures",
   "main": "index.js",
   "repository": "git@github.com:projecttacoma/bonnie.git",
@@ -107,7 +107,8 @@
   "license": "Apache-2.0",
   "scripts": {},
   "dependencies": {
-    "browserify": "^16.2.3",
-    "cqm-execution": "https://github.com/projecttacoma/cqm-execution.git#c54bf619a33265f3a7c6d3741f6a2317879a7403"
+    "browserify": "^16.5.1",
+    "cqm-execution": "^3.0.3",
+    "tinymce": "^5.4.2"
   }
 }
