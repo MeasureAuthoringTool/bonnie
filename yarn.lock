@@ -313,26 +313,29 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cql-execution@adongare/cql-execution#bonniemat-629_623:
-  version "1.4.4"
-  resolved "https://codeload.github.com/adongare/cql-execution/tar.gz/86f1e923cbb814ce80caddf22425b1e386e1e8ec"
+cql-execution@~1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/cql-execution/-/cql-execution-1.4.5.tgz#e17364d916cbc78a37994aa4033a95802bd4ab8f"
+  integrity sha512-ulji08Pl5MzlvTJOUXd0OYlKRfgdOFApdAilvN4FpkcXhk9gwjy4M08jydyqJ8EIH+peSpGuZ3ubRhBUrNEFBQ==
   dependencies:
     moment "^2.20.1"
     ucum "0.0.7"
 
-cqm-execution@projecttacoma/cqm-execution#MAT-1708:
-  version "3.0.2"
-  resolved "https://codeload.github.com/projecttacoma/cqm-execution/tar.gz/dd4f5b947c6e8095cba7f744fa60d8fae4d93759"
+cqm-execution@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/cqm-execution/-/cqm-execution-3.0.3.tgz#6fd9838c5a88e177018166b80bdc0ac1ddccdba0"
+  integrity sha512-rBAMrFUE83irYkp13nmbMzZ3aPOgBC8JEBfPdalAz34P9VTl+jCuhwI8YBUT22RlvtPiDE3PmbxBBGDWpH38hg==
   dependencies:
-    cqm-models projecttacoma/cqm-models#MAT-1708
+    cqm-models "~3.0.4"
     lodash "^4.17.19"
     moment "^2.21.0"
 
-cqm-models@projecttacoma/cqm-models#MAT-1708:
-  version "3.0.3"
-  resolved "https://codeload.github.com/projecttacoma/cqm-models/tar.gz/522905ca497627b9f8ebe929df5235805e88571b"
+cqm-models@~3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/cqm-models/-/cqm-models-3.0.4.tgz#c1b84977f65a953d2640285581eb73b31094f97c"
+  integrity sha512-MHYS45iSdOiH7t+F4cz3xOvkI2/G4AyhrLQPg0IPRATB3b4uGqB9oBq88Limkq6LljmUjF3gbyn3a7CV5YjbiA==
   dependencies:
-    cql-execution adongare/cql-execution#bonniemat-629_623
+    cql-execution "~1.4.5"
     mongoose "^5.7.5"
 
 create-ecdh@^4.0.0:
