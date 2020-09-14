@@ -5,24 +5,25 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
   # Expected options to be passed in using the constructor options hash:
   #   model - Thorax.Models.SourceDataCriteria - The source data criteria we are displaying attributes for
   initialize: ->
-    @dataElement = @model.get('qdmDataElement')
+    @dataElement = @model.get('dataElement')
 
     # build a list of the possible attributes for this data element with the name and possible types for each
     @attributeList = []
-    @dataElement.schema.eachPath (path, info) =>
-      # go on to the next one if it is an attribute that should be skipped
-      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
-
-      @attributeList.push(
-        name: path
-        title: @model.getAttributeTitle(path)
-        isArray: info.instance == 'Array'
-        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray || info.instance == "AnyEntity"
-        isEntity: info.instance == "AnyEntity"
-        isRelatedTo: path == 'relatedTo'
-        types: @_determineAttributeTypeList(path, info)
-      )
-    @hasUserConfigurableAttributes = @attributeList.length > 0
+#    TODO FHIR attributes
+#    @dataElement.schema.eachPath (path, info) =>
+#      # go on to the next one if it is an attribute that should be skipped
+#      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
+#
+#      @attributeList.push(
+#        name: path
+#        title: @model.getAttributeTitle(path)
+#        isArray: info.instance == 'Array'
+#        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray || info.instance == "AnyEntity"
+#        isEntity: info.instance == "AnyEntity"
+#        isRelatedTo: path == 'relatedTo'
+#        types: @_determineAttributeTypeList(path, info)
+#      )
+#    @hasUserConfigurableAttributes = @attributeList.length > 0
 
   events:
     'change select[name="attribute_name"]': 'attributeNameChange'
@@ -140,6 +141,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   # Helper function that returns the list of acceptable types for a given attribute path and schema info.
   _determineAttributeTypeList: (path, info) ->
+    # TODO
     # if is array type we need to find out what type it should be
     if info.instance == 'Array'
       if info.$isMongooseDocumentArray

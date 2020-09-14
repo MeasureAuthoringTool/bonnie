@@ -57,28 +57,31 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    codes = @model.get('qdmDataElement').dataElementCodes
+#    TODO: primaryCodePath
+#    codes = @model.get('dataElement').dataElementCodes
+    codes = []
     code_list_id = @model.get('codeListId')
     concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
 
     @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure, parent: @
     @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure, parent: @
-    if codes.length is 0
-     @editCodeSelectionView.addDefaultCodeToDataElement()
+#    TODO: primaryCodePath
+#    if codes.length is 0
+#     @editCodeSelectionView.addDefaultCodeToDataElement()
 
     @timingAttributeViews = []
     for timingAttr in @model.getPrimaryTimingAttributes()
       switch timingAttr.type
         when 'Interval'
           intervalView = new Thorax.Views.InputIntervalDateTimeView(
-            initialValue: @model.get('qdmDataElement')[timingAttr.name],
+            initialValue: @model.get('dataElement')[timingAttr.name],
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
             showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
           @timingAttributeViews.push intervalView
           @listenTo intervalView, 'valueChanged', @updateAttributeFromInputChange
         when 'DateTime'
           dateTimeView = new Thorax.Views.InputDateTimeView(
-            initialValue: @model.get('qdmDataElement')[timingAttr.name],
+            initialValue: @model.get('dataElement')[timingAttr.name],
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
             showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
           @timingAttributeViews.push dateTimeView
@@ -93,7 +96,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @listenTo @attributeEditorView, 'attributesModified', @attributesModified
 
     # view that allows for negating the data criteria, will not display on non-negateable data criteria
-    @negationRationaleView = new Thorax.Views.InputCodeView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('qdmDataElement').negationRationale })
+    @negationRationaleView = new Thorax.Views.InputCodeView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('dataElement').negationRationale })
     @listenTo @negationRationaleView, 'valueChanged', @updateAttributeFromInputChange
 
     @model.on 'highlight', (type) =>
@@ -101,22 +104,26 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
 
   updateCodes: (codes) ->
-    @model.get('qdmDataElement').dataElementCodes = codes
-    if codes.length is 0
-      @editCodeSelectionView.addDefaultCodeToDataElement()
-    else
-      @editCodeSelectionView.codes = codes
-      @editCodesDisplayView.codes = codes
-      @editCodesDisplayView.render()
-      @triggerMaterialize()
+#    TODO primaryCodePath
+#    @model.get('dataElement').dataElementCodes = codes
+#    if codes.length is 0
+#      @editCodeSelectionView.addDefaultCodeToDataElement()
+#    else
+#      @editCodeSelectionView.codes = codes
+#      @editCodesDisplayView.codes = codes
+#      @editCodesDisplayView.render()
+#      @triggerMaterialize()
+    null
 
   context: ->
     desc = @parseDataElementDescription(@model.get('description'))
-    definition_title = @model.get('qdmCategory').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
+    resourceType = @model.get('fhir_resource').resourceType
+    category = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType] || 'unsupported'
+    definition_title = category.replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
     primaryTimingAttributeName = @model.getPrimaryTimingAttribute()
-    primaryTimingValue = @model.get('qdmDataElement')[primaryTimingAttributeName]
+    primaryTimingValue = @model.get('dataElement')[primaryTimingAttributeName]
     _(super).extend
       # When we create the form and populate it, we want to convert times to moment-formatted dates
       start_date: moment.utc(primaryTimingValue.low.toJSDate()).format('L') if primaryTimingValue?.low?
@@ -144,7 +151,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     'change .negation-select': 'toggleNegationSelect'
 
   updateAttributeFromInputChange: (inputView) ->
-    @model.get('qdmDataElement')[inputView.attributeName] = inputView.value
+    @model.get('dataElement')[inputView.attributeName] = inputView.value
     @triggerMaterialize()
 
   attributesModified: ->
@@ -152,7 +159,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
 
   isDuringMeasurePeriod: ->
-    timingAttribute = @model.get('qdmDataElement')[@model.getPrimaryTimingAttribute()]
+    timingAttribute = @model.get('dataElement')[@model.getPrimaryTimingAttribute()]
     if !timingAttribute?
       return false
 
@@ -180,27 +187,27 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   _copyTimingAttribute: (droppedCriteria, targetCriteria, droppedAttr, targetAttr) ->
     # clone if they are of the same type
     if targetAttr.type == droppedAttr.type
-      if targetCriteria.get('qdmDataElement')[targetAttr.name]?
-        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = targetCriteria.get('qdmDataElement')[targetAttr.name].copy()
+      if targetCriteria.get('dataElement')[targetAttr.name]?
+        droppedCriteria.get('dataElement')[droppedAttr.name] = targetCriteria.get('dataElement')[targetAttr.name].copy()
       else
-        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = null
+        droppedCriteria.get('dataElement')[droppedAttr.name] = null
 
     # turn Interval into DateTime
     else if targetAttr.type == 'Interval' && droppedAttr.type == 'DateTime'
-      if targetCriteria.get('qdmDataElement')[targetAttr.name]?.low?
-        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = targetCriteria.get('qdmDataElement')[targetAttr.name].low.copy()
+      if targetCriteria.get('dataElement')[targetAttr.name]?.low?
+        droppedCriteria.get('dataElement')[droppedAttr.name] = targetCriteria.get('dataElement')[targetAttr.name].low.copy()
       else
-        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = null
+        droppedCriteria.get('dataElement')[droppedAttr.name] = null
 
     # turn DateTime into Interval. use start + 15 mins for end. if target is null, use Interval[null, null]
     else if targetAttr.type == 'DateTime' && droppedAttr.type == 'Interval'
-      if targetCriteria.get('qdmDataElement')[targetAttr.name]?
-        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(
-          targetCriteria.get('qdmDataElement')[targetAttr.name].copy(),
-          targetCriteria.get('qdmDataElement')[targetAttr.name].add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
+      if targetCriteria.get('dataElement')[targetAttr.name]?
+        droppedCriteria.get('dataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(
+          targetCriteria.get('dataElement')[targetAttr.name].copy(),
+          targetCriteria.get('dataElement')[targetAttr.name].add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
           )
       else
-        droppedCriteria.get('qdmDataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(null, null)
+        droppedCriteria.get('dataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(null, null)
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
@@ -219,7 +226,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.negationRationaleCodeEntry').removeClass('hidden')
     else
       @$('.negationRationaleCodeEntry').addClass('hidden')
-      @model.get('qdmDataElement').negationRationale = null
+      @model.get('dataElement').negationRationale = null
       @model.set('negation', false, {silent: true})
     @negationRationaleView.resetCodeSelection()
 

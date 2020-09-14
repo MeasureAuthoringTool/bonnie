@@ -164,18 +164,16 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').fhir_patient.extension.push(newEthnicityExtension)
 
   removeElementAndGetNewCopy: (elementType, cqmMeasure) ->
-#    element = (@get('cqmPatient').patient_characteristics()?.filter (elem) -> elem.qdmStatus == elementType)[0]
-#    if element
-#      elementIndex = @get('cqmPatient').data_elements.indexOf(element)
-#      @attributes.cqmPatient.data_elements.splice(elementIndex, 1)
+    element = (@get('cqmPatient').data_elements?.filter (elem) -> elem.fhir_resource?.resourceType == elementType)[0]
+    if element
+      elementIndex = @get('cqmPatient').data_elements.indexOf(element)
+      @attributes.cqmPatient.data_elements.splice(elementIndex, 1)
 #    # return copy of dataElement off the measure if one exists
-#    sdcDataElement = (cqmMeasure?.source_data_criteria?.filter (elem) -> elem.qdmStatus == elementType )[0]
-#    if (sdcDataElement)
-#      dataElementType = sdcDataElement._type.replace(/QDM::/, '')
-#      return new cqm.models[dataElementType](sdcDataElement.clone())
-#    else
-#      return null
-    return null;
+    sdcDataElement = (cqmMeasure?.source_data_criteria?.filter (elem) -> elem.fhir_resource?.resourceType == elementType)[0]
+    if (sdcDataElement)
+      return sdcDataElement.clone()
+    else
+      return null
 
   getConceptsForPatientProp: (prop, measure) ->
     valueSet = measure.valueSets()?.find (elem) -> elem.title == prop
@@ -183,7 +181,7 @@ class Thorax.Models.Patient extends Thorax.Model
 
   getConceptsForDataElement: (qdmStatus, measure) ->
     return [] unless measure.get('cqmMeasure')?.source_data_criteria?
-    dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
+    dataCriteria = (measure.get('cqmMeasureq').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
     return [] unless dataCriteria?
     valueSet = (measure.valueSets()?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
     valueSet?.concepts || []

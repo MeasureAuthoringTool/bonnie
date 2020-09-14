@@ -20,5 +20,5 @@ class Thorax.Views.EditCodesDisplayView extends Thorax.Views.BuilderChildView
     removeItemAtIndex = (array, indexToRemove) ->
       [].concat(array.slice(0,indexToRemove), array.slice(indexToRemove + 1))
 
-    codesToKeep = removeItemAtIndex(@parent.model.get('qdmDataElement').dataElementCodes, codeIndexToRemove)
+    codesToKeep = removeItemAtIndex(@parent.model.get('dataElement').dataElementCodes, codeIndexToRemove)
     @parent.updateCodes(codesToKeep)
