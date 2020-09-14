@@ -36,8 +36,8 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       @$('a[data-toggle="popover"]').popover({ html: true })
     'ready': 'setup'
     'change input:file':  'enableLoad'
-    'keyup input:text': 'enableLoadVsac'
-    'change input:text': 'enableLoadVsac'
+    'keyup input:password': 'enableLoadVsac'
+    'change input:password': 'enableLoadVsac'
     'change input[type=radio]': ->
       @$('input[type=radio]').each (index, element) =>
         if @$(element).prop("checked")
