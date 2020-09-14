@@ -204,7 +204,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   highlightPatientData: (dataCriteriaIDs) ->
     if @highlightPatientDataEnabled == true && @latestResult
       for dataCriteriaID in dataCriteriaIDs
-        dataCriteria = _.find(@latestResult.patient.get('source_data_criteria').models, (sdc) -> sdc.get('qdmDataElement')._id.toString() == dataCriteriaID)
+        dataCriteria = _.find(@latestResult.patient.get('source_data_criteria').models, (sdc) -> sdc.get('dataElement').id == dataCriteriaID)
         dataCriteria?.trigger('highlight', Thorax.Views.EditCriteriaView.highlight.valid)
 
   ###*

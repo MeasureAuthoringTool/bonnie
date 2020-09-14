@@ -42,12 +42,14 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     @$(':focusable:visible:first').focus()
 
   addDefaultCodeToDataElement: ->
-    if (@parent.model.get('qdmDataElement').dataElementCodes?.length == 0)
-      code_list_id = @parent.model.get('codeListId')
-      # Make sure there is a default code that can be added
-      if @concepts?.length
-        cql_code = new cqm.models.CQL.Code(@concepts[0].code, @concepts[0].code_system_oid, null, null)
-        @parent.updateCodes([cql_code])
+#    TODO primaryCodePath
+#    if (@parent.model.get('dataElement').dataElementCodes?.length == 0)
+#      code_list_id = @parent.model.get('codeListId')
+#      # Make sure there is a default code that can be added
+#      if @concepts?.length
+#        cql_code = new cqm.models.CQL.Code(@concepts[0].code, @concepts[0].code_system_oid, null, null)
+#        @parent.updateCodes([cql_code])
+    null
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model

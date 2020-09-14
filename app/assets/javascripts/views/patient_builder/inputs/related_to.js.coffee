@@ -14,7 +14,7 @@ class Thorax.Views.InputRelatedToView extends Thorax.Views.BonnieView
     # Do not include the current DataElement in the list of available Data Elements
     dataElements = []
     for dataElement in @sourceDataCriteria.models
-      unless dataElement.get('qdmDataElement').id == @currentDataElementId
+      unless dataElement.get('dataElement').id == @currentDataElementId
         dataElements.push(dataElement)
     @sourceDataCriteria.models = dataElements
 
@@ -29,8 +29,8 @@ class Thorax.Views.InputRelatedToView extends Thorax.Views.BonnieView
     for dataElement in sourceDataCriteria.models
       if dataElement.get('id') == id
         primaryTimingAttribute = dataElement.getPrimaryTimingAttribute()
-        timing = dataElement.get('qdmDataElement')[primaryTimingAttribute]
-        description = "#{dataElement.get('qdmDataElement').description}"
+        timing = dataElement.get('dataElement')[primaryTimingAttribute]
+        description = "#{dataElement.get('dataElement').description}"
         return { description: description, timing: timing }
     return null
 

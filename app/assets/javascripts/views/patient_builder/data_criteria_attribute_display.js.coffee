@@ -5,38 +5,40 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
   # Expected options to be passed in using the constructor options hash:
   #   model - Thorax.Models.SourceDataCriteria - The source data criteria we are displaying attributes for
   initialize: ->
-    @dataElement = @model.get('qdmDataElement')
+    @dataElement = @model.get('dataElement')
     @hasUserConfigurableAttributes = false
-    @dataElement.schema.eachPath (path, info) =>
-      # go on to the next one if it is an attribute that should be skipped
-      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
-      @hasUserConfigurableAttributes = true
+    # TODO: revisit for FHIR attributes
+#    @dataElement.schema.eachPath (path, info) =>
+#      # go on to the next one if it is an attribute that should be skipped
+#      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
+#      @hasUserConfigurableAttributes = true
 
   context: ->
     # build list of non-null attributes and their string representation
     displayAttributes = []
-    @dataElement.schema.eachPath (path, info) =>
-      # go on to the next one if it is an attribute that should be skipped or is null
-      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path) || !@dataElement[path]?
-
-      # if is array type we need to list each element
-      if info.instance == 'Array'
-        @dataElement[path].forEach (elem, index) =>
-          if path == 'relatedTo'
-            id = elem
-            display = Thorax.Views.InputRelatedToView.getDisplayFromId(@parent.model.collection.parent.get('source_data_criteria'), id)
-            value = "#{@_stringifyValue(display.description, true)} #{@_stringifyValue(display.timing, true)}"
-            displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: value, isArrayValue: true, index: index })
-          else
-            displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(elem, true), isArrayValue: true, index: index })
-      else
-        if path == 'relatedTo'
-          id = @dataElement[path]
-          display = Thorax.Views.InputRelatedToView.getDisplayFromId(@parent.model.collection.parent.get('source_data_criteria'), id)
-          value = "#{@_stringifyValue(display.description, true)} #{@_stringifyValue(display.timing, true)}"
-          timing = displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: value })
-        else
-          displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(@dataElement[path], true) })
+    # TODO: revisit for FHIR attributes
+#    @dataElement.schema.eachPath (path, info) =>
+#      # go on to the next one if it is an attribute that should be skipped or is null
+#      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path) || !@dataElement[path]?
+#
+#      # if is array type we need to list each element
+#      if info.instance == 'Array'
+#        @dataElement[path].forEach (elem, index) =>
+#          if path == 'relatedTo'
+#            id = elem
+#            display = Thorax.Views.InputRelatedToView.getDisplayFromId(@parent.model.collection.parent.get('source_data_criteria'), id)
+#            value = "#{@_stringifyValue(display.description, true)} #{@_stringifyValue(display.timing, true)}"
+#            displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: value, isArrayValue: true, index: index })
+#          else
+#            displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(elem, true), isArrayValue: true, index: index })
+#      else
+#        if path == 'relatedTo'
+#          id = @dataElement[path]
+#          display = Thorax.Views.InputRelatedToView.getDisplayFromId(@parent.model.collection.parent.get('source_data_criteria'), id)
+#          value = "#{@_stringifyValue(display.description, true)} #{@_stringifyValue(display.timing, true)}"
+#          timing = displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: value })
+#        else
+#          displayAttributes.push({ name: path, title: @model.getAttributeTitle(path), value: @_stringifyValue(@dataElement[path], true) })
 
     _(super).extend
       displayAttributes: displayAttributes
