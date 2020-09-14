@@ -80,7 +80,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
       resourceType = criteria.get('fhir_resource').resourceType
-      type = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType]
+      type = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType] || 'unsupported'
       # Filter out elements with no oids(this happens if element doesn't have codeFilter associated with it)
       filter_criteria = criteria.get('codeListId') is undefined || criteria.get('valueSetTitle') is undefined
       unless filter_criteria
@@ -177,9 +177,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     # create default values for all primary timing attributes
     for timingAttr in patientDataCriteria.getPrimaryTimingAttributes()
       if timingAttr.type == 'Interval'
-        patientDataCriteria.get('qdmDataElement')[timingAttr.name] = @createDefaultInterval()
+        patientDataCriteria.get('dataElement')[timingAttr.name] = @createDefaultInterval()
       else if timingAttr.type == 'DateTime'
-        patientDataCriteria.get('qdmDataElement')[timingAttr.name] = @createDefaultInterval().low
+        patientDataCriteria.get('dataElement')[timingAttr.name] = @createDefaultInterval().low
 
     @addCriteria patientDataCriteria
     return false
@@ -203,6 +203,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     return new cqm.models.CQL.Interval(start, end)
 
   addCriteria: (criteria) ->
+    resourceType = criteria.get('dataElement')?.fhir_resource?.resourceType;
+    category = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType]
+    unless (category)
+      alert('Unsupported data element of ' + resourceType)
+      return
+
     @model.get('source_data_criteria').add criteria
     @materialize()
     # close any open elements and then open the new element

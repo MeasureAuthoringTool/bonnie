@@ -30,7 +30,7 @@ describe 'EditCriteriaView', ->
     # change start date
     prevalenceView.$el.find("input[name='start_date']").val('02/15/2012').datepicker('update')
     # check that it changed on the data element
-    expect(@diagnosisView.model.get('qdmDataElement').prevalencePeriod.low).toEqual(new cqm.models.CQL.DateTime(2012, 2, 15, 9, 0, 0, 0, 0))
+    expect(@diagnosisView.model.get('dataElement').prevalencePeriod.low).toEqual(new cqm.models.CQL.DateTime(2012, 2, 15, 9, 0, 0, 0, 0))
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements[0].prevalencePeriod.low).toEqual(new cqm.models.CQL.DateTime(2012, 2, 15, 9, 0, 0, 0, 0))
 
@@ -43,7 +43,7 @@ describe 'EditCriteriaView', ->
     # change date
     authorDatetimeView.$el.find("input[name='date']").val('02/15/2012').datepicker('update')
     # check that it changed on the data element
-    expect(@diagnosisView.model.get('qdmDataElement').authorDatetime).toEqual(new cqm.models.CQL.DateTime(2012, 2, 15, 9, 0, 0, 0, 0))
+    expect(@diagnosisView.model.get('dataElement').authorDatetime).toEqual(new cqm.models.CQL.DateTime(2012, 2, 15, 9, 0, 0, 0, 0))
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements[0].authorDatetime).toEqual(new cqm.models.CQL.DateTime(2012, 2, 15, 9, 0, 0, 0, 0))
 
@@ -52,7 +52,7 @@ describe 'EditCriteriaView', ->
     # change time
     authorDatetimeView.$el.find("input[name='time']").val('9:45 AM').timepicker('setTime', '9:45 AM')
     # check that it changed on the data element
-    expect(@diagnosisView.model.get('qdmDataElement').authorDatetime).toEqual(new cqm.models.CQL.DateTime(1949, 2, 17, 9, 45, 0, 0, 0))
+    expect(@diagnosisView.model.get('dataElement').authorDatetime).toEqual(new cqm.models.CQL.DateTime(1949, 2, 17, 9, 45, 0, 0, 0))
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements[0].authorDatetime).toEqual(new cqm.models.CQL.DateTime(1949, 2, 17, 9, 45, 0, 0, 0))
 
@@ -61,7 +61,7 @@ describe 'EditCriteriaView', ->
     # uncheck
     authorDatetimeView.$el.find("input[name='date_is_defined']").prop('checked', false).change()
     # check that it changed on the data element
-    expect(@diagnosisView.model.get('qdmDataElement').authorDatetime).toBe(null)
+    expect(@diagnosisView.model.get('dataElement').authorDatetime).toBe(null)
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements[0].authorDatetime).toBe(null)
 
@@ -79,7 +79,7 @@ describe 'EditCriteriaView', ->
     newStart = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
     newEnd = new cqm.models.CQL.DateTime(2012, 2, 3, 9, 45, 0, 0, 0)
     newInterval = new cqm.models.CQL.Interval(newStart, newEnd)
-    expect(@encounterView.model.get('qdmDataElement').relevantPeriod).toEqual(newInterval)
+    expect(@encounterView.model.get('dataElement').relevantPeriod).toEqual(newInterval)
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements[1].relevantPeriod).toEqual(newInterval)
 
@@ -91,7 +91,7 @@ describe 'EditCriteriaView', ->
 
     # check that it changed on the data element
     start = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
-    expect(@encounterView.model.get('qdmDataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(start, null))
+    expect(@encounterView.model.get('dataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(start, null))
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements[1].relevantPeriod).toEqual(new cqm.models.CQL.Interval(start, null))
 
@@ -103,7 +103,7 @@ describe 'EditCriteriaView', ->
 
     # check that it changed on the data element
     end = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
-    expect(@encounterView.model.get('qdmDataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(null, end))
+    expect(@encounterView.model.get('dataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(null, end))
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements[1].relevantPeriod).toEqual(new cqm.models.CQL.Interval(null, end))
 
@@ -115,7 +115,7 @@ describe 'EditCriteriaView', ->
     relevantView.$el.find("input[name='start_date_is_defined']").prop('checked', false).change()
 
     # check that it changed on the data element
-    expect(@encounterView.model.get('qdmDataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(null, null))
+    expect(@encounterView.model.get('dataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(null, null))
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').qdmPatient.dataElements[1].relevantPeriod).toEqual(new cqm.models.CQL.Interval(null, null))
 
