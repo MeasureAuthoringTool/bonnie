@@ -181,7 +181,7 @@ class Thorax.Models.Patient extends Thorax.Model
 
   getConceptsForDataElement: (qdmStatus, measure) ->
     return [] unless measure.get('cqmMeasure')?.source_data_criteria?
-    dataCriteria = (measure.get('cqmMeasureq').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
+    dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
     return [] unless dataCriteria?
     valueSet = (measure.valueSets()?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
     valueSet?.concepts || []
