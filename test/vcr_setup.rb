@@ -7,15 +7,13 @@ VCR.configure do |c|
   c.hook_into :webmock
   
   # To avoid storing plain text VSAC credentials or requiring the VSAC credentials
-  # be provided at every run of the rake tests, provide the VSAC_USERNAME and VSAC_PASSWORD
+  # be provided at every run of the rake tests, provide the VSAC_API_KEY
   # whenever you need to record a cassette that requires valid credentials
-  ENV['VSAC_USERNAME'] = "vcrtest" unless ENV['VSAC_USERNAME']
-  ENV['VSAC_PASSWORD'] = "vcrpass" unless ENV['VSAC_PASSWORD']
+  ENV['VSAC_API_KEY'] = "vcrpass" unless ENV['VSAC_API_KEY']
 
   # Ensure plain text passwords do not show up during logging
-  c.filter_sensitive_data('<VSAC_USERNAME>') {ENV['VSAC_USERNAME']}
-  c.filter_sensitive_data('<VSAC_PASSWORD>') {URI.escape(ENV['VSAC_PASSWORD'])}
-  c.default_cassette_options = {record: :once }
+  c.filter_sensitive_data('<VSAC_API_KEY>') {URI.escape(ENV['VSAC_API_KEY'])}
+  c.default_cassette_options = { record: :once }
 
   # Add a custom matcher for use with the bulk request by typheous, so we can ignore service ticket
   c.register_request_matcher :uri_no_st do |req1, req2|
