@@ -5,7 +5,7 @@ http_interactions:
     uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
     body:
       encoding: UTF-8
-      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+      string: apikey=<VSAC_API_KEY>
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"

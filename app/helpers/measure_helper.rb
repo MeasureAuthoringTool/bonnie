@@ -17,7 +17,7 @@ module MeasureHelper
         body: "You have attempted to update a measure that does not exist."
       }
       back_end_version = {
-        json: {status: "error", messages: "No measure found for this HQMF Set ID."},
+        json: {status: "error", messages: "No measure found for this Set ID."},
         status: :not_found
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
@@ -29,10 +29,10 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading Measure",
         summary: "A version of this measure is already loaded.",
-        body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."
+        body: "You have a version of this measure loaded already. Either update that measure with the update button, or delete that measure and re-upload it."
       }
       back_end_version = {
-        json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure_set_id}"},
+        json: {status: "error", messages: "A measure with this Set ID already exists.", url: "/api_v1/measures/#{measure_set_id}"},
         status: :conflict
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
@@ -62,7 +62,7 @@ module MeasureHelper
         body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."
       }
       back_end_version = {
-        json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+        json: {status: "error", messages: "The update file does not have a matching Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
         status: :not_found
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
@@ -125,7 +125,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC credentials were invalid.",
-        body: "Please verify that you are using the correct VSAC username and password."
+        body: "Please verify that you are using your valid VSAC API Key."
       }
       back_end_version = {
         json: {status: "error", messages: "VSAC credentials were invalid."},
@@ -140,7 +140,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC session expired.",
-        body: "Please re-enter VSAC username and password to try again."
+        body: "Please re-enter VSAC API Key to try again."
       }
       back_end_version = {
         json: {status: "error", messages: "VSAC session expired. Please try again."},
@@ -155,7 +155,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "No VSAC credentials provided.",
-        body: "Please re-enter VSAC username and password to try again."
+        body: "Please re-enter VSAC API Key to try again."
       }
       back_end_version = {
         json: {status: "error", messages: "No VSAC credentials provided."},

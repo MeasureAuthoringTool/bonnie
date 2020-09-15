@@ -5,7 +5,7 @@ http_interactions:
     uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
     body:
       encoding: US-ASCII
-      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+      string: apikey=<VSAC_API_KEY>
     headers:
       User-Agent:
       - Typhoeus - https://github.com/typhoeus/typhoeus
