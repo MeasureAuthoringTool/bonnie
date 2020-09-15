@@ -13,11 +13,10 @@
   @buildDefineToFullStatement: (measure) ->
     ret = {}
     for lib in measure.cql_libraries
-      if lib.is_top_level
-        lib_statements = {}
-        for statement in lib.elm_annotations.statements
-          lib_statements[statement.define_name] = @_parseAnnotationTree(statement.children)
-        ret[lib.library_name] = lib_statements
+      lib_statements = {}
+      for statement in lib.elm_annotations.statements
+        lib_statements[statement.define_name] = @_parseAnnotationTree(statement.children)
+      ret[lib.library_name] = lib_statements
     return ret
 
 
