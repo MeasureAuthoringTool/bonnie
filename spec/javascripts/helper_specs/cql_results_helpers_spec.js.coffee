@@ -15,14 +15,10 @@ describe 'CQLResultsHelpers', ->
         expect(item).toEqual(beforeClone[index])
 
     it 'should properly indent nested objects', ->
-      nestedObject = {'one': 'single item', 'two': {'nested': 'item', 'nested2': 'item'}, 'three': {'doubleNested': {'a' : '1', 'b': '2', 'c': '3'}, 'nested': 'item'}}
+      nestedObject = {'one': 'single item', 'three': {'doubleNested': {'a' : '1', 'b': '2', 'c': '3'}, 'nested': 'item'}, 'two': {'nested': 'item', 'nested2': 'item'} }
       prettyNestedObject = """
 {
   one: "single item",
-  two: {
-    nested: "item",
-    nested2: "item"
-  },
   three: {
     doubleNested: {
       a: "1",
@@ -30,6 +26,31 @@ describe 'CQLResultsHelpers', ->
       c: "3"
     },
     nested: "item"
+  },
+  two: {
+    nested: "item",
+    nested2: "item"
+  }
+}
+"""
+      expect(CQLResultsHelpers.prettyResult(nestedObject)).toEqual(prettyNestedObject)
+
+    it 'should properly indent nested objects and sort out of order elements', ->
+      nestedObject = {'three': {'doubleNested': {'b' : '2', 'c': '3', 'a': '1'}, 'aSingleNested': 'item'}, 'two': {'cnested': 'item', 'bnested2': 'item'}, 'one': 'single item' }
+      prettyNestedObject = """
+{
+  one: "single item",
+  three: {
+    aSingleNested: "item",
+    doubleNested: {
+      a: "1",
+      b: "2",
+      c: "3"
+    }
+  },
+  two: {
+    bnested2: "item",
+    cnested: "item"
   }
 }
 """

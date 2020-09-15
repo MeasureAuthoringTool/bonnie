@@ -14,7 +14,7 @@ class PatientExport
   end
 
   # calc_results is a map of population/stratifications -> patients -> definitions -> results
-  def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details)
+  def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details, measure_hqmf_set_id)
     Axlsx::Package.new do |package|
       package.workbook do |workbook|        
         styles = workbook.styles
@@ -48,7 +48,7 @@ class PatientExport
           white_right_border = styles.add_style(:border => { :style => :thin,:color => "FFFFFF", :edges => [:left, :right] })
 
           sheet.add_row(["\nKEY\n","",""], style: key_title_style, height: 55)
-          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list.","",""], 
+          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list.\nCells that are too long will be truncated due to limitations in Excel.","",""], 
                         style: false_info_style, height: 70)
           sheet.merge_cells("A1:C1") 
           sheet.merge_cells("A2:C2")
@@ -138,7 +138,12 @@ class PatientExport
             population_details[pop_key]["statement_relevance"].each do |lib_key, statements|
               statements.each do |statement, relevance|
                 if (relevance != "NA")
-                  header_row.push(statement_details[lib_key][statement])
+                  # Composite measures will have some statement results from the components, but
+                  # the measure won't have statement details (excel headers) for them. 
+                  # Fortunately we want to ignore those results, so we can just skip results that
+                  # dont have corresponding details from the measure.
+                  next if statement_details.dig(lib_key,statement).nil?
+                  header_row.push(truncate_result(statement_details[lib_key][statement]))
                   statement_to_column[statement] = cur_column
                   cur_column = cur_column + 1
                 end
@@ -180,16 +185,11 @@ class PatientExport
               end
               expected = []
               actual = []
+              patient_expected_vals = patient_details[patient_key]["expected_values"].detect { |ev| ev["measure_id"]==measure_hqmf_set_id && ev["population_index"]==pop_index }
               population_criteria.each do |criteria|
-                expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
+                expected.push(patient_expected_vals[criteria])
                 if criteria == "OBSERV"
-                  observ_expected = patient_details[patient_key]["expected_values"][pop_index][criteria]
-                  observ_actual = calc_results[pop_key][patient_key]['criteria']['values']
-                  if observ_expected.nil? && observ_actual == []
-                    actual.push(nil)
-                  else
-                    actual.push(observ_actual)
-                  end
+                  actual.push(calc_results[pop_key][patient_key]['criteria']['values'])
                 else
                   actual.push(calc_results[pop_key][patient_key]["criteria"][criteria])
                 end
@@ -202,7 +202,7 @@ class PatientExport
                     if result.eql? "UNHIT"
                       statement_results[statement_to_column[statement]] = "Not Calculated"
                     else
-                      statement_results[statement_to_column[statement]] = result
+                      statement_results[statement_to_column[statement]] = truncate_result(result)
                     end
                   end
                 end
@@ -226,6 +226,15 @@ class PatientExport
           pop_index = pop_index + 1
         end
       end
+    end
+  end
+
+  # excel has a maximum character restriction on cells of 32,767 characters
+  def self.truncate_result(result)
+    if result.length >= 32700
+      result[0...32700] + " <Entry Truncated To Fit Cell>"
+    else
+      result
     end
   end
 

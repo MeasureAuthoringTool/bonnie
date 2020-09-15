@@ -21,62 +21,90 @@
 </div>
 
 {{#collection class="dashboard-data" item-view='MeasureRowView'}}
-
-  <div class="measure">
-    <div class="measure-col">
-      <div class="measure-title">
-        {{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cms_id}}, Measure Title: </span>{{title}}{{/link}}
-        <span class="nqf-listing">
-          <span class="sr-only">CMS ID: </span>
-          {{cms_id}}
-        </span>
+  {{#unless component}}
+    <div class="measure">
+      <div class="measure-col">
+          <div class="measure-title">
+            {{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cms_id}}, Measure Title: </span>{{title}}{{/link}}
+            <span class="cms-id">
+              <span class="sr-only">CMS ID: </span>
+              {{cms_id}}
+            </span>
+          </div>
+          <div class="btn-wrapper">
+              {{#button "updateMeasure" class="btn btn-primary"}}<i class="fa fa-refresh fa-fw" aria-hidden="true"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
+          </div>
       </div>
-      <div class="btn-wrapper">
-          {{#button "updateMeasure" class="btn btn-primary"}}<i class="fa fa-refresh fa-fw" aria-hidden="true"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
+      <div class="expected-col">
+        {{#unless multiplePopulations}}
+          {{view "MeasurePercentageView" model=differences.summary cms_id=cms_id}}
+        {{/unless}}
       </div>
-    </div>
-    <div class="expected-col">
-      {{#unless multiplePopulations}}
-        {{view "MeasurePercentageView" model=differences.summary cms_id=cms_id}}
-      {{/unless}}
-    </div>
-    <div class="status-col">
-      {{#unless multiplePopulations}}
-        {{view "MeasureStatusView" model=differences.summary cms_id=cms_id}}
-      {{/unless}}
-    </div>
-    <div class="patient-listing-col">
-      {{#if multiplePopulations}}
-        <span class="sr-only">{{cms_id}} has </span><span class="patient-listing">{{patients.length}}</span><span class="sr-only"> test patients</span>
-      {{else}}
-        {{view "MeasureFractionView" model=differences.summary cms_id=cms_id}}
-      {{/if}}
-      <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
-        <i class="fa fa-user" aria-hidden="true"></i>
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        <span class="sr-only">{{cms_id}}, add new patient to measure</span>
-      </a>
-    </div>
-  </div>
-
-  {{#if multiplePopulations}}
-    {{#collection populations item-view='PopulationView'}}
-      <div class="population">
-        <div class="population-col">
-          <div class="population-title">
-            {{view "PopulationTitle" model=this.model}}
+      <div class="status-col">
+        {{#unless multiplePopulations}}
+          {{view "MeasureStatusView" model=differences.summary cms_id=cms_id}}
+        {{/unless}}
+      </div>
+      <div class="patient-listing-col">
+        {{#if multiplePopulations}}
+          <span class="sr-only">{{cms_id}} has </span><span class="patient-listing">{{patients.length}}</span><span class="sr-only"> test patients</span>
+        {{else}}
+          {{view "MeasureFractionView" model=differences.summary cms_id=cms_id}}
+        {{/if}}
+        {{#unless composite}}
+          <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span class="sr-only">{{cms_id}}, add new patient to measure</span>
+          </a>
+        {{/unless}}
+      </div>
+    {{#if multiplePopulations}}
+      {{#collection populations item-view='PopulationView'}}
+        <div class="population">
+          <div class="population-col">
+            <div class="population-title">
+              {{view "PopulationTitle" model=this.model}}
+            </div>
+          </div>
+          <div class="expected-col">
+            {{view "MeasurePercentageView" model=differences.summary cms_id=../cms_id population=title}}
+          </div>
+          <div class="status-col">
+            {{view "MeasureStatusView" model=differences.summary cms_id=../cms_id population=title}}
+          </div>
+          <div class="patient-listing-col">
+            {{view "MeasureFractionView" model=differences.summary cms_id=../cms_id population=title}}
           </div>
         </div>
-        <div class="expected-col">
-          {{view "MeasurePercentageView" model=differences.summary cms_id=../cms_id population=title}}
+      {{/collection}}
+    {{/if}}
+    {{#if composite}}
+      {{#collection componentMeasures item-view='ComponentMeasureView' }}
+        <div class="component-measure">
+          <div class="component-measure-col">
+            <div class="component-measure-title">
+              {{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cms_id}}, Measure Title: </span>{{title}}{{/link}}
+              <span class="sr-only">CMS ID: </span><span class="component-cms-id">{{cms_id}}</span>
+            </div>
+          </div>
+          <div class="expected-col">
+            {{view "MeasurePercentageView" model=differences.summary cms_id=cms_id}}
+          </div>
+          <div class="status-col">
+            {{view "MeasureStatusView" model=differences.summary cms_id=cms_id}}
+          </div>
+          <div class="patient-listing-col">
+            {{view "MeasureFractionView" model=differences.summary cms_id=cms_id}}
+            <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              <span class="sr-only">{{cms_id}}, add new patient to measure</span>
+            </a>
+          </div>
         </div>
-        <div class="status-col">
-          {{view "MeasureStatusView" model=differences.summary cms_id=../cms_id population=title}}
-        </div>
-        <div class="patient-listing-col">
-          {{view "MeasureFractionView" model=differences.summary cms_id=../cms_id population=title}}
-        </div>
-      </div>
-    {{/collection}}
-  {{/if}}
+      {{/collection}}
+    {{/if}}
+    </div>
+  {{/unless}}
 {{/collection}}

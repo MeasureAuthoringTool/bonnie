@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.7'
+gem 'rails', '~> 4.2.11'
 
 # There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
 # https://github.com/capistrano/rails/issues/111
@@ -13,23 +13,24 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', '~> 4.2.0'
-gem 'cql_qdm_patientapi', '~> 1.2.0'
+gem 'health-data-standards', '~> 4.3.5'
+gem 'cql_qdm_patientapi', '~> 1.3.2'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
-gem 'bonnie_bundler', '~> 2.2.1'
+gem 'bonnie_bundler', '~> 2.2.5'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
-# gem 'cqm-converter', '~> 0.3.2'
+gem 'cqm-converter', '~> 1.0.4'
 
 # gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master_bonnie'
-# gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
+# gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'bonnie-patch'
 # gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 # gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
-# gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
+# gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'bonnie-patch'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
-gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'master'
+# gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'bonnie-patch'
+gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'bonnie_export'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
@@ -76,6 +77,7 @@ group :test, :development, :ci do
   gem 'bundler-audit'
   gem 'colorize'
   gem 'brakeman'
+  gem 'selenium-webdriver'
 end
 
 group :test, :development do
@@ -83,7 +85,6 @@ group :test, :development do
   gem 'thin'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
-  gem 'phantomjs'
 end
 
 group :production do

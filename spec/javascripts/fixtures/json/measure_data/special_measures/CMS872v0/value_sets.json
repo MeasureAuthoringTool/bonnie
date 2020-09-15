@@ -1,0 +1,2613 @@
+{
+  "2.16.840.1.113762.1.4.1": {
+    "Draft-86753305-9249-492C-B1DB-5DFAAF24C847": {
+      "_id": "5baa55ceef33a548c6401b83",
+      "bundle_id": "59021a426c5d1c32950008e2",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5baa55ceef33a548c6401b84",
+          "black_list": false,
+          "code": "F",
+          "code_system": "2.16.840.1.113883.5.1",
+          "code_system_name": "AdministrativeGender",
+          "code_system_version": "HL7V3.0_2017-07",
+          "display_name": "Female",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b85",
+          "black_list": false,
+          "code": "M",
+          "code_system": "2.16.840.1.113883.5.1",
+          "code_system_name": "AdministrativeGender",
+          "code_system_version": "HL7V3.0_2017-07",
+          "display_name": "Male",
+          "white_list": false
+        }
+      ],
+      "display_name": "ONC Administrative Sex",
+      "oid": "2.16.840.1.113762.1.4.1",
+      "user_id": "59021a406c5d1c32950008e1",
+      "version": "Draft-86753305-9249-492C-B1DB-5DFAAF24C847"
+    }
+  },
+  "2.16.840.1.114222.4.11.836": {
+    "Draft-86753305-9249-492C-B1DB-5DFAAF24C847": {
+      "_id": "5baa55cfef33a548c6401c29",
+      "bundle_id": "59021a426c5d1c32950008e2",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5baa55cfef33a548c6401c2a",
+          "black_list": false,
+          "code": "1002-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "American Indian or Alaska Native",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cfef33a548c6401c2b",
+          "black_list": false,
+          "code": "2028-9",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Asian",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cfef33a548c6401c2c",
+          "black_list": false,
+          "code": "2054-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Black or African American",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cfef33a548c6401c2d",
+          "black_list": false,
+          "code": "2076-8",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Native Hawaiian or Other Pacific Islander",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cfef33a548c6401c2e",
+          "black_list": false,
+          "code": "2106-3",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "White",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cfef33a548c6401c2f",
+          "black_list": false,
+          "code": "2131-1",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Other Race",
+          "white_list": false
+        }
+      ],
+      "display_name": "Race",
+      "oid": "2.16.840.1.114222.4.11.836",
+      "user_id": "59021a406c5d1c32950008e1",
+      "version": "Draft-86753305-9249-492C-B1DB-5DFAAF24C847"
+    }
+  },
+  "2.16.840.1.114222.4.11.837": {
+    "Draft-86753305-9249-492C-B1DB-5DFAAF24C847": {
+      "_id": "5baa55cdef33a548c6401b7b",
+      "bundle_id": "59021a426c5d1c32950008e2",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5baa55cdef33a548c6401b7c",
+          "black_list": false,
+          "code": "2135-2",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Hispanic or Latino",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cdef33a548c6401b7d",
+          "black_list": false,
+          "code": "2186-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.2",
+          "display_name": "Not Hispanic or Latino",
+          "white_list": false
+        }
+      ],
+      "display_name": "Ethnicity",
+      "oid": "2.16.840.1.114222.4.11.837",
+      "user_id": "59021a406c5d1c32950008e1",
+      "version": "Draft-86753305-9249-492C-B1DB-5DFAAF24C847"
+    }
+  },
+  "2.16.840.1.114222.4.11.3591": {
+    "Draft-86753305-9249-492C-B1DB-5DFAAF24C847": {
+      "_id": "5baa55ceef33a548c6401b86",
+      "bundle_id": "59021a426c5d1c32950008e2",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5baa55ceef33a548c6401b87",
+          "black_list": false,
+          "code": "1",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "MEDICARE",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b88",
+          "black_list": false,
+          "code": "11",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b89",
+          "black_list": false,
+          "code": "111",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b8a",
+          "black_list": false,
+          "code": "112",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b8b",
+          "black_list": false,
+          "code": "113",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare POS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b8c",
+          "black_list": false,
+          "code": "119",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b8d",
+          "black_list": false,
+          "code": "12",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare (Non-managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b8e",
+          "black_list": false,
+          "code": "121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare FFS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b8f",
+          "black_list": false,
+          "code": "122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Drug Benefit",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b90",
+          "black_list": false,
+          "code": "123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Medical Savings Account (MSA)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b91",
+          "black_list": false,
+          "code": "129",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Non-managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b92",
+          "black_list": false,
+          "code": "13",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Hospice",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b93",
+          "black_list": false,
+          "code": "14",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Dual Eligibility Medicare/Medicaid Organization",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b94",
+          "black_list": false,
+          "code": "19",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b95",
+          "black_list": false,
+          "code": "191",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b96",
+          "black_list": false,
+          "code": "2",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "MEDICAID",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b97",
+          "black_list": false,
+          "code": "21",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b98",
+          "black_list": false,
+          "code": "211",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b99",
+          "black_list": false,
+          "code": "212",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b9a",
+          "black_list": false,
+          "code": "213",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid PCCM (Primary Care Case Management)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b9b",
+          "black_list": false,
+          "code": "219",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b9c",
+          "black_list": false,
+          "code": "22",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid (Non-managed Care Plan)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b9d",
+          "black_list": false,
+          "code": "23",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid/SCHIP",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b9e",
+          "black_list": false,
+          "code": "25",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid - Out of State",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401b9f",
+          "black_list": false,
+          "code": "26",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid -- Long Term Care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba0",
+          "black_list": false,
+          "code": "29",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba1",
+          "black_list": false,
+          "code": "291",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba2",
+          "black_list": false,
+          "code": "299",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicaid - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba3",
+          "black_list": false,
+          "code": "3",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba4",
+          "black_list": false,
+          "code": "31",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Department of Defense",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba5",
+          "black_list": false,
+          "code": "311",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE (CHAMPUS)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba6",
+          "black_list": false,
+          "code": "3111",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Prime--HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba7",
+          "black_list": false,
+          "code": "3112",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Extra--PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba8",
+          "black_list": false,
+          "code": "3113",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Standard - Fee For Service",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401ba9",
+          "black_list": false,
+          "code": "3114",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE For Life--Medicare Supplement",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401baa",
+          "black_list": false,
+          "code": "3115",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE Reserve Select",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bab",
+          "black_list": false,
+          "code": "3116",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bac",
+          "black_list": false,
+          "code": "3119",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Department of Defense - (other)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bad",
+          "black_list": false,
+          "code": "312",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Military Treatment Facility",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bae",
+          "black_list": false,
+          "code": "3121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Enrolled Prime--HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401baf",
+          "black_list": false,
+          "code": "3122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Non-enrolled Space Available",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb0",
+          "black_list": false,
+          "code": "3123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "TRICARE For Life (TFL)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb1",
+          "black_list": false,
+          "code": "313",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Dental --Stand Alone",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb2",
+          "black_list": false,
+          "code": "32",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Department of Veterans Affairs",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb3",
+          "black_list": false,
+          "code": "321",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Veteran care--Care provided to Veterans",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb4",
+          "black_list": false,
+          "code": "3211",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Direct Care--Care provided in VA facilities",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb5",
+          "black_list": false,
+          "code": "3212",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indirect Care--Care provided outside VA facilities",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb6",
+          "black_list": false,
+          "code": "32121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Fee Basis",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb7",
+          "black_list": false,
+          "code": "32122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Foreign Fee/Foreign Medical Program (FMP)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb8",
+          "black_list": false,
+          "code": "32123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Contract Nursing Home/Community Nursing Home",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bb9",
+          "black_list": false,
+          "code": "32124",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "State Veterans Home",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bba",
+          "black_list": false,
+          "code": "32125",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Sharing Agreements",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bbb",
+          "black_list": false,
+          "code": "32126",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Federal Agency",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bbc",
+          "black_list": false,
+          "code": "32127",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Dental Care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bbd",
+          "black_list": false,
+          "code": "32128",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Vision Care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bbe",
+          "black_list": false,
+          "code": "322",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Non-veteran care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bbf",
+          "black_list": false,
+          "code": "3221",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc0",
+          "black_list": false,
+          "code": "3222",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Spina Bifida Health Care Program (SB)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc1",
+          "black_list": false,
+          "code": "3223",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Children of Women Vietnam Veterans (CWVV)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc2",
+          "black_list": false,
+          "code": "3229",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other non-veteran care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc3",
+          "black_list": false,
+          "code": "33",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service or Tribe",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc4",
+          "black_list": false,
+          "code": "331",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service -- Regular",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc5",
+          "black_list": false,
+          "code": "332",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service -- Contract",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc6",
+          "black_list": false,
+          "code": "333",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Health Service - Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc7",
+          "black_list": false,
+          "code": "334",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indian Tribe - Sponsored Coverage",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc8",
+          "black_list": false,
+          "code": "34",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "HRSA Program",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bc9",
+          "black_list": false,
+          "code": "341",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Title V (MCH Block Grant)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bca",
+          "black_list": false,
+          "code": "342",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Migrant Health Program",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bcb",
+          "black_list": false,
+          "code": "343",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Ryan White Act",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bcc",
+          "black_list": false,
+          "code": "349",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bcd",
+          "black_list": false,
+          "code": "35",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Black Lung",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bce",
+          "black_list": false,
+          "code": "36",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "State Government",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bcf",
+          "black_list": false,
+          "code": "361",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "State SCHIP program (codes for individual states)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd0",
+          "black_list": false,
+          "code": "362",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Specific state programs (list/ local code)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd1",
+          "black_list": false,
+          "code": "369",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "State, not otherwise specified (other state)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd2",
+          "black_list": false,
+          "code": "37",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Local Government",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd3",
+          "black_list": false,
+          "code": "371",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Local - Managed care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd4",
+          "black_list": false,
+          "code": "3711",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd5",
+          "black_list": false,
+          "code": "3712",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd6",
+          "black_list": false,
+          "code": "3713",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "POS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd7",
+          "black_list": false,
+          "code": "372",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "FFS/Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd8",
+          "black_list": false,
+          "code": "379",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Local, not otherwise specified (other local, county)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bd9",
+          "black_list": false,
+          "code": "38",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Government (Federal, State, Local not specified)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bda",
+          "black_list": false,
+          "code": "381",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified managed care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bdb",
+          "black_list": false,
+          "code": "3811",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bdc",
+          "black_list": false,
+          "code": "3812",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bdd",
+          "black_list": false,
+          "code": "3813",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - POS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bde",
+          "black_list": false,
+          "code": "3819",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - not specified managed care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bdf",
+          "black_list": false,
+          "code": "382",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - FFS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be0",
+          "black_list": false,
+          "code": "389",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal, State, Local not specified - Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be1",
+          "black_list": false,
+          "code": "39",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Federal",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be2",
+          "black_list": false,
+          "code": "391",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Federal Employee Health Plan - Use when known",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be3",
+          "black_list": false,
+          "code": "4",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "DEPARTMENTS OF CORRECTIONS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be4",
+          "black_list": false,
+          "code": "41",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Federal",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be5",
+          "black_list": false,
+          "code": "42",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Corrections State",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be6",
+          "black_list": false,
+          "code": "43",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Local",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be7",
+          "black_list": false,
+          "code": "44",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Corrections Unknown Level",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be8",
+          "black_list": false,
+          "code": "5",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "PRIVATE HEALTH INSURANCE",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401be9",
+          "black_list": false,
+          "code": "51",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care (Private)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bea",
+          "black_list": false,
+          "code": "511",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401beb",
+          "black_list": false,
+          "code": "512",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bec",
+          "black_list": false,
+          "code": "513",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - POS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bed",
+          "black_list": false,
+          "code": "514",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Exclusive Provider Organization",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bee",
+          "black_list": false,
+          "code": "515",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Gatekeeper PPO (GPPO)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bef",
+          "black_list": false,
+          "code": "516",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf0",
+          "black_list": false,
+          "code": "517",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Managed Care - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf1",
+          "black_list": false,
+          "code": "519",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care, Other (non HMO)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf2",
+          "black_list": false,
+          "code": "52",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Private Health Insurance - Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf3",
+          "black_list": false,
+          "code": "521",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Commercial Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf4",
+          "black_list": false,
+          "code": "522",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf5",
+          "black_list": false,
+          "code": "523",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Medicare supplemental policy (as second payer)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf6",
+          "black_list": false,
+          "code": "524",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Indemnity Insurance - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf7",
+          "black_list": false,
+          "code": "529",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Private health insurance--other commercial Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf8",
+          "black_list": false,
+          "code": "53",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bf9",
+          "black_list": false,
+          "code": "54",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Organized Delivery System",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bfa",
+          "black_list": false,
+          "code": "55",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Small Employer Purchasing Group",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bfb",
+          "black_list": false,
+          "code": "56",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Specialized Stand Alone Plan",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bfc",
+          "black_list": false,
+          "code": "561",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bfd",
+          "black_list": false,
+          "code": "562",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Vision",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bfe",
+          "black_list": false,
+          "code": "59",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Private Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401bff",
+          "black_list": false,
+          "code": "6",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BLUE CROSS/BLUE SHIELD",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c00",
+          "black_list": false,
+          "code": "61",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c01",
+          "black_list": false,
+          "code": "611",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c02",
+          "black_list": false,
+          "code": "612",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c03",
+          "black_list": false,
+          "code": "613",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- POS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c04",
+          "black_list": false,
+          "code": "614",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c05",
+          "black_list": false,
+          "code": "619",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Managed Care -- Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c06",
+          "black_list": false,
+          "code": "62",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Insurance Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c07",
+          "black_list": false,
+          "code": "621",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c08",
+          "black_list": false,
+          "code": "622",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Self-insured (ERISA) Administrative Services Only (ASO)Plan",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c09",
+          "black_list": false,
+          "code": "623",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Medicare Supplemental Plan",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c0a",
+          "black_list": false,
+          "code": "629",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "BC Indemnity - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c0b",
+          "black_list": false,
+          "code": "7",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c0c",
+          "black_list": false,
+          "code": "71",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c0d",
+          "black_list": false,
+          "code": "72",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c0e",
+          "black_list": false,
+          "code": "73",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "POS",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c0f",
+          "black_list": false,
+          "code": "79",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c10",
+          "black_list": false,
+          "code": "8",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c11",
+          "black_list": false,
+          "code": "81",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Self-pay (Includes applicants for insurance and Medicaid applicants)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c12",
+          "black_list": false,
+          "code": "82",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "No Charge",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c13",
+          "black_list": false,
+          "code": "821",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Charity",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c14",
+          "black_list": false,
+          "code": "822",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Professional Courtesy",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c15",
+          "black_list": false,
+          "code": "823",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Research/Clinical Trial",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c16",
+          "black_list": false,
+          "code": "83",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Refusal to Pay/Bad Debt",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c17",
+          "black_list": false,
+          "code": "84",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Hill Burton Free Care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c18",
+          "black_list": false,
+          "code": "85",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Research/Donor",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c19",
+          "black_list": false,
+          "code": "89",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "No Payment, Other",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c1a",
+          "black_list": false,
+          "code": "9",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "MISCELLANEOUS/OTHER",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c1b",
+          "black_list": false,
+          "code": "91",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Foreign National",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c1c",
+          "black_list": false,
+          "code": "92",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other (Non-government)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c1d",
+          "black_list": false,
+          "code": "93",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Disability Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c1e",
+          "black_list": false,
+          "code": "94",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Long-term Care Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c1f",
+          "black_list": false,
+          "code": "95",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Compensation",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c20",
+          "black_list": false,
+          "code": "951",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c21",
+          "black_list": false,
+          "code": "953",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp Fee-for-Service",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c22",
+          "black_list": false,
+          "code": "954",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp Other Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c23",
+          "black_list": false,
+          "code": "959",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Worker's Comp, Other unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c24",
+          "black_list": false,
+          "code": "96",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Auto Insurance (includes no fault)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c25",
+          "black_list": false,
+          "code": "97",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Legal Liability / Liability Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c26",
+          "black_list": false,
+          "code": "98",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c27",
+          "black_list": false,
+          "code": "99",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "No Typology Code available for payment source",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ceef33a548c6401c28",
+          "black_list": false,
+          "code": "9999",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "8.0",
+          "display_name": "Unavailable / No Payer Specified / Blank",
+          "white_list": false
+        }
+      ],
+      "display_name": "Payer",
+      "oid": "2.16.840.1.114222.4.11.3591",
+      "user_id": "59021a406c5d1c32950008e1",
+      "version": "Draft-86753305-9249-492C-B1DB-5DFAAF24C847"
+    }
+  },
+  "2.16.840.1.113883.3.464.1003.104.12.1002": {
+    "Draft-86753305-9249-492C-B1DB-5DFAAF24C847": {
+      "_id": "5baa55ccef33a548c6401b30",
+      "bundle_id": "59021a426c5d1c32950008e2",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5baa55ccef33a548c6401b31",
+          "black_list": false,
+          "code": "10190003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Aortocoronary bypass of four or more coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b32",
+          "black_list": false,
+          "code": "10326007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass with autogenous graft, three grafts (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b33",
+          "black_list": false,
+          "code": "119564002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Internal mammary-coronary artery bypass graft (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b34",
+          "black_list": false,
+          "code": "119565001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass graft, anastomosis of artery of thorax to coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b35",
+          "black_list": false,
+          "code": "14323007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Aortocoronary bypass of three coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b36",
+          "black_list": false,
+          "code": "175007008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Saphenous vein graft replacement of one coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b37",
+          "black_list": false,
+          "code": "175008003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Saphenous vein graft replacement of two coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b38",
+          "black_list": false,
+          "code": "175009006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Saphenous vein graft replacement of three coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b39",
+          "black_list": false,
+          "code": "175011002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Saphenous vein graft replacement of four or more coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b3a",
+          "black_list": false,
+          "code": "175021005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Allograft bypass of coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b3b",
+          "black_list": false,
+          "code": "175022003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Allograft replacement of one coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b3c",
+          "black_list": false,
+          "code": "175024002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Allograft replacement of two coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b3d",
+          "black_list": false,
+          "code": "175025001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Allograft replacement of three coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b3e",
+          "black_list": false,
+          "code": "175026000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Allograft replacement of four or more coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b3f",
+          "black_list": false,
+          "code": "175029007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Prosthetic bypass of coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b40",
+          "black_list": false,
+          "code": "175030002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Prosthetic replacement of one coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b41",
+          "black_list": false,
+          "code": "175031003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Prosthetic replacement of two coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b42",
+          "black_list": false,
+          "code": "175032005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Prosthetic replacement of three coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b43",
+          "black_list": false,
+          "code": "175033000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Prosthetic replacement of four or more coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b44",
+          "black_list": false,
+          "code": "175045009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Connection of mammary artery to coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b45",
+          "black_list": false,
+          "code": "175047001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Double implantation of mammary arteries into coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b46",
+          "black_list": false,
+          "code": "175048006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Single anastomosis of mammary artery to left anterior descending coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b47",
+          "black_list": false,
+          "code": "175050003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Single implantation of mammary artery into coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b48",
+          "black_list": false,
+          "code": "232717009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass grafting (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b49",
+          "black_list": false,
+          "code": "232719007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass graft x 1 (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b4a",
+          "black_list": false,
+          "code": "232720001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass grafts x 2 (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b4b",
+          "black_list": false,
+          "code": "232721002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass grafts x 3 (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b4c",
+          "black_list": false,
+          "code": "232722009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass grafts x 4 (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b4d",
+          "black_list": false,
+          "code": "232723004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass grafts x 5 (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b4e",
+          "black_list": false,
+          "code": "232724005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass grafts greater than 5 (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b4f",
+          "black_list": false,
+          "code": "265481001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Double anastomosis of mammary arteries to coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b50",
+          "black_list": false,
+          "code": "275215001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Left internal mammary artery single anastomosis (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b51",
+          "black_list": false,
+          "code": "275216000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Right internal mammary artery single anastomosis (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b52",
+          "black_list": false,
+          "code": "275252001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Left internal mammary artery sequential anastomosis (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b53",
+          "black_list": false,
+          "code": "275253006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Right internal mammary artery sequential anastomosis (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b54",
+          "black_list": false,
+          "code": "29819009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Aortocoronary bypass of one coronary artery (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b55",
+          "black_list": false,
+          "code": "30670000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Anastomosis of thoracic artery to coronary artery, double (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b56",
+          "black_list": false,
+          "code": "309814006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Aortocoronary bypass grafting (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b57",
+          "black_list": false,
+          "code": "33510",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, vein only; single coronary venous graft",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b58",
+          "black_list": false,
+          "code": "33511",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, vein only; 2 coronary venous grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b59",
+          "black_list": false,
+          "code": "33512",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, vein only; 3 coronary venous grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b5a",
+          "black_list": false,
+          "code": "33513",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, vein only; 4 coronary venous grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b5b",
+          "black_list": false,
+          "code": "33514",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, vein only; 5 coronary venous grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b5c",
+          "black_list": false,
+          "code": "33516",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, vein only; 6 or more coronary venous grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b5d",
+          "black_list": false,
+          "code": "33517",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using venous graft(s) and arterial graft(s); single vein graft (List separately in addition to code for primary procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b5e",
+          "black_list": false,
+          "code": "33518",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using venous graft(s) and arterial graft(s); 2 venous grafts (List separately in addition to code for primary procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b5f",
+          "black_list": false,
+          "code": "33519",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using venous graft(s) and arterial graft(s); 3 venous grafts (List separately in addition to code for primary procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b60",
+          "black_list": false,
+          "code": "33521",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using venous graft(s) and arterial graft(s); 4 venous grafts (List separately in addition to code for primary procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b61",
+          "black_list": false,
+          "code": "33522",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using venous graft(s) and arterial graft(s); 5 venous grafts (List separately in addition to code for primary procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b62",
+          "black_list": false,
+          "code": "33523",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using venous graft(s) and arterial graft(s); 6 or more venous grafts (List separately in addition to code for primary procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b63",
+          "black_list": false,
+          "code": "33533",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using arterial graft(s); single arterial graft",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b64",
+          "black_list": false,
+          "code": "33534",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using arterial graft(s); 2 coronary arterial grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b65",
+          "black_list": false,
+          "code": "33535",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using arterial graft(s); 3 coronary arterial grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b66",
+          "black_list": false,
+          "code": "33536",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Coronary artery bypass, using arterial graft(s); 4 or more coronary arterial grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b67",
+          "black_list": false,
+          "code": "3546002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Aortocoronary artery bypass graft with saphenous vein graft (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b68",
+          "black_list": false,
+          "code": "359597003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Single internal mammary-coronary artery bypass (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b69",
+          "black_list": false,
+          "code": "359601003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass with autogenous graft of internal mammary artery, single graft (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b6a",
+          "black_list": false,
+          "code": "39202005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass with autogenous graft, four grafts (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b6b",
+          "black_list": false,
+          "code": "39724006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Anastomosis of internal mammary artery to coronary artery, double vessel (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b6c",
+          "black_list": false,
+          "code": "414088005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Emergency coronary artery bypass graft (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b6d",
+          "black_list": false,
+          "code": "418551006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Laparoscopic coronary artery bypass using robotic assistance (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b6e",
+          "black_list": false,
+          "code": "418824004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Off-pump coronary artery bypass (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b6f",
+          "black_list": false,
+          "code": "419132001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Minimally invasive direct coronary artery bypass (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b70",
+          "black_list": false,
+          "code": "48431000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Anastomosis of thoracic artery to coronary artery, single (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b71",
+          "black_list": false,
+          "code": "67166004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Aortocoronary artery bypass graft (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b72",
+          "black_list": false,
+          "code": "726011000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Placement of stent in coronary artery bypass graft (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b73",
+          "black_list": false,
+          "code": "74371005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass with autogenous graft, two grafts (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b74",
+          "black_list": false,
+          "code": "82247006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Coronary artery bypass with autogenous graft, five grafts (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b75",
+          "black_list": false,
+          "code": "90487008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2018-03",
+          "display_name": "Aortocoronary bypass of two coronary arteries (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b76",
+          "black_list": false,
+          "code": "S2205",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2018",
+          "display_name": "Minimally invasive direct coronary artery bypass surgery involving mini-thoracotomy or mini-sternotomy surgery, performed under direct vision; using arterial graft(s), single coronary arterial graft",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b77",
+          "black_list": false,
+          "code": "S2206",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2018",
+          "display_name": "Minimally invasive direct coronary artery bypass surgery involving mini-thoracotomy or mini-sternotomy surgery, performed under direct vision; using arterial graft(s), two coronary arterial grafts",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b78",
+          "black_list": false,
+          "code": "S2207",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2018",
+          "display_name": "Minimally invasive direct coronary artery bypass surgery involving mini-thoracotomy or mini-sternotomy surgery, performed under direct vision; using venous graft only, single coronary venous graft",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b79",
+          "black_list": false,
+          "code": "S2208",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2018",
+          "display_name": "Minimally invasive direct coronary artery bypass surgery involving mini-thoracotomy or mini-sternotomy surgery, performed under direct vision; using single arterial and venous graft(s), single venous graft",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55ccef33a548c6401b7a",
+          "black_list": false,
+          "code": "S2209",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2018",
+          "display_name": "Minimally invasive direct coronary artery bypass surgery involving mini-thoracotomy or mini-sternotomy surgery, performed under direct vision; using two arterial grafts and single venous graft",
+          "white_list": false
+        }
+      ],
+      "display_name": "Coronary Artery Bypass Graft",
+      "oid": "2.16.840.1.113883.3.464.1003.104.12.1002",
+      "user_id": "59021a406c5d1c32950008e1",
+      "version": "Draft-86753305-9249-492C-B1DB-5DFAAF24C847"
+    }
+  },
+  "2.16.840.1.113883.3.464.1003.198.12.1059": {
+    "Draft-86753305-9249-492C-B1DB-5DFAAF24C847": {
+      "_id": "5baa55cdef33a548c6401b7e",
+      "bundle_id": "59021a426c5d1c32950008e2",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5baa55cdef33a548c6401b7f",
+          "black_list": false,
+          "code": "21500-4",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Measles virus IgG Ab [Titer] in Cerebral spinal fluid by Immunofluorescence",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cdef33a548c6401b80",
+          "black_list": false,
+          "code": "21501-2",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Measles virus IgG Ab [Titer] in Serum by Immunofluorescence",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cdef33a548c6401b81",
+          "black_list": false,
+          "code": "22501-1",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Measles virus IgG Ab [Titer] in Cerebral spinal fluid",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cdef33a548c6401b82",
+          "black_list": false,
+          "code": "22502-9",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Measles virus IgG Ab [Titer] in Serum",
+          "white_list": false
+        }
+      ],
+      "display_name": "Measles Antibody Test (IgG Antibody Titer)",
+      "oid": "2.16.840.1.113883.3.464.1003.198.12.1059",
+      "user_id": "59021a406c5d1c32950008e1",
+      "version": "Draft-86753305-9249-492C-B1DB-5DFAAF24C847"
+    }
+  },
+  "2.16.840.1.113883.3.464.1003.198.12.1063": {
+    "Draft-86753305-9249-492C-B1DB-5DFAAF24C847": {
+      "_id": "5baa55cfef33a548c6401c30",
+      "bundle_id": "59021a426c5d1c32950008e2",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5baa55cfef33a548c6401c31",
+          "black_list": false,
+          "code": "41763-4",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Rubella virus IgG Ab [Titer] in Serum",
+          "white_list": false
+        },
+        {
+          "_id": "5baa55cfef33a548c6401c32",
+          "black_list": false,
+          "code": "46110-3",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.64",
+          "display_name": "Rubella virus IgG Ab [Titer] in Cerebral spinal fluid",
+          "white_list": false
+        }
+      ],
+      "display_name": "Rubella Antibody Test (IgG Antibody Titer)",
+      "oid": "2.16.840.1.113883.3.464.1003.198.12.1063",
+      "user_id": "59021a406c5d1c32950008e1",
+      "version": "Draft-86753305-9249-492C-B1DB-5DFAAF24C847"
+    }
+  }
+}

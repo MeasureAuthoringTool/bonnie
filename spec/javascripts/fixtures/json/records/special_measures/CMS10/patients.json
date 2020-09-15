@@ -1,0 +1,416 @@
+[
+  {
+    "_id": "5bf3095a57a11e27138cfed7",
+    "birthdate": 636364800,
+    "bundle_id": "5b8fdcd2b84846143444f3a8",
+    "created_at": "2018-11-19T19:04:58.594Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5bf3095a57a11e27138cfed8",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "10197000"
+          ],
+          "CPT": [
+            "59400"
+          ],
+          "HCPCS": [
+            "G0101"
+          ]
+        },
+        "description": "Encounter, Performed: Medications Encounter Code Set",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1342080900,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1342080000,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "NUMER": 0,
+        "DENEXCEP": 0
+      }
+    ],
+    "expired": null,
+    "first": "Test",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5bf3095a57a11e27138cfed9",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5bf3095a57a11e27138cfeda",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "IppPass",
+    "marital_status": null,
+    "measure_ids": [
+      "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "50e979e42c5784d9ff54bdc5907e611413399bd1614c8a626994bd7e047a82c7",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Medications Encounter Code Set",
+        "description": "Encounter, Performed: Medications Encounter Code Set",
+        "code_list_id": "2.16.840.1.113883.3.600.1.1834",
+        "type": "encounters",
+        "id": "MedicationsEncounterCodeSet_EncounterPerformed_0a3e8996_7fcb_4ff8_be65_0739cba27409_source",
+        "start_date": 1342080000000,
+        "end_date": 1342080900000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+        "cms_id": "CMS10v0",
+        "criteria_id": "1672d5bbf440U",
+        "codes": {
+          "SNOMED-CT": [
+            "10197000"
+          ],
+          "CPT": [
+            "59400"
+          ],
+          "HCPCS": [
+            "G0101"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5bf3095a57a11e27138cfed8",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-11-19T19:04:58.594Z",
+    "user_id": "5b8fdcd1b84846143444f3a7"
+  },
+  {
+    "_id": "5bf309f657a11e27138cff2b",
+    "birthdate": 633859200,
+    "bundle_id": "5b8fdcd2b84846143444f3a8",
+    "created_at": "2018-11-19T19:07:34.352Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5bf30bcc57a11e27138cff66",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "10197000"
+          ],
+          "CPT": [
+            "59400"
+          ],
+          "HCPCS": [
+            "G0101"
+          ]
+        },
+        "description": "Encounter, Performed: Medications Encounter Code Set",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1342599300,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1342598400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "NUMER": 0,
+        "DENEXCEP": 1
+      }
+    ],
+    "expired": null,
+    "first": "Test",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5bf30bcc57a11e27138cff68",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5bf30bcc57a11e27138cff69",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "DenexcepPass",
+    "marital_status": null,
+    "measure_ids": [
+      "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "9677dfd0140bab87ec46c2dd8bfee0aa5de70a70a68ebcfd5aa67db464005b76",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "procedures": [
+      {
+        "_id": "5bf30bcc57a11e27138cff67",
+        "anatomical_approach": null,
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "codes": {
+          "SNOMED-CT": [
+            "428191000124101"
+          ]
+        },
+        "components": null,
+        "description": "Procedure, Performed: Current Medications Documented SNMD",
+        "end_time": null,
+        "facility": null,
+        "health_record_field": null,
+        "incisionTime": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": true,
+        "negationReason": {
+          "code_system": "SNOMED-CT",
+          "code": "183932001"
+        },
+        "oid": "2.16.840.1.113883.3.560.1.106",
+        "ordinality": null,
+        "performer_id": null,
+        "qdm_status": null,
+        "radiation_dose": null,
+        "radiation_duration": null,
+        "reaction": null,
+        "reason": null,
+        "result_date_time": null,
+        "source": null,
+        "specifics": null,
+        "start_time": 1342594800,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": true,
+        "definition": "procedure",
+        "status": "performed",
+        "title": "Current Medications Documented SNMD",
+        "description": "Procedure, Performed: Current Medications Documented SNMD",
+        "code_list_id": "2.16.840.1.113883.3.600.1.462",
+        "type": "procedures",
+        "id": "CurrentMedicationsDocumentedSNMD_ProcedurePerformed_4851d807_b8b9_4e52_a1ce_a7c97a762502_source",
+        "start_date": 1342594800000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+        "cms_id": "CMS10v0",
+        "criteria_id": "1672d5e71efaA",
+        "codes": {
+          "SNOMED-CT": [
+            "428191000124101"
+          ]
+        },
+        "negation_code_list_id": "2.16.840.1.113883.3.600.1.1502",
+        "coded_entry_id": "5bf30bcc57a11e27138cff67",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Medications Encounter Code Set",
+        "description": "Encounter, Performed: Medications Encounter Code Set",
+        "code_list_id": "2.16.840.1.113883.3.600.1.1834",
+        "type": "encounters",
+        "id": "MedicationsEncounterCodeSet_EncounterPerformed_0a3e8996_7fcb_4ff8_be65_0739cba27409_source",
+        "start_date": 1342598400000,
+        "end_date": 1342599300000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "442F4F7E-3C22-4641-9BEE-0E968CC38EF2",
+        "cms_id": "CMS10v0",
+        "criteria_id": "1672d5da57b1G",
+        "codes": {
+          "SNOMED-CT": [
+            "10197000"
+          ],
+          "CPT": [
+            "59400"
+          ],
+          "HCPCS": [
+            "G0101"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5bf30bcc57a11e27138cff66",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-11-19T19:15:24.409Z",
+    "user_id": "5b8fdcd1b84846143444f3a7"
+  }
+]

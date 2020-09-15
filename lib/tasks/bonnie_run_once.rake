@@ -27,7 +27,7 @@ namespace :bonnie do
             statement_details = ExcelExportHelper.get_statement_details_from_measure(measure)
 
             filename = "#{user._id}-#{measure.hqmf_set_id}.xlsx"
-            excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+            excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, measure.hqmf_set_id)
 
             path = File.join Rails.root, 'exports'
             FileUtils.mkdir_p(path) unless File.exist?(path)
@@ -41,6 +41,29 @@ namespace :bonnie do
           end
         end
       end
+    end
+
+    desc %{Import Bonnie patients into composite measure from a JSON file, can only copy to SAME composite as source
+    The JSON file must be the one that is generated using the export_patients rake task.
+    You must identify the user by EMAIL
+    the name of the file to be imported using FILENAME
+    $ rake bonnie:patients:import_patients_composite EMAIL=xxx FILENAME=CMS100_patients.json}
+    task :import_patients_composite => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless (user = User.find_by(email: user_email))
+
+      # Import patient objects from JSON file and save
+      puts "Importing patients..."
+      raise "FILENAME not specified" unless (input_file = ENV['FILENAME'])
+      File.foreach(File.join(Rails.root, input_file)) do |p|
+        next if p.blank?
+        patient = Record.new.from_json p.strip
+        patient['user_id'] = user._id
+        patient.dup.save!
+      end
+
+      puts "Done!"
     end
 
     desc %(Update source_data_criteria to match fields from measure
@@ -223,7 +246,7 @@ namespace :bonnie do
               items_changed = true
             end
 
-            # if anything was removed print the final structure 
+            # if anything was removed print the final structure
             if items_changed
               measure_count[:patient_values_changed_count] += 1
               user_count[:patient_values_changed_count] += 1
@@ -365,7 +388,7 @@ namespace :bonnie do
       a locally running CQLTranslationService JAR and updates the code_list_id field on
       data_criteria and source_data_criteria for direct reference codes. This is in run_once
       because once all of the code_list_ids have been updated to use a hash of the parameters
-      in direct reference codes, all code_list_ids for direct reference codes measures uploaded 
+      in direct reference codes, all code_list_ids for direct reference codes measures uploaded
       subsequently will be correct
     $ rake bonnie:patients:rebuild_elm_update_drc_code_list_ids)
     task :rebuild_elm_update_drc_code_list_ids => :environment do
@@ -473,7 +496,7 @@ namespace :bonnie do
         puts "-- #{key}: #{value} --"
       end
     end
-    
+
     def self.set_data_criteria_code_list_ids(json, cql_artifacts)
       # Loop over data criteria to search for data criteria that is using a single reference code.
       # Once found set the Data Criteria's 'code_list_id' to our fake oid. Do the same for source data criteria.
@@ -498,6 +521,24 @@ namespace :bonnie do
         end
       end
       {source_data_criteria: json['source_data_criteria'], data_criteria: json['data_criteria']}
+    end
+
+    namespace :cypress do
+      # bundle exec rake bonnie:cypress:associate_measures EMAIL='raketest@gmail.com'
+      desc "Associate each patient with every measure for a specific user (identified by email address)"
+      task :associate_measures => :environment do
+        user = User.where(email: ENV['EMAIL']).first
+        measures = CqlMeasure.where(user_id: user.id)
+        all_measure_ids = measures.map(&:hqmf_set_id) # array of all measure_ids (string) for patient
+        user.records.each do |patient|
+          # note: this associates *every* patient with every measure,
+          # so any orphaned patients (patients on a measure that has been deleted) will come back
+          patient.measure_ids = all_measure_ids
+          # add null entry to end of measure_ids array to match existing bonnie records
+          patient.measure_ids << nil
+          patient.save
+        end
+      end
     end
 
   end

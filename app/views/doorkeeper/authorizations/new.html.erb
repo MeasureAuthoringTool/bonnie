@@ -1,0 +1,66 @@
+<div class="login">
+  <header class="page-header" role="banner">
+    <h1>Bonnie</h1>
+    <h2>A Testing Tool for eCQMs</h2>
+    <%= content_tag(:div, flash[:error], id: "flash_error", class: "alert alert-error") if flash[:error] %>
+    <%= content_tag(:div, flash[:notice], id: "flash_notice", class: "alert alert-info") if flash[:notice] %>
+    <%= content_tag(:div, flash[:alert], id: "flash_alert", class: "alert alert-warning") if flash[:alert] %>
+  </header>
+
+  <main role="main">
+    <h3><%= t('.title') %></h3>
+    <p>
+      You are currently logged in as <b><%= @current_user.email %></b>.
+    </p>
+    <div class="actions">
+      <%= form_tag oauth_authorize_change_user_path, method: :post do %>
+        <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+        <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+        <%= hidden_field_tag :state, @pre_auth.state %>
+        <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+        <%= hidden_field_tag :scope, @pre_auth.scope %>
+        <div class="form-group">
+          <%= submit_tag 'Change User', :class => 'btn btn-primary btn-block btn-lg' %>
+        </div>
+      <% end %>
+    </div>
+    <p>
+      <%= raw t('.prompt', client_name: content_tag(:strong, class: 'text-info') { @pre_auth.client.name }) %>
+    </p>
+
+    <% if @pre_auth.scopes.count > 0 %>
+      <div id="oauth-permissions">
+        <p><%= t('.able_to') %>:</p>
+
+        <ul class="text-info">
+          <% @pre_auth.scopes.each do |scope| %>
+            <li><%= t scope, scope: [:doorkeeper, :scopes] %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= form_tag oauth_authorization_path, method: :post do %>
+        <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+        <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+        <%= hidden_field_tag :state, @pre_auth.state %>
+        <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+        <%= hidden_field_tag :scope, @pre_auth.scope %>
+        <div class="form-group">
+          <%= submit_tag t('doorkeeper.authorizations.buttons.authorize'), class: "btn btn-success btn-lg btn-block" %>
+        </div>
+      <% end %>
+      <%= form_tag oauth_authorization_path, method: :delete do %>
+        <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+        <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+        <%= hidden_field_tag :state, @pre_auth.state %>
+        <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+        <%= hidden_field_tag :scope, @pre_auth.scope %>
+        <div>
+          <%= submit_tag t('doorkeeper.authorizations.buttons.deny'), class: "btn btn-danger btn-lg btn-block" %>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>

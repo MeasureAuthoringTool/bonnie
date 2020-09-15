@@ -52,11 +52,11 @@ http_interactions:
     body:
       encoding: UTF-8
       string: TGT-409045-hxozot5PRJDawXE1rJdXaVvbBhw6kfXMOVZ6ejPYYm0WsCnE9L-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:40 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
+    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM%20and%20Hybrid%20Measure/latest%20profile
     body:
       encoding: US-ASCII
       string: ''
@@ -103,7 +103,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"name":"eCQM Update 2018-05-04","requestTime":"2018-07-02 02:25:39
         PM"}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:41 GMT
 - request:
     method: post
@@ -157,7 +157,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319467-hv7GcFKjfAe4UTZXIK9u-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:43 GMT
 - request:
     method: get
@@ -225,7 +225,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:43 GMT
 - request:
     method: post
@@ -279,7 +279,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319468-SLXfHJtNjMdV0pPSWabk-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:45 GMT
 - request:
     method: get
@@ -930,7 +930,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:46 GMT
 - request:
     method: post
@@ -984,7 +984,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319469-Il7OFFbKKwqWJ7daU4pb-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:48 GMT
 - request:
     method: get
@@ -1064,7 +1064,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:49 GMT
 - request:
     method: post
@@ -1118,7 +1118,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319470-5HEegLhM0Su6EiI2aLjE-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:49 GMT
 - request:
     method: get
@@ -1188,7 +1188,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:51 GMT
 - request:
     method: post
@@ -1242,7 +1242,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319471-gmBFxa54SJEitvwTaYqn-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:52 GMT
 - request:
     method: get
@@ -1308,7 +1308,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:52 GMT
 - request:
     method: post
@@ -1362,7 +1362,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319472-Yh74jlaxhghcprNtf3F2-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:53 GMT
 - request:
     method: get
@@ -1443,7 +1443,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:53 GMT
 - request:
     method: post
@@ -1497,7 +1497,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319473-Xv3LSZnqRIJrfVE0yqqc-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:54 GMT
 - request:
     method: get
@@ -1565,7 +1565,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:55 GMT
 - request:
     method: post
@@ -1619,7 +1619,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319474-MFiUOQsHgYCLuXhfU5nq-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:56 GMT
 - request:
     method: get
@@ -1685,7 +1685,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:57 GMT
 - request:
     method: post
@@ -1739,7 +1739,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319475-CfkIdmevbJT1DbyybPV2-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:57 GMT
 - request:
     method: get
@@ -2390,7 +2390,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:58 GMT
 - request:
     method: post
@@ -2444,7 +2444,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319476-HrjOG0wyWgfdBZbut0JF-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:25:59 GMT
 - request:
     method: get
@@ -2671,7 +2671,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:00 GMT
 - request:
     method: post
@@ -2725,7 +2725,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319477-u452wEcRS7WBNCcvkff3-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:00 GMT
 - request:
     method: get
@@ -2802,7 +2802,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:01 GMT
 - request:
     method: post
@@ -2856,7 +2856,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319478-wfPjDbj4eDBfd9eatz5D-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:01 GMT
 - request:
     method: get
@@ -2923,7 +2923,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:02 GMT
 - request:
     method: post
@@ -2977,7 +2977,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319479-RPCg3f0zZ2pqtLP3hj9A-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:02 GMT
 - request:
     method: get
@@ -3045,7 +3045,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:03 GMT
 - request:
     method: post
@@ -3099,7 +3099,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319480-aY5Qe4BSMjibieC1tgN5-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:03 GMT
 - request:
     method: get
@@ -3167,7 +3167,7 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:05 GMT
 - request:
     method: post
@@ -3221,7 +3221,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ST-2319481-nzM19elKXkgvReXZwgPv-cas
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:05 GMT
 - request:
     method: get
@@ -3292,6 +3292,6 @@ http_interactions:
                 <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
-    http_version: 
+    http_version:
   recorded_at: Mon, 02 Jul 2018 18:26:06 GMT
 recorded_with: VCR 3.0.3

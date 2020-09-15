@@ -203,11 +203,17 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if @model.isPeriodType()
       @$('#periodLabel, #stopControl').toggleClass('hide', $(e.target).is(':checked'))
       @$('#startLabel').text(@startLabel($(e.target).is(':checked')))
-
       # make it so end date is always undefined if negation is toggled
       $end_date_is_undefined = @$('[name="end_date_is_undefined"]')
       $end_date_is_undefined.prop('checked', true)
       @toggleEndDateDefinition({target: $end_date_is_undefined})
+
+      # If making data element negated remove author datetime field value,
+      # due to the start time becoming the author datetime.
+      if $(e.target).is(':checked')
+        authorDateTimeFieldValue = @model.attributes.field_values.models.filter((field_value) -> field_value.get('field_title') == 'Author Date/Time')
+        authorDateTimeFieldValue.forEach (fieldValue) ->
+          fieldValue.destroy()
 
     @triggerMaterialize()
 
@@ -476,6 +482,10 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         @$('select[name="code_list_id"]').focus()
       when 'TS'
         @$('input[name="start_date"]').focus()
+      when 'RT'
+        @$('input[name="numerator_scalar"]').focus()
+      when 'ID'
+        @$('input[name="root"]').focus()
       when 'CMP'
         switch @model.get('type_cmp')
           when 'PQ'
@@ -491,6 +501,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     isDisabled = ((attributes.type == 'PQ' || attributes.type_cmp == 'PQ') && !attributes.value) ||
                  ((attributes.type == 'CD' || attributes.type_cmp == 'CD') && !attributes.code_list_id) ||
                  ((attributes.type == 'TS' || attributes.type_cmp == 'TS') && !attributes.value) ||
+                 ((attributes.type == 'RT' || attributes.type_cmp == 'RT') && (!attributes.denominator_scalar || !attributes.numerator_scalar)) ||
+                 ((attributes.type == 'ID' || attributes.type_cmp == 'ID') && (!attributes.root || !attributes.extension)) ||
                  (attributes.key == 'COMPONENT' && (!attributes.code_list_id_cmp)) ||
                  (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
                  (@fieldValue && !attributes.key)

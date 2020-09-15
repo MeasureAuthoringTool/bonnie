@@ -152,7 +152,7 @@ describe 'Production_PatientBuilderView', ->
 
       it 'should calculate using direct reference code', ->
         clauseResults = @result.attributes.clause_results.HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis
-        expect(clauseResults[244].raw[0].entry.description).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+        expect(clauseResults[244].raw[0]._description).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         expect(clauseResults[244].final).toBe('TRUE')
 
   describe 'Participation tests', ->
@@ -174,3 +174,29 @@ describe 'Production_PatientBuilderView', ->
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 1
+
+  describe 'QDM 5.4', ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMSv54321/value_sets.json')
+      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv54321/CMSv54321.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv54321/patients.json'), parse: true
+      bonnie.measures.add @measure
+
+    it 'Assessment Order calculates correctly', ->
+      patient = @patients.findWhere(first: 'Pass', last: 'AssessmentOrder')
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
+      result = @measure.get('populations').first().calculate(patient)
+      expect(result.attributes.IPP).toBe 1
+
+    it 'Communication calculates correctly', ->
+      patient = @patients.findWhere(first: 'Pass', last: 'Communication')
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
+      result = @measure.get('populations').first().calculate(patient)
+      expect(result.attributes.IPP).toBe 1
+
+    it 'Medication Order: Setting calculates correctly', ->
+      patient = @patients.findWhere(first: 'Pass', last: 'MedSetting')
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
+      result = @measure.get('populations').first().calculate(patient)
+      expect(result.attributes.IPP).toBe 1

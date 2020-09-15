@@ -48,7 +48,8 @@ namespace :bonnie do
                 File.open(File.join(dir, measure.measure_id + '.zip'), 'wb') do |zip_file|
                   # Write the package binary to a zip file.
                   zip_file.write(measure.package.file.data)
-                  files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
+                  measure_dir = Measures::CqlLoader.unzip_measure_contents(zip_file, dir)
+                  files = Measures::CqlLoader.get_files_from_directory(measure_dir)
                   cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user, nil, nil, measure.hqmf_set_id)
                   data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
                   cql = files[:CQL]

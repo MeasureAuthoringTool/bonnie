@@ -69,6 +69,7 @@ class User
   field :crosswalk_enabled,  type:Boolean, default: false
   
   has_many :measures
+  has_many :cql_measures
   has_many :records
   belongs_to :bundle, class_name: 'HealthDataStandards::CQM::Bundle'
 
@@ -150,7 +151,7 @@ class User
   # Measure and patient counts can be pre-populated or just retrieved
   attr_writer :measure_count
   def measure_count
-    @measure_count || measures.count
+    @measure_count || cql_measures.count
   end
 
   attr_writer :patient_count

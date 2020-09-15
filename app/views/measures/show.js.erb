@@ -1,1 +1,4 @@
 bonnie.measures.add(<%= @measure_json.html_safe %>, { parse: true });
+bonnie.measures.each(function(measure) {
+  measure.populateComponents();
+});

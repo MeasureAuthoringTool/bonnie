@@ -1,0 +1,258 @@
+{
+  "_id": "5a7dc63db8484620c5183d39",
+  "birthdate": 1107244800,
+  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "created_at": "2018-02-09T16:03:09.487Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "5a7dc63db8484620c5183d3a",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "185463005"
+        ],
+        "CPT": [
+          "99201"
+        ]
+      },
+      "description": "Encounter, Performed: Office Visit",
+      "diagnosis": null,
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1328775300,
+      "facility": null,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1328774400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1
+    },
+    {
+      "measure_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "expired": null,
+  "first": "Pass",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "5a7dc63db8484620c5183d3c",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "5a7dc63db8484620c5183d3d",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199145600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "IPP1",
+  "marital_status": null,
+  "measure_ids": [
+    "703CC49B-B653-4885-80E8-245A057F5AE9",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "b7ad2cc9e2a89ba7961791d541d1fd41970d60549e86ec25038e859fcab42ae0",
+  "medications": [
+    {
+      "_id": "5a7dc63db8484620c5183d3b",
+      "active_datetime": null,
+      "administrationTiming": null,
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "1006608"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Dispensed: ADHD Medications",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1328775300,
+      "freeTextSig": null,
+      "fulfillmentHistory": [
+
+      ],
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.8",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1328774400,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "dispensed"
+        ]
+      },
+      "supply": null,
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    }
+  ],
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "OfficeVisit",
+      "description": "Encounter, Performed: Office Visit",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "id": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_62e0524536ae_source",
+      "start_date": 1328774400000,
+      "end_date": 1328775300000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+      "cms_id": "CMS136v7",
+      "criteria_id": "1617b4e4764Cu",
+      "codes": {
+        "SNOMED-CT": [
+          "185463005"
+        ],
+        "CPT": [
+          "99201"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "5a7dc63db8484620c5183d3a",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "medication",
+      "status": "dispensed",
+      "title": "ADHDMedications",
+      "description": "Medication, Dispensed: ADHD Medications",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1171",
+      "type": "medications",
+      "id": "ADHDMedications_MedicationDispensed_40280381_3d61_56a7_013e_62e0524536a7_source",
+      "start_date": 1328774400000,
+      "end_date": 1328775300000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "703CC49B-B653-4885-80E8-245A057F5AE9",
+      "cms_id": "CMS136v7",
+      "criteria_id": "1617b4e684fqB",
+      "codes": {
+        "RxNorm": [
+          "1006608"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "",
+      "dose_unit": "capsule(s)",
+      "frequency_value": "",
+      "frequency_unit": "min",
+      "negation_code_list_id": "",
+      "coded_entry_id": "5a7dc63db8484620c5183d3b",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2018-02-09T16:03:09.487Z",
+  "user_id": "501fdba3044a111b98000001"
+}

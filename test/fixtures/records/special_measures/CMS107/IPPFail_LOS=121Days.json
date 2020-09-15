@@ -1,0 +1,284 @@
+  {
+    "_id": "595137c7942c6d6d3500001b",
+    "birthdate": 495878400,
+    "bundle_id": "578565956c5d1c3d49000007",
+    "calc_results": [
+      {
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0,
+        "NUMEX": 0,
+        "DENEXCEP": 0,
+        "rationale": {
+          "prefix_4a12f530_fa70_40d4_ad9d_8aa89886d4d1_40280381_3d61_56a7_013d_8477cebf702a": false,
+          "MeasurePeriod": {
+            "results": [
+              {
+                "id": "undefined",
+                "json": {
+                  "start_time": 1325376000,
+                  "end_time": 1356998340,
+                  "codes": {
+                  }
+                }
+              }
+            ]
+          },
+          "EndsDuring_2EB710AC_D800_4F10_8FD7_E3C9E8F5294D_40280381_3d61_56a7_013d_8477cebf702a": {
+            "results": [
+              {
+                "id": "5942db9db848467555000096",
+                "json": {
+                  "_id": "5942db9db848467555000096",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1349741700,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942db9db848467555000097",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1339318800,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "GROUP_occAof_qdm_var_SatisfiesAll_9D7CD00E_2E8B_4F18_AA55_2C02F27E37DD_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883": false,
+          "occAof_qdm_var_SatisfiesAll_9D7CD00E_2E8B_4F18_AA55_2C02F27E37DD_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883": false,
+          "prefix_2af326c1_3143_4cfe_af0a_18251e1e8346_40280381_3d61_56a7_013d_8477cebf702a": {
+            "results": [
+              {
+                "id": "5942db9db848467555000096",
+                "json": {
+                  "_id": "5942db9db848467555000096",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1349741700,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "principalDiagnosis": {
+                    "_id": "5942db9db848467555000097",
+                    "code": "111297002",
+                    "code_system": "SNOMED-CT",
+                    "title": "Ischemic Stroke"
+                  },
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1339318800,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "Intersection_46B186C2_545E_4BB4_80BA_B8356EA0E4A6_895D063C_BC8D_43B7_B397_76073A1A2EC3": false,
+          "cab84e04_59f1_4be1_93a6_28e23e0cd811_40280381_3d61_56a7_013d_8477cebf702a": false,
+          "Intersection_94CF4041_FE0B_497E_887A_D0F873F132F1_4A0382C8_2F2C_4D28_BB45_085BE92A1B61": false,
+          "precondition_4": false,
+          "Agegrtr_thn_eql_18yearsat_87952A11_F91C_4ED1_A80F_BD58447267E4_930D0F6D_AA95_4430_9BE9_645E9C990FA7": false,
+          "precondition_5": false,
+          "precondition_IPP": false,
+          "IPP": false,
+          "GROUP_occAof_qdm_var_SatisfiesAll_9D7CD00E_2E8B_4F18_AA55_2C02F27E37DD_B3AAB19B_02F5_4ED7_B026_7A73670FFE54": false,
+          "occAof_qdm_var_SatisfiesAll_9D7CD00E_2E8B_4F18_AA55_2C02F27E37DD_B3AAB19B_02F5_4ED7_B026_7A73670FFE54": false,
+          "ComfortMeasures_InterventionOrder_e1698114_9f7d_44ee_8fad_7c0d3c137ee8": false,
+          "ComfortMeasures_InterventionPerformed_9f0f8376_2141_4492_8bb2_4845542f4b98": false,
+          "GROUP_qdm_var_Union_9D928599_5D51_4315_B847_5EBF44E89E2D_8876D975_C675_4F0B_A0B4_855C9216E0E1": false,
+          "qdm_var_Union_9D928599_5D51_4315_B847_5EBF44E89E2D_8876D975_C675_4F0B_A0B4_855C9216E0E1": false,
+          "VARIABLES": false
+        },
+        "finalSpecifics": {
+          "IPP": null
+        },
+        "measure_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "population_index": 0,
+        "status": "pass"
+      }
+    ],
+    "created_at": "2014-12-03T20:56:05.688Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "59cbf4e7942c6d4064006399",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "32485007"
+          ]
+        },
+        "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1349741700,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "principalDiagnosis": {
+          "_id": "59cbf4e7942c6d406400639a",
+          "code": "111297002",
+          "code_system": "SNOMED-CT",
+          "title": "Ischemic Stroke"
+        },
+        "reason": null,
+        "specifics": null,
+        "start_time": 1339318800,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2135-2",
+      "name": "Hispanic Or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "LOS=121Days",
+    "gender": "F",
+    "has_measure_history": true,
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "IPPFail",
+    "marital_status": null,
+    "measure_ids": [
+      "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "10a9d6418821c8a753da1c0498b79381",
+    "notes": "Patient is > 18 years, principal dx ischemic stroke, LOS > 120 days (121 days)",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "2076-8",
+      "name": "Native Hawaiian or Other Pacific Islander",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "results_exceed_storage": false,
+    "results_size": 3272,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Non-Elective Inpatient Encounter",
+        "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
+        "type": "encounters",
+        "id": "OccurrenceANonElectiveInpatientEncounter2",
+        "start_date": 1339318800000,
+        "end_date": 1349741700000,
+        "value": [
+
+        ],
+        "field_values": {
+          "PRINCIPAL_DIAGNOSIS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+            "field_title": "Principal Diagnosis",
+            "title": "Ischemic Stroke"
+          }
+        },
+        "hqmf_set_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+        "cms_id": "CMS107v6",
+        "codes": {
+          "SNOMED-CT": [
+            "32485007"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59cbf4e7942c6d4064006399",
+        "code_source": "DEFAULT",
+        "references": null,
+        "criteria_id": "15318bef86dQ9"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-09-27T18:58:47.621Z",
+    "user_id": "5785658f6c5d1c3d49000006",
+    "version": 7
+  }

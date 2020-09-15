@@ -12,7 +12,7 @@ http_interactions:
       Accept-Encoding:
       - gzip, deflate
       Content-Length:
-      - '45'
+      - '43'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -37,26 +37,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '65'
+      - '64'
       Date:
-      - Thu, 04 Jan 2018 19:24:07 GMT
+      - Thu, 08 Mar 2018 19:45:32 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!1A/bIStIscCKmQLLMWjf8K3rTDmEEolzSjpPfKovuaBLioztkQu9EMbFA4Brbh+sYBqekZH3UQJA4rM=;
-        expires=Thu, 04-Jan-2018 21:24:07 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!k6GV88fgFihBVF7m9OGvBt4MxRMcjv8qfF7cd3ZzjFesXLWAzNc1W2pTGYj4nmAC5bJW+1JjDhsi4yw=;
+        expires=Thu, 08-Mar-2018 21:45:32 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+      string: TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:07 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:32 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -93,24 +93,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:08 GMT
+      - Thu, 08 Mar 2018 19:45:32 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!BpluXVdVzP4sGVfLMWjf8K3rTDmEEhVGUIe0BXvz5ngPRXvzNwr0QS9M3gh5erZbpJYgoIKHggh4BF4=;
-        expires=Thu, 04-Jan-2018 21:24:08 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!28qsO71msf6845fNtNHn4GsLooFbUxF1Zvm5ahabOsdlyyN8Zr2x7fS4pxfloljXCFc4Ht+xh7TgHXo=;
+        expires=Thu, 08-Mar-2018 21:45:32 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945212-smPRxdWbaSen0UVaUHWI-cas
+      string: ST-280289-n2fPXLlz00RogB3DiUDw-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:08 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:32 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&profile=Latest%20eCQM&ticket=ST-945212-smPRxdWbaSen0UVaUHWI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&profile=Latest%20eCQM&ticket=ST-280289-n2fPXLlz00RogB3DiUDw-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -139,19 +139,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!fhUmeFJPT82nVQ/LMWjf8K3rTDmEEvusla0Eucp7LcGjBfl0wKR24JtJlvutX43aQVK0ak95Oa5r0hM=;
-        expires=Thu, 04-Jan-2018 21:24:10 GMT; path=/; Httponly; Secure
-      - JSESSIONID=B0051932521C469A563C762CD2313537;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!PSE4c+uotnDIHMrm9OGvBt4MxRMcjg8kvCbAf/fjDqwvPa9aOShe7ffw1KSl9x1MSbSwRTV2EoaC5RE=;
+        expires=Thu, 08-Mar-2018 21:45:33 GMT; path=/; Httponly; Secure
+      - JSESSIONID=FD0EB0CF676649DE8A60B1CF8DDEFE1F;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1356'
       Date:
-      - Thu, 04 Jan 2018 19:24:10 GMT
+      - Thu, 08 Mar 2018 19:45:32 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -161,8 +161,8 @@ http_interactions:
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ns0:DescribedValueSet ID="2.16.840.1.113762.1.4.1" displayName="ONC Administrative Sex" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2016-07" displayName="Female"/>
-                    <ns0:Concept code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2016-07" displayName="Male"/>
+                    <ns0:Concept code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2017-07" displayName="Female"/>
+                    <ns0:Concept code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2017-07" displayName="Male"/>
                 </ns0:ConceptList>
                 <ns0:Source>Office of the National Coordinator for Health Information Technology</ns0:Source>
                 <ns0:Purpose>(Clinical Focus: Gender identity restricted to only Male and Female used in administrative situations requiring a restriction to these two categories.),(Data Element Scope: Gender),(Inclusion Criteria: Male and Female only.),(Exclusion Criteria: Any gender identity that is not male or female.)</ns0:Purpose>
@@ -173,10 +173,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:10 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:33 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -213,24 +213,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:10 GMT
+      - Thu, 08 Mar 2018 19:45:33 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!408UQnyv/4SOhDPLMWjf8K3rTDmEEvZNiFM8OW6BokVcjTbG9mbD3tjRTUFrADXFgTVJAvhbX0OArz4=;
-        expires=Thu, 04-Jan-2018 21:24:10 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!jXpxrNFv+VhXvvrNtNHn4GsLooFbU73WVs2M+C9nB6WRfzGLqkOKYx49wwezajAR78euDYR2/GNQ0Zg=;
+        expires=Thu, 08-Mar-2018 21:45:33 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945213-mjJgdSdFI3JQKbK7gMbu-cas
+      string: ST-280292-w5lPhJJS4hUG7AcRycae-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:10 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:33 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&profile=Latest%20eCQM&ticket=ST-945213-mjJgdSdFI3JQKbK7gMbu-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&profile=Latest%20eCQM&ticket=ST-280292-w5lPhJJS4hUG7AcRycae-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -259,19 +259,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!O2y50miDySFzaJvLMWjf8K3rTDmEEt6KTrlFcE4VTf0DPDkAm581nCK+U3iJUGQ8bZhRx3xW7JJetrE=;
-        expires=Thu, 04-Jan-2018 21:24:11 GMT; path=/; Httponly; Secure
-      - JSESSIONID=336CB8E852D57E3C528E85D7EF5C6C91;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!pN2GxHegKgHXT5HNtNHn4GsLooFbUzrPK2bNPoxB6l6g1SUKsRFJTH5sUMZwj4iqxA0aOWwSNwIoBYo=;
+        expires=Thu, 08-Mar-2018 21:45:34 GMT; path=/; Httponly; Secure
+      - JSESSIONID=1514C711647886C8F76F9537FB125712;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1765'
       Date:
-      - Thu, 04 Jan 2018 19:24:11 GMT
+      - Thu, 08 Mar 2018 19:45:33 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -297,10 +297,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:11 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:34 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -337,10 +337,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:11 GMT
+      - Thu, 08 Mar 2018 19:45:34 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!4QkfNhp7Ef9kLzXLMWjf8K3rTDmEEhEKy8kQZk84gyOehnjCMIP83SoFz9HOULx4V1UEb8dFjRA1chc=;
-        expires=Thu, 04-Jan-2018 21:24:12 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!kDylagV+zoNB6CDm9OGvBt4MxRMcjuRiZku1g/UQ1jNXk/5CtNLk+SSOL3CodBmad90xUGuWz/8XeFk=;
+        expires=Thu, 08-Mar-2018 21:45:34 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -349,12 +349,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945214-VYyPK9PmSbuILEgyARkT-cas
+      string: ST-280297-mqNWugqVonLKMezOYNrn-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:12 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:34 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&profile=Latest%20eCQM&ticket=ST-945214-VYyPK9PmSbuILEgyARkT-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&profile=Latest%20eCQM&ticket=ST-280297-mqNWugqVonLKMezOYNrn-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -383,19 +383,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!aNgaDrFv5ES1/JrLMWjf8K3rTDmEEtOvWuBZ/uEZVHrIg07eJ/bIuB2h6VFjUO1hOwNN81AIBjFpwhA=;
-        expires=Thu, 04-Jan-2018 21:24:12 GMT; path=/; Httponly; Secure
-      - JSESSIONID=FCEF4D9D2D84F7660F49F364256D656C;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!4RlTVNOo9q3eomrNtNHn4GsLooFbU9M9DXLhcWhHkOK6cORijg8svh7RaI8L1S5xtdaDaM5GW0YX7tk=;
+        expires=Thu, 08-Mar-2018 21:45:34 GMT; path=/; Httponly; Secure
+      - JSESSIONID=D9846BB465F8608E012F60E96BD215D7;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1128'
       Date:
-      - Thu, 04 Jan 2018 19:24:11 GMT
+      - Thu, 08 Mar 2018 19:45:34 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -417,10 +417,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:12 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:35 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -457,24 +457,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:13 GMT
+      - Thu, 08 Mar 2018 19:45:34 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!+kwAMfSKQoOfK/vLMWjf8K3rTDmEEvGnAI4kaF2f4QAdhDRejNata/GXNLc60kc+7SXzJhxjx9Fzt7I=;
-        expires=Thu, 04-Jan-2018 21:24:13 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!fwl3DfzT+IvjzpzNtNHn4GsLooFbU2kiEQ/zkLWIoKPlUvqRra3WnDG5IkyYP9GjEy0g9QefB/1l45U=;
+        expires=Thu, 08-Mar-2018 21:45:35 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945215-5bmXS1EP7hye2fPXdHRA-cas
+      string: ST-280300-zEBlRyH1Wl20xeEEEd6n-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:13 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:35 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&profile=Latest%20eCQM&ticket=ST-945215-5bmXS1EP7hye2fPXdHRA-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&profile=Latest%20eCQM&ticket=ST-280300-zEBlRyH1Wl20xeEEEd6n-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -503,19 +503,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!S6FmddVKsGTArOPLMWjf8K3rTDmEEu2rkioI3BwqwxD2pVCsakTVnlImv9hbXiKeFbWamZj6NZqOY88=;
-        expires=Thu, 04-Jan-2018 21:24:15 GMT; path=/; Httponly; Secure
-      - JSESSIONID=24F1E878E32E845C5D32245D68CBA80D;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!2PK16rHr4IGtkgrm9OGvBt4MxRMcjlpDQBBAdJW9/MRpNWQypFN3fhZ33sCQwrUylDY2Yj6Q0Yu+EmA=;
+        expires=Thu, 08-Mar-2018 21:45:35 GMT; path=/; Httponly; Secure
+      - JSESSIONID=84C740A0DCB67BAC7CA859DC969B3B2B;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '26511'
+      - '27773'
       Date:
-      - Thu, 04 Jan 2018 19:24:15 GMT
+      - Thu, 08 Mar 2018 19:45:34 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -525,175 +525,183 @@ http_interactions:
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.3591" displayName="Payer" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="1" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MEDICARE"/>
-                    <ns0:Concept code="11" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare (Managed Care)"/>
-                    <ns0:Concept code="111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare HMO"/>
-                    <ns0:Concept code="112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare PPO"/>
-                    <ns0:Concept code="113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare POS"/>
-                    <ns0:Concept code="119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Managed Care Other"/>
-                    <ns0:Concept code="12" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare (Non-managed Care)"/>
-                    <ns0:Concept code="121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare FFS"/>
-                    <ns0:Concept code="122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Drug Benefit"/>
-                    <ns0:Concept code="123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Medical Savings Account (MSA)"/>
-                    <ns0:Concept code="129" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Non-managed Care Other"/>
-                    <ns0:Concept code="13" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Hospice"/>
-                    <ns0:Concept code="14" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dual Eligibility Medicare/Medicaid Organization"/>
-                    <ns0:Concept code="19" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Other"/>
-                    <ns0:Concept code="191" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Pharmacy Benefit Manager"/>
-                    <ns0:Concept code="2" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MEDICAID"/>
-                    <ns0:Concept code="21" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid (Managed Care)"/>
-                    <ns0:Concept code="211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid HMO"/>
-                    <ns0:Concept code="212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid PPO"/>
-                    <ns0:Concept code="213" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid PCCM (Primary Care Case Management)"/>
-                    <ns0:Concept code="219" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Managed Care Other"/>
-                    <ns0:Concept code="22" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid (Non-managed Care Plan)"/>
-                    <ns0:Concept code="23" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid/SCHIP"/>
-                    <ns0:Concept code="24" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Applicant"/>
-                    <ns0:Concept code="25" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid - Out of State"/>
-                    <ns0:Concept code="26" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid -- Long Term Care"/>
-                    <ns0:Concept code="29" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Other"/>
-                    <ns0:Concept code="291" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Pharmacy Benefit Manager"/>
-                    <ns0:Concept code="3" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"/>
-                    <ns0:Concept code="31" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Defense"/>
-                    <ns0:Concept code="311" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE (CHAMPUS)"/>
-                    <ns0:Concept code="3111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Prime--HMO"/>
-                    <ns0:Concept code="3112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Extra--PPO"/>
-                    <ns0:Concept code="3113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Standard - Fee For Service"/>
-                    <ns0:Concept code="3114" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE For Life--Medicare Supplement"/>
-                    <ns0:Concept code="3115" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Reserve Select"/>
-                    <ns0:Concept code="3116" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Uniformed Services Family Health Plan (USFHP) -- HMO"/>
-                    <ns0:Concept code="3119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Defense - (other)"/>
-                    <ns0:Concept code="312" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Military Treatment Facility"/>
-                    <ns0:Concept code="3121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Enrolled Prime--HMO"/>
-                    <ns0:Concept code="3122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Non-enrolled Space Available"/>
-                    <ns0:Concept code="3123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE For Life (TFL)"/>
-                    <ns0:Concept code="313" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dental --Stand Alone"/>
-                    <ns0:Concept code="32" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Veterans Affairs"/>
-                    <ns0:Concept code="321" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Veteran care--Care provided to Veterans"/>
-                    <ns0:Concept code="3211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Direct Care--Care provided in VA facilities"/>
-                    <ns0:Concept code="3212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indirect Care--Care provided outside VA facilities"/>
-                    <ns0:Concept code="32121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Fee Basis"/>
-                    <ns0:Concept code="32122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Foreign Fee/Foreign Medical Program(FMP)"/>
-                    <ns0:Concept code="32123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Contract Nursing Home/Community Nursing Home"/>
-                    <ns0:Concept code="32124" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State Veterans Home"/>
-                    <ns0:Concept code="32125" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Sharing Agreements"/>
-                    <ns0:Concept code="32126" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Federal Agency"/>
-                    <ns0:Concept code="322" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Non-veteran care"/>
-                    <ns0:Concept code="3221" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Civilian Health and Medical Program for the VA (CHAMPVA)"/>
-                    <ns0:Concept code="3222" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Spina Bifida Health Care Program (SB)"/>
-                    <ns0:Concept code="3223" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Children of Women Vietnam Veterans (CWVV)"/>
-                    <ns0:Concept code="3229" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other non-veteran care"/>
-                    <ns0:Concept code="33" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service or Tribe"/>
-                    <ns0:Concept code="331" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service -- Regular"/>
-                    <ns0:Concept code="332" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service -- Contract"/>
-                    <ns0:Concept code="333" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service - Managed Care"/>
-                    <ns0:Concept code="334" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Tribe - Sponsored Coverage"/>
-                    <ns0:Concept code="34" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HRSA Program"/>
-                    <ns0:Concept code="341" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Title V (MCH Block Grant)"/>
-                    <ns0:Concept code="342" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Migrant Health Program"/>
-                    <ns0:Concept code="343" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Ryan White Act"/>
-                    <ns0:Concept code="349" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other"/>
-                    <ns0:Concept code="35" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Black Lung"/>
-                    <ns0:Concept code="36" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State Government"/>
-                    <ns0:Concept code="361" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State SCHIP program (codes for individual states)"/>
-                    <ns0:Concept code="362" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Specific state programs (list/ local code)"/>
-                    <ns0:Concept code="369" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State, not otherwise specified (other state)"/>
-                    <ns0:Concept code="37" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local Government"/>
-                    <ns0:Concept code="371" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local - Managed care"/>
-                    <ns0:Concept code="3711" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HMO"/>
-                    <ns0:Concept code="3712" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PPO"/>
-                    <ns0:Concept code="3713" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="POS"/>
-                    <ns0:Concept code="372" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="FFS/Indemnity"/>
-                    <ns0:Concept code="379" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local, not otherwise specified (other local, county)"/>
-                    <ns0:Concept code="38" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Government (Federal, State, Local not specified)"/>
-                    <ns0:Concept code="381" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified managed care"/>
-                    <ns0:Concept code="3811" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - HMO"/>
-                    <ns0:Concept code="3812" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - PPO"/>
-                    <ns0:Concept code="3813" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - POS"/>
-                    <ns0:Concept code="3819" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - not specified managed care"/>
-                    <ns0:Concept code="382" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - FFS"/>
-                    <ns0:Concept code="389" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - Other"/>
-                    <ns0:Concept code="39" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Federal"/>
-                    <ns0:Concept code="4" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="DEPARTMENTS OF CORRECTIONS"/>
-                    <ns0:Concept code="41" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Federal"/>
-                    <ns0:Concept code="42" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections State"/>
-                    <ns0:Concept code="43" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Local"/>
-                    <ns0:Concept code="44" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Unknown Level"/>
-                    <ns0:Concept code="5" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PRIVATE HEALTH INSURANCE"/>
-                    <ns0:Concept code="51" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care (Private)"/>
-                    <ns0:Concept code="511" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - HMO"/>
-                    <ns0:Concept code="512" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - PPO"/>
-                    <ns0:Concept code="513" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - POS"/>
-                    <ns0:Concept code="514" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Exclusive Provider Organization"/>
-                    <ns0:Concept code="515" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Gatekeeper PPO (GPPO)"/>
-                    <ns0:Concept code="516" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - Pharmacy Benefit Manager"/>
-                    <ns0:Concept code="519" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care, Other (non HMO)"/>
-                    <ns0:Concept code="52" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Private Health Insurance - Indemnity"/>
-                    <ns0:Concept code="521" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Indemnity"/>
-                    <ns0:Concept code="522" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Self-insured (ERISA) Administrative Services Only (ASO) plan"/>
-                    <ns0:Concept code="523" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare supplemental policy (as second payer)"/>
-                    <ns0:Concept code="529" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Private health insurance--other commercial Indemnity"/>
-                    <ns0:Concept code="53" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care (private) or private health insurance (indemnity), not otherwise specified"/>
-                    <ns0:Concept code="54" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Organized Delivery System"/>
-                    <ns0:Concept code="55" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Small Employer Purchasing Group"/>
-                    <ns0:Concept code="56" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Specialized Stand Alone Plan"/>
-                    <ns0:Concept code="561" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dental"/>
-                    <ns0:Concept code="562" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Vision"/>
-                    <ns0:Concept code="59" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Private Insurance"/>
-                    <ns0:Concept code="6" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BLUE CROSS/BLUE SHIELD"/>
-                    <ns0:Concept code="61" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care"/>
-                    <ns0:Concept code="611" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- HMO"/>
-                    <ns0:Concept code="612" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- PPO"/>
-                    <ns0:Concept code="613" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- POS"/>
-                    <ns0:Concept code="619" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- Other"/>
-                    <ns0:Concept code="62" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Indemnity"/>
-                    <ns0:Concept code="63" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Out of State"/>
-                    <ns0:Concept code="64" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Unspecified"/>
-                    <ns0:Concept code="69" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Other"/>
-                    <ns0:Concept code="7" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"/>
-                    <ns0:Concept code="71" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HMO"/>
-                    <ns0:Concept code="72" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PPO"/>
-                    <ns0:Concept code="73" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="POS"/>
-                    <ns0:Concept code="79" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Managed Care"/>
-                    <ns0:Concept code="8" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"/>
-                    <ns0:Concept code="81" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Self-pay"/>
-                    <ns0:Concept code="82" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Charge"/>
-                    <ns0:Concept code="821" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Charity"/>
-                    <ns0:Concept code="822" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Professional Courtesy"/>
-                    <ns0:Concept code="823" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Research/Clinical Trial"/>
-                    <ns0:Concept code="83" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Refusal to Pay/Bad Debt"/>
-                    <ns0:Concept code="84" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Hill Burton Free Care"/>
-                    <ns0:Concept code="85" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Research/Donor"/>
-                    <ns0:Concept code="89" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Payment, Other"/>
-                    <ns0:Concept code="9" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MISCELLANEOUS/OTHER"/>
-                    <ns0:Concept code="91" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Foreign National"/>
-                    <ns0:Concept code="92" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other (Non-government)"/>
-                    <ns0:Concept code="93" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Disability Insurance"/>
-                    <ns0:Concept code="94" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Long-term Care Insurance"/>
-                    <ns0:Concept code="95" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Compensation"/>
-                    <ns0:Concept code="951" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp HMO"/>
-                    <ns0:Concept code="953" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp Fee-for-Service"/>
-                    <ns0:Concept code="954" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp Other Managed Care"/>
-                    <ns0:Concept code="959" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp, Other unspecified"/>
-                    <ns0:Concept code="96" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Auto Insurance (includes no fault)"/>
-                    <ns0:Concept code="97" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Legal Liability / Liability Insurance"/>
-                    <ns0:Concept code="98" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"/>
-                    <ns0:Concept code="99" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Typology Code available for payment source"/>
-                    <ns0:Concept code="9999" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Unavailable / No Payer Specified / Blank"/>
+                    <ns0:Concept code="1" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="MEDICARE"/>
+                    <ns0:Concept code="11" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare (Managed Care)"/>
+                    <ns0:Concept code="111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare HMO"/>
+                    <ns0:Concept code="112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare PPO"/>
+                    <ns0:Concept code="113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare POS"/>
+                    <ns0:Concept code="119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Managed Care Other"/>
+                    <ns0:Concept code="12" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare (Non-managed Care)"/>
+                    <ns0:Concept code="121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare FFS"/>
+                    <ns0:Concept code="122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Drug Benefit"/>
+                    <ns0:Concept code="123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Medical Savings Account (MSA)"/>
+                    <ns0:Concept code="129" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Non-managed Care Other"/>
+                    <ns0:Concept code="13" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Hospice"/>
+                    <ns0:Concept code="14" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Dual Eligibility Medicare/Medicaid Organization"/>
+                    <ns0:Concept code="19" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Other"/>
+                    <ns0:Concept code="191" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="2" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="MEDICAID"/>
+                    <ns0:Concept code="21" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid (Managed Care)"/>
+                    <ns0:Concept code="211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid HMO"/>
+                    <ns0:Concept code="212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid PPO"/>
+                    <ns0:Concept code="213" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid PCCM (Primary Care Case Management)"/>
+                    <ns0:Concept code="219" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid Managed Care Other"/>
+                    <ns0:Concept code="22" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid (Non-managed Care Plan)"/>
+                    <ns0:Concept code="23" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid/SCHIP"/>
+                    <ns0:Concept code="24" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid Applicant"/>
+                    <ns0:Concept code="25" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid - Out of State"/>
+                    <ns0:Concept code="26" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid -- Long Term Care"/>
+                    <ns0:Concept code="29" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid Other"/>
+                    <ns0:Concept code="291" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="299" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid - Dental"/>
+                    <ns0:Concept code="3" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"/>
+                    <ns0:Concept code="31" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Department of Defense"/>
+                    <ns0:Concept code="311" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE (CHAMPUS)"/>
+                    <ns0:Concept code="3111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE Prime--HMO"/>
+                    <ns0:Concept code="3112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE Extra--PPO"/>
+                    <ns0:Concept code="3113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE Standard - Fee For Service"/>
+                    <ns0:Concept code="3114" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE For Life--Medicare Supplement"/>
+                    <ns0:Concept code="3115" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE Reserve Select"/>
+                    <ns0:Concept code="3116" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Uniformed Services Family Health Plan (USFHP) -- HMO"/>
+                    <ns0:Concept code="3119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Department of Defense - (other)"/>
+                    <ns0:Concept code="312" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Military Treatment Facility"/>
+                    <ns0:Concept code="3121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Enrolled Prime--HMO"/>
+                    <ns0:Concept code="3122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Non-enrolled Space Available"/>
+                    <ns0:Concept code="3123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE For Life (TFL)"/>
+                    <ns0:Concept code="313" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Dental --Stand Alone"/>
+                    <ns0:Concept code="32" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Department of Veterans Affairs"/>
+                    <ns0:Concept code="321" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Veteran care--Care provided to Veterans"/>
+                    <ns0:Concept code="3211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Direct Care--Care provided in VA facilities"/>
+                    <ns0:Concept code="3212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indirect Care--Care provided outside VA facilities"/>
+                    <ns0:Concept code="32121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Fee Basis"/>
+                    <ns0:Concept code="32122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Foreign Fee/Foreign Medical Program (FMP)"/>
+                    <ns0:Concept code="32123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Contract Nursing Home/Community Nursing Home"/>
+                    <ns0:Concept code="32124" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="State Veterans Home"/>
+                    <ns0:Concept code="32125" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Sharing Agreements"/>
+                    <ns0:Concept code="32126" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Federal Agency"/>
+                    <ns0:Concept code="32127" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Dental Care"/>
+                    <ns0:Concept code="32128" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Vision Care"/>
+                    <ns0:Concept code="322" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Non-veteran care"/>
+                    <ns0:Concept code="3221" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Civilian Health and Medical Program for the VA (CHAMPVA)"/>
+                    <ns0:Concept code="3222" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Spina Bifida Health Care Program (SB)"/>
+                    <ns0:Concept code="3223" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Children of Women Vietnam Veterans (CWVV)"/>
+                    <ns0:Concept code="3229" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other non-veteran care"/>
+                    <ns0:Concept code="33" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Health Service or Tribe"/>
+                    <ns0:Concept code="331" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Health Service -- Regular"/>
+                    <ns0:Concept code="332" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Health Service -- Contract"/>
+                    <ns0:Concept code="333" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Health Service - Managed Care"/>
+                    <ns0:Concept code="334" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Tribe - Sponsored Coverage"/>
+                    <ns0:Concept code="34" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="HRSA Program"/>
+                    <ns0:Concept code="341" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Title V (MCH Block Grant)"/>
+                    <ns0:Concept code="342" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Migrant Health Program"/>
+                    <ns0:Concept code="343" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Ryan White Act"/>
+                    <ns0:Concept code="349" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other"/>
+                    <ns0:Concept code="35" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Black Lung"/>
+                    <ns0:Concept code="36" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="State Government"/>
+                    <ns0:Concept code="361" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="State SCHIP program (codes for individual states)"/>
+                    <ns0:Concept code="362" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Specific state programs (list/ local code)"/>
+                    <ns0:Concept code="369" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="State, not otherwise specified (other state)"/>
+                    <ns0:Concept code="37" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Local Government"/>
+                    <ns0:Concept code="371" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Local - Managed care"/>
+                    <ns0:Concept code="3711" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="HMO"/>
+                    <ns0:Concept code="3712" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="PPO"/>
+                    <ns0:Concept code="3713" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="POS"/>
+                    <ns0:Concept code="372" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="FFS/Indemnity"/>
+                    <ns0:Concept code="379" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Local, not otherwise specified (other local, county)"/>
+                    <ns0:Concept code="38" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Government (Federal, State, Local not specified)"/>
+                    <ns0:Concept code="381" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified managed care"/>
+                    <ns0:Concept code="3811" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - HMO"/>
+                    <ns0:Concept code="3812" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - PPO"/>
+                    <ns0:Concept code="3813" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - POS"/>
+                    <ns0:Concept code="3819" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - not specified managed care"/>
+                    <ns0:Concept code="382" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - FFS"/>
+                    <ns0:Concept code="389" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - Other"/>
+                    <ns0:Concept code="39" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Federal"/>
+                    <ns0:Concept code="391" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal Employee Health Plan"/>
+                    <ns0:Concept code="4" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="DEPARTMENTS OF CORRECTIONS"/>
+                    <ns0:Concept code="41" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Corrections Federal"/>
+                    <ns0:Concept code="42" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Corrections State"/>
+                    <ns0:Concept code="43" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Corrections Local"/>
+                    <ns0:Concept code="44" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Corrections Unknown Level"/>
+                    <ns0:Concept code="5" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="PRIVATE HEALTH INSURANCE"/>
+                    <ns0:Concept code="51" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Managed Care (Private)"/>
+                    <ns0:Concept code="511" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - HMO"/>
+                    <ns0:Concept code="512" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - PPO"/>
+                    <ns0:Concept code="513" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - POS"/>
+                    <ns0:Concept code="514" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Exclusive Provider Organization"/>
+                    <ns0:Concept code="515" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Gatekeeper PPO (GPPO)"/>
+                    <ns0:Concept code="516" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="517" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - Dental"/>
+                    <ns0:Concept code="519" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Managed Care, Other (non HMO)"/>
+                    <ns0:Concept code="52" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Private Health Insurance - Indemnity"/>
+                    <ns0:Concept code="521" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Indemnity"/>
+                    <ns0:Concept code="522" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Self-insured (ERISA) Administrative Services Only (ASO) plan"/>
+                    <ns0:Concept code="523" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare supplemental policy (as second payer)"/>
+                    <ns0:Concept code="524" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indemnity Insurance - Dental"/>
+                    <ns0:Concept code="529" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Private health insurance--other commercial Indemnity"/>
+                    <ns0:Concept code="53" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Managed Care (private) or private health insurance (indemnity), not otherwise specified"/>
+                    <ns0:Concept code="54" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Organized Delivery System"/>
+                    <ns0:Concept code="55" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Small Employer Purchasing Group"/>
+                    <ns0:Concept code="56" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Specialized Stand Alone Plan"/>
+                    <ns0:Concept code="561" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Dental"/>
+                    <ns0:Concept code="562" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Vision"/>
+                    <ns0:Concept code="59" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Private Insurance"/>
+                    <ns0:Concept code="6" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BLUE CROSS/BLUE SHIELD"/>
+                    <ns0:Concept code="61" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care"/>
+                    <ns0:Concept code="611" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care -- HMO"/>
+                    <ns0:Concept code="612" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care -- PPO"/>
+                    <ns0:Concept code="613" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care -- POS"/>
+                    <ns0:Concept code="614" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care - Dental"/>
+                    <ns0:Concept code="619" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care -- Other"/>
+                    <ns0:Concept code="62" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Insurance Indemnity"/>
+                    <ns0:Concept code="621" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Indemnity"/>
+                    <ns0:Concept code="622" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"/>
+                    <ns0:Concept code="623" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Medicare Supplemental Plan"/>
+                    <ns0:Concept code="629" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Indemnity - Dental"/>
+                    <ns0:Concept code="7" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"/>
+                    <ns0:Concept code="71" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="HMO"/>
+                    <ns0:Concept code="72" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="PPO"/>
+                    <ns0:Concept code="73" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="POS"/>
+                    <ns0:Concept code="79" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Managed Care"/>
+                    <ns0:Concept code="8" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"/>
+                    <ns0:Concept code="81" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Self-pay"/>
+                    <ns0:Concept code="82" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="No Charge"/>
+                    <ns0:Concept code="821" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Charity"/>
+                    <ns0:Concept code="822" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Professional Courtesy"/>
+                    <ns0:Concept code="823" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Research/Clinical Trial"/>
+                    <ns0:Concept code="83" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Refusal to Pay/Bad Debt"/>
+                    <ns0:Concept code="84" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Hill Burton Free Care"/>
+                    <ns0:Concept code="85" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Research/Donor"/>
+                    <ns0:Concept code="89" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="No Payment, Other"/>
+                    <ns0:Concept code="9" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="MISCELLANEOUS/OTHER"/>
+                    <ns0:Concept code="91" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Foreign National"/>
+                    <ns0:Concept code="92" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other (Non-government)"/>
+                    <ns0:Concept code="93" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Disability Insurance"/>
+                    <ns0:Concept code="94" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Long-term Care Insurance"/>
+                    <ns0:Concept code="95" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Compensation"/>
+                    <ns0:Concept code="951" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Comp HMO"/>
+                    <ns0:Concept code="953" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Comp Fee-for-Service"/>
+                    <ns0:Concept code="954" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Comp Other Managed Care"/>
+                    <ns0:Concept code="959" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Comp, Other unspecified"/>
+                    <ns0:Concept code="96" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Auto Insurance (includes no fault)"/>
+                    <ns0:Concept code="97" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Legal Liability / Liability Insurance"/>
+                    <ns0:Concept code="98" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"/>
+                    <ns0:Concept code="99" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="No Typology Code available for payment source"/>
+                    <ns0:Concept code="9999" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Unavailable / No Payer Specified / Blank"/>
                 </ns0:ConceptList>
                 <ns0:Source>HL7 Terminology</ns0:Source>
                 <ns0:Purpose>(Clinical Focus: Categories of types of health care payor entities as defined by the US Public Health Data Consortium SOP code system),(Data Element Scope: @code in CCDA r2.1 template Planned Coverage [act: identifier urn:oid:2.16.840.1.113883.10.20.22.4.129 (open)] DYNAMIC),(Inclusion Criteria: All codes in the code system),(Exclusion Criteria: none)</ns0:Purpose>
                 <ns0:Type>Extensional</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2016-11-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2018-02-27</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:15 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:35 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -730,24 +738,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:17 GMT
+      - Thu, 08 Mar 2018 19:45:36 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!dyLkCFzeVDJvDcnLMWjf8K3rTDmEEkezhxtiz7EFiFJFSQq7lsR7/lGYC+TpkiJFkgm5Ie3weIASDRo=;
-        expires=Thu, 04-Jan-2018 21:24:17 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!8KNCfFL7dbk99IrNtNHn4GsLooFbU9VkAutxb/WU0GeSZSsxNqKFHXd3KmN8+Lc9hn4aNBAIGJmjCSk=;
+        expires=Thu, 08-Mar-2018 21:45:36 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945216-rIhI3fmSIv4iUBIWkfeM-cas
+      string: ST-280304-OfRXBxvSiycXrJLY9xZh-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:17 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:36 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.271&profile=Latest%20eCQM&ticket=ST-945216-rIhI3fmSIv4iUBIWkfeM-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.271&profile=Latest%20eCQM&ticket=ST-280304-OfRXBxvSiycXrJLY9xZh-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -776,19 +784,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!QlOnNicRmJnJbW7LMWjf8K3rTDmEEm0cJi1hUFhJxCZVjnS/WqmXbDsLEeXWCPlEYnmjoALvK2RmvDY=;
-        expires=Thu, 04-Jan-2018 21:24:18 GMT; path=/; Httponly; Secure
-      - JSESSIONID=B97BAC2129C778FEC54BA1CB4C5243BB;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!oUTCItbWUQM7E9vm9OGvBt4MxRMcjjJOmG5bzQf2WoeNgvOkup/XgZLJTLGtpYA8IMFaxK0p54B+Ad0=;
+        expires=Thu, 08-Mar-2018 21:45:37 GMT; path=/; Httponly; Secure
+      - JSESSIONID=BE693CAD6899EFD5923F06E2D0C8D3F4;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '19207'
+      - '23802'
       Date:
-      - Thu, 04 Jan 2018 19:24:18 GMT
+      - Thu, 08 Mar 2018 19:45:37 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -798,79 +806,104 @@ http_interactions:
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ns0:DescribedValueSet ID="2.16.840.1.113883.3.117.1.7.1.271" displayName="Asthma" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="10674711000119105" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of asthma co-occurrent with allergic rhinitis (disorder)"/>
-                    <ns0:Concept code="10675431000119106" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe persistent allergic asthma (disorder)"/>
-                    <ns0:Concept code="10675471000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of severe persistent allergic asthma (disorder)"/>
-                    <ns0:Concept code="10675551000119104" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of severe persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
-                    <ns0:Concept code="10675871000119106" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild persistent allergic asthma (disorder)"/>
-                    <ns0:Concept code="10675911000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of mild persistent allergic asthma (disorder)"/>
-                    <ns0:Concept code="10675991000119100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of mild persistent allergic asthma co-occurrent with allergic rhinitis (disorder)"/>
-                    <ns0:Concept code="10676391000119108" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate persistent allergic asthma (disorder)"/>
-                    <ns0:Concept code="10676431000119103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of moderate persistent allergic asthma (disorder)"/>
-                    <ns0:Concept code="10676511000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of moderate persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
-                    <ns0:Concept code="10692721000119102" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Chronic obstructive asthma co-occurrent with acute exacerbation of asthma (disorder)"/>
-                    <ns0:Concept code="12428000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Intrinsic asthma without status asthmaticus (disorder)"/>
-                    <ns0:Concept code="124991000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
-                    <ns0:Concept code="125001000119103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
-                    <ns0:Concept code="125011000119100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
-                    <ns0:Concept code="125021000119107" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Intermittent asthma co-occurrent with allergic rhinitis (disorder)"/>
-                    <ns0:Concept code="135171000119106" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute exacerbation of moderate persistent asthma (disorder)"/>
-                    <ns0:Concept code="135181000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute exacerbation of mild persistent asthma (disorder)"/>
-                    <ns0:Concept code="1741000119102" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Intermittent asthma uncontrolled (disorder)"/>
-                    <ns0:Concept code="1751000119100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute exacerbation of chronic obstructive airways disease with asthma (disorder)"/>
-                    <ns0:Concept code="195949008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Chronic asthmatic bronchitis (disorder)"/>
-                    <ns0:Concept code="195967001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Asthma (disorder)"/>
-                    <ns0:Concept code="195977004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mixed asthma (disorder)"/>
-                    <ns0:Concept code="225057002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Brittle asthma (disorder)"/>
-                    <ns0:Concept code="233678006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Childhood asthma (disorder)"/>
-                    <ns0:Concept code="233679003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Late onset asthma (disorder)"/>
-                    <ns0:Concept code="233683003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Hay fever with asthma (disorder)"/>
-                    <ns0:Concept code="2360001000004109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Steroid dependent asthma (disorder)"/>
-                    <ns0:Concept code="266361008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Non-allergic asthma (disorder)"/>
-                    <ns0:Concept code="281239006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Exacerbation of asthma (disorder)"/>
-                    <ns0:Concept code="30352005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Allergic-infective asthma (disorder)"/>
-                    <ns0:Concept code="304527002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute asthma (disorder)"/>
-                    <ns0:Concept code="31387002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Exercise-induced asthma (disorder)"/>
-                    <ns0:Concept code="370218001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild asthma (disorder)"/>
-                    <ns0:Concept code="370219009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate asthma (disorder)"/>
-                    <ns0:Concept code="370220003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Occasional asthma (disorder)"/>
-                    <ns0:Concept code="370221004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe asthma (disorder)"/>
-                    <ns0:Concept code="389145006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Allergic asthma (disorder)"/>
-                    <ns0:Concept code="401000119107" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Asthma with irreversible airway obstruction (disorder)"/>
-                    <ns0:Concept code="405944004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Asthmatic bronchitis (disorder)"/>
-                    <ns0:Concept code="409663006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Cough variant asthma (disorder)"/>
-                    <ns0:Concept code="423889005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Non-immunoglobulin E mediated allergic asthma (disorder)"/>
-                    <ns0:Concept code="424643009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Immunoglobulin E-mediated allergic asthma (disorder)"/>
-                    <ns0:Concept code="425969006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Exacerbation of intermittent asthma (disorder)"/>
-                    <ns0:Concept code="426656000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe persistent asthma (disorder)"/>
-                    <ns0:Concept code="426979002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild persistent asthma (disorder)"/>
-                    <ns0:Concept code="427295004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate persistent asthma (disorder)"/>
-                    <ns0:Concept code="427603009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Intermittent asthma (disorder)"/>
-                    <ns0:Concept code="427679007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild intermittent asthma (disorder)"/>
-                    <ns0:Concept code="442025000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute exacerbation of chronic asthmatic bronchitis (disorder)"/>
-                    <ns0:Concept code="445427006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Seasonal asthma (disorder)"/>
-                    <ns0:Concept code="5281000124103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Persistent asthma (disorder)"/>
-                    <ns0:Concept code="55570000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Asthma without status asthmaticus (disorder)"/>
-                    <ns0:Concept code="63088003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Extrinsic asthma without status asthmaticus (disorder)"/>
-                    <ns0:Concept code="641000119106" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Intermittent asthma well controlled (finding)"/>
-                    <ns0:Concept code="707444001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Uncomplicated asthma (disorder)"/>
-                    <ns0:Concept code="707445000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Exacerbation of mild persistent asthma (disorder)"/>
-                    <ns0:Concept code="707446004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Exacerbation of moderate persistent asthma (disorder)"/>
-                    <ns0:Concept code="707447008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Exacerbation of severe persistent asthma (disorder)"/>
-                    <ns0:Concept code="707511009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Uncomplicated mild persistent asthma (disorder)"/>
-                    <ns0:Concept code="707512002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Uncomplicated moderate persistent asthma (disorder)"/>
-                    <ns0:Concept code="707513007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Uncomplicated severe persistent asthma (disorder)"/>
-                    <ns0:Concept code="707979007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of severe persistent asthma (disorder)"/>
-                    <ns0:Concept code="707980005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of moderate persistent asthma (disorder)"/>
-                    <ns0:Concept code="707981009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of mild persistent asthma (disorder)"/>
-                    <ns0:Concept code="708038006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute exacerbation of asthma (disorder)"/>
-                    <ns0:Concept code="708090002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of asthma (disorder)"/>
-                    <ns0:Concept code="708093000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute exacerbation of immunoglobulin E-mediated allergic asthma (disorder)"/>
-                    <ns0:Concept code="708094006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute exacerbation of intrinsic asthma (disorder)"/>
-                    <ns0:Concept code="708095007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of immunoglobin E-mediated allergic asthma (disorder)"/>
-                    <ns0:Concept code="708096008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute severe exacerbation of intrinsic asthma (disorder)"/>
-                    <ns0:Concept code="901000119100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Persistent asthma, well controlled (disorder)"/>
-                    <ns0:Concept code="99031000119107" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Acute exacerbation of asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="10674711000119105" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="10675431000119106" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Severe persistent allergic asthma (disorder)"/>
+                    <ns0:Concept code="10675471000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of severe persistent allergic asthma (disorder)"/>
+                    <ns0:Concept code="10675551000119104" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of severe persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="10675871000119106" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Mild persistent allergic asthma (disorder)"/>
+                    <ns0:Concept code="10675911000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of mild persistent allergic asthma (disorder)"/>
+                    <ns0:Concept code="10675991000119100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of mild persistent allergic asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="10676391000119108" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Moderate persistent allergic asthma (disorder)"/>
+                    <ns0:Concept code="10676431000119103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of moderate persistent allergic asthma (disorder)"/>
+                    <ns0:Concept code="10676511000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of moderate persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="10692721000119102" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Chronic obstructive asthma co-occurrent with acute exacerbation of asthma (disorder)"/>
+                    <ns0:Concept code="10692761000119107" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Asthma-chronic obstructive pulmonary disease overlap syndrome (disorder)"/>
+                    <ns0:Concept code="10742121000119104" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Asthma in mother complicating childbirth (disorder)"/>
+                    <ns0:Concept code="11641008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Millers' asthma (disorder)"/>
+                    <ns0:Concept code="12428000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Intrinsic asthma without status asthmaticus (disorder)"/>
+                    <ns0:Concept code="124991000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Severe persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="125001000119103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Moderate persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="125011000119100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Mild persistent asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="125021000119107" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Intermittent asthma co-occurrent with allergic rhinitis (disorder)"/>
+                    <ns0:Concept code="13151001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Flax-dressers' disease (disorder)"/>
+                    <ns0:Concept code="135171000119106" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute exacerbation of moderate persistent asthma (disorder)"/>
+                    <ns0:Concept code="135181000119109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute exacerbation of mild persistent asthma (disorder)"/>
+                    <ns0:Concept code="16055311000119107" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Inhaled steroid-dependent asthma (disorder)"/>
+                    <ns0:Concept code="1741000119102" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Intermittent asthma uncontrolled (disorder)"/>
+                    <ns0:Concept code="1751000119100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute exacerbation of chronic obstructive airways disease with asthma (disorder)"/>
+                    <ns0:Concept code="18041002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Printers' asthma (disorder)"/>
+                    <ns0:Concept code="195949008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Chronic asthmatic bronchitis (disorder)"/>
+                    <ns0:Concept code="195967001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Asthma (disorder)"/>
+                    <ns0:Concept code="195977004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Mixed asthma (disorder)"/>
+                    <ns0:Concept code="19849005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Meat-wrappers' asthma (disorder)"/>
+                    <ns0:Concept code="225057002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Brittle asthma (disorder)"/>
+                    <ns0:Concept code="233672007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Byssinosis grade 3 (disorder)"/>
+                    <ns0:Concept code="233678006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Childhood asthma (disorder)"/>
+                    <ns0:Concept code="233679003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Late onset asthma (disorder)"/>
+                    <ns0:Concept code="233683003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Hay fever with asthma (disorder)"/>
+                    <ns0:Concept code="233687002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Colophony asthma (disorder)"/>
+                    <ns0:Concept code="233688007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Sulfite-induced asthma (disorder)"/>
+                    <ns0:Concept code="2360001000004109" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Steroid dependent asthma (disorder)"/>
+                    <ns0:Concept code="266361008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Non-allergic asthma (disorder)"/>
+                    <ns0:Concept code="281239006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Exacerbation of asthma (disorder)"/>
+                    <ns0:Concept code="30352005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Allergic-infective asthma (disorder)"/>
+                    <ns0:Concept code="304527002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute asthma (disorder)"/>
+                    <ns0:Concept code="31387002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Exercise-induced asthma (disorder)"/>
+                    <ns0:Concept code="34015007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Bakers' asthma (disorder)"/>
+                    <ns0:Concept code="370218001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Mild asthma (disorder)"/>
+                    <ns0:Concept code="370219009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Moderate asthma (disorder)"/>
+                    <ns0:Concept code="370220003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Occasional asthma (disorder)"/>
+                    <ns0:Concept code="370221004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Severe asthma (disorder)"/>
+                    <ns0:Concept code="389145006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Allergic asthma (disorder)"/>
+                    <ns0:Concept code="401000119107" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Asthma with irreversible airway obstruction (disorder)"/>
+                    <ns0:Concept code="404804003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Platinum asthma (disorder)"/>
+                    <ns0:Concept code="404806001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Cheese-makers' asthma (disorder)"/>
+                    <ns0:Concept code="404808000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Isocyanate induced asthma (disorder)"/>
+                    <ns0:Concept code="405944004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Asthmatic bronchitis (disorder)"/>
+                    <ns0:Concept code="407674008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Aspirin-induced asthma (disorder)"/>
+                    <ns0:Concept code="409663006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Cough variant asthma (disorder)"/>
+                    <ns0:Concept code="41553006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Detergent asthma (disorder)"/>
+                    <ns0:Concept code="418395004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Tea-makers' asthma (disorder)"/>
+                    <ns0:Concept code="423889005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Non-immunoglobulin E mediated allergic asthma (disorder)"/>
+                    <ns0:Concept code="424199006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Substance induced asthma (disorder)"/>
+                    <ns0:Concept code="424643009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Immunoglobulin E-mediated allergic asthma (disorder)"/>
+                    <ns0:Concept code="425969006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Exacerbation of intermittent asthma (disorder)"/>
+                    <ns0:Concept code="426656000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Severe persistent asthma (disorder)"/>
+                    <ns0:Concept code="426979002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Mild persistent asthma (disorder)"/>
+                    <ns0:Concept code="427295004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Moderate persistent asthma (disorder)"/>
+                    <ns0:Concept code="427603009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Intermittent asthma (disorder)"/>
+                    <ns0:Concept code="427679007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Mild intermittent asthma (disorder)"/>
+                    <ns0:Concept code="442025000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute exacerbation of chronic asthmatic bronchitis (disorder)"/>
+                    <ns0:Concept code="445427006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Seasonal asthma (disorder)"/>
+                    <ns0:Concept code="5281000124103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Persistent asthma (disorder)"/>
+                    <ns0:Concept code="55570000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Asthma without status asthmaticus (disorder)"/>
+                    <ns0:Concept code="56968009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Wood asthma (disorder)"/>
+                    <ns0:Concept code="57607007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Occupational asthma (disorder)"/>
+                    <ns0:Concept code="59786004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Weavers' cough (disorder)"/>
+                    <ns0:Concept code="63088003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Extrinsic asthma without status asthmaticus (disorder)"/>
+                    <ns0:Concept code="703953004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Allergic asthma caused by Dermatophagoides pteronyssinus (disorder)"/>
+                    <ns0:Concept code="703954005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Allergic asthma caused by Dermatophagoides farinae (disorder)"/>
+                    <ns0:Concept code="707444001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Uncomplicated asthma (disorder)"/>
+                    <ns0:Concept code="707445000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Exacerbation of mild persistent asthma (disorder)"/>
+                    <ns0:Concept code="707446004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Exacerbation of moderate persistent asthma (disorder)"/>
+                    <ns0:Concept code="707447008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Exacerbation of severe persistent asthma (disorder)"/>
+                    <ns0:Concept code="707511009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Uncomplicated mild persistent asthma (disorder)"/>
+                    <ns0:Concept code="707512002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Uncomplicated moderate persistent asthma (disorder)"/>
+                    <ns0:Concept code="707513007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Uncomplicated severe persistent asthma (disorder)"/>
+                    <ns0:Concept code="707979007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of severe persistent asthma (disorder)"/>
+                    <ns0:Concept code="707980005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of moderate persistent asthma (disorder)"/>
+                    <ns0:Concept code="707981009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of mild persistent asthma (disorder)"/>
+                    <ns0:Concept code="708038006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute exacerbation of asthma (disorder)"/>
+                    <ns0:Concept code="708090002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of asthma (disorder)"/>
+                    <ns0:Concept code="708093000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute exacerbation of immunoglobulin E-mediated allergic asthma (disorder)"/>
+                    <ns0:Concept code="708094006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute exacerbation of intrinsic asthma (disorder)"/>
+                    <ns0:Concept code="708095007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of immunoglobin E-mediated allergic asthma (disorder)"/>
+                    <ns0:Concept code="708096008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute severe exacerbation of intrinsic asthma (disorder)"/>
+                    <ns0:Concept code="85761009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Byssinosis (disorder)"/>
+                    <ns0:Concept code="901000119100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Persistent asthma, well controlled (disorder)"/>
+                    <ns0:Concept code="92807009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Chemical-induced asthma (disorder)"/>
+                    <ns0:Concept code="93432008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Drug-induced asthma (disorder)"/>
+                    <ns0:Concept code="99031000119107" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Acute exacerbation of asthma co-occurrent with allergic rhinitis (disorder)"/>
                     <ns0:Concept code="J45.20" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Mild intermittent asthma, uncomplicated"/>
                     <ns0:Concept code="J45.21" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Mild intermittent asthma with (acute) exacerbation"/>
                     <ns0:Concept code="J45.22" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Mild intermittent asthma with status asthmaticus"/>
@@ -900,10 +933,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:18 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -940,24 +973,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:19 GMT
+      - Thu, 08 Mar 2018 19:45:37 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!+MMCFAmTnAPBKsbLMWjf8K3rTDmEEtCN4owZ3v8mh9/Ds5zJmyM/TsCClEqeOCXT84tACZTna7enjbE=;
-        expires=Thu, 04-Jan-2018 21:24:19 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!oQgiD5XLYPj3pYXNtNHn4GsLooFbU9FIny4tsqLF2rFPh9ZD+sL2KR/J2/Iidvjh2n87G0AGNBuuc3c=;
+        expires=Thu, 08-Mar-2018 21:45:37 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945217-CnHLswvyhp2A1bYFuDAI-cas
+      string: ST-280309-XhxpbUdGCpmwXIIvaznF-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:19 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:37 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.82&profile=Latest%20eCQM&ticket=ST-945217-CnHLswvyhp2A1bYFuDAI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.82&profile=Latest%20eCQM&ticket=ST-280309-XhxpbUdGCpmwXIIvaznF-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -986,19 +1019,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!lJjBin2KK/yn97DLMWjf8K3rTDmEEuchrb9Q31o3wtksMhhA1NFKXUrPPEebUpzDqtAfeINb/Pu0GfU=;
-        expires=Thu, 04-Jan-2018 21:24:20 GMT; path=/; Httponly; Secure
-      - JSESSIONID=AED0617236A26CEE6B1D8C4F189E2CD6;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!GzxaGlrcwkCVrh/m9OGvBt4MxRMcjr6znAUU2FtMrj4BiwBwQQXW+F8OMFIvB+fsrbkQlh60tSSh5oM=;
+        expires=Thu, 08-Mar-2018 21:45:37 GMT; path=/; Httponly; Secure
+      - JSESSIONID=3BAD2FA17D08A339AF08072BC3B4A8B1;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '3097'
       Date:
-      - Thu, 04 Jan 2018 19:24:19 GMT
+      - Thu, 08 Mar 2018 19:45:37 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -1008,14 +1041,14 @@ http_interactions:
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ns0:DescribedValueSet ID="2.16.840.1.113883.3.117.1.7.1.82" displayName="Discharge To Home Or Police Custody" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="10161009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Patient discharge, to home, with assistance (procedure)"/>
-                    <ns0:Concept code="306689006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Discharge to home (procedure)"/>
-                    <ns0:Concept code="306690002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Discharge to relative's home (procedure)"/>
-                    <ns0:Concept code="306691003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Discharge to residential home (procedure)"/>
-                    <ns0:Concept code="306692005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Discharge to private residential home (procedure)"/>
-                    <ns0:Concept code="306705005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Discharge to police custody (procedure)"/>
-                    <ns0:Concept code="65537008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Patient discharge, to home, routine (procedure)"/>
-                    <ns0:Concept code="86400002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Patient discharge, to home, ambulatory (procedure)"/>
+                    <ns0:Concept code="10161009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Patient discharge, to home, with assistance (procedure)"/>
+                    <ns0:Concept code="306689006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Discharge to home (procedure)"/>
+                    <ns0:Concept code="306690002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Discharge to relative's home (procedure)"/>
+                    <ns0:Concept code="306691003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Discharge to residential home (procedure)"/>
+                    <ns0:Concept code="306692005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Discharge to private residential home (procedure)"/>
+                    <ns0:Concept code="306705005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Discharge to police custody (procedure)"/>
+                    <ns0:Concept code="65537008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Patient discharge, to home, routine (procedure)"/>
+                    <ns0:Concept code="86400002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Patient discharge, to home, ambulatory (procedure)"/>
                 </ns0:ConceptList>
                 <ns0:Source>The Joint Commission</ns0:Source>
                 <ns0:Purpose>(Clinical Focus: This set of values contains procedures used to represent the discharge of a patient to home or police custody.),(Data Element Scope: The intent of this data element is to identify the final place or setting to which the patient was discharged on the day of discharge from a particular inpatient encounter. This particular value set intends to identify patients who were discharged to home or police custody. Using the Quality Data Model, this particular value set is used with the Attribute of "Discharge status" used with the "Encounter" category.),(Inclusion Criteria: This value set includes concepts that identify a patient's discharge destination as either a home setting or police custody.),(Exclusion Criteria: Discharge concepts that identify a patient's discharge status as to anywhere else other than home or police custody.)</ns0:Purpose>
@@ -1026,10 +1059,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:20 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:37 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -1066,24 +1099,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:20 GMT
+      - Thu, 08 Mar 2018 19:45:37 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!mjTimrA0DuTet4fLMWjf8K3rTDmEEhss96tETfIRZ4Hc6NLu4PCgZgFCXxMdBojnAuqcRGFfhgReJ1Y=;
-        expires=Thu, 04-Jan-2018 21:24:20 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!z31wpUOnoBeNzBXNtNHn4GsLooFbU3WfDz8qUTaUaSZzQWRrCUtupzXMcxCembxWLs1tyiq9rly5wA8=;
+        expires=Thu, 08-Mar-2018 21:45:38 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945218-edJjRhtHfbzN34KwCK5u-cas
+      string: ST-280313-zSNIDYKRnRmbBmxawlwZ-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:20 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.666.5.307&profile=Latest%20eCQM&ticket=ST-945218-edJjRhtHfbzN34KwCK5u-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.666.5.307&profile=Latest%20eCQM&ticket=ST-280313-zSNIDYKRnRmbBmxawlwZ-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1112,19 +1145,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!1uwSD0wACDE2YTjLMWjf8K3rTDmEEoHlcXtaTlsSkEQv6K22bolrokZXPnuUkif0wCES/wbEOscc3/o=;
-        expires=Thu, 04-Jan-2018 21:24:21 GMT; path=/; Httponly; Secure
-      - JSESSIONID=58CFFF24F237A572645215B715606B8A;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!bqlg/50qJjdlYu/NtNHn4GsLooFbUyMh6l4DN0NqABGLqD4y5SQ4hpp+fBc5iNVsiVfg31l3oB/Iy28=;
+        expires=Thu, 08-Mar-2018 21:45:38 GMT; path=/; Httponly; Secure
+      - JSESSIONID=11292E15105A238BB1CD770DA06207EA;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1647'
       Date:
-      - Thu, 04 Jan 2018 19:24:21 GMT
+      - Thu, 08 Mar 2018 19:45:38 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -1134,9 +1167,9 @@ http_interactions:
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ns0:DescribedValueSet ID="2.16.840.1.113883.3.666.5.307" displayName="Encounter Inpatient" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="183452005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Emergency hospital admission (procedure)"/>
-                    <ns0:Concept code="32485007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Hospital admission (procedure)"/>
-                    <ns0:Concept code="8715000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Hospital admission, elective (procedure)"/>
+                    <ns0:Concept code="183452005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Emergency hospital admission (procedure)"/>
+                    <ns0:Concept code="32485007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Hospital admission (procedure)"/>
+                    <ns0:Concept code="8715000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Hospital admission, elective (procedure)"/>
                 </ns0:ConceptList>
                 <ns0:Source>Lantana</ns0:Source>
                 <ns0:Purpose>(Clinical Focus: This set of values identify the most common inpatient encounter types.),(Data Element Scope: The intent of this data element is to identify patients who have had an inpatient encounter. Using the Quality Data Model, this particular element will map to the "encounter" category.),(Inclusion Criteria: Only SNOMED CT codes representing inpatient encounter should be included.),(Exclusion Criteria: None.)</ns0:Purpose>
@@ -1147,10 +1180,10 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:21 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:38 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -1187,24 +1220,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:21 GMT
+      - Thu, 08 Mar 2018 19:45:38 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!P+L2TmS1EFewY/3LMWjf8K3rTDmEEq9BNqpMv8KGVJd+WTZ75YY9tmjt5uaPwgchBeoNEkfE/9owGI0=;
-        expires=Thu, 04-Jan-2018 21:24:22 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!Et52HE6K3BTyG/LNtNHn4GsLooFbU0rVxY/sDga+e3WYREfFi38jQbKCsfuuh7TxWIWvg0421Drar3A=;
+        expires=Thu, 08-Mar-2018 21:45:38 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945219-AmIQUMzFXZnibUtvswiG-cas
+      string: ST-280318-OX1uYLEX34O2N4uhFdRU-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:22 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:38 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.93&profile=Latest%20eCQM&ticket=ST-945219-AmIQUMzFXZnibUtvswiG-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.93&profile=Latest%20eCQM&ticket=ST-280318-OX1uYLEX34O2N4uhFdRU-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1233,19 +1266,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!qTL2yLC0s0hpMTfLMWjf8K3rTDmEEjTAuVjcbjL8fjGTgGsLBpyvTo9UyOhyV4cblQTxcju/m7wLHQs=;
-        expires=Thu, 04-Jan-2018 21:24:22 GMT; path=/; Httponly; Secure
-      - JSESSIONID=483FF3F1C2421AC2F16F33E65658E13A;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!XbLJNAT/0P4YBlHNtNHn4GsLooFbU3BDczaqs8ES/VfYgQgPgMjW9E1tbYXGR3/gtv+ocUvk2ZqDvvY=;
+        expires=Thu, 08-Mar-2018 21:45:39 GMT; path=/; Httponly; Secure
+      - JSESSIONID=DE6D35C3F337D549D2C8C0A64079D49C;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '5624'
+      - '5247'
       Date:
-      - Thu, 04 Jan 2018 19:24:22 GMT
+      - Thu, 08 Mar 2018 19:45:38 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -1260,127 +1293,119 @@ http_interactions:
         ZWZ1c2FsIiB2ZXJzaW9uPSJOL0EiPgogICAgICAgIDxuczA6Q29uY2VwdExp
         c3Q+CiAgICAgICAgICAgIDxuczA6Q29uY2VwdCBjb2RlPSIxMDU0ODAwMDYi
         IGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYuOTYiIGNvZGVTeXN0
-        ZW1OYW1lPSJTTk9NRURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIwMTctMDMi
+        ZW1OYW1lPSJTTk9NRURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIwMTctMDki
         IGRpc3BsYXlOYW1lPSJSZWZ1c2FsIG9mIHRyZWF0bWVudCBieSBwYXRpZW50
         IChzaXR1YXRpb24pIi8+CiAgICAgICAgICAgIDxuczA6Q29uY2VwdCBjb2Rl
         PSIxODI4OTAwMDIiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYu
         OTYiIGNvZGVTeXN0ZW1OYW1lPSJTTk9NRURDVCIgY29kZVN5c3RlbVZlcnNp
-        b249IjIwMTctMDMiIGRpc3BsYXlOYW1lPSJQYXRpZW50IHJlcXVlc3RzIGFs
+        b249IjIwMTctMDkiIGRpc3BsYXlOYW1lPSJQYXRpZW50IHJlcXVlc3RzIGFs
         dGVybmF0aXZlIHRyZWF0bWVudCAoZmluZGluZykiLz4KICAgICAgICAgICAg
         PG5zMDpDb25jZXB0IGNvZGU9IjE4Mjg5NTAwNyIgY29kZVN5c3RlbT0iMi4x
         Ni44NDAuMS4xMTM4ODMuNi45NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENU
-        IiBjb2RlU3lzdGVtVmVyc2lvbj0iMjAxNy0wMyIgZGlzcGxheU5hbWU9IkRy
+        IiBjb2RlU3lzdGVtVmVyc2lvbj0iMjAxNy0wOSIgZGlzcGxheU5hbWU9IkRy
         dWcgZGVjbGluZWQgYnkgcGF0aWVudCAoc2l0dWF0aW9uKSIvPgogICAgICAg
         ICAgICA8bnMwOkNvbmNlcHQgY29kZT0iMTgyODk2MDA4IiBjb2RlU3lzdGVt
         PSIyLjE2Ljg0MC4xLjExMzg4My42Ljk2IiBjb2RlU3lzdGVtTmFtZT0iU05P
-        TUVEQ1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTAzIiBkaXNwbGF5TmFt
+        TUVEQ1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTA5IiBkaXNwbGF5TmFt
         ZT0iRHJ1ZyBkZWNsaW5lZCBieSBwYXRpZW50IC0gZGlzbGlrZXMgdGFzdGUg
         KHNpdHVhdGlvbikiLz4KICAgICAgICAgICAgPG5zMDpDb25jZXB0IGNvZGU9
         IjE4Mjg5NzAwNCIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi45
         NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENUIiBjb2RlU3lzdGVtVmVyc2lv
-        bj0iMjAxNy0wMyIgZGlzcGxheU5hbWU9IkRydWcgZGVjbGluZWQgYnkgcGF0
+        bj0iMjAxNy0wOSIgZGlzcGxheU5hbWU9IkRydWcgZGVjbGluZWQgYnkgcGF0
         aWVudCAtIHNpZGUgZWZmZWN0cyAoc2l0dWF0aW9uKSIvPgogICAgICAgICAg
         ICA8bnMwOkNvbmNlcHQgY29kZT0iMTgyODk4MDA5IiBjb2RlU3lzdGVtPSIy
         LjE2Ljg0MC4xLjExMzg4My42Ljk2IiBjb2RlU3lzdGVtTmFtZT0iU05PTUVE
-        Q1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTAzIiBkaXNwbGF5TmFtZT0i
+        Q1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTA5IiBkaXNwbGF5TmFtZT0i
         RHJ1ZyBkZWNsaW5lZCBieSBwYXRpZW50IC0gaW5jb252ZW5pZW50IChzaXR1
         YXRpb24pIi8+CiAgICAgICAgICAgIDxuczA6Q29uY2VwdCBjb2RlPSIxODI5
         MDAwMDYiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYuOTYiIGNv
         ZGVTeXN0ZW1OYW1lPSJTTk9NRURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIw
-        MTctMDMiIGRpc3BsYXlOYW1lPSJEcnVnIGRlY2xpbmVkIGJ5IHBhdGllbnQg
+        MTctMDkiIGRpc3BsYXlOYW1lPSJEcnVnIGRlY2xpbmVkIGJ5IHBhdGllbnQg
         LSBwYXRpZW50IGJlbGllZnMgKHNpdHVhdGlvbikiLz4KICAgICAgICAgICAg
         PG5zMDpDb25jZXB0IGNvZGU9IjE4MjkwMTAwNSIgY29kZVN5c3RlbT0iMi4x
         Ni44NDAuMS4xMTM4ODMuNi45NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENU
-        IiBjb2RlU3lzdGVtVmVyc2lvbj0iMjAxNy0wMyIgZGlzcGxheU5hbWU9IkRy
+        IiBjb2RlU3lzdGVtVmVyc2lvbj0iMjAxNy0wOSIgZGlzcGxheU5hbWU9IkRy
         dWcgZGVjbGluZWQgYnkgcGF0aWVudCAtIGFsdGVybmF0aXZlIHRoZXJhcHkg
         KHNpdHVhdGlvbikiLz4KICAgICAgICAgICAgPG5zMDpDb25jZXB0IGNvZGU9
         IjE4MjkwMzAwOCIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi45
         NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENUIiBjb2RlU3lzdGVtVmVyc2lv
-        bj0iMjAxNy0wMyIgZGlzcGxheU5hbWU9IkRydWcgZGVjbGluZWQgYnkgcGF0
+        bj0iMjAxNy0wOSIgZGlzcGxheU5hbWU9IkRydWcgZGVjbGluZWQgYnkgcGF0
         aWVudCAtIHJlYXNvbiB1bmtub3duIChzaXR1YXRpb24pIi8+CiAgICAgICAg
         ICAgIDxuczA6Q29uY2VwdCBjb2RlPSIxODM5NDQwMDMiIGNvZGVTeXN0ZW09
         IjIuMTYuODQwLjEuMTEzODgzLjYuOTYiIGNvZGVTeXN0ZW1OYW1lPSJTTk9N
-        RURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIwMTctMDMiIGRpc3BsYXlOYW1l
+        RURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIwMTctMDkiIGRpc3BsYXlOYW1l
         PSJQcm9jZWR1cmUgcmVmdXNlZCAoc2l0dWF0aW9uKSIvPgogICAgICAgICAg
         ICA8bnMwOkNvbmNlcHQgY29kZT0iMTgzOTQ1MDAyIiBjb2RlU3lzdGVtPSIy
         LjE2Ljg0MC4xLjExMzg4My42Ljk2IiBjb2RlU3lzdGVtTmFtZT0iU05PTUVE
-        Q1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTAzIiBkaXNwbGF5TmFtZT0i
+        Q1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTA5IiBkaXNwbGF5TmFtZT0i
         UHJvY2VkdXJlIHJlZnVzZWQgZm9yIHJlbGlnaW91cyByZWFzb24gKHNpdHVh
         dGlvbikiLz4KICAgICAgICAgICAgPG5zMDpDb25jZXB0IGNvZGU9IjE4Mzk0
         NjAwMSIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi45NiIgY29k
         ZVN5c3RlbU5hbWU9IlNOT01FRENUIiBjb2RlU3lzdGVtVmVyc2lvbj0iMjAx
-        Ny0wMyIgZGlzcGxheU5hbWU9IlByb2NlZHVyZSByZWZ1c2VkIC0gdW5jb29w
+        Ny0wOSIgZGlzcGxheU5hbWU9IlByb2NlZHVyZSByZWZ1c2VkIC0gdW5jb29w
         ZXJhdGl2ZSAoc2l0dWF0aW9uKSIvPgogICAgICAgICAgICA8bnMwOkNvbmNl
         cHQgY29kZT0iMTgzOTQ3MDA1IiBjb2RlU3lzdGVtPSIyLjE2Ljg0MC4xLjEx
         Mzg4My42Ljk2IiBjb2RlU3lzdGVtTmFtZT0iU05PTUVEQ1QiIGNvZGVTeXN0
-        ZW1WZXJzaW9uPSIyMDE3LTAzIiBkaXNwbGF5TmFtZT0iUmVmdXNlZCBwcm9j
+        ZW1WZXJzaW9uPSIyMDE3LTA5IiBkaXNwbGF5TmFtZT0iUmVmdXNlZCBwcm9j
         ZWR1cmUgLSBhZnRlciB0aG91Z2h0IChzaXR1YXRpb24pIi8+CiAgICAgICAg
         ICAgIDxuczA6Q29uY2VwdCBjb2RlPSIxODM5NDgwMDAiIGNvZGVTeXN0ZW09
         IjIuMTYuODQwLjEuMTEzODgzLjYuOTYiIGNvZGVTeXN0ZW1OYW1lPSJTTk9N
-        RURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIwMTctMDMiIGRpc3BsYXlOYW1l
+        RURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIwMTctMDkiIGRpc3BsYXlOYW1l
         PSJSZWZ1c2VkIHByb2NlZHVyZSAtIHBhcmVudCdzIHdpc2ggKHNpdHVhdGlv
-        bikiLz4KICAgICAgICAgICAgPG5zMDpDb25jZXB0IGNvZGU9IjE4Mzk1NjAw
-        MiIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi45NiIgY29kZVN5
+        bikiLz4KICAgICAgICAgICAgPG5zMDpDb25jZXB0IGNvZGU9IjI3NTkzNjAw
+        NSIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi45NiIgY29kZVN5
         c3RlbU5hbWU9IlNOT01FRENUIiBjb2RlU3lzdGVtVmVyc2lvbj0iMjAxNy0w
-        MyIgZGlzcGxheU5hbWU9IkNhcmUvaGVscCByZWZ1c2VkIGJ5IHBhdGllbnQg
-        KHNpdHVhdGlvbikiLz4KICAgICAgICAgICAgPG5zMDpDb25jZXB0IGNvZGU9
-        IjI3NTkzNjAwNSIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi45
-        NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENUIiBjb2RlU3lzdGVtVmVyc2lv
-        bj0iMjAxNy0wMyIgZGlzcGxheU5hbWU9IlBhdGllbnQgbm9uY29tcGxpYW5j
-        ZSAtIGdlbmVyYWwgKHNpdHVhdGlvbikiLz4KICAgICAgICAgICAgPG5zMDpD
-        b25jZXB0IGNvZGU9IjM3MTEzODAwMyIgY29kZVN5c3RlbT0iMi4xNi44NDAu
-        MS4xMTM4ODMuNi45NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENUIiBjb2Rl
-        U3lzdGVtVmVyc2lvbj0iMjAxNy0wMyIgZGlzcGxheU5hbWU9IlJlZnVzYWwg
-        b2YgdHJlYXRtZW50IGJ5IHBhcmVudHMgKHNpdHVhdGlvbikiLz4KICAgICAg
-        ICAgICAgPG5zMDpDb25jZXB0IGNvZGU9IjM4NTY0ODAwMiIgY29kZVN5c3Rl
-        bT0iMi4xNi44NDAuMS4xMTM4ODMuNi45NiIgY29kZVN5c3RlbU5hbWU9IlNO
-        T01FRENUIiBjb2RlU3lzdGVtVmVyc2lvbj0iMjAxNy0wMyIgZGlzcGxheU5h
-        bWU9IlJlamVjdGVkIGJ5IHJlY2lwaWVudCAocXVhbGlmaWVyIHZhbHVlKSIv
-        PgogICAgICAgICAgICA8bnMwOkNvbmNlcHQgY29kZT0iNDA2MTQ5MDAwIiBj
-        b2RlU3lzdGVtPSIyLjE2Ljg0MC4xLjExMzg4My42Ljk2IiBjb2RlU3lzdGVt
-        TmFtZT0iU05PTUVEQ1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTAzIiBk
-        aXNwbGF5TmFtZT0iTWVkaWNhdGlvbiByZWZ1c2VkIChzaXR1YXRpb24pIi8+
-        CiAgICAgICAgICAgIDxuczA6Q29uY2VwdCBjb2RlPSI0MTMzMTIwMDMiIGNv
-        ZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYuOTYiIGNvZGVTeXN0ZW1O
-        YW1lPSJTTk9NRURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIwMTctMDMiIGRp
-        c3BsYXlOYW1lPSJQYXRpZW50IG5vbi1jb21wbGlhbnQgLSByZWZ1c2VkIHNl
-        cnZpY2UgKHNpdHVhdGlvbikiLz4KICAgICAgICAgICAgPG5zMDpDb25jZXB0
-        IGNvZGU9IjQxNjQzMjAwOSIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4
-        ODMuNi45NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENUIiBjb2RlU3lzdGVt
-        VmVyc2lvbj0iMjAxNy0wMyIgZGlzcGxheU5hbWU9IlByb2NlZHVyZSBub3Qg
-        d2FudGVkIChzaXR1YXRpb24pIi8+CiAgICAgICAgICAgIDxuczA6Q29uY2Vw
-        dCBjb2RlPSI0NDMzOTAwMDQiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEz
-        ODgzLjYuOTYiIGNvZGVTeXN0ZW1OYW1lPSJTTk9NRURDVCIgY29kZVN5c3Rl
-        bVZlcnNpb249IjIwMTctMDMiIGRpc3BsYXlOYW1lPSJSZWZ1c2VkIChxdWFs
-        aWZpZXIgdmFsdWUpIi8+CiAgICAgICAgICAgIDxuczA6Q29uY2VwdCBjb2Rl
-        PSI2MDk1ODkwMDgiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYu
-        OTYiIGNvZGVTeXN0ZW1OYW1lPSJTTk9NRURDVCIgY29kZVN5c3RlbVZlcnNp
-        b249IjIwMTctMDMiIGRpc3BsYXlOYW1lPSJSZWZ1c2VkIGJ5IHBhcmVudHMg
-        b2Ygc3ViamVjdCAocXVhbGlmaWVyIHZhbHVlKSIvPgogICAgICAgIDwvbnMw
-        OkNvbmNlcHRMaXN0PgogICAgICAgIDxuczA6U291cmNlPlRoZSBKb2ludCBD
-        b21taXNzaW9uPC9uczA6U291cmNlPgogICAgICAgIDxuczA6UHVycG9zZT4o
-        Q2xpbmljYWwgRm9jdXM6IFRoaXMgc2V0IG9mIHZhbHVlcyBjb250YWlucyBz
-        aXR1YXRpb25zIHJlcHJlc2VudGluZyBhIHBhdGllbnQncyByZWZ1c2FsIGZv
-        ciB0cmVhdG1lbnQuKSwoRGF0YSBFbGVtZW50IFNjb3BlOiBUaGUgaW50ZW50
-        IG9mIHRoaXMgZGF0YSBlbGVtZW50IGlzIHRvIGlkZW50aWZ5IHJlYXNvbnMg
-        YSBwYXRpZW50IHJlZnVzZXMgdHJlYXRtZW50LiAgVXNpbmcgdGhlIFF1YWxp
-        dHkgRGF0YSBNb2RlbCwgdGhpcyBwYXJ0aWN1bGFyIGVsZW1lbnQgd2lsbCBt
-        YXAgdG8gdGhlICIgcmVhc29uIiBhdHRyaWJ1dGUuKSwoSW5jbHVzaW9uIENy
-        aXRlcmlhOiBUaGlzIHZhbHVlIHNldCBpbmNsdWRlcyBjb25jZXB0cyB0aGF0
-        IGlkZW50aWZ5IHJlZnVzYWwgb2YgYW55IGludGVydmVudGlvbiAoaW5jbHVk
-        aW5nIHByb2NlZHVyZXMsIHRyZWF0bWVudCwgbWVkaWNhdGlvbiwgY291bnNl
-        bGluZywgc2NyZWVuaW5nKS7igIspLChFeGNsdXNpb24gQ3JpdGVyaWE6IE5v
-        bmUuKTwvbnMwOlB1cnBvc2U+CiAgICAgICAgPG5zMDpUeXBlPkV4dGVuc2lv
-        bmFsPC9uczA6VHlwZT4KICAgICAgICA8bnMwOkJpbmRpbmc+RHluYW1pYzwv
-        bnMwOkJpbmRpbmc+CiAgICAgICAgPG5zMDpTdGF0dXM+QWN0aXZlPC9uczA6
-        U3RhdHVzPgogICAgICAgIDxuczA6UmV2aXNpb25EYXRlPjIwMTctMDctMjU8
-        L25zMDpSZXZpc2lvbkRhdGU+CiAgICA8L25zMDpEZXNjcmliZWRWYWx1ZVNl
-        dD4KPC9uczA6UmV0cmlldmVNdWx0aXBsZVZhbHVlU2V0c1Jlc3BvbnNlPgo=
+        OSIgZGlzcGxheU5hbWU9IlBhdGllbnQgbm9uY29tcGxpYW5jZSAtIGdlbmVy
+        YWwgKHNpdHVhdGlvbikiLz4KICAgICAgICAgICAgPG5zMDpDb25jZXB0IGNv
+        ZGU9IjM3MTEzODAwMyIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMu
+        Ni45NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENUIiBjb2RlU3lzdGVtVmVy
+        c2lvbj0iMjAxNy0wOSIgZGlzcGxheU5hbWU9IlJlZnVzYWwgb2YgdHJlYXRt
+        ZW50IGJ5IHBhcmVudHMgKHNpdHVhdGlvbikiLz4KICAgICAgICAgICAgPG5z
+        MDpDb25jZXB0IGNvZGU9IjQwNjE0OTAwMCIgY29kZVN5c3RlbT0iMi4xNi44
+        NDAuMS4xMTM4ODMuNi45NiIgY29kZVN5c3RlbU5hbWU9IlNOT01FRENUIiBj
+        b2RlU3lzdGVtVmVyc2lvbj0iMjAxNy0wOSIgZGlzcGxheU5hbWU9Ik1lZGlj
+        YXRpb24gcmVmdXNlZCAoc2l0dWF0aW9uKSIvPgogICAgICAgICAgICA8bnMw
+        OkNvbmNlcHQgY29kZT0iNDEzMzEyMDAzIiBjb2RlU3lzdGVtPSIyLjE2Ljg0
+        MC4xLjExMzg4My42Ljk2IiBjb2RlU3lzdGVtTmFtZT0iU05PTUVEQ1QiIGNv
+        ZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTA5IiBkaXNwbGF5TmFtZT0iUGF0aWVu
+        dCBub24tY29tcGxpYW50IC0gcmVmdXNlZCBzZXJ2aWNlIChzaXR1YXRpb24p
+        Ii8+CiAgICAgICAgICAgIDxuczA6Q29uY2VwdCBjb2RlPSI0MTY0MzIwMDki
+        IGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYuOTYiIGNvZGVTeXN0
+        ZW1OYW1lPSJTTk9NRURDVCIgY29kZVN5c3RlbVZlcnNpb249IjIwMTctMDki
+        IGRpc3BsYXlOYW1lPSJQcm9jZWR1cmUgbm90IHdhbnRlZCAoc2l0dWF0aW9u
+        KSIvPgogICAgICAgICAgICA8bnMwOkNvbmNlcHQgY29kZT0iNDQzMzkwMDA0
+        IiBjb2RlU3lzdGVtPSIyLjE2Ljg0MC4xLjExMzg4My42Ljk2IiBjb2RlU3lz
+        dGVtTmFtZT0iU05PTUVEQ1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTA5
+        IiBkaXNwbGF5TmFtZT0iUmVmdXNlZCAocXVhbGlmaWVyIHZhbHVlKSIvPgog
+        ICAgICAgICAgICA8bnMwOkNvbmNlcHQgY29kZT0iNjA5NTg5MDA4IiBjb2Rl
+        U3lzdGVtPSIyLjE2Ljg0MC4xLjExMzg4My42Ljk2IiBjb2RlU3lzdGVtTmFt
+        ZT0iU05PTUVEQ1QiIGNvZGVTeXN0ZW1WZXJzaW9uPSIyMDE3LTA5IiBkaXNw
+        bGF5TmFtZT0iUmVmdXNlZCBieSBwYXJlbnRzIG9mIHN1YmplY3QgKHF1YWxp
+        ZmllciB2YWx1ZSkiLz4KICAgICAgICA8L25zMDpDb25jZXB0TGlzdD4KICAg
+        ICAgICA8bnMwOlNvdXJjZT5UaGUgSm9pbnQgQ29tbWlzc2lvbjwvbnMwOlNv
+        dXJjZT4KICAgICAgICA8bnMwOlB1cnBvc2U+KENsaW5pY2FsIEZvY3VzOiBU
+        aGlzIHNldCBvZiB2YWx1ZXMgY29udGFpbnMgc2l0dWF0aW9ucyByZXByZXNl
+        bnRpbmcgYSBwYXRpZW50J3MgcmVmdXNhbCBmb3IgdHJlYXRtZW50LiksKERh
+        dGEgRWxlbWVudCBTY29wZTogVGhlIGludGVudCBvZiB0aGlzIGRhdGEgZWxl
+        bWVudCBpcyB0byBpZGVudGlmeSByZWFzb25zIGEgcGF0aWVudCByZWZ1c2Vz
+        IHRyZWF0bWVudC4gIFVzaW5nIHRoZSBRdWFsaXR5IERhdGEgTW9kZWwsIHRo
+        aXMgcGFydGljdWxhciBlbGVtZW50IHdpbGwgbWFwIHRvIHRoZSAiIHJlYXNv
+        biIgYXR0cmlidXRlLiksKEluY2x1c2lvbiBDcml0ZXJpYTogVGhpcyB2YWx1
+        ZSBzZXQgaW5jbHVkZXMgY29uY2VwdHMgdGhhdCBpZGVudGlmeSByZWZ1c2Fs
+        IG9mIGFueSBpbnRlcnZlbnRpb24gKGluY2x1ZGluZyBwcm9jZWR1cmVzLCB0
+        cmVhdG1lbnQsIG1lZGljYXRpb24sIGNvdW5zZWxpbmcsIHNjcmVlbmluZyku
+        4oCLKSwoRXhjbHVzaW9uIENyaXRlcmlhOiBOb25lLik8L25zMDpQdXJwb3Nl
+        PgogICAgICAgIDxuczA6VHlwZT5FeHRlbnNpb25hbDwvbnMwOlR5cGU+CiAg
+        ICAgICAgPG5zMDpCaW5kaW5nPkR5bmFtaWM8L25zMDpCaW5kaW5nPgogICAg
+        ICAgIDxuczA6U3RhdHVzPkFjdGl2ZTwvbnMwOlN0YXR1cz4KICAgICAgICA8
+        bnMwOlJldmlzaW9uRGF0ZT4yMDE4LTAyLTA4PC9uczA6UmV2aXNpb25EYXRl
+        PgogICAgPC9uczA6RGVzY3JpYmVkVmFsdWVTZXQ+CjwvbnMwOlJldHJpZXZl
+        TXVsdGlwbGVWYWx1ZVNldHNSZXNwb25zZT4K
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:22 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:39 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-319509-7HzDqkYajsfrdpQgbdtVWFbC6o0BWyOZJoQ6BC1Xp61LcmmtQd-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37076-q5dioL2qZdfe36UxbZdyQgeXqhgbWNo14y3HLejFvNtwpbmD1m-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -1417,24 +1442,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Thu, 04 Jan 2018 19:24:22 GMT
+      - Thu, 08 Mar 2018 19:45:39 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!rnUNUWhxAYZRSunLMWjf8K3rTDmEEn7nsnvuMUtHb09o2P4u/oH1uYbtEGklyFYKAnD+yDAvZT8izlg=;
-        expires=Thu, 04-Jan-2018 21:24:23 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!onLCM+dqo/S8FTDNtNHn4GsLooFbUy+Yy9ZwGVxOCrrlaauTBy/DnOofyxvqp2rVeVsBL0A2vgUl6L0=;
+        expires=Thu, 08-Mar-2018 21:45:39 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-945220-UcZJEx7jEjChJl2nofpj-cas
+      string: ST-280321-rAzOzusHPZqDFSJE4dNf-cas
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:23 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:39 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.292&profile=Latest%20eCQM&ticket=ST-945220-UcZJEx7jEjChJl2nofpj-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.117.1.7.1.292&profile=Latest%20eCQM&ticket=ST-280321-rAzOzusHPZqDFSJE4dNf-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -1463,15 +1488,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!LYGrMXrRCIt+eAPLMWjf8K3rTDmEEpMqvp+L3gdZBKe/QIweNI1J3tY4Q86I6pJRE+mW7wDQpAdC9F4=;
-        expires=Thu, 04-Jan-2018 21:24:23 GMT; path=/; Httponly; Secure
-      - JSESSIONID=1C58E20D4822A44E339575B28D3D4F5A;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!n34+cqXJHkuo9NTm9OGvBt4MxRMcjlNdxNX3KqlETgUt5hkgDmQxEnzCsYXd5dT1Mh92lcpCUsjAL2E=;
+        expires=Thu, 08-Mar-2018 21:45:40 GMT; path=/; Httponly; Secure
+      - JSESSIONID=9E9652029FCE34C5C462273402A8BB14;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1369'
       Date:
-      - Thu, 04 Jan 2018 19:24:23 GMT
+      - Thu, 08 Mar 2018 19:45:40 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -1485,7 +1510,7 @@ http_interactions:
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ns0:DescribedValueSet ID="2.16.840.1.113883.3.117.1.7.1.292" displayName="Emergency Department Visit" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="4525004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Emergency department patient visit (procedure)"/>
+                    <ns0:Concept code="4525004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-09" displayName="Emergency department patient visit (procedure)"/>
                 </ns0:ConceptList>
                 <ns0:Source>The Joint Commission</ns0:Source>
                 <ns0:Purpose>(Clinical Focus: This set of values identifies procedures representing an emergency department encounter.),(Data Element Scope: The intent of this data element is to identify patients who have had an emergency department encounter.  Using the Quality Data Model, this particular element will map to the "Encounter" category.),(Inclusion Criteria: Include codes representing an emergency department visit encounter utilizing the SNOMED CT code system.),(Exclusion Criteria: None)</ns0:Purpose>
@@ -1496,5 +1521,5 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Thu, 04 Jan 2018 19:24:23 GMT
+  recorded_at: Thu, 08 Mar 2018 19:45:40 GMT
 recorded_with: VCR 3.0.3

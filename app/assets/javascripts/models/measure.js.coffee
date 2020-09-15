@@ -1,5 +1,10 @@
 class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
+
+  populateComponents: ->
+    return unless @get('composite')
+    @set 'componentMeasures', new Thorax.Collection @get('component_hqmf_set_ids').map((hqmfSetId) => bonnie.measures.findWhere({hqmf_set_id: hqmfSetId}))
+
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
     @set 'patients', new Thorax.Collections.Patients [], _fetched: true
@@ -82,43 +87,36 @@ class Thorax.Models.Measure extends Thorax.Model
     # Defines what is included in the drop down menu in the Bonnie Patient Builder for all
     # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
     # hash in health-data-standards:lib/health-model/data_criteria.rb.
-    globalInclusions = ['reason', 'source', 'health_record_field']
+    # TODO: The QDM spec also lists 'recorder' here as a globally included item.
+    globalInclusions = ['source', 'health_record_field']
 
     # Defines what is included in the drop down menu in the Bonnie Patient Builder for a particular
     # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
-    # hash in health-data-standards:lib/health-model/data_criteria.rb.
+    # hash in health-data-standards:lib/hqmf-model/data_criteria.rb.
     typeInclusions =
-      adverse_events: ['facility', 'severity', 'type'] # TODO: (LDY 9/29/2016) we care about "facility location". this appears to be the same as "facility"
-      allergies_intolerances: ['severity', 'type']
-      assessments: ['method', 'components']
+      adverse_events: ['facility', 'severity', 'type', 'author_datetime']
+      allergies_intolerances: ['severity', 'type', 'author_datetime']
+      assessments: ['reason', 'method', 'components']
       care_experiences: []
-      care_goals: ['target_outcome']
+      care_goals: ['target_outcome', 'author_datetime']
       characteristics: []
-      communications: []
-      conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']
-      devices: ['removal_time', 'anatomical_structure']
-      diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time', 'components']
-      encounters: ['admission_source', 'admit_time', 'discharge_time', 'discharge_disposition', 'facility',
-        'transfer_to', 'transfer_to_time', 
-        'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
+      communications: ['category', 'sender', 'recipient', 'medium', 'author_datetime']
+      conditions: ['anatomical_location', 'ordinality', 'severity', 'author_datetime']
+      devices: ['anatomical_location', 'reason', 'author_datetime']
+      diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time', 'components', 'reason', 'author_datetime']
+      encounters: ['admission_source', 'discharge_disposition', 'facility', 'principal_diagnosis', 'diagnosis', 'reason', 'author_datetime']
       family_history: ['relationship_to_patient']
-      functional_statuses: []
-      immunizations: ['route', 'dose', 'reaction', 'supply', 'active_datetime']
-      interventions: ['anatomical_structure', 'qdm_status']
-      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components', 'method']
-      medications: ['route', 'dose', 'reaction', 'supply', 'administration_timing', 'refills']
+      immunizations: ['route', 'dose', 'reaction', 'supply', 'active_datetime', 'reason']
+      interventions: ['qdm_status', 'reason', 'author_datetime']
+      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components', 'method', 'reason', 'author_datetime']
+      medications: ['route', 'dispenser_identifier', 'dose', 'supply', 'administration_timing', 'prescriber_identifier', 'refills', 'setting', 'reason','days_supplied', 'author_datetime']
       participations: []
-      patient_care_experiences: []
-      physical_exams: ['anatomical_structure', 'components', 'method']
-      preferences: []
-      procedures: ['incision_time', 'anatomical_structure', 'anatomical_location', 'ordinality', 'qdm_status', 'components', 'method']
+      physical_exams: ['anatomical_location', 'components', 'method', 'reason', 'author_datetime']
+      procedures: ['incision_time', 'anatomical_location', 'ordinality', 'qdm_status', 'components', 'method', 'reason', 'author_datetime']
       provider_care_experiences: []
       provider_characteristics: []
-      risk_category_assessments: ['severity']
-      substances: ['dose', 'route', 'administration_timing', 'reaction', 'supply', 'refills', 'method']
-      symptoms: ['ordinality', 'severity']
-      system_characteristics: []
-      transfers: []
+      substances: ['dose', 'route', 'administration_timing', 'supply', 'refills', 'reason', 'author_datetime']
+      symptoms: ['severity']
 
     # start with all field values
     fields = Thorax.Models.Measure.logicFields
@@ -143,16 +141,14 @@ class Thorax.Models.Measure extends Thorax.Model
   # @param {string} statementName - The statement name.
   ###
   findAllLocalIdsInStatementByName: (libraryName, statementName) ->
-    # Only do stuff if this is a CQL Based measure.
-    if @has('cql')
-      # if we have this one already in the cache then return the cached result.
-      if @_localIdCache[libraryName]?[statementName]?
-        return @_localIdCache[libraryName][statementName]
-      # if it's not in the cache, build the localId map, put it in the cache and return it.
-      else
-        @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
-        @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@, libraryName, statementName)
-        return @_localIdCache[libraryName][statementName]
+    # if we have this one already in the cache then return the cached result.
+    if @_localIdCache[libraryName]?[statementName]?
+      return @_localIdCache[libraryName][statementName]
+    # if it's not in the cache, build the localId map, put it in the cache and return it.
+    else
+      @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
+      @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@, libraryName, statementName)
+      return @_localIdCache[libraryName][statementName]
 
 
 class Thorax.Collections.Measures extends Thorax.Collection

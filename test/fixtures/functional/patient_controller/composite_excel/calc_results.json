@@ -1,0 +1,274 @@
+{
+  "c146": {
+    "c258": {
+      "statement_results": {
+        "AWATestComposite": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Is In ComponentMeasurePneumococcal Denominator": "true",
+          "Is In ComponentMeasurePneumococcal Numerator": "FALSE (false)",
+          "Is In ComponentMeasureColorectal Numerator": "FALSE (false)",
+          "Is In ComponentMeasureDepression Numerator": "FALSE (false)",
+          "Is In ComponentMeasureFalls Denominator": "true",
+          "Is In ComponentMeasureFalls Numerator": "FALSE (false)",
+          "Is In ComponentMeasureInfluenza Denominator": "FALSE (false)",
+          "Is In ComponentMeasureInfluenza Numerator": "FALSE (false)",
+          "Is In ComponentMeasureOsteoporosis Denominator": "FALSE (false)",
+          "Is In ComponentMeasureOsteoporosis Numerator": "FALSE (false)",
+          "Is In ComponentMeasureColorectal Denominator": "true",
+          "Is In ComponentMeasureDepression Denominator": "true",
+          "Is In ComponentMeasureBreast Denominator": "FALSE (false)",
+          "Is In ComponentMeasureBreast Numerator": "FALSE (false)",
+          "Initial Population": "[PatientCharacteristicBirthdate\nCODE: LOINC 21112-8]",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Measure Population": "[PatientCharacteristicBirthdate\nCODE: LOINC 21112-8]",
+          "Numerator Score": "null",
+          "Denominator Score": "4",
+          "Measure Observation": "FUNCTION"
+        },
+        "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination": {
+          "Initial Population": "true",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "true",
+          "Denominator Exclusions": "FALSE (false)",
+          "Numerator": "FALSE (false)"
+        },
+        "MATGlobalCommonFunctions": {
+          "CalendarAgeInYearsAt": "FUNCTION",
+          "ToDate": "FUNCTION"
+        },
+        "Hospice": {
+          "Has Hospice": "FALSE (false)"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer": {
+          "Initial Population": "true",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "true",
+          "Denominator Exclusions": "FALSE (false)",
+          "Malignant Neoplasm": "FALSE ([])",
+          "Total Colectomy Performed": "FALSE ([])",
+          "Numerator": "FALSE (false)",
+          "Colonoscopy Performed": "FALSE ([])",
+          "Fecal Occult Blood Test Performed": "FALSE ([])",
+          "Flexible Sigmoidoscopy Performed": "FALSE ([])",
+          "Fecal Immunochemical Test DNA Performed": "FALSE ([])",
+          "CT Colonography Performed": "FALSE ([])"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforDepression": {
+          "Initial Population": "true",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "true",
+          "Denominator Exclusions": "FALSE (false)",
+          "Has Diagnosis of Depression": "FALSE ([])",
+          "Has Diagnosis of Bipolar": "FALSE ([])",
+          "Numerator": "FALSE (false)",
+          "Depression Screening Encounter within 12 Months Prior to AWV": "FALSE (undefined)",
+          "Denominator Exceptions": "FALSE (false)",
+          "Has No Depression Screening Due to Medical Reason": "FALSE (false)",
+          "Has No Depression Screening Due to Patient Refusal": "FALSE (false)"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk": {
+          "Initial Population": "true",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "true",
+          "Denominator Exclusions": "FALSE (false)",
+          "Not Ambulatory 12 Months Before or During AWV": "FALSE (false)",
+          "Ambulatory Status Assessed 12 Months Before or During AWV": "FALSE ([])",
+          "Not Ambulatory 12 Months or More Before AWV": "FALSE (false)",
+          "Hospice 12 Months Before or During AWV": "FALSE (false)",
+          "Numerator": "FALSE (false)"
+        },
+        "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination": {
+          "Initial Population": "true",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "FALSE (false)",
+          "Encounter During Influenza Season": "FALSE ([])",
+          "Influenza Season": "INTERVAL: 10/01/2011 12:00 AM - 03/31/2012 12:00 AM",
+          "Denominator Exceptions": "FALSE (false)",
+          "Patient Declined Influenza Vaccination": "FALSE ([])",
+          "Influenza Season Including August and September of the Prior Year": "FALSE (undefined)",
+          "Medical Patient or System Reason for Not Performing Influenza Vaccination": "FALSE ([])",
+          "Medical Patient or System Reason for Not Administering Influenza Vaccine": "FALSE ([])",
+          "Diagnosis of Allergy to Egg": "FALSE ([])",
+          "Egg Substance Allergy": "FALSE ([])",
+          "Diagnosis of Allergy to Influenza Vaccine": "FALSE ([])",
+          "Diagnosis of Intolerance to Influenza Vaccine": "FALSE ([])",
+          "Intolerance of Influenza Vaccination Procedure": "FALSE ([])",
+          "Allergy or Intolerance to Influenza Vaccine": "FALSE ([])",
+          "Numerator": "FALSE (false)",
+          "Influenza Vaccination Procedure": "FALSE ([])",
+          "Influenza Immunization Administered": "FALSE ([])",
+          "Patient Reported Previous Receipt of Influenza Vaccine": "FALSE ([])"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis": {
+          "Initial Population": "true",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "FALSE (false)",
+          "Denominator Exclusions": "FALSE (false)",
+          "Osteoporosis Diagnosis": "FALSE ([])",
+          "Numerator": "FALSE (false)"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer": {
+          "Initial Population": "true",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "FALSE (false)",
+          "Denominator Exclusions": "FALSE (false)",
+          "Unilateral Mastectomy Procedure": "FALSE ([])",
+          "Right Mastectomy": "FALSE ([])",
+          "Left Mastectomy": "FALSE ([])",
+          "History Bilateral Mastectomy": "FALSE ([])",
+          "Bilateral Mastectomy Procedure": "FALSE ([])",
+          "Numerator": "FALSE (false)"
+        },
+        "CompositeFunctions": {
+          "ToScore": "FUNCTION"
+        }
+      },
+      "criteria": {
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "values": [
+          0
+        ],
+        "MSRPOPLEX": 0
+      }
+    },
+    "c275": {
+      "statement_results": {
+        "AWATestComposite": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Is In ComponentMeasurePneumococcal Denominator": "UNHIT",
+          "Is In ComponentMeasurePneumococcal Numerator": "UNHIT",
+          "Is In ComponentMeasureColorectal Numerator": "UNHIT",
+          "Is In ComponentMeasureDepression Numerator": "UNHIT",
+          "Is In ComponentMeasureFalls Denominator": "UNHIT",
+          "Is In ComponentMeasureFalls Numerator": "UNHIT",
+          "Is In ComponentMeasureInfluenza Denominator": "UNHIT",
+          "Is In ComponentMeasureInfluenza Numerator": "UNHIT",
+          "Is In ComponentMeasureOsteoporosis Denominator": "UNHIT",
+          "Is In ComponentMeasureOsteoporosis Numerator": "UNHIT",
+          "Is In ComponentMeasureColorectal Denominator": "UNHIT",
+          "Is In ComponentMeasureDepression Denominator": "UNHIT",
+          "Is In ComponentMeasureBreast Denominator": "UNHIT",
+          "Is In ComponentMeasureBreast Numerator": "UNHIT",
+          "Initial Population": "FALSE ([])",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Numerator Score": "UNHIT",
+          "Denominator Score": "UNHIT",
+          "Measure Observation": "FUNCTION"
+        },
+        "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination": {
+          "Initial Population": "FALSE (false)",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "UNHIT",
+          "Denominator Exclusions": "UNHIT",
+          "Numerator": "UNHIT"
+        },
+        "MATGlobalCommonFunctions": {
+          "CalendarAgeInYearsAt": "FUNCTION",
+          "ToDate": "FUNCTION"
+        },
+        "Hospice": {
+          "Has Hospice": "UNHIT"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforColorectalCancer": {
+          "Initial Population": "FALSE (false)",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "UNHIT",
+          "Denominator Exclusions": "UNHIT",
+          "Malignant Neoplasm": "UNHIT",
+          "Total Colectomy Performed": "UNHIT",
+          "Numerator": "UNHIT",
+          "Colonoscopy Performed": "UNHIT",
+          "Fecal Occult Blood Test Performed": "UNHIT",
+          "Flexible Sigmoidoscopy Performed": "UNHIT",
+          "Fecal Immunochemical Test DNA Performed": "UNHIT",
+          "CT Colonography Performed": "UNHIT"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforDepression": {
+          "Initial Population": "FALSE (false)",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "UNHIT",
+          "Denominator Exclusions": "UNHIT",
+          "Has Diagnosis of Depression": "UNHIT",
+          "Has Diagnosis of Bipolar": "UNHIT",
+          "Numerator": "UNHIT",
+          "Depression Screening Encounter within 12 Months Prior to AWV": "UNHIT",
+          "Denominator Exceptions": "UNHIT",
+          "Has No Depression Screening Due to Medical Reason": "UNHIT",
+          "Has No Depression Screening Due to Patient Refusal": "UNHIT"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk": {
+          "Initial Population": "FALSE (false)",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "UNHIT",
+          "Denominator Exclusions": "UNHIT",
+          "Not Ambulatory 12 Months Before or During AWV": "UNHIT",
+          "Ambulatory Status Assessed 12 Months Before or During AWV": "UNHIT",
+          "Not Ambulatory 12 Months or More Before AWV": "UNHIT",
+          "Hospice 12 Months Before or During AWV": "UNHIT",
+          "Numerator": "UNHIT"
+        },
+        "AnnualWellnessAssessmentPreventiveCareInfluenzaVaccination": {
+          "Initial Population": "FALSE (false)",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "UNHIT",
+          "Encounter During Influenza Season": "UNHIT",
+          "Influenza Season": "UNHIT",
+          "Denominator Exceptions": "UNHIT",
+          "Patient Declined Influenza Vaccination": "UNHIT",
+          "Influenza Season Including August and September of the Prior Year": "UNHIT",
+          "Medical Patient or System Reason for Not Performing Influenza Vaccination": "UNHIT",
+          "Medical Patient or System Reason for Not Administering Influenza Vaccine": "UNHIT",
+          "Diagnosis of Allergy to Egg": "UNHIT",
+          "Egg Substance Allergy": "UNHIT",
+          "Diagnosis of Allergy to Influenza Vaccine": "UNHIT",
+          "Diagnosis of Intolerance to Influenza Vaccine": "UNHIT",
+          "Intolerance of Influenza Vaccination Procedure": "UNHIT",
+          "Allergy or Intolerance to Influenza Vaccine": "UNHIT",
+          "Numerator": "UNHIT",
+          "Influenza Vaccination Procedure": "UNHIT",
+          "Influenza Immunization Administered": "UNHIT",
+          "Patient Reported Previous Receipt of Influenza Vaccine": "UNHIT"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforOsteoporosis": {
+          "Initial Population": "FALSE (false)",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "UNHIT",
+          "Denominator Exclusions": "UNHIT",
+          "Osteoporosis Diagnosis": "UNHIT",
+          "Numerator": "UNHIT"
+        },
+        "AnnualWellnessAssessmentPreventiveCareScreeningforBreastCancer": {
+          "Initial Population": "FALSE (false)",
+          "Annual Wellness Visit Encounter": "[Encounter, Performed: Annual Wellness Visit\nSTART: 11/05/2012 8:00 AM\nSTOP: 11/05/2012 8:15 AM\nCODE: HCPCS G0438]",
+          "Denominator": "UNHIT",
+          "Denominator Exclusions": "UNHIT",
+          "Unilateral Mastectomy Procedure": "UNHIT",
+          "Right Mastectomy": "UNHIT",
+          "Left Mastectomy": "UNHIT",
+          "History Bilateral Mastectomy": "UNHIT",
+          "Bilateral Mastectomy Procedure": "UNHIT",
+          "Numerator": "UNHIT"
+        },
+        "CompositeFunctions": {
+          "ToScore": "FUNCTION"
+        }
+      },
+      "criteria": {
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "values": 0,
+        "MSRPOPLEX": 0
+      }
+    }
+  }
+}

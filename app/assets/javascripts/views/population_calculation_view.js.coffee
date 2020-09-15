@@ -18,7 +18,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @toggledPatient = null
 
   context: ->
-    _(super).extend measure_id: @measure.get('hqmf_set_id')
+    _(super).extend({measure_id: @measure.get('hqmf_set_id'), measure_is_composite: @measure.get('composite')})
 
   events:
     'click .select-patient': -> @trigger 'select-patients:change'

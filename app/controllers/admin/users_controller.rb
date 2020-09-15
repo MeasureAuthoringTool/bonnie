@@ -82,7 +82,7 @@ class Admin::UsersController < ApplicationController
 
   def measures
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(JSON.parse(user.measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
+    send_data JSON.pretty_generate(JSON.parse(user.cql_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
   end
 
   def log_in_as
