@@ -7,7 +7,7 @@
       {{view "MeasureStatusView" model=differences.summary}}
     </div>
     <div class="patient-data-col">
-      {{view "MeasureFractionView" model=differences.summary tag="span"}}
+      {{view "MeasureFractionView" model=differences.summary}}
           <a href="#measures/{{measure_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
               <i class="fa fa-user" aria-hidden="true"></i>
               <i class="fa fa-plus" aria-hidden="true"></i>

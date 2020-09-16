@@ -69,6 +69,7 @@ class Thorax.Views.MeasureStatusView extends Thorax.Views.BonnieView
 
 class Thorax.Views.MeasureFractionView extends Thorax.Views.BonnieView
   template: JST['measure/fraction']
+  tagName: "span"
 
 class Thorax.Views.MeasureCoverageView extends Thorax.Views.BonnieView
   template: JST['measure/coverage']
