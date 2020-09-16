@@ -314,9 +314,10 @@ cqm-execution@projecttacoma/cqm-execution#c4247978b5d5a7f41a3eb6265e74da63672928
   version "3.0.2"
   resolved "https://codeload.github.com/projecttacoma/cqm-execution/tar.gz/c4247978b5d5a7f41a3eb6265e74da6367292884"
   dependencies:
+    bson-objectid "^1.3.1"
     cql-exec-fhir "^1.4.0"
     cql-execution "~1.4.0"
-    fhir-typescript-models "0.0.4"
+    fhir-typescript-models "0.0.5"
     lodash "^4.17.19"
     moment "^2.21.0"
 
