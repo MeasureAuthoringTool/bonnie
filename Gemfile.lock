@@ -353,6 +353,8 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    tinymce-rails (5.4.1)
+      railties (>= 3.1.1)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
     tzinfo (1.2.7)
@@ -430,6 +432,7 @@ DEPENDENCIES
   teaspoon-jasmine
   therubyracer
   thin (~> 1.7.2)
+  tinymce-rails
   uglifier (~> 4.1.20)
   vcr
   webmock (~> 2.3.1)
