@@ -42,13 +42,18 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     @$(':focusable:visible:first').focus()
 
   addDefaultCodeToDataElement: ->
-#    TODO primaryCodePath
-#    if (@parent.model.get('dataElement').dataElementCodes?.length == 0)
-#      code_list_id = @parent.model.get('codeListId')
-#      # Make sure there is a default code that can be added
-#      if @concepts?.length
-#        cql_code = new cqm.models.CQL.Code(@concepts[0].code, @concepts[0].code_system_oid, null, null)
-#        @parent.updateCodes([cql_code])
+    codes = DataElementHelpers.getPrimaryCodes @parent.model.get('dataElement')
+    if (codes)
+      code_list_id = @parent.model.get('codeListId')
+      # Make sure there is a default code that can be added
+      if @concepts?.length
+        cql_coding = new cqm.models.Coding()
+        cql_coding.system = cqm.models.PrimitiveUri.parsePrimitive(@concepts[0].system)
+        cql_coding.version = cqm.models.PrimitiveString.parsePrimitive(@concepts[0].version)
+        cql_coding.code = cqm.models.PrimitiveCode.parsePrimitive(@concepts[0].concept[0].code)
+        cql_coding.display = cqm.models.PrimitiveString.parsePrimitive(@concepts[0].concept[0].display)
+        cql_coding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
+        @parent.updateCodes([ cql_coding ])
     null
 
   validateForAddition: ->
@@ -72,5 +77,6 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     @$('.codelist-control').focus()
 
   updateCodeSystems: ->
-    @codeSystems = _(concept.code_system_name for concept in @concepts || []).uniq()
+    debugger
+    @codeSystems = _(concept.system for concept in @concepts || []).uniq()
     @render()

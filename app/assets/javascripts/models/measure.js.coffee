@@ -81,20 +81,19 @@ class Thorax.Models.Measure extends Thorax.Model
 
   codeSystemMap: ->
     return @_codeSystemMap if @_codeSystemMap?
-
     @_codeSystemMap = {}
-#    TODO: Handle FHIR value sets
-#    @get('cqmValueSets').forEach (valueSet) =>
-#      valueSet.concepts.forEach (concept) =>
-#        if !@_codeSystemMap.hasOwnProperty(concept.code_system_oid)
-#          @_codeSystemMap[concept.code_system_oid] = concept.code_system_name
+    @get('cqmValueSets').forEach (valueSet) =>
+      valueSet.compose?.include?.forEach (vsInclude) =>
+        if !@_codeSystemMap.hasOwnProperty(vsInclude.system)
+          @_codeSystemMap[vsInclude.system] = vsInclude.system
 
     return @_codeSystemMap
 
   hasCode: (code, code_system) ->
     for vs in @valueSets()
-      for c in vs.concepts
-        return true if c.code == code && c.code_system_oid == code_system
+      for inc in valueSet.compose?.include
+        for c in inc.concept
+          return true if c.code == code && inc.system == code_system
     return false
 
   @referencesFor: (criteriaType) ->

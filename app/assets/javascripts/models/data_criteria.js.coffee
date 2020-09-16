@@ -59,12 +59,12 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
       Communication:        'request response'
       CommunicationRequest: 'request response'
-      DeviseRequest:        'request response'
-      DeviseUseStatement:   'request response'
+      DeviceRequest:        'request response'
+      DeviceUseStatement:   'request response'
 
       Location: 'providers entities'
 
-      Devise:    'material entities'
+      Device:    'material entities'
       Substance: 'material entities'
 
       Encounter: 'management'
@@ -73,7 +73,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       Immunization:               'medications'
       ImmunizationEvaluation:     'medications'
       ImmunizationRecommendation: 'medications'
-      Mediation:                  'medications'
+      Medication:                  'medications'
       MedicationAdministration:    'medications'
       MedicationDispense:         'medications'
       MedicationRequest:          'medications'
