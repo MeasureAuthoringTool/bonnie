@@ -90,3 +90,4 @@ gem 'jquery-rails'
 gem 'browser'
 
 gem "reverse_markdown", "~> 2.0"
+gem "tinymce-rails"
