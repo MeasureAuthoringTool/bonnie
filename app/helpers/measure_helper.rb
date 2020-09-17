@@ -1,11 +1,11 @@
 module MeasureHelper
   class SharedError < StandardError
     attr_reader :front_end_version, :back_end_version, :operator_error
-    def initialize(msg: "Error", front_end_version:, back_end_version:, operator_error: false)
+    def initialize(msg: nil, front_end_version:, back_end_version:, operator_error: false)
+      msg ||= front_end_version[:summary] || "Error"
       @front_end_version = front_end_version
       @back_end_version = back_end_version
       @operator_error = operator_error
-      msg = front_end_version[:summary] unless front_end_version[:summary].nil?
       super(msg)
     end
   end
