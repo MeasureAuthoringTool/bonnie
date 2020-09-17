@@ -1,7 +1,8 @@
 module MeasureHelper
   class SharedError < StandardError
     attr_reader :front_end_version, :back_end_version, :operator_error
-    def initialize(msg: "Error", front_end_version:, back_end_version:, operator_error: false)
+    def initialize(msg: nil, front_end_version:, back_end_version:, operator_error: false)
+      msg ||= front_end_version[:summary] || "Error"
       @front_end_version = front_end_version
       @back_end_version = back_end_version
       @operator_error = operator_error
@@ -327,10 +328,6 @@ module MeasureHelper
     File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
       f.write("Original Filename was #{uploaded_file.original_filename}\n")
       f.write(error.to_s + "\n" + (error.backtrace||[]).join("\n"))
-    end
-    # email the error
-    if error.respond_to?(:operator_error) && error.operator_error && defined? ExceptionNotifier::Notifier # rubocop:disable Style/GuardClause, Style/IfUnlessModifier
-      ExceptionNotifier::Notifier.exception_notification(env, error).deliver_now
     end
   end
 end
