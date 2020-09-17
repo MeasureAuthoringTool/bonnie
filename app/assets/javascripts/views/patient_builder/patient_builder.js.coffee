@@ -206,7 +206,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     resourceType = criteria.get('dataElement')?.fhir_resource?.resourceType;
     category = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType]
     unless (category)
-      alert('Unsupported data element of ' + resourceType)
+      console.error('Unsupported data element of ' + resourceType)
       return
 
     @model.get('source_data_criteria').add criteria

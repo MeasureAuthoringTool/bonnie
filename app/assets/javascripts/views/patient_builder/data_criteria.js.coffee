@@ -57,17 +57,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-#    TODO: primaryCodePath
-#    codes = @model.get('dataElement').dataElementCodes
-    codes = []
+    codes = DataElementHelpers.getPrimaryCodes @model.get('dataElement')
     code_list_id = @model.get('codeListId')
-    concepts = (@measure.get('cqmValueSets').find (vs) => vs.oid is code_list_id)?.concepts
+    vs = (@measure.get('cqmValueSets').find( (vs) => vs.id is code_list_id) )
+    concepts = vs?.compose?.include || []
 
     @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure, parent: @
     @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure, parent: @
-#    TODO: primaryCodePath
-#    if codes.length is 0
-#     @editCodeSelectionView.addDefaultCodeToDataElement()
+
+    if codes.length is 0
+      @editCodeSelectionView.addDefaultCodeToDataElement()
 
     @timingAttributeViews = []
     for timingAttr in @model.getPrimaryTimingAttributes()
@@ -104,15 +103,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
 
   updateCodes: (codes) ->
-#    TODO primaryCodePath
-#    @model.get('dataElement').dataElementCodes = codes
-#    if codes.length is 0
-#      @editCodeSelectionView.addDefaultCodeToDataElement()
-#    else
-#      @editCodeSelectionView.codes = codes
-#      @editCodesDisplayView.codes = codes
-#      @editCodesDisplayView.render()
-#      @triggerMaterialize()
+    DataElementHelpers.setPrimaryCodes @model.get('dataElement'), codes
+    if codes.length is 0
+      @editCodeSelectionView.addDefaultCodeToDataElement()
+    else
+      @editCodeSelectionView.codes = codes
+      @editCodesDisplayView.codes = codes
+      @editCodesDisplayView.render()
+      @triggerMaterialize()
     null
 
   context: ->
