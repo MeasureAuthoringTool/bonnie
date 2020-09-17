@@ -43,6 +43,7 @@ group :test, :development, :ci do
   gem 'teaspoon', '1.1.5'
   gem "overcommit"
   gem 'rubocop', '~> 0.88.0'
+  gem 'rubocop-ast', '~> 0.3.0'
   gem 'teaspoon-jasmine'
   gem 'simplecov', :require => false
   gem 'minitest'
@@ -90,3 +91,4 @@ gem 'jquery-rails'
 gem 'browser'
 
 gem "reverse_markdown", "~> 2.0"
+gem "tinymce-rails"
