@@ -5,6 +5,7 @@ module MeasureHelper
       @front_end_version = front_end_version
       @back_end_version = back_end_version
       @operator_error = operator_error
+      msg = front_end_version[:summary] unless front_end_version[:summary].nil?
       super(msg)
     end
   end
