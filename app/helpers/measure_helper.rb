@@ -1,6 +1,7 @@
 module MeasureHelper
   class SharedError < StandardError
     attr_reader :front_end_version, :back_end_version, :operator_error
+
     def initialize(msg: "Error", front_end_version:, back_end_version:, operator_error: false)
       @front_end_version = front_end_version
       @back_end_version = back_end_version
@@ -124,7 +125,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC credentials were invalid.",
-        body: "Please verify that you are using the correct VSAC username and password."
+        body: "Please verify that you are using your valid VSAC API Key."
       }
       back_end_version = {
         json: {status: "error", messages: "VSAC credentials were invalid."},
@@ -139,7 +140,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC session expired.",
-        body: "Please re-enter VSAC username and password to try again."
+        body: "Please re-enter VSAC API Key to try again."
       }
       back_end_version = {
         json: {status: "error", messages: "VSAC session expired. Please try again."},
@@ -154,7 +155,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "No VSAC credentials provided.",
-        body: "Please re-enter VSAC username and password to try again."
+        body: "Please re-enter VSAC API Key to try again."
       }
       back_end_version = {
         json: {status: "error", messages: "No VSAC credentials provided."},

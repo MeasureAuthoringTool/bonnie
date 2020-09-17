@@ -28,7 +28,7 @@ Layout/AccessModifierIndentation:
 # SupportedHashRocketStyles: key, separator, table
 # SupportedColonStyles: key, separator, table
 # SupportedLastArgumentHashStyles: always_inspect, always_ignore, ignore_implicit, ignore_explicit
-Layout/AlignHash:
+Layout/HashAlignment:
   Exclude:
     - 'app/controllers/measures_controller.rb'
     - 'app/mailers/admin/users_mailer.rb'
@@ -245,7 +245,7 @@ Layout/SpaceInsideStringInterpolation:
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: IndentationWidth.
-Layout/Tab:
+Layout/IndentationStyle:
   Exclude:
     - 'db/migrate/20131105194201_add_expected_values_to_records.rb'
 
@@ -253,7 +253,7 @@ Layout/Tab:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: final_newline, final_blank_line
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Exclude:
     - 'config/initializers/handlebars_assets.rb'
     - 'config/initializers/mongoid.rb'
@@ -380,6 +380,8 @@ Metrics/ClassLength:
 
 # Offense count: 18
 Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
   Max: 35
 
 # Offense count: 55
@@ -414,13 +416,6 @@ Naming/VariableNumber:
   Exclude:
     - 'test/rake/bonnie_db_test.rb'
     - 'test/rake/cql_test.rb'
-
-# Offense count: 182
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: braces, no_braces, context_dependent
-Style/BracesAroundHashParameters:
-  Enabled: false
 
 # Offense count: 6
 # Cop supports --auto-correct.
@@ -784,5 +779,28 @@ Style/ZeroLengthPredicate:
 # Offense count: 1630
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
-Metrics/LineLength:
+Layout/LineLength:
   Max: 363
+
+Style/FormatStringToken:
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
+
+Style/CaseLikeIf:
+  Exclude:
+    - 'lib/util/fixture_exporter.rb'
+    - 'lib/tasks/fixture_helper.rb'
+    - 'app/helpers/measure_helper.rb'
+
+# Offense count: 1
+# Disabling until issues cited here are fixed: https://github.com/rubocop-hq/rubocop/issues/8391
+Style/ArrayCoercion:
+  Enabled: false
+
+# Offense count: 1
+Style/RedundantRegexpCharacterClass:
+  Enabled: false
+
+# Offense count: 1
+Style/RedundantRegexpEscape:
+  Enabled: false

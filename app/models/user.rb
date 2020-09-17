@@ -1,6 +1,4 @@
-require 'protected_attributes'
 class User
-  include ActiveModel::MassAssignmentSecurity
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   # Include default devise modules. Others available are:
@@ -30,9 +28,6 @@ class User
   def send_user_signup_email
     UserMailer.user_signup_email(self).deliver_now
   end
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :telephone, :crosswalk_enabled
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -67,7 +62,7 @@ class User
   field :approved, type:Boolean, :default => false
 
   field :crosswalk_enabled,  type:Boolean, default: false
-  
+
   has_many :cqm_measures, class_name: 'CQM::Measure'
   has_many :patients, class_name: 'CQM::Patient'
 
@@ -145,11 +140,13 @@ class User
 
   # Measure and patient counts can be pre-populated or just retrieved
   attr_writer :measure_count
+
   def measure_count
     @measure_count || cqm_measures.count
   end
 
   attr_writer :patient_count
+
   def patient_count
     @patient_count || records.count
   end

@@ -1,37 +1,28 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.11'
+gem 'rails', '5.2.4.4'
 
-# There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
-# https://github.com/capistrano/rails/issues/111
-gem 'sprockets', '~> 2.8'
+gem 'sprockets'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
-gem 'sprockets-rails'
+# Pinning sprockets-rails to 2.3.3 so that everything doesn't blow up. It might be time to start thinking about webpack.
+gem 'sprockets-rails', '2.3.3'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'cqm-models', '~> 3.0.0'
-# gem 'cqm-parsers', '~> 0.2.1'
-gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
+gem 'cqm-models', '~> 3.0.3'
+gem 'cqm-reports', '~> 3.1.2'
 
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers', :branch => 'bonnie_version'
-# gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
-# gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'master'
-
-# gem 'cqm-parsers', :path => '../cqm-parsers'
-# gem 'cqm-models', :path => '../cqm-models'
-# gem 'cqm-reports', :path => '../cqm-reports'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie_version'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
 gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
-gem 'mongoid'
-gem 'protected_attributes'
+gem 'mongoid', '~> 6.4.2'
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
@@ -41,16 +32,18 @@ gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
-gem 'apipie-rails', :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
+gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
 gem "doorkeeper-mongodb", '~> 4.1.0'
 
 group :test, :development, :ci do
   gem 'pry'
-  gem 'teaspoon'
+  # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
+  gem 'teaspoon', '1.1.5'
   gem "overcommit"
-  gem 'rubocop'
+  gem 'rubocop', '~> 0.88.0'
+  gem 'rubocop-ast', '~> 0.3.0'
   gem 'teaspoon-jasmine'
   gem 'simplecov', :require => false
   gem 'minitest'
@@ -62,6 +55,7 @@ group :test, :development, :ci do
   gem 'brakeman'
   gem 'selenium-webdriver'
   gem 'codecov', :require => false
+  gem 'rails-controller-testing'
 end
 
 group :test, :development do
@@ -95,3 +89,6 @@ gem 'jquery-rails'
 
 # Browser Detection
 gem 'browser'
+
+gem "reverse_markdown", "~> 2.0"
+gem "tinymce-rails"

@@ -18,8 +18,7 @@ module BonnieBackendCalculator
                                              :payload => post_data.to_json(methods: :_type),
                                              :headers => {content_type: 'application/json'})
 
-      results = JSON.parse(response)
-      return results
+      JSON.parse(response)
     rescue RestClient::Exception => e
       raise self::RestException.new(e.message)
     rescue Errno::ECONNREFUSED
