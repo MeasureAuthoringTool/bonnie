@@ -315,9 +315,9 @@ cql-execution@~1.4.0:
     moment "^2.20.1"
     ucum "0.0.7"
 
-cqm-execution@projecttacoma/cqm-execution#c4247978b5d5a7f41a3eb6265e74da6367292884:
+"cqm-execution@https://github.com/projecttacoma/cqm-execution.git#c4247978b5d5a7f41a3eb6265e74da6367292884":
   version "3.0.2"
-  resolved "https://codeload.github.com/projecttacoma/cqm-execution/tar.gz/c4247978b5d5a7f41a3eb6265e74da6367292884"
+  resolved "https://github.com/projecttacoma/cqm-execution.git#c4247978b5d5a7f41a3eb6265e74da6367292884"
   dependencies:
     bson-objectid "^1.3.1"
     cql-exec-fhir "^1.4.0"
@@ -700,9 +700,9 @@ module-deps@^6.2.3:
     xtend "^4.0.0"
 
 moment@^2.20.1, moment@^2.21.0:
-  version "2.27.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
-  integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
+  version "2.28.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.28.0.tgz#cdfe73ce01327cee6537b0fafac2e0f21a237d75"
+  integrity sha512-Z5KOjYmnHyd/ukynmFd/WwyXHd7L4J9vTI/nn5Ap9AVUgaAE15VvQ9MOGmJJygEUklupqIrFnor/tjTwRU+tQw==
 
 object-assign@^4.1.1:
   version "4.1.1"

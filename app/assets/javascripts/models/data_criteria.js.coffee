@@ -32,7 +32,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   measure: -> bonnie.measures.findWhere set_id: @get('set_id')
 
-  valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')
+  valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.id is @get('codeListId')
 
   @DATA_ELEMENT_CATEGORIES:
       AdverseEvent:       'clinical summary'
