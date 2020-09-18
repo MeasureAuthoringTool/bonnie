@@ -63,7 +63,7 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
     if attributes.codesystem is 'custom'
       @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.custom_codesystem is '' or attributes.custom_code is ''
-      # focusing on the button causes an interruption in typing, so no focus for custom code entry
+# focusing on the button causes an interruption in typing, so no focus for custom code entry
     else
       @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codesystem is '' or attributes.code is ''
       @$('.btn').focus() #  advances the focus too the add Button
