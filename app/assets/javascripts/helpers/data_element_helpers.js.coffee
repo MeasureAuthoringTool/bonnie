@@ -54,6 +54,7 @@
       Device:                       { path: 'type', array: false }
       Substance:                    { path: 'code', array: false }
       Encounter:                    { path: 'type', array: true }
+      Flag:                         { path: 'code', array: false }
       Immunization:                 { path: 'vaccineCode', array: false }
       ImmunizationEvaluation:       { path: 'targetDisease', array: false }
   # Not supported
