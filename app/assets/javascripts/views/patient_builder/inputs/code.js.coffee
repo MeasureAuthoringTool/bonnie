@@ -132,7 +132,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   # Helper function that builds up a list of code systems in the given value set then builds out the code system select box.
   # This then calls _populateValueSetCodeDropdown to fill out the code drop down with codes in the first system.
   _populateValueSetCodeSystemDropdown: (oid) ->
-    @valueSet = @cqmValueSets.find (vs) -> vs.oid == oid
+    @valueSet = @cqmValueSets.find (vs) -> vs.id == oid
 
     @valueSetCodesByCodeSystem = []
     # iterate over all codes to build list codes organized by code systems
