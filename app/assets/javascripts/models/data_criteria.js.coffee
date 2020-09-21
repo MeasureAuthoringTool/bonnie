@@ -34,58 +34,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.id is @get('codeListId')
 
-  @DATA_ELEMENT_CATEGORIES:
-      AdverseEvent:       'clinical summary'
-      AllergyIntolerance: 'clinical summary'
-      Condition:          'clinical summary'
-      FamilyMemberHistory:'clinical summary'
-      Procedure:          'clinical summary'
-
-      Coverage: 'financial support'
-
-      BodyStructure:    'diagnostics'
-      DiagnosticReport: 'diagnostics'
-      ImagingStudy:     'diagnostics'
-      Observation:      'diagnostics'
-      Specimen:         'diagnostics'
-
-      CarePlan:       'care provision'
-      CareTeam:       'care provision'
-      Goal:           'care provision'
-      NutritionOrder: 'care provision'
-      ServiceRequest: 'care provision'
-
-      Claim: 'billing'
-
-      Communication:        'request response'
-      CommunicationRequest: 'request response'
-      DeviceRequest:        'request response'
-      DeviceUseStatement:   'request response'
-
-      Location: 'providers entities'
-
-      Device:    'material entities'
-      Substance: 'material entities'
-
-      Encounter: 'management'
-      flag:      'management'
-
-      Immunization:               'medications'
-      ImmunizationEvaluation:     'medications'
-      ImmunizationRecommendation: 'medications'
-      Medication:                  'medications'
-      MedicationAdministration:    'medications'
-      MedicationDispense:         'medications'
-      MedicationRequest:          'medications'
-      MedicationStatement:        'medications'
-
-      Patient:          'individuals'
-      Practitioner:     'individuals'
-      PractitionerRole: 'individuals'
-      RelatedPerson:    'individuals'
-
-      Task: 'workflow'
-
   faIcon: ->
     icons =
       'clinical summary': 'fa-files-o'
@@ -101,7 +49,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       'individuals': 'fa-users'
       'workflow': 'fa-random'
 
-    element_category = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
+    element_category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
     icons[element_category] || 'fa-question'
 
   canHaveNegation: ->
@@ -128,42 +76,34 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     criteriaType = @get('dataElement')?.fhir_resource?.resourceType
     criteriaType
 
-  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'relevantDatetime', 'prevalencePeriod', 'participationPeriod', 'authorDatetime', 'resultDatetime']
-
+  # TODO: update this while working on attribute story
   # the attributes to skip in user attribute view and editing fields
-  @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
-    .concat(@PRIMARY_TIMING_ATTRIBUTES)
+  # @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
+  #  .concat(@PRIMARY_TIMING_ATTRIBUTES)
 
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
     timingAttributes = @getPrimaryTimingAttributes()
     for attr in timingAttributes
-      return attr.name if @get('dataElement')[attr.name]?.low? || @get('dataElement')[attr.name]?.high? || @get('dataElement')[attr.name]?.isDateTime?
+      return attr.name if @get('dataElement').fhir_resource[attr.name]?.low? || @get('dataElement').fhir_resource[attr.name]?.high? || @get('dataElement').fhir_resource[attr.name]?.isDateTime?
     # Fall back to returning the first primary timing attribute if none of the timing attributes have values
-    return timingAttributes[0]?.name
+    return timingAttributes[0]
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
   getPrimaryTimingAttributes: ->
     primaryTimingAttributes = []
-    # TODO: timing attribute
-#    for timingAttr in Thorax.Models.SourceDataCriteria.PRIMARY_TIMING_ATTRIBUTES
-#      if @get('dataElement').schema?.path(timingAttr)?
-#        primaryTimingAttributes.push(
-#          name: timingAttr
-#          title: Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[timingAttr]
-#          type: @getAttributeType(timingAttr)
-#        )
+    elementType = @get('dataElement').fhir_resource?.resourceType
+    timingAttributes = DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES[elementType]
+    for attribute of timingAttributes
+      primaryTimingAttributes.push(
+        name: attribute
+        title: attribute
+        type: timingAttributes[attribute]
+      )
     return primaryTimingAttributes
 
   # Mapping of attribute name to human friendly titles. This is globally acessible and used by view classes for labels.
   @ATTRIBUTE_TITLE_MAP:
-    'relevantPeriod': 'Relevant Period'
-    'relevantDatetime': 'Relevant DateTime'
-    'prevalencePeriod': 'Prevalence Period'
-    'participationPeriod': 'Participation Period'
-    'authorDatetime': 'Author DateTime'
-    'locationPeriod': 'Location Period'
-    'activeDatetime': 'Active DateTime'
     'admissionSource': 'Admission Source'
     'anatomicalLocationSite': 'Anatomical Location Site'
     'category': 'Category'
@@ -221,12 +161,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     'targetOutcome': 'Target Outcome'
     'type': 'Type'
     'value': 'Value'
-
-  getAttributeType: (attributeName) ->
-    # TODO: data attributes
-#    attrInfo = @get('dataElement').schema.path(attributeName)
-#    return attrInfo.instance
-    return null
 
   # return the human friendly title for an attribute, if it exists, otherwise return the name.
   getAttributeTitle: (attributeName) ->

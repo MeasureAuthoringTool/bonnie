@@ -80,7 +80,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
       resourceType = criteria.get('fhir_resource').resourceType
-      type = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType] || 'unsupported'
+      type = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[resourceType] || 'unsupported'
       # Filter out elements with no oids(this happens if element doesn't have codeFilter associated with it)
       filter_criteria = criteria.get('codeListId') is undefined || criteria.get('valueSetTitle') is undefined
       unless filter_criteria
@@ -173,14 +173,19 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     patientDataCriteria = $(ui.draggable).model().clone()
     patientDataCriteria.setNewId()
     patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
+    fhirResource = patientDataCriteria.get('dataElement').fhir_resource
 
     # create default values for all primary timing attributes
     for timingAttr in patientDataCriteria.getPrimaryTimingAttributes()
-      if timingAttr.type == 'Interval'
-        patientDataCriteria.get('dataElement')[timingAttr.name] = @createDefaultInterval()
-      else if timingAttr.type == 'DateTime'
-        patientDataCriteria.get('dataElement')[timingAttr.name] = @createDefaultInterval().low
-
+      if timingAttr.type == 'Period'
+        interval = @createDefaultInterval()
+        fhirResource[timingAttr.name] = DataCriteriaHelpers.createPeriodFromInterval(interval)
+      else if timingAttr.type == 'dateTime'
+        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(@createDefaultInterval().low)
+      else if timingAttr.type == 'instant'
+        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveInstantForCqlDateTime(@createDefaultInterval().low)
+      else if timingAttr.type == 'date'
+        fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateForCqlDate(@createDefaultDate())
     @addCriteria patientDataCriteria
     return false
 
@@ -202,9 +207,16 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     end = new cqm.models.CQL.DateTime(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate(), 8, 15, 0, 0, 0)
     return new cqm.models.CQL.Interval(start, end)
 
+  # default date = today's date but the year is from measurement period
+  # No time & timezone
+  createDefaultDate: ->
+    todayInMP = new Date()
+    todayInMP.setYear(@measure.getMeasurePeriodYear())
+    new cqm.models.CQL.Date(todayInMP.getFullYear(), todayInMP.getMonth() + 1, todayInMP.getDate())
+
   addCriteria: (criteria) ->
     resourceType = criteria.get('dataElement')?.fhir_resource?.resourceType;
-    category = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType]
+    category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[resourceType]
     unless (category)
       console.error('Unsupported data element of ' + resourceType)
       return
