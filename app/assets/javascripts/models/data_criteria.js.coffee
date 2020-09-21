@@ -256,8 +256,9 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   # comparator: (m) -> [m.get('start_date'), m.get('end_date')]
 
   # event listener for add SDC event. if this collection belongs to a patient the
-  # QDM::DataElement will be added to the DataElements array.
+  # DataElement will be added to the DataElements array.
   addSourceDataCriteriaToPatient: (criteria) ->
+    debugger
     cqmPatient = @parent?.get('cqmPatient')
     cqmPatient.data_elements = [] unless cqmPatient.data_elements
     cqmPatient.data_elements.push(criteria.get('dataElement'));
@@ -265,7 +266,7 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   # event listener for remove SDC event. if this collection belongs to a patient the
   # DataElement will be removed from the DataElements array.
   removeSourceDataCriteriaFromPatient: (criteria) ->
-    @parent?.get('cqmPatient').data_elements.filter (el) -> el != criteria.get('dataElement')
+    @parent?.get('cqmPatient').data_elements = @parent?.get('cqmPatient').data_elements.filter (el) -> el != criteria.get('dataElement')
 
   # Expect a array of DataElements to be passed in. We want to turn it into an array
   # of plain objects that will become the attributes for each SourceDataCriteria.
@@ -277,7 +278,7 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
         # Create data elements attribus as plain object
         # Keep TS model object in dataElement field
         dataElementAsObject = dataElement.toJSON()
-        dataElementAsObject.dataElement = dataElement.clone()
+        dataElementAsObject.dataElement = dataElement
         dataElementsAsObjects.push(dataElementAsObject)
 
     return dataElementsAsObjects
