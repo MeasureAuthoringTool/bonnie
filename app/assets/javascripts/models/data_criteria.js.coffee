@@ -258,7 +258,6 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   # event listener for add SDC event. if this collection belongs to a patient the
   # DataElement will be added to the DataElements array.
   addSourceDataCriteriaToPatient: (criteria) ->
-    debugger
     cqmPatient = @parent?.get('cqmPatient')
     cqmPatient.data_elements = [] unless cqmPatient.data_elements
     cqmPatient.data_elements.push(criteria.get('dataElement'));
