@@ -31,7 +31,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
         @$('a.panel-title[data-toggle="collapse"]').toggleClass('closed')
         if e.type is 'show' then $('a.panel-title[data-toggle="collapse"]').next('div.in').not(e.target).collapse('hide') # hide open ones
 
-  faIcon: -> @collection.first()?.faIcon()
+  icon: -> @collection.first()?.icon()
 
 
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
@@ -152,7 +152,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       end_date_is_undefined: !primaryTimingValue?.high?
       description: desc
       value_sets: @model.measure()?.valueSets() or []
-      faIcon: @model.faIcon()
+      icon: @model.icon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
       isPeriod: @model.isPeriodType() && !@model.get('negation') # if something is negated, it didn't happen so is not a period

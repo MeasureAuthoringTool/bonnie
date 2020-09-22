@@ -34,20 +34,72 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.id is @get('codeListId')
 
-  faIcon: ->
+  @DATA_ELEMENT_CATEGORIES:
+      AdverseEvent:       'clinical summary'
+      AllergyIntolerance: 'clinical summary'
+      Condition:          'clinical summary'
+      FamilyMemberHistory:'clinical summary'
+      Procedure:          'clinical summary'
+
+      Coverage: 'financial support'
+
+      BodyStructure:    'diagnostics'
+      DiagnosticReport: 'diagnostics'
+      ImagingStudy:     'diagnostics'
+      Observation:      'diagnostics'
+      Specimen:         'diagnostics'
+
+      CarePlan:       'care provision'
+      CareTeam:       'care provision'
+      Goal:           'care provision'
+      NutritionOrder: 'care provision'
+      ServiceRequest: 'care provision'
+
+      Claim: 'billing'
+
+      Communication:        'request response'
+      CommunicationRequest: 'request response'
+      DeviceRequest:        'request response'
+      DeviceUseStatement:   'request response'
+
+      Location: 'providers entities'
+
+      Device:    'material entities'
+      Substance: 'material entities'
+
+      Encounter: 'management'
+      flag:      'management'
+
+      Immunization:               'medications'
+      ImmunizationEvaluation:     'medications'
+      ImmunizationRecommendation: 'medications'
+      Medication:                  'medications'
+      MedicationAdministration:    'medications'
+      MedicationDispense:         'medications'
+      MedicationRequest:          'medications'
+      MedicationStatement:        'medications'
+
+      Patient:          'individuals'
+      Practitioner:     'individuals'
+      PractitionerRole: 'individuals'
+      RelatedPerson:    'individuals'
+
+      Task: 'workflow'
+
+  icon: ->
     icons =
-      'clinical summary': 'fa-files-o'
-      'financial support': 'fa-money'
-      'diagnostics': 'fa-stethoscope'
-      'care provision': 'fa-heartbeat'
-      'billing': 'fa-file-text-o'
-      'request response': 'fa-comments'
-      'providers entities': 'fa-map-marker'
-      'material entities': 'fa-medkit'
-      'management': 'fa-address-card'
-      'medications': 'fa-shield'
-      'individuals': 'fa-users'
-      'workflow': 'fa-random'
+      'clinical summary': 'clinical-summary'
+      'financial support': 'financial-support'
+      'diagnostics': 'diagnostics'
+      'care provision': 'care-provision'
+      'billing': 'billing'
+      'request response': 'request-response'
+      'providers entities': 'providers-entities'
+      'material entities': 'material-entities'
+      'management': 'management'
+      'medications': 'medications'
+      'individuals': 'individuals'
+      'workflow': 'workflow'
 
     element_category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
     icons[element_category] || 'fa-question'
