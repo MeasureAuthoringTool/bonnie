@@ -27,7 +27,6 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
       @$('.collapse').on 'show.bs.collapse hide.bs.collapse', (e) =>
         $('a.panel-title[data-toggle="collapse"]').toggleClass('closed').find('.panel-icon').toggleClass('fa-3x fa-1x') #shrink others
         @$('.panel-expander').toggleClass('fa-angle-right fa-angle-down')
-        @$('.panel-icon').toggleClass('fa-3x fa-2x')
         @$('a.panel-title[data-toggle="collapse"]').toggleClass('closed')
         if e.type is 'show' then $('a.panel-title[data-toggle="collapse"]').next('div.in').not(e.target).collapse('hide') # hide open ones
 
