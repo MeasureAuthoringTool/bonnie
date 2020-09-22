@@ -87,22 +87,26 @@
     Task: 'workflow'
 
   @createIntervalFromPeriod: (period) ->
-    startDate = @getCQLDateTimeFromString(period.start.value)
-    endDate = @getCQLDateTimeFromString(period.end.value)
+    return null if period == undefined ||
+      (period?.start == undefined && period?.end == undefined )
+
+    startDate = @getCQLDateTimeFromString(period?.start?.value) if period?.start?.value?
+    endDate = @getCQLDateTimeFromString(period?.end?.value) if period?.end?.value?
     new cqm.models.CQL.Interval(startDate, endDate)
 
   @getCQLDateTimeFromString: (dateStr) ->
-    date = new Date(dateStr)
-    cqm.models.CQL.DateTime.fromJSDate(date, 0)
+    return null if dateStr == undefined
+    cqm.models.CQL.DateTime.fromJSDate(new Date(dateStr), 0)
 
   @getCQLDateFromString: (dateStr) ->
-    date = new Date(dateStr)
-    cqm.models.CQL.Date.fromJSDate(date)
+    return null if dateStr == undefined
+    cqm.models.CQL.Date.fromJSDate(new Date(dateStr))
 
   @createPeriodFromInterval: (interval) ->
     period = new cqm.models.Period()
-    period.start = cqm.models.PrimitiveDateTime.parsePrimitive interval.low.toString()
-    period.end = cqm.models.PrimitiveDateTime.parsePrimitive interval.high.toString()
+    period.start = period.end = null
+    period.start = cqm.models.PrimitiveDateTime.parsePrimitive interval.low.toString() if interval && interval.low?
+    period.end = cqm.models.PrimitiveDateTime.parsePrimitive interval.high.toString() if interval && interval.high?
     return period
 
   @getPrimitiveDateTimeForCqlDateTime: (dateTime) ->

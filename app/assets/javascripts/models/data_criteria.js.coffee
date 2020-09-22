@@ -85,7 +85,9 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   getPrimaryTimingAttribute: ->
     timingAttributes = @getPrimaryTimingAttributes()
     for attr in timingAttributes
-      return attr.name if @get('dataElement').fhir_resource[attr.name]?.low? || @get('dataElement').fhir_resource[attr.name]?.high? || @get('dataElement').fhir_resource[attr.name]?.isDateTime?
+      return attr if @get('dataElement').fhir_resource[attr.name]?.start? ||
+        @get('dataElement').fhir_resource[attr.name]?.end? ||
+        @get('dataElement').fhir_resource[attr.name]?.value?
     # Fall back to returning the first primary timing attribute if none of the timing attributes have values
     return timingAttributes[0]
 

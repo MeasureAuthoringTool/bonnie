@@ -81,7 +81,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
           @timingAttributeViews.push intervalView
           @listenTo intervalView, 'valueChanged', @updateDateInputChange
         when 'dateTime', 'instant'
-          dateTime = DataCriteriaHelpers.getCQLDateTimeFromString(initialValue.value)
+          dateTime = DataCriteriaHelpers.getCQLDateTimeFromString(initialValue?.value)
           dateTimeView = new Thorax.Views.InputDateTimeView(
             initialValue: dateTime,
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
@@ -89,7 +89,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
           @timingAttributeViews.push dateTimeView
           @listenTo dateTimeView, 'valueChanged', @updateDateInputChange
         when 'date'
-          date = DataCriteriaHelpers.getCQLDateTimeFromString(initialValue.value)
+          date = DataCriteriaHelpers.getCQLDateTimeFromString(initialValue?.value)
           dateView = new Thorax.Views.InputDateView(
             initialValue: date,
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
@@ -140,7 +140,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     else if primaryTimingAttribute?.type == 'date'
       primaryTimingValue = DataCriteriaHelpers.getCQLDateFromString primaryTimingValue?.value
 
-    debugger
     _(super).extend
       # When we create the form and populate it, we want to convert times to moment-formatted dates
       start_date: moment.utc(primaryTimingValue.low.toJSDate()).format('L') if primaryTimingValue?.low?
