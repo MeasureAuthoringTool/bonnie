@@ -14,6 +14,27 @@ describe 'DataCriteriaHelpers', ->
     expect(interval.low.toString()).toEqual period.start.value
     expect(interval.high.toString()).toEqual period.end.value
 
+  it 'creates interval from period when start and end is not available', ->
+    period = new cqm.models.Period()
+    interval = DataCriteriaHelpers.createIntervalFromPeriod(period)
+    expect(interval).toEqual null
+
+  it 'creates interval from period when start is available but end is not available', ->
+    period = new cqm.models.Period()
+    period.start = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
+    period.end = undefined
+    interval = DataCriteriaHelpers.createIntervalFromPeriod(period)
+    expect(interval.low.toString()).toEqual period.start.value
+    expect(interval.high).toEqual undefined
+
+  it 'creates interval from period when start is not available but end is available', ->
+    period = new cqm.models.Period()
+    period.start = undefined
+    period.end = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
+    interval = DataCriteriaHelpers.createIntervalFromPeriod(period)
+    expect(interval.low).toEqual period.start
+    expect(interval.high.toString()).toEqual period.end.value
+
   it 'creates period from interval', ->
     start = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
     end = new cqm.models.CQL.DateTime(2012, 2, 3, 9, 45, 0, 0, 0)
@@ -21,6 +42,25 @@ describe 'DataCriteriaHelpers', ->
     period = DataCriteriaHelpers.createPeriodFromInterval(interval)
     expect(period.start.value).toEqual interval.low.toString()
     expect(period.end.value).toEqual interval.high.toString()
+
+  it 'creates period from interval when low is undefined', ->
+    end = new cqm.models.CQL.DateTime(2012, 2, 3, 9, 45, 0, 0, 0)
+    interval = new cqm.models.CQL.Interval(undefined , end)
+    period = DataCriteriaHelpers.createPeriodFromInterval(interval)
+    expect(period.start).toEqual null
+    expect(period.end.value).toEqual interval.high.toString()
+
+  it 'creates period from interval when high is undefined', ->
+    start = new cqm.models.CQL.DateTime(2012, 2, 3, 9, 45, 0, 0, 0)
+    interval = new cqm.models.CQL.Interval(start , undefined )
+    period = DataCriteriaHelpers.createPeriodFromInterval(interval)
+    expect(period.start.value).toEqual interval.low.toString()
+    expect(period.end).toEqual null
+
+  it 'creates CQL date from date string', ->
+    dateString = '2012-02-02T08:45:00.000+00:00'
+    cqlDate = DataCriteriaHelpers.getCQLDateFromString(dateString)
+    expect(cqlDate.toString()).toEqual '2012-02-02'
 
   it 'creates PrimitiveDateTime from CQL DateTime', ->
     dateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
