@@ -135,7 +135,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     primaryTimingValue = @model.get('dataElement').fhir_resource[primaryTimingAttribute?.name]
     if primaryTimingAttribute?.type == 'Period'
       primaryTimingValue = DataCriteriaHelpers.createIntervalFromPeriod primaryTimingValue
-    else if primaryTimingAttribute?.type == 'dateTime' || primaryTimingAttribute?.type == 'instant' || primaryTimingAttribute?.type == 'dateTime'
+    else if primaryTimingAttribute?.type == 'dateTime' || primaryTimingAttribute?.type == 'instant'
       primaryTimingValue = DataCriteriaHelpers.getCQLDateTimeFromString primaryTimingValue?.value
     else if primaryTimingAttribute?.type == 'date'
       primaryTimingValue = DataCriteriaHelpers.getCQLDateFromString primaryTimingValue?.value
