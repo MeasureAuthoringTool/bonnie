@@ -218,11 +218,33 @@
     height: 42px;
     width: 42px;
 
-    &.financial-support {
-      &.white {
-        background-image: url(/assets/criteria-icons/financial-support-white.svg);
+    @criteria:
+      clinical-summary
+      financial-support
+      diagnostics
+      care-provision
+      billing
+      request-response
+      providers-entities
+      material-entities
+      management
+      medications
+      individuals
+      workflow;
+
+    .icons(@list, @i: 1) when (@i <= length(@list)) {
+      @icon: extract(@list, @i);
+      &.@{icon} {
+        &.blue {
+          background-image: url("/assets/criteria-icons/@{icon}-blue.svg");
+        }
+        &.white {
+          background-image: url("/assets/criteria-icons/@{icon}-white.svg");
+        }
       }
+      .icons(@list, @i + 1);
     }
+    .icons(@criteria);
   }
 
   .panel {
