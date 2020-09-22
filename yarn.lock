@@ -301,9 +301,9 @@ core-util-is@~1.0.0:
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
 cql-exec-fhir@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/cql-exec-fhir/-/cql-exec-fhir-1.4.0.tgz#e7c58ba963ad792e2338d529494c0603e62d84a6"
-  integrity sha512-JaGMYdbPLGcCiYBEMdT9wp1dGVZ7S0m8RWpo2azmVFch4kwc9qbobWTbrNjldBkFtATlociv4XxildQGoSTX8Q==
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/cql-exec-fhir/-/cql-exec-fhir-1.4.1.tgz#b261ea1479c26850a5badc6a6994fdec38456243"
+  integrity sha512-OvfPDS7SSZs5K4JoyM1BkCn6Eb3SbzxyRXUzmhorEqorh0oaoztBREL9PrXEkBS/2yHwozh8qOW2NGhuE136ug==
   dependencies:
     xml2js "~0.4.19"
 
@@ -315,14 +315,14 @@ cql-execution@~1.4.0:
     moment "^2.20.1"
     ucum "0.0.7"
 
-"cqm-execution@https://github.com/projecttacoma/cqm-execution.git#c4247978b5d5a7f41a3eb6265e74da6367292884":
-  version "3.0.2"
-  resolved "https://github.com/projecttacoma/cqm-execution.git#c4247978b5d5a7f41a3eb6265e74da6367292884"
+"cqm-execution@https://github.com/projecttacoma/cqm-execution.git#483a227d4180693ce9b0abd11dec249db02a1b2e":
+  version "4.0.1"
+  resolved "https://github.com/projecttacoma/cqm-execution.git#483a227d4180693ce9b0abd11dec249db02a1b2e"
   dependencies:
     bson-objectid "^1.3.1"
     cql-exec-fhir "^1.4.0"
     cql-execution "~1.4.0"
-    fhir-typescript-models "0.0.5"
+    fhir-typescript-models "0.0.7"
     lodash "^4.17.19"
     moment "^2.21.0"
 
@@ -463,10 +463,10 @@ fast-safe-stringify@^2.0.7:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.7.tgz#124aa885899261f68aedb42a7c080de9da608743"
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
-fhir-typescript-models@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/fhir-typescript-models/-/fhir-typescript-models-0.0.5.tgz#9ba8a2225680b98742164874160d8abc9bb6d21e"
-  integrity sha512-qcZ7J3zyuMH2MJUfSjYhD636TnjfouP187l62YgGZa4xMSmwHttHFYy9gq4tWK1YSElr61fRCJT4aCrT/OFbbg==
+fhir-typescript-models@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/fhir-typescript-models/-/fhir-typescript-models-0.0.7.tgz#629a07d7f2fa7422e090946225c1f3530486d0ab"
+  integrity sha512-sUprJWF+HQEmbZLPMidYajV8igNYj0xrdOj+3IjWXyjILDPRXJ665JSXZ4ahjwDIfmj2ylJQy8mPkAedf+oloQ==
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -700,9 +700,9 @@ module-deps@^6.2.3:
     xtend "^4.0.0"
 
 moment@^2.20.1, moment@^2.21.0:
-  version "2.28.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.28.0.tgz#cdfe73ce01327cee6537b0fafac2e0f21a237d75"
-  integrity sha512-Z5KOjYmnHyd/ukynmFd/WwyXHd7L4J9vTI/nn5Ap9AVUgaAE15VvQ9MOGmJJygEUklupqIrFnor/tjTwRU+tQw==
+  version "2.29.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.0.tgz#fcbef955844d91deb55438613ddcec56e86a3425"
+  integrity sha512-z6IJ5HXYiuxvFTI6eiQ9dm77uE0gyy1yXNApVHqTcnIKfY9tIwEjlzsZ6u1LQXvVgKeTnv9Xm7NDvJ7lso3MtA==
 
 object-assign@^4.1.1:
   version "4.1.1"
