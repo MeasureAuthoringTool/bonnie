@@ -74,7 +74,9 @@ class Thorax.Models.Measure extends Thorax.Model
 
   isPopulated: -> @has('source_data_criteria')
 
-  populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('cqmMeasure').population_criteria).map (p) -> p.type)
+  populationCriteria: ->
+    populationCriteria = @get('cqmMeasure').population_sets.map (s) -> s.populations
+    _.intersection(Thorax.Models.Measure.allPopulationCodes, populationCriteria.map((pc) -> Object.keys(pc)).flat())
 
   valueSets: ->
     @get('cqmValueSets')
