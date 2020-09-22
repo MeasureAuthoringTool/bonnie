@@ -212,11 +212,10 @@
   }
 
   .criteria-icon {
-    background-position: top left;
+    background-position: bottom center;
     background-repeat: no-repeat;
     background-size: contain;
-    height: 42px;
-    width: 42px;
+    display: block;
 
     @criteria:
       clinical-summary
@@ -230,7 +229,8 @@
       management
       medications
       individuals
-      workflow;
+      workflow
+      question;
 
     .icons(@list, @i: 1) when (@i <= length(@list)) {
       @icon: extract(@list, @i);
@@ -267,15 +267,16 @@
             content: ''; // IE9 ellipsis fix
           }
           .panel-icon {
-            display: inline-block;
-            font-weight: bold;
+            height: 42px;
+            width: 42px;
           }
           .element-title {
             line-height: 28px; // center it with arrow
           }
         }
         .panel-icon {
-          display: block;
+          height: 42px;
+          width: 42px;
         }
         .panel-expander {
           .pull-right;
@@ -335,6 +336,12 @@
         &.open {
           background-color: @brand-primary;
           color: white;
+        }
+
+        .criteria-icon {
+          margin: 5px auto 0;
+          height: 21px;
+          width: 21px;
         }
       }
       .criteria-body {

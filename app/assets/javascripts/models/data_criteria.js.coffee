@@ -102,7 +102,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       'workflow': 'workflow'
 
     element_category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
-    icons[element_category] || 'fa-question'
+    icons[element_category] || 'question'
 
   canHaveNegation: ->
 #    TODO FHIR negation
