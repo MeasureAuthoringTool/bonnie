@@ -192,14 +192,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
 
   isDuringMeasurePeriod: ->
-    timingAttribute = @model.get('dataElement').fhir_resource[@model.getPrimaryTimingAttribute()]
+    timingAttribute = @model.get('dataElement').fhir_resource[@model.getPrimaryTimingAttribute()?.name]
     if !timingAttribute?
       return false
-
-    if timingAttribute.isInterval
-      timingAttribute.low?.year is timingAttribute.high?.year is @model.measure().getMeasurePeriodYear()
-    else
-      timingAttribute.year is @model.measure().getMeasurePeriodYear()
+    if timingAttribute.start || timingAttribute.end
+      interval = DataCriteriaHelpers.createIntervalFromPeriod(timingAttribute)
+      interval.low?.year is interval.high?.year is @model.measure().getMeasurePeriodYear()
+    else if (timingAttribute.value)
+      cqlDate = DataCriteriaHelpers.getCQLDateFromString(timingAttribute.value)
+      cqlDate?.year is @model.measure().getMeasurePeriodYear()
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->
