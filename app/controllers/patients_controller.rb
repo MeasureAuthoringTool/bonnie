@@ -118,7 +118,7 @@ private
     # them, it just isn't feasible.  We will instead rely on Mongoid::Errors::UnknownAttribute to be thrown
     # if any undeclared properties make it into the cqmPatient hash.  This is only possible because currently
     # no models being instantiated here include the Mongoid::Attributes::Dynamic module.
-    params.require(:cqmPatient).permit!
+    params.require(:cqmPatient).permit!.to_h
   end
 
   def populate_measure_ids(patient)

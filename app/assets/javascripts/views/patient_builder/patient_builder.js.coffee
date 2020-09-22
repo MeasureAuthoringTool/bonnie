@@ -241,6 +241,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
     @measure?.get('cqmMeasure').patients = [] unless @measure?.get('cqmMeasure').patients
+    @model.get('cqmPatient').expected_values = @model.get('expected_values')
     status = @originalModel.save {cqmPatient: @model.get('cqmPatient'), expired: @model.get('expired')},
       success: (model) =>
         @patients.add model # make sure that the patient exist in the global patient collection
