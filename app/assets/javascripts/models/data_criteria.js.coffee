@@ -101,7 +101,11 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       'individuals': 'individuals'
       'workflow': 'workflow'
 
+<<<<<<< HEAD
     element_category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
+=======
+    element_category = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
+>>>>>>> Remove comment
     icons[element_category] || 'question'
 
   canHaveNegation: ->
