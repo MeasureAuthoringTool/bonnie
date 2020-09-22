@@ -1,5 +1,5 @@
 describe 'DataCriteriaHelpers', ->
-  it 'has dat_element_categories and primary_date_attributes', ->
+  it 'has data_element_categories and primary_date_attributes', ->
     expect(Object.keys(DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES).length).toEqual 32
     expect(DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES['Encounter']).toEqual { period: 'Period' }
     expect(Object.keys(DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES).length).toEqual 39
