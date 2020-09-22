@@ -68,7 +68,7 @@
     Substance: 'material entities'
 
     Encounter: 'management'
-    flag:      'management'
+    Flag:      'management'
 
     Immunization:               'medications'
     ImmunizationEvaluation:     'medications'
