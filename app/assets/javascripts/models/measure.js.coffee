@@ -93,7 +93,7 @@ class Thorax.Models.Measure extends Thorax.Model
 
   hasCode: (code, code_system) ->
     for vs in @valueSets()
-      for inc in valueSet.compose?.include
+      for inc in vs.compose?.include
         for c in inc.concept
           return true if c.code == code && inc.system == code_system
     return false
