@@ -34,58 +34,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.id is @get('codeListId')
 
-  @DATA_ELEMENT_CATEGORIES:
-      AdverseEvent:       'clinical summary'
-      AllergyIntolerance: 'clinical summary'
-      Condition:          'clinical summary'
-      FamilyMemberHistory:'clinical summary'
-      Procedure:          'clinical summary'
-
-      Coverage: 'financial support'
-
-      BodyStructure:    'diagnostics'
-      DiagnosticReport: 'diagnostics'
-      ImagingStudy:     'diagnostics'
-      Observation:      'diagnostics'
-      Specimen:         'diagnostics'
-
-      CarePlan:       'care provision'
-      CareTeam:       'care provision'
-      Goal:           'care provision'
-      NutritionOrder: 'care provision'
-      ServiceRequest: 'care provision'
-
-      Claim: 'billing'
-
-      Communication:        'request response'
-      CommunicationRequest: 'request response'
-      DeviceRequest:        'request response'
-      DeviceUseStatement:   'request response'
-
-      Location: 'providers entities'
-
-      Device:    'material entities'
-      Substance: 'material entities'
-
-      Encounter: 'management'
-      flag:      'management'
-
-      Immunization:               'medications'
-      ImmunizationEvaluation:     'medications'
-      ImmunizationRecommendation: 'medications'
-      Medication:                  'medications'
-      MedicationAdministration:    'medications'
-      MedicationDispense:         'medications'
-      MedicationRequest:          'medications'
-      MedicationStatement:        'medications'
-
-      Patient:          'individuals'
-      Practitioner:     'individuals'
-      PractitionerRole: 'individuals'
-      RelatedPerson:    'individuals'
-
-      Task: 'workflow'
-
   icon: ->
     icons =
       'clinical summary': 'clinical-summary'
