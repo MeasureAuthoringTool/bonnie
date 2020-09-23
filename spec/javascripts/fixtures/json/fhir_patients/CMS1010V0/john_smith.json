@@ -39,6 +39,32 @@
     "deceasedDateTime": "2020-09-10T08:00:00.000Z",
     "id": "5f57b6ccbc86991c720f2916"
   },
+  "data_elements" : [
+    {
+      "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
+      "valueSetTitle": "Comfort Measures",
+      "description": "ServiceRequest: Comfort Measures",
+      "fhir_resource": {
+        "resourceType": "ServiceRequest",
+        "code": {
+          "coding": [
+            {
+              "system": "SNOMEDCT",
+              "version": "2019-09",
+              "code": "133918004",
+              "display": "Comfort measures (regime/therapy)",
+              "userSelected": true
+            },
+            {
+              "system": "RXNORM",
+              "code": "1037045",
+              "userSelected": true
+            }
+          ]
+        }
+      }
+    }
+  ],
   "created_at": "2020-09-08T16:53:17.823Z",
   "updated_at": "2020-09-08T16:53:17.823Z"
 }

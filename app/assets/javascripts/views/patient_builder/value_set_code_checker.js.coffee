@@ -12,11 +12,31 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
   context: ->
     # Go through each data element on the patient and examine the codes, looking for those not in any
     # measure value set; at the moment, we just note the data criteria don't have ANY codes in a value set
-    missingCodes = []
-    for dc in @patient.get('cqmPatient').data_elements || []
-      if dc.dataElementCodes?
-        for code in dc.dataElementCodes
-          missingCodes.push dc.description if !@measure.hasCode(code.code, code.system) && dc.description
+    dataElementWithMissingCodes = []
+    for dataElement in @patient.get('cqmPatient').data_elements || []
+      appliedCodes = []
+      for attr, value of dataElement.fhir_resource
+        @getCodes(value, appliedCodes)
 
-    hasElementsWithMissingCodes: missingCodes.length > 0
-    elementsWithMissingCodes: missingCodes
+      for coding in appliedCodes
+        dataElementWithMissingCodes.push "#{dataElement.description} - #{coding.system}:#{coding.code}" unless @measure.hasCode(coding.code, coding.system) && dataElement.description
+
+    console.log("data elements with unsupported codes:" + dataElementWithMissingCodes.length > 0)
+    hasElementsWithMissingCodes: dataElementWithMissingCodes.length > 0
+    elementsWithMissingCodes: dataElementWithMissingCodes
+
+  ###
+  Recursively walks the object tree to locate all instances of type Coding, and
+  extract the Code's system and code value, since there is no consistent depth
+  or naming scheme to readily isolate applied Codes across FHIR Resources.
+  ###
+  getCodes: (attr, codes) ->
+    if cqm.models.Coding.isCoding(attr)
+      codes.push({system:attr.system?.value, code:attr.code?.value})
+    else if Array.isArray(attr)
+      for a in attr
+        @getCodes(a, codes)
+    else if typeof(attr) == "object"
+      for k,v of attr
+        @getCodes(v, codes)
+    return codes
