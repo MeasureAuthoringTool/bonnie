@@ -70,21 +70,32 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
     @timingAttributeViews = []
     for timingAttr in @model.getPrimaryTimingAttributes()
+      initialValue = @model.get('dataElement').fhir_resource[timingAttr.name]
       switch timingAttr.type
-        when 'Interval'
+        when 'Period'
+          dateInterval = DataCriteriaHelpers.createIntervalFromPeriod(initialValue)
           intervalView = new Thorax.Views.InputIntervalDateTimeView(
-            initialValue: @model.get('dataElement')[timingAttr.name],
+            initialValue: dateInterval,
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
             showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
           @timingAttributeViews.push intervalView
-          @listenTo intervalView, 'valueChanged', @updateAttributeFromInputChange
-        when 'DateTime'
+          @listenTo intervalView, 'valueChanged', @updateDateInputChange
+        when 'dateTime', 'instant'
+          dateTime = DataCriteriaHelpers.getCQLDateTimeFromString(initialValue?.value)
           dateTimeView = new Thorax.Views.InputDateTimeView(
-            initialValue: @model.get('dataElement')[timingAttr.name],
+            initialValue: dateTime,
             attributeName: timingAttr.name, attributeTitle: timingAttr.title,
             showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
           @timingAttributeViews.push dateTimeView
-          @listenTo dateTimeView, 'valueChanged', @updateAttributeFromInputChange
+          @listenTo dateTimeView, 'valueChanged', @updateDateInputChange
+        when 'date'
+          date = DataCriteriaHelpers.getCQLDateTimeFromString(initialValue?.value)
+          dateView = new Thorax.Views.InputDateView(
+            initialValue: date,
+            attributeName: timingAttr.name, attributeTitle: timingAttr.title,
+            showLabel: true, defaultYear: @measure.getMeasurePeriodYear())
+          @timingAttributeViews.push dateView
+          @listenTo dateView, 'valueChanged', @updateDateInputChange
 
     # view that shows all the currently set attributes
     @attributeDisplayView = new Thorax.Views.DataCriteriaAttributeDisplayView(model: @model)
@@ -116,18 +127,26 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   context: ->
     desc = @parseDataElementDescription(@model.get('description'))
     resourceType = @model.get('fhir_resource').resourceType
-    category = Thorax.Models.SourceDataCriteria.DATA_ELEMENT_CATEGORIES[resourceType] || 'unsupported'
+    category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[resourceType] || 'unsupported'
     definition_title = category.replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
-      desc = desc.substring(desc.indexOf(':')+2)
-    primaryTimingAttributeName = @model.getPrimaryTimingAttribute()
-    primaryTimingValue = @model.get('dataElement')[primaryTimingAttributeName]
+      desc = desc.substring(desc.indexOf(':') + 2)
+    primaryTimingAttribute = @model.getPrimaryTimingAttribute()
+    primaryTimingValue = @model.get('dataElement').fhir_resource[primaryTimingAttribute?.name]
+    if primaryTimingAttribute?.type == 'Period'
+      primaryTimingValue = DataCriteriaHelpers.createIntervalFromPeriod primaryTimingValue
+    else if primaryTimingAttribute?.type == 'dateTime' || primaryTimingAttribute?.type == 'instant'
+      primaryTimingValue = DataCriteriaHelpers.getCQLDateTimeFromString primaryTimingValue?.value
+    else if primaryTimingAttribute?.type == 'date'
+      primaryTimingValue = DataCriteriaHelpers.getCQLDateFromString primaryTimingValue?.value
+
     _(super).extend
       # When we create the form and populate it, we want to convert times to moment-formatted dates
       start_date: moment.utc(primaryTimingValue.low.toJSDate()).format('L') if primaryTimingValue?.low?
       start_time: moment.utc(primaryTimingValue.low.toJSDate()).format('LT') if primaryTimingValue?.low?
       start_date: moment.utc(primaryTimingValue.toJSDate()).format('L') if primaryTimingValue?.isDateTime
       start_time: moment.utc(primaryTimingValue.toJSDate()).format('LT') if primaryTimingValue?.isDateTime
+      start_date: moment.utc(primaryTimingValue.toJSDate()).format('L') if primaryTimingValue?.isDate
       end_date: moment.utc(primaryTimingValue.high.toJSDate()).format('L') if primaryTimingValue?.high?
       end_time: moment.utc(primaryTimingValue.high.toJSDate()).format('LT') if primaryTimingValue?.high?
       end_date_is_undefined: !primaryTimingValue?.high?
@@ -149,7 +168,23 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     'change .negation-select': 'toggleNegationSelect'
 
   updateAttributeFromInputChange: (inputView) ->
-    @model.get('dataElement')[inputView.attributeName] = inputView.value
+    @model.get('dataElement').fhir_resource[inputView.attributeName] = inputView.value
+    @triggerMaterialize()
+
+  updateDateInputChange: (inputView) ->
+    attributes = DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES[@model.get('dataElement').fhir_resource.resourceType]
+    if attributes[inputView.attributeName] == 'Period'
+      @model.get('dataElement')
+        .fhir_resource[inputView.attributeName] = DataCriteriaHelpers.createPeriodFromInterval(inputView.value)
+    else if attributes[inputView.attributeName] == 'instant'
+      @model.get('dataElement')
+        .fhir_resource[inputView.attributeName] = DataCriteriaHelpers.getPrimitiveInstantForCqlDateTime inputView.value
+    else if attributes[inputView.attributeName] == 'dateTime'
+      @model.get('dataElement')
+        .fhir_resource[inputView.attributeName] = DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime inputView.value
+    else if attributes[inputView.attributeName] == 'date'
+      @model.get('dataElement')
+        .fhir_resource[inputView.attributeName] = DataCriteriaHelpers.getPrimitiveDateForCqlDate inputView.value
     @triggerMaterialize()
 
   attributesModified: ->
@@ -157,14 +192,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
 
   isDuringMeasurePeriod: ->
-    timingAttribute = @model.get('dataElement')[@model.getPrimaryTimingAttribute()]
+    timingAttribute = @model.get('dataElement').fhir_resource[@model.getPrimaryTimingAttribute()?.name]
     if !timingAttribute?
       return false
-
-    if timingAttribute.isInterval
-      timingAttribute.low?.year is timingAttribute.high?.year is @model.measure().getMeasurePeriodYear()
-    else
-      timingAttribute.year is @model.measure().getMeasurePeriodYear()
+    if timingAttribute.start || timingAttribute.end
+      interval = DataCriteriaHelpers.createIntervalFromPeriod(timingAttribute)
+      interval.low?.year is interval.high?.year is @model.measure().getMeasurePeriodYear()
+    else if (timingAttribute.value)
+      cqlDate = DataCriteriaHelpers.getCQLDateFromString(timingAttribute.value)
+      cqlDate?.year is @model.measure().getMeasurePeriodYear()
 
   # Copy timing attributes (relevantPeriod, prevelancePeriod etc..) onto the criteria being dragged from the criteria it is being dragged ontop of
   copyTimingAttributes: (droppedCriteria, targetCriteria) ->
@@ -185,27 +221,27 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   _copyTimingAttribute: (droppedCriteria, targetCriteria, droppedAttr, targetAttr) ->
     # clone if they are of the same type
     if targetAttr.type == droppedAttr.type
-      if targetCriteria.get('dataElement')[targetAttr.name]?
-        droppedCriteria.get('dataElement')[droppedAttr.name] = targetCriteria.get('dataElement')[targetAttr.name].copy()
+      if targetCriteria.get('dataElement').fhir_resource[targetAttr.name]?
+        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = targetCriteria.get('dataElement').fhir_resource[targetAttr.name].copy()
       else
-        droppedCriteria.get('dataElement')[droppedAttr.name] = null
+        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = null
 
     # turn Interval into DateTime
-    else if targetAttr.type == 'Interval' && droppedAttr.type == 'DateTime'
-      if targetCriteria.get('dataElement')[targetAttr.name]?.low?
-        droppedCriteria.get('dataElement')[droppedAttr.name] = targetCriteria.get('dataElement')[targetAttr.name].low.copy()
+    else if targetAttr.type == 'Period' && droppedAttr.type == 'dateTime'
+      if targetCriteria.get('dataElement').fhir_resource[targetAttr.name]?.low?
+        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = targetCriteria.get('dataElement')[targetAttr.name].low.copy()
       else
-        droppedCriteria.get('dataElement')[droppedAttr.name] = null
+        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = null
 
     # turn DateTime into Interval. use start + 15 mins for end. if target is null, use Interval[null, null]
-    else if targetAttr.type == 'DateTime' && droppedAttr.type == 'Interval'
-      if targetCriteria.get('dataElement')[targetAttr.name]?
-        droppedCriteria.get('dataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(
-          targetCriteria.get('dataElement')[targetAttr.name].copy(),
-          targetCriteria.get('dataElement')[targetAttr.name].add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
+    else if targetAttr.type == 'dateTime' && droppedAttr.type == 'Period'
+      if targetCriteria.get('dataElement').fhir_resource[targetAttr.name]?
+        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = new cqm.models.CQL.Interval(
+          targetCriteria.get('dataElement').fhir_resource[targetAttr.name].copy(),
+          targetCriteria.get('dataElement').fhir_resource[targetAttr.name].add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
           )
       else
-        droppedCriteria.get('dataElement')[droppedAttr.name] = new cqm.models.CQL.Interval(null, null)
+        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = new cqm.models.CQL.Interval(null, null)
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria

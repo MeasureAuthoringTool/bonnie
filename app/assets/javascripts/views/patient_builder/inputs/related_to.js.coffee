@@ -28,8 +28,8 @@ class Thorax.Views.InputRelatedToView extends Thorax.Views.BonnieView
     # Description plus timing attributes
     for dataElement in sourceDataCriteria.models
       if dataElement.get('id') == id
-        primaryTimingAttribute = dataElement.getPrimaryTimingAttribute()
-        timing = dataElement.get('dataElement')[primaryTimingAttribute]
+        primaryTimingAttribute = dataElement.getPrimaryTimingAttribute()?.name
+        timing = dataElement.get('dataElement').fhir_resource[primaryTimingAttribute]
         description = "#{dataElement.get('dataElement').description}"
         return { description: description, timing: timing }
     return null
