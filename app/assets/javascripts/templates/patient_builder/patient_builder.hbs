@@ -43,8 +43,8 @@
         </div>
       </div>
 
-      <div class="col-sm-6">
-        <div class="form-group">
+      <div class="col-sm-12">
+        <div class="form-group half-width">
           <label for="birthdate" class="control-label">Date of Birth*</label>
           <div class="datetime-control">
             <div>
@@ -52,8 +52,10 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="form-group">
+      <div class="col-sm-12">
+        <div class="form-group half-width">
           <label for="race" class="control-label">Race</label>
           <select id="race" name="race" class="form-control">
             {{#each race_codes}}
@@ -61,8 +63,10 @@
             {{/each}}
           </select>
         </div>
+      </div>
 
-        <div class="form-group">
+      <div class="col-sm-12">
+        <div class="form-group half-width">
           <label for="ethnicity" class="control-label">Ethnicity</label>
           <select id="ethnicity" name="ethnicity" class="form-control">
             {{#each ethnicity_codes}}
@@ -72,22 +76,36 @@
         </div>
       </div>
 
-      <div class="col-sm-6">
+      <div class="col-sm-12">
+        <div class="form-group half-width">
+          <label for="gender" class="control-label">Gender</label>
+          <select id="gender" name="gender" class="form-control">
+            {{#each gender_codes}}
+              <option value="{{code}}">{{display}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
 
+      <div class="col-sm-12">
         <div class="form-group">
-          <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
+          <label for="expired" class="control-label">Living Status</label>
+          <div class="checkbox deceased-checkbox" aria-hidden="true">
+            <input type="checkbox" id="expired" name="expired"> Deceased
+          </div>
           {{#if expired}}
-            {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
-              <i class="fa fa-times-circle" aria-hidden="true"></i>
-              <span class="sr-only">remove date of death</span>
-            {{/button}}
-            <div class="datetime-control">
-              <div>
-                <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
-              </div>
-              <div>
-                <label for="deathtime" class="sr-only">Time of Death</label>
-                <input type="text" id="deathtime" name="deathtime" class="time-of-death time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+            <div class="indented">
+              <label for="deathdate" class="control-label">Date of Death</label>
+              <div class="datetime-control">
+                <div>
+                  <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
+                  <em class="help-block">(optional)</em>
+                </div>
+                <div>
+                  <label for="deathtime" class="sr-only">Time of Death</label>
+                  <input type="text" id="deathtime" name="deathtime" class="time-of-death time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+                  <em class="help-block">(optional)</em>
+                </div>
               </div>
             </div>
           {{else}}
@@ -96,24 +114,11 @@
                 <span for="expired" class="sr-only">The measure is missing Patient Characteristic Expired. Please re-package and re-upload the measure.</span>
                 <input type="checkbox" id="expired" name="expired" disabled> Deceased
               </div>
-            {{else}}
-              <div class="checkbox deceased-checkbox" aria-hidden="true">
-                <input type="checkbox" id="expired" name="expired"> Deceased
-              </div>
             {{/if}}
           {{/if}}
         </div>
-
-        <div class="form-group">
-          <label for="gender" class="control-label">Gender</label>
-          <select id="gender" name="gender" class="form-control">
-            {{#each gender_codes}}
-              <option value="{{code}}">{{display}}</option>
-            {{/each}}
-          </select>
-        </div>
-
       </div>
+
     </form>
   </div>
 

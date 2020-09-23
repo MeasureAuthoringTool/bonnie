@@ -94,7 +94,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   events:
     'blur :text': (e) -> @materialize()
     'change select': (e) -> @materialize()
-    'click #expired': 'addDeathDate'
+    'click #expired': 'toggleDeathDate'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
     # toggle showing the measure description
@@ -270,6 +270,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     # Go back to wherever the user came from, if possible
     e.preventDefault()
     window.history.back()
+
+  toggleDeathDate: (e) ->
+    if e.target.checked
+      @addDeathDate(e)
+    else
+      @removeDeathDate(e)
 
   addDeathDate: (e) ->
     @model.set 'expired', true
