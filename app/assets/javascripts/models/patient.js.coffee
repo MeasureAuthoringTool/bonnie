@@ -15,7 +15,7 @@ class Thorax.Models.Patient extends Thorax.Model
       thoraxPatient.cqmPatient.fhir_patient = new cqm.models.Patient()
       thoraxPatient.cqmPatient.fhir_patient.id = thoraxPatient.id
       thoraxPatient.cqmPatient.fhir_patient.name = [ new cqm.models.HumanName() ]
-    thoraxPatient.expired = !!thoraxPatient.cqmPatient.fhir_patient.deceased
+    thoraxPatient.expired = !!thoraxPatient.cqmPatient.fhir_patient.deceased?.value
     thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(thoraxPatient.cqmPatient.data_elements, parent: this, parse: true)
     thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(thoraxPatient.cqmPatient.expected_values, parent: this, parse: true)
     thoraxPatient
@@ -44,8 +44,14 @@ class Thorax.Models.Patient extends Thorax.Model
     s for s in Thorax.Models.Patient.sections when @has(s)
   ### Patient HTML Header values ###
   getBirthDate: -> @printDate @get('cqmPatient').fhir_patient.birthDate?.value
-  getDeathDate: -> @printDate @get('cqmPatient').fhir_patient.deceased?.value
-  getDeathTime: -> @printTime @get('cqmPatient').fhir_patient.deceased?.value
+  getDeathDateTimeValue: ->
+    # fhir-typescript-models/src/models/fhir/classes/Patient.ts
+    #   public deceased?: PrimitiveBoolean | PrimitiveDateTime;
+    val = @get('cqmPatient').fhir_patient.deceased?.value
+    if typeof val != 'boolean' then val
+
+  getDeathDate: -> @printDate @getDeathDateTimeValue()
+  getDeathTime: -> @printTime @getDeathDateTimeValue()
 
 # Next 4 methods return the Code object since some calls to them need the code while others need the display name
   getGender: ->
@@ -232,15 +238,14 @@ class Thorax.Models.Patient extends Thorax.Model
   validate: ->
     errors = []
     birthdate = if @get('cqmPatient').fhir_patient.birthDate?.value then moment(@get('cqmPatient').fhir_patient.birthDate.value, "YYYY-MM-DD") else null
-    deathdate = if @get('cqmPatient').fhir_patient.deceased?.value then moment(@get('cqmPatient').fhir_patient.deceased.value, "YYYY-MM-DD") else null
+    dd = @getDeathDateTimeValue()
+    deathdate = if dd then moment(dd, "YYYY-MM-DD") else null
     unless @getFirstName()?.length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
     unless @getLastName()?.length > 0
       errors.push [@cid, 'last', 'Name fields cannot be blank']
     unless birthdate
       errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
-    if @get('expired') && !deathdate
-      errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
     if birthdate && birthdate.year() < 1000
       errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
     if deathdate && deathdate.year() < 1000
