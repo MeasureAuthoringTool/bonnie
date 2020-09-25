@@ -45,7 +45,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
       'providers entities': 'providers-entities'
       'material entities': 'material-entities'
       'management': 'management'
-      'medications': 'medications'
+      'medications': 'workflow'
       'individuals': 'individuals'
       'workflow': 'workflow'
 
