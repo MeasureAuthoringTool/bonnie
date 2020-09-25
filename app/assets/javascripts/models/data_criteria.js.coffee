@@ -99,7 +99,7 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     for attribute of timingAttributes
       primaryTimingAttributes.push(
         name: attribute
-        title: attribute
+        title: attribute?.replace(/(?=[A-Z])/g, ' ')
         type: timingAttributes[attribute]
       )
     return primaryTimingAttributes

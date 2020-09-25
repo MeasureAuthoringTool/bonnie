@@ -38,6 +38,7 @@ describe 'EditCriteriaView', ->
     authoredOnDateTimeView = @serviceRequestView.timingAttributeViews[0]
     # check the correct attribute is in place for primary timing attribute
     expect(authoredOnDateTimeView.attributeName).toBe 'authoredOn'
+    expect(authoredOnDateTimeView.attributeTitle).toBe 'authored On'
     # check date is correct
     expect(authoredOnDateTimeView.$el.find("input[name='date']").val()).toBe('09/23/2020')
     # change date
