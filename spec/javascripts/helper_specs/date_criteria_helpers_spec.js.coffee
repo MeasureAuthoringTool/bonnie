@@ -92,7 +92,7 @@ describe 'DataCriteriaHelpers', ->
     expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
     expect(primitiveDate.value).toEqual date.toString()
 
-  it 'creates PrimitiveDateTime from Date string', ->
+  it 'creates PrimitiveDateTime from DateTime string', ->
     dateTime = new cqm.models.CQL.DateTime(2020, 2, 2, 8, 45, 0, 0, 0)
     primitiveDateTime = DataCriteriaHelpers.getPrimitiveDateTimeForStringDateTime(dateTime.toString())
     expect(primitiveDateTime instanceof cqm.models.PrimitiveDateTime).toEqual true
