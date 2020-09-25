@@ -109,8 +109,28 @@
     period.end = cqm.models.PrimitiveDateTime.parsePrimitive interval.high.toString() if interval && interval.high?
     return period
 
+  @getPeriodForStringDateTime: (dateTimeStr) ->
+    return null unless dateTimeStr?
+    cqlDateTime = @getCQLDateTimeFromString(dateTimeStr)
+    interval = new cqm.models.CQL.Interval(cqlDateTime, cqlDateTime.add(15, cqm.models.CQL.DateTime.Unit.MINUTE))
+    @createPeriodFromInterval(interval)
+
+  @getPeriodForStringDate: (dateTimeStr) ->
+    return null unless dateTimeStr?
+    cqlDateTime = @getCQLDateTimeFromString(dateTimeStr).add(8, cqm.models.CQL.DateTime.Unit.HOUR)
+    interval = new cqm.models.CQL.Interval(cqlDateTime, cqlDateTime.add(15, cqm.models.CQL.DateTime.Unit.MINUTE))
+    @createPeriodFromInterval(interval)
+
   @getPrimitiveDateTimeForCqlDateTime: (dateTime) ->
     cqm.models.PrimitiveDateTime.parsePrimitive dateTime?.toString()
+
+  @getPrimitiveDateTimeForStringDateTime: (dateTimeStr) ->
+    cqm.models.PrimitiveDateTime.parsePrimitive dateTimeStr
+
+  @getPrimitiveDateTimeForStringDate:(dateStr) ->
+    return null unless dateStr?
+    cqlDateTime = @getCQLDateTimeFromString(dateStr).add(8, cqm.models.CQL.DateTime.Unit.HOUR)
+    cqm.models.PrimitiveDateTime.parsePrimitive cqlDateTime.toString()
 
   @getPrimitiveInstantForCqlDateTime: (dateTime) ->
     cqm.models.PrimitiveInstant.parsePrimitive dateTime?.toString()
@@ -118,3 +138,7 @@
   @getPrimitiveDateForCqlDate: (date) ->
     cqm.models.PrimitiveDate.parsePrimitive date?.toString()
 
+  @getPrimitiveDateForStringDateTime: (dateTimeStr) ->
+    return null unless dateTimeStr?
+    cqlDate = @getCQLDateFromString(dateTimeStr)
+    cqm.models.PrimitiveDate.parsePrimitive cqlDate.toString()

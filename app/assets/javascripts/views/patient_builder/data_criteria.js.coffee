@@ -215,32 +215,64 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       else
         @_copyTimingAttribute(droppedCriteria, targetCriteria, droppedTimingAttr, targetCriteriaTiming[0])
 
-  # Helper function to copy a timing value from targetCriteria to droppedCriteria. The last two arguments are obejcts from the
-  # timing attributes structure that comes from the SourceDataCriteria.getPrimaryTimingAttributes() method. This has the attribute name and type.
+  # Helper function to copy a timing value from targetCriteria to droppedCriteria.
   _copyTimingAttribute: (droppedCriteria, targetCriteria, droppedAttr, targetAttr) ->
+    targetResource = targetCriteria.get('dataElement').fhir_resource
+    droppedResource = droppedCriteria.get('dataElement').fhir_resource
     # clone if they are of the same type
     if targetAttr.type == droppedAttr.type
-      if targetCriteria.get('dataElement').fhir_resource[targetAttr.name]?
-        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = targetCriteria.get('dataElement').fhir_resource[targetAttr.name].copy()
+      if targetResource[targetAttr.name]?
+        droppedResource[droppedAttr.name] = targetResource[targetAttr.name].clone()
       else
-        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = null
+        droppedResource[droppedAttr.name] = null
 
-    # turn Interval into DateTime
+    # turn Period into DateTime
     else if targetAttr.type == 'Period' && droppedAttr.type == 'dateTime'
-      if targetCriteria.get('dataElement').fhir_resource[targetAttr.name]?.low?
-        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = targetCriteria.get('dataElement')[targetAttr.name].low.copy()
+      if targetResource[targetAttr.name]?.start?
+        droppedResource[droppedAttr.name] =
+          DataCriteriaHelpers.getPrimitiveDateTimeForStringDateTime(targetResource[targetAttr.name].start?.value)
       else
-        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = null
+        droppedResource[droppedAttr.name] = null
 
-    # turn DateTime into Interval. use start + 15 mins for end. if target is null, use Interval[null, null]
+    # turn DateTime into Period. use start + 15 minutes for end.
     else if targetAttr.type == 'dateTime' && droppedAttr.type == 'Period'
-      if targetCriteria.get('dataElement').fhir_resource[targetAttr.name]?
-        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = new cqm.models.CQL.Interval(
-          targetCriteria.get('dataElement').fhir_resource[targetAttr.name].copy(),
-          targetCriteria.get('dataElement').fhir_resource[targetAttr.name].add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
-          )
+      if targetResource[targetAttr.name]?
+        droppedResource[droppedAttr.name] =
+          DataCriteriaHelpers.getPeriodForStringDateTime(targetResource[targetAttr.name].value)
       else
-        droppedCriteria.get('dataElement').fhir_resource[droppedAttr.name] = new cqm.models.CQL.Interval(null, null)
+        droppedResource[droppedAttr.name] = null
+
+    # turn DateTime into date.
+    else if targetAttr.type == 'dateTime' && droppedAttr.type == 'date'
+      if targetResource[targetAttr.name]?
+        droppedResource[droppedAttr.name] =
+          DataCriteriaHelpers.getPrimitiveDateForStringDateTime(targetResource[targetAttr.name].value)
+      else
+        droppedResource[droppedAttr.name] = null
+
+    # turn date into dateTime.
+    else if targetAttr.type == 'date' && droppedAttr.type == 'dateTime'
+      if targetResource[targetAttr.name]?
+        droppedResource[droppedAttr.name] =
+          DataCriteriaHelpers.getPrimitiveDateTimeForStringDate(targetResource[targetAttr.name].value)
+      else
+        droppedResource[droppedAttr.name] = null
+
+    # turn period into date.
+    else if targetAttr.type == 'Period' && droppedAttr.type == 'date'
+      if targetResource[targetAttr.name]?
+        droppedResource[droppedAttr.name] =
+          DataCriteriaHelpers.getPrimitiveDateForStringDateTime(targetResource[targetAttr.name].start?.value)
+      else
+        droppedResource[droppedAttr.name] = null
+
+    # turn date into period.
+    else if targetAttr.type == 'date' && droppedAttr.type == 'Period'
+      if targetResource[targetAttr.name]?
+        droppedResource[droppedAttr.name] =
+          DataCriteriaHelpers.getPeriodForStringDate(targetResource[targetAttr.name].value)
+      else
+        droppedResource[droppedAttr.name] = null
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
