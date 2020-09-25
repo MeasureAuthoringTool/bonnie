@@ -50,7 +50,7 @@
       {{else}}
         {{view "MeasureFractionView" model=differences.summary cms_id=cqmMeasure.cms_id}}
       {{/if}}
-        <a href="#measures/{{cqmMeasure.set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
+        <a href="#measures/{{cqmMeasure.set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
             <i class="fa fa-user" aria-hidden="true"></i>
             <i class="fa fa-plus" aria-hidden="true"></i>
             <span class="sr-only">{{cqmMeasure.cms_id}}, add new patient to measure</span>
