@@ -56,7 +56,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    codes = DataElementHelpers.getPrimaryCodes @model.get('dataElement')
+    codes = DataCriteriaHelpers.getPrimaryCodes @model.get('dataElement')
     code_list_id = @model.get('codeListId')
     vs = (@measure.get('cqmValueSets').find( (vs) => vs.id is code_list_id) )
     concepts = vs?.compose?.include || []
@@ -113,7 +113,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
 
   updateCodes: (codes) ->
-    DataElementHelpers.setPrimaryCodes @model.get('dataElement'), codes
+    DataCriteriaHelpers.setPrimaryCodes @model.get('dataElement'), codes
     if codes.length is 0
       @editCodeSelectionView.addDefaultCodeToDataElement()
     else

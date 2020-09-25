@@ -45,7 +45,7 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     @$(':focusable:visible:first').focus()
 
   addDefaultCodeToDataElement: ->
-    codes = DataElementHelpers.getPrimaryCodes @parent.model.get('dataElement')
+    codes = DataCriteriaHelpers.getPrimaryCodes @parent.model.get('dataElement')
     if (codes)
       code_list_id = @parent.model.get('codeListId')
       # Make sure there is a default code that can be added

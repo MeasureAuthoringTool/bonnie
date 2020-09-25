@@ -79,3 +79,91 @@ describe 'DataCriteriaHelpers', ->
     primitiveDate = DataCriteriaHelpers.getPrimitiveDateForCqlDate(date)
     expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
     expect(primitiveDate.value).toEqual date.toString()
+
+    DATA_ELEMENT_PRIMARY_CODE_PATH = [
+      "AdverseEvent",
+      "AllergyIntolerance",
+      "Condition",
+      "FamilyMemberHistory",
+      "Procedure",
+      "Coverage",
+      "BodyStructure",
+      "DiagnosticReport",
+      "ImagingStudy",
+      "Observation",
+      "Specimen",
+      "CarePlan",
+      "CareTeam",
+      "Goal",
+      "NutritionOrder",
+      "ServiceRequest",
+      "Claim",
+      "Communication",
+      "CommunicationRequest",
+      "DeviceRequest",
+      "DeviceUseStatement",
+      "Location",
+      "Device",
+      "Substance",
+      "Encounter",
+      "Flag",
+      "Immunization",
+      "ImmunizationEvaluation",
+      "ImmunizationRecommendation",
+      "Medication",
+      "MedicationAdministration",
+      "MedicationDispense",
+      "MedicationRequest",
+      "MedicationStatement",
+      "Patient",
+      "Practitioner",
+      "PractitionerRole",
+      "RelatedPerson",
+      "Task",
+    ]
+
+  it 'returns undefined (unsupported) for an empty DataElement getPrimaryCodePath', ->
+    expect(DataCriteriaHelpers.getPrimaryCodePath(new cqm.models.DataElement())).toBeUndefined
+
+  it 'returns null for a DataElement unknown resource', ->
+    de = new cqm.models.DataElement()
+    de.fhir_resource = new cqm.models.Resource()
+    de.fhir_resource.resourceType = 'unsupported'
+    expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toBe(null)
+
+  it 'returns meta for getPrimaryCodePath', ->
+    for res in DATA_ELEMENT_PRIMARY_CODE_PATH
+      de = new cqm.models.DataElement()
+      de.fhir_resource = new cqm.models[res]()
+      expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toBeDefined()
+
+  it 'set/get primary codes works for Encounter', ->
+    de = new cqm.models.DataElement()
+    de.fhir_resource = new cqm.models.Encounter()
+    expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toEqual 'type'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)).toEqual []
+    coding = new cqm.models.Coding()
+    coding.system = cqm.models.PrimitiveUri.parsePrimitive('system')
+    coding.code = cqm.models.PrimitiveCode.parsePrimitive('code')
+    coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+    DataCriteriaHelpers.setPrimaryCodes(de, [coding])
+    expect(DataCriteriaHelpers.getPrimaryCodes(de).length).toEqual 1
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].code.value).toEqual 'code'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].system.value).toEqual 'system'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].version.value).toEqual 'version'
+
+  it 'set/get primary codes works for Condition', ->
+    de = new cqm.models.DataElement()
+    de.fhir_resource = new cqm.models.Condition()
+    expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toEqual 'code'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)).toEqual []
+    coding = new cqm.models.Coding()
+    coding.system = cqm.models.PrimitiveUri.parsePrimitive('system')
+    coding.code = cqm.models.PrimitiveCode.parsePrimitive('code')
+    coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+    DataCriteriaHelpers.setPrimaryCodes(de, [coding])
+    expect(DataCriteriaHelpers.getPrimaryCodes(de).length).toEqual 1
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].code.value).toEqual 'code'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].system.value).toEqual 'system'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].version.value).toEqual 'version'
+

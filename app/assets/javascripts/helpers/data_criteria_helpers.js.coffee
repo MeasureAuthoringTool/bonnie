@@ -118,3 +118,100 @@
   @getPrimitiveDateForCqlDate: (date) ->
     cqm.models.PrimitiveDate.parsePrimitive date?.toString()
 
+  @getPrimaryCodePath: (dataElement) ->
+    return cqm.models[dataElement.fhir_resource?.constructor?.name]?.primaryCodePath
+
+  @getPrimaryCodes: (dataElement) ->
+    return dataElement?.fhir_resource?.primaryCode?.coding || []
+
+  @setPrimaryCodes: (dataElement, codes) ->
+    codeableConcept = new cqm.models.CodeableConcept()
+    codeableConcept.coding = codes
+    dataElement?.fhir_resource?.primaryCode = codeableConcept
+
+  @getPrimaryCodePath: (dataElement) ->
+    resourceType = dataElement.fhir_resource?.resourceType
+    primaryCodePath = @DATA_ELEMENT_PRIMARY_CODE_PATH[resourceType]
+    return primaryCodePath
+
+
+  @getAttributes: (dataElement) ->
+    resourceType = dataElement.fhir_resource?.resourceType
+    attributes = @DATA_ELEMENT_ATTRIBUTES[resourceType]
+    return attributes || []
+
+  @getAttribute: (dataElement, path) ->
+    resourceType = dataElement.fhir_resource?.resourceType
+    return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find( (attr) => attr.path is path )
+
+# Editor types:
+#    'Interval<DateTime>'
+#    'Interval<Quantity>'
+#    'DateTime'
+#    'Time'
+#    'Quantity'
+#    'Code'
+#    'String'
+#    'Integer'
+#    'Decimal'
+#    'Ratio'
+#    'Any'
+#    'Identifier'
+#    else null
+
+# Data element attributes per resource type
+  @DATA_ELEMENT_ATTRIBUTES:
+      AdverseEvent:                 []
+      AllergyIntolerance:           []
+      Condition:                    []
+      FamilyMemberHistory:          []
+      Procedure:                    []
+      Coverage:                     []
+      BodyStructure:                []
+      DiagnosticReport:             []
+      ImagingStudy:                 []
+      Observation:                  []
+      Specimen:                     []
+      CarePlan:                     []
+      CareTeam:                     []
+      Goal:                         []
+      NutritionOrder:               []
+      ServiceRequest:               []
+      Claim:                        []
+      Communication:                []
+      CommunicationRequest:         []
+      DeviceRequest:                []
+      DeviceUseStatement:           []
+      Location:                     []
+      Device:                       []
+      Substance:                    []
+      Encounter:                    [
+        {
+          path: 'length'
+          title: 'Length'
+          getValue: (fhirResource) =>
+            fhirResource?.length
+          setValue: (fhirResource, value) =>
+            fhirResource?.length = value
+          types: ['Duration']
+        },
+    #        { path: 'status' },
+    #        { path: 'location.period' },
+    #        { path: 'hospitalization.dischargeDisposition' },
+    #        { path: 'type' }
+      ]
+      Flag:                         []
+      Immunization:                 []
+      ImmunizationEvaluation:       []
+      ImmunizationRecommendation:   []
+      Medication:                   []
+      MedicationAdministration:     []
+      MedicationDispense:           []
+      MedicationRequest:            []
+      MedicationStatement:          []
+      Patient:                      []
+      Practitioner:                 []
+      PractitionerRole:             []
+      RelatedPerson:                []
+      Task:                         []
+
