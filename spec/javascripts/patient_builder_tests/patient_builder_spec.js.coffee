@@ -2,9 +2,8 @@ describe 'PatientBuilderView', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    measureJSON = getJSONFixture('fhir_measures/CMS104/CMS104.json');
-    @measure = new Thorax.Models.Measure(measureJSON, {parse: true});
-    @patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/CMS104/john_doe.json')], parse: true
+    @measure = loadFhirMeasure 'fhir_measure_data/CMS104_eoc.json'
+    @patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/CMS104_eoc/mickey_mouse.json')], parse: true
     @patient = @patients.models[0]
     @bonnie_measures_old = bonnie.measures
     bonnie.measures = new Thorax.Collections.Measures()
@@ -34,23 +33,23 @@ describe 'PatientBuilderView', ->
     expect(@$el.find(":input[name='last']")).toHaveValue @patient.getLastName()
     expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
     expect(@$el.find(":input[name='deathtime']")).toHaveValue @patient.getDeathTime()
-    #expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
+    expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
     expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
-  # TODO: fixme with MAT-1124
-  xit 'displays a warning if codes on dataElements do not exist on measure', ->
+  it 'displays a warning if codes on dataElements do not exist on measure', ->
     @measure.attributes.cqmValueSets = []
     patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
     patientBuilder.render()
-    expect(@patientBuilder.html()).toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
+    expect(patientBuilder.html()).toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
-  it 'does not display compare patient results button when there is no history', ->
-    expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
+#   it 'does not display compare patient results button when there is no history', ->
+#     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
 
-  # TODO: Fixme when we have date expiration story implemented
-  xit "toggles patient expiration correctly", ->
+  it "toggles patient expiration correctly", ->
     measure = loadFhirMeasure 'fhir_measure_data/CMS1010V0.json'
-    patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/CMS1010V0/john_smith.json')], parse: true
+    livingJohnSmith = getJSONFixture('fhir_patients/CMS1010V0/john_smith.json')
+    delete livingJohnSmith.fhir_patient.deceasedDateTime
+    patients = new Thorax.Collections.Patients [livingJohnSmith], parse: true
     patient = patients.models[0]
     bonnie_measures_old = bonnie.measures
     bonnie.measures = new Thorax.Collections.Measures()
@@ -63,8 +62,8 @@ describe 'PatientBuilderView', ->
 
     # Press deceased check box and enter death date
     patientBuilder.$('input[type=checkbox][name=expired]:first').click()
-    patientBuilder.$(':input[name=deathdate]').val('01/02/1994')
-    patientBuilder.$(':input[name=deathtime]').val('1:15 PM')
+    patientBuilder.$('input[name=deathdate]').val('01/02/1994')
+    patientBuilder.$('input[name=deathtime]').val('1:15 PM')
     patientBuilder.$("button[data-call-method=save]").click()
     expect(patientBuilder.model.get('expired')).toEqual true
     expect(patientBuilder.model.get('deathdate')).toEqual '01/02/1994'
@@ -72,13 +71,13 @@ describe 'PatientBuilderView', ->
     expiredElement = patientBuilder.model.get('cqmPatient').fhir_patient.deceased
     expect(expiredElement.value).toEqual '1994-01-02T13:15:00.000Z'
     # Remove deathdate from patient
-    patientBuilder.$("button[data-call-method=removeDeathDate]").click()
+    patientBuilder.$('input[type=checkbox][name=expired]:first').click()
     patientBuilder.$("button[data-call-method=save]").click()
     expect(patientBuilder.model.get('expired')).toEqual false
     expect(patientBuilder.model.get('deathdate')).toEqual undefined
     expect(patientBuilder.model.get('deathtime')).toEqual undefined
     expiredElement = patientBuilder.model.get('cqmPatient').fhir_patient.deceased
-    expect(expiredElement).not.toExist()
+    expect(expiredElement.value).toEqual false
     patientBuilder.remove()
 
   describe "setting basic attributes and saving", ->
@@ -108,6 +107,9 @@ describe 'PatientBuilderView', ->
       expect(fhirPatient.birthDate).not.toBeUndefined()
       expect(fhirPatient.birthDate.value).toEqual "1993-01-02"
       expect(thoraxPatient.getBirthDate()).toEqual '01/02/1993'
+      expect(fhirPatient.deceased.value).toEqual "2020-09-10T08:00:00.000Z"
+      expect(thoraxPatient.getDeathDate()).toEqual '09/10/2020'
+      expect(thoraxPatient.getDeathTime()).toEqual '8:00 AM'
       expect(thoraxPatient.getNotes()).toEqual 'EXAMPLE NOTES FOR TEST'
       expect(thoraxPatient.getGender().display).toEqual 'female'
       expect(fhirPatient.gender.value).toEqual 'female'

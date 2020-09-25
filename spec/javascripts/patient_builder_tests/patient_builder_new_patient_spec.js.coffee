@@ -2,7 +2,7 @@ describe 'Patient Builder New Patient', ->
 
   beforeAll ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
+    @measure = loadFhirMeasure 'fhir_measure_data/CMS104_eoc.json'
     @patient = new Thorax.Models.Patient {measure_ids: [@measure?.get('cqmMeasure').set_id]}, parse: true
     @patients = new Thorax.Collections.Patients [@patient], parse: true
     @bonnie_measures_old = bonnie.measures
@@ -19,8 +19,8 @@ describe 'Patient Builder New Patient', ->
     expect(@patientBuilder.$('#ethnicity option:selected').text()).toEqual 'Hispanic or Latino'
 
   it 'should select default gender option', ->
-    expect(@patientBuilder.$('#gender').val()).toEqual 'F'
-    expect(@patientBuilder.$('#gender option:selected').text()).toEqual 'Female'
+    expect(@patientBuilder.$('#gender').val()).toEqual 'male'
+    expect(@patientBuilder.$('#gender option:selected').text()).toEqual 'Male'
 
   it 'should select default race option', ->
     expect(@patientBuilder.$('#race').val()).toEqual '1002-5'

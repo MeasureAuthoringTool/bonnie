@@ -279,7 +279,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   addDeathDate: (e) ->
     @model.set 'expired', true
-    @model.get('cqmPatient').fhir_patient.deceased = null
+    @model.get('cqmPatient').fhir_patient.deceased = cqm.models.PrimitiveBoolean.parsePrimitive(true)
     @$('#deathdate').focus()
 
   removeDeathDate: (e) ->
@@ -287,7 +287,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.set 'expired', false
     @model.set 'deathtime', undefined
     @model.set 'deathdate', undefined
-    @model.get('cqmPatient').fhir_patient.deceased = false
+    @model.get('cqmPatient').fhir_patient.deceased = cqm.models.PrimitiveBoolean.parsePrimitive(false)
     @materialize()
     @$('#expired').focus()
 

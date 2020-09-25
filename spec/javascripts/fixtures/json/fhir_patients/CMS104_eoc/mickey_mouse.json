@@ -1,0 +1,111 @@
+{
+  "id": "5f6ce9c2819e7973353a0f8c",
+  "expected_values": [
+    {
+      "measure_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      "population_index": 0,
+      "IPP": 3,
+      "DENOM": 3,
+      "DENEX": 1,
+      "NUMER": 3,
+      "DENEXCEP": 2
+    }
+  ],
+  "notes": "This is a description of the patient.",
+  "measure_ids": [
+    "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+  ],
+  "fhir_patient": {
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "1002-5",
+          "display": "American Indian or Alaska Native",
+          "userSelected": true
+        }
+      },
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "2135-2",
+          "display": "Hispanic or Latino",
+          "userSelected": true
+        }
+      }
+    ],
+    "name": [
+      {
+        "family": "Mouse",
+        "given": [
+          "Mickey"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "2000-02-01",
+    "id": "5f6ce9c2819e7973353a0f8c"
+  },
+  "data_elements": [
+    {
+      "codeListId": "1.3.6.1.4.1.33895.1.3.0.45",
+      "valueSetTitle": "Comfort Measures",
+      "description": "ServiceRequest: Comfort Measures",
+      "fhir_resource": {
+        "resourceType": "ServiceRequest",
+        "code": {
+          "coding": [
+            {
+              "system": "SNOMEDCT",
+              "version": "2019-09",
+              "code": "133918004",
+              "display": "Comfort measures (regime/therapy)",
+              "userSelected": true
+            },
+            {
+              "system": "SNOMEDCT",
+              "code": "182964004",
+              "userSelected": true
+            }
+          ]
+        },
+        "authoredOn": "2020-09-24T08:00:00.000+00:00"
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.666.5.307",
+      "valueSetTitle": "Encounter Inpatient",
+      "description": "Encounter: Encounter Inpatient",
+      "fhir_resource": {
+        "resourceType": "Encounter",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "SNOMEDCT",
+                "version": "2019-09",
+                "code": "183452005",
+                "display": "Emergency hospital admission (procedure)",
+                "userSelected": true
+              },
+              {
+                "system": "SNOMEDCT",
+                "code": "32485007",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2020-09-24T08:00:00.000+00:00",
+          "end": "2020-09-24T08:15:00.000+00:00"
+        }
+      }
+    }
+  ],
+  "created_at": "2020-09-24T18:49:27.372Z",
+  "updated_at": "2020-09-24T18:49:27.372Z"
+}
