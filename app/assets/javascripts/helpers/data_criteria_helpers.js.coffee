@@ -109,8 +109,28 @@
     period.end = cqm.models.PrimitiveDateTime.parsePrimitive interval.high.toString() if interval && interval.high?
     return period
 
+  @getPeriodForStringDateTime: (dateTimeStr) ->
+    return null unless dateTimeStr?
+    cqlDateTime = @getCQLDateTimeFromString(dateTimeStr)
+    interval = new cqm.models.CQL.Interval(cqlDateTime, cqlDateTime.add(15, cqm.models.CQL.DateTime.Unit.MINUTE))
+    @createPeriodFromInterval(interval)
+
+  @getPeriodForStringDate: (dateTimeStr) ->
+    return null unless dateTimeStr?
+    cqlDateTime = @getCQLDateTimeFromString(dateTimeStr).add(8, cqm.models.CQL.DateTime.Unit.HOUR)
+    interval = new cqm.models.CQL.Interval(cqlDateTime, cqlDateTime.add(15, cqm.models.CQL.DateTime.Unit.MINUTE))
+    @createPeriodFromInterval(interval)
+
   @getPrimitiveDateTimeForCqlDateTime: (dateTime) ->
     cqm.models.PrimitiveDateTime.parsePrimitive dateTime?.toString()
+
+  @getPrimitiveDateTimeForStringDateTime: (dateTimeStr) ->
+    cqm.models.PrimitiveDateTime.parsePrimitive dateTimeStr
+
+  @getPrimitiveDateTimeForStringDate:(dateStr) ->
+    return null unless dateStr?
+    cqlDateTime = @getCQLDateTimeFromString(dateStr).add(8, cqm.models.CQL.DateTime.Unit.HOUR)
+    cqm.models.PrimitiveDateTime.parsePrimitive cqlDateTime.toString()
 
   @getPrimitiveInstantForCqlDateTime: (dateTime) ->
     cqm.models.PrimitiveInstant.parsePrimitive dateTime?.toString()
@@ -118,6 +138,10 @@
   @getPrimitiveDateForCqlDate: (date) ->
     cqm.models.PrimitiveDate.parsePrimitive date?.toString()
 
+  @getPrimitiveDateForStringDateTime: (dateTimeStr) ->
+    return null unless dateTimeStr?
+    cqlDate = @getCQLDateFromString(dateTimeStr)
+    cqm.models.PrimitiveDate.parsePrimitive cqlDate.toString()
   @getPrimaryCodePath: (dataElement) ->
     return cqm.models[dataElement.fhir_resource?.constructor?.name]?.primaryCodePath
 
@@ -144,22 +168,22 @@
     resourceType = dataElement.fhir_resource?.resourceType
     return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find( (attr) => attr.path is path )
 
-# Editor types:
-#    'Interval<DateTime>'
-#    'Interval<Quantity>'
-#    'DateTime'
-#    'Time'
-#    'Quantity'
-#    'Code'
-#    'String'
-#    'Integer'
-#    'Decimal'
-#    'Ratio'
-#    'Any'
-#    'Identifier'
-#    else null
+  # Editor types:
+  #    'Interval<DateTime>'
+  #    'Interval<Quantity>'
+  #    'DateTime'
+  #    'Time'
+  #    'Quantity'
+  #    'Code'
+  #    'String'
+  #    'Integer'
+  #    'Decimal'
+  #    'Ratio'
+  #    'Any'
+  #    'Identifier'
+  #    else null
 
-# Data element attributes per resource type
+  # Data element attributes per resource type
   @DATA_ELEMENT_ATTRIBUTES:
       AdverseEvent:                 []
       AllergyIntolerance:           []
@@ -195,10 +219,10 @@
             fhirResource?.length = value
           types: ['Duration']
         },
-    #        { path: 'status' },
-    #        { path: 'location.period' },
-    #        { path: 'hospitalization.dischargeDisposition' },
-    #        { path: 'type' }
+      #        { path: 'status' },
+      #        { path: 'location.period' },
+      #        { path: 'hospitalization.dischargeDisposition' },
+      #        { path: 'type' }
       ]
       Flag:                         []
       Immunization:                 []
