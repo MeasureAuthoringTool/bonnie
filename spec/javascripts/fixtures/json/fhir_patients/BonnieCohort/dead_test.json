@@ -1,0 +1,50 @@
+{
+  "id": "5f723aaf9d72867f8d40d79d",
+  "expected_values": [
+    {
+      "measure_id": "1E3BDD97-DC9A-407D-9B16-C6E0B79512D6",
+      "population_index": 0,
+      "IPP": 0
+    }
+  ],
+  "measure_ids": [
+    "1E3BDD97-DC9A-407D-9B16-C6E0B79512D6"
+  ],
+  "fhir_patient": {
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "1002-5",
+          "display": "American Indian or Alaska Native",
+          "userSelected": true
+        }
+      },
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "2135-2",
+          "display": "Hispanic or Latino",
+          "userSelected": true
+        }
+      }
+    ],
+    "name": [
+      {
+        "family": "dead",
+        "given": [
+          "test"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "2020-09-01",
+    "deceasedDateTime": "2020-09-10T02:00:00.000Z",
+    "id": "5f723aaf9d72867f8d40d79d"
+  },
+  "created_at": "2020-09-28T19:34:49.653Z",
+  "updated_at": "2020-09-28T19:34:49.653Z"
+}

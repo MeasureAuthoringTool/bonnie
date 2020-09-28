@@ -50,7 +50,8 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
   characteristicsMissingCodes: () ->
     # Currently the only code-dependant characteristic we're checking for is deceased
     missingCodes = []
-    if @patient.get('cqmPatient').fhir_patient.deceased
+    # Only displaying warning if the deceased value is true or a date time.  A value of false is ok.
+    if @patient.get('cqmPatient').fhir_patient.deceased?.value
       missingCodes.push("Patient Characteristic Expired: Dead (finding)") unless @measure.hasCode("419099009", "SNOMEDCT")
 
     missingCodes
