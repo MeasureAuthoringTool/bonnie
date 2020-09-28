@@ -57,6 +57,18 @@ describe 'DataCriteriaHelpers', ->
     expect(period.start.value).toEqual interval.low.toString()
     expect(period.end).toEqual null
 
+  it 'creates period from datetime string', ->
+    date = new cqm.models.CQL.DateTime(2020, 9, 21, 8, 0, 0, 0, 0)
+    period = DataCriteriaHelpers.getPeriodForStringDateTime(date.toString())
+    expect(period.start.value).toEqual date.toString()
+    expect(period.end.value).toEqual date.add(15, cqm.models.CQL.DateTime.Unit.MINUTE).toString()
+
+  it 'creates period from date string', ->
+    date = new cqm.models.CQL.Date(2020, 9, 21)
+    period = DataCriteriaHelpers.getPeriodForStringDate(date.toString())
+    expect(period.start.value).toEqual '2020-09-21T08:00:00.000+00:00'
+    expect(period.end.value).toEqual '2020-09-21T08:15:00.000+00:00'
+
   it 'creates CQL date from date string', ->
     dateString = '2012-02-02T08:45:00.000+00:00'
     cqlDate = DataCriteriaHelpers.getCQLDateFromString(dateString)
@@ -79,3 +91,21 @@ describe 'DataCriteriaHelpers', ->
     primitiveDate = DataCriteriaHelpers.getPrimitiveDateForCqlDate(date)
     expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
     expect(primitiveDate.value).toEqual date.toString()
+
+  it 'creates PrimitiveDateTime from DateTime string', ->
+    dateTime = new cqm.models.CQL.DateTime(2020, 2, 2, 8, 45, 0, 0, 0)
+    primitiveDateTime = DataCriteriaHelpers.getPrimitiveDateTimeForStringDateTime(dateTime.toString())
+    expect(primitiveDateTime instanceof cqm.models.PrimitiveDateTime).toEqual true
+    expect(primitiveDateTime.value).toEqual dateTime.toString()
+
+  it 'creates PrimitiveDateTime from Date string', ->
+    date = new cqm.models.CQL.Date(2020, 9, 23)
+    primitiveDateTime = DataCriteriaHelpers.getPrimitiveDateTimeForStringDate(date.toString())
+    expect(primitiveDateTime instanceof cqm.models.PrimitiveDateTime).toEqual true
+    expect(primitiveDateTime.value).toEqual '2020-09-23T08:00:00.000+00:00'
+
+  it 'creates PrimitiveDate from DateTime string', ->
+    dateTime = new cqm.models.CQL.DateTime(2020, 9, 23, 8, 45, 0, 0, 0)
+    primitiveDate = DataCriteriaHelpers.getPrimitiveDateForStringDateTime(dateTime.toString())
+    expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
+    expect(primitiveDate.value).toEqual '2020-09-23'
