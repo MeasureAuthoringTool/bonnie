@@ -55,7 +55,16 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       return "#{codeSystemName}: #{value?.code?.value}"
 
     if value instanceof cqm.models.Duration
-      return "#{value?.value?.value}: #{value?.unit?.value}"
+      return "#{value?.value?.value} '#{value?.unit?.value}'"
+
+    if value instanceof cqm.models.Period
+      lowString = if value.start? then @_stringifyValue(value.start) else "null"
+      highString = if value.end? then @_stringifyValue(value.end) else "null"
+      return "#{lowString} - #{highString}"
+
+    if value instanceof cqm.models.PrimitiveDateTime
+      cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(value?.value)
+      return moment.utc(cqlValue.toJSDate()).format('L LT')
 
 #    # Date, DateTime or Time
 #    else if value.isDateTime

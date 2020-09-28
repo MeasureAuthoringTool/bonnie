@@ -72,6 +72,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: @_attrShouldAllowNull(attributeName), defaultYear: @defaultYear })
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Quantity' then new Thorax.Views.InputQuantityView({ allowNull: @_attrShouldAllowNull(attributeName) })
+      when 'Duration' then new Thorax.Views.InputDurationView({ allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap, allowNull: @_attrShouldAllowNull(attributeName) })
       when 'String' then new Thorax.Views.InputStringView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ placeholder: attributeName, allowNull: @_attrShouldAllowNull(attributeName) })

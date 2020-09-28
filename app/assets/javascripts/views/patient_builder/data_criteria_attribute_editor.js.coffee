@@ -13,7 +13,6 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       @attributeList.push(
         name: attr.path
         title: attr.title
-#        value: attr.getValue(@dataElement.fhir_resource)
         types: attr.types
       )
 #    TODO FHIR attributes
@@ -113,9 +112,11 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
+      when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
       when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
-      when 'Duration' then new Thorax.Views.InputQuantityView()
+      when 'Quantity' then new Thorax.Views.InputQuantityView()
+      when 'Duration' then new Thorax.Views.InputDurationView()
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })

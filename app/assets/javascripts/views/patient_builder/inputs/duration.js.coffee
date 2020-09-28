@@ -1,6 +1,6 @@
 # Input view for Quantity types.
-class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
-  template: JST['patient_builder/inputs/quantity']
+class Thorax.Views.InputDurationView extends Thorax.Views.BonnieView
+  template: JST['patient_builder/inputs/duration']
 
   # Expected options to be passed in using the constructor options hash:
   #   initialValue - CQL Quantity - Optional. Initial value of datetime.
@@ -22,7 +22,7 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    cqm.models.Quantity.isDuration(@value)
+    cqm.models.Duration.isDuration(@value)
 
   disableFields: ->
     @$('input').prop('disabled', true)
@@ -35,7 +35,7 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
     try
       # Validate with CQL.Quantity
       new cqm.models.CQL.Quantity(parseFloat(inputData.value_value), inputData.value_unit)
-      @value = new cqm.models.Quantity()
+      @value = new cqm.models.Duration()
       @value.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.value_unit)
       @value.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.value_value))
       @$('.quantity-control-unit').removeClass('has-error')

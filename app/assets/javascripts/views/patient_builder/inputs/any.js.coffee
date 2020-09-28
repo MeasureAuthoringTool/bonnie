@@ -60,6 +60,8 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false, placeholder: placeholderText })
       when 'Quantity' then new Thorax.Views.InputQuantityView()
+      when 'Duration' then new Thorax.Views.InputDurationView()
+      when 'Period' then new Thorax.Views.InputPeriodView()
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       else null

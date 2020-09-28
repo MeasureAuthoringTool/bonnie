@@ -212,17 +212,37 @@
       Encounter:                    [
         {
           path: 'length'
-          title: 'Length'
+          title: 'length'
           getValue: (fhirResource) =>
             fhirResource?.length
           setValue: (fhirResource, value) =>
             fhirResource?.length = value
           types: ['Duration']
         },
-      #        { path: 'status' },
-      #        { path: 'location.period' },
-      #        { path: 'hospitalization.dischargeDisposition' },
-      #        { path: 'type' }
+        {
+          path: 'status',
+          title: 'status',
+          getValue: (fhirResource) =>
+            fhirResource?.status?.value
+          setValue: (fhirResource, value) =>
+            fhirResource?.status = cqm.models.EncounterStatus.parsePrimitive(value)
+          types: ['Code']
+        },
+        {
+          path: 'location.period',
+          title: 'location.period',
+          getValue: (fhirResource) =>
+            fhirResource?.location?[0]?.period
+          setValue: (fhirResource, value) =>
+            if !fhirResource.location
+              encounterLocation = new cqm.models.EncounterLocation()
+              fhirResource.location = [ encounterLocation ]
+            fhirResource.location[0].period = value
+          types: ['Period']
+        },
+    #        { path: 'location.period' },
+    #        { path: 'hospitalization.dischargeDisposition' },
+    #        { path: 'type' }
       ]
       Flag:                         []
       Immunization:                 []

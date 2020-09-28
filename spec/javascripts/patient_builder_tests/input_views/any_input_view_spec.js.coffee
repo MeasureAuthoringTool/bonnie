@@ -33,6 +33,12 @@ describe 'InputView', ->
       expect(@view.hasValidValue()).toBe false
       expect(@view.value).toBe null
 
+    it 'handles change to Duration', ->
+      @view.$('select[name="type"] > option[value="Duration"]').prop('selected', true).change()
+      expect(@view.inputView instanceof Thorax.Views.InputDurationView).toBe true
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
+
     it 'handles change to Code', ->
       @view.$('select[name="type"] > option[value="Code"]').prop('selected', true).change()
       expect(@view.inputView instanceof Thorax.Views.InputCodeView).toBe true
