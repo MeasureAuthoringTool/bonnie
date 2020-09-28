@@ -10,20 +10,12 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
     @patient.on 'materialize', => @render()
 
   context: ->
-    # Go through each data element on the patient and examine the codes, looking for those not in any
-    # measure value set; at the moment, we just note the data criteria don't have ANY codes in a value set
-    dataElementWithMissingCodes = []
-    for dataElement in @patient.get('cqmPatient').data_elements || []
-      appliedCodes = []
-      for attr, value of dataElement.fhir_resource
-        @getCodes(value, appliedCodes)
+    dataElementWithMissingCodes = @elementsMissingCodes()
+    patientCharacteristicsMissingCodes = @characteristicsMissingCodes()
 
-      for coding in appliedCodes
-        dataElementWithMissingCodes.push "#{dataElement.description} - #{coding.system}:#{coding.code}" unless @measure.hasCode(coding.code, coding.system) && dataElement.description
-
-    console.log("data elements with unsupported codes:" + dataElementWithMissingCodes.length > 0)
-    hasElementsWithMissingCodes: dataElementWithMissingCodes.length > 0
-    elementsWithMissingCodes: dataElementWithMissingCodes
+    missingCodes = dataElementWithMissingCodes.concat(patientCharacteristicsMissingCodes)
+    hasElementsWithMissingCodes: missingCodes.length > 0
+    elementsWithMissingCodes: missingCodes
 
   ###
   Recursively walks the object tree to locate all instances of type Coding, and
@@ -40,3 +32,25 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
       for k,v of attr
         @getCodes(v, codes)
     return codes
+
+  elementsMissingCodes: () ->
+    # Go through each data element on the patient and examine the codes, looking for those not in any
+    # measure value set; at the moment, we just note the data criteria don't have ANY codes in a value set
+    dataElementWithMissingCodes = []
+    for dataElement in @patient.get('cqmPatient').data_elements || []
+      appliedCodes = []
+      for attr, value of dataElement.fhir_resource
+        @getCodes(value, appliedCodes)
+
+      for coding in appliedCodes
+        dataElementWithMissingCodes.push "#{dataElement.description} - #{coding.system}:#{coding.code}" unless @measure.hasCode(coding.code, coding.system) && dataElement.description
+
+    dataElementWithMissingCodes
+
+  characteristicsMissingCodes: () ->
+    # Currently the only code-dependant characteristic we're checking for is deceased
+    missingCodes = []
+    if @patient.get('cqmPatient').fhir_patient.deceased
+      missingCodes.push("Patient Characteristic Expired: Dead (finding)") unless @measure.hasCode("419099009", "SNOMEDCT")
+
+    missingCodes
