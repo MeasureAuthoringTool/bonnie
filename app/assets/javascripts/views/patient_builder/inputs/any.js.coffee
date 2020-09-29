@@ -10,7 +10,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
   initialize: ->
     @value = null
 
-    @types = ['Code', 'Quantity', 'DateTime', 'Ratio', 'Integer', 'Decimal', 'Time']
+    @types = ['Code', 'CodeableConcept', 'Quantity', 'Duration', 'DateTime', 'Ratio', 'Integer', 'Decimal', 'Time']
     @currentType = ''
 
   events:
@@ -55,6 +55,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
   _createInputViewForType: (type, placeholderText) ->
     return switch type
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
+      when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })

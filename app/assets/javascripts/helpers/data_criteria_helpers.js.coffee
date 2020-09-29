@@ -240,9 +240,25 @@
             fhirResource.location[0].period = value
           types: ['Period']
         },
-    #        { path: 'location.period' },
-    #        { path: 'hospitalization.dischargeDisposition' },
-    #        { path: 'type' }
+        {
+          path: 'hospitalization.dischargeDisposition',
+          title: 'hospitalization.dischargeDisposition',
+          getValue: (fhirResource) =>
+            return fhirResource?.hospitalization?.dischargeDisposition?.coding?[0]
+          setValue: (fhirResource, coding) =>
+            # EncounterHospitalization
+            if !fhirResource.hospitalization
+              hospitalization = new cqm.models.EncounterHospitalization()
+              fhirResource.hospitalization = hospitalization
+            if !coding?
+              fhirResource.hospitalization.dischargeDisposition = null
+            else
+              fhirResource.hospitalization.dischargeDisposition = new cqm.models.CodeableConcept()
+              fhirResource.hospitalization.dischargeDisposition.coding = [ coding ]
+          types: [
+            'CodeableConcept' # User will see 'CodeableConcept', but it works with Coding behind the scenes
+          ]
+        },
       ]
       Flag:                         []
       Immunization:                 []
