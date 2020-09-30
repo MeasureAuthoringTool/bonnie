@@ -215,7 +215,7 @@
         },
         {
           path: 'verificationStatus',
-          title: 'VerificationStatus',
+          title: 'verificationStatus',
           getValue: (fhirResource) =>
             return fhirResource?.verificationStatus?.coding?[0]
           setValue: (fhirResource, coding) =>
