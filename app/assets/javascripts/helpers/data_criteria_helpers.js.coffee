@@ -191,6 +191,7 @@
   #   types - an array of types. A simple attribute would have just one type entry. A choice type would have multiple type entries.
   #       The user will be shown a type name on the UI to choose and its used to create a right UI editor element.
   #       See DataCriteriaAttributeEditorView._createInputViewForType
+  #   valueSets - optional value sets for bindings
   @DATA_ELEMENT_ATTRIBUTES:
       AdverseEvent:                 []
       AllergyIntolerance:           []
