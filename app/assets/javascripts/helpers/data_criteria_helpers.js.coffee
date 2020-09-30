@@ -170,6 +170,7 @@
   #    'Time'
   #    'Quantity'
   #    'Code'
+  #    'CodeableConcept'
   #    'String'
   #    'Integer'
   #    'Decimal'
@@ -178,8 +179,18 @@
   #    'Identifier'
   #    else null
 
-  # Data element attributes per resource type
-
+  # Data element attributes per resource type.
+  # Each resource has an array of entries per attribute.
+  # An attribute entry has necessary metadata to view/edit.
+  #   path - attribute/element path, relative to the current resource
+  #   title - an element name show to the User, same as path for now
+  #   getValue(fhirResource) - getter accessor which returns a FHIR value for the attribute,
+  #      shall be compatible with an UI element
+  #   setValue(fhirResource, value) - setter accessor which updates the resource with a value from UI.
+  #      shall be compatible with an UI element
+  #   types - an array of types. A simple attribute would have just one type entry. A choice type would have multiple type entries.
+  #       The user will be shown a type name on the UI to choose and its used to create a right UI editor element.
+  #       See DataCriteriaAttributeEditorView._createInputViewForType
   @DATA_ELEMENT_ATTRIBUTES:
       AdverseEvent:                 []
       AllergyIntolerance:           []
