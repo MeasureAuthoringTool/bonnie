@@ -246,6 +246,7 @@
           ]
           valueSets: () ->
             FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.164')
+          types: ['DateTime', 'Age', 'Period', 'Range']
         },
       ]
       FamilyMemberHistory:          []
