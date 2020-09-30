@@ -29,7 +29,7 @@
                 "display": "Inactive"
               },
               {
-                "code": "eemission",
+                "code": "remission",
                 "display": "Remission"
               },
               {
