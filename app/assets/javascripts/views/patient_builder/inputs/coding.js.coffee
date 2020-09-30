@@ -65,7 +65,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   _findValueSetForCode: (code) ->
     valueSet = @cqmValueSets.find (vs) =>
       matchingConcept = vs?.compose?.include?.find (concept) =>
-        matchingConceptEntry = concept.concept?.find (conceptEntry) =>
+        concept.concept?.find (conceptEntry) =>
           return concept.system == code.system && conceptEntry.code == code.code
       return matchingConcept?
     return valueSet
