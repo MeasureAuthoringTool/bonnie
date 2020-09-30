@@ -6,8 +6,9 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   # Expected options to be passed in using the constructor options hash:
   #   initialValue - Coding - Optional. Initial value of code.
   #   cqmValueSets - List of CQM Value sets. Optional (FHIR JSON).
-  #   codeSystemMap - Code system map of system oid to system names.
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
+  #   isSystemFixed - boolean - Optiona. Default to false. If true, then the Custom system is always the first system from the list of systems.
+  #     It's used for a PrimitiveCode, when a system is implied for an attribute (see bindings).
   initialize: ->
     if @initialValue?
       @value = @initialValue
@@ -16,6 +17,17 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
 
     if !@hasOwnProperty('allowNull')
       @allowNull = false
+
+    # Create a code system map based on the list of valuesets.
+    # It can differ from a measure's code system map if there is a binding for the attribute beind edited.
+    @codeSystems = []
+    @cqmValueSets.forEach (valueSet) =>
+      valueSet.compose?.include?.forEach (vsInclude) =>
+        @codeSystems.push vsInclude.system
+    @codeSystems = _.uniq(@codeSystems)
+
+    if @isSystemFixed && @codeSystems
+      @systemFixed = @codeSystems[0]
 
   events:
     'change input': 'handleCustomInputChange'
@@ -84,21 +96,26 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
 
   # Event listener for select change event on the main select box for chosing custom or from valueset code
   handleValueSetChange: (e) ->
-    oid = @$('select[name="valueset"]').val()
+    id = @$('select[name="valueset"]').val()
 
     # user switched back to no selection
-    if oid == '--'
+    if id == '--'
       @$('.code-vs-select-input, .code-custom-input').addClass('hidden')
       @_cleanUpValueSetStructures()
       @value = null
       @trigger 'valueChanged', @
 
     # user wants to enter a custom code
-    else if oid == 'custom'
+    else if id == 'custom'
       @$('.code-vs-select-input').addClass('hidden')
       @$('.code-vs-select-input input').val('')
       @_cleanUpValueSetStructures()
       @_populateCustomCodeSystemDropdown()
+      if @isSystemFixed
+        @$('select[name="custom_codesystem_select"]').val(@systemFixed)
+        @$('select[name="custom_codesystem_select"]').prop('disabled', true)
+        @$('input[name="custom_codesystem"]').val(@systemFixed)
+        @$('input[name="custom_codesystem"]').prop('disabled', true)
       @value = null
       @trigger 'valueChanged', @
       @$('.code-custom-input').removeClass('hidden')
@@ -108,7 +125,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
       @$('.code-custom-input').addClass('hidden')
       @_cleanUpValueSetStructures()
       # look for oid and fill out select fields and select the first one
-      @_populateValueSetCodeSystemDropdown(oid)
+      @_populateValueSetCodeSystemDropdown(id)
       @$('.code-vs-select-input').removeClass('hidden')
 
   # Event listener for code system change on selecting from a value set
@@ -142,8 +159,8 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
 
   # Helper function that builds up a list of code systems in the given value set then builds out the code system select box.
   # This then calls _populateValueSetCodeDropdown to fill out the code drop down with codes in the first system.
-  _populateValueSetCodeSystemDropdown: (valueSetOid) ->
-    @valueSet = @cqmValueSets.find (vs) -> vs.id == valueSetOid
+  _populateValueSetCodeSystemDropdown: (valueSetId) ->
+    @valueSet = @cqmValueSets.find (vs) -> vs.id == valueSetId
 
     @valueSetCodesByCodeSystem = []
     # iterate over all codes to build list codes organized by code systems
@@ -202,8 +219,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
       @_parseCustomCode()
     # disable custom code system entry
     else
-      codeSystem = @allCodeSystems.find (codeSystem) -> codeSystem.system == system
-      @$('input[name="custom_codesystem"]').val(codeSystem.name).prop('disabled', true)
+      @$('input[name="custom_codesystem"]').val(system).prop('disabled', true)
       @_parseCustomCode()
 
   # helper function that parses fields for custom code and turns them into a code if possible.
@@ -239,8 +255,8 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   # Helper that builds up the custom code system dropdown based on all code systems in the measure.
   _populateCustomCodeSystemDropdown: ->
     @allCodeSystems = [{system: '', name: 'Custom'}]
-    for oid, name of @codeSystemMap
-      @allCodeSystems.push {system: oid, name: name}
+    for system in @codeSystems
+      @allCodeSystems.push {system: system, name: system}
 
     # wipeout code system selection and replace options
     codeSystemSelect = @$('select[name="custom_codesystem_select"]').empty()

@@ -107,10 +107,9 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       @render()
 
   _createInputViewForType: (type) ->
-    debugger
     @inputView = switch type
-      when 'Code' then new Thorax.Views.InputCodingView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
-      when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
+      when 'Code' then new Thorax.Views.InputCodingView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), isSystemFixed: true })
+      when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets') })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
@@ -155,7 +154,6 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
 #  # Helper function that returns the list of acceptable types for a given attribute path and schema info.
 #  _determineAttributeTypeList: (path, info) ->
-#    # TODO
 #    # if is array type we need to find out what type it should be
 #    if info.instance == 'Array'
 #      if info.$isMongooseDocumentArray
