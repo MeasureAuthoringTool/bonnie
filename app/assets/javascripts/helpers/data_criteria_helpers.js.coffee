@@ -195,7 +195,42 @@
   @DATA_ELEMENT_ATTRIBUTES:
       AdverseEvent:                 []
       AllergyIntolerance:           []
-      Condition:                    []
+      Condition:                    [
+        {
+          path: 'clinicalStatus'
+          title: 'clinicalStatus'
+          getValue: (fhirResource) =>
+            return fhirResource?.clinicalStatus?.coding?[0]
+          setValue: (fhirResource, coding) =>
+            if !coding?
+              fhirResource.clinicalStatus = null
+            else
+              fhirResource.clinicalStatus = new cqm.models.CodeableConcept()
+              fhirResource.clinicalStatus.coding = [ coding ]
+          types: [
+            'CodeableConcept'
+          ]
+          valueSets: () ->
+            FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.164')
+        },
+        {
+          path: 'verificationStatus',
+          title: 'VerificationStatus',
+          getValue: (fhirResource) =>
+            return fhirResource?.verificationStatus?.coding?[0]
+          setValue: (fhirResource, coding) =>
+            if !coding?
+              fhirResource.verificationStatus = null
+            else
+              fhirResource.verificationStatus = new cqm.models.CodeableConcept()
+              fhirResource.verificationStatus.coding = [ coding ]
+          types: [
+            'CodeableConcept'
+          ],
+          valueSets: () ->
+            FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.166')
+        }
+      ]
       FamilyMemberHistory:          []
       Procedure:                    []
       Coverage:                     []
