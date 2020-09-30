@@ -229,7 +229,24 @@
           ],
           valueSets: () ->
             FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.166')
-        }
+        },
+        {
+          path: 'onset'
+          title: 'onset'
+          getValue: (fhirResource) =>
+            return fhirResource?.onset?.coding?[0]
+          setValue: (fhirResource, coding) =>
+            if !coding?
+              fhirResource.onset = null
+            else
+              fhirResource.onset = new cqm.models.CodeableConcept()
+              fhirResource.onset.coding = [ coding ]
+          types: [
+            'CodeableConcept'
+          ]
+          valueSets: () ->
+            FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.164')
+        },
       ]
       FamilyMemberHistory:          []
       Procedure:                    []
