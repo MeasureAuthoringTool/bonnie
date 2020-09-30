@@ -1,4 +1,5 @@
-# Input view for Coding types. Can be used as an editor for CodeableConcept
+# Input view whichs stores its value state as Coding.
+# It can be used as an editor for Coding, CodeableConcept or PrimitiveCode if accessors are adjusted accordingly.
 class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/coding']
 
@@ -63,7 +64,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   # populate the dropdowns appropiately
   _findValueSetForCode: (code) ->
     valueSet = @cqmValueSets.find (vs) =>
-      matchingConcept = vs?.compose?.include.find (concept) =>
+      matchingConcept = vs?.compose?.include?.find (concept) =>
         matchingConceptEntry = concept.concept?.find (conceptEntry) =>
           return concept.system == code.system && conceptEntry.code == code.code
       return matchingConcept?
@@ -146,9 +147,9 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
 
     @valueSetCodesByCodeSystem = []
     # iterate over all codes to build list codes organized by code systems
-    @valueSet?.compose?.include.forEach (composeInclude) =>
+    @valueSet?.compose?.include?.forEach (composeInclude) =>
       system = composeInclude?.system
-      composeInclude?.concept.forEach (concept) =>
+      composeInclude?.concept?.forEach (concept) =>
         code = concept?.code
         displayName = concept?.display
         codeSystemList = @valueSetCodesByCodeSystem.find (codeSystem) -> codeSystem.system == system
@@ -168,7 +169,6 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
     @_populateValueSetCodeDropdown()
 
   # Helper function that populates the code list for the currently selected code system in a value set.
-  # FIXME
   _populateValueSetCodeDropdown: ->
     # wipeout code system selection and replace options
     codeSelect = @$('select[name="vs_code"]').empty()

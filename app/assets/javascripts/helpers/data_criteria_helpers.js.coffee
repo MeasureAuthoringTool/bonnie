@@ -142,6 +142,7 @@
     return null unless dateTimeStr?
     cqlDate = @getCQLDateFromString(dateTimeStr)
     cqm.models.PrimitiveDate.parsePrimitive cqlDate.toString()
+
   @getPrimaryCodePath: (dataElement) ->
     return cqm.models[dataElement.fhir_resource?.constructor?.name]?.primaryCodePath
 
@@ -152,12 +153,6 @@
     codeableConcept = new cqm.models.CodeableConcept()
     codeableConcept.coding = codes
     dataElement?.fhir_resource?.primaryCode = codeableConcept
-
-  @getPrimaryCodePath: (dataElement) ->
-    resourceType = dataElement.fhir_resource?.resourceType
-    primaryCodePath = @DATA_ELEMENT_PRIMARY_CODE_PATH[resourceType]
-    return primaryCodePath
-
 
   @getAttributes: (dataElement) ->
     resourceType = dataElement.fhir_resource?.resourceType
@@ -184,6 +179,7 @@
   #    else null
 
   # Data element attributes per resource type
+
   @DATA_ELEMENT_ATTRIBUTES:
       AdverseEvent:                 []
       AllergyIntolerance:           []
@@ -220,17 +216,22 @@
           types: ['Duration']
         },
         {
-          path: 'status',
-          title: 'status',
+          path: 'status'
+          title: 'status'
           getValue: (fhirResource) =>
             fhirResource?.status?.value
-          setValue: (fhirResource, value) =>
-            fhirResource?.status = cqm.models.EncounterStatus.parsePrimitive(value)
+          setValue: (fhirResource, coding) =>
+            if !coding?
+              fhirResource?.status = null
+            else
+              fhirResource?.status = cqm.models.EncounterStatus.parsePrimitive(coding.code?.value)
           types: ['Code']
+          valueSets: () =>
+            @ENCOUNTER_STATUS_VS
         },
         {
-          path: 'location.period',
-          title: 'location.period',
+          path: 'location.period'
+          title: 'location.period'
           getValue: (fhirResource) =>
             fhirResource?.location?[0]?.period
           setValue: (fhirResource, value) =>
@@ -274,4 +275,60 @@
       PractitionerRole:             []
       RelatedPerson:                []
       Task:                         []
+
+  @ENCOUNTER_STATUS_VS = [
+    {
+      "resourceType": "ValueSet",
+      "version": "",
+      "name": "EncounterStatus",
+      "title": "EncounterStatus",
+      "compose": {
+        "include": [
+          {
+            "system": "encounter-status",
+            "version": "4.0.1",
+            "concept": [
+              {
+                "code": "planned",
+                "display": "Planned"
+              },
+              {
+                "code": "arrived",
+                "display": "Arrived"
+              },
+              {
+                "code": "triaged",
+                "display": "Triaged"
+              },
+              {
+                "code": "in-progress",
+                "display": "In Progress"
+              },
+              {
+                "code": "onleave",
+                "display": "On Leave"
+              },
+              {
+                "code": "finished",
+                "display": "Finished"
+              },
+              {
+                "code": "cancelled",
+                "display": "Cancelled"
+              },
+              {
+                "code": "entered-in-error",
+                "display": "Entered in Error"
+              },
+              {
+                "code": "unknown",
+                "display": "Unknown"
+              }
+            ]
+          }
+        ]
+      },
+      "id": "http://hl7.org/fhir/encounter-status"
+    }
+  ]
 
