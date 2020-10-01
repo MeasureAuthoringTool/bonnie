@@ -3,18 +3,18 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/range']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - ratio - Optional. Initial value of ratio.
+  #   initialValue - range - Optional. Initial value of range.
   initialize: ->
     if @initialValue?
       @value = @initialValue
-      @numeratorView = new Thorax.Views.InputQuantityView(initialValue: @value.numerator)
-      @denominatorView = new Thorax.Views.InputQuantityView(initialValue: @value.denominator)
+      @lowView = new Thorax.Views.InputQuantityView(initialValue: @value.low)
+      @highView = new Thorax.Views.InputQuantityView(initialValue: @value.high)
     else
       @value = null
-      @numeratorView = new Thorax.Views.InputQuantityView()
-      @denominatorView = new Thorax.Views.InputQuantityView()
-    @listenTo(@numeratorView, 'valueChanged', @updateValueFromSubviews)
-    @listenTo(@denominatorView, 'valueChanged', @updateValueFromSubviews)
+      @lowView = new Thorax.Views.InputQuantityView()
+      @highView = new Thorax.Views.InputQuantityView()
+    @listenTo(@lowView, 'valueChanged', @updateValueFromSubviews)
+    @listenTo(@highView, 'valueChanged', @updateValueFromSubviews)
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
@@ -22,8 +22,8 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
     @value?
 
   updateValueFromSubviews: ->
-    if @numeratorView.hasValidValue() && @denominatorView.hasValidValue()
-      @value = new cqm.models.CQL.Ratio(@numeratorView.value, @denominatorView.value)
+    if @lowView.hasValidValue() && @highView.hasValidValue()
+      @value = new cqm.models.CQL.Range(@lowView.value, @highView.value)
     else
       @value = null
     @trigger 'valueChanged', @
