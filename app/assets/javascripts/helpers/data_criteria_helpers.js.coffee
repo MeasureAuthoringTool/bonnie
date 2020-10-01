@@ -234,10 +234,16 @@
           path: 'onset'
           title: 'onset'
           getValue: (fhirResource) =>
-            return fhirResource?.onset?.coding?[0]
-          setValue: (fhirResource, coding) =>
-            fhirResource.onset = new cqm.models.CodeableConcept()
-            fhirResource.onset.coding = [ coding ]
+            return fhirResource?.onset
+          setValue: (fhirResource, value) =>
+            fhirResource.onset = null
+            attrType = value?.constructor?.name
+            if attrType == 'DateTime'
+              fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
+            if attrType == 'Period'
+              fhirResource.onset = value
+            if attrType == 'String'
+              fhirResource.onset = cqm.models.PrimitiveString.parsePrimitive(value)
           types: ['DateTime', 'Age', 'Period', 'Range', 'String']
         },
         {
