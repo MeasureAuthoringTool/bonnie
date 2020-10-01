@@ -234,9 +234,10 @@
           path: 'onset'
           title: 'onset'
           getValue: (fhirResource) =>
-            # TODO: update this
+            return fhirResource?.onset?.coding?[0]
           setValue: (fhirResource, coding) =>
-            # TODO: update this
+            fhirResource.onset = new cqm.models.CodeableConcept()
+            fhirResource.onset.coding = [ coding ]
           types: ['DateTime', 'Age', 'Period', 'Range', 'String']
         },
       ]
