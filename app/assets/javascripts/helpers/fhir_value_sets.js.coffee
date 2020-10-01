@@ -29,7 +29,7 @@
                 "display": "Inactive"
               },
               {
-                "code": "eemission",
+                "code": "remission",
                 "display": "Remission"
               },
               {
@@ -88,5 +88,4 @@
   ]
 
   @getValueSetByOid: (oid) ->
-    valueSets = @VALUE_SETS.filter (vs) -> vs.id == oid
-    valueSets?[0]
+    @VALUE_SETS.filter (vs) -> vs.id == oid

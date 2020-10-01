@@ -197,3 +197,66 @@ describe 'DataCriteriaHelpers', ->
     expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].system.value).toEqual 'system'
     expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].version.value).toEqual 'version'
 
+  describe 'Condition attributes', ->
+    it 'should support clinicalStatus and verificationStatus attributes', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      clinicalStatus = conditionAttrs[0]
+      expect(clinicalStatus.path).toEqual 'clinicalStatus'
+      expect(clinicalStatus.title).toEqual 'clinicalStatus'
+      expect(clinicalStatus.types).toEqual ['CodeableConcept']
+
+      verificationStatus = conditionAttrs[1]
+      expect(verificationStatus.path).toEqual 'verificationStatus'
+      expect(verificationStatus.title).toEqual 'verificationStatus'
+      expect(verificationStatus.types).toEqual ['CodeableConcept']
+
+    it 'should set and get values for clinicalStatus', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      clinicalStatus = conditionAttrs[0]
+      expect(clinicalStatus.path).toEqual 'clinicalStatus'
+      # Create condition fhir resource and coding
+      conditionResource = new cqm.models.Condition()
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('condition-clinical')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('4.0.1')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('recurrence')
+      coding.display = cqm.models.PrimitiveString.parsePrimitive('Recurrence')
+      coding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
+      # set coding to clinicalStatus
+      clinicalStatus.setValue(conditionResource, coding)
+
+      selectedCoding = clinicalStatus.getValue(conditionResource)
+      # Verify after setting values
+      expect(selectedCoding.code.value).toEqual 'recurrence'
+      expect(selectedCoding.display.value).toEqual 'Recurrence'
+      expect(selectedCoding.system.value).toEqual 'condition-clinical'
+
+    it 'should get valueSets for clinicalStatus', ->
+      condition = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      clinicalStatus = condition[0]
+      expect(clinicalStatus.path).toEqual 'clinicalStatus'
+
+      valueSets = clinicalStatus.valueSets()
+      expect(valueSets[0].id).toEqual '2.16.840.1.113883.4.642.3.164'
+      expect(valueSets[0].name).toEqual 'ConditionClinicalStatusCodes'
+
+    it 'should set and get values for verificationStatus', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      verificationStatus = conditionAttrs[1]
+      expect(verificationStatus.path).toEqual 'verificationStatus'
+      # Create condition fhir resource and coding
+      conditionResource = new cqm.models.Condition()
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('condition-ver-status')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('4.0.1')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('differential')
+      coding.display = cqm.models.PrimitiveString.parsePrimitive('Differential')
+      coding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
+      # set coding to clinicalStatus
+      verificationStatus.setValue(conditionResource, coding)
+
+      selectedCoding = verificationStatus.getValue(conditionResource)
+      # Verify after setting values
+      expect(selectedCoding.code.value).toEqual 'differential'
+      expect(selectedCoding.display.value).toEqual 'Differential'
+      expect(selectedCoding.system.value).toEqual 'condition-ver-status'

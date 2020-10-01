@@ -6,7 +6,7 @@ describe 'InputView', ->
       # load up a measure so we have valuesets
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
-      @view = new Thorax.Views.InputAnyView(attributeName: 'attributeNameTest', cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap())
+      @view = new Thorax.Views.InputAnyView(attributeName: 'attributeNameTest', cqmValueSets: @measure.get('cqmValueSets'))
       @view.render()
 
     it 'initializes', ->
