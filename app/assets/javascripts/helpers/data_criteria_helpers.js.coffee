@@ -240,6 +240,26 @@
             fhirResource.onset.coding = [ coding ]
           types: ['DateTime', 'Age', 'Period', 'Range', 'String']
         },
+        {
+          path: 'abatement',
+          title: 'abatement',
+          getValue: (fhirResource) =>
+            if (fhirResource?.abatement)
+              return fhirResource?.abatement
+          setValue: (fhirResource, value) =>
+            debugger
+            fhirResource.abatement = null
+            attrType = value?.constructor?.name
+            if attrType == 'DateTime'
+              fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
+            if attrType == 'Period'
+              fhirResource.abatement = value
+            if attrType == 'String'
+              fhirResource.abatement = cqm.models.PrimitiveString.parsePrimitive(value)
+          types: [
+            'DateTime', 'Age', 'Period', 'Range', 'String'
+          ]
+        }
       ]
       FamilyMemberHistory:          []
       Procedure:                    []

@@ -50,6 +50,9 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(value?.value)
       return moment.utc(cqlValue.toJSDate()).format('L LT')
 
+    if value instanceof cqm.models.PrimitiveString
+      return value?.value
+
 #    # Date, DateTime or Time
 #    else if value.isDateTime
 #      if value.isTime() # if it is a "Time"
