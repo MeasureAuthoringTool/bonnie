@@ -35,10 +35,10 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       codeSystemName = @parent.measure.codeSystemMap()[value?.system?.value] || value?.system?.value
       return "#{codeSystemName}: #{value?.code?.value}"
 
-    if value instanceof cqm.models.PrimitiveCode
+    if value instanceof cqm.models.PrimitiveCode || value instanceof cqm.models.PrimitiveString
       return "#{value?.value}"
 
-    if value instanceof cqm.models.Duration
+    if value instanceof cqm.models.Duration || value instanceof cqm.models.Age
       return "#{value?.value?.value} '#{value?.unit?.value}'"
 
     if value instanceof cqm.models.Period
@@ -49,9 +49,6 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     if value instanceof cqm.models.PrimitiveDateTime
       cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(value?.value)
       return moment.utc(cqlValue.toJSDate()).format('L LT')
-
-    if value instanceof cqm.models.PrimitiveString
-      return value?.value
 
 #    # Date, DateTime or Time
 #    else if value.isDateTime

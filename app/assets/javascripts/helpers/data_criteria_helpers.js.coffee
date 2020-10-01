@@ -253,15 +253,15 @@
             if (fhirResource?.abatement)
               return fhirResource?.abatement
           setValue: (fhirResource, value) =>
-            debugger
-            fhirResource.abatement = null
             attrType = value?.constructor?.name
             if attrType == 'DateTime'
               fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
-            if attrType == 'Period'
-              fhirResource.abatement = value
-            if attrType == 'String'
+            else if attrType == 'String'
               fhirResource.abatement = cqm.models.PrimitiveString.parsePrimitive(value)
+            else if attrType == 'Age' ||  attrType == 'Period'
+              fhirResource.abatement = value
+            else
+              fhirResource.abatement = null
           types: [
             'DateTime', 'Age', 'Period', 'Range', 'String'
           ]
