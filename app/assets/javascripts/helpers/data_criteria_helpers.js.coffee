@@ -199,8 +199,7 @@
         {
           path: 'clinicalStatus'
           title: 'clinicalStatus'
-          getValue: (fhirResource) =>
-            return fhirResource?.clinicalStatus?.coding?[0]
+          getValue: (fhirResource) => fhirResource?.clinicalStatus?.coding?[0]
           setValue: (fhirResource, coding) =>
             if !coding?
               fhirResource.clinicalStatus = null
@@ -216,8 +215,7 @@
         {
           path: 'verificationStatus',
           title: 'verificationStatus',
-          getValue: (fhirResource) =>
-            return fhirResource?.verificationStatus?.coding?[0]
+          getValue: (fhirResource) => fhirResource?.verificationStatus?.coding?[0]
           setValue: (fhirResource, coding) =>
             if !coding?
               fhirResource.verificationStatus = null
@@ -249,9 +247,7 @@
         {
           path: 'abatement',
           title: 'abatement',
-          getValue: (fhirResource) =>
-            if (fhirResource?.abatement)
-              return fhirResource?.abatement
+          getValue: (fhirResource) => fhirResource?.abatement
           setValue: (fhirResource, value) =>
             attrType = value?.constructor?.name
             if attrType == 'DateTime'
