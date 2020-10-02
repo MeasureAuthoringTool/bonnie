@@ -105,8 +105,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @listenTo @attributeEditorView, 'attributesModified', @attributesModified
 
     # view that allows for negating the data criteria, will not display on non-negateable data criteria
-    @negationRationaleView = new Thorax.Views.InputCodeView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('dataElement').negationRationale })
-    @listenTo @negationRationaleView, 'valueChanged', @updateAttributeFromInputChange
+#    @negationRationaleView = new Thorax.Views.InputCodingView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('dataElement').negationRationale })
+#    @listenTo @negationRationaleView, 'valueChanged', @updateAttributeFromInputChange
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -164,7 +164,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$el.toggleClass 'during-measurement-period', @isDuringMeasurePeriod()
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
-    'change .negation-select': 'toggleNegationSelect'
+#    'change .negation-select': 'toggleNegationSelect'
 
   updateAttributeFromInputChange: (inputView) ->
     @model.get('dataElement').fhir_resource[inputView.attributeName] = inputView.value
@@ -286,14 +286,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   isExpanded: -> @$('form').is ':visible'
 
-  toggleNegationSelect: (e) ->
-    if $(e.target).is(":checked")
-      @$('.negationRationaleCodeEntry').removeClass('hidden')
-    else
-      @$('.negationRationaleCodeEntry').addClass('hidden')
-      @model.get('dataElement').negationRationale = null
-      @model.set('negation', false, {silent: true})
-    @negationRationaleView.resetCodeSelection()
+#  toggleNegationSelect: (e) ->
+#    if $(e.target).is(":checked")
+#      @$('.negationRationaleCodeEntry').removeClass('hidden')
+#    else
+#      @$('.negationRationaleCodeEntry').addClass('hidden')
+#      @model.get('dataElement').negationRationale = null
+#      @model.set('negation', false, {silent: true})
+#    @negationRationaleView.resetCodeSelection()
 
   toggleDetails: (e) ->
     e.preventDefault()

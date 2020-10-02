@@ -260,3 +260,50 @@ describe 'DataCriteriaHelpers', ->
       expect(selectedCoding.code.value).toEqual 'differential'
       expect(selectedCoding.display.value).toEqual 'Differential'
       expect(selectedCoding.system.value).toEqual 'condition-ver-status'
+
+  describe 'Encounter attributes', ->
+    it 'should support Encounter.length', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'length'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'length'
+      expect(attr.title).toBe 'length'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Duration'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Duration()
+      valueToSet.unit = cqm.models.PrimitiveString.parsePrimitive('ml')
+      valueToSet.value = cqm.models.PrimitiveDecimal.parsePrimitive(100)
+      attr.setValue(fhirResource, valueToSet)
+
+      value = attr.getValue(fhirResource)
+      expect(value).toBeDefined
+      expect(value.unit.value).toBe 'ml'
+      expect(value.value.value).toBe 100
+
+    it 'should support Encounter.status', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'status'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'status'
+      expect(attr.title).toBe 'status'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Code'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Duration()
+      valueToSet.unit = cqm.models.PrimitiveString.parsePrimitive('ml')
+      valueToSet.value = cqm.models.PrimitiveDecimal.parsePrimitive(100)
+      attr.setValue(fhirResource, valueToSet)
+
+      value = attr.getValue(fhirResource)
+      expect(value).toBeDefined
+      expect(value.unit.value).toBe 'ml'
+      expect(value.value.value).toBe 100
