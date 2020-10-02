@@ -38,19 +38,11 @@
               </div>
             </div>
           </div>
-          <div class="hidden vsac-sign-in" id="vsacSignIn">
+          <div class="hidden" id="vsacSignIn">
             <div class="form-group">
               <label for="vsacApiKey" class="col-sm-{{titleSize}} control-label">VSAC API Key</label>
-              <div class="col-sm-{{subtract dataSize 1}}">
+              <div class="col-sm-{{dataSize}}">
                 <input type="password" class="form-control" id="vsacApiKey" name="vsac_api_key" placeholder="API Key" aria-required="true">
-              </div>
-              <div class="col-sm-1 vsac-help-container">
-                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
-                  data-title="VSAC API Key"
-                  data-content='<p>You can find your API key by going to <a href="https://uts.nlm.nih.gov/" target="_blank">https://uts.nlm.nih.gov/</a>, signing in to your UTS account, and clicking “<strong>My Profile</strong>.” If you do not already have an API key, you can generate one by clicking “<strong>Edit Profile</strong>” then checking the box that says “<strong>Generate new API Key</strong>” then clicking “<strong>Save Profile</strong>.”</p>'
-                  data-placement="bottom">
-                  <i class="fa fa-info-circle"></i>
-                </a>
               </div>
               <div class="col-sm-offset-{{titleSize}} vsac-registration"><a href="https://uts.nlm.nih.gov/license.html" target="_blank"><i class="fa fa-plus-circle" aria-hidden="true"></i> Register for VSAC</a></div>
             </div>
