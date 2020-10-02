@@ -41,6 +41,11 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     if value instanceof cqm.models.Duration || value instanceof cqm.models.Age
       return "#{value?.value?.value} '#{value?.unit?.value}'"
 
+    if value instanceof cqm.models.Range
+      lowString = if value.low? then @_stringifyValue(value.low) else "null"
+      highString = if value.high? then @_stringifyValue(value.high) else "null"
+      return "#{lowString} - #{highString}"
+
     if value instanceof cqm.models.Period
       lowString = if value.start? then @_stringifyValue(value.start) else "null"
       highString = if value.end? then @_stringifyValue(value.end) else "null"
