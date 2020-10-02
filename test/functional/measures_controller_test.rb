@@ -21,7 +21,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'upload CQL with valid VSAC creds' do
-    # This cassette uses the ENV[VSAC_API_KEY] which must be supplied
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette('valid_vsac_response', @vcr_options) do
       measure = CQM::Measure.where({hqmf_set_id: '3BBFC929-50C8-44B8-8D34-82BE75C08A70'}).first
@@ -35,7 +35,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -49,7 +49,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'upload CQL using measure_defined and valid VSAC creds' do
-    # This cassette uses the ENV['VSAC_API_KEY'] which must be supplied
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette('profile_query', @vcr_options) do
       measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
@@ -63,7 +63,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -76,7 +76,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'upload CQL using release and valid VSAC creds' do
-    # This cassette uses the ENV['VSAC_API_KEY'] which must be supplied
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette('release_query', @vcr_options) do
       measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
@@ -89,7 +89,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'release',
         vsac_query_program: 'CMS eCQM',
         vsac_query_release: 'eCQM Update 2018 EP-EC and EH',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -102,7 +102,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'upload CQL using profile, draft, and valid VSAC creds' do
-    # This cassette uses the ENV['VSAC_API_KEY'] which must be supplied
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette('profile_draft_query', @vcr_options) do
       measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
@@ -116,7 +116,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
         vsac_query_measure_defined: 'false',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -136,7 +136,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -164,7 +164,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
-        vsac_api_key: 'badkey',
+        vsac_username: 'invaliduser', vsac_password: 'invalidpassword',
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -173,7 +173,7 @@ include Devise::Test::ControllerHelpers
       assert_response :redirect
       assert_equal 'Error Loading VSAC Value Sets', flash[:error][:title]
       assert_equal 'VSAC credentials were invalid.', flash[:error][:summary]
-      assert flash[:error][:body].starts_with?('Please verify that you are using your valid VSAC API Key.')
+      assert flash[:error][:body].starts_with?('Please verify that you are using the correct VSAC username and password.')
 
     end
   end
@@ -189,7 +189,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -223,7 +223,7 @@ include Devise::Test::ControllerHelpers
     assert_response :redirect
     assert_equal 'Error Loading VSAC Value Sets', flash[:error][:title]
     assert_equal 'No VSAC credentials provided.', flash[:error][:summary]
-    assert flash[:error][:body].starts_with?('Please re-enter VSAC API Key to try again.')
+    assert flash[:error][:body].starts_with?('Please re-enter VSAC username and password to try again.')
   end
 
   test 'upload MAT with that cause value sets not found error' do
@@ -240,7 +240,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_release: 'Fake 1234',
         vsac_query_measure_defined: 'false',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -269,7 +269,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
         vsac_query_measure_defined: 'false',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -283,7 +283,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'upload MAT 5.4 with valid VSAC creds' do
-    # This cassette uses the ENV[VSAC_API_KEY] which must be supplied
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette('mat_5_4_valid_vsac_response', @vcr_options) do
       measure = CQM::Measure.where({hqmf_set_id: '7B2A9277-43DA-4D99-9BEE-6AC271A07747'}).first
@@ -298,7 +298,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -319,7 +319,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -352,7 +352,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -382,7 +382,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file1,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -392,7 +392,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file2,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -432,7 +432,7 @@ include Devise::Test::ControllerHelpers
     end
     # give it a fake VSAC ticket to get through the check for one
     session[:vsac_tgt] = { ticket: 'fake ticket', expires: DateTime.now + 60.minutes }
-    post :create, params: {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_api_key: ENV['VSAC_API_KEY']}
+    post :create, params: {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     assert_equal 'Error Uploading Measure', flash[:error][:title]
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
     assert_equal "Measure loading process encountered error: Error processing package file: No measure found Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href='https://bonnie-qdm.healthit.gov'>Bonnie-QDM</a>.", flash[:error][:body]
@@ -486,7 +486,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -535,7 +535,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -561,7 +561,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -577,7 +577,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: update_measure_file,
         hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
       }
@@ -617,7 +617,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'eh',
         calculation_type: 'episode'
@@ -658,7 +658,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: update_measure_file,
         measure_type: 'eh',
         calculation_type: 'episode',
@@ -694,7 +694,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -729,7 +729,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -784,7 +784,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
         measure_type: 'eh',
         calculation_type: 'episode',
@@ -802,7 +802,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: update_measure_file,
         hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'
       }

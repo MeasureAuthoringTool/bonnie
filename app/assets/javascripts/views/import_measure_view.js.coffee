@@ -36,7 +36,9 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       @$('a[data-toggle="popover"]').popover({ html: true })
     'ready': 'setup'
     'change input:file':  'enableLoad'
+    'keyup input:text': 'enableLoadVsac'
     'keyup input:password': 'enableLoadVsac'
+    'change input:text': 'enableLoadVsac'
     'change input:password': 'enableLoadVsac'
     'change input[type=radio]': ->
       @$('input[type=radio]').each (index, element) =>
@@ -50,11 +52,15 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     'vsac:param-load-error': 'showVSACError'
 
   enableLoadVsac: ->
-    vsacApiKey = @$('#vsacApiKey')
-    if (vsacApiKey.val().length > 0)
-      vsacApiKey.closest('.form-group').removeClass('has-error')
+    username = @$('#vsacUser')
+    password = @$('#vsacPassword')
+    if (username.val().length > 0)
+      username.closest('.form-group').removeClass('has-error')
       hasUser = true
-    @$('#loadButton').prop('disabled', !hasUser)
+    if (password.val().length > 0)
+      password.closest('.form-group').removeClass('has-error')
+      hasPassword = true
+    @$('#loadButton').prop('disabled', !(hasUser && hasPassword))
 
   clearCachedVSACTicket: ->
     @$('#vsacSignIn').removeClass('hidden')
@@ -73,7 +79,8 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           $('#vsacCachedMsg').removeClass('hidden')
           $('#loadButton').prop('disabled', false)
           # If the measure import window is open long enough for the VSAC
-          # credentials to expire, we need to reshow the vsacApiKey dialog.
+          # credentials to expire, we need to reshow the username and
+          # password dialog.
           setTimeout ->
             @clearCachedVSACTicket()
           , new Date(data.expires) - new Date()
