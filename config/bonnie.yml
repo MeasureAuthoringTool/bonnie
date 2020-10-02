@@ -27,3 +27,7 @@ test:
 
 production:
   <<: *defaults
+  hostname: "bonniedev-fhir.semanticbits.com"
+  smtp_port: 25
+  smtp_hostname: "localhost"
+  smtp_tls: false
