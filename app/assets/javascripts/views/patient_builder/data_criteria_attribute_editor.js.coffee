@@ -108,7 +108,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   _createInputViewForType: (type) ->
     @inputView = switch type
-      when 'Code' then new Thorax.Views.InputCodingView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), isSystemFixed: true })
+      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets') })
       when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets') })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })

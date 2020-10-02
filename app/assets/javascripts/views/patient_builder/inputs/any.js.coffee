@@ -53,7 +53,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
 
   _createInputViewForType: (type, placeholderText) ->
     return switch type
-      when 'Code' then new Thorax.Views.InputCodingView({ cqmValueSets: @cqmValueSets, isSystemFixed: true })
+      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets })
       when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @cqmValueSets })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear })

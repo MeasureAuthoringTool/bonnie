@@ -35,60 +35,60 @@
     Task: { executionPeriod: 'Period', authoredOn: 'dateTime', lastModified: 'dateTime' }
 
   @DATA_ELEMENT_CATEGORIES:
-    AdverseEvent:       'clinical summary'
+    AdverseEvent: 'clinical summary'
     AllergyIntolerance: 'clinical summary'
-    Condition:          'clinical summary'
-    FamilyMemberHistory:'clinical summary'
-    Procedure:          'clinical summary'
+    Condition: 'clinical summary'
+    FamilyMemberHistory: 'clinical summary'
+    Procedure: 'clinical summary'
 
     Coverage: 'financial support'
 
-    BodyStructure:    'diagnostics'
+    BodyStructure: 'diagnostics'
     DiagnosticReport: 'diagnostics'
-    ImagingStudy:     'diagnostics'
-    Observation:      'diagnostics'
-    Specimen:         'diagnostics'
+    ImagingStudy: 'diagnostics'
+    Observation: 'diagnostics'
+    Specimen: 'diagnostics'
 
-    CarePlan:       'care provision'
-    CareTeam:       'care provision'
-    Goal:           'care provision'
+    CarePlan: 'care provision'
+    CareTeam: 'care provision'
+    Goal: 'care provision'
     NutritionOrder: 'care provision'
     ServiceRequest: 'care provision'
 
     Claim: 'billing'
 
-    Communication:        'request response'
+    Communication: 'request response'
     CommunicationRequest: 'request response'
-    DeviceRequest:        'request response'
-    DeviceUseStatement:   'request response'
+    DeviceRequest: 'request response'
+    DeviceUseStatement: 'request response'
 
     Location: 'providers entities'
 
-    Device:    'material entities'
+    Device: 'material entities'
     Substance: 'material entities'
 
     Encounter: 'management'
-    Flag:      'management'
+    Flag: 'management'
 
-    Immunization:               'medications'
-    ImmunizationEvaluation:     'medications'
+    Immunization: 'medications'
+    ImmunizationEvaluation: 'medications'
     ImmunizationRecommendation: 'medications'
-    Medication:                  'medications'
-    MedicationAdministration:    'medications'
-    MedicationDispense:         'medications'
-    MedicationRequest:          'medications'
-    MedicationStatement:        'medications'
+    Medication: 'medications'
+    MedicationAdministration: 'medications'
+    MedicationDispense: 'medications'
+    MedicationRequest: 'medications'
+    MedicationStatement: 'medications'
 
-    Patient:          'individuals'
-    Practitioner:     'individuals'
+    Patient: 'individuals'
+    Practitioner: 'individuals'
     PractitionerRole: 'individuals'
-    RelatedPerson:    'individuals'
+    RelatedPerson: 'individuals'
 
     Task: 'workflow'
 
   @createIntervalFromPeriod: (period) ->
     return null if period == undefined ||
-      (period?.start == undefined && period?.end == undefined )
+      (period?.start == undefined && period?.end == undefined)
 
     startDate = @getCQLDateTimeFromString(period?.start?.value) if period?.start?.value?
     endDate = @getCQLDateTimeFromString(period?.end?.value) if period?.end?.value?
@@ -127,7 +127,7 @@
   @getPrimitiveDateTimeForStringDateTime: (dateTimeStr) ->
     cqm.models.PrimitiveDateTime.parsePrimitive dateTimeStr
 
-  @getPrimitiveDateTimeForStringDate:(dateStr) ->
+  @getPrimitiveDateTimeForStringDate: (dateStr) ->
     return null unless dateStr?
     cqlDateTime = @getCQLDateTimeFromString(dateStr).add(8, cqm.models.CQL.DateTime.Unit.HOUR)
     cqm.models.PrimitiveDateTime.parsePrimitive cqlDateTime.toString()
@@ -161,221 +161,168 @@
 
   @getAttribute: (dataElement, path) ->
     resourceType = dataElement.fhir_resource?.resourceType
-    return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find( (attr) => attr.path is path )
+    return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find((attr) => attr.path is path)
 
-  # Editor types:
-  #    'Interval<DateTime>'
-  #    'Interval<Quantity>'
-  #    'DateTime'
-  #    'Time'
-  #    'Quantity'
-  #    'Code'
-  #    'CodeableConcept'
-  #    'String'
-  #    'Integer'
-  #    'Decimal'
-  #    'Ratio'
-  #    'Any'
-  #    'Identifier'
-  #    else null
+# Editor types:
+#    'Interval<DateTime>'
+#    'Interval<Quantity>'
+#    'DateTime'
+#    'Time'
+#    'Quantity'
+#    'Code'
+#    'CodeableConcept'
+#    'String'
+#    'Integer'
+#    'Decimal'
+#    'Ratio'
+#    'Any'
+#    'Identifier'
+#    else null
 
-  # Data element attributes per resource type.
-  # Each resource has an array of entries per attribute.
-  # An attribute entry has necessary metadata to view/edit.
-  #   path - attribute/element path, relative to the current resource
-  #   title - an element name show to the User, same as path for now
-  #   getValue(fhirResource) - getter accessor which returns a FHIR value for the attribute,
-  #      shall be compatible with an UI element
-  #   setValue(fhirResource, value) - setter accessor which updates the resource with a value from UI.
-  #      shall be compatible with an UI element
-  #   types - an array of types. A simple attribute would have just one type entry. A choice type would have multiple type entries.
-  #       The user will be shown a type name on the UI to choose and its used to create a right UI editor element.
-  #       See DataCriteriaAttributeEditorView._createInputViewForType
-  #   valueSets - optional value sets for bindings
+# Data element attributes per resource type.
+# Each resource has an array of entries per attribute.
+# An attribute entry has necessary metadata to view/edit.
+#   path - attribute/element path, relative to the current resource
+#   title - an element name show to the User, same as path for now
+#   getValue(fhirResource) - getter accessor which returns a FHIR value for the attribute,
+#      shall be compatible with an UI element
+#   setValue(fhirResource, value) - setter accessor which updates the resource with a value from UI.
+#      shall be compatible with an UI element
+#   types - an array of types. A simple attribute would have just one type entry. A choice type would have multiple type entries.
+#       The user will be shown a type name on the UI to choose and its used to create a right UI editor element.
+#       See DataCriteriaAttributeEditorView._createInputViewForType
+#   valueSets - optional value sets for bindings
   @DATA_ELEMENT_ATTRIBUTES:
-      AdverseEvent:                 []
-      AllergyIntolerance:           []
-      Condition:                    [
-        {
-          path: 'clinicalStatus'
-          title: 'clinicalStatus'
-          getValue: (fhirResource) =>
-            return fhirResource?.clinicalStatus?.coding?[0]
-          setValue: (fhirResource, coding) =>
-            if !coding?
-              fhirResource.clinicalStatus = null
-            else
-              fhirResource.clinicalStatus = new cqm.models.CodeableConcept()
-              fhirResource.clinicalStatus.coding = [ coding ]
-          types: [
-            'CodeableConcept'
-          ]
-          valueSets: () ->
-            FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.164')
-        },
-        {
-          path: 'verificationStatus',
-          title: 'verificationStatus',
-          getValue: (fhirResource) =>
-            return fhirResource?.verificationStatus?.coding?[0]
-          setValue: (fhirResource, coding) =>
-            if !coding?
-              fhirResource.verificationStatus = null
-            else
-              fhirResource.verificationStatus = new cqm.models.CodeableConcept()
-              fhirResource.verificationStatus.coding = [ coding ]
-          types: [
-            'CodeableConcept'
-          ],
-          valueSets: () ->
-            FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.166')
-        }
-      ]
-      FamilyMemberHistory:          []
-      Procedure:                    []
-      Coverage:                     []
-      BodyStructure:                []
-      DiagnosticReport:             []
-      ImagingStudy:                 []
-      Observation:                  []
-      Specimen:                     []
-      CarePlan:                     []
-      CareTeam:                     []
-      Goal:                         []
-      NutritionOrder:               []
-      ServiceRequest:               []
-      Claim:                        []
-      Communication:                []
-      CommunicationRequest:         []
-      DeviceRequest:                []
-      DeviceUseStatement:           []
-      Location:                     []
-      Device:                       []
-      Substance:                    []
-      Encounter:                    [
-        {
-          path: 'length'
-          title: 'length'
-          getValue: (fhirResource) =>
-            fhirResource?.length
-          setValue: (fhirResource, value) =>
-            fhirResource?.length = value
-          types: ['Duration']
-        },
-        {
-          path: 'status'
-          title: 'status'
-          getValue: (fhirResource) =>
-            fhirResource?.status?.value
-          setValue: (fhirResource, coding) =>
-            if !coding?
-              fhirResource?.status = null
-            else
-              fhirResource?.status = cqm.models.EncounterStatus.parsePrimitive(coding.code?.value)
-          types: ['Code']
-          valueSets: () =>
-            @ENCOUNTER_STATUS_VS
-        },
-        {
-          path: 'location.period'
-          title: 'location.period'
-          getValue: (fhirResource) =>
-            fhirResource?.location?[0]?.period
-          setValue: (fhirResource, value) =>
-            if !fhirResource.location
-              encounterLocation = new cqm.models.EncounterLocation()
-              fhirResource.location = [ encounterLocation ]
-            fhirResource.location[0].period = value
-          types: ['Period']
-        },
-        {
-          path: 'hospitalization.dischargeDisposition',
-          title: 'hospitalization.dischargeDisposition',
-          getValue: (fhirResource) =>
-            return fhirResource?.hospitalization?.dischargeDisposition?.coding?[0]
-          setValue: (fhirResource, coding) =>
-            # EncounterHospitalization
-            if !fhirResource.hospitalization
-              hospitalization = new cqm.models.EncounterHospitalization()
-              fhirResource.hospitalization = hospitalization
-            if !coding?
-              fhirResource.hospitalization.dischargeDisposition = null
-            else
-              fhirResource.hospitalization.dischargeDisposition = new cqm.models.CodeableConcept()
-              fhirResource.hospitalization.dischargeDisposition.coding = [ coding ]
-          types: [
-            'CodeableConcept' # User will see 'CodeableConcept', but it works with Coding behind the scenes
-          ]
-        },
-      ]
-      Flag:                         []
-      Immunization:                 []
-      ImmunizationEvaluation:       []
-      ImmunizationRecommendation:   []
-      Medication:                   []
-      MedicationAdministration:     []
-      MedicationDispense:           []
-      MedicationRequest:            []
-      MedicationStatement:          []
-      Patient:                      []
-      Practitioner:                 []
-      PractitionerRole:             []
-      RelatedPerson:                []
-      Task:                         []
-
-  @ENCOUNTER_STATUS_VS = [
-    {
-      "resourceType": "ValueSet",
-      "version": "",
-      "name": "EncounterStatus",
-      "title": "EncounterStatus",
-      "compose": {
-        "include": [
-          {
-            "system": "encounter-status",
-            "version": "4.0.1",
-            "concept": [
-              {
-                "code": "planned",
-                "display": "Planned"
-              },
-              {
-                "code": "arrived",
-                "display": "Arrived"
-              },
-              {
-                "code": "triaged",
-                "display": "Triaged"
-              },
-              {
-                "code": "in-progress",
-                "display": "In Progress"
-              },
-              {
-                "code": "onleave",
-                "display": "On Leave"
-              },
-              {
-                "code": "finished",
-                "display": "Finished"
-              },
-              {
-                "code": "cancelled",
-                "display": "Cancelled"
-              },
-              {
-                "code": "entered-in-error",
-                "display": "Entered in Error"
-              },
-              {
-                "code": "unknown",
-                "display": "Unknown"
-              }
-            ]
-          }
+    AdverseEvent: []
+    AllergyIntolerance: []
+    Condition: [
+      {
+        path: 'clinicalStatus'
+        title: 'clinicalStatus'
+        getValue: (fhirResource) =>
+          return fhirResource?.clinicalStatus?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.clinicalStatus = null
+          else
+            fhirResource.clinicalStatus = new cqm.models.CodeableConcept()
+            fhirResource.clinicalStatus.coding = [coding]
+        types: [
+          'CodeableConcept'
         ]
+        valueSets: () ->
+          FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.164')
       },
-      "id": "http://hl7.org/fhir/encounter-status"
-    }
-  ]
+      {
+        path: 'verificationStatus',
+        title: 'verificationStatus',
+        getValue: (fhirResource) =>
+          return fhirResource?.verificationStatus?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.verificationStatus = null
+          else
+            fhirResource.verificationStatus = new cqm.models.CodeableConcept()
+            fhirResource.verificationStatus.coding = [coding]
+        types: [
+          'CodeableConcept'
+        ],
+        valueSets: () ->
+          FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.166')
+      }
+    ]
+    FamilyMemberHistory: []
+    Procedure: []
+    Coverage: []
+    BodyStructure: []
+    DiagnosticReport: []
+    ImagingStudy: []
+    Observation: []
+    Specimen: []
+    CarePlan: []
+    CareTeam: []
+    Goal: []
+    NutritionOrder: []
+    ServiceRequest: []
+    Claim: []
+    Communication: []
+    CommunicationRequest: []
+    DeviceRequest: []
+    DeviceUseStatement: []
+    Location: []
+    Device: []
+    Substance: []
+    Encounter: [
+      {
+        path: 'length'
+        title: 'length'
+        getValue: (fhirResource) =>
+          fhirResource?.length
+        setValue: (fhirResource, value) =>
+          fhirResource?.length = value
+        types: ['Duration']
+      },
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) =>
+          return fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = cqm.models.EncounterStatus.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () =>
+          FhirValueSets.ENCOUNTER_STATUS_VS
+      },
+      {
+        path: 'location.period'
+        title: 'location.period'
+        getValue: (fhirResource) =>
+          fhirResource?.location?[0]?.period
+        setValue: (fhirResource, value) =>
+          if !fhirResource.location
+            encounterLocation = new cqm.models.EncounterLocation()
+            fhirResource.location = [encounterLocation]
+          fhirResource.location[0].period = value
+        types: ['Period']
+      },
+      {
+        path: 'hospitalization.dischargeDisposition',
+        title: 'hospitalization.dischargeDisposition',
+        getValue: (fhirResource) =>
+          return fhirResource?.hospitalization?.dischargeDisposition?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          # EncounterHospitalization
+          if !fhirResource.hospitalization
+            hospitalization = new cqm.models.EncounterHospitalization()
+            fhirResource.hospitalization = hospitalization
+          if !coding?
+            fhirResource.hospitalization.dischargeDisposition = null
+          else
+            fhirResource.hospitalization.dischargeDisposition = new cqm.models.CodeableConcept()
+            fhirResource.hospitalization.dischargeDisposition.coding = [coding]
+        types: [
+          'CodeableConcept' # User will see 'CodeableConcept', but it works with Coding behind the scenes
+        ]
+        valueSets: () =>
+          FhirValueSets.DISCHARGE_DISPOSITION_VS
+      },
+    ]
+    Flag: []
+    Immunization: []
+    ImmunizationEvaluation: []
+    ImmunizationRecommendation: []
+    Medication: []
+    MedicationAdministration: []
+    MedicationDispense: []
+    MedicationRequest: []
+    MedicationStatement: []
+    Patient: []
+    Practitioner: []
+    PractitionerRole: []
+    RelatedPerson: []
+    Task: []
+
 
