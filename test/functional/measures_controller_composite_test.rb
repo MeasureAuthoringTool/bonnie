@@ -38,7 +38,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -56,21 +56,21 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     }
     assert_response :success
     assert_equal 0, CqlMeasure.all.count
-    
+
     VCR.use_cassette("valid_vsac_response_composite") do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
       }
     end
     assert_response :redirect
-    
+
     measure = CqlMeasure.where({composite: true}).first
     assert_equal "40280582-6621-2797-0166-4034035B100A", measure['hqmf_id']
     # This composite measure has 7 components and 1 composite measure
@@ -100,7 +100,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -130,7 +130,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -145,14 +145,14 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
 
     # Update previously loaded measure with a measure that has a different hqmf_set_id
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMSAWA_v5_6_Artifacts_hqmf_set_id_mismatch.zip'), 'application/xml')
-    
+
     VCR.use_cassette("valid_vsac_response_composite") do
       post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient',
@@ -163,7 +163,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     assert_equal "The update file does not match the measure.", flash[:error][:summary]
     assert_equal "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure.", flash[:error][:body]
     assert_response :redirect
-    
+
     assert_equal 8, CqlMeasure.all.count
   end
 
@@ -185,7 +185,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -226,7 +226,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -247,7 +247,7 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient',
