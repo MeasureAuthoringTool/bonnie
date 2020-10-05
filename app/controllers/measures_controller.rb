@@ -95,7 +95,7 @@ class MeasuresController < ApplicationController
             episodes = params["eoc_#{existing.hqmf_set_id}"]
           end
           measure_details['calculate_sdes'] = existing.calculate_sdes
-          measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1    
+          measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
         else
           raise Exception.new('Update requested, but measure does not exist.')
         end
@@ -212,22 +212,22 @@ class MeasuresController < ApplicationController
     # If the ticket granting ticket doesn't exist (or has expired), get a new one
     if ticket_granting_ticket.nil?
       # The user could open a second browser window and remove their ticket_granting_ticket in the session after they
-      # prepeared a measure upload assuming ticket_granting_ticket in the session in the first tab
+      # prepared a measure upload assuming ticket_granting_ticket in the session in the first tab
 
       # First make sure we have credentials to attempt getting a ticket with. Throw an error if there are no credentials.
-      if params[:vsac_username].nil? || params[:vsac_password].nil?
+      if params[:vsac_api_key].nil?
         raise Util::VSAC::VSACNoCredentialsError.new
       end
 
       # Retrieve a new ticket granting ticket by creating the api class.
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: params[:vsac_username], password: params[:vsac_password])
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: params[:vsac_api_key])
       ticket_granting_ticket = api.ticket_granting_ticket
 
       # Create a new ticket granting ticket session variable
       session[:vsac_tgt] = ticket_granting_ticket
       return ticket_granting_ticket
 
-    # If it does exist, let the api test it
+      # If it does exist, let the api test it
     else
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
       return api.ticket_granting_ticket
