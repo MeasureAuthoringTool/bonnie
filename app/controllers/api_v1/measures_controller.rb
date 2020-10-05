@@ -49,7 +49,7 @@ module ApiV1
       end
     end
 
-    MEASURE_WHITELIST = %w[id cms_id continuous_variable created_at description episode_of_care id set_id version_number title type updated_at].freeze
+    MEASURE_WHITELIST = %w[measure_period main_cql_library calculate_sdes calculation_method id cms_id continuous_variable created_at description episode_of_care id set_id version_number title type updated_at].freeze
     PATIENT_WHITELIST = %w[_id birthdate created_at deathdate description ethnicity expected_values expired first gender insurance_providers last notes race updated_at].freeze
     INSURANCE_WHITELIST = %w[member_id payer].freeze
     POPULATION_TYPES = %w[population_index STRAT IPP DENOM NUMER DENEXCEP DENEX MSRPOPL OBSERV MSRPOPLEX].freeze
@@ -210,16 +210,16 @@ module ApiV1
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
     error :code => 409, :desc => "Measure with this Set ID already exists."
-    error :code => 500, :desc => "A server error occured."
+    error :code => 500, :desc => "A server error occurred."
     param_group :measure_upload
     def create
       permitted_params = params.permit!.to_h
-      measures, main_set_id = create_measure(uploaded_file: params[:measure_file],
+      measure = create_measure(uploaded_file: params[:measure_file],
                                                   measure_details: retrieve_measure_details(permitted_params),
                                                   value_set_loader: build_vs_loader(permitted_params, true),
                                                   user: current_resource_owner)
 
-      render json: {status: "success", url: "/api_v1/measures/#{main_set_id}"}, status: :ok
+      render json: {status: "success", url: "/api_v1/measures/#{measure.set_id}"}, status: :ok
     rescue StandardError => e
       render turn_exception_into_shared_error_if_needed(e).back_end_version
     end
@@ -229,15 +229,15 @@ module ApiV1
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
     error :code => 404, :desc => "Measure with this Set ID does not exist."
-    error :code => 500, :desc => "A server error occured."
+    error :code => 500, :desc => "A server error occurred."
     param_group :measure_upload
     def update
-      measures, main_set_id = update_measure(uploaded_file: params[:measure_file],
+      measure = update_measure(uploaded_file: params[:measure_file],
                                                   target_id: params[:id],
                                                   value_set_loader: build_vs_loader(params.permit!.to_h, true),
                                                   user: current_resource_owner)
 
-      render json: {status: "success", url: "/api_v1/measures/#{main_set_id}"}, status: :ok
+      render json: {status: "success", url: "/api_v1/measures/#{measure.set_id}"}, status: :ok
     rescue StandardError => e
       render turn_exception_into_shared_error_if_needed(e).back_end_version
     end
