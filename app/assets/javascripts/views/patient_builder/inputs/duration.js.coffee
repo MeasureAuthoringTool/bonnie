@@ -1,4 +1,4 @@
-# Input view for Quantity types.
+# Input view for Duration type.
 class Thorax.Views.InputDurationView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/duration']
 
