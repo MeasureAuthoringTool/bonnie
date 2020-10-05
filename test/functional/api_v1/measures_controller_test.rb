@@ -142,7 +142,7 @@ module ApiV1
 
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :success
@@ -167,7 +167,7 @@ module ApiV1
 
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :success
@@ -188,7 +188,7 @@ module ApiV1
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :success
@@ -199,7 +199,7 @@ module ApiV1
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :conflict
@@ -213,7 +213,7 @@ module ApiV1
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :ok
@@ -234,7 +234,7 @@ module ApiV1
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'ep', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}, {"Content-Type" => 'multipart/form-data'}
         assert_response :ok
@@ -254,7 +254,7 @@ module ApiV1
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'ep', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}, {"Content-Type" => 'multipart/form-data'}
         assert_response :ok
@@ -273,7 +273,7 @@ module ApiV1
       # Update the same measure
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         put :update, {id: "762B1B52-40BF-4596-B34F-4963188E7FF7", vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'ep', calculation_type: 'episode', population_titles: %w[Foo bar baz]}, {"Content-Type" => 'multipart/form-data'}
         assert_response :ok
@@ -292,7 +292,7 @@ module ApiV1
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}, {"Content-Type" => 'multipart/form-data'}
         assert_response :ok
@@ -312,7 +312,7 @@ module ApiV1
       # Update the same measure
       VCR.use_cassette("api_valid_vsac_response") do
         # get ticket_granting_ticket
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         put :update, {id: "762B1B52-40BF-4596-B34F-4963188E7FF7", vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', population_titles: %w[Foo bar baz]}, {"Content-Type" => 'multipart/form-data'}
         assert_response :ok
@@ -331,7 +331,7 @@ module ApiV1
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_missing_vs_oid_Artifacts.zip'),'application/zip')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_invalid_release_vsac_response") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'release', vsac_query_release: 'Fake 1234', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :bad_request
@@ -347,7 +347,7 @@ module ApiV1
         ticket = "foo"
         post :create, {vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :bad_request
-        expected_response = { "status" => "error", "messages" => "Error Loading VSAC Value Sets. VSAC session expired. Please re-enter VSAC username and password to try again."}
+        expected_response = { "status" => "error", "messages" => "Error Loading VSAC Value Sets. VSAC session expired. Please re-enter VSAC API Key to try again."}
         assert_equal expected_response, JSON.parse(response.body)
       end
     end
@@ -356,7 +356,7 @@ module ApiV1
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_missing_vs_oid_Artifacts.zip'),'application/zip')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_missing_vs_vsac_response") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :bad_request
@@ -369,7 +369,7 @@ module ApiV1
       measure_update_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_Artifacts.zip'),'application/zip')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_valid_vsac_response") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         put :update, {id: "762B1B52-40BF-4596-B34F-4963188E7FF7", vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_update_file, measure_type: 'eh', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :not_found
@@ -384,7 +384,7 @@ module ApiV1
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_Artifacts.zip'),'application/zip')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_incorrect_hqmf_vsac_response") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
 
         post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}, {"Content-Type" => 'multipart/form-data'}
@@ -404,7 +404,7 @@ module ApiV1
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_bad_hqmf_Artifacts.zip'),'application/zip')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_incorrect_hqmf_vsac_response") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at}, {"Content-Type" => 'multipart/form-data'}
         assert_response :internal_server_error
@@ -417,7 +417,7 @@ module ApiV1
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports', 'CCDELookback_v5_4_Artifacts.zip'),'application/zip')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_ccdelookback_vsac_response") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_measure_defined: "false", vsac_query_include_draft: "false", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', calculate_sdes: 'true'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :success
@@ -432,7 +432,7 @@ module ApiV1
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports', 'CCDELookback_v5_4_Artifacts.zip'),'application/zip')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_release_ccdelookback_vsac_response") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {vsac_query_type: 'release', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', calculate_sdes: 'false'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :success
@@ -455,7 +455,7 @@ module ApiV1
 
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("valid_vsac_response_composite_api") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {
           vsac_query_type: 'profile',
@@ -480,7 +480,7 @@ module ApiV1
 
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("valid_vsac_response_composite_api") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :update, {
           vsac_query_type: 'profile',
@@ -512,7 +512,7 @@ module ApiV1
       end
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("valid_vsac_response_bad_composite_api") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {
           vsac_query_type: 'profile',
@@ -539,7 +539,7 @@ module ApiV1
       end
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("valid_vsac_response_bad_composite_api") do
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: ENV['VSAC_API_KEY'])
         ticket = api.ticket_granting_ticket[:ticket]
         post :create, {
           vsac_query_type: 'profile',
