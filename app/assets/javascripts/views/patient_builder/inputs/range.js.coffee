@@ -1,9 +1,7 @@
-# Input view for Range types.
+# Input view for Range type
 class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/range']
 
-  # Expected options to be passed in using the constructor options hash:
-  #   initialValue - range - Optional. Initial value of range.
   initialize: ->
     if @initialValue?
       @value = @initialValue.clone
@@ -16,7 +14,7 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
 
   hasValidValue: ->
     if (@value?.low && @value?.high)
-      return true
+      return @value.low < @value.high
     else
       return false
 
