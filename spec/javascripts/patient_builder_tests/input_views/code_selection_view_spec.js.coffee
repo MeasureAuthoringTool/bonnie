@@ -60,7 +60,6 @@ describe 'EditCodeDisplayView/EditCodeSelectionView', ->
     @addCode('SNOMEDCT', '32485007') # Code that already exists on the patient
     @addCode('SNOMEDCT', '183452005') # Code that already exists on the patient
     @addCode('SNOMEDCT', '8715000')
-    debugger
     expect($('.existing-values:first')[0].childElementCount).toEqual(3)
     expect(@encounter_element.fhir_resource?.type[0]?.coding.length).toEqual(3)
 

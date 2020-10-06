@@ -163,22 +163,6 @@
     resourceType = dataElement.fhir_resource?.resourceType
     return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find((attr) => attr.path is path)
 
-# Editor types:
-#    'Interval<DateTime>'
-#    'Interval<Quantity>'
-#    'DateTime'
-#    'Time'
-#    'Quantity'
-#    'Code'
-#    'CodeableConcept'
-#    'String'
-#    'Integer'
-#    'Decimal'
-#    'Ratio'
-#    'Any'
-#    'Identifier'
-#    else null
-
 # Data element attributes per resource type.
 # Each resource has an array of entries per attribute.
 # An attribute entry has necessary metadata to view/edit.
