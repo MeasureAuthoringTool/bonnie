@@ -44,7 +44,6 @@ describe 'InputView', ->
       expect(view.hasValidValue()).toBe true
       expect(view.value.code.value).toEqual '467186001'
       expect(view.value.system.value).toEqual 'SNOMEDCT'
-      # FIXME
       expect(view.$('select[name="valueset"]').val()).toBe 'custom'
       expect(view.$('select[name="custom_codesystem_select"]').val()).toBe 'SNOMEDCT'
       expect(view.$('input[name="custom_codesystem"]').val()).toBe 'SNOMEDCT'
