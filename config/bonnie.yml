@@ -27,3 +27,6 @@ test:
 
 production:
   <<: *defaults
+  smtp_port: 25
+  smtp_hostname: "localhost"
+  smtp_tls: false
