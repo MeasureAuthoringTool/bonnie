@@ -6,7 +6,7 @@ describe 'InputView', ->
       # load up a measure so we have valuesets
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
-      @view = new Thorax.Views.InputAnyView(attributeName: 'attributeNameTest', cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap())
+      @view = new Thorax.Views.InputAnyView(attributeName: 'attributeNameTest', cqmValueSets: @measure.get('cqmValueSets'))
       @view.render()
 
     it 'initializes', ->
@@ -33,9 +33,21 @@ describe 'InputView', ->
       expect(@view.hasValidValue()).toBe false
       expect(@view.value).toBe null
 
+    it 'handles change to Duration', ->
+      @view.$('select[name="type"] > option[value="Duration"]').prop('selected', true).change()
+      expect(@view.inputView instanceof Thorax.Views.InputDurationView).toBe true
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
+
     it 'handles change to Code', ->
       @view.$('select[name="type"] > option[value="Code"]').prop('selected', true).change()
       expect(@view.inputView instanceof Thorax.Views.InputCodeView).toBe true
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
+
+    it 'handles change to CodeableConcept', ->
+      @view.$('select[name="type"] > option[value="CodeableConcept"]').prop('selected', true).change()
+      expect(@view.inputView instanceof Thorax.Views.InputCodingView).toBe true
       expect(@view.hasValidValue()).toBe false
       expect(@view.value).toBe null
 

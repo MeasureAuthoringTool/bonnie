@@ -42,7 +42,7 @@ class Thorax.Models.Measure extends Thorax.Model
     oid_display_name_map = {}
     if thoraxMeasure.cqmValueSets
       for valSet in thoraxMeasure.cqmValueSets
-        oid_display_name_map[valSet.oid] = valSet.display_name if valSet?.display_name
+        oid_display_name_map[valSet.id] = valSet.name if valSet?.name
 
     for key, data_criteria of thoraxMeasure.source_data_criteria
       data_criteria.key = key

@@ -109,3 +109,248 @@ describe 'DataCriteriaHelpers', ->
     primitiveDate = DataCriteriaHelpers.getPrimitiveDateForStringDateTime(dateTime.toString())
     expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
     expect(primitiveDate.value).toEqual '2020-09-23'
+
+  DATA_ELEMENT_PRIMARY_CODE_PATH = [
+    "AdverseEvent",
+    "AllergyIntolerance",
+    "Condition",
+    "FamilyMemberHistory",
+    "Procedure",
+    "Coverage",
+    "BodyStructure",
+    "DiagnosticReport",
+    "ImagingStudy",
+    "Observation",
+    "Specimen",
+    "CarePlan",
+    "CareTeam",
+    "Goal",
+    "NutritionOrder",
+    "ServiceRequest",
+    "Claim",
+    "Communication",
+    "CommunicationRequest",
+    "DeviceRequest",
+    "DeviceUseStatement",
+    "Location",
+    "Device",
+    "Substance",
+    "Encounter",
+    "Flag",
+    "Immunization",
+    "ImmunizationEvaluation",
+    "ImmunizationRecommendation",
+    "Medication",
+    "MedicationAdministration",
+    "MedicationDispense",
+    "MedicationRequest",
+    "MedicationStatement",
+    "Patient",
+    "Practitioner",
+    "PractitionerRole",
+    "RelatedPerson",
+    "Task",
+  ]
+
+  it 'returns undefined (unsupported) for an empty DataElement getPrimaryCodePath', ->
+    expect(DataCriteriaHelpers.getPrimaryCodePath(new cqm.models.DataElement())).toBeUndefined
+
+  it 'returns null for a DataElement unknown resource', ->
+    de = new cqm.models.DataElement()
+    de.fhir_resource = new cqm.models.Resource()
+    de.fhir_resource.resourceType = 'unsupported'
+    expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toBe(null)
+
+  it 'returns meta for getPrimaryCodePath', ->
+    for res in DATA_ELEMENT_PRIMARY_CODE_PATH
+      de = new cqm.models.DataElement()
+      de.fhir_resource = new cqm.models[res]()
+      expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toBeDefined()
+
+  it 'set/get primary codes works for Encounter', ->
+    de = new cqm.models.DataElement()
+    de.fhir_resource = new cqm.models.Encounter()
+    expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toEqual 'type'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)).toEqual []
+    coding = new cqm.models.Coding()
+    coding.system = cqm.models.PrimitiveUri.parsePrimitive('system')
+    coding.code = cqm.models.PrimitiveCode.parsePrimitive('code')
+    coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+    DataCriteriaHelpers.setPrimaryCodes(de, [coding])
+    expect(DataCriteriaHelpers.getPrimaryCodes(de).length).toEqual 1
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].code.value).toEqual 'code'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].system.value).toEqual 'system'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].version.value).toEqual 'version'
+
+  it 'set/get primary codes works for Condition', ->
+    de = new cqm.models.DataElement()
+    de.fhir_resource = new cqm.models.Condition()
+    expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toEqual 'code'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)).toEqual []
+    coding = new cqm.models.Coding()
+    coding.system = cqm.models.PrimitiveUri.parsePrimitive('system')
+    coding.code = cqm.models.PrimitiveCode.parsePrimitive('code')
+    coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+    DataCriteriaHelpers.setPrimaryCodes(de, [coding])
+    expect(DataCriteriaHelpers.getPrimaryCodes(de).length).toEqual 1
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].code.value).toEqual 'code'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].system.value).toEqual 'system'
+    expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].version.value).toEqual 'version'
+
+  describe 'Condition attributes', ->
+    it 'should support clinicalStatus and verificationStatus attributes', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      clinicalStatus = conditionAttrs[0]
+      expect(clinicalStatus.path).toEqual 'clinicalStatus'
+      expect(clinicalStatus.title).toEqual 'clinicalStatus'
+      expect(clinicalStatus.types).toEqual ['CodeableConcept']
+
+      verificationStatus = conditionAttrs[1]
+      expect(verificationStatus.path).toEqual 'verificationStatus'
+      expect(verificationStatus.title).toEqual 'verificationStatus'
+      expect(verificationStatus.types).toEqual ['CodeableConcept']
+
+    it 'should set and get values for clinicalStatus', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      clinicalStatus = conditionAttrs[0]
+      expect(clinicalStatus.path).toEqual 'clinicalStatus'
+      # Create condition fhir resource and coding
+      conditionResource = new cqm.models.Condition()
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('condition-clinical')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('4.0.1')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('recurrence')
+      coding.display = cqm.models.PrimitiveString.parsePrimitive('Recurrence')
+      coding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
+      # set coding to clinicalStatus
+      clinicalStatus.setValue(conditionResource, coding)
+
+      selectedCoding = clinicalStatus.getValue(conditionResource)
+      # Verify after setting values
+      expect(selectedCoding.code.value).toEqual 'recurrence'
+      expect(selectedCoding.display.value).toEqual 'Recurrence'
+      expect(selectedCoding.system.value).toEqual 'condition-clinical'
+
+    it 'should get valueSets for clinicalStatus', ->
+      condition = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      clinicalStatus = condition[0]
+      expect(clinicalStatus.path).toEqual 'clinicalStatus'
+
+      valueSets = clinicalStatus.valueSets()
+      expect(valueSets[0].id).toEqual '2.16.840.1.113883.4.642.3.164'
+      expect(valueSets[0].name).toEqual 'ConditionClinicalStatusCodes'
+
+    it 'should set and get values for verificationStatus', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      verificationStatus = conditionAttrs[1]
+      expect(verificationStatus.path).toEqual 'verificationStatus'
+      # Create condition fhir resource and coding
+      conditionResource = new cqm.models.Condition()
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('condition-ver-status')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('4.0.1')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('differential')
+      coding.display = cqm.models.PrimitiveString.parsePrimitive('Differential')
+      coding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
+      # set coding to clinicalStatus
+      verificationStatus.setValue(conditionResource, coding)
+
+      selectedCoding = verificationStatus.getValue(conditionResource)
+      # Verify after setting values
+      expect(selectedCoding.code.value).toEqual 'differential'
+      expect(selectedCoding.display.value).toEqual 'Differential'
+      expect(selectedCoding.system.value).toEqual 'condition-ver-status'
+
+  describe 'Encounter attributes', ->
+    it 'should support Encounter.length', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'length'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'length'
+      expect(attr.title).toBe 'length'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Duration'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Duration()
+      valueToSet.unit = cqm.models.PrimitiveString.parsePrimitive('ml')
+      valueToSet.value = cqm.models.PrimitiveDecimal.parsePrimitive(100)
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.unit.value).toBe 'ml'
+      expect(value.value.value).toBe 100
+
+    it 'should support Encounter.status', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'status'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'status'
+      expect(attr.title).toBe 'status'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Code'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = 'a code'
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value).toBe 'a code'
+
+    it 'should support Encounter.location.period', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'location.period'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'location.period'
+      expect(attr.title).toBe 'location.period'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Period'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Period()
+      valueToSet.start = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+      valueToSet.end = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-02T13:54:57')
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.start.value).toBe '2020-09-02T13:54:57'
+      expect(value.end.value).toBe '2020-10-02T13:54:57'
+
+    it 'should support Encounter.hospitalization.dischargeDisposition', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'hospitalization.dischargeDisposition'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'hospitalization.dischargeDisposition'
+      expect(attr.title).toBe 'hospitalization.dischargeDisposition'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'CodeableConcept'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Coding()
+      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
