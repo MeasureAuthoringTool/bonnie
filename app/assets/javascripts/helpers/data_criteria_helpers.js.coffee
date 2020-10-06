@@ -222,7 +222,7 @@
             fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
           if attrType == 'String'
             fhirResource.onset = cqm.models.PrimitiveString.parsePrimitive(value)
-          if attrType == 'Period' || attrType == 'Period' || attrType == 'Range'
+          if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
             fhirResource.onset = value
           else
             fhirResource.onset = null
