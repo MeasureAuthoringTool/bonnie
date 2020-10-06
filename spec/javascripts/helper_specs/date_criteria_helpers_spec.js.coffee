@@ -210,6 +210,16 @@ describe 'DataCriteriaHelpers', ->
       expect(verificationStatus.title).toEqual 'verificationStatus'
       expect(verificationStatus.types).toEqual ['CodeableConcept']
 
+      onset = conditionAttrs[2]
+      expect(onset.path).toEqual 'onset'
+      expect(onset.title).toEqual 'onset'
+      expect(onset.types).toEqual ['DateTime', 'Age', 'Period', 'Range', 'String']
+
+      abatement = conditionAttrs[3]
+      expect(abatement.path).toEqual 'abatement'
+      expect(abatement.title).toEqual 'abatement'
+      expect(abatement.types).toEqual ['DateTime', 'Age', 'Period', 'Range', 'String']
+
     it 'should set and get values for clinicalStatus', ->
       conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
       clinicalStatus = conditionAttrs[0]
@@ -261,6 +271,68 @@ describe 'DataCriteriaHelpers', ->
       expect(selectedCoding.display.value).toEqual 'Differential'
       expect(selectedCoding.system.value).toEqual 'condition-ver-status'
 
+    it 'should set and get values for abatement if Choice type is DateTime', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      abatement = conditionAttrs[3]
+      expect(abatement.path).toEqual 'abatement'
+      dateTime = new cqm.models.CQL.DateTime(2020, 10, 5, 8, 0, 0, 0, 0)
+      # Create condition fhir resource and coding
+      conditionResource = new cqm.models.Condition()
+      # set coding to clinicalStatus
+      abatement.setValue(conditionResource, dateTime)
+
+      abatementValue = abatement.getValue(conditionResource)
+      # Verify after setting values
+      expect(abatementValue.value).toEqual dateTime.toString()
+
+    it 'should set and get values for abatement if Choice type is String', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      abatement = conditionAttrs[3]
+      expect(abatement.path).toEqual 'abatement'
+      str = 'Test abatement'
+      # Create condition fhir resource and coding
+      conditionResource = new cqm.models.Condition()
+      # set coding to clinicalStatus
+      abatement.setValue(conditionResource, str)
+
+      abatementValue = abatement.getValue(conditionResource)
+      # Verify after setting values
+      expect(abatementValue.value).toEqual str
+
+    it 'should set and get values for abatement if Choice type is Age', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      abatement = conditionAttrs[3]
+      expect(abatement.path).toEqual 'abatement'
+      # Create condition fhir resource and coding
+      conditionResource = new cqm.models.Condition()
+      age = new cqm.models.Age()
+      age.unit = cqm.models.PrimitiveString.parsePrimitive('days')
+      age.value = cqm.models.PrimitiveDecimal.parsePrimitive(12)
+      # set coding to clinicalStatus
+      abatement.setValue(conditionResource, age)
+
+      abatementValue = abatement.getValue(conditionResource)
+      # Verify after setting values
+      expect(abatementValue.unit.value).toEqual age.unit.value
+      expect(abatementValue.value.value).toEqual age.value.value
+
+    it 'should set and get values for abatement if Choice type is Period', ->
+      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      abatement = conditionAttrs[3]
+      expect(abatement.path).toEqual 'abatement'
+      # Create condition fhir resource and coding
+      conditionResource = new cqm.models.Condition()
+      period = new cqm.models.Period()
+      period.start = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+      period.end = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-02T13:54:57')
+      # set coding to clinicalStatus
+      abatement.setValue(conditionResource, period)
+
+      abatementValue = abatement.getValue(conditionResource)
+      # Verify after setting values
+      expect(abatementValue.start.value).toEqual period.start.value
+      expect(abatementValue.end.value).toEqual period.end.value
+
   describe 'Encounter attributes', ->
     it 'should support Encounter.length', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
@@ -280,7 +352,8 @@ describe 'DataCriteriaHelpers', ->
       valueToSet.value = cqm.models.PrimitiveDecimal.parsePrimitive(100)
       attr.setValue(fhirResource, valueToSet)
 
-      value = attr.getValue(fhirResource)
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
       expect(value.unit.value).toBe 'ml'
       expect(value.value.value).toBe 100
@@ -298,12 +371,58 @@ describe 'DataCriteriaHelpers', ->
       fhirResource = new cqm.models.Encounter()
       expect(attr.getValue(fhirResource)).toBeUndefined
 
-      valueToSet = new cqm.models.Duration()
-      valueToSet.unit = cqm.models.PrimitiveString.parsePrimitive('ml')
-      valueToSet.value = cqm.models.PrimitiveDecimal.parsePrimitive(100)
+      valueToSet = 'a code'
       attr.setValue(fhirResource, valueToSet)
 
-      value = attr.getValue(fhirResource)
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
-      expect(value.unit.value).toBe 'ml'
-      expect(value.value.value).toBe 100
+      expect(value).toBe 'a code'
+
+    it 'should support Encounter.location.period', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'location.period'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'location.period'
+      expect(attr.title).toBe 'location.period'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Period'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Period()
+      valueToSet.start = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+      valueToSet.end = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-02T13:54:57')
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.start.value).toBe '2020-09-02T13:54:57'
+      expect(value.end.value).toBe '2020-10-02T13:54:57'
+
+    it 'should support Encounter.hospitalization.dischargeDisposition', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'hospitalization.dischargeDisposition'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'hospitalization.dischargeDisposition'
+      expect(attr.title).toBe 'hospitalization.dischargeDisposition'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'CodeableConcept'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Coding()
+      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
