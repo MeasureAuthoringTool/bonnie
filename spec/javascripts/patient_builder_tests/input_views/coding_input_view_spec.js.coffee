@@ -1,6 +1,6 @@
 describe 'InputView', ->
 
-  describe 'CodeView', ->
+  describe 'CodingView', ->
 
     beforeAll ->
       # load up a measure so we have valuesets
