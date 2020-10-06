@@ -34,7 +34,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -62,7 +62,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -88,7 +88,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'release',
         vsac_query_program: 'CMS eCQM',
         vsac_query_release: 'eCQM Update 2018 EP-EC and EH',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -115,7 +115,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
         vsac_query_measure_defined: 'false',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -135,7 +135,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -163,7 +163,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
-        vsac_username: 'invaliduser', vsac_password: 'invalidpassword',
+        vsac_api_key: 'invalidapikey',
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -172,7 +172,7 @@ include Devise::Test::ControllerHelpers
       assert_response :redirect
       assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
       assert_equal "VSAC credentials were invalid.", flash[:error][:summary]
-      assert flash[:error][:body].starts_with?("Please verify that you are using the correct VSAC username and password.")
+      assert flash[:error][:body].starts_with?("Please verify that you are using your valid VSAC API Key.")
 
     end
   end
@@ -197,7 +197,7 @@ include Devise::Test::ControllerHelpers
     assert_response :redirect
     assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
     assert_equal "VSAC session expired.", flash[:error][:summary]
-    assert flash[:error][:body].starts_with?("Please re-enter VSAC username and password to try again.")
+    assert flash[:error][:body].starts_with?("Please re-enter VSAC API Key to try again.")
   end
 
   test "upload MAT with that cause value sets not found error" do
@@ -216,7 +216,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_release: 'eCQM Update 2018-05-04',
         vsac_query_measure_defined: 'false',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -244,7 +244,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
         vsac_query_measure_defined: 'false',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -273,7 +273,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -311,7 +311,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -354,7 +354,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -439,7 +439,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -455,7 +455,7 @@ include Devise::Test::ControllerHelpers
       vsac_query_profile: 'Latest eCQM',
       vsac_query_include_draft: 'false',
       vsac_query_measure_defined: 'true',
-      vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+      vsac_api_key: ENV['VSAC_API_KEY'],
       measure_file: update_measure_file,
       measure_type: 'ep',
       calculation_type: 'patient'
@@ -484,7 +484,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -501,7 +501,7 @@ include Devise::Test::ControllerHelpers
       vsac_query_profile: 'Latest eCQM',
       vsac_query_include_draft: 'false',
       vsac_query_measure_defined: 'true',
-      vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+      vsac_api_key: ENV['VSAC_API_KEY'],
       measure_file: update_measure_file,
       hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"
     }
@@ -534,7 +534,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -570,7 +570,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'eh',
         calculation_type: 'episode'
@@ -614,7 +614,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: update_measure_file,
         measure_type: 'eh',
         calculation_type: 'episode',
@@ -654,7 +654,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'profile',
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -689,7 +689,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
@@ -745,7 +745,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'eh',
         calculation_type: 'episode',
@@ -765,7 +765,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: update_measure_file,
         hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"
       }
