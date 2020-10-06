@@ -45,6 +45,20 @@ describe 'PatientBuilderView', ->
 #   it 'does not display compare patient results button when there is no history', ->
 #     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
 
+  it "displays warning if patient is deceased, but the measure does not contain the associated value set code.  Warning goes away on setting deceased to false", ->
+    jasmine.getJSONFixtures().clearCache()
+    undead_measure = loadFhirMeasure 'fhir_measure_data/BonnieCohort.json' # no dead code
+    dead_patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/BonnieCohort/dead_test.json')], parse: true
+    dead_patient = dead_patients.models[0]
+    @bonnie_measures_old = bonnie.measures
+    bonnie.measures = new Thorax.Collections.Measures()
+    bonnie.measures.add @measure
+    patientBuilder = new Thorax.Views.PatientBuilder(model: dead_patient, measure: undead_measure, patients: dead_patients)
+    patientBuilder.render()
+    expect(patientBuilder.html()).toContainText "Patient Characteristic Expired: Dead (finding)"
+    patientBuilder.$('input[type=checkbox][name=expired]:first').click()
+    expect(patientBuilder.html()).not.toContainText "Patient Characteristic Expired: Dead (finding)"
+
   it "toggles patient expiration correctly", ->
     measure = loadFhirMeasure 'fhir_measure_data/CMS1010V0.json'
     livingJohnSmith = getJSONFixture('fhir_patients/CMS1010V0/john_smith.json')
