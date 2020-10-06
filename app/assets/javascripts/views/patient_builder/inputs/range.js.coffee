@@ -18,12 +18,12 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
     else
       return false
 
-  handleInputChange: (e) ->
+  handleInputChange: ->
     inputData = @serialize()
-    if inputData.low && inputData.high && inputData.low < inputData.high
+    if inputData.low && inputData.high && parseFloat(inputData.low) < parseFloat(inputData.high)
       @value = new cqm.models.Range()
-      @value.low = inputData.low
-      @value.high = inputData.high
+      @value.low = parseFloat(inputData.low)
+      @value.high = parseFloat(inputData.high)
     else
       @value = null
     @trigger 'valueChanged', @
