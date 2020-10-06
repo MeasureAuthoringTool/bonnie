@@ -6,24 +6,26 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
   #   initialValue - range - Optional. Initial value of range.
   initialize: ->
     if @initialValue?
-      @value = @initialValue
-      @lowView = new Thorax.Views.InputQuantityView(initialValue: @value.low)
-      @highView = new Thorax.Views.InputQuantityView(initialValue: @value.high)
+      @value = @initialValue.clone
     else
       @value = null
-      @lowView = new Thorax.Views.InputQuantityView()
-      @highView = new Thorax.Views.InputQuantityView()
-    @listenTo(@lowView, 'valueChanged', @updateValueFromSubviews)
-    @listenTo(@highView, 'valueChanged', @updateValueFromSubviews)
 
-  # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
-  # if the add button should be active or not
+  events:
+    'change input': 'handleInputChange'
+    'keyup input': 'handleInputChange'
+
   hasValidValue: ->
-    @value?
+    if (@value?.low && @value?.high)
+      return true
+    else
+      return false
 
-  updateValueFromSubviews: ->
-    if @lowView.hasValidValue() && @highView.hasValidValue()
-      @value = new cqm.models.CQL.Range(@lowView.value, @highView.value)
+  handleInputChange: (e) ->
+    inputData = @serialize()
+    if inputData.low && inputData.high && inputData.low < inputData.high
+      @value = new cqm.models.Range()
+      @value.low = inputData.low
+      @value.high = inputData.high
     else
       @value = null
     @trigger 'valueChanged', @
