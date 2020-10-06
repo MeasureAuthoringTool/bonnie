@@ -14,13 +14,13 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
 
   hasValidValue: ->
     if (@value?.low && @value?.high)
-      return @value.low < @value.high
+      return @value.low <= @value.high
     else
       return false
 
   handleInputChange: ->
     inputData = @serialize()
-    if inputData.low && inputData.high && parseFloat(inputData.low) < parseFloat(inputData.high)
+    if inputData.low && inputData.high && parseFloat(inputData.low) <= parseFloat(inputData.high)
       @value = new cqm.models.Range()
       @value.low = parseFloat(inputData.low)
       @value.high = parseFloat(inputData.high)
