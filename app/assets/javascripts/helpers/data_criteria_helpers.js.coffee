@@ -189,7 +189,7 @@
             fhirResource.clinicalStatus = null
           else
             fhirResource.clinicalStatus = new cqm.models.CodeableConcept()
-            fhirResource.clinicalStatus.coding = [ coding ]
+            fhirResource.clinicalStatus.coding = [coding]
         types: [
           'CodeableConcept'
         ]
@@ -205,7 +205,7 @@
             fhirResource.verificationStatus = null
           else
             fhirResource.verificationStatus = new cqm.models.CodeableConcept()
-            fhirResource.verificationStatus.coding = [ coding ]
+            fhirResource.verificationStatus.coding = [coding]
         types: [
           'CodeableConcept'
         ],
