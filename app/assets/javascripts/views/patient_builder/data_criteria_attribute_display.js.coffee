@@ -42,7 +42,9 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       return "#{value?.value?.value} '#{value?.unit?.value}'"
 
     if value instanceof cqm.models.Range
-      return "#{value?.low?.value.value} #{value?.low?.unit.value} - #{value?.high?.value.value} #{value?.high?.unit.value}"
+      lowString = if value?.low?.value?.value then "#{value?.low?.value?.value} #{value?.low?.unit?.value}" else "?"
+      highString = if value?.high?.value?.value then "#{value?.high?.value?.value} #{value?.high?.unit?.value}" else "?"
+      return "#{lowString} - #{highString}"
 
     if value instanceof cqm.models.Period
       lowString = if value.start? then @_stringifyValue(value.start) else "null"
