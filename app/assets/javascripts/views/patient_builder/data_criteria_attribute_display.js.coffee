@@ -31,27 +31,27 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     if !value?
       return 'null'
 
-    if value instanceof cqm.models.Coding
+    if cqm.models.Coding.isCoding(value)
       codeSystemName = @parent.measure.codeSystemMap()[value?.system?.value] || value?.system?.value
       return "#{codeSystemName}: #{value?.code?.value}"
 
-    if value instanceof cqm.models.PrimitiveCode || value instanceof cqm.models.PrimitiveString
+    if cqm.models.PrimitiveCode.isPrimitiveCode(value) || cqm.models.PrimitiveString.isPrimitiveString(value)
       return "#{value?.value}"
 
-    if value instanceof cqm.models.Duration || value instanceof cqm.models.Age
+    if cqm.models.Duration.isDuration(value) || cqm.models.Age.isAge(value)
       return "#{value?.value?.value} '#{value?.unit?.value}'"
 
-    if value instanceof cqm.models.Range
+    if cqm.models.Range.isRange(value)
       lowString = if value?.low?.value?.value then "#{value?.low?.value?.value} #{value?.low?.unit?.value}" else "?"
       highString = if value?.high?.value?.value then "#{value?.high?.value?.value} #{value?.high?.unit?.value}" else "?"
       return "#{lowString} - #{highString}"
 
-    if value instanceof cqm.models.Period
+    if cqm.models.Period.isPeriod(value)
       lowString = if value.start? then @_stringifyValue(value.start) else "null"
       highString = if value.end? then @_stringifyValue(value.end) else "null"
       return "#{lowString} - #{highString}"
 
-    if value instanceof cqm.models.PrimitiveDateTime
+    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(value)
       cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(value?.value)
       return moment.utc(cqlValue.toJSDate()).format('L LT')
 
