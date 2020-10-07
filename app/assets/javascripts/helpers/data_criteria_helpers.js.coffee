@@ -183,8 +183,7 @@
       {
         path: 'clinicalStatus'
         title: 'clinicalStatus'
-        getValue: (fhirResource) =>
-          return fhirResource?.clinicalStatus?.coding?[0]
+        getValue: (fhirResource) => fhirResource?.clinicalStatus?.coding?[0]
         setValue: (fhirResource, coding) =>
           if !coding?
             fhirResource.clinicalStatus = null
@@ -200,8 +199,7 @@
       {
         path: 'verificationStatus',
         title: 'verificationStatus',
-        getValue: (fhirResource) =>
-          return fhirResource?.verificationStatus?.coding?[0]
+        getValue: (fhirResource) => fhirResource?.verificationStatus?.coding?[0]
         setValue: (fhirResource, coding) =>
           if !coding?
             fhirResource.verificationStatus = null
@@ -213,6 +211,38 @@
         ],
         valueSets: () ->
           FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.166')
+      },
+      {
+        path: 'onset'
+        title: 'onset'
+        getValue: (fhirResource) => fhirResource?.onset
+        setValue: (fhirResource, value) =>
+          attrType = value?.constructor?.name
+          if attrType == 'DateTime'
+            fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
+          if attrType == 'String'
+            fhirResource.onset = cqm.models.PrimitiveString.parsePrimitive(value)
+          if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
+            fhirResource.onset = value
+          else
+            fhirResource.onset = null
+        types: ['DateTime', 'Age', 'Period', 'Range', 'String']
+      },
+      {
+        path: 'abatement',
+        title: 'abatement',
+        getValue: (fhirResource) => fhirResource?.abatement
+        setValue: (fhirResource, value) =>
+          attrType = value?.constructor?.name
+          if attrType == 'DateTime'
+            fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
+          else if attrType == 'String'
+            fhirResource.abatement = cqm.models.PrimitiveString.parsePrimitive(value)
+          else if attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
+            fhirResource.abatement = value
+          else
+            fhirResource.abatement = null
+        types: ['DateTime', 'Age', 'Period', 'Range', 'String']
       }
     ]
     FamilyMemberHistory: []
