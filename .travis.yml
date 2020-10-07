@@ -29,7 +29,7 @@ before_script:
 script:
   - bundle exec rake teaspoon
   - bundle exec brakeman -qAzw1
-  - bundle exec bundle-audit check --update --ignore CVE-2020-5267 CVE-2020-8166 CVE-2020-8164 CVE-2020-15169 CVE-2020-8163 CVE-2020-8167 CVE-2020-8165 CVE-2020-8184 CVE-2020-8161
+  - bundle exec bundle-audit check --update --ignore CVE-2020-5267 CVE-2020-8166 CVE-2020-8164 CVE-2020-15169 CVE-2020-8163 CVE-2020-8167 CVE-2020-8165 CVE-2020-8184 CVE-2020-8161 CVE-2019-16892
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
   - bundle exec rake test
