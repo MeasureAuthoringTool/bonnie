@@ -39,11 +39,15 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
     dataElementWithMissingCodes = []
     for dataElement in @patient.get('cqmPatient').data_elements || []
       appliedCodes = []
+      missingCodes = []
       for attr, value of dataElement.fhir_resource
         @getCodes(value, appliedCodes)
 
       for coding in appliedCodes
-        dataElementWithMissingCodes.push "#{dataElement.description} - #{coding.system}:#{coding.code}" unless @measure.hasCode(coding.code, coding.system) && dataElement.description
+        missingCodes.push "#{dataElement.description}" unless @measure.hasCode(coding.code, coding.system) && dataElement.description
+
+      # Add data element when ALL of its applied codes are NOT in any value set.
+      dataElementWithMissingCodes.concat(missingCodes) if missingCodes.length == appliedCodes.length
 
     dataElementWithMissingCodes
 
