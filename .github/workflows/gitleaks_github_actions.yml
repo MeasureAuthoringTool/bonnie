@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO: https://github.com/projecttacoma/bonnie
-      REMOTE_EXCLUDES_URL: https://raw.githubusercontent.com/projecttacoma/bonnie/master/.github/gitleaks.toml
-      GITLEAKS_VERSION: v3.0.3
+      REMOTE_EXCLUDES_URL: https://raw.githubusercontent.com/semanticbits/bmat-gitleaks-automation/master/bonnie/gitleaks.toml
+      GITLEAKS_VERSION: v4.3.1
     steps:
     - name: Execute Gitleaks
       run: |
