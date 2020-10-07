@@ -13,9 +13,8 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
     'keyup input': 'handleInputChange'
 
   hasValidValue: ->
-    console.log(@value)
-    if (@value?.low?.value && @value?.high?.value)
-      return @value.low.value <= @value.high.value
+    if (@value?.low?.value?.value && @value?.high?.value?.value)
+      return @value.low.value.value <= @value.high.value.value
     else
       return false
 
@@ -24,11 +23,11 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
     if inputData?.low_value && inputData?.high_value
       @value = new cqm.models.Range()
       @value.low = new cqm.models.SimpleQuantity()
-      @value.low.unit = inputData.low_unit
-      @value.low.value = parseFloat(inputData.low_value)
+      @value.low.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.low_unit)
+      @value.low.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.low_value))
       @value.high = new cqm.models.SimpleQuantity()
-      @value.high.unit = inputData.high_unit
-      @value.high.value = parseFloat(inputData.high_value)
+      @value.high.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.high_unit)
+      @value.high.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.high_value))
     else
       @value = null
     @trigger 'valueChanged', @
