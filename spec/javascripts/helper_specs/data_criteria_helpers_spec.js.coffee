@@ -509,6 +509,7 @@ describe 'DataCriteriaHelpers', ->
 
       valueToSet = 'a code'
       attr.setValue(fhirResource, valueToSet)
+      expect(cqm.models.MedicationRequestStatus.isMedicationRequestStatus(fhirResource.status)).toBe true
 
       # clone the resource to make sure setter/getter work with correct data type
       value = attr.getValue(fhirResource.clone())
@@ -530,6 +531,7 @@ describe 'DataCriteriaHelpers', ->
 
       valueToSet = 'a code'
       attr.setValue(fhirResource, valueToSet)
+      expect(cqm.models.MedicationRequestIntent.isMedicationRequestIntent(fhirResource.intent)).toBe true
 
       # clone the resource to make sure setter/getter work with correct data type
       value = attr.getValue(fhirResource.clone())
@@ -547,11 +549,12 @@ describe 'DataCriteriaHelpers', ->
       expect(attr.types.length).toBe 1
       expect(attr.types[0]).toBe 'Code'
 
-      fhirResource = new cqm.models.MedicationRequest()
+      fhirResource = new cqm.models.MedicationStatement()
       expect(attr.getValue(fhirResource)).toBeUndefined
 
       valueToSet = 'a code'
       attr.setValue(fhirResource, valueToSet)
+      expect(cqm.models.MedicationStatementStatus.isMedicationStatementStatus(fhirResource.status)).toBe true
 
       # clone the resource to make sure setter/getter work with correct data type
       value = attr.getValue(fhirResource.clone())
