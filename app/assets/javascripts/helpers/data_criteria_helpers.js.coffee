@@ -193,8 +193,7 @@
         types: [
           'CodeableConcept'
         ]
-        valueSets: () ->
-          FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.164')
+        valueSets: () -> [FhirValueSets.CONDITION_CLINICAL_VS]
       },
       {
         path: 'verificationStatus',
@@ -209,8 +208,7 @@
         types: [
           'CodeableConcept'
         ],
-        valueSets: () ->
-          FhirValueSets.getValueSetByOid('2.16.840.1.113883.4.642.3.166')
+        valueSets: () -> [FhirValueSets.CONDITION_VER_STATUS_VS]
       },
       {
         path: 'onset'
@@ -246,7 +244,34 @@
       }
     ]
     FamilyMemberHistory: []
-    Procedure: []
+    Procedure: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if codeValue?
+            fhirResource?.status = cqm.models.ProcedureStatus.parsePrimitive(codeValue)
+          else
+            fhirResource?.status = null
+        types: ['Code']
+        valueSets: () => [FhirValueSets.EVENT_STATUS_VS]
+      },
+      {
+        path: 'performed',
+        title: 'performed',
+        getValue: (fhirResource) => fhirResource?.performed
+        setValue: (fhirResource, value) =>
+          attrType = value?.constructor?.name
+          if attrType == 'DateTime'
+            fhirResource.performed = @getPrimitiveDateTimeForCqlDateTime(value)
+          else if attrType == 'Period'
+            fhirResource.performed = value
+          else
+            fhirResource.performed = null
+        types: ['DateTime', 'Period']
+      }
+    ]
     Coverage: []
     BodyStructure: []
     DiagnosticReport: []
