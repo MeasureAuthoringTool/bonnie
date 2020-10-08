@@ -426,7 +426,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value.system.value).toBe 'system1'
 
   describe 'Procedure attributes', ->
-    it 'should support clinicalStatus and verificationStatus attributes', ->
+    it 'should support procedure status and performed attributes', ->
       procedureAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Procedure']
       status = procedureAttrs[0]
       expect(status.path).toEqual 'status'
