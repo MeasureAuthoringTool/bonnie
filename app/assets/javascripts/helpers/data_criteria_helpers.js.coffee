@@ -356,8 +356,49 @@
     Medication: []
     MedicationAdministration: []
     MedicationDispense: []
-    MedicationRequest: []
-    MedicationStatement: []
+    MedicationRequest: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = cqm.models.MedicationRequestStatus.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () =>
+          FhirValueSets.MEDICATION_REQUEST_STATUS_VS
+      },
+      {
+        path: 'intent'
+        title: 'intent'
+        getValue: (fhirResource) => fhirResource?.intent?.value
+        setValue: (fhirResource, codeValue) =>
+          if !codeValue?
+            fhirResource?.intent = null
+          else
+            fhirResource?.intent = cqm.models.MedicationRequestIntent.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () =>
+          FhirValueSets.MEDICATION_REQUEST_INTENT_VS
+      }
+    ]
+    MedicationStatement: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = cqm.models.MedicationStatementStatus.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () =>
+          FhirValueSets.MEDICATION_STATEMENT_STATUS_VS
+      }
+    ]
     Patient: []
     Practitioner: []
     PractitionerRole: []
