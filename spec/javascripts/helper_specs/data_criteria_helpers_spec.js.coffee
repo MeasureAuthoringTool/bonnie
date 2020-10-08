@@ -492,3 +492,68 @@ describe 'DataCriteriaHelpers', ->
       # Verify after setting values
       expect(performedValue.start.value).toEqual period.start.value
       expect(performedValue.end.value).toEqual period.end.value
+
+  describe 'Medication Request attributes', ->
+    it 'should support MedicationRequest.status', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
+      expect(attrs).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'status'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'status'
+      expect(attr.title).toBe 'status'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Code'
+
+      fhirResource = new cqm.models.MedicationRequest()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = 'a code'
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value).toBe 'a code'
+
+    it 'should support MedicationRequest.intent', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
+      expect(attrs).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'intent'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'intent'
+      expect(attr.title).toBe 'intent'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Code'
+
+      fhirResource = new cqm.models.MedicationRequest()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = 'a code'
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value).toBe 'a code'
+
+  describe 'Medication Statement attributes', ->
+    it 'should support MedicationStatement.status', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationStatement']
+      expect(attrs).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'status'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'status'
+      expect(attr.title).toBe 'status'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Code'
+
+      fhirResource = new cqm.models.MedicationRequest()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = 'a code'
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value).toBe 'a code'
