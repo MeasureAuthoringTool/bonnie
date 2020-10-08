@@ -5,8 +5,7 @@ namespace :bonnie do
       This task is intended to be used for debugging VSAC issues.)
     task :lookup_oid => :environment do
       raise "No OID supplied" unless ENV['OID']
-      raise "No USERNAME supplied" unless ENV['USERNAME']
-      raise "No PASSWORD supplied" unless ENV['PASSWORD']
+      raise "No API Key supplied" unless ENV['VSAC_API_KEY']
       options = {}
       options[:release] = ENV['RELEASE'] if ENV.key?('RELEASE')
       options[:include_draft] = !!ENV['DRAFT'] if ENV.key?('DRAFT')
@@ -15,7 +14,7 @@ namespace :bonnie do
       puts "Using the following options to get OID #{ENV['OID']}"
       pp options
 
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"], username: ENV['USERNAME'], password: ENV['PASSWORD'])
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"], api_key: ENV['VSAC_API_KEY'])
       result = api.get_valueset(ENV['OID'], options)
 
       doc = Nokogiri::XML(result)

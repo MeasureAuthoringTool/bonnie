@@ -29,13 +29,13 @@ module MeasureHelper
       {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC credentials were invalid.",
-        body: "Please verify that you are using the correct VSAC username and password."
+        body: "Please verify that you are using your valid VSAC API Key."
       }
     elsif e.is_a?(Util::VSAC::VSACTicketExpiredError) || e.is_a?(Util::VSAC::VSACNoCredentialsError)
       {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC session expired.",
-        body: "Please re-enter VSAC username and password to try again."
+        body: "Please re-enter VSAC API Key to try again."
       }
     else
       {
@@ -83,7 +83,7 @@ module MeasureHelper
     end
     nil
   end
-  
+
   def self.measures_population_update(measures, is_update, current_user, measure_details)
     measures.each do |measure|
       current_user.measures << measure
