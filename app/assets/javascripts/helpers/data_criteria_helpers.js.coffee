@@ -365,7 +365,7 @@
           if !codeValue?
             fhirResource?.status = null
           else
-            fhirResource?.status = cqm.models.MedicationRequest.parsePrimitive(codeValue)
+            fhirResource?.status = cqm.models.MedicationRequestStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () =>
           FhirValueSets.MEDICATION_REQUEST_STATUS_VS
@@ -378,7 +378,7 @@
           if !codeValue?
             fhirResource?.intent = null
           else
-            fhirResource?.intent = cqm.models.MedicationRequest.parsePrimitive(codeValue)
+            fhirResource?.intent = cqm.models.MedicationRequestIntent.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () =>
           FhirValueSets.MEDICATION_REQUEST_INTENT_VS
@@ -393,7 +393,7 @@
           if !codeValue?
             fhirResource?.status = null
           else
-            fhirResource?.status = cqm.models.MedicationStatement.parsePrimitive(codeValue)
+            fhirResource?.status = cqm.models.MedicationStatementStatus.parsePrimitive(codeValue)
         types: ['Code']
         valueSets: () =>
           FhirValueSets.MEDICATION_STATEMENT_STATUS_VS
