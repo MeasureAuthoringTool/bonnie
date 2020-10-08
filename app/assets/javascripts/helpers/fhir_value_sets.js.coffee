@@ -277,161 +277,161 @@
     }
   ]
 
-@MEDICATION_REQUEST_STATUS_VS = [
-  {
-    "resourceType": "ValueSet",
-    "version": "4.0.1",
-    "name": "MedicationrequestStatus",
-    "title": "MedicationrequestStatus",
-    "compose": {
-      "include": [
-        {
-          "system": "medicationrequest-status",
-          "version": "4.0.1",
-          "concept": [
-            {
-              "code": "active",
-              "display": "Active"
-            },
-            {
-              "code": "on-hold",
-              "display": "On Hold"
-            },
-            {
-              "code": "cancelled",
-              "display": "Cancelled"
-            },
-            {
-              "code": "completed",
-              "display": "Completed"
-            },
-            {
-              "code": "entered-in-error",
-              "display": "Entered in Error"
-            },
-            {
-              "code": "stopped",
-              "display": "Stopped"
-            },
-            {
-              "code": "draft",
-              "display": "Draft"
-            },
-            {
-              "code": "unknown",
-              "display": "Unknown"
-            }
-          ]
-        }
-      ]
-    },
-    "url": "http://hl7.org/fhir/ValueSet/medicationrequest-status"
-    "id": "2.16.840.1.113883.4.642.3.1320"
-  }
-]
+  @MEDICATION_REQUEST_STATUS_VS = [
+    {
+      "resourceType": "ValueSet",
+      "version": "4.0.1",
+      "name": "MedicationrequestStatus",
+      "title": "MedicationrequestStatus",
+      "compose": {
+        "include": [
+          {
+            "system": "medicationrequest-status",
+            "version": "4.0.1",
+            "concept": [
+              {
+                "code": "active",
+                "display": "Active"
+              },
+              {
+                "code": "on-hold",
+                "display": "On Hold"
+              },
+              {
+                "code": "cancelled",
+                "display": "Cancelled"
+              },
+              {
+                "code": "completed",
+                "display": "Completed"
+              },
+              {
+                "code": "entered-in-error",
+                "display": "Entered in Error"
+              },
+              {
+                "code": "stopped",
+                "display": "Stopped"
+              },
+              {
+                "code": "draft",
+                "display": "Draft"
+              },
+              {
+                "code": "unknown",
+                "display": "Unknown"
+              }
+            ]
+          }
+        ]
+      },
+      "url": "http://hl7.org/fhir/ValueSet/medicationrequest-status"
+      "id": "2.16.840.1.113883.4.642.3.1320"
+    }
+  ]
 
-@MEDICATION_REQUEST_INTENT_VS = [
-  {
-    "resourceType": "ValueSet",
-    "version": "4.0.1",
-    "name": "MedicationRequestIntent",
-    "title": "MedicationRequestIntent",
-    "compose": {
-      "include": [
-        {
-          "system": "medicationrequest-intent",
-          "version": "4.0.1",
-          "concept": [
-            {
-              "code": "proposal",
-              "display": "Proposal"
-            },
-            {
-              "code": "plan",
-              "display": "Plan"
-            },
-            {
-              "code": "order",
-              "display": "Order"
-            },
-            {
-              "code": "original-order",
-              "display": "Original Order"
-            },
-            {
-              "code": "reflex-order",
-              "display": "Reflex Order"
-            },
-            {
-              "code": "filler-order",
-              "display": "Filler Order"
-            },
-            {
-              "code": "instance-order",
-              "display": "Instance Order"
-            },
-            {
-              "code": "option",
-              "display": "Option"
-            }
-          ]
-        }
-      ]
-    },
-    "url": "http://hl7.org/fhir/ValueSet/medicationrequest-intent"
-    "id": "2.16.840.1.113883.4.642.3.1321"
-  }
-]
+  @MEDICATION_REQUEST_INTENT_VS = [
+    {
+      "resourceType": "ValueSet",
+      "version": "4.0.1",
+      "name": "MedicationRequestIntent",
+      "title": "MedicationRequestIntent",
+      "compose": {
+        "include": [
+          {
+            "system": "medicationrequest-intent",
+            "version": "4.0.1",
+            "concept": [
+              {
+                "code": "proposal",
+                "display": "Proposal"
+              },
+              {
+                "code": "plan",
+                "display": "Plan"
+              },
+              {
+                "code": "order",
+                "display": "Order"
+              },
+              {
+                "code": "original-order",
+                "display": "Original Order"
+              },
+              {
+                "code": "reflex-order",
+                "display": "Reflex Order"
+              },
+              {
+                "code": "filler-order",
+                "display": "Filler Order"
+              },
+              {
+                "code": "instance-order",
+                "display": "Instance Order"
+              },
+              {
+                "code": "option",
+                "display": "Option"
+              }
+            ]
+          }
+        ]
+      },
+      "url": "http://hl7.org/fhir/ValueSet/medicationrequest-intent"
+      "id": "2.16.840.1.113883.4.642.3.1321"
+    }
+  ]
 
-@MEDICATION_STATEMENT_STATUS_VS = [
-  {
-    "resourceType": "ValueSet",
-    "version": "4.0.1",
-    "name": "MedicationStatusCodes",
-    "title": "MedicationStatusCodes",
-    "compose": {
-      "include": [
-        {
-          "system": "medication-statement-status",
-          "version": "4.0.1",
-          "concept": [
-            {
-              "code": "active",
-              "display": "Active"
-            },
-            {
-              "code": "completed",
-              "display": "Completed"
-            },
-            {
-              "code": "entered-in-error",
-              "display": "Entered in Error"
-            },
-            {
-              "code": "intended",
-              "display": "Intended"
-            },
-            {
-              "code": "stopped",
-              "display": "Stopped"
-            },
-            {
-              "code": "on-hold",
-              "display": "On Hold"
-            },
-            {
-              "code": "unknown",
-              "display": "Unknown"
-            },
-            {
-              "code": "not-taken",
-              "display": "Not Taken"
-            }
-          ]
-        }
-      ]
-    },
-    "url": "http://hl7.org/fhir/ValueSet/medication-statement-status"
-    "id": "2.16.840.1.113883.4.642.3.367"
-  }
-]
+  @MEDICATION_STATEMENT_STATUS_VS = [
+    {
+      "resourceType": "ValueSet",
+      "version": "4.0.1",
+      "name": "MedicationStatusCodes",
+      "title": "MedicationStatusCodes",
+      "compose": {
+        "include": [
+          {
+            "system": "medication-statement-status",
+            "version": "4.0.1",
+            "concept": [
+              {
+                "code": "active",
+                "display": "Active"
+              },
+              {
+                "code": "completed",
+                "display": "Completed"
+              },
+              {
+                "code": "entered-in-error",
+                "display": "Entered in Error"
+              },
+              {
+                "code": "intended",
+                "display": "Intended"
+              },
+              {
+                "code": "stopped",
+                "display": "Stopped"
+              },
+              {
+                "code": "on-hold",
+                "display": "On Hold"
+              },
+              {
+                "code": "unknown",
+                "display": "Unknown"
+              },
+              {
+                "code": "not-taken",
+                "display": "Not Taken"
+              }
+            ]
+          }
+        ]
+      },
+      "url": "http://hl7.org/fhir/ValueSet/medication-statement-status"
+      "id": "2.16.840.1.113883.4.642.3.367"
+    }
+  ]
