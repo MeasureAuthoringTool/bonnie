@@ -248,8 +248,7 @@
       {
         path: 'status'
         title: 'status'
-        getValue: (fhirResource) =>
-          return fhirResource?.status?.value
+        getValue: (fhirResource) => fhirResource?.status?.value
         setValue: (fhirResource, codeValue) =>
           if codeValue?
             fhirResource?.status = cqm.models.ProcedureStatus.parsePrimitive(codeValue)
