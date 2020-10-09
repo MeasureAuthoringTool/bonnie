@@ -260,6 +260,45 @@ namespace :bonnie do
       puts 'Done!'
     end
 
+    task :export_patients_for_user => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      # Grab the patients
+      patients = CQM::Patient.where(user_id: user._id)
+
+      # Write patient objects to file in JSON format
+      puts 'Exporting patients...'
+      raise 'FILENAME not specified' unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), 'w') do |f|
+        patients.each do |patient|
+          f.puts(patient.as_document.to_json)
+        end
+      end
+
+      puts 'Done!'
+    end
+
+    task :export_all_patients => :environment do
+      # Grab the patients
+      patients = CQM::Patient.all
+
+      # Write patient objects to file in JSON format
+      puts 'Exporting patients...'
+      raise 'FILENAME not specified' unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), 'w') do |f|
+        # f.puts('[')
+        patients.each do |patient|
+          f.puts(patient.as_document.to_json)
+          # f.puts(patient.as_document.to_json + ',')
+        end
+        # f.puts(']')
+      end
+
+      puts 'Done!'
+    end
+
     desc %{Import Bonnie patients from a JSON file.
     The JSON file must be the one that is generated using the export_patients rake task.
 
