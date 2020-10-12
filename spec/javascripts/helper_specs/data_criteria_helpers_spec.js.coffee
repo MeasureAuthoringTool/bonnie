@@ -213,12 +213,12 @@ describe 'DataCriteriaHelpers', ->
       onset = conditionAttrs[2]
       expect(onset.path).toEqual 'onset'
       expect(onset.title).toEqual 'onset'
-      expect(onset.types).toEqual ['DateTime', 'Age', 'Period', 'Range', 'String']
+      expect(onset.types).toEqual ['DateTime', 'Age', 'Period', 'Range']
 
       abatement = conditionAttrs[3]
       expect(abatement.path).toEqual 'abatement'
       expect(abatement.title).toEqual 'abatement'
-      expect(abatement.types).toEqual ['DateTime', 'Age', 'Period', 'Range', 'String']
+      expect(abatement.types).toEqual ['DateTime', 'Age', 'Period', 'Range']
 
     it 'should set and get values for clinicalStatus', ->
       conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
@@ -284,19 +284,6 @@ describe 'DataCriteriaHelpers', ->
       abatementValue = abatement.getValue(conditionResource)
       # Verify after setting values
       expect(abatementValue.value).toEqual dateTime.toString()
-
-    it 'should set and get values for abatement if Choice type is String', ->
-      conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
-      abatement = conditionAttrs[3]
-      expect(abatement.path).toEqual 'abatement'
-      str = 'Test abatement'
-      # Create condition fhir resource
-      conditionResource = new cqm.models.Condition()
-      # set abatementString
-      abatement.setValue(conditionResource, str)
-      abatementValue = abatement.getValue(conditionResource)
-      # Verify after setting value
-      expect(abatementValue.value).toEqual str
 
     it 'should set and get values for abatement if Choice type is Age', ->
       conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']

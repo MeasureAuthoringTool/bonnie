@@ -218,13 +218,11 @@
           attrType = value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'String'
-            fhirResource.onset = cqm.models.PrimitiveString.parsePrimitive(value)
           else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
             fhirResource.onset = value
           else
             fhirResource.onset = null
-        types: ['DateTime', 'Age', 'Period', 'Range', 'String']
+        types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
         path: 'abatement',
@@ -234,13 +232,11 @@
           attrType = value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'String'
-            fhirResource.abatement = cqm.models.PrimitiveString.parsePrimitive(value)
           else if attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
             fhirResource.abatement = value
           else
             fhirResource.abatement = null
-        types: ['DateTime', 'Age', 'Period', 'Range', 'String']
+        types: ['DateTime', 'Age', 'Period', 'Range']
       }
     ]
     FamilyMemberHistory: []
