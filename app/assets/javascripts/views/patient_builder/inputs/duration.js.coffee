@@ -33,6 +33,7 @@ class Thorax.Views.InputDurationView extends Thorax.Views.BonnieView
   handleInputChange: (e) ->
     inputData = @serialize()
     try
+      throw new Error("Unit must be provided") unless inputData.value_unit
       # Validate with CQL.Quantity
       new cqm.models.CQL.Quantity(parseFloat(inputData.value_value), inputData.value_unit)
       @value = new cqm.models.Duration()

@@ -16,9 +16,8 @@ describe 'InputView', ->
       # Enter duration value
       @view.$('input[name="value_value"]').val('200').change()
       expect(@view.trigger).toHaveBeenCalledWith('valueChanged', @view)
-      expect(@view.hasValidValue()).toBe true
-      expect(@view.value.value.value).toEqual 200
-      expect(@view.value.unit.value).toEqual ''
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
 
       # Enter duration valid ucum unit
       @view.$('input[name="value_unit"]').val('days').change()
@@ -26,6 +25,16 @@ describe 'InputView', ->
       expect(@view.hasValidValue()).toBe true
       expect(@view.value.value.value).toEqual 200
       expect(@view.value.unit.value).toEqual 'days'
+
+    it 'unit must be required', ->
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
+
+      # Enter duration value
+      @view.$('input[name="value_value"]').val('200').change()
+      expect(@view.trigger).toHaveBeenCalledWith('valueChanged', @view)
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
 
     it 'starts with valid value/unit and becomes invalid after bad unit entry, valid again after fix', ->
       # Enter valid duration
