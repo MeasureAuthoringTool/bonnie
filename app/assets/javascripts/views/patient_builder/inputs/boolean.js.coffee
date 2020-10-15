@@ -4,12 +4,12 @@ class Thorax.Views.InputBooleanView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/boolean']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - boolean - Optional. Initial value of string.
+  #   initialValue - PrimitiveBoolean - Optional. Initial value of string.
   initialize: ->
     if @initialValue?
       @value = @initialValue
     else
-      @value = true
+      @value = cqm.models.PrimitiveBoolean.parsePrimitive(true)
 
   events:
     'change select[name="boolean_select"]': 'handleSelectChange'
@@ -21,7 +21,7 @@ class Thorax.Views.InputBooleanView extends Thorax.Views.BonnieView
   handleSelectChange: (e) ->
     inputValue = @$(e.target).val()
     if inputValue != ''
-      @value = inputValue == 'true'
+      @value = cqm.models.PrimitiveBoolean.parsePrimitive(inputValue == 'true')
     else
       @value = null
     @trigger 'valueChanged', @

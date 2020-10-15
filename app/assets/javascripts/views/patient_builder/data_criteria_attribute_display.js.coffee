@@ -35,7 +35,7 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
       codeSystemName = @parent.measure.codeSystemMap()[value?.system?.value] || value?.system?.value
       return "#{codeSystemName}: #{value?.code?.value}"
 
-    if cqm.models.PrimitiveCode.isPrimitiveCode(value) || cqm.models.PrimitiveString.isPrimitiveString(value)
+    if cqm.models.PrimitiveCode.isPrimitiveCode(value) || cqm.models.PrimitiveString.isPrimitiveString(value) || cqm.models.PrimitiveBoolean.isPrimitiveBoolean(value)
       return "#{value?.value}"
 
     if cqm.models.Duration.isDuration(value) || cqm.models.Age.isAge(value)
