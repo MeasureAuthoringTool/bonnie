@@ -8,7 +8,6 @@ class Thorax.Views.InputBooleanView extends Thorax.Views.BonnieView
   initialize: ->
     if @initialValue?
       @value = @initialValue
-      debugger
     else
       @value = true
 

@@ -10,7 +10,6 @@ describe 'InputView', ->
       expect(view.value).toBe true
 
     it 'starts with "true" valid initial value', ->
-      debugger
       view = new Thorax.Views.InputBooleanView(initialValue: true)
       view.render()
 
@@ -22,7 +21,6 @@ describe 'InputView', ->
       view = new Thorax.Views.InputBooleanView(initialValue: false)
       view.render()
 
-      debugger
       expect(view.value).toBe false
       expect(view.hasValidValue()).toBe true
       expect(view.$('select').val()).toEqual 'false'
