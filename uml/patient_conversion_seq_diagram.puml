@@ -33,49 +33,66 @@ box "MAT" #FFF
 participant "ConversionService" as E
 end box
 
-User -> A: export patients- PatientController::export(measureId|patientId)
+User -> A: Export patients- PatientController::export(measureId|patientId)
 activate A
 note left of A #skyblue
 measureId- if export all patients of a measure
 patientId: to export single patient of a measure
 end note
 
-A -> B: get patients for a measureId or patientId
+A -> B: Get patients for a measureId or patientId
 activate B
 
-B --> A: patient collection
+B --> A: Patient collection
 deactivate B
 
-A -> A : convert patients to json format
+A -> A : Convert patients to json format
 
-A --> User: Patients in json format
+A --> User: QDM Patients in json format
 deactivate A
 
-User -> C : import QDM patients- PatintController::import(patients, measureId)
+User -> C : Import QDM patients- PatintController::import(patients, measureId)
 activate C
 note left of A #skyblue
 upload patients exported
 from QDM Bonnie
 end note
 
-C -> E : conver to FHIR
+C -> E : Conver to FHIR
 activate E
 
-alt #FFF successful conversion
- E -> E: perform conversion
- E --> C: Patients in FHIR format(json response)
- deactivate E
+E -> E: Perform conversion
+E --> C: Patients in FHIR format + error report(json response)
+deactivate E
 
- C -> C: update measure ID for patients
- C -> D: persist patients
- Activate D
+alt #FFF Successful conversion
+  note left of C #skyblue
+    conversion went smoothly
+    with no errors at all
+  end note
+  C -> C: Update measure ID for patients
+  C -> D: Persist patients
+  Activate D
 
- D --> C: Success
- deactivate D
+  D --> C: Success
+  deactivate D
 
- C --> User : Success response
-else Conversion failure
- C --> User: Failure report
- deactivate C
+  C --> User : Success response
+else Partial conversion successful
+  note left of C #skyblue
+    persists fully/partially converted patients
+    generate the failure report for not converted
+    or partially converted patients/attributes
+  end note
+  C -> C: Update measure ID for patients
+  C -> D: Persist patients
+  Activate D
+
+  D --> C: Success
+  deactivate D
+  C --> User: Partial conversion failure report
+else Complete failure/Server Errors
+  C --> User: Display error report
+  deactivate C
 end
 @enduml
