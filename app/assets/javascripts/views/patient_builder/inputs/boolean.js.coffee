@@ -1,5 +1,5 @@
 
-# Input view for Booleфт types.
+# Input view for Boolean types.
 class Thorax.Views.InputBooleanView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/boolean']
 
