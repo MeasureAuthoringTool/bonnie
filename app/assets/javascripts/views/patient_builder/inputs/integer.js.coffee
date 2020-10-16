@@ -5,7 +5,7 @@ class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
 
   # Expected options to be passed in using the constructor options hash:
   #   initialValue - integer - Optional. Initial value of integer.
-  #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to true.
+  #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
   #   placeholder - string - Optional. placeholder text to show. will use 'integer' if not specified
   initialize: ->
     if @initialValue?
@@ -14,7 +14,7 @@ class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
       @value = null
 
     if !@hasOwnProperty('allowNull')
-      @allowNull = true
+      @allowNull = false
 
   events:
     'change input': 'handleInputChange'
@@ -27,10 +27,12 @@ class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
 
   handleInputChange: (e) ->
     inputValue = @$(e.target).val()
-    if inputValue != ''
-      @value = parseInt(inputValue)
-      if @value == NaN
+    if /^([0]|[-+]?[1-9][0-9]*)$/.test(inputValue)
+      parsed = parseInt(inputValue)
+      if isNaN(parsed)
         @value = null
+      else
+        @value = cqm.models.PrimitiveInteger.parsePrimitive(parsed)
     else
       @value = null
     @trigger 'valueChanged', @
