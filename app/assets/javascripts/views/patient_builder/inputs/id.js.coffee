@@ -21,7 +21,6 @@ class Thorax.Views.InputIdView extends Thorax.Views.BonnieView
     @value != null && /^([A-Za-z0-9\-\.]{1,64})$/.test(@value?.value)
 
   handleInputChange: (e) ->
-    debugger
     inputValue = @$(e.target).val()
     if inputValue != ''
       @value = cqm.models.PrimitiveId.parsePrimitive(inputValue)
