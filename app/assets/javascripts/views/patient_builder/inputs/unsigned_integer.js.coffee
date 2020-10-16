@@ -4,8 +4,8 @@ class Thorax.Views.InputUnsignedIntegerView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/unsigned_integer']
 
   # Expected options to be passed in using the constructor options hash:
-  #   initialValue - positive integer - Optional. Initial value of positive integer.
-  #   placeholder - string - Optional. placeholder text to show. will use 'positive integer' if not specified
+  #   initialValue - positive integer - Optional. Initial value of unsigned integer.
+  #   placeholder - string - Optional. placeholder text to show. will use 'unsigned integer' if not specified
   initialize: ->
     if @initialValue?
       @value = @initialValue
