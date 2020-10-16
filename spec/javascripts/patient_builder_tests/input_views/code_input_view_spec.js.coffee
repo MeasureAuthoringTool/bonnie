@@ -108,7 +108,6 @@ describe 'InputView', ->
       expect(view.value).toBe null
 
     it 'starts with no valid value, selects custom value', ->
-      debugger
       view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS)
       view.render()
       expect(view.hasValidValue()).toBe false
