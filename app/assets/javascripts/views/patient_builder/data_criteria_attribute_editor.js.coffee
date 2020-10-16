@@ -115,6 +115,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
       when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
+      when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView({ allowNull: false})
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
       when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
       when 'Quantity' then new Thorax.Views.InputQuantityView()
