@@ -178,7 +178,52 @@
 #   valueSets - optional value sets for bindings
   @DATA_ELEMENT_ATTRIBUTES:
     AdverseEvent: []
-    AllergyIntolerance: []
+    AllergyIntolerance: [
+      {
+        path: 'clinicalStatus'
+        title: 'clinicalStatus'
+        getValue: (fhirResource) => fhirResource?.clinicalStatus?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.clinicalStatus = null
+          else
+            fhirResource.clinicalStatus = new cqm.models.CodeableConcept()
+            fhirResource.clinicalStatus.coding = [coding]
+        types: [
+          'CodeableConcept'
+        ]
+        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_CLINICAL_VS]
+      },
+      {
+        path: 'onset'
+        title: 'onset'
+        getValue: (fhirResource) => fhirResource?.onset
+        setValue: (fhirResource, value) =>
+          attrType = value?.constructor?.name
+          if attrType == 'DateTime'
+            fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
+          else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
+            fhirResource.onset = value
+          else
+            fhirResource.onset = null
+        types: ['DateTime', 'Age', 'Period', 'Range']
+      },
+      {
+        path: 'verificationStatus',
+        title: 'verificationStatus',
+        getValue: (fhirResource) => fhirResource?.verificationStatus?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.verificationStatus = null
+          else
+            fhirResource.verificationStatus = new cqm.models.CodeableConcept()
+            fhirResource.verificationStatus.coding = [coding]
+        types: [
+          'CodeableConcept'
+        ],
+        valueSets: () -> [FhirValueSets.ALLERGYINTOLERANCE_VERIFICATION_VS]
+      }
+    ]
     Condition: [
       {
         path: 'clinicalStatus'

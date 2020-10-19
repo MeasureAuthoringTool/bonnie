@@ -13,6 +13,8 @@
     @_codeSystemMap['http://hl7.org/fhir/event-status'] = 'event-status'
     @_codeSystemMap['http://terminology.hl7.org/CodeSystem/condition-ver-status'] = 'condition-ver-status'
     @_codeSystemMap['http://terminology.hl7.org/CodeSystem/condition-clinical'] = 'condition-clinical'
+    @_codeSystemMap['http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical'] = 'allergyintolerance-clinical'
+    @_codeSystemMap['http://terminology.hl7.org/CodeSystem/allergyintolerance-verification'] = 'allergyintolerance-verification'
     return @_codeSystemMap
 
   #  Description  https://terminology.hl7.org/1.0.0/ValueSet-condition-clinical
@@ -654,7 +656,7 @@
       }
     }
 
-#  http://hl7.org/fhir/R4/valueset-device-kind.html
+#  Description http://hl7.org/fhir/R4/valueset-device-kind.html
 # Used in:
 # Resource: ChargeItem.product[x] (Reference(Device|Medication|Substance)|CodeableConcept / Example)
 # Resource: DeviceRequest.code[x] (Reference(Device)|CodeableConcept / Example)
@@ -713,6 +715,157 @@
               {
                 "code": "49062001",
                 "display": "Device (physical object)"
+              }
+            ]
+          }
+        ]
+      }
+    }
+
+  # Description http://hl7.org/fhir/R4/valueset-allergyintolerance-clinical.html
+  @ALLERGYINTOLERANCE_CLINICAL_VS =
+    {
+      "resourceType" : "ValueSet",
+      "id" : "allergyintolerance-clinical",
+      "meta" : {
+        "lastUpdated" : "2019-11-01T09:29:23.356+11:00",
+        "profile" : ["http://hl7.org/fhir/StructureDefinition/shareablevalueset"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>AllergyIntolerance Clinical Status Codes</h2><div><p>Preferred value set for AllergyIntolerance Clinical Status.</p>\n</div><p>This value set includes codes from the following code systems:</p><ul><li>Include all codes defined in <a href=\"codesystem-allergyintolerance-clinical.html\"><code>http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical</code></a></li></ul></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode" : "pc"
+      },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+          "valueCode" : "trial-use"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+          "valueInteger" : 3
+        }],
+      "url" : "http://hl7.org/fhir/ValueSet/allergyintolerance-clinical",
+      "identifier" : [{
+        "system" : "urn:ietf:rfc:3986",
+        "value" : "urn:oid:2.16.840.1.113883.4.642.3.1372"
+      }],
+      "version" : "4.0.1",
+      "name" : "AllergyIntoleranceClinicalStatusCodes",
+      "title" : "AllergyIntolerance Clinical Status Codes",
+      "status" : "draft",
+      "experimental" : false,
+      "date" : "2019-11-01T09:29:23+11:00",
+      "publisher" : "FHIR Project team",
+      "contact" : [{
+        "telecom" : [{
+          "system" : "url",
+          "value" : "http://hl7.org/fhir"
+        }]
+      }],
+      "description" : "Preferred value set for AllergyIntolerance Clinical Status.",
+      "immutable" : true,
+      "compose" : {
+        "include" : [
+          {
+            "system" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+            "concept": [
+              {
+                "code" : "active",
+                "display" : "Active",
+                "definition" : "The subject is currently experiencing, or is at risk of, a reaction to the identified substance."
+              },
+              {
+                "code": "inactive",
+                "display": "Inactive",
+                "definition": "The subject is no longer at risk of a reaction to the identified substance."
+              },
+              {
+                "code" : "resolved",
+                "display" : "Resolved",
+                "definition" : "A reaction to the identified substance has been clinically reassessed by testing or re-exposure and is considered no longer to be present. Re-exposure could be accidental, unplanned, or outside of any clinical setting."
+              }
+            ]
+          }
+        ]
+      }
+    }
+
+  # Description http://hl7.org/fhir/R4/codesystem-allergyintolerance-verification.html
+  @ALLERGYINTOLERANCE_VERIFICATION_VS =
+    {
+      "resourceType" : "ValueSet",
+      "id" : "allergyintolerance-verification",
+      "meta" : {
+        "lastUpdated" : "2019-11-01T09:29:23.356+11:00",
+        "profile" : ["http://hl7.org/fhir/StructureDefinition/shareablevalueset"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>AllergyIntolerance Verification Status Codes</h2><div><p>Preferred value set for AllergyIntolerance Verification Status.</p>\n</div><p>This value set includes codes from the following code systems:</p><ul><li>Include all codes defined in <a href=\"codesystem-allergyintolerance-verification.html\"><code>http://terminology.hl7.org/CodeSystem/allergyintolerance-verification</code></a></li></ul></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode" : "pc"
+      },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+          "valueCode" : "trial-use"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+          "valueInteger" : 3
+        }],
+      "url" : "http://hl7.org/fhir/ValueSet/allergyintolerance-verification",
+      "identifier" : [{
+        "system" : "urn:ietf:rfc:3986",
+        "value" : "urn:oid:2.16.840.1.113883.4.642.3.1370"
+      }],
+      "version" : "4.0.1",
+      "name" : "AllergyIntoleranceVerificationStatusCodes",
+      "title" : "AllergyIntolerance Verification Status Codes",
+      "status" : "draft",
+      "experimental" : false,
+      "date" : "2019-11-01T09:29:23+11:00",
+      "publisher" : "FHIR Project team",
+      "contact" : [{
+        "telecom" : [{
+          "system" : "url",
+          "value" : "http://hl7.org/fhir"
+        }]
+      }],
+      "description" : "Preferred value set for AllergyIntolerance Verification Status.",
+      "immutable" : true,
+      "compose" : {
+        "include" : [
+          {
+            "system" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+            "concept": [
+              {
+                "code": "unconfirmed",
+                "display": "Unconfirmed",
+              },
+              {
+                "code": "presumed",
+                "display": "Presumed",
+                "definition": "The available clinical information supports a high liklihood of the propensity for a reaction to the identified substance."
+              },
+              {
+                "code": "confirmed",
+                "display": "Confirmed",
+                "definition": "The propensity for a reaction to the identified substance has been objectively verified (which may include clinical evidence by testing, rechallenge, or observation)."
+              },
+              {
+                "code": "refuted",
+                "display": "Refuted",
+                "definition": "A propensity for a reaction to the identified substance has been disputed or disproven with a sufficient level of clinical certainty to justify invalidating the assertion. This might or might not include testing or rechallenge."
+              },
+              {
+                "code": "entered-in-error",
+                "display": "Entered in Error",
+                "definition": "The statement was entered in error and is not valid."
               }
             ]
           }

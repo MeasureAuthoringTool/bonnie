@@ -628,3 +628,109 @@ describe 'DataCriteriaHelpers', ->
       value = attr.getValue(fhirResource.clone())
       expect(value).toBeDefined
       expect(value).toBe 'a code'
+
+  describe 'AllergyIntolerance attributes', ->
+    it 'should support AllergyIntolerance.clinicalStatus', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'clinicalStatus'
+      expect(attr.path).toBe 'clinicalStatus'
+      expect(attr.title).toBe 'clinicalStatus'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'CodeableConcept'
+
+      fhirResource = new cqm.models.AllergyIntolerance()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Coding()
+      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
+
+    it 'should support AllergyIntolerance.verificationStatus', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'verificationStatus'
+      expect(attr.path).toBe 'verificationStatus'
+      expect(attr.title).toBe 'verificationStatus'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'CodeableConcept'
+
+      fhirResource = new cqm.models.AllergyIntolerance()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Coding()
+      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
+
+    it 'should support onset', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
+      attr = attrs.find (attr) => attr.path is 'onset'
+      expect(attr.path).toEqual 'onset'
+      expect(attr.title).toEqual 'onset'
+      expect(attr.types).toEqual ['DateTime', 'Age', 'Period', 'Range']
+
+      fhirResource = new cqm.models.AllergyIntolerance()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+    it 'should set and get values for abatement if Choice type is DateTime', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
+      attr = attrs.find (attr) => attr.path is 'onset'
+      expect(attr.path).toEqual 'onset'
+      # Create DateTime & hir resource
+      dateTime = new cqm.models.CQL.DateTime(2020, 10, 5, 8, 0, 0, 0, 0)
+      fhirResource = new cqm.models.AllergyIntolerance()
+      # set DateTime
+      attr.setValue(fhirResource, dateTime)
+
+      value = attr.getValue(fhirResource)
+      # Verify after setting values
+      expect(value.value).toEqual dateTime.toString()
+
+    it 'should set and get values for onset if Choice type is Age', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
+      attr = attrs.find (attr) => attr.path is 'onset'
+      expect(attr.path).toEqual 'onset'
+      # Create condition fhir resource and Age
+      fhirResource = new cqm.models.AllergyIntolerance()
+      age = new cqm.models.Age()
+      age.unit = cqm.models.PrimitiveString.parsePrimitive('days')
+      age.value = cqm.models.PrimitiveDecimal.parsePrimitive(12)
+      # set Age
+      attr.setValue(fhirResource, age)
+      value = attr.getValue(fhirResource)
+      # Verify after setting values
+      expect(value.unit.value).toEqual age.unit.value
+      expect(value.value.value).toEqual age.value.value
+
+    it 'should set and get values for onset if Choice type is Period', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
+      attr = attrs.find (attr) => attr.path is 'onset'
+      expect(attr.path).toEqual 'onset'
+      # Create condition fhir resource and Period
+      fhirResource = new cqm.models.AllergyIntolerance()
+      period = new cqm.models.Period()
+      period.start = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+      period.end = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-02T13:54:57')
+      # set Period
+      attr.setValue(fhirResource, period)
+
+      value = attr.getValue(fhirResource)
+      # Verify after setting values
+      expect(value.start.value).toEqual period.start.value
+      expect(value.end.value).toEqual period.end.value
