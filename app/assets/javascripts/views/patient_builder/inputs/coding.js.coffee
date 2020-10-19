@@ -7,6 +7,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   # Expected options to be passed in using the constructor options hash:
   #   initialValue - Coding - Optional. Initial value of code.
   #   cqmValueSets - List of CQM Value sets. Optional (FHIR JSON).
+  #   codeSystemMap - Map of all coding systems to system names in the measure.
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
   initialize: ->
     if @initialValue?
@@ -17,15 +18,13 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
     if !@hasOwnProperty('allowNull')
       @allowNull = false
 
-    # Create a code system map based on the list of valuesets.
-    # It can differ from a measure's code system map if there is a binding for the attribute beind edited.
+    # Capture relevant code systems from value sets (can be from bindings or measure valuesets)
     @codeSystems = {}
     @cqmValueSets.forEach (valueSet) =>
       valueSet.compose?.include?.forEach (vsInclude) =>
         system = vsInclude.system
         if !@codeSystems.hasOwnProperty(system)
-          # TODO: implement mapping of coding system names to uris
-          name = system.split('/').slice(-1)[0]
+          name = @codeSystemMap?[system] || system.split('/').slice(-1)[0]
           @codeSystems[system] = name
 
   events:
