@@ -1,0 +1,95 @@
+@startuml
+skinparam handwritten true
+skinparam sequence {
+ArrowColor DeepSkyBlue
+ActorBorderColor DeepSkyBlue
+LifeLineBorderColor blue
+LifeLineBackgroundColor #A9DCDF
+
+ParticipantBorderColor DeepSkyBlue
+ParticipantBackgroundColor skyblue
+ParticipantFontName Impact
+ParticipantFontSize 17
+ParticipantFontColor #000
+
+ActorBackgroundColor skyblue
+ActorFontColor #000
+ActorFontSize 17
+ActorFontName Aapex
+}
+
+actor User
+box "QDM Bonnie" #FFF
+participant "PatientController" as A
+participant "MongoDB" as B
+end box
+
+box "Bonnie on FHIR" #FFF
+participant "PatientController" as C
+participant "MongoDB" as D
+end box
+
+box "MAT" #FFF
+participant "ConversionService" as E
+end box
+
+User -> A: Export patients- PatientController::export(measureId|patientId)
+activate A
+note left of A #skyblue
+measureId- if export all patients of a measure
+patientId: to export single patient of a measure
+end note
+
+A -> B: Get patients for a measureId or patientId
+activate B
+
+B --> A: Patient collection
+deactivate B
+
+A -> A : Convert patients to json format
+
+A --> User: QDM Patients in json format
+deactivate A
+
+User -> C : Import QDM patients- PatintController::import(patients, measureId)
+activate C
+note left of A #skyblue
+upload patients exported
+from QDM Bonnie
+end note
+
+C -> E : Conver to FHIR
+activate E
+
+E -> E: Perform conversion
+E --> C: Patients in FHIR format + error report(json response)
+deactivate E
+
+alt #FFF Successful conversion
+  note left of C #skyblue
+    conversion went smoothly
+    with no errors at all
+  end note
+  C -> C: Update measure ID for patients
+  C -> D: Persist patients
+  Activate D
+
+  D --> C: Success
+  C --> User : Success response
+else Partial conversion successful
+  note left of C #skyblue
+    persists fully/partially converted patients
+    generate the failure report for not converted
+    or partially converted patients/attributes
+  end note
+  C -> C: Update measure ID for patients
+  C -> D: Persist patients
+
+  D --> C: Success
+  deactivate D
+  C --> User: Partial conversion failure report
+else Complete failure/Server Errors
+  C --> User: Display error report
+  deactivate C
+end
+@enduml
