@@ -71,7 +71,7 @@
     "id": "2.16.840.1.113883.4.642.3.164"
   }
 
-  # Description   http://terminology.hl7.org/ValueSet/condition-ver-status
+  # Description   https://terminology.hl7.org/ValueSet/condition-ver-status
   @CONDITION_VER_STATUS_VS = {
     "resourceType": "ValueSet",
     "version": "4.0.1",
@@ -121,7 +121,7 @@
     "id": "2.16.840.1.113883.4.642.3.166"
   }
 
-  # Desciption  http://hl7.org/fhir/R4/codesystem-event-status.html
+  # Desciption  https://hl7.org/fhir/R4/codesystem-event-status.html
   @EVENT_STATUS_VS = {
     "resourceType": "ValueSet",
     "version": "4.0.1",
@@ -172,7 +172,7 @@
     "id": "2.16.840.1.113883.4.642.3.109"
   }
 
-  # Description   http://hl7.org/fhir/R4/valueset-encounter-status.html
+  # Description   https://hl7.org/fhir/R4/valueset-encounter-status.html
   @ENCOUNTER_STATUS_VS = [
     {
       "resourceType": "ValueSet",
@@ -234,7 +234,7 @@
     }
   ]
 
-  # Description http://hl7.org/fhir/R4/valueset-encounter-discharge-disposition.html
+  # Description https://hl7.org/fhir/R4/valueset-encounter-discharge-disposition.html
   @DISCHARGE_DISPOSITION_VS = [
     {
       "resourceType": "ValueSet",
@@ -315,8 +315,8 @@
     }
   ]
 
-  # Description   http://hl7.org/fhir/R4/valueset-medicationrequest-status.html
-  @MEDICATION_REQUEST_STATUS_VS = [
+  # Description   https://hl7.org/fhir/R4/valueset-medicationrequest-status.html
+  @MEDICATION_REQUEST_STATUS_VS =
     {
       "resourceType": "ValueSet",
       "version": "4.0.1",
@@ -367,10 +367,9 @@
       "url": "http://hl7.org/fhir/ValueSet/medicationrequest-status"
       "id": "2.16.840.1.113883.4.642.3.1320"
     }
-  ]
 
-  # Description   http://hl7.org/fhir/R4/valueset-medicationrequest-intent.html
-  @MEDICATION_REQUEST_INTENT_VS = [
+  # Description   https://hl7.org/fhir/R4/valueset-medicationrequest-intent.html
+  @MEDICATION_REQUEST_INTENT_VS =
     {
       "resourceType": "ValueSet",
       "version": "4.0.1",
@@ -421,10 +420,9 @@
       "url": "http://hl7.org/fhir/ValueSet/medicationrequest-intent"
       "id": "2.16.840.1.113883.4.642.3.1321"
     }
-  ]
 
-  # Description http://hl7.org/fhir/R4/valueset-medication-statement-status.html
-  @MEDICATION_STATEMENT_STATUS_VS = [
+  # Description https://hl7.org/fhir/R4/valueset-medication-statement-status.html
+  @MEDICATION_STATEMENT_STATUS_VS =
     {
       "resourceType": "ValueSet",
       "version": "4.0.1",
@@ -475,9 +473,8 @@
       "url": "http://hl7.org/fhir/ValueSet/medication-statement-status"
       "id": "2.16.840.1.113883.4.642.3.367"
     }
-  ]
 
-  # Description   http://hl7.org/fhir/R4/valueset-procedure-category.html
+  # Description   https://hl7.org/fhir/R4/valueset-procedure-category.html
   # https://confluence.ihtsdotools.org/display/FHIR/Procedure
   @PROCEDURE_CATEGORY_VS =
     {
@@ -572,7 +569,7 @@
       }
     }
 
-  # Description   http://hl7.org/fhir/R4/valueset-procedure-not-performed-reason.html
+  # Description   https://hl7.org/fhir/R4/valueset-procedure-not-performed-reason.html
   @PROCEDURE_NOT_PERFORMED_REASON_VS =
     {
       "resourceType" : "ValueSet",
@@ -660,13 +657,13 @@
       }
     }
 
-  #  Description http://hl7.org/fhir/R4/valueset-device-kind.html
-  # Used in:
-  # Resource: ChargeItem.product[x] (Reference(Device|Medication|Substance)|CodeableConcept / Example)
-  # Resource: DeviceRequest.code[x] (Reference(Device)|CodeableConcept / Example)
-  # Resource: Procedure.usedCode (CodeableConcept / Example)
-  # Resource: DeviceDefinition.type (CodeableConcept / Example)
-  # Extension: http://hl7.org/fhir/StructureDefinition/observation-deviceCode: deviceCode (CodeableConcept / Example)
+#  Description https://hl7.org/fhir/R4/valueset-device-kind.html
+# Used in:
+# Resource: ChargeItem.product[x] (Reference(Device|Medication|Substance)|CodeableConcept / Example)
+# Resource: DeviceRequest.code[x] (Reference(Device)|CodeableConcept / Example)
+# Resource: Procedure.usedCode (CodeableConcept / Example)
+# Resource: DeviceDefinition.type (CodeableConcept / Example)
+# Extension: https://hl7.org/fhir/StructureDefinition/observation-deviceCode: deviceCode (CodeableConcept / Example)
   @DEVICE_KIND_VS =
     {
       "resourceType" : "ValueSet",
@@ -4726,7 +4723,7 @@
       }
     }
 
-  # Description http://hl7.org/fhir/R4/valueset-allergyintolerance-clinical.html
+  # Description https://hl7.org/fhir/R4/valueset-allergyintolerance-clinical.html
   @ALLERGYINTOLERANCE_CLINICAL_VS =
     {
       "resourceType" : "ValueSet",
@@ -4797,7 +4794,7 @@
       }
     }
 
-  # Description http://hl7.org/fhir/R4/codesystem-allergyintolerance-verification.html
+  # Description https://hl7.org/fhir/R4/codesystem-allergyintolerance-verification.html
   @ALLERGYINTOLERANCE_VERIFICATION_VS =
     {
       "resourceType" : "ValueSet",
@@ -9118,3 +9115,246 @@
       }
     }
 
+  # Description https://hl7.org/fhir/R4/valueset-medication-admin-status.html
+  @MEDICATION_ADMIN_STATUS_VS =
+    {
+      "resourceType": "ValueSet",
+      "version": "4.0.1",
+      "name": "MedicationAdministration Status Codes",
+      "title": "Medication administration status codes",
+      "compose": {
+        "include": [
+          {
+            "system": "medication-admin-status",
+            "version": "4.0.1",
+            "concept": [
+              {
+                "code": "in-progress",
+                "display": "In Progress"
+              },
+              {
+                "code": "not-done",
+                "display": "Not Done"
+              },
+              {
+                "code": "on-hold",
+                "display": "On Hold"
+              },
+              {
+                "code": "completed",
+                "display": "Completed"
+              },
+              {
+                "code": "entered-in-error",
+                "display": "Entered in Error"
+              },
+              {
+                "code": "stopped",
+                "display": "Stopped"
+              },
+              {
+                "code": "unknown",
+                "display": "Unknown"
+              }
+            ]
+          }
+        ]
+      },
+      "url": "http://hl7.org/fhir/ValueSet/medication-admin-status"
+      "id": "2.16.840.1.113883.4.642.3.340"
+    }
+
+  # Description https://hl7.org/fhir/R4/valueset-reason-medication-not-given-codes.html
+  # Used in:
+  # Resource: MedicationAdministration.statusReason (CodeableConcept)
+  @REASON_MEDICATION_NOT_GIVEN_VS = {
+    "resourceType" : "ValueSet",
+    "id" : "reason-medication-not-given-codes",
+    "meta" : {
+      "lastUpdated" : "2019-11-01T09:29:23.356+11:00",
+      "profile" : ["http://hl7.org/fhir/StructureDefinition/shareablevalueset"]
+    },
+    "text" : {
+      "status" : "generated",
+      "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>SNOMED CT Reason Medication Not Given Codes</h2><div><p>This value set includes all medication refused, medication not administered, and non-administration of necessary drug or medicine codes from SNOMED CT - provided as an exemplar value set.</p>\n</div><p><b>Copyright Statement:</b></p><div><p>This value set includes content from SNOMED CT, which is copyright 2002 International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement.</p>\n</div><p>This value set includes codes from the following code systems:</p><ul><li>Include codes from <a href=\"http://www.snomed.org/\"><code>http://snomed.info/sct</code></a> where concept  is-a  242990004 (Drug not available for administration)</li><li>Include codes from <a href=\"http://www.snomed.org/\"><code>http://snomed.info/sct</code></a> where concept  is-a  182895007 (Drug declined by patient)</li></ul></div>"
+    },
+    "extension" : [{
+      "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+      "valueCode" : "phx"
+    },
+      {
+        "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode" : "draft"
+      },
+      {
+        "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+        "valueInteger" : 1
+      }],
+    "url" : "http://hl7.org/fhir/ValueSet/reason-medication-not-given-codes",
+    "identifier" : [{
+      "system" : "urn:ietf:rfc:3986",
+      "value" : "urn:oid:2.16.840.1.113883.4.642.3.342"
+    }],
+    "version" : "4.0.1",
+    "name" : "SNOMEDCTReasonMedicationNotGivenCodes",
+    "title" : "SNOMED CT Reason Medication Not Given Codes",
+    "status" : "draft",
+    "experimental" : false,
+    "date" : "2019-11-01T09:29:23+11:00",
+    "publisher" : "FHIR Project team",
+    "contact" : [{
+      "telecom" : [{
+        "system" : "url",
+        "value" : "http://hl7.org/fhir"
+      }]
+    }],
+    "description" : "This value set includes all medication refused, medication not administered, and non-administration of necessary drug or medicine codes from SNOMED CT - provided as an exemplar value set.",
+    "immutable" : true,
+    "copyright" : "This value set includes content from SNOMED CT, which is copyright 2002 International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement.",
+    "compose" : {
+      "include" : [{
+        "system" : "http://snomed.info/sct",
+        "concept" : [
+          {
+            "code" : "242990004",
+            "display" : "Drug not available for administration"
+          },
+          {
+            "code" : "182895007",
+            "display" : "Drug declined by patient"
+          }
+        ]
+      }]
+    }
+  }
+
+  # Description https://hl7.org/fhir/R4/valueset-route-codes.html
+  # Used in:
+  # Resource: AllergyIntolerance.reaction.exposureRoute (CodeableConcept)
+  # Resource: MedicationAdministration.dosage.route (CodeableConcept)
+  # Resource: MedicationKnowledge.intendedRoute (CodeableConcept)
+  @ROUTE_CODES_VS = {
+    "resourceType" : "ValueSet",
+    "id" : "route-codes",
+    "meta" : {
+      "lastUpdated" : "2019-11-01T09:29:23.356+11:00",
+      "profile" : ["http://hl7.org/fhir/StructureDefinition/shareablevalueset"]
+    },
+    "text" : {
+      "status" : "generated",
+      "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n      <p>The value set to instantiate this attribute should be drawn from a terminologically robust code system that consists of or contains route of administration concepts.</p>\n      <p>Possible sources include:</p>\n      <ul>\n        <li>SNOMED CT - Children of SCTID: 284009009 &quot;route of administration value&quot;</li>\n        <li>ISO 11239 - Routes of administration</li>\n        <li>NCIt - Children of NCIt concept C66729 &quot;route of administration&quot; (note: this covers SDTM and FDA route of administration concepts)</li>\n        <li>EDQM - Route of administration</li>\n      </ul>\n      <p>SNOMED CT is being used here as the example terminology.</p>\n      <p>Note: to avoid confusion with other attributes in this resource concepts that are pre-coordinated with method and/or site of administration \n      (e.g. &quot;intravenous infusion&quot; where &quot;infusion&quot; is the method or &quot;IV into left subclavian vein&quot; where &quot;left subclavian vein&quot; is the site) \n      should not be used in this value set.\n      </p>\n      <p>This resource includes content from SNOMED Clinical Terms® (SNOMED CT®) which is copyright of the International Health Terminology Standards Development Organisation (IHTSDO). Implementers of these specifications must have the appropriate SNOMED CT Affiliate license - for more information contact http://www.snomed.org/snomed-ct/get-snomed-ct or info@snomed.org</p>  \n    </div>"
+    },
+    "extension" : [{
+      "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+      "valueCode" : "phx"
+    },
+      {
+        "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode" : "draft"
+      },
+      {
+        "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+        "valueInteger" : 1
+      }],
+    "url" : "http://hl7.org/fhir/ValueSet/route-codes",
+    "identifier" : [{
+      "system" : "urn:ietf:rfc:3986",
+      "value" : "urn:oid:2.16.840.1.113883.4.642.3.98"
+    }],
+    "version" : "4.0.1",
+    "name" : "SNOMEDCTRouteCodes",
+    "title" : "SNOMED CT Route Codes",
+    "status" : "draft",
+    "experimental" : false,
+    "date" : "2019-11-01T09:29:23+11:00",
+    "publisher" : "FHIR Project team",
+    "contact" : [{
+      "telecom" : [{
+        "system" : "url",
+        "value" : "http://hl7.org/fhir"
+      }]
+    }],
+    "description" : "This value set includes all Route codes from SNOMED CT - provided as an exemplar.",
+    "copyright" : "This value set includes content from SNOMED CT, which is copyright © 2002 International Health Terminology Standards Development Organisation (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT is not covered by this agreement.",
+    "compose" : {
+      "include" : [{
+        "system" : "http://snomed.info/sct",
+        "concept" : [
+          {
+            "code" : "284009009",
+            "display" : "Route of administration values"
+          }
+        ]
+      }]
+    }
+  }
+
+  # Description https://hl7.org/fhir/R4/valueset-reason-medication-given-codes.html
+  # Used in:
+  # Resource: MedicationAdministration.statusReason (CodeableConcept)
+  @REASON_MEDICATION_GIVEN_VS = {
+    "resourceType" : "ValueSet",
+    "id" : "reason-medication-given-codes",
+    "meta" : {
+      "lastUpdated" : "2019-11-01T09:29:23.356+11:00",
+      "profile" : ["http://hl7.org/fhir/StructureDefinition/shareablevalueset"]
+    },
+    "text" : {
+      "status" : "generated",
+      "div" : "<div>!-- Snipped for Brevity --></div>"
+    },
+    "extension" : [{
+      "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+      "valueCode" : "phx"
+    },
+      {
+        "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode" : "draft"
+      },
+      {
+        "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+        "valueInteger" : 1
+      }],
+    "url" : "http://hl7.org/fhir/ValueSet/reason-medication-given-codes",
+    "identifier" : [{
+      "system" : "urn:ietf:rfc:3986",
+      "value" : "urn:oid:2.16.840.1.113883.4.642.3.344"
+    }],
+    "version" : "4.0.1",
+    "name" : "ReasonMedicationGivenCodes",
+    "title" : "Reason Medication Given Codes",
+    "status" : "draft",
+    "experimental" : false,
+    "date" : "2019-11-01T09:29:23+11:00",
+    "publisher" : "FHIR Project team",
+    "contact" : [{
+      "telecom" : [{
+        "system" : "url",
+        "value" : "http://hl7.org/fhir"
+      }]
+    }],
+    "description" : "This value set is provided as an example. The value set to instantiate this attribute should be drawn from a robust terminology code system that consists of or contains concepts to support the medication process.",
+    "immutable" : true,
+    "compose" : {
+      "include" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/reason-medication-given",
+        "concept" : [
+          {
+            "code" : "a",
+            "display" : "None",
+            "definition": "No reason known."
+          },
+          {
+            "code" : "b",
+            "display" : "Given as Ordered",
+            "definition": "The administration was following an ordered protocol."
+          },
+          {
+            "code" : "c",
+            "display" : "Emergency",
+            "definition": "The administration was needed to treat an emergency."
+          }
+        ]
+      }]
+    }
+  }

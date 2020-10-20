@@ -492,7 +492,62 @@
     ImmunizationEvaluation: []
     ImmunizationRecommendation: []
     Medication: []
-    MedicationAdministration: []
+    MedicationAdministration: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if !codeValue?
+            fhirResource?.status = null
+          else
+            fhirResource?.status = cqm.models.MedicationAdministrationStatus.parsePrimitive(codeValue)
+        types: ['Code']
+        valueSets: () => [FhirValueSets.MEDICATION_ADMIN_STATUS_VS]
+      },
+      {
+        path: 'statusReason'
+        title: 'statusReason'
+        getValue: (fhirResource) => fhirResource?.statusReason?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.statusReason = null
+          else
+            fhirResource.statusReason = [new cqm.models.CodeableConcept()]
+            fhirResource.statusReason[0].coding = [coding]
+        types: ['CodeableConcept']
+        valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
+      },
+      {
+        path: 'dosage.route',
+        title: 'dosage.route',
+        getValue: (fhirResource) =>
+          return fhirResource?.dosage?.route?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !fhirResource.MedicationAdministrationDosage
+            fhirResource.dosage = new cqm.models.MedicationAdministrationDosage()
+          if !coding?
+            fhirResource.dosage.route = null
+          else
+            fhirResource.dosage.route = new cqm.models.CodeableConcept()
+            fhirResource.dosage.route.coding = [coding]
+        types: ['CodeableConcept']
+        valueSets: () => [FhirValueSets.ROUTE_CODES_VS]
+      },
+      {
+        path: 'reasonCode',
+        title: 'reasonCode',
+        getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.reasonCode = null
+          else
+            fhirResource.reasonCode = [new cqm.models.CodeableConcept()]
+            fhirResource.reasonCode[0].coding = [coding]
+        types: ['CodeableConcept']
+        valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
+      },
+    ]
     MedicationDispense: []
     MedicationRequest: [
       {
@@ -505,8 +560,7 @@
           else
             fhirResource?.status = cqm.models.MedicationRequestStatus.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () =>
-          FhirValueSets.MEDICATION_REQUEST_STATUS_VS
+        valueSets: () => [FhirValueSets.MEDICATION_REQUEST_STATUS_VS]
       },
       {
         path: 'intent'
@@ -518,8 +572,7 @@
           else
             fhirResource?.intent = cqm.models.MedicationRequestIntent.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () =>
-          FhirValueSets.MEDICATION_REQUEST_INTENT_VS
+        valueSets: () => [FhirValueSets.MEDICATION_REQUEST_INTENT_VS]
       }
     ]
     MedicationStatement: [
@@ -533,8 +586,7 @@
           else
             fhirResource?.status = cqm.models.MedicationStatementStatus.parsePrimitive(codeValue)
         types: ['Code']
-        valueSets: () =>
-          FhirValueSets.MEDICATION_STATEMENT_STATUS_VS
+        valueSets: () => [FhirValueSets.MEDICATION_STATEMENT_STATUS_VS]
       }
     ]
     Patient: []
