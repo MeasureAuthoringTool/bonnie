@@ -266,6 +266,46 @@
           else
             fhirResource.performed = null
         types: ['DateTime', 'Period']
+      },
+      {
+        path: 'category',
+        title: 'category',
+        getValue: (fhirResource) => fhirResource?.category?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.category = null
+          else
+            fhirResource.category = new cqm.models.CodeableConcept()
+            fhirResource.category.coding = [coding]
+        types: ['CodeableConcept'],
+        valueSets: () -> [FhirValueSets.PROCEDURE_CATEGORY_VS]
+      },
+      {
+        path: 'statusReason',
+        title: 'statusReason',
+        getValue: (fhirResource) => fhirResource?.statusReason?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.statusReason = null
+          else
+            fhirResource.statusReason = new cqm.models.CodeableConcept()
+            fhirResource.statusReason.coding = [coding]
+        types: ['CodeableConcept'],
+        valueSets: () -> [FhirValueSets.PROCEDURE_NOT_PERFORMED_REASON_VS]
+      },
+      {
+        path: 'usedCode',
+        title: 'usedCode',
+        getValue: (fhirResource) => fhirResource?.usedCode?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.usedCode = null
+          else
+            codeableConcept = new cqm.models.CodeableConcept()
+            codeableConcept.coding = [coding]
+            fhirResource.usedCode = [codeableConcept]
+        types: ['CodeableConcept'],
+        valueSets: () -> [FhirValueSets.DEVICE_KIND_VS]
       }
     ]
     Coverage: []

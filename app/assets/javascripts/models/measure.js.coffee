@@ -89,6 +89,8 @@ class Thorax.Models.Measure extends Thorax.Model
         if !@_codeSystemMap.hasOwnProperty(vsInclude.system)
           @_codeSystemMap[vsInclude.system] = vsInclude.system
 
+    # Add value sets from FHIR bindings
+    Object.assign(@_codeSystemMap, FhirValueSets.bindingsCodeSystemMap())
     return @_codeSystemMap
 
   hasCode: (code, code_system) ->

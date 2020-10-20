@@ -19,19 +19,15 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
     if !@hasOwnProperty('allowNull')
       @allowNull = false
 
-    # Create a code system map based on the list of valuesets.
-    # It can differ from a measure's code system map if there is a binding for the attribute beind edited.
+    # Capture relevant code systems from value sets (can be from bindings or measure valuesets)
     @codeSystems = {}
     @cqmValueSets.forEach (valueSet) =>
       valueSet.compose?.include?.forEach (vsInclude) =>
         system = vsInclude.system
         if !@codeSystems.hasOwnProperty(system)
-          # TODO: implement mapping of coding system names to uris
-          name = system.split('/').slice(-1)[0]
+          name = @codeSystemMap?[system] || system.split('/').slice(-1)[0]
           @codeSystems[system] = name
-
-    # PrimitiveCode has an implied system from a binding to a valueset and code system.
-    @systemFixed = @codeSystems[Object.keys(@codeSystems)[0]]
+    @systemFixed = @cqmValueSets?[0]?.compose?.include?[0]?.system
 
   events:
     'change input': 'handleCustomInputChange'
@@ -74,7 +70,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
       @_populateCustomCodeSystemDropdown()
       @$('select[name="custom_codesystem_select"]').val(@systemFixed)
       @$('select[name="custom_codesystem_select"]').prop('disabled', true)
-      @$('input[name="custom_codesystem"]').val(@systemFixed)
+      @$('input[name="custom_codesystem"]').val(@codeSystems[@systemFixed])
       @$('input[name="custom_codesystem"]').prop('disabled', true)
       @value = null
       @trigger 'valueChanged', @
