@@ -32,7 +32,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   getVersionAndCodes: (oid) ->
     valueSet = @cqmValueSetsByOid[oid]
-    concepts = @getIncludedConcepts(valueSet.compose.include)
+    concepts = @getIncludedConcepts(valueSet.compose?.include)
     for code in concepts
       code.hasLongDisplayName = code.display_name.length > 160
 
@@ -47,7 +47,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
   ###
   getIncludedConcepts: (valueSetIncludes) ->
     concepts = [];
-    for codeSystem in valueSetIncludes
+    for codeSystem in valueSetIncludes || []
       for concept in codeSystem.concept
         concepts.push({
           code: concept.code,
@@ -117,7 +117,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
   filterValueSets: (valueSets) ->
     # returns unique (by name and oid) value sets
     _(valueSets).uniq (vs) ->
-      (vs.name + vs.oid).replace(/\s/g, "").replace(/[\.,;:-]/g, "").toLowerCase()
+      (vs.name + vs.id).replace(/\s/g, "").replace(/[\.,;:-]/g, "").toLowerCase()
 
   sortAndFilterCodes: (codes) ->
     # returns unique codes sorted by code system and code

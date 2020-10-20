@@ -10,10 +10,12 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     @on 'change', @changeExpectedValue, this
 
   changeExpectedValue: (expectedValue) ->
-    mongooseExpectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
+    if !@collection.parent.get('cqmPatient')?.expected_values
+      return
+    mongooseExpectedValue = (@collection.parent.get('cqmPatient').expected_values.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
     if !mongooseExpectedValue
-      @collection.parent.get('cqmPatient').expectedValues.push({population_index: expectedValue.get('population_index'), measure_id: expectedValue.get('measure_id')})
-      mongooseExpectedValue = (@collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
+      @collection.parent.get('cqmPatient').expected_values.push({population_index: expectedValue.get('population_index'), measure_id: expectedValue.get('measure_id')})
+      mongooseExpectedValue = (@collection.parent.get('cqmPatient').expected_values.filter (val) -> val.population_index is expectedValue.get('population_index') && val.measure_id is expectedValue.get('measure_id'))[0]
     if expectedValue.has('IPP') then mongooseExpectedValue.IPP = expectedValue.get('IPP')
     if expectedValue.has('DENOM') then mongooseExpectedValue.DENOM = expectedValue.get('DENOM')
     if expectedValue.has('DENEX') then mongooseExpectedValue.DENEX = expectedValue.get('DENEX')

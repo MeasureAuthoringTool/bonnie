@@ -6,11 +6,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS158v6",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": {
@@ -3989,7 +3989,7 @@
   "created_at": "2019-07-11T18:46:32.846Z",
   "description": "This measure identifies pregnant women who had a HBsAg (hepatitis B) test during their pregnancy",
   "hqmf_id": "40280382-5FA6-FE85-015F-B5969D1D0264",
-  "hqmf_set_id": "3BBFC929-50C8-44B8-8D34-82BE75C08A70",
+  "set_id": "3BBFC929-50C8-44B8-8D34-82BE75C08A70",
   "hqmf_version_number": "0",
   "main_cql_library": "PregnantwomenthathadHBsAgtesting",
   "measure_attributes": [

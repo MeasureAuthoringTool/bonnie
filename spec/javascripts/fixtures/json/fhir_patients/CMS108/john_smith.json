@@ -1,0 +1,108 @@
+{
+  "id": "5f772287aa4357a41e2130b1",
+  "expected_values": [
+    {
+      "measure_id": "7B22D4BC-C622-44F2-A3C2-DB324ECD48F3",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "measure_ids": [
+    "7B22D4BC-C622-44F2-A3C2-DB324ECD48F3"
+  ],
+  "fhir_patient": {
+    "id": "5f772287aa4357a41e2130b1",
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "1002-5",
+          "display": "American Indian or Alaska Native",
+          "userSelected": true
+        }
+      },
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "2135-2",
+          "display": "Hispanic or Latino",
+          "userSelected": true
+        }
+      }
+    ],
+    "name": [
+      {
+        "family": "Smith",
+        "given": [
+          "John"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1980-12-10"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.666.5.307",
+      "valueSetTitle": "Encounter Inpatient",
+      "description": "Encounter: Encounter Inpatient",
+      "fhir_resource": {
+        "resourceType": "Encounter",
+        "status": "3",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "SNOMEDCT",
+                "version": "2019-09",
+                "code": "183452005",
+                "display": "Emergency hospital admission (procedure)",
+                "userSelected": true
+              },
+              {
+                "system": "SNOMEDCT",
+                "code": "32485007",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2020-10-02T08:00:00.000+00:00",
+          "end": "2020-10-02T08:15:00.000+00:00"
+        },
+        "length": {
+          "value": "2.0",
+          "unit": "ms"
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "system": "discharge-disposition",
+                "code": "66",
+                "userSelected": true
+              }
+            ]
+          }
+        },
+        "location": [
+          {
+            "period": {
+              "start": "2020-10-02T08:00:00.000+00:00",
+              "end": "2020-10-02T08:15:00.000+00:00"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "created_at": "2020-10-02T12:52:55.901Z",
+  "updated_at": "2020-10-02T12:52:55.901Z"
+}

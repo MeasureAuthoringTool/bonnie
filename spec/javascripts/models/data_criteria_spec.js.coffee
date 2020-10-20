@@ -34,21 +34,21 @@ describe "SourceDataCriteria", ->
 
   it "specifies 'Assessment, Recommended' to have an authorDatetime", ->
     dataElement = new cqm.models.AssessmentRecommended()
-    dataCriteria = new Thorax.Models.SourceDataCriteria({qdmDataElement: dataElement})
+    dataCriteria = new Thorax.Models.SourceDataCriteria({dataElement: dataElement})
     expect(dataCriteria.getCriteriaType()).toBe 'assessment_recommended'
     expect(dataCriteria.isPeriodType()).toBe false
     expect(dataCriteria.getPrimaryTimingAttribute()).toBe 'authorDatetime'
 
-  it "copies description onto qdmDataElement when cloned", ->
+  it "copies description onto dataElement when cloned", ->
     dataElement = new cqm.models.AssessmentRecommended()
     dataElement.description = 'WithoutSpaces'
-    dataCriteria = new Thorax.Models.SourceDataCriteria({qdmDataElement: dataElement, description: 'With Spaces'})
-    expect(dataCriteria.clone().get('qdmDataElement').description).toBe 'With Spaces'
+    dataCriteria = new Thorax.Models.SourceDataCriteria({dataElement: dataElement, description: 'With Spaces'})
+    expect(dataCriteria.clone().get('dataElement').description).toBe 'With Spaces'
 
   it "specifies 'LaboratoryTest, Performed' to have resultDatetime if no other timing attributes have values", ->
     dataElement = new cqm.models.LaboratoryTestPerformed()
     dataElement.resultDatetime = new cqm.models.CQL.DateTime(2012, 2, 3)
-    dataCriteria = new Thorax.Models.SourceDataCriteria({qdmDataElement: dataElement})
+    dataCriteria = new Thorax.Models.SourceDataCriteria({dataElement: dataElement})
     expect(dataCriteria.getCriteriaType()).toBe 'laboratory_test_performed'
     expect(dataCriteria.isPeriodType()).toBe false
     expect(dataCriteria.getPrimaryTimingAttribute()).toBe 'resultDatetime'
@@ -56,14 +56,14 @@ describe "SourceDataCriteria", ->
   it "specifies 'LaboratoryTest, Performed' to have authorDateTime if relevantPeriod is null", ->
     dataElement = new cqm.models.LaboratoryTestPerformed()
     dataElement.authorDatetime = new cqm.models.CQL.DateTime(2012, 2, 3)
-    dataCriteria = new Thorax.Models.SourceDataCriteria({qdmDataElement: dataElement})
+    dataCriteria = new Thorax.Models.SourceDataCriteria({dataElement: dataElement})
     expect(dataCriteria.getCriteriaType()).toBe 'laboratory_test_performed'
     expect(dataCriteria.isPeriodType()).toBe false
     expect(dataCriteria.getPrimaryTimingAttribute()).toBe 'authorDatetime'
 
   it "specifies 'LaboratoryTest, Performed' to have relevantPeriod if all timing attributes are null", ->
     dataElement = new cqm.models.LaboratoryTestPerformed()
-    dataCriteria = new Thorax.Models.SourceDataCriteria({qdmDataElement: dataElement})
+    dataCriteria = new Thorax.Models.SourceDataCriteria({dataElement: dataElement})
     expect(dataCriteria.getCriteriaType()).toBe 'laboratory_test_performed'
     expect(dataCriteria.isPeriodType()).toBe true
     expect(dataCriteria.getPrimaryTimingAttribute()).toBe 'relevantPeriod'

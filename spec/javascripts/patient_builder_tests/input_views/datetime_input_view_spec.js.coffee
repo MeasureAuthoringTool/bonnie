@@ -79,7 +79,7 @@ describe 'InputView', ->
 
         # get today in MP year and check the default is today 8:00-8:15
         today = new Date()
-        newDate = new cqm.models.CQL.DateTime(2012, today.getMonth() + 1, today.getDate(), 8, 0, 0, 0, 0)
+        newDate = new cqm.models.CQL.DateTime(2020, today.getMonth() + 1, today.getDate(), 8, 0, 0, 0, 0)
         expect(@view.value).toEqual(newDate)
 
         # check fields
@@ -91,13 +91,13 @@ describe 'InputView', ->
 
     describe 'createDefault', ->
 
-      it 'defaults to 2012 when the defaultYear is not provided', ->
+      it 'defaults to 2020 when the defaultYear is not provided', ->
         date = new cqm.models.CQL.DateTime(2012, 2, 23, 8, 15, 0, 0, 0)
         view = new Thorax.Views.InputDateTimeView(initialValue: date)
 
-        # get today in 2012 and check the default is today 8:00-8:15
+        # get today in 2020 and check the default is today 8:00-8:15
         today = new Date()
-        newDate = new cqm.models.CQL.DateTime(2012, today.getMonth() + 1, today.getDate(), 8, 0, 0, 0, 0)
+        newDate = new cqm.models.CQL.DateTime(2020, today.getMonth() + 1, today.getDate(), 8, 0, 0, 0, 0)
         expect(view.createDefault()).toEqual(newDate)
 
       it 'uses defaultYear when provided', ->

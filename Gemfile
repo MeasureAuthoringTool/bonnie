@@ -89,3 +89,6 @@ gem 'jquery-rails'
 
 # Browser Detection
 gem 'browser'
+
+gem "reverse_markdown", "~> 2.0"
+gem "tinymce-rails"

@@ -8,9 +8,9 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
   context: ->
     _(super).extend
       cms_id: @measure.get('cqmMeasure').cms_id
-      hqmf_set_id: @measure.get('cqmMeasure').hqmf_set_id
-      # TODO: defaulted measurement period to 2012, should be taken from effectivePeriod dynamically
-      measurePeriodYear: 2012 # @measure.getMeasurePeriodYear()
+      set_id: @measure.get('cqmMeasure').set_id
+      # TODO: defaulted measurement period to 2020, should be taken from effectivePeriod dynamically
+      measurePeriodYear: @measure.getMeasurePeriodYear()
       component: @measure.get('cqmMeasure').component
       cql: true # Hide certain features in handlebars if the measure is cql.
 
@@ -104,7 +104,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @model.get('populations').each (population) ->
         differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
 
-      $.fileDownload "patients/qrda_export?hqmf_set_id=#{@model.get('cqmMeasure').hqmf_set_id}",
+      $.fileDownload "patients/qrda_export?set_id=#{@model.get('cqmMeasure').set_id}",
         successCallback: => @exportPatientsView.qrdaSuccess()
         failCallback: => @exportPatientsView.fail()
         httpMethod: "POST"
@@ -164,7 +164,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         population_details: JSON.stringify(population_details)
         statement_details: JSON.stringify(statement_details)
         file_name: file_name
-        measure_hqmf_set_id: @model.get('cqmMeasure').hqmf_set_id
+        measure_set_id: @model.get('cqmMeasure').set_id
       }
 
   # Iterates through the results to remove extraneous fields.

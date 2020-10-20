@@ -18,7 +18,7 @@ class Thorax.Models.Difference extends Thorax.Model
     @set done: match?, match: match, status: status, comparisons: @expected.comparison(@result)
 
   toJSON: ->
-    _(super).extend({medicalRecordNumber: @result.patient.get('cqmPatient').qdmPatient.id().toString()} if @result.isPopulated())
+    _(super).extend({medicalRecordNumber: @result.patient.get('cqmPatient').id} if @result.isPopulated())
 
 class Thorax.Collections.Differences extends Thorax.Collection
   model: Thorax.Models.Difference

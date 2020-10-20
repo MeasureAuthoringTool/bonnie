@@ -7,69 +7,55 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if !@isPeriodType() then @set('end_date', undefined)
-    @set('negation', @get('qdmDataElement').negationRationale?)
+    # TODO negation
+#    @set('negation', @get('dataElement').negationRationale?)
 
   clone: ->
-    # Clone the QDM::DataElement
-    dataElementType = @get('qdmDataElement')._type.replace(/QDM::/, '')
-    dataElementClone = mongoose.utils.clone(@get('qdmDataElement'))
-    clonedDataElement = new cqm.models[dataElementType](dataElementClone)
-
+    # Clone the DataElement
+    dataElementClone = @get('dataElement').clone()
     # build the initial attributes object similar to how it is done in the collection parse.
-    dataElementAsObject = clonedDataElement.toObject()
+    # Create data elements attribus as plain object
+    # Keep TS model object in dataElement field
+    dataElementAsObject = dataElementClone.toJSON()
     dataElementAsObject.description = @get('description')
-    dataElementAsObject.qdmDataElement = clonedDataElement
-    dataElementAsObject.qdmDataElement.description = dataElementAsObject.description
+    dataElementAsObject.dataElement = dataElementClone
+    dataElementAsObject.dataElement.description = dataElementAsObject.description
 
     # make and return the new SDC
     return new Thorax.Models.SourceDataCriteria(dataElementAsObject)
 
   setNewId: ->
     # Create and set a new id for the data element
-    new_id = new mongoose.Types.ObjectId()
-    @get('qdmDataElement')._id = new_id
-    @get('qdmDataElement').id = new_id.toString()
-    @set '_id', new_id
-    @set 'id', new_id.toString()
+    new_id = cqm.ObjectID().toHexString()
+    @get('dataElement').id = new_id
+    @set 'id', new_id
 
-  measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
+  measure: -> bonnie.measures.findWhere set_id: @get('set_id')
 
-  valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.oid is @get('codeListId')
+  valueSet: -> _(@measure().get('cqmValueSets')).find (vs) => vs.id is @get('codeListId')
 
-  faIcon: ->
-    # FIXME: Do this semantically in stylesheet
+  icon: ->
     icons =
-      patient_characteristic:   'fa-user'
-      communication:            'fa-files-o'
-      allergy:                  'fa-exclamation-triangle'
-      adverse_event:            'fa-exclamation'
-      condition:                'fa-stethoscope'
-      device:                   'fa-medkit'
-      diagnostic_study:         'fa-stethoscope'
-      encounter:                'fa-user-md'
-      functional_status:        'fa-stethoscope'
-      intervention:             'fa-comments'
-      laboratory_test:          'fa-flask'
-      medication:               'fa-medkit'
-      physical_exam:            'fa-user-md'
-      procedure:                'fa-scissors'
-      risk_category_assessment: 'fa-user'
-      care_goal:                'fa-sliders'
-      assessment:               'fa-eye'
-      care_experience:          'fa-heartbeat'
-      family_history:           'fa-sitemap'
-      immunization:             'fa-medkit'
-      participation:            'fa-shield'
-      preference:               'fa-comment'
-      provider_characteristic:  'fa-user-md'
-      substance:                'fa-medkit'
-      symptom:                  'fa-bug'
-      system_characteristic:    'fa-tachometer'
-      transfer:                 'fa-random'
-    icons[@get('qdmCategory')] || 'fa-question'
+      'clinical summary': 'clinical-summary'
+      'financial support': 'financial-support'
+      'diagnostics': 'diagnostics'
+      'care provision': 'care-provision'
+      'billing': 'billing'
+      'request response': 'request-response'
+      'providers entities': 'providers-entities'
+      'material entities': 'material-entities'
+      'management': 'management'
+      'medications': 'medications'
+      'individuals': 'individuals'
+      'workflow': 'workflow'
+
+    element_category = DataCriteriaHelpers.DATA_ELEMENT_CATEGORIES[@get('fhir_resource').resourceType]
+    icons[element_category] || 'question'
 
   canHaveNegation: ->
-    @get('qdmDataElement').schema.path('negationRationale')?
+#    TODO FHIR negation
+#    @get('dataElement').schema.path('negationRationale')?
+    false
 
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
@@ -87,46 +73,39 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   # TODO: (LDY 10/6/2016) this is a helper function. does it belong somewhere else? should it be used in
   # other places?
   getCriteriaType: ->
-    criteriaType = @get('qdmDataElement').qdmCategory
-    if @get('qdmDataElement').qdmStatus?
-      criteriaType = "#{criteriaType}_#{@get('qdmDataElement').qdmStatus}"
+    criteriaType = @get('dataElement')?.fhir_resource?.resourceType
     criteriaType
 
-  @PRIMARY_TIMING_ATTRIBUTES = ['relevantPeriod', 'relevantDatetime', 'prevalencePeriod', 'participationPeriod', 'authorDatetime', 'resultDatetime']
-
+  # TODO: update this while working on attribute story
   # the attributes to skip in user attribute view and editing fields
-  @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', '_id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
-    .concat(@PRIMARY_TIMING_ATTRIBUTES)
+  # @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
+  #  .concat(@PRIMARY_TIMING_ATTRIBUTES)
 
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
     timingAttributes = @getPrimaryTimingAttributes()
     for attr in timingAttributes
-      return attr.name if @get('qdmDataElement')[attr.name]?.low? || @get('qdmDataElement')[attr.name]?.high? || @get('qdmDataElement')[attr.name]?.isDateTime?
+      return attr if @get('dataElement').fhir_resource[attr.name]?.start? ||
+        @get('dataElement').fhir_resource[attr.name]?.end? ||
+        @get('dataElement').fhir_resource[attr.name]?.value?
     # Fall back to returning the first primary timing attribute if none of the timing attributes have values
-    return timingAttributes[0].name
+    return timingAttributes[0]
 
   # Gets a list of the names, titles and types of the primary timing attributes for this SDC.
   getPrimaryTimingAttributes: ->
     primaryTimingAttributes = []
-    for timingAttr in Thorax.Models.SourceDataCriteria.PRIMARY_TIMING_ATTRIBUTES
-      if @get('qdmDataElement').schema.path(timingAttr)?
-        primaryTimingAttributes.push(
-          name: timingAttr
-          title: Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[timingAttr]
-          type: @getAttributeType(timingAttr)
-        )
+    elementType = @get('dataElement').fhir_resource?.resourceType
+    timingAttributes = DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES[elementType]
+    for attribute of timingAttributes
+      primaryTimingAttributes.push(
+        name: attribute
+        title: attribute?.replace(/(?=[A-Z])/g, ' ')
+        type: timingAttributes[attribute]
+      )
     return primaryTimingAttributes
 
   # Mapping of attribute name to human friendly titles. This is globally acessible and used by view classes for labels.
   @ATTRIBUTE_TITLE_MAP:
-    'relevantPeriod': 'Relevant Period'
-    'relevantDatetime': 'Relevant DateTime'
-    'prevalencePeriod': 'Prevalence Period'
-    'participationPeriod': 'Participation Period'
-    'authorDatetime': 'Author DateTime'
-    'locationPeriod': 'Location Period'
-    'activeDatetime': 'Active DateTime'
     'admissionSource': 'Admission Source'
     'anatomicalLocationSite': 'Anatomical Location Site'
     'category': 'Category'
@@ -185,10 +164,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     'type': 'Type'
     'value': 'Value'
 
-  getAttributeType: (attributeName) ->
-    attrInfo = @get('qdmDataElement').schema.path(attributeName)
-    return attrInfo.instance
-
   # return the human friendly title for an attribute, if it exists, otherwise return the name.
   getAttributeTitle: (attributeName) ->
     Thorax.Models.SourceDataCriteria.ATTRIBUTE_TITLE_MAP[attributeName] || attributeName
@@ -202,13 +177,8 @@ Thorax.Models.SourceDataCriteria.generateCriteriaId = ->
     result
 
 class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
-  # List of QDM types to exclude from SourceDataCriteria collection because they are managed by the header of the patient builder.
-  @SKIP_TYPES = [ "QDM::PatientCharacteristicSex",
-                  "QDM::PatientCharacteristicBirthdate",
-                  "QDM::PatientCharacteristicRace",
-                  "QDM::PatientCharacteristicEthnicity",
-                  "QDM::PatientCharacteristicExpired"
-                ]
+  # List of types to exclude from SourceDataCriteria collection because they are managed by the header of the patient builder.
+  @SKIP_TYPES = [ ]
 
   model: Thorax.Models.SourceDataCriteria
   initialize: (models, options) ->
@@ -222,25 +192,28 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   # comparator: (m) -> [m.get('start_date'), m.get('end_date')]
 
   # event listener for add SDC event. if this collection belongs to a patient the
-  # QDM::DataElement will be added to the DataElements array.
+  # DataElement will be added to the DataElements array.
   addSourceDataCriteriaToPatient: (criteria) ->
-    @parent?.get('cqmPatient').qdmPatient.dataElements.push(criteria.get('qdmDataElement'));
+    cqmPatient = @parent?.get('cqmPatient')
+    cqmPatient.data_elements = [] unless cqmPatient.data_elements
+    cqmPatient.data_elements.push(criteria.get('dataElement'));
 
   # event listener for remove SDC event. if this collection belongs to a patient the
-  # QDM::DataElement will be removed from the DataElements array.
+  # DataElement will be removed from the DataElements array.
   removeSourceDataCriteriaFromPatient: (criteria) ->
-    @parent?.get('cqmPatient').qdmPatient.dataElements.remove(criteria.get('qdmDataElement'));
+    @parent?.get('cqmPatient').data_elements = @parent?.get('cqmPatient').data_elements.filter (el) -> el != criteria.get('dataElement')
 
-  # Expect a array of QDM::DataElements to be passed in. We want to turn it into an array
+  # Expect a array of DataElements to be passed in. We want to turn it into an array
   # of plain objects that will become the attributes for each SourceDataCriteria.
   parse: (dataElements, options) ->
     dataElementsAsObjects = []
 
-    # TODO: Replace quick and dirty option
     dataElements.forEach (dataElement) ->
-      if !Thorax.Collections.SourceDataCriteria.SKIP_TYPES.includes(dataElement._type)
-        dataElementAsObject = dataElement.toObject()
-        dataElementAsObject.qdmDataElement = dataElement
+      if !Thorax.Collections.SourceDataCriteria.SKIP_TYPES.includes(dataElement.fhir_resource?.resourceType)
+        # Create data elements attribus as plain object
+        # Keep TS model object in dataElement field
+        dataElementAsObject = dataElement.toJSON()
+        dataElementAsObject.dataElement = dataElement
         dataElementsAsObjects.push(dataElementAsObject)
 
     return dataElementsAsObjects

@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS334v1",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": "5d27842d31fe5f6eb008e260",
@@ -32024,7 +32024,7 @@
   "created_at": "2019-07-11T18:47:09.356Z",
   "description": "Nulliparous women with a term, singleton baby in a vertex position delivered by cesarean birth",
   "hqmf_id": "40280382-5FA6-FE85-015F-CAEC250A133C",
-  "hqmf_set_id": "FC52D0DE-B53D-4CCF-816E-1E527748D2D9",
+  "set_id": "FC52D0DE-B53D-4CCF-816E-1E527748D2D9",
   "hqmf_version_number": "0",
   "main_cql_library": "CesareanBirth",
   "measure_attributes": [

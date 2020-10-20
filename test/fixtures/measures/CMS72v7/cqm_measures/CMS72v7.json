@@ -6,11 +6,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS72v7",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": {
@@ -19631,7 +19631,7 @@
   },
   "description": "Ischemic stroke patients administered antithrombotic therapy by the end of hospital day 2",
   "hqmf_id": "40280382-6258-7581-0162-8C111460102B",
-  "hqmf_set_id": "93F3479F-75D8-4731-9A3F-B7749D8BCD37",
+  "set_id": "93F3479F-75D8-4731-9A3F-B7749D8BCD37",
   "hqmf_version_number": "7.2.000",
   "main_cql_library": "AntithromboticTherapyByEndofHospitalDay2",
   "measure_attributes": [

@@ -22,6 +22,43 @@
   -webkit-margin-end: 0px;
 }
 
+.criteria-icon {
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+
+  @criteria:
+    clinical-summary
+    financial-support
+    diagnostics
+    care-provision
+    billing
+    request-response
+    providers-entities
+    material-entities
+    management
+    medications
+    individuals
+    workflow
+    question;
+
+  .icons(@list, @i: 1) when (@i <= length(@list)) {
+    @icon: extract(@list, @i);
+    &.@{icon} {
+      .criteria-type-marker & {
+        background-image: url("/assets/criteria-icons/@{icon}-blue.svg");
+      }
+      .criteria-type-marker.open &,
+      &.panel-icon {
+        background-image: url("/assets/criteria-icons/@{icon}-white.svg");
+      }
+    }
+    .icons(@list, @i + 1);
+  }
+  .icons(@criteria);
+}
+
 .patient-builder {
   @time-bar-width: 8px;
   .time-bar(@color: @gray-lighter) {
@@ -108,6 +145,11 @@
       padding-right: (@grid-gutter-width / 2);
       padding-left: (@grid-gutter-width / 2);
     }
+    .form-group {
+      &.half-width {
+        width: 50%;
+      }
+    }
     .deceased-checkbox {
       height: 24px;
       padding-left: 20px;
@@ -121,6 +163,9 @@
       padding-right: 8px;
       padding-left: 0;
       padding-bottom: 0;
+    }
+    .indented {
+      margin-left: 20px;
     }
   }
 
@@ -232,14 +277,18 @@
           }
           .panel-icon {
             display: inline-block;
-            font-weight: bold;
+            height: 14px;
+            margin-top: 7px;
+            width: 14px;
+            vertical-align: top;
           }
           .element-title {
             line-height: 28px; // center it with arrow
           }
         }
         .panel-icon {
-          display: block;
+          height: 42px;
+          width: 42px;
         }
         .panel-expander {
           .pull-right;
@@ -272,7 +321,6 @@
     }
   }
 
-
   .criteria-container {
     &.droppable {
       // establish drop target below last criteria
@@ -290,15 +338,17 @@
         background-color: white;
         border: 2px solid @brand-primary;
         border-radius: @radius;
-        color: @brand-primary;
         .square(@radius * 2);
-        line-height: 2;
         margin-left: -22px;
         margin-top: 10px;
-        text-align: center;
         &.open {
           background-color: @brand-primary;
-          color: white;
+        }
+
+        .criteria-icon {
+          margin: 5px auto 0;
+          height: 21px;
+          width: 21px;
         }
       }
       .criteria-body {
@@ -392,7 +442,7 @@
     &> * {
       .make-md-column(6; 0);
     }
-    &> :last-child input {
+    input.time-of-death {
       border-left: 0;
     }
   }

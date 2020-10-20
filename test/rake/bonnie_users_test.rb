@@ -87,7 +87,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
   test "move measure" do
     source_email = 'bonnie@example.com'
     dest_email = 'user_admin@example.com'
-    source_hqmf_set_id = '4DC3E7AA-8777-4749-A1E4-37E942036076'
+    source_set_id = '4DC3E7AA-8777-4749-A1E4-37E942036076'
 
     patients_set = File.join("cqm_patients", "CMS903v0")
     users_set = File.join("users", "base_set")
@@ -98,7 +98,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(source_user, CQM::Patient.all)
 
-    measure = CQM::Measure.where(hqmf_set_id: source_hqmf_set_id).first
+    measure = CQM::Measure.where(set_id: source_set_id).first
 
     # confirm base state
 

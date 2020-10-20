@@ -6,11 +6,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS160v6",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": {
@@ -18324,7 +18324,7 @@
   "created_at": "2019-07-11T18:46:33.030Z",
   "description": "The percentage of patients age 18 and older with the diagnosis of major depression or dysthymia who have a completed PHQ-9 during each applicable 4 month period in which there was a qualifying visit",
   "hqmf_id": "40280382-5FA6-FE85-015F-B5B5982402D6",
-  "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+  "set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
   "hqmf_version_number": "0",
   "main_cql_library": "DepressionUtilizationofthePHQ9Tool",
   "measure_attributes": [
