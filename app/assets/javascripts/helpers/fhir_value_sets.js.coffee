@@ -15,6 +15,8 @@
     @_codeSystemMap['http://terminology.hl7.org/CodeSystem/condition-clinical'] = 'condition-clinical'
     @_codeSystemMap['http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical'] = 'allergyintolerance-clinical'
     @_codeSystemMap['http://terminology.hl7.org/CodeSystem/allergyintolerance-verification'] = 'allergyintolerance-verification'
+    @_codeSystemMap['http://hl7.org/fhir/request-status'] = 'request-status'
+    @_codeSystemMap['http://hl7.org/fhir/request-intent'] = 'request-intent'
     return @_codeSystemMap
 
   #  Description  https://terminology.hl7.org/1.0.0/ValueSet-condition-clinical
@@ -656,13 +658,13 @@
       }
     }
 
-#  Description http://hl7.org/fhir/R4/valueset-device-kind.html
-# Used in:
-# Resource: ChargeItem.product[x] (Reference(Device|Medication|Substance)|CodeableConcept / Example)
-# Resource: DeviceRequest.code[x] (Reference(Device)|CodeableConcept / Example)
-# Resource: Procedure.usedCode (CodeableConcept / Example)
-# Resource: DeviceDefinition.type (CodeableConcept / Example)
-# Extension: http://hl7.org/fhir/StructureDefinition/observation-deviceCode: deviceCode (CodeableConcept / Example)
+  #  Description http://hl7.org/fhir/R4/valueset-device-kind.html
+  # Used in:
+  # Resource: ChargeItem.product[x] (Reference(Device|Medication|Substance)|CodeableConcept / Example)
+  # Resource: DeviceRequest.code[x] (Reference(Device)|CodeableConcept / Example)
+  # Resource: Procedure.usedCode (CodeableConcept / Example)
+  # Resource: DeviceDefinition.type (CodeableConcept / Example)
+  # Extension: http://hl7.org/fhir/StructureDefinition/observation-deviceCode: deviceCode (CodeableConcept / Example)
   @DEVICE_KIND_VS =
     {
       "resourceType" : "ValueSet",
@@ -872,4 +874,135 @@
         ]
       }
     }
+
+  @REQUEST_INTENT = {
+    "resourceType" : "ValueSet",
+    "id" : "request-intent",
+    "url" : "http://hl7.org/fhir/ValueSet/request-intent",
+    "identifier" : [{
+      "system" : "urn:ietf:rfc:3986",
+      "value" : "urn:oid:2.16.840.1.113883.4.642.3.113"
+    }],
+    "version" : "4.0.1",
+    "name" : "RequestIntent",
+    "title" : "RequestIntent",
+    "status" : "draft",
+    "experimental" : false,
+    "date" : "2019-11-01T09:29:23+11:00",
+    "publisher" : "HL7 (FHIR Project)",
+    "compose" : {
+      "include" : [
+        {
+          "system" : "http://hl7.org/fhir/request-intent"
+          "concept" : [
+            {
+              "code" : "proposal",
+              "display" : "Proposal",
+              "definition" : "The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and without providing an authorization to act."
+            },
+            {
+              "code" : "plan",
+              "display" : "Plan",
+              "definition" : "The request represents an intention to ensure something occurs without providing an authorization for others to act."
+            },
+            {
+              "code" : "directive",
+              "display" : "Directive",
+              "definition" : "The request represents a legally binding instruction authored by a Patient or RelatedPerson."
+            },
+            {
+              "code" : "order",
+              "display" : "Order",
+              "definition" : "The request represents a request/demand and authorization for action by a Practitioner."
+            },
+            {
+              "code" : "original-order",
+              "display" : "Original Order",
+              "definition" : "The request represents an original authorization for action."
+            },
+            {
+              "code" : "reflex-order",
+              "display" : "Reflex Order",
+              "definition" : "The request represents an automatically generated supplemental authorization for action based on a parent authorization together with initial results of the action taken against that parent authorization."
+            },
+            {
+              "code" : "filler-order",
+              "display" : "Filler Order",
+              "definition" : "The request represents the view of an authorization instantiated by a fulfilling system representing the details of the fulfiller's intention to act upon a submitted order."
+            },
+            {
+              "code" : "instance-order",
+              "display" : "Instance Order",
+              "definition" : "An order created in fulfillment of a broader order that represents the authorization for a single activity occurrence.  E.g. The administration of a single dose of a drug."
+            }
+            {
+              "code" : "option",
+              "display" : "Option",
+              "definition" : "The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or other constraints among a set of requests.  Refer to [[[RequestGroup]]] for additional information on how this status is used."
+            }]
+        }
+      ]
+    }
+  }
+
+  @REQUEST_STATUS = {
+    "resourceType" : "ValueSet",
+    "id" : "request-status",
+    "url" : "http://hl7.org/fhir/ValueSet/request-status",
+    "identifier" : [{
+      "system" : "urn:ietf:rfc:3986",
+      "value" : "urn:oid:2.16.840.1.113883.4.642.3.111"
+    }],
+    "version" : "4.0.1",
+    "name" : "RequestStatus",
+    "title" : "RequestStatus",
+    "status" : "draft",
+    "experimental" : false,
+    "date" : "2019-11-01T09:29:23+11:00",
+    "publisher" : "HL7 (FHIR Project)",
+    "compose" : {
+      "include" : [
+        {
+          "system" : "http://hl7.org/fhir/request-status"
+          "concept" : [
+            {
+              "code" : "draft",
+              "display" : "Draft",
+              "definition" : "The request has been created but is not yet complete or ready for action."
+            },
+            {
+              "code" : "active",
+              "display" : "Active",
+              "definition" : "The request is in force and ready to be acted upon."
+            },
+            {
+              "code" : "on-hold",
+              "display" : "On Hold",
+              "definition" : "The request (and any implicit authorization to act) has been temporarily withdrawn but is expected to resume in the future."
+            },
+            {
+              "code" : "revoked",
+              "display" : "Revoked",
+              "definition" : "The request (and any implicit authorization to act) has been terminated prior to the known full completion of the intended actions. No further activity should occur."
+            },
+            {
+              "code" : "completed",
+              "display" : "Completed",
+              "definition" : "The activity described by the request has been fully performed. No further activity will occur."
+            },
+            {
+              "code" : "entered-in-error",
+              "display" : "Reflex Order",
+              "definition" : "This request should never have existed and should be considered 'void'. (It is possible that real-world decisions were based on it. If real-world activity has occurred, the status should be \"revoked\" rather than \"entered-in-error\".)."
+            },
+            {
+              "code" : "unknown",
+              "display" : "Unknown",
+              "definition" : "The authoring/source system does not know which of the status values currently applies for this request. Note: This concept is not to be used for \"other\" - one of the listed statuses is presumed to apply, but the authoring/source system does not know which."
+            }
+          ]
+        }
+      ]
+    }
+  }
 
