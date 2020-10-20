@@ -74,8 +74,8 @@ Bonnie::Application.configure do
     user_name:            APP_CONFIG['smtp_username'],
     password:             APP_CONFIG['smtp_password'],
     authentication:       'plain',
-    enable_starttls_auto: true,
-    tls:                  true
+    enable_starttls_auto: APP_CONFIG['smtp_tls'],
+    tls:                  APP_CONFIG['smtp_tls']
   }
 
   # Send notification when application exceptions happen

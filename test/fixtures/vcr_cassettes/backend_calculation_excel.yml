@@ -5,7 +5,7 @@ http_interactions:
     uri: http://localhost:8081/calculate
     body:
       encoding: UTF-8
-      string: '{"patients":[],"measure":{"_id":"5d27840931fe5f6eb006a909","calculate_sdes":null,"calculation_method":"PATIENT","cms_id":"CMS160v6","component":false,"component_hqmf_set_ids":[],"composite":false,"composite_hqmf_set_id":null,"cql_libraries":[{"_id":"5d27840931fe5f6eb006a90b","cql":"library
+      string: '{"patients":[],"measure":{"_id":"5d27840931fe5f6eb006a909","calculate_sdes":null,"calculation_method":"PATIENT","cms_id":"CMS160v6","component":false,"component_set_ids":[],"composite":false,"composite_set_id":null,"cql_libraries":[{"_id":"5d27840931fe5f6eb006a90b","cql":"library
         DepressionUtilizationofthePHQ9Tool version ''6.1.001''\r\n\r\nusing QDM version
         ''5.3''\r\n\r\ncodesystem \"SNOMEDCT:2016-03\": ''urn:oid:2.16.840.1.113883.6.96''
         version ''urn:hl7:version:2016-03''\r\n\r\nvalueset \"ONC Administrative Sex\":
@@ -896,7 +896,7 @@ http_interactions:
         3"}]}],"created_at":"2019-07-11T18:46:33.030Z","description":"The percentage
         of patients age 18 and older with the diagnosis of major depression or dysthymia
         who have a completed PHQ-9 during each applicable 4 month period in which
-        there was a qualifying visit","hqmf_id":"40280382-5FA6-FE85-015F-B5B5982402D6","hqmf_set_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","hqmf_version_number":"0","main_cql_library":"DepressionUtilizationofthePHQ9Tool","measure_attributes":[{"code":"OTH","value":"160","name":"eCQM
+        there was a qualifying visit","hqmf_id":"40280382-5FA6-FE85-015F-B5B5982402D6","set_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","hqmf_version_number":"0","main_cql_library":"DepressionUtilizationofthePHQ9Tool","measure_attributes":[{"code":"OTH","value":"160","name":"eCQM
         Identifier (Measure Authoring Tool)","code_obj":{"type":"CD","null_flavor":"OTH","original_text":"eCQM
         Identifier (Measure Authoring Tool)"},"value_obj":{"type":"ED","value":"160","media_type":"text/plain"}},{"code":"OTH","value":"0712","name":"NQF
         Number","code_obj":{"type":"CD","null_flavor":"OTH","original_text":"NQF Number"},"value_obj":{"type":"ED","value":"0712","media_type":"text/plain"}},{"code":"COPY","value":"Copyright

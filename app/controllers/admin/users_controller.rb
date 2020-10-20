@@ -84,7 +84,7 @@ class Admin::UsersController < ApplicationController
 
   def patients
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(user.patients.map(&:as_document)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
+    send_data JSON.pretty_generate(user.patients.map(&:as_json)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
   end
 
   def measures

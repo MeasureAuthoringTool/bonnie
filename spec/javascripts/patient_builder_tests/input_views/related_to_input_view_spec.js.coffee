@@ -26,16 +26,16 @@ describe 'RelatedToView', ->
   describe 'in PatientBuilder', ->
     beforeEach ->
       cqmPatient = new cqm.models.Patient({qdmPatient: new cqm.models.QDMPatient()})
-      cqmPatient.qdmPatient.dataElements.push(@careGoal.get('qdmDataElement'))
-      cqmPatient.qdmPatient.dataElements.push(@communicationPerformed.get('qdmDataElement'))
-      cqmPatient.qdmPatient.dataElements.push(@communicationPerformedNullTiming.get('qdmDataElement'))
-      cqmPatient.qdmPatient.dataElements.push(@assessmentPerformed.get('qdmDataElement'))
+      cqmPatient.qdmPatient.dataElements.push(@careGoal.get('dataElement'))
+      cqmPatient.qdmPatient.dataElements.push(@communicationPerformed.get('dataElement'))
+      cqmPatient.qdmPatient.dataElements.push(@communicationPerformedNullTiming.get('dataElement'))
+      cqmPatient.qdmPatient.dataElements.push(@assessmentPerformed.get('dataElement'))
       expectedValues = [ {
         measure_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
         population_index: 0, IPP: 0, DENOM: 0, DENEX: 0, NUMER: 0 } ]
       cqmPatient.expectedValues = expectedValues
       @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS134v6/CMS134v6.json', 'cqm_measure_data/CMS134v6/value_sets.json'
-      @patient = new Thorax.Models.Patient {cqmPatient: cqmPatient, measure_ids: [@measure?.get('cqmMeasure').hqmf_set_id]}, parse: true
+      @patient = new Thorax.Models.Patient {cqmPatient: cqmPatient, measure_ids: [@measure?.get('cqmMeasure').set_id]}, parse: true
       @patients = new Thorax.Collections.Patients [@patient], parse: true
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()

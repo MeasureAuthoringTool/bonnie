@@ -1,11 +1,5 @@
 class Thorax.Models.Measure extends Thorax.Model
-  idAttribute: '_id'
-
-  populateComponents: ->
-    return unless @get('cqmMeasure').get('composite')
-    @set 'componentMeasures', new Thorax.Collection @.get('cqmMeasure').get('component_hqmf_set_ids').map(
-      (hqmfSetId) -> _.find(bonnie.measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is hqmfSetId)
-    )
+  idAttribute: 'id'
 
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
@@ -15,30 +9,23 @@ class Thorax.Models.Measure extends Thorax.Model
     thoraxMeasure = {}
     # We don't use cqm measure data criteria since we have to change them for use in the view
     thoraxMeasure.source_data_criteria = attrs.source_data_criteria
-    thoraxMeasure.cqmMeasure = new cqm.models.Measure(attrs)
+    thoraxMeasure.cqmMeasure = cqm.models.CqmMeasure.parse(attrs)
+    thoraxMeasure.id = thoraxMeasure.cqmMeasure.id
 
-    # Adapting FHIR model's set_id to work with QDM Model's hqmf_set_id.
-    # TODO Remove once TS models implemented.
-    thoraxMeasure.cqmMeasure.hqmf_set_id = attrs.set_id
-
-    thoraxMeasure._id = thoraxMeasure.cqmMeasure._id.toString()
+    # TODO: migrate to thoraxMeasure.cqmValueSets = thoraxMeasure.cqmMeasure.value_sets
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
     else
       thoraxMeasure.cqmValueSets = []
 
+
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
-    stratificationPopulations = CQLMeasureHelpers.getStratificationsAsPopulationSets(thoraxMeasure.cqmMeasure.population_sets)
-    # thoraxMeasure.population_sets is a combination of mongoose population_sets and mongoose stratifications
-    # toObject() removes all mongoose specific fields (ie: '_id' and '_type')
+
+    # Get a combination of mongoose population_sets and mongoose stratifications
     # This is necessary since our view treats the stratification as a population
-    popSetsAndStrats = (thoraxMeasure.cqmMeasure.population_sets.concat stratificationPopulations)
-                        .map (popSet) ->
-                          if typeof popSet.toObject == 'function'
-                            popSet.toObject()
-                          else
-                            popSet
+    popSetsAndStrats = thoraxMeasure.cqmMeasure.allPopulationSetsAndStratifications;
+
     for populationSet, index in popSetsAndStrats
       populationSet.sub_id = alphabet[index]
       populationSet.index = index
@@ -55,7 +42,7 @@ class Thorax.Models.Measure extends Thorax.Model
     oid_display_name_map = {}
     if thoraxMeasure.cqmValueSets
       for valSet in thoraxMeasure.cqmValueSets
-        oid_display_name_map[valSet.oid] = valSet.display_name if valSet?.display_name
+        oid_display_name_map[valSet.id] = valSet.name if valSet?.name
 
     for key, data_criteria of thoraxMeasure.source_data_criteria
       data_criteria.key = key
@@ -87,26 +74,28 @@ class Thorax.Models.Measure extends Thorax.Model
 
   isPopulated: -> @has('source_data_criteria')
 
-  populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('cqmMeasure').population_criteria).map (p) -> p.type)
+  populationCriteria: ->
+    populationCriteria = @get('cqmMeasure').population_sets.map (s) -> s.populations
+    _.intersection(Thorax.Models.Measure.allPopulationCodes, populationCriteria.map((pc) -> Object.keys(pc)).flat())
 
   valueSets: ->
     @get('cqmValueSets')
 
   codeSystemMap: ->
     return @_codeSystemMap if @_codeSystemMap?
-
     @_codeSystemMap = {}
     @get('cqmValueSets').forEach (valueSet) =>
-      valueSet.concepts.forEach (concept) =>
-        if !@_codeSystemMap.hasOwnProperty(concept.code_system_oid)
-          @_codeSystemMap[concept.code_system_oid] = concept.code_system_name
+      valueSet.compose?.include?.forEach (vsInclude) =>
+        if !@_codeSystemMap.hasOwnProperty(vsInclude.system)
+          @_codeSystemMap[vsInclude.system] = vsInclude.system
 
     return @_codeSystemMap
 
   hasCode: (code, code_system) ->
     for vs in @valueSets()
-      for c in vs.concepts
-        return true if c.code == code && c.code_system_oid == code_system
+      for inc in vs.compose?.include
+        for c in inc.concept
+          return true if c.code == code && inc.system == code_system
     return false
 
   @referencesFor: (criteriaType) ->
@@ -181,9 +170,20 @@ class Thorax.Models.Measure extends Thorax.Model
       return @_localIdCache[libraryName][statementName]
 
   getMeasurePeriodYear: ->
-    Number.parseInt(@get('cqmMeasure').measure_period.low.value[0..3])
+    unless @get('cqmMeasure').measure_period
+      @get('cqmMeasure').measure_period = {
+        low: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.start?.value || '2020-01-01' },
+        high: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.end?.value || '2020-12-31' }}
+    if typeof @get('cqmMeasure').measure_period.low.value == 'string'
+      Number.parseInt(@get('cqmMeasure').measure_period.low.value[0..3])
+    else
+      Number.parseInt(@get('cqmMeasure').measure_period.low.value.getFullYear())
 
   setMeasurePeriodYear: (year) ->
+    unless @get('cqmMeasure').measure_period
+      @get('cqmMeasure').measure_period = {
+        low: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.start?.value || '2020-01-01' },
+        high: { value: @get('cqmMeasure').fhir_measure?.effectivePeriod?.end?.value || '2020-12-31' }}
     @get('cqmMeasure').measure_period.low.value = year + @get('cqmMeasure').measure_period.low.value[4..]
     @get('cqmMeasure').measure_period.high.value = year + @get('cqmMeasure').measure_period.high.value[4..]
 
@@ -218,8 +218,8 @@ class Thorax.Collections.Measures extends Thorax.Collection
     @chain().map((m) -> m.valueSets()?.models or []).flatten().uniq((vs) -> vs.get('oid')).value()
 
   toOids: ->
-    measureToOids = {} # measure hqmf_set_id : valueSet oid
-    @each (m) => measureToOids[m.get('cqmMeausre').hqmf_set_id] = m.valueSets().pluck('oid')
+    measureToOids = {} # measure set_id : valueSet oid
+    @each (m) => measureToOids[m.get('cqmMeausre').set_id] = m.valueSets().pluck('oid')
     measureToOids
 
   deepClone: ->

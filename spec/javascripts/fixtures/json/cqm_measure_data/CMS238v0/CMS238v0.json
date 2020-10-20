@@ -4,11 +4,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS238v0",
   "component": true,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
+  "composite_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC",
   "cql_libraries": [
     {
       "_id": "5d27851531fe5f6eb014c0df",
@@ -13112,7 +13112,7 @@
   "created_at": "2019-07-11T18:51:01.260Z",
   "description": "Percentage of patients ages 65 and older with an Annual Wellness Visit (AWV) during the measurement period who have ever received a pneumococcal vaccination",
   "hqmf_id": "40280382-610B-E7A4-0161-6CA42CCD212A",
-  "hqmf_set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
+  "set_id": "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
   "hqmf_version_number": "0",
   "main_cql_library": "AnnualWellnessAssessmentPreventiveCarePneumococcalVaccination",
   "measure_attributes": [

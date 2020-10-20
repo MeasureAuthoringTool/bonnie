@@ -75,8 +75,8 @@ class FixtureExporter
 
   def find_component_measures
     return [] unless @measure.composite
-    component_measures = @measure.component_hqmf_set_ids.map do |component_hqmf_set_id|
-      CQM::Measure.find_by(user_id: @user, hqmf_set_id: component_hqmf_set_id)
+    component_measures = @measure.component_set_ids.map do |component_set_id|
+      CQM::Measure.find_by(user_id: @user, set_id: component_set_id)
     end
     return component_measures
   end
@@ -118,17 +118,17 @@ class FixtureExporter
 
   def add_relevant_value_sets_as_transformed_hash(map_to_add_to, measure)
     extract_relevant_value_sets(measure).each do |valueset|
-      if map_to_add_to[measure.hqmf_set_id].present?
-        map_to_add_to[measure.hqmf_set_id].push(as_transformed_hash(valueset))
+      if map_to_add_to[measure.set_id].present?
+        map_to_add_to[measure.set_id].push(as_transformed_hash(valueset))
       else
-        map_to_add_to[measure.hqmf_set_id] = [as_transformed_hash(valueset)]
+        map_to_add_to[measure.set_id] = [as_transformed_hash(valueset)]
       end
     end
   end
 
   def get_relevant_version_of_valuesets(measure)
-    return 'Draft-' + measure.hqmf_set_id.split('&')[1] if measure.component
-    return 'Draft-' + measure.hqmf_set_id
+    return 'Draft-' + measure.set_id.split('&')[1] if measure.component
+    return 'Draft-' + measure.set_id
   end
 
   def objectid_to_oids(input)

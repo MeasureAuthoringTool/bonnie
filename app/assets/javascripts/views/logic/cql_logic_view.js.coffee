@@ -59,9 +59,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   ###
   initialize: ->
     @cqmMeasure = @model.get('cqmMeasure')
-    @isOutdatedUpload = false
-    @hasCqlErrors = false
-    @hasOutdatedQDM = false
 
     @allStatementViews = []
     @allStatementResultViews = []
@@ -74,18 +71,8 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     if @population?
       @statementRelevance = CQLMeasureHelpers.getStatementRelevanceForPopulationSet(@cqmMeasure, @population)
 
-    # Check to see if this measure was uploaded with an older version of the
-    # loader code that did not get the clause level annotations.
-    unless @cqmMeasure.cql_libraries?
-      # Mark as an outdated and do not create any statement views.
-      @isOutdatedUpload = true
-      return
-
     for library in @cqmMeasure.cql_libraries
-      @hasOutdatedQDM = true if @_hasOutdatedQDM(library)
-      @hasCqlErrors = true if @_hasCqlErrors(library)
-      # Only top level libraries will have elm annotations
-      continue unless library.is_top_level
+
       for statement in library.elm_annotations.statements
         # skip if this is a statement the user doesn't need to see
         continue unless statement.define_name?
@@ -98,11 +85,11 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         continue unless @population?
 
         for popCode, popStatements of @population.get('populations')
-          continue unless library.is_main_library
+          continue unless library.is_main_library || popCode != 'resource_type'
           if statement.define_name == popStatements.statement_name
             popNames.push(popCode)
 
-        for observ, observIndex in @population.get('observations')
+        for observ, observIndex in @population.get('observations') || []
           continue unless library.is_main_library
           if statement.define_name == observ.observation_function.statement_name
             popNames.push("OBSERV_#{observIndex+1}")
@@ -123,20 +110,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         @_categorizeStatementView(statementView, library)
 
       @populationStatementViews.sort(@_statementComparator)
-
-  _hasOutdatedQDM: (lib) ->
-    for id in lib.elm.library.usings.def
-      if id?.localIdentifier == "QDM"
-        if !CompareVersion.equalToOrNewer id.version, bonnie.support_qdm_version
-          return true
-    return false
-
-  _hasCqlErrors: (lib) ->
-    return false unless lib.elm.library.annotation?
-    for annotation in lib.elm.library.annotation
-      if annotation.errorSeverity == "error"
-        return true
-    return false
 
   _categorizeStatementView: (statementView, library) ->
     @allStatementViews.push statementView
@@ -231,7 +204,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   highlightPatientData: (dataCriteriaIDs) ->
     if @highlightPatientDataEnabled == true && @latestResult
       for dataCriteriaID in dataCriteriaIDs
-        dataCriteria = _.find(@latestResult.patient.get('source_data_criteria').models, (sdc) -> sdc.get('qdmDataElement')._id.toString() == dataCriteriaID)
+        dataCriteria = _.find(@latestResult.patient.get('source_data_criteria').models, (sdc) -> sdc.get('dataElement').id == dataCriteriaID)
         dataCriteria?.trigger('highlight', Thorax.Views.EditCriteriaView.highlight.valid)
 
   ###*

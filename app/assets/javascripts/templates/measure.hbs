@@ -3,29 +3,14 @@
     <div class="measure-title">
       {{!-- This really just needs to be bold --}}
       <span class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> Measure details</span>
-      {{#if cqmMeasure.component}}
-        <span class="settings-container">
-          <div class="measure-settings">
-            <a data-title="Component measures must be updated via their composite measure." data-toggle="tooltip" data-placement="bottom">
-              {{#button "updateMeasure" class="btn btn-default update-measure" disabled="true"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
-            </a>
-            <a data-title="Component measures must be deleted via their composite measure." data-toggle="tooltip" data-placement="bottom">
-              {{#button "deleteMeasure" class="btn btn-danger delete-measure hide" disabled="true"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
-              {{#button "showDelete" class="btn btn-danger-inverse delete-icon" disabled="true"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
-            </a>
-          </div>
-          {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
-        </span>
-      {{else}}
-        <span class="settings-container">
-          <div class="measure-settings">
-              {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
-              {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
-              {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
-          </div>
-          {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
-        </span>
-      {{/if}}
+      <span class="settings-container">
+        <div class="measure-settings">
+            {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
+            {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
+            {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
+        </div>
+        {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
+      </span>
     </div>
     <div class="measure-dsp">
       <h2 class="full-title">{{cqmMeasure.title}}</h2>
@@ -52,12 +37,8 @@
       <h2 class="h1-style"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h2>
       <span class="settings-container">
         <div class="patients-settings">
-          {{#ifPortfolio}}
-              {{#button "exportQrdaPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA <span class="sr-only">Patient Export</span>{{/button}}
-          {{else}}
-              <a data-title="Not yet implemented for FHIR" data-toggle="tooltip" data-placement="bottom">{{#button "exportQrdaPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only">Patient Export</span>{{/button}}</a>
-          {{/ifPortfolio}}
-          {{#button "exportExcelPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}
+          <a data-title="QRDA patient export is disabled for FHIR R4." data-toggle="tooltip" data-placement="bottom">{{#button "exportQrdaPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only">Patient Export</span>{{/button}}</a>
+          <a data-title="Excel patient export is disabled for FHIR R4." data-toggle="tooltip" data-placement="bottom">{{#button "exportExcelPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}</a>
           {{#ifPortfolio}}
             {{#button "sharePatients" class="btn btn-default share-patients"}}<i class="fa fa-link" aria-hidden="true"></i> Share <span class="sr-only">Share</span>{{/button}}
           {{/ifPortfolio}}

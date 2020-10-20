@@ -24,10 +24,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     load_measure_fixtures_from_folder(File.join('measures', 'CMS134v6'), @user)
 
     @measure = CQM::Measure.where({'cms_id' => 'CMS903v0'}).first
-    @patients = CQM::Patient.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
+    @patients = CQM::Patient.by_user(@user).where({:measure_ids.in => [@measure.set_id]})
 
     @simple_measure = CQM::Measure.where({'cms_id' => 'CMS134v6'}).first
-    @simple_patients = CQM::Patient.by_user(@user).where({:measure_ids.in => [@simple_measure.hqmf_set_id]})
+    @simple_patients = CQM::Patient.by_user(@user).where({:measure_ids.in => [@simple_measure.set_id]})
 
     backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'CMS903-results-stub.json')))
     unpretty_backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS903', 'CMS903-unpretty-results-stub.json')))
@@ -130,7 +130,7 @@ class ExcelExportHelperTest < ActionController::TestCase
     statement_details = ExcelExportHelper.get_statement_details_from_measure(@measure)
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
     patient_details = ExcelExportHelper.get_patient_details(@patients)
-    backend_excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, @measure.hqmf_set_id)
+    backend_excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, @measure.set_id)
     backend_excel_file = Tempfile.new(['backend-excel-export-failed-patients', '.xlsx'])
     backend_excel_file.write backend_excel_package.to_stream.read
     backend_excel_file.rewind
@@ -141,7 +141,7 @@ class ExcelExportHelperTest < ActionController::TestCase
                                  population_details: @population_details.to_json,
                                  statement_details: @statement_details.to_json,
                                  file_name: 'frontend-excel-export',
-                                 measure_hqmf_set_id: @measure.hqmf_set_id }
+                                 measure_set_id: @measure.set_id }
 
     frontend_excel_file = Tempfile.new(['frontend-excel-export', '.xlsx'])
     frontend_excel_file.write(response.body)

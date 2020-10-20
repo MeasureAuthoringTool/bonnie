@@ -11,10 +11,8 @@ class MeasuresController < ApplicationController
     @measure = CQM::Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
-      raw_json = @measure.as_document.as_json(except: skippable_fields)
-      value_sets = @measure.value_sets
-      raw_json['value_sets'] = value_sets.as_json
-      @measure_json = MultiJson.encode(raw_json)
+      measure_json = @measure.as_json(except: skippable_fields)
+      @measure_json = MultiJson.encode(measure_json)
       respond_with @measure do |format|
         format.json { render json: @measure_json }
       end
@@ -36,7 +34,7 @@ class MeasuresController < ApplicationController
 
     params[:vsac_tgt] = vsac_tgt[:ticket]
     params[:vsac_tgt_expires_at] = vsac_tgt[:expires]
-    measures, main_hqmf_set_id = persist_measure(params[:measure_file], params.permit!.to_h, current_user)
+    persist_measure(params[:measure_file], params.permit!.to_h, current_user)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   rescue StandardError => e
     # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
@@ -47,14 +45,14 @@ class MeasuresController < ApplicationController
 
   def destroy
     measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
-    measure.destroy_self_and_child_docs
+    measure.destroy
     render :json => measure
   end
 
   def finalize
-    measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
+    measure_finalize_data = params.values.select {|p| p['fhir_id']}.uniq
     measure_finalize_data.each do |data|
-      measure = CQM::Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
+      measure = CQM::Measure.by_user(current_user).where(fhir_id: data['fhir_id']).first
       begin
         # TODO: should this do the same for component measures?
         Measures::BundleLoader.update_population_set_and_strat_titles(measure, data['titles'])
@@ -89,8 +87,8 @@ class MeasuresController < ApplicationController
         measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
         measure.save!
         if measure.composite?
-          measure.component_hqmf_set_ids.each do |hqmf_set_id|
-            component_measure = CQM::Measure.by_user(current_user).where(hqmf_set_id: hqmf_set_id).first
+          measure.component_set_ids.each do |set_id|
+            component_measure = CQM::Measure.by_user(current_user).where(set_id: set_id).first
             component_measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
             component_measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
             component_measure.save!
@@ -111,9 +109,9 @@ class MeasuresController < ApplicationController
 
   def persist_measure(uploaded_file, permitted_params, user)
     measure =
-      if permitted_params[:hqmf_set_id].present?
+      if permitted_params[:set_id].present?
         update_measure(uploaded_file: uploaded_file,
-                      target_id: permitted_params[:hqmf_set_id],
+                      target_id: permitted_params[:set_id],
                       value_set_loader: build_vs_loader(permitted_params, false),
                       user: user)
       else
@@ -129,7 +127,7 @@ class MeasuresController < ApplicationController
   def check_measures_for_unsupported_data_elements(measures)
     measures.each do |measure|
       if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
-        measure.destroy_self_and_child_docs
+        measure.destroy
         raise MeasureLoadingUnsupportedDataElement.new("Related Person")
       end
     end
@@ -144,7 +142,7 @@ class MeasuresController < ApplicationController
 
   def shift_years(measure, year_shift)
     # Copy the patients to make sure there are no errors before saving every patient
-    patients = CQM::Patient.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).all.entries
+    patients = CQM::Patient.by_user_and_set_id(current_user, measure.set_id).all.entries
     errored_patients = []
     patients.each do |patient|
       begin
@@ -184,21 +182,21 @@ class MeasuresController < ApplicationController
   end
 
   def obtain_ticket_granting_ticket
-    # Retreive a (possibly) existing ticket granting ticket
+    # Retrieve a (possibly) existing ticket granting ticket
     ticket_granting_ticket = session[:vsac_tgt]
 
     # If the ticket granting ticket doesn't exist (or has expired), get a new one
     if ticket_granting_ticket.nil?
       # The user could open a second browser window and remove their ticket_granting_ticket in the session after they
-      # prepeared a measure upload assuming ticket_granting_ticket in the session in the first tab
+      # prepared a measure upload assuming ticket_granting_ticket in the session in the first tab
 
       # First make sure we have credentials to attempt getting a ticket with. Throw an error if there are no credentials.
-      if params[:vsac_username].nil? || params[:vsac_password].nil?
+      if params[:vsac_api_key].nil?
         raise Util::VSAC::VSACNoCredentialsError.new
       end
 
       # Retrieve a new ticket granting ticket by creating the api class.
-      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: params[:vsac_username], password: params[:vsac_password])
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], api_key: params[:vsac_api_key])
       ticket_granting_ticket = api.ticket_granting_ticket
 
       # Create a new ticket granting ticket session variable

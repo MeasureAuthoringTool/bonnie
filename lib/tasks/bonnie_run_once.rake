@@ -16,8 +16,8 @@ namespace :bonnie do
         user_measures.each do |measure|
           begin
             user = User.find(measure.user_id)
-            hqmf_set_id = measure.hqmf_set_id
-            @api_v1_patients = CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+            set_id = measure.set_id
+            @api_v1_patients = CQM::Patient.by_user_and_set_id(user, measure.set_id)
             @calculator_options = { doPretty: true }
 
             calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @calculator_options)
@@ -26,8 +26,8 @@ namespace :bonnie do
             population_details = ExcelExportHelper.get_population_details_from_measure(measure, calculated_results)
             statement_details = ExcelExportHelper.get_statement_details_from_measure(measure)
 
-            filename = "#{user._id}-#{measure.hqmf_set_id}.xlsx"
-            excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, measure.hqmf_set_id)
+            filename = "#{user._id}-#{measure.set_id}.xlsx"
+            excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, measure.set_id)
 
             path = File.join Rails.root, 'exports'
             FileUtils.mkdir_p(path) unless File.exist?(path)
@@ -47,8 +47,8 @@ namespace :bonnie do
     $ rake bonnie:patients:update_source_data_criteria)
     task :update_source_data_criteria=> :environment do
       puts "Updating patient source_data_criteria to match measure"
-      p_hqmf_set_ids_updated = 0
-      hqmf_set_ids_updated = 0
+      p_set_ids_updated = 0
+      set_ids_updated = 0
       p_code_list_ids_updated = 0
       code_list_ids_updated = 0
       successes = 0
@@ -56,7 +56,7 @@ namespace :bonnie do
       errors = 0
 
       CQM::Patient.all.each do |patient|
-        p_hqmf_set_ids_updated = 0
+        p_set_ids_updated = 0
 
         first = patient.first
         last = patient.last
@@ -68,19 +68,19 @@ namespace :bonnie do
         end
 
         has_changed = false
-        hqmf_set_id = patient.measure_ids[0]
+        set_id = patient.measure_ids[0]
 
         begin
-          measure = CQM::Measure.find_by(hqmf_set_id: patient.measure_ids[0], user_id: patient[:user_id])
+          measure = CQM::Measure.find_by(set_id: patient.measure_ids[0], user_id: patient[:user_id])
         rescue Mongoid::Errors::DocumentNotFound => e
           print_warning("#{first} #{last} #{email} Unable to find measure")
           warnings += 1
         end
 
         patient.source_data_criteria.each do |patient_data_criteria|
-          if patient_data_criteria['hqmf_set_id'] && patient_data_criteria['hqmf_set_id'] != hqmf_set_id
-            patient_data_criteria['hqmf_set_id'] = hqmf_set_id
-            p_hqmf_set_ids_updated += 1
+          if patient_data_criteria['set_id'] && patient_data_criteria['set_id'] != set_id
+            patient_data_criteria['set_id'] = set_id
+            p_set_ids_updated += 1
             has_changed = true
           end
 
@@ -138,7 +138,7 @@ namespace :bonnie do
         begin
           patient.save!
           if has_changed
-            hqmf_set_ids_updated += p_hqmf_set_ids_updated
+            set_ids_updated += p_set_ids_updated
             code_list_ids_updated += p_code_list_ids_updated
             successes += 1
             print_success("Fixing mismatch on User: #{email}, first: #{first}, last: #{last}")
@@ -152,7 +152,7 @@ namespace :bonnie do
       puts "Patients successfully updated: #{successes}"
       puts "Errors: #{errors}"
       puts "Warnings: #{warnings}"
-      puts "Hqmf_set_ids Updated: #{hqmf_set_ids_updated}"
+      puts "set_ids Updated: #{set_ids_updated}"
       puts "Code_list_ids Updated: #{code_list_ids_updated}"
     end
 
@@ -174,7 +174,7 @@ namespace :bonnie do
           measure_count = {cms_id: measure.cms_id, title: measure.title, total_patients_count: 0, patient_values_changed_count: 0}
 
           # loop through each patient in the measure
-          CQM::Patient.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |patient|
+          CQM::Patient.by_user_and_set_id(user, measure.set_id).each do |patient|
             user_count[:total_patients_count] += 1
             measure_count[:total_patients_count] += 1
             total_patients_count += 1
@@ -293,7 +293,7 @@ namespace :bonnie do
                 # Write the package binary to a zip file.
                 zip_file.write(measure.package.file.data)
                 files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
-                cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user, nil, nil, measure.hqmf_set_id)
+                cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user, nil, nil, measure.set_id)
                 updated_data_criteria_object = set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
                 data_criteria_object['source_data_criteria'] = updated_data_criteria_object[:source_data_criteria]
                 data_criteria_object['data_criteria'] = updated_data_criteria_object[:data_criteria]
@@ -308,7 +308,7 @@ namespace :bonnie do
             elm_json, elm_xml = CqlToElmHelper.translate_cql_to_elm(cql)
             elms = {:ELM_JSON => elm_json,
                     :ELM_XML => elm_xml}
-            cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, measure.hqmf_set_id)
+            cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, measure.set_id)
             updated_data_criteria_object = set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
             data_criteria_object['source_data_criteria'] = updated_data_criteria_object[:source_data_criteria]
             data_criteria_object['data_criteria'] = updated_data_criteria_object[:data_criteria]
@@ -389,7 +389,7 @@ namespace :bonnie do
       task :associate_measures => :environment do
         user = User.where(email: ENV['EMAIL']).first
         measures = CQM::Measure.where(user_id: user.id)
-        all_measure_ids = measures.map(&:hqmf_set_id) # array of all measure_ids (string) for patient
+        all_measure_ids = measures.map(&:set_id) # array of all measure_ids (string) for patient
         user.records.each do |patient|
           # note: this associates *every* patient with every measure,
           # so any orphaned patients (patients on a measure that has been deleted) will come back
@@ -497,10 +497,10 @@ namespace :bonnie do
         user = User.find_by _id: bonnie_patient['user_id']
         if bonnie_patient['measure_ids'].first.nil?
           puts "#{user.email}\n  Measure: N/A\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
-        elsif CQM::Measure.where(hqmf_set_id: bonnie_patient['measure_ids'].first, user_id: bonnie_patient['user_id']).first.nil?
-          puts "#{user.email}\n  Measure (hqmf_set_id): #{bonnie_patient['measure_ids'].first}\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
+        elsif CQM::Measure.where(set_id: bonnie_patient['measure_ids'].first, user_id: bonnie_patient['user_id']).first.nil?
+          puts "#{user.email}\n  Measure (set_id): #{bonnie_patient['measure_ids'].first}\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
         else
-          measure = CQM::Measure.where(hqmf_set_id: bonnie_patient['measure_ids'].first, user_id: bonnie_patient['user_id']).first
+          measure = CQM::Measure.where(set_id: bonnie_patient['measure_ids'].first, user_id: bonnie_patient['user_id']).first
           puts "#{user.email}\n  Measure: #{measure.title} #{measure.cms_id}\n  Patient: #{bonnie_patient['_id']}\n  Conversion failed with message: #{e.message}".light_red
         end
       end

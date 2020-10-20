@@ -13,11 +13,10 @@
   @buildDefineToFullStatement: (measure) ->
     ret = {}
     for lib in measure.cql_libraries
-      if lib.is_top_level
-        lib_statements = {}
-        for statement in lib.elm_annotations.statements
-          lib_statements[statement.define_name] = @_parseAnnotationTree(statement.children)
-        ret[lib.library_name] = lib_statements
+      lib_statements = {}
+      for statement in lib.elm_annotations.statements
+        lib_statements[statement.define_name] = @_parseAnnotationTree(statement.children)
+      ret[lib.library_name] = lib_statements
     return ret
 
 
@@ -311,22 +310,6 @@
   ###
   @isSupplementalDataElementStatement: (supplementalDataElements, statementDefine) ->
     return Array.isArray(supplementalDataElements) && (supplementalDataElements?.filter (d) -> d.statement_name is statementDefine).length > 0
-
-  ###*
-  # Format stratifications as population sets to be added to the measure's population sets
-  # @param {object} popSets - The populationSets.
-  ###
-  @getStratificationsAsPopulationSets: (popSets) ->
-    stratificationsAsPopulationSets = []
-    for populationSet in popSets.toObject()
-      if (populationSet.stratifications)
-        for stratification in populationSet.stratifications
-          clonedSet = @deepCopyPopulationSet(populationSet)
-          clonedSet.population_set_id = stratification.stratification_id
-          clonedSet.populations.STRAT = stratification.statement
-          clonedSet.title = stratification.title
-          stratificationsAsPopulationSets.push clonedSet
-    return stratificationsAsPopulationSets
 
   ###*
   # Returns a copy of the given population set
