@@ -324,6 +324,54 @@ describe 'DataCriteriaHelpers', ->
       expect(abatementValue.start.value).toEqual period.start.value
       expect(abatementValue.end.value).toEqual period.end.value
 
+    it 'should support Condition.bodySite', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'bodySite'
+      expect(attr.path).toBe 'bodySite'
+      expect(attr.title).toBe 'bodySite'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'CodeableConcept'
+
+      fhirResource = new cqm.models.Condition()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Coding()
+      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
+
+    it 'should support Condition.category', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'category'
+      expect(attr.path).toBe 'category'
+      expect(attr.title).toBe 'category'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'CodeableConcept'
+
+      fhirResource = new cqm.models.Condition()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Coding()
+      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
+
   describe 'Encounter attributes', ->
     it 'should support Encounter.length', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
