@@ -395,7 +395,32 @@
     CareTeam: []
     Goal: []
     NutritionOrder: []
-    ServiceRequest: []
+    ServiceRequest: [
+      {
+        path: 'intent'
+        title: 'intent'
+        getValue: (fhirResource) => fhirResource?.intent?.value
+        setValue: (fhirResource, codeValue) =>
+          if (codeValue)
+            fhirResource?.intent = cqm.models.ServiceRequestIntent.parsePrimitive(codeValue)
+          else
+            fhirResource?.intent = null
+        types: ['Code']
+        valueSets: () => [FhirValueSets.REQUEST_INTENT]
+      },
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if (codeValue)
+            fhirResource?.status = cqm.models.ServiceRequestStatus.parsePrimitive(codeValue)
+          else
+            fhirResource?.status = null
+        types: ['Code']
+        valueSets: () => [FhirValueSets.REQUEST_STATUS]
+      }
+    ]
     Claim: []
     Communication: []
     CommunicationRequest: []
