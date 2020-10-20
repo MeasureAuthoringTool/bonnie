@@ -282,6 +282,38 @@
           else
             fhirResource.abatement = null
         types: ['DateTime', 'Age', 'Period', 'Range']
+      },
+      {
+        path: 'bodySite',
+        title: 'bodySite',
+        getValue: (fhirResource) => fhirResource?.bodySite?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.bodySite = null
+          else
+            codeableConcept = new cqm.models.CodeableConcept()
+            codeableConcept.coding = [coding]
+            fhirResource.bodySite = [ codeableConcept ]
+        types: [
+          'CodeableConcept'
+        ],
+        valueSets: () -> [FhirValueSets.BODY_SITE_VS]
+      },
+      {
+        path: 'category',
+        title: 'category',
+        getValue: (fhirResource) => fhirResource?.category?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource.category = null
+          else
+            codeableConcept = new cqm.models.CodeableConcept()
+            codeableConcept.coding = [coding]
+            fhirResource.category = [ codeableConcept ]
+        types: [
+          'CodeableConcept'
+        ],
+        valueSets: () -> [FhirValueSets.CONDITION_CATEGORY_VS]
       }
     ]
     FamilyMemberHistory: []
