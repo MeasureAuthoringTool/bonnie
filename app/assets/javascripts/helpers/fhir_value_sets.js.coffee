@@ -10036,7 +10036,7 @@
     }
   }
 
-  # Description   http://hl7.org/fhir/R4/valueset-encounter-admit-source.html
+  # Description   https://hl7.org/fhir/R4/valueset-encounter-admit-source.html
   # Used in:
   # Resource: Encounter.hospitalization.admitSource (CodeableConcepts)
   @ENCOUNTER_ADMIT_SOURCE_VS = {
