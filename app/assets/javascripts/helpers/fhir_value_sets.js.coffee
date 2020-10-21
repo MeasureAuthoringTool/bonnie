@@ -9281,10 +9281,6 @@
         "system" : "http://snomed.info/sct",
         "concept" : [
           {
-            "code": "Code",
-            "display": "Display"
-          },
-          {
             "code": "6064005",
             "display": "Topical route"
           },

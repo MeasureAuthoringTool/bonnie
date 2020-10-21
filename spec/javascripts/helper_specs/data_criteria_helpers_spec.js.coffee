@@ -533,52 +533,10 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'Medication Administration attributes', ->
     it 'should support MedicationAdministration.dosage.route', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationAdministration']
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'dosage.route'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'dosage.route'
-      expect(attr.title).toBe 'dosage.route'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.MedicationAdministration()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('MedicationAdministration', 'dosage.route', 'dosage.route')
 
     it 'should support MedicationAdministration.reasonCode', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationAdministration']
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'reasonCode'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'reasonCode'
-      expect(attr.title).toBe 'reasonCode'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.MedicationAdministration()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('MedicationAdministration', 'reasonCode', 'reasonCode')
     
     it 'should support MedicationAdministration.status', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationAdministration']
@@ -603,31 +561,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value).toBe 'a code'
 
     it 'should support MedicationAdministration.statusReason', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationAdministration']
-      expect(attrs).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'statusReason'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'statusReason'
-      expect(attr.title).toBe 'statusReason'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.MedicationAdministration()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-      attr.setValue(fhirResource, valueToSet)
-
-      expect(fhirResource.statusReason.length).toBe 1
-      expect(cqm.models.CodeableConcept.isCodeableConcept(fhirResource.statusReason[0])).toBe true
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('MedicationAdministration', 'statusReason', 'statusReason')
 
   describe 'Medication Statement attributes', ->
     it 'should support MedicationStatement.status', ->
