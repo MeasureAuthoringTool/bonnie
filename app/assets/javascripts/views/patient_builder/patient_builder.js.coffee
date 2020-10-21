@@ -311,7 +311,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @$('.affix, .affix .scrolling').removeAttr('style').animate scrollTop: 0
 
   logicPagingUpdate: ->
-    console.log('logicPagingUpdate')
     # we need to toggle the visibility and state of the up/down buttons, and adjust height if appropriate
     $logic = @$("#populationLogic").find('.scrolling')
     # hide arrows if not enough logic to scroll or if the logic is not affixed
