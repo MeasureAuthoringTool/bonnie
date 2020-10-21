@@ -305,16 +305,20 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         top: shiftDown
         bottom: $(@).find('.logic-pager.down:visible').height() || 0 # leave room for button to scroll down
 
+      
   unsetAffix: ->
     #revert each affixed element to default css styling
     @$('.affix, .affix .scrolling').removeAttr('style').animate scrollTop: 0
 
   logicPagingUpdate: ->
+    console.log('logicPagingUpdate')
     # we need to toggle the visibility and state of the up/down buttons, and adjust height if appropriate
     $logic = @$("#populationLogic").find('.scrolling')
     # hide arrows if not enough logic to scroll or if the logic is not affixed
-    if $logic.children().height() < $(window).height() or @$("#populationLogic").hasClass('affix-top')
+    if @$("#populationLogic").hasClass('affix-top')
       @$('.logic-pager').removeClass('disabled').hide()
+    else if $logic.children().height() < $(window).height()
+      @$('.logic-pager').addClass('disabled')
     else
       @$('.logic-pager').show()
       # update the up/down arrows to show current state
