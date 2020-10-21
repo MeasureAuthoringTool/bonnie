@@ -431,6 +431,18 @@
     Substance: []
     Encounter: [
       {
+        path: 'class'
+        title: 'class'
+        getValue: (fhirResource) => fhirResource?['class']
+        setValue: (fhirResource, coding) =>
+          if !coding?
+            fhirResource?['class'] = null
+          else
+            fhirResource?['class'] = coding
+        types: ['Coding']
+        valueSets: () => [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
+      },
+      {
         path: 'length'
         title: 'length'
         getValue: (fhirResource) =>
@@ -438,6 +450,18 @@
         setValue: (fhirResource, value) =>
           fhirResource?.length = value
         types: ['Duration']
+      },
+      {
+        path: 'location.period'
+        title: 'location.period'
+        getValue: (fhirResource) =>
+          fhirResource?.location?[0]?.period
+        setValue: (fhirResource, value) =>
+          if !fhirResource.location
+            encounterLocation = new cqm.models.EncounterLocation()
+            fhirResource.location = [encounterLocation]
+          fhirResource.location[0].period = value
+        types: ['Period']
       },
       {
         path: 'status'
@@ -454,16 +478,20 @@
           FhirValueSets.ENCOUNTER_STATUS_VS
       },
       {
-        path: 'location.period'
-        title: 'location.period'
-        getValue: (fhirResource) =>
-          fhirResource?.location?[0]?.period
-        setValue: (fhirResource, value) =>
-          if !fhirResource.location
-            encounterLocation = new cqm.models.EncounterLocation()
-            fhirResource.location = [encounterLocation]
-          fhirResource.location[0].period = value
-        types: ['Period']
+        path: 'hospitalization.admitSource',
+        title: 'hospitalization.admitSource',
+        getValue: (fhirResource) => fhirResource?.hospitalization?.admitSource?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          if !fhirResource.hospitalization
+            hospitalization = new cqm.models.EncounterHospitalization()
+            fhirResource.hospitalization = hospitalization
+          if !coding?
+            fhirResource.hospitalization.admitSource = null
+          else
+            fhirResource.hospitalization.admitSource = new cqm.models.CodeableConcept()
+            fhirResource.hospitalization.admitSource.coding = [coding]
+        types: ['CodeableConcept']
+        valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
       },
       {
         path: 'hospitalization.dischargeDisposition',

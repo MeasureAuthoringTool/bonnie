@@ -1,14 +1,14 @@
 describe 'DataCriteriaHelpers', ->
 
   beforeEach ->
-    @assertCodeableConcept = (resourceType, path, title) ->
+    @assertCodingWithType = (resourceType, path, title, type) ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
       expect(attr).toBeDefined
       attr = attrs.find (attr) => attr.path is path
       expect(attr.path).toBe path
       expect(attr.title).toBe title
       expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
+      expect(attr.types[0]).toBe type
 
       fhirResource = new cqm.models[resourceType]()
       expect(attr.getValue(fhirResource)).toBeUndefined
@@ -24,6 +24,12 @@ describe 'DataCriteriaHelpers', ->
       expect(value).toBeDefined
       expect(value.code.value).toBe 'code1'
       expect(value.system.value).toBe 'system1'
+
+    @assertCodeableConcept = (resourceType, path, title) ->
+      @assertCodingWithType(resourceType, path, title, 'CodeableConcept')
+
+    @assertCoding = (resourceType, path, title) ->
+      @assertCodingWithType(resourceType, path, title, 'Coding')
 
   it 'has data_element_categories and primary_date_attributes', ->
     expect(Object.keys(DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES).length).toEqual 32
@@ -314,6 +320,9 @@ describe 'DataCriteriaHelpers', ->
       @assertCodeableConcept('Condition', 'category', 'category')
 
   describe 'Encounter attributes', ->
+    it 'should support Encounter.class', ->
+      @assertCoding('Encounter', 'class', 'class')
+
     it 'should support Encounter.length', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
       expect(attr).toBeDefined
@@ -385,6 +394,10 @@ describe 'DataCriteriaHelpers', ->
 
     it 'should support Encounter.hospitalization.dischargeDisposition', ->
       @assertCodeableConcept('Encounter', 'hospitalization.dischargeDisposition', 'hospitalization.dischargeDisposition')
+
+    it 'should support Encounter.hospitalization.admitSource', ->
+      @assertCodeableConcept('Encounter', 'hospitalization.admitSource', 'hospitalization.admitSource')
+
 
   describe 'Procedure attributes', ->
     it 'should support procedure status and performed attributes', ->

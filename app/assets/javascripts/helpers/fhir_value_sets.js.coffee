@@ -19,6 +19,8 @@
     @_codeSystemMap['http://hl7.org/fhir/us/core/CodeSystem/condition-category'] = 'USCoreConditionCategoryExtensionCodes'
     @_codeSystemMap['http://hl7.org/fhir/request-status'] = 'request-status'
     @_codeSystemMap['http://hl7.org/fhir/request-intent'] = 'request-intent'
+    @_codeSystemMap['http://terminology.hl7.org/CodeSystem/admit-source'] = 'admit-source'
+    @_codeSystemMap['http://terminology.hl7.org/CodeSystem/v3-ActCode'] = 'ActCode'
     return @_codeSystemMap
 
   #  Description  https://terminology.hl7.org/1.0.0/ValueSet-condition-clinical
@@ -9949,6 +9951,172 @@
             "code" : "c",
             "display" : "Emergency",
             "definition": "The administration was needed to treat an emergency."
+          }
+        ]
+      }]
+    }
+  }
+
+  # Description   https://hl7.org/fhir/R4/v3/ActEncounterCode/vs.html
+  # Used in:
+  # Resource: Encounter.class (Coding)
+  @ACT_ENCOUNTER_CODE_VS = {
+    "resourceType" : "ValueSet",
+    "id" : "v3-ActEncounterCode",
+    "language" : "en",
+    "text" : {
+      "status" : "generated",
+      "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><h2>ActEncounterCode</h2><div><p>Domain provides codes that qualify the ActEncounterClass (ENC)</p>\n</div><p>This value set includes codes based on the following rules:</p><ul><li>Include codes from <a href=\"CodeSystem-v3-ActCode.html\"><code>http://terminology.hl7.org/CodeSystem/v3-ActCode</code></a> where concept  is-a  <a href=\"CodeSystem-v3-ActCode.html#v3-ActCode-_ActEncounterCode\">_ActEncounterCode</a></li><li>Exclude these codes as defined in <a href=\"CodeSystem-v3-ActCode.html\"><code>http://terminology.hl7.org/CodeSystem/v3-ActCode</code></a><table class=\"none\"><tr><td style=\"white-space:nowrap\"><b>Code</b></td><td><b>Display</b></td></tr><tr><td><a href=\"CodeSystem-v3-ActCode.html#v3-ActCode-_ActEncounterCode\">_ActEncounterCode</a></td><td>ActEncounterCode</td><td>Domain provides codes that qualify the ActEncounterClass (ENC)</td></tr></table></li></ul></div>"
+    },
+    "url" : "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode",
+    "identifier" : [
+      {
+        "system" : "urn:ietf:rfc:3986",
+        "value" : "urn:oid:2.16.840.1.113883.1.11.13955"
+      }
+    ],
+    "version" : "2.0.0",
+    "name" : "ActEncounterCode",
+    "title" : "ActEncounterCode",
+    "status" : "active",
+    "date" : "2014-03-26T00:00:00-04:00",
+    "description" : "Domain provides codes that qualify the ActEncounterClass (ENC)",
+    "compose" : {
+      "include" : [
+        {
+          "system" : "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "concept" : [
+            {
+              "code": "AMB",
+              "display": "ambulatory"
+            },
+            {
+              "code": "EMER",
+              "display": "emergency"
+            },
+            {
+              "code": "FLD",
+              "display": "field"
+            },
+            {
+              "code": "HH",
+              "display": "home health"
+            },
+            {
+              "code": "IMP",
+              "display": "inpatient encounter"
+            },
+            {
+              "code": "ACUTE",
+              "display": "inpatient acute"
+            },
+            {
+              "code": "NONAC",
+              "display": "inpatient non-acute"
+            },
+            {
+              "code": "OBSENC",
+              "display": "observation encounter"
+            },
+            {
+              "code": "PRENC",
+              "display": "pre-admission"
+            },
+            {
+              "code": "SS",
+              "display": "short stay"
+            },
+            {
+              "code": "VR",
+              "display": "virtual"
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+  # Description   https://hl7.org/fhir/R4/valueset-encounter-admit-source.html
+  # Used in:
+  # Resource: Encounter.hospitalization.admitSource (CodeableConcepts)
+  @ENCOUNTER_ADMIT_SOURCE_VS = {
+    "resourceType" : "ValueSet",
+    "id" : "encounter-admit-source",
+    "meta" : {
+      "lastUpdated" : "2019-11-01T09:29:23.356+11:00",
+      "profile" : ["http://hl7.org/fhir/StructureDefinition/shareablevalueset"]
+    },
+    "text" : {
+      "status" : "generated",
+      "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>Admit source</h2><div><p>This value set defines a set of codes that can be used to indicate from where the patient came in.</p>\n</div><p>This value set includes codes from the following code systems:</p><ul><li>Include all codes defined in <a href=\"codesystem-encounter-admit-source.html\"><code>http://terminology.hl7.org/CodeSystem/admit-source</code></a></li></ul></div>"
+    },
+    "extension" : [{
+      "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+      "valueCode" : "pa"
+    }],
+    "url" : "http://hl7.org/fhir/ValueSet/encounter-admit-source",
+    "identifier" : [{
+      "system" : "urn:ietf:rfc:3986",
+      "value" : "urn:oid:2.16.840.1.113883.4.642.3.257"
+    }],
+    "version" : "4.0.1",
+    "name" : "AdmitSource",
+    "title" : "Admit source",
+    "status" : "draft",
+    "experimental" : false,
+    "date" : "2019-11-01T09:29:23+11:00",
+    "publisher" : "FHIR Project team",
+    "contact" : [{
+      "telecom" : [{
+        "system" : "url",
+        "value" : "http://hl7.org/fhir"
+      }]
+    }],
+    "description" : "This value set defines a set of codes that can be used to indicate from where the patient came in.",
+    "immutable" : true,
+    "compose" : {
+      "include" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/admit-source",
+        "concept" : [
+          {
+            "code" : "hosp-trans",
+            "display" : "Transferred from other hospital",
+          },
+          {
+            "code" : "emd",
+            "display" : "From accident/emergency department",
+          },
+          {
+            "code" : "outp",
+            "display" : "From outpatient department",
+          },
+          {
+            "code" : "born",
+            "display" : "Born in hospital",
+          },
+          {
+            "code" : "gp",
+            "display" : "General Practitioner referral",
+          },
+          {
+            "code" : "mp",
+            "display" : "Medical Practitioner/physician referral",
+          },
+          {
+            "code" : "nursing",
+            "display" : "From nursing home",
+          },
+          {
+            "code" : "psych",
+            "display" : "From psychiatric hospital",
+          },
+          {
+            "code" : "rehab",
+            "display" : "From rehabilitation facility",
+          },
+          {
+            "code" : "other",
+            "display" : "Other",
           }
         ]
       }]
