@@ -640,7 +640,13 @@
   }
 
   .affix-top {
+    max-height: 100vh;
+    overflow: hidden;
     position: static;
+
+    & * {
+      max-height: 100vh;
+    }
   }
 
   .affix {
@@ -648,9 +654,11 @@
     top: 0px;
     height: 100%;
     box-sizing: content-box; // for IE9
+
     &#criteriaElements {
       padding-right: 0px;
     }
+
     & .scrolling {
       overflow: auto;
       box-sizing: content-box; // for IE9
