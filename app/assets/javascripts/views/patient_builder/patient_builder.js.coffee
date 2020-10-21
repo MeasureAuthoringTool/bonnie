@@ -305,7 +305,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         top: shiftDown
         bottom: $(@).find('.logic-pager.down:visible').height() || 0 # leave room for button to scroll down
 
-      
   unsetAffix: ->
     #revert each affixed element to default css styling
     @$('.affix, .affix .scrolling').removeAttr('style').animate scrollTop: 0
