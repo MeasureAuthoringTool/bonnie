@@ -1,5 +1,30 @@
 describe 'DataCriteriaHelpers', ->
 
+  beforeEach ->
+    @assertCodeableConcept = (resourceType, path, title) ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
+      expect(attr).toBeDefined
+      attr = attrs.find (attr) => attr.path is path
+      expect(attr.path).toBe path
+      expect(attr.title).toBe title
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'CodeableConcept'
+
+      fhirResource = new cqm.models[resourceType]()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Coding()
+      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
+
   it 'has data_element_categories and primary_date_attributes', ->
     expect(Object.keys(DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES).length).toEqual 32
     expect(DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES['Encounter']).toEqual { period: 'Period' }
@@ -112,48 +137,6 @@ describe 'DataCriteriaHelpers', ->
       expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
       expect(primitiveDate.value).toEqual '2020-09-23'
 
-  DATA_ELEMENT_PRIMARY_CODE_PATH = [
-    "AdverseEvent",
-    "AllergyIntolerance",
-    "Condition",
-    "FamilyMemberHistory",
-    "Procedure",
-    "Coverage",
-    "BodyStructure",
-    "DiagnosticReport",
-    "ImagingStudy",
-    "Observation",
-    "Specimen",
-    "CarePlan",
-    "CareTeam",
-    "Goal",
-    "NutritionOrder",
-    "ServiceRequest",
-    "Claim",
-    "Communication",
-    "CommunicationRequest",
-    "DeviceRequest",
-    "DeviceUseStatement",
-    "Location",
-    "Device",
-    "Substance",
-    "Encounter",
-    "Flag",
-    "Immunization",
-    "ImmunizationEvaluation",
-    "ImmunizationRecommendation",
-    "Medication",
-    "MedicationAdministration",
-    "MedicationDispense",
-    "MedicationRequest",
-    "MedicationStatement",
-    "Patient",
-    "Practitioner",
-    "PractitionerRole",
-    "RelatedPerson",
-    "Task",
-  ]
-
   describe 'Primary code path', ->
     it 'returns undefined (unsupported) for an empty DataElement getPrimaryCodePath', ->
       expect(DataCriteriaHelpers.getPrimaryCodePath(new cqm.models.DataElement())).toBeUndefined
@@ -165,7 +148,7 @@ describe 'DataCriteriaHelpers', ->
       expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toBe(null)
 
     it 'returns meta for getPrimaryCodePath', ->
-      for res in DATA_ELEMENT_PRIMARY_CODE_PATH
+       for res in Object.keys(DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES)
         de = new cqm.models.DataElement()
         de.fhir_resource = new cqm.models[res]()
         expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toBeDefined()
@@ -324,6 +307,12 @@ describe 'DataCriteriaHelpers', ->
       expect(abatementValue.start.value).toEqual period.start.value
       expect(abatementValue.end.value).toEqual period.end.value
 
+    it 'should support Condition.bodySite', ->
+      @assertCodeableConcept('Condition', 'bodySite', 'bodySite')
+
+    it 'should support Condition.category', ->
+      @assertCodeableConcept('Condition', 'category', 'category')
+
   describe 'Encounter attributes', ->
     it 'should support Encounter.length', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
@@ -395,28 +384,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value.end.value).toBe '2020-10-02T13:54:57'
 
     it 'should support Encounter.hospitalization.dischargeDisposition', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'hospitalization.dischargeDisposition'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'hospitalization.dischargeDisposition'
-      expect(attr.title).toBe 'hospitalization.dischargeDisposition'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.Encounter()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('Encounter', 'hospitalization.dischargeDisposition', 'hospitalization.dischargeDisposition')
 
   describe 'Procedure attributes', ->
     it 'should support procedure status and performed attributes', ->
@@ -487,79 +455,13 @@ describe 'DataCriteriaHelpers', ->
       expect(performedValue.end.value).toEqual period.end.value
 
     it 'should support Procedure.category', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Procedure']
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'category'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'category'
-      expect(attr.title).toBe 'category'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.Procedure()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('Procedure', 'category', 'category')
 
     it 'should support Procedure.statusReason', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Procedure']
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'statusReason'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'statusReason'
-      expect(attr.title).toBe 'statusReason'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.Procedure()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('Procedure', 'statusReason', 'statusReason')
 
     it 'should support Procedure.usedCode', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Procedure']
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'usedCode'
-      expect(attr).toBeDefined
-      expect(attr.path).toBe 'usedCode'
-      expect(attr.title).toBe 'usedCode'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.Procedure()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('Procedure', 'usedCode', 'usedCode')
 
   describe 'Medication Request attributes', ->
     it 'should support MedicationRequest.status', ->
@@ -631,52 +533,10 @@ describe 'DataCriteriaHelpers', ->
 
   describe 'AllergyIntolerance attributes', ->
     it 'should support AllergyIntolerance.clinicalStatus', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'clinicalStatus'
-      expect(attr.path).toBe 'clinicalStatus'
-      expect(attr.title).toBe 'clinicalStatus'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.AllergyIntolerance()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('AllergyIntolerance', 'clinicalStatus', 'clinicalStatus')
 
     it 'should support AllergyIntolerance.verificationStatus', ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is 'verificationStatus'
-      expect(attr.path).toBe 'verificationStatus'
-      expect(attr.title).toBe 'verificationStatus'
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe 'CodeableConcept'
-
-      fhirResource = new cqm.models.AllergyIntolerance()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
+      @assertCodeableConcept('AllergyIntolerance', 'verificationStatus', 'verificationStatus')
 
     it 'should support onset', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
