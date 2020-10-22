@@ -48,6 +48,9 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     if cqm.models.Range.isRange(value)
       return "#{value?.low?.value?.value || '?'} - #{value?.high?.value?.value || '?'} #{value?.high?.unit?.value}"
 
+    if cqm.models.Ratio.isRatio(value)
+      return "#{value?.numerator?.value?.value} '#{value?.numerator?.unit?.value}' : #{value?.denominator?.value?.value} '#{value?.denominator?.unit?.value}'"
+
     if cqm.models.Period.isPeriod(value)
       lowString = if value.start? then @_stringifyValue(value.start) else "null"
       highString = if value.end? then @_stringifyValue(value.end) else "null"
