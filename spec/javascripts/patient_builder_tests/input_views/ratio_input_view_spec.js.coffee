@@ -23,7 +23,17 @@ describe 'InputView', ->
       view.$('.ratio-denominator input[name="value_value"]').val('1').change()
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expected = new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'mg'), new cqm.models.CQL.Quantity(1, ''))
+#      expected = new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'mg'), new cqm.models.CQL.Quantity(1, ''))
+      expected = cqm.models.Ratio.parse({
+        "numerator": {
+          "value": 200,
+          "unit": "mg"
+        },
+        "denominator": {
+          "value": 1,
+          "unit": ""
+        }
+      })
       expect(view.value.numerator.value).toEqual(expected.numerator.value)
       expect(view.value.numerator.unit).toEqual(expected.numerator.unit)
       expect(view.value.denominator.value).toEqual(expected.denominator.value)
@@ -32,19 +42,39 @@ describe 'InputView', ->
       view.$('.ratio-denominator input[name="value_unit"]').val('L').change()
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expected = new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'mg'), new cqm.models.CQL.Quantity(1, 'L'))
+#      expected = new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'mg'), new cqm.models.CQL.Quantity(1, 'L'))
+      expected = cqm.models.Ratio.parse({
+        "numerator": {
+          "value": 200,
+          "unit": "mg"
+        },
+        "denominator": {
+          "value": 1,
+          "unit": "L"
+        }
+      })
       expect(view.value.numerator.value).toEqual(expected.numerator.value)
       expect(view.value.numerator.unit).toEqual(expected.numerator.unit)
       expect(view.value.denominator.value).toEqual(expected.denominator.value)
       expect(view.value.denominator.unit).toEqual(expected.denominator.unit)
 
     it 'starts with initial quantity and becomes invalid after bad unit entry, valid again after fix', ->
-      view = new Thorax.Views.InputRatioView(initialValue: new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'mg'), new cqm.models.CQL.Quantity(1, 'L')))
+      expected = cqm.models.Ratio.parse({
+        "numerator": {
+          "value": 200,
+          "unit": "mg"
+        },
+        "denominator": {
+          "value": 1,
+          "unit": "L"
+        }
+      })
+      view = new Thorax.Views.InputRatioView(initialValue: expected)
       view.render()
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe true
-      expected = new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'mg'), new cqm.models.CQL.Quantity(1, 'L'))
+#      expected = new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'mg'), new cqm.models.CQL.Quantity(1, 'L'))
       expect(view.value.numerator.value).toEqual(expected.numerator.value)
       expect(view.value.numerator.unit).toEqual(expected.numerator.unit)
       expect(view.value.denominator.value).toEqual(expected.denominator.value)
@@ -61,11 +91,12 @@ describe 'InputView', ->
       expect(view.hasValidValue()).toBe false
       expect(view.value).toEqual null
 
+      expected.numerator.unit.value = "kg"
       # enter valid unit
       view.$('.ratio-numerator input[name="value_unit"]').val('kg').change()
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expected = new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'kg'), new cqm.models.CQL.Quantity(1, 'L'))
+#      expected = new cqm.models.CQL.Ratio(new cqm.models.CQL.Quantity(200, 'kg'), new cqm.models.CQL.Quantity(1, 'L'))
       expect(view.value.numerator.value).toEqual(expected.numerator.value)
       expect(view.value.numerator.unit).toEqual(expected.numerator.unit)
       expect(view.value.denominator.value).toEqual(expected.denominator.value)
