@@ -13,7 +13,8 @@ Bonnie::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  config.action_mailer.raise_delivery_errors = true
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 
@@ -35,19 +36,4 @@ Bonnie::Application.configure do
 
   # Load npm modules into the asset path
   config.assets.paths << Rails.root.join('node_modules')
-
-  # Configure to send email
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.smtp_settings = {
-    address:              APP_CONFIG['smtp_hostname'],
-    port:                 APP_CONFIG['smtp_port'],
-    user_name:            APP_CONFIG['smtp_username'],
-    password:             APP_CONFIG['smtp_password'],
-    authentication:       'plain',
-    enable_starttls_auto: APP_CONFIG['smtp_tls'],
-    tls:                  APP_CONFIG['smtp_tls']
-  }
-
 end
