@@ -39,7 +39,9 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     cqm.models.PrimitiveString.isPrimitiveString(value) ||
     cqm.models.PrimitiveBoolean.isPrimitiveBoolean(value) ||
     cqm.models.PrimitiveInteger.isPrimitiveInteger(value) ||
-    cqm.models.PrimitiveId.isPrimitiveId(value)
+    cqm.models.PrimitiveId.isPrimitiveId(value) ||
+    cqm.models.PrimitiveCanonical.isPrimitiveCanonical(value) ||
+    cqm.models.PrimitiveUri.isPrimitiveUri(value)
       return "#{value?.value}"
 
     if cqm.models.Duration.isDuration(value) || cqm.models.Age.isAge(value)

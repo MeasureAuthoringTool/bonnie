@@ -125,6 +125,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'Range' then new Thorax.Views.InputRangeView()
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
+      when 'Canonical' then new Thorax.Views.InputCanonicalView({ allowNull: false })
       when 'id' then new Thorax.Views.InputIdView()
       when 'Boolean' then new Thorax.Views.InputBooleanView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
