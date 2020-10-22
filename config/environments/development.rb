@@ -13,8 +13,7 @@ Bonnie::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 
@@ -50,13 +49,5 @@ Bonnie::Application.configure do
     enable_starttls_auto: APP_CONFIG['smtp_tls'],
     tls:                  APP_CONFIG['smtp_tls']
   }
-
-  # Send notification when application exceptions happen
-  config.middleware.use ExceptionNotification::Rack, email: {
-    email_prefix: "[Bonnie] ",
-    sender_address: %{"Bonnie (#{APP_CONFIG['hostname']})" <bonnie@#{APP_CONFIG['hostname']}>},
-    exception_recipients: APP_CONFIG['bonnie_error_email'],
-    sections: %w{request session user_info environment backtrace}
-  }, error_grouping: true
 
 end
