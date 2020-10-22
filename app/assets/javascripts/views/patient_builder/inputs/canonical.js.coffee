@@ -6,7 +6,7 @@ class Thorax.Views.InputCanonicalView extends Thorax.Views.BonnieView
   # Expected options to be passed in using the constructor options hash:
   #   initialValue - canonical - Optional. Initial value of canonical.
   #   allowNull - boolean - Optional. If a null or empty string is allowed. Defaults to false.
-  #   placeholder - string - Optional. placeholder text to show. will use 'string' if not specified
+  #   placeholder - string - Optional. placeholder text to show. will use 'canonical' if not specified
   initialize: ->
     if @initialValue?
       @value = @initialValue
