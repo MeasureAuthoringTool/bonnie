@@ -562,6 +562,20 @@
         types: ['CodeableConcept']
         valueSets: () => [FhirValueSets.ROUTE_CODES_VS]
       },
+#      {
+#        path: 'dosage.rate',
+#        title: 'dosage.rate',
+#        getValue: (fhirResource) =>
+#          return fhirResource?.dosage?.rate
+#        setValue: (fhirResource, value) =>
+#          if !fhirResource.MedicationAdministrationDosage
+#            fhirResource.dosage = new cqm.models.MedicationAdministrationDosage()
+#          if !value?
+#            fhirResource.dosage.rate = null
+#          else
+#            fhirResource.dosage.rate = value
+#        types: ['Ratio']
+#      },
       {
         path: 'reasonCode',
         title: 'reasonCode',

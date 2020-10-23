@@ -22,8 +22,7 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    cqm.models.Quantity.isDuration(@value)
-
+    cqm.models.Quantity.isQuantity(@value)
   disableFields: ->
     @$('input').prop('disabled', true)
 
