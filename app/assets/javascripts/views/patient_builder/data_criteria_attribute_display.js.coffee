@@ -44,8 +44,11 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     cqm.models.PrimitiveUri.isPrimitiveUri(value)
       return "#{value?.value}"
 
-    if cqm.models.Duration.isDuration(value) || cqm.models.Age.isAge(value)
-      return "#{value?.value?.value} '#{value?.unit?.value}'"
+    if cqm.models.Quantity.isQuantity(value) || cqm.models.Duration.isDuration(value) || cqm.models.Age.isAge(value)
+      if !!value?.unit?.value
+        return "#{value?.value?.value} '#{value?.unit?.value}'"
+      else
+        return "#{value?.value?.value}"
 
     if cqm.models.Range.isRange(value)
       return "#{value?.low?.value?.value || '?'} - #{value?.high?.value?.value || '?'} #{value?.high?.unit?.value}"
