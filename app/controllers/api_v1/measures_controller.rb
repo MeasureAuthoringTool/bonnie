@@ -49,7 +49,7 @@ module ApiV1
       end
     end
 
-    MEASURE_WHITELIST = %w[id cms_id continuous_variable created_at description episode_of_care hqmf_id hqmf_set_id hqmf_version_number title type updated_at].freeze
+    MEASURE_WHITELIST = %w[measure_period main_cql_library calculate_sdes calculation_method id cms_id continuous_variable created_at description episode_of_care id set_id version_number title type updated_at].freeze
     PATIENT_WHITELIST = %w[_id birthdate created_at deathdate description ethnicity expected_values expired first gender insurance_providers last notes race updated_at].freeze
     INSURANCE_WHITELIST = %w[member_id payer].freeze
     POPULATION_TYPES = %w[population_index STRAT IPP DENOM NUMER DENEXCEP DENEX MSRPOPL OBSERV MSRPOPLEX].freeze
@@ -70,7 +70,7 @@ module ApiV1
     end
 
     def_param_group :measure do
-      param :id, String, :required => true, :desc => 'The HQMF Set ID of the Measure.'
+      param :id, String, :required => true, :desc => 'The Set ID of the Measure.'
       error :code => 404, :desc => 'Not Found'
     end
 
@@ -101,7 +101,7 @@ module ApiV1
           render json: MultiJson.encode(
             @api_v1_measures.map do |x|
               h = x
-              h[:id] = x.hqmf_set_id
+              h[:id] = x.set_id
               h
             end
           )
@@ -111,15 +111,15 @@ module ApiV1
     end
 
     api :GET, '/measures/:id', 'Read a Specific Measure'
-    description 'Retrieve the details of a specific measure by HQMF Set ID.'
+    description 'Retrieve the details of a specific measure by Set ID.'
     param_group :measure
     def show
       hash = {}
       http_status = 200
       begin
-        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).min_by { |m| m[:updated_at] }
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:set_id=> params[:id]}).min_by { |m| m[:updated_at] }
         hash = @api_v1_measure.as_json
-        hash[:id] = @api_v1_measure.hqmf_set_id
+        hash[:id] = @api_v1_measure.set_id
         hash.select! { |key,value| MEASURE_WHITELIST.include?(key)&&!value.nil? }
       rescue StandardError
         http_status = 404
@@ -136,11 +136,11 @@ module ApiV1
       http_status = 200
       begin
         # Get the measure
-        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).min_by(&:updated_at)
-        # Extract out the HQMF set id, which we'll use to get related patients
-        hqmf_set_id = @api_v1_measure.hqmf_set_id
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:set_id=> params[:id]}).min_by(&:updated_at)
+        # Extract out the set id, which we'll use to get related patients
+        set_id = @api_v1_measure.set_id
         # Get the patients for this measure
-        @api_v1_patients = CQM::Patient.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+        @api_v1_patients = CQM::Patient.by_user(current_resource_owner).where({:measure_ids.in => [set_id]})
         @api_v1_patients = process_patients(@api_v1_patients)
       rescue StandardError
         http_status = 404
@@ -152,7 +152,7 @@ module ApiV1
     api :GET, '/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
-    error :code => 404, :desc => 'No measure found for this HQMF Set ID.'
+    error :code => 404, :desc => 'No measure found for this Set ID.'
     error :code => 406, :desc => 'Request response type is not acceptable.'
     error :code => 500, :desc => 'Error gathering the measure and associated patients and value sets.'
     error :code => 500, :desc => 'Error with the calculation service.'
@@ -165,13 +165,13 @@ module ApiV1
       end
 
       begin
-        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).min_by(&:updated_at)
+        @api_v1_measure = CQM::Measure.by_user(current_resource_owner).where({:set_id=> params[:id]}).min_by(&:updated_at)
         if @api_v1_measure.nil?
-          render json: {status: "error", messages: "No measure found for this HQMF Set ID."}, status: :not_found
+          render json: {status: "error", messages: "No measure found for this Set ID."}, status: :not_found
           return
         end
-        hqmf_set_id = @api_v1_measure.hqmf_set_id
-        @api_v1_patients = CQM::Patient.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+        set_id = @api_v1_measure.set_id
+        @api_v1_patients = CQM::Patient.by_user(current_resource_owner).where({:measure_ids.in => [set_id]})
       rescue StandardError => e
         # Email the error so we can see more details on what went wrong with the patient load.
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
@@ -195,7 +195,7 @@ module ApiV1
         population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
         statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
         filename = "#{@api_v1_measure.cms_id}.xlsx"
-        excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, hqmf_set_id)
+        excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details, set_id)
         send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
       rescue StandardError => e
         # Email the error so we can see more details on what went wrong with the excel creation.
@@ -209,17 +209,17 @@ module ApiV1
     description 'Uploading a new measure.'
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
-    error :code => 409, :desc => "Measure with this HQMF Set ID already exists."
-    error :code => 500, :desc => "A server error occured."
+    error :code => 409, :desc => "Measure with this Set ID already exists."
+    error :code => 500, :desc => "A server error occurred."
     param_group :measure_upload
     def create
       permitted_params = params.permit!.to_h
-      measures, main_hqmf_set_id = create_measure(uploaded_file: params[:measure_file],
+      measure = create_measure(uploaded_file: params[:measure_file],
                                                   measure_details: retrieve_measure_details(permitted_params),
                                                   value_set_loader: build_vs_loader(permitted_params, true),
                                                   user: current_resource_owner)
 
-      render json: {status: "success", url: "/api_v1/measures/#{main_hqmf_set_id}"}, status: :ok
+      render json: {status: "success", url: "/api_v1/measures/#{measure.set_id}"}, status: :ok
     rescue StandardError => e
       render turn_exception_into_shared_error_if_needed(e).back_end_version
     end
@@ -228,16 +228,16 @@ module ApiV1
     description 'Updating an existing measure. This is a full update (e.g. no partial updates allowed).'
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
-    error :code => 404, :desc => "Measure with this HQMF Set ID does not exist."
-    error :code => 500, :desc => "A server error occured."
+    error :code => 404, :desc => "Measure with this Set ID does not exist."
+    error :code => 500, :desc => "A server error occurred."
     param_group :measure_upload
     def update
-      measures, main_hqmf_set_id = update_measure(uploaded_file: params[:measure_file],
+      measure = update_measure(uploaded_file: params[:measure_file],
                                                   target_id: params[:id],
                                                   value_set_loader: build_vs_loader(params.permit!.to_h, true),
                                                   user: current_resource_owner)
 
-      render json: {status: "success", url: "/api_v1/measures/#{main_hqmf_set_id}"}, status: :ok
+      render json: {status: "success", url: "/api_v1/measures/#{measure.set_id}"}, status: :ok
     rescue StandardError => e
       render turn_exception_into_shared_error_if_needed(e).back_end_version
     end

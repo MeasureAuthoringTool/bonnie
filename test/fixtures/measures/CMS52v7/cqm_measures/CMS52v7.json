@@ -6,11 +6,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMS52v7",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": {
@@ -25678,7 +25678,7 @@
   "created_at": "2019-07-11T18:46:50.144Z",
   "description": "Percentage of patients aged 6 weeks and older with a diagnosis of HIV/AIDS who were prescribed Pneumocystis jiroveci pneumonia (PCP) prophylaxis",
   "hqmf_id": "40280382-610B-E7A4-0161-B995747C3F72",
-  "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+  "set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
   "hqmf_version_number": "7",
   "main_cql_library": "HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis",
   "measure_attributes": [

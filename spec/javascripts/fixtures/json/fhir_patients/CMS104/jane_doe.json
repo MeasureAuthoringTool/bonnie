@@ -1,0 +1,75 @@
+{
+  "id": "5f6b9ce9295be2e02ec8fdc8",
+  "expected_values": [
+    {
+      "measure_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      "population_index": 0,
+      "IPP": "",
+      "DENOM": "",
+      "DENEX": "",
+      "NUMER": "",
+      "DENEXCEP": ""
+    }
+  ],
+  "measure_ids": [
+    "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+  ],
+  "fhir_patient": {
+    "id": "5f6b9ce9295be2e02ec8fdc8",
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "1002-5",
+          "display": "American Indian or Alaska Native",
+          "userSelected": true
+        }
+      },
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+        "valueCoding": {
+          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "code": "2135-2",
+          "display": "Hispanic or Latino",
+          "userSelected": true
+        }
+      }
+    ],
+    "name": [
+      {
+        "family": "jane",
+        "given": [
+          "doe"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1990-09-02"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.201",
+      "valueSetTitle": "Antithrombotic Therapy",
+      "description": "MedicationRequest: Antithrombotic Therapy",
+      "fhir_resource": {
+        "resourceType": "MedicationRequest",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "RXNORM",
+              "version": "2020-01",
+              "code": "1037045",
+              "display": "dabigatran etexilate 150 MG Oral Capsule",
+              "userSelected": true
+            }
+          ]
+        },
+        "authoredOn": "2020-09-23T08:00:00.000+00:00"
+      }
+    }
+  ],
+  "created_at": "2020-09-23T19:08:56.456Z",
+  "updated_at": "2020-09-23T19:08:56.456Z"
+}

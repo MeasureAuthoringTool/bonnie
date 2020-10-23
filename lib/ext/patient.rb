@@ -5,7 +5,7 @@ module CQM
 
     belongs_to :user
     scope :by_user, ->(user) { where({'user_id'=>user.id}) }
-    scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({ 'user_id' => user.id, 'measure_ids' => hqmf_set_id }) }
+    scope :by_user_and_set_id, ->(user, set_id) { where({ 'user_id' => user.id, 'measure_ids' => set_id }) }
 
     index 'user_id' => 1
     index 'user_id' => 1, 'measure_ids' => 1
@@ -44,7 +44,7 @@ module CQM
           matches_measure = true
           is_garbage_data = true
         else # if there is a measure_id, do the rest of the checks
-          matches_measure = expected_value_set[:measure_id] ? expected_value_set[:measure_id] == measure.hqmf_set_id : false
+          matches_measure = expected_value_set[:measure_id] ? expected_value_set[:measure_id] == measure.set_id : false
           # check if population_index or is non-existent, i.e. this is a set of garbage data
           is_garbage_data = !expected_value_set.key?('population_index')
           is_extra_population = expected_value_set[:population_index] ? expected_value_set[:population_index] >= measure_population_count : false
@@ -83,11 +83,11 @@ module CQM
       end
 
       # add missing population sets
-      patient_population_count = expectedValues.count { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
+      patient_population_count = expectedValues.count { |expected_value_set| expected_value_set[:measure_id] == measure.set_id }
       # add new population sets. the rest of the data gets added below.
       if patient_population_count < measure_population_count
         (patient_population_count..measure_population_count-1).each do |index|
-          new_expected_values = {'measure_id' => measure.hqmf_set_id, 'population_index' => index}
+          new_expected_values = {'measure_id' => measure.set_id, 'population_index' => index}
           # yield info about this addition
           yield :population_set_addition, :missing_population, new_expected_values.deep_dup if block_given?
           expectedValues << new_expected_values
@@ -97,7 +97,7 @@ module CQM
       # ensure there's the correct number of populations for each population set
       expectedValues.each do |expected_value_set|
         # ignore if it's not related to the measure (can happen for portfolio users)
-        next unless expected_value_set['measure_id'] == measure.hqmf_set_id
+        next unless expected_value_set['measure_id'] == measure.set_id
 
         pop_idx = expected_value_set['population_index']
         is_stratification = false
@@ -128,7 +128,7 @@ module CQM
         # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
         added_populations = measure_population_set - expected_value_population_set
         # create the structure to yield about these changes
-        added_changes = {'measure_id' => measure.hqmf_set_id, 'population_index' => pop_idx}
+        added_changes = {'measure_id' => measure.set_id, 'population_index' => pop_idx}
         if added_populations.count.positive?
           added_populations.each do |population|
             if population == 'OBSERV'
@@ -147,7 +147,7 @@ module CQM
         removed_populations = expected_value_population_set - measure_population_set
         next unless removed_populations.count.positive?
         # create the structure to yield about these changes
-        removed_changes = {'measure_id' => measure.hqmf_set_id, 'population_index' => pop_idx}
+        removed_changes = {'measure_id' => measure.set_id, 'population_index' => pop_idx}
         removed_populations.each { |population| removed_changes[population] = expected_value_set[population] }
 
         expected_value_set.except!(*removed_populations)

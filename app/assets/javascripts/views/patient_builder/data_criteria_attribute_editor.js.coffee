@@ -5,23 +5,31 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
   # Expected options to be passed in using the constructor options hash:
   #   model - Thorax.Models.SourceDataCriteria - The source data criteria we are displaying attributes for
   initialize: ->
-    @dataElement = @model.get('qdmDataElement')
+    @dataElement = @model.get('dataElement')
 
     # build a list of the possible attributes for this data element with the name and possible types for each
     @attributeList = []
-    @dataElement.schema.eachPath (path, info) =>
-      # go on to the next one if it is an attribute that should be skipped
-      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
-
+    DataCriteriaHelpers.getAttributes(@dataElement).forEach (attr, index, array) =>
       @attributeList.push(
-        name: path
-        title: @model.getAttributeTitle(path)
-        isArray: info.instance == 'Array'
-        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray || info.instance == "AnyEntity"
-        isEntity: info.instance == "AnyEntity"
-        isRelatedTo: path == 'relatedTo'
-        types: @_determineAttributeTypeList(path, info)
+        name: attr.path
+        title: attr.title
+        types: attr.types
+        valueSets: attr.valueSets?()
       )
+#    TODO FHIR attributes
+#    @dataElement.schema.eachPath (path, info) =>
+#      # go on to the next one if it is an attribute that should be skipped
+#      return if Thorax.Models.SourceDataCriteria.SKIP_ATTRIBUTES.includes(path)
+#
+#      @attributeList.push(
+#        name: path
+#        title: @model.getAttributeTitle(path)
+#        isArray: info.instance == 'Array'
+#        isComposite: info.instance == 'Embedded' || info.$isMongooseDocumentArray || info.instance == "AnyEntity"
+#        isEntity: info.instance == "AnyEntity"
+#        isRelatedTo: path == 'relatedTo'
+#        types: @_determineAttributeTypeList(path, info)
+#      )
     @hasUserConfigurableAttributes = @attributeList.length > 0
 
   events:
@@ -30,10 +38,12 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     rendered: ->
       # make sure the correct type attribute is selected
       if @currentAttribute
-        if @currentAttribute.isRelatedTo
-          @$("select[name=\"attribute_type\"] > option[value=\"Data Element\"]").prop('selected', true)
-        else
-          @$("select[name=\"attribute_type\"] > option[value=\"#{@currentAttributeType}\"]").prop('selected', true)
+#        if @currentAttribute.isRelatedTo
+#          @$("select[name=\"attribute_type\"] > option[value=\"Data Element\"]").prop('selected', true)
+#        else
+#          @$("select[name=\"attribute_type\"] > option[value=\"#{@currentAttributeType}\"]").prop('selected', true)
+#        @updateAddButtonStatus()
+        @$("select[name=\"attribute_type\"] > option[value=\"#{@currentAttributeType}\"]").prop('selected', true)
         @updateAddButtonStatus()
       else
         @$("select[name=\"attribute_type\"] > option:first").prop('selected', true)
@@ -75,16 +85,17 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     e.preventDefault()
     # double check we have a currently selected attribute and a valid value
     if @currentAttribute? && @inputView?.hasValidValue()
-      if @inputView.value.isRelatedTo
-        value = @inputView.value.id
-      else
-        value = @inputView.value
-
-      if @currentAttribute.isArray
-        @dataElement[@currentAttribute.name] = [] if !@dataElement[@currentAttribute.name]?
-        @dataElement[@currentAttribute.name].push(value)
-      else
-        @dataElement[@currentAttribute.name] = value
+      DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)?.setValue(@dataElement.fhir_resource, @inputView.value)
+#      if @inputView.value.isRelatedTo
+#        value = @inputView.value.id
+#      else
+#        value = @inputView.value
+#
+#      if @currentAttribute.isArray
+#        @dataElement[@currentAttribute.name] = [] if !@dataElement[@currentAttribute.name]?
+#        @dataElement[@currentAttribute.name].push(value)
+#      else
+#        @dataElement[@currentAttribute.name] = value
       @trigger 'attributesModified', @
 
       # reset back to no selections
@@ -97,16 +108,26 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 
   _createInputViewForType: (type) ->
     @inputView = switch type
-      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap()})
+      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
+      when 'CodeableConcept', 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
+      when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
+      when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView()
+      when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView()
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
       when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
       when 'Quantity' then new Thorax.Views.InputQuantityView()
+      when 'Duration' then new Thorax.Views.InputDurationView()
+      when 'Age' then new Thorax.Views.InputAgeView()
+      when 'Range' then new Thorax.Views.InputRangeView()
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
+      when 'Canonical' then new Thorax.Views.InputCanonicalView({ allowNull: false })
+      when 'id' then new Thorax.Views.InputIdView()
+      when 'Boolean' then new Thorax.Views.InputBooleanView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.parent.parent.model.get('source_data_criteria'), currentDataElementId: @dataElement.id)
       else null
@@ -124,57 +145,57 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     @inputView.remove() if @inputView?
 
     if @currentAttributeType
-      if @currentAttribute.isComposite
-        schema = if @currentAttribute.isEntity # if it is entity, grab the correct schema
-                   cqm.models["#{@currentAttributeType}Schema"]
-                 else
-                   @dataElement.schema.paths[@currentAttribute.name].schema
-        @_createCompositeInputViewForSchema(schema, @currentAttributeType)
-      else if @currentAttribute.isRelatedTo
-        @_createInputViewForType('relatedTo') # Use custom view for relatedTo, not String
-      else
+#      if @currentAttribute.isComposite
+#        schema = if @currentAttribute.isEntity # if it is entity, grab the correct schema
+#                   cqm.models["#{@currentAttributeType}Schema"]
+#                 else
+#                   @dataElement.schema.paths[@currentAttribute.name].schema
+#        @_createCompositeInputViewForSchema(schema, @currentAttributeType)
+#      else if @currentAttribute.isRelatedTo
+#        @_createInputViewForType('relatedTo') # Use custom view for relatedTo, not String
+#      else
         @_createInputViewForType(@currentAttributeType)
     else
       @inputView = null
       @showInputViewPlaceholder = false
 
-  # Helper function that returns the list of acceptable types for a given attribute path and schema info.
-  _determineAttributeTypeList: (path, info) ->
-    # if is array type we need to find out what type it should be
-    if info.instance == 'Array'
-      if info.$isMongooseDocumentArray
-        if info.schema.paths._type? # Use the default _type if exists to get info
-          return [info.schema.paths._type.defaultValue.replace(/QDM::/, '')]
-        else if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
-          return ['Id']
-        else
-          return ['???'] # TODO: Handle situation of unknown type better.
-      else if info.caster.instance # if this is a schema array we may be able to ask for the caster's instance type
-        return [info.caster.instance]
-      else
-        return ['???'] # TODO: Handle situation of unknown type better.
-
-    # If this is an any type, there will be more options than one.
-    else if info.instance == 'Any'
-      # TODO: Filter these more if possible
-      return ['Code', 'Quantity', 'Ratio', 'Integer', 'Decimal', 'Date', 'DateTime', 'Time']
-
-    # It this is an AnyEntity type
-    else if info.instance == 'AnyEntity'
-      return ['PatientEntity', 'CarePartner', 'Practitioner', 'Organization']
-
-    # If it is an interval, it may be one of DateTime or one of Quantity
-    else if info.instance == 'Interval'
-      if path == 'referenceRange'
-        return ['Interval<Quantity>']
-      else
-        return ['Interval<DateTime>']
-
-    # If it is an embedded type, we have to make guesses about the type
-    else if info.instance == 'Embedded'
-      if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Identifier
-        return ['Identifier']
-      else
-        return ['???'] # TODO: Handle situation of unknown type better.
-    else
-      return [info.instance]
+#  # Helper function that returns the list of acceptable types for a given attribute path and schema info.
+#  _determineAttributeTypeList: (path, info) ->
+#    # if is array type we need to find out what type it should be
+#    if info.instance == 'Array'
+#      if info.$isMongooseDocumentArray
+#        if info.schema.paths._type? # Use the default _type if exists to get info
+#          return [info.schema.paths._type.defaultValue.replace(/QDM::/, '')]
+#        else if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Id
+#          return ['Id']
+#        else
+#          return ['???'] # TODO: Handle situation of unknown type better.
+#      else if info.caster.instance # if this is a schema array we may be able to ask for the caster's instance type
+#        return [info.caster.instance]
+#      else
+#        return ['???'] # TODO: Handle situation of unknown type better.
+#
+#    # If this is an any type, there will be more options than one.
+#    else if info.instance == 'Any'
+#      # TODO: Filter these more if possible
+#      return ['Code', 'Quantity', 'Ratio', 'Integer', 'Decimal', 'Date', 'DateTime', 'Time']
+#
+#    # It this is an AnyEntity type
+#    else if info.instance == 'AnyEntity'
+#      return ['PatientEntity', 'CarePartner', 'Practitioner', 'Organization']
+#
+#    # If it is an interval, it may be one of DateTime or one of Quantity
+#    else if info.instance == 'Interval'
+#      if path == 'referenceRange'
+#        return ['Interval<Quantity>']
+#      else
+#        return ['Interval<DateTime>']
+#
+#    # If it is an embedded type, we have to make guesses about the type
+#    else if info.instance == 'Embedded'
+#      if info.schema.paths.namingSystem? # if this has namingSystem assume it is QDM::Identifier
+#        return ['Identifier']
+#      else
+#        return ['???'] # TODO: Handle situation of unknown type better.
+#    else
+#      return [info.instance]

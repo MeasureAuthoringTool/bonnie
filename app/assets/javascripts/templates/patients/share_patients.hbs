@@ -11,14 +11,14 @@
           <div class="form-group">
             <label for="measureTitles" class="control-label">Measures:</label>
             <div id="measureTitles">
-              <input type="hidden" name="hqmf_set_id" value="{{hqmf_set_id}}" />
+              <input type="hidden" name="set_id" value="{{set_id}}" />
               {{#each shareableMeasures.models}}
               {{#with attributes}}
               <div class="form-group">
                 <div class="checkbox">
                   <label>
                     <input id="title{{@index}}_{{@cid}}" type="checkbox" name="selected[]"
-                      value={{cqmMeasure.hqmf_set_id}} checked="true"> {{cqmMeasure.cms_id}} - {{cqmMeasure.title}}
+                      value={{cqmMeasure.set_id}} checked="true"> {{cqmMeasure.cms_id}} - {{cqmMeasure.title}}
                   </label>
                 </div>
               </div>

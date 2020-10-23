@@ -1,0 +1,9 @@
+<div class="row boolean-input">
+    <div class="boolean-select form-group col-md-12">
+        <label for="boolean_select_{{cid}}" class="sr-only">Boolean</label>
+        <select autocomplete="off" name="boolean_select" id="boolean_select_{{cid}}" class="form-control" data-cy="boolean_select">
+            <option value="true" {{#if value.value}}selected{{/if}} >True</option>
+            <option value="false" {{#unless value.value}}selected{{/unless}}>False</option>
+        </select>
+    </div>
+</div>

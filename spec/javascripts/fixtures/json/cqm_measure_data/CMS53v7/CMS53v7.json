@@ -4,11 +4,11 @@
   "calculation_method": "EPISODE_OF_CARE",
   "cms_id": "CMS53v7",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": "5d27846431fe5f6eb00c0fab",
@@ -17051,7 +17051,7 @@
   "created_at": "2019-07-11T18:48:04.207Z",
   "description": "Acute myocardial infarction (AMI) patients with a diagnostic ECG and ST-segment elevation, who receive a primary percutaneous coronary intervention (PCI) during their hospital stay, and the time from hospital arrival to PCI is 90 minutes or less",
   "hqmf_id": "40280382-610B-E7A4-0161-BE5CF659426C",
-  "hqmf_set_id": "84B9D0B5-0CAF-4E41-B345-3492A23C2E9F",
+  "set_id": "84B9D0B5-0CAF-4E41-B345-3492A23C2E9F",
   "hqmf_version_number": "7",
   "main_cql_library": "PrimaryPCIReceivedWithin90MinutesofHospitalArrival",
   "measure_attributes": [

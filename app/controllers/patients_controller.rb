@@ -3,14 +3,14 @@ class PatientsController < ApplicationController
   prepend_view_path(Rails.root.join('lib/templates/'))
 
   def update
-    old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
+    old_patient = CQM::Patient.by_user(current_user).find(cqm_patient_params[:id])
     begin
-      updated_patient = CQM::Patient.new(cqm_patient_params)
+      updated_patient = CQM::Patient.transform_json(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
     end
-    populate_measure_ids_if_composite_measures(updated_patient)
+    populate_measure_ids(updated_patient)
     updated_patient._id = old_patient._id if old_patient
     updated_patient.user_id = current_user._id
     updated_patient.upsert
@@ -19,12 +19,13 @@ class PatientsController < ApplicationController
 
   def create
     begin
-      patient = CQM::Patient.new(cqm_patient_params)
+      patient = CQM::Patient.transform_json(cqm_patient_params)
+      patient[:user_id] = current_user.id
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
     end
-    populate_measure_ids_if_composite_measures(patient)
+    populate_measure_ids(patient)
     patient.save!
     render :json => patient
   end
@@ -32,7 +33,7 @@ class PatientsController < ApplicationController
   def destroy
     patient = CQM::Patient.by_user(current_user).find(params[:id])
     CQM::Patient.by_user(current_user).find(params[:id]).destroy
-    render :json => patient.as_document
+    render :json => patient.as_json
   end
 
   def qrda_export
@@ -42,9 +43,9 @@ class PatientsController < ApplicationController
     else
       patients = CQM::Patient.by_user(current_user)
       unless current_user.portfolio?
-        patients = patients.where({:measure_ids.in => [params[:hqmf_set_id]]})
+        patients = patients.where({:measure_ids.in => [params[:set_id]]})
       end
-      measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
+      measure = CQM::Measure.by_user(current_user).where({:set_id => params[:set_id]})
     end
 
     qrda_errors = {}
@@ -73,15 +74,15 @@ class PatientsController < ApplicationController
       end
       # add the summary content if there are results
       if (params[:results] && !params[:patients])
-        measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+        measure = CQM::Measure.by_user(current_user).where({:set_id => params[:set_id]}).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
         zip.puts measure_patients_summary(patients, params[:results].permit!.to_h, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     stringio.rewind
-    measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
-    filename = if params[:hqmf_set_id] then "#{measure.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
+    measure = CQM::Measure.by_user(current_user).where({:set_id => params[:set_id]}).first
+    filename = if params[:set_id] then "#{measure.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
 
@@ -91,17 +92,17 @@ class PatientsController < ApplicationController
                                                   JSON.parse(params[:patient_details]),
                                                   JSON.parse(params[:population_details]),
                                                   JSON.parse(params[:statement_details]),
-                                                  params[:measure_hqmf_set_id])
+                                                  params[:measure_set_id])
     send_data package.to_stream.read, type: "application/xlsx", filename: "#{params[:file_name]}.xlsx"
   end
 
   def share_patients
     patients = CQM::Patient.by_user(current_user)
-    patients = patients.where({:measure_ids.in => [params[:hqmf_set_id]]})
+    patients = patients.where({:measure_ids.in => [params[:set_id]]})
     # set patient measure_ids to those selected in the UI
     measure_ids = params[:selected] || []
-    # plus the hqmf_set_id of the measure the patients are being shared from
-    measure_ids.push(params[:hqmf_set_id])
+    # plus the set_id of the measure the patients are being shared from
+    measure_ids.push(params[:set_id])
     # set measure_ids for all patients on the current measure
     patients.each do |patient|
       patient.measure_ids = measure_ids
@@ -117,27 +118,13 @@ private
     # them, it just isn't feasible.  We will instead rely on Mongoid::Errors::UnknownAttribute to be thrown
     # if any undeclared properties make it into the cqmPatient hash.  This is only possible because currently
     # no models being instantiated here include the Mongoid::Attributes::Dynamic module.
-    params.require(:cqmPatient).permit!
+    params.require(:cqmPatient).permit!.to_h
   end
 
-  # if the patient has any existing measure ids that correspond to component measures, all 'sibling' measure ids will be added
-  def populate_measure_ids_if_composite_measures(patient)
-    # create array of unique parent composite measure ids
-    parent_measure_ids = []
-    patient['measure_ids'].each do |measure_id|
-      # component hqmf set ids are two ids with '&' in between
-      next if measure_id.nil? || !measure_id.include?("&")
-      parent_measure_ids << measure_id.split('&').first
+  def populate_measure_ids(patient)
+    unless patient['measure_ids'].nil?
+      patient['measure_ids'].uniq!
     end
-    parent_measure_ids.uniq!
-
-    # for each parent measure, get all the child ids and add them to the patient
-    parent_measure_ids.each do |parent_measure_id|
-      parent_measure = CQM::Measure.by_user(current_user).only(:component_hqmf_set_ids).where(hqmf_set_id: parent_measure_id).first
-      patient['measure_ids'].concat parent_measure["component_hqmf_set_ids"]
-      patient['measure_ids'] << parent_measure_id
-    end
-    patient['measure_ids'].uniq!
   end
 
   def convert_to_hash(key, array)
@@ -145,7 +132,7 @@ private
   end
 
   def get_associated_measure(patient)
-    CQM::Measure.where(hqmf_set_id: patient.measure_ids.first)
+    CQM::Measure.where(set_id: patient.measure_ids.first)
   end
 
   def qrda_patient_export(patient, measure)

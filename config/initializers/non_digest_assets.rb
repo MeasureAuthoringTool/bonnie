@@ -1,1 +1,1 @@
-NonStupidDigestAssets.whitelist = [/fontawesome/, /FontAwesome/, 'loading.gif', 'Rabbit-96-blue.png']
+NonStupidDigestAssets.whitelist = [/fontawesome/, /FontAwesome/, 'loading.gif', 'Rabbit-96-blue.png', /criteria-icons/]

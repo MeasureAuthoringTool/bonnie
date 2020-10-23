@@ -3,7 +3,7 @@
   {{#if measureHierarchy}}
 
     {{#each measureHierarchy}}
-      <li>{{#link "measures/{{this.cqmMeasure.hqmf_set_id}}" expand-tokens=true}}<i class='fa fa-fw fa-tasks' aria-hidden='true'></i> {{this.cqmMeasure.cms_id}} {{/link}}</li>
+      <li>{{#link "measures/{{this.cqmMeasure.set_id}}" expand-tokens=true}}<i class='fa fa-fw fa-tasks' aria-hidden='true'></i> {{this.cqmMeasure.cms_id}} {{/link}}</li>
     {{/each}}
 
     {{#if patientName}}

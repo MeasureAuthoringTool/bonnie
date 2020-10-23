@@ -6,11 +6,11 @@
   "calculation_method": "PATIENT",
   "cms_id": "CMSv9999",
   "component": false,
-  "component_hqmf_set_ids": [
+  "component_set_ids": [
 
   ],
   "composite": false,
-  "composite_hqmf_set_id": null,
+  "composite_set_id": null,
   "cql_libraries": [
     {
       "_id": {
@@ -34258,7 +34258,7 @@
   "created_at": "2019-07-11T18:46:55.185Z",
   "description": "The percentage of members 18 years of age and older who were screened for unhealthy alcohol use using a standardized tool and, if screened positive, received appropriate follow-up care. \n\nUnhealthy Alcohol Use Screening: The percentage of members who had a systematic screening for unhealthy alcohol use.\n\nCounseling or Other Follow-up: The percentage of members receiving brief counseling or other follow-up care within 2 months of screening positive for unhealthy alcohol use",
   "hqmf_id": "40280382-610B-E7A4-0161-6C967D3E2104",
-  "hqmf_set_id": "21C422D4-1658-478D-AEC2-B87B73638C41",
+  "set_id": "21C422D4-1658-478D-AEC2-B87B73638C41",
   "hqmf_version_number": "0",
   "main_cql_library": "UnhealthyAlcoholUseScreeningandFollowUpASF",
   "measure_attributes": [

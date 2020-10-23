@@ -1,7 +1,8 @@
 module MeasureHelper
   class SharedError < StandardError
     attr_reader :front_end_version, :back_end_version, :operator_error
-    def initialize(msg: "Error", front_end_version:, back_end_version:, operator_error: false)
+    def initialize(msg: nil, front_end_version:, back_end_version:, operator_error: false)
+      msg ||= front_end_version[:summary] || "Error"
       @front_end_version = front_end_version
       @back_end_version = back_end_version
       @operator_error = operator_error
@@ -17,7 +18,7 @@ module MeasureHelper
         body: "You have attempted to update a measure that does not exist."
       }
       back_end_version = {
-        json: {status: "error", messages: "No measure found for this HQMF Set ID."},
+        json: {status: "error", messages: "No measure found for this Set ID."},
         status: :not_found
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
@@ -25,14 +26,14 @@ module MeasureHelper
   end
 
   class MeasureLoadingMeasureAlreadyExists < SharedError
-    def initialize(measure_hqmf_set_id)
+    def initialize(measure_set_id)
       front_end_version = {
         title: "Error Loading Measure",
         summary: "A version of this measure is already loaded.",
-        body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."
+        body: "You have a version of this measure loaded already. Either update that measure with the update button, or delete that measure and re-upload it."
       }
       back_end_version = {
-        json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure_hqmf_set_id}"},
+        json: {status: "error", messages: "A measure with this Set ID already exists.", url: "/api_v1/measures/#{measure_set_id}"},
         status: :conflict
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
@@ -62,7 +63,7 @@ module MeasureHelper
         body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."
       }
       back_end_version = {
-        json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+        json: {status: "error", messages: "The update file does not have a matching Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
         status: :not_found
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
@@ -125,7 +126,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC credentials were invalid.",
-        body: "Please verify that you are using the correct VSAC username and password."
+        body: "Please verify that you are using your valid VSAC API Key."
       }
       back_end_version = {
         json: {status: "error", messages: "VSAC credentials were invalid."},
@@ -140,7 +141,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "VSAC session expired.",
-        body: "Please re-enter VSAC username and password to try again."
+        body: "Please re-enter VSAC API Key to try again."
       }
       back_end_version = {
         json: {status: "error", messages: "VSAC session expired. Please try again."},
@@ -155,7 +156,7 @@ module MeasureHelper
       front_end_version = {
         title: "Error Loading VSAC Value Sets",
         summary: "No VSAC credentials provided.",
-        body: "Please re-enter VSAC username and password to try again."
+        body: "Please re-enter VSAC API Key to try again."
       }
       back_end_version = {
         json: {status: "error", messages: "No VSAC credentials provided."},
@@ -187,7 +188,7 @@ module MeasureHelper
     save_and_post_process(measure, user)
     measure
   rescue StandardError => e
-    measure&.delete_self_and_child_docs
+    measure&.delete
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, uploaded_file, user)
     raise e
@@ -209,7 +210,7 @@ module MeasureHelper
     save_and_post_process(measure, user)
     measure
   rescue StandardError => e
-    measure&.delete_self_and_child_docs
+    measure&.delete
     e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, uploaded_file, user)
     raise e
@@ -286,8 +287,8 @@ module MeasureHelper
   end
 
   def delete_for_update(existing, user)
-    existing.component_hqmf_set_ids.each do |component_hqmf_set_id|
-      component_measure = CQM::Measure.by_user(user).where(hqmf_set_id: component_hqmf_set_id).first
+    existing.component_set_ids.each do |component_set_id|
+      component_measure = CQM::Measure.by_user(user).where(set_id: component_set_id).first
       component_measure.delete
     end
     existing.delete
@@ -304,8 +305,8 @@ module MeasureHelper
   end
 
   def save_and_post_process(measure, user)
-    measure.associate_self_and_child_docs_to_user(user)
-    measure.save_self_and_child_docs
+    measure.user = user
+    measure.save!
     # update_related_patient_records(measures, user)
   end
 
@@ -327,10 +328,6 @@ module MeasureHelper
     File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
       f.write("Original Filename was #{uploaded_file.original_filename}\n")
       f.write(error.to_s + "\n" + (error.backtrace||[]).join("\n"))
-    end
-    # email the error
-    if error.respond_to?(:operator_error) && error.operator_error && defined? ExceptionNotifier::Notifier # rubocop:disable Style/GuardClause, Style/IfUnlessModifier
-      ExceptionNotifier::Notifier.exception_notification(env, error).deliver_now
     end
   end
 end

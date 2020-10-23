@@ -16,14 +16,13 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
 
   context: ->
     _(super).extend
-      value_value: @value.value if @value?
-      value_unit: @value.unit if @value?
+      value_value: @value?.value?.value if @value?
+      value_unit: @value?.unit?.value if @value?
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    @value?
-
+    cqm.models.Quantity.isQuantity(@value)
   disableFields: ->
     @$('input').prop('disabled', true)
 
@@ -33,7 +32,11 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
   handleInputChange: (e) ->
     inputData = @serialize()
     try
-      @value = new cqm.models.CQL.Quantity(parseFloat(inputData.value_value), inputData.value_unit)
+      # Validate with CQL.Quantity
+      new cqm.models.CQL.Quantity(parseFloat(inputData.value_value), inputData.value_unit)
+      @value = new cqm.models.Quantity()
+      @value.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.value_unit)
+      @value.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.value_value))
       @$('.quantity-control-unit').removeClass('has-error')
     catch error
       @value = null
