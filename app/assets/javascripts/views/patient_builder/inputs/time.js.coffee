@@ -71,23 +71,18 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
   handleChange: (e) ->
     e.preventDefault()
     formData = @serialize()
-    newTime = null
+    newTimeString = null
 
     if formData.time_is_defined?
-      # TODO: replace with real Time type instead of making a cql DateTime.
-      newTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc("01/01/2000 #{formData.time}", 'L LT').toDate(), 0).getTime()
-
-    # only change and fire the change event if there actually was a change
-    # if before and after are null, just return
-    return if !@value? && !newTime?
-
-    # if before and after are defined trigger change
-    if (@value? && newTime?)
-      if !@value.equals(newTime)
-        @value = newTime
-        @trigger 'valueChanged', @
-
-    # if either before xor after was null trigger change
-    else
+      [time, period] = formData.time.split(' ')
+      [hour, minute] = time.split(':')
+      hour = parseInt(hour)
+      if (period == 'PM')
+        newTimeString = "#{hour + 12}:#{minute}:00"
+      else
+        if (hour == 12) 
+          hour = '00'
+        newTimeString = "#{hour}:#{minute}:00"
+      newTime = cqm.models.PrimitiveTime.parsePrimitive(newTimeString)
       @value = newTime
       @trigger 'valueChanged', @

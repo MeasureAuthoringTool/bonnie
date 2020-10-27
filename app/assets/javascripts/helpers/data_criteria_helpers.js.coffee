@@ -201,6 +201,17 @@
       highString = if type.end? then @stringifyType(type.end) else "null"
       return "#{lowString} - #{highString}"
 
+    if cqm.models.PrimitiveTime.isPrimitiveTime(type)
+      [hour, minute] = type?.value.split(":")
+      hour = parseInt(hour)
+      period = 'AM'
+      if hour == 0
+        hour = 12
+      else if hour >= 12
+        hour -= 12
+        period = 'PM'
+      return "#{hour}:#{minute} #{period}"
+
     if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)
       cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(type?.value)
       return moment.utc(cqlValue.toJSDate()).format('L LT')
@@ -324,11 +335,11 @@
           attrType = value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
+          else if attrType == 'PrimitiveTime' || attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
             fhirResource.abatement = value
           else
             fhirResource.abatement = null
-        types: ['DateTime', 'Age', 'Period', 'Range']
+        types: ['DateTime', 'Age', 'Period', 'Range', 'Time']
       },
       {
         path: 'bodySite',
