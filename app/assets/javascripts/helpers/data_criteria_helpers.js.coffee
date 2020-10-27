@@ -644,16 +644,20 @@
       {
         path: 'dosageInstruction.doseAndRate.rate'
         title: 'dosageInstruction.doseAndRate.rate'
-        getValue: (fhirResource) => fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate
+        getValue: (fhirResource) =>
+          if  cqm.models.SimpleQuantity.isSimpleQuantity(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate)
+            # Widget supports only Quantity:  convert SimpleQuantity -> Quantity
+            return cqm.models.Quantity.parse(fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate.toJSON())
+          else
+            return fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate
         setValue: (fhirResource, rate) =>
-          debugger
           if !rate?
             fhirResource?.dosageInstruction?[0]?.doseAndRate?[0]?.rate = null
           else
             fhirResource.dosageInstruction = [ new cqm.models.Dosage() ] unless fhirResource?.dosageInstruction
             fhirResource.dosageInstruction[0].doseAndRate = [ new cqm.models.DosageDoseAndRate() ] unless fhirResource?.dosageInstruction?[0]?.doseAndRate
             if cqm.models.Quantity.isQuantity(rate)
-              # convert Quantity -> SimpleQuantity
+              # Widget supports only Quantity: convert Quantity -> SimpleQuantity
               fhirResource.dosageInstruction[0].doseAndRate[0].rate = cqm.models.SimpleQuantity.parse(rate.toJSON())
             else
               fhirResource.dosageInstruction[0].doseAndRate[0].rate = rate
