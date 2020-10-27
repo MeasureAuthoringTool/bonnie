@@ -16,6 +16,7 @@ class Thorax.Views.DisplayExtensionView extends Thorax.Views.BonnieView
     _(super).extend
       extensions: extensions
 
-  removeValue: (e) ->
-    attributeName = $(e.target).data('attribute-name')
-    @trigger 'attributesModified', @
+  removeExtension: (e) ->
+    index = $(e.target).data('extension-index')
+    @dataElement.fhir_resource?.extension.splice(index, 1);
+    @trigger 'extensionModified', @

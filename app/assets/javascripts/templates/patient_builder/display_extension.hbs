@@ -9,11 +9,13 @@
       </a>
       <div id="collapse_extension_{{@index}}_{{@cid}}" class="collapse extension-value">
         <p>
-          <span>
-            <span title="{{this.value}}">{{this.value}}</span>
-            <!--<button class="btn btn-link close delete" data-attribute-name="{{name}}"{{#if isArrayValue}} data-attribute-index="{{index}}"{{/if}}
-                    data-call-method="removeValue">× <span class="sr-only">Delete</span></button>-->
-          </span>
+          <span title="{{this.value}}">{{this.value}}</span>
+          <button class="btn btn-link close delete delete-extension-btn"
+                  data-extension-index="{{@index}}"
+                  data-extension-url="{{this.url}}"
+                  data-call-method="removeExtension">
+            × <span class="sr-only">Delete</span>
+          </button>
         </p>
       </div>
     </div>

@@ -199,7 +199,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
 
   extensionModified: ->
-    debugger
     @extensionDisplayView.render()
     @triggerMaterialize()
 

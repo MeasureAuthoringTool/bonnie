@@ -171,11 +171,13 @@
       codeSystemName = @parent.measure.codeSystemMap()[value?.system?.value] || value?.system?.value
       return "#{codeSystemName}: #{value?.code?.value}"
 
-    if cqm.models.PrimitiveCode.isPrimitiveCode(value)        ||
-        cqm.models.PrimitiveString.isPrimitiveString(value)   ||
-        cqm.models.PrimitiveBoolean.isPrimitiveBoolean(value) ||
-        cqm.models.PrimitiveInteger.isPrimitiveInteger(value) ||
-        cqm.models.PrimitiveDecimal.isPrimitiveDecimal(value) ||
+    if cqm.models.PrimitiveCode.isPrimitiveCode(value)                ||
+        cqm.models.PrimitiveString.isPrimitiveString(value)           ||
+        cqm.models.PrimitiveBoolean.isPrimitiveBoolean(value)         ||
+        cqm.models.PrimitiveInteger.isPrimitiveInteger(value)         ||
+        cqm.models.PrimitivePositiveInt.isPrimitivePositiveInt(value) ||
+        cqm.models.PrimitiveUnsignedInt.isPrimitiveUnsignedInt(value) ||
+        cqm.models.PrimitiveDecimal.isPrimitiveDecimal(value)         ||
         cqm.models.PrimitiveId.isPrimitiveId(value)
       return "#{value?.value}"
 
@@ -189,8 +191,8 @@
       return "#{value?.numerator?.value?.value} '#{value?.numerator?.unit?.value}' : #{value?.denominator?.value?.value} '#{value?.denominator?.unit?.value}'"
 
     if cqm.models.Period.isPeriod(value)
-      lowString = if value.start? then @_stringifyValue(value.start) else "null"
-      highString = if value.end? then @_stringifyValue(value.end) else "null"
+      lowString = if value.start? then @stringifyPrimitiveType(value.start) else "null"
+      highString = if value.end? then @stringifyPrimitiveType(value.end) else "null"
       return "#{lowString} - #{highString}"
 
     if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(value)

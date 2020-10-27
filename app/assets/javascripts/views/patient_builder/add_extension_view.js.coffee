@@ -6,9 +6,6 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
     @valueTypes = @getValueTypes()
     @dataElement = @model.get('dataElement')
     @url = null
-    debugger
-    # default selected type view is date
-    #@selectedValueTypeView = new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: 2020 })
 
   events:
     'change input[name="url"]': 'validateUrl'
@@ -39,10 +36,11 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
     # remove the existing view if there is one
     @selectedValueTypeView.remove() if @selectedValueTypeView?
     if @selectedValueType
+      @measurementYear = @parent.measure.getMeasurePeriodYear()
       @selectedValueTypeView = switch @selectedValueType
-        when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: 2020 })
-        when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: 2020 })
-        when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: 2020})
+        when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @measurementYear })
+        when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @measurementYear })
+        when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @measurementYear})
         when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
         when 'Integer' then new Thorax.Views.InputIntegerView({ allowNull: false })
         when 'PositiveInt' then new Thorax.Views.InputPositiveIntegerView()
@@ -53,8 +51,6 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
         when 'Age' then new Thorax.Views.InputAgeView()
         when 'Range' then new Thorax.Views.InputRangeView()
         when 'Ratio' then new Thorax.Views.InputRatioView()
-        when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
-        when 'id' then new Thorax.Views.InputIdView()
         else null
       @showInputViewPlaceholder = !@selectedValueTypeView?
     else
@@ -92,9 +88,9 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
           DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(value)
         when 'Decimal'
           cqm.models.PrimitiveDecimal.parsePrimitive(value)
-        when 'String', 'id'
-          value?.trim()
-        when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Duration', 'Age', 'Range', 'Ratio', 'Quantity'
+        when 'String'
+          cqm.models.PrimitiveString.parsePrimitive(value)
+        when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Duration', 'Age', 'Range', 'Ratio', 'Quantity', 'Id', 'Canonical'
           value
         else null
     @selectedValue
