@@ -181,8 +181,14 @@
         cqm.models.PrimitiveId.isPrimitiveId(value)
       return "#{value?.value}"
 
-    if cqm.models.Duration.isDuration(value) || cqm.models.Age.isAge(value) || cqm.models.Quantity.isQuantity(value)
-      return "#{value?.value?.value} '#{value?.unit?.value}'"
+    if cqm.models.Duration.isDuration(value)  ||
+        cqm.models.Age.isAge(value)           ||
+        cqm.models.Quantity.isQuantity(value) ||
+        cqm.models.SimpleQuantity.isSimpleQuantity(value)
+      if !!value?.unit?.value
+        return "#{value?.value?.value} '#{value?.unit?.value}'"
+      else
+        return "#{value?.value?.value}"
 
     if cqm.models.Range.isRange(value)
       return "#{value?.low?.value?.value || '?'} - #{value?.high?.value?.value || '?'} #{value?.high?.unit?.value}"
