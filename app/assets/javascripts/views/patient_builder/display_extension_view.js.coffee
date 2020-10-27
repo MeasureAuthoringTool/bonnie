@@ -1,4 +1,4 @@
-# View for displaying the extensions on the Resource/DataCriteria
+# View for displaying the extensions of the Resource/DataCriteria
 class Thorax.Views.DisplayExtensionView extends Thorax.Views.BonnieView
   template: JST['patient_builder/display_extension']
 

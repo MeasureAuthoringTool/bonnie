@@ -104,11 +104,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @attributeEditorView = new Thorax.Views.DataCriteriaAttributeEditorView(model: @model)
     @listenTo @attributeEditorView, 'attributesModified', @attributesModified
 
-    # view that shows all extensions of this resource
+    # view that shows all the extensions of the resource
     @extensionDisplayView = new Thorax.Views.DisplayExtensionView(model: @model)
     @listenTo @extensionDisplayView, 'extensionModified', @extensionModified
 
-    # view that shows all extensions of this resource
+    # view that adds extensions to the resource
     @extensionEditorView = new Thorax.Views.AddExtensionView(model: @model)
     @listenTo @extensionEditorView, 'extensionModified', @extensionModified
 

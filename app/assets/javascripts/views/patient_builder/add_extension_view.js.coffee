@@ -1,4 +1,4 @@
-# View for displaying the extensions on the Resource/DataCriteria
+# View that adds the extensions for the Resource/DataCriteria
 class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
   template: JST['patient_builder/add_extension']
 
@@ -94,11 +94,6 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
           value
         else null
     @selectedValue
-
-  removeValue: (e) ->
-    # TODO: after display view
-    attributeName = $(e.target).data('attribute-name')
-    @trigger 'attributesModified', @
 
   getValueTypes: ->
     return [
