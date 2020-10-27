@@ -19,7 +19,7 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
     @toggleAddBtn()
 
   toggleAddBtn: ->
-    if /^\S+$/.test(@url)
+    if @url && /^\S+$/.test(@url)
       @$('#add_extension').removeAttr('disabled')
     else
       @$('#add_extension').attr('disabled', 'disabled')
@@ -45,8 +45,8 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
         when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: 2020})
         when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
         when 'Integer' then new Thorax.Views.InputIntegerView({ allowNull: false })
-        when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView()
-        when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView()
+        when 'PositiveInt' then new Thorax.Views.InputPositiveIntegerView()
+        when 'UnsignedInt' then new Thorax.Views.InputUnsignedIntegerView()
         when 'Boolean' then new Thorax.Views.InputBooleanView()
         when 'Quantity' then new Thorax.Views.InputQuantityView()
         when 'Duration' then new Thorax.Views.InputDurationView()
@@ -55,10 +55,8 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
         when 'Ratio' then new Thorax.Views.InputRatioView()
         when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
         when 'id' then new Thorax.Views.InputIdView()
-        when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
         else null
       @showInputViewPlaceholder = !@selectedValueTypeView?
-      #@listenTo(@selectedValueTypeView, 'valueChanged', @updateAddButtonStatus) if @selectedValueTypeView?
     else
       @selectedValueTypeView = null
 
@@ -92,33 +90,11 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
           DataCriteriaHelpers.getPrimitiveDateForCqlDate(value)
         when 'DateTime'
           DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(value)
-        when 'Period'
-          value
         when 'Decimal'
-          value
-        when 'Integer'
-          value
-        when 'PositiveInt', 'PositiveInteger'
-          value
-        when 'UnsignedInt', 'UnsignedInteger'
-          value
-        when 'Boolean'
-          value
-        when 'Quantity'
-          value
-        when 'Duration'
-          value
-        when 'Age'
-          value
-        when 'Range'
-          value
-        when 'Ratio'
-          value
-        when 'String'
+          cqm.models.PrimitiveDecimal.parsePrimitive(value)
+        when 'String', 'id'
           value?.trim()
-        when 'id'
-          value
-        when 'Time'
+        when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Duration', 'Age', 'Range', 'Ratio', 'Quantity'
           value
         else null
     @selectedValue
@@ -130,54 +106,30 @@ class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
 
   getValueTypes: ->
     return [
-      "Date",
-      "DateTime",
-      "Decimal",
-      "Base64Binary",
-      "Boolean",
-      "Canonical",
-      "Code",
-      "Id",
-      "Instant",
-      "Integer",
-      "Markdown",
-      "Oid",
-      "PositiveInt",
-      "String",
-      "Time",
-      "UnsignedInt",
-      "Uri",
-      "Url",
-      "Uuid",
-      "Address",
-      "Age",
-      "Annotation",
-      "Attachment",
-      "CodeableConcept",
-      "Coding",
-      "ContactPoint",
-      "Count",
-      "Distance",
-      "Duration",
-      "HumanName",
-      "Identifier",
-      "Money",
-      "Period",
-      "Quantity",
-      "Range",
-      "Ratio",
-      "Reference",
-      "SampledData",
-      "Signature",
-      "Timing",
-      "ContactDetail",
-      "Contributor",
-      "DataRequirement",
-      "Expression",
-      "ParameterDefinition",
-      "RelatedArtifact",
-      "TriggerDefinition",
-      "UsageContext",
-      "Dosage",
-      "Meta"
+      'Age',
+      'Boolean',
+      'Canonical',
+      'Code',
+      'CodeableConcept',
+      'Coding',
+      'DataRequirement',
+      'Date',
+      'DateTime',
+      'Decimal',
+      'Dosage',
+      'Duration',
+      'Id',
+      'Identifier',
+      'Instant',
+      'Integer',
+      'Period',
+      'PositiveInt',
+      'Quantity',
+      'Range',
+      'Ratio',
+      'Reference',
+      'String',
+      'Time',
+      'Timing',
+      'UnsignedInt'
     ]

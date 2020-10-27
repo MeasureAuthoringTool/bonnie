@@ -1,6 +1,6 @@
 <div class="edit-extension-container">
   <div class="form-group">
-    <label for="url_{{@cid}}">Url</label>
+    <label for="url_{{@cid}}">Url:</label>
     <input aria-describedby="url_help_{{@cid}}"
            class="form-control" id="url_{{@cid}}"
            name="url"
@@ -8,11 +8,11 @@
            {{#if url}}value="{{url}}" {{else}}value=""{{/if}}
            required>
     <small class="form-text text-disabled"
-           id="url_help_{{@cid}}">Should start with http:// or https://</small>
+           id="url_help_{{@cid}}">Preferably starts with http:// or https://</small>
   </div>
   <div class="extension-value-selector col-sm-11 col-md-11 col-lg-11">
     <div class="form-group">
-      <label for="value_{{@cid}}">Value</label>
+      <label for="value_{{@cid}}">Value:</label>
       <select class="form-control"
               id="value_{{@cid}}"
               name="value">

@@ -163,6 +163,45 @@
     resourceType = dataElement.fhir_resource?.resourceType
     return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find((attr) => attr.path is path)
 
+  @stringifyPrimitiveType: (value) ->
+    if !value?
+      return 'null'
+
+    if cqm.models.Coding.isCoding(value)
+      codeSystemName = @parent.measure.codeSystemMap()[value?.system?.value] || value?.system?.value
+      return "#{codeSystemName}: #{value?.code?.value}"
+
+    if cqm.models.PrimitiveCode.isPrimitiveCode(value)        ||
+        cqm.models.PrimitiveString.isPrimitiveString(value)   ||
+        cqm.models.PrimitiveBoolean.isPrimitiveBoolean(value) ||
+        cqm.models.PrimitiveInteger.isPrimitiveInteger(value) ||
+        cqm.models.PrimitiveDecimal.isPrimitiveDecimal(value) ||
+        cqm.models.PrimitiveId.isPrimitiveId(value)
+      return "#{value?.value}"
+
+    if cqm.models.Duration.isDuration(value) || cqm.models.Age.isAge(value) || cqm.models.Quantity.isQuantity(value)
+      return "#{value?.value?.value} '#{value?.unit?.value}'"
+
+    if cqm.models.Range.isRange(value)
+      return "#{value?.low?.value?.value || '?'} - #{value?.high?.value?.value || '?'} #{value?.high?.unit?.value}"
+
+    if cqm.models.Ratio.isRatio(value)
+      return "#{value?.numerator?.value?.value} '#{value?.numerator?.unit?.value}' : #{value?.denominator?.value?.value} '#{value?.denominator?.unit?.value}'"
+
+    if cqm.models.Period.isPeriod(value)
+      lowString = if value.start? then @_stringifyValue(value.start) else "null"
+      highString = if value.end? then @_stringifyValue(value.end) else "null"
+      return "#{lowString} - #{highString}"
+
+    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(value)
+      cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(value?.value)
+      return moment.utc(cqlValue.toJSDate()).format('L LT')
+
+    if cqm.models.PrimitiveDate.isPrimitiveDate(value)
+      cqlValue = DataCriteriaHelpers.getCQLDateFromString(value?.value)
+      return moment.utc(cqlValue.toJSDate()).format('L')
+    return JSON.stringify(value)
+
 # Data element attributes per resource type.
 # Each resource has an array of entries per attribute.
 # An attribute entry has necessary metadata to view/edit.
