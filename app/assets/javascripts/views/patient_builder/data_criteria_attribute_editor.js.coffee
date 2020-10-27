@@ -119,7 +119,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView()
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
       when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
-      when 'Quantity' then new Thorax.Views.InputQuantityView()
+      when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView()
       when 'Duration' then new Thorax.Views.InputDurationView()
       when 'Age' then new Thorax.Views.InputAgeView()
       when 'Range' then new Thorax.Views.InputRangeView()
