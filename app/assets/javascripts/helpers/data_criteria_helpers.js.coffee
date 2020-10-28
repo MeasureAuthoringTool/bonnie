@@ -163,52 +163,52 @@
     resourceType = dataElement.fhir_resource?.resourceType
     return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find((attr) => attr.path is path)
 
-  @stringifyType: (value) ->
-    if !value?
+  @stringifyType: (type) ->
+    if type == null || type == undefined
       return 'null'
 
-    if cqm.models.Coding.isCoding(value)
-      codeSystemName = @parent.measure.codeSystemMap()[value?.system?.value] || value?.system?.value
-      return "#{codeSystemName}: #{value?.code?.value}"
+    if cqm.models.Coding.isCoding(type)
+      codeSystemName = @parent.measure.codeSystemMap()[type.system?.value] || type.system?.value
+      return "#{codeSystemName}: #{type.code?.value}"
 
-    if cqm.models.PrimitiveCode.isPrimitiveCode(value)                ||
-        cqm.models.PrimitiveString.isPrimitiveString(value)           ||
-        cqm.models.PrimitiveBoolean.isPrimitiveBoolean(value)         ||
-        cqm.models.PrimitiveInteger.isPrimitiveInteger(value)         ||
-        cqm.models.PrimitivePositiveInt.isPrimitivePositiveInt(value) ||
-        cqm.models.PrimitiveUnsignedInt.isPrimitiveUnsignedInt(value) ||
-        cqm.models.PrimitiveDecimal.isPrimitiveDecimal(value)         ||
-        cqm.models.PrimitiveId.isPrimitiveId(value)
-      return "#{value?.value}"
+    if cqm.models.PrimitiveCode.isPrimitiveCode(type)                ||
+        cqm.models.PrimitiveString.isPrimitiveString(type)           ||
+        cqm.models.PrimitiveBoolean.isPrimitiveBoolean(type)         ||
+        cqm.models.PrimitiveInteger.isPrimitiveInteger(type)         ||
+        cqm.models.PrimitivePositiveInt.isPrimitivePositiveInt(type) ||
+        cqm.models.PrimitiveUnsignedInt.isPrimitiveUnsignedInt(type) ||
+        cqm.models.PrimitiveDecimal.isPrimitiveDecimal(type)         ||
+        cqm.models.PrimitiveId.isPrimitiveId(type)
+      return "#{type.value}"
 
-    if cqm.models.Duration.isDuration(value)  ||
-        cqm.models.Age.isAge(value)           ||
-        cqm.models.Quantity.isQuantity(value) ||
-        cqm.models.SimpleQuantity.isSimpleQuantity(value)
-      if !!value?.unit?.value
-        return "#{value?.value?.value} '#{value?.unit?.value}'"
+    if cqm.models.Duration.isDuration(type)  ||
+        cqm.models.Age.isAge(type)           ||
+        cqm.models.Quantity.isQuantity(type) ||
+        cqm.models.SimpleQuantity.isSimpleQuantity(type)
+      if !!type.unit?.value
+        return "#{type.value?.value} '#{type.unit?.value}'"
       else
-        return "#{value?.value?.value}"
+        return "#{type.value?.value}"
 
     if cqm.models.Range.isRange(value)
-      return "#{value?.low?.value?.value || '?'} - #{value?.high?.value?.value || '?'} #{value?.high?.unit?.value}"
+      return "#{type.low?.value?.value || '?'} - #{type.high?.value?.value || '?'} #{type.high?.unit?.value}"
 
-    if cqm.models.Ratio.isRatio(value)
-      return "#{value?.numerator?.value?.value} '#{value?.numerator?.unit?.value}' : #{value?.denominator?.value?.value} '#{value?.denominator?.unit?.value}'"
+    if cqm.models.Ratio.isRatio(type)
+      return "#{type.numerator?.value?.value} '#{type.numerator?.unit?.value}' : #{type.denominator?.value?.value} '#{type.denominator?.unit?.value}'"
 
-    if cqm.models.Period.isPeriod(value)
-      lowString = if value.start? then @stringifyType(value.start) else "null"
-      highString = if value.end? then @stringifyType(value.end) else "null"
+    if cqm.models.Period.isPeriod(type)
+      lowString = if type.start? then @stringifyType(type.start) else "null"
+      highString = if type.end? then @stringifyType(type.end) else "null"
       return "#{lowString} - #{highString}"
 
-    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(value)
-      cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(value?.value)
+    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)
+      cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(type?.value)
       return moment.utc(cqlValue.toJSDate()).format('L LT')
 
-    if cqm.models.PrimitiveDate.isPrimitiveDate(value)
-      cqlValue = DataCriteriaHelpers.getCQLDateFromString(value?.value)
+    if cqm.models.PrimitiveDate.isPrimitiveDate(type)
+      cqlValue = DataCriteriaHelpers.getCQLDateFromString(type?.value)
       return moment.utc(cqlValue.toJSDate()).format('L')
-    return JSON.stringify(value)
+    return JSON.stringify(type)
 
 # Data element attributes per resource type.
 # Each resource has an array of entries per attribute.

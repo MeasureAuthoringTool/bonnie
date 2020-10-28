@@ -143,7 +143,7 @@ describe 'DataCriteriaHelpers', ->
       expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
       expect(primitiveDate.value).toEqual '2020-09-23'
 
-    it 'test stringifyPrimitiveType for different fhir primitive types', ->
+    it 'test stringifyType for different fhir primitive types', ->
       # null value
       stringValue = DataCriteriaHelpers.stringifyType(null)
       expect(stringValue).toEqual 'null'
