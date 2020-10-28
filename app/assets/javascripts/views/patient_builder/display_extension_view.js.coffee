@@ -11,7 +11,7 @@ class Thorax.Views.DisplayExtensionView extends Thorax.Views.BonnieView
     extensions = []
     fhirExtensions = @dataElement.fhir_resource?.extension || []
     for extension in fhirExtensions
-      extensions.push({url: extension.url?.value, value: DataCriteriaHelpers.stringifyPrimitiveType(extension.value)})
+      extensions.push({url: extension.url?.value, value: DataCriteriaHelpers.stringifyType(extension.value)})
 
     _(super).extend
       extensions: extensions

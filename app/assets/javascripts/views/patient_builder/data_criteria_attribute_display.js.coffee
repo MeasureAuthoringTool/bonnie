@@ -14,7 +14,7 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
     DataCriteriaHelpers.getAttributes(@dataElement).forEach (attr) =>
       value = attr.getValue(@dataElement.fhir_resource)
       return if !value?
-      stringValue = "#{DataCriteriaHelpers.stringifyPrimitiveType(value)}"
+      stringValue = "#{DataCriteriaHelpers.stringifyType(value)}"
       displayAttributes.push({ name: attr.path, title: attr.title, value: stringValue })
 
     _(super).extend

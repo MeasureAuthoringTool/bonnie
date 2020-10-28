@@ -163,7 +163,7 @@
     resourceType = dataElement.fhir_resource?.resourceType
     return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find((attr) => attr.path is path)
 
-  @stringifyPrimitiveType: (value) ->
+  @stringifyType: (value) ->
     if !value?
       return 'null'
 
@@ -197,8 +197,8 @@
       return "#{value?.numerator?.value?.value} '#{value?.numerator?.unit?.value}' : #{value?.denominator?.value?.value} '#{value?.denominator?.unit?.value}'"
 
     if cqm.models.Period.isPeriod(value)
-      lowString = if value.start? then @stringifyPrimitiveType(value.start) else "null"
-      highString = if value.end? then @stringifyPrimitiveType(value.end) else "null"
+      lowString = if value.start? then @stringifyType(value.start) else "null"
+      highString = if value.end? then @stringifyType(value.end) else "null"
       return "#{lowString} - #{highString}"
 
     if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(value)
