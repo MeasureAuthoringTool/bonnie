@@ -1,6 +1,6 @@
 # View that adds the extensions for the Resource/DataCriteria
-class Thorax.Views.AddExtensionView extends Thorax.Views.BonnieView
-  template: JST['patient_builder/add_extension']
+class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
+  template: JST['patient_builder/add_extensions']
 
   initialize: ->
     @valueTypes = @getValueTypes()

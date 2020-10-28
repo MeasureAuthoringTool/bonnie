@@ -1,12 +1,11 @@
 # View for displaying the extensions of the Resource/DataCriteria
-class Thorax.Views.DisplayExtensionView extends Thorax.Views.BonnieView
-  template: JST['patient_builder/display_extension']
+class Thorax.Views.DisplayExtensionsView extends Thorax.Views.BonnieView
+  template: JST['patient_builder/display_extensions']
 
   initialize: ->
     @dataElement = @model.get('dataElement')
 
   context: ->
-    debugger
     # build extension url and value map
     extensions = []
     fhirExtensions = @dataElement.fhir_resource?.extension || []

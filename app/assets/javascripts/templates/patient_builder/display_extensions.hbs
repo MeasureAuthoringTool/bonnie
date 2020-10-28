@@ -8,15 +8,13 @@
         <span title="{{this.url}}">{{this.url}}</span>
       </a>
       <div id="collapse_extension_{{@index}}_{{@cid}}" class="collapse extension-value">
-        <p>
-          <span title="{{this.value}}">{{this.value}}</span>
-          <button class="btn btn-link close delete delete-extension-btn"
-                  data-extension-index="{{@index}}"
-                  data-extension-url="{{this.url}}"
-                  data-call-method="removeExtension">
-            × <span class="sr-only">Delete</span>
-          </button>
-        </p>
+        <span title="{{this.value}}">{{this.value}}</span>
+        <button class="btn btn-link close delete delete-extension-btn"
+                data-extension-index="{{@index}}"
+                data-extension-url="{{this.url}}"
+                data-call-method="removeExtension">
+          × <span class="sr-only">Delete</span>
+        </button>
       </div>
     </div>
   {{/each}}

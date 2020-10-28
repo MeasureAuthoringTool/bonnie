@@ -105,12 +105,12 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @listenTo @attributeEditorView, 'attributesModified', @attributesModified
 
     # view that shows all the extensions of the resource
-    @extensionDisplayView = new Thorax.Views.DisplayExtensionView(model: @model)
-    @listenTo @extensionDisplayView, 'extensionModified', @extensionModified
+    @displayExtensionsView = new Thorax.Views.DisplayExtensionsView(model: @model)
+    @listenTo @displayExtensionsView, 'extensionModified', @extensionModified
 
     # view that adds extensions to the resource
-    @extensionEditorView = new Thorax.Views.AddExtensionView(model: @model)
-    @listenTo @extensionEditorView, 'extensionModified', @extensionModified
+    @addExtensionsView = new Thorax.Views.AddExtensionsView(model: @model)
+    @listenTo @addExtensionsView, 'extensionModified', @extensionModified
 
     # view that allows for negating the data criteria, will not display on non-negateable data criteria
 #    @negationRationaleView = new Thorax.Views.InputCodingView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('dataElement').negationRationale })
@@ -199,7 +199,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
 
   extensionModified: ->
-    @extensionDisplayView.render()
+    @displayExtensionsView.render()
     @triggerMaterialize()
 
   isDuringMeasurePeriod: ->
