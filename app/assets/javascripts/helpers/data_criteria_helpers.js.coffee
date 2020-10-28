@@ -335,11 +335,11 @@
           attrType = value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'PrimitiveTime' || attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
+          else if attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
             fhirResource.abatement = value
           else
             fhirResource.abatement = null
-        types: ['DateTime', 'Age', 'Period', 'Range', 'Time']
+        types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
         path: 'bodySite',
