@@ -297,7 +297,7 @@
         types: [
           'CodeableConcept'
         ],
-        valueSets: () -> [FhirValueSets.BODY_SITE_VS]
+        valueSets: () -> [BodySiteValueSet.JSON]
       },
       {
         path: 'category',
@@ -382,12 +382,26 @@
             codeableConcept.coding = [coding]
             fhirResource.usedCode = [codeableConcept]
         types: ['CodeableConcept'],
-        valueSets: () -> [FhirValueSets.DEVICE_KIND_VS]
+        valueSets: () -> [DeviceKindValueSet.JSON]
       }
     ]
     Coverage: []
     BodyStructure: []
-    DiagnosticReport: []
+    DiagnosticReport: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if (codeValue)
+            fhirResource?.status = cqm.models.DiagnosticReportStatus.parsePrimitive(codeValue)
+          else
+            fhirResource?.status = null
+        types: ['Code']
+        #FIXME
+        valueSets: () => [DiagnosticReportStatusValueSet.JSON]
+      }
+    ]
     ImagingStudy: []
     Observation: []
     Specimen: []
@@ -516,7 +530,20 @@
       },
     ]
     Flag: []
-    Immunization: []
+    Immunization: [
+      {
+        path: 'status'
+        title: 'status'
+        getValue: (fhirResource) => fhirResource?.status?.value
+        setValue: (fhirResource, codeValue) =>
+          if (codeValue)
+            fhirResource?.status = cqm.models.ImmunizationStatus.parsePrimitive(codeValue)
+          else
+            fhirResource?.status = null
+        types: ['Code']
+        valueSets: () => [ ImmunizationStatusValueSet.JSON ]
+      }
+    ]
     ImmunizationEvaluation: []
     ImmunizationRecommendation: []
     Medication: []
