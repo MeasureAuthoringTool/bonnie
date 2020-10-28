@@ -190,7 +190,7 @@
       else
         return "#{type.value?.value}"
 
-    if cqm.models.Range.isRange(value)
+    if cqm.models.Range.isRange(type)
       return "#{type.low?.value?.value || '?'} - #{type.high?.value?.value || '?'} #{type.high?.unit?.value}"
 
     if cqm.models.Ratio.isRatio(type)
