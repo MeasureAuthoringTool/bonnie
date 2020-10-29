@@ -126,3 +126,52 @@ describe 'EditCriteriaView', ->
     # check that it was changed using route through patientBuilder.model
     expect(@patientBuilder.model.get('cqmPatient').data_elements[1].fhir_resource['period'].start).toEqual(null)
     expect(@patientBuilder.model.get('cqmPatient').data_elements[1].fhir_resource['period'].end).toEqual(null)
+
+  it 'displays the Extensions if there are any', ->
+    displayExtensionsView = @serviceRequestView.displayExtensionsView
+    expect(displayExtensionsView).toBeDefined();
+    expect(displayExtensionsView.context().extensions[0].url).toEqual 'testextension'
+    expect(displayExtensionsView.context().extensions[0].value).toEqual "3.0 'day'"
+    expect(displayExtensionsView.$el.find("a.extension-url span").text()).toEqual('testextension')
+    expect(displayExtensionsView.$el.find("div.extension-value span").text()).toContain("3.0 'day")
+
+  it 'does not display Extensions if there nno extensions', ->
+    displayExtensionsView = @encounterView.displayExtensionsView
+    expect(displayExtensionsView).toBeDefined();
+    # No extension in view context
+    expect(displayExtensionsView.context().extensions).toEqual []
+    # No extension in the model
+    extensions = @encounterView.model.get('dataElement').fhir_resource['extension']
+    expect(extensions).toBeUndefined()
+
+  it 'removes an Extension', ->
+    displayExtensionsView = @serviceRequestView.displayExtensionsView
+    expect(displayExtensionsView).toBeDefined();
+    expect(@serviceRequestView.model.get('dataElement').fhir_resource['extension'].length).toEqual 1
+    # expand the extension
+    displayExtensionsView.$el.find("a.extension-url").click()
+    # click delete extension button
+    displayExtensionsView.$el.find("button.delete-extension-btn").click()
+    expect(@serviceRequestView.model.get('dataElement').fhir_resource['extension'].length).toEqual 0
+
+  it 'adds an Extensions', ->
+    displayExtensionsView = @encounterView.addExtensionsView
+    expect(displayExtensionsView).toBeDefined();
+    # No extension in the model
+    expect(displayExtensionsView.model.get('dataElement').fhir_resource['extension']).toBeUndefined()
+    # enter url
+    displayExtensionsView.$el.find("input[name='url']").val('testext').change()
+    # select value
+    displayExtensionsView.$el.find("select[name='value']").val('Boolean').change()
+    # add extension
+    displayExtensionsView.$el.find("button#add_extension").click()
+    extensions = displayExtensionsView.model.get('dataElement').fhir_resource['extension']
+    # 1 extension added
+    expect(extensions.length).toEqual 1
+    expect(extensions[0].url.value).toEqual 'testext'
+    expect(extensions[0].value.value).toBeTruthy()
+
+    # add one more extension but without value
+    displayExtensionsView.$el.find("input[name='url']").val('someotherextension').change()
+    displayExtensionsView.$el.find("button#add_extension").click()
+    expect(extensions.length).toEqual 2

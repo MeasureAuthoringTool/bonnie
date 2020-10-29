@@ -79,7 +79,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       @render()
 
   _getExtensionValue: ->
-    value = @selectedValueTypeView.value
+    value = @selectedValueTypeView?.value
     if @selectedValueType
       @selectedValue = switch @selectedValueType
         when 'Date'
