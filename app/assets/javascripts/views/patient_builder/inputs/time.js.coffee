@@ -17,30 +17,13 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
 
   events:
     'change input[type=checkbox]': 'handleCheckboxChange'
-    rendered: ->
-      @$('.time-picker').timepicker(template: false, defaultTime: false).on 'changeTime.timepicker', _.bind(@handleChange, this)
+    'change input[type=time]': 'handleChange'
 
   createDefault: ->
     time = new cqm.models.CQL.DateTime(2000, 1, 1, 8, 0, 0, 0, 0).getTime()
-    @getTimeString(time)
-
-  getTimeString:  (time) ->
-    # Build time string with format HH:MM PP
-    isAm = true
-    if time.hour >= 12
-      isAm = false
-      time.hour = time.hour - 12
-
-    if isAm
-      end = ' AM'
-    else
-      end = ' PM'
-
-    # Pad hour/minute if only 1 digit
-    paddedHour = String("0" + time.hour).slice(-2)
-    paddedMin = String("0" + time.minute).slice(-2)
-    timeString = paddedHour + ':' + paddedMin + end
-    timeString
+    paddedHour = String("0#{time.hour}").slice(-2)
+    paddedMin = String("0#{time.minute}").slice(-2)
+    "#{paddedHour}:#{paddedMin}"
 
   context: ->
     _(super).extend
@@ -52,37 +35,18 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
   hasValidValue: ->
     @allowNull || @value?
 
-  # handle the cases the null checkbox being changed
   handleCheckboxChange: (e) ->
     e.preventDefault()
-    # check the status of the checkbox and disable/enable fields
     if @$("input[name='time_is_defined']").prop("checked")
-      @$("input[name='time']").prop('disabled', false)
-      defaultTime = @createDefault()
-      @$("input[name='time']").val(defaultTime)
-      @$("input[name='time']").timepicker('setTime', defaultTime)
+      @$("input[name='time']").prop('disabled', false).val(@createDefault())
     else
-      @$("input[name='time']").prop('disabled', true).val("")
-
-    # now handle the rest of the fields to create a new date
+      @$("input[name='time']").prop('disabled', true).val('')
     @handleChange(e)
 
-  # handle a change event on any of the fields.
   handleChange: (e) ->
     e.preventDefault()
     formData = @serialize()
-    newTimeString = null
 
     if formData.time_is_defined?
-      [time, period] = formData.time.split(' ')
-      [hour, minute] = time.split(':')
-      hour = parseInt(hour)
-      if (period == 'PM')
-        newTimeString = "#{hour + 12}:#{minute}:00"
-      else
-        if (hour == 12) 
-          hour = '00'
-        newTimeString = "#{hour}:#{minute}:00"
-      newTime = cqm.models.PrimitiveTime.parsePrimitive(newTimeString)
-      @value = newTime
+      @value = cqm.models.PrimitiveTime.parsePrimitive(formData.time)
       @trigger 'valueChanged', @
