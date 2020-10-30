@@ -21,6 +21,9 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
 
   createDefault: ->
     time = new cqm.models.CQL.DateTime(2000, 1, 1, 8, 0, 0, 0, 0).getTime()
+    @getTimeString(time)
+
+  getTimeString: (time) ->
     paddedHour = String("0#{time.hour}").slice(-2)
     paddedMin = String("0#{time.minute}").slice(-2)
     "#{paddedHour}:#{paddedMin}"
@@ -46,7 +49,6 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
   handleChange: (e) ->
     e.preventDefault()
     formData = @serialize()
-
-    if formData.time_is_defined?
-      @value = cqm.models.PrimitiveTime.parsePrimitive(formData.time)
-      @trigger 'valueChanged', @
+    @value = if !!formData.time then cqm.models.PrimitiveTime.parsePrimitive(formData.time) else null
+    console.log(@value)
+    @trigger 'valueChanged', @
