@@ -48,21 +48,24 @@ deactivate B
 
 A -> A : Convert patients to json format
 
-A --> User: QDM Patients in json format
+A -> A : Zip the json file
+
+A --> User: QDM Patients json zip file
 deactivate A
 
-User -> C : Import QDM patients- PatintController::import(patients, measureId)
+User -> C : Import QDM patients- PatintController::import(patientsZip, measureId)
 activate C
+C -> C: Unzip the patient zip file
 note left of A #skyblue
 upload patients exported
 from QDM Bonnie
 end note
 
-C -> E : Conver to FHIR
+C -> E : Convert to FHIR
 activate E
 
 E -> E: Perform conversion
-E --> C: Patients in FHIR format + error report(json response)
+E --> C: Patients in FHIR format + conversion outcome if any(json response)
 deactivate E
 
 alt #FFF Successful conversion

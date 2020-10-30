@@ -143,6 +143,69 @@ describe 'DataCriteriaHelpers', ->
       expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
       expect(primitiveDate.value).toEqual '2020-09-23'
 
+    it 'test stringifyType for different fhir primitive types', ->
+      # null value
+      stringValue = DataCriteriaHelpers.stringifyType(null)
+      expect(stringValue).toEqual 'null'
+
+      # code type
+      code = cqm.models.PrimitiveCode.parsePrimitive('code')
+      stringValue = DataCriteriaHelpers.stringifyType(code)
+      expect(stringValue).toEqual code.value
+
+      # string type
+      primitiveString = cqm.models.PrimitiveString.parsePrimitive('somestring')
+      stringValue = DataCriteriaHelpers.stringifyType(primitiveString)
+      expect(stringValue).toEqual primitiveString.value
+
+      # Integer type
+      primitiveInteger = cqm.models.PrimitiveInteger.parsePrimitive(12)
+      stringValue = DataCriteriaHelpers.stringifyType(primitiveInteger)
+      expect(stringValue).toEqual primitiveInteger.value.toString()
+
+      # Duration type
+      duration = new cqm.models.Duration()
+      duration.unit = cqm.models.PrimitiveString.parsePrimitive('ml')
+      duration.value = cqm.models.PrimitiveDecimal.parsePrimitive(100)
+      stringValue = DataCriteriaHelpers.stringifyType(duration)
+      expect(stringValue).toEqual "100 'ml'"
+
+      # Range type
+      range = new cqm.models.Range()
+      range.low = new cqm.models.SimpleQuantity()
+      range.low.unit = cqm.models.PrimitiveString.parsePrimitive('mg')
+      range.low.value = cqm.models.PrimitiveDecimal.parsePrimitive(12.5)
+      range.high = new cqm.models.SimpleQuantity()
+      range.high.unit = cqm.models.PrimitiveString.parsePrimitive('mg')
+      range.high.value = cqm.models.PrimitiveDecimal.parsePrimitive(15.1)
+      stringValue = DataCriteriaHelpers.stringifyType(range)
+      expect(stringValue).toEqual "12.5 - 15.1 mg"
+
+      # Ratio type
+      ratio = new cqm.models.Ratio()
+      ratio.numerator = cqm.models.Quantity.parse({value:1, unit: 'd'})
+      ratio.denominator = cqm.models.Quantity.parse({value:2, unit: 'd'})
+      stringValue = DataCriteriaHelpers.stringifyType(ratio)
+      expect(stringValue).toEqual "1 'd' : 2 'd'"
+
+      # Period type
+      period = cqm.models.Period.parse({
+          start:'2020-09-02T13:54:57',
+          end: '2020-10-02T13:54:57'
+        })
+      stringValue = DataCriteriaHelpers.stringifyType(period)
+      expect(stringValue).toEqual "09/02/2020 5:54 PM - 10/02/2020 5:54 PM"
+
+      # DateTime type
+      dateTime = cqm.models.PrimitiveDateTime.parsePrimitive( '2020-09-02T13:54:57')
+      stringValue = DataCriteriaHelpers.stringifyType(dateTime)
+      expect(stringValue).toEqual "09/02/2020 5:54 PM"
+
+      # Date type
+      primitiveDate = cqm.models.PrimitiveDate.parsePrimitive( '2020-09-02T13:54:57')
+      stringValue = DataCriteriaHelpers.stringifyType(primitiveDate)
+      expect(stringValue).toEqual "09/02/2020"
+
   describe 'Primary code path', ->
     it 'returns undefined (unsupported) for an empty DataElement getPrimaryCodePath', ->
       expect(DataCriteriaHelpers.getPrimaryCodePath(new cqm.models.DataElement())).toBeUndefined
@@ -188,7 +251,3 @@ describe 'DataCriteriaHelpers', ->
       expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].code.value).toEqual 'code'
       expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].system.value).toEqual 'system'
       expect(DataCriteriaHelpers.getPrimaryCodes(de)[0].version.value).toEqual 'version'
-
-
-
-

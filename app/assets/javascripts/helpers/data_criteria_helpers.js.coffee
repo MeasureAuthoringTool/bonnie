@@ -163,6 +163,53 @@
     resourceType = dataElement.fhir_resource?.resourceType
     return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find((attr) => attr.path is path)
 
+  @stringifyType: (type) ->
+    if type == null || type == undefined
+      return 'null'
+
+    if cqm.models.Coding.isCoding(type)
+      codeSystemName = @parent.measure.codeSystemMap()[type.system?.value] || type.system?.value
+      return "#{codeSystemName}: #{type.code?.value}"
+
+    if cqm.models.PrimitiveCode.isPrimitiveCode(type)                ||
+        cqm.models.PrimitiveString.isPrimitiveString(type)           ||
+        cqm.models.PrimitiveBoolean.isPrimitiveBoolean(type)         ||
+        cqm.models.PrimitiveInteger.isPrimitiveInteger(type)         ||
+        cqm.models.PrimitivePositiveInt.isPrimitivePositiveInt(type) ||
+        cqm.models.PrimitiveUnsignedInt.isPrimitiveUnsignedInt(type) ||
+        cqm.models.PrimitiveDecimal.isPrimitiveDecimal(type)         ||
+        cqm.models.PrimitiveId.isPrimitiveId(type)
+      return "#{type.value}"
+
+    if cqm.models.Duration.isDuration(type)  ||
+        cqm.models.Age.isAge(type)           ||
+        cqm.models.Quantity.isQuantity(type) ||
+        cqm.models.SimpleQuantity.isSimpleQuantity(type)
+      if !!type.unit?.value
+        return "#{type.value?.value} '#{type.unit?.value}'"
+      else
+        return "#{type.value?.value}"
+
+    if cqm.models.Range.isRange(type)
+      return "#{type.low?.value?.value || '?'} - #{type.high?.value?.value || '?'} #{type.high?.unit?.value}"
+
+    if cqm.models.Ratio.isRatio(type)
+      return "#{type.numerator?.value?.value} '#{type.numerator?.unit?.value}' : #{type.denominator?.value?.value} '#{type.denominator?.unit?.value}'"
+
+    if cqm.models.Period.isPeriod(type)
+      lowString = if type.start? then @stringifyType(type.start) else "null"
+      highString = if type.end? then @stringifyType(type.end) else "null"
+      return "#{lowString} - #{highString}"
+
+    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)
+      cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(type?.value)
+      return moment.utc(cqlValue.toJSDate()).format('L LT')
+
+    if cqm.models.PrimitiveDate.isPrimitiveDate(type)
+      cqlValue = DataCriteriaHelpers.getCQLDateFromString(type?.value)
+      return moment.utc(cqlValue.toJSDate()).format('L')
+    return JSON.stringify(type)
+
 # Data element attributes per resource type.
 # Each resource has an array of entries per attribute.
 # An attribute entry has necessary metadata to view/edit.

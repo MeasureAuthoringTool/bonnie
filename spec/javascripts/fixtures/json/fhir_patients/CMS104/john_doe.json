@@ -55,6 +55,15 @@
       "description": "ServiceRequest: Comfort Measures",
       "fhir_resource": {
         "resourceType": "ServiceRequest",
+        "extension": [
+          {
+            "url": "testextension",
+            "valueAge": {
+              "value": "3.0",
+              "unit": "day"
+            }
+          }
+        ],
         "code": {
           "coding": [
             {

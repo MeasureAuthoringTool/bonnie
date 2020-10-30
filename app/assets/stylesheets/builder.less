@@ -679,6 +679,33 @@
   .active-drop {
     background-color: fadeout(@blue-lightest, 75%);
   }
+  .edit-extension-container {
+    .text-disabled {
+      color: #918f8f;
+    }
+    .extension-value-selector {
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+  }
+
+  .extension-display-container {
+    .extension-value {
+      margin-left: 4%;
+    }
+    .expand_caret {
+      transform: scale(1.5);
+      margin-left: 8px;
+      margin-top: -4px;
+    }
+    a[aria-expanded='false'] > .expand_caret {
+      transform: scale(1.5) rotate(-90deg);
+    }
+    .delete-extension-btn {
+      margin-bottom: 6px;
+      cursor: pointer
+    }
+  }
 }
 .selectBoxIt-native {
   height: @input-height-base !important;
