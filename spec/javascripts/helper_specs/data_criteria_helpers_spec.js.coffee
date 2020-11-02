@@ -206,6 +206,22 @@ describe 'DataCriteriaHelpers', ->
       stringValue = DataCriteriaHelpers.stringifyType(primitiveDate)
       expect(stringValue).toEqual "09/02/2020"
 
+      # Coding type with codeSystemMap
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('SNOMEDCT')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('1234556')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+      stringValue = DataCriteriaHelpers.stringifyType(coding, {SNOMEDCT: 'SNOMEDCT', LOINC: 'LOINC'})
+      expect(stringValue).toEqual "SNOMEDCT: 1234556"
+
+      # Coding type when codeSystem map is not provided
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('system')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('5678910')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+      stringValue = DataCriteriaHelpers.stringifyType(coding)
+      expect(stringValue).toEqual "system: 5678910"
+
   describe 'Primary code path', ->
     it 'returns undefined (unsupported) for an empty DataElement getPrimaryCodePath', ->
       expect(DataCriteriaHelpers.getPrimaryCodePath(new cqm.models.DataElement())).toBeUndefined
