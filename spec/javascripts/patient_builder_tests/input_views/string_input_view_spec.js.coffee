@@ -10,7 +10,7 @@ describe 'InputView', ->
       expect(view.value).toBe null
 
       expect(view.$('input').prop('placeholder')).toEqual 'string'
-    
+
     it 'starts with valid initial value', ->
       view = new Thorax.Views.InputStringView(initialValue: 'bonnie test', allowNull: false)
       view.render()
@@ -27,7 +27,7 @@ describe 'InputView', ->
       expect(view.value).toBe null
 
       expect(view.$('input').prop('placeholder')).toEqual 'this is a string'
-    
+
     it 'value bcomes valid after entry', ->
       view = new Thorax.Views.InputStringView(allowNull: false)
       view.render()
@@ -40,8 +40,8 @@ describe 'InputView', ->
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toBe 'test string'
-    
+      expect(view.value.value).toBe 'test string'
+
     it 'value bcomes null and invalid after empty string is entered', ->
       view = new Thorax.Views.InputStringView(initialValue: 'starting string', allowNull: false)
       view.render()
