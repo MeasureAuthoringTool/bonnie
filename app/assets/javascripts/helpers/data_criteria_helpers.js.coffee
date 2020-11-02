@@ -790,7 +790,7 @@
             codeableConcept = new cqm.models.CodeableConcept()
             codeableConcept.coding = [ coding ]
             fhirResource?.reasonCode = [ codeableConcept ]
-        valueSets: () -> [FhirValueSets.CONDITION_CODES_VS]
+        valueSets: () -> [ConditionCodesValueSet.JSON]
         types: ['CodeableConcept']
       },
       {
