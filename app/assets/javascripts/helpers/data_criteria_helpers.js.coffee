@@ -201,6 +201,17 @@
       highString = if type.end? then @stringifyType(type.end) else "null"
       return "#{lowString} - #{highString}"
 
+    if cqm.models.PrimitiveTime.isPrimitiveTime(type)
+      [hour, minute] = type?.value.split(":")
+      hour = parseInt(hour)
+      period = 'AM'
+      if hour == 0
+        hour = 12
+      else if hour >= 12
+        hour -= 12
+        period = 'PM'
+      return "#{hour}:#{minute} #{period}"
+
     if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)
       cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(type?.value)
       return moment.utc(cqlValue.toJSDate()).format('L LT')
