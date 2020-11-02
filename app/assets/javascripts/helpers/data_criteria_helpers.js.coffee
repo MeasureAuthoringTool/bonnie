@@ -163,12 +163,12 @@
     resourceType = dataElement.fhir_resource?.resourceType
     return @DATA_ELEMENT_ATTRIBUTES[resourceType]?.find((attr) => attr.path is path)
 
-  @stringifyType: (type) ->
+  @stringifyType: (type, codeSystemMap) ->
     if type == null || type == undefined
       return 'null'
 
     if cqm.models.Coding.isCoding(type)
-      codeSystemName = @parent.measure.codeSystemMap()[type.system?.value] || type.system?.value
+      codeSystemName = codeSystemMap?[type.system?.value] || type.system?.value
       return "#{codeSystemName}: #{type.code?.value}"
 
     if cqm.models.PrimitiveCode.isPrimitiveCode(type)                ||
