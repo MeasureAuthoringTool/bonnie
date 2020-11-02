@@ -566,11 +566,7 @@
           if !fhirResource.hospitalization
             hospitalization = new cqm.models.EncounterHospitalization()
             fhirResource.hospitalization = hospitalization
-          if !coding?
-            fhirResource.hospitalization.admitSource = null
-          else
-            fhirResource.hospitalization.admitSource = new cqm.models.CodeableConcept()
-            fhirResource.hospitalization.admitSource.coding = [coding]
+          fhirResource.hospitalization.admitSource = @getCodeableConceptForCoding(coding)
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.ENCOUNTER_ADMIT_SOURCE_VS]
       },
@@ -584,11 +580,7 @@
           if !fhirResource.hospitalization
             hospitalization = new cqm.models.EncounterHospitalization()
             fhirResource.hospitalization = hospitalization
-          if !coding?
-            fhirResource.hospitalization.dischargeDisposition = null
-          else
-            fhirResource.hospitalization.dischargeDisposition = new cqm.models.CodeableConcept()
-            fhirResource.hospitalization.dischargeDisposition.coding = [coding]
+          fhirResource.hospitalization.dischargeDisposition = @getCodeableConceptForCoding(coding)
         types: [
           'CodeableConcept' # User will see 'CodeableConcept', but it works with Coding behind the scenes
         ]
@@ -632,11 +624,7 @@
         title: 'statusReason'
         getValue: (fhirResource) => fhirResource?.statusReason?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          if !coding?
-            fhirResource.statusReason = null
-          else
-            fhirResource.statusReason = [new cqm.models.CodeableConcept()]
-            fhirResource.statusReason[0].coding = [coding]
+          fhirResource.statusReason = [@getCodeableConceptForCoding(coding)]
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
       },
@@ -648,11 +636,7 @@
         setValue: (fhirResource, coding) =>
           if !fhirResource.MedicationAdministrationDosage
             fhirResource.dosage = new cqm.models.MedicationAdministrationDosage()
-          if !coding?
-            fhirResource.dosage.route = null
-          else
-            fhirResource.dosage.route = new cqm.models.CodeableConcept()
-            fhirResource.dosage.route.coding = [coding]
+          fhirResource.dosage.route = @getCodeableConceptForCoding(coding)
         types: ['CodeableConcept']
         valueSets: () => [FhirValueSets.ROUTE_CODES_VS]
       },
@@ -675,11 +659,7 @@
         title: 'reasonCode',
         getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          if !coding?
-            fhirResource.reasonCode = null
-          else
-            fhirResource.reasonCode = [new cqm.models.CodeableConcept()]
-            fhirResource.reasonCode[0].coding = [coding]
+          fhirResource.reasonCode = [@getCodeableConceptForCoding(coding)]
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
       },
@@ -715,11 +695,7 @@
         title: 'category'
         getValue: (fhirResource) => fhirResource?.category?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          if !coding?
-            fhirResource.category = null
-          else
-            fhirResource.category = [new cqm.models.CodeableConcept()]
-            fhirResource.category[0].coding = [ coding ]
+          fhirResource.category = [@getCodeableConceptForCoding(coding)]
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
       },
