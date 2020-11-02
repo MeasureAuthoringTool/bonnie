@@ -50,5 +50,4 @@ class Thorax.Views.InputTimeView extends Thorax.Views.BonnieView
     e.preventDefault()
     formData = @serialize()
     @value = if !!formData.time then cqm.models.PrimitiveTime.parsePrimitive(formData.time) else null
-    console.log(@value)
     @trigger 'valueChanged', @
