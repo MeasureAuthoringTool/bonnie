@@ -170,8 +170,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @expectedValuesView.serialize(children: false)
 
   drop: (e, ui) ->
-    patientDataCriteria = $(ui.draggable).model().clone()
-    patientDataCriteria.setNewId()
+    return @dropCriteria($(ui.draggable).model())
+
+  dropCriteria: (droppedPatientDataCriteria, newId) ->
+    patientDataCriteria = droppedPatientDataCriteria.clone()
+    if (!newId?)
+      patientDataCriteria.setNewId()
     patientDataCriteria.set('criteria_id', Thorax.Models.SourceDataCriteria.generateCriteriaId())
     fhirResource = patientDataCriteria.get('dataElement').fhir_resource
 
@@ -188,6 +192,26 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         fhirResource[timingAttr.name] = DataCriteriaHelpers.getPrimitiveDateForCqlDate(@createDefaultDate())
     @addCriteria patientDataCriteria
     return false
+
+  # resourceType, newFhirId, valueSetId, @dataElement
+  addChildCriteria: (resourceType, newId, valueSetId, parentDataElement) ->
+    valueSet = @measure.get('cqmValueSets').find (vs) => vs.id is valueSetId
+
+    dataElement = new cqm.models.DataElement()
+    dataElement.codeListId = valueSetId
+    title = if valueSetId is 'custom' then 'Custom' else valueSet?.title
+    dataElement.valueSetTitle = title
+    dataElement.description = resourceType + ": " + title
+    dataElement.fhir_resource = new cqm.models[resourceType]()
+    dataElement.fhir_resource.id = newId
+    dataElement.id = newId
+
+    dataElementAsObject = dataElement.toJSON()
+    dataElementAsObject.dataElement = dataElement
+    patientDataCriteria = new Thorax.Models.SourceDataCriteria(dataElementAsObject)
+
+    # TODO correct data elements order and relations to drop cascade
+    @dropCriteria(patientDataCriteria, newId)
 
   registerChild: (child) ->
     child.on 'bonnie:materialize', @materialize, this

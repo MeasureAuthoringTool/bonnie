@@ -15,6 +15,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
         title: attr.title
         types: attr.types
         valueSets: attr.valueSets?()
+        isReference: attr.isReference
       )
 #    TODO FHIR attributes
 #    @dataElement.schema.eachPath (path, info) =>
@@ -54,7 +55,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     if newAttributeName != ""
       @currentAttribute = @attributeList.find((attr) -> attr.name == newAttributeName)
       if @currentAttribute?
-        @currentAttributeType = @currentAttribute.types[0]
+        @currentAttributeType = if @currentAttribute.isReference then 'Reference' else @currentAttribute.types[0]
         @_setupAttributeInputView()
         @render()
     else
@@ -85,17 +86,18 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     e.preventDefault()
     # double check we have a currently selected attribute and a valid value
     if @currentAttribute? && @inputView?.hasValidValue()
-      DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)?.setValue(@dataElement.fhir_resource, @inputView.value)
-#      if @inputView.value.isRelatedTo
-#        value = @inputView.value.id
-#      else
-#        value = @inputView.value
-#
-#      if @currentAttribute.isArray
-#        @dataElement[@currentAttribute.name] = [] if !@dataElement[@currentAttribute.name]?
-#        @dataElement[@currentAttribute.name].push(value)
-#      else
-#        @dataElement[@currentAttribute.name] = value
+      attrMeta = DataCriteriaHelpers.getAttribute(@dataElement, @currentAttribute.name)
+      if @currentAttribute.isReference
+        resourceType = @inputView.value?.type
+        valueSetId = @inputView.value?.vs
+        newFhirId = cqm.ObjectID().toHexString()
+        reference = new cqm.models.Reference()
+        reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + newFhirId)
+        attrMeta?.setValue(@dataElement.fhir_resource, reference)
+        @parent.parent.parent.addChildCriteria(resourceType, newFhirId, valueSetId, @dataElement)
+      else
+        attrMeta?.setValue(@dataElement.fhir_resource, @inputView.value)
+
       @trigger 'attributesModified', @
 
       # reset back to no selections
@@ -129,6 +131,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'id' then new Thorax.Views.InputIdView()
       when 'Boolean' then new Thorax.Views.InputBooleanView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
+      when 'Reference' then new Thorax.Views.InputReferenceView({ allowNull: false, types: @currentAttribute.types, parentDataElement: @dataElement, cqmValueSets: @parent.measure.get('cqmValueSets') })
       when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.parent.parent.model.get('source_data_criteria'), currentDataElementId: @dataElement.id)
       else null
     @showInputViewPlaceholder = !@inputView?
@@ -154,7 +157,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
 #      else if @currentAttribute.isRelatedTo
 #        @_createInputViewForType('relatedTo') # Use custom view for relatedTo, not String
 #      else
-        @_createInputViewForType(@currentAttributeType)
+      @_createInputViewForType(@currentAttributeType)
     else
       @inputView = null
       @showInputViewPlaceholder = false

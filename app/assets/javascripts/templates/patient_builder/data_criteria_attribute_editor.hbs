@@ -14,8 +14,8 @@
         <label for="attribute_type_{{@cid}}" class="sr-only">type</label>
         <select autocomplete="off" name="attribute_type" id="attribute_type_{{@cid}}" class="form-control">
           {{#if currentAttribute}}
-            {{#if currentAttribute.isRelatedTo}}
-              <option value="Data Element" selected="selected">Data Element</option>
+            {{#if currentAttribute.isReference}}
+              <option value="Reference" selected="selected">Reference</option>
             {{else}}
               {{#each currentAttribute.types}}
                 <option value="{{this}}"{{#ifCond this '==' ../currentAttributeType}} selected="selected"{{/ifCond}}>{{this}}</option>

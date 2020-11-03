@@ -1,0 +1,28 @@
+<div class="row reference-input-view">
+  <div class="reference-type-select form-group col-md-6">
+    <label for="type_{{cid}}" class="sr-only">{{attributeName}} type selection</label>
+    <select autocomplete="off" name="type" id="type_{{cid}}" class="form-control">
+        <option value="">--</option>
+        {{#each types}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="reference-input-entry col-md-6">
+    <div class="reference-input-selection">Add linked reference {{attributeName}} field.</div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="reference-control-valueset form-group col-md-12">
+        <label for="valueset_{{cid}}" class="sr-only">value set</label>
+        <select autocomplete="off" name="valueset" id="valueset_{{cid}}" class="form-control">
+            <option value="--" selected>Value Set / Direct Reference Code</option>
+            <option value="custom">Custom Code</option>
+            {{#each cqmValueSets}}
+                <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+</div>
