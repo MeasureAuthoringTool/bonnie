@@ -8,14 +8,13 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
   #   referenceTypes - list of reference types (data elements to be created)
   #   cqmValueSets - value sets to display for the data elements to be created
   initialize: ->
-    @value = {}
-    @value.type = ''
+    @value = { 'type': null, 'vs': null }
 
   events:
     'change select[name="referenceType"]': 'handleTypeChange'
     'change select[name="valueset"]': 'handleValueSetChange'
     rendered: ->
-      if @value.type == ''
+      if !@value?.type?
         @$('select[name="referenceType"] > option:first').prop('selected', true)
       else
         @$("select[name=\"referenceType\"] > option[value=\"#{@value.type}\"]").prop('selected', true)
@@ -42,7 +41,10 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
 #   Event listener for select change event on the main select box for chosing custom or from valueset code
   handleValueSetChange: (e) ->
     valueSetId = @$('select[name="valueset"]').val()
-    @value.vs = valueSetId
+    if valueSetId != '--'
+      @value.vs = valueSetId
+    else
+      @value.vs = null
     @trigger 'valueChanged', @
     @render()
 
