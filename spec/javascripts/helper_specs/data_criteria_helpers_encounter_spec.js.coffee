@@ -4,9 +4,34 @@ describe 'DataCriteriaHelpers', ->
     it 'should support Encounter.class', ->
       DataCriteriaAsserts.assertCoding('Encounter', 'class', 'class')
 
+    it 'should support Encounter.diagnosis.condition', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attrs).toBeDefined
+      attr = attrs.find (attr) => attr.path is 'diagnosis.condition'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'diagnosis.condition'
+      expect(attr.title).toBe 'diagnosis.condition'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Reference'
+      expect(attr.referenceTypes.length).toBe 2
+      expect(attr.referenceTypes[0]).toBe 'Condition'
+      expect(attr.referenceTypes[1]).toBe 'Procedure'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Reference()
+      valueToSet.reference = cqm.models.PrimitiveString.parsePrimitive('Condition/12345')
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.reference.value).toBe 'Condition/12345'
+
     it 'should support Encounter.length', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
-      expect(attr).toBeDefined
+      expect(attrs).toBeDefined
       attr = attrs.find (attr) => attr.path is 'length'
       expect(attr).toBeDefined
       expect(attr.path).toBe 'length'
