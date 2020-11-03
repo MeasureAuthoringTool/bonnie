@@ -28,16 +28,10 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
 
     attr = DataCriteriaHelpers.getAttribute(@dataElement, attributeName)
     val = attr.getValue(@dataElement.fhir_resource)
-    if attr?.isReference && val?
+    if val? && cqm.models.Reference.isReference(val)
       [resourceType, resourceId] = val.reference?.value?.split('/')
       if (resourceType? && resourceId?)
-        cqmPatient = @parent.parent.parent.model.get('cqmPatient')
-        # Update data elements
-        cqmPatient?.data_elements = cqmPatient?.data_elements.filter (el) ->
-          el.fhir_resource?.id != resourceId || el.fhir_resource.resourceType != resourceType
-        # Find corresponding EditCriteriaView and drop the model
-        editCriteriaView = Object.values(this.parent?.parent?.children).find((view) -> view.model.get('dataElement').fhir_resource.id == resourceId)
-        editCriteriaView.model.destroy()
+        this.parent?.parent?.parent?.deleteCriteriaById(resourceId)
 
     attr?.setValue(@dataElement.fhir_resource, null)
 

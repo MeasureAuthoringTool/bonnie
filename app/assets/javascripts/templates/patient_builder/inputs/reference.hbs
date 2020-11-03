@@ -1,11 +1,11 @@
 <div class="row reference-input-view">
   <div class="reference-type-select form-group col-md-6">
-    <label for="type_{{cid}}" class="sr-only">{{attributeName}} type selection</label>
-    <select autocomplete="off" name="type" id="type_{{cid}}" class="form-control">
+    <label for="referenceType_{{cid}}" class="sr-only">{{attributeName}} type selection</label>
+    <select autocomplete="off" name="referenceType" id="referenceType_{{cid}}" class="form-control">
         <option value="">--</option>
-        {{#each types}}
+        {{#each referenceTypes}}
         <option value="{{this}}">{{this}}</option>
-      {{/each}}
+        {{/each}}
     </select>
   </div>
 

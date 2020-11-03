@@ -75,6 +75,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       }
     ]
 
+  deleteCriteriaById: (resourceId) ->
+    editCriteriaView = Object.values(@editCriteriaCollectionView.children).find((view) -> view.model.get('dataElement').fhir_resource.id == resourceId)
+    editCriteriaView.model.destroy()
 
   dataCriteriaCategories: ->
     categories = {}

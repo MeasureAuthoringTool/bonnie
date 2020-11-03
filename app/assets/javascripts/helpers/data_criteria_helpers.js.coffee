@@ -523,9 +523,10 @@
         setValue: (fhirResource, reference) =>
           fhirResource?['diagnosis'] = [ new cqm.models.EncounterDiagnosis() ] unless fhirResource?['diagnosis']?
           fhirResource?['diagnosis'][0]?.condition = reference
-        isReference: true
-        # Can be a reference to Condition or Procedure
-        types: ['Condition', 'Procedure']
+        types: ['Reference']
+        # Reference can be a part of Choice type, so we keep referenceTypes[] separate from types[]
+        # Reference a Condition or a Procedure resource
+        referenceTypes: ['Condition', 'Procedure']
       },
       {
         path: 'length'

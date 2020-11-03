@@ -5,20 +5,20 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
 
   # Expected options to be passed in using the constructor options hash:
   #   parentDataElement - The data element owning the reference being created
-  #   types - list of reference types (data elements to be created)
+  #   referenceTypes - list of reference types (data elements to be created)
   #   cqmValueSets - value sets to display for the data elements to be created
   initialize: ->
     @value = {}
     @value.type = ''
 
   events:
-    'change select[name="type"]': 'handleTypeChange'
+    'change select[name="referenceType"]': 'handleTypeChange'
     'change select[name="valueset"]': 'handleValueSetChange'
     rendered: ->
       if @value.type == ''
-        @$('select[name="type"] > option:first').prop('selected', true)
+        @$('select[name="referenceType"] > option:first').prop('selected', true)
       else
-        @$("select[name=\"type\"] > option[value=\"#{@value.type}\"]").prop('selected', true)
+        @$("select[name=\"referenceType\"] > option[value=\"#{@value.type}\"]").prop('selected', true)
       if !@value?.vs?
         @$('select[name="valueset"] > option:first').prop('selected', true)
       else
@@ -31,7 +31,7 @@ class Thorax.Views.InputReferenceView extends Thorax.Views.BonnieView
 
   # Event listener for select change event on the main select box for chosing custom or from valueset code
   handleTypeChange: (e) ->
-    type = @$('select[name="type"]').val()
+    type = @$('select[name="referenceType"]').val()
     if type != ''
       @value.type = type
     else
