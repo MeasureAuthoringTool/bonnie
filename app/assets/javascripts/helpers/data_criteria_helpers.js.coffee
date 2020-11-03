@@ -336,7 +336,8 @@
         title: 'bodySite',
         getValue: (fhirResource) => fhirResource?.bodySite?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          fhirResource.bodySite = [@getCodeableConceptForCoding(coding)]
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource?.bodySite = if codeableConcept? then [codeableConcept] else codeableConcept
         types: [
           'CodeableConcept'
         ],
@@ -347,7 +348,8 @@
         title: 'category',
         getValue: (fhirResource) => fhirResource?.category?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          fhirResource.category = [ @getCodeableConceptForCoding(coding) ]
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource?.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: [
           'CodeableConcept'
         ],
@@ -405,7 +407,8 @@
         title: 'usedCode',
         getValue: (fhirResource) => fhirResource?.usedCode?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          fhirResource.usedCode = [@getCodeableConceptForCoding(coding)]
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource.usedCode = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept'],
         valueSets: () -> [DeviceKindValueSet.JSON]
       }
@@ -466,7 +469,8 @@
         title: 'category',
         getValue: (fhirResource) => fhirResource.category?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          fhirResource.category = [@getCodeableConceptForCoding(coding)]
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource?.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept'],
         valueSets: () -> [ObservationCategoryCodesValueSet.JSON]
       }
@@ -624,7 +628,8 @@
         title: 'statusReason'
         getValue: (fhirResource) => fhirResource?.statusReason?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          fhirResource.statusReason = [@getCodeableConceptForCoding(coding)]
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource?.statusReason = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
       },
@@ -659,7 +664,8 @@
         title: 'reasonCode',
         getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          fhirResource.reasonCode = [@getCodeableConceptForCoding(coding)]
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource?.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
       },
@@ -695,7 +701,8 @@
         title: 'category'
         getValue: (fhirResource) => fhirResource?.category?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          fhirResource.category = [@getCodeableConceptForCoding(coding)]
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource?.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
       },
@@ -769,7 +776,8 @@
         title: 'reasonCode'
         getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
-          fhirResource?.reasonCode = [@getCodeableConceptForCoding(coding)]
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource?.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         valueSets: () -> [ConditionCodesValueSet.JSON]
         types: ['CodeableConcept']
       },
