@@ -1,36 +1,5 @@
 describe 'DataCriteriaHelpers', ->
 
-  beforeEach ->
-    @assertCodingWithType = (resourceType, path, title, type) ->
-      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
-      expect(attr).toBeDefined
-      attr = attrs.find (attr) => attr.path is path
-      expect(attr.path).toBe path
-      expect(attr.title).toBe title
-      expect(attr.types.length).toBe 1
-      expect(attr.types[0]).toBe type
-
-      fhirResource = new cqm.models[resourceType]()
-      expect(attr.getValue(fhirResource)).toBeUndefined
-
-      valueToSet = new cqm.models.Coding()
-      valueToSet.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
-      valueToSet.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
-
-      attr.setValue(fhirResource, valueToSet)
-
-      # clone the resource to make sure setter/getter work with correct data type
-      value = attr.getValue(fhirResource.clone())
-      expect(value).toBeDefined
-      expect(value.code.value).toBe 'code1'
-      expect(value.system.value).toBe 'system1'
-
-    @assertCodeableConcept = (resourceType, path, title) ->
-      @assertCodingWithType(resourceType, path, title, 'CodeableConcept')
-
-    @assertCoding = (resourceType, path, title) ->
-      @assertCodingWithType(resourceType, path, title, 'Coding')
-
   it 'has data_element_categories and primary_date_attributes', ->
     expect(Object.keys(DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES).length).toEqual 32
     expect(DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES['Encounter']).toEqual { period: 'Period' }
@@ -142,6 +111,20 @@ describe 'DataCriteriaHelpers', ->
       primitiveDate = DataCriteriaHelpers.getPrimitiveDateForStringDateTime(dateTime.toString())
       expect(primitiveDate instanceof cqm.models.PrimitiveDate).toEqual true
       expect(primitiveDate.value).toEqual '2020-09-23'
+
+    it 'creates CodeableConcept from Coding', ->
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('SNOMEDCT')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('1234556')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+
+      codeableConcept = DataCriteriaHelpers.getCodeableConceptForCoding(coding)
+      expect(codeableConcept instanceof cqm.models.CodeableConcept).toBeTruthy()
+      expect(codeableConcept.coding[0].system.value).toEqual(coding.system.value)
+
+    it 'creates CodeableConcept from Coding if no coding', ->
+      codeableConcept = DataCriteriaHelpers.getCodeableConceptForCoding()
+      expect(codeableConcept).toBeNull()
 
     it 'test stringifyType for different fhir primitive types', ->
       # null value
