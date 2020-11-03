@@ -1,7 +1,7 @@
 <div class="row reference-input-view">
   <div class="reference-type-select form-group col-md-6">
     <label for="referenceType_{{cid}}" class="sr-only">{{attributeName}} type selection</label>
-    <select autocomplete="off" name="referenceType" id="referenceType_{{cid}}" class="form-control">
+    <select autocomplete="off" name="referenceType" id="referenceType_{{cid}}" class="form-control" data-cy="referenceType-select">
         <option value="">--</option>
         {{#each referenceTypes}}
         <option value="{{this}}">{{this}}</option>
@@ -17,7 +17,7 @@
 <div class="row">
     <div class="reference-control-valueset form-group col-md-12">
         <label for="valueset_{{cid}}" class="sr-only">value set</label>
-        <select autocomplete="off" name="valueset" id="valueset_{{cid}}" class="form-control">
+        <select autocomplete="off" name="valueset" id="valueset_{{cid}}" class="form-control" data-cy="valueset-select">
             <option value="--" selected>Value Set / Direct Reference Code</option>
             <option value="custom">Custom Code</option>
             {{#each cqmValueSets}}
