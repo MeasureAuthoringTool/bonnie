@@ -337,7 +337,7 @@
         getValue: (fhirResource) => fhirResource?.bodySite?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
-          fhirResource?.bodySite = if codeableConcept? then [codeableConcept] else codeableConcept
+          fhirResource.bodySite = if codeableConcept? then [codeableConcept] else codeableConcept
         types: [
           'CodeableConcept'
         ],
@@ -349,7 +349,7 @@
         getValue: (fhirResource) => fhirResource?.category?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
-          fhirResource?.category = if codeableConcept? then [codeableConcept] else codeableConcept
+          fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: [
           'CodeableConcept'
         ],
@@ -438,9 +438,9 @@
         getValue: (fhirResource) => fhirResource?.status?.value
         setValue: (fhirResource, codeValue) =>
           if (codeValue)
-            fhirResource?.status = cqm.models.ObservationStatus.parsePrimitive(codeValue)
+            fhirResource.status = cqm.models.ObservationStatus.parsePrimitive(codeValue)
           else
-            fhirResource?.status = null
+            fhirResource.status = null
         types: ['Code']
         valueSets: () => [ObservationStatusValueSet.JSON]
       },
@@ -470,7 +470,7 @@
         getValue: (fhirResource) => fhirResource.category?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
-          fhirResource?.category = if codeableConcept? then [codeableConcept] else codeableConcept
+          fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept'],
         valueSets: () -> [ObservationCategoryCodesValueSet.JSON]
       }
@@ -629,7 +629,7 @@
         getValue: (fhirResource) => fhirResource?.statusReason?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
-          fhirResource?.statusReason = if codeableConcept? then [codeableConcept] else codeableConcept
+          fhirResource.statusReason = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_NOT_GIVEN_VS]
       },
@@ -665,7 +665,7 @@
         getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
-          fhirResource?.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
+          fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
       },
@@ -702,7 +702,7 @@
         getValue: (fhirResource) => fhirResource?.category?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
-          fhirResource?.category = if codeableConcept? then [codeableConcept] else codeableConcept
+          fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.MEDICATION_REQUEST_CATEGORY_VS]
       },
@@ -777,7 +777,7 @@
         getValue: (fhirResource) => fhirResource?.reasonCode?[0]?.coding?[0]
         setValue: (fhirResource, coding) =>
           codeableConcept = @getCodeableConceptForCoding(coding)
-          fhirResource?.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
+          fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         valueSets: () -> [ConditionCodesValueSet.JSON]
         types: ['CodeableConcept']
       },
