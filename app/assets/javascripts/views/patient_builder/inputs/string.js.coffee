@@ -28,7 +28,7 @@ class Thorax.Views.InputStringView extends Thorax.Views.BonnieView
   handleInputChange: (e) ->
     inputValue = @$(e.target).val()
     if inputValue != ''
-      @value = inputValue
+      @value = cqm.models.PrimitiveString.parsePrimitive(inputValue)
     else
       @value = null
     @trigger 'valueChanged', @
