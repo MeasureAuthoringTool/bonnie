@@ -481,7 +481,7 @@
         title: 'effective',
         getValue: (fhirResource) => fhirResource.effective
         setValue: (fhirResource, value) =>
-          attrType = value?.constructor?.name
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.effective = @getPrimitiveDateTimeForCqlDateTime(value)
           else
@@ -508,7 +508,7 @@
           else
             fhirResource.component?[0]?.value
         setValue: (fhirResource, value) =>
-          attrType = value?.constructor?.name
+          attrType = value?.getTypeName?() || value?.constructor?.name
           unless fhirResource.component?
             fhirResource.component = [new cqm.models.ObservationComponent()]
           if attrType == 'DateTime'
