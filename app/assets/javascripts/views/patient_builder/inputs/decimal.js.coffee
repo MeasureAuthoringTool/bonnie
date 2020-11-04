@@ -28,9 +28,11 @@ class Thorax.Views.InputDecimalView extends Thorax.Views.BonnieView
   handleInputChange: (e) ->
     inputValue = @$(e.target).val()
     if inputValue != ''
-      @value = parseFloat(inputValue)
-      if @value == NaN
+      parsed = parseFloat(inputValue)
+      if isNaN(parsed)
         @value = null
+      else
+        @value = cqm.models.PrimitiveDecimal.parsePrimitive(parsed)
     else
       @value = null
     @trigger 'valueChanged', @

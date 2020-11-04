@@ -228,6 +228,16 @@
     if cqm.models.PrimitiveDate.isPrimitiveDate(type)
       cqlValue = DataCriteriaHelpers.getCQLDateFromString(type?.value)
       return moment.utc(cqlValue.toJSDate()).format('L')
+
+    if cqm.models.SampledData.isSampledData(type)
+      return "origin : #{@stringifyType(type.origin)} |
+              period : #{@stringifyType(type.period)} |
+              dimensions : #{@stringifyType(type.dimensions)} |
+              factor : #{@stringifyType(type.factor)} |
+              lower limit : #{@stringifyType(type.lowerLimit)} |
+              upper limit : #{@stringifyType(type.upperLimit)} |
+              data : #{@stringifyType(type.data)}"
+
     return JSON.stringify(type)
 
 # Data element attributes per resource type.
@@ -463,7 +473,7 @@
           else
             fhirResource?.value = value
         types: ['Boolean', 'CodeableConcept', 'DateTime', 'Integer', 'Period',
-            'Quantity', 'Range', 'Ratio', 'SampleData', 'String', 'Time'],
+            'Quantity', 'Range', 'Ratio', 'SampledData', 'String', 'Time'],
         valueSets: () -> []
       },
       {
@@ -727,7 +737,7 @@
           fhirResource.reasonCode = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept']
         valueSets: () -> [FhirValueSets.REASON_MEDICATION_GIVEN_VS]
-      },
+      }
     ]
     MedicationDispense: []
     MedicationRequest: [
