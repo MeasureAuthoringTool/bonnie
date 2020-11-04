@@ -19,7 +19,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value.path).toEqual 'value'
       expect(value.title).toEqual 'value'
       expect(value.types).toEqual ['Boolean', 'CodeableConcept', 'DateTime', 'Integer', 'Period',
-        'Quantity', 'Range', 'Ratio', 'SampleData', 'String', 'Time']
+        'Quantity', 'Range', 'Ratio', 'SampledData', 'String', 'Time']
 
       # set Boolean value
       valueBoolean = cqm.models.PrimitiveBoolean.parsePrimitive(true)
@@ -69,4 +69,34 @@ describe 'DataCriteriaHelpers', ->
       expect(attrValue.system.value).toEqual coding.system.value
       expect(attrValue.code.value).toEqual coding.code.value
       expect(attrValue.version.value).toEqual coding.version.value
+
+      # set SampledData value
+      valueSampledData = new cqm.models.SampledData()
+      valueSampledData.origin = new cqm.models.SimpleQuantity()
+      valueSampledData.origin.value = cqm.models.PrimitiveDecimal.parsePrimitive(2)
+
+      valueSampledData.period = new cqm.models.PrimitiveDecimal()
+      valueSampledData.period.value = cqm.models.PrimitiveDecimal.parsePrimitive(3.0)
+
+      valueSampledData.dimensions = new cqm.models.PrimitivePositiveInt()
+      valueSampledData.dimensions.value = cqm.models.PrimitivePositiveInt.parsePrimitive(4)
+
+      valueSampledData.lowerLimit = new cqm.models.PrimitiveDecimal()
+      valueSampledData.lowerLimit.value = cqm.models.PrimitiveDecimal.parsePrimitive(3.0)
+
+      valueSampledData.upperLimit = new cqm.models.PrimitiveDecimal()
+      valueSampledData.upperLimit = cqm.models.PrimitiveDecimal.parsePrimitive(4.0)
+
+      valueSampledData.data = new cqm.models.PrimitiveString()
+      valueSampledData.data = cqm.models.PrimitiveString.parsePrimitive("E")
+
+      value.setValue(fhirResource, valueSampledData)
+      attrValue = value.getValue(fhirResource)
+      expect(attrValue.origin).toEqual valueSampledData.origin
+      expect(attrValue.period).toEqual valueSampledData.period
+      expect(attrValue.dimensions).toEqual valueSampledData.dimensions
+      expect(attrValue.lowerLimit).toEqual valueSampledData.lowerLimit
+      expect(attrValue.upperLimit).toEqual valueSampledData.upperLimit
+      expect(attrValue.data).toEqual valueSampledData.data
+
 
