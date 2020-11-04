@@ -14,7 +14,7 @@
     <span class="sr-only">dimensions positive integer</span>
     {{view dimensionsView}}
   </div>
-  <div class="collapse" id="optionalElements">
+  <div class="collapse" id="optionalElements_{{@cid}}">
     <div class="form-group col-md-12 factor-view">
       <div class="control-label">Factor</div>
       <span class="sr-only">factor decimal</span>
@@ -37,8 +37,11 @@
     </div>
   </div>
   <div class="form-group col-md-12">
-    {{#button trigger="optionalToggled" class="btn btn-primary btn-sm" id="toggle"
-              type="button" data-toggle="collapse" data-target="#optionalElements" data-cy="optional_toogle"
-              aria-expanded="false" aria-controls="optionalElements"}}Show Optional Elements{{/button}}
+    <label for="toggle_{{@cid}}" class="sr-only">Toggle</label>
+    <button id="toggle_{{@cid}}" type="button" data-toggle="collapse"
+            data-target="#optionalElements_{{@cid}}" data-cy="optional_toggle"
+            aria-expanded="false" aria-controls="optionalElements_{{@cid}}"
+            class="btn btn-primary btn-sm"
+            data-trigger-event="optionalToggled">Show Optional Elements</button>
   </div>
 </div>
