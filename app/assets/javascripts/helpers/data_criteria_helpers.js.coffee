@@ -144,7 +144,7 @@
     cqm.models.PrimitiveDate.parsePrimitive cqlDate.toString()
 
   @getPrimaryCodePath: (dataElement) ->
-    return cqm.models[dataElement.fhir_resource?.constructor?.name]?.primaryCodePath
+    return cqm.models[dataElement.fhir_resource?.getTypeName()]?.primaryCodePath
 
   @getPrimaryCodes: (dataElement) ->
     return dataElement?.fhir_resource?.primaryCode?.coding || []
@@ -172,6 +172,9 @@
   @stringifyType: (type, codeSystemMap) ->
     if type == null || type == undefined
       return 'null'
+
+    if cqm.models.Reference.isReference(type)
+      return "#{type.reference.value}"
 
     if cqm.models.Coding.isCoding(type)
       codeSystemName = codeSystemMap?[type.system?.value] || type.system?.value
@@ -259,7 +262,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          attrType = value?.constructor?.name
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
@@ -308,7 +311,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          attrType = value?.constructor?.name
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
@@ -322,7 +325,7 @@
         title: 'abatement',
         getValue: (fhirResource) => fhirResource?.abatement
         setValue: (fhirResource, value) =>
-          attrType = value?.constructor?.name
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
@@ -375,7 +378,7 @@
         title: 'performed',
         getValue: (fhirResource) => fhirResource?.performed
         setValue: (fhirResource, value) =>
-          attrType = value?.constructor?.name
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.performed = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Period'
@@ -426,7 +429,6 @@
           else
             fhirResource?.status = null
         types: ['Code']
-        #FIXME
         valueSets: () => [DiagnosticReportStatusValueSet.JSON]
       }
     ]
@@ -453,7 +455,7 @@
           else
             fhirResource?.value
         setValue: (fhirResource, value) =>
-          attrType = value?.constructor?.name
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.value = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Coding'
@@ -526,6 +528,18 @@
             fhirResource?['class'] = coding
         types: ['Coding']
         valueSets: () => [FhirValueSets.ACT_ENCOUNTER_CODE_VS]
+      },
+      {
+        path: 'diagnosis.condition'
+        title: 'diagnosis.condition'
+        getValue: (fhirResource) => fhirResource?['diagnosis']?[0]?.condition
+        setValue: (fhirResource, reference) =>
+          fhirResource?['diagnosis'] = [ new cqm.models.EncounterDiagnosis() ] unless fhirResource?['diagnosis']?
+          fhirResource?['diagnosis'][0]?.condition = reference
+        types: ['Reference']
+        # Reference can be a part of Choice type, so we keep referenceTypes[] separate from types[]
+        # Reference a Condition or a Procedure resource
+        referenceTypes: ['Condition', 'Procedure']
       },
       {
         path: 'length'

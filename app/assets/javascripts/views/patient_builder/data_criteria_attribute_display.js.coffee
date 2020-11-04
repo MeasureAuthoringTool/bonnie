@@ -27,8 +27,15 @@ class Thorax.Views.DataCriteriaAttributeDisplayView extends Thorax.Views.BonnieV
 #    attributeIndex = $(e.target).data('attribute-index')
 
     attr = DataCriteriaHelpers.getAttribute(@dataElement, attributeName)
+    val = attr.getValue(@dataElement.fhir_resource)
+    if val? && cqm.models.Reference.isReference(val)
+      [resourceType, resourceId] = val.reference?.value?.split('/')
+      if (resourceType? && resourceId?)
+        this.parent?.parent?.parent?.deleteCriteriaById(resourceId)
+
     attr?.setValue(@dataElement.fhir_resource, null)
-    #    # if we are removing an element in an array attribute
+
+#    # if we are removing an element in an array attribute
 #    if attributeIndex != undefined
 #      asArray = attr.getValue(@dataElement.fhir_resource)
 #      asArray.splice(attributeIndex, 1)

@@ -27,7 +27,10 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
   setNewId: ->
     # Create and set a new id for the data element
     new_id = cqm.ObjectID().toHexString()
+    # DataElement.id
     @get('dataElement').id = new_id
+    # FHIR id
+    @get('dataElement').fhir_resource.id = new_id
     @set 'id', new_id
 
   measure: -> bonnie.measures.findWhere set_id: @get('set_id')
@@ -196,7 +199,8 @@ class Thorax.Collections.SourceDataCriteria extends Thorax.Collection
   addSourceDataCriteriaToPatient: (criteria) ->
     cqmPatient = @parent?.get('cqmPatient')
     cqmPatient.data_elements = [] unless cqmPatient.data_elements
-    cqmPatient.data_elements.push(criteria.get('dataElement'));
+    dataElement = criteria.get('dataElement')
+    cqmPatient.data_elements.push(dataElement)
 
   # event listener for remove SDC event. if this collection belongs to a patient the
   # DataElement will be removed from the DataElements array.
