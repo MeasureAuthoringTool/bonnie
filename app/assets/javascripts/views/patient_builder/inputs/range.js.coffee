@@ -13,21 +13,43 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
     'keyup input': 'handleInputChange'
 
   hasValidValue: ->
-    if (!!@value?.low?.value?.value ^ !!@value?.high?.value?.value ^ @value?.low?.value?.value <= @value?.high?.value?.value)
+    if @value?.low? && @value?.high?
+      return @value?.low?.value?.value <= @value?.high?.value?.value
+    else if @value?.low? || @value?.high?
       return true
     else
       return false
 
   handleInputChange: ->
     inputData = @serialize()
-    if inputData?.low_value || inputData?.high_value
-      @value = new cqm.models.Range()
-      @value.low = new cqm.models.SimpleQuantity()
-      @value.low.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.unit)
-      @value.low.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.low_value))
-      @value.high = new cqm.models.SimpleQuantity()
-      @value.high.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.unit)
-      @value.high.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.high_value))
+
+    # @value should be null by default
+    @value = null
+    if inputData?.unit?.length && !@isValidUcum(inputData?.unit)
+      @$('.range-control-unit').addClass('has-error')
     else
-      @value = null
+      @$('.range-control-unit').removeClass('has-error')
+      unit = if !inputData?.unit?.length then null else cqm.models.PrimitiveString.parsePrimitive(inputData.unit)
+      if inputData?.low_value?
+        lowValue = parseFloat(inputData.low_value)
+        if !isNaN(lowValue)
+          @value = new cqm.models.Range() unless @value?
+          @value.low = new cqm.models.SimpleQuantity()
+          @value.low.unit = unit
+          @value.low.value = cqm.models.PrimitiveDecimal.parsePrimitive(lowValue)
+
+      if inputData?.high_value?
+        highValue = parseFloat(inputData.high_value)
+        if !isNaN(highValue)
+          @value = new cqm.models.Range() unless @value?
+          @value.high = new cqm.models.SimpleQuantity()
+          @value.high.unit = unit
+          @value.high.value = cqm.models.PrimitiveDecimal.parsePrimitive(highValue)
     @trigger 'valueChanged', @
+
+  isValidUcum: (unit) ->
+    try
+      new cqm.models.CQL.Quantity(1, unit)
+      return true
+    catch error
+      return false
