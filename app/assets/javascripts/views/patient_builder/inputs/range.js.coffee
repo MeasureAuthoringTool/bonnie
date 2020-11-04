@@ -14,13 +14,10 @@ class Thorax.Views.InputRangeView extends Thorax.Views.BonnieView
 
   hasValidValue: ->
     if @value?.low? && @value?.high?
-      console.log('both exist ' + (@value?.low?.value?.value <= @value?.high?.value?.value))
       return @value?.low?.value?.value <= @value?.high?.value?.value
     else if @value?.low? || @value?.high?
-      console.log('one exists ' + true)
       return true
     else
-      console.log('none exists ' + false)
       return false
 
   handleInputChange: ->
