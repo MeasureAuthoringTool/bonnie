@@ -73,8 +73,8 @@ class Thorax.Views.InputSampledDataView extends Thorax.Views.BonnieView
     @update view for view in @subviews when view.hasValidValue()
     @trigger 'valueChanged', @
 
-  updateButton: ->
-    if $('#toggle').text() == 'Show Optional Elements'
-      $('#toggle').text('Hide Optional Elements')
+  updateButton: (e) ->
+    if $(e.target).text() == 'Show Optional Elements'
+      $(e.target).text('Hide Optional Elements')
     else
-      $('#toggle').text('Show Optional Elements')
+      $(e.target).text('Show Optional Elements')
