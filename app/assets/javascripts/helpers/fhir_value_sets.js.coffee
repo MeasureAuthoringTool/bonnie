@@ -27,6 +27,7 @@
     @_codeSystemMap['http://terminology.hl7.org/CodeSystem/medicationrequest-status-reason'] = 'MedicationRequest Status Reason Codes'
     @_codeSystemMap['http://hl7.org/fhir/diagnostic-report-status'] = 'DiagnosticReportStatus'
     @_codeSystemMap['http://terminology.hl7.org/CodeSystem/observation-category'] = 'ObservationCategoryCodes'
+    @_codeSystemMap['http://loinc.org'] = 'LOINCCodes'
 
     return @_codeSystemMap
 

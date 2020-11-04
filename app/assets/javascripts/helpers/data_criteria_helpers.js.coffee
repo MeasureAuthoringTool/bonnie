@@ -475,6 +475,51 @@
           fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
         types: ['CodeableConcept'],
         valueSets: () -> [ObservationCategoryCodesValueSet.JSON]
+      },
+      {
+        path: 'effective',
+        title: 'effective',
+        getValue: (fhirResource) => fhirResource.effective
+        setValue: (fhirResource, value) =>
+          attrType = value?.getTypeName?() || value?.constructor?.name
+          if attrType == 'DateTime'
+            fhirResource.effective = @getPrimitiveDateTimeForCqlDateTime(value)
+          else
+            fhirResource.effective = value
+        types: ['DateTime', 'Period', 'Timing', 'Instant']
+      },
+      {
+        path: 'component.code',
+        title: 'component.code',
+        getValue: (fhirResource) => fhirResource.component?[0]?.code?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          unless fhirResource.component?
+            fhirResource.component = [new cqm.models.ObservationComponent()]
+          fhirResource.component[0].code = @getCodeableConceptForCoding(coding)
+        types: ['CodeableConcept'],
+        valueSets: () => [LOINCCodesValueSet.JSON]
+      },
+      {
+        path: 'component.value',
+        title: 'component.value',
+        getValue: (fhirResource) =>
+          if  cqm.models.CodeableConcept.isCodeableConcept(fhirResource.component?[0]?.value)
+            fhirResource.component[0].value.coding?[0]
+          else
+            fhirResource.component?[0]?.value
+        setValue: (fhirResource, value) =>
+          attrType = value?.getTypeName?() || value?.constructor?.name
+          unless fhirResource.component?
+            fhirResource.component = [new cqm.models.ObservationComponent()]
+          if attrType == 'DateTime'
+            fhirResource.component[0].value = @getPrimitiveDateTimeForCqlDateTime(value)
+          else if attrType == 'Coding'
+            fhirResource.component[0].value = @getCodeableConceptForCoding(value)
+          else
+            fhirResource.component[0].value = value
+        types: ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer',
+            'Range', 'Ratio', 'SampledData','Time', 'DateTime', 'Period'],
+        valueSets: () => []
       }
     ]
     Specimen: []
