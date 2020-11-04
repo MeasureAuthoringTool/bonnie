@@ -262,7 +262,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName()
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
@@ -311,7 +311,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName()
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
@@ -325,7 +325,7 @@
         title: 'abatement',
         getValue: (fhirResource) => fhirResource?.abatement
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName()
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
@@ -378,7 +378,7 @@
         title: 'performed',
         getValue: (fhirResource) => fhirResource?.performed
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName()
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.performed = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Period'
@@ -455,7 +455,7 @@
           else
             fhirResource?.value
         setValue: (fhirResource, value) =>
-          attrType = value?.constructor?.name
+          attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
             fhirResource.value = @getPrimitiveDateTimeForCqlDateTime(value)
           else if attrType == 'Coding'
