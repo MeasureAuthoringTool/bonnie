@@ -179,17 +179,17 @@ namespace :bonnie do
 
     desc %{Export Bonnie patients to a JSON file.
 
-    You must identify the user by EMAIL, include a set_id, and
+    You must identify the user by EMAIL, include a SET_ID, and
     an output filename using FILENAME
 
-    $ rake bonnie:patients:export_patients EMAIL=xxx set_id=1948-138412-1414 FILENAME=CMS100_pations.json}
+    $ rake bonnie:patients:export_patients EMAIL=xxx SET_ID=1948-138412-1414 FILENAME=CMS100_pations.json}
     task :export_patients => :environment do
       # Grab user account
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to pull patients from
-      raise "#{ENV['set_id']} set_id not found" unless measure = CQM::Measure.find_by(user_id: user._id, set_id: ENV['set_id'])
+      raise "#{ENV['SET_ID']} SET_ID not found" unless measure = CQM::Measure.find_by(user_id: user._id, set_id: ENV['SET_ID'])
 
       # Grab the patients
       patients = CQM::Patient.where(user_id: user._id, measure_ids: measure.set_id)
@@ -209,17 +209,17 @@ namespace :bonnie do
     desc %{Import Bonnie patients from a JSON file.
     The JSON file must be the one that is generated using the export_patients rake task.
 
-    You must identify the user by EMAIL, include a set_id,
+    You must identify the user by EMAIL, include a SET_ID,
     the name of the file to be imported using FILENAME
 
-    $ rake bonnie:patients:import_patients EMAIL=xxx set_id=1924-55295295-23425 FILENAME=CMS100_patients.json}
+    $ rake bonnie:patients:import_patients EMAIL=xxx SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json}
     task :import_patients => :environment do
       # Grab user account
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to add patients to
-      user_measure = ENV['set_id']
+      user_measure = ENV['SET_ID']
       raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(user_id: user._id, set_id: user_measure)
 
       # Import patient objects from JSON file and save
@@ -234,22 +234,25 @@ namespace :bonnie do
         patient['measure_ids'] = []
         patient['measure_ids'] << measure.set_id
 
-        unless patient.expectedValues.nil?
-          patient.expectedValues.each do |expected_value|
+        unless patient.expected_values.nil?
+          patient.expected_values.each do |expected_value|
             expected_value['measure_id'] = measure.set_id
           end
         end
 
-        all_codes = HQMF::PopulationCriteria::ALL_POPULATION_CODES
+        all_codes = CQM::Measure::ALL_POPULATION_CODES
         all_codes.each do |code|
-          if !patient.expectedValues[0][code].nil? && measure.population_sets[0].populations[code].nil?
-            patient.expectedValues.each do |expected_value|
+          if !patient.expected_values[0][code].nil? && measure.population_sets[0].populations[code].nil?
+            patient.expected_values.each do |expected_value|
               expected_value.delete(code)
             end
           end
         end
 
-        patient.dup.save!
+        new_patient = patient.dup
+        new_patient.save!
+        new_patient['fhir_patient']['fhirId'] = new_patient['_id'].to_s
+        new_patient.upsert
       end
 
       puts "Done!"
@@ -319,7 +322,7 @@ namespace :bonnie do
     the source measure by SOURCE_SET_ID,
     and the destination measure by DEST_SET_ID
 
-    $ rake bonnie:patients:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_set_id=100 DEST_SET_ID=101}
+    $ rake bonnie:patients:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_SET_ID=100 DEST_SET_ID=101}
     task :move_measure_patients => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
