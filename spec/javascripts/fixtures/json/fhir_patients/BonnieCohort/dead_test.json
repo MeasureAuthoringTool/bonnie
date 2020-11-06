@@ -16,7 +16,7 @@
       {
         "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
         "valueCoding": {
-          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "system": "urn:oid:2.16.840.1.113883.6.238",
           "code": "1002-5",
           "display": "American Indian or Alaska Native",
           "userSelected": true
@@ -25,7 +25,7 @@
       {
         "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
         "valueCoding": {
-          "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+          "system": "urn:oid:2.16.840.1.113883.6.238",
           "code": "2135-2",
           "display": "Hispanic or Latino",
           "userSelected": true

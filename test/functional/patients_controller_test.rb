@@ -58,7 +58,7 @@ include Devise::Test::ControllerHelpers
             {
               "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
               "valueCoding": {
-                "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+                "system": "urn:oid:2.16.840.1.113883.6.238",
                 "code": "2076-8",
                 "display": "Native Hawaiian or Other Pacific Islander",
                 "userSelected": true
@@ -67,7 +67,7 @@ include Devise::Test::ControllerHelpers
             {
               "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
               "valueCoding": {
-                "system": "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html",
+                "system": "urn:oid:2.16.840.1.113883.6.238",
                 "code": "2186-5",
                 "display": "Not Hispanic or Latino",
                 "userSelected": true
