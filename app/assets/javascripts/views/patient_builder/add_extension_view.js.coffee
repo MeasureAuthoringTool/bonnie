@@ -16,7 +16,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
     @toggleAddBtn()
 
   toggleAddBtn: ->
-    if @url && /^\S+$/.test(@url)
+    if @url && /^\S+$/.test(@url) && (@selectedValueTypeView?.hasValidValue() || !@selectedValueTypeView?)
       @$('#add_extension').removeAttr('disabled')
     else
       @$('#add_extension').attr('disabled', 'disabled')
@@ -53,6 +53,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
         when 'Ratio' then new Thorax.Views.InputRatioView()
         else null
       @showInputViewPlaceholder = !@selectedValueTypeView?
+      @listenTo(@selectedValueTypeView, 'valueChanged', @toggleAddBtn) if @selectedValueTypeView?
     else
       @selectedValueTypeView = null
 
