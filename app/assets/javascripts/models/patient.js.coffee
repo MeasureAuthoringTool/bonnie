@@ -136,7 +136,7 @@ class Thorax.Models.Patient extends Thorax.Model
     newRaceExtension = cqm.models.Extension.parse({
       url: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
       valueCoding: {
-        system: "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html"
+        system: "urn:oid:2.16.840.1.113883.6.238"
         code: race.code
         display: race.display
         userSelected: true
@@ -161,7 +161,7 @@ class Thorax.Models.Patient extends Thorax.Model
     newEthnicityExtension = cqm.models.Extension.parse({
       url: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
       valueCoding: {
-        system: "http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html"
+        system: "urn:oid:2.16.840.1.113883.6.238"
         code: ethnicity.code
         display: ethnicity.display
         userSelected: true

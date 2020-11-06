@@ -131,13 +131,13 @@ describe 'PatientBuilderView', ->
       raceElement = (fhirPatient.extension.find (ext) -> ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race")
       expect(raceElement.value.code.value).toEqual '2131-1'
       expect(raceElement.value.display.value).toEqual 'Other Race'
-      expect(raceElement.value.system.value).toEqual 'http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html'
+      expect(raceElement.value.system.value).toEqual 'urn:oid:2.16.840.1.113883.6.238'
       expect(raceElement.value.userSelected.value).toEqual true
 
       ethnicityElement = (fhirPatient.extension.find (ext) -> ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity")
       expect(ethnicityElement.value.code.value).toEqual '2135-2'
       expect(ethnicityElement.value.display.value).toEqual 'Hispanic or Latino'
-      expect(ethnicityElement.value.system.value).toEqual 'http://hl7.org/fhir/us/core/STU3.1/CodeSystem-cdcrec.html'
+      expect(ethnicityElement.value.system.value).toEqual 'urn:oid:2.16.840.1.113883.6.238'
       expect(ethnicityElement.value.userSelected.value).toEqual true
 
     it "displayes correct values on the UI after saving", ->
