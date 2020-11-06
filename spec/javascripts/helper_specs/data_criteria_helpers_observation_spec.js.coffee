@@ -90,8 +90,8 @@ describe 'DataCriteriaHelpers', ->
       valueSampledData.data = new cqm.models.PrimitiveString()
       valueSampledData.data = cqm.models.PrimitiveString.parsePrimitive("E")
 
-      value.setValue(fhirResource, valueSampledData)
-      attrValue = value.getValue(fhirResource)
+      attribute.setValue(fhirResource, valueSampledData)
+      attrValue = attribute.getValue(fhirResource)
       expect(attrValue.origin).toEqual valueSampledData.origin
       expect(attrValue.period).toEqual valueSampledData.period
       expect(attrValue.dimensions).toEqual valueSampledData.dimensions
