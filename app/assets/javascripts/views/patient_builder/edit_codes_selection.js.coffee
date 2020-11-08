@@ -22,17 +22,15 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     if system is 'custom'
       system = @$('input[name="custom_codesystem"]').val()
       code = @$('input[name="custom_code"]').val()
+
     @codeSystemMap = @measure.codeSystemMap() unless @codeSystemMap
-    @codeSystemMapReversed = Object.fromEntries(Object.entries(@codeSystemMap).map((m) => m.reverse()))
-    # Try to resolve code system name to an oid, if not default to the name
-    systemOid = @codeSystemMapReversed[system] || system
 
     # add the code unless there is a pre-existing code with the same codesystem/code
     duplicate_exists = @codes.some (c) => (@codeSystemMap[c.system?.value] is system or c.system?.value is system) and c.code?.value is code
     if !duplicate_exists
       index = @codes.length
       cqlCoding = new cqm.models.Coding()
-      cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(systemOid)
+      cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(@getCodeSystemFhirUri(system))
       cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(code)
       cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
       @codes.push(cqlCoding)
@@ -44,6 +42,16 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     @parent.triggerMaterialize()
     @$(':focusable:visible:first').focus()
 
+  # FHIR identifies Code Systems by a custom, FHIR specific, URI.
+  # The codeSystemMap contains key/value pairs of FHIR URI and system names.
+  # This reverses the map to look up the FHIR URI by the system name.
+  getCodeSystemFhirUri: (system) ->
+    @codeSystemMap = @measure.codeSystemMap() unless @codeSystemMap
+    unless @codeSystemMapReversed?
+      @codeSystemMapReversed = Object.fromEntries(Object.entries(@codeSystemMap).map((m) => m.reverse()))
+    # Try to resolve code system name to a FHIR URI, if not default to the name
+    systemUri = @codeSystemMapReversed[system] || system
+
   addDefaultCodeToDataElement: ->
     codes = DataCriteriaHelpers.getPrimaryCodes @parent.model.get('dataElement')
     if (codes)
@@ -51,7 +59,7 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
       # Make sure there is a default code that can be added
       if @concepts?.length
         cqlCoding = new cqm.models.Coding()
-        cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(@concepts[0].system)
+        cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(@getCodeSystemFhirUri(@concepts[0].system))
         cqlCoding.version = cqm.models.PrimitiveString.parsePrimitive(@concepts[0].version)
         cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(@concepts[0].concept[0].code)
         cqlCoding.display = cqm.models.PrimitiveString.parsePrimitive(@concepts[0].concept[0].display)

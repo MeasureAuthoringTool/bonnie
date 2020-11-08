@@ -44,7 +44,7 @@ describe 'InputView', ->
 
       # pick system
       view.$('select[name="vs_codesystem"] > option[value="encounter-status"]').prop('selected', true).change()
-      expect(view.$('select[name="vs_codesystem"]').val()).toBe 'encounter-status'
+      expect(view.$('select[name="vs_codesystem"]').val()).toBe 'http://hl7.org/fhir/encounter-status'
       expect(view.hasValidValue()).toBe true
 
       # pick code
