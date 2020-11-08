@@ -28,6 +28,15 @@
     @_codeSystemMap['http://hl7.org/fhir/diagnostic-report-status'] = 'DiagnosticReportStatus'
     @_codeSystemMap['http://terminology.hl7.org/CodeSystem/observation-category'] = 'ObservationCategoryCodes'
     @_codeSystemMap['http://loinc.org'] = 'LOINCCodes'
+    # Source: https://www.hl7.org/fhir/terminologies-systems.html#tabs-ext & https://cts.nlm.nih.gov/fhir/index.html
+    @_codeSystemMap['http://loinc.org'] = 'LOINC'
+    @_codeSystemMap['http://snomed.info/sct'] = 'SNOMEDCT'
+    @_codeSystemMap['http://www.ama-assn.org/go/cpt'] = 'CPT'
+    # Source: https://cts.nlm.nih.gov/fhir/index.html
+    @_codeSystemMap['http://www.nlm.nih.gov/research/umls/sop'] = 'SOP'
+    @_codeSystemMap['http://hl7.org/fhir/sid/icd-9-cm'] = 'ICD9CM' #Source: https://cts.nlm.nih.gov/fhir/index.html
+    @_codeSystemMap['http://www.icd10data.com/icd10pcs'] = 'ICD10PCS' #Source: https://cts.nlm.nih.gov/fhir/index.html
+    @_codeSystemMap['http://hl7.org/fhir/sid/icd-10-cm'] = 'ICD10CM' #Source: https://cts.nlm.nih.gov/fhir/index.html
 
     return @_codeSystemMap
 
