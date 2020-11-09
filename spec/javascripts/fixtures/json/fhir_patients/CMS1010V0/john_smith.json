@@ -9,21 +9,39 @@
     "extension": [
       {
         "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
-        "valueCoding": {
-          "system": "urn:oid:2.16.840.1.113883.6.238",
-          "code": "2054-5",
-          "display": "Black or African American",
-          "userSelected": true
-        }
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2054-5",
+              "display": "Black or African American",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "White"
+          }
+        ]
       },
       {
         "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
-        "valueCoding": {
-          "system": "urn:oid:2.16.840.1.113883.6.238",
-          "code": "2135-2",
-          "display": "Hispanic or Latino",
-          "userSelected": true
-        }
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2135-2",
+              "display": "Hispanic or Latino",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "Not Hispanic or Latino"
+          }
+        ]
       }
     ],
     "name": [

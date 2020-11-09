@@ -27,6 +27,22 @@ describe 'Patient', ->
     clone = @patient.deepClone({dedupName: true})
     expect(clone.getFirstName()).toEqual @patient.getFirstName() + " (1)"
 
+  it 'updates patient race', ->
+    race = {code: '2106-3', display: 'White'}
+    @patient.setCqmPatientRace(race)
+    raceExt = @patient.get('cqmPatient').fhir_patient.extension.find (ext) ->
+      ext.url.value == 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race'
+    expect(raceExt.extension[0].value.code.value).toEqual race.code
+    expect(raceExt.extension[0].value.display.value).toEqual race.display
+
+  it 'updates patient ethnicity', ->
+    ethnicity = {code: '2186-5', display: 'Not Hispanic or Latino'}
+    @patient.setCqmPatientEthnicity(ethnicity)
+    ethnicityExt = @patient.get('cqmPatient').fhir_patient.extension.find (ext) ->
+      ext.url.value == 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity'
+    expect(ethnicityExt.extension[0].value.code.value).toEqual ethnicity.code
+    expect(ethnicityExt.extension[0].value.display.value).toEqual ethnicity.display
+
   # it 'correctly sorts criteria by multiple attributes', ->
   #   # Patient has for existing criteria; first get their current order
   #   startOrder = @patient1.get('source_data_criteria').map (dc) -> dc.cid
