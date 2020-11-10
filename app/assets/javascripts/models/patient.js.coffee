@@ -61,12 +61,12 @@ class Thorax.Models.Patient extends Thorax.Model
   getRace: ->
     raceExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
-    {code: raceExt?.extension[0].value.code.value, display: raceExt?.extension[0].value.display.value}
+    {code: raceExt?.extension?[0]?.value?.code?.value, display: raceExt?.extension?[0]?.value?.display?.value}
 
   getEthnicity: ->
     ethnicityExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
-    {code: ethnicityExt?.extension[0].value.code.value, display: ethnicityExt?.extension[0].value.display.value}
+    {code: ethnicityExt?.extension?[0]?.value?.code?.value, display: ethnicityExt?.extension?[0]?.value?.display?.value}
 
   getPayer: ->
 # TODO

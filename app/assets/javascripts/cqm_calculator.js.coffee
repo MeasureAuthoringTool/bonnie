@@ -117,8 +117,9 @@
 
     cqmMeasure = measure.get('cqmMeasure')
     cqmMeasure.measure_period = {
-      low: {value: new Date},
-      high: {value: new Date}
+      # TODO: Update measurement period
+      low: {value: new Date('2019-01-01')},
+      high: {value: new Date('2019-12-31')}
     }
     cqmPatients = resultsNeedingCalc.map (result) -> result.patient.get('cqmPatient')
 
