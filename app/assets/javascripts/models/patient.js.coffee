@@ -59,14 +59,14 @@ class Thorax.Models.Patient extends Thorax.Model
     {code: genderElement?.value, display: genderElement?.value}
 
   getRace: ->
-    currentRaceExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
+    raceExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
-    {code: currentRaceExt?.value.code.value, display: currentRaceExt?.value.display.value}
+    {code: raceExt?.extension[0].value.code.value, display: raceExt?.extension[0].value.display.value}
 
   getEthnicity: ->
-    currentEthnicityExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
+    ethnicityExt = @get('cqmPatient').fhir_patient.extension?.find (ext) ->
       ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
-    {code: currentEthnicityExt?.value.code.value, display: currentEthnicityExt?.value.display.value}
+    {code: ethnicityExt?.extension[0].value.code.value, display: ethnicityExt?.extension[0].value.display.value}
 
   getPayer: ->
 # TODO
@@ -122,50 +122,54 @@ class Thorax.Models.Patient extends Thorax.Model
   setCqmPatientRace: (race) ->
     @get('cqmPatient').fhir_patient.extension = [] unless @get('cqmPatient').fhir_patient.extension
 
-    # Exit early if this is being called with the fhir_patient's current race
-    currentRaceExt = @get('cqmPatient').fhir_patient.extension.find (ext) ->
-      ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
-    return if currentRaceExt && currentRaceExt.value.code.value == race.code
-    # Eliminate the existing race extension, but leave others in place
-    if currentRaceExt
-      raceFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
-        ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
-      @get('cqmPatient').fhir_patient.extension = raceFreeExtensions
+    @get('cqmPatient').fhir_patient.extension = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
+      ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
 
     # Build and assign new race extension to fhir_patient
     newRaceExtension = cqm.models.Extension.parse({
       url: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
-      valueCoding: {
-        system: "urn:oid:2.16.840.1.113883.6.238"
-        code: race.code
-        display: race.display
-        userSelected: true
-      }
+      extension: [
+        {
+          url: 'ombCategory'
+          valueCoding: {
+            system: 'urn:oid:2.16.840.1.113883.6.238'
+            code: race.code
+            display: race.display
+            userSelected: true
+          }
+        },
+        {
+          url: "text",
+          valueString: race.display
+        }
+      ]
     })
     @get('cqmPatient').fhir_patient.extension.push(newRaceExtension)
 
   setCqmPatientEthnicity: (ethnicity) ->
     @get('cqmPatient').fhir_patient.extension = [] unless @get('cqmPatient').fhir_patient.extension
-
-    # Exit early if this is being called with the fhir_patient's current ethnicity
-    currentEthnicityExt = @get('cqmPatient').fhir_patient.extension.find (ext) ->
-      ext.url.value == "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
-    return if currentEthnicityExt && currentEthnicityExt.value.code.value == ethnicity.code
-    # Eliminate the existing ethnicity extension, but leave others in place
-    if currentEthnicityExt
-      ethnicityFreeExtensions = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
-        ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
-      @get('cqmPatient').fhir_patient.extension = ethnicityFreeExtensions
+    # retain non ethnicity extensions
+    @get('cqmPatient').fhir_patient.extension = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
+      ext.url.value != "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
 
     # Build and assign new ethnicity extension to fhir_patient
     newEthnicityExtension = cqm.models.Extension.parse({
-      url: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
-      valueCoding: {
-        system: "urn:oid:2.16.840.1.113883.6.238"
-        code: ethnicity.code
-        display: ethnicity.display
-        userSelected: true
-      }
+      url: 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity'
+      extension: [
+        {
+          url: 'ombCategory'
+          valueCoding: {
+            system: "urn:oid:2.16.840.1.113883.6.238"
+            code: ethnicity.code
+            display: ethnicity.display
+            userSelected: true
+          }
+        },
+        {
+          url: 'text'
+          valueString: ethnicity.display
+        }
+      ]
     })
     @get('cqmPatient').fhir_patient.extension.push(newEthnicityExtension)
 
