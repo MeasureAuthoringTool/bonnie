@@ -147,7 +147,6 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('cqmPatient').fhir_patient.extension.push(newRaceExtension)
 
   setCqmPatientEthnicity: (ethnicity) ->
-    debugger
     @get('cqmPatient').fhir_patient.extension = [] unless @get('cqmPatient').fhir_patient.extension
     # retain non ethnicity extensions
     @get('cqmPatient').fhir_patient.extension = @get('cqmPatient').fhir_patient.extension.filter (ext) ->
