@@ -12,12 +12,6 @@ class Thorax.Models.Measure extends Thorax.Model
     thoraxMeasure.cqmMeasure = cqm.models.CqmMeasure.parse(attrs)
     thoraxMeasure.id = thoraxMeasure.cqmMeasure.id
 
-    # Default measure period to 2020.
-    unless thoraxMeasure.cqmMeasure.measure_period
-      thoraxMeasure.cqmMeasure.measure_period = {
-        low: { value: '2020-01-01T00:00:00.000Z' },
-        high: { value: '2020-12-31T23:59.59.999Z' }}
-
     # TODO: migrate to thoraxMeasure.cqmValueSets = thoraxMeasure.cqmMeasure.value_sets
     if attrs.value_sets?
       thoraxMeasure.cqmValueSets = attrs.value_sets
@@ -178,14 +172,15 @@ class Thorax.Models.Measure extends Thorax.Model
       return @_localIdCache[libraryName][statementName]
 
   getMeasurePeriodYear: ->
-    if typeof @get('cqmMeasure').measure_period.low.value == 'string'
-      Number.parseInt(@get('cqmMeasure').measure_period.low.value[0..3])
+    if typeof @get('cqmMeasure').measure_period.start == 'string'
+      Number.parseInt(@get('cqmMeasure').measure_period.start[0..3])
     else
-      Number.parseInt(@get('cqmMeasure').measure_period.low.value.getFullYear())
+      Number.parseInt(@get('cqmMeasure').measure_period.start?.getFullYear())
 
+  # TODO: String addition will not work- fix in update mp story
   setMeasurePeriodYear: (year) ->
-    @get('cqmMeasure').measure_period.low.value = year + @get('cqmMeasure').measure_period.low.value[4..]
-    @get('cqmMeasure').measure_period.high.value = year + @get('cqmMeasure').measure_period.high.value[4..]
+    @get('cqmMeasure').measure_period.start = year + @get('cqmMeasure').measure_period.start[4..]
+    @get('cqmMeasure').measure_period.end = year + @get('cqmMeasure').measure_period.end[4..]
 
 
 class Thorax.Collections.Measures extends Thorax.Collection
