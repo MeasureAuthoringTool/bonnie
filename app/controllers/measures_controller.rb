@@ -75,7 +75,7 @@ class MeasuresController < ApplicationController
     is_valid_year = year.to_i == year.to_f && year.length == 4 && year.to_i >= 1 && year.to_i <= 9999
 
     if is_valid_year
-      original_year = measure.measure_period['low']['value'][0..3]
+      original_year = measure.measure_period['start'][0..3]
       year_shift = year.to_i - original_year.to_i
       successful_patient_shift = if params[:measurement_period_shift_dates].present?
                                    shift_years(measure, year_shift)
@@ -83,17 +83,9 @@ class MeasuresController < ApplicationController
                                    true
                                  end
       if successful_patient_shift
-        measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
-        measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
+        measure.measure_period['start'] = year + '-01-01' # Jan 1
+        measure.measure_period['end'] = year + '-12-31' # Dec 31
         measure.save!
-        if measure.composite?
-          measure.component_set_ids.each do |set_id|
-            component_measure = CQM::Measure.by_user(current_user).where(set_id: set_id).first
-            component_measure.measure_period['low']['value'] = year + '01010000' # Jan 1, 00:00
-            component_measure.measure_period['high']['value'] = year + '12312359' # Dec 31, 23:59
-            component_measure.save!
-          end
-        end
       end
 
     else
@@ -141,36 +133,38 @@ class MeasuresController < ApplicationController
   end
 
   def shift_years(measure, year_shift)
+    return true
+    # TODO: not implemented for patients and data elements yet
     # Copy the patients to make sure there are no errors before saving every patient
-    patients = CQM::Patient.by_user_and_set_id(current_user, measure.set_id).all.entries
-    errored_patients = []
-    patients.each do |patient|
-      begin
-        patient_birthdate_year = patient.qdmPatient.birthDatetime.year
-        if year_shift + patient_birthdate_year > 9999 || year_shift + patient_birthdate_year < 0001
-          raise RangeError
-        end
-        patient.qdmPatient.birthDatetime = shift_birth_datetime(patient.qdmPatient.birthDatetime, year_shift)
-        patient.qdmPatient.dataElements.each do |data_element|
-          data_element.shift_years(year_shift)
-        end
-      rescue RangeError => e
-        errored_patients << patient
-      end
-    end
-
-    if errored_patients.empty?
-      patients.each(&:save!)
-      return true
-    else
-      body_text = 'Element(s) on '
-      errored_patients.each { |patient| body_text += patient.givenNames[0] + ' ' + patient.familyName + ', '}
-      body_text += 'could not be shifted. Please make sure shift will keep all years between 1 and 9999'
-      flash[:error] = { title: 'Error Updating Measurement Period',
-                        summary: 'Error Updating Measurement Period',
-                        body: body_text }
-      return false
-    end
+    # patients = CQM::Patient.by_user_and_set_id(current_user, measure.set_id).all.entries
+    # errored_patients = []
+    # patients.each do |patient|
+    #   begin
+    #     patient_birthdate_year = patient.fhir_patient.birthDatetime.year
+    #     if year_shift + patient_birthdate_year > 9999 || year_shift + patient_birthdate_year < 0001
+    #       raise RangeError
+    #     end
+    #     patient.fhir_patient.birthDatetime = shift_birth_datetime(patient.qdmPatient.birthDatetime, year_shift)
+    #     patient.fhir_patient.dataElements.each do |data_element|
+    #       data_element.shift_years(year_shift)
+    #     end
+    #   rescue RangeError => e
+    #     errored_patients << patient
+    #   end
+    # end
+    #
+    # if errored_patients.empty?
+    #   patients.each(&:save!)
+    #   return true
+    # else
+    #   body_text = 'Element(s) on '
+    #   errored_patients.each { |patient| body_text += patient.givenNames[0] + ' ' + patient.familyName + ', '}
+    #   body_text += 'could not be shifted. Please make sure shift will keep all years between 1 and 9999'
+    #   flash[:error] = { title: 'Error Updating Measurement Period',
+    #                     summary: 'Error Updating Measurement Period',
+    #                     body: body_text }
+    #   return false
+    # end
   end
 
   def shift_birth_datetime(birth_datetime, year_shift)
