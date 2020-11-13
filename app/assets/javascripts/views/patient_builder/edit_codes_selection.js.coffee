@@ -46,11 +46,8 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
   # The codeSystemMap contains key/value pairs of FHIR URI and system names.
   # This reverses the map to look up the FHIR URI by the system name.
   getCodeSystemFhirUri: (system) ->
-    @codeSystemMap = @measure.codeSystemMap() unless @codeSystemMap
-    unless @codeSystemMapReversed?
-      @codeSystemMapReversed = Object.fromEntries(Object.entries(@codeSystemMap).map((m) => m.reverse()))
     # Try to resolve code system name to a FHIR URI, if not default to the name
-    systemUri = @codeSystemMapReversed[system] || system
+    FhirValueSets.codeSystemFhirUriMap()[system] || system
 
   addDefaultCodeToDataElement: ->
     codes = DataCriteriaHelpers.getPrimaryCodes @parent.model.get('dataElement')
