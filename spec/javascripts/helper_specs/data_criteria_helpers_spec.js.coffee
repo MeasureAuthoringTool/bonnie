@@ -72,7 +72,7 @@ describe 'DataCriteriaHelpers', ->
       expect(period.end.value).toEqual '2020-09-21T08:15:00.000+00:00'
 
     it 'creates CQL date from date string', ->
-      dateString = '2012-02-02T08:45:00.000+00:00'
+      dateString = '2012-02-02'
       cqlDate = DataCriteriaHelpers.getCQLDateFromString(dateString)
       expect(cqlDate.toString()).toEqual '2012-02-02'
 
