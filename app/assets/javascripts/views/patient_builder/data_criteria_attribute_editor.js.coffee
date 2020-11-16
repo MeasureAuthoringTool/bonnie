@@ -116,9 +116,17 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       @render()
 
   _createInputViewForType: (type) ->
+    # Correct system name -> system uri
+    cqmValueSets = @parent.measure.get('cqmValueSets')
+    cqmValueSets.forEach (valueSet) =>
+      if !valueSet.corrected
+        valueSet.corrected = true
+        valueSet.compose?.include?.forEach (vsInclude) =>
+          vsInclude.system = FhirValueSets.codeSystemFhirUriMap()[vsInclude.system] || vsInclude.system
+
     @inputView = switch type
       when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
-      when 'CodeableConcept', 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: @currentAttribute?.valueSets || @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
+      when 'CodeableConcept', 'Coding' then new Thorax.Views.InputCodingView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
