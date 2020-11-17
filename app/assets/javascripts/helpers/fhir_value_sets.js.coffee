@@ -74,6 +74,7 @@
     @_codeSystemMap['http://www.nlm.nih.gov/research/umls'] = 'UMLS'
     @_codeSystemMap['http://fdasis.nlm.nih.gov'] = 'UNII'
     @_codeSystemMap['http://hl7.org/fhir/v3/MediaType'] = 'mediaType'
+    @_codeSystemMap['http://cts.nlm.nih.gov/fhir/cs/cdcrec'] = 'CDCREC'
 
     return @_codeSystemMap
 
@@ -87,9 +88,15 @@
     @_codeSystemFhirMap['discharge-disposition'] = 'http://terminology.hl7.org/CodeSystem/discharge-disposition'
     @_codeSystemFhirMap['event-status'] = 'http://hl7.org/fhir/event-status'
     @_codeSystemFhirMap['condition-ver-status'] = 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
+    @_codeSystemFhirMap['ConditionVerificationStatusCodes'] = 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
+    @_codeSystemFhirMap['ConditionVerificationStatus'] = 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
     @_codeSystemFhirMap['condition-clinical'] = 'http://terminology.hl7.org/CodeSystem/condition-clinical'
+    @_codeSystemFhirMap['ConditionClinicalStatusCodes'] = 'http://terminology.hl7.org/CodeSystem/condition-clinical'
+    @_codeSystemFhirMap['ConditionClinicalStatus'] = 'http://terminology.hl7.org/CodeSystem/condition-clinical'
     @_codeSystemFhirMap['allergyintolerance-clinical'] = 'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical'
+    @_codeSystemFhirMap['AllergyIntoleranceClinicalStatusCodes'] = 'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical'
     @_codeSystemFhirMap['allergyintolerance-verification'] = 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification'
+    @_codeSystemFhirMap['AllergyIntoleranceVerificationStatusCodes'] = 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification'
     @_codeSystemFhirMap['ConditionCategoryCodes'] = 'http://terminology.hl7.org/CodeSystem/condition-category'
     @_codeSystemFhirMap['USCoreConditionCategoryExtensionCodes'] = 'http://hl7.org/fhir/us/core/CodeSystem/condition-category'
     @_codeSystemFhirMap['request-status'] = 'http://hl7.org/fhir/request-status'
@@ -98,6 +105,7 @@
     @_codeSystemFhirMap['ActCode'] = 'http://terminology.hl7.org/CodeSystem/v3-ActCode'
     @_codeSystemFhirMap['ReasonMedicationGivenCodes'] = 'http://terminology.hl7.org/CodeSystem/reason-medication-given'
     @_codeSystemFhirMap['MedicationRequestCategoryCodes'] = 'http://terminology.hl7.org/CodeSystem/medicationrequest-category'
+    @_codeSystemFhirMap['MedicationRequestCategory'] = 'http://terminology.hl7.org/CodeSystem/medicationrequest-category'
     @_codeSystemFhirMap['GTSAbbreviation'] = 'http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation'
     @_codeSystemFhirMap['MedicationRequest Status Reason Codes'] = 'http://terminology.hl7.org/CodeSystem/medicationrequest-status-reason'
     @_codeSystemFhirMap['DiagnosticReportStatus'] = 'http://hl7.org/fhir/diagnostic-report-status'
@@ -152,6 +160,9 @@
     @_codeSystemFhirMap['UMLS'] = 'http://www.nlm.nih.gov/research/umls'
     @_codeSystemFhirMap['UNII'] = 'http://fdasis.nlm.nih.gov'
     @_codeSystemFhirMap['mediaType'] = 'http://hl7.org/fhir/v3/MediaType'
+    @_codeSystemFhirMap['Diagnosis Role'] = 'http://terminology.hl7.org/CodeSystem/diagnosis-role'
+    @_codeSystemFhirMap['DiagnosisRole'] = 'http://terminology.hl7.org/CodeSystem/diagnosis-role'
+    @_codeSystemFhirMap['CDCREC'] = 'http://cts.nlm.nih.gov/fhir/cs/cdcrec'
 
     return @_codeSystemFhirMap
 
