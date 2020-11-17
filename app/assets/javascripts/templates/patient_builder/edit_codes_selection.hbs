@@ -12,11 +12,11 @@
 
   {{#ifCond codeSystem '==' 'custom'}}
     <div class="col-md-4 code-control-custom-system">
-      <label for="custom_codesystem_{{@cid}}" class="sr-only">input</label>
-      <input type="text" name="custom_codesystem" id="custom_code_system{{@cid}}" class="form-control" placeholder="code system">
+      <label for="custom_codesystem_{{@cid}}" class="sr-only">custom code system URI</label>
+      <input type="text" name="custom_codesystem" id="custom_code_system{{@cid}}" class="form-control" placeholder="custom code system uri">
     </div>
     <div class="col-md-4 code-control-code">
-      <label for="custom_code_{{@cid}}" class="sr-only">units</label>
+      <label for="custom_code_{{@cid}}" class="sr-only">code</label>
       <input type="text" name="custom_code" id="custom_code_{{@cid}}" class="form-control" placeholder="code">
     </div>
   {{/ifCond}}
