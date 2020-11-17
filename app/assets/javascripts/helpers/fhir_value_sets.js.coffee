@@ -74,6 +74,7 @@
     @_codeSystemMap['http://www.nlm.nih.gov/research/umls'] = 'UMLS'
     @_codeSystemMap['http://fdasis.nlm.nih.gov'] = 'UNII'
     @_codeSystemMap['http://hl7.org/fhir/v3/MediaType'] = 'mediaType'
+    @_codeSystemMap['http://cts.nlm.nih.gov/fhir/cs/cdcrec'] = 'CDCREC'
 
     return @_codeSystemMap
 
@@ -161,6 +162,7 @@
     @_codeSystemFhirMap['mediaType'] = 'http://hl7.org/fhir/v3/MediaType'
     @_codeSystemFhirMap['Diagnosis Role'] = 'http://terminology.hl7.org/CodeSystem/diagnosis-role'
     @_codeSystemFhirMap['DiagnosisRole'] = 'http://terminology.hl7.org/CodeSystem/diagnosis-role'
+    @_codeSystemFhirMap['CDCREC'] = 'http://cts.nlm.nih.gov/fhir/cs/cdcrec'
 
     return @_codeSystemFhirMap
 

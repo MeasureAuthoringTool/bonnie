@@ -18,6 +18,23 @@ class Thorax.Models.Measure extends Thorax.Model
     else
       thoraxMeasure.cqmValueSets = []
 
+    # TODO: move to cqm-parser
+    # Correct system name -> system uri (TS Model)
+    thoraxMeasure?.cqmMeasure?.value_sets?.forEach (valueSet) =>
+      if !valueSet.corrected
+        valueSet.corrected = true
+        valueSet.compose?.include?.forEach (vsInclude) =>
+          system = FhirValueSets.codeSystemFhirUriMap()[vsInclude?.system?.value] || vsInclude?.system?.value
+          vsInclude.system = cqm.models.PrimitiveUri.parsePrimitive(system)
+
+    # TODO: move to cqm-parser
+    # Correct system name -> system uri (FHIR JSON)
+    thoraxMeasure?.cqmValueSets.forEach (valueSet) =>
+      if !valueSet.corrected
+        valueSet.corrected = true
+        valueSet.compose?.include?.forEach (vsInclude) =>
+          system = FhirValueSets.codeSystemFhirUriMap()[vsInclude?.system] || vsInclude?.system
+          vsInclude.system = system
 
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this

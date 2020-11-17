@@ -10,8 +10,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   initialize: ->
     @originalModel = @model # When we're done editing we want to update the original model
     @cqmMeasure = @measure.get('cqmMeasure')
-    @correctCqmValueSets()
-
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
     @model.get('source_data_criteria').on 'remove', => @materialize()
     @race_codes = @model.getConceptsForPatientProp('Race', @measure)
@@ -52,16 +50,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     @patientCharacteristicCheckerView = new Thorax.Views.PatientCharacteristicChecker(patient: @model, measure: @measure)
-
-  correctCqmValueSets: ->
-# TODO: move to cqm-parser
-# Correct system name -> system uri
-    cqmValueSets = @measure.get('cqmValueSets')
-    cqmValueSets.forEach (valueSet) =>
-      if !valueSet.corrected
-        valueSet.corrected = true
-        valueSet.compose?.include?.forEach (vsInclude) =>
-          vsInclude.system = FhirValueSets.codeSystemFhirUriMap()[vsInclude.system] || vsInclude.system
 
   genderCodes:
     [
