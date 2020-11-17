@@ -29,9 +29,19 @@
     cqmMeasure = measure.get('cqmMeasure')
     cqmPatient = patient.get('cqmPatient')
 
+    # TODO: move to cqm-parser
+    # Correct system name -> system uri
+    valueSets = cqmMeasure.value_sets
+    valueSets.forEach (valueSet) =>
+      if !valueSet.corrected
+        valueSet.corrected = true
+        valueSet.compose?.include?.forEach (vsInclude) =>
+          vsInclude.system = FhirValueSets.codeSystemFhirUriMap()[vsInclude.system] || vsInclude.system
+
+
     # attempt calcuation
     try
-      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient], cqmMeasure.value_sets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
+      cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, [cqmPatient], valueSets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
       patientResults = cqmResults[patient.get('cqmPatient').id]
 
       measure.get('populations').forEach((measure_population) =>
