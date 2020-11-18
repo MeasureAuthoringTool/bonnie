@@ -218,6 +218,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     droppedCriteriaTiming = droppedCriteria.getPrimaryTimingAttributes()
     targetCriteriaTiming = targetCriteria.getPrimaryTimingAttributes()
 
+    # if the target has no timing attributes, we have nothing to copy
+    if targetCriteriaTiming.length == 0
+      return
+
     # do a pairwise copy from target timing attributes to dropped timing attributes
     for timingIndex, droppedTimingAttr of droppedCriteriaTiming
       # if there is a corresponding pair, then copy it
