@@ -24,8 +24,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
       valueSet.compose?.include?.forEach (vsInclude) =>
         system = vsInclude.system
         if !@codeSystems.hasOwnProperty(system)
-          name = @codeSystemMap?[system] || system.split('/').slice(-1)[0]
-          @codeSystems[system] = name
+          @codeSystems[system] = @codeSystemMap?[system]
 
   events:
     'change input': 'handleCustomInputChange'
@@ -55,7 +54,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
           @handleValueSetChange()
           isCustomCodeSystem = !(@allCodeSystems.find (codeSystem) -> codeSystem.system == value?.system?.value)?
 
-          # if the code system is in the measure, select it, otherwise select custom and fillthat
+          # if the code system is in the measure, select it, otherwise select custom and fill that
           if !isCustomCodeSystem
             @$("select[name=\"custom_codesystem_select\"] > option[value=\"#{value?.system?.value}\"]").prop('selected', true)
           else
