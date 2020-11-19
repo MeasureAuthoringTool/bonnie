@@ -8,7 +8,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
   #   initialValue - code value - Optional. Initial value of code.
   #   cqmValueSets - List of CQM Value sets. Optional (FHIR JSON).
   #   allowNull - boolean - Optional. If a null or empty integer is allowed. Defaults to false.
-  #   isSystemFixed - boolean - Optiona. Default to false. If true, then the Custom system is always the first system from the list of systems.
+  #   isSystemFixed - boolean - Optional. Default to false. If true, then the Custom system is always the first system from the list of systems.
   #     It's used for a PrimitiveCode, when a system is implied for an attribute (see bindings).
   initialize: ->
     if @initialValue?
@@ -25,8 +25,7 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
       valueSet.compose?.include?.forEach (vsInclude) =>
         system = vsInclude.system
         if !@codeSystems.hasOwnProperty(system)
-          name = @codeSystemMap?[system] || system.split('/').slice(-1)[0]
-          @codeSystems[system] = name
+          @codeSystems[system] = @codeSystemMap?[system]
     @systemFixed = @cqmValueSets?[0]?.compose?.include?[0]?.system
 
   events:
