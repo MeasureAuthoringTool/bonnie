@@ -1,0 +1,149 @@
+{
+  "id": "5fa465c1d7559f753fca01f3",
+  "expected_values": [
+    {
+      "measure_id": "34378B47-1599-42A0-9215-6DF82882231F",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0
+    }
+  ],
+  "notes": "Female, correct age, qualifying encounter, has Dx of congenital absence of cervix before end of MP.",
+  "measure_ids": [
+    "34378B47-1599-42A0-9215-6DF82882231F"
+  ],
+  "fhir_patient": {
+    "id": "5fa465c1d7559f753fca01f3",
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "1002-5",
+              "display": "American Indian or Alaska Native",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "American Indian or Alaska Native"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      },
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2135-2",
+              "display": "Hispanic or Latino",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "Hispanic or Latino"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      }
+    ],
+    "name": [
+      {
+        "family": "DenExclPass",
+        "given": [
+          "AbsenceofCervixB4MP "
+        ]
+      }
+    ],
+    "gender": "female",
+    "birthDate": "1976-08-26"
+  },
+  "data_elements": [
+    {
+      "codeListId": "drc-323543cb89f9e1c3fd9a121b53d52c577bf8d114a1182aae5f8d83a54c99abeb",
+      "valueSetTitle": "Congenital absence of cervix (disorder)",
+      "description": "Condition: Congenital absence of cervix (disorder)",
+      "fhir_resource": {
+        "id": "5fb03904f0f4c92740a45d53",
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active",
+              "userSelected": true
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "version": "4.0.1",
+              "code": "confirmed",
+              "display": "Confirmed",
+              "userSelected": true
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "http://snomed.info/sct/731000124108/version/201709",
+              "code": "37687000",
+              "display": "Congenital absence of cervix (disorder)",
+              "userSelected": true
+            }
+          ]
+        },
+        "onsetDateTime": "2018-12-31T23:59:00.000+00:00",
+        "recordedDate": "2018-12-31T23:59:00.000+00:00"
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "valueSetTitle": "Preventive Care Services-Initial Office Visit, 18 and Up",
+      "description": "Encounter: Preventive Care Services-Initial Office Visit, 18 and Up",
+      "fhir_resource": {
+        "id": "5fa46627d7559f753fca01f4",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory",
+          "userSelected": true
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "version": "2020",
+                "code": "99385",
+                "display": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; 18-39 years",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-01-01T08:00:00.000+00:00",
+          "end": "2019-01-01T08:30:00.000+00:00"
+        }
+      }
+    }
+  ],
+  "created_at": "2020-11-05T21:21:01.486Z",
+  "updated_at": "2020-11-05T21:21:01.486Z"
+}
