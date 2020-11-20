@@ -75,6 +75,7 @@
     @_codeSystemMap['http://fdasis.nlm.nih.gov'] = 'UNII'
     @_codeSystemMap['http://hl7.org/fhir/v3/MediaType'] = 'mediaType'
     @_codeSystemMap['http://cts.nlm.nih.gov/fhir/cs/cdcrec'] = 'CDCREC'
+    @_codeSystemMap['http://terminology.hl7.org/CodeSystem/diagnosis-role'] = 'DiagnosisRole'
 
     return @_codeSystemMap
 
