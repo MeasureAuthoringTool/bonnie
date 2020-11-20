@@ -1,0 +1,188 @@
+{
+  "id": "5fa98f94658eea6912d05974",
+  "expected_values": [
+    {
+      "measure_id": "4F661027-8C11-4FDB-A15D-14F2597007F7",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "notes": "",
+  "measure_ids": [
+    "4F661027-8C11-4FDB-A15D-14F2597007F7"
+  ],
+  "fhir_patient": {
+    "id": "5fa98f94658eea6912d05974",
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+        "valueCoding": {
+          "system": "urn:oid:2.16.840.1.113883.6.238",
+          "code": "2186-5",
+          "display": "Not Hispanic or Latino",
+          "userSelected": true
+        }
+      },
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+        "valueCoding": {
+          "system": "urn:oid:2.16.840.1.113883.6.238",
+          "code": "2076-8",
+          "display": "Native Hawaiian or Other Pacific Islander",
+          "userSelected": true
+        }
+      }
+    ],
+    "name": [
+      {
+        "family": "Sojiro",
+        "given": [
+          "Futaba"
+        ]
+      }
+    ],
+    "gender": "female",
+    "birthDate": "1987-06-16"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "valueSetTitle": "Preventive Care Services-Initial Office Visit, 18 and Up",
+      "description": "Encounter: Preventive Care Services-Initial Office Visit, 18 and Up",
+      "fhir_resource": {
+        "id": "5fa99025658eea6912d05975",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "version": "2020",
+                "code": "99385",
+                "display": "Initial comprehensive preventive medicine evaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, new patient; 18-39 years",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-12-09T08:00:00.000+00:00",
+          "end": "2019-12-09T08:15:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "valueSetTitle": "Office Visit",
+      "description": "Encounter: Office Visit",
+      "fhir_resource": {
+        "id": "5fa991e7658eea6912d05977",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99201",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2020-10-10T08:00:00.000+00:00",
+          "end": "2020-10-10T08:15:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.526.3.1240",
+      "valueSetTitle": "Annual Wellness Visit",
+      "description": "Encounter: Annual Wellness Visit",
+      "fhir_resource": {
+        "id": "5fa99205658eea6912d05978",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2019-09",
+                "code": "444971000124105",
+                "display": "Annual wellness visit (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2020-11-01T08:00:00.000+00:00",
+          "end": "2020-11-01T08:15:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "valueSetTitle": "Preventive Care Services - Established Office Visit, 18 and Up",
+      "description": "Encounter: Preventive Care Services - Established Office Visit, 18 and Up",
+      "fhir_resource": {
+        "id": "5fa99219658eea6912d05979",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "version": "2020",
+                "code": "99395",
+                "display": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 18-39 years",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2020-11-02T08:00:00.000+00:00",
+          "end": "2020-11-02T08:15:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1016",
+      "valueSetTitle": "Home Healthcare Services",
+      "description": "Encounter: Home Healthcare Services",
+      "fhir_resource": {
+        "id": "5fa9922e658eea6912d0597a",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2019-09",
+                "code": "185460008",
+                "display": "Home visit request by patient (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2020-11-03T08:00:00.000+00:00",
+          "end": "2020-11-03T08:15:00.000+00:00"
+        }
+      }
+    }
+  ],
+  "created_at": "2020-11-09T19:02:51.025Z",
+  "updated_at": "2020-11-09T19:02:51.025Z"
+}

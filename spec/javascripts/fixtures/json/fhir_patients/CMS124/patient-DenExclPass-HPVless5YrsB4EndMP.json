@@ -1,0 +1,141 @@
+{
+  "id": "5fa56b0bd7559f753fca01fe",
+  "expected_values": [
+    {
+      "measure_id": "34378B47-1599-42A0-9215-6DF82882231F",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1
+    }
+  ],
+  "notes": "Female, correct age, qualifying encounter, has HPV test less than 5 years before end of MP.  Testing valid attribute values.",
+  "measure_ids": [
+    "34378B47-1599-42A0-9215-6DF82882231F"
+  ],
+  "fhir_patient": {
+    "id": "5fa56b0bd7559f753fca01fe",
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "1002-5",
+              "display": "American Indian or Alaska Native",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "American Indian or Alaska Native"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      },
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2135-2",
+              "display": "Hispanic or Latino",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "Hispanic or Latino"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      }
+    ],
+    "name": [
+      {
+        "family": "NumPass",
+        "given": [
+          "HPV<5YrsB4EndMP"
+        ]
+      }
+    ],
+    "gender": "female",
+    "birthDate": "1976-08-26"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "valueSetTitle": "Office Visit",
+      "description": "Encounter: Office Visit",
+      "fhir_resource": {
+        "id": "5fa56b55d7559f753fca0200",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory",
+          "userSelected": true
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2019-09",
+                "code": "185463005",
+                "display": "Visit out of hours (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-01-01T08:00:00.000+00:00",
+          "end": "2019-01-01T08:30:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.110.12.1059",
+      "valueSetTitle": "HPV Test",
+      "description": "Observation: HPV Test",
+      "fhir_resource": {
+        "id": "5fa56bcfd7559f753fca0202",
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "version": "2.67",
+              "code": "21440-3",
+              "display": "Human papilloma virus 16+18+31+33+35+45+51+52+56 DNA [Presence] in Cervix by Probe",
+              "userSelected": true
+            }
+          ]
+        },
+        "effectiveDateTime": "2016-01-01T13:00:00.000+00:00",
+        "valueBoolean": true
+      }
+    }
+  ],
+  "created_at": "2020-11-06T15:31:04.458Z",
+  "updated_at": "2020-11-06T15:31:04.458Z"
+}
