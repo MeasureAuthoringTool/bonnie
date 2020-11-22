@@ -1,4 +1,23 @@
 describe 'DataCriteriaHelpers', ->
+  # This takes an input date string and returns the expected CQL
+  # date string. We need this, instead of hard-coded expected values,
+  # so that tests will execute correctly regardless of current time zone
+  # or daylight savings time
+  formatExpectedDate = (dateString) ->
+    dateObj = new Date(dateString)
+    dateOptions = {
+      year: "numeric"
+      month: "2-digit"
+      day: "2-digit"
+      timeZone: 'UTC'
+    }
+    timeOptions = {
+      hour: 'numeric'
+      minute: 'numeric'
+      timeZone: 'UTC'
+    }
+    result = dateObj.toLocaleDateString('en', dateOptions) + ' ' + dateObj.toLocaleTimeString('en', timeOptions)
+    result
 
   it 'has data_element_categories and primary_date_attributes', ->
     expect(Object.keys(DataCriteriaHelpers.PRIMARY_TIMING_ATTRIBUTES).length).toEqual 32
@@ -172,17 +191,20 @@ describe 'DataCriteriaHelpers', ->
       expect(stringValue).toEqual "1 'd' : 2 'd'"
 
       # Period type
+      startString = '2020-09-02T13:54:57'
+      endString = '2020-10-02T13:54:57'
+
       period = cqm.models.Period.parse({
-          start:'2020-09-02T13:54:57',
-          end: '2020-10-02T13:54:57'
+          start: startString,
+          end: endString
         })
       stringValue = DataCriteriaHelpers.stringifyType(period)
-      expect(stringValue).toEqual "09/02/2020 5:54 PM - 10/02/2020 5:54 PM"
+      expect(stringValue).toEqual formatExpectedDate(startString) + ' - ' +  formatExpectedDate(endString)
 
       # DateTime type
       dateTime = cqm.models.PrimitiveDateTime.parsePrimitive( '2020-09-02T13:54:57')
       stringValue = DataCriteriaHelpers.stringifyType(dateTime)
-      expect(stringValue).toEqual "09/02/2020 5:54 PM"
+      expect(stringValue).toEqual formatExpectedDate(startString)
 
       # Date type
       primitiveDate = cqm.models.PrimitiveDate.parsePrimitive( '2020-09-02T13:54:57')
