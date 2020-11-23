@@ -120,7 +120,6 @@
 
     # attempt calcuation
     try
-      debugger
       cqmResults = cqm.execution.Calculator.calculate(cqmMeasure, cqmPatients, cqmMeasure.value_sets, { doPretty: options.doPretty, includeClauseResults: true, requestDocument: false })
       # Fill result objects for everything in the measure
       resultsNeedingCalc.forEach((result) =>

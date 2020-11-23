@@ -62,7 +62,6 @@
       @navigationSetup "Patient Builder", "patient-builder"
       document.title += " - #{measure.get('cqmMeasure').cms_id}" if measure?
       patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
-      debugger
       @mainView.setView patientBuilderView
       @breadcrumb.addPatient(measure, patient)
     else
