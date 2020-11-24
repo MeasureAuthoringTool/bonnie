@@ -1,0 +1,141 @@
+{
+  "id": "5fa44008d7559f753fca01e4",
+  "expected_values": [
+    {
+      "measure_id": "34378B47-1599-42A0-9215-6DF82882231F",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0
+    }
+  ],
+  "notes": "Female, correct age, qualifying encounter, has Hospice procedure overlaps MP.",
+  "measure_ids": [
+    "34378B47-1599-42A0-9215-6DF82882231F"
+  ],
+  "fhir_patient": {
+    "id": "5fa44008d7559f753fca01e4",
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "1002-5",
+              "display": "American Indian or Alaska Native",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "American Indian or Alaska Native"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      },
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2135-2",
+              "display": "Hispanic or Latino",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "Hispanic or Latino"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      }
+    ],
+    "name": [
+      {
+        "family": "DenExclPass",
+        "given": [
+          "HospicePerformedOverlapsMP"
+        ]
+      }
+    ],
+    "gender": "female",
+    "birthDate": "1976-08-26"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "valueSetTitle": "Office Visit",
+      "description": "Encounter: Office Visit",
+      "fhir_resource": {
+        "id": "5fa44107d7559f753fca01e5",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory",
+          "userSelected": true
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2019-09",
+                "code": "185463005",
+                "display": "Visit out of hours (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-01-01T08:00:00.000+00:00",
+          "end": "2019-01-01T08:30:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113762.1.4.1108.15",
+      "valueSetTitle": "Hospice care ambulatory",
+      "description": "Procedure: Hospice care ambulatory",
+      "fhir_resource": {
+        "id": "5fa442f6d7559f753fca01e6",
+        "resourceType": "Procedure",
+        "status": "completed",
+        "category": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "409063005",
+              "display": "Counselling",
+              "userSelected": true
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "2019-09",
+              "code": "385763009",
+              "display": "Hospice care (regime/therapy)",
+              "userSelected": true
+            }
+          ]
+        },
+        "performedPeriod": {
+          "start": "2018-12-21T08:00:00.000+00:00",
+          "end": "2019-01-02T11:00:00.000+00:00"
+        }
+      }
+    }
+  ],
+  "created_at": "2020-11-05T18:21:35.010Z",
+  "updated_at": "2020-11-05T18:21:35.010Z"
+}

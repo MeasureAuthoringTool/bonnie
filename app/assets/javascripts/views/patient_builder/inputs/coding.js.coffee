@@ -24,8 +24,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
       valueSet.compose?.include?.forEach (vsInclude) =>
         system = vsInclude.system
         if !@codeSystems.hasOwnProperty(system)
-          name = @codeSystemMap?[system] || system.split('/').slice(-1)[0]
-          @codeSystems[system] = name
+          @codeSystems[system] = @codeSystemMap?[system]
 
   events:
     'change input': 'handleCustomInputChange'
@@ -55,7 +54,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
           @handleValueSetChange()
           isCustomCodeSystem = !(@allCodeSystems.find (codeSystem) -> codeSystem.system == value?.system?.value)?
 
-          # if the code system is in the measure, select it, otherwise select custom and fillthat
+          # if the code system is in the measure, select it, otherwise select custom and fill that
           if !isCustomCodeSystem
             @$("select[name=\"custom_codesystem_select\"] > option[value=\"#{value?.system?.value}\"]").prop('selected', true)
           else
@@ -213,20 +212,20 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
     # disable custom code system entry
     else
       codeSystem = @allCodeSystems.find (codeSystem) -> codeSystem.system == system
-      @$('input[name="custom_codesystem"]').val(codeSystem.name).prop('disabled', true)
+      @$('input[name="custom_codesystem"]').val(codeSystem.system).prop('disabled', true)
       @_parseCustomCode()
 
   # helper function that parses fields for custom code and turns them into a code if possible.
   _parseCustomCode: ->
-    codeSystemOid = @$('select[name="custom_codesystem_select"]').val()
-    customCodeSystem = @$('input[name="custom_codesystem"]').val()
+    codeSystemUri = @$('select[name="custom_codesystem_select"]').val()
+    customCodeSystemUri = @$('input[name="custom_codesystem"]').val()
     customCode= @$('input[name="custom_code"]').val()
 
     # custom code system
-    if codeSystemOid == ''
-      if (customCodeSystem != '' && customCode != '')
+    if codeSystemUri == ''
+      if (customCodeSystemUri != '' && customCode != '')
         cqlCoding = new cqm.models.Coding()
-        cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(customCodeSystem)
+        cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(customCodeSystemUri)
         cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(customCode || null)
         cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
         @value = cqlCoding
@@ -237,7 +236,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
     else
       if customCode != ''
         cqlCoding = new cqm.models.Coding()
-        cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(codeSystemOid)
+        cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(codeSystemUri)
         cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(customCode || null)
         cqlCoding.userSelected = cqm.models.PrimitiveBoolean.parsePrimitive(true)
         @value = cqlCoding

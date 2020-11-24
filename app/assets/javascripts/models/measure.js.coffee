@@ -104,7 +104,7 @@ class Thorax.Models.Measure extends Thorax.Model
     @get('cqmValueSets').forEach (valueSet) =>
       valueSet.compose?.include?.forEach (vsInclude) =>
         if !@_codeSystemMap.hasOwnProperty(vsInclude.system)
-          @_codeSystemMap[vsInclude.system] = vsInclude.system
+          @_codeSystemMap[vsInclude.system] = vsInclude.system.split('/').slice(-1)[0] || vsInclude.system
 
     # Add value sets from FHIR bindings
     Object.assign(@_codeSystemMap, FhirValueSets.bindingsCodeSystemMap())
