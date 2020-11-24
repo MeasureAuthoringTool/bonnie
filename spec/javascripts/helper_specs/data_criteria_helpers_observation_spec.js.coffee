@@ -14,6 +14,18 @@ describe 'DataCriteriaHelpers', ->
     it 'should support Observation.component.code', ->
       DataCriteriaAsserts.assertCodeableConcept('Observation', 'component.code', 'component.code')
 
+    it 'should support Observation.effective', ->
+      attr = @observationAttrs.find (attr) => attr.path is 'effective'
+      expect(attr.path).toEqual 'effective'
+      expect(attr.title).toEqual 'effective'
+      expect(attr.types).toEqual ['DateTime', 'Period', 'Timing', 'Instant']
+
+      # set DateTime/Timing
+      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      fhirResource = new cqm.models.Observation()
+      attr.setValue(fhirResource, valueDateTime)
+      expect(fhirResource.effective.value).toEqual valueDateTime.toString()
+
     it 'should support Observation.value', ->
       value = @observationAttrs.find (attr) => attr.path is 'value'
       expect(value.path).toEqual 'value'

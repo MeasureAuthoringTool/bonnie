@@ -5,7 +5,7 @@ describe 'cqmCalculator', ->
 
   describe 'setValueSetVersionsToUndefined', ->
     it 'returns valueSets with versions set to undefined', ->
-      measure = getJSONFixture('cqm_measure_data/CMS720v0/CMS720v0.json')
+      measure = getJSONFixture('fhir_measures/CMS124/CMS124.json')
       measure_elm = measure.cql_libraries.map((lib) -> lib.elm)
       expect(measure_elm[0]['library']['valueSets']).toExist()
       # Add a version to a valueSet
@@ -15,7 +15,7 @@ describe 'cqmCalculator', ->
       expect(elm[0]['library']['valueSets']['def'][0]['version']).not.toBeDefined()
 
     it 'returns the elm without error if there are no valueSets', ->
-      measure = getJSONFixture('cqm_measure_data/CMS720v0/CMS720v0.json')
+      measure = getJSONFixture('fhir_measures/CMS124/CMS124.json')
       measure_elm = measure.cql_libraries.map((lib) -> lib.elm)
       expect(measure_elm[0]['library']['valueSets']).toExist()
       # Remove valueSets
@@ -107,25 +107,26 @@ describe 'cqmCalculator', ->
     describe 'pretty statement results', ->
       # NOTE: the pretty generation test is now covered within the cqm-execution repository itself
       beforeAll ->
-        measure = loadMeasureWithValueSets('cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json')
-        patients = new Thorax.Collections.Patients [getJSONFixture('patients/CMS160v6/Expired_DENEX.json')], parse: true
+        measure = loadFhirMeasure('fhir_measures/CMS124/CMS124.json')
+        patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/CMS124/patient-denomexcl-EXM124.json')], parse: true
         patient = patients.at(0)
         @prettyResult = @cqm_calculator.calculate(measure.get('populations').first(), patient, {doPretty: true})
         @unprettyResult = @cqm_calculator.calculate(measure.get('populations').first(), patient, {doPretty: false})
 
       it 'are generated for Encounter Performed correctly when requested', ->
-        expect(@prettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Depression Office Visit Encounter 1'].pretty).toEqual('[Encounter, Performed: Office Visit\nSTART: 11/04/2012 8:00 AM\nSTOP: 11/04/2012 8:15 AM\nCODE: CPT 99201]')
-        expect(@prettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Numerator 1'].pretty).toEqual('UNHIT')
+        debugger
+        expect(@prettyResult.get('statement_results').EXM124['Absence of Cervix'].pretty).toBeDefined()
+        expect(@prettyResult.get('statement_results').EXM124['Numerator'].pretty).toEqual('UNHIT')
 
       xit 'are not generated for Encounter Perforemd correctly when not requested', ->
-        expect(@unprettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Depression Office Visit Encounter 1'].pretty).toEqual(undefined)
-        expect(@unprettyResult.get('statement_results').DepressionUtilizationofthePHQ9Tool['Numerator 1'].pretty).toEqual(undefined)
+        expect(@unprettyResult.get('statement_results').EXM124['Absence of Cervix'].pretty).toEqual(undefined)
+        expect(@unprettyResult.get('statement_results').EXM124['Numerator'].pretty).toEqual(undefined)
 
     describe 'episode of care based relevance map', ->
       beforeAll ->
         # TODO: Find another measure to use. Diagnoses now contains DiagnosesComponents,
         # the measure logic used here asumes Diagnoses is a list of codes
-        @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS177v6/CMS177v6.json', 'cqm_measure_data/CMS177v6/value_sets.json'
+        @measure = loadFhirMeasure('fhir_measures/CMS124/CMS124.json')
         failIpp = getJSONFixture 'patients/CMS177v6/Fail_IPP.json'
         passNumer = getJSONFixture 'patients/CMS177v6/Pass_Numer.json'
         @patients = new Thorax.Collections.Patients [failIpp, passNumer], parse: true
@@ -151,23 +152,21 @@ describe 'cqmCalculator', ->
 
     describe 'patient based relevance map', ->
       beforeAll ->
-        @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS158v6/CMS158v6.json', 'cqm_measure_data/CMS158v6/value_sets.json'
-        failIpp = getJSONFixture 'patients/CMS158v6/Fail_IPP.json'
-        passNumer = getJSONFixture 'patients/CMS158v6/Pass_Numer.json'
-        @patients = new Thorax.Collections.Patients [failIpp, passNumer], parse: true
+        @measure = loadFhirMeasure('fhir_measures/CMS124/CMS124.json')
+        passDenex = getJSONFixture 'fhir_patients/CMS124/patient-denomexcl-EXM124.json'
+        passNumer = getJSONFixture 'fhir_patients/CMS124/patient-numer-EXM124.json'
+        @patients = new Thorax.Collections.Patients [passDenex, passNumer], parse: true
 
       it 'is correct', ->
         patient = @patients.at(0) # Fail IPP
         result = @cqm_calculator.calculate(@measure.get('populations').first(), patient)
-        # there will not be episode_results on the result object
         expect(result.has('episode_results')).toEqual(false)
-        # the IPP should be the only relevant population
-        expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, NUMER: false, DENEXCEP: false})
+        expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: true, NUMER: false, DENEX: true })
 
     describe 'execution engine using passed in timezone offset', ->
       beforeAll ->
-        @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS760v0/CMS760v0.json', 'cqm_measure_data/CMS760v0/value_sets.json'
-        correctTimezone = getJSONFixture 'patients/CMS760v0/Correct_Timezone.json'
+        @measure = loadFhirMeasure('fhir_measures/CMS124/CMS124.json')
+        correctTimezone = getJSONFixture 'fhir_patients/CMS124/bonnie-fail-ipp-patient.json'
         @patients = new Thorax.Collections.Patients [correctTimezone], parse: true
 
       it 'is correct', ->

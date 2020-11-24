@@ -23,7 +23,7 @@ describe 'InputView', ->
 
     it 'starts with value in measure value sets', ->
       initialCode = new cqm.models.Coding()
-      initialCode.system = cqm.models.PrimitiveUri.parsePrimitive('SNOMEDCT')
+      initialCode.system = cqm.models.PrimitiveUri.parsePrimitive('http://snomed.info/sct')
       initialCode.code = cqm.models.PrimitiveCode.parsePrimitive('183452005')
       view = new Thorax.Views.InputCodingView(initialValue: initialCode, cqmValueSets: @measure.get('cqmValueSets'))
       view.render()
@@ -31,22 +31,22 @@ describe 'InputView', ->
       expect(view.value.code.value).toEqual  initialCode.code.value
       expect(view.value.system.value).toEqual  initialCode.system.value
       expect(view.$('select[name="valueset"]').val()).toBe '2.16.840.1.113883.3.666.5.307'
-      expect(view.$('select[name="vs_codesystem"]').val()).toBe 'SNOMEDCT'
+      expect(view.$('select[name="vs_codesystem"]').val()).toBe 'http://snomed.info/sct'
       expect(view.$('select[name="vs_code"]').val()).toBe '183452005'
 
     it 'starts with value not in measure value sets', ->
       initialCode = new cqm.models.Coding()
-      initialCode.system = cqm.models.PrimitiveUri.parsePrimitive('SNOMEDCT')
+      initialCode.system = cqm.models.PrimitiveUri.parsePrimitive('http://snomed.info/sct')
       initialCode.code = cqm.models.PrimitiveCode.parsePrimitive('467186001')
 
       view = new Thorax.Views.InputCodingView(initialValue: initialCode, cqmValueSets: @measure.get('cqmValueSets'))
       view.render()
       expect(view.hasValidValue()).toBe true
       expect(view.value.code.value).toEqual '467186001'
-      expect(view.value.system.value).toEqual 'SNOMEDCT'
+      expect(view.value.system.value).toEqual 'http://snomed.info/sct'
       expect(view.$('select[name="valueset"]').val()).toBe 'custom'
-      expect(view.$('select[name="custom_codesystem_select"]').val()).toBe 'SNOMEDCT'
-      expect(view.$('input[name="custom_codesystem"]').val()).toBe 'SNOMEDCT'
+      expect(view.$('select[name="custom_codesystem_select"]').val()).toBe 'http://snomed.info/sct'
+      expect(view.$('input[name="custom_codesystem"]').val()).toBe 'http://snomed.info/sct'
       expect(view.$('input[name="custom_codesystem"]').prop('disabled')).toBe true
       expect(view.$('input[name="custom_code"]').val()).toBe '467186001'
 
@@ -86,7 +86,7 @@ describe 'InputView', ->
       view.$('select[name="vs_code"] > option[value="32485007"]').prop('selected', true).change()
       # check value
       expect(view.value.code.value).toEqual '32485007'
-      expect(view.value.system.value).toEqual 'SNOMEDCT'
+      expect(view.value.system.value).toEqual 'http://snomed.info/sct'
 
       # go back to no selection
       view.$('select[name="valueset"] > option:first').prop('selected', true).change()
@@ -112,7 +112,7 @@ describe 'InputView', ->
       view.$('select[name="vs_code"] > option[value="32485007"]').prop('selected', true).change()
       # check value
       expect(view.value.code.value).toEqual '32485007'
-      expect(view.value.system.value).toEqual 'SNOMEDCT'
+      expect(view.value.system.value).toEqual 'http://snomed.info/sct'
 
       # go back to no selection
       view.resetCodeSelection()

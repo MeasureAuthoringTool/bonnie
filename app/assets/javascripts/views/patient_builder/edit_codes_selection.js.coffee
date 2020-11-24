@@ -18,11 +18,13 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
   addCode: (e) ->
     e.preventDefault()
     code = @$('select[name="code"]').val()
+    # System - is a coding systen name
     system = @$('select[name="codesystem"]').val()
     if system is 'custom'
       system = @$('input[name="custom_codesystem"]').val()
       code = @$('input[name="custom_code"]').val()
 
+    # Maps code system name to code system uri
     @codeSystemMap = @measure.codeSystemMap() unless @codeSystemMap
 
     # add the code unless there is a pre-existing code with the same codesystem/code
@@ -56,6 +58,7 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
       # Make sure there is a default code that can be added
       if @concepts?.length
         cqlCoding = new cqm.models.Coding()
+        # Don't need to convert system name to uri here, just a precaution. it should be converted in measure's model or cqm-parser
         cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(@getCodeSystemFhirUri(@concepts[0].system))
         cqlCoding.version = cqm.models.PrimitiveString.parsePrimitive(@concepts[0].version)
         cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(@concepts[0].concept[0].code)
@@ -80,11 +83,14 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
       blankEntry = if codeSystem is '' then '--' else "Choose a #{codeSystem} code"
       $codeList.append("<option value>#{blankEntry}</option>")
       if codeSystem isnt ''
-        for concept in @concepts when concept.system is codeSystem
+        codeSystemUri = @getCodeSystemFhirUri(codeSystem)
+        for concept in @concepts when concept.system is codeSystemUri
           for conceptEntry in concept.concept
             $('<option>').attr('value', conceptEntry.code).text("#{conceptEntry.code} (#{conceptEntry.display})").appendTo $codeList
     @$('.codelist-control').focus()
 
   updateCodeSystems: ->
-    @codeSystems = _(concept.system for concept in @concepts || []).uniq()
+    # Maps code system name to code system uri
+    @codeSystemMap = @measure.codeSystemMap() unless @codeSystemMap
+    @codeSystems = _((@codeSystemMap[concept.system] || concept.system) for concept in @concepts || []).uniq()
     @render()
