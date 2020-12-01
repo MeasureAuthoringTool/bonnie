@@ -127,7 +127,6 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView()
       when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView()
       when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
-      when 'Interval<Quantity>' then new Thorax.Views.InputIntervalQuantityView()
       when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView()
       when 'Duration' then new Thorax.Views.InputDurationView()
       when 'Age' then new Thorax.Views.InputAgeView()
@@ -139,15 +138,9 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'Boolean' then new Thorax.Views.InputBooleanView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'Reference' then new Thorax.Views.InputReferenceView({ allowNull: false, referenceTypes: @currentAttribute.referenceTypes, parentDataElement: @dataElement, cqmValueSets: @parent.measure.get('cqmValueSets') })
-      when 'relatedTo' then new Thorax.Views.InputRelatedToView(sourceDataCriteria: @parent.parent.parent.model.get('source_data_criteria'), currentDataElementId: @dataElement.id)
       when 'SampledData' then new Thorax.Views.InputSampledDataView()
       else null
     @showInputViewPlaceholder = !@inputView?
-    @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
-
-  _createCompositeInputViewForSchema: (schema, typeName) ->
-    @showInputViewPlaceholder = false
-    @inputView = new Thorax.Views.InputCompositeView(schema: schema, typeName: typeName, cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear())
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
 
   # sets up the view for the attribute input view.
