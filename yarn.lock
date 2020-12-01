@@ -1415,14 +1415,14 @@ cql-execution@^2.0.0-beta.2:
     moment "^2.27.0"
     ucum "^0.0.7"
 
-"cqm-execution@https://github.com/projecttacoma/cqm-execution.git#07bd106b071c6a9095ac5112c006eb6425f1db8b":
+"cqm-execution@https://github.com/projecttacoma/cqm-execution.git#4656d91eb95236d75d3ed325f04f1be0dbf68b06":
   version "4.0.1"
-  resolved "https://github.com/projecttacoma/cqm-execution.git#07bd106b071c6a9095ac5112c006eb6425f1db8b"
+  resolved "https://github.com/projecttacoma/cqm-execution.git#4656d91eb95236d75d3ed325f04f1be0dbf68b06"
   dependencies:
     bson-objectid "^1.3.1"
     cql-exec-fhir "^1.5.0-beta.1"
     cql-execution "^2.0.0-beta.2"
-    fhir-typescript-models "0.0.10"
+    fhir-typescript-models "0.0.11"
     lodash "^4.17.19"
     moment "^2.21.0"
 
@@ -1700,10 +1700,10 @@ fast-safe-stringify@^2.0.7:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.7.tgz#124aa885899261f68aedb42a7c080de9da608743"
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
-fhir-typescript-models@0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/fhir-typescript-models/-/fhir-typescript-models-0.0.10.tgz#80b630485326acb4f59545ebb2c8225cd1ccabcb"
-  integrity sha512-l+D/WgHmgYANrY2aArOsku1z1cx9onrsPQU5zhjZBaEn147UisOJHRzA+Mv+UMIb7HKI9kGN9FqcRd5E8vJSfQ==
+fhir-typescript-models@0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/fhir-typescript-models/-/fhir-typescript-models-0.0.11.tgz#318cb20da2adf60ceea181f1d66a3b223d2211a4"
+  integrity sha512-V+tjnhFirJpYtFK5Zvgo+6qbFyONtWtHoToS6HzogNYjrvVSIuTV+8fAgg35GFdL63g69jeFunhvNms8QDjRqg==
 
 file-uri-to-path@1.0.0:
   version "1.0.0"
