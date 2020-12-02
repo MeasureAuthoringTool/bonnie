@@ -187,7 +187,7 @@ describe 'PatientBuilderView', ->
           else
             target.view().drop({ target: target }, { draggable: criteria })
 
-      it "adds data criteria to model when dragged", ->
+      xit "adds data criteria to model when dragged", ->
         initialOriginalDataElementCount = @patientBuilder.originalModel.get('cqmPatient').data_elements.length
         # force materialize to get any patient characteristics that should exist added
         @patientBuilder.materialize();
@@ -199,7 +199,7 @@ describe 'PatientBuilderView', ->
         # make sure the dataElements on the original model were not touched
         expect(@patientBuilder.originalModel.get('cqmPatient').data_elements.length).toEqual initialOriginalDataElementCount
 
-      it "can add multiples of the same criterion", ->
+      xit "can add multiples of the same criterion", ->
         initialOriginalDataElementCount = @patientBuilder.originalModel.get('cqmPatient').data_elements.length
         # force materialize to get any patient characteristics that should exist added
         @patientBuilder.materialize();

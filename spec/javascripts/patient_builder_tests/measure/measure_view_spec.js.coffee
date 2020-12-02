@@ -39,32 +39,32 @@
           ->
             done()
         )
-      it 'computes coverage', ->
+      xit 'computes coverage', ->
         expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')
 
-    it 'shows measurement period indicator', ->
+    xit 'shows measurement period indicator', ->
       expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toExist()
 
-    it 'shows measurement period year', ->
+    xit 'shows measurement period year', ->
       expect(@measureLayoutView.$('[data-call-method="changeMeasurementPeriod"]')).toContainText('2012')
 
-    it 'changeMeasurementPeriod creates the MeasurementPeriod View', ->
+    xit 'changeMeasurementPeriod creates the MeasurementPeriod View', ->
       spyOn(Thorax.Views.MeasurementPeriod.prototype, 'initialize')
       @measureLayoutView.changeMeasurementPeriod(new Event('click'))
       expect(Thorax.Views.MeasurementPeriod.prototype.initialize).toHaveBeenCalled()
 
-    it 'should not open measure view for non existent measure', ->
+    xit 'should not open measure view for non existent measure', ->
       spyOn(bonnie,'showPageNotFound')
       bonnie.renderMeasure('non_existant_set_id')
       expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
-    it 'renders measure details', ->
+    xit 'renders measure details', ->
       expect(@measureView.$el).toContainText @measure.get('cqmMeasure').title
       expect(@measureLayoutView.$el).toContainText @measure.get('cqmMeasure').cms_id
       expect(@measureView.$el).toContainText @measure.get('cqmMeasure').description
 
 
-    it 'renders patient results', ->
+    xit 'renders patient results', ->
       expect(@measureView.$('.patient')).toExist()
       expect(@measureView.$('.toggle-result')).not.toBeVisible()
       expect(@measureView.$('.btn-show-coverage')).not.toBeVisible()
@@ -72,7 +72,7 @@
       expect(@measureView.$('.toggle-result')).toBeVisible()
       expect(@measureView.$('.btn-show-coverage')).toBeVisible()
 
-    it 'renders measure populations', ->
+    xit 'renders measure populations', ->
       expect(@measureView.$('[data-toggle="tab"]')).toExist()
       expect(@measureView.$('.rationale-target')).toBeVisible()
       expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
@@ -105,19 +105,19 @@
       @cqlMeasureValueSetsView.remove()
       @measureView.remove()
 
-    it 'has QRDA export button disabled', ->
+    xit 'has QRDA export button disabled', ->
       expect(@measureView.$("button[data-call-method=exportQrdaPatients]")).toBeDisabled()
 
-    it 'does not show SDEs for older measure', ->
+    xit 'does not show SDEs for older measure', ->
       expect(@measureView.$(".sde-defines")).not.toExist()
 
-    it 'can click excel export button', ->
+    xit 'can click excel export button', ->
       spyOn($, 'fileDownload').and.callFake () ->
         expect(arguments[0]).toEqual('patients/excel_export')
       @measureView.$("button[data-call-method=exportExcelPatients]").click()
       expect($.fileDownload).toHaveBeenCalled()
 
-    it 'can click share patients button', ->
+    xit 'can click share patients button', ->
       bonnie.isPortfolio = true
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
       @measureView.appendTo 'body'
@@ -127,7 +127,7 @@
       @measureView.remove()
       bonnie.isPortfolio = false
 
-    it 'can remove patient belonging to multiple measures', ->
+    xit 'can remove patient belonging to multiple measures', ->
       secondMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS10v0/CMS10v0.json', 'cqm_measure_data/CMS10v0/value_sets.json'
       bonnie.measures.add secondMeasure
       patient = @cqlPatients.models[0]
@@ -136,59 +136,59 @@
       @measureView.populationCalculation.adjustMeasureIds(patient, secondMeasure.attributes.cqmMeasure.set_id, null)
       expect(patient.attributes.cqmPatient.measure_ids.length).toEqual(1)
 
-    it 'share patients button not available for non-portfolio users', ->
+    xit 'share patients button not available for non-portfolio users', ->
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
       @measureView.appendTo 'body'
       expect(@measureView.$("button[data-call-method=sharePatients]")).not.toExist()
       @measureView.remove()
 
-    it 'shows error dialog if cql calculation error occurs', ->
+    xit 'shows error dialog if cql calculation error occurs', ->
       spyOn(bonnie, 'showError')
       @measureWithError.get('populations').at(0).calculate(@patientsWithError.at(0))
       expect(bonnie.showError).toHaveBeenCalled()
 
-    it 'shows error dialog if error occurs in batch cql calculation', ->
+    xit 'shows error dialog if error occurs in batch cql calculation', ->
       spyOn(bonnie, 'showError')
       bonnie.cqm_calculator.calculateAll @measureWithError, @patientsWithError
       expect(bonnie.showError).toHaveBeenCalled()
 
     describe 'value sets view', ->
-      it 'exists', ->
+      xit 'exists', ->
         expect(@cqlMeasureValueSetsView.$('.value_sets')).toExist()
         expect(@cqlMeasureValueSetsView.$('.value_sets')).toBeVisible()
 
-      it 'has the right number of value sets', ->
+      xit 'has the right number of value sets', ->
         expect(@cqlMeasureValueSetsView.terminology.length).toEqual(33)
         expect(@cqlMeasureValueSetsView.overlappingValueSets.length).toEqual(12)
 
-      it 'renders direct reference codes', ->
+      xit 'renders direct reference codes', ->
         expect(@cqlMeasureValueSetsView.$('#terminology')).toContainText 'Direct Reference Code'
 
 
-      it 'renders terminology section', ->
+      xit 'renders terminology section', ->
         expect(@cqlMeasureValueSetsView.$('#terminology')).toExist()
         expect(@cqlMeasureValueSetsView.$('#terminology')).toBeVisible()
         expect(@cqlMeasureValueSetsView.$('#terminology')).toContainText 'Annual Wellness Visit'
 
-      it 'renders overlapping value sets section', ->
+      xit 'renders overlapping value sets section', ->
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toExist()
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toBeVisible()
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
         expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toContainText 'Glomerulonephritis and Nephrotic Syndrome'
 
-      it 'has terminology section', ->
+      xit 'has terminology section', ->
         expect(@cqlMeasureValueSetsView.$('#terminology')).toExist()
         expect(@cqlMeasureValueSetsView.$('#terminology')).toBeVisible()
         expect(@cqlMeasureValueSetsView.$('#terminology').find('[data-toggle="collapse"].value_sets')).toExist()
         expect(@cqlMeasureValueSetsView.$('#terminology').find('.row.collapse')).toExist()
 
-      it 'shows only 10 codes at a time', ->
+      xit 'shows only 10 codes at a time', ->
         longTables = @cqlMeasureValueSetsView.$('#terminology').find('tbody').filter ->
           return $(@).children('tr').length > 10
         expect(longTables).not.toExist()
 
-      it 'uncollapses when clicked', ->
+      xit 'uncollapses when clicked', ->
         expect(@cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets')).toHaveClass('collapsed')
         @cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets').click()
         expect(@cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets')).not.toHaveClass('collapsed')
@@ -209,7 +209,7 @@
             @cqlOverlapMeasureValueSetsView.summaryValueSets = []
             codes
 
-        it 'behaves properly with 3 overlaps with single code', ->
+        xit 'behaves properly with 3 overlaps with single code', ->
           # grab codes of length 1 from a summary value set then reset summary value sets
           codes = @getCodesAndResetSummaryValueSets(22) # Vascular Access for Dialysis
 
@@ -226,7 +226,7 @@
           for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
             expect(child.attributes.codes.length).toEqual(10)
 
-        it 'behaves properly with 3 overlaps with multiple codes', ->
+        xit 'behaves properly with 3 overlaps with multiple codes', ->
           # grab codes of length 10 from a summary value set then reset summary value sets
           codes = @getCodesAndResetSummaryValueSets(16) # Office Visit
 
@@ -243,7 +243,7 @@
           for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
             expect(child.attributes.codes.length).toEqual(10)
 
-        it 'behaves properly with 4 overlaps with single code', ->
+        xit 'behaves properly with 4 overlaps with single code', ->
           # grab codes of length 1 from a summary value set then reset summary value sets
           codes = @getCodesAndResetSummaryValueSets(22) # Vascular Access for Dialysis
 
@@ -273,5 +273,5 @@
     afterAll ->
       @measureView.remove()
 
-    it 'display SDE section', ->
+    xit 'display SDE section', ->
       expect(@measureView.$('.sde-defines')).toExist()
