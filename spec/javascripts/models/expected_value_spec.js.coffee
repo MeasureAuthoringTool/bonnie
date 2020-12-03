@@ -14,8 +14,9 @@
     afterAll ->
       @measureView.remove()
 
+    # Test passes locally, but fails in travis. "Failure/Error: Expected 0 to equal 3."
     it 'compares actual vs expected to only 8 decimal places', ->
-      passes = $("div.patient-name:contains('Decimal Observation')").closest('.panel-heading').next().find('.pass').length
+      passes = $("div.patient-name:contains('Decimal')").closest('.panel-heading').next().find('.pass').length
       expect(passes).toEqual 3
 
     xit 'displays actual and expected to only 8 decimal places', ->

@@ -598,6 +598,25 @@
         referenceTypes: ['Condition', 'Procedure']
       },
       {
+        path: 'diagnosis.use'
+        title: 'diagnosis.use'
+        getValue: (fhirResource) -> fhirResource?['diagnosis']?[0]?.use?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          fhirResource?['diagnosis'] = [ new cqm.models.EncounterDiagnosis() ] unless fhirResource?['diagnosis']?
+          fhirResource.diagnosis[0]?.use = @getCodeableConceptForCoding(coding)
+        types: ['CodeableConcept']
+        valueSets: () -> [DiagnosisRoleValueSet.JSON]
+      },
+      {
+        path: 'diagnosis.rank'
+        title: 'diagnosis.rank'
+        getValue: (fhirResource) -> fhirResource?['diagnosis']?[0]?.rank
+        setValue: (fhirResource, value) =>
+          fhirResource?['diagnosis'] = [ new cqm.models.EncounterDiagnosis() ] unless fhirResource?['diagnosis']?
+          fhirResource['diagnosis'][0]?.rank = value
+        types: ['PositiveInt']
+      },
+      {
         path: 'length'
         title: 'length'
         getValue: (fhirResource) =>
