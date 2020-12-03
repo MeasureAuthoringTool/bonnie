@@ -3,15 +3,15 @@ describe "SourceDataCriteria", ->
     jasmine.getJSONFixtures().clearCache()
 
   # changed from Authored to Relevant Period for QDM 5.3
-  xit "specifies 'Medication, Dispensed' to have a relevant period", ->
-    passIPP1 = getJSONFixture 'patients/CMS136v7/Pass_IPP1.json'
-    passIPP2 = getJSONFixture 'patients/CMS136v7/Pass_IPP2.json'
+  xit "specifies 'Observation' to have a relevant period", ->
+    passIPP1 = getJSONFixture 'fhir_patients/CMS124/patient-denom-EXM124.json'
+    passIPP2 = getJSONFixture 'fhir_patients/CMS124/patient-numer-EXM124.json'
     patients = new Thorax.Collections.Patients [passIPP1, passIPP2], parse: true
     patient = patients.at(0) # Pass IPP1
     dataCriteria = patient.get('source_data_criteria').at(1)
-    expect(dataCriteria.getCriteriaType()).toBe 'medication_dispensed'
+    expect(dataCriteria.getCriteriaType()).toBe 'Observation'
     expect(dataCriteria.isPeriodType()).toBe true
-    expect(dataCriteria.getPrimaryTimingAttribute()).toBe 'relevantPeriod'
+    expect(dataCriteria.getPrimaryTimingAttribute().type).toBe('instant')
 
   # changed from Authored to Relevant Period for QDM 5.3
   xit "specifies 'Medication, Order' to have a relevant period", ->
