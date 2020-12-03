@@ -34,7 +34,7 @@ describe 'Continuous Variable Calculations', ->
 
     @patients = new Thorax.Collections.Patients [visit1ED, visit1Excl2ED, visits2Excl2ED, visits2ED], parse: true
 
-  it 'can handle single episodes observed', ->
+  xit 'can handle single episodes observed', ->
     patient = @patients.at(0) # 1 ED Visit
     result = @population.calculate(patient)
     expect(result.get('observation_values')).toEqual([15])
@@ -46,7 +46,7 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [15] }
     expect(result.get('episode_results')['5d5af7364987880000ce1889']).toEqual(expectedEpisodeResults)
 
-  it 'can handle multiple episodes observed', ->
+  xit 'can handle multiple episodes observed', ->
     patient = @patients.at(3) # 2 ED Visits
     result = @population.calculate(patient)
     # values are ordered when created by the calculator
@@ -63,7 +63,7 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, observation_values: [25] }
     expect(result.get('episode_results')[episode_ids[1]]).toEqual(expectedEpisodeResults)
 
-  it 'can handle multiple episodes observed with one excluded', ->
+  xit 'can handle multiple episodes observed with one excluded', ->
     patient = @patients.at (1) # 2 ED Visits 1 Excl
     result = @population.calculate(patient)
     expect(result.get('observation_values')).toEqual([15])
@@ -80,7 +80,7 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, observation_values: [] }
     expect(result.get('episode_results')[episode_ids[1]]).toEqual(expectedEpisodeResults)
 
-  it 'can handle multiple episodes observed with both excluded', ->
+  xit 'can handle multiple episodes observed with both excluded', ->
     patient = @patients.at(2) # 2 ED Visits 2 Excl
     result = @population.calculate(patient)
     expect(result.get('observation_values')).toEqual([])
