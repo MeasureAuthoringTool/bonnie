@@ -11,7 +11,7 @@ describe 'CqlTruncatedStatementView', ->
       @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @population)
       @populationLogicView.render()
 
-    it 'is used for OpioidData DrugIngredients statement instead of normal clause view', ->
+    xit 'is used for OpioidData DrugIngredients statement instead of normal clause view', ->
       drugIngredientsView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "DrugIngredients" && view.libraryName == "OpioidData")
       expect(drugIngredientsView.rootClauseView instanceof Thorax.Views.CqlTruncatedStatementView).toBe(true)
 
@@ -86,7 +86,7 @@ describe 'CqlTruncatedStatementView', ->
         $(encountersView.rootClauseView.$el).trigger('mouseout')
         expect(@populationLogicView.clearHighlightPatientData).toHaveBeenCalled()
 
-      it 'does not hover highlight of the list of entries when highlightPatientDataEnabled is false', ->
+      xit 'does not hover highlight of the list of entries when highlightPatientDataEnabled is false', ->
         results = @population.calculate(@patients.first())
         @populationLogicView.showRationale(results)
         encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters during Measurement Period" && view.libraryName == "PotentialOpioidOveruse")
