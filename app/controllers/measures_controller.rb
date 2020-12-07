@@ -1,3 +1,5 @@
+require 'rest-client'
+
 class MeasuresController < ApplicationController
   include MeasureHelper
 
@@ -26,6 +28,8 @@ class MeasuresController < ApplicationController
       return
     end
 
+    scan_for_viruses(params)
+
     begin
       vsac_tgt = obtain_ticket_granting_ticket
     rescue Util::VSAC::VSACError => e
@@ -41,6 +45,33 @@ class MeasuresController < ApplicationController
     session[:vsac_tgt] = nil if e.is_a?(VSACTicketExpiredError)
     flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
     redirect_to "#{root_path}##{params[:redirect_route]}"
+  end
+
+  # Virus scanning
+  def scan_for_viruses(params)
+    # uploaded_file.tempfile
+    if APP_CONFIG['virus_scan']['enabled']
+      original_filename = params[:measure_file].original_filename
+      begin
+        headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
+        scan_url = APP_CONFIG['virus_scan']['scan_url']
+        payload = { file_name: original_filename, file: File.new(params[:measure_file].tempfile, 'rb') }
+        scan_timeout = APP_CONFIG['virus_scan']['timeout']
+        RestClient::Request.execute(method: :post, url: scan_url, payload: payload, timeout: scan_timeout, headers: headers)
+      rescue StandardError => e
+        if e.is_a?(RestClient::ExceptionWithResponse) && e.http_code == 400 # rubocop:disable Style/
+          raise VirusScannerError.new("Potential virus found in file " + original_filename, e.message)
+        else
+          # Possible errors :
+          # RestClient::Unauthorized,
+          # RestClient::Forbidden,
+          # RestClient::RequestTimeout,
+          # RestClient::ServerBrokeConnection,
+          # Errno::ECONNREFUSED
+          raise VirusScannerError.new("Cannot perform virus scanning. Try again later.", e.message)
+        end
+      end
+    end
   end
 
   def destroy
@@ -112,17 +143,7 @@ class MeasuresController < ApplicationController
                       value_set_loader: build_vs_loader(permitted_params, false),
                       user: user)
       end
-    # check_measures_for_unsupported_data_elements(measures)
     return measure, measure.set_id
-  end
-
-  def check_measures_for_unsupported_data_elements(measures)
-    measures.each do |measure|
-      if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
-        measure.destroy
-        raise MeasureLoadingUnsupportedDataElement.new("Related Person")
-      end
-    end
   end
 
   def retrieve_measure_details(params)
