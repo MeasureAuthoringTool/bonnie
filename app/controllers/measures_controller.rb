@@ -60,9 +60,9 @@ class MeasuresController < ApplicationController
         scan_timeout = APP_CONFIG['virus_scan']['timeout']
         RestClient::Request.execute(method: :post, url: scan_url, payload: payload, timeout: scan_timeout, headers: headers)
       rescue StandardError => e
-        Rails.logger.error "#{controller_name}#scan_for_viruses: #{e.message} #{e.http_code}"
+        Rails.logger.error "#{controller_name}#scan_for_viruses: #{e.message}"
         if e.is_a?(RestClient::ExceptionWithResponse) && e.http_code == 400
-          raise VirusScannerError.new("Potential virus found in file " + original_filename, e.message)
+          raise VirusFoundError.new()
         else
           # Possible errors :
           # RestClient::Unauthorized,
@@ -70,7 +70,7 @@ class MeasuresController < ApplicationController
           # RestClient::RequestTimeout,
           # RestClient::ServerBrokeConnection,
           # Errno::ECONNREFUSED
-          raise VirusScannerError.new("Cannot perform virus scanning. Try again later.", e.message)
+          raise VirusScannerError.new()
         end
       ensure
         duration = Time.now - start
