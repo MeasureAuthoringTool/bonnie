@@ -276,10 +276,9 @@ describe 'PatientBuilderView', ->
   describe "setting expected values for CV measure", ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      cqlMeasure = loadFhirMeasure 'fhir_measures/CMS111/CMS111Test.json'
+      cqlMeasure = loadFhirMeasure 'fhir_measures/CMS111/CMS111.json'
       patientsJSON = []
-      patientsJSON.push(getJSONFixture('fhir_patients/CMS111/IPP_MSTPOPL_MSRPOPLEX_Pass_Test.json'))
-      patientsJSON.push(getJSONFixture('fhir_patients/CMS111/IPP_MSRPOPL_OBS_Pass_Test.json'))
+      patientsJSON.push(getJSONFixture('fhir_patients/CMS111/IPP_MSRPOPL_MSRPOPEX_NO_OBS.json'))
       patients = new Thorax.Collections.Patients patientsJSON, parse: true
       @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       @patientBuilder.appendTo 'body'
