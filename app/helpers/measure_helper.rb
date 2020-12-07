@@ -13,13 +13,13 @@ module MeasureHelper
   class VirusScannerError < SharedError
     def initialize(text, message)
       front_end_version = {
-          title: "Error Loading Measure",
-          summary: text,
-          body: message
+        title: "Error Loading Measure",
+        summary: text,
+        body: message
       }
       back_end_version = {
-          json: {status: "error", messages: text + " " + message},
-          status: :bad_request
+        json: {status: "error", messages: text + " " + message},
+        status: :bad_request
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
