@@ -85,6 +85,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "move measure" do
+    skip("UPDATE FOR NEW MODEL")
     source_email = 'bonnie@example.com'
     dest_email = 'user_admin@example.com'
     source_set_id = '4DC3E7AA-8777-4749-A1E4-37E942036076'
