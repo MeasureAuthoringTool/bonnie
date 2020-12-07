@@ -51,6 +51,7 @@ class MeasuresController < ApplicationController
   def scan_for_viruses(params)
     # uploaded_file.tempfile
     if APP_CONFIG['virus_scan']['enabled']
+      start = Time.now
       original_filename = params[:measure_file].original_filename
       begin
         headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
@@ -59,6 +60,7 @@ class MeasuresController < ApplicationController
         scan_timeout = APP_CONFIG['virus_scan']['timeout']
         RestClient::Request.execute(method: :post, url: scan_url, payload: payload, timeout: scan_timeout, headers: headers)
       rescue StandardError => e
+        Rails.logger.error "#{controller_name}#scan_for_viruses: #{e.message} #{e.http_code}"
         if e.is_a?(RestClient::ExceptionWithResponse) && e.http_code == 400 # rubocop:disable Style/
           raise VirusScannerError.new("Potential virus found in file " + original_filename, e.message)
         else
@@ -70,6 +72,9 @@ class MeasuresController < ApplicationController
           # Errno::ECONNREFUSED
           raise VirusScannerError.new("Cannot perform virus scanning. Try again later.", e.message)
         end
+      ensure
+        duration = Time.now - start
+        Rails.logger.info "#{controller_name}#scan_for_viruses - scanner took: #{duration}s"
       end
     end
   end
