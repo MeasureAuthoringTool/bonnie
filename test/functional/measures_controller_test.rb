@@ -20,6 +20,10 @@ include Devise::Test::ControllerHelpers
     @vcr_options = {match_requests_on: [:method, :uri_no_st]}
   end
 
+  test 'scan_for_viruses' do
+
+  end
+
   test 'Upload & destroy FHIR Measure' do
     skip("UPDATE FOR NEW MODEL")
     VCR.use_cassette('vsac_response_for_upload_CMS104', @vcr_options) do
