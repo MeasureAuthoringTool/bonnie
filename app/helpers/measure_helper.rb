@@ -11,7 +11,7 @@ module MeasureHelper
   end
 
   class VirusScannerError < SharedError
-    def initialize()
+    def initialize
       front_end_version = {
         title: "Error Loading Measure",
         summary: "The uploaded file is not a valid Measure Authoring Tool (MAT) export of a FHIR Based Measure.",
@@ -26,15 +26,15 @@ module MeasureHelper
   end
 
   class VirusFoundError < SharedError
-    def initialize()
+    def initialize
       front_end_version = {
-          title: "Error Loading Measure",
-          summary: "The uploaded file is not a valid Measure Authoring Tool (MAT) export of a FHIR Based Measure.",
-          body: "Error: V100. Please re-package and re-export your FHIR based measure from the MAT and try again."
+        title: "Error Loading Measure",
+        summary: "The uploaded file is not a valid Measure Authoring Tool (MAT) export of a FHIR Based Measure.",
+        body: "Error: V100. Please re-package and re-export your FHIR based measure from the MAT and try again."
       }
       back_end_version = {
-          json: {status: "error", messages: "Potential virus found in file"},
-          status: :bad_request
+        json: {status: "error", messages: "Potential virus found in file"},
+        status: :bad_request
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
