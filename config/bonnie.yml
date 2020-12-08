@@ -20,7 +20,7 @@ defaults: &defaults
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
 
   virus_scan:
-    enabled: true
+    enabled: false
     scan_url: 'http://localhost:5000/scan-file'
     api_key: '1234567'
     timeout: 30

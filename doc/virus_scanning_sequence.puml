@@ -21,27 +21,26 @@ note left
 end note
 Bonnie -> User: 200 OK, Uploaded/Updated successfully
 
+else Missing/Empty file
+Bonnie -> User: "You must specify a Measure Authoring tool measure export to use."
+
 else Wrong/Missing API Key
 "virus-scan-service" --> Bonnie: 401 Unauthorized, "Wrong/Missing API Key"
-Bonnie -> User: Error V101, The uploaded file is not a valid MAT FHIR measure package"
-
-else Missing/Empty file
-"virus-scan-service" --> Bonnie: 400 Bad Request, "Required file is missing. Cannot perform virus scanning"
-Bonnie -> User: Error V101, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error V101, The uploaded file is not a valid MAT FHIR measure package"
 
 else Virus Found
 "virus-scan-service" --> Bonnie: 400 Bad Request, "Potential virus found in file ____"
-Bonnie -> User: Error V100, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error V100, The uploaded file is not a valid MAT FHIR measure package"
 
 else Unhandled Error
 "virus-scan-service" --> Bonnie: 500 Internal Server Error
-Bonnie -> User: Error V101, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error V101, The uploaded file is not a valid MAT FHIR measure package"
 
 else Connection Error
-Bonnie -> User: Error V101, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error V101, The uploaded file is not a valid MAT FHIR measure package"
 
 else TimeOut
-Bonnie -> User: Error V101, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error V101, The uploaded file is not a valid MAT FHIR measure package"
 
 end
 
