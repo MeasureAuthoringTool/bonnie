@@ -28,14 +28,13 @@ describe 'PatientBuilderView', ->
     bonnie.renderPatientBuilder('non_existant_set_id', @patient.id)
     expect(bonnie.mainView.setView).toHaveBeenCalled()
 
-  # TODO
-  xit 'renders the builder correctly', ->
+  it 'renders the builder correctly', ->
     expect(@$el.find(":input[name='first']")).toHaveValue @patient.getFirstName()
     expect(@$el.find(":input[name='last']")).toHaveValue @patient.getLastName()
     expect(@$el.find(":input[name='birthdate']")).toHaveValue @patient.getBirthDate()
     expect(@$el.find(":input[name='deathtime']")).toHaveValue @patient.getDeathTime()
     expect(@$el.find(":input[name='notes']")).toHaveValue @patient.getNotes()
-    expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
+    # expect(@patientBuilder.html()).not.toContainText "Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:"
 
   it 'displays a warning if codes on dataElements do not exist on measure', ->
     @measure.attributes.cqmValueSets = []
@@ -155,133 +154,187 @@ describe 'PatientBuilderView', ->
 
     afterEach -> @patientBuilder.remove()
 
-    describe "changing and blurring basic fields", ->
-      beforeEach ->
-        @patientBuilder.appendTo('body')
-        @patientBuilder.$('select[name=gender]').val('male').change()
-        @patientBuilder.$('input[name=birthdate]').blur()
+  describe "adding encounters to patient", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @patientBuilder.render()
+      # simulate dragging an encounter onto the patient
+      @addEncounter = (position, targetSelector) ->
+        $('.panel-title').click() # Expand the criteria to make draggables visible
+        criteria = @$el.find(".draggable:eq(#{position})").draggable()
+        target = @$el.find(targetSelector)
+        targetView = target.view()
+        # We used to simulate a drag, but that had issues with different viewport sizes, so instead we just
+        # directly call the appropriate drop event handler
+        if targetView.dropCriteria
+          target.view().dropCriteria({ target: target }, { draggable: criteria })
+        else
+          target.view().drop({ target: target }, { draggable: criteria })
 
-      afterEach ->
-        @patientBuilder.remove()
+    it "adds data criteria to model when dragged", ->
+      # force materialize to get any patient characteristics that should exist added
+      @patientBuilder.materialize();
+      initialDataElementCount = @patientBuilder.model.get('cqmPatient').data_elements.length
+      # droppable 1 is encounter
+      @addEncounter 1, '.criteria-data.droppable:first'
+      expect(@patientBuilder.model.get('cqmPatient').data_elements.length).toEqual(initialDataElementCount + 1)
 
-      it "materializes the patient", ->
-        # SKIP: The above change() and blur() commands do hit materialize when
-        # executed in the browser console:w Not sure why the spy is not getting
-        # hit here.
-        expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-        expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
+    it "has a default date authoredOn primary timing attributes", ->
+      date = @patientBuilder.model.get('source_data_criteria').first().get('dataElement').fhir_resource['authoredOn']
+      expect(date.value).toBeDefined()
 
-    describe "adding encounters to patient", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        @patientBuilder.render()
-        # simulate dragging an encounter onto the patient
-        @addEncounter = (position, targetSelector) ->
-          $('.panel-title').click() # Expand the criteria to make draggables visible
-          criteria = @$el.find(".draggable:eq(#{position})").draggable()
-          target = @$el.find(targetSelector)
-          targetView = target.view()
-          # We used to simulate a drag, but that had issues with different viewport sizes, so instead we just
-          # directly call the appropriate drop event handler
-          if targetView.dropCriteria
-            target.view().dropCriteria({ target: target }, { draggable: criteria })
-          else
-            target.view().drop({ target: target }, { draggable: criteria })
+    it "acquires the authoredOn datetime of the drop target when dropping on an existing criteria", ->
+      date = @patientBuilder.model.get('source_data_criteria').first().get('dataElement').fhir_resource['authoredOn']
+      # droppable 3 is encounter
+      @addEncounter 3, '.criteria-data.droppable:first'
+      droppedResource = @patientBuilder.model.get('source_data_criteria').last().get('dataElement').fhir_resource
+      expect(droppedResource['period'].start.value).toEqual date.value
+      endDate = cqm.models.CQL.DateTime.fromJSDate(new Date(date.value), 0).add(15, cqm.models.CQL.DateTime.Unit.MINUTE).toString()
+      expect(droppedResource['period'].end.value).toEqual endDate
 
-      xit "adds data criteria to model when dragged", ->
-        initialOriginalDataElementCount = @patientBuilder.originalModel.get('cqmPatient').data_elements.length
-        # force materialize to get any patient characteristics that should exist added
-        @patientBuilder.materialize();
-        initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
-        initialDataElementCount = @patientBuilder.model.get('cqmPatient').data_elements.length
-        @addEncounter 1, '.criteria-container.droppable'
-        expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 1
-        expect(@patientBuilder.model.get('cqmPatient').data_elements.length).toEqual initialDataElementCount + 1
-        # make sure the dataElements on the original model were not touched
-        expect(@patientBuilder.originalModel.get('cqmPatient').data_elements.length).toEqual initialOriginalDataElementCount
+    it "acquires the authoredOn datetime of the drop target when dropping on an existing criteria even datetime is null", ->
+      @patientBuilder.model.get('source_data_criteria').first().get('dataElement').fhir_resource['authoredOn'] = null
+      # droppable 3 is encounter
+      @addEncounter 3, '.criteria-data.droppable:first'
+      dropedResource = @patientBuilder.model.get('source_data_criteria').last().get('dataElement').fhir_resource
+      expect(dropedResource['period']).toBe null
 
-      xit "can add multiples of the same criterion", ->
-        initialOriginalDataElementCount = @patientBuilder.originalModel.get('cqmPatient').data_elements.length
-        # force materialize to get any patient characteristics that should exist added
-        @patientBuilder.materialize();
-        initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
-        initialDataElementCount = @patientBuilder.model.get('cqmPatient').data_elements.length
-        @addEncounter 1, '.criteria-container.droppable'
-        @addEncounter 1, '.criteria-container.droppable' # add the same one again
-        expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
-        expect(@patientBuilder.model.get('cqmPatient').data_elements.length).toEqual initialDataElementCount + 2
-        # make sure the dataElements on the original model were not touched
-        expect(@patientBuilder.originalModel.get('cqmPatient').data_elements.length).toEqual initialOriginalDataElementCount
+    afterEach -> @patientBuilder.remove()
 
-      it "has a default date authoredOn primary timing attributes", ->
-        date = @patientBuilder.model.get('source_data_criteria').first().get('dataElement').fhir_resource['authoredOn']
-        expect(date.value).toBeDefined()
+  describe "setting expected values for patient based measure", ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      measure = loadFhirMeasure 'fhir_measures/EXM130/EXM130Test.json'
+      patientsJSON = []
+      patientsJSON.push(getJSONFixture('fhir_patients/EXM130/IPP_DENOM_Pass_Test.json'))
+      patients = new Thorax.Collections.Patients patientsJSON, parse: true
+      @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: measure)
+      @patientBuilder.appendTo 'body'
+      @selectPopulationEV = (population, save=true) ->
+        @patientBuilder.$("input[type=checkbox][name=#{population}]:first").click()
+        @patientBuilder.$("button.btn-primary[data-call-method=save]:first").click() if save
 
-      it "acquires the authoredOn datetime of the drop target when dropping on an existing criteria", ->
-        date = @patientBuilder.model.get('source_data_criteria').first().get('dataElement').fhir_resource['authoredOn']
-        # droppable 3 is encounter
-        @addEncounter 3, '.criteria-data.droppable:first'
-        droppedResource = @patientBuilder.model.get('source_data_criteria').last().get('dataElement').fhir_resource
-        expect(droppedResource['period'].start.value).toEqual date.value
-        endDate = cqm.models.CQL.DateTime.fromJSDate(new Date(date.value), 0).add(15, cqm.models.CQL.DateTime.Unit.MINUTE).toString()
-        expect(droppedResource['period'].end.value).toEqual endDate
+    afterEach -> @patientBuilder.remove()
 
-      it "acquires the authoredOn datetime of the drop target when dropping on an existing criteria even datetime is null", ->
-        @patientBuilder.model.get('source_data_criteria').first().get('dataElement').fhir_resource['authoredOn'] = null
-        # droppable 3 is encounter
-        @addEncounter 3, '.criteria-data.droppable:first'
-        dropedResource = @patientBuilder.model.get('source_data_criteria').last().get('dataElement').fhir_resource
-        expect(dropedResource['period']).toBe null
+    it "auto unselects DENOM and IPP when IPP is unselected", ->
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 1
+      expect(expectedValues.get('DENOM')).toEqual 1
+      expect(expectedValues.get('NUMER')).toEqual 0
+      @selectPopulationEV('IPP', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 0
+      expect(expectedValues.get('DENOM')).toEqual 0
+      expect(expectedValues.get('NUMER')).toEqual 0
 
-#     it "acquires the interval of the drop target when dropping on an existing criteria", ->
-#       startDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low
-#       endDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.high
-#       # droppable 17 used because droppable 1 didn't have a start and end date
-#       @addEncounter 17, '.criteria-data.droppable:first'
-#       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod.low).toEqual startDate
-#       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod.high).toEqual endDate
+    it "auto selects DENOM and IPP when NUMER is selected", ->
+      @selectPopulationEV('NUMER', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 1
+      expect(expectedValues.get('DENOM')).toEqual 1
+      expect(expectedValues.get('NUMER')).toEqual 1
 
-#     it "acquires the authorDatetime of the drop target when dropping on an existing criteria", ->
-#       authorDatetime = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').authorDatetime
-#       # droppable 17
-#       @addEncounter 17, '.criteria-data.droppable:first'
-#       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toEqual authorDatetime
+    it "auto unselects DENOM when IPP is unselected", ->
+      @selectPopulationEV('DENOM', false)
+      @selectPopulationEV('IPP', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 0
+      expect(expectedValues.get('DENOM')).toEqual 0
+      expect(expectedValues.get('NUMER')).toEqual 0
 
-#     it "acquires the start time and makes an end time of the drop target when dropping on an existing criteria with only authorDatetime ", ->
-#       startDate = @patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').authorDatetime
-#       # expecting end date to be 15 minutes later
-#       endDate = startDate.add(15, cqm.models.CQL.DateTime.Unit.MINUTE)
-#       # droppable 17 used because droppable 1 didn't have a start and end date
-#       @addEncounter 17, '.criteria-data.droppable:last'
-#       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(startDate, endDate))
+    it "auto unselects DENOM and NUMER when IPP is unselected", ->
+      @selectPopulationEV('NUMER', false)
+      @selectPopulationEV('IPP', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 0
+      expect(expectedValues.get('DENOM')).toEqual 0
+      expect(expectedValues.get('NUMER')).toEqual 0
 
-#     it "acquires Interval[null,null] when dropping on an existing criteria with only authorDatetime that is null", ->
-#       @patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').authorDatetime = null
-#       # droppable 17 used because droppable 1 didn't have a start and end date
-#       @addEncounter 17, '.criteria-data.droppable:last'
-#       # interval should be [null,null]
-#       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').relevantPeriod).toEqual(new cqm.models.CQL.Interval(null, null))
-#       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toBe(null)
+    it "auto selects DENOM and IPP when NUMER is selected", ->
+      @selectPopulationEV('NUMER', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 1
+      expect(expectedValues.get('DENOM')).toEqual 1
+      expect(expectedValues.get('NUMER')).toEqual 1
 
-#     it "acquires the start of an interval as the authorDatetime when criteria with only authorDatetime is dropped on one with an Interval", ->
-#       startDate = @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low
-#       # droppable 14 used. this is InterventionOrder that only has authorDatetime
-#       @addEncounter 14, '.criteria-data.droppable:first'
-#       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toEqual(startDate)
+    it "auto unselects DENOM when IPP is unselected", ->
+      @selectPopulationEV('DENOM', false)
+      @selectPopulationEV('IPP', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 0
+      expect(expectedValues.get('DENOM')).toEqual 0
+      expect(expectedValues.get('NUMER')).toEqual 0
 
-#     it "acquires null as the authorDatetime when criteria with only authorDatetime is dropped on one with an Interval that starts with null", ->
-#       # set the low of the drop target to be null
-#       @patientBuilder.model.get('source_data_criteria').first().get('qdmDataElement').prevalencePeriod.low = null
-#       # droppable 14 used. this is InterventionOrder that only has authorDatetime
-#       @addEncounter 14, '.criteria-data.droppable:first'
-#       expect(@patientBuilder.model.get('source_data_criteria').last().get('qdmDataElement').authorDatetime).toBe(null)
+    it "auto unselects DENOM and NUMER when IPP is unselected", ->
+      @selectPopulationEV('NUMER', false)
+      @selectPopulationEV('IPP', true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 0
+      expect(expectedValues.get('DENOM')).toEqual 0
+      expect(expectedValues.get('NUMER')).toEqual 0
 
-#     it "materializes the patient", ->
-#       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
-#       @addEncounter 1, '.criteria-container.droppable'
-#       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
+  describe "setting expected values for CV measure", ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      cqlMeasure = loadFhirMeasure 'fhir_measures/CMS111/CMS111.json'
+      patientsJSON = []
+      patientsJSON.push(getJSONFixture('fhir_patients/CMS111/IPP_MSRPOPL_MSRPOPEX_NO_OBS.json'))
+      patients = new Thorax.Collections.Patients patientsJSON, parse: true
+      @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
+      @patientBuilder.appendTo 'body'
+      @setPopulationVal = (population, value=0, save=true) ->
+        @patientBuilder.$("input[type=number][name=#{population}]:first").val(value).change()
+        @patientBuilder.$("button.btn-primary[data-call-method=save]:first").click() if save
 
-#     afterEach -> @patientBuilder.remove()
+    afterEach -> @patientBuilder.remove()
+
+    it "IPP removal removes membership of all populations in CV measures", ->
+      @setPopulationVal('IPP', 0, true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 0
+      expect(expectedValues.get('MSRPOPL')).toEqual 0
+      expect(expectedValues.get('MSRPOPLEX')).toEqual 0
+      expect(expectedValues.get('OBSERV')).toEqual []
+
+    it "MSRPOPLEX addition adds membership to all populations in CV measures", ->
+      @setPopulationVal('MSRPOPLEX', 4, true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 4
+      expect(expectedValues.get('MSRPOPL')).toEqual 4
+      expect(expectedValues.get('MSRPOPLEX')).toEqual 4
+      # 4 MSRPOPLEX and 4 MSRPOPL means there should be no OBSERVs
+      expect(expectedValues.get('OBSERV')).toEqual []
+
+#    it "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
+#      # First set IPP to 0 to zero out all population membership
+#      @setPopulationVal('IPP', 0, true)
+#      @setPopulationVal('MSRPOPLEX', 3, true)
+#      @setPopulationVal('MSRPOPL', 4, true)
+#      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+#      expect(expectedValues.get('IPP')).toEqual 4
+#      expect(expectedValues.get('MSRPOPL')).toEqual 4
+#      expect(expectedValues.get('MSRPOPLEX')).toEqual 3
+#      # 4 MSRPOPL and 3 MSRPOPLEX means there should be 1 OBSERVs
+#      expect(expectedValues.get('OBSERV').length).toEqual 1
+#      @setPopulationVal('MSRPOPL', 6, true)
+#      expect(expectedValues.get('IPP')).toEqual 6
+#      expect(expectedValues.get('MSRPOPL')).toEqual 6
+#      expect(expectedValues.get('MSRPOPLEX')).toEqual 3
+#      # 6 MSRPOPL and 3 MSRPOPLEX means there should be 3 OBSERVs
+#      expect(expectedValues.get('OBSERV').length).toEqual 3
+#      # Should remove all observs
+#      @setPopulationVal('MSRPOPLEX', 6, true)
+#      expect(expectedValues.get('IPP')).toEqual 6
+#      expect(expectedValues.get('MSRPOPL')).toEqual 6
+#      expect(expectedValues.get('MSRPOPLEX')).toEqual 6
+#      # 6 MSRPOPLEX and 6 MSRPOPL means there should be no OBSERVs
+#      expect(expectedValues.get('OBSERV')).toEqual undefined
+#      # set IPP to 0, should zero out all populations
+#      @setPopulationVal('IPP', 0, true)
+#      expect(expectedValues.get('IPP')).toEqual 0
+#      expect(expectedValues.get('MSRPOPL')).toEqual 0
+#      expect(expectedValues.get('MSRPOPLEX')).toEqual 0
+#      expect(expectedValues.get('OBSERV')).toEqual undefined
 
 #   describe "editing basic attributes of a criteria", ->
 #     # SKIP: This should be re-enabled with patient builder timing work
@@ -338,21 +391,6 @@ describe 'PatientBuilderView', ->
 
 #     afterEach -> @patientBuilder.remove()
 
-#   describe 'author date time', ->
-#     xit "removes author date time field value when not performed is checked", ->
-#       # SKIP: Re-enable with Patient Builder work
-#       authorDateTimePatient = @patients.models.filter((patient) -> patient.get('last') is 'AuthorDateTime')[0]
-#       patientBuilder = new Thorax.Views.PatientBuilder(model: authorDateTimePatient, measure: @measure, patients: @patients)
-#       patientBuilder.appendTo 'body'
-#       firstCriteria = patientBuilder.model.get('source_data_criteria').first()
-#       authorDateTime = patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('start_date')
-#       expect(authorDateTime).toEqual '04/24/2019'
-#       patientBuilder.$('input[name=negation]:first').click()
-#       expect(patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toBe 0
-#       startDate = new Date(patientBuilder.model.get('source_data_criteria').first().get('start_date'))
-#       expect(startDate.toString().includes("Tue Apr 17 2012")).toBe true
-#       patientBuilder.remove()
-
 #   describe "blurring basic fields of a criteria", ->
 #     beforeEach ->
 #       @patientBuilder.appendTo 'body'
@@ -378,250 +416,6 @@ describe 'PatientBuilderView', ->
 #     xit "adds a code", ->
 
 #     afterEach -> @patientBuilder.remove()
-
-#   describe "setting expected values", ->
-#     beforeEach ->
-#       @patientBuilder.appendTo 'body'
-#       @selectPopulationEV = (population, save=true) ->
-#         @patientBuilder.$("input[type=checkbox][name=#{population}]:first").click()
-#         @patientBuilder.$("button[data-call-method=save]").click() if save
-
-#     it "auto unselects DENOM and IPP when IPP is unselected", ->
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 1
-#       expect(expectedValues.get('DENOM')).toEqual 1
-#       expect(expectedValues.get('NUMER')).toEqual 0
-#       @selectPopulationEV('IPP', true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 0
-#       expect(expectedValues.get('DENOM')).toEqual 0
-#       expect(expectedValues.get('NUMER')).toEqual 0
-
-#     it "auto selects DENOM and IPP when NUMER is selected", ->
-#       @selectPopulationEV('NUMER', true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 1
-#       expect(expectedValues.get('DENOM')).toEqual 1
-#       expect(expectedValues.get('NUMER')).toEqual 1
-
-#     it "auto unselects DENOM when IPP is unselected", ->
-#       @selectPopulationEV('DENOM', false)
-#       @selectPopulationEV('IPP', true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 0
-#       expect(expectedValues.get('DENOM')).toEqual 0
-#       expect(expectedValues.get('NUMER')).toEqual 0
-
-#     it "auto unselects DENOM and NUMER when IPP is unselected", ->
-#       @selectPopulationEV('NUMER', false)
-#       @selectPopulationEV('IPP', true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 0
-#       expect(expectedValues.get('DENOM')).toEqual 0
-#       expect(expectedValues.get('NUMER')).toEqual 0
-
-#     it "auto selects DENOM and IPP when NUMER is selected", ->
-#       @selectPopulationEV('NUMER', true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 1
-#       expect(expectedValues.get('DENOM')).toEqual 1
-#       expect(expectedValues.get('NUMER')).toEqual 1
-
-#     it "auto unselects DENOM when IPP is unselected", ->
-#       @selectPopulationEV('DENOM', false)
-#       @selectPopulationEV('IPP', true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 0
-#       expect(expectedValues.get('DENOM')).toEqual 0
-#       expect(expectedValues.get('NUMER')).toEqual 0
-
-#     it "auto unselects DENOM and NUMER when IPP is unselected", ->
-#       @selectPopulationEV('NUMER', false)
-#       @selectPopulationEV('IPP', true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 0
-#       expect(expectedValues.get('DENOM')).toEqual 0
-#       expect(expectedValues.get('NUMER')).toEqual 0
-
-#     it 'updates the values of the frontend mongoose model', ->
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       mongooseExpectecValue = (expectedValues.collection.parent.get('cqmPatient').expectedValues.filter (val) -> val.population_index is 0 && val.measure_id is '7B2A9277-43DA-4D99-9BEE-6AC271A07747')[0]
-#       expect(mongooseExpectecValue.IPP).toEqual 1
-#       expect(mongooseExpectecValue.DENOM).toEqual 1
-#       expect(mongooseExpectecValue.NUMER).toEqual 0
-#       @selectPopulationEV('IPP', true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(mongooseExpectecValue.IPP).toEqual 0
-#       expect(mongooseExpectecValue.DENOM).toEqual 0
-#       expect(mongooseExpectecValue.NUMER).toEqual 0
-#       @selectPopulationEV('NUMER', false)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(mongooseExpectecValue.IPP).toEqual 1
-#       expect(mongooseExpectecValue.DENOM).toEqual 1
-#       expect(mongooseExpectecValue.NUMER).toEqual 1
-
-#     afterEach -> @patientBuilder.remove()
-
-#   describe "setting expected values for CV measure", ->
-#     beforeEach ->
-#       cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS903v0/CMS903v0.json', 'cqm_measure_data/CMS903v0/value_sets.json'
-#       patientsJSON = []
-#       patientsJSON.push(getJSONFixture('patients/CMS903v0/Visit_1 ED.json'))
-#       patientsJSON.push(getJSONFixture('patients/CMS903v0/Visits 1 Excl_2 ED.json'))
-#       patientsJSON.push(getJSONFixture('patients/CMS903v0/Visits 2 Excl_2 ED.json'))
-#       patientsJSON.push(getJSONFixture('patients/CMS903v0/Visits_2 ED.json'))
-#       patients = new Thorax.Collections.Patients patientsJSON, parse: true
-#       @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
-#       @patientBuilder.appendTo 'body'
-#       @setPopulationVal = (population, value=0, save=true) ->
-#         @patientBuilder.$("input[type=number][name=#{population}]:first").val(value).change()
-#         @patientBuilder.$("button[data-call-method=save]").click() if save
-
-#     it "IPP removal removes membership of all populations in CV measures", ->
-#       @setPopulationVal('IPP', 0, true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 0
-#       expect(expectedValues.get('MSRPOPL')).toEqual 0
-#       expect(expectedValues.get('MSRPOPLEX')).toEqual 0
-#       expect(expectedValues.get('OBSERV')).toEqual undefined
-
-#     it "MSRPOPLEX addition adds membership to all populations in CV measures", ->
-#       # First set IPP to 0 to zero out all population membership
-#       @setPopulationVal('IPP', 0, true)
-#       @setPopulationVal('MSRPOPLEX', 4, true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 4
-#       expect(expectedValues.get('MSRPOPL')).toEqual 4
-#       expect(expectedValues.get('MSRPOPLEX')).toEqual 4
-#       # 4 MSRPOPLEX and 4 MSRPOPL means there should be no OBSERVs
-#       expect(expectedValues.get('OBSERV')).toEqual undefined
-
-#     it "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
-#       # First set IPP to 0 to zero out all population membership
-#       @setPopulationVal('IPP', 0, true)
-#       @setPopulationVal('MSRPOPLEX', 3, true)
-#       @setPopulationVal('MSRPOPL', 4, true)
-#       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#       expect(expectedValues.get('IPP')).toEqual 4
-#       expect(expectedValues.get('MSRPOPL')).toEqual 4
-#       expect(expectedValues.get('MSRPOPLEX')).toEqual 3
-#       # 4 MSRPOPL and 3 MSRPOPLEX means there should be 1 OBSERVs
-#       expect(expectedValues.get('OBSERV').length).toEqual 1
-#       @setPopulationVal('MSRPOPL', 6, true)
-#       expect(expectedValues.get('IPP')).toEqual 6
-#       expect(expectedValues.get('MSRPOPL')).toEqual 6
-#       expect(expectedValues.get('MSRPOPLEX')).toEqual 3
-#       # 6 MSRPOPL and 3 MSRPOPLEX means there should be 3 OBSERVs
-#       expect(expectedValues.get('OBSERV').length).toEqual 3
-#       # Should remove all observs
-#       @setPopulationVal('MSRPOPLEX', 6, true)
-#       expect(expectedValues.get('IPP')).toEqual 6
-#       expect(expectedValues.get('MSRPOPL')).toEqual 6
-#       expect(expectedValues.get('MSRPOPLEX')).toEqual 6
-#       # 6 MSRPOPLEX and 6 MSRPOPL means there should be no OBSERVs
-#       expect(expectedValues.get('OBSERV')).toEqual undefined
-#       # set IPP to 0, should zero out all populations
-#       @setPopulationVal('IPP', 0, true)
-#       expect(expectedValues.get('IPP')).toEqual 0
-#       expect(expectedValues.get('MSRPOPL')).toEqual 0
-#       expect(expectedValues.get('MSRPOPLEX')).toEqual 0
-#       expect(expectedValues.get('OBSERV')).toEqual undefined
-
-#     afterEach -> @patientBuilder.remove()
-
-#   describe 'CQL', ->
-#     beforeEach ->
-#       jasmine.getJSONFixtures().clearCache()
-#       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/deprecated_measures/CMS347/CMS347v3.json'), parse: true
-#       # preserve atomicity
-#       @bonnie_measures_old = bonnie.measures
-#       bonnie.measures = new Thorax.Collections.Measures()
-#       bonnie.measures.add(@cqlMeasure, {parse: true})
-
-#     afterEach ->
-#       bonnie.measures = @bonnie_measures_old
-
-#     xit "laboratory test performed should have custom view for components", ->
-#       # SKIP: Re-enable with Patient Builder Attributes
-#       # NOTE: these patients aren't in the DB so fixture will need to be swapped
-#       patients = new Thorax.Collections.Patients getJSONFixture('patients/CMS347/patients.json'), parse: true
-#       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
-#       dataCriteria = patientBuilder.model.get('source_data_criteria').models
-#       laboratoryTestIndex = dataCriteria.findIndex((m) ->  m.attributes.definition is 'laboratory_test')
-#       laboratoryTest = dataCriteria[laboratoryTestIndex]
-#       editCriteriaView = new Thorax.Views.EditCriteriaView(model: laboratoryTest)
-#       editFieldValueView = editCriteriaView.editFieldValueView
-#       editFieldValueView.render()
-#       editFieldValueView.$('select[name=key]').val('COMPONENT').change()
-
-#       expect(editFieldValueView.$('label[for=code]')).toExist()
-#       expect(editFieldValueView.$('label[for=code]')[0].innerHTML).toEqual('Code')
-#       expect(editFieldValueView.$('label[for=referenceRangeLow]')).toExist()
-#       expect(editFieldValueView.$('label[for=referenceRangeLow]')[0].innerHTML).toEqual('Reference Range - Low')
-#       expect(editFieldValueView.$('label[for=referenceRangeHigh]')).toExist()
-#       expect(editFieldValueView.$('label[for=referenceRangeHigh]')[0].innerHTML).toEqual('Reference Range - High')
-#       expect(editFieldValueView.$('select[name=code_list_id]')).toExist()
-
-#       editFieldValueView.$('select[name=key]').val('REASON').change()
-#       expect(editFieldValueView.$('label[for=code]').length).toEqual(0)
-#       expect(editFieldValueView.$('label[for=referenceRangeLow]').length).toEqual(0)
-#       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
-
-#   describe 'Composite Measure', ->
-
-#     beforeEach ->
-#       jasmine.getJSONFixtures().clearCache()
-#       # preserve atomicity
-#       @bonnie_measures_old = bonnie.measures
-
-#       valueSetsPath = 'cqm_measure_data/CMS890v0/value_sets.json'
-#       bonnie.measures = new Thorax.Collections.Measures()
-#       @compositeMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS890v0/CMS890v0.json', valueSetsPath
-#       bonnie.measures.push(@compositeMeasure)
-
-#       @components = getJSONFixture('cqm_measure_data/CMS890v0/components.json')
-#       @components = @components.map((component) -> new Thorax.Models.Measure component, parse: true)
-#       @components.forEach((component) -> bonnie.measures.push(component))
-
-#       patientTest1 = getJSONFixture('patients/CMS890v0/Patient_Test 1.json')
-#       patientTest2 = getJSONFixture('patients/CMS890v0/Patient_Test 2.json')
-#       @compositePatients = new Thorax.Collections.Patients [patientTest1, patientTest2], parse: true
-#       @compositeMeasure.populateComponents()
-
-#     afterEach ->
-#       bonnie.measures = @bonnie_measures_old
-
-#     xit "should floor the observ value to at most 8 decimals", ->
-#       # SKIP: Re-enable with patient saving/expected value work
-#       patientBuilder = new Thorax.Views.PatientBuilder(model: @compositePatients.at(1), measure: @compositeMeasure)
-#       patientBuilder.render()
-#       expected_vals = patientBuilder.model.get('expected_values').findWhere({measure_id: "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"})
-
-#       patientBuilder.$(':input[name=OBSERV]').val(0.123456781111111)
-#       patientBuilder.serializeWithChildren()
-#       expect(expected_vals.get("OBSERV")[0]).toEqual 0.12345678
-
-#       patientBuilder.$(':input[name=OBSERV]').val(0.123456786666666)
-#       patientBuilder.serializeWithChildren()
-#       expect(expected_vals.get("OBSERV")[0]).toEqual 0.12345678
-
-#       patientBuilder.$(':input[name=OBSERV]').val(1.5)
-#       patientBuilder.serializeWithChildren()
-#       expect(expected_vals.get("OBSERV")[0]).toEqual 1.5
-
-#     it "should display a warning that the patient is shared", ->
-#       patientBuilder = new Thorax.Views.PatientBuilder(model: @compositePatients.first(), measure: @components[0])
-#       patientBuilder.render()
-
-#       expect(patientBuilder.$("div.alert-warning")[0].innerHTML.substr(0,31).trim()).toEqual "Note: This patient is shared"
-
-#     it 'should have the breadcrumbs with composite and component measure', ->
-#       breadcrumb = new Thorax.Views.Breadcrumb()
-#       breadcrumb.addPatient(@components[0], @compositePatients.first())
-#       breadcrumb.render()
-
-#       expect(breadcrumb.$("a")[1].childNodes[1].textContent).toEqual " CMS890v0 " # parent composite measure
-#       expect(breadcrumb.$("a")[2].childNodes[1].textContent).toEqual " CMS231v0 " # the component measure
 
 # describe 'Direct Reference Code Usage', ->
 #   # Originally BONNIE-939
@@ -681,4 +475,3 @@ describe 'PatientBuilderView', ->
 #     spyOn(patientDataCriteria, 'trigger')
 #     cqlLogicView.highlightPatientData(dataCriteriaIds)
 #     expect(patientDataCriteria.trigger).toHaveBeenCalled()
-
