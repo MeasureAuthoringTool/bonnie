@@ -1,0 +1,53 @@
+@startuml
+actor User
+
+User -> Bonnie: Upload/Update Measure
+
+"virus-scan-service" -> "virus-scan-service": scanning
+note left
+    1. validate API key
+    2. write to its filesystem (a temp file)
+    3. scan
+    4. delete the local file
+end note
+alt
+Bonnie -> Bonnie: check if file is missing/empty
+Bonnie -> Bonnie: store as tmp file
+Bonnie -> "virus-scan-service": HTTP POST (attachment:tmp file, apiKey: key)
+"virus-scan-service" --> Bonnie: 200 OK,  "No virus detected for file ____"
+Bonnie -> Bonnie: Upload/Update
+note left
+    Parse and persist measure
+end note
+Bonnie -> User: 200 OK, Uploaded/Updated successfully
+
+else Missing/Empty file
+Bonnie -> User: "You must specify a Measure Authoring tool measure export to use."
+
+else Wrong/Missing API Key
+"virus-scan-service" --> Bonnie: 401 Unauthorized, "Wrong/Missing API Key"
+Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
+
+else Virus Found
+"virus-scan-service" --> Bonnie: 400 Bad Request, "Potential virus found in file ____"
+Bonnie -> User: "Error V100, The uploaded file is not a valid MAT FHIR measure package"
+
+else Unhandled Error
+"virus-scan-service" --> Bonnie: 500 Internal Server Error
+Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
+
+else Connection Error
+Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
+
+else TimeOut
+Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
+
+end
+
+legend
+ |= Code |= Meaning |
+ |<back:#red> V100  </back>| Potential Virus Found |
+ |<back:#yellow> V101  </back>| Scanning was interrupted due to an error |
+endlegend
+
+@enduml
