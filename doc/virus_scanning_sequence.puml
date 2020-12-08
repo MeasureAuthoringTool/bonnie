@@ -26,7 +26,7 @@ Bonnie -> User: "You must specify a Measure Authoring tool measure export to use
 
 else Wrong/Missing API Key
 "virus-scan-service" --> Bonnie: 401 Unauthorized, "Wrong/Missing API Key"
-Bonnie -> User: "Error V101, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
 
 else Virus Found
 "virus-scan-service" --> Bonnie: 400 Bad Request, "Potential virus found in file ____"
@@ -34,13 +34,13 @@ Bonnie -> User: "Error V100, The uploaded file is not a valid MAT FHIR measure p
 
 else Unhandled Error
 "virus-scan-service" --> Bonnie: 500 Internal Server Error
-Bonnie -> User: "Error V101, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
 
 else Connection Error
-Bonnie -> User: "Error V101, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
 
 else TimeOut
-Bonnie -> User: "Error V101, The uploaded file is not a valid MAT FHIR measure package"
+Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
 
 end
 

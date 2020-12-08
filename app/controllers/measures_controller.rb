@@ -47,38 +47,6 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
-  # Virus scanning
-  def scan_for_viruses(params)
-    # uploaded_file.tempfile
-    if APP_CONFIG['virus_scan']['enabled']
-      start = Time.now
-      original_filename = params[:measure_file].original_filename
-      begin
-        headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
-        scan_url = APP_CONFIG['virus_scan']['scan_url']
-        payload = { file_name: original_filename, file: File.new(params[:measure_file].tempfile, 'rb') }
-        scan_timeout = APP_CONFIG['virus_scan']['timeout']
-        RestClient::Request.execute(method: :post, url: scan_url, payload: payload, timeout: scan_timeout, headers: headers)
-      rescue StandardError => e
-        Rails.logger.error "#{controller_name}#scan_for_viruses: #{e.message}"
-        if e.is_a?(RestClient::ExceptionWithResponse) && e.http_code == 400
-          raise VirusFoundError.new()
-        else
-          # Possible errors :
-          # RestClient::Unauthorized,
-          # RestClient::Forbidden,
-          # RestClient::RequestTimeout,
-          # RestClient::ServerBrokeConnection,
-          # Errno::ECONNREFUSED
-          raise VirusScannerError.new()
-        end
-      ensure
-        duration = Time.now - start
-        Rails.logger.info "#{controller_name}#scan_for_viruses - scanner took: #{duration}s"
-      end
-    end
-  end
-
   def destroy
     measure = CQM::Measure.by_user(current_user).where(id: params[:id]).first
     measure.destroy
@@ -134,6 +102,37 @@ class MeasuresController < ApplicationController
   end
 
   private
+
+  # Virus scanning
+  def scan_for_viruses(params)
+    if APP_CONFIG['virus_scan']['enabled']
+      start = Time.now
+      original_filename = params[:measure_file].original_filename
+      begin
+        headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
+        scan_url = APP_CONFIG['virus_scan']['scan_url']
+        payload = { file_name: original_filename, file: File.new(params[:measure_file].tempfile, 'rb') }
+        scan_timeout = APP_CONFIG['virus_scan']['timeout']
+        RestClient::Request.execute(method: :post, url: scan_url, payload: payload, timeout: scan_timeout, headers: headers)
+      rescue StandardError => e
+        Rails.logger.error "#{controller_name}#scan_for_viruses: #{e.message}"
+        if e.is_a?(RestClient::ExceptionWithResponse) && e.http_code == 400
+          raise VirusFoundError.new()
+        else
+          # Possible errors:
+          # RestClient::Unauthorized,
+          # RestClient::Forbidden,
+          # RestClient::RequestTimeout,
+          # RestClient::ServerBrokeConnection,
+          # Errno::ECONNREFUSED
+          raise VirusScannerError.new()
+        end
+      ensure
+        duration = Time.now - start
+        Rails.logger.info "#{controller_name}#scan_for_viruses - scanner took: #{duration}s"
+      end
+    end
+  end
 
   def persist_measure(uploaded_file, permitted_params, user)
     measure =

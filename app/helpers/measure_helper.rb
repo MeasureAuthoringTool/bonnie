@@ -14,8 +14,8 @@ module MeasureHelper
     def initialize
       front_end_version = {
         title: "Error Loading Measure",
-        summary: "The uploaded file is not a valid Measure Authoring Tool (MAT) export of a FHIR Based Measure.",
-        body: "Error: V101. Please re-package and re-export your FHIR based measure from the MAT and try again."
+        summary: "The measure could not be loaded.",
+        body: "Error: V101. Bonnie has encountered an error while trying to load the measure."
       }
       back_end_version = {
         json: {status: "error", messages: "Cannot perform virus scanning."},
