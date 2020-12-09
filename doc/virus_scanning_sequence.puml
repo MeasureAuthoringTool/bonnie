@@ -29,7 +29,7 @@ else Wrong/Missing API Key
 Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
 
 else Virus Found
-"virus-scan-service" --> Bonnie: 200 OK, { infected: false }
+"virus-scan-service" --> Bonnie: 200 OK, { infected: true }
 Bonnie -> User: "Error V100, The uploaded file is not a valid MAT FHIR measure package"
 
 else Unhandled Error
