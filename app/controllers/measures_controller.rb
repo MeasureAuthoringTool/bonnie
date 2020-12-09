@@ -109,27 +109,34 @@ class MeasuresController < ApplicationController
       start = Time.now
       original_filename = params[:measure_file].original_filename
       begin
+        logger.info "VIRSCAN: scanning file #{original_filename}"
         headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
         scan_url = APP_CONFIG['virus_scan']['scan_url']
         payload = { file_name: original_filename, file: File.new(params[:measure_file].tempfile, 'rb') }
         scan_timeout = APP_CONFIG['virus_scan']['timeout']
-        RestClient::Request.execute(method: :post, url: scan_url, payload: payload, timeout: scan_timeout, headers: headers)
-      rescue StandardError => e
-        Rails.logger.error "#{controller_name}#scan_for_viruses: #{e.message}"
-        if e.is_a?(RestClient::ExceptionWithResponse) && e.http_code == 400
-          raise VirusFoundError.new()
-        else
-          # Possible errors:
-          # RestClient::Unauthorized,
-          # RestClient::Forbidden,
-          # RestClient::RequestTimeout,
-          # RestClient::ServerBrokeConnection,
-          # Errno::ECONNREFUSED
-          raise VirusScannerError.new()
+        RestClient::Request.execute method: :post, url: scan_url,
+                payload: payload, timeout: scan_timeout, headers: headers do |resp, _request, result, &block|
+          if resp.code == 200
+            logger.info "VIRSCAN: scanner HTTP response code: #{resp.code}"
+            json_response = JSON.parse(result.body)
+            logger.info "VIRSCAN: scanner response body: #{result.body}"
+            if json_response['infected']
+              raise VirusFoundError.new()
+            end
+          else
+            logger.error "VIRSCAN: scanner HTTP response code: #{resp.code}"
+            raise VirusScannerError.new()
+          end
         end
+      rescue VirusFoundError, VirusScannerError => e
+        logger.error "VIRSCAN: error message: #{e.message}"
+        raise
+      rescue StandardError => e
+        logger.error "VIRSCAN: error message: #{e.message}"
+        raise VirusScannerError.new()
       ensure
         duration = Time.now - start
-        Rails.logger.info "#{controller_name}#scan_for_viruses - scanner took: #{duration}s"
+        logger.info "VIRSCAN: scanning took: #{duration}s"
       end
     end
   end

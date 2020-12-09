@@ -14,7 +14,7 @@ alt
 Bonnie -> Bonnie: check if file is missing/empty
 Bonnie -> Bonnie: store as tmp file
 Bonnie -> "virus-scan-service": HTTP POST (attachment:tmp file, apiKey: key)
-"virus-scan-service" --> Bonnie: 200 OK,  "No virus detected for file ____"
+"virus-scan-service" --> Bonnie: 200 OK, { infected: false }
 Bonnie -> Bonnie: Upload/Update
 note left
     Parse and persist measure
@@ -29,7 +29,7 @@ else Wrong/Missing API Key
 Bonnie -> User: "Error: V101. Bonnie has encountered an error while trying to load the measure."
 
 else Virus Found
-"virus-scan-service" --> Bonnie: 400 Bad Request, "Potential virus found in file ____"
+"virus-scan-service" --> Bonnie: 200 OK, { infected: true }
 Bonnie -> User: "Error V100, The uploaded file is not a valid MAT FHIR measure package"
 
 else Unhandled Error
