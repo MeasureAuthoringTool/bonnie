@@ -92,8 +92,14 @@ class Thorax.Models.Measure extends Thorax.Model
   isPopulated: -> @has('source_data_criteria')
 
   populationCriteria: ->
-    populationCriteria = @get('cqmMeasure').population_sets.map (s) -> s.populations
-    _.intersection(Thorax.Models.Measure.allPopulationCodes, populationCriteria.map((pc) -> Object.keys(pc)).flat())
+    isObservation = false;
+    populationCriteria = @get('cqmMeasure').population_sets.map (s) ->
+      isObservation = true if s.observations?
+      s.populations
+    populations = _.intersection(Thorax.Models.Measure.allPopulationCodes, populationCriteria.map((pc) -> Object.keys(pc)).flat())
+    # Because observation is not a population criteria, we have to add it dynamically if measure has it.
+    populations.push("OBSERV") if isObservation
+    populations
 
   valueSets: ->
     @get('cqmValueSets')
