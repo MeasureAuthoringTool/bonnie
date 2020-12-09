@@ -294,7 +294,7 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('IPP')).toEqual 0
       expect(expectedValues.get('MSRPOPL')).toEqual 0
       expect(expectedValues.get('MSRPOPLEX')).toEqual 0
-      expect(expectedValues.get('OBSERV')).toEqual []
+      expect(expectedValues.get('OBSERV')).toBeUndefined()
 
     it "MSRPOPLEX addition adds membership to all populations in CV measures", ->
       @setPopulationVal('MSRPOPLEX', 4, true)
@@ -303,38 +303,38 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('MSRPOPL')).toEqual 4
       expect(expectedValues.get('MSRPOPLEX')).toEqual 4
       # 4 MSRPOPLEX and 4 MSRPOPL means there should be no OBSERVs
-      expect(expectedValues.get('OBSERV')).toEqual []
+      expect(expectedValues.get('OBSERV')).toBeUndefined()
 
-#    it "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
-#      # First set IPP to 0 to zero out all population membership
-#      @setPopulationVal('IPP', 0, true)
-#      @setPopulationVal('MSRPOPLEX', 3, true)
-#      @setPopulationVal('MSRPOPL', 4, true)
-#      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-#      expect(expectedValues.get('IPP')).toEqual 4
-#      expect(expectedValues.get('MSRPOPL')).toEqual 4
-#      expect(expectedValues.get('MSRPOPLEX')).toEqual 3
-#      # 4 MSRPOPL and 3 MSRPOPLEX means there should be 1 OBSERVs
-#      expect(expectedValues.get('OBSERV').length).toEqual 1
-#      @setPopulationVal('MSRPOPL', 6, true)
-#      expect(expectedValues.get('IPP')).toEqual 6
-#      expect(expectedValues.get('MSRPOPL')).toEqual 6
-#      expect(expectedValues.get('MSRPOPLEX')).toEqual 3
-#      # 6 MSRPOPL and 3 MSRPOPLEX means there should be 3 OBSERVs
-#      expect(expectedValues.get('OBSERV').length).toEqual 3
-#      # Should remove all observs
-#      @setPopulationVal('MSRPOPLEX', 6, true)
-#      expect(expectedValues.get('IPP')).toEqual 6
-#      expect(expectedValues.get('MSRPOPL')).toEqual 6
-#      expect(expectedValues.get('MSRPOPLEX')).toEqual 6
-#      # 6 MSRPOPLEX and 6 MSRPOPL means there should be no OBSERVs
-#      expect(expectedValues.get('OBSERV')).toEqual undefined
-#      # set IPP to 0, should zero out all populations
-#      @setPopulationVal('IPP', 0, true)
-#      expect(expectedValues.get('IPP')).toEqual 0
-#      expect(expectedValues.get('MSRPOPL')).toEqual 0
-#      expect(expectedValues.get('MSRPOPLEX')).toEqual 0
-#      expect(expectedValues.get('OBSERV')).toEqual undefined
+    it "MSRPOPLEX addition and removal adds and removes OBSERVs in CV measures", ->
+      # First set IPP to 0 to zero out all population membership
+      @setPopulationVal('IPP', 0, true)
+      @setPopulationVal('MSRPOPLEX', 3, true)
+      @setPopulationVal('MSRPOPL', 4, true)
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 4
+      expect(expectedValues.get('MSRPOPL')).toEqual 4
+      expect(expectedValues.get('MSRPOPLEX')).toEqual 3
+      # 4 MSRPOPL and 3 MSRPOPLEX means there should be 1 OBSERVs
+      expect(expectedValues.get('OBSERV').length).toEqual 1
+      @setPopulationVal('MSRPOPL', 6, true)
+      expect(expectedValues.get('IPP')).toEqual 6
+      expect(expectedValues.get('MSRPOPL')).toEqual 6
+      expect(expectedValues.get('MSRPOPLEX')).toEqual 3
+      # 6 MSRPOPL and 3 MSRPOPLEX means there should be 3 OBSERVs
+      expect(expectedValues.get('OBSERV').length).toEqual 3
+      # Should remove all observs
+      @setPopulationVal('MSRPOPLEX', 6, true)
+      expect(expectedValues.get('IPP')).toEqual 6
+      expect(expectedValues.get('MSRPOPL')).toEqual 6
+      expect(expectedValues.get('MSRPOPLEX')).toEqual 6
+      # 6 MSRPOPLEX and 6 MSRPOPL means there should be no OBSERVs
+      expect(expectedValues.get('OBSERV')).toBeUndefined()
+      # set IPP to 0, should zero out all populations
+      @setPopulationVal('IPP', 0, true)
+      expect(expectedValues.get('IPP')).toEqual 0
+      expect(expectedValues.get('MSRPOPL')).toEqual 0
+      expect(expectedValues.get('MSRPOPLEX')).toEqual 0
+      expect(expectedValues.get('OBSERV')).toBeUndefined()
 
 #   describe "editing basic attributes of a criteria", ->
 #     # SKIP: This should be re-enabled with patient builder timing work
