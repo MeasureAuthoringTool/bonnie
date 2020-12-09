@@ -161,6 +161,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       value_sets: @model.measure()?.valueSets() or []
       icon: @model.icon()
       definition_title: definition_title
+      fhirId: @model.get('dataElement').fhir_resource.id
       canHaveNegation: @model.canHaveNegation()
       isPeriod: @model.isPeriodType() && !@model.get('negation') # if something is negated, it didn't happen so is not a period
 
@@ -329,4 +330,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   removeCriteria: (e) ->
     e.preventDefault()
+    # Remove attributes from other resources/criteria that reference this resource
+    updatedViews = []
+    thisFhirId = @model.get('dataElement').fhir_resource.id
+    for view in Object.values(@parent.children) when view.model.get('dataElement').fhir_resource.id != thisFhirId
+      resource = view.model.get('dataElement').fhir_resource
+      attrs = DataCriteriaHelpers.getAttributes(view.model.get('dataElement'))
+      for attr in attrs
+        val = attr.getValue(resource)
+        if val? && cqm.models.Reference.isReference(val) && val.reference?.value?.includes(thisFhirId)
+          attr.setValue(resource, null)
+          updatedViews.push view
+    updatedView.attributeDisplayView.render() for updatedView in updatedViews
     @model.destroy()
