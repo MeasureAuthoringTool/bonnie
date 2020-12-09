@@ -115,7 +115,7 @@ class MeasuresController < ApplicationController
         payload = { file_name: original_filename, file: File.new(params[:measure_file].tempfile, 'rb') }
         scan_timeout = APP_CONFIG['virus_scan']['timeout']
         RestClient::Request.execute method: :post, url: scan_url,
-                payload: payload, timeout: scan_timeout, headers: headers do |resp, _request, result, &block|
+                payload: payload, timeout: scan_timeout, headers: headers do |resp, _request, result, &_block|
           if resp.code == 200
             logger.info "VIRSCAN: scanner HTTP response code: #{resp.code}"
             json_response = JSON.parse(result.body)
@@ -136,7 +136,7 @@ class MeasuresController < ApplicationController
         raise VirusScannerError.new()
       ensure
         duration = Time.now - start
-        logger.info "VIRSCAN: scanning took: #{duration}s"
+        logger.info "VIRSCAN: scanning file #{original_filename} took: #{duration}s"
       end
     end
   end
