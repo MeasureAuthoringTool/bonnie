@@ -4,7 +4,7 @@ describe 'CqlLogicView', ->
       jasmine.getJSONFixtures().clearCache()
       @measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CMS334v1/CMS334v1.json'), parse: true
 
-    it 'only uses populations out of main_cql_library', ->
+    xit 'only uses populations out of main_cql_library', ->
       populationSet = @measure.get('populations').first()
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: populationSet)
       populationLogicView.render()
@@ -19,7 +19,7 @@ describe 'CqlLogicView', ->
       jasmine.getJSONFixtures().clearCache()
       @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS903v0/CMS903v0.json', 'cqm_measure_data/CMS903v0/value_sets.json'
 
-    it 'proof of concept', ->
+    xit 'proof of concept', ->
       populationSet = @measure.get('populations').first()
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: populationSet)
       populationLogicView.render()
@@ -40,7 +40,7 @@ describe 'CqlLogicView', ->
 
       populationLogicView.showRationale(results)
 
-    it 'sorts logic properly for observation measure', ->
+    xit 'sorts logic properly for observation measure', ->
       populationSet = @measure.get('populations').first()
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: populationSet)
       populationLogicView.render()
@@ -65,7 +65,7 @@ describe 'CqlLogicView', ->
       expect(populationLogicView.unusedStatementViews[0].name).toEqual('Strat2')
       expect(populationLogicView.unusedStatementViews[2].name).toEqual('Strat3')
 
-    it 'sorts logic properly for observation measure with stratification', ->
+    xit 'sorts logic properly for observation measure with stratification', ->
       populationSet = @measure.get('populations').at(1)
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, highlightPatientDataEnabled: true, population: populationSet)
       populationLogicView.render()
@@ -91,7 +91,7 @@ describe 'CqlLogicView', ->
       expect(populationLogicView.unusedStatementViews[0].name).toEqual('Strat2')
       expect(populationLogicView.unusedStatementViews[1].name).toEqual('Strat3')
 
-    it 'sorts logic properly for proportion measure', ->
+    xit 'sorts logic properly for proportion measure', ->
       measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
 
       populationSet = measure.get('populations').first()
@@ -118,7 +118,7 @@ describe 'CqlLogicView', ->
 
     # Tests that a "let" statement in a library function which doesn't have results for
     # it's parent clause still loads properly without errors
-    it 'should load without errors', ->
+    xit 'should load without errors', ->
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @measure, population: @measure.get('populations').first())
       populationLogicView.render()
       results = @measure.get('populations').first().calculate(@patients.first())
@@ -141,16 +141,16 @@ describe 'CqlLogicView', ->
       @populationLogicView.remove()
 
     describe 'show all results button', ->
-      it 'should exist', ->
+      xit 'should exist', ->
         expect($('#show-all-results').length).toEqual(1)
 
-      it 'should toggle when clicked', ->
+      xit 'should toggle when clicked', ->
         expect($('#hide-all-results').length).toEqual(0)
         @populationLogicView.$('#show-all-results').click()
         expect($('#hide-all-results').length).toEqual(1)
         expect($('#show-all-results').length).toEqual(0)
 
-      it 'should trigger all show/hide result buttons and results', ->
+      xit 'should trigger all show/hide result buttons and results', ->
         expect($('button[data-call-method="showResult"]').length).toEqual(11)
         expect($('button[data-call-method="hideResult"]').length).toEqual(0)
         @populationLogicView.$('#show-all-results').click()
@@ -161,21 +161,21 @@ describe 'CqlLogicView', ->
         expect($('button[data-call-method="hideResult"]').length).toEqual(0)
 
     describe 'show/hide results button', ->
-      it 'should toggle when clicked', ->
+      xit 'should toggle when clicked', ->
         expect($('button[data-call-method="hideResult"]').length).toEqual(0)
         @populationLogicView.$('button[data-call-method="showResult"]')[0].click()
         expect($('button[data-call-method="hideResult"]').length).toEqual(1)
         @populationLogicView.$('button[data-call-method="hideResult"]')[0].click()
         expect($('button[data-call-method="hideResult"]').length).toEqual(0)
 
-      it 'should make the result visible/not visible when clicked', ->
+      xit 'should make the result visible/not visible when clicked', ->
         expect($('.cql-statement-result')[0]).toBeHidden()
         @populationLogicView.$('button[data-call-method="showResult"]')[0].click()
         expect($('.cql-statement-result')[0]).toBeVisible()
         @populationLogicView.$('button[data-call-method="hideResult"]')[0].click()
         expect($('.cql-statement-result')[0]).toBeHidden()
 
-      it 'should limit size of long result', ->
+      xit 'should limit size of long result', ->
         # mock applying less stylesheets
         @populationLogicView.$('.cql-statement-result').attr('style', 'white-space: pre-wrap; height: 200px; overflow-y: scroll;')
         results = @population.calculate(@patients.first())

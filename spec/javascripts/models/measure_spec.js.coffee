@@ -1,26 +1,45 @@
 describe 'Measure', ->
 
-  beforeAll ->
-    jasmine.getJSONFixtures().clearCache()
-    @measure = loadFhirMeasure 'fhir_measure_data/CMS1010V0.json'
+  describe 'Continuous Variable Measure', ->
+    beforeAll ->
+      jasmine.getJSONFixtures().clearCache()
+      @measure = loadFhirMeasure 'fhir_measures/CMS111/CMS111.json'
 
-  it 'has basic attributes available', ->
-    expect(@measure.get('cqmMeasure').set_id).toEqual "116A8764-E871-472F-9503-CA27889114DE"
-    expect(@measure.get('cqmMeasure').title).toEqual "ContinuousFhir"
+    it 'has basic attributes available', ->
+      expect(@measure.get('cqmMeasure').set_id).toEqual "CABB66B0-5A83-45D9-9651-CEBCE118393C"
+      expect(@measure.get('cqmMeasure').title).toEqual "CMS111Test"
 
-  it 'has the expected number of populations', ->
-    expect(@measure.get('populations').length).toEqual 4
+    it 'has the expected number of populations', ->
+      expect(@measure.get('populations').length).toEqual 3
 
-  # it 'has set itself as parent on source_data_criteria', ->
-  #   expect(@measure.get('cqmMeasure').get('parent') == @measure)
+    it 'has all the population criteria', ->
+      populations = @measure.populationCriteria()
+      # OBSERV should be included along with population criteria for cv measure
+      expect(populations).toEqual ['IPP', 'MSRPOPL', 'MSRPOPLEX', 'OBSERV']
 
-  # it 'can calulate results for a patient using second population', ->
-  #   expiredDenex = getJSONFixture 'patients/CMS160v6/Expired_DENEX.json'
-  #   passNum2 = getJSONFixture 'patients/CMS160v6/Pass_NUM2.json'
-  #   collection = new Thorax.Collections.Patients [expiredDenex, passNum2], parse: true
-  #   patient = collection.at(1) # Pass NUM2
-  #   results = @measure.get('populations').at(1).calculate(patient)
-  #   expect(results.get('DENEX')).toEqual 0
-  #   expect(results.get('DENOM')).toEqual 1
-  #   expect(results.get('IPP')).toEqual 1
-  #   expect(results.get('NUMER')).toEqual 1
+    it 'can calculate results for a patient using first population if no observations applicable', ->
+      noObsPatient = getJSONFixture 'fhir_patients/CMS111/IPP_MSRPOPL_MSRPOPEX_NO_OBS.json'
+      collection = new Thorax.Collections.Patients [noObsPatient], parse: true
+      patient = collection.at(0)
+      results = @measure.get('populations').at(0).calculate(patient)
+      expect(results.get('IPP')).toEqual 1
+      expect(results.get('MSRPOPL')).toEqual 1
+      expect(results.get('IPP')).toEqual 1
+      expect(results.get('MSRPOPLEX')).toEqual 1
+      expect(results.get('OBSERV')).toBeUndefined()
+
+  describe 'Proportion Measure', ->
+    beforeAll ->
+      jasmine.getJSONFixtures().clearCache()
+      @measure = loadFhirMeasure 'fhir_measures/CMS124/CMS124.json'
+    it 'has basic attributes available', ->
+      expect(@measure.get('cqmMeasure').set_id).toEqual "4F661027-8C11-4FDB-A15D-14F2597007F7"
+      expect(@measure.get('cqmMeasure').title).toEqual "EXM124"
+
+    it 'has the expected number of populations', ->
+      expect(@measure.get('populations').length).toEqual 1
+
+    it 'has all the population criteria', ->
+      populations = @measure.populationCriteria()
+      # No OBSERV for non cv measure
+      expect(populations).toEqual ['IPP', 'DENOM', 'DENEX', 'NUMER']

@@ -1,4 +1,4 @@
-# Description http://hl7.org/fhir/R4/valueset-body-site.html
+# Description http://hl7.org/fhir/ValueSet/observation-category
 @ObservationCategoryCodesValueSet = class ObservationCategoryCodesValueSet
   @JSON = {
     "resourceType": "ValueSet",

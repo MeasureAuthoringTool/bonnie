@@ -1,3 +1,5 @@
+require 'rest-client'
+
 class MeasuresController < ApplicationController
   include MeasureHelper
 
@@ -25,6 +27,8 @@ class MeasuresController < ApplicationController
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
+
+    scan_for_viruses(params)
 
     begin
       vsac_tgt = obtain_ticket_granting_ticket
@@ -99,6 +103,44 @@ class MeasuresController < ApplicationController
 
   private
 
+  # Virus scanning
+  def scan_for_viruses(params)
+    if APP_CONFIG['virus_scan']['enabled']
+      start = Time.now
+      original_filename = params[:measure_file].original_filename
+      begin
+        logger.info "VIRSCAN: scanning file #{original_filename}"
+        headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
+        scan_url = APP_CONFIG['virus_scan']['scan_url']
+        payload = { file_name: original_filename, file: File.new(params[:measure_file].tempfile, 'rb') }
+        scan_timeout = APP_CONFIG['virus_scan']['timeout']
+        RestClient::Request.execute method: :post, url: scan_url,
+                payload: payload, timeout: scan_timeout, headers: headers do |resp, _request, result, &_block|
+          if resp.code == 200
+            logger.info "VIRSCAN: scanner HTTP response code: #{resp.code}"
+            json_response = JSON.parse(result.body)
+            logger.info "VIRSCAN: scanner response body: #{result.body}"
+            if json_response['infected']
+              raise VirusFoundError.new()
+            end
+          else
+            logger.error "VIRSCAN: scanner HTTP response code: #{resp.code}"
+            raise VirusScannerError.new()
+          end
+        end
+      rescue VirusFoundError, VirusScannerError => e
+        logger.error "VIRSCAN: error message: #{e.message}"
+        raise
+      rescue StandardError => e
+        logger.error "VIRSCAN: error message: #{e.message}"
+        raise VirusScannerError.new()
+      ensure
+        duration = Time.now - start
+        logger.info "VIRSCAN: scanning file #{original_filename} took: #{duration}s"
+      end
+    end
+  end
+
   def persist_measure(uploaded_file, permitted_params, user)
     measure =
       if permitted_params[:set_id].present?
@@ -112,17 +154,7 @@ class MeasuresController < ApplicationController
                       value_set_loader: build_vs_loader(permitted_params, false),
                       user: user)
       end
-    # check_measures_for_unsupported_data_elements(measures)
     return measure, measure.set_id
-  end
-
-  def check_measures_for_unsupported_data_elements(measures)
-    measures.each do |measure|
-      if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
-        measure.destroy
-        raise MeasureLoadingUnsupportedDataElement.new("Related Person")
-      end
-    end
   end
 
   def retrieve_measure_details(params)
