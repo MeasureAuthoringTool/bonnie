@@ -1,4 +1,5 @@
 class PatientsController < ApplicationController
+  include MeasureHelper
   before_action :authenticate_user!
   prepend_view_path(Rails.root.join('lib/templates/'))
 
@@ -119,11 +120,34 @@ class PatientsController < ApplicationController
     measure_id = params[:measure_id]
     uploaded_file = params[:patient_import_file]
 
+    raise MeasureLoadingOther.new if uploaded_file.content_type == "application/zip"
+
+    puts uploaded_file.content_type
+
     measure = CQM::Measure.where(id: measure_id).first
     raise MeasureUpdateMeasureNotFound if measure.nil?
+
+    json = ""
+
+    Zip::File.open(uploaded_file.path) do |zip_file|
+      # Handle entries one by one
+      zip_file.each do |entry|
+
+        if (json.length > 0)
+          raise MeasureLoadingOther.new
+        end
+
+        if (!entry.name.end_with?(".json"))
+          raise MeasureLoadingOther.new
+        end
+
+        json = entry.get_input_stream.read
+      end
+    end
+
     measure_set_id = measure.set_id
 
-    json = uploaded_file.tempfile.read
+    # json = uploaded_file.tempfile.read
     patients_array = JSON.parse(json)
     patients = patients_array.map { |json| CQM::Patient.transform_json(json) }
 
@@ -139,6 +163,10 @@ class PatientsController < ApplicationController
       puts patient.errors.messages
       puts patient.upsert
     end
+
+  rescue StandardError => e
+    flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
+    redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
   private
