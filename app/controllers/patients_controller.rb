@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
   include MeasureHelper
+  include PatientImportHelper
   before_action :authenticate_user!
   prepend_view_path(Rails.root.join('lib/templates/'))
 
@@ -120,51 +121,44 @@ class PatientsController < ApplicationController
     measure_id = params[:measure_id]
     uploaded_file = params[:patient_import_file]
 
-    raise MeasureLoadingOther.new if uploaded_file.content_type == "application/zip"
-
-    puts uploaded_file.content_type
+    raise UploadedFileNotZip.new if uploaded_file.content_type != "application/zip"
 
     measure = CQM::Measure.where(id: measure_id).first
-    raise MeasureUpdateMeasureNotFound if measure.nil?
+    raise MeasureUpdateMeasureNotFound.new if measure.nil?
 
-    json = ""
+    json_from_zip_file = ""
 
     Zip::File.open(uploaded_file.path) do |zip_file|
       # Handle entries one by one
       zip_file.each do |entry|
 
-        if (json.length > 0)
-          raise MeasureLoadingOther.new
-        end
+        raise ZipEntryNotJson.new if json_from_zip_file.length > 0
+        raise ZipEntryNotJson.new if !entry.name.end_with?(".json")
 
-        if (!entry.name.end_with?(".json"))
-          raise MeasureLoadingOther.new
-        end
-
-        json = entry.get_input_stream.read
+        json_from_zip_file = entry.get_input_stream.read
       end
     end
 
-    measure_set_id = measure.set_id
+    patients_array = JSON.parse(json_from_zip_file)
+    patients = patients_array.map { |patient_json| CQM::Patient.transform_json(patient_json) }
 
-    # json = uploaded_file.tempfile.read
-    patients_array = JSON.parse(json)
-    patients = patients_array.map { |json| CQM::Patient.transform_json(json) }
-
+    # validate all patients first so we dont have partial upserts
     patients.each do |patient|
       patient.measure_ids.clear
-      patient.measure_ids.push(measure_set_id)
+      patient.measure_ids.push(measure.set_id)
 
-      patient.expected_values.each { |v| v["measure_id"] = measure_set_id }
-
+      patient.expected_values.each { |v| v["measure_id"] = measure.set_id }
       patient[:user_id] = current_user._id
 
-      puts patient.validate
-      puts patient.errors.messages
-      puts patient.upsert
+      raise MeasureLoadingOther.new if !patient.validate
+    end
+
+    patients.each do |patient|
+      patient.upsert
     end
 
   rescue StandardError => e
+    puts e.backtrace
     flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
