@@ -160,7 +160,7 @@ class PatientsController < ApplicationController
   rescue StandardError => e
     puts e.backtrace
     flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
-    redirect_to "#{root_path}##{params[:redirect_route]}"
+    redirect_to "#{root_path}#measures/#{params[:set_id]}"
   end
 
   private
