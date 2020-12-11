@@ -2,6 +2,7 @@ require 'rest-client'
 
 class MeasuresController < ApplicationController
   include MeasureHelper
+  include VirusScanHelper
 
   skip_before_action :verify_authenticity_token, only: [:show]
 
@@ -28,11 +29,17 @@ class MeasuresController < ApplicationController
       return
     end
 
-    scan_for_viruses(params)
-
     begin
+      scan_for_viruses(params[:measure_file])
       vsac_tgt = obtain_ticket_granting_ticket
+    rescue VirusFoundError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise MeasurePackageVirusFoundError.new
+    rescue VirusScannerError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise MeasurePackageVirusScannerError.new
     rescue Util::VSAC::VSACError => e
+      logger.error "VSACError: error message: #{e.message}"
       raise convert_vsac_error_into_shared_error(e)
     end
 
@@ -102,44 +109,6 @@ class MeasuresController < ApplicationController
   end
 
   private
-
-  # Virus scanning
-  def scan_for_viruses(params)
-    if APP_CONFIG['virus_scan']['enabled']
-      start = Time.now
-      original_filename = params[:measure_file].original_filename
-      begin
-        logger.info "VIRSCAN: scanning file #{original_filename}"
-        headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
-        scan_url = APP_CONFIG['virus_scan']['scan_url']
-        payload = { file_name: original_filename, file: File.new(params[:measure_file].tempfile, 'rb') }
-        scan_timeout = APP_CONFIG['virus_scan']['timeout']
-        RestClient::Request.execute method: :post, url: scan_url,
-                payload: payload, timeout: scan_timeout, headers: headers do |resp, _request, result, &_block|
-          if resp.code == 200
-            logger.info "VIRSCAN: scanner HTTP response code: #{resp.code}"
-            json_response = JSON.parse(result.body)
-            logger.info "VIRSCAN: scanner response body: #{result.body}"
-            if json_response['infected']
-              raise VirusFoundError.new()
-            end
-          else
-            logger.error "VIRSCAN: scanner HTTP response code: #{resp.code}"
-            raise VirusScannerError.new()
-          end
-        end
-      rescue VirusFoundError, VirusScannerError => e
-        logger.error "VIRSCAN: error message: #{e.message}"
-        raise
-      rescue StandardError => e
-        logger.error "VIRSCAN: error message: #{e.message}"
-        raise VirusScannerError.new()
-      ensure
-        duration = Time.now - start
-        logger.info "VIRSCAN: scanning file #{original_filename} took: #{duration}s"
-      end
-    end
-  end
 
   def persist_measure(uploaded_file, permitted_params, user)
     measure =
