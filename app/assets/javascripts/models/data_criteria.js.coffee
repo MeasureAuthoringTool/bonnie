@@ -26,12 +26,14 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
 
   setNewId: ->
     # Create and set a new id for the data element
-    new_id = cqm.ObjectID().toHexString()
+    newId = cqm.ObjectID().toHexString()
     # DataElement.id
-    @get('dataElement').id = new_id
-    # FHIR id
-    @get('dataElement').fhir_resource.id = new_id
-    @set 'id', new_id
+    @get('dataElement').id = newId
+    # FHIR id based on the Value Set title and counter bytes from ObjectID
+    fhirId = @get('dataElement').valueSetTitle.toLowerCase().replaceAll(/\W+/g, '-')
+    if fhirId.endsWith('-') then fhirId += newId.substring(newId.length - 4) else fhirId += '-' + newId.substring(newId.length - 4)
+    @get('dataElement').fhir_resource.id = fhirId
+    @set 'id', newId
 
   measure: -> bonnie.measures.findWhere set_id: @get('set_id')
 

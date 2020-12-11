@@ -72,6 +72,7 @@
       "valueSetTitle": "Comfort Measures",
       "description": "ServiceRequest: Comfort Measures",
       "fhir_resource": {
+        "id": "comfort-measures-cd55",
         "resourceType": "ServiceRequest",
         "extension": [
           {
@@ -101,6 +102,7 @@
       "valueSetTitle": "Encounter Inpatient",
       "description": "Encounter: Encounter Inpatient",
       "fhir_resource": {
+        "id": "encounter-inpatient-encounter-cd56",
         "resourceType": "Encounter",
         "type": [
           {
@@ -122,7 +124,7 @@
         "diagnosis": [
           {
             "condition": {
-              "reference": "Condition/5fcfb534491b1a597b6648e7"
+              "reference": "Condition/hemorrhagic-stroke-6c6b"
             },
             "rank": 1
           }
@@ -134,7 +136,7 @@
       "valueSetTitle": "Hemorrhagic Stroke",
       "description": "Condition: Hemorrhagic Stroke",
       "fhir_resource": {
-        "id": "5fcfb534491b1a597b6648e7",
+        "id": "hemorrhagic-stroke-6c6b",
         "resourceType": "Condition",
         "code": {
           "coding": [
