@@ -331,15 +331,5 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   removeCriteria: (e) ->
     e.preventDefault()
     # Remove attributes from other resources/criteria that reference this resource
-    updatedViews = []
-    thisFhirId = @model.get('dataElement').fhir_resource.id
-    for view in Object.values(@parent.children) when view.model.get('dataElement').fhir_resource.id != thisFhirId
-      resource = view.model.get('dataElement').fhir_resource
-      attrs = DataCriteriaHelpers.getAttributes(view.model.get('dataElement'))
-      for attr in attrs
-        val = attr.getValue(resource)
-        if val? && cqm.models.Reference.isReference(val) && val.reference?.value?.includes(thisFhirId)
-          attr.setValue(resource, null)
-          updatedViews.push view
-    updatedView.attributeDisplayView.render() for updatedView in updatedViews
+    @parent.parent.removeReferenceAttributes(@model.get('dataElement').fhir_resource.id)
     @model.destroy()

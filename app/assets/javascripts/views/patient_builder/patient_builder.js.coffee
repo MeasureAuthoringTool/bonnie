@@ -79,6 +79,19 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     editCriteriaView = Object.values(@editCriteriaCollectionView.children).find((view) -> view.model.get('dataElement').fhir_resource.id == resourceId)
     editCriteriaView.model.destroy()
 
+  # Remove attributes from other resources/criteria that reference this resource
+  removeReferenceAttributes: (referencedFhirId) ->
+    updatedViews = []
+    for view in Object.values(@editCriteriaCollectionView.children) when view.model.get('dataElement').fhir_resource.id != referencedFhirId
+      resource = view.model.get('dataElement').fhir_resource
+      attrs = DataCriteriaHelpers.getAttributes(view.model.get('dataElement'))
+      for attr in attrs
+        val = attr.getValue(resource)
+        if val? && cqm.models.Reference.isReference(val) && val.reference?.value?.includes(referencedFhirId)
+          attr.setValue(resource, null)
+          updatedViews.push view
+    updatedView.attributeDisplayView.render() for updatedView in updatedViews
+
   dataCriteriaCategories: ->
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
