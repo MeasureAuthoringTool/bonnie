@@ -24,6 +24,9 @@ module VirusScanHelper
             raise VirusScannerError.new
           end
         end
+      rescue StandardError => e
+        logger.error "VIRSCAN: error message: #{e.message}"
+        raise VirusScannerError.new
       ensure
         duration = Time.now - start
         logger.info "VIRSCAN: scanning file #{original_filename} took: #{duration}s"
