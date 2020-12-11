@@ -140,7 +140,7 @@ describe 'PatientBuilderView', ->
       expect(ethnicityElement.extension[0].value.system.value).toEqual 'urn:oid:2.16.840.1.113883.6.238'
       expect(ethnicityElement.extension[0].value.userSelected.value).toEqual true
 
-    it "displayes correct values on the UI after saving", ->
+    it "displays correct values on the UI after saving", ->
       expect(@patientBuilder.$(':input[name=last]')[0].value).toEqual 'LAST NAME'
       expect(@patientBuilder.$(':input[name=first]')[0].value).toEqual 'FIRST NAME'
       expect(@patientBuilder.$(':input[name=birthdate]')[0].value).toEqual '01/02/1993'
@@ -196,8 +196,8 @@ describe 'PatientBuilderView', ->
       @patientBuilder.model.get('source_data_criteria').first().get('dataElement').fhir_resource['authoredOn'] = null
       # droppable 3 is encounter
       @addEncounter 3, '.criteria-data.droppable:first'
-      dropedResource = @patientBuilder.model.get('source_data_criteria').last().get('dataElement').fhir_resource
-      expect(dropedResource['period']).toBe null
+      droppedResource = @patientBuilder.model.get('source_data_criteria').last().get('dataElement').fhir_resource
+      expect(droppedResource['period']).toBe null
 
     afterEach -> @patientBuilder.remove()
 
