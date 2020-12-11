@@ -4,6 +4,7 @@
       <form role="form" method="post" enctype="multipart/form-data" action="/patients/import_patients">
         <input name="authenticity_token" type="hidden" value="{{token}}">
         <input name="measure_id" type="hidden" value="{{measure.id}}">
+        <input name="set_id" type="hidden" value="{{measure.set_id}}">
         <div class="modal-header">
           <h1 class="modal-title" id="modalTitle">Import patients into measure {{measure.fhir_measure.title.value}}</h1>
         </div>
