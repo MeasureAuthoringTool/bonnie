@@ -1,0 +1,51 @@
+<div class="modal fade" id="convertPatientsDialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Converting Patients...</h1>
+      </div>
+      <div class="modal-body">
+        <div class="progress progress-striped active">
+          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+          aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">Converting...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="convertFailedDialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Conversion Failed</h1>
+      </div>
+      <div class="modal-body">
+        An error occurred while converting patients, please try again.
+      </div>
+      <div class="modal-footer">
+        {{#button "close" class="btn btn-default" data-dismiss="modal"}}Close{{/button}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="convertSucceededDialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>convert Complete</h1>
+      </div>
+      <div class="modal-body">
+        Your convert has completed. Please see the toplevel results file for an overview of the converted patients,
+        including any errors converting individual patients.
+      </div>
+      <div class="modal-footer">
+        {{#button "close" class="btn btn-default" data-dismiss="modal"}}Close{{/button}}
+      </div>
+    </div>
+  </div>
+</div>
+
