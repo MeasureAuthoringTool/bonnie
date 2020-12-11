@@ -45,6 +45,8 @@ script:
   - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
   - bundle exec rake teaspoon DIR='patient_builder_tests/patient'
   - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
+  - bundle exec rake teaspoon DIR='patient_builder_tests/criteria'
+  - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
   - bundle exec rake teaspoon DIR='production_tests'
   - bash <(curl -s https://codecov.io/bash) -f ./coverage-frontend/default/lcov.info
   - bundle exec rake teaspoon DIR='calc'
