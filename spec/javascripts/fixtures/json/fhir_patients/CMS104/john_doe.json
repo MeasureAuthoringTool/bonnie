@@ -118,7 +118,36 @@
         "period": {
           "start": "2020-09-23T08:00:00.000+00:00",
           "end": "2020-09-30T08:15:00.000+00:00"
-        }
+        },
+        "diagnosis": [
+          {
+            "condition": {
+              "reference": "Condition/5fcfb534491b1a597b6648e7"
+            },
+            "rank": 1
+          }
+        ]
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.212",
+      "valueSetTitle": "Hemorrhagic Stroke",
+      "description": "Condition: Hemorrhagic Stroke",
+      "fhir_resource": {
+        "id": "5fcfb534491b1a597b6648e7",
+        "resourceType": "Condition",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "2019-09",
+              "code": "195155004",
+              "display": "Subarachnoid hemorrhage from carotid siphon and bifurcation (disorder)",
+              "userSelected": true
+            }
+          ]
+        },
+        "recordedDate": "2020-09-25T08:00:00.000+00:00"
       }
     }
   ],

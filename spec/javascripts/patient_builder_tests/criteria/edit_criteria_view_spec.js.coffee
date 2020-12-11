@@ -18,6 +18,9 @@ describe 'EditCriteriaView', ->
     # grab the second edit criteria view which is an Encounter
     @encounterView = Object.values(@patientBuilder.editCriteriaCollectionView.children)[1]
 
+    # grab third edit criteria view, Condition targeted by Encounter.diagnosis.condition reference
+    @conditionView = Object.values(@patientBuilder.editCriteriaCollectionView.children)[2]
+
   afterEach ->
     @patientBuilder.remove()
 
@@ -209,3 +212,13 @@ describe 'EditCriteriaView', ->
     expect(extensions[0].url.value).toEqual 'testext'
     expect(extensions[0].value.value.value).toEqual 12
     expect(extensions[0].value.unit.value).toEqual 'day'
+
+  it 'removes reference attributes when the referenced resource is removed', ->
+    # Encounter has a reference to the Condition resource
+    conditionFhirId = @conditionView.model.get('dataElement').fhir_resource.id
+    expect(@encounterView.model.get('dataElement').fhir_resource['diagnosis'][0].condition.reference.value.includes(conditionFhirId)).toBe true
+    # delete the condition resource
+    @conditionView.$el.find("button.criteria-delete-check").click()
+    @conditionView.$el.find("button[data-call-method='removeCriteria']").click()
+    # check that the Encounter's diagnosis.condition was set to null
+    expect(@encounterView.model.get('dataElement').fhir_resource['diagnosis'][0].condition).toBe null
