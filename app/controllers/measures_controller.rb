@@ -1,5 +1,3 @@
-require 'rest-client'
-
 class MeasuresController < ApplicationController
   include MeasureHelper
   include VirusScanHelper

@@ -43,7 +43,6 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'test virus scanner 200 infected:false' do
-    skip("UPDATE FOR NEW MODEL")
     APP_CONFIG['virus_scan']['enabled'] = true
     VCR.use_cassette("upload_measure_virus_200_infected_false", @vcr_options) do
       measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first

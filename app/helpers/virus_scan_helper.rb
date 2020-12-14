@@ -7,12 +7,17 @@ module VirusScanHelper
       original_filename = file.original_filename
       begin
         logger.info "VIRSCAN: scanning file #{original_filename}"
-        headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
+        headers = { apiKey: APP_CONFIG['virus_scan']['api_key']}
         scan_url = APP_CONFIG['virus_scan']['scan_url']
         payload = { file_name: original_filename, file: File.new(file.tempfile, 'rb') }
         scan_timeout = APP_CONFIG['virus_scan']['timeout']
-        RestClient::Request.execute method: :post, url: scan_url,
-              payload: payload, timeout: scan_timeout, headers: headers do |resp, _request, result, &_block|
+        RestClient::Request.execute(
+          method: :post,
+          url: scan_url,
+          payload: payload,
+          timeout: scan_timeout,
+          headers: headers
+        ) do |resp, _request, result, &_block|
           if resp.code == 200
             logger.info "VIRSCAN: scanner HTTP response code: #{resp.code}"
             json_response = JSON.parse(result.body)
