@@ -981,7 +981,7 @@
       "compose": {
         "include": [
           {
-            "system": "medication-admin-status",
+            "system": "http://terminology.hl7.org/CodeSystem/medication-admin-status",
             "version": "4.0.1",
             "concept": [
               {

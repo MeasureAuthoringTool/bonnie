@@ -124,7 +124,7 @@ describe 'InputView', ->
       expect(view.$('input[name="custom_codesystem"]').prop('disabled')).toBe true
       view.$('input[name="custom_codesystem"]').prop('disabled', false)
       expect(view.$('input[name="custom_codesystem"]').val()).toBe 'encounter-status'
-#
+
       # pick code
       view.$('input[name="custom_code"]').val('random value').change();
       expect(view.$('input[name="custom_code"]').val()).toBe 'random value'
