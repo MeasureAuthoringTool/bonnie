@@ -24,6 +24,11 @@ module VirusScanHelper
             raise VirusScannerError.new
           end
         end
+
+      rescue VirusFoundError, VirusScannerError => e
+        # Re-throw the original exception, otherwise Virus Found Error event will be overridden by Virus Scanner Error.
+        logger.error "VIRSCAN: error message: #{e.message}"
+        raise
       rescue StandardError => e
         logger.error "VIRSCAN: error message: #{e.message}"
         raise VirusScannerError.new
