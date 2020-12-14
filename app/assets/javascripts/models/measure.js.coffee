@@ -18,24 +18,6 @@ class Thorax.Models.Measure extends Thorax.Model
     else
       thoraxMeasure.cqmValueSets = []
 
-    # TODO: move to cqm-parser
-    # Correct system name -> system uri (TS Model)
-    thoraxMeasure?.cqmMeasure?.value_sets?.forEach (valueSet) =>
-      if !valueSet.corrected
-        valueSet.corrected = true
-        valueSet.compose?.include?.forEach (vsInclude) =>
-          system = FhirValueSets.codeSystemFhirUriMap()[vsInclude?.system?.value] || vsInclude?.system?.value
-          vsInclude.system = cqm.models.PrimitiveUri.parsePrimitive(system)
-
-    # TODO: move to cqm-parser
-    # Correct system name -> system uri (FHIR JSON)
-    thoraxMeasure?.cqmValueSets.forEach (valueSet) =>
-      if !valueSet.corrected
-        valueSet.corrected = true
-        valueSet.compose?.include?.forEach (vsInclude) =>
-          system = FhirValueSets.codeSystemFhirUriMap()[vsInclude?.system] || vsInclude?.system
-          vsInclude.system = system
-
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populationSets = new Thorax.Collections.PopulationSets [], parent: this
 
@@ -104,17 +86,21 @@ class Thorax.Models.Measure extends Thorax.Model
   valueSets: ->
     @get('cqmValueSets')
 
+  # Key -> code system URI, value -> code system name
   codeSystemMap: ->
     return @_codeSystemMap if @_codeSystemMap?
     @_codeSystemMap = {}
-    @get('cqmValueSets').forEach (valueSet) =>
-      valueSet.compose?.include?.forEach (vsInclude) =>
-        if !@_codeSystemMap.hasOwnProperty(vsInclude.system)
-          @_codeSystemMap[vsInclude.system] = vsInclude.system.split('/').slice(-1)[0] || vsInclude.system
-
-    # Add value sets from FHIR bindings
-    Object.assign(@_codeSystemMap, FhirValueSets.bindingsCodeSystemMap())
+    this.get('cqmMeasure').code_systems_by_name?.forEach (el) =>
+      @_codeSystemMap[el[1]] = el[0]
     return @_codeSystemMap
+
+  # Key -> code system name, value -> code system URI
+  codeSystemByNameMap: ->
+    return @_codeSystemByNameMap if @_codeSystemByNameMap?
+    @_codeSystemByNameMap = {}
+    this.get('cqmMeasure').code_systems_by_name?.forEach (el) =>
+      @_codeSystemByNameMap[el[0]] = el[1]
+    return @_codeSystemByNameMap
 
   hasCode: (code, code_system) ->
     for vs in @valueSets()

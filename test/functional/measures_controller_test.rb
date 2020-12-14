@@ -45,7 +45,10 @@ include Devise::Test::ControllerHelpers
   test 'test virus scanner 200 infected:false' do
     skip("UPDATE FOR NEW MODEL")
     APP_CONFIG['virus_scan']['enabled'] = true
-    VCR.use_cassette("upload_measure_virus_200_infected_false") do
+    VCR.use_cassette("upload_measure_virus_200_infected_false", @vcr_options) do
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
+      assert_nil measure
+
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_Artifacts.zip'), 'application/zip')
       post :create, params: {
           vsac_query_type: 'profile',
@@ -57,11 +60,18 @@ include Devise::Test::ControllerHelpers
           measure_type: 'ep',
           calculation_type: 'patient'
       }
-      assert_not_nil flash
-      assert_equal 'Error Loading Measure', flash[:error][:title]
-      assert_equal 'The measure could not be loaded.', flash[:error][:summary]
-      assert_equal 'Error: V101. Bonnie has encountered an error while trying to load the measure.', flash[:error][:body]
       assert_response :redirect
+
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
+      assert_equal '21F5386A-AC56-4C4F-98A7-476B5078E626', measure.set_id
+      assert_equal 'Discharged on Antithrombotic Therapy', measure.fhir_measure.title.value
+      assert_equal 5, measure.libraries.size
+      assert_equal 48, measure.value_sets.count
+
+      # delete measure
+      delete :destroy, params: { id: measure.id.to_s }
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
+      assert_nil measure
     end
   end
 
@@ -88,9 +98,8 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'Upload & destroy FHIR Measure' do
-    skip("UPDATE FOR NEW MODEL")
     VCR.use_cassette('vsac_response_for_upload_CMS104', @vcr_options) do
-      measure = CQM::Measure.where({set_id: '3F72D58F-4BCF-4AA3-A05E-EDC73197BG5F'}).first
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
       assert_nil measure
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_Artifacts.zip'), 'application/zip')
 
@@ -106,15 +115,15 @@ include Devise::Test::ControllerHelpers
       }
 
       assert_response :redirect
-      measure = CQM::Measure.where({set_id: '3F72D58F-4BCF-4AA3-A05E-EDC73197BG5F'}).first
-      assert_equal '3F72D58F-4BCF-4AA3-A05E-EDC73197BG5F', measure.set_id
-      assert_equal 'CMS104', measure.fhir_measure.title.value
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
+      assert_equal '21F5386A-AC56-4C4F-98A7-476B5078E626', measure.set_id
+      assert_equal 'Discharged on Antithrombotic Therapy', measure.fhir_measure.title.value
       assert_equal 5, measure.libraries.size
       assert_equal 48, measure.value_sets.count
 
       # delete measure
       delete :destroy, params: { id: measure.id.to_s }
-      measure = CQM::Measure.where({set_id: '42BF391F-38A3-4C0F-9ECE-DCD47E9609D9'}).first
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
       assert_nil measure
     end
   end
