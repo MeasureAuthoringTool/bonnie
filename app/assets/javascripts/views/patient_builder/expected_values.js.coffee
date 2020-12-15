@@ -57,7 +57,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     serialize: (attr) ->
       targetPopulation = @measure.get('populations').at @model.get('population_index')
       populations = targetPopulation?.get('populations')
-      for pc in @measure.populationCriteria() when populations.hasOwnProperty(pc) or pc == 'OBSERV' and populations.hasOwnProperty('observations')
+      for pc in @measure.populationCriteria() when populations.hasOwnProperty(pc) or pc == 'OBSERV' and targetPopulation.has('observations')
         if @isNumbers || (@isMultipleObserv && (pc == 'OBSERV'))
           # Only parse existing values
           if attr[pc]
@@ -90,7 +90,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     @isNumbers = @measure.get('cqmMeasure').calculation_method == 'EPISODE_OF_CARE'
     @isMultipleObserv = targetPopulation?.get('observations')?.length > 0
     @isCheckboxes = not @isNumbers and not @isMultipleObserv
-    for pc in @measure.populationCriteria() when populations.hasOwnProperty(pc) or pc == 'OBSERV' and populations.hasOwnProperty('observations')
+    for pc in @measure.populationCriteria() when populations.hasOwnProperty(pc) or pc == 'OBSERV' and targetPopulation.has('observations')
       @currentCriteria.push
         key: pc
         displayName: pc

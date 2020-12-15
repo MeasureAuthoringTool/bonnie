@@ -2,7 +2,7 @@
 @DataCriteriaAsserts = class DataCriteriaAsserts
   @assertCodingWithType: (resourceType, path, title, type) ->
     attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES[resourceType]
-    expect(attr).toBeDefined
+    expect(attrs).toBeDefined
     attr = attrs.find (attr) => attr.path is path
     expect(attr.path).toBe path
     expect(attr.title).toBe title

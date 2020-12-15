@@ -108,7 +108,7 @@ describe 'InputView', ->
       @view.inputView.$('input').val('23').change()
       expect(@view.trigger).toHaveBeenCalledWith('valueChanged', @view)
       expect(@view.hasValidValue()).toBe true
-      expect(@view.value).toBe 23
+      expect(@view.value.value).toBe 23
 
       @view.trigger.calls.reset()
       # make change in input view to have no value
