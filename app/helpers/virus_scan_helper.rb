@@ -7,7 +7,7 @@ module VirusScanHelper
       original_filename = file.original_filename
       begin
         logger.info "VIRSCAN: scanning file #{original_filename}"
-        headers = { apiKey: APP_CONFIG['virus_scan']['api_key']}
+        headers = { apikey: APP_CONFIG['virus_scan']['api_key']}
         scan_url = APP_CONFIG['virus_scan']['scan_url']
         payload = { file_name: original_filename, file: File.new(file.tempfile, 'rb') }
         scan_timeout = APP_CONFIG['virus_scan']['timeout']
