@@ -3,7 +3,7 @@ class Thorax.Views.ImportPatients extends Thorax.Views.BonnieView
 
   initialize: ->
     @measure = @model.get('cqmMeasure');
-    debugger
+
 
   context: ->
     _(super).extend

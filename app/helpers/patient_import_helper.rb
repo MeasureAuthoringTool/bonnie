@@ -1,10 +1,10 @@
 module PatientImportHelper
-  TITLE = "Error Converting Patients"
+  TITLE = "Error Converting Patients".freeze
 
   class UploadedFileNotZip < MeasureHelper::SharedError
-    message = "Converted Patients file must be in a zip file."
-
     def initialize
+      message = "Converted Patients file must be in a zip file."
+
       front_end_version = {
         title: TITLE,
         summary: message,
@@ -19,9 +19,9 @@ module PatientImportHelper
   end
 
   class ZipEntryNotJson < MeasureHelper::SharedError
-    message = "Converted Patients file must contain only one json file."
-
     def initialize
+      message = "Converted Patients file must contain only one json file."
+
       front_end_version = {
         title: TITLE,
         summary: message,
@@ -36,16 +36,23 @@ module PatientImportHelper
   end
 
   class PatientInvalid < MeasureHelper::SharedError
-    message = "Converted Patient(s) did not pass validation."
+    def initialize(message_array)
+      message = "Converted Patient(s) did not pass validation."
 
-    def initialize
+      validation_messages =
+        if message_array.length > 0
+          message_array.join(",")
+        else
+          "Patient(s) are invalid_"
+        end
+
       front_end_version = {
         title: TITLE,
         summary: message,
-        body: "One or more of your FHIR-patients did not pass validation"
+        body: validation_messages
       }
       back_end_version = {
-        json: { status: "error", messages: message },
+        json: { status: "error", messages: validation_messages },
         status: :not_found
       }
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
