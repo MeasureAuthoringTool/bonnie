@@ -2,7 +2,7 @@
 lock '3.14.1'
 
 set :application, 'bonnie'
-set :repo_url, 'https://github.com/projecttacoma/bonnie.git'
+set :repo_url, 'https://github.com/MeasureAuthoringTool/bonnie.git'
 set :deploy_to, '/var/www/rails_apps/bonnie'
 
 set :linked_dirs, fetch(:linked_dirs, []).concat(%w{log tmp/pids tmp/sockets vendor/bundle public/assets public/system db/backups})
