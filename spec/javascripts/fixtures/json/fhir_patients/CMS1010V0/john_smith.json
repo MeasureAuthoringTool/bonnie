@@ -67,14 +67,14 @@
         "code": {
           "coding": [
             {
-              "system": "SNOMEDCT",
+              "system": "http://snomed.info/sct",
               "version": "2019-09",
               "code": "133918004",
               "display": "Comfort measures (regime/therapy)",
               "userSelected": true
             },
             {
-              "system": "RXNORM",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
               "code": "1037045",
               "userSelected": true
             }

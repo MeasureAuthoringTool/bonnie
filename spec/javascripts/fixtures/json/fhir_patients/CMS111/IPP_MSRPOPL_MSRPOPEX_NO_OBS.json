@@ -1,0 +1,220 @@
+{
+  "id": "5fb547c14f1e7c1e1fc64ba7",
+  "expected_values": [
+    {
+      "measure_id": "CABB66B0-5A83-45D9-9651-CEBCE118393C",
+      "population_index": 0,
+      "OBSERV_UNIT": "",
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "MSRPOPLEX": 1,
+      "OBSERV": []
+    },
+    {
+      "measure_id": "CABB66B0-5A83-45D9-9651-CEBCE118393C",
+      "population_index": 1,
+      "OBSERV_UNIT": "",
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "MSRPOPLEX": 1,
+      "OBSERV": []
+    },
+    {
+      "measure_id": "CABB66B0-5A83-45D9-9651-CEBCE118393C",
+      "population_index": 2,
+      "OBSERV_UNIT": "",
+      "IPP": "",
+      "MSRPOPL": "",
+      "MSRPOPLEX": "",
+      "OBSERV": []
+    }
+  ],
+  "measure_ids": [
+    "CABB66B0-5A83-45D9-9651-CEBCE118393C"
+  ],
+  "fhir_patient": {
+    "id": "5fb547c14f1e7c1e1fc64ba7",
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "1002-5",
+              "display": "American Indian or Alaska Native",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "American Indian or Alaska Native"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      },
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2135-2",
+              "display": "Hispanic or Latino",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "Hispanic or Latino"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      }
+    ],
+    "name": [
+      {
+        "family": "IPP_MSRPOPL_ MSRPOPLEX",
+        "given": [
+          "PASS_TEST"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1985-01-01"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.666.5.307",
+      "valueSetTitle": "Encounter Inpatient",
+      "description": "Encounter: Encounter Inpatient",
+      "fhir_resource": {
+        "id": "5fb547da4f1e7c1e1fc64ba8",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2019-09",
+                "code": "183452005",
+                "display": "Emergency hospital admission (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-11-18T08:00:00.000+00:00",
+          "end": "2019-11-18T08:15:00.000+00:00"
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.292",
+      "valueSetTitle": "Emergency Department Visit",
+      "description": "Encounter: Emergency Department Visit",
+      "fhir_resource": {
+        "id": "5fb54b924f1e7c1e1fc64ba9",
+        "resourceType": "Encounter",
+        "status": "finished",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "version": "2019-09",
+                "code": "4525004",
+                "display": "Emergency department patient visit (procedure)",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-11-17T08:00:00.000+00:00",
+          "end": "2019-11-18T07:30:00.000+00:00"
+        },
+        "hospitalization": {
+          "admitSource": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "22232009",
+                "display": "Hospital (environment)",
+                "userSelected": true
+              }
+            ]
+          }
+        },
+        "location": [
+          {
+            "period": {
+              "start": "2019-11-17T08:00:00.000+00:00",
+              "end": "2019-11-18T07:30:00.000+00:00"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113762.1.4.1111.163",
+      "valueSetTitle": "Emergency Department Evaluation",
+      "description": "Observation: Emergency Department Evaluation",
+      "fhir_resource": {
+        "id": "5fb54ca04f1e7c1e1fc64baa",
+        "resourceType": "Observation",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "version": "2.67",
+              "code": "28568-4",
+              "display": "Physician Emergency department Note",
+              "userSelected": true
+            }
+          ]
+        },
+        "effectiveDateTime": "2019-11-18T05:00:00.000+00:00",
+        "issued": "2019-11-18T05:00:00.000+00:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "183767005",
+              "display": "Listed for admission to hospital (finding)",
+              "userSelected": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113883.3.117.1.7.1.295",
+      "valueSetTitle": "Decision to Admit to Hospital Inpatient",
+      "description": "ServiceRequest: Decision to Admit to Hospital Inpatient",
+      "fhir_resource": {
+        "id": "5fb58fabc4466b1a65535415",
+        "resourceType": "ServiceRequest",
+        "intent": "plan",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "2019-09",
+              "code": "10378005",
+              "display": "Hospital admission, emergency, from emergency room, accidental injury (procedure)",
+              "userSelected": true
+            }
+          ]
+        },
+        "authoredOn": "2019-11-18T04:00:00.000+00:00"
+      }
+    }
+  ],
+  "created_at": "2020-11-18T16:13:58.259Z",
+  "updated_at": "2020-11-18T16:13:58.259Z"
+}

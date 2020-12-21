@@ -1,0 +1,23 @@
+@startuml
+
+cloud AHRQ {
+  node EC2 {
+    card docker {
+        card "CalmAV" <<Container>> as calm
+        card "virus-scan-service" <<Container>> as scan
+        card "cqm-calculation-service" <<Container>> as calc
+    }
+    component "Bonnie" <<RoR>> as b {
+    }
+    database MongoDB <<DB>> as db {
+    }
+  }
+}
+'
+scan .d.> calm
+calm -[hidden] calc
+b ..> db
+b ..> scan
+b ..> calc
+
+@enduml

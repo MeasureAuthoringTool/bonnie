@@ -1,5 +1,6 @@
 class MeasuresController < ApplicationController
   include MeasureHelper
+  include VirusScanHelper
 
   skip_before_action :verify_authenticity_token, only: [:show]
 
@@ -27,8 +28,16 @@ class MeasuresController < ApplicationController
     end
 
     begin
+      scan_for_viruses(params[:measure_file])
       vsac_tgt = obtain_ticket_granting_ticket
+    rescue VirusFoundError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise MeasurePackageVirusFoundError.new
+    rescue VirusScannerError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise MeasurePackageVirusScannerError.new
     rescue Util::VSAC::VSACError => e
+      logger.error "VSACError: error message: #{e.message}"
       raise convert_vsac_error_into_shared_error(e)
     end
 
@@ -112,17 +121,7 @@ class MeasuresController < ApplicationController
                       value_set_loader: build_vs_loader(permitted_params, false),
                       user: user)
       end
-    # check_measures_for_unsupported_data_elements(measures)
     return measure, measure.set_id
-  end
-
-  def check_measures_for_unsupported_data_elements(measures)
-    measures.each do |measure|
-      if (measure.source_data_criteria.select {|sdc| sdc.qdmCategory == "related_person" }).length() > 0
-        measure.destroy
-        raise MeasureLoadingUnsupportedDataElement.new("Related Person")
-      end
-    end
   end
 
   def retrieve_measure_details(params)

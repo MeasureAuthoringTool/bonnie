@@ -7,14 +7,14 @@ describe 'InputView', ->
       @measure = loadFhirMeasure 'fhir_measures/CMS108/CMS108.json'
 
     it 'null is not valid when required', ->
-      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS)
+      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS, codeSystemMap: @measure.codeSystemMap())
       view.render()
       expect(view.hasValidValue()).toBe false
       expect(view.value).toBe null
       expect(view.$('select[name="valueset"]').val()).toBe '--'
 
     it 'null is valid when not required', ->
-      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS, allowNull: true)
+      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS, allowNull: true, codeSystemMap: @measure.codeSystemMap())
       view.render()
       expect(view.hasValidValue()).toBe true
       expect(view.value).toBe null
@@ -22,7 +22,7 @@ describe 'InputView', ->
 
     it 'start with a valid code', ->
       initialCode = 'planned'
-      view = new Thorax.Views.InputCodeView(initialValue: initialCode, cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS)
+      view = new Thorax.Views.InputCodeView(initialValue: initialCode, cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS, codeSystemMap: @measure.codeSystemMap())
       view.render()
       expect(view.hasValidValue()).toBe true
       expect(view.value).toBe 'planned'
@@ -58,7 +58,7 @@ describe 'InputView', ->
       expect(view.value).toBe null
 
     it 'starts with no valid value, selects from value set, and goes back to no selection', ->
-      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS)
+      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS, codeSystemMap: @measure.codeSystemMap())
       view.render()
       expect(view.hasValidValue()).toBe false
       expect(view.value).toBe null
@@ -83,7 +83,7 @@ describe 'InputView', ->
       expect(view.value).toBe null
 
     it 'starts with no valid value, selects from value set, and goes back to no selection using clear function', ->
-      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS)
+      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS, codeSystemMap: @measure.codeSystemMap())
       view.render()
       expect(view.hasValidValue()).toBe false
       expect(view.value).toBe null
@@ -108,7 +108,7 @@ describe 'InputView', ->
       expect(view.value).toBe null
 
     it 'starts with no valid value, selects custom value', ->
-      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS)
+      view = new Thorax.Views.InputCodeView(cqmValueSets: FhirValueSets.ENCOUNTER_STATUS_VS, codeSystemMap: @measure.codeSystemMap())
       view.render()
       expect(view.hasValidValue()).toBe false
       expect(view.value).toBe null
@@ -118,8 +118,11 @@ describe 'InputView', ->
       view.$('select[name="valueset"] > option[value="custom"]').prop('selected', true).change()
       expect(view.$('select[name="valueset"]').val()).toBe 'custom'
 
-      # pick code system
+      # verify code system
+      expect(view.$('select[name="custom_codesystem_select"]').prop('disabled')).toBe true
+      expect(view.$('select[name="custom_codesystem_select"]').val()).toBe 'http://hl7.org/fhir/encounter-status'
       expect(view.$('input[name="custom_codesystem"]').prop('disabled')).toBe true
+      view.$('input[name="custom_codesystem"]').prop('disabled', false)
       expect(view.$('input[name="custom_codesystem"]').val()).toBe 'encounter-status'
 
       # pick code

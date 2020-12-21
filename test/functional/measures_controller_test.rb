@@ -20,9 +20,85 @@ include Devise::Test::ControllerHelpers
     @vcr_options = {match_requests_on: [:method, :uri_no_st]}
   end
 
+  test 'test virus scanner 500' do
+    APP_CONFIG['virus_scan']['enabled'] = true
+    VCR.use_cassette("upload_measure_virus_500") do
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_Artifacts.zip'), 'application/zip')
+      post :create, params: {
+          vsac_query_type: 'profile',
+          vsac_query_profile: 'Latest eCQM',
+          vsac_query_include_draft: 'false',
+          vsac_query_measure_defined: 'true',
+          vsac_api_key: ENV['VSAC_API_KEY'],
+          measure_file: measure_file,
+          measure_type: 'ep',
+          calculation_type: 'patient'
+      }
+      assert_not_nil flash
+      assert_equal 'Error Loading Measure', flash[:error][:title]
+      assert_equal 'The measure could not be loaded.', flash[:error][:summary]
+      assert_equal 'Error: V101. Bonnie has encountered an error while trying to load the measure.', flash[:error][:body]
+      assert_response :redirect
+    end
+  end
+
+  test 'test virus scanner 200 infected:false' do
+    APP_CONFIG['virus_scan']['enabled'] = true
+    VCR.use_cassette("upload_measure_virus_200_infected_false", @vcr_options) do
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
+      assert_nil measure
+
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_Artifacts.zip'), 'application/zip')
+      post :create, params: {
+          vsac_query_type: 'profile',
+          vsac_query_profile: 'Latest eCQM',
+          vsac_query_include_draft: 'false',
+          vsac_query_measure_defined: 'true',
+          vsac_api_key: ENV['VSAC_API_KEY'],
+          measure_file: measure_file,
+          measure_type: 'ep',
+          calculation_type: 'patient'
+      }
+      assert_response :redirect
+
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
+      assert_equal '21F5386A-AC56-4C4F-98A7-476B5078E626', measure.set_id
+      assert_equal 'Discharged on Antithrombotic Therapy', measure.fhir_measure.title.value
+      assert_equal 5, measure.libraries.size
+      assert_equal 48, measure.value_sets.count
+
+      # delete measure
+      delete :destroy, params: { id: measure.id.to_s }
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
+      assert_nil measure
+    end
+  end
+
+  test 'test virus scanner 200 infected:true' do
+    APP_CONFIG['virus_scan']['enabled'] = true
+    VCR.use_cassette("upload_measure_virus_200_infected_true") do
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_Artifacts.zip'), 'application/zip')
+      post :create, params: {
+          vsac_query_type: 'profile',
+          vsac_query_profile: 'Latest eCQM',
+          vsac_query_include_draft: 'false',
+          vsac_query_measure_defined: 'true',
+          vsac_api_key: ENV['VSAC_API_KEY'],
+          measure_file: measure_file,
+          measure_type: 'ep',
+          calculation_type: 'patient'
+      }
+      assert_not_nil flash
+      assert_equal 'Error Loading Measure', flash[:error][:title]
+      assert_equal 'The uploaded file is not a valid Measure Authoring Tool (MAT) export of a FHIR Based Measure.', flash[:error][:summary]
+      assert_equal 'Error: V100. Please re-package and re-export your FHIR based measure from the MAT and try again.', flash[:error][:body]
+      assert_response :redirect
+    end
+  end
+
   test 'Upload & destroy FHIR Measure' do
     VCR.use_cassette('vsac_response_for_upload_CMS104', @vcr_options) do
-      measure = CQM::Measure.where({set_id: '3F72D58F-4BCF-4AA3-A05E-EDC73197BG5F'}).first
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
       assert_nil measure
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'fhir_measures', 'CMS104_v6_0_Artifacts.zip'), 'application/zip')
 
@@ -31,22 +107,22 @@ include Devise::Test::ControllerHelpers
         vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
-        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        vsac_api_key: ENV['VSAC_API_KEY'],
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
       }
 
       assert_response :redirect
-      measure = CQM::Measure.where({set_id: '42BF391F-38A3-4C0F-9ECE-DCD47E9609D9'}).first
-      assert_equal '42BF391F-38A3-4C0F-9ECE-DCD47E9609D9', measure.set_id
-      assert_equal 'CMS104', measure.fhir_measure.title.value
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
+      assert_equal '21F5386A-AC56-4C4F-98A7-476B5078E626', measure.set_id
+      assert_equal 'Discharged on Antithrombotic Therapy', measure.fhir_measure.title.value
       assert_equal 5, measure.libraries.size
       assert_equal 48, measure.value_sets.count
 
       # delete measure
       delete :destroy, params: { id: measure.id.to_s }
-      measure = CQM::Measure.where({set_id: '42BF391F-38A3-4C0F-9ECE-DCD47E9609D9'}).first
+      measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
       assert_nil measure
     end
   end

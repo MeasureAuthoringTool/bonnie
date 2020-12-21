@@ -4,6 +4,9 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
   initialize: ->
     @model = new Thorax.Model
     @updateCodeSystems() if @concepts?
+    @codeSystemMap = @measure.codeSystemMap() unless @codeSystemMap
+    # Maps code system name to code system uri
+    @codeSystemByNameMap = @measure.codeSystemByNameMap() unless @codeSystemByNameMap
 
   events:
     'change select[name=codesystem]': (e) ->
@@ -24,9 +27,6 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
       system = @$('input[name="custom_codesystem"]').val()
       code = @$('input[name="custom_code"]').val()
 
-    # Maps code system name to code system uri
-    @codeSystemMap = @measure.codeSystemMap() unless @codeSystemMap
-
     # add the code unless there is a pre-existing code with the same codesystem/code
     duplicate_exists = @codes.some (c) => (@codeSystemMap[c.system?.value] is system or c.system?.value is system) and c.code?.value is code
     if !duplicate_exists
@@ -44,12 +44,9 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
     @parent.triggerMaterialize()
     @$(':focusable:visible:first').focus()
 
-  # FHIR identifies Code Systems by a custom, FHIR specific, URI.
-  # The codeSystemMap contains key/value pairs of FHIR URI and system names.
-  # This reverses the map to look up the FHIR URI by the system name.
+  # Convert sysem name to system URI
   getCodeSystemFhirUri: (system) ->
-    # Try to resolve code system name to a FHIR URI, if not default to the name
-    FhirValueSets.codeSystemFhirUriMap()[system] || system
+    @codeSystemByNameMap[system] || system
 
   addDefaultCodeToDataElement: ->
     codes = DataCriteriaHelpers.getPrimaryCodes @parent.model.get('dataElement')
@@ -58,8 +55,7 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
       # Make sure there is a default code that can be added
       if @concepts?.length
         cqlCoding = new cqm.models.Coding()
-        # Don't need to convert system name to uri here, just a precaution. it should be converted in measure's model or cqm-parser
-        cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(@getCodeSystemFhirUri(@concepts[0].system))
+        cqlCoding.system = cqm.models.PrimitiveUri.parsePrimitive(@concepts[0].system)
         cqlCoding.version = cqm.models.PrimitiveString.parsePrimitive(@concepts[0].version)
         cqlCoding.code = cqm.models.PrimitiveCode.parsePrimitive(@concepts[0].concept[0].code)
         cqlCoding.display = cqm.models.PrimitiveString.parsePrimitive(@concepts[0].concept[0].display)

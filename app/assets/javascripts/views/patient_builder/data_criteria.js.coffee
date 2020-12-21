@@ -161,6 +161,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       value_sets: @model.measure()?.valueSets() or []
       icon: @model.icon()
       definition_title: definition_title
+      fhirId: @model.get('dataElement').fhir_resource.id
       canHaveNegation: @model.canHaveNegation()
       isPeriod: @model.isPeriodType() && !@model.get('negation') # if something is negated, it didn't happen so is not a period
 
@@ -329,4 +330,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   removeCriteria: (e) ->
     e.preventDefault()
+    # Remove attributes from other resources/criteria that reference this resource
+    @parent.parent.removeReferenceAttributes(@model.get('dataElement').fhir_resource.id)
     @model.destroy()

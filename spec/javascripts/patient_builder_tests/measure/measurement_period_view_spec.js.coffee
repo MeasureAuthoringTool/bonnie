@@ -16,24 +16,24 @@ describe 'MeasurementPeriodView', ->
   afterAll ->
     @measurementPeriodView.remove()
 
-  it 'renders correctly', ->
+  xit 'renders correctly', ->
     expect(@measurementPeriodView.render()).toContain '2012'
 
-  it 'validates correct date', ->
+  xit 'validates correct date', ->
     @measurementPeriodView.$('input[name="year"]').val('1984').keyup()
     expect(@measurementPeriodView.$('#changePeriod')).not.toBeDisabled()
 
-  it 'invalidates non number', ->
+  xit 'invalidates non number', ->
     @checkInvalidYear(@measurementPeriodView, 'abcd')
 
-  it 'invalidates decimal', ->
+  xit 'invalidates decimal', ->
     @checkInvalidYear(@measurementPeriodView, '19.1')
 
-  it 'invalidates year not 4 digits', ->
+  xit 'invalidates year not 4 digits', ->
     @checkInvalidYear(@measurementPeriodView, '999')
 
-  it 'invalidates year less than 1', ->
+  xit 'invalidates year less than 1', ->
     @checkInvalidYear(@measurementPeriodView, '0000')
 
-  it 'invalidates year greater than 9999', ->
+  xit 'invalidates year greater than 9999', ->
     @checkInvalidYear(@measurementPeriodView, '10000')
