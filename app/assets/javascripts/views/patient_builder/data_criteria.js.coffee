@@ -56,16 +56,19 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    codes = DataCriteriaHelpers.getPrimaryCodes @model.get('dataElement')
-    code_list_id = @model.get('codeListId')
-    vs = (@measure.get('cqmValueSets').find( (vs) => vs.id is code_list_id) )
-    concepts = vs?.compose?.include || []
+    if DataCriteriaHelpers.isPrimaryCodePathSupported @model.get('dataElement')
+      codes = DataCriteriaHelpers.getPrimaryCodes @model.get('dataElement')
+      code_list_id = @model.get('codeListId')
+      vs = (@measure.get('cqmValueSets').find( (vs) => vs.id is code_list_id) )
+      concepts = vs?.compose?.include || []
 
-    @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure, parent: @
-    @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure, parent: @
+      @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure, parent: @
+      @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure, parent: @
 
-    if codes.length is 0
-      @editCodeSelectionView.addDefaultCodeToDataElement()
+      if codes.length is 0
+        @editCodeSelectionView.addDefaultCodeToDataElement()
+    else
+      @unsupportedCodesView = new Thorax.Views.UnsupportedCodesView primaryCodePath: DataCriteriaHelpers.getPrimaryCodePath @model.get('dataElement')
 
     @timingAttributeViews = []
     for timingAttr in @model.getPrimaryTimingAttributes()
