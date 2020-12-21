@@ -37,7 +37,7 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          bundle exec rubocop
+#          bundle exec rubocop
           bundle exec bundle-audit update && bundle exec bundle-audit check
           bundle exec rake
 #
