@@ -52,38 +52,15 @@ jobs:
         with:
           run: bundle exec rake
 
-#      - name: Upload coverage results
-#        uses: actions/upload-artifact@master
-#        if: always()
-#        with:
-#          name: coverage-report
-#          path: coverage
-#
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v1
-#        with:
-#          file: coverage/lcov.info
-#          fail_ci_if_error: true
-#
-#
-#      - name: Release Gem
-#        if: contains(github.ref, 'refs/tags/v')
-#        run: |
-#          echo "Setting up gem credentials..."
-#          set +x
-#          mkdir -p ~/.gem
-#
-#          cat << EOF > ~/.gem/credentials
-#          ---
-#          :github: Bearer ${GITHUB_TOKEN}
-#          :rubygems_api_key: ${RUBYGEMS_API_KEY}
-#          EOF
-#
-#          chmod 0600 ~/.gem/credentials
-#          set -x
-#
-#          echo "Running gem release task..."
-#          bundle exec rake release
-#        env:
-#          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-#          RUBYGEMS_API_KEY: ${{secrets.RUBYGEMS_API_KEY}}
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage/lcov.info
+          fail_ci_if_error: true
