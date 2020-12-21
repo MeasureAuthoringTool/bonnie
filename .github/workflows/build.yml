@@ -58,11 +58,11 @@ jobs:
           file: coverage/.resultset.json
           fail_ci_if_error: true
 
-      - name: Upload coverage results
-        uses: actions/upload-artifact@master
+      - name: Store the coverage report as an artifact
+        uses: actions/upload-artifact@v2
         with:
-          name: coverage-report
-          path: coverage
+          name: coverage
+          path: coverage/.resultset.json
 
   upload-codacy-coverage:
     name: Upload code coverage to Codacy
