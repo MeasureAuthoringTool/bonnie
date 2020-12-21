@@ -33,12 +33,17 @@ jobs:
       - name: Install ruby gems
         run: bundle install --jobs 4 --retry 3
 
+#      - name: Run Rubocop
+#        env:
+#          RAILS_ENV: test
+#        run: |
+#          bundle exec rubocop
+
       - name: Build and test with Rake
         env:
           RAILS_ENV: test
         run: |
           bundle exec bundle-audit update && bundle exec bundle-audit check
-#          bundle exec rubocop
           bundle exec rake
 #
 #      - name: Upload coverage results
