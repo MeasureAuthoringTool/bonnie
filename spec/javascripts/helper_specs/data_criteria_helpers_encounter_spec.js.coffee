@@ -29,6 +29,27 @@ describe 'DataCriteriaHelpers', ->
       expect(value).toBeDefined
       expect(value.reference.value).toBe 'Condition/12345'
 
+    it 'should support Encounter.diagnosis.use', ->
+      DataCriteriaAsserts.assertCodeableConcept('Encounter', 'diagnosis.use', 'diagnosis.use')
+
+    it 'should support Encounter.diagnosis.rank', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attrs).toBeDefined
+      attr = attrs.find (attr) -> attr.path is 'diagnosis.rank'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'diagnosis.rank'
+      expect(attr.title).toBe 'diagnosis.rank'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'PositiveInt'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = cqm.models.PrimitivePositiveInt.parsePrimitive(5555)
+      attr.setValue(fhirResource, valueToSet)
+
+      expect(attr.getValue(fhirResource.clone()).value).toBe 5555
+
     it 'should support Encounter.length', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
       expect(attrs).toBeDefined

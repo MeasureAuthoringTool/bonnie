@@ -79,6 +79,19 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     editCriteriaView = Object.values(@editCriteriaCollectionView.children).find((view) -> view.model.get('dataElement').fhir_resource.id == resourceId)
     editCriteriaView.model.destroy()
 
+  # Remove attributes from other resources/criteria that reference this resource
+  removeReferenceAttributes: (referencedFhirId) ->
+    updatedEditCriteriaViews = []
+    for view in Object.values(@editCriteriaCollectionView.children) when view.model.get('dataElement').fhir_resource.id != referencedFhirId
+      resource = view.model.get('dataElement').fhir_resource
+      attrs = DataCriteriaHelpers.getAttributes(view.model.get('dataElement'))
+      for attr in attrs
+        val = attr.getValue(resource)
+        if val? && cqm.models.Reference.isReference(val) && val.reference?.value?.includes(referencedFhirId)
+          attr.setValue(resource, null)
+          updatedEditCriteriaViews.push view
+    updatedView.attributeDisplayView.render() for updatedView in updatedEditCriteriaViews
+
   dataCriteriaCategories: ->
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
@@ -206,7 +219,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     dataElement.valueSetTitle = title
     dataElement.description = resourceType + ": " + title
     dataElement.fhir_resource = new cqm.models[resourceType]()
-    dataElement.fhir_resource.id = newId
+    fhirId = title.toLowerCase().replaceAll(/\W+/g, '-')
+    dataElement.fhir_resource.id = if fhirId.endsWith('-') then fhirId += newId.substring(newId.length - 4) else fhirId += '-' + newId.substring(newId.length - 4)
     dataElement.id = newId
 
     dataElementAsObject = dataElement.toJSON()
@@ -215,6 +229,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
     # TODO correct data elements order and relations to drop cascade
     @dropCriteria(patientDataCriteria, newId)
+    # return the generated fhirId to form reference links
+    return dataElement.fhir_resource.id
 
   registerChild: (child) ->
     child.on 'bonnie:materialize', @materialize, this

@@ -1,5 +1,5 @@
 defaults: &defaults
-  version: 6.0 beta
+  version: 6.0.0
   enable_logging: true
   enable_rationale: true
   check_crosswalk: false
@@ -18,6 +18,12 @@ defaults: &defaults
   # for deployments.
   bonnie_email: bonnie@example.com # For standard notifications
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
+
+  virus_scan:
+    enabled: false
+    scan_url: 'http://localhost:5000/scan-file'
+    api_key: '1234567'
+    timeout: 30
 
 development:
   <<: *defaults

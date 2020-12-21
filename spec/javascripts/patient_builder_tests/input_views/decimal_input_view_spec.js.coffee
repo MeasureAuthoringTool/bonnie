@@ -40,7 +40,7 @@ describe 'InputView', ->
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toBe 6.28
+      expect(view.value.value).toBe 6.28
 
     it 'value bcomes invalid after bad entry', ->
       view = new Thorax.Views.InputDecimalView(allowNull: false)

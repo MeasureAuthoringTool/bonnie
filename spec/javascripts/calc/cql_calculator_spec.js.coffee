@@ -114,7 +114,6 @@ describe 'cqmCalculator', ->
         @unprettyResult = @cqm_calculator.calculate(measure.get('populations').first(), patient, {doPretty: false})
 
       it 'are generated for Encounter Performed correctly when requested', ->
-        debugger
         expect(@prettyResult.get('statement_results').EXM124['Absence of Cervix'].pretty).toBeDefined()
         expect(@prettyResult.get('statement_results').EXM124['Numerator'].pretty).toEqual('UNHIT')
 
