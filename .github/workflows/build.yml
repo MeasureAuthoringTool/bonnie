@@ -7,7 +7,7 @@ on:
     branches: [master, bonnie-prior, bonnie-on-fhir, feature/github_actions]
 
 jobs:
-  build:
+  ci-cd:
 
     runs-on: ubuntu-latest
 
@@ -39,13 +39,19 @@ jobs:
 #        run: |
 #          bundle exec rubocop
 
-      - name: Build and test with Rake
+      - name: Perform audit check for vulnerabilities
         env:
           RAILS_ENV: test
         run: |
           bundle exec bundle-audit update && bundle exec bundle-audit check
-          bundle exec rake
-#
+
+      - name: Build and test with Rake
+        env:
+          RAILS_ENV: test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake
+
 #      - name: Upload coverage results
 #        uses: actions/upload-artifact@master
 #        if: always()
