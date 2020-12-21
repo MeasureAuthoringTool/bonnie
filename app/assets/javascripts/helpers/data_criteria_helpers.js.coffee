@@ -648,6 +648,18 @@
         types: ['Period']
       },
       {
+        path: 'location.location'
+        title: 'location.location'
+        getValue: (fhirResource) -> fhirResource?['location']?[0]?.location
+        setValue: (fhirResource, reference) ->
+          fhirResource?['location'] = [ new cqm.models.EncounterLocation() ] unless fhirResource?['location']?
+          fhirResource?['location'][0]?.location = reference
+        types: ['Reference']
+        # Reference can be a part of Choice type, so we keep referenceTypes[] separate from types[]
+        # Reference a Condition or a Procedure resource
+        referenceTypes: ['Location']
+      },
+      {
         path: 'status'
         title: 'status'
         getValue: (fhirResource) =>

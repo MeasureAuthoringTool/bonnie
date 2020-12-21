@@ -119,6 +119,30 @@ describe 'DataCriteriaHelpers', ->
       expect(value.start.value).toBe '2020-09-02T13:54:57'
       expect(value.end.value).toBe '2020-10-02T13:54:57'
 
+    it 'should support Encounter.location.location', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attrs).toBeDefined
+      attr = attrs.find (attr) -> attr.path is 'location.location'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'location.location'
+      expect(attr.title).toBe 'location.location'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Reference'
+      expect(attr.referenceTypes.length).toBe 1
+      expect(attr.referenceTypes[0]).toBe 'Location'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Reference()
+      valueToSet.reference = cqm.models.PrimitiveString.parsePrimitive('Location/12345')
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.reference.value).toBe 'Location/12345'
+
     it 'should support Encounter.hospitalization.dischargeDisposition', ->
       DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.dischargeDisposition', 'hospitalization.dischargeDisposition')
 
