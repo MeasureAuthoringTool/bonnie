@@ -1,0 +1,77 @@
+name: Build
+
+on:
+  push:
+    branches: [master, bonnie-prior, bonnie-on-fhir, feature/github_actions]
+  pull_request:
+    branches: [master, bonnie-prior, bonnie-on-fhir, feature/github_actions]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:3.4.23
+        ports:
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.4
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.4
+
+      - name: Install bundler & bundle-audit
+        run: |
+          gem install bundler -v 2.1.4
+          gem install bundle-audit
+
+      - name: Install ruby gems
+        run: bundle install --jobs 4 --retry 3
+
+#      - name: Build and test with Rake
+#        env:
+#          RAILS_ENV: test
+#        run: |
+#          bundle exec rubocop
+#          bundle exec bundle-audit update && bundle exec bundle-audit check
+#          bundle exec rake
+#
+#      - name: Upload coverage results
+#        uses: actions/upload-artifact@master
+#        if: always()
+#        with:
+#          name: coverage-report
+#          path: coverage
+#
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v1
+#        with:
+#          file: coverage/lcov.info
+#          fail_ci_if_error: true
+#
+#
+#      - name: Release Gem
+#        if: contains(github.ref, 'refs/tags/v')
+#        run: |
+#          echo "Setting up gem credentials..."
+#          set +x
+#          mkdir -p ~/.gem
+#
+#          cat << EOF > ~/.gem/credentials
+#          ---
+#          :github: Bearer ${GITHUB_TOKEN}
+#          :rubygems_api_key: ${RUBYGEMS_API_KEY}
+#          EOF
+#
+#          chmod 0600 ~/.gem/credentials
+#          set -x
+#
+#          echo "Running gem release task..."
+#          bundle exec rake release
+#        env:
+#          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#          RUBYGEMS_API_KEY: ${{secrets.RUBYGEMS_API_KEY}}
