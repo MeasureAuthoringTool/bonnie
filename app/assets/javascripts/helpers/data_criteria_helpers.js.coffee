@@ -531,7 +531,17 @@
         types: ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer',
             'Range', 'Ratio', 'SampledData','Time', 'DateTime', 'Period'],
         valueSets: () => []
-      }
+      },
+      {
+        path: 'encounter'
+        title: 'encounter'
+        getValue: (fhirResource) => fhirResource.encounter
+        setValue: (fhirResource, reference) =>
+          fhirResource.encounter = new cqm.models.Encounter() unless fhirResource?.encounter?
+          fhirResource.encounter = reference
+        types: ['Reference']
+        referenceTypes: ['Encounter']
+      },
     ]
     Specimen: []
     CarePlan: []

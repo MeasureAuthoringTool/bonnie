@@ -77,14 +77,14 @@
         "code": {
           "coding": [
             {
-              "system": "SNOMEDCT",
+              "system": "http://snomed.info/sct",
               "version": "2019-09",
               "code": "133918004",
               "display": "Comfort measures (regime/therapy)",
               "userSelected": true
             },
             {
-              "system": "SNOMEDCT",
+              "system": "http://snomed.info/sct",
               "code": "182964004",
               "userSelected": true
             }
@@ -103,14 +103,14 @@
           {
             "coding": [
               {
-                "system": "SNOMEDCT",
+                "system": "http://snomed.info/sct",
                 "version": "2019-09",
                 "code": "183452005",
                 "display": "Emergency hospital admission (procedure)",
                 "userSelected": true
               },
               {
-                "system": "SNOMEDCT",
+                "system": "http://snomed.info/sct",
                 "code": "32485007",
                 "userSelected": true
               }

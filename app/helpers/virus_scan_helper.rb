@@ -7,12 +7,17 @@ module VirusScanHelper
       original_filename = file.original_filename
       begin
         logger.info "VIRSCAN: scanning file #{original_filename}"
-        headers = { params: { api_key: APP_CONFIG['virus_scan']['api_key'] } }
+        headers = { apikey: APP_CONFIG['virus_scan']['api_key']}
         scan_url = APP_CONFIG['virus_scan']['scan_url']
         payload = { file_name: original_filename, file: File.new(file.tempfile, 'rb') }
         scan_timeout = APP_CONFIG['virus_scan']['timeout']
-        RestClient::Request.execute method: :post, url: scan_url,
-              payload: payload, timeout: scan_timeout, headers: headers do |resp, _request, result, &_block|
+        RestClient::Request.execute(
+          method: :post,
+          url: scan_url,
+          payload: payload,
+          timeout: scan_timeout,
+          headers: headers
+        ) do |resp, _request, result, &_block|
           if resp.code == 200
             logger.info "VIRSCAN: scanner HTTP response code: #{resp.code}"
             json_response = JSON.parse(result.body)
@@ -24,6 +29,11 @@ module VirusScanHelper
             raise VirusScannerError.new
           end
         end
+
+      rescue VirusFoundError, VirusScannerError => e
+        # Re-throw the original exception, otherwise Virus Found Error event will be overridden by Virus Scanner Error.
+        logger.error "VIRSCAN: error message: #{e.message}"
+        raise
       rescue StandardError => e
         logger.error "VIRSCAN: error message: #{e.message}"
         raise VirusScannerError.new

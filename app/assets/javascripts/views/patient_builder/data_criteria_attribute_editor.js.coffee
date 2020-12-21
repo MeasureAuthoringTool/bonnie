@@ -94,13 +94,15 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
           if prevResourceType? && prevResourceId?
             # delete existing resource data element
             @parent.parent.parent.deleteCriteriaById(prevResourceId)
+        # Create new Resource for Reference target
         resourceType = @inputView.value?.type
         valueSetId = @inputView.value?.vs
-        newFhirId = cqm.ObjectID().toHexString()
+        newId = cqm.ObjectID().toHexString()
+        newFhirId = @parent.parent.parent.addChildCriteria(resourceType, newId, valueSetId, @dataElement)
+        # set reference attribute using generated fhirId from new Resource
         reference = new cqm.models.Reference()
         reference.reference = cqm.models.PrimitiveString.parsePrimitive(resourceType + '/' + newFhirId)
         attrMeta?.setValue(@dataElement.fhir_resource, reference)
-        @parent.parent.parent.addChildCriteria(resourceType, newFhirId, valueSetId, @dataElement)
 
       else
         attrMeta?.setValue(@dataElement.fhir_resource, @inputView.value)
