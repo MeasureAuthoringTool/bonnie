@@ -30,8 +30,8 @@ jobs:
           gem install bundler -v 2.1.4
           gem install bundle-audit
 
-#      - name: Install ruby gems
-#        run: bundle install --jobs 4 --retry 3
+      - name: Install ruby gems
+        run: bundle install --jobs 4 --retry 3
 
 #      - name: Run Rubocop
 #        env:
