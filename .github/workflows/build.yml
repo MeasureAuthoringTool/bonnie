@@ -52,15 +52,30 @@ jobs:
         with:
           run: bundle exec rake
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage/.resultset.json
+          fail_ci_if_error: true
+
       - name: Upload coverage results
         uses: actions/upload-artifact@master
-        if: always()
         with:
           name: coverage-report
           path: coverage
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+  upload-codacy-coverage:
+    name: Upload code coverage to Codacy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v2
         with:
-          file: coverage/lcov.info
-          fail_ci_if_error: true
+          name: coverage
+
+      - name: Upload code coverage to Codacy
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: .resultset.json
