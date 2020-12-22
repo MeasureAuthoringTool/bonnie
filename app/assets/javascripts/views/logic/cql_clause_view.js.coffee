@@ -97,13 +97,13 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
         if Array.isArray(@latestResult?.raw) && @latestResult?.raw.length > 0
           dataCriteriaIDs = []
           for resultEntry in @latestResult.raw
-            if resultEntry?._id  # if the result is an qdm datatype then grab the id so it can be highlighted
-              dataCriteriaIDs.push(resultEntry._id.toString())
+            if resultEntry?.id  # if the result is an qdm datatype then grab the id so it can be highlighted
+              dataCriteriaIDs.push(resultEntry.id.value)
           # report the id of the data criteria to be highlighted to the CqlPopulationLogic view.
           @logicView?.highlightPatientData(dataCriteriaIDs)
         # Highlight single clause if there was a single result
-        else if @latestResult?.raw?._id
-          @logicView?.highlightPatientData([@latestResult.raw._id.toString()])
+        else if @latestResult?.raw?.id
+          @logicView?.highlightPatientData([@latestResult.raw.id.value])
 
       # if we dont have a ref_id then we may just be a text clause. so we pass this to our parent clause
       else
