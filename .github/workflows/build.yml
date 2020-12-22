@@ -49,9 +49,8 @@ jobs:
 
       - name: Set and run up overcommit
         run: |
-          git config user.email "overcommitd@semanticbits.com"
-          git config user.name "GitHub Actions CI"
-          npm install -g coffeelint
+          git config --global user.email "overcommitd@semanticbits.com"
+          git config --global user.name "GitHub Actions CI"
           bundle exec overcommit --sign
           bundle exec overcommit --run
 
