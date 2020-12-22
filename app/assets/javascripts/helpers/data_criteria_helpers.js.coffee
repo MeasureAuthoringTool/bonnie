@@ -814,17 +814,18 @@
       }
     ]
     MedicationRequest: [
-      {
-        path: 'doNotPerform'
-        title: 'doNotPerform'
-        getValue: (fhirResource) => fhirResource?.doNotPerform?.value
-        setValue: (fhirResource, primitiveBoolean) =>
-          if !primitiveBoolean?
-            fhirResource?.doNotPerform = null
-          else
-            fhirResource?.doNotPerform = primitiveBoolean
-        types: ['Boolean']
-      },
+      # Not ready for delivery.
+#      {
+#        path: 'doNotPerform'
+#        title: 'doNotPerform'
+#        getValue: (fhirResource) => fhirResource?.doNotPerform?.value
+#        setValue: (fhirResource, primitiveBoolean) =>
+#          if !primitiveBoolean?
+#            fhirResource?.doNotPerform = null
+#          else
+#            fhirResource?.doNotPerform = primitiveBoolean
+#        types: ['Boolean']
+#      },
       {
         path: 'medication'
         title: 'medication'
