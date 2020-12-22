@@ -68,7 +68,7 @@ jobs:
           run: bundle exec rake test
 
       - name: Setup Istanbul
-        run: npm install -g istanbul
+        run: sudo npm install -g istanbul
 
       - name: Run teaspoon tests for cqm_specs
         env:
