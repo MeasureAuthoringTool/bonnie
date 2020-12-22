@@ -24,7 +24,7 @@ PreCommit:
     enabled: true
     on_fail: warn
     required_executable: './node_modules/coffeelint/bin/coffeelint'
-    install_command: 'yarn add -D coffeelint'
+    install_command: 'npm install --save-dev coffeelint'
   RailsBestPractices:
     enabled: true
     on_fail: warn

@@ -61,11 +61,11 @@ jobs:
         with:
           run: bundle exec rake test
 
-      - name: Yarn install
-        run: yarn install
+      - name: NPM install
+        run: npm ci
 
-      - name: Yarn audit
-        run: yarn audit --level high
+      - name: NPM audit
+        run: npm audit --audit-level=high
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
