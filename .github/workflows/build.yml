@@ -54,6 +54,12 @@ jobs:
           bundle exec overcommit --sign
           bundle exec overcommit --run
 
+      - name: NPM install
+        run: npm ci
+
+      - name: NPM audit
+        run: npm audit --audit-level=high
+
       - name: Build and test with Rake
         env:
           RAILS_ENV: test
@@ -61,11 +67,12 @@ jobs:
         with:
           run: bundle exec rake test
 
-      - name: NPM install
-        run: npm ci
-
-      - name: NPM audit
-        run: npm audit --audit-level=high
+      - name: Run teaspoon tests for cqm_specs
+        env:
+          RAILS_ENV: test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR='cqm_specs'
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
