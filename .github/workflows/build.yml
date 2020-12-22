@@ -61,13 +61,8 @@ jobs:
         with:
           run: bundle exec rake test
 
-      - name: Fix git path
-        run: export PATH="/usr/bin:$PATH"
-
       - name: Yarn install
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
+        run: yarn install
 
       - name: Yarn audit
         uses: borales/actions-yarn@v2.0.0
