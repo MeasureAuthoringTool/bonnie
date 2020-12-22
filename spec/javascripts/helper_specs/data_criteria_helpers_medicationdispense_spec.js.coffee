@@ -9,7 +9,7 @@ describe 'DataCriteriaHelpers', ->
 
     it 'should support MedicationAdministration.medication', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationDispense']
-      attr = attrs.find (attr) => attr.path is 'medication'
+      attr = attrs.find (attr) -> attr.path is 'medication'
       expect(attr.path).toEqual 'medication'
       expect(attr.title).toEqual 'medication'
       expect(attr.types).toEqual [ 'CodeableConcept', 'Reference' ]
