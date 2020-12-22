@@ -1,4 +1,4 @@
-name: Build
+name: Continuous Integration
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [master, bonnie-prior, bonnie-on-fhir, feature/github_actions]
 
 jobs:
-  ci-cd:
+  build:
 
     runs-on: ubuntu-latest
 
@@ -49,8 +49,8 @@ jobs:
 
       - name: Set and run up overcommit
         run: |
-          git config --global user.email "overcommitd@semanticbits.com"
-          git config --global user.name "GitHub Actions CI"
+          git config user.email "overcommitd@semanticbits.com"
+          git config user.name "GitHub Actions CI"
           npm install -g coffeelint
           bundle exec overcommit --sign
           bundle exec overcommit --run
