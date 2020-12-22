@@ -109,5 +109,8 @@
   "dependencies": {
     "browserify": "^16.5.1",
     "cqm-execution": "https://github.com/projecttacoma/cqm-execution.git#1e9e643f7456d12d98a4300ae8691907a0e56b78"
+  },
+  "devDependencies": {
+    "coffeelint": "^2.1.0"
   }
 }

@@ -23,11 +23,13 @@ PreCommit:
   CoffeeLint:
     enabled: true
     on_fail: warn
+    required_executable: './node_modules/coffeelint/bin/coffeelint'
+    install_command: 'yarn add -D coffeelint'
   RailsBestPractices:
     enabled: true
     on_fail: warn
   RuboCop:
-    enabled: true
+    enabled: false
   LocalPathsInGemfile:
     enabled: true
     on_warn: fail
