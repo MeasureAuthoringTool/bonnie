@@ -70,12 +70,15 @@ jobs:
       - name: Setup Istanbul
         run: sudo npm install -g istanbul
 
-      - name: Run teaspoon tests for cqm_specs
+      - name: Setup chromedriver
+        uses: nanasess/setup-chromedriver@master
+
+      - name: Run teaspoon tests for models
         env:
           RAILS_ENV: test
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: bundle exec rake teaspoon DIR='cqm_specs'
+          run: bundle exec rake teaspoon DIR='models'
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
