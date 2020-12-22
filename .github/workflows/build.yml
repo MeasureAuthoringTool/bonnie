@@ -39,18 +39,35 @@ jobs:
 #        run: |
 #          bundle exec rubocop
 
+      - name: Execute Brakeman static vulnerability analysis
+        run: bundle exec brakeman -qAzw1
+
       - name: Perform audit check for vulnerabilities
         env:
           RAILS_ENV: test
+        run: bundle exec bundle-audit check --update
+
+      - name: Set and run up overcommit
         run: |
-          bundle exec bundle-audit update && bundle exec bundle-audit check
+          bundle exec overcommit --sign
+          bundle exec overcommit --run
 
       - name: Build and test with Rake
         env:
           RAILS_ENV: test
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: bundle exec rake
+          run: bundle exec rake test
+
+      - name: Yarn install
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+
+      - name: Yarn audit
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: audit
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
