@@ -39,8 +39,8 @@ jobs:
 #        run: |
 #          bundle exec rubocop
 
-      - name: Execute Brakeman static vulnerability analysis
-        run: bundle exec brakeman -qAzw1
+#      - name: Execute Brakeman static vulnerability analysis
+#        run: bundle exec brakeman -qAzw1
 
       - name: Perform audit check for vulnerabilities
         env:
