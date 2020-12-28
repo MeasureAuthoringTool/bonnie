@@ -77,7 +77,7 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           working-directory: ./
-          run: bundle exec rake teaspoon
+          run: bundle exec rake teaspoon FILE='spec/javascripts/calc/cql_calculator_spec.js.coffee'
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
