@@ -18,7 +18,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @toggledPatient = null
 
   context: ->
-    _(super).extend({measure_id: @measure.get('cqmMeasure').set_id, measure_is_composite: @measure.get('cqmMeasure').composite})
+    _(super).extend({measure_id: @measure.get('cqmMeasure').set_id})
 
   events:
     'click .select-patient': -> @trigger 'select-patients:change'
@@ -74,6 +74,13 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     result.destroy()
     @trigger 'rationale:clear'
     @coverageView.showCoverage()
+
+  copyPatient: (e) ->
+    debugger
+    result = $(e.target).model().result
+    copyPatientView = new Thorax.Views.CopyPatientView(model: @measure, patientId: result.patient.id)
+    copyPatientView.appendTo(@$el)
+    copyPatientView.display()
 
   adjustMeasureIds: (patient, ids, difference) =>
     patient.attributes.cqmPatient.measure_ids = _.difference(patient.get('cqmPatient').measure_ids, ids);

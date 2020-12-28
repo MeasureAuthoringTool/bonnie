@@ -111,6 +111,19 @@ class PatientsController < ApplicationController
     redirect_to root_path
   end
 
+  def copy_patient
+    patient = CQM::Patient.by_user(current_user).find(params[:patient_id])
+    # selected measure_id
+    measure_ids = params[:selected] || []
+    # copy patient for each selected measure_id
+    measure_ids.each do |measure_id|
+      patient_copy = patient.dup
+      patient_copy.measure_ids = [measure_id]
+      patient_copy.save
+    end
+    redirect_to root_path
+  end
+
 private
 
   def cqm_patient_params

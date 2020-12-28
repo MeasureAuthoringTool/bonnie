@@ -132,7 +132,7 @@ module ApiV1
     end
 
     test 'should return bad_request when calculation_type is invalid' do
-      measure_file = fixture_file_upload(File.join('test','fixtures','fhir_measures','CMS104_v6_0_Artifacts.zip'),'application/zip')
+      measure_file = fixture_file_upload(File.join('test','fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       post :create, params: {measure_file: measure_file, calculation_type: 'addition', vsac_tgt: 'foo', vsac_tgt_expires_at: @ticket_expires_at, vsac_query_type: 'profile'}
       assert_response :bad_request

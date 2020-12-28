@@ -28,6 +28,14 @@ def load_measure_fixtures_from_folder(fixture_path, user = nil)
   end
 end
 
+def load_fhir_measure_from_json_fixture(fixture_path, user)
+  measure_hash = JSON.parse File.read(File.join(Rails.root, fixture_path))
+  measure = CQM::Measure.transform_json(measure_hash)
+  measure.user = user
+  measure.save!
+  measure
+end
+
 def add_collection(collection, user = nil)
   # Mongoid names collections based off of the default_client argument.
   # With nested folders,the collection name is "records/X" (for example).
