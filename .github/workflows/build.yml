@@ -78,7 +78,7 @@ jobs:
           RAILS_ENV: test
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: bundle exec rake teaspoon DIR='models'
+          run: bundle exec rake teaspoon DIR='calc'
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
