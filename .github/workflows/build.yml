@@ -73,14 +73,11 @@ jobs:
       - name: Setup chromedriver
         uses: nanasess/setup-chromedriver@master
 
-      - name: Echo current path
-        run: echo $PWD
-
       - name: Run teaspoon tests for calc
         uses: GabrielBB/xvfb-action@v1
         with:
           working-directory: ./
-          run: bundle exec rake teaspoon FILE='spec/javascripts/calc/cql_calculator_spec.js.coffee'
+          run: bundle exec rake teaspoon FILE='/home/runner/work/bonnie/bonnie/spec/javascripts/calc/cql_calculator_spec.js.coffee'
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
