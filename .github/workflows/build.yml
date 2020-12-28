@@ -73,9 +73,7 @@ jobs:
       - name: Setup chromedriver
         uses: nanasess/setup-chromedriver@master
 
-      - name: Run teaspoon tests for models
-        env:
-          RAILS_ENV: test
+      - name: Run teaspoon tests for calc
         uses: GabrielBB/xvfb-action@v1
         with:
           run: bundle exec rake teaspoon DIR='calc'
