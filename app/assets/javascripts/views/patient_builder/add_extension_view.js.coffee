@@ -74,7 +74,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       @trigger 'extensionModified', @
       # reset back to no selections
       @$('input[name="url"]').val('')
-      @$('select[name="value"]').val('--')
+      @$('select[name="value_type"]').val('--')
       @selectedValueType = null
       @url = null
       @_createViewForSelectedType()
