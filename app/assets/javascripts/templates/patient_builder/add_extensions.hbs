@@ -8,15 +8,17 @@
              type="text"
         {{#if url}}value="{{url}}" {{else}}value=""{{/if}}
              required>
+      <small class="form-text text-disabled"
+             id="url_help_{{@cid}}">Source of the definition for the extension code - a logical name or a URL</small>
     </div>
   </div>
   <div class="extension-value-selector">
     <div class="row form-group">
       <div class="col-md-12">
-        <label for="value_{{@cid}}">Value:</label>
+        <label for="value_type_{{@cid}}">Value:</label>
         <select class="form-control"
-                id="value_{{@cid}}"
-                name="value">
+                id="value_type_{{@cid}}"
+                name="value_type">
           <option value="">--</option>
           {{#each valueTypes}}
             <option value="{{this}}">{{this}}</option>

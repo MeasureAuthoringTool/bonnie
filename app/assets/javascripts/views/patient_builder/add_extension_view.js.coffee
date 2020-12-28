@@ -9,7 +9,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
 
   events:
     'change input[name="url"]': 'validateUrl'
-    'change select[name="value"]': 'valueTypeChange'
+    'change select[name="value_type"]': 'valueTypeChange'
 
   validateUrl: (e) ->
     @url = $(e.target).val()
@@ -42,6 +42,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
         when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @measurementYear })
         when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @measurementYear})
         when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
+        when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
         when 'Integer' then new Thorax.Views.InputIntegerView({ allowNull: false })
         when 'PositiveInt' then new Thorax.Views.InputPositiveIntegerView()
         when 'UnsignedInt' then new Thorax.Views.InputUnsignedIntegerView()
@@ -87,11 +88,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
           DataCriteriaHelpers.getPrimitiveDateForCqlDate(value)
         when 'DateTime'
           DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(value)
-        when 'Decimal'
-          cqm.models.PrimitiveDecimal.parsePrimitive(value)
-        when 'String'
-          cqm.models.PrimitiveString.parsePrimitive(value)
-        when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Duration', 'Age', 'Range', 'Ratio', 'Quantity', 'Id', 'Canonical'
+        when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Decimal', 'Duration', 'String', 'Age', 'Range', 'Ratio', 'Quantity', 'Id', 'Canonical'
           value
         else null
     @selectedValue
@@ -120,7 +117,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       'Range',
       'Ratio',
       'Reference',
-#      'String',
+      'String',
 #      'Time',
 #      'Timing',
       'UnsignedInt'
