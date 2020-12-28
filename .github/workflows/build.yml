@@ -73,6 +73,9 @@ jobs:
       - name: Setup chromedriver
         uses: nanasess/setup-chromedriver@master
 
+      - name: Echo current path
+        run: echo $PWD
+
       - name: Run teaspoon tests for calc
         uses: GabrielBB/xvfb-action@v1
         with:
