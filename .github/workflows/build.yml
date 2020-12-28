@@ -74,12 +74,10 @@ jobs:
         uses: nanasess/setup-chromedriver@master
 
       - name: Run teaspoon tests for calc
-        env:
-          DISPLAY: 99
         uses: GabrielBB/xvfb-action@v1
         with:
           working-directory: ./
-          run: bundle exec rake teaspoon DIR='calc'
+          run: bundle exec rake teaspoon
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
