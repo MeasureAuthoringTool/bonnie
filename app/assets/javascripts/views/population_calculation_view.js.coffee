@@ -76,7 +76,6 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @coverageView.showCoverage()
 
   copyPatient: (e) ->
-    debugger
     result = $(e.target).model().result
     copyPatientView = new Thorax.Views.CopyPatientView(model: @measure, patientId: result.patient.id)
     copyPatientView.appendTo(@$el)
