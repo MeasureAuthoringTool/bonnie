@@ -12,11 +12,11 @@ describe 'InputView', ->
       expect(view.$('input').prop('placeholder')).toEqual 'decimal'
 
     it 'starts with valid initial value', ->
-      view = new Thorax.Views.InputDecimalView(initialValue: 6.28, allowNull: false)
+      view = new Thorax.Views.InputDecimalView(initialValue: cqm.models.PrimitiveDecimal.parsePrimitive(6.28), allowNull: false)
       view.render()
 
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toBe 6.28
+      expect(view.value.value).toBe 6.28
       expect(view.$('input').val()).toEqual '6.28'
 
     it 'starts with invalid null, with allowNull false, custom placeholder', ->

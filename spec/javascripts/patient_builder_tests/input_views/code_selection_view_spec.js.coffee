@@ -31,7 +31,7 @@ describe 'EditCodeDisplayView/EditCodeSelectionView', ->
     expect(editCodeSelectionView.codes.length).toEqual(2)
     # Coding
     expect(editCodeSelectionView.codes[0].code.value).toEqual('183452005')
-    expect(editCodeSelectionView.codes[0].system.value).toEqual('SNOMEDCT')
+    expect(editCodeSelectionView.codes[0].system.value).toEqual('http://snomed.info/sct')
     # Systems
     expect(editCodeSelectionView.codeSystems.includes("SNOMEDCT")).toBe true
 

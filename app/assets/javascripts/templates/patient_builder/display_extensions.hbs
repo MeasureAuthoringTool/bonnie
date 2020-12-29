@@ -1,21 +1,25 @@
-<div class="form-group extension-display-container">
-  <label class="control-label"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> Extensions<input class="sr-only" disabled></label>
-  {{#each extensions class="existing-values"}}
-    <div class="existing-values">
-      <a data-toggle="collapse" data-target="#collapse_extension_{{@index}}_{{@cid}}" href="#collapse_extension_{{@index}}_{{@cid}}"
-         onclick="return false;" aria-expanded="false" class="extension-url">
-        <div class="expand_caret caret"></div>
-        <span title="{{this.url}}">{{this.url}}</span>
-      </a>
-      <div id="collapse_extension_{{@index}}_{{@cid}}" class="collapse extension-value">
-        <span title="{{this.value}}">{{this.value}}</span>
-        <button class="btn btn-link close delete delete-extension-btn"
-                data-extension-index="{{@index}}"
-                data-extension-url="{{this.url}}"
-                data-call-method="removeExtension">
-          × <span class="sr-only">Delete</span>
-        </button>
+<div class="extension-display-container">
+  <div class="form-group">
+    <label class="control-label"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> Extensions<input class="sr-only" disabled></label>
+    {{#each extensions}}
+      <div class="existing-values">
+        <a data-toggle="collapse" data-target="#collapse_extension_{{@index}}_{{@cid}}" href="#collapse_extension_{{@index}}_{{@cid}}"
+           onclick="return false;" aria-expanded="false" class="extension-url">
+          <div class="expand_caret caret"></div>
+          <span title="{{this.url}}">{{this.url}}</span>
+        </a>
+        <div id="collapse_extension_{{@index}}_{{@cid}}" class="collapse extension-value">
+          {{#each values}}
+            <span title="{{this.value}}">{{this.value}}</span>
+            <button class="btn btn-link close delete delete-extension-btn"
+                    data-extension-index="{{this.index}}"
+                    data-extension-url="{{this.url}}"
+                    data-call-method="removeExtension">
+              × <span class="sr-only">Delete</span>
+            </button>
+          {{/each}}
+        </div>
       </div>
-    </div>
-  {{/each}}
+    {{/each}}
+  </div>
 </div>
