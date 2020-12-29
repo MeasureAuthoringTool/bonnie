@@ -82,7 +82,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=cqm_specs
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -95,7 +95,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=fhir_measures
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -108,7 +108,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=helper_specs
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -121,7 +121,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=integration
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -134,46 +134,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=models
 
-      - name: Upload calc coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/cql/cql_logic_view_spec" file ----------
-      - name: Run teaspoon tests for patient_builder_tests/cql/cql_logic_view_spec
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee
-
-      - name: Upload calc coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/cql/cql_truncated_statement_view_spec" file ----------
-      - name: Run teaspoon tests for patient_builder_tests/cql/cql_truncated_statement_view_spec
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee
-
-      - name: Upload calc coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "patient_builder_tests/cql/cql_coloring_spec.js.coffee" file ----------
-      - name: Run teaspoon tests for patient_builder_tests/cql/cql_coloring_spec
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee
-
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -186,7 +147,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=patient_builder_tests/input_views
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -199,7 +160,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=patient_builder_tests/measure
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -212,7 +173,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=patient_builder_tests/patient
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -225,7 +186,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=patient_builder_tests/criteria
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -238,7 +199,7 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=production_tests
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
@@ -251,9 +212,48 @@ jobs:
         with:
           run: bundle exec rake teaspoon DIR=calc
 
-      - name: Upload calc coverage to Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage-frontend/default/lcov.info
           fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/cql/cql_logic_view_spec" file ----------
+      - name: Run teaspoon tests for patient_builder_tests/cql/cql_logic_view_spec
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/cql/cql_truncated_statement_view_spec" file ----------
+      - name: Run teaspoon tests for patient_builder_tests/cql/cql_truncated_statement_view_spec
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/cql/cql_coloring_spec.js.coffee" file ----------
+#      - name: Run teaspoon tests for patient_builder_tests/cql/cql_coloring_spec
+#        uses: GabrielBB/xvfb-action@v1
+#        with:
+#          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee
+#
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v1
+#        with:
+#          file: coverage-frontend/default/lcov.info
+#          fail_ci_if_error: true
 # ----------------------------------------------------------------------
