@@ -12,7 +12,7 @@ class Thorax.Views.DisplayExtensionsView extends Thorax.Views.BonnieView
     # Keep a map of url -> index-in-extensions-array for quick search by url
     extensionsUrls = {}
 
-    @dataElement.fhir_resource?.extension.forEach (extension, originalIndex) =>
+    @dataElement.fhir_resource?.extension?.forEach (extension, originalIndex) =>
       url = extension.url?.value
       if !extensionsUrls.hasOwnProperty(url)
         extensionsUrls[url] = extensions.length
