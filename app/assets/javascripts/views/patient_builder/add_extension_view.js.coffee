@@ -6,20 +6,16 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
     @valueTypes = @getValueTypes()
     @dataElement = @model.get('dataElement')
     @url = null
+    @validate()
 
   events:
-    'change input[name="url"]': 'validateUrl'
+    'change input[name="url"]': 'urlChange'
     'change select[name="value_type"]': 'valueTypeChange'
+    rendered: ->
+      @validate()
 
-  validateUrl: (e) ->
-    @url = $(e.target).val()
-    @toggleAddBtn()
-
-  toggleAddBtn: ->
-    if @url && /^\S+$/.test(@url) && (@selectedValueTypeView?.hasValidValue() || !@selectedValueTypeView?)
-      @$('#add_extension').removeAttr('disabled')
-    else
-      @$('#add_extension').attr('disabled', 'disabled')
+  urlChange: (e) ->
+    @validate()
 
   valueTypeChange: (e) ->
     newValueType = $(e.target).val()
@@ -29,7 +25,20 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       @selectedValueType = null
     @_createViewForSelectedType()
     @render()
-    @toggleAddBtn()
+    @validate()
+
+  validate: ->
+    urlInput = @$('input[name="url"]')
+    @url = urlInput.val()
+    @urlValid = @url && /^\S+$/.test(@url)
+    if @urlValid
+      urlInput.parent().removeClass('has-error')
+    else
+      urlInput.parent().addClass('has-error')
+    if @urlValid && (@selectedValueTypeView?.hasValidValue() || !@selectedValueTypeView?)
+      @$('#add_extension').removeAttr('disabled')
+    else
+      @$('#add_extension').attr('disabled', 'disabled')
 
   # sets up view for the selected value Type.
   _createViewForSelectedType: ->
@@ -54,7 +63,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
         when 'Ratio' then new Thorax.Views.InputRatioView()
         else null
       @showInputViewPlaceholder = !@selectedValueTypeView?
-      @listenTo(@selectedValueTypeView, 'valueChanged', @toggleAddBtn) if @selectedValueTypeView?
+      @listenTo(@selectedValueTypeView, 'valueChanged', @validate) if @selectedValueTypeView?
     else
       @selectedValueTypeView = null
 
@@ -79,6 +88,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       @url = null
       @_createViewForSelectedType()
       @render()
+      @validate()
 
   _getExtensionValue: ->
     value = @selectedValueTypeView?.value
