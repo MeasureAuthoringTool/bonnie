@@ -128,7 +128,7 @@ include Devise::Test::ControllerHelpers
     assert_equal 1, CQM::Patient.count
 
     post :copy_patient, params: {
-      patient_id: cqm_patient.id ,
+      patient_id: cqm_patient.id,
       selected: ['21F5386A-AC56-4C4F-98A7-476B5078E626']
     }
 
