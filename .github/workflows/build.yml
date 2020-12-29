@@ -70,8 +70,8 @@ jobs:
       - name: Setup Istanbul
         run: sudo npm install -g istanbul
 
-      - name: Setup chromedriver
-        uses: nanasess/setup-chromedriver@master
+#      - name: Setup chromedriver
+#        uses: nanasess/setup-chromedriver@master
 
       - name: Run teaspoon tests for calc
         uses: GabrielBB/xvfb-action@v1
