@@ -141,11 +141,37 @@ jobs:
           fail_ci_if_error: true
 # ----------------------------------------------------------------------
 
-# ------- Teaspoon tests for "patient_builder_tests/cql" directory ----------
-      - name: Run teaspoon tests for patient_builder_tests/cql
+# ------- Teaspoon tests for "patient_builder_tests/cql/cql_logic_view_spec" file ----------
+      - name: Run teaspoon tests for patient_builder_tests/cql/cql_logic_view_spec
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: bundle exec rake teaspoon DIR=patient_builder_tests/cql
+          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_logic_view_spec.js.coffee
+
+      - name: Upload calc coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/cql/cql_truncated_statement_view_spec" file ----------
+      - name: Run teaspoon tests for patient_builder_tests/cql/cql_truncated_statement_view_spec
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_truncated_statement_view_spec.js.coffee
+
+      - name: Upload calc coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/cql/cql_coloring_spec.js.coffee" file ----------
+      - name: Run teaspoon tests for patient_builder_tests/cql/cql_coloring_spec
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee
 
       - name: Upload calc coverage to Codecov
         uses: codecov/codecov-action@v1
