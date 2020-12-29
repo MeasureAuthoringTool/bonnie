@@ -2,9 +2,9 @@ name: Continuous Integration
 
 on:
   push:
-    branches: [master, bonnie-prior, bonnie-on-fhir, feature/github_actions]
+    branches: [master, bonnie-prior, bonnie-on-fhir]
   pull_request:
-    branches: [master, bonnie-prior, bonnie-on-fhir, feature/github_actions]
+    branches: [master, bonnie-prior, bonnie-on-fhir]
 
 jobs:
   build:
