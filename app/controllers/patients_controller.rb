@@ -118,7 +118,14 @@ class PatientsController < ApplicationController
     # copy patient for each selected measure_id
     measure_ids.each do |measure_id|
       patient_copy = patient.dup
+      # update set_id for expected_values
+      patient_copy.expected_values.map! do |expected_value|
+        expected_value['measure_id'] = measure_id
+        expected_value
+      end
       patient_copy.measure_ids = [measure_id]
+      # update fhir id
+      patient_copy.fhir_patient.fhirId = patient_copy.id
       patient_copy.save
     end
     redirect_to root_path
