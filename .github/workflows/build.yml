@@ -73,6 +73,12 @@ jobs:
       - name: Setup chromedriver
         uses: nanasess/setup-chromedriver@master
 
+      - name: List current contents
+        run: ls -al spec/javascripts
+
+      - name: Show a single file
+        run: ls -al /home/runner/work/bonnie/bonnie/spec/javascripts/calc/cql_calculator_spec.js.coffee
+
       - name: Run teaspoon tests for calc
         uses: GabrielBB/xvfb-action@v1
         with:
