@@ -67,20 +67,167 @@ jobs:
         with:
           run: bundle exec rake test
 
-      - name: Setup Istanbul
-        run: sudo npm install -g istanbul
-
-#      - name: Setup chromedriver
-#        uses: nanasess/setup-chromedriver@master
-
-      - name: Run teaspoon tests for calc
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          working-directory: ./
-          run: bundle exec rake teaspoon DIR=calc
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           file: coverage/.resultset.json
           fail_ci_if_error: true
+
+      - name: Setup Istanbul
+        run: sudo npm install -g istanbul
+
+# ------- Teaspoon tests for "cqm_specs" directory ----------
+      - name: Run teaspoon tests for cqm_specs
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=cqm_specs
+
+      - name: Upload calc coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "fhir_measures" directory ----------
+- name: Run teaspoon tests for fhir_measures
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=fhir_measures
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "helper_specs" directory ----------
+- name: Run teaspoon tests for helper_specs
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=helper_specs
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "integration" directory ----------
+- name: Run teaspoon tests for integration
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=integration
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "models" directory ----------
+- name: Run teaspoon tests for models
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=models
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/cql" directory ----------
+- name: Run teaspoon tests for patient_builder_tests/cql
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=patient_builder_tests/cql
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/input_views" directory ----------
+- name: Run teaspoon tests for patient_builder_tests/input_views
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=patient_builder_tests/input_views
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/measure" directory ----------
+- name: Run teaspoon tests for patient_builder_tests/measure
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=patient_builder_tests/measure
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/patient" directory ----------
+- name: Run teaspoon tests for patient_builder_tests/patient
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=patient_builder_tests/patient
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "patient_builder_tests/criteria" directory ----------
+- name: Run teaspoon tests for patient_builder_tests/criteria
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=patient_builder_tests/criteria
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "production_tests" directory ----------
+- name: Run teaspoon tests for production_tests
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=production_tests
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "calc" directory ----------
+- name: Run teaspoon tests for calc
+  uses: GabrielBB/xvfb-action@v1
+  with:
+    run: bundle exec rake teaspoon DIR=calc
+
+- name: Upload calc coverage to Codecov
+  uses: codecov/codecov-action@v1
+  with:
+    file: coverage-frontend/default/lcov.info
+    fail_ci_if_error: true
+# ----------------------------------------------------------------------
