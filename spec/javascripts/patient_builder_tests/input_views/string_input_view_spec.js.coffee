@@ -12,11 +12,11 @@ describe 'InputView', ->
       expect(view.$('input').prop('placeholder')).toEqual 'string'
 
     it 'starts with valid initial value', ->
-      view = new Thorax.Views.InputStringView(initialValue: 'bonnie test', allowNull: false)
+      view = new Thorax.Views.InputStringView(initialValue: cqm.models.PrimitiveString.parsePrimitive('bonnie test'), allowNull: false)
       view.render()
 
       expect(view.hasValidValue()).toBe true
-      expect(view.value).toBe 'bonnie test'
+      expect(view.value.value).toBe 'bonnie test'
       expect(view.$('input').val()).toEqual 'bonnie test'
 
     it 'starts with invalid null, with allowNull false, custom placeholder', ->
