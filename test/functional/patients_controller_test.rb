@@ -113,38 +113,34 @@ include Devise::Test::ControllerHelpers
     CQM::Patient.by_user(@user).all.each { |patient| assert_equal patient.measure_ids, ["123456", "789012345", "3FD13096-2C8F-40B5-9297-B714E8DE9133"]}
   end
 
-  test "create patient for component measure of composite measure" do
-    skip("UPDATE FOR NEW MODEL")
-    load_measure_fixtures_from_folder(File.join("measures", "CMS890_v5_6"), @user)
-    assert_equal 0, CQM::Patient.count
-    qdm_patient = {
-      'birthDatetime' => '1930-09-09',
-      'qdmVersion' => '-1.3',
-      'extendedData' => {'adverse_event' => 'ADVERSE EVENT', 'encounter' => 'ENCOUNTER', 'family_history' => 'MYSTERIOUS'}
-    }
-    composite_patient = {'cqmPatient' => {
-      'givenNames'=> ['Betty'],
-      'familyName'=> 'Boop',
-      'qdmPatient' => qdm_patient,
-      'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C"],
-      'user_id' => @user.id}}
+  test "copy_patient" do
+    # source test measure
+    cms124_measure = load_fhir_measure_from_json_fixture('test/fixtures/fhir_measures/CMS124/CMS124.json', @users)
+    # target test measure
+    cms104_measure = load_fhir_measure_from_json_fixture('test/fixtures/fhir_measures/CMS104/CMS104.json', @users)
 
-    expected_measure_ids = ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
-                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
-                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&7B905B21-D904-454F-885B-9CE5D19674E3",
-                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&BA108B7B-90B4-4692-B1D0-5DB554D2A1A2",
-                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&5B20AFEA-D4AF-4F7A-A5A3-F1F6165B9E5F",
-                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&F03324C2-9147-457B-BC34-811BB7859C91",
-                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&E22EA997-4EC1-4ED2-876C-3671099CB325",
-                            "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"]
-    post :create, params: composite_patient
-    assert_response :success
+    # source test patient to copy
+    patient = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/fhir_patients/CMS124/ipp_denom_pass_test.json'))
+    cqm_patient = CQM::Patient.transform_json(patient)
+    cqm_patient.user = @user
+    cqm_patient.save!
+    # 1 patient before copy
     assert_equal 1, CQM::Patient.count
-    patient = CQM::Patient.first
-    assert_equal "Betty", patient.givenNames[0]
-    assert_equal "Boop", patient.familyName
-    assert_equal '-1.3', patient.qdmPatient.qdmVersion
-    assert_equal expected_measure_ids.sort, patient.measure_ids.sort
+
+    post :copy_patient, params: {
+      patient_id: cqm_patient.id,
+      selected: ['21F5386A-AC56-4C4F-98A7-476B5078E626']
+    }
+
+    # 2 patients after copy action
+    patients = CQM::Patient.by_user(@user).find_all
+    assert_equal 2, patients.count
+    p1 = patients.next
+    p2 = patients.next
+    assert p1.measure_ids.join('') != p2.measure_ids.join('')
+    assert_equal p1.measure_ids[0], cms124_measure.set_id
+    assert_equal p2.measure_ids[0], cms104_measure.set_id
+    assert_response :redirect
   end
 
   test "update" do

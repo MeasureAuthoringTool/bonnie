@@ -139,7 +139,7 @@ describe 'EditCriteriaView', ->
     displayExtensionsView = @serviceRequestView.displayExtensionsView
     expect(displayExtensionsView).toBeDefined();
     expect(displayExtensionsView.context().extensions[0].url).toEqual 'testextension'
-    expect(displayExtensionsView.context().extensions[0].value).toEqual "3.0 'day'"
+    expect(displayExtensionsView.context().extensions[0].values[0].value).toEqual "3.0 'day'"
     expect(displayExtensionsView.$el.find("a.extension-url span").text()).toEqual('testextension')
     expect(displayExtensionsView.$el.find("div.extension-value span").text()).toContain("3.0 'day")
 
@@ -170,7 +170,7 @@ describe 'EditCriteriaView', ->
     # enter url
     displayExtensionsView.$el.find("input[name='url']").val('testext').change()
     # select value
-    displayExtensionsView.$el.find("select[name='value']").val('Boolean').change()
+    displayExtensionsView.$el.find("select[name='value_type']").val('Boolean').change()
     # add extension
     displayExtensionsView.$el.find("button#add_extension").click()
     extensions = displayExtensionsView.model.get('dataElement').fhir_resource['extension']
@@ -194,7 +194,7 @@ describe 'EditCriteriaView', ->
     # add extension button is enabled
     expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toBeUndefined()
     # select Age value
-    displayExtensionsView.$el.find("select[name='value']").val('Age').change()
+    displayExtensionsView.$el.find("select[name='value_type']").val('Age').change()
     # add extension button disabled again because age is not valid yet(age value and ucum unit needs to be there)
     expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toEqual('disabled')
     # enter age value
