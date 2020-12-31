@@ -9,13 +9,15 @@
         </a>
         <div id="collapse_extension_{{@index}}_{{@cid}}" class="collapse extension-value">
           {{#each values}}
-            <span title="{{this.value}}">{{this.value}}</span>
-            <button class="btn btn-link close delete delete-extension-btn"
-                    data-extension-index="{{this.index}}"
-                    data-extension-url="{{this.url}}"
-                    data-call-method="removeExtension">
+            <span title="{{this.value}}">{{this.value}}
+              <button class="btn btn-link close delete delete-extension-btn"
+                      data-extension-index="{{this.index}}"
+                      data-extension-url="{{this.url}}"
+                      data-call-method="removeExtension"
+                      data-cy="extension-value-delete">
               × <span class="sr-only">Delete</span>
-            </button>
+              </button>
+            </span>
           {{/each}}
         </div>
       </div>

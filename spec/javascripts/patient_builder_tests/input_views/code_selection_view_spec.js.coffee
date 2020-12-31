@@ -22,7 +22,7 @@ describe 'EditCodeDisplayView/EditCodeSelectionView', ->
   afterEach ->
     @patientBuilder.remove()
 
-  xit "displays correct systems", ->
+  it "displays correct systems", ->
     dataCriteria = @patient.get('source_data_criteria').last()
     editCriteriaView = new Thorax.Views.EditCriteriaView(model: dataCriteria, measure: @measure)
     editCodeSelectionView = editCriteriaView.editCodeSelectionView
