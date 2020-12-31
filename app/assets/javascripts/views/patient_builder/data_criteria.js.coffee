@@ -108,12 +108,20 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @listenTo @attributeEditorView, 'attributesModified', @attributesModified
 
     # view that shows all the extensions of the resource
-    @displayExtensionsView = new Thorax.Views.DisplayExtensionsView(model: @model)
+    @displayExtensionsView = new Thorax.Views.DisplayExtensionsView(model: @model, extensionsAccessor: 'extension')
     @listenTo @displayExtensionsView, 'extensionModified', @extensionModified
 
     # view that adds extensions to the resource
-    @addExtensionsView = new Thorax.Views.AddExtensionsView(model: @model)
+    @addExtensionsView = new Thorax.Views.AddExtensionsView(model: @model, extensionsAccessor: 'extension')
     @listenTo @addExtensionsView, 'extensionModified', @extensionModified
+
+    # view that shows all the modifier extensions of the resource
+    @displayModifierExtensionsView = new Thorax.Views.DisplayExtensionsView(model: @model, extensionsAccessor: 'modifierExtension')
+    @listenTo @displayModifierExtensionsView, 'extensionModified', @modifierExtensionModified
+
+    # view that adds modifier extensions to the resource
+    @addModifierExtensionsView = new Thorax.Views.AddExtensionsView(model: @model, extensionsAccessor: 'modifierExtension')
+    @listenTo @addModifierExtensionsView, 'extensionModified', @modifierExtensionModified
 
     # view that allows for negating the data criteria, will not display on non-negateable data criteria
 #    @negationRationaleView = new Thorax.Views.InputCodingView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('dataElement').negationRationale })
@@ -204,6 +212,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   extensionModified: ->
     @displayExtensionsView.render()
+    @triggerMaterialize()
+
+  modifierExtensionModified: ->
+    @displayModifierExtensionsView.render()
     @triggerMaterialize()
 
   isDuringMeasurePeriod: ->

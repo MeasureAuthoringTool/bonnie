@@ -2,6 +2,7 @@
 class Thorax.Views.DisplayExtensionsView extends Thorax.Views.BonnieView
   template: JST['patient_builder/display_extensions']
 
+  # extensionsAccessor - is a required parameter, used to access resource's extensions: 'extension' | 'modifierExtension'
   initialize: ->
     @dataElement = @model.get('dataElement')
 
@@ -12,7 +13,7 @@ class Thorax.Views.DisplayExtensionsView extends Thorax.Views.BonnieView
     # Keep a map of url -> index-in-extensions-array for quick search by url
     extensionsUrls = {}
 
-    @dataElement.fhir_resource?.extension?.forEach (extension, originalIndex) =>
+    @getExtensions()?.forEach (extension, originalIndex) =>
       url = extension.url?.value
       if !extensionsUrls.hasOwnProperty(url)
         extensionsUrls[url] = extensions.length
@@ -24,5 +25,8 @@ class Thorax.Views.DisplayExtensionsView extends Thorax.Views.BonnieView
 
   removeExtension: (e) ->
     index = $(e.target).data('extension-index')
-    @dataElement.fhir_resource?.extension.splice(index, 1);
+    @getExtensions()?.splice(index, 1);
     @trigger 'extensionModified', @
+
+  getExtensions: ->
+    @dataElement.fhir_resource?[@extensionsAccessor]
