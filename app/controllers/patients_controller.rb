@@ -113,17 +113,20 @@ class PatientsController < ApplicationController
 
   def copy_patient
     patient = CQM::Patient.by_user(current_user).find(params[:patient_id])
-    # selected measure_id
-    measure_ids = params[:selected] || []
-    # copy patient for each selected measure_id
-    measure_ids.each do |measure_id|
+    # selected measures
+    measure_set_ids = params[:selected] || []
+    # copy patient for each selected measure
+    measure_set_ids.each do |set_id|
+      measure = CQM::Measure.by_user(current_user).where(set_id: set_id).first
       patient_copy = patient.dup
-      # update set_id for expected_values
-      patient_copy.expected_values.map! do |expected_value|
-        expected_value['measure_id'] = measure_id
+      # update patient expectations based on target measure populations and set each to 0
+      patient_copy.expected_values = measure.population_sets&.map&.with_index do |population_set, index|
+        populations = population_set.populations.attributes.except(:_id, :_type)
+        expected_value = { measure_id: set_id, population_index: index }
+        populations.keys.each { |population| expected_value[population.to_sym] = 0 }
         expected_value
       end
-      patient_copy.measure_ids = [measure_id]
+      patient_copy.measure_ids = [set_id]
       # update fhir id
       patient_copy.fhir_patient.fhirId = patient_copy.id
       patient_copy.save
