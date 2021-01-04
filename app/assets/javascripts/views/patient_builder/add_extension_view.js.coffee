@@ -2,10 +2,10 @@
 class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
   template: JST['patient_builder/add_extensions']
 
+  # dataElement - required data element
   # extensionsAccessor - is a required parameter, used to access resource's extensions: 'extension' | 'modifierExtension'
   initialize: ->
     @valueTypes = @getValueTypes()
-    @dataElement = @model.get('dataElement')
     @url = null
     @validate()
 
