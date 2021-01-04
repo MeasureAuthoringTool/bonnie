@@ -72,6 +72,7 @@ Bonnie::Application.routes.draw do
       collection do
         post 'email_active'
         post 'email_all'
+        post 'email_single'
       end
       member do
         post 'approve'

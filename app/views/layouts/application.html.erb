@@ -57,11 +57,11 @@
         <% if (flash[:error]) %>
           bonnie.showError(<%= json_escape(flash[:error].to_json).html_safe %>);
         <% end %>
-        $('.skip-content').click(function(e) {
+        $('.skip-content').on('click', function(e) {
           e.preventDefault();
           $('#bonnie').attr('tabindex', -1).on('blur focusout', function() {
             $(this).removeAttr('tabindex');
-          }).focus();
+          }).trigger('focus');
         });
       });
       // prevent fetching directly from server after bootstrapping measures

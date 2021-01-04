@@ -1,9 +1,9 @@
 {
   "name": "bonnie",
-  "version": "4.0.2",
+  "version": "4.2.0",
   "description": "A tool for testing electronic clinical quality measures",
   "main": "index.js",
-  "repository": "git@github.com:projecttacoma/bonnie.git",
+  "repository": "git@github.com:MeasureAuthoringTool/bonnie.git",
   "author": "MITRE <bonnie-feedback-list@mitre.org>",
   "contributors": [
     {
@@ -107,7 +107,7 @@
   "license": "Apache-2.0",
   "scripts": {},
   "dependencies": {
-    "browserify": "^16.2.3",
-    "cqm-execution": "^3.0.0"
+    "browserify": "^16.5.1",
+    "cqm-execution": "^3.0.3"
   }
 }

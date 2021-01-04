@@ -10,7 +10,7 @@
 # WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 # GO AFTER THE REQUIRES BELOW.
 #
-#= require jquery/jquery.min
+#= require jquery/dist/jquery.min
 #= require jquery_ujs
 #= require bootstrap/dist/js/bootstrap.min
 #= require bootstrap-datepicker/js/bootstrap-datepicker
@@ -33,6 +33,7 @@
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
+#= require tinymce
 #
 #= require costanza/js/costanza
 #= require costanza/thorax

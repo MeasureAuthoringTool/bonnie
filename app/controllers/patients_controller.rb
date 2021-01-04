@@ -1,11 +1,11 @@
 class PatientsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   prepend_view_path(Rails.root.join('lib/templates/'))
 
   def update
     old_patient = CQM::Patient.by_user(current_user).find(params[:_id])
     begin
-      updated_patient = CQM::Patient.new(params["cqmPatient"])
+      updated_patient = CQM::Patient.new(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
@@ -19,7 +19,7 @@ class PatientsController < ApplicationController
 
   def create
     begin
-      patient = CQM::Patient.new(params["cqmPatient"])
+      patient = CQM::Patient.new(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
       render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
       return
@@ -75,7 +75,7 @@ class PatientsController < ApplicationController
       if (params[:results] && !params[:patients])
         measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
-        zip.puts measure_patients_summary(patients, params[:results], qrda_errors, html_errors, measure)
+        zip.puts measure_patients_summary(patients, params[:results].permit!.to_h, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
@@ -87,7 +87,7 @@ class PatientsController < ApplicationController
 
   def excel_export
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
-    package = PatientExport.export_excel_cql_file(JSON.parse(params[:calc_results]), 
+    package = PatientExport.export_excel_cql_file(JSON.parse(params[:calc_results]),
                                                   JSON.parse(params[:patient_details]),
                                                   JSON.parse(params[:population_details]),
                                                   JSON.parse(params[:statement_details]),
@@ -111,6 +111,14 @@ class PatientsController < ApplicationController
   end
 
 private
+
+  def cqm_patient_params
+    # It would be better if we could explicitely check all nested params, but given the number and depth of
+    # them, it just isn't feasible.  We will instead rely on Mongoid::Errors::UnknownAttribute to be thrown
+    # if any undeclared properties make it into the cqmPatient hash.  This is only possible because currently
+    # no models being instantiated here include the Mongoid::Attributes::Dynamic module.
+    params.require(:cqmPatient).permit!
+  end
 
   # if the patient has any existing measure ids that correspond to component measures, all 'sibling' measure ids will be added
   def populate_measure_ids_if_composite_measures(patient)

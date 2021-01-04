@@ -50,6 +50,9 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <ProfileList>
             <profile>Most Recent Code System Versions in VSAC</profile>
+            <profile>eCQM Update 2020-05-07</profile>
+            <profile>CMS Pre-rulemaking eCQM 2020-05-07</profile>
+            <profile>CMS Pre-rulemaking eCQM 2019-08-30</profile>
             <profile>C-CDA R2.1 2019-06-28</profile>
             <profile>eCQM Update 2019-05-10</profile>
             <profile>CMS Pre-rulemaking eCQM 2019-05-10</profile>
@@ -74,11 +77,11 @@ http_interactions:
             <profile>MU2 Update 2012-12-21</profile>
             <profile>MU2 Update 2012-10-25</profile>
         </ProfileList>
-    http_version: 
+    http_version:
   recorded_at: Tue, 16 Jul 2019 12:00:23 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM/latest%20profile
+    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM%20and%20Hybrid%20Measure/latest%20profile
     body:
       encoding: US-ASCII
       string: ''
@@ -122,8 +125,7 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: '{"name":"eCQM Update 2019-05-10","requestTime":"2019-07-16 08:00:23
-        AM"}'
-    http_version: 
+      string: '{"name":"eCQM Update 2020-05-07","requestTime":"2020-05-11 10:59:58 AM"}'
+    http_version:
   recorded_at: Tue, 16 Jul 2019 12:00:23 GMT
 recorded_with: VCR 4.0.0
