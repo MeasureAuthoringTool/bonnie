@@ -166,14 +166,14 @@ describe 'EditCriteriaView', ->
     displayExtensionsView = @encounterView.addExtensionsView
     expect(displayExtensionsView).toBeDefined();
     # No extension in the model
-    expect(displayExtensionsView.model.get('dataElement').fhir_resource['extension']).toBeUndefined()
+    expect(displayExtensionsView.dataElement.fhir_resource['extension']).toBeUndefined()
     # enter url
     displayExtensionsView.$el.find("input[name='url']").val('testext').change()
     # select value
     displayExtensionsView.$el.find("select[name='value_type']").val('Boolean').change()
     # add extension
     displayExtensionsView.$el.find("button#add_extension").click()
-    extensions = displayExtensionsView.model.get('dataElement').fhir_resource['extension']
+    extensions = displayExtensionsView.dataElement.fhir_resource['extension']
     # 1 extension added
     expect(extensions.length).toEqual 1
     expect(extensions[0].url.value).toEqual 'testext'
@@ -211,7 +211,7 @@ describe 'EditCriteriaView', ->
     expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toBeUndefined()
     # add extension
     displayExtensionsView.$el.find("button#add_extension").click()
-    extensions = displayExtensionsView.model.get('dataElement').fhir_resource['extension']
+    extensions = displayExtensionsView.dataElement.fhir_resource['extension']
     # extension added
     expect(extensions.length).toEqual 1
     expect(extensions[0].url.value).toEqual 'testext'

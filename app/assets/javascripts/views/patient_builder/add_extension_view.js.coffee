@@ -2,9 +2,10 @@
 class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
   template: JST['patient_builder/add_extensions']
 
+  # dataElement - required data element
+  # extensionsAccessor - is a required parameter, used to access resource's extensions: 'extension' | 'modifierExtension'
   initialize: ->
     @valueTypes = @getValueTypes()
-    @dataElement = @model.get('dataElement')
     @url = null
     @validate()
 
@@ -75,10 +76,10 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       extension.url = extensionUrl;
       extension.value = @_getExtensionValue()
 
-      if (@dataElement.fhir_resource.extension)
-        @dataElement.fhir_resource.extension.push(extension)
+      if (@getExtensions())
+        @getExtensions().push(extension)
       else
-        @dataElement.fhir_resource.extension = [extension]
+        @setExtensions([extension])
 
       @trigger 'extensionModified', @
       # reset back to no selections
@@ -132,3 +133,9 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
 #      'Timing',
       'UnsignedInt'
     ]
+
+  getExtensions: ->
+    return @dataElement.fhir_resource?[@extensionsAccessor]
+
+  setExtensions: (extensions) ->
+    @dataElement.fhir_resource?[@extensionsAccessor] = extensions
