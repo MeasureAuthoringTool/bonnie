@@ -1,7 +1,7 @@
 <div class="modal fade" id="copyPatientDialog" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="dialog" aria-labelledby="modalTitle">
     <div class="modal-content">
-      <form role="form" method="post" action="/patients/{{copyAction}}">
+      <form role="form" method="post" action="/patients/{{formAction}}">
         <input name="authenticity_token" type="hidden" value="{{token}}">
         <input name="patient_id" type="hidden" value="{{patientId}}">
         <input name="source_measure_id" type="hidden" value="{{measure_id}}">
