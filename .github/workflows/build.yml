@@ -45,7 +45,7 @@ jobs:
       - name: Perform audit check for vulnerabilities
         env:
           RAILS_ENV: test
-        run: bundle exec bundle-audit check --update
+        run: bundle exec bundle-audit check --update --ignore=CVE-2020-26247
 
       - name: Set and run up overcommit
         run: |
