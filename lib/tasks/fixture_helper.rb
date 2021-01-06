@@ -36,6 +36,14 @@ def load_fhir_measure_from_json_fixture(fixture_path, user)
   measure
 end
 
+def load_patient_from_json_fixture(fixture_path, user)
+  patient = JSON.parse File.read(File.join(Rails.root, fixture_path))
+  cqm_patient = CQM::Patient.transform_json(patient)
+  cqm_patient.user = user
+  cqm_patient.save!
+  cqm_patient
+end
+
 def add_collection(collection, user = nil)
   # Mongoid names collections based off of the default_client argument.
   # With nested folders,the collection name is "records/X" (for example).

@@ -2,9 +2,12 @@ class Thorax.Views.CopyPatientView extends Thorax.Views.BonnieView
   template: JST['patients/copy_patient']
 
   initialize: ->
-    # Build list of measures available to copy this patient to, exclude current measure
+    @modelDialogHeaderText = 'Copy Patient Across Measures'
+    @modelDialogInfoText = 'Please select which measures you would like to copy your patient to'
+    @copyAction = 'copy_patient'
+    # Prepare list of target measures to be selected, exclude current measure
+    @measure_id = @model.get('cqmMeasure').id
     exclude_id = @model.get('cqmMeasure').set_id
-    @set_id = exclude_id
     @targetMeasures = new Thorax.Collections.Measures(@model.collection.models.filter (mes) -> mes.get('cqmMeasure').set_id != exclude_id)
 
   context: ->
@@ -29,3 +32,10 @@ class Thorax.Views.CopyPatientView extends Thorax.Views.BonnieView
 
   cancel: ->
     @copyPatientDialog.modal('hide')
+
+class Thorax.Views.CopyPatientsView extends Thorax.Views.CopyPatientView
+  initialize: ->
+    super
+    @copyAction = 'copy_all_patients'
+    @modelDialogHeaderText = 'Clone Patients Across Measures'
+    @modelDialogInfoText = 'Please select which measures you would like to clone all patients to'
