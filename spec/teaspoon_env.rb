@@ -138,7 +138,7 @@ Teaspoon.configure do |config|
   class Selenium::WebDriver::Remote::Http::Default
     def initialize(open_timeout: nil, read_timeout: nil)
       @open_timeout = open_timeout
-      @read_timeout = 180
+      @read_timeout = 360
     end
   end
 
@@ -182,7 +182,7 @@ Teaspoon.configure do |config|
   # Specify the timeout for the driver. Specs are expected to complete within
   # this time frame or the run will be considered a failure. This is to avoid
   # issues that can arise where tests stall.
-  config.driver_timeout = 300
+  config.driver_timeout = 600
 
   # Specify a server to use with Rack (e.g. thin, mongrel). If nil is provided
   # Rack::Server is used.
