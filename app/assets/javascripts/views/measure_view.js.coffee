@@ -97,9 +97,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     sharePatientsView.display()
 
   copyAllPatients: (e) ->
-    copyPatientView = new Thorax.Views.CopyPatientsView(model: @model)
-    copyPatientView.appendTo(@$el)
-    copyPatientView.display()
+    copyPatientsView = new Thorax.Views.CopyPatientsView(model: @model)
+    copyPatientsView.appendTo(@$el)
+    copyPatientsView.display()
 
   exportQrdaPatients: (e) ->
     @exportPatientsView.exporting()
