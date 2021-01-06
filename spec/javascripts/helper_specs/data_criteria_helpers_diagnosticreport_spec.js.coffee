@@ -8,7 +8,7 @@ describe 'DataCriteriaHelpers', ->
       DataCriteriaAsserts.assertCode('DiagnosticReport', 'status', 'status', (fhirResource) -> cqm.models.DiagnosticReportStatus.isDiagnosticReportStatus(fhirResource.status))
 
     it 'should support DiagnosticReport.effective', ->
-      attr = @attrs.find (attr) => attr.path is 'effective'
+      attr = @attrs.find (attr) -> attr.path is 'effective'
       expect(attr.path).toEqual 'effective'
       expect(attr.title).toEqual 'effective'
       expect(attr.types).toEqual ['DateTime', 'Period']
