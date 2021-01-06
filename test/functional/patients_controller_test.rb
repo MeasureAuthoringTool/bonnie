@@ -158,8 +158,8 @@ include Devise::Test::ControllerHelpers
     cms104_measure = load_fhir_measure_from_json_fixture('test/fixtures/fhir_measures/CMS104/CMS104.json', @user)
 
     post :copy_all_patients, params: {
-        source_measure_id: cms124_measure.id,
-        selected: ['21F5386A-AC56-4C4F-98A7-476B5078E626']
+      source_measure_id: cms124_measure.id,
+      selected: ['21F5386A-AC56-4C4F-98A7-476B5078E626']
     }
 
     # 2 patients after copy all action for target measure
