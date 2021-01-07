@@ -27,7 +27,7 @@ jobs:
 
       - name: Install bundler & bundle-audit
         run: |
-          gem install bundler -v 2.1.4
+          gem install bundler -v 1.17.3
           gem install bundle-audit
 
       - name: Install ruby gems
@@ -81,19 +81,6 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: bundle exec rake teaspoon DIR=cqm_specs
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          file: coverage-frontend/default/lcov.info
-          fail_ci_if_error: true
-# ----------------------------------------------------------------------
-
-# ------- Teaspoon tests for "fhir_measures" directory ----------
-      - name: Run teaspoon tests for fhir_measures
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: bundle exec rake teaspoon DIR=fhir_measures
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
@@ -246,14 +233,27 @@ jobs:
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/cql/cql_coloring_spec.js.coffee" file ----------
-#      - name: Run teaspoon tests for patient_builder_tests/cql/cql_coloring_spec
-#        uses: GabrielBB/xvfb-action@v1
-#        with:
-#          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee
-#
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v1
-#        with:
-#          file: coverage-frontend/default/lcov.info
-#          fail_ci_if_error: true
+      - name: Run teaspoon tests for patient_builder_tests/cql/cql_coloring_spec
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon FILE=spec/javascripts/patient_builder_tests/cql/cql_coloring_spec.js.coffee
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+# ------- Teaspoon tests for "cql_calculator_spec.js.coffee" file ----------
+      - name: Run teaspoon tests for cql_calculator_spec.js.coffee
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon FILE=spec/javascripts/cql_calculator_spec.js.coffee
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
 # ----------------------------------------------------------------------
