@@ -449,6 +449,18 @@
             fhirResource?.status = null
         types: ['Code']
         valueSets: () => [DiagnosticReportStatusValueSet.JSON]
+      },
+      {
+        path: 'effective',
+        title: 'effective',
+        getValue: (fhirResource) => fhirResource.effective
+        setValue: (fhirResource, value) =>
+          attrType = value?.getTypeName?() || value?.constructor?.name
+          if attrType == 'DateTime'
+            fhirResource.effective = @getPrimitiveDateTimeForCqlDateTime(value)
+          else
+            fhirResource.effective = value
+        types: ['DateTime', 'Period']
       }
     ]
     ImagingStudy: []
