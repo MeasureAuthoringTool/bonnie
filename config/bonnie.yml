@@ -36,3 +36,8 @@ production:
   smtp_port: 25
   smtp_hostname: "localhost"
   smtp_tls: false
+  virus_scan:
+    enabled: true
+    scan_url: 'http://localhost:5000/scan-file'
+    api_key: '1234567'
+    timeout: 30
