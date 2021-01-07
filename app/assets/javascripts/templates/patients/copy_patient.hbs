@@ -1,14 +1,15 @@
 <div class="modal fade" id="copyPatientDialog" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="dialog" aria-labelledby="modalTitle">
     <div class="modal-content">
-      <form role="form" method="post" action="/patients/copy_patient">
+      <form role="form" method="post" action="/patients/{{formAction}}">
         <input name="authenticity_token" type="hidden" value="{{token}}">
         <input name="patient_id" type="hidden" value="{{patientId}}">
+        <input name="source_measure_id" type="hidden" value="{{measure_id}}">
         <div class="modal-header">
-          <h1 class="modal-title" id="modalTitle">Copy Patients Across Measures</h1>
+          <h1 class="modal-title" id="modalTitle">{{modelDialogHeaderText}}</h1>
         </div>
         <div class="modal-body">
-          <div class="alert alert-info">Please select which measures you would like to copy your patient to</div>
+          <div class="alert alert-info">{{modelDialogInfoText}}</div>
           <div class="form-group">
             <label for="measureTitles" class="control-label">Measures:</label>
             <div id="measureTitles">
@@ -31,8 +32,7 @@
           <button type="submit" id="copyPatientSubmit" class="btn btn-primary">Done</button>
           <button type="button" id="copyPatientCancel" class="btn btn-default">Cancel</button>
         </div>
-    </div>
-    </form>
-  </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

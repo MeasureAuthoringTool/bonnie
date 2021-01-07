@@ -146,6 +146,37 @@ include Devise::Test::ControllerHelpers
     assert_response :redirect
   end
 
+  test "copy_all_patients of a measure to another measures" do
+    # source test measure
+    cms124_measure = load_fhir_measure_from_json_fixture('test/fixtures/fhir_measures/CMS124/CMS124.json', @user)
+    # source test patient1
+    load_patient_from_json_fixture('test/fixtures/fhir_patients/CMS124/ipp_denom_pass_test.json', @user)
+    # source test patient2
+    load_patient_from_json_fixture('test/fixtures/fhir_patients/CMS124/ipp_denom_pass_test.json', @user)
+
+    # target test measure
+    cms104_measure = load_fhir_measure_from_json_fixture('test/fixtures/fhir_measures/CMS104/CMS104.json', @user)
+
+    post :copy_all_patients, params: {
+      source_measure_id: cms124_measure.id,
+      selected: ['21F5386A-AC56-4C4F-98A7-476B5078E626']
+    }
+
+    # 2 patients after copy all action for target measure
+    patients = CQM::Patient.by_user(@user).where({:measure_ids.in => ['21F5386A-AC56-4C4F-98A7-476B5078E626']})
+    assert_equal 2, patients.count
+    p1 = patients[0]
+    p2 = patients[1]
+    # verify measure_ids to be target measure set_id
+    assert_equal p1.measure_ids[0], cms104_measure.set_id
+    assert_equal p2.measure_ids[0], cms104_measure.set_id
+    # verify target measure population with copied patient's expectations
+    target_populations = cms104_measure.population_sets[0].populations.attributes.except('_id', '_type', 'resource_type')
+    assert_equal p1.expected_values[0].except('measure_id', 'population_index', 'resource_type').keys, target_populations.keys
+    assert_equal p2.expected_values[0].except('measure_id', 'population_index', 'resource_type').keys, target_populations.keys
+    assert_response :redirect
+  end
+
   test "update" do
     assert_equal 0, CQM::Patient.count
     patient = CQM::Patient.new

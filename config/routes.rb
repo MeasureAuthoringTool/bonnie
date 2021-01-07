@@ -65,6 +65,7 @@ Bonnie::Application.routes.draw do
       post 'excel_export'
       post 'share_patients'
       post 'copy_patient'
+      post 'copy_all_patients'
     end
   end
 

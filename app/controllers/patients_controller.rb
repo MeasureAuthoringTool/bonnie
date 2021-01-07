@@ -116,25 +116,41 @@ class PatientsController < ApplicationController
     # selected measures
     measure_set_ids = params[:selected] || []
     # copy patient for each selected measure
-    measure_set_ids.each do |set_id|
-      measure = CQM::Measure.by_user(current_user).where(set_id: set_id).first
-      patient_copy = patient.dup
-      # update patient expectations based on target measure populations and set each to 0
-      patient_copy.expected_values = measure.population_sets&.map&.with_index do |population_set, index|
-        populations = population_set.populations.attributes.except(:_id, :_type)
-        expected_value = { measure_id: set_id, population_index: index }
-        populations.keys.each { |population| expected_value[population.to_sym] = 0 }
-        expected_value
-      end
-      patient_copy.measure_ids = [set_id]
-      # update fhir id
-      patient_copy.fhir_patient.fhirId = patient_copy.id
-      patient_copy.save
+    copy_patient_and_persist(patient, measure_set_ids)
+    redirect_to root_path
+  end
+
+  def copy_all_patients
+    source_measure = CQM::Measure.by_user(current_user).find(params[:source_measure_id])
+    # all patients of a source measure
+    patients = CQM::Patient.by_user(current_user).where({:measure_ids.in => [source_measure.set_id]})
+    measure_set_ids = params[:selected] || []
+    patients.each do |patient|
+      copy_patient_and_persist(patient, measure_set_ids)
     end
     redirect_to root_path
   end
 
 private
+
+  def copy_patient_and_persist(patient, target_set_ids)
+    # get all target measures
+    measures = CQM::Measure.by_user(current_user).where(:set_id.in => target_set_ids)
+    measures.each do |measure|
+      patient_copy = patient.dup
+      # update patient expectations based on target measure populations and set each to 0
+      patient_copy.expected_values = measure.population_sets&.map&.with_index do |population_set, index|
+        populations = population_set.populations.attributes.except(:_id, :_type)
+        expected_value = { measure_id: measure.set_id, population_index: index }
+        populations.keys.each { |population| expected_value[population.to_sym] = 0 }
+        expected_value
+      end
+      patient_copy.measure_ids = [measure.set_id]
+      # update fhir id
+      patient_copy.fhir_patient.fhirId = patient_copy.id
+      patient_copy.save!
+    end
+  end
 
   def cqm_patient_params
     # It would be better if we could explicitely check all nested params, but given the number and depth of
