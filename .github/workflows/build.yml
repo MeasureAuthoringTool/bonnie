@@ -58,7 +58,7 @@ jobs:
         run: npm ci
 
       - name: NPM audit
-        run: npm audit --audit-level=high
+        run: npm audit --production --audit-level=high
 
       - name: Build and test with Rake
         env:
