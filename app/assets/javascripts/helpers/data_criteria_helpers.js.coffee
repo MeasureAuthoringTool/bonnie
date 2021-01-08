@@ -602,7 +602,7 @@
       {
         path: 'timing',
         title: 'timing',
-        getValue: (fhirResource) => fhirResource.timing
+        getValue: (fhirResource) -> fhirResource.timing
         setValue: (fhirResource, value) =>
           attrType = value?.getTypeName?() || value?.constructor?.name
           if attrType == 'DateTime'
