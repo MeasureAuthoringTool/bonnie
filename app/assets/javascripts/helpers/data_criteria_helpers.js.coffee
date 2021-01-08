@@ -598,7 +598,20 @@
     Communication: []
     CommunicationRequest: []
     DeviceRequest: []
-    DeviceUseStatement: []
+    DeviceUseStatement: [
+      {
+        path: 'timing',
+        title: 'timing',
+        getValue: (fhirResource) -> fhirResource.timing
+        setValue: (fhirResource, value) =>
+          attrType = value?.getTypeName?() || value?.constructor?.name
+          if attrType == 'DateTime'
+            fhirResource.timing = @getPrimitiveDateTimeForCqlDateTime(value)
+          else
+            fhirResource.timing = value
+        types: ['DateTime', 'Period']
+      }
+    ]
     Location: []
     Device: []
     Substance: []
