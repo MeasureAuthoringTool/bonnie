@@ -231,11 +231,20 @@ describe 'DataCriteriaHelpers', ->
     it 'returns undefined (unsupported) for an empty DataElement getPrimaryCodePath', ->
       expect(DataCriteriaHelpers.getPrimaryCodePath(new cqm.models.DataElement())).toBeUndefined
 
+    it 'does not support primary code path for an empty DataElement', () ->
+      expect(DataCriteriaHelpers.isPrimaryCodePathSupported(new cqm.models.DataElement())).toBe(false)
+
     it 'returns null for a DataElement unknown resource', ->
       de = new cqm.models.DataElement()
       de.fhir_resource = new cqm.models.Resource()
       de.fhir_resource.resourceType = 'unsupported'
       expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toBe(null)
+
+    it 'does not support primary code path for an unknown resource', ->
+      de = new cqm.models.DataElement()
+      de.fhir_resource = new cqm.models.Resource()
+      de.fhir_resource.resourceType = 'unsupported'
+      expect(DataCriteriaHelpers.isPrimaryCodePathSupported(de)).toBe(false)
 
     it 'returns meta for getPrimaryCodePath', ->
        for res in Object.keys(DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES)
@@ -243,11 +252,36 @@ describe 'DataCriteriaHelpers', ->
         de.fhir_resource = new cqm.models[res]()
         expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toBeDefined()
 
+    it 'implements isPrimaryCodePathSupported for all resources', () ->
+      # The following resources don't have primary code path or it's a choice type
+      skip = [
+        'FamilyMemberHistory',
+        'ImagingStudy',
+        'NutritionOrder',
+        'DeviceRequest',
+        'DeviceUseStatement',
+        'ImmunizationEvaluation',
+        'ImmunizationRecommendation',
+        'MedicationAdministration',
+        'MedicationDispense',
+        'MedicationRequest',
+        'MedicationStatement',
+        'Patient',
+        'Practitioner']
+      for res in Object.keys(DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES)
+        de = new cqm.models.DataElement()
+        de.fhir_resource = new cqm.models[res]()
+        if skip.includes(res)
+          continue
+        expect(DataCriteriaHelpers.isPrimaryCodePathSupported(de)).toBe(true)
+
     it 'set/get primary codes works for Encounter', ->
       de = new cqm.models.DataElement()
       de.fhir_resource = new cqm.models.Encounter()
+      expect(DataCriteriaHelpers.isPrimaryCodePathSupported(de)).toBe(true)
       expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toEqual 'type'
       expect(DataCriteriaHelpers.getPrimaryCodes(de)).toEqual []
+
       coding = new cqm.models.Coding()
       coding.system = cqm.models.PrimitiveUri.parsePrimitive('system')
       coding.code = cqm.models.PrimitiveCode.parsePrimitive('code')
@@ -261,6 +295,7 @@ describe 'DataCriteriaHelpers', ->
     it 'set/get primary codes works for Condition', ->
       de = new cqm.models.DataElement()
       de.fhir_resource = new cqm.models.Condition()
+      expect(DataCriteriaHelpers.isPrimaryCodePathSupported(de)).toBe(true)
       expect(DataCriteriaHelpers.getPrimaryCodePath(de)).toEqual 'code'
       expect(DataCriteriaHelpers.getPrimaryCodes(de)).toEqual []
       coding = new cqm.models.Coding()

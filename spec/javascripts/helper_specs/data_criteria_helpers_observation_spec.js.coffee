@@ -111,4 +111,26 @@ describe 'DataCriteriaHelpers', ->
       expect(attrValue.upperLimit).toEqual valueSampledData.upperLimit
       expect(attrValue.data).toEqual valueSampledData.data
 
+    it 'should support Observation.encounter', ->
+      encounterAttr = @observationAttrs.find (attr) => attr.path is 'encounter'
+      expect(encounterAttr).toBeDefined
+      expect(encounterAttr.path).toBe 'encounter'
+      expect(encounterAttr.title).toBe 'encounter'
+      expect(encounterAttr.types.length).toBe 1
+      expect(encounterAttr.types[0]).toBe 'Reference'
+      expect(encounterAttr.referenceTypes.length).toBe 1
+      expect(encounterAttr.referenceTypes[0]).toBe 'Encounter'
+
+      observation = new cqm.models.Observation()
+      expect(encounterAttr.getValue(observation)).toBeUndefined
+
+      valueToSet = new cqm.models.Reference()
+      valueToSet.reference = cqm.models.PrimitiveString.parsePrimitive('Encounter/XYZ-12345')
+      encounterAttr.setValue(observation, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = encounterAttr.getValue(observation.clone())
+      expect(value).toBeDefined
+      expect(value.reference.value).toBe 'Encounter/XYZ-12345'
+
 

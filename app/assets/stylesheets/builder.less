@@ -435,11 +435,6 @@
           }
         }
         .criteria-delete {
-          .clearfix;
-          .criteria-delete-check {
-            .pull-right;
-            margin-left: 5px;
-          }
         }
       }
     }
@@ -691,14 +686,40 @@
       color: #918f8f;
     }
     .extension-value-selector {
-      border: 1px solid #ccc;
-      padding: 5px;
+    }
+    .input-container {
+      position: relative;
+    }
+    .input-view-container {
+      margin-right: 45px;
+    }
+    .input-placeholder {
+      min-height: 49px;
+    }
+    .input-add {
+      position: absolute;
+      right: 0px;
+      bottom: 15px;
     }
   }
 
   .extension-display-container {
     .extension-value {
       margin-left: 4%;
+
+      &> span {
+        word-break: break-all;
+        background-color: @gray-lighter;
+        color: @gray-darkest;
+        display: inline-block;
+        padding: 10px;
+        margin-bottom: 5px;
+        margin-right: 15px;
+        vertical-align: bottom;
+      }
+      .delete {
+        float: none;
+      }
     }
     .expand_caret {
       transform: scale(1.5);
@@ -708,12 +729,17 @@
     a[aria-expanded='false'] > .expand_caret {
       transform: scale(1.5) rotate(-90deg);
     }
-    .delete-extension-btn {
-      margin-bottom: 6px;
-      cursor: pointer
-    }
   }
 }
 .selectBoxIt-native {
   height: @input-height-base !important;
+}
+
+[data-toggle="collapse"] {
+  &.collapsed .if-not-collapsed {
+    display: none;
+  }
+  &:not(.collapsed) .if-collapsed {
+    display: none;
+  }
 }

@@ -40,36 +40,58 @@
         {{view this}}
       {{/each}}
 
-      <div class="form-group">
+      <div class="form-group" data-cy="codes-form-group">
         <label class="control-label"><i class="fa fa-code" aria-hidden="true"></i> Codes<input class="sr-only" disabled></label>
+        {{view unsupportedCodesView}}
         {{view editCodesDisplayView}}
         {{view editCodeSelectionView}}
       </div>
 
-      {{view attributeDisplayView}}
-      {{view attributeEditorView}}
-
-      {{view displayExtensionsView}}
-      {{view addExtensionsView}}
-
-      {{#if canHaveNegation}}
-        <div class="form-group">
-          <div class="checkbox">
-            <label class="checkbox-label">
-              <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select">
-              <span>NOT PERFORMED</span>
-            </label>
-          </div>
-          <span class="sr-only">Negation Rationale Code</span>
-          <div class="negationRationaleCodeEntry {{#unless negation}} hidden{{/unless}}">
-            <label class="control-label"><i class="fa fa-ban" aria-hidden="true"></i> Negation Rationale<input class="sr-only" disabled></label>
-            {{view negationRationaleView}}
-          </div>
+      <div class="form-group" data-cy="attributes-form-group">
+        {{view attributeDisplayView}}
+        {{view attributeEditorView}}
+      </div>
+      <div class="form-group" data-cy="extensions-form-group">
+        <a data-toggle="collapse" data-target="#collapse_extensions_section_{{@cid}}" aria-controls="#collapse_extensions_section_{{@cid}}" href="#collapse_extensions_section_{{@cid}}" onclick="return false;" aria-expanded="false" class="collapsed">
+          <label class="control-label"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> EXTENSIONS<input class="sr-only" disabled></label>
+          <span class="if-collapsed">(Show)</span>
+          <span class="if-not-collapsed">(Hide)</span>
+        </a>
+        <div id="collapse_extensions_section_{{@cid}}" class="collapse">
+          {{view displayExtensionsView}}
+          {{view addExtensionsView}}
         </div>
-      {{/if}}
+      </div>
+      <div class="form-group" data-cy="modifier-extensions-form-group">
+        <a data-toggle="collapse" data-target="#collapse_modifier_extensions_section_{{@cid}}" aria-controls="#collapse_modifier_extensions_section_{{@cid}}" href="#collapse_modifier_extensions_section_{{@cid}}" onclick="return false;" aria-expanded="false" class="collapsed">
+          <label class="control-label"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> MODIFIER EXTENSIONS<input class="sr-only" disabled></label>
+          <span class="if-collapsed">(Show)</span>
+          <span class="if-not-collapsed">(Hide)</span>
+        </a>
+        <div id="collapse_modifier_extensions_section_{{@cid}}" class="collapse">
+          {{view displayModifierExtensionsView}}
+          {{view addModifierExtensionsView}}
+        </div>
+      </div>
 
-      <div class="criteria-delete">
-        <div class="pull-right">
+<!--      {{#if canHaveNegation}}-->
+<!--        <div class="form-group">-->
+<!--          <div class="checkbox">-->
+<!--            <label class="checkbox-label">-->
+<!--              <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select">-->
+<!--              <span>NOT PERFORMED</span>-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <span class="sr-only">Negation Rationale Code</span>-->
+<!--          <div class="negationRationaleCodeEntry {{#unless negation}} hidden{{/unless}}">-->
+<!--            <label class="control-label"><i class="fa fa-ban" aria-hidden="true"></i> Negation Rationale<input class="sr-only" disabled></label>-->
+<!--            {{view negationRationaleView}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      {{/if}}-->
+
+      <div class="form-group">
+        <div class="criteria-delete pull-right">
           {{#button "showDelete" class="btn btn-danger-inverse criteria-delete-check"}}
             <i class="fa fa-minus-circle" aria-hidden="true"></i>
             <span class="sr-only">show delete</span>
