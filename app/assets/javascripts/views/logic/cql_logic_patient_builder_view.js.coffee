@@ -8,12 +8,12 @@ class Thorax.Views.CqlPatientBuilderLogic extends Thorax.Views.BonnieView
 
     # Default results for all populations to 0.
     @results = {}
-    for pop in @population_names
+    for pop in @population_names when pop isnt 'resource_type'
       @results[pop] = 0
     @cqlLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, highlightPatientDataEnabled: true, population: @population)
 
   showRationale: (result) ->
-    for pop in @population_names
+    for pop in @population_names when pop isnt 'resource_type'
       @results[pop] = result.get(pop)
     if !result.isPopulated()
       @cqlLogicView.clearRationale()
