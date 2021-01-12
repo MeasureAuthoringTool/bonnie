@@ -23,7 +23,7 @@ module VirusScanHelper
             json_response = JSON.parse(result.body)
             logger.info "VIRSCAN: scanner response body: #{result.body}"
 
-            raise VirusFoundError.new if json_response['infected']
+            raise VirusFoundError.new if json_response['infectedFileCount'] != 0
           else
             logger.error "VIRSCAN: scanner HTTP response code: #{resp.code}"
             raise VirusScannerError.new

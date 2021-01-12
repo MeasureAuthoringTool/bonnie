@@ -1,0 +1,116 @@
+{
+  "expected_values": [
+    {
+      "measure_id": "4F661027-8C11-4FDB-A15D-14F2597007F7",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "measure_ids": [
+    "4F661027-8C11-4FDB-A15D-14F2597007F7"
+  ],
+  "fhir_patient": {
+    "resourceType": "Patient",
+    "extension": [
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "1002-5",
+              "display": "American Indian or Alaska Native",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "American Indian or Alaska Native"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      },
+      {
+        "extension": [
+          {
+            "url": "ombCategory",
+            "valueCoding": {
+              "system": "urn:oid:2.16.840.1.113883.6.238",
+              "code": "2135-2",
+              "display": "Hispanic or Latino",
+              "userSelected": true
+            }
+          },
+          {
+            "url": "text",
+            "valueString": "Hispanic or Latino"
+          }
+        ],
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+      }
+    ],
+    "name": [
+      {
+        "family": "IPP_DENOM",
+        "given": [
+          "TEST"
+        ]
+      }
+    ],
+    "gender": "female",
+    "birthDate": "1995-01-02",
+    "id": "5faeeb2baf10594ed9cb70e1"
+  },
+  "data_elements": [
+    {
+      "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "valueSetTitle": "Office Visit",
+      "description": "Encounter: Office Visit",
+      "fhir_resource": {
+        "resourceType": "Encounter",
+        "status": "finished",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "99201",
+                "userSelected": true
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2019-11-13T08:00:00.000+00:00",
+          "end": "2019-11-13T08:15:00.000+00:00"
+        },
+        "id": "5faeec35af10594ed9cb70e2"
+      }
+    },
+    {
+      "codeListId": "2.16.840.1.113762.1.4.1108.15",
+      "valueSetTitle": "Hospice care ambulatory",
+      "description": "Procedure: Hospice care ambulatory",
+      "fhir_resource": {
+        "resourceType": "Procedure",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "version": "2019-09",
+              "code": "385763009",
+              "display": "Hospice care (regime/therapy)",
+              "userSelected": true
+            }
+          ]
+        },
+        "id": "5faeeccbaf10594ed9cb70e3"
+      }
+    }
+  ],
+  "created_at": "2020-11-13T20:28:42.373Z",
+  "updated_at": "2020-11-13T20:28:42.373Z"
+}

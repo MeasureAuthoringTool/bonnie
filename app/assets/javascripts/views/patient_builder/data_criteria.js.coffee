@@ -56,16 +56,19 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    codes = DataCriteriaHelpers.getPrimaryCodes @model.get('dataElement')
-    code_list_id = @model.get('codeListId')
-    vs = (@measure.get('cqmValueSets').find( (vs) => vs.id is code_list_id) )
-    concepts = vs?.compose?.include || []
+    if DataCriteriaHelpers.isPrimaryCodePathSupported @model.get('dataElement')
+      codes = DataCriteriaHelpers.getPrimaryCodes @model.get('dataElement')
+      code_list_id = @model.get('codeListId')
+      vs = (@measure.get('cqmValueSets').find( (vs) => vs.id is code_list_id) )
+      concepts = vs?.compose?.include || []
 
-    @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure, parent: @
-    @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure, parent: @
+      @editCodesDisplayView = new Thorax.Views.EditCodesDisplayView codes: codes, measure: @measure, parent: @
+      @editCodeSelectionView = new Thorax.Views.EditCodeSelectionView codes: codes, concepts: concepts, measure: @measure, parent: @
 
-    if codes.length is 0
-      @editCodeSelectionView.addDefaultCodeToDataElement()
+      if codes.length is 0
+        @editCodeSelectionView.addDefaultCodeToDataElement()
+    else
+      @unsupportedCodesView = new Thorax.Views.UnsupportedCodesView primaryCodePath: DataCriteriaHelpers.getPrimaryCodePath @model.get('dataElement')
 
     @timingAttributeViews = []
     for timingAttr in @model.getPrimaryTimingAttributes()
@@ -105,12 +108,20 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @listenTo @attributeEditorView, 'attributesModified', @attributesModified
 
     # view that shows all the extensions of the resource
-    @displayExtensionsView = new Thorax.Views.DisplayExtensionsView(model: @model)
+    @displayExtensionsView = new Thorax.Views.DisplayExtensionsView(dataElement: @model.get('dataElement'), extensionsAccessor: 'extension')
     @listenTo @displayExtensionsView, 'extensionModified', @extensionModified
 
     # view that adds extensions to the resource
-    @addExtensionsView = new Thorax.Views.AddExtensionsView(model: @model)
+    @addExtensionsView = new Thorax.Views.AddExtensionsView(dataElement: @model.get('dataElement'), extensionsAccessor: 'extension')
     @listenTo @addExtensionsView, 'extensionModified', @extensionModified
+
+    # view that shows all the modifier extensions of the resource
+    @displayModifierExtensionsView = new Thorax.Views.DisplayExtensionsView(dataElement: @model.get('dataElement'), extensionsAccessor: 'modifierExtension')
+    @listenTo @displayModifierExtensionsView, 'extensionModified', @modifierExtensionModified
+
+    # view that adds modifier extensions to the resource
+    @addModifierExtensionsView = new Thorax.Views.AddExtensionsView(dataElement: @model.get('dataElement'), extensionsAccessor: 'modifierExtension')
+    @listenTo @addModifierExtensionsView, 'extensionModified', @modifierExtensionModified
 
     # view that allows for negating the data criteria, will not display on non-negateable data criteria
 #    @negationRationaleView = new Thorax.Views.InputCodingView({ cqmValueSets: @measure.get('cqmValueSets'), codeSystemMap: @measure.codeSystemMap(), attributeName: 'negationRationale', initialValue: @model.get('dataElement').negationRationale })
@@ -201,6 +212,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   extensionModified: ->
     @displayExtensionsView.render()
+    @triggerMaterialize()
+
+  modifierExtensionModified: ->
+    @displayModifierExtensionsView.render()
     @triggerMaterialize()
 
   isDuringMeasurePeriod: ->

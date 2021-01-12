@@ -1,6 +1,11 @@
 describe 'DataCriteriaHelpers', ->
 
   describe 'Medication Request attributes', ->
+    it 'doesnt support MedicationRequest primary code path', ->
+      dataElement = new cqm.models.DataElement()
+      dataElement.fhir_resource = new cqm.models['MedicationRequest']()
+      expect(DataCriteriaHelpers.isPrimaryCodePathSupported(dataElement)).toBe(false)
+
     it 'should support MedicationRequest.status', ->
       DataCriteriaAsserts.assertCode('MedicationRequest', 'status', 'status', (fhirResource) -> cqm.models.MedicationRequestStatus.isMedicationRequestStatus(fhirResource.status))
 
@@ -60,6 +65,31 @@ describe 'DataCriteriaHelpers', ->
 
       expect(value.value.value).toEqual 13
       expect(value.unit.value).toEqual 'kg'
+
+    it 'should support MedicationRequest.medication', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']
+      attr = attrs.find (attr) -> attr.path is 'medication'
+      expect(attr.path).toEqual 'medication'
+      expect(attr.title).toEqual 'medication'
+      expect(attr.types).toEqual [ 'CodeableConcept', 'Reference' ]
+
+      fhirResource = new cqm.models['MedicationRequest']()
+      #   CodeableConcept
+      coding = new cqm.models.Coding()
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('code1')
+      coding.system = cqm.models.PrimitiveUrl.parsePrimitive('system1')
+      attr.setValue(fhirResource, coding)
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.code.value).toBe 'code1'
+      expect(value.system.value).toBe 'system1'
+
+      #   Reference
+      ref = cqm.models.Reference.parse({"reference": "random-reference"})
+      attr.setValue(fhirResource, ref)
+      value = attr.getValue(fhirResource.clone())
+
+      expect(value.reference.value).toEqual 'random-reference'
 
     it 'should support MedicationRequest.dosageInstructions.timing.repeat.bounds', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['MedicationRequest']

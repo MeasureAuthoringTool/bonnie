@@ -2,24 +2,21 @@
 class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
   template: JST['patient_builder/add_extensions']
 
+  # dataElement - required data element
+  # extensionsAccessor - is a required parameter, used to access resource's extensions: 'extension' | 'modifierExtension'
   initialize: ->
     @valueTypes = @getValueTypes()
-    @dataElement = @model.get('dataElement')
     @url = null
+    @validate()
 
   events:
-    'change input[name="url"]': 'validateUrl'
-    'change select[name="value"]': 'valueTypeChange'
+    'change input[name="url"]': 'urlChange'
+    'change select[name="value_type"]': 'valueTypeChange'
+    rendered: ->
+      @validate()
 
-  validateUrl: (e) ->
-    @url = $(e.target).val()
-    @toggleAddBtn()
-
-  toggleAddBtn: ->
-    if @url && /^\S+$/.test(@url) && (@selectedValueTypeView?.hasValidValue() || !@selectedValueTypeView?)
-      @$('#add_extension').removeAttr('disabled')
-    else
-      @$('#add_extension').attr('disabled', 'disabled')
+  urlChange: (e) ->
+    @validate()
 
   valueTypeChange: (e) ->
     newValueType = $(e.target).val()
@@ -29,7 +26,20 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       @selectedValueType = null
     @_createViewForSelectedType()
     @render()
-    @toggleAddBtn()
+    @validate()
+
+  validate: ->
+    urlInput = @$('input[name="url"]')
+    @url = urlInput.val()
+    @urlValid = @url && /^\S+$/.test(@url)
+    if @urlValid
+      urlInput.parent().removeClass('has-error')
+    else
+      urlInput.parent().addClass('has-error')
+    if @urlValid && (@selectedValueTypeView?.hasValidValue() || !@selectedValueTypeView?)
+      @$('#add_extension').removeAttr('disabled')
+    else
+      @$('#add_extension').attr('disabled', 'disabled')
 
   # sets up view for the selected value Type.
   _createViewForSelectedType: ->
@@ -42,6 +52,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
         when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @measurementYear })
         when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @measurementYear})
         when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
+        when 'String' then new Thorax.Views.InputStringView({ allowNull: false })
         when 'Integer' then new Thorax.Views.InputIntegerView({ allowNull: false })
         when 'PositiveInt' then new Thorax.Views.InputPositiveIntegerView()
         when 'UnsignedInt' then new Thorax.Views.InputUnsignedIntegerView()
@@ -53,7 +64,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
         when 'Ratio' then new Thorax.Views.InputRatioView()
         else null
       @showInputViewPlaceholder = !@selectedValueTypeView?
-      @listenTo(@selectedValueTypeView, 'valueChanged', @toggleAddBtn) if @selectedValueTypeView?
+      @listenTo(@selectedValueTypeView, 'valueChanged', @validate) if @selectedValueTypeView?
     else
       @selectedValueTypeView = null
 
@@ -65,19 +76,20 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       extension.url = extensionUrl;
       extension.value = @_getExtensionValue()
 
-      if (@dataElement.fhir_resource.extension)
-        @dataElement.fhir_resource.extension.push(extension)
+      if (@getExtensions())
+        @getExtensions().push(extension)
       else
-        @dataElement.fhir_resource.extension = [extension]
+        @setExtensions([extension])
 
       @trigger 'extensionModified', @
       # reset back to no selections
       @$('input[name="url"]').val('')
-      @$('select[name="value"]').val('--')
+      @$('select[name="value_type"]').val('--')
       @selectedValueType = null
       @url = null
       @_createViewForSelectedType()
       @render()
+      @validate()
 
   _getExtensionValue: ->
     value = @selectedValueTypeView?.value
@@ -87,11 +99,7 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
           DataCriteriaHelpers.getPrimitiveDateForCqlDate(value)
         when 'DateTime'
           DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(value)
-        when 'Decimal'
-          cqm.models.PrimitiveDecimal.parsePrimitive(value)
-        when 'String'
-          cqm.models.PrimitiveString.parsePrimitive(value)
-        when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Duration', 'Age', 'Range', 'Ratio', 'Quantity', 'Id', 'Canonical'
+        when 'Period', 'Boolean', 'Integer', 'PositiveInt', 'UnsignedInt', 'Decimal', 'Duration', 'String', 'Age', 'Range', 'Ratio', 'Quantity', 'Id', 'Canonical'
           value
         else null
     @selectedValue
@@ -120,8 +128,14 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
       'Range',
       'Ratio',
       'Reference',
-#      'String',
+      'String',
 #      'Time',
 #      'Timing',
       'UnsignedInt'
     ]
+
+  getExtensions: ->
+    return @dataElement.fhir_resource?[@extensionsAccessor]
+
+  setExtensions: (extensions) ->
+    @dataElement.fhir_resource?[@extensionsAccessor] = extensions
