@@ -3,7 +3,7 @@ name: Github Secrets Scanner
 on: [push]
 
 jobs:
-  build:
+  secret-scan:
 
     runs-on: ubuntu-latest
     env:
