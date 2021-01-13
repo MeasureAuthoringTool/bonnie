@@ -101,8 +101,8 @@ module VirusScanHelper
     def initialize
       front_end_version = {
         title: "Error Importing Patients",
-        summary: "The uploaded file is not a valid Bonnie patient export",
-        body: "Error: V100. Please re-export patients from QDM bonnie and re-import in FHIR Bonnie"
+        summary: "The uploaded file is not a valid Bonnie patient export.",
+        body: "Error: V100. Please re-export patients from QDM bonnie and re-import in FHIR Bonnie."
       }
       back_end_version = {
         json: {status: "error", messages: "Potential virus found in file"},
