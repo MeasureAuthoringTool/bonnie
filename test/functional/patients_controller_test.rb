@@ -504,4 +504,38 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 0, CQM::Patient.all.count
   end
 
+  test 'virus scanner 200 infected:true' do
+    APP_CONFIG['virus_scan']['enabled'] = true
+    zip_fixture = fixture_file_upload("test/fixtures/patient_import/fhir_patients_EF95493C-3F65-4440-9CCB-EAF1B9ED1210.zip",
+                                      'application/zip')
+
+    assert_equal 0, CQM::Patient.all.count
+
+    VCR.use_cassette("upload_measure_virus_200_infected_true") do
+      put :import_patients, params: { patient_import_file: zip_fixture, measure_id: "5d27840831fe5f6eb006a390" }
+
+      assert_not_nil flash
+      assert_equal 'Error Importing Patients', flash[:error][:title]
+      assert_equal 'The uploaded file is not a valid Bonnie patient export.', flash[:error][:summary]
+      assert_equal 'Error: V100. Please re-export patients from QDM bonnie and re-import in FHIR Bonnie.', flash[:error][:body]
+    end
+  end
+
+  test 'virus scanner error' do
+    APP_CONFIG['virus_scan']['enabled'] = true
+    zip_fixture = fixture_file_upload("test/fixtures/patient_import/fhir_patients_EF95493C-3F65-4440-9CCB-EAF1B9ED1210.zip",
+                                      'application/zip')
+
+    assert_equal 0, CQM::Patient.all.count
+
+    VCR.use_cassette("upload_measure_virus_500.yml") do
+      put :import_patients, params: { patient_import_file: zip_fixture, measure_id: "5d27840831fe5f6eb006a390" }
+
+      assert_not_nil flash
+      assert_equal 'Error Importing Patients', flash[:error][:title]
+      assert_equal 'The Patients could not be imported.', flash[:error][:summary]
+      assert_equal 'Error: V101. Bonnie has encountered an error while trying to import the patients.', flash[:error][:body]
+    end
+  end
+
 end

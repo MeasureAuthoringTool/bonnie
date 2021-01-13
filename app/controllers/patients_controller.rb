@@ -1,6 +1,7 @@
 class PatientsController < ApplicationController
   include MeasureHelper
   include PatientImportHelper
+  include VirusScanHelper
   before_action :authenticate_user!
   prepend_view_path(Rails.root.join('lib/templates/'))
 
@@ -118,9 +119,18 @@ class PatientsController < ApplicationController
   end
 
   def import_patients
+    begin
+      scan_for_viruses(params[:patient_import_file])
+    rescue VirusFoundError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise PatientImportVirusFoundError.new
+    rescue VirusScannerError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise PatientImportVirusScannerError.new
+    end
+
     measure_id = params[:measure_id]
     uploaded_file = params[:patient_import_file]
-
     raise UploadedFileNotZip.new if uploaded_file.content_type != "application/zip"
 
     measure = CQM::Measure.where(id: measure_id).first
@@ -160,6 +170,7 @@ class PatientsController < ApplicationController
   rescue StandardError => e
     puts e.backtrace
     flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
+  ensure
     redirect_to "#{root_path}#measures/#{params[:set_id]}"
   end
 
