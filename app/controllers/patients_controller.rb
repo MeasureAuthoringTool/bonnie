@@ -154,12 +154,9 @@ class PatientsController < ApplicationController
 
     # validate all patients first so we dont have partial upserts
     patients.each do |patient|
-      patient.measure_ids.clear
-      patient.measure_ids.push(measure.set_id)
-
-      patient.expected_values.each { |v| v["measure_id"] = measure.set_id }
+      patient.measure_ids = [measure.set_id]
       patient[:user_id] = current_user._id
-
+      patient.expected_values = extract_expected_values_from_measure(measure)
       raise MeasureLoadingOther.new if !patient.validate
     end
 
@@ -202,16 +199,20 @@ private
     measures.each do |measure|
       patient_copy = patient.dup
       # update patient expectations based on target measure populations and set each to 0
-      patient_copy.expected_values = measure.population_sets&.map&.with_index do |population_set, index|
-        populations = population_set.populations.attributes.except(:_id, :_type)
-        expected_value = { measure_id: measure.set_id, population_index: index }
-        populations.keys.each { |population| expected_value[population.to_sym] = 0 }
-        expected_value
-      end
+      patient_copy.expected_values = extract_expected_values_from_measure(measure)
       patient_copy.measure_ids = [measure.set_id]
       # update fhir id
       patient_copy.fhir_patient.fhirId = patient_copy.id
       patient_copy.save!
+    end
+  end
+
+  def extract_expected_values_from_measure(measure)
+    measure.population_sets&.map&.with_index do |population_set, index|
+      populations = population_set.populations.attributes.except(:_id, :_type)
+      expected_value = { measure_id: measure.set_id, population_index: index }
+      populations.keys.each { |population| expected_value[population.to_sym] = 0 }
+      expected_value
     end
   end
 
