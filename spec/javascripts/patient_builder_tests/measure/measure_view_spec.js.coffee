@@ -128,6 +128,15 @@
       @measureView.remove()
       bonnie.isPortfolio = false
 
+    it 'clicks on convert to fhir patients button', ->
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
+      spyOn($, 'fileDownload').and.callFake () ->
+        expect(arguments[0]).toEqual('patients/convert_patients?hqmf_set_id=7B2A9277-43DA-4D99-9BEE-6AC271A07747')
+      @measureView.$("button[data-call-method=convertQdmPatients]").click()
+      expect($.fileDownload).toHaveBeenCalled()
+      @measureView.remove()
+
     it 'can remove patient belonging to multiple measures', ->
       secondMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS10v0/CMS10v0.json', 'cqm_measure_data/CMS10v0/value_sets.json'
       bonnie.measures.add secondMeasure
