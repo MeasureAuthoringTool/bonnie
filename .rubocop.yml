@@ -5,3 +5,9 @@ AllCops:
     - 'bin/**/*'
     - 'vendor/**/*'
     - 'node_modules/**/*'
+Metrics/ParameterLists:
+  Exclude:
+    - 'script/regression_test_single_account.rb'
+Layout/LineLength:
+  Exclude:
+    - 'script/regression_test_single_account.rb'

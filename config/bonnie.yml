@@ -1,5 +1,5 @@
 defaults: &defaults
-  version: 6.0.0
+  version: 6.0.1
   enable_logging: true
   enable_rationale: true
   check_crosswalk: false
@@ -36,3 +36,8 @@ production:
   smtp_port: 25
   smtp_hostname: "localhost"
   smtp_tls: false
+  virus_scan:
+    enabled: true
+    scan_url: 'http://localhost:5000/scan-file'
+    api_key: '1234567'
+    timeout: 30
