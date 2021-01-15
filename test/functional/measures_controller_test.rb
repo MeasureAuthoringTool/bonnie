@@ -20,6 +20,10 @@ include Devise::Test::ControllerHelpers
     @vcr_options = {match_requests_on: [:method, :uri_no_st]}
   end
 
+  def teardown
+    APP_CONFIG['virus_scan']['enabled'] = false
+  end
+
   test 'test virus scanner 500' do
     APP_CONFIG['virus_scan']['enabled'] = true
     VCR.use_cassette("upload_measure_virus_500") do
@@ -97,10 +101,12 @@ include Devise::Test::ControllerHelpers
   end
 
   test 'Upload & destroy FHIR Measure' do
+    # assert_equal '1', '2'
     VCR.use_cassette('vsac_response_for_upload_CMS104', @vcr_options) do
       measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
       assert_nil measure
-      measure_file = fixture_file_upload(File.join('test', 'fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'), 'application/zip')
+      # measure_file = fixture_file_upload(File.join('test', 'fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'), 'application/zip')
+      measure_file = fixture_file_upload(File.join(Rails.root, 'test/fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'), 'application/zip')
 
       post :create, params: {
         vsac_query_type: 'profile',
@@ -112,6 +118,8 @@ include Devise::Test::ControllerHelpers
         measure_type: 'ep',
         calculation_type: 'patient'
       }
+
+      sleep(30.seconds)
 
       assert_response :redirect
       measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first

@@ -90,6 +90,10 @@ class PatientsControllerTest < ActionController::TestCase
     }
   end
 
+  def teardown
+    APP_CONFIG['virus_scan']['enabled'] = false
+  end
+
   test "create" do
     assert_equal 0, CQM::Patient.count
 
@@ -489,6 +493,8 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 0, CQM::Patient.all.count
 
     put :import_patients, params: { patient_import_file: zip_fixture, measure_id: "5d27840831fe5f6eb006a390" }
+
+    sleep(30.seconds)
 
     assert_equal 2, CQM::Patient.all.count
   end
