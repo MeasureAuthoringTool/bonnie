@@ -215,10 +215,10 @@ module ApiV1
     def create
       permitted_params = params.permit!.to_h
        measure = create_measure(
-        uploaded_file: params[:measure_file],
-        measure_details: retrieve_measure_details(permitted_params),
-        value_set_loader: build_vs_loader(permitted_params, true),
-        user: current_resource_owner
+         uploaded_file: params[:measure_file],
+         measure_details: retrieve_measure_details(permitted_params),
+         value_set_loader: build_vs_loader(permitted_params, true),
+         user: current_resource_owner
       )
 
       render json: {status: "success", url: "/api_v1/measures/#{measure.set_id}"}, status: :ok
