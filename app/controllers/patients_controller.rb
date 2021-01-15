@@ -1,4 +1,7 @@
 class PatientsController < ApplicationController
+  include MeasureHelper
+  include PatientImportHelper
+  include VirusScanHelper
   before_action :authenticate_user!
   prepend_view_path(Rails.root.join('lib/templates/'))
 
@@ -7,7 +10,7 @@ class PatientsController < ApplicationController
     begin
       updated_patient = CQM::Patient.transform_json(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
-      render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
+      render json: { status: "error", messages: "Patient not properly structured for creation." }, status: :internal_server_error
       return
     end
     populate_measure_ids(updated_patient)
@@ -22,7 +25,7 @@ class PatientsController < ApplicationController
       patient = CQM::Patient.transform_json(cqm_patient_params)
       patient[:user_id] = current_user.id
     rescue Mongoid::Errors::UnknownAttribute
-      render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
+      render json: { status: "error", messages: "Patient not properly structured for creation." }, status: :internal_server_error
       return
     end
     populate_measure_ids(patient)
@@ -43,9 +46,9 @@ class PatientsController < ApplicationController
     else
       patients = CQM::Patient.by_user(current_user)
       unless current_user.portfolio?
-        patients = patients.where({:measure_ids.in => [params[:set_id]]})
+        patients = patients.where({ :measure_ids.in => [params[:set_id]] })
       end
-      measure = CQM::Measure.by_user(current_user).where({:set_id => params[:set_id]})
+      measure = CQM::Measure.by_user(current_user).where({ :set_id => params[:set_id] })
     end
 
     qrda_errors = {}
@@ -58,15 +61,15 @@ class PatientsController < ApplicationController
         # attach the QRDA export, or the error
         begin
           qrda = qrda_patient_export(patient, patient_measure) # allow error to stop execution before header is written
-          zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.familyName}_#{patient.givenNames[0]}.xml"))
+          zip.put_next_entry(File.join("qrda", "#{index + 1}_#{patient.familyName}_#{patient.givenNames[0]}.xml"))
           zip.puts qrda
         rescue Exception => e
           qrda_errors[patient.id] = e
         end
         # attach the HTML export, or the error
         begin
-          html = QdmPatient.new(patient,true).render
-          zip.put_next_entry(File.join("html","#{index+1}_#{patient.familyName}_#{patient.givenNames[0]}.html"))
+          html = QdmPatient.new(patient, true).render
+          zip.put_next_entry(File.join("html", "#{index + 1}_#{patient.familyName}_#{patient.givenNames[0]}.html"))
           zip.puts html
         rescue Exception => e
           html_errors[patient.id] = e
@@ -74,15 +77,19 @@ class PatientsController < ApplicationController
       end
       # add the summary content if there are results
       if (params[:results] && !params[:patients])
-        measure = CQM::Measure.by_user(current_user).where({:set_id => params[:set_id]}).first
+        measure = CQM::Measure.by_user(current_user).where({ :set_id => params[:set_id] }).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
         zip.puts measure_patients_summary(patients, params[:results].permit!.to_h, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     stringio.rewind
-    measure = CQM::Measure.by_user(current_user).where({:set_id => params[:set_id]}).first
-    filename = if params[:set_id] then "#{measure.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
+    measure = CQM::Measure.by_user(current_user).where({ :set_id => params[:set_id] }).first
+    filename = if params[:set_id]
+                 "#{measure.cms_id}_patient_export.zip"
+               else
+                 "bonnie_patient_export.zip"
+               end
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
 
@@ -98,7 +105,7 @@ class PatientsController < ApplicationController
 
   def share_patients
     patients = CQM::Patient.by_user(current_user)
-    patients = patients.where({:measure_ids.in => [params[:set_id]]})
+    patients = patients.where({ :measure_ids.in => [params[:set_id]] })
     # set patient measure_ids to those selected in the UI
     measure_ids = params[:selected] || []
     # plus the set_id of the measure the patients are being shared from
@@ -109,6 +116,54 @@ class PatientsController < ApplicationController
       patient.save
     end
     redirect_to root_path
+  end
+
+  def import_patients
+    begin
+      scan_for_viruses(params[:patient_import_file])
+    rescue VirusFoundError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise PatientImportVirusFoundError.new
+    rescue VirusScannerError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise PatientImportVirusScannerError.new
+    end
+
+    measure_id = params[:measure_id]
+    uploaded_file = params[:patient_import_file]
+    raise UploadedFileNotZip.new if uploaded_file.content_type != "application/zip"
+
+    measure = CQM::Measure.where(id: measure_id).first
+    raise MeasureUpdateMeasureNotFound.new if measure.nil?
+
+    json_from_zip_file = ""
+
+    Zip::File.open(uploaded_file.path) do |zip_file|
+      # Handle entries one by one
+      zip_file.each do |entry|
+        raise ZipEntryNotJson.new unless json_from_zip_file.empty?
+        raise ZipEntryNotJson.new unless entry.name.end_with?(".json")
+        json_from_zip_file = entry.get_input_stream.read
+      end
+    end
+
+    patients_array = JSON.parse(json_from_zip_file)
+    patients = patients_array.map { |patient_json| CQM::Patient.transform_json(patient_json) }
+
+    # validate all patients first so we dont have partial upserts
+    patients.each do |patient|
+      patient.measure_ids = [measure.set_id]
+      patient[:user_id] = current_user._id
+      patient.expected_values = extract_expected_values_from_measure(measure)
+      raise MeasureLoadingOther.new unless patient.validate
+    end
+
+    patients.each(&:upsert)
+  rescue StandardError => e
+    puts e.backtrace
+    flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version
+  ensure
+    redirect_to "#{root_path}#measures/#{params[:set_id]}"
   end
 
   def copy_patient
@@ -139,16 +194,20 @@ private
     measures.each do |measure|
       patient_copy = patient.dup
       # update patient expectations based on target measure populations and set each to 0
-      patient_copy.expected_values = measure.population_sets&.map&.with_index do |population_set, index|
-        populations = population_set.populations.attributes.except(:_id, :_type)
-        expected_value = { measure_id: measure.set_id, population_index: index }
-        populations.keys.each { |population| expected_value[population.to_sym] = 0 }
-        expected_value
-      end
+      patient_copy.expected_values = extract_expected_values_from_measure(measure)
       patient_copy.measure_ids = [measure.set_id]
       # update fhir id
       patient_copy.fhir_patient.fhirId = patient_copy.id
       patient_copy.save!
+    end
+  end
+
+  def extract_expected_values_from_measure(measure)
+    measure.population_sets&.map&.with_index do |population_set, index|
+      populations = population_set.populations.attributes.except(:_id, :_type)
+      expected_value = { measure_id: measure.set_id, population_index: index }
+      populations.keys.each { |population| expected_value[population.to_sym] = 0 }
+      expected_value
     end
   end
 
@@ -161,13 +220,11 @@ private
   end
 
   def populate_measure_ids(patient)
-    unless patient['measure_ids'].nil?
-      patient['measure_ids'].uniq!
-    end
+    patient['measure_ids']&.uniq!
   end
 
   def convert_to_hash(key, array)
-    Hash[array.map {|element| [element[key],element.except(key)]}]
+    Hash[array.map { |element| [element[key], element.except(key)] }]
   end
 
   def get_associated_measure(patient)
@@ -186,7 +243,7 @@ private
   end
 
   def measure_patients_summary(patients, results, qrda_errors, html_errors, measure)
-    render_to_string partial: "index.html.erb", locals: {measure: measure, results: results, records: patients, html_errors: html_errors, qrda_errors: qrda_errors}
+    render_to_string partial: "index.html.erb", locals: { measure: measure, results: results, records: patients, html_errors: html_errors, qrda_errors: qrda_errors }
   end
 
 end
