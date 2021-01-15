@@ -219,7 +219,7 @@ module ApiV1
          measure_details: retrieve_measure_details(permitted_params),
          value_set_loader: build_vs_loader(permitted_params, true),
          user: current_resource_owner
-      )
+       )
 
       render json: {status: "success", url: "/api_v1/measures/#{measure.set_id}"}, status: :ok
     rescue StandardError => e
