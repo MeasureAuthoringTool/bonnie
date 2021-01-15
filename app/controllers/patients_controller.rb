@@ -85,7 +85,7 @@ class PatientsController < ApplicationController
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     stringio.rewind
     measure = CQM::Measure.by_user(current_user).where({ :set_id => params[:set_id] }).first
-    filename = if params[:set_id] then
+    filename = if params[:set_id]
                  "#{measure.cms_id}_patient_export.zip"
                else
                  "bonnie_patient_export.zip"
@@ -142,8 +142,8 @@ class PatientsController < ApplicationController
       # Handle entries one by one
       zip_file.each do |entry|
 
-        raise ZipEntryNotJson.new if json_from_zip_file.length > 0
-        raise ZipEntryNotJson.new if !entry.name.end_with?(".json")
+        raise ZipEntryNotJson.new unless json_from_zip_file.empty?
+        raise ZipEntryNotJson.new unless entry.name.end_with?(".json")
 
         json_from_zip_file = entry.get_input_stream.read
       end
@@ -157,13 +157,10 @@ class PatientsController < ApplicationController
       patient.measure_ids = [measure.set_id]
       patient[:user_id] = current_user._id
       patient.expected_values = extract_expected_values_from_measure(measure)
-      raise MeasureLoadingOther.new if !patient.validate
+      raise MeasureLoadingOther.new unless patient.validate
     end
 
-    patients.each do |patient|
-      patient.upsert
-    end
-
+    patients.each(&:upsert)
   rescue StandardError => e
     puts e.backtrace
     flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version

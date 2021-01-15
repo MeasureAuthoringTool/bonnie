@@ -40,7 +40,7 @@ module PatientImportHelper
       message = "Converted Patient(s) did not pass validation."
 
       validation_messages =
-        if message_array.length > 0
+        if !message_array.empty?
           message_array.join(",")
         else
           "Patient(s) are invalid_"
