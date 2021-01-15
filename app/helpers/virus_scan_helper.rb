@@ -2,45 +2,43 @@
 module VirusScanHelper
   def scan_for_viruses(file)
     logger = Rails.logger
-    if APP_CONFIG['virus_scan']['enabled']
-      start = Time.now
-      original_filename = file.original_filename
-      begin
-        logger.info "VIRSCAN: scanning file #{original_filename}"
-        headers = { apikey: APP_CONFIG['virus_scan']['api_key']}
-        scan_url = APP_CONFIG['virus_scan']['scan_url']
-        payload = { file_name: original_filename, file: File.new(file.tempfile, 'rb') }
-        scan_timeout = APP_CONFIG['virus_scan']['timeout']
-        RestClient::Request.execute(
-          method: :post,
-          url: scan_url,
-          payload: payload,
-          timeout: scan_timeout,
-          headers: headers
-        ) do |resp, _request, result, &_block|
-          if resp.code == 200
-            logger.info "VIRSCAN: scanner HTTP response code: #{resp.code}"
-            json_response = JSON.parse(result.body)
-            logger.info "VIRSCAN: scanner response body: #{result.body}"
+    return unless APP_CONFIG['virus_scan']['enabled']
+    start = Time.now
+    original_filename = file.original_filename
+    begin
+      logger.info "VIRSCAN: scanning file #{original_filename}"
+      headers = { apikey: APP_CONFIG['virus_scan']['api_key']}
+      scan_url = APP_CONFIG['virus_scan']['scan_url']
+      payload = { file_name: original_filename, file: File.new(file.tempfile, 'rb') }
+      scan_timeout = APP_CONFIG['virus_scan']['timeout']
+      RestClient::Request.execute(
+        method: :post,
+        url: scan_url,
+        payload: payload,
+        timeout: scan_timeout,
+        headers: headers
+      ) do |resp, _request, result, &_block|
+        if resp.code == 200
+          logger.info "VIRSCAN: scanner HTTP response code: #{resp.code}"
+          json_response = JSON.parse(result.body)
+          logger.info "VIRSCAN: scanner response body: #{result.body}"
 
-            raise VirusFoundError.new if json_response['infectedFileCount'] != 0
-          else
-            logger.error "VIRSCAN: scanner HTTP response code: #{resp.code}"
-            raise VirusScannerError.new
-          end
+          raise VirusFoundError.new if json_response['infectedFileCount'] != 0
+        else
+          logger.error "VIRSCAN: scanner HTTP response code: #{resp.code}"
+          raise VirusScannerError.new
         end
-
-      rescue VirusFoundError, VirusScannerError => e
-        # Re-throw the original exception, otherwise Virus Found Error event will be overridden by Virus Scanner Error.
-        logger.error "VIRSCAN: error message: #{e.message}"
-        raise
-      rescue StandardError => e
-        logger.error "VIRSCAN: error message: #{e.message}"
-        raise VirusScannerError.new
-      ensure
-        duration = Time.now - start
-        logger.info "VIRSCAN: scanning file #{original_filename} took: #{duration}s"
       end
+    rescue VirusFoundError, VirusScannerError => e
+      # Re-throw the original exception, otherwise Virus Found Error event will be overridden by Virus Scanner Error.
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise
+    rescue StandardError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise VirusScannerError.new
+    ensure
+      duration = Time.now - start
+      logger.info "VIRSCAN: scanning file #{original_filename} took: #{duration}s"
     end
   end
 

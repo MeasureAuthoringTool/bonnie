@@ -141,10 +141,8 @@ class PatientsController < ApplicationController
     Zip::File.open(uploaded_file.path) do |zip_file|
       # Handle entries one by one
       zip_file.each do |entry|
-
         raise ZipEntryNotJson.new unless json_from_zip_file.empty?
         raise ZipEntryNotJson.new unless entry.name.end_with?(".json")
-
         json_from_zip_file = entry.get_input_stream.read
       end
     end
@@ -222,9 +220,7 @@ private
   end
 
   def populate_measure_ids(patient)
-    unless patient['measure_ids'].nil?
-      patient['measure_ids'].uniq!
-    end
+    patient['measure_ids']&.uniq!
   end
 
   def convert_to_hash(key, array)

@@ -29,14 +29,14 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("upload_measure_virus_500") do
       measure_file = fixture_file_upload(File.join('test', 'fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'), 'application/zip')
       post :create, params: {
-          vsac_query_type: 'profile',
-          vsac_query_profile: 'Latest eCQM',
-          vsac_query_include_draft: 'false',
-          vsac_query_measure_defined: 'true',
-          vsac_api_key: ENV['VSAC_API_KEY'],
-          measure_file: measure_file,
-          measure_type: 'ep',
-          calculation_type: 'patient'
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_api_key: ENV['VSAC_API_KEY'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
       }
       assert_not_nil flash
       assert_equal 'Error Loading Measure', flash[:error][:title]
@@ -54,14 +54,14 @@ include Devise::Test::ControllerHelpers
 
       measure_file = fixture_file_upload(File.join('test', 'fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'), 'application/zip')
       post :create, params: {
-          vsac_query_type: 'profile',
-          vsac_query_profile: 'Latest eCQM',
-          vsac_query_include_draft: 'false',
-          vsac_query_measure_defined: 'true',
-          vsac_api_key: ENV['VSAC_API_KEY'],
-          measure_file: measure_file,
-          measure_type: 'ep',
-          calculation_type: 'patient'
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_api_key: ENV['VSAC_API_KEY'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
       }
       assert_response :redirect
 
@@ -83,14 +83,14 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("upload_measure_virus_200_infected_true") do
       measure_file = fixture_file_upload(File.join('test', 'fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'), 'application/zip')
       post :create, params: {
-          vsac_query_type: 'profile',
-          vsac_query_profile: 'Latest eCQM',
-          vsac_query_include_draft: 'false',
-          vsac_query_measure_defined: 'true',
-          vsac_api_key: ENV['VSAC_API_KEY'],
-          measure_file: measure_file,
-          measure_type: 'ep',
-          calculation_type: 'patient'
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_api_key: ENV['VSAC_API_KEY'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
       }
       assert_not_nil flash
       assert_equal 'Error Loading Measure', flash[:error][:title]
