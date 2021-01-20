@@ -139,12 +139,12 @@ class PatientsController < ApplicationController
     json_from_zip_file = ""
 
     Zip::File.open(uploaded_file.path) do |zip_file|
-      # Handle entries one by one
+      # Handle entries one by one. Expect only 2 files in zip: json result and html error report.
       zip_file.each do |entry|
-        raise ZipEntryNotJson.new unless json_from_zip_file.empty?
-        raise ZipEntryNotJson.new unless entry.name.end_with?(".json")
-        json_from_zip_file = entry.get_input_stream.read
+        raise ZipEntryNotJson.new unless entry.name.end_with?(".json", ".html")
+        json_from_zip_file = entry.get_input_stream.read if entry.name.end_with?(".json")
       end
+        raise ZipEntryNotJson.new if json_from_zip_file.empty?
     end
 
     patients_array = JSON.parse(json_from_zip_file)
