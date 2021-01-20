@@ -487,7 +487,7 @@ class PatientsControllerTest < ActionController::TestCase
   end
 
   test 'import_patients' do
-    path = "test/fixtures/patient_import/fhir_patients_EF95493C-3F65-4440-9CCB-EAF1B9ED1210.zip"
+    path = "test/fixtures/patient_import/fhir_patients_42E7E489-790F-427A-A1A6-D6E807F65A6D.zip"
     zip_fixture = fixture_file_upload(path, 'application/zip')
 
     assert_equal 0, CQM::Patient.all.count
@@ -496,11 +496,11 @@ class PatientsControllerTest < ActionController::TestCase
 
     sleep(30.seconds)
 
-    assert_equal 2, CQM::Patient.all.count
+    assert_equal 4, CQM::Patient.all.count
   end
 
   test 'import_patients_bad_mime_type' do
-    path = "test/fixtures/patient_import/fhir_patients_EF95493C-3F65-4440-9CCB-EAF1B9ED1210.zip"
+    path = "test/fixtures/patient_import/fhir_patients_42E7E489-790F-427A-A1A6-D6E807F65A6D.zip"
     zip_fixture = fixture_file_upload(path, 'application/flashy')
 
     assert_equal 0, CQM::Patient.all.count
@@ -512,7 +512,7 @@ class PatientsControllerTest < ActionController::TestCase
 
   test 'virus scanner 200 infected:true' do
     APP_CONFIG['virus_scan']['enabled'] = true
-    zip_fixture = fixture_file_upload("test/fixtures/patient_import/fhir_patients_EF95493C-3F65-4440-9CCB-EAF1B9ED1210.zip",
+    zip_fixture = fixture_file_upload("test/fixtures/patient_import/fhir_patients_42E7E489-790F-427A-A1A6-D6E807F65A6D.zip",
                                       'application/zip')
 
     assert_equal 0, CQM::Patient.all.count
@@ -529,7 +529,7 @@ class PatientsControllerTest < ActionController::TestCase
 
   test 'virus scanner error' do
     APP_CONFIG['virus_scan']['enabled'] = true
-    zip_fixture = fixture_file_upload("test/fixtures/patient_import/fhir_patients_EF95493C-3F65-4440-9CCB-EAF1B9ED1210.zip",
+    zip_fixture = fixture_file_upload("test/fixtures/patient_import/fhir_patients_42E7E489-790F-427A-A1A6-D6E807F65A6D.zip",
                                       'application/zip')
 
     assert_equal 0, CQM::Patient.all.count
