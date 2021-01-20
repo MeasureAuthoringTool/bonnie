@@ -122,6 +122,10 @@ class PatientsController < ApplicationController
     Zip::ZipOutputStream.open(temp_file.path) do |zos|
       zos.put_next_entry(base_file_name + ".json")
       zos.puts fhir_json
+
+      # Generate HTML Error Report
+      zos.put_next_entry("#{base_file_name}_conversion_results.html")
+      zos.puts patient_fhir_conversion_report(JSON.parse(fhir_json))
     end
 
     send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
@@ -194,6 +198,47 @@ class PatientsController < ApplicationController
 
   def measure_patients_summary(patients, results, qrda_errors, html_errors, measure)
     render_to_string partial: "index.html.erb", locals: { measure: measure, results: results, records: patients, html_errors: html_errors, qrda_errors: qrda_errors }
+  end
+
+  # Returns the conversion error report as a String representation of an HTML file.
+  #
+  # The returned String is generated using an ERB template. Report data is pulled from the conversion service results JSON (fhir_json)
+  # and passed to the template as an Array of Hashes.
+  #
+  # Each Hash contains the relevant patient metadata and conversion notices/errors retrieved from the conversion service results.
+  # NOTICE tags are appended here, where as all WARNING/ERROR tags are sourced from the result json.
+  def patient_fhir_conversion_report(fhir_json)
+    conversion_error_report = []
+    fhir_json.each do | patient_result |
+      conversion_error_report << {
+        :family_name => patient_result['fhir_patient']['name'][0]['family'],
+        :given_name => patient_result['fhir_patient']['name'][0]['given'][0],
+        :outcome => parse_conversion_messages(patient_result.dig('patient_outcome', 'conversionMessages'),
+                                              patient_result.dig('patient_outcome', 'validationMessages')),
+        :data_elements => parse_converted_data_elements(patient_result['data_elements'])
+      }
+    end
+    render_to_string partial: "fhir_conversion_report.html.erb", locals: { report: conversion_error_report }
+  end
+
+  def parse_converted_data_elements(data_elements)
+    result = []
+    data_elements.each do |data_element|
+      result << {
+        :description => data_element['description'],
+        :outcome => parse_conversion_messages(data_element['outcome']['conversionMessages'],
+                                              data_element['outcome']['validationMessages'])
+      }
+    end
+    result
+  end
+
+  # Creates an array of report ready messages from the result's conversion and validation messages.
+  def parse_conversion_messages(conversion_messages, validation_messages)
+    result = []
+    conversion_messages.each {|msg| result <<  "NOTICE: " + msg } unless conversion_messages.empty?
+    validation_messages.each {|msg| result << "#{msg['severity']}: #{msg['locationString']}, #{msg['message']}" } unless validation_messages.empty?
+    result
   end
 
 end

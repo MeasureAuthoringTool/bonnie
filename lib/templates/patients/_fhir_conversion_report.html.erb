@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>QDM to FHIR Patient Conversion Results</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #333333;
+            background-color: #ffffff;
+            margin: auto;
+            width: 1000px;
+        }
+        .logo {
+            font-size: 36px;
+            font-weight: 100;
+            color: #0075C4;
+        }
+        .title {
+            font-size: 24px;
+            color: #888;
+            font-weight: 300;
+        }
+        table {
+            border: none;
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+        th {
+            border: 2px #f2f2f2 solid;
+            border-bottom-color: #E2E2E2;
+            background-color: #f2f2f2;
+            padding: 10px;
+        }
+        td {
+            padding-left: 10px;
+        }
+        tr.message {
+            border: 2px #E2E2E2 solid;
+        }
+    </style>
+  </head>
+  <body>
+    <h1><span class="logo">BONNIE:</span><span class="title"> QDM to FHIR Patient Conversion Report</span></h1>
+    <br>
+    <% report.each do |patient| %>
+    <table>
+      <tr>
+        <td><h3><%= patient[:family_name] %>, <%= patient[:given_name] %></h3></td>
+      </tr>
+    </table>
+    <% unless patient[:outcome].empty? %>
+      <table>
+        <tr><th>Patient Level</th></tr>
+        <tr class="message">
+          <td>
+            <table>
+              <% patient[:outcome].each do |msg| %>
+                <tr>
+                  <td><%= msg %></td>
+                </tr>
+              <% end %>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <br>
+    <% end %>
+    <table>
+      <tr>
+        <th>Data Element</th>
+        <th>Conversion Issues</th>
+      </tr>
+      <% if !patient[:data_elements].empty? %>
+        <% patient[:data_elements].each do |data_element| %>
+          <tr class="message">
+            <td><%= data_element[:description] %></td>
+            <td>
+              <table>
+                <% data_element[:outcome].each do |msg| %>
+                <tr>
+                  <td><%= msg %></td>
+                </tr>
+                <% end %>
+              </table>
+            </td>
+          </tr>
+          <% end %>
+      <% else %>
+        <tr class="message">
+          <td>No Issues Reported.</td>
+          <td><!-- empty cell to match table layout --></td>
+        </tr>
+      <% end %>
+    </table>
+    <br>
+    <% end %>
+  </body>
+</html>
