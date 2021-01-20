@@ -153,8 +153,28 @@ class PatientsController < ApplicationController
     # validate all patients first so we dont have partial upserts
     patients.each do |patient|
       patient.measure_ids = [measure.set_id]
+      new_id = BSON::ObjectId.new
       patient[:user_id] = current_user._id
+      patient.id = new_id
+      # 1. Create a new patient id so a new copy of patients is created on every import.
+      # Current Bonnie's limitation: Patient's fhir id should be equal to CqmPatient.id. Used in cqm-execution to
+      # aggregate execution results.
+      # 2. Update any references to the current patient.
+      # 3. Preserve fhirId in data elements so that FHIR references data elements are consistent.
+      # TODO: It should be changed when HAPI FHIR integration/persistence is needed
+      # 4. Don't preserve MongoIds from QDM
+      patient.fhir_patient.fhirId = new_id.to_s
+      patient.fhir_patient.id = nil
       patient.expected_values = extract_expected_values_from_measure(measure)
+      patient.data_elements.each do |el|
+        el.id = nil
+        el.fhir_resource.id = nil
+        el.fhir_resource.attributes.each do |attr_name, attr_value|
+          if !attr_value.nil? && attr_value.is_a?(FHIR::Reference) && attr_value.reference.value.start_with?('Patient')
+            el.fhir_resource.attributes[attr_name] = FHIR::Reference.new(reference: FHIR::PrimitiveString.new(value: 'Patient/' + new_id.to_s))
+          end
+        end
+      end
       raise MeasureLoadingOther.new unless patient.validate
     end
 
