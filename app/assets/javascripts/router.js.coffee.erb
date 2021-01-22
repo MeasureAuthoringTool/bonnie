@@ -2,6 +2,7 @@
 
   initialize: ->
     @maxErrorCount = 3
+    @maxNoticeCount = 3
     @mainView = new Thorax.LayoutView(el: '#bonnie')
     # This measure collection gets populated as measures are loaded via their individual JS
     # files (see app/views/measures/show.js.erb)
@@ -93,6 +94,15 @@
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display()
+
+  showNotice: (notice) ->
+    return if $('.noticeDialog').length > @maxErrorCount
+    if $('.noticeDialog').length == @maxNoticeCount
+      notice.title = "Multiple Notices: #{notice.title}"
+      notice.summary = "This page has generated multiple notices... additional notices will be suppressed. #{notices.summary}"
+    noticeDialogView = new Thorax.Views.NoticeDialog notice: notice
+    noticeDialogView.appendTo('#bonnie')
+    noticeDialogView.display()
 
   showPageNotFound: ->
     @mainView.setView new Thorax.Views.ErrorView

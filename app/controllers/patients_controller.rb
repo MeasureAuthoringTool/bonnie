@@ -179,6 +179,11 @@ class PatientsController < ApplicationController
     end
 
     patients.each(&:upsert)
+    flash[:notice] = {
+      title: "Success Loading Patients",
+      summary: "Success Loading Patients",
+      body: "Your FHIR patients have been successfully added to the measure. Please note all expected values have been cleared, you will need to select those values for each patient."
+    }
   rescue StandardError => e
     puts e.backtrace
     flash[:error] = turn_exception_into_shared_error_if_needed(e).front_end_version

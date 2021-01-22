@@ -1,0 +1,23 @@
+<div class="modal fade noticeDialog" id="noticeDialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" role="dialog" aria-labelledby="modalTitle">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 id="modalTitle">{{notice.title}}</h1>
+      </div>
+      <div class="modal-body">
+        {{#if notice.summary}}
+          <div>
+            <h4>{{{notice.summary}}}</h4>
+          </div>
+        {{/if}}
+        <p>
+          {{{notice.body}}}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
