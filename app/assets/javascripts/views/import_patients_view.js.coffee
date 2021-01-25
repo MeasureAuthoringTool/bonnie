@@ -16,6 +16,7 @@ class Thorax.Views.ImportPatients extends Thorax.Views.BonnieView
     rendered: ->
       @$el.on 'hidden.bs.modal', -> @remove() unless $('#importPatientsDialog').is(':visible')
     'click #importPatientsCancel': 'cancel'
+    'click #importPatientsSubmit': 'submit'
     'ready': 'setup'
     
 
@@ -26,4 +27,10 @@ class Thorax.Views.ImportPatients extends Thorax.Views.BonnieView
       "show" : true)
 
   cancel: ->
+    @importPatientsDialog.modal('hide')
+
+  submit: (e) ->
+    e.preventDefault()
+    $(e.target).prop('disabled', true)
+    @$('form').submit()
     @importPatientsDialog.modal('hide')
