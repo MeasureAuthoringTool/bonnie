@@ -1,12 +1,12 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: dc648999870f1b32c79f88908767cdb6bfc4a86d
+  revision: c85ed28cf063ecabf18b205914b74a5b979d6792
   branch: bonnie_version
   specs:
     cqm-parsers (0.2.1.1)
       activesupport (~> 5.2.1)
       builder (~> 3.1)
-      cqm-models (~> 3.0.4)
+      cqm-models (~> 3.0.6)
       erubis (~> 2.7.0)
       highline (~> 1.7.0)
       log4r (~> 1.1.10)
@@ -129,7 +129,7 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.7)
-    cqm-models (3.0.4)
+    cqm-models (3.0.6)
     cqm-reports (3.1.3)
       cqm-models (~> 3.0.3)
       cqm-validators (~> 3.0.0)
@@ -398,7 +398,7 @@ DEPENDENCIES
   codecov
   coffee-rails
   colorize
-  cqm-models (~> 3.0.3)
+  cqm-models (~> 3.0.6)
   cqm-parsers!
   cqm-reports (~> 3.1.2)
   devise
