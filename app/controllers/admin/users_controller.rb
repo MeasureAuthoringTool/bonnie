@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
     measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     # The following is disabled until patient creation is working
     # Check this commit for related template changes
-    patient_counts = {} #CQM::Patient.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    patient_counts = {} # CQM::Patient.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     users.each do |u|
       u.measure_count = measure_counts[u.id] || 0
       u.patient_count = patient_counts[u.id] || 0

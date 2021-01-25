@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class PatientsControllerTest  < ActionController::TestCase
-include Devise::Test::ControllerHelpers
+class PatientsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
@@ -10,39 +10,39 @@ include Devise::Test::ControllerHelpers
     @user = User.by_email('bonnie@example.com').first
 
     load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
-    @measure = CQM::Measure.where({"cms_id" => "CMS134v6"}).first
+    @measure = CQM::Measure.where({ "cms_id" => "CMS134v6" }).first
     sign_in @user
 
     qdm_data_element = {
-      "dataElementCodes"=>[{"code"=>"M", "system"=>"2.16.840.1.113883.5.1", "display"=>"Male"}],
-      "_id"=>"5ccb0c8857a11ed7a196dc9e",
-      "qdmTitle"=>"Patient Characteristic Sex",
-      "hqmfOid"=>"2.16.840.1.113883.10.20.28.4.55",
-      "qdmCategory"=>"patient_characteristic",
-      "qdmStatus"=>"gender",
-      "qdmVersion"=>"5.4",
-      "_type"=>"QDM::PatientCharacteristicSex",
-      "codeListId"=>"2.16.840.1.113762.1.4.1",
-      "description"=>"Patient Characteristic Sex: ONCAdministrativeSex",
-      "id"=>{"qdmVersion"=>"5.4", "namingSystem"=>nil, "value"=>"5ccb0c8857a11ed7a196dc9e"}
+      "dataElementCodes" => [{ "code" => "M", "system" => "2.16.840.1.113883.5.1", "display" => "Male" }],
+      "_id" => "5ccb0c8857a11ed7a196dc9e",
+      "qdmTitle" => "Patient Characteristic Sex",
+      "hqmfOid" => "2.16.840.1.113883.10.20.28.4.55",
+      "qdmCategory" => "patient_characteristic",
+      "qdmStatus" => "gender",
+      "qdmVersion" => "5.4",
+      "_type" => "QDM::PatientCharacteristicSex",
+      "codeListId" => "2.16.840.1.113762.1.4.1",
+      "description" => "Patient Characteristic Sex: ONCAdministrativeSex",
+      "id" => { "qdmVersion" => "5.4", "namingSystem" => nil, "value" => "5ccb0c8857a11ed7a196dc9e" }
     }
     qdm_patient = {
       'birthDatetime' => '1930-09-09',
       'qdmVersion' => '-1.3',
       'dataElements' => [qdm_data_element],
-      'extendedData' => {'adverse_event' => 'ADVERSE EVENT', 'encounter' => 'ENCOUNTER', 'family_history' => 'MYSTERIOUS'}
+      'extendedData' => { 'adverse_event' => 'ADVERSE EVENT', 'encounter' => 'ENCOUNTER', 'family_history' => 'MYSTERIOUS' }
     }
     @patient = { 'cqmPatient' => {
-      'givenNames'=> ['Betty'],
-      'providers'=>[],
-      'familyName'=> 'Boop',
-      'bundleId'=> 'F',
+      'givenNames' => ['Betty'],
+      'providers' => [],
+      'familyName' => 'Boop',
+      'bundleId' => 'F',
       'expectedValues' => ['true'],
-      'notes'=> 'Boop-Oop-a-Doop',
+      'notes' => 'Boop-Oop-a-Doop',
       'qdmPatient' => qdm_patient,
       'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"],
       'user_id' => @user.id
-    }}
+    } }
 
     @fhir_patient_params = {
       'cqmPatient': {
@@ -90,6 +90,10 @@ include Devise::Test::ControllerHelpers
     }
   end
 
+  def teardown
+    APP_CONFIG['virus_scan']['enabled'] = false
+  end
+
   test "create" do
     assert_equal 0, CQM::Patient.count
 
@@ -107,10 +111,10 @@ include Devise::Test::ControllerHelpers
   test "share patients" do
     patients_set = File.join('cqm_patients', 'CMS32v7')
     collection_fixtures(patients_set)
-    associate_user_with_patients(@user,CQM::Patient.all)
-    post :share_patients, params: {set_id: "3FD13096-2C8F-40B5-9297-B714E8DE9133", selected: ["123456", "789012345"]}
+    associate_user_with_patients(@user, CQM::Patient.all)
+    post :share_patients, params: { set_id: "3FD13096-2C8F-40B5-9297-B714E8DE9133", selected: ["123456", "789012345"] }
     assert_response :redirect
-    CQM::Patient.by_user(@user).all.each { |patient| assert_equal patient.measure_ids, ["123456", "789012345", "3FD13096-2C8F-40B5-9297-B714E8DE9133"]}
+    CQM::Patient.by_user(@user).all.each { |patient| assert_equal patient.measure_ids, ["123456", "789012345", "3FD13096-2C8F-40B5-9297-B714E8DE9133"] }
   end
 
   test "copy_patient" do
@@ -184,8 +188,8 @@ include Devise::Test::ControllerHelpers
     patient.save!
     assert_equal 1, CQM::Patient.count
 
-    update_params = @fhir_patient_params.merge({id: patient.id})
-    @fhir_patient_params[:cqmPatient].merge!({id: patient.id})
+    update_params = @fhir_patient_params.merge({ id: patient.id })
+    @fhir_patient_params[:cqmPatient].merge!({ id: patient.id })
     @controller.stub(:current_user, @user) do
       post :update, params: update_params
     end
@@ -205,10 +209,10 @@ include Devise::Test::ControllerHelpers
     associate_user_with_patients(@user, CQM::Patient.all)
     patient = CQM::Patient.first
     assert_equal 3, @user.patients.count
-    delete :destroy, params: {id: patient.id}
+    delete :destroy, params: { id: patient.id }
     assert_response :success
     assert_equal 2, @user.patients.count
-    patient = CQM::Patient.where({id: patient.id}).first
+    patient = CQM::Patient.where({ id: patient.id }).first
     assert_nil patient
   end
 
@@ -242,7 +246,7 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(records_set)
     associate_user_with_patients(@user, CQM::Patient.all)
     associate_measure_with_patients(@measure, CQM::Patient.all)
-    get :qrda_export, params: {set_id: @measure.set_id, isCQL: 'true'}
+    get :qrda_export, params: { set_id: @measure.set_id, isCQL: 'true' }
     assert_response :success
     assert_equal 'application/zip', response.header['Content-Type']
     assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
@@ -251,12 +255,13 @@ include Devise::Test::ControllerHelpers
 
     Dir.mkdir(Rails.root.join('tmp')) unless Dir.exist?(Rails.root.join('tmp'))
     zip_path = File.join('tmp', 'test.zip')
-    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
+    File.open(zip_path, 'wb') { |file| response.body_parts.each { |part| file.write(part) } }
     Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 3, zip_file.glob(File.join('qrda','**.xml')).length
+      assert_equal 3, zip_file.glob(File.join('qrda', '**.xml')).length
       html_files = zip_file.glob(File.join('html', '**.html'))
       assert_equal 3, html_files.length
-      html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
+      html_files.each do |html_file|
+        # search each HTML file to ensure alternate measure data is not included
         doc = Nokogiri::HTML(html_file.get_input_stream.read)
         xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
         assert_equal 0, doc.xpath(xpath).length
@@ -321,7 +326,7 @@ include Devise::Test::ControllerHelpers
     population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'population_details.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'composite_excel', 'statement_details.json'))
 
-    get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_set_id: measure_set_id}
+    get :excel_export, params: { calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_set_id: measure_set_id }
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
@@ -340,7 +345,7 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]
-    expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results","CMS321v0_shared_patients_composite.json")))
+    expected_rows = JSON.parse(File.read(File.join(Rails.root, "test", "fixtures", "expected_excel_results", "CMS321v0_shared_patients_composite.json")))
     # There was a change in how Roo parses "FALSE", but it does not affect the actual excel export.
     jon_doe_row[12] = "FALSE" if jon_doe_row[12] == false
     jane_smith_row[12] = "FALSE" if jane_smith_row[12] == false
@@ -359,7 +364,7 @@ include Devise::Test::ControllerHelpers
     population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'population_details.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'statement_details.json'))
 
-    get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_set_id: measure_set_id}
+    get :excel_export, params: { calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_set_id: measure_set_id }
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
@@ -422,7 +427,7 @@ include Devise::Test::ControllerHelpers
     population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'population_details.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'statement_details.json'))
 
-    get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_set_id: measure_set_id}
+    get :excel_export, params: { calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_set_id: measure_set_id }
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
@@ -462,7 +467,7 @@ include Devise::Test::ControllerHelpers
     population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'population_details.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'statement_details.json'))
     calc_results = {}.to_json
-    get :excel_export, params: {calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_set_id: measure_set_id}
+    get :excel_export, params: { calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test", measure_set_id: measure_set_id }
 
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
@@ -480,4 +485,67 @@ include Devise::Test::ControllerHelpers
     temp.close()
     temp.unlink()
   end
+
+  test 'import_patients' do
+    path = "test/fixtures/patient_import/fhir_patients_42E7E489-790F-427A-A1A6-D6E807F65A6D.zip"
+    zip_fixture = fixture_file_upload(path, 'application/zip')
+
+    assert_equal 0, CQM::Patient.all.count
+
+    put :import_patients, params: { patient_import_file: zip_fixture, measure_id: "5d27840831fe5f6eb006a390" }
+
+    assert_not_nil flash
+    assert_equal 'Success Loading Patients', flash[:notice][:title]
+    assert_equal 'Success Loading Patients', flash[:notice][:summary]
+    assert_equal 'Your FHIR patients have been successfully added to the measure. Please note all expected values have been cleared, you will need to select those values for each patient.', flash[:notice][:body]
+    assert_response :redirect
+
+    assert_equal 4, CQM::Patient.all.count
+  end
+
+  test 'import_patients_bad_mime_type' do
+    path = "test/fixtures/patient_import/fhir_patients_42E7E489-790F-427A-A1A6-D6E807F65A6D.zip"
+    zip_fixture = fixture_file_upload(path, 'application/flashy')
+
+    assert_equal 0, CQM::Patient.all.count
+
+    put :import_patients, params: { patient_import_file: zip_fixture, measure_id: "5d27840831fe5f6eb006a390" }
+
+    assert_equal 0, CQM::Patient.all.count
+  end
+
+  test 'virus scanner 200 infected:true' do
+    APP_CONFIG['virus_scan']['enabled'] = true
+    zip_fixture = fixture_file_upload("test/fixtures/patient_import/fhir_patients_42E7E489-790F-427A-A1A6-D6E807F65A6D.zip",
+                                      'application/zip')
+
+    assert_equal 0, CQM::Patient.all.count
+
+    VCR.use_cassette("upload_measure_virus_200_infected_true") do
+      put :import_patients, params: { patient_import_file: zip_fixture, measure_id: "5d27840831fe5f6eb006a390" }
+
+      assert_not_nil flash
+      assert_equal 'Error Importing Patients', flash[:error][:title]
+      assert_equal 'The uploaded file is not a valid Bonnie patient export.', flash[:error][:summary]
+      assert_equal 'Error: V100. Please re-export patients from QDM bonnie and re-import in FHIR Bonnie.', flash[:error][:body]
+    end
+  end
+
+  test 'virus scanner error' do
+    APP_CONFIG['virus_scan']['enabled'] = true
+    zip_fixture = fixture_file_upload("test/fixtures/patient_import/fhir_patients_42E7E489-790F-427A-A1A6-D6E807F65A6D.zip",
+                                      'application/zip')
+
+    assert_equal 0, CQM::Patient.all.count
+
+    VCR.use_cassette("upload_measure_virus_500.yml") do
+      put :import_patients, params: { patient_import_file: zip_fixture, measure_id: "5d27840831fe5f6eb006a390" }
+
+      assert_not_nil flash
+      assert_equal 'Error Importing Patients', flash[:error][:title]
+      assert_equal 'The Patients could not be imported.', flash[:error][:summary]
+      assert_equal 'Error: V101. Bonnie has encountered an error while trying to import the patients.', flash[:error][:body]
+    end
+  end
+
 end

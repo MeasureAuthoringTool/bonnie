@@ -214,10 +214,12 @@ module ApiV1
     param_group :measure_upload
     def create
       permitted_params = params.permit!.to_h
-      measure = create_measure(uploaded_file: params[:measure_file],
-                                                  measure_details: retrieve_measure_details(permitted_params),
-                                                  value_set_loader: build_vs_loader(permitted_params, true),
-                                                  user: current_resource_owner)
+       measure = create_measure(
+         uploaded_file: params[:measure_file],
+         measure_details: retrieve_measure_details(permitted_params),
+         value_set_loader: build_vs_loader(permitted_params, true),
+         user: current_resource_owner
+       )
 
       render json: {status: "success", url: "/api_v1/measures/#{measure.set_id}"}, status: :ok
     rescue StandardError => e
@@ -232,10 +234,12 @@ module ApiV1
     error :code => 500, :desc => "A server error occurred."
     param_group :measure_upload
     def update
-      measure = update_measure(uploaded_file: params[:measure_file],
-                                                  target_id: params[:id],
-                                                  value_set_loader: build_vs_loader(params.permit!.to_h, true),
-                                                  user: current_resource_owner)
+      measure = update_measure(
+        uploaded_file: params[:measure_file],
+        target_id: params[:id],
+        value_set_loader: build_vs_loader(params.permit!.to_h, true),
+        user: current_resource_owner
+      )
 
       render json: {status: "success", url: "/api_v1/measures/#{measure.set_id}"}, status: :ok
     rescue StandardError => e
