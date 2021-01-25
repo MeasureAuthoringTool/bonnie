@@ -148,7 +148,7 @@ class BonnieScraper
   end
 
   def admin
-    find(:xpath, "//tr[td[text()='#{account}']]").find("button.btn-danger").click
+    find(:xpath, "//tr[td[text()='#{account.downcase}']]").find("button.btn-danger").click
   end
 
   def handle_errors
