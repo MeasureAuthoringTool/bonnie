@@ -57,8 +57,8 @@
         <% if (flash[:error]) %>
           bonnie.showError(<%= json_escape(flash[:error].to_json).html_safe %>);
         <% end %>
-        <% if (flash[:notice]) %>
-          bonnie.showNotice(<%= json_escape(flash[:notice].to_json).html_safe %>);
+        <% if (flash[:msg]) %>
+          bonnie.showMsg(<%= json_escape(flash[:msg].to_json).html_safe %>);
         <% end %>
         $('.skip-content').on('click', function(e) {
           e.preventDefault();
