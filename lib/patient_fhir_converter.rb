@@ -1,9 +1,9 @@
 module PatientFhirConverter
-  URL = 'https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany'.freeze
-
   def self.convert(patients)
     begin
-      response = RestClient::Request.execute(:method => :put, :url => URL, :timeout => 120,
+      response = RestClient::Request.execute(:method => :put,
+                                             :url => APP_CONFIG['patient_conversion_service_url'],
+                                             :timeout => 120,
                                              :payload => patients,
                                              :headers => { content_type: 'application/json' },
                                              :verify_ssl => false)
