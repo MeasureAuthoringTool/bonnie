@@ -22,10 +22,10 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  patient_conversion_service_url: http://localhost:5050/patients/convertMany
 
 test:
   <<: *defaults
 
 production:
   <<: *defaults
+  patient_conversion_service_url: http://localhost:5050/patients/convertMany
