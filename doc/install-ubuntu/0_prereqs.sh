@@ -73,16 +73,14 @@ else
 	echo "Docker already installed"
 fi
 
-# Install Yarn
-if ! dpkg -s yarn >/dev/null 2>&1; then
+# Install NPM
+if ! dpkg -s npm >/dev/null 2>&1; then
 	curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
 	sudo apt-get install -y nodejs
-	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 	sudo apt-get update
-	sudo apt-get install -y yarn
+	sudo apt-get install -y npm
 else
-	echo "yarn and node already installed"
+	echo "npm and node already installed"
 fi
 
 echo "Now follow the guide 1_ruby_passenger.md"

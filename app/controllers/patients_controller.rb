@@ -7,7 +7,7 @@ class PatientsController < ApplicationController
     begin
       updated_patient = CQM::Patient.new(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
-      render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
+      render json: { status: "error", messages: "Patient not properly structured for creation." }, status: :internal_server_error
       return
     end
     populate_measure_ids_if_composite_measures(updated_patient)
@@ -21,7 +21,7 @@ class PatientsController < ApplicationController
     begin
       patient = CQM::Patient.new(cqm_patient_params)
     rescue Mongoid::Errors::UnknownAttribute
-      render json: {status: "error", messages: "Patient not properly structured for creation."}, status: :internal_server_error
+      render json: { status: "error", messages: "Patient not properly structured for creation." }, status: :internal_server_error
       return
     end
     populate_measure_ids_if_composite_measures(patient)
@@ -42,9 +42,9 @@ class PatientsController < ApplicationController
     else
       patients = CQM::Patient.by_user(current_user)
       unless current_user.portfolio?
-        patients = patients.where({:measure_ids.in => [params[:hqmf_set_id]]})
+        patients = patients.where({ :measure_ids.in => [params[:hqmf_set_id]] })
       end
-      measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
+      measure = CQM::Measure.by_user(current_user).where({ :hqmf_set_id => params[:hqmf_set_id] })
     end
 
     qrda_errors = {}
@@ -57,15 +57,15 @@ class PatientsController < ApplicationController
         # attach the QRDA export, or the error
         begin
           qrda = qrda_patient_export(patient, patient_measure) # allow error to stop execution before header is written
-          zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.familyName}_#{patient.givenNames[0]}.xml"))
+          zip.put_next_entry(File.join("qrda", "#{index + 1}_#{patient.familyName}_#{patient.givenNames[0]}.xml"))
           zip.puts qrda
         rescue Exception => e
           qrda_errors[patient.id] = e
         end
         # attach the HTML export, or the error
         begin
-          html = QdmPatient.new(patient,true).render
-          zip.put_next_entry(File.join("html","#{index+1}_#{patient.familyName}_#{patient.givenNames[0]}.html"))
+          html = QdmPatient.new(patient, true).render
+          zip.put_next_entry(File.join("html", "#{index + 1}_#{patient.familyName}_#{patient.givenNames[0]}.html"))
           zip.puts html
         rescue Exception => e
           html_errors[patient.id] = e
@@ -73,15 +73,19 @@ class PatientsController < ApplicationController
       end
       # add the summary content if there are results
       if (params[:results] && !params[:patients])
-        measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+        measure = CQM::Measure.by_user(current_user).where({ :hqmf_set_id => params[:hqmf_set_id] }).first
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
         zip.puts measure_patients_summary(patients, params[:results].permit!.to_h, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     stringio.rewind
-    measure = CQM::Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
-    filename = if params[:hqmf_set_id] then "#{measure.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
+    measure = CQM::Measure.by_user(current_user).where({ :hqmf_set_id => params[:hqmf_set_id] }).first
+    filename = if params[:hqmf_set_id] then
+                 "#{measure.cms_id}_patient_export.zip"
+               else
+                 "bonnie_patient_export.zip"
+               end
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
 
@@ -95,9 +99,42 @@ class PatientsController < ApplicationController
     send_data package.to_stream.read, type: "application/xlsx", filename: "#{params[:file_name]}.xlsx"
   end
 
+  def convert_patients
+    measure_set_id = params[:hqmf_set_id]
+    base_file_name = "fhir_patients_" + measure_set_id
+
+    patients = CQM::Patient.by_user_and_hqmf_set_id(current_user, measure_set_id).all.entries
+
+    patient_json_array = []
+
+    patients.each do |patient|
+      patient_json_array.push(patient.to_json)
+    end
+
+    qdm_json = '[' + patient_json_array.join(',') + ']'
+
+    fhir_json = PatientFhirConverter::convert(qdm_json)
+
+    cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
+
+    temp_file = Tempfile.new(base_file_name + "-#{request.remote_ip}.zip")
+
+    Zip::ZipOutputStream.open(temp_file.path) do |zos|
+      zos.put_next_entry(base_file_name + ".json")
+      zos.puts fhir_json
+
+      # Generate HTML Error Report
+      zos.put_next_entry("#{base_file_name}_conversion_results.html")
+      zos.puts patient_fhir_conversion_report(JSON.parse(fhir_json))
+    end
+
+    send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => base_file_name + ".zip"
+    temp_file.close # The temp file will be deleted some time...
+  end
+
   def share_patients
     patients = CQM::Patient.by_user(current_user)
-    patients = patients.where({:measure_ids.in => [params[:hqmf_set_id]]})
+    patients = patients.where({ :measure_ids.in => [params[:hqmf_set_id]] })
     # set patient measure_ids to those selected in the UI
     measure_ids = params[:selected] || []
     # plus the hqmf_set_id of the measure the patients are being shared from
@@ -110,7 +147,7 @@ class PatientsController < ApplicationController
     redirect_to root_path
   end
 
-private
+  private
 
   def cqm_patient_params
     # It would be better if we could explicitely check all nested params, but given the number and depth of
@@ -141,7 +178,7 @@ private
   end
 
   def convert_to_hash(key, array)
-    Hash[array.map {|element| [element[key],element.except(key)]}]
+    Hash[array.map { |element| [element[key], element.except(key)] }]
   end
 
   def get_associated_measure(patient)
@@ -160,7 +197,48 @@ private
   end
 
   def measure_patients_summary(patients, results, qrda_errors, html_errors, measure)
-    render_to_string partial: "index.html.erb", locals: {measure: measure, results: results, records: patients, html_errors: html_errors, qrda_errors: qrda_errors}
+    render_to_string partial: "index.html.erb", locals: { measure: measure, results: results, records: patients, html_errors: html_errors, qrda_errors: qrda_errors }
+  end
+
+  # Returns the conversion error report as a String representation of an HTML file.
+  #
+  # The returned String is generated using an ERB template. Report data is pulled from the conversion service results JSON (fhir_json)
+  # and passed to the template as an Array of Hashes.
+  #
+  # Each Hash contains the relevant patient metadata and conversion notices/errors retrieved from the conversion service results.
+  # NOTICE tags are appended here, where as all WARNING/ERROR tags are sourced from the result json.
+  def patient_fhir_conversion_report(fhir_json)
+    conversion_error_report = []
+    fhir_json.each do | patient_result |
+      conversion_error_report << {
+        :family_name => patient_result['fhir_patient']['name'][0]['family'],
+        :given_name => patient_result['fhir_patient']['name'][0]['given'][0],
+        :outcome => parse_conversion_messages(patient_result.dig('patient_outcome', 'conversionMessages'),
+                                              patient_result.dig('patient_outcome', 'validationMessages')),
+        :data_elements => parse_converted_data_elements(patient_result['data_elements'])
+      }
+    end
+    render_to_string partial: "fhir_conversion_report.html.erb", locals: { report: conversion_error_report }
+  end
+
+  def parse_converted_data_elements(data_elements)
+    result = []
+    data_elements.each do |data_element|
+      result << {
+        :description => data_element['description'],
+        :outcome => parse_conversion_messages(data_element['outcome']['conversionMessages'],
+                                              data_element['outcome']['validationMessages'])
+      }
+    end
+    result
+  end
+
+  # Creates an array of report ready messages from the result's conversion and validation messages.
+  def parse_conversion_messages(conversion_messages, validation_messages)
+    result = []
+    conversion_messages.each {|msg| result <<  "NOTICE: " + msg } unless conversion_messages.empty?
+    validation_messages.each {|msg| result << "#{msg['severity']}: #{msg['locationString']}, #{msg['message']}" } unless validation_messages.empty?
+    result
   end
 
 end

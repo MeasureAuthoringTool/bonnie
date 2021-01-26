@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'vcr_setup'
 
 class PatientsControllerTest  < ActionController::TestCase
 include Devise::Test::ControllerHelpers
@@ -416,5 +417,40 @@ include Devise::Test::ControllerHelpers
 
     temp.close()
     temp.unlink()
+  end
+
+  test 'convert_patients success' do
+    patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.user = @user
+    patient.save!
+    assert_equal 1, CQM::Patient.count
+
+    vcr_options = {match_requests_on: [:method, :uri_no_st]}
+    VCR.use_cassette('patient_conversion_service_success', vcr_options) do
+      # convert patient
+      post :convert_patients, params: { hqmf_set_id: 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'}
+      assert_response :success
+      assert_equal response.content_type, 'application/zip'
+      assert_not_nil response.body
+    end
+  end
+
+  test 'convert_patients:RestException' do
+    patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
+    patient = CQM::Patient.new(patient_hash[0])
+    patient.user = @user
+    patient.save!
+    assert_equal 1, CQM::Patient.count
+
+    vcr_options = {match_requests_on: [:method, :uri_no_st]}
+    VCR.use_cassette('patient_conversion_service_rest_exception', vcr_options) do
+      # convert patient
+      begin
+        post :convert_patients, params: { hqmf_set_id: 'AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC'}
+      rescue StandardError => e
+        assert_equal e.message, 'Problem with the rest call to the conversion microservice: 400 Bad Request.'
+      end
+    end
   end
 end

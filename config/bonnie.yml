@@ -1,5 +1,5 @@
 defaults: &defaults
-  version: 4.2.0
+  version: 4.2.1
   enable_logging: true
   enable_rationale: true
   check_crosswalk: false
@@ -18,6 +18,7 @@ defaults: &defaults
   # for deployments.
   bonnie_email: bonnie@example.com # For standard notifications
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
+  patient_conversion_service_url: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
 
 development:
   <<: *defaults

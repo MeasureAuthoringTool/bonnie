@@ -46,8 +46,12 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   events:
     rendered: ->
+      @convertPatientsView = new Thorax.Views.ConvertPatientsView() # Modal dialogs for converting
+      @convertPatientsView.appendTo(@$el)
+
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
+
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('a[data-toggle="tooltip"]').tooltip()
 
@@ -95,6 +99,15 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     sharePatientsView.appendTo(@$el)
     sharePatientsView.display()
 
+  convertQdmPatients: (e) ->
+    @convertPatientsView.converting()
+
+    $.fileDownload "patients/convert_patients?hqmf_set_id=#{@model.get('cqmMeasure').hqmf_set_id}",
+      successCallback: => @convertPatientsView.success()
+      failCallback: => @convertPatientsView.fail()
+      httpMethod: "POST"
+      data: {authenticity_token: $("meta[name='csrf-token']").attr('content')}
+
   exportQrdaPatients: (e) ->
     @exportPatientsView.exporting()
 
@@ -111,7 +124,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   exportExcelPatients: (e) ->
     @exportPatientsView.exporting()
-
     calc_results = {}
     patient_details = {}
     population_details = {}
