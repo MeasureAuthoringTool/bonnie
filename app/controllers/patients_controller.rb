@@ -179,7 +179,7 @@ class PatientsController < ApplicationController
     end
 
     patients.each(&:upsert)
-    flash[:notice] = {
+    flash[:msg] = {
       title: "Success Loading Patients",
       summary: "Success Loading Patients",
       body: "Your FHIR patients have been successfully added to the measure. Please note all expected values have been cleared, you will need to select those values for each patient."

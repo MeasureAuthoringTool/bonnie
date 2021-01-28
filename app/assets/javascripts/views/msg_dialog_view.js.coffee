@@ -1,8 +1,8 @@
-class Thorax.Views.NoticeDialog extends Thorax.Views.BonnieView
-  template: JST['notice_dialog']
+class Thorax.Views.MsgDialog extends Thorax.Views.BonnieView
+  template: JST['msg_dialog']
 
   display: ->
-    @$('#noticeDialog').modal(
+    @$('#msgDialog').modal(
       "backdrop" : "static",
       "keyboard" : true,
       "show" : true)

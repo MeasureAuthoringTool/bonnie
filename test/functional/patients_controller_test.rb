@@ -495,9 +495,9 @@ class PatientsControllerTest < ActionController::TestCase
     put :import_patients, params: { patient_import_file: zip_fixture, measure_id: "5d27840831fe5f6eb006a390" }
 
     assert_not_nil flash
-    assert_equal 'Success Loading Patients', flash[:notice][:title]
-    assert_equal 'Success Loading Patients', flash[:notice][:summary]
-    assert_equal 'Your FHIR patients have been successfully added to the measure. Please note all expected values have been cleared, you will need to select those values for each patient.', flash[:notice][:body]
+    assert_equal 'Success Loading Patients', flash[:msg][:title]
+    assert_equal 'Success Loading Patients', flash[:msg][:summary]
+    assert_equal 'Your FHIR patients have been successfully added to the measure. Please note all expected values have been cleared, you will need to select those values for each patient.', flash[:msg][:body]
     assert_response :redirect
 
     assert_equal 4, CQM::Patient.all.count
