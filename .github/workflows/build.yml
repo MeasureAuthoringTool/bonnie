@@ -67,6 +67,9 @@ jobs:
           file: coverage/.resultset.json
           fail_ci_if_error: true
 
+      - name: Setup Istanbul
+        run: sudo npm install -g istanbul
+
       # ------- Teaspoon tests for "helper_specs" directory ----------
       - name: Run teaspoon tests for helper_specs
         uses: GabrielBB/xvfb-action@v1
