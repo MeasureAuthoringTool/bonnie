@@ -64,6 +64,7 @@ Bonnie::Application.routes.draw do
       post 'qrda_export'
       post 'excel_export'
       post 'share_patients'
+      post 'import_patients'
       post 'copy_patient'
       post 'copy_all_patients'
     end

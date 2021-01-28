@@ -201,7 +201,7 @@ module ApiV1
 
     test 'should choose default titles for populations' do
       skip "VCR Cassette needs be updated with missing VSAC interactions."
-      #TODO -- Update VCR cassette with missing VSAC calls.
+      # TODO: -- Update VCR cassette with missing VSAC calls.
       measure_file = fixture_file_upload(File.join('test','fixtures','fhir_measures','ContinuousFhir_v6_0_Artifacts.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response', @vcr_options) do
@@ -225,7 +225,7 @@ module ApiV1
 
     test 'should use provided population titles for populations' do
       skip "VCR Cassette needs be updated with missing VSAC interactions."
-      #TODO -- Update VCR cassette with missing VSAC calls.
+      # TODO: -- Update VCR cassette with missing VSAC calls.
       measure_file = fixture_file_upload(File.join('test','fixtures','fhir_measures','ContinuousFhir_v6_0_Artifacts.zip'),'application/zip')
       @request.env['CONTENT_TYPE'] = 'multipart/form-data'
       VCR.use_cassette('api_valid_vsac_response_provided_titles', @vcr_options) do
