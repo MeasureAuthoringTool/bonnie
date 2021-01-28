@@ -1,0 +1,133 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [master, bonnie-prior, bonnie-on-fhir, feature/MAT-2433]
+  pull_request:
+    branches: [master, bonnie-prior, bonnie-on-fhir, feature/MAT-2433]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:3.4.23
+        ports:
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.4
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.4
+          bundler-cache: true
+
+      - name: Install bundler & bundle-audit
+        run: |
+          gem install bundler -v 2.1.4
+          gem install bundle-audit
+
+      - name: Install ruby gems
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Run Rubocop
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rubocop
+
+      - name: Execute Brakeman static vulnerability analysis
+        run: bundle exec brakeman
+
+      - name: Perform audit check for vulnerabilities
+        env:
+          RAILS_ENV: test
+        run: bundle exec bundle-audit check --update --ignore CVE-2020-5267 CVE-2020-8166 CVE-2020-8164 CVE-2020-15169 CVE-2020-8163 CVE-2020-8167 CVE-2020-8165 CVE-2020-8184 CVE-2020-8161 CVE-2019-16892 CVE-2020-10663
+
+      - name: Set and run up overcommit
+        run: |
+          git config --global user.email "overcommitd@semanticbits.com"
+          git config --global user.name "GitHub Actions CI"
+          bundle exec overcommit --sign
+          bundle exec overcommit --run
+
+      - name: Build and test with Rake
+        env:
+          RAILS_ENV: test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake test
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage/.resultset.json
+          fail_ci_if_error: true
+
+      # ------- Teaspoon tests for "helper_specs" directory ----------
+      - name: Run teaspoon tests for helper_specs
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=helper_specs
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+      # ----------------------------------------------------------------------
+
+      # ------- Teaspoon tests for "integration" directory ----------
+      - name: Run teaspoon tests for integration
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=integration
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+      # ----------------------------------------------------------------------
+
+      # ------- Teaspoon tests for "models" directory ----------
+      - name: Run teaspoon tests for models
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=models
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+      # ----------------------------------------------------------------------
+
+      # ------- Teaspoon tests for "production_tests" directory ----------
+      - name: Run teaspoon tests for production_tests
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=production_tests
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+      # ----------------------------------------------------------------------
+
+      # ------- Teaspoon tests for "views" directory ----------
+      - name: Run teaspoon tests for views
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=views
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+      # ----------------------------------------------------------------------
