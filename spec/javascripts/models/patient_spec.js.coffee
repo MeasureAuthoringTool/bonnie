@@ -82,16 +82,19 @@ describe 'Patient', ->
       expect(errors.length).toEqual 1
       expect(errors[0][2]).toEqual 'Date of birth cannot be blank'
 
-    it 'initializes populations in getExpectedValues', ->
+    it 'initializes false populations in getExpectedValues', ->
       measure = new Thorax.Models.Measure({set_id: 1}, {parse: true})
       targetPopulationSets = new Thorax.Collections.PopulationSets [], parent: measure
       targetPopulationSets.add new Thorax.Models.PopulationSet({populations: {IPP: 0, MSRPOPL: 0, MSRPOPLEX: 0}}, {parse: true})
       targetPopulation = targetPopulationSets.first()
       expectedValue = @patient.getExpectedValue(targetPopulation)
       expect(expectedValue).toBeDefined
-      expect(expectedValue.has('IPP')).toBe true
-      expect(expectedValue.has('MSRPOPL')).toBe true
-      expect(expectedValue.has('MSRPOPLEX')).toBe true
+      expect(expectedValue.IPP).toBeDefined
+      expect(expectedValue.MSRPOPL).toBeDefined
+      expect(expectedValue.MSRPOPLEX).toBeDefined
+      expect(expectedValue.has('IPP')).toBe false
+      expect(expectedValue.has('MSRPOPL')).toBe false
+      expect(expectedValue.has('MSRPOPLEX')).toBe false
 
     # it 'fails deceased patient without a deathdate', ->
     #   clone = @patient.deepClone()
