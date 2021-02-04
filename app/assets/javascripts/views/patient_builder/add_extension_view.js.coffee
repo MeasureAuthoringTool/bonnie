@@ -10,7 +10,9 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
     @validate()
 
   events:
+    'keyup input[name="url"]': 'urlChange'
     'change input[name="url"]': 'urlChange'
+    'input input[name="url"]': 'urlChange'
     'change select[name="value_type"]': 'valueTypeChange'
     rendered: ->
       @validate()
@@ -37,9 +39,9 @@ class Thorax.Views.AddExtensionsView extends Thorax.Views.BonnieView
     else
       urlInput.parent().addClass('has-error')
     if @urlValid && (@selectedValueTypeView?.hasValidValue() || !@selectedValueTypeView?)
-      @$('#add_extension').removeAttr('disabled')
+      @$('.add_extension_btn').removeAttr('disabled')
     else
-      @$('#add_extension').attr('disabled', 'disabled')
+      @$('.add_extension_btn').attr('disabled', 'disabled')
 
   # sets up view for the selected value Type.
   _createViewForSelectedType: ->
