@@ -25,6 +25,6 @@ production:
     default:
       database: bonnie_production
       hosts:
-        - localhost:27017
+        - <%= ENV["MONGO_DB_ENDPOINT"] %>
   options:
     raise_not_found_error: false
