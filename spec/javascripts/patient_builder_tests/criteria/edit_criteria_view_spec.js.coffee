@@ -172,7 +172,7 @@ describe 'EditCriteriaView', ->
     # select value
     displayExtensionsView.$el.find("select[name='value_type']").val('Boolean').change()
     # add extension
-    displayExtensionsView.$el.find("button#add_extension").click()
+    displayExtensionsView.$el.find("button.add_extension_btn").click()
     extensions = displayExtensionsView.dataElement.fhir_resource['extension']
     # 1 extension added
     expect(extensions.length).toEqual 1
@@ -181,36 +181,36 @@ describe 'EditCriteriaView', ->
 
     # add one more extension but without value
     displayExtensionsView.$el.find("input[name='url']").val('someotherextension').change()
-    displayExtensionsView.$el.find("button#add_extension").click()
+    displayExtensionsView.$el.find("button.add_extension_btn").click()
     expect(extensions.length).toEqual 2
 
   it 'adds an extension and validates the extension values', ->
     displayExtensionsView = @encounterView.addExtensionsView
     expect(displayExtensionsView).toBeDefined();
     # add extension button is disabled initially
-    expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toEqual('disabled')
+    expect(displayExtensionsView.$el.find("button.add_extension_btn").attr('disabled')).toEqual('disabled')
     # enter url
     displayExtensionsView.$el.find("input[name='url']").val('testext').change()
     # add extension button is enabled
-    expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toBeUndefined()
+    expect(displayExtensionsView.$el.find("button.add_extension_btn").attr('disabled')).toBeUndefined()
     # select Age value
     displayExtensionsView.$el.find("select[name='value_type']").val('Age').change()
     # add extension button disabled again because age is not valid yet(age value and ucum unit needs to be there)
-    expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toEqual('disabled')
+    expect(displayExtensionsView.$el.find("button.add_extension_btn").attr('disabled')).toEqual('disabled')
     # enter age value
     displayExtensionsView.$el.find("input[name='value_value']").val('12').change()
     # add extension button still disabled because ucum unit needs to be there
-    expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toEqual('disabled')
+    expect(displayExtensionsView.$el.find("button.add_extension_btn").attr('disabled')).toEqual('disabled')
     # enter invalid ucum unit
     displayExtensionsView.$el.find("input[name='value_unit']").val('testunit').change()
     # button still disabled because invalid ucum unit entered
-    expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toEqual('disabled')
+    expect(displayExtensionsView.$el.find("button.add_extension_btn").attr('disabled')).toEqual('disabled')
     # enter valid ucum unit
     displayExtensionsView.$el.find("input[name='value_unit']").val('day').change()
     # button is not disabled because valid age value and ucum unit now
-    expect(displayExtensionsView.$el.find("button#add_extension").attr('disabled')).toBeUndefined()
+    expect(displayExtensionsView.$el.find("button.add_extension_btn").attr('disabled')).toBeUndefined()
     # add extension
-    displayExtensionsView.$el.find("button#add_extension").click()
+    displayExtensionsView.$el.find("button.add_extension_btn").click()
     extensions = displayExtensionsView.dataElement.fhir_resource['extension']
     # extension added
     expect(extensions.length).toEqual 1
