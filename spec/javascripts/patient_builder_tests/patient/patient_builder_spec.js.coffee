@@ -1,6 +1,6 @@
 describe 'PatientBuilderView', ->
 
-  beforeEach ->
+  beforeEach (done) ->
     jasmine.getJSONFixtures().clearCache()
     @measure = loadFhirMeasure 'fhir_measure_data/CMS104_eoc.json'
     @patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/CMS104_eoc/mickey_mouse.json')], parse: true
@@ -13,6 +13,9 @@ describe 'PatientBuilderView', ->
     spyOn(@patientBuilder.model, 'materialize')
     spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
     @$el = @patientBuilder.$el
+    setTimeout(() ->
+      done()
+    , 1)
 
   afterEach ->
     bonnie.measures = @bonnie_measures_old

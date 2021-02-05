@@ -152,15 +152,23 @@ describe 'EditCriteriaView', ->
     extensions = @encounterView.model.get('dataElement').fhir_resource['extension']
     expect(extensions).toBeUndefined()
 
-  it 'removes an Extension', ->
+  it 'removes an Extension', (done) ->
     displayExtensionsView = @serviceRequestView.displayExtensionsView
     expect(displayExtensionsView).toBeDefined();
     expect(@serviceRequestView.model.get('dataElement').fhir_resource['extension'].length).toEqual 1
     # expand the extension
     displayExtensionsView.$el.find("a.extension-url").click()
-    # click delete extension button
-    displayExtensionsView.$el.find("button.delete-extension-btn").click()
-    expect(@serviceRequestView.model.get('dataElement').fhir_resource['extension'].length).toEqual 0
+
+    modelRef = @serviceRequestView.model
+    setTimeout(() ->
+      try
+        # click delete extension button
+        displayExtensionsView.$el.find("button.delete-extension-btn").click()
+        expect(modelRef.get('dataElement').fhir_resource['extension'].length).toEqual 0
+        done()
+      catch err
+        done.fail(err)
+    , 1)
 
   it 'adds an Extensions', ->
     displayExtensionsView = @encounterView.addExtensionsView
