@@ -19,7 +19,7 @@ describe 'PatientBuilderView', ->
         done()
       catch err
         done.fail(err)
-    , 1)
+    , 10)
 
   afterEach ->
     bonnie.measures = @bonnie_measures_old
