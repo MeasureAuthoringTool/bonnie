@@ -1,5 +1,5 @@
 describe "Population state between routes", ->
-  beforeAll ->
+  beforeAll (done) ->
     jasmine.getJSONFixtures().clearCache()
     @measureToTest = loadFhirMeasure 'fhir_measures/CMS111/CMS111.json'
     bonnie.measures = new Thorax.Collections.Measures()
@@ -7,11 +7,19 @@ describe "Population state between routes", ->
     @patient = new Thorax.Models.Patient getJSONFixture('fhir_patients/CMS111/IPP_MSRPOPL_PASS_TEST.json'), parse: true
     @measureToTest.get('patients').add @patient
 
-  it "starts with the first population", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'
 
+    # Give the measure time to render
+    setTimeout(() ->
+      done()
+    , 1)
+
+  afterAll ->
+    @measureView.remove()
+
+  it "starts with the first population", ->
     populationNavs = @measureView.$('[data-toggle="tab"]')
     # ensure 2 populations exists
     expect(populationNavs.length).toBe(3)
@@ -21,12 +29,7 @@ describe "Population state between routes", ->
     expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
     expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').first().cid)
 
-    @measureView.remove()
-
   it "changes the displayedPopulation state when selected", ->
-    @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
-    @measureView = @measureView.showMeasure()
-    @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
     @measureView.$('[data-toggle="tab"]').last().trigger('click')
 
@@ -37,12 +40,7 @@ describe "Population state between routes", ->
     expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
     expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(2).cid)
 
-    @measureView.remove()
-
   it "carries over changes between views", ->
-    @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
-    @measureView = @measureView.showMeasure()
-    @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
     @measureView.$('[data-toggle="tab"]').last().trigger('click')
     @measureView.remove()
@@ -64,9 +62,6 @@ describe "Population state between routes", ->
   # temporarily disabled until we figure how to reset the URL
   # see https://jira.mitre.org/browse/BONNIE-318
   xit "resets when user goes to measures route", ->
-    @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
-    @measureView = @measureView.showMeasure()
-    @measureView.appendTo 'body'
     # simulate click on the measure view to select different population
     @measureView.$('[data-toggle="tab"]').last().trigger('click')
     @measureView.remove()
