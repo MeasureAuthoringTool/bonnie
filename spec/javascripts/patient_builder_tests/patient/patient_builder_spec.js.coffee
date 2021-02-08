@@ -15,7 +15,7 @@ describe 'PatientBuilderView', ->
     @$el = @patientBuilder.$el
     setTimeout(() ->
       done()
-    , 1)
+    , 100)
 
   afterEach ->
     bonnie.measures = @bonnie_measures_old
