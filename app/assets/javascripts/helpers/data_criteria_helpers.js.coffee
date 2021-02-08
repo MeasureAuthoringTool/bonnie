@@ -165,7 +165,7 @@
 
   @getAttributes: (dataElement) ->
     resourceType = dataElement.fhir_resource?.resourceType
-    attributes = @DATA_ELEMENT_ATTRIBUTES[resourceType]
+    attributes = @DATA_ELEMENT_ATTRIBUTES[resourceType].sort( (a, b) -> a.path.localeCompare(b.path) )
     return attributes || []
 
   @getAttribute: (dataElement, path) ->

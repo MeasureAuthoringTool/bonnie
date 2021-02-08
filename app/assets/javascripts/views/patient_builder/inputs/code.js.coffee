@@ -191,9 +191,11 @@ class Thorax.Views.InputCodeView extends Thorax.Views.BonnieView
 
   # Helper that builds up the custom code system dropdown based on all code systems in the measure.
   _populateCustomCodeSystemDropdown: ->
-    @allCodeSystems = [{system: '', name: 'Custom'}]
+    @allCodeSystems = []
     for system, name of @codeSystems
       @allCodeSystems.push {system: system, name: name}
+    @allCodeSystems.sort( (a, b) -> a.name?.localeCompare(b.name) )
+    @allCodeSystems.splice(0, 0, {system: '', name: 'Custom'})
 
     # wipeout code system selection and replace options
     codeSystemSelect = @$('select[name="custom_codesystem_select"]').empty()
