@@ -1,7 +1,7 @@
 describe 'PatientBuilderView', ->
 
   beforeEach (done) ->
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
     jasmine.getJSONFixtures().clearCache()
     @measure = loadFhirMeasure 'fhir_measure_data/CMS104_eoc.json'
     @patients = new Thorax.Collections.Patients [getJSONFixture('fhir_patients/CMS104_eoc/mickey_mouse.json')], parse: true
