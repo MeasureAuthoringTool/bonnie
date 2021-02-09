@@ -150,6 +150,7 @@ Teaspoon.configure do |config|
       driver = ::Selenium::WebDriver.for(driver_options[:client_driver], @options.except(:client_driver) || {})
       driver.navigate.to(url)
       ::Selenium::WebDriver::Wait.new(driver_options).until do
+        driver.manage().timeouts().setScriptTimeout(100000)
         done = driver.execute_script("return window.Teaspoon && window.Teaspoon.finished")
         driver.execute_script("return window.Teaspoon && window.Teaspoon.getMessages() || []").each do |line|
           runner.process("#{line}\n")
