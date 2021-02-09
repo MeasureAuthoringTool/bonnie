@@ -150,7 +150,6 @@ Teaspoon.configure do |config|
       driver = ::Selenium::WebDriver.for(driver_options[:client_driver], @options.except(:client_driver) || {})
       driver.navigate.to(url)
       ::Selenium::WebDriver::Wait.new(driver_options).until do
-        driver.manage().timeouts().setScriptTimeout(100000)
         done = driver.execute_script("return window.Teaspoon && window.Teaspoon.finished")
         driver.execute_script("return window.Teaspoon && window.Teaspoon.getMessages() || []").each do |line|
           runner.process("#{line}\n")
@@ -183,7 +182,7 @@ Teaspoon.configure do |config|
   # Specify the timeout for the driver. Specs are expected to complete within
   # this time frame or the run will be considered a failure. This is to avoid
   # issues that can arise where tests stall.
-  config.driver_timeout = 120000
+  config.driver_timeout = 200000
 
   # Specify a server to use with Rack (e.g. thin, mongrel). If nil is provided
   # Rack::Server is used.
