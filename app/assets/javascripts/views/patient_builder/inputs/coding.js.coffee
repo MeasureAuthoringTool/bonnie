@@ -168,6 +168,8 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
           @valueSetCodesByCodeSystem.push codeSystemList
         codeSystemList.codes.push { code: code, display_name: displayName }
 
+    # Sort code systems by name
+    @valueSetCodesByCodeSystem.sort( (a, b) -> a.name?.localeCompare(b.name) )
     # wipeout code system selection and replace options
     codeSystemSelect = @$('select[name="vs_codesystem"]').empty()
     @valueSetCodesByCodeSystem.forEach (codeSystem) =>
@@ -181,6 +183,9 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
   _populateValueSetCodeDropdown: ->
     # wipeout code system selection and replace options
     codeSelect = @$('select[name="vs_code"]').empty()
+
+    # Sort codes
+    @selectedCodeSystem.codes.sort( (a, b) -> a.code?.localeCompare(b.code) )
     @selectedCodeSystem.codes.forEach (code) =>
       $("<option value=\"#{code.code}\">#{code.code} - #{code.display_name}</option>").appendTo(codeSelect)
     codeSelect.find('option:first').prop('selected', true)
