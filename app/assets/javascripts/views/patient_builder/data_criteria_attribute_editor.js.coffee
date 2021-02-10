@@ -13,9 +13,9 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       @attributeList.push(
         name: attr.path
         title: attr.title
-        types: attr.types
+        types: attr.types?.sort()
         valueSets: attr.valueSets?()
-        referenceTypes: attr.referenceTypes
+        referenceTypes: attr.referenceTypes?.sort()
       )
 #    TODO FHIR attributes
 #    @dataElement.schema.eachPath (path, info) =>

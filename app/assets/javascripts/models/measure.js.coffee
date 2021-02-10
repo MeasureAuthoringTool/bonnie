@@ -14,7 +14,7 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # TODO: migrate to thoraxMeasure.cqmValueSets = thoraxMeasure.cqmMeasure.value_sets
     if attrs.value_sets?
-      thoraxMeasure.cqmValueSets = attrs.value_sets
+      thoraxMeasure.cqmValueSets = attrs.value_sets?.sort( (a, b) -> a.name?.localeCompare(b.name) )
     else
       thoraxMeasure.cqmValueSets = []
 
