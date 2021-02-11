@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.4.4'
+gem 'rails', '6.0.3.5'
 
 gem 'sprockets'
 
@@ -32,7 +32,7 @@ gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
-gem 'apipie-rails'
+gem 'apipie-rails', '>= 0.5.18'
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
 gem "doorkeeper-mongodb", '~> 4.1.0'
