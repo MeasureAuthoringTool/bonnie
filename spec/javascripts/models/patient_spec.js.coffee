@@ -3,11 +3,9 @@ describe 'Patient', ->
   beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     patients = []
-    # patients.push(getJSONFixture('patients/CMS160v6/Expired_DENEX.json'))
     patients.push(getJSONFixture('fhir_patients/CMS1010V0/john_smith.json'))
     collection = new Thorax.Collections.Patients patients, parse: true
     @patient = collection.first()
-    # @patient1 = collection.at(1)
 
   it 'has basic attributes available', ->
     expect(@patient.get('cqmPatient').fhir_patient.gender.value).toEqual 'unknown'
@@ -83,6 +81,20 @@ describe 'Patient', ->
       errors = clone.validate()
       expect(errors.length).toEqual 1
       expect(errors[0][2]).toEqual 'Date of birth cannot be blank'
+
+    it 'initializes false populations in getExpectedValues', ->
+      measure = new Thorax.Models.Measure({set_id: 1}, {parse: true})
+      targetPopulationSets = new Thorax.Collections.PopulationSets [], parent: measure
+      targetPopulationSets.add new Thorax.Models.PopulationSet({populations: {IPP: 0, MSRPOPL: 0, MSRPOPLEX: 0}}, {parse: true})
+      targetPopulation = targetPopulationSets.first()
+      expectedValue = @patient.getExpectedValue(targetPopulation)
+      expect(expectedValue).toBeDefined
+      expect(expectedValue.IPP).toBeDefined
+      expect(expectedValue.MSRPOPL).toBeDefined
+      expect(expectedValue.MSRPOPLEX).toBeDefined
+      expect(expectedValue.has('IPP')).toBe false
+      expect(expectedValue.has('MSRPOPL')).toBe false
+      expect(expectedValue.has('MSRPOPLEX')).toBe false
 
     # it 'fails deceased patient without a deathdate', ->
     #   clone = @patient.deepClone()

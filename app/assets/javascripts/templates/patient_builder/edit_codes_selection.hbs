@@ -3,10 +3,10 @@
     <label class="sr-only" for="codesystem_{{@cid}}">Select code system dropdown</label>
     <select id="codesystem_{{@cid}}" name="codesystem" class="form-control">
       <option value="">Code System</option>
+      <option value="custom">Custom</option>
       {{#each codeSystems}}
       <option>{{this}}</option>
       {{/each}}
-      <option value="custom">Custom</option>
     </select>
   </div>
 

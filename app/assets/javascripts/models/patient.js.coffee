@@ -211,14 +211,16 @@ class Thorax.Models.Patient extends Thorax.Model
   materialize: ->
     @trigger 'materialize'
 
-  getExpectedValue: (population) ->
-    measure = population.collection.parent
-    expectedValue = @get('expected_values').findWhere(measure_id: measure.get('cqmMeasure').set_id, population_index: population.index())
+  getExpectedValue: (targetPopulation) ->
+    measure = targetPopulation.collection.parent
+    expectedValue = @get('expected_values').findWhere(measure_id: measure.get('cqmMeasure').set_id, population_index: targetPopulation.index())
     unless expectedValue
-      expectedValue = new Thorax.Models.ExpectedValue measure_id: measure.get('cqmMeasure').set_id, population_index: population.index()
+      expectedValue = new Thorax.Models.ExpectedValue measure_id: measure.get('cqmMeasure').set_id, population_index: targetPopulation.index()
       @get('expected_values').add expectedValue
+    populations = targetPopulation?.get('populations')
+    # Initialize expected values with 0
     # We don't want to set a value for OBSERV, it should already exist or be created in the builder
-    for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has(populationCriteria) and populationCriteria != 'OBSERV'
+    for populationCriteria in Thorax.Models.Measure.allPopulationCodes when populations.hasOwnProperty(populationCriteria) and populationCriteria != 'OBSERV'
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
 
     if !_(@get('cqmPatient')['measure_ids']).contains measure.get('cqmMeasure').set_id # if patient wasn't made for this measure
