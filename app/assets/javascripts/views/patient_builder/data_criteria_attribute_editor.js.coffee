@@ -125,10 +125,10 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'DateTime', 'Instant' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false })
-      when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
+      when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'PositiveInt', 'PositiveInteger' then new Thorax.Views.InputPositiveIntegerView()
       when 'UnsignedInt', 'UnsignedInteger' then new Thorax.Views.InputUnsignedIntegerView()
-      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear()})
+      when 'Interval<DateTime>' then new Thorax.Views.InputIntervalDateTimeView({ defaultYear: @parent.measure.getMeasurePeriodYear() })
       when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView()
       when 'Duration' then new Thorax.Views.InputDurationView()
       when 'Age' then new Thorax.Views.InputAgeView()
@@ -141,6 +141,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       when 'Reference' then new Thorax.Views.InputReferenceView({ allowNull: false, referenceTypes: @currentAttribute.referenceTypes, parentDataElement: @dataElement, cqmValueSets: @parent.measure.get('cqmValueSets') })
       when 'SampledData' then new Thorax.Views.InputSampledDataView()
+      when 'Timing' then new Thorax.Views.InputTimingView({ codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear() })
       else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?

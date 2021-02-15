@@ -189,7 +189,7 @@
       codeSystemName = codeSystemMap?[type.system?.value] || type.system?.value
       return "#{codeSystemName}: #{type.code?.value}"
 
-    if cqm.models.PrimitiveCode.isPrimitiveCode(type)                ||
+    if type instanceof cqm.models.PrimitiveCode                      ||
         cqm.models.PrimitiveString.isPrimitiveString(type)           ||
         cqm.models.PrimitiveBoolean.isPrimitiveBoolean(type)         ||
         cqm.models.PrimitiveInteger.isPrimitiveInteger(type)         ||
@@ -246,6 +246,48 @@
               lower limit : #{@stringifyType(type.lowerLimit)} |
               upper limit : #{@stringifyType(type.upperLimit)} |
               data : #{@stringifyType(type.data)}"
+
+    if cqm.models.CodeableConcept.isCodeableConcept(type)
+      return "[" + type.coding.map( (coding) => "#{@stringifyType(coding, codeSystemMap)}" ).join(', ') + "]"
+
+    if cqm.models.Timing.isTiming(type)
+      attrs = []
+      if type?.event?[0]?
+        attrs.push("event : #{@stringifyType(type.event[0])}")
+      if type?.repeat?.bounds?
+        attrs.push("repeat.bounds : #{@stringifyType(type.repeat.bounds)}")
+      if type?.repeat?.count?
+        attrs.push("repeat.count : #{@stringifyType(type.repeat.count)}")
+      if type?.repeat?.countMax?
+        attrs.push("repeat.countMax : #{@stringifyType(type.repeat.countMax)}")
+      if type?.repeat?.duration?
+        attrs.push("repeat.duration : #{@stringifyType(type.repeat.duration)}")
+      if type?.repeat?.durationMax?
+        attrs.push("repeat.durationMax : #{@stringifyType(type.repeat.durationMax)}")
+      if type?.repeat?.durationUnit?
+        attrs.push("repeat.durationUnit : #{@stringifyType(type.repeat.durationUnit, codeSystemMap)}")
+      if type?.repeat?.frequency?
+        attrs.push("repeat.frequency : #{@stringifyType(type.repeat.frequency)}")
+      if type?.repeat?.frequencyMax?
+        attrs.push("repeat.frequencyMax : #{@stringifyType(type.repeat.frequencyMax)}")
+      if type?.repeat?.period?
+        attrs.push("repeat.period : #{@stringifyType(type.repeat.period)}")
+      if type?.repeat?.periodMax?
+        attrs.push("repeat.periodMax : #{@stringifyType(type.repeat.periodMax)}")
+      if type?.repeat?.periodUnit?
+        attrs.push("repeat.periodUnit : #{@stringifyType(type.repeat.periodUnit)}")
+      if type?.repeat?.dayOfWeek?[0]?
+        attrs.push("repeat.dayOfWeek : #{@stringifyType(type.repeat.dayOfWeek[0])}")
+      if type?.repeat?.timeOfDay?[0]?
+        attrs.push("repeat.timeOfDay : #{@stringifyType(type.repeat.timeOfDay[0])}")
+      if type?.repeat?.when?[0]?
+        attrs.push("repeat.when : #{@stringifyType(type.repeat.when[0])}")
+      if type?.repeat?.offset?
+        attrs.push("repeat.offset : #{@stringifyType(type.repeat.offset)}")
+      if type?.code?
+        attrs.push("code: #{@stringifyType(type.code, codeSystemMap)}")
+
+      return attrs.join(" | ")
 
     return JSON.stringify(type)
 
@@ -609,7 +651,7 @@
             fhirResource.timing = @getPrimitiveDateTimeForCqlDateTime(value)
           else
             fhirResource.timing = value
-        types: ['DateTime', 'Period']
+        types: ['DateTime', 'Period', 'Timing']
       }
     ]
     Location: []
