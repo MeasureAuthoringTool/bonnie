@@ -31,4 +31,10 @@ class Thorax.Views.InputPositiveIntegerView extends Thorax.Views.BonnieView
         @value = cqm.models.PrimitivePositiveInt.parsePrimitive(parsed)
     else
       @value = null
+
+    if @value? || !inputValue
+      @$(e.target).parent().removeClass('has-error')
+    else
+      @$(e.target).parent().addClass('has-error')
+
     @trigger 'valueChanged', @
