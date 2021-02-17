@@ -7,6 +7,10 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
   #   codeSystemMap - required
   #   defaultYear - required
   initialize: ->
+    if @initialValue?
+      @value = @initialValue
+    else
+      @value = null
     @boundsView = new Thorax.Views.InputAnyView({ attributeName: 'bounds', defaultYear: @defaultYear, codeSystemMap: @codeSystemMap, types: ['Duration', 'Range', 'Period'] })
     @countView = new Thorax.Views.InputPositiveIntegerView({ initialValue: @value?.count, allowNull: true, name: 'countView' })
     @countMaxView = new Thorax.Views.InputPositiveIntegerView({ initialValue: @value?.countMax, allowNull: true, name: 'countMaxView' })
@@ -45,13 +49,20 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    validValue = @subviews.map(
-      (view) -> view.hasValidValue()
+    return @subviews.map(
+      (view) -> view.value?
     ).reduce(
       (acc, curr) ->  acc = acc || curr,
       false
     )
-    return validValue
+
+  hasInvalidInput: ->
+    return @subviews.map(
+      (view) -> view.hasInvalidInput?()
+    ).reduce(
+      (acc, curr) ->  acc = acc || curr,
+      false
+    )
 
   update: (view) ->
     switch view.name

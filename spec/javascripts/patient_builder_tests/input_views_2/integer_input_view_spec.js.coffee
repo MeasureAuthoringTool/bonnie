@@ -7,6 +7,8 @@ describe 'InputView', ->
       view.render()
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       expect(view.$('input').prop('placeholder')).toEqual 'integer'
@@ -16,6 +18,8 @@ describe 'InputView', ->
       view.render()
 
       expect(view.hasValidValue()).toBe true
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       expect(view.$('input').prop('placeholder')).toEqual 'integer'
@@ -26,6 +30,8 @@ describe 'InputView', ->
       view.render()
 
       expect(view.hasValidValue()).toBe true
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value.value).toBe 22
       expect(view.$('input').val()).toEqual '22'
 
@@ -34,6 +40,8 @@ describe 'InputView', ->
       view.render()
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       expect(view.$('input').prop('placeholder')).toEqual 'guess a number'
@@ -44,12 +52,16 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('6').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value.value).toBe 6
 
     it 'value becomes valid if zero', ->
@@ -58,12 +70,16 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('0').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value.value).toBe 0
 
     it 'value becomes valid if -1', ->
@@ -72,12 +88,16 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('-1').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value.value).toBe -1
 
     it 'value becomes invalid after bad entry', ->
@@ -86,12 +106,16 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('not a number').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe true
+      expect(view.$('input').parent().hasClass('has-error')).toBe true
       expect(view.value).toBe null
 
     it 'value becomes invalid with leading zeroes', ->
@@ -100,12 +124,16 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('001').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe true
+      expect(view.$('input').parent().hasClass('has-error')).toBe true
       expect(view.value).toBe null
 
     it 'value becomes invalid with decimals', ->
@@ -114,12 +142,16 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('123.123').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe true
+      expect(view.$('input').parent().hasClass('has-error')).toBe true
       expect(view.value).toBe null
 
     it 'value becomes invalid with exponent', ->
@@ -128,10 +160,14 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('123e123').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe true
+      expect(view.$('input').parent().hasClass('has-error')).toBe true
       expect(view.value).toBe null

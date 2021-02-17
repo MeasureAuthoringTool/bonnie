@@ -7,6 +7,10 @@ class Thorax.Views.InputTimingView extends Thorax.Views.BonnieView
   #   codeSystemMap - required
   #   defaultYear - required
   initialize: ->
+    if @initialValue?
+      @value = @initialValue
+    else
+      @value = null
     @timingEventView = new Thorax.Views.InputDateTimeView(initialValue: @value?.event?[0], defaultYear: @defaultYear, name: 'event', allowNull: false)
     @timingRepeatView = new Thorax.Views.InputTimingRepeatView(initialValue: @value?.repeat, name: 'repeat', codeSystemMap: @codeSystemMap, defaultYear: @defaultYear)
     @timingCodeView = new Thorax.Views.InputCodingView({ initialValue: @value?.code?.coding, name: 'code', cqmValueSets: [FhirValueSets.TIMING_ABBREVIATION_VS], codeSystemMap: @codeSystemMap })
@@ -16,7 +20,7 @@ class Thorax.Views.InputTimingView extends Thorax.Views.BonnieView
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
   hasValidValue: ->
-    @timingEventView.hasValidValue() || @timingCodeView.hasValidValue() || @timingRepeatView.hasValidValue()
+    (@timingEventView.hasValidValue() || @timingCodeView.hasValidValue() || @timingRepeatView.hasValidValue()) && !@timingRepeatView.hasInvalidInput()
 
   update: (view) ->
     switch view.name

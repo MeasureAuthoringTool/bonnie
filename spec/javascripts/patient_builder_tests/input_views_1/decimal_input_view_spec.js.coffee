@@ -7,6 +7,8 @@ describe 'InputView', ->
       view.render()
 
       expect(view.hasValidValue()).toBe true
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       expect(view.$('input').prop('placeholder')).toEqual 'decimal'
@@ -16,6 +18,7 @@ describe 'InputView', ->
       view.render()
 
       expect(view.hasValidValue()).toBe true
+      expect(view.hasInvalidInput()).toBe false
       expect(view.value.value).toBe 6.28
       expect(view.$('input').val()).toEqual '6.28'
 
@@ -24,6 +27,8 @@ describe 'InputView', ->
       view.render()
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       expect(view.$('input').prop('placeholder')).toEqual 'guess a number'
@@ -34,12 +39,15 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('6.28').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe true
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value.value).toBe 6.28
 
     it 'value bcomes invalid after bad entry', ->
@@ -48,10 +56,14 @@ describe 'InputView', ->
       spyOn(view, 'trigger')
 
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe false
+      expect(view.$('input').parent().hasClass('has-error')).toBe false
       expect(view.value).toBe null
 
       view.$('input').val('not a number').change()
 
       expect(view.trigger).toHaveBeenCalledWith('valueChanged', view)
       expect(view.hasValidValue()).toBe false
+      expect(view.hasInvalidInput()).toBe true
+      expect(view.$('input').parent().hasClass('has-error')).toBe true
       expect(view.value).toBe null
