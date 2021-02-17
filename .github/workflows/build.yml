@@ -167,6 +167,20 @@ jobs:
           fail_ci_if_error: true
 # ----------------------------------------------------------------------
 
+# ------- Teaspoon tests for "patient_builder_tests/input_views_3" directory ----------
+      - name: Run teaspoon tests for patient_builder_tests/input_views_3
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=patient_builder_tests/input_views_3
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+# ----------------------------------------------------------------------
+
+
 # ------- Teaspoon tests for "patient_builder_tests/measure" directory ----------
       - name: Run teaspoon tests for patient_builder_tests/measure
         uses: GabrielBB/xvfb-action@v1
