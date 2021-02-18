@@ -33,7 +33,7 @@ class Thorax.Views.InputDecimalView extends Thorax.Views.BonnieView
 
   handleInputChange: (e) ->
     inputValue = @$(e.target).val()
-    if /^[0]|[-+]?[1-9][0-9]*(\.?[0-9]+([eE][-+]?[0-9]+)?)?$/.test(inputValue)
+    if /^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]+)?$/.test(inputValue)
       parsed = parseFloat(inputValue)
       if isNaN(parsed)
         @value = null

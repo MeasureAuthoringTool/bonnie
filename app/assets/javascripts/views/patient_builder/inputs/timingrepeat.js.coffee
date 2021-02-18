@@ -11,21 +11,161 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
       @value = @initialValue
     else
       @value = null
-    @boundsView = new Thorax.Views.InputAnyView({ attributeName: 'bounds', defaultYear: @defaultYear, codeSystemMap: @codeSystemMap, types: ['Duration', 'Range', 'Period'] })
-    @countView = new Thorax.Views.InputPositiveIntegerView({ initialValue: @value?.count, allowNull: true, name: 'countView' })
-    @countMaxView = new Thorax.Views.InputPositiveIntegerView({ initialValue: @value?.countMax, allowNull: true, name: 'countMaxView' })
-    @durationView = new Thorax.Views.InputDecimalView({ initialValue: @value?.duration, allowNull: false, name: 'durationView' })
-    @durationMaxView = new Thorax.Views.InputDecimalView(initialValue: @value?.durationMax, allowNull: false, name: 'durationMaxView')
-    @durationUnitView =  new Thorax.Views.InputCodeView({ initialValue: @value?.durationUnit, cqmValueSets: [ UnitsOfTimeValueSet.JSON ], codeSystemMap: @codeSystemMap, name: 'durationUnitView' })
-    @frequencyView = new Thorax.Views.InputPositiveIntegerView({ initialValue: @value?.frequency, allowNull: true, name: 'frequencyView' })
-    @frequencyMaxView = new Thorax.Views.InputPositiveIntegerView({ initialValue: @value?.frequencyMax, allowNull: true, name: 'frequencyMaxView' })
-    @periodView = new Thorax.Views.InputDecimalView({ initialValue: @value?.period, allowNull: false, name: 'periodView' })
-    @periodMaxView = new Thorax.Views.InputDecimalView({ initialValue: @value?.periodMax, allowNull: false, name: 'periodMaxView' })
-    @periodUnitView = new Thorax.Views.InputCodeView({ initialValue: @value?.periodUnit, cqmValueSets: [ UnitsOfTimeValueSet.JSON ], codeSystemMap: @codeSystemMap, name: 'periodUnitView' })
-    @dayOfWeekView = new Thorax.Views.InputCodeView({ initialValue: @value?.dayOfWeek, cqmValueSets: [ DaysOfWeekValueSet.JSON ], codeSystemMap: @codeSystemMap, name: 'dayOfWeekView' })
-    @timeOfDayView = new Thorax.Views.InputTimeView({ initialValue: @value?.timeOfDay, allowNull: false, name: 'timeOfDayView' })
-    @whenView =  new Thorax.Views.InputCodeView({ initialValue: @value?.when, cqmValueSets: [ EventTimingValueSet.JSON ], codeSystemMap: @codeSystemMap, name: 'whenView' })
-    @offsetView = new Thorax.Views.InputUnsignedIntegerView({ initialValue: @value?.offset, allowNull: true, name: 'offsetView' })
+    @boundsView = new Thorax.Views.InputAnyView({
+      attributeName: 'bounds',
+      defaultYear: @defaultYear,
+      codeSystemMap: @codeSystemMap,
+      types: ['Duration', 'Range', 'Period'],
+      update: (view) =>
+        if view.value?
+          @value.bounds = view.value
+        else
+          @value.bounds = undefined
+    })
+    @countView = new Thorax.Views.InputPositiveIntegerView({
+      initialValue: @value?.count,
+      allowNull: true,
+      name: 'countView',
+      update: (view) =>
+        if view.value?
+          @value.count = view.value
+        else
+          @value.count = undefined
+    })
+    @countMaxView = new Thorax.Views.InputPositiveIntegerView({
+      initialValue: @value?.countMax,
+      allowNull: true,
+      name: 'countMaxView',
+      update: (view) =>
+        if view.value?
+          @value.countMax = view.value
+        else
+          @value.countMax = undefined
+    })
+    @durationView = new Thorax.Views.InputDecimalView({
+      initialValue: @value?.duration,
+      allowNull: false,
+      name: 'durationView',
+      update: (view) =>
+        if view.value?
+          @value.duration = view.value
+        else
+          @value.duration = undefined
+    })
+    @durationMaxView = new Thorax.Views.InputDecimalView({
+      initialValue: @value?.durationMax,
+      allowNull: false,
+      name: 'durationMaxView',
+      update: (view) =>
+        if view.value?
+          @value.durationMax = view.value
+        else
+          @value.durationMax = undefined
+    })
+    @durationUnitView =  new Thorax.Views.InputCodeView({
+      initialValue: @value?.durationUnit,
+      cqmValueSets: [ UnitsOfTimeValueSet.JSON ],
+      codeSystemMap: @codeSystemMap,
+      name: 'durationUnitView',
+      update: (view) =>
+        if view.value?
+          @value.durationUnit = cqm.models.UnitsOfTime.parsePrimitive(view.value)
+        else
+          @value.durationUnit = undefined
+    })
+    @frequencyView = new Thorax.Views.InputPositiveIntegerView({
+      initialValue: @value?.frequency,
+      allowNull: true,
+      name: 'frequencyView',
+      update: (view) =>
+        if view.value?
+          @value.frequency = view.value
+        else
+          @value.frequency = undefined
+    })
+    @frequencyMaxView = new Thorax.Views.InputPositiveIntegerView({
+      initialValue: @value?.frequencyMax,
+      allowNull: true,
+      name: 'frequencyMaxView',
+      update: (view) =>
+        if view.value?
+          @value.frequencyMax = view.value
+        else
+          @value.frequencyMax = undefined
+    })
+    @periodView = new Thorax.Views.InputDecimalView({
+      initialValue: @value?.period,
+      allowNull: false,
+      name: 'periodView',
+      update: (view) =>
+        if view.value?
+          @value.period = view.value
+        else
+          @value.period = undefined
+    })
+    @periodMaxView = new Thorax.Views.InputDecimalView({
+      initialValue: @value?.periodMax,
+      allowNull: false,
+      name: 'periodMaxView',
+      update: (view) =>
+        if view.value?
+          @value.periodMax = view.value
+        else
+          @value.periodMax = undefined
+    })
+    @periodUnitView = new Thorax.Views.InputCodeView({
+      initialValue: @value?.periodUnit,
+      cqmValueSets: [ UnitsOfTimeValueSet.JSON ],
+      codeSystemMap: @codeSystemMap,
+      name: 'periodUnitView',
+      update: (view) =>
+        if view.value?
+          @value.periodUnit = cqm.models.UnitsOfTime.parsePrimitive(view.value)
+        else
+          @value.periodUnit = undefined
+    })
+    @dayOfWeekView = new Thorax.Views.InputCodeView({
+      initialValue: @value?.dayOfWeek,
+      cqmValueSets: [ DaysOfWeekValueSet.JSON ],
+      codeSystemMap: @codeSystemMap,
+      name: 'dayOfWeekView',
+      update: (view) =>
+        if view.value?
+          @value.dayOfWeek = [ cqm.models.DayOfWeek.parsePrimitive(view.value) ]
+        else
+          @value.dayOfWeek = undefined
+    })
+    @timeOfDayView = new Thorax.Views.InputTimeView({
+      initialValue: @value?.timeOfDay,
+      allowNull: false,
+      name: 'timeOfDayView',
+      update: (view) =>
+        if view.value?
+          @value.timeOfDay = [ view.value ]
+        else
+          @value.timeOfDay = undefined
+    })
+    @whenView =  new Thorax.Views.InputCodeView({
+      initialValue: @value?.when,
+      cqmValueSets: [ EventTimingValueSet.JSON ],
+      codeSystemMap: @codeSystemMap,
+      name: 'whenView',
+      update: (view) =>
+        if view.value?
+          @value.when = [ cqm.models.EventTiming.parsePrimitive(view.value) ]
+        else
+          @value.when = undefined
+    })
+    @offsetView = new Thorax.Views.InputUnsignedIntegerView({
+        initialValue: @value?.offset,
+        allowNull: true,
+        name: 'offsetView',
+        update: (view) =>
+          if view.value?
+            @value.offset = view.value
+          else
+            @value.offset = undefined
+    })
 
     @subviews = [
       @boundsView,
@@ -65,83 +205,7 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
     )
 
   update: (view) ->
-    switch view.name
-      when @boundsView.new
-        if view.value?
-          @value.bounds = view.value
-        else
-          @value.bounds = undefined
-      when @countView.name
-        if view.value?
-          @value.count = view.value
-        else
-          @value.count = undefined
-      when @countMaxView.name
-        if view.value?
-          @value.countMax = view.value
-        else
-          @value.countMax = undefined
-      when @durationView.name
-        if view.value?
-          @value.duration = view.value
-        else
-          @value.duration = undefined
-      when @durationMaxView.name
-        if view.value?
-          @value.durationMax = view.value
-        else
-          @value.durationMax = undefined
-      when @durationUnitView.name
-        if view.value?
-          @value.durationUnit = cqm.models.UnitsOfTime.parsePrimitive(view.value)
-        else
-          @value.durationUnit = undefined
-      when @frequencyView.name
-        if view.value?
-          @value.frequency = view.value
-        else
-          @value.frequency = undefined
-      when @frequencyMaxView.name
-        if view.value?
-          @value.frequencyMax = view.value
-        else
-          @value.frequencyMax = undefined
-      when @periodView.name
-        if view.value?
-          @value.period = view.value
-        else
-          @value.period = undefined
-      when @periodMaxView.name
-        if view.value?
-          @value.periodMax = view.value
-        else
-          @value.periodMax = undefined
-      when @periodUnitView.name
-        if view.value?
-          @value.periodUnit = cqm.models.UnitsOfTime.parsePrimitive(view.value)
-        else
-          @value.periodUnit = undefined
-      when @dayOfWeekView.name
-        if view.value?
-          @value.dayOfWeek = [ cqm.models.DayOfWeek.parsePrimitive(view.value) ]
-        else
-          @value.dayOfWeek = undefined
-      when @timeOfDayView.name
-        if view.value?
-          @value.timeOfDay = [ view.value ]
-        else
-          @value.timeOfDay = undefined
-      when @whenView.name
-        if view.value?
-          @value.when = [ cqm.models.EventTiming.parsePrimitive(view.value) ]
-        else
-          @value.when = undefined
-      when @offsetView.name
-        if view.value?
-          @value.offset = view.value
-        else
-          @value.offset = undefined
-
+    view.update(view)
 
   updateValueFromSubviews: ->
     @value = new cqm.models.TimingRepeat() unless @value?

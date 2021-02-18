@@ -45,4 +45,3 @@ class Thorax.Views.InputTimingView extends Thorax.Views.BonnieView
     @value = new cqm.models.Timing() unless @value?
     @update view for view in @subviews
     @trigger 'valueChanged', @
-
