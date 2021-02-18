@@ -261,7 +261,3 @@ describe 'InputView', ->
       expect(@view.value).toBeDefined()
       expect(@view.hasValidValue()).toBe true
       expect(@view.value.timeOfDay[0].value).toBe '09:45'
-
-      # FIXME cover all components
-#      @boundsView = new Thorax.Views.InputAnyView({ attributeName: 'bounds', defaultYear: @defaultYear, codeSystemMap: @codeSystemMap, types: ['Duration', 'Range', 'Period'] })
-#    @timeOfDayView = new Thorax.Views.InputTimeView({ initialValue: @value?.timeOfDay, allowNull: false, name: 'timeOfDayView' })
