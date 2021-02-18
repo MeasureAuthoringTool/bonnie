@@ -157,14 +157,14 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
           @value.when = undefined
     })
     @offsetView = new Thorax.Views.InputUnsignedIntegerView({
-        initialValue: @value?.offset,
-        allowNull: true,
-        name: 'offsetView',
-        update: (view) =>
-          if view.value?
-            @value.offset = view.value
-          else
-            @value.offset = undefined
+      initialValue: @value?.offset,
+      allowNull: true,
+      name: 'offsetView',
+      update: (view) =>
+        if view.value?
+          @value.offset = view.value
+        else
+          @value.offset = undefined
     })
 
     @subviews = [
