@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 968a7efdba9f64751f7c7cb9e0712fa8c5213447
+  revision: 36d3c4e5091052a56a5faecfa8f9a4e820de3074
   branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
@@ -101,7 +101,7 @@ GEM
     bcrypt (3.1.16)
     brakeman (4.10.0)
     browser (5.1.0)
-    bson (4.10.0)
+    bson (4.12.0)
     builder (3.2.4)
     bundler-audit (0.7.0.1)
       bundler (>= 1.2.0, < 3)
@@ -208,7 +208,7 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.3)
-    mongo (2.13.0)
+    mongo (2.14.0)
       bson (>= 4.8.2, < 5.0.0)
     mongoid (7.1.2)
       activemodel (>= 5.1, < 6.1)
