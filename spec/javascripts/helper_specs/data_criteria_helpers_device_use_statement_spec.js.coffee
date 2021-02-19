@@ -8,7 +8,7 @@ describe 'DataCriteriaHelpers', ->
       attr = @attrs.find (attr) -> attr.path is 'timing'
       expect(attr.path).toEqual 'timing'
       expect(attr.title).toEqual 'timing'
-      expect(attr.types).toEqual ['DateTime', 'Period']
+      expect(attr.types).toEqual ['DateTime', 'Period', 'Timing']
 
       # set DateTime
       valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
@@ -26,3 +26,17 @@ describe 'DataCriteriaHelpers', ->
       # Verify after setting values
       expect(actualPeriod.start.value).toEqual period.start.value
       expect(actualPeriod.end.value).toEqual period.end.value
+
+      # set Timing
+      timing = new cqm.models.Timing()
+      timing.code = new cqm.models.CodeableConcept()
+      timing.code.coding = [ new cqm.models.Coding() ]
+      timing.code.coding[0].system = cqm.models.PrimitiveUri.parsePrimitive('a system')
+      timing.code.coding[0].code = cqm.models.PrimitiveCode.parsePrimitive('a code')
+
+      attr.setValue(fhirResource, timing)
+
+      timingPeriod = attr.getValue(fhirResource)
+      # Verify after setting values
+      expect(timingPeriod.code.coding[0].system.value).toEqual 'a system'
+      expect(timingPeriod.code.coding[0].code.value).toEqual 'a code'
