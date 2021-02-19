@@ -101,7 +101,7 @@
   @getCQLDateFromString: (dateStr) ->
     return null if dateStr == undefined
     date = moment(dateStr, 'YYYY-MM-DD').toDate()
-    cqm.models.CQL.Date.fromJSDate(date)
+    cqm.models.CQL.Date.fromJSDate(date, 0)
 
   @createPeriodFromInterval: (interval) ->
     period = new cqm.models.Period()
