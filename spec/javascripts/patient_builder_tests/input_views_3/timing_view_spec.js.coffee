@@ -17,21 +17,19 @@ describe 'InputView', ->
 
     it 'event changed with valid value', ->
       expect(@view.hasValidValue()).toBe false
-      # timing-event-view
       @view.$(".timing-event-view input[name='date_is_defined']").prop('checked', true).change()
-      @view.$('.timing-event-view input[name="date"]').val('02/18/2020').change()
+      @view.$('.timing-event-view input[name="date"]').val('02/19/2020').change()
       @view.$('.timing-event-view input[name="time"]').val('8:00 AM').change()
       expect(@view.timingEventView.value).toBeDefined()
       expect(@view.timingEventView.value.year).toBe 2020
       expect(@view.timingEventView.value.month).toBe 2
-      expect(@view.timingEventView.value.day).toBe 18
+      expect(@view.timingEventView.value.day).toBe 19
       expect(@view.timingEventView.value.hour).toBe 8
       expect(@view.timingEventView.value.minute).toBe 0
       expect(@view.timingEventView.value.second).toBe 0
       expect(@view.value).toBeDefined()
       expect(@view.hasValidValue()).toBe true
-      expect(@view.value.event[0].value).toBe '2020-02-18T08:00:00.000+00:00'
-
+      expect(@view.value.event[0].value).toBe '2020-02-19T08:00:00.000+00:00'
 
     it 'code changed with valid value', ->
       expect(@view.hasValidValue()).toBe false

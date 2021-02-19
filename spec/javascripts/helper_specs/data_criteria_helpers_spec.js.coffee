@@ -227,6 +227,28 @@ describe 'DataCriteriaHelpers', ->
       stringValue = DataCriteriaHelpers.stringifyType(coding)
       expect(stringValue).toEqual "system: 5678910"
 
+    it 'stringify timing', ->
+      timing = new cqm.models.Timing()
+
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('SNOMEDCT')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('5678910')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+
+      duration = new cqm.models.Duration()
+      duration.unit = cqm.models.PrimitiveString.parsePrimitive('ml')
+      duration.value = cqm.models.PrimitiveDecimal.parsePrimitive(100)
+
+      timing.code = new cqm.models.CodeableConcept()
+      timing.code.coding = [ coding ]
+      timing.event = [ cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57') ]
+      timing.repeat = new cqm.models.TimingRepeat()
+      timing.repeat.bounds = duration
+
+      stringValue = DataCriteriaHelpers.stringifyType(timing, {SNOMEDCT: 'SNOMEDCT', LOINC: 'LOINC'})
+      expect(stringValue).toEqual "event : 09/02/2020 5:54 PM | repeat.bounds : 100 'ml' | code: [SNOMEDCT: 5678910]"
+
+
   describe 'Primary code path', ->
     it 'returns undefined (unsupported) for an empty DataElement getPrimaryCodePath', ->
       expect(DataCriteriaHelpers.getPrimaryCodePath(new cqm.models.DataElement())).toBeUndefined
