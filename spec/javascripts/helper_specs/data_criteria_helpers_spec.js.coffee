@@ -227,6 +227,11 @@ describe 'DataCriteriaHelpers', ->
       stringValue = DataCriteriaHelpers.stringifyType(coding)
       expect(stringValue).toEqual "system: 5678910"
 
+    it 'stringify datetime', ->
+      dateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+      stringValue = DataCriteriaHelpers.stringifyType(dateTime)
+      expect(stringValue).toEqual formatExpectedDate("09/02/2020 1:54 PM")
+
     it 'stringify timing', ->
       timing = new cqm.models.Timing()
 
@@ -246,7 +251,7 @@ describe 'DataCriteriaHelpers', ->
       timing.repeat.bounds = duration
 
       stringValue = DataCriteriaHelpers.stringifyType(timing, {SNOMEDCT: 'SNOMEDCT', LOINC: 'LOINC'})
-      expect(stringValue).toEqual "event : 09/02/2020 5:54 PM | repeat.bounds : 100 'ml' | code: [SNOMEDCT: 5678910]"
+      expect(stringValue).toEqual "event : "+formatExpectedDate("09/02/2020 1:54 PM")+" | repeat.bounds : 100 'ml' | code: [SNOMEDCT: 5678910]"
 
 
   describe 'Primary code path', ->
