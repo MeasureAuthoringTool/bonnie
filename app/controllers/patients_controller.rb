@@ -39,60 +39,6 @@ class PatientsController < ApplicationController
     render :json => patient.as_json
   end
 
-  def qrda_export
-    if params[:patients]
-      # if patients are given, they're from the patient bank; use those patients
-      patients = CQM::Patient.where(is_shared: true).find(params[:patients])
-    else
-      patients = CQM::Patient.by_user(current_user)
-      unless current_user.portfolio?
-        patients = patients.where({ :measure_ids.in => [params[:set_id]] })
-      end
-      measure = CQM::Measure.by_user(current_user).where({ :set_id => params[:set_id] })
-    end
-
-    qrda_errors = {}
-    html_errors = {}
-
-    stringio = Zip::ZipOutputStream::write_buffer do |zip|
-      patients.each_with_index do |patient, index|
-        # Use defined measure if available, else get the specific measure for this patient
-        patient_measure = measure || get_associated_measure(patient)
-        # attach the QRDA export, or the error
-        begin
-          qrda = qrda_patient_export(patient, patient_measure) # allow error to stop execution before header is written
-          zip.put_next_entry(File.join("qrda", "#{index + 1}_#{patient.familyName}_#{patient.givenNames[0]}.xml"))
-          zip.puts qrda
-        rescue Exception => e
-          qrda_errors[patient.id] = e
-        end
-        # attach the HTML export, or the error
-        begin
-          html = QdmPatient.new(patient, true).render
-          zip.put_next_entry(File.join("html", "#{index + 1}_#{patient.familyName}_#{patient.givenNames[0]}.html"))
-          zip.puts html
-        rescue Exception => e
-          html_errors[patient.id] = e
-        end
-      end
-      # add the summary content if there are results
-      if (params[:results] && !params[:patients])
-        measure = CQM::Measure.by_user(current_user).where({ :set_id => params[:set_id] }).first
-        zip.put_next_entry("#{measure.cms_id}_patients_results.html")
-        zip.puts measure_patients_summary(patients, params[:results].permit!.to_h, qrda_errors, html_errors, measure)
-      end
-    end
-    cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
-    stringio.rewind
-    measure = CQM::Measure.by_user(current_user).where({ :set_id => params[:set_id] }).first
-    filename = if params[:set_id]
-                 "#{measure.cms_id}_patient_export.zip"
-               else
-                 "bonnie_patient_export.zip"
-               end
-    send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
-  end
-
   def excel_export
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     package = PatientExport.export_excel_cql_file(JSON.parse(params[:calc_results]),
@@ -256,19 +202,8 @@ private
     CQM::Measure.where(set_id: patient.measure_ids.first)
   end
 
-  def qrda_patient_export(patient, measure)
-    start_time = DateTime.parse(measure[0].measure_period['low']['value'])
-    end_time = DateTime.parse(measure[0].measure_period['high']['value'])
-    options = { start_time: start_time, end_time: end_time }
-    if patient.qdmPatient.get_data_elements('patient_characteristic', 'payer').empty?
-      payer_codes = [{ 'code' => '1', 'system' => '2.16.840.1.113883.3.221.5', 'codeSystem' => 'SOP' }]
-      patient.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: payer_codes, relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
-    end
-    Qrda1R5.new(patient, measure, options).render
-  end
-
-  def measure_patients_summary(patients, results, qrda_errors, html_errors, measure)
-    render_to_string partial: "index.html.erb", locals: { measure: measure, results: results, records: patients, html_errors: html_errors, qrda_errors: qrda_errors }
+  def measure_patients_summary(patients, results, html_errors, measure)
+    render_to_string partial: "index.html.erb", locals: { measure: measure, results: results, records: patients, html_errors: html_errors }
   end
 
 end
