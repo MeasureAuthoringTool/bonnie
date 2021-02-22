@@ -202,8 +202,4 @@ private
     CQM::Measure.where(set_id: patient.measure_ids.first)
   end
 
-  def measure_patients_summary(patients, results, html_errors, measure)
-    render_to_string partial: "index.html.erb", locals: { measure: measure, results: results, records: patients, html_errors: html_errors }
-  end
-
 end
