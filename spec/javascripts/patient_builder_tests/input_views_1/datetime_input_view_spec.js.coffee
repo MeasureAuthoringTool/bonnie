@@ -4,6 +4,20 @@ describe 'InputView', ->
 
     describe 'initalization', ->
 
+      it 'invalid by default if not allowNull  ', ->
+        view = new Thorax.Views.InputDateTimeView({ allowNull: false })
+        view.render()
+
+        expect(view.hasValidValue()).toBe false
+        view.remove()
+
+      it 'valid by default if allowNull  ', ->
+        view = new Thorax.Views.InputDateTimeView({ allowNull: true })
+        view.render()
+
+        expect(view.hasValidValue()).toBe true
+        view.remove()
+
       it 'can start with a fully filled datetime', ->
         date = new cqm.models.CQL.DateTime(2012, 2, 23, 8, 15, 0, 0, 0)
         view = new Thorax.Views.InputDateTimeView(initialValue: date)

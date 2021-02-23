@@ -61,7 +61,6 @@ Bonnie::Application.routes.draw do
   resources :patients do
     collection do
       post 'materialize'
-      post 'qrda_export'
       post 'excel_export'
       post 'share_patients'
       post 'import_patients'

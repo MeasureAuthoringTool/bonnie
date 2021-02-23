@@ -1,4 +1,4 @@
-# Input view for Sampled Data types.
+# Input view for TimingRepeat types.
 class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/timingrepeat']
 
@@ -210,5 +210,5 @@ class Thorax.Views.InputTimingRepeatView extends Thorax.Views.BonnieView
   updateValueFromSubviews: ->
     @value = new cqm.models.TimingRepeat() unless @value?
     @update view for view in @subviews
-    @trigger 'valueChanged', @
+    @trigger 'valueChanged', this
 
