@@ -26,7 +26,7 @@ class Thorax.Views.InputTimingView extends Thorax.Views.BonnieView
     switch view.name
       when @timingEventView.name
         if view.value?
-          @value.event = [ DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(view.value) ]
+          @value.event = [ view.value ]
         else
           @value.event = undefined
       when @timingCodeView.name

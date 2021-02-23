@@ -1,6 +1,6 @@
 # Input view for DateTime types.
-class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
-  template: JST['patient_builder/inputs/datetime']
+class Thorax.Views.InputInstantView extends Thorax.Views.BonnieView
+  template: JST['patient_builder/inputs/instant']
 
   # Expected options to be passed in using the constructor options hash:
   #   initialValue - Optional. Initial value of datetime.
@@ -12,7 +12,7 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
   #                           This should be the measurement period. Defaults to 2020.
   #   allowNull - boolean - Optional. If a null DateTime is allowed to be null. Defaults to true.
   initialize: ->
-    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(@initialValue)
+    if cqm.models.PrimitiveInstant.isPrimitiveInstant(@initialValue)
       cqlDateTime = cqm.models.CQL.DateTime.fromJSDate(moment.utc(@initialValue.value).toDate(), 0);
     else
       cqlDateTime = null
@@ -32,5 +32,5 @@ class Thorax.Views.InputDateTimeView extends Thorax.Views.BonnieView
 
   # handle a change event on any of the fields.
   handleChange: (e) ->
-    @value = if @view.value? then DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(@view.value) else null
+    @value = if @view.value? then DataCriteriaHelpers.getPrimitiveInstantForCqlDateTime(@view.value) else null
     @trigger 'valueChanged', this

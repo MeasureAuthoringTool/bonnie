@@ -64,6 +64,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
       when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap  })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear })
+      when 'Instant' then new Thorax.Views.InputInstantView({ allowNull: false, defaultYear: @defaultYear })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false, placeholder: placeholderText })
       when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView()
