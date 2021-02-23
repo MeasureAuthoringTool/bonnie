@@ -15,7 +15,7 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
       @value = null
 
     if !@types?
-      @types = ['Boolean', 'Code', 'CodeableConcept', 'Date', 'DateTime', 'Decimal', 'Integer', 'Quantity', 'SimpleQuantity', 'Duration', 'Range', 'Ratio', 'Time']
+      @types = ['Boolean', 'Code', 'CodeableConcept', 'Date', 'DateTime', 'Instant', 'Decimal', 'Integer', 'Quantity', 'SimpleQuantity', 'Duration', 'Range', 'Ratio', 'Time']
     @currentType = ''
 
   events:

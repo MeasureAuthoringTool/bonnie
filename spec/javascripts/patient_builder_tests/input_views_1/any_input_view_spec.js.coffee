@@ -27,6 +27,12 @@ describe 'InputView', ->
       expect(@view.hasValidValue()).toBe false
       expect(@view.value).toBe null
 
+    it 'handles change to Instant', ->
+      @view.$('select[name="type"] > option[value="Instant"]').prop('selected', true).change()
+      expect(@view.inputView instanceof Thorax.Views.InputInstantView).toBe true
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
+
     it 'handles change to Time', ->
       @view.$('select[name="type"] > option[value="Time"]').prop('selected', true).change()
       expect(@view.inputView instanceof Thorax.Views.InputTimeView).toBe true

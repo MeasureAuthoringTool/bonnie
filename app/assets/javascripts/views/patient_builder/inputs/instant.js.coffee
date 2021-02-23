@@ -26,11 +26,16 @@ class Thorax.Views.InputInstantView extends Thorax.Views.BonnieView
       allowNull: @allowNull
     })
     @listenTo(@view, 'valueChanged', @handleChange)
+    @updateValue()
 
   hasValidValue: ->
     @view.hasValidValue()
 
   # handle a change event on any of the fields.
   handleChange: (e) ->
-    @value = if @view.value? then DataCriteriaHelpers.getPrimitiveInstantForCqlDateTime(@view.value) else null
+    @updateValue()
     @trigger 'valueChanged', this
+
+  updateValue: ->
+    @value = if @view.value? then DataCriteriaHelpers.getPrimitiveDateTimeForCqlDateTime(@view.value) else null
+
