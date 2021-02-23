@@ -86,9 +86,9 @@ class Thorax.Views.InputCqlDateTimeView extends Thorax.Views.BonnieView
     if (@value? && newDateTime?)
       if !@value.equals(newDateTime)
         @value = newDateTime
-        @trigger 'valueChanged', @
+        @trigger 'valueChanged', this
 
     # if either before xor after was null trigger change
     else
       @value = newDateTime
-      @trigger 'valueChanged', @
+      @trigger 'valueChanged', this
