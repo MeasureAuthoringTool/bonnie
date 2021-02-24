@@ -234,10 +234,12 @@
       return "#{hour}:#{minute} #{period}"
 
     if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)  || cqm.models.PrimitiveInstant.isPrimitiveInstant(type)
-      return moment.utc(type?.value).format('L LT')
+      cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(type?.value)
+      return moment.utc(cqlValue.toJSDate()).format('L LT')
 
     if cqm.models.PrimitiveDate.isPrimitiveDate(type)
-      return moment.utc(type?.value).format('L')
+      cqlValue = DataCriteriaHelpers.getCQLDateFromString(type?.value)
+      return moment.utc(cqlValue.toJSDate()).format('L')
 
     if cqm.models.SampledData.isSampledData(type)
       return "origin : #{@stringifyType(type.origin)} |
