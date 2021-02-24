@@ -32,11 +32,14 @@ class Thorax.Views.InputQuantityView extends Thorax.Views.BonnieView
   handleInputChange: (e) ->
     inputData = @serialize()
     try
-      # Validate with CQL.Quantity
-      new cqm.models.CQL.Quantity(parseFloat(inputData.value_value), inputData.value_unit)
-      @value = new cqm.models.Quantity()
-      @value.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.value_unit)
-      @value.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.value_value))
+      if inputData.value_value == '' && inputData.value_unit == ''
+        @value = null
+      else
+        # Validate with CQL.Quantity
+        new cqm.models.CQL.Quantity(parseFloat(inputData.value_value), inputData.value_unit)
+        @value = new cqm.models.Quantity()
+        @value.unit = cqm.models.PrimitiveString.parsePrimitive(inputData.value_unit)
+        @value.value = cqm.models.PrimitiveDecimal.parsePrimitive(parseFloat(inputData.value_value))
       @$('.quantity-control-unit').removeClass('has-error')
     catch error
       @value = null
