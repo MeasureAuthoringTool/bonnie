@@ -324,7 +324,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          fhirResource.onset = null
+          fhirResource.onset = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
