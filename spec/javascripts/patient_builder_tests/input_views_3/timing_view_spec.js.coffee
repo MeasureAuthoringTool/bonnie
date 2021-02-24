@@ -23,12 +23,7 @@ describe 'InputView', ->
       @view.$('.timing-event-view input[name="time"]').val('8:00 AM').timepicker('setTime', '8:00 AM')
       expect(@view.timingEventView.hasValidValue()).toBe true
       expect(@view.timingEventView.value).toBeDefined()
-      expect(@view.timingEventView.value.year).toBe 2010
-      expect(@view.timingEventView.value.month).toBe 2
-      expect(@view.timingEventView.value.day).toBe 11
-      expect(@view.timingEventView.value.hour).toBe 8
-      expect(@view.timingEventView.value.minute).toBe 0
-      expect(@view.timingEventView.value.second).toBe 0
+      expect(@view.timingEventView.value.value).toBe '2010-02-11T08:00:00.000+00:00'
       expect(@view.value).toBeDefined()
       expect(@view.hasValidValue()).toBe true
       expect(@view.value.event[0].value).toBe '2010-02-11T08:00:00.000+00:00'
