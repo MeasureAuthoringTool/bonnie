@@ -42,14 +42,14 @@ describe 'DataCriteriaHelpers', ->
       expect(performed.path).toEqual 'performed'
       # Create procedure fhir resource & DateTime to set
       procedureResource = new cqm.models.Procedure()
-      dateTime = new cqm.models.CQL.DateTime(2020, 10, 5, 8, 0, 0, 0, 0)
       expect(performed.getValue(procedureResource)).toBeUndefined
 
       # set performed DateTime to Procedure
+      dateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-05T08:00:00')
       performed.setValue(procedureResource, dateTime)
       performedValue = performed.getValue(procedureResource)
       # Verify after setting values
-      expect(performedValue.value).toEqual dateTime.toString()
+      expect(performedValue.value).toEqual '2020-10-05T08:00:00'
 
     it 'should set and get values for performed if Choice type is Period', ->
       procedureAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Procedure']

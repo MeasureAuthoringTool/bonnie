@@ -125,6 +125,9 @@
   @getPrimitiveDateTimeForCqlDateTime: (dateTime) ->
     cqm.models.PrimitiveDateTime.parsePrimitive dateTime?.toString()
 
+  @getPrimitiveInstantForCqlDateTime: (dateTime) ->
+    cqm.models.PrimitiveInstant.parsePrimitive dateTime?.toString()
+
   @getPrimitiveDateTimeForStringDateTime: (dateTimeStr) ->
     cqm.models.PrimitiveDateTime.parsePrimitive dateTimeStr
 
@@ -230,7 +233,7 @@
         period = 'PM'
       return "#{hour}:#{minute} #{period}"
 
-    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)
+    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)  || cqm.models.PrimitiveInstant.isPrimitiveInstant(type)
       cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(type?.value)
       return moment.utc(cqlValue.toJSDate()).format('L LT')
 
@@ -323,13 +326,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
-            fhirResource.onset = value
-          else
-            fhirResource.onset = null
+          fhirResource.onset = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
@@ -372,13 +369,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
-            fhirResource.onset = value
-          else
-            fhirResource.onset = null
+          fhirResource.onset = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
@@ -386,13 +377,7 @@
         title: 'abatement',
         getValue: (fhirResource) => fhirResource?.abatement
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
-            fhirResource.abatement = value
-          else
-            fhirResource.abatement = null
+          fhirResource.abatement = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
@@ -439,13 +424,7 @@
         title: 'performed',
         getValue: (fhirResource) => fhirResource?.performed
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.performed = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Period'
-            fhirResource.performed = value
-          else
-            fhirResource.performed = null
+          fhirResource.performed = value
         types: ['DateTime', 'Period']
       },
       {
@@ -497,11 +476,7 @@
         title: 'effective',
         getValue: (fhirResource) => fhirResource.effective
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.effective = @getPrimitiveDateTimeForCqlDateTime(value)
-          else
-            fhirResource.effective = value
+          fhirResource.effective = value
         types: ['DateTime', 'Period']
       }
     ]
@@ -529,9 +504,7 @@
             fhirResource?.value
         setValue: (fhirResource, value) =>
           attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.value = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Coding'
+          if attrType == 'Coding'
             fhirResource.value = @getCodeableConceptForCoding(value)
           else
             fhirResource?.value = value
@@ -554,11 +527,7 @@
         title: 'effective',
         getValue: (fhirResource) => fhirResource.effective
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.effective = @getPrimitiveDateTimeForCqlDateTime(value)
-          else
-            fhirResource.effective = value
+          fhirResource.effective = value
         types: ['DateTime', 'Period', 'Timing', 'Instant']
       },
       {
@@ -584,9 +553,7 @@
           attrType = value?.getTypeName?() || value?.constructor?.name
           unless fhirResource.component?
             fhirResource.component = [new cqm.models.ObservationComponent()]
-          if attrType == 'DateTime'
-            fhirResource.component[0].value = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Coding'
+          if attrType == 'Coding'
             fhirResource.component[0].value = @getCodeableConceptForCoding(value)
           else
             fhirResource.component[0].value = value
@@ -646,11 +613,7 @@
         title: 'timing',
         getValue: (fhirResource) -> fhirResource.timing
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.timing = @getPrimitiveDateTimeForCqlDateTime(value)
-          else
-            fhirResource.timing = value
+          fhirResource.timing = value
         types: ['DateTime', 'Period', 'Timing']
       }
     ]

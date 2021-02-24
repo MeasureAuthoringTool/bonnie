@@ -21,10 +21,10 @@ describe 'DataCriteriaHelpers', ->
       expect(attr.types).toEqual ['DateTime', 'Period', 'Timing', 'Instant']
 
       # set DateTime/Timing
-      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
       fhirResource = new cqm.models.Observation()
       attr.setValue(fhirResource, valueDateTime)
-      expect(fhirResource.effective.value).toEqual valueDateTime.toString()
+      expect(fhirResource.effective.value).toEqual '2012-02-02T08:45:00.000+00:00'
 
     it 'should support Observation.value', ->
       value = @observationAttrs.find (attr) => attr.path is 'value'
@@ -42,9 +42,9 @@ describe 'DataCriteriaHelpers', ->
       expect(attrValue.value).toEqual valueBoolean.value
 
       # set DateTime value
-      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
       value.setValue(fhirResource, valueDateTime)
-      expect(fhirResource.value.value).toEqual valueDateTime.toString()
+      expect(fhirResource.value.value).toEqual '2012-02-02T08:45:00.000+00:00'
 
       # set CodeableConcept value
       coding = cqm.models.Coding.parse({system: 'SNOMEDCT', code:'123456', version: 'version'})
@@ -69,10 +69,10 @@ describe 'DataCriteriaHelpers', ->
       expect(attrValue.value).toEqual valueBoolean.value
 
       # set DateTime value
-      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
       attribute.setValue(fhirResource, valueDateTime)
       attrValue = attribute.getValue(fhirResource)
-      expect(attrValue.value).toEqual valueDateTime.toString()
+      expect(attrValue.value).toEqual '2012-02-02T08:45:00.000+00:00'
 
       # set CodeableConcept value
       coding = cqm.models.Coding.parse({system: 'SNOMEDCT', code:'123456', version: 'version'})
