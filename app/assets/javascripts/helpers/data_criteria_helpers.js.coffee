@@ -937,8 +937,8 @@
       {
         path: 'dosageInstruction'
         title: 'dosageInstruction'
-        getValue: (fhirResource) -> fhirResource?.value
-        setValue: (fhirResource, value) -> fhirResource?.value = value
+        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]
+        setValue: (fhirResource, value) -> fhirResource.dosageInstruction = [value]
         types: ['Dosage']
       }
     ]

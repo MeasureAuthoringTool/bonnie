@@ -98,16 +98,13 @@ class Thorax.Views.InputDosageView extends Thorax.Views.BonnieView
 
   updateDosageAndRate: (view) ->
     @value.doseAndRate = [ new cqm.models.DosageDoseAndRate() ] unless @value.doseAndRate
-    if view.name == 'type'
-      if view.value?
-        @value.doseAndRate[0].type = new cqm.models.CodeableConcept() unless @value.doseAndRate[0].type
-        @value.doseAndRate[0].type.coding = [view.value]
-      else
-        @value.doseAndRate[0].type = undefined
+    if view.name == 'type' && view.value?
+      @value.doseAndRate[0].type = new cqm.models.CodeableConcept() unless @value.doseAndRate[0].type
+      @value.doseAndRate[0].type.coding = [view.value]
+    else if view.currentType == 'SimpleQuantity' && view.value?
+      @value.doseAndRate[0][view.name] = cqm.models.SimpleQuantity.parse(view.value.toJSON())
     else
-      if view.currentType == 'SimpleQuantity' && view.value?
-        @value.doseAndRate[0][view.name] = cqm.models.SimpleQuantity.parse(view.value.toJSON())
-      else
-        @value.doseAndRate[0][view.name] = if view.value? then view.value else undefined
+      @value.doseAndRate[0][view.name] = if view.value? then view.value else undefined
+
     # Set doseAndRate to undefined if none of the doseAndRate attr has value
     @value.doseAndRate = undefined unless @value.doseAndRate[0].type? || @value.doseAndRate[0].dose? || @value.doseAndRate[0].rate?
