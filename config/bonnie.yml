@@ -42,5 +42,9 @@ production:
   smtp_username: <%= ENV["BONNIE_SMTP_USERNAME"] %>
   smtp_password: <%= ENV["BONNIE_SMTP_PASSWORD"] %>
   smtp_tls: <%= ENV["BONNIE_SMTP_TLS"] %>
-  bonnie_email: <%= ENV["BONNIE_EMAIL"] %>  # For standard notifications
-  bonnie_error_email: <%= ENV["BONNIE_ERROR_EMAIL"] %> # For frontend/backend exceptions
+  bonnie_email: <%= ENV["BONNIE_EMAIL"] %> 
+  bonnie_error_email: <%= ENV["BONNIE_ERROR_EMAIL"] %> 
+  virus_scan:
+    enabled: <%= ENV["VIRUS_SCAN_ENABLED"] %>
+    scan_url: <%= ENV["VIRUS_SCAN_URL"] %>
+    api_key: <%= ENV["VIRUS_SCAN_API_KEY"] %>
