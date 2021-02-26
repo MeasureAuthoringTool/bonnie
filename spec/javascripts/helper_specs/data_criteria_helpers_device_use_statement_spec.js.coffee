@@ -11,10 +11,10 @@ describe 'DataCriteriaHelpers', ->
       expect(attr.types).toEqual ['DateTime', 'Period', 'Timing']
 
       # set DateTime
-      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:54:00')
       fhirResource = new cqm.models.DeviceUseStatement()
       attr.setValue(fhirResource, valueDateTime)
-      expect(fhirResource.timing.value).toEqual valueDateTime.toString()
+      expect(fhirResource.timing.value).toEqual '2012-02-02T08:54:00'
 
       # set Period
       period = new cqm.models.Period()

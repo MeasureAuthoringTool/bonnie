@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 36d3c4e5091052a56a5faecfa8f9a4e820de3074
+  revision: fc0769d50be5a4e3975d5a6ca632fe4e2141eeef
   branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
@@ -97,11 +97,11 @@ GEM
     apipie-rails (0.5.18)
       rails (>= 4.1)
     arel (9.0.0)
-    ast (2.4.1)
+    ast (2.4.2)
     bcrypt (3.1.16)
-    brakeman (4.10.0)
+    brakeman (5.0.0)
     browser (5.1.0)
-    bson (4.10.0)
+    bson (4.12.0)
     builder (3.2.4)
     bundler-audit (0.7.0.1)
       bundler (>= 1.2.0, < 3)
@@ -136,7 +136,8 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.8)
-    crack (0.4.4)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     daemons (1.3.1)
     devise (4.7.3)
@@ -207,11 +208,11 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.3)
-    mongo (2.13.0)
+    minitest (5.14.4)
+    mongo (2.14.0)
       bson (>= 4.8.2, < 5.0.0)
-    mongoid (7.1.2)
-      activemodel (>= 5.1, < 6.1)
+    mongoid (7.1.7)
+      activemodel (>= 5.1, < 6.2)
       mongo (>= 2.7.0, < 3.0.0)
     mongoid-tree (2.1.1)
       mongoid (>= 4.0, < 8)
@@ -366,10 +367,10 @@ GEM
     vcr (6.0.0)
     warden (1.2.9)
       rack (>= 2.0.9)
-    webmock (2.3.2)
+    webmock (3.11.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
-      hashdiff
+      hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -431,7 +432,7 @@ DEPENDENCIES
   tinymce-rails
   uglifier (~> 4.1.20)
   vcr
-  webmock (~> 2.3.1)
+  webmock (~> 3.11.3)
   zip-zip
 
 BUNDLED WITH
