@@ -1,5 +1,5 @@
-[![Build Status](https://github.com/MeasureAuthoringTool/bonnie/actions/workflows/build.yml/badge.svg?branch=bonnie-on-fhir)](https://github.com/MeasureAuthoringTool/bonnie/actions/workflows/build.yml/badge.svg?branch=bonnie-on-fhir)
-![GitHub version](https://img.shields.io/badge/dynamic/yaml?url=http://raw.githubusercontent.com/MeasureAuthoringTool/bonnie/bonnie-on-fhir/config/bonnie.yml&label=version&query=defaults.version)
+[![Build Status](https://github.com/MeasureAuthoringTool/bonnie/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/MeasureAuthoringTool/bonnie/actions/workflows/build.yml/badge.svg?branch=bonnie-on-fhir)
+![GitHub version](https://img.shields.io/badge/dynamic/yaml?url=http://raw.githubusercontent.com/MeasureAuthoringTool/bonnie/master/config/bonnie.yml&label=version&query=defaults.version)
 
 
 
