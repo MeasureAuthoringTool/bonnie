@@ -142,7 +142,7 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
       when 'Reference' then new Thorax.Views.InputReferenceView({ allowNull: false, referenceTypes: @currentAttribute.referenceTypes, parentDataElement: @dataElement, cqmValueSets: @parent.measure.get('cqmValueSets') })
       when 'SampledData' then new Thorax.Views.InputSampledDataView()
       when 'Timing' then new Thorax.Views.InputTimingView({ codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear() })
-      when 'Dosage' then new Thorax.Views.InputDosageView({ cqmValueSets: (@currentAttribute?.valueSets || []).concat(@parent.measure.get('cqmValueSets')), codeSystemMap: @parent.measure.codeSystemMap() })
+      when 'Dosage' then new Thorax.Views.InputDosageView({ cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap() })
       else null
     @showInputViewPlaceholder = !@inputView?
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?

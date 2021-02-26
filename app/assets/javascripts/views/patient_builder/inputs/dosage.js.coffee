@@ -1,8 +1,16 @@
-# Input view for Dosage types.
+# Input view for Dosage type
 class Thorax.Views.InputDosageView extends Thorax.Views.BonnieView
   template: JST['patient_builder/inputs/dosage']
 
+  # Expected options to be passed in using the constructor options hash:
+  # cqmValueSets - required - measure value sets
+  # initialValue - Timing - Optional. Initial value of timing
+  # codeSystemMap - required
   initialize: ->
+    if @initialValue?
+      @value = @initialValue
+    else
+      @value = null
     @sequenceView = new Thorax.Views.InputIntegerView({ name: 'sequence' })
     @textView = new Thorax.Views.InputStringView({ name: 'text' })
     @patientInstructionView = new Thorax.Views.InputStringView({ name: 'patientInstruction' })
@@ -64,7 +72,7 @@ class Thorax.Views.InputDosageView extends Thorax.Views.BonnieView
     @listenTo(view, 'valueChanged', @updateValueFromSubviews) for view in @subviews
 
   hasValidValue: ->
-    $("div[data-view-cid=#{@.cid}] .has-error").length == 0
+    $("div[data-view-cid=#{@.cid}] .has-error").length == 0 && !@isEmptyDosage()
 
   updateValueFromSubviews: ->
     @value = new cqm.models.Dosage() unless @value?
@@ -108,3 +116,10 @@ class Thorax.Views.InputDosageView extends Thorax.Views.BonnieView
 
     # Set doseAndRate to undefined if none of the doseAndRate attr has value
     @value.doseAndRate = undefined unless @value.doseAndRate[0].type? || @value.doseAndRate[0].dose? || @value.doseAndRate[0].rate?
+
+  isEmptyDosage: ->
+    dosage = @value || {}
+    for value in Object.values(dosage)
+      if value != undefined
+        return false
+    return true
