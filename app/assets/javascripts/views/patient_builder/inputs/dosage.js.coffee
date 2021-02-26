@@ -77,7 +77,7 @@ class Thorax.Views.InputDosageView extends Thorax.Views.BonnieView
   updateValueFromSubviews: ->
     @value = new cqm.models.Dosage() unless @value?
     @update view for view in @subviews
-    @trigger 'valueChanged', @
+    @trigger 'valueChanged', this
 
   update: (view) ->
     switch view.name
