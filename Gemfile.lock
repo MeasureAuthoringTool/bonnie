@@ -151,8 +151,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     doorkeeper (4.4.3)
       railties (>= 4.2)
-    doorkeeper-mongodb (4.1.0)
-      doorkeeper (>= 4.0.0, < 5.0)
+    doorkeeper-mongodb (4.2.0)
+      doorkeeper (>= 4.4, < 5.0)
     erubi (1.10.0)
     erubis (2.7.0)
     ethon (0.12.0)
@@ -394,7 +394,7 @@ DEPENDENCIES
   cqm-parsers!
   devise
   doorkeeper (~> 4.4.0)
-  doorkeeper-mongodb (~> 4.1.0)
+  doorkeeper-mongodb (~> 4.2.0)
   exception_notification!
   fhir-mongoid-models!
   foreman
