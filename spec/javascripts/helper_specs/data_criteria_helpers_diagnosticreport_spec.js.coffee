@@ -36,7 +36,7 @@ describe 'DataCriteriaHelpers', ->
       DataCriteriaAsserts.assertCodeableConcept('DiagnosticReport', 'category', 'category')
 
     it 'should support DiagnosticReport.encounter', ->
-      encounterAttr = @attrs.find (attr) => attr.path is 'encounter'
+      encounterAttr = @attrs.find (attr) -> attr.path is 'encounter'
       expect(encounterAttr).toBeDefined
       expect(encounterAttr.path).toBe 'encounter'
       expect(encounterAttr.title).toBe 'encounter'
