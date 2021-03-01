@@ -1,5 +1,5 @@
 # Description http://hl7.org/fhir/valueset-additional-instruction-codes.html
-@AdditionalDosageInstructions = class AdditionalDosageInstructions
+@AdditionalDosageInstructionsValueSet = class AdditionalDosageInstructionsValueSet
   @JSON = {
     "resourceType" : "ValueSet",
     "id" : "additional-instruction-codes",

@@ -1,5 +1,5 @@
 # Description: http://hl7.org/fhir/valueset-medication-as-needed-reason.html
-@MedicationAsNeededReasonCodes = class MedicationAsNeededReasonCodes
+@MedicationAsNeededReasonCodesValueSet = class MedicationAsNeededReasonCodesValueSet
   @JSON = {
     "resourceType" : "ValueSet",
     "id" : "medication-as-needed-reason",

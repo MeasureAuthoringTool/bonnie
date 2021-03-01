@@ -1,5 +1,5 @@
 # http://hl7.org/fhir/valueset-route-codes.html
-@RouteCodes  = class RouteCodes
+@RouteCodesValueSet  = class RouteCodesValueSet
   @JSON = {
     "resourceType" : "ValueSet",
     "id" : "route-codes",

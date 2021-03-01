@@ -1,5 +1,5 @@
 # http://hl7.org/fhir/valueset-approach-site-codes.html
-@AdministrationSiteCodes = class AdministrationSiteCodes
+@AdministrationSiteCodesValueSet = class AdministrationSiteCodesValueSet
   @JSON = {
     "resourceType" : "ValueSet",
     "id" : "approach-site-codes",

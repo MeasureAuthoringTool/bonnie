@@ -1,5 +1,5 @@
 # http://hl7.org/fhir/valueset-dose-rate-type.html
-@DoseAndRateType = class DoseAndRateType
+@DoseAndRateTypeValueSet = class DoseAndRateTypeValueSet
   @JSON = {
     "resourceType" : "ValueSet",
     "id" : "dose-rate-type",

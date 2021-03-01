@@ -18,34 +18,34 @@ class Thorax.Views.InputDosageView extends Thorax.Views.BonnieView
     @maxDosePerAdministrationView = new Thorax.Views.InputQuantityView({ name: 'maxDosePerAdministration' })
     @maxDosePerLifetimeView = new Thorax.Views.InputQuantityView({ name: 'maxDosePerLifetime' })
     @additionalInstructionView = new Thorax.Views.InputCodingView({
-      cqmValueSets: [AdditionalDosageInstructions.JSON].concat(@cqmValueSets),
+      cqmValueSets: [AdditionalDosageInstructionsValueSet.JSON].concat(@cqmValueSets),
       codeSystemMap: @codeSystemMap,
       name: 'additionalInstruction'
     })
     @asNeededView = new Thorax.Views.InputAnyView({
       attributeName: 'asNeeded',
       name: 'asNeeded',
-      cqmValueSets: [MedicationAsNeededReasonCodes.JSON].concat(@cqmValueSets),
+      cqmValueSets: [MedicationAsNeededReasonCodesValueSet.JSON].concat(@cqmValueSets),
       codeSystemMap: @codeSystemMap,
       types: ['Boolean', 'CodeableConcept']
     })
     @siteView = new Thorax.Views.InputCodingView({
-      cqmValueSets: [AdministrationSiteCodes.JSON].concat(@cqmValueSets),
+      cqmValueSets: [AdministrationSiteCodesValueSet.JSON].concat(@cqmValueSets),
       codeSystemMap: @codeSystemMap,
       name: 'site'
     })
     @routeView = new Thorax.Views.InputCodingView({
-      cqmValueSets: [RouteCodes.JSON].concat(@cqmValueSets),
+      cqmValueSets: [RouteCodesValueSet.JSON].concat(@cqmValueSets),
       codeSystemMap: @codeSystemMap,
       name: 'route'
     })
     @methodView = new Thorax.Views.InputCodingView({
-      cqmValueSets: [AdministrationMethodCodes.JSON].concat(@cqmValueSets),
+      cqmValueSets: [AdministrationMethodCodesValueSet.JSON].concat(@cqmValueSets),
       codeSystemMap: @codeSystemMap,
       name: 'method'
     })
     @typeView = new Thorax.Views.InputCodingView({
-      cqmValueSets: [DoseAndRateType.JSON].concat(@cqmValueSets),
+      cqmValueSets: [DoseAndRateTypeValueSet.JSON].concat(@cqmValueSets),
       codeSystemMap: @codeSystemMap,
       name: "type"
     })

@@ -1,5 +1,5 @@
 # http://hl7.org/fhir/valueset-administration-method-codes.html
-@AdministrationMethodCodes = class AdministrationMethodCodes
+@AdministrationMethodCodesValueSet = class AdministrationMethodCodesValueSet
   @JSON = {
     "resourceType" : "ValueSet",
     "id" : "administration-method-codes",
