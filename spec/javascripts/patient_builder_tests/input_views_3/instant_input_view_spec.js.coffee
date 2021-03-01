@@ -93,7 +93,8 @@ describe 'InputView', ->
         today = new Date()
         debugger
         todayMonth = (today.getMonth() + 1).toString().padStart(2, '0')
-        todayDate = '2020-' + todayMonth + '-'+today.getDate()+'T08:00:00.000+00:00'
+        day = (today.getDate()).toString().padStart(2, '0')
+        todayDate = "2020-#{todayMonth}-#{day}T08:00:00.000+00:00"
         expect(@view.value.value).toEqual(todayDate)
 
         # check fields
