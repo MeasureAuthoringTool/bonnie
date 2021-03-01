@@ -151,7 +151,7 @@
     return cqm.models[dataElement.fhir_resource?.getTypeName()]?.primaryCodePath
 
   @isPrimaryCodePathSupported: (dataElement) ->
-    # Bonnie supports only  doesn't support choice types in primary code path or
+    # Bonnie doesn't support choice types in primary code path
     type = cqm.models[dataElement.fhir_resource?.getTypeName()]
     primaryCodePath = type?.primaryCodePath
     return false unless primaryCodePath?
@@ -478,6 +478,28 @@
         setValue: (fhirResource, value) =>
           fhirResource.effective = value
         types: ['DateTime', 'Period']
+      },
+      {
+        path: 'encounter'
+        title: 'encounter'
+        getValue: (fhirResource) => fhirResource.encounter
+        setValue: (fhirResource, reference) =>
+          fhirResource.encounter = reference
+        types: ['Reference']
+        referenceTypes: ['Encounter']
+      },
+      {
+        path: 'category',
+        title: 'category',
+        getValue: (fhirResource) => fhirResource.category?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
+        types: ['CodeableConcept'],
+        # Value Set from FHIR and QI Core DiagnosticReport Lab  http://hl7.org/fhir/ValueSet/diagnostic-service-sections
+        # Value Set from QI Core DiagnosticReport Note (http://hl7.org/fhir/us/qicore/StructureDefinition-qicore-diagnosticreport-note.html)
+        #     http://hl7.org/fhir/us/core/ValueSet/us-core-diagnosticreport-category
+        valueSets: () -> [ DiagnosticServiceSectionCodesValueSet.JSON, USCoreDiagnosticReportCategoryValueSet.JSON ]
       }
     ]
     ImagingStudy: []
@@ -566,7 +588,6 @@
         title: 'encounter'
         getValue: (fhirResource) => fhirResource.encounter
         setValue: (fhirResource, reference) =>
-          fhirResource.encounter = new cqm.models.Encounter() unless fhirResource?.encounter?
           fhirResource.encounter = reference
         types: ['Reference']
         referenceTypes: ['Encounter']
