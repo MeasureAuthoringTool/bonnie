@@ -270,6 +270,7 @@ jobs:
         with:
           file: coverage-frontend/default/lcov.info
           fail_ci_if_error: true
+
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/cql/cql_coloring_spec.js.coffee" file ----------
