@@ -59,3 +59,7 @@ describe 'DataCriteriaHelpers', ->
       expect(value.text.value).toBe 'some text'
       expect(value.additionalInstruction[0].coding.code.value).toBe 'code1'
       expect(value.additionalInstruction[0].coding.system.value).toBe 'system1'
+      # null value test
+      attr.setValue(fhirResource, null)
+      value = attr.getValue(fhirResource)
+      expect(value).toBeUndefined()

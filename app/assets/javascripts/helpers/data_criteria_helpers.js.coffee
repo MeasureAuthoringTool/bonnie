@@ -312,7 +312,7 @@
       if type.method?
         attrs.push("method: #{@stringifyType(type.method, codeSystemMap)}")
       if type.doseAndRate?[0]?.type?
-        attrs.push("doseAndRate.type: #{@stringifyType(type.doseAndRate[0].type)}")
+        attrs.push("doseAndRate.type: #{@stringifyType(type.doseAndRate[0].type, codeSystemMap)}")
       if type.doseAndRate?[0]?.dose?
         attrs.push("doseAndRate.dose: #{@stringifyType(type.doseAndRate[0].dose)}")
       if type.doseAndRate?[0]?.rate?
@@ -922,7 +922,7 @@
         path: 'dosageInstruction'
         title: 'dosageInstruction'
         getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]
-        setValue: (fhirResource, value) -> fhirResource.dosageInstruction = [value]
+        setValue: (fhirResource, value) -> fhirResource.dosageInstruction = if value? then [value] else  null
         types: ['Dosage']
       }
     ]
