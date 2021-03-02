@@ -151,7 +151,7 @@
     return cqm.models[dataElement.fhir_resource?.getTypeName()]?.primaryCodePath
 
   @isPrimaryCodePathSupported: (dataElement) ->
-    # Bonnie supports only  doesn't support choice types in primary code path or
+    # Bonnie doesn't support choice types in primary code path
     type = cqm.models[dataElement.fhir_resource?.getTypeName()]
     primaryCodePath = type?.primaryCodePath
     return false unless primaryCodePath?
@@ -290,6 +290,39 @@
       if type?.code?
         attrs.push("code: #{@stringifyType(type.code, codeSystemMap)}")
 
+      return attrs.join(" | ")
+    if cqm.models.Dosage.isDosage(type)
+      attrs = []
+      if type.sequence?
+        attrs.push("sequence: #{@stringifyType(type.sequence)}")
+      if type.text?
+        attrs.push("text: #{@stringifyType(type.text)}")
+      if type.additionalInstruction?[0]?
+        attrs.push("additionalInstruction: #{@stringifyType(type.additionalInstruction[0], codeSystemMap)}")
+      if type.patientInstruction?
+        attrs.push("patientInstruction: #{@stringifyType(type.patientInstruction)}")
+      if type.timing?
+        attrs.push("timing: #{@stringifyType(type.timing)}")
+      if type.asNeeded?
+        attrs.push("asNeeded: #{@stringifyType(type.asNeeded, codeSystemMap)}")
+      if type.site?
+        attrs.push("site: #{@stringifyType(type.site, codeSystemMap)}")
+      if type.route?
+        attrs.push("route: #{@stringifyType(type.route, codeSystemMap)}")
+      if type.method?
+        attrs.push("method: #{@stringifyType(type.method, codeSystemMap)}")
+      if type.doseAndRate?[0]?.type?
+        attrs.push("doseAndRate.type: #{@stringifyType(type.doseAndRate[0].type)}")
+      if type.doseAndRate?[0]?.dose?
+        attrs.push("doseAndRate.dose: #{@stringifyType(type.doseAndRate[0].dose)}")
+      if type.doseAndRate?[0]?.rate?
+        attrs.push("doseAndRate.rate: #{@stringifyType(type.doseAndRate[0].rate)}")
+      if type?.maxDosePerPeriod?
+        attrs.push("maxDosePerPeriod: #{@stringifyType(type.maxDosePerPeriod)}")
+      if type?.maxDosePerAdministration?
+        attrs.push("maxDosePerAdministration: #{@stringifyType(type.maxDosePerAdministration)}")
+      if type?.maxDosePerLifetime?
+        attrs.push("maxDosePerLifetime: #{@stringifyType(type.maxDosePerLifetime)}")
       return attrs.join(" | ")
 
     return JSON.stringify(type)
@@ -478,6 +511,28 @@
         setValue: (fhirResource, value) =>
           fhirResource.effective = value
         types: ['DateTime', 'Period']
+      },
+      {
+        path: 'encounter'
+        title: 'encounter'
+        getValue: (fhirResource) => fhirResource.encounter
+        setValue: (fhirResource, reference) =>
+          fhirResource.encounter = reference
+        types: ['Reference']
+        referenceTypes: ['Encounter']
+      },
+      {
+        path: 'category',
+        title: 'category',
+        getValue: (fhirResource) => fhirResource.category?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
+        types: ['CodeableConcept'],
+        # Value Set from FHIR and QI Core DiagnosticReport Lab  http://hl7.org/fhir/ValueSet/diagnostic-service-sections
+        # Value Set from QI Core DiagnosticReport Note (http://hl7.org/fhir/us/qicore/StructureDefinition-qicore-diagnosticreport-note.html)
+        #     http://hl7.org/fhir/us/core/ValueSet/us-core-diagnosticreport-category
+        valueSets: () -> [ DiagnosticServiceSectionCodesValueSet.JSON, USCoreDiagnosticReportCategoryValueSet.JSON ]
       }
     ]
     ImagingStudy: []
@@ -566,7 +621,6 @@
         title: 'encounter'
         getValue: (fhirResource) => fhirResource.encounter
         setValue: (fhirResource, reference) =>
-          fhirResource.encounter = new cqm.models.Encounter() unless fhirResource?.encounter?
           fhirResource.encounter = reference
         types: ['Reference']
         referenceTypes: ['Encounter']
@@ -863,6 +917,13 @@
         types: ['CodeableConcept', 'Reference']
         referenceTypes: ['Medication']
         valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+      },
+      {
+        path: 'dosageInstruction'
+        title: 'dosageInstruction'
+        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]
+        setValue: (fhirResource, value) -> fhirResource.dosageInstruction = [value]
+        types: ['Dosage']
       }
     ]
     MedicationRequest: [
