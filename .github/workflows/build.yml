@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby 2.4
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.4
           bundler-cache: true
@@ -270,6 +270,7 @@ jobs:
         with:
           file: coverage-frontend/default/lcov.info
           fail_ci_if_error: true
+
 # ----------------------------------------------------------------------
 
 # ------- Teaspoon tests for "patient_builder_tests/cql/cql_coloring_spec.js.coffee" file ----------
