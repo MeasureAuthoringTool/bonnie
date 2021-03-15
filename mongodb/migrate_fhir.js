@@ -15,7 +15,7 @@ db.users.find().forEach(function (user) {
   print("Adding user to the default group : " + user.email);
   db.users.update(
     { _id: user._id },
-    { $set: { groups: [user._id], current_group: user._id } }
+    { $set: { groups_ids: [user._id], current_group_id: user._id } }
   );
 });
 // # Rename each measure.user_id field → measure.group_id
@@ -30,7 +30,7 @@ db.cqm_measures.find().forEach(function (measure) {
   );
   db.cqm_measures.update(
     { _id: measure._id },
-    { $rename: { group_id: "user_id" } }
+    { $rename: { user_id: "group_id" } }
   );
 });
 // # Rename each patient.user_id field → patient.group_id
@@ -38,7 +38,7 @@ db.cqm_patients.find().forEach(function (patient) {
   print("Updating patient : " + patient._id);
   db.cqm_patients.update(
     { _id: patient._id },
-    { $rename: { group_id: "user_id" } }
+    { $rename: { user_id: "group_id" } }
   );
 });
 print("dropping cqm_measures indices");
@@ -58,12 +58,15 @@ db.cqm_patients.getIndexes().forEach(function (idx) {
   }
 });
 // Indexing can take time
-print("creating indices for cqm_measures");
-db.cqm_measures.createIndex({ groupd_id: 1 });
-db.cqm_measures.createIndex({ groupd_id: 1, set_id: 1 });
+print("creating indexes for users");
+db.users.createIndex({ group_ids: 1 });
 
-print("creating indices for cqm_patients");
-db.cqm_patients.createIndex({ groupd_id: 1 });
-db.cqm_patients.createIndex({ groupd_id: 1, measures_id: 1 });
+print("creating indexes for cqm_measures");
+db.cqm_measures.createIndex({ group_id: 1 });
+db.cqm_measures.createIndex({ group_id: 1, set_id: 1 });
+//
+print("creating indexes for cqm_patients");
+db.cqm_patients.createIndex({ group_id: 1 });
+db.cqm_patients.createIndex({ group_id: 1, measures_id: 1 });
 
 print("Migration completed");

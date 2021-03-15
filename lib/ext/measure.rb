@@ -2,14 +2,14 @@ module CQM
   # Measure contains the information necessary to represent the CQL version of a Clinical Quality Measure,
   # As needed by the Bonnie & Cypress applications
   class Measure
-    belongs_to :user, optional: true
-    scope :by_user, ->(user) { where user_id: user.id }
-    index 'user_id' => 1
-    index 'user_id' => 1, 'set_id' => 1
+    belongs_to :group, optional: true
+    scope :by_user, ->(user) { where group_id: user.current_group.id }
+    index 'group_id' => 1
+    index 'group_id' => 1, 'set_id' => 1
     has_and_belongs_to_many :patients, class_name: 'CQM::Patient'
     # Find the measures matching a patient
     def self.for_patient(record)
-      where user_id: record.user_id, set_id: { '$in' => record.measure_ids }
+      where group_id: record.group_id, set_id: { '$in' => record.measure_ids }
     end
 
     # note that this method doesn't change the _id of embedded documents, but that should be fine
