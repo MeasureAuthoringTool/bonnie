@@ -14,6 +14,8 @@ include Devise::Test::ControllerHelpers
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
     collection_fixtures(users_set, patients_set, strat_measure_patients_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.create_personal_group
+    @user.save
     associate_user_with_patients(@user, CQM::Patient.all)
     sign_in @user
 

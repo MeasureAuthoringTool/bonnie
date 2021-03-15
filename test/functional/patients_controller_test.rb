@@ -8,6 +8,8 @@ class PatientsControllerTest < ActionController::TestCase
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.create_personal_group
+    @user.save
 
     load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
     @measure = CQM::Measure.where({ "cms_id" => "CMS134v6" }).first
@@ -101,7 +103,7 @@ class PatientsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 1, CQM::Patient.count
     r = CQM::Patient.first
-    assert_equal @user.id, r.user_id
+    assert_equal @user.current_group.id, r.group_id
     assert_equal "Betty", r.fhir_patient.name[0].given[0].value
     assert_equal "Boop", r.fhir_patient.name[0].family.value
     assert_equal "116A8764-E871-472F-9503-CA27889114DE", r.measure_ids[0]
@@ -126,7 +128,7 @@ class PatientsControllerTest < ActionController::TestCase
     # source test patient to copy
     patient = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/fhir_patients/CMS124/ipp_denom_pass_test.json'))
     cqm_patient = CQM::Patient.transform_json(patient)
-    cqm_patient.user = @user
+    cqm_patient.group = @user.current_group
     cqm_patient.save!
     # 1 patient before copy
     assert_equal 1, CQM::Patient.count
@@ -184,7 +186,7 @@ class PatientsControllerTest < ActionController::TestCase
   test "update" do
     assert_equal 0, CQM::Patient.count
     patient = CQM::Patient.new
-    patient.user = @user
+    patient.group = @user.current_group
     patient.save!
     assert_equal 1, CQM::Patient.count
 
@@ -196,7 +198,7 @@ class PatientsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 1, CQM::Patient.count
     r = CQM::Patient.first
-    assert_equal @user.id, r.user_id
+    assert_equal @user.current_group.id, r.group_id
     assert_equal "Betty", r.fhir_patient.name[0].given[0].value
     assert_equal "Boop", r.fhir_patient.name[0].family.value
     assert_equal "116A8764-E871-472F-9503-CA27889114DE", r.measure_ids[0]
@@ -208,10 +210,10 @@ class PatientsControllerTest < ActionController::TestCase
     collection_fixtures(records_set)
     associate_user_with_patients(@user, CQM::Patient.all)
     patient = CQM::Patient.first
-    assert_equal 3, @user.patients.count
+    assert_equal 3, @user.current_group.patients.count
     delete :destroy, params: { id: patient.id }
     assert_response :success
-    assert_equal 2, @user.patients.count
+    assert_equal 2, @user.current_group.patients.count
     patient = CQM::Patient.where({ id: patient.id }).first
     assert_nil patient
   end

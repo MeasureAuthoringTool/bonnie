@@ -84,12 +84,12 @@ class Admin::UsersController < ApplicationController
 
   def patients
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(user.patients.map(&:as_json)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
+    send_data JSON.pretty_generate(user.current_group.patients.map(&:as_json)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
   end
 
   def measures
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(JSON.parse(user.cqm_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
+    send_data JSON.pretty_generate(JSON.parse(user.current_group.cqm_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
   end
 
   def log_in_as

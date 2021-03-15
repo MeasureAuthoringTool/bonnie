@@ -23,8 +23,22 @@ class User
     super && is_approved?
   end
 
+  after_create do
+    create_personal_group
+    send_user_signup_email
+  end
+
+  # create user's personal group
+  def create_personal_group
+    group = Group.new(_id: self.id, private:true, name: 'personal group for ' + self.email)
+    group.save()
+
+    self.current_group = group
+    self.groups = []
+    self.groups << group
+  end
+
   # Send admins an email after a user account is created
-  after_create :send_user_signup_email
   def send_user_signup_email
     UserMailer.user_signup_email(self).deliver_now
   end

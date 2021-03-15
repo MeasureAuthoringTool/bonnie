@@ -31,7 +31,7 @@ end
 def load_fhir_measure_from_json_fixture(fixture_path, user)
   measure_hash = JSON.parse File.read(File.join(Rails.root, fixture_path))
   measure = CQM::Measure.transform_json(measure_hash)
-  measure.user = user
+  measure.group = user
   measure.save!
   measure
 end
@@ -39,7 +39,7 @@ end
 def load_patient_from_json_fixture(fixture_path, user)
   patient = JSON.parse File.read(File.join(Rails.root, fixture_path))
   cqm_patient = CQM::Patient.transform_json(patient)
-  cqm_patient.user = user
+  cqm_patient.group = user.current_group
   cqm_patient.save!
   cqm_patient
 end
@@ -130,21 +130,21 @@ end
 
 def associate_user_with_measures(user,measures)
   measures.each do |m|
-    m.user = user
+    m.group = user.current_group
     m.save
   end
 end
 
 def associate_user_with_patients(user,patients)
   patients.each do |p|
-    p.user = user
+    p.group = user.current_group
     p.save
   end
 end
 
 def associate_user_with_value_sets(user,value_sets)
   value_sets.each do |vs|
-    vs.user = user
+    vs.group = user.current_group
     vs.save
   end
 end
