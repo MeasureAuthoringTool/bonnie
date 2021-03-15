@@ -676,6 +676,13 @@
     Substance: []
     Encounter: [
       {
+        path: 'identifier'
+        title: 'identifier'
+        getValue: (fhirResource) -> fhirResource?.identifier?[0]
+        setValue: (fhirResource, value) -> fhirResource.identifier = if value? then [value] else  null
+        types: ['Identifier']
+      },
+      {
         path: 'class'
         title: 'class'
         getValue: (fhirResource) => fhirResource?['class']
