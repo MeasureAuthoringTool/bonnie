@@ -199,7 +199,8 @@
         cqm.models.PrimitivePositiveInt.isPrimitivePositiveInt(type) ||
         cqm.models.PrimitiveUnsignedInt.isPrimitiveUnsignedInt(type) ||
         cqm.models.PrimitiveDecimal.isPrimitiveDecimal(type)         ||
-        cqm.models.PrimitiveId.isPrimitiveId(type)
+        cqm.models.PrimitiveId.isPrimitiveId(type)                   ||
+        cqm.models.PrimitiveUri.isPrimitiveUri(type)
       return "#{type.value}"
 
     if cqm.models.Duration.isDuration(type)  ||
@@ -323,6 +324,22 @@
         attrs.push("maxDosePerAdministration: #{@stringifyType(type.maxDosePerAdministration)}")
       if type?.maxDosePerLifetime?
         attrs.push("maxDosePerLifetime: #{@stringifyType(type.maxDosePerLifetime)}")
+      return attrs.join(" | ")
+
+    if cqm.models.Identifier.isIdentifier(type)
+      attrs = []
+      if type.use?
+        attrs.push("use: #{@stringifyType(type.use, codeSystemMap)}")
+      if type.type?
+        attrs.push("type: #{@stringifyType(type.type, codeSystemMap)}")
+      if type.system?
+        attrs.push("system: #{@stringifyType(type.system)}")
+      if type.value?
+        attrs.push("value: #{@stringifyType(type.value)}")
+      if type.period?
+        attrs.push("period: #{@stringifyType(type.period)}")
+      if type.assigner?
+        attrs.push("assigner: #{type.assigner.display}")
       return attrs.join(" | ")
 
     return JSON.stringify(type)
