@@ -1,3 +1,4 @@
+#!/bin/bash
 # parameters
 source_schema=bonnie_fhir_development
 target_schema=$source_schema

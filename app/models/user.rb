@@ -24,13 +24,19 @@ class User
   end
 
   after_create do
-    create_personal_group
     send_user_signup_email
+  end
+
+  after_save do
+    if self.current_group.nil?
+      create_personal_group
+      save
+    end
   end
 
   # create user's personal group
   def create_personal_group
-    group = Group.new(_id: self.id, private:true, name: 'personal group for ' + self.email)
+    group = Group.new(_id: id, private:true, name: 'personal group for ' + email)
     group.save()
 
     self.current_group = group

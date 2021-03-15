@@ -8,8 +8,8 @@ class Group
   field :name, :type => String
   field :is_private, :type => Boolean, :default => false
 
-  def get_users
-    User.in(group_ids: self.id)
+  def find_users
+    User.in(group_ids: id)
   end
 
 end
