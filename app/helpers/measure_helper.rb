@@ -305,7 +305,7 @@ module MeasureHelper
   end
 
   def save_and_post_process(measure, user)
-    measure.user = user
+    measure.group = user.current_group
     measure.save!
     # update_related_patient_records(measures, user)
   end
