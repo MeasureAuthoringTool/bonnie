@@ -28,7 +28,7 @@ class User
   end
 
   after_save do
-    if self.current_group.nil?
+    if current_group.nil?
       create_personal_group
       save
     end
@@ -36,12 +36,12 @@ class User
 
   # create user's personal group
   def create_personal_group
-    group = Group.new(_id: id, private:true, name: 'personal group for ' + email)
+    group = Group.new(_id: id, private:true, name: "personal group for #{email}")
     group.save
 
     self.current_group = group
     self.groups = []
-    self.groups << group
+    groups << group
   end
 
   # Send admins an email after a user account is created
