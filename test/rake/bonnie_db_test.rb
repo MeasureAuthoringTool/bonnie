@@ -33,9 +33,9 @@ class BonnieDbTest < ActiveSupport::TestCase
     measure_w_no_user.save!
 
     assert_output(
-      "Re-saving \"#{measure_1.title}\" [bonnie@example.com]\n" +
-      "Re-saving \"#{measure_2.title}\" [bonnie@example.com]\n" +
-      "Re-saving \"#{measure_w_no_user.title}\" [deleted user]\n"
+      "Re-saving \"#{measure_1.title}\" [personal group for bonnie@example.com]\n" +
+      "Re-saving \"#{measure_2.title}\" [personal group for bonnie@example.com]\n" +
+      "Re-saving \"#{measure_w_no_user.title}\" [deleted group]\n"
                  ) { Rake::Task['bonnie:db:resave_measures'].execute }
   end
 

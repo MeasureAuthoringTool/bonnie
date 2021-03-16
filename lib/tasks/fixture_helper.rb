@@ -49,7 +49,6 @@ def load_fixture_file(file, collection_name, user = nil)
     convert_times(fj)
     convert_mongoid_ids(fj)
     fix_binary_data(fj)
-    # FIXME
     fj["group_id"] = user.current_group.id if user.present?
     begin
       Mongoid.default_client[collection_name].insert_one(fj)
