@@ -161,7 +161,7 @@ class User
   # Measure and patient counts can be pre-populated or just retrieved
   attr_writer :measure_count
   def measure_count
-    @measure_count || cqm_measures.count
+    @measure_count || @current_group.cqm_measures.count
   end
 
   attr_writer :patient_count
