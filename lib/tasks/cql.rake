@@ -123,17 +123,17 @@ namespace :bonnie do
       differences
     end
 
-    desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
+    desc %{Outputs groups that have cql measures and which measures are cql in their accounts.
       Example test@test.com
                 CMS_ID: xxx   TITLE: Measure Title
     $ rake bonnie:cql:cql_measure_stats}
     task :cql_measure_stats => :environment do
 
       # Collect user info from CQL measures
-      users = {}
+      groups = {}
       CQM::Measure.all.each do |m|
-        users[m.user_id.to_s] = [] unless users.key? m.user_id.to_s
-        users[m.user_id.to_s].push({cms_id: m.cms_id, title: m.title})
+        groups[m.group_id.to_s] = [] unless groups.key? m.group_id.to_s
+        groups[m.group_id.to_s].push({cms_id: m.cms_id, title: m.title})
       end
 
       # Print info

@@ -122,7 +122,7 @@ namespace :bonnie do
     desc 'Re-save all measures, ensuring that all post processing steps (like calculating complexity) are performed again'
     task :resave_measures => :environment do
       CQM::Measure.each do |m|
-        puts "Re-saving \"#{m.title}\" [#{ m.user ? m.user.email : 'deleted user' }]"
+        puts "Re-saving \"#{m.title}\" [#{ m.group ? m.group.name : 'deleted group' }]"
         begin
           m.save
         rescue => e
@@ -313,7 +313,7 @@ namespace :bonnie do
 
       # Grab user measure to add patients to
       user_measure = ENV['HQMF_SET_ID']
-      raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
+      raise "#{user_measure} not found" unless measure = CQM::Measure.find_by(group_id: user.current_group.id, hqmf_set_id: user_measure)
 
       # Import patient objects from JSON file and save
       puts "Importing patients..."
@@ -322,7 +322,7 @@ namespace :bonnie do
         next if p.blank?
         patient = CQM::Patient.new.from_json p.strip
 
-        patient['user_id'] = user._id
+        patient['group_id'] = user.current_group.id
 
         patient['measure_ids'] = []
         patient['measure_ids'] << measure.hqmf_set_id
@@ -603,7 +603,7 @@ namespace :bonnie do
   # pass in the same user information for both src_user and dest_user.
   def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
     patients = []
-    src_user.patients.where(measure_ids: src_measure.hqmf_set_id).each do |patient|
+    src_user.current_group.patients.where(measure_ids: src_measure.hqmf_set_id).each do |patient|
       if copy
         patients.push(patient.dup)
       else
@@ -612,7 +612,7 @@ namespace :bonnie do
     end
 
     patients.each do |patient|
-      patient.user = dest_user
+      patient.group = dest_user.current_group
       patient.measure_ids.map! { |hqmf_set_id| hqmf_set_id == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : hqmf_set_id }
       patient.expectedValues.each do |expected_value|
         if expected_value['measure_id'] == src_measure.hqmf_set_id

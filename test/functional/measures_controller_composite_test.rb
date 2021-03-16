@@ -13,6 +13,9 @@ class MeasuresControllerCompositeTest < ActionController::TestCase
     patients_set = File.join("cqm_patients","base_set")
     collection_fixtures(users_set, patients_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.create_personal_group
+    @user.save
+
     associate_user_with_patients(@user, CQM::Patient.all)
     sign_in @user
     @vcr_options = {match_requests_on: [:method, :uri_no_st]}
