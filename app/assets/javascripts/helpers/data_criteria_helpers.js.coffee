@@ -338,8 +338,8 @@
         attrs.push("value: #{@stringifyType(type.value)}")
       if type.period?
         attrs.push("period: #{@stringifyType(type.period)}")
-      if type.assigner?
-        attrs.push("assigner: #{type.assigner.display}")
+      if type.assigner?.display?
+        attrs.push("assigner: #{type.assigner.display.value}")
       return attrs.join(" | ")
 
     return JSON.stringify(type)
