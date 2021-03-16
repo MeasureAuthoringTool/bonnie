@@ -33,7 +33,6 @@ class Thorax.Views.InputIdentifierView extends Thorax.Views.BonnieView
     @trigger 'valueChanged', this
 
   update: (view) ->
-    debugger
     unless view.value
       @value[view.name] = undefined
       return @value
