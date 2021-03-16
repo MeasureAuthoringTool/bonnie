@@ -37,7 +37,7 @@ class User
   # create user's personal group
   def create_personal_group
     group = Group.new(_id: id, private:true, name: 'personal group for ' + email)
-    group.save()
+    group.save
 
     self.current_group = group
     self.groups = []
