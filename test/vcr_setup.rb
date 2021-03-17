@@ -13,7 +13,7 @@ VCR.configure do |c|
   ENV['VSAC_API_KEY'] = "vcrpass" unless ENV['VSAC_API_KEY']
 
   # Ensure plain text passwords do not show up during logging
-  c.filter_sensitive_data('<VSAC_API_KEY>') {Addressable::URI.escape(ENV['VSAC_API_KEY'])}
+  c.filter_sensitive_data('<VSAC_API_KEY>') {Addressable::URI.encode(ENV['VSAC_API_KEY'])}
   c.default_cassette_options = {record: :once }
 
   # Add a custom matcher for use with the bulk request by typheous, so we can ignore service ticket
