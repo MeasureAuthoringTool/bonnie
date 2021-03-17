@@ -161,7 +161,10 @@ include Devise::Test::ControllerHelpers
     # Make sure each user's last sign in is greater than 6 months
     User.each do |user|
       user.last_sign_in_at = Date.today - 8.months
-      user.save!
+      # if user.current_group.nil?
+      #   user.create_personal_group
+      #   user.save!
+      # end
     end
     ActionMailer::Base.deliveries = [] # reset the list of email deliveries to ensure clean slate
     mail = ActionMailer::Base.deliveries

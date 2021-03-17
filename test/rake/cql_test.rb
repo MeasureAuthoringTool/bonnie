@@ -157,10 +157,10 @@ class CqlTest < ActiveSupport::TestCase
     measure_3 = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_3).first
 
     assert_output(
-      "User: #{@user.email}\n" +
+      "Group: personal group for #{@user.email}\n" +
       "  CMS_ID: #{measure_1.cms_id}  TITLE: #{measure_1.title}\n" +
       "  CMS_ID: #{measure_2.cms_id}  TITLE: #{measure_2.title}\n" +
-      "User: #{@second_user.email}\n" +
+      "Group: personal group for #{@second_user.email}\n" +
       "  CMS_ID: #{measure_3.cms_id}  TITLE: #{measure_3.title}\n"
      ) { Rake::Task['bonnie:cql:cql_measure_stats'].execute }
   end

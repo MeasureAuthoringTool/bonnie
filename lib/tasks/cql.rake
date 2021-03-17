@@ -137,9 +137,9 @@ namespace :bonnie do
       end
 
       # Print info
-      users.each do |u, m_array|
-        user = User.find_by(id: u)
-        puts 'User: ' + user.email
+      groups.each do |g, m_array|
+        group = Group.find_by(id: g)
+        puts 'Group: ' + group.name
         m_array.each do |m|
           puts "  CMS_ID: #{m[:cms_id]}  TITLE: #{m[:title]}"
         end

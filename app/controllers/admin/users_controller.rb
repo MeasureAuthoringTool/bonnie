@@ -10,8 +10,8 @@ class Admin::UsersController < ApplicationController
     # Getting the count for user measures and patients via the DB is a 1+n problem, and a bit slow, so we grab
     # the counts separately via map reduce and plug them in
     users = User.asc(:email).all.to_a # Need to convert to array so counts stick
-    map = "function() { emit(this.user_id, 1); }"
-    reduce = "function(user_id, counts) { return Array.sum(counts); }"
+    map = "function() { emit(this.group_id, 1); }"
+    reduce = "function(group_id, counts) { return Array.sum(counts); }"
     measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     patient_counts = CQM::Patient.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     users.each do |u|

@@ -68,7 +68,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['HQMF_SET_ID'] = nil
     ENV['CMS_ID'] = 'something'
 
-    assert_output("\e[31m[Error]\e[0m\t\tbonnie@example.com: something: not found\n" \
+    assert_output("\e[31m[Error]\e[0m\t\tpersonal group for bonnie@example.com: something: not found\n" \
                   "\e[31m[Error]\e[0m\t\tmeasure with CMS id something not found for account bonnie@example.com\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     # No cms id or hqmf set id variables
@@ -92,7 +92,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['HQMF_SET_ID'] = nil
     ENV['CMS_ID'] = 'CMS903v0'
 
-    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS903v0: found\n" \
+    assert_output("\e[32m[Success]\e[0m\tpersonal group for bonnie@example.com: CMS903v0: found\n" \
                   "\e[31m[Error]\e[0m\t\tNo package found for this measure.\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     # check package exists for uploaded package
@@ -116,7 +116,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['HQMF_SET_ID'] = nil
     ENV['CMS_ID'] = 'CMS160v6'
 
-    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS160v6: found\n" \
+    assert_output("\e[32m[Success]\e[0m\tpersonal group for bonnie@example.com: CMS160v6: found\n" \
                   "\e[32m[Success]\e[0m\tSuccessfully wrote CMS160v6_bonnie@example.com_2019-07-11.zip\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     assert(File.exist?('CMS160v6_bonnie@example.com_2019-07-11.zip'))

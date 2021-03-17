@@ -18,10 +18,10 @@ module CQM
       value_sets.each(&:save!)
     end
 
-    def associate_self_and_child_docs_to_user(user)
-      self.group = user.current_group
-      package.group = user.current_group if package.present?
-      value_sets.each { |vs| vs.group = user.current_group }
+    def associate_self_and_child_docs_to_group(group)
+      self.group = group
+      package.group = group if package.present?
+      value_sets.each { |vs| vs.group = group }
     end
 
     # note that this method doesn't change the _id of embedded documents, but that should be fine

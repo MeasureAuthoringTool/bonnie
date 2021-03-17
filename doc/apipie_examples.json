@@ -1,4 +1,34 @@
 {
+  "application#page_not_found": [
+    {
+      "verb": "GET",
+      "path": "/404",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Bonnie v4.2.1</title>\n    <link rel=\"stylesheet\" media=\"all\" href=\"/assets/application.css\" />\n    \n    <!--[if lt IE 9]>\n<script src=\"http://html5shim.googlecode.com/svn/trunk/html5.js\"></script>\n<![endif]-->\n    <style id=\"antiClickjack\">body{display:none !important;}</style>\n<script type=\"text/javascript\">\n   if (self === top) {\n       var antiClickjack = document.getElementById(\"antiClickjack\");\n       antiClickjack.parentNode.removeChild(antiClickjack);\n   } else {\n       top.location = self.location;\n   }\n</script>\n\n  </head>\n\n  <body>\n    <a href class=\"sr-only skip-content\">Skip to main content</a>\n    \n    <div class=\"container\">\n      \n      <div id=\"bonnie\" role=\"main\">\n        <div class=\"error-page\">\n          <h1 class=\"text-primary\">Page Not Found</h1>\n<p class=\"text-center text-info\">\n  <strong>\n    <i class=\"fa fa-fw fa-3x fa-question-circle\" aria-hidden=\"true\"></i>\n    <img alt=\"\" src=\"/assets/Rabbit-96-blue.png\" />\n    <i class=\"fa fa-fw fa-3x fa-question-circle\" aria-hidden=\"true\"></i>\n  </strong>\n</p>\n<p class=\"lead\">We're sorry but Bonnie can't find this page. You might have followed a bad link or mis-typed a URL.</p>\n\n<div class=\"error-links\">\n  <a class=\"btn btn-lg btn-primary\" href=\"/\">Go To Dashboard</a>\n  <a href=\"https://oncprojectracking.healthit.gov/support/projects/BONNIE\" class=\"btn btn-lg btn-default\">Report bug</a>\n</div>\n\n\n        </div>\n      </div>\n      <p id=\"ariaalerts\" class=\"sr-only\" role=\"log\" aria-live=\"polite\"></p>\n    </div>\n  </body>\n\n  <script src=\"/assets/application.js\"></script>\n</html>\n",
+      "code": "404",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "application#server_error": [
+    {
+      "verb": "GET",
+      "path": "/500",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Bonnie v4.2.1</title>\n    <link rel=\"stylesheet\" media=\"all\" href=\"/assets/application.css\" />\n    \n    <!--[if lt IE 9]>\n<script src=\"http://html5shim.googlecode.com/svn/trunk/html5.js\"></script>\n<![endif]-->\n    <style id=\"antiClickjack\">body{display:none !important;}</style>\n<script type=\"text/javascript\">\n   if (self === top) {\n       var antiClickjack = document.getElementById(\"antiClickjack\");\n       antiClickjack.parentNode.removeChild(antiClickjack);\n   } else {\n       top.location = self.location;\n   }\n</script>\n\n  </head>\n\n  <body>\n    <a href class=\"sr-only skip-content\">Skip to main content</a>\n    \n    <div class=\"container\">\n      \n      <div id=\"bonnie\" role=\"main\">\n        <div class=\"error-page\">\n          <h1 class=\"text-danger\">Server Error</h1>\n<p class=\"text-center text-danger\">\n  <strong>\n    <i class=\"fa fa-fw fa-3x fa-exclamation-triangle\" aria-hidden=\"true\"></i>\n    <img alt=\"\" src=\"/assets/Rabbit-96-brown.png\" />\n    <i class=\"fa fa-fw fa-3x fa-exclamation-triangle\" aria-hidden=\"true\"></i>\n  </strong>\n</p>\n<p class=\"lead\">Something went wrong with this request. This is likely a problem with Bonnie rather than a mistake on your part.</p>\n\n<div class=\"error-links\">\n  <a class=\"btn btn-lg btn-primary\" href=\"/\">Go To Dashboard</a>\n  <a href=\"https://oncprojectracking.healthit.gov/support/projects/BONNIE\" class=\"btn btn-lg btn-default\">Report bug</a>\n</div>\n\n\n        </div>\n      </div>\n      <p id=\"ariaalerts\" class=\"sr-only\" role=\"log\" aria-live=\"polite\"></p>\n    </div>\n  </body>\n\n  <script src=\"/assets/application.js\"></script>\n</html>\n",
+      "code": "500",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "measures#calculated_results": [
     {
       "verb": "GET",
@@ -36,289 +66,23 @@
   "measures#create": [
     {
       "verb": "POST",
-      "path": "/api_v1/measures",
+      "path": "/measures",
       "versions": [
-        "1"
+
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-229765-Y7POniqQxajnVMdFfJHROMc9YhBM0eWpcwAoRRXaBWWunfpX3z-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254978\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CCDELookback_v5_4_Artifacts.zip\"\nContent-Length: 33409\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculate_sdes\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/FA75DE85-A934-45D7-A2F7-C700A756078B"
+      "request_data": {
+        "vsac_query_type": "profile",
+        "vsac_query_profile": "Latest eCQM",
+        "vsac_query_include_draft": "false",
+        "vsac_query_measure_defined": "true",
+        "vsac_api_key": "vcrpass",
+        "measure_file": "<FILE CONTENT 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'>",
+        "measure_type": "ep",
+        "calculation_type": "patient"
       },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1607725-oda34qcvLWgePdCEzJa7caJB2SBBiQSxLZ70cNaxeAp5KuldU6-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254980\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS903v0.zip\"\nContent-Length: 26016\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1605006-uupglBeZhFBRfMzKgvFtau4356362elwt0a3zf1cdj7WrTKKSr-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254981\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS903v0.zip\"\nContent-Length: 26016\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-229775-WiyP9sidfTaL9UcRhAS2TfzI9hfnQ4NlemgoYRdl9dStBjvo1P-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254982\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_missing_vs_oid_Artifacts.zip\"\nContent-Length: 37118\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Measure loading process encountered error: The HQMF file references the following valuesets not present in the CQL: [\"2.16.840.1.113883.3.464.1003.106.12.1005\"]"
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nrelease\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_release\"\nContent-Length: 9\n\nFake 1234\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1609200-fBDspEGrKxqCTG7EeiEFQ6wYKuj6wSzeMEedcNLIEhPL7EhjGb-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254982\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS903v0.zip\"\nContent-Length: 26016\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "VSAC value set (2.16.840.1.113883.3.117.1.7.1.87) not found or is empty. Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254983\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS903v0.zip\"\nContent-Length: 26016\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "VSAC session expired. Please try again."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"IETCQL_v5_0_bad_hqmf_Artifacts.zip\"\nContent-Length: 36975\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-229777-b7DupsjqMT7gXq7BcdPknukrvcso7aadQ22zbyFybQxNSi9ZuV-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254983\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "The measure could not be loaded, Bonnie has encountered an error while trying to load the measure."
-      },
-      "code": "500",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nrelease\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-229781-YIhoEhCRAZw0cJkTHfuhc0BhRwbp6HKWp9soIIWzmmYkPztSpK-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254984\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CCDELookback_v5_4_Artifacts.zip\"\nContent-Length: 33409\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculate_sdes\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/FA75DE85-A934-45D7-A2F7-C700A756078B"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS52_v5_4_Artifacts.zip\"\nContent-Length: 74443\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 8\n\naddition\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254986\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Invalid parameter 'calculation_type': Must be one of: <code>episode</code>, <code>patient</code>."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Missing parameter: calculation_type"
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"\nContent-Length: 14\n\nnot-a-file.gif\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254986\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS160v6.json\"\nContent-Length: 913035\nContent-Type: \nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254986\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Missing parameter: measure_file"
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"not_mat_export.zip\"\nContent-Length: 86701\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 3\n\nfoo\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254987\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1609088-X9viqkKaxsKedIxyNP6DxSdt0hdNXeQPeydzTFPCtRDV9BXjWb-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254987\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS903v0.zip\"\nContent-Length: 26016\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nSecond Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nThird Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 66\n\nTGT-1608142-QFKHeYeumf3K4nJxmBU7sxVQrgKGJyUbvzX6BnaTclos5ipYYl-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254989\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS903v0.zip\"\nContent-Length: 26016\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nSecond Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nThird Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/4DC3E7AA-8777-4749-A1E4-37E942036076"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts_missing_component.zip\"\nContent-Length: 357915\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-229837-i0L1YgPAKBbMAd5slQ2CVBDiYpWIVcx3Nf7bVccJELGGSzADJU-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254991\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Measure loading process encountered error: Elm library AnnualWellnessAssessmentPreventiveCareScreeningforFallsRisk referenced but not found."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_type\"\nContent-Length: 7\n\nprofile\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_profile\"\nContent-Length: 11\n\nLatest eCQM\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_include_draft\"\nContent-Length: 5\n\nfalse\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_query_measure_defined\"\nContent-Length: 4\n\ntrue\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMSAWA_v5_6_Artifacts_missing_file.zip\"\nContent-Length: 441048\nContent-Type: application/xml\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\npatient\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt\"\nContent-Length: 65\n\nTGT-229837-i0L1YgPAKBbMAd5slQ2CVBDiYpWIVcx3Nf7bVccJELGGSzADJU-cas\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"vsac_tgt_expires_at\"\nContent-Length: 10\n\n1589254991\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export."
-      },
-      "code": "400",
+      "response_data": "<html><body>You are being <a href=\"http://test.host/#\">redirected</a>.</body></html>",
+      "code": "302",
       "show_in_doc": 1,
       "recorded": true
     }
@@ -679,6 +443,177 @@
       "recorded": true
     }
   ],
+  "users#approve": [
+    {
+      "verb": "POST",
+      "path": "/admin/users/501fdba3044a111b98000004/approve.json",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "user": {
+        }
+      },
+      "response_data": {
+        "_id": "501fdba3044a111b98000004",
+        "admin": false,
+        "agree_license": true,
+        "approved": true,
+        "company": "MITRE",
+        "company_url": "http://www.mitre.org/",
+        "crosswalk_enabled": false,
+        "current_group_id": "501fdba3044a111b98000004",
+        "dashboard": false,
+        "dashboard_set": false,
+        "email": "user_unapproved@example.com",
+        "first_name": "unapproved",
+        "group_ids": [
+
+        ],
+        "last_name": "unapproved",
+        "portfolio": false,
+        "telephone": null
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#destroy": [
+    {
+      "verb": "DELETE",
+      "path": "/admin/users/501fdba3044a111b98000003.json",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "user": {
+        }
+      },
+      "response_data": {
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#disable": [
+    {
+      "verb": "POST",
+      "path": "/admin/users/501fdba3044a111b98000003/disable.json",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "user": {
+        }
+      },
+      "response_data": {
+        "_id": "501fdba3044a111b98000003",
+        "admin": false,
+        "agree_license": true,
+        "approved": false,
+        "company": "MITRE",
+        "company_url": "http://www.mitre.org/",
+        "crosswalk_enabled": false,
+        "current_group_id": "501fdba3044a111b98000003",
+        "dashboard": false,
+        "dashboard_set": false,
+        "email": "user_plain@example.com",
+        "first_name": "plain",
+        "group_ids": [
+
+        ],
+        "last_name": "plain",
+        "portfolio": false,
+        "telephone": null
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#email_active": [
+    {
+      "verb": "POST",
+      "path": "/admin/users/email_active.json",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "subject": "Example Subject for Testing",
+        "body": "test body of email",
+        "user": {
+        }
+      },
+      "response_data": {
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/admin/users/email_active.json",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "subject": "Example Subject for Testing",
+        "body": "test body of email",
+        "user": {
+        }
+      },
+      "response_data": {
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/admin/users/email_active.json",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "subject": "Example Subject for Testing",
+        "body": "test body of email",
+        "user": {
+        }
+      },
+      "response_data": {
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/admin/users/email_active.json",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "subject": "Email Sent!",
+        "body": "test body of email",
+        "user": {
+        }
+      },
+      "response_data": {
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "users#index": [
     {
       "verb": "GET",
@@ -697,10 +632,14 @@
           "company": "MITRE",
           "company_url": "http://www.mitre.org/",
           "crosswalk_enabled": false,
+          "current_group_id": "501fdba3044a111b98000001",
           "dashboard": false,
           "dashboard_set": false,
           "email": "bonnie@example.com",
           "first_name": "bonnie",
+          "group_ids": [
+
+          ],
           "last_name": "bonnie",
           "portfolio": false,
           "telephone": null,
@@ -716,10 +655,14 @@
           "company": "MITRE",
           "company_url": "http://www.mitre.org/",
           "crosswalk_enabled": false,
+          "current_group_id": "501fdba3044a111b98000002",
           "dashboard": false,
           "dashboard_set": false,
           "email": "user_admin@example.com",
           "first_name": "admin",
+          "group_ids": [
+
+          ],
           "last_name": "admin",
           "portfolio": false,
           "telephone": null,
@@ -735,10 +678,14 @@
           "company": "MITRE",
           "company_url": "http://www.mitre.org/",
           "crosswalk_enabled": false,
+          "current_group_id": "501fdba3044a111b98000003",
           "dashboard": false,
           "dashboard_set": false,
           "email": "user_plain@example.com",
           "first_name": "plain",
+          "group_ids": [
+
+          ],
           "last_name": "plain",
           "portfolio": false,
           "telephone": null,
@@ -754,10 +701,14 @@
           "company": "MITRE",
           "company_url": "http://www.mitre.org/",
           "crosswalk_enabled": false,
+          "current_group_id": "501fdba3044a111b98000004",
           "dashboard": false,
           "dashboard_set": false,
           "email": "user_unapproved@example.com",
           "first_name": "unapproved",
+          "group_ids": [
+
+          ],
           "last_name": "unapproved",
           "portfolio": false,
           "telephone": null,
@@ -767,6 +718,22 @@
         }
       ],
       "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#log_in_as": [
+    {
+      "verb": "POST",
+      "path": "/admin/users/501fdba3044a111b98000003/log_in_as",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": "<html><body>You are being <a href=\"http://test.host/\">redirected</a>.</body></html>",
+      "code": "302",
       "show_in_doc": 1,
       "recorded": true
     }

@@ -186,8 +186,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, user_patients.count)
 
     assert_output(
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS903v0:LikeCMS32 found\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS903v0:LikeCMS32 found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
       "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS903v0:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
@@ -216,12 +216,12 @@ class BonniePatientsTest < ActiveSupport::TestCase
       # test 1 user not found failure
       "\e[#{31}m#{"[Error]"}\e[0m\t\ttest1@example.com not found\n" +
       # test 2 dest measure not found
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS903v0:LikeCMS32 found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS903v0:LikeCMS32 found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS903v0:LikeCMS32 to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
       # test 3 source measure not found
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:LikeCMS32 not found\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: test3:LikeCMS32 not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
@@ -255,16 +255,16 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     assert_output(
       # test 1 source title incorrect for duplicate cms ids
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS903v0:Test 1 LikeCMS32 not found\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: CMS903v0:Test 1 LikeCMS32 not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS903v0:Test 1 LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n" +
       # test 2 destination title incorrect for duplicate cms ids
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS903v0:Test 2 LikeCMS32 not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: CMS903v0:Test 2 LikeCMS32 not found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS160v6:Depression Utilization of the PHQ-9 Tool to CMS903v0:Test 2 LikeCMS32\n\n" +
       # test 3 measure title and cms id are duplicates
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS903v0:LikeCMS32 not unique\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: CMS903v0:LikeCMS32 not unique\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS903v0:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
@@ -296,8 +296,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, user_patients.count)
 
     assert_output(
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS903v0:LikeCMS32 found\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS903v0:LikeCMS32 found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
       "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS903v0:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
@@ -333,6 +333,11 @@ class BonniePatientsTest < ActiveSupport::TestCase
     dump_database
     users_set = File.join('users', 'base_set')
     collection_fixtures(users_set)
+    User.all.each do |u|
+      u.create_personal_group
+      u.save
+    end
+
 
     hqmf_set_id =  '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
     load_measure_fixtures_from_folder(File.join('measures', 'CMS177v6'), @source_user)

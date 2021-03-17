@@ -160,7 +160,7 @@ class User
   attr_writer :measure_count
 
   def measure_count
-    @measure_count || @current_group&.cqm_measures&.count
+    @measure_count || self.current_group&.cqm_measures&.count || 0
   end
 
   attr_writer :patient_count

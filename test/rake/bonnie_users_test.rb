@@ -108,10 +108,10 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     # confirm base state
 
-    source_measures = CQM::Measure.where(user_id:source_user.id)
-    dest_measures = CQM::Measure.where(user_id:dest_user.id)
-    source_patients = CQM::Patient.where(user_id:source_user.id)
-    dest_patients = CQM::Patient.where(user_id:dest_user.id)
+    source_measures = CQM::Measure.where(group_id:source_user.current_group.id)
+    dest_measures = CQM::Measure.where(group_id:dest_user.current_group.id)
+    source_patients = CQM::Patient.where(group_id:source_user.current_group.id)
+    dest_patients = CQM::Patient.where(group_id:dest_user.current_group.id)
 
     assert_equal(1, source_measures.count)
     assert_equal(measure._id, source_measures.first._id)
@@ -179,8 +179,8 @@ class BonnieUsersTest < ActiveSupport::TestCase
     assert_equal(4, dest_patients.count)
 
     assert_equal(vs_count_measure, dest_measures.first.value_sets.count)
-    assert_equal(vs_count_user, CQM::ValueSet.where(user_id: dest_user).count)
-    assert_equal(0, CQM::ValueSet.where(user_id: source_user).count)
+    assert_equal(vs_count_user, CQM::ValueSet.where(group_id: dest_user.current_group.id).count)
+    assert_equal(0, CQM::ValueSet.where(group_id: source_user.current_group.id).count)
   end
 
 end
