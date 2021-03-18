@@ -838,7 +838,7 @@ def print_helper(title, patient)
   end
   printf "%-80s", "\e[#{36}m#{"#{patient.first} #{patient.last}"}\e[0m"
   begin
-    account = User.find(patient.user_id).email
+    account = User.find(patient.group_id).email
     printf "%-35s %s", account.to_s, " #{patient.measure_ids[0]}\n"
   rescue Mongoid::Errors::DocumentNotFound
     puts "ORPHANED"
