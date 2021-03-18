@@ -32,13 +32,13 @@ class User
 
   after_save do
     if current_group.nil?
-      create_personal_group
+      init_personal_group
       save
     end
   end
 
   # create user's personal group
-  def create_personal_group
+  def init_personal_group
     group = Group.new(_id: id, is_personal:true, name: "personal group for #{email}")
     group.save()
 

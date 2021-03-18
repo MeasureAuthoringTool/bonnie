@@ -10,7 +10,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     collection_fixtures(users_set, patients_set)
     @email = 'bonnie@example.com'
     @user = User.by_email('bonnie@example.com').first
-    @user.create_personal_group
+    @user.init_personal_group
     @user.save
 
     @hqmf_set_id_1 = '4DC3E7AA-8777-4749-A1E4-37E942036076'

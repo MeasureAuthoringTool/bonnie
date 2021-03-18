@@ -16,11 +16,11 @@ class BonniePatientsTest < ActiveSupport::TestCase
     @dest_hqmf_set_id = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
 
     @source_user = User.by_email('bonnie@example.com').first
-    @source_user.create_personal_group
+    @source_user.init_personal_group
     @source_user.save
 
     @dest_user = User.by_email('user_admin@example.com').first
-    @dest_user.create_personal_group
+    @dest_user.init_personal_group
     @dest_user.save
 
     load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @source_user) # '4DC3E7AA-8777-4749-A1E4-37E942036076'
@@ -334,7 +334,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     users_set = File.join('users', 'base_set')
     collection_fixtures(users_set)
     User.all.each do |u|
-      u.create_personal_group
+      u.init_personal_group
       u.save
     end
 

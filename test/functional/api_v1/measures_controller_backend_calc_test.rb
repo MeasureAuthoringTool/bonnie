@@ -12,7 +12,7 @@ module ApiV1
       patient_fixtures = File.join("patients", "CMS160v6")
       collection_fixtures(users_set, patient_fixtures)
       @user = User.by_email('bonnie@example.com').first
-      @user.create_personal_group
+      @user.init_personal_group
       @user.save
 
       load_measure_fixtures_from_folder(File.join("measures", "CMS160v6"), @user)

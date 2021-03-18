@@ -11,7 +11,7 @@ class RecordTest < ActiveSupport::TestCase
     @measure = CQM::Measure.where(hqmf_set_id: @measure_set_id).first
     @user = User.create(email: 'bonnie@example.com', password: 'b0nn13p455', approved: true, admin: true)
     if @user.current_group.nil?
-      create_personal_group
+      init_personal_group
       save
     end
     collection_fixtures_with_user([patients_set], @user)

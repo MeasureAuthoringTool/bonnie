@@ -443,6 +443,54 @@
       "recorded": true
     }
   ],
+  "registrations#create": [
+    {
+      "verb": "POST",
+      "path": "/users",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "agree_license": "1",
+        "authenticity_token": "0n4OMnJb0zHfByZcHZdWBpQpxqW0YolmC/2Iig35tIk=",
+        "commit": "Register",
+        "user": {
+          "email": "foobar@mitre.org",
+          "first_name": "Foo",
+          "last_name": "Bar",
+          "password": "[FILTERED]",
+          "password_confirmation": "[FILTERED]",
+          "telephone": "555-555-5555"
+        },
+        "utf8": "✓"
+      },
+      "response_data": "<html><body>You are being <a href=\"http://test.host/users/sign_in\">redirected</a>.</body></html>",
+      "code": "302",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "registrations#destroy": [
+    {
+      "verb": "DELETE",
+      "path": "/users",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "current_password": "wrongpass",
+        "user": {
+          "users_email": "bonnie@example.com"
+        }
+      },
+      "response_data": "<html><body>You are being <a href=\"http://test.host/users/edit\">redirected</a>.</body></html>",
+      "code": "302",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "users#approve": [
     {
       "verb": "POST",

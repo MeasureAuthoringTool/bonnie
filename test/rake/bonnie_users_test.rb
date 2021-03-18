@@ -93,11 +93,11 @@ class BonnieUsersTest < ActiveSupport::TestCase
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set, patients_set)
     source_user = User.by_email('bonnie@example.com').first
-    source_user.create_personal_group
+    source_user.init_personal_group
     source_user.save
 
     dest_user = User.by_email('user_admin@example.com').first
-    dest_user.create_personal_group
+    dest_user.init_personal_group
     dest_user.save
 
     load_measure_fixtures_from_folder(File.join("measures", "CMS903v0"), source_user)
