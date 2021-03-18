@@ -9,7 +9,7 @@ db.users.find().forEach(function (user) {
     print("Creating default/personal group for : " + user.email);
     db.groups.insert({
         _id: user._id,
-        private: true,
+        is_personal: true,
         name: "personal group for " + user.email,
     });
     print("Adding user to the default group : " + user.email);

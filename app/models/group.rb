@@ -6,7 +6,7 @@ class Group
   has_many :patients, class_name: 'CQM::Patient'
 
   field :name, :type => String
-  field :is_private, :type => Boolean, :default => false
+  field :is_personal, :type => Boolean, :default => false
 
   def find_users
     User.in(group_ids: id)

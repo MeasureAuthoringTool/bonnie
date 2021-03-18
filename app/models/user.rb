@@ -39,12 +39,16 @@ class User
 
   # create user's personal group
   def create_personal_group
-    group = Group.new(_id: id, private:true, name: "personal group for #{email}")
+    group = Group.new(_id: id, is_personal:true, name: "personal group for #{email}")
     group.save()
 
     self.current_group = group
     groups = []
     groups << group
+  end
+
+  def find_personal_group
+    groups.where(id: id).first
   end
 
   ## Database authenticatable
@@ -160,7 +164,7 @@ class User
   attr_writer :measure_count
 
   def measure_count
-    @measure_count || self.current_group&.cqm_measures&.count || 0
+    @measure_count || current_group&.cqm_measures&.count || 0
   end
 
   attr_writer :patient_count
