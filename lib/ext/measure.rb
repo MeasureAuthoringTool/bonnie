@@ -23,7 +23,7 @@ module CQM
 
     def dup_and_remove_user(mongoid_doc)
       new_doc = mongoid_doc.dup
-      new_doc.user = nil
+      new_doc.group = nil
       new_doc
     end
 

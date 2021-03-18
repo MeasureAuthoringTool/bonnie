@@ -29,19 +29,23 @@ class User
 
   after_save do
     if current_group.nil?
-      create_personal_group
+      init_personal_group
       save
     end
   end
 
   # create user's personal group
-  def create_personal_group
-    group = Group.new(_id: id, private:true, name: "personal group for #{email}")
+  def init_personal_group
+    group = Group.new(_id: id, is_personal:true, name: "personal group for #{email}")
     group.save
 
     self.current_group = group
     self.groups = []
     groups << group
+  end
+
+  def find_personal_group
+    groups.where(id: id).first
   end
 
   # Send admins an email after a user account is created
@@ -161,7 +165,7 @@ class User
   # Measure and patient counts can be pre-populated or just retrieved
   attr_writer :measure_count
   def measure_count
-    @measure_count || @current_group.cqm_measures.count
+    @measure_count || current_group&.cqm_measures&.count || 0
   end
 
   attr_writer :patient_count

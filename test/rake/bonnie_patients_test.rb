@@ -16,7 +16,12 @@ class BonniePatientsTest < ActiveSupport::TestCase
     @dest_set_id = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
 
     @source_user = User.by_email('bonnie@example.com').first
+    @source_user.init_personal_group
+    @source_user.save
+
     @dest_user = User.by_email('user_admin@example.com').first
+    @dest_user.init_personal_group
+    @dest_user.save
 
     load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @source_user) # '4DC3E7AA-8777-4749-A1E4-37E942036076'
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @source_user) # 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
@@ -110,8 +115,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
-    source_patients = CQM::Patient.where(user_id:@source_user.id)
-    dest_patients = CQM::Patient.where(user_id:@dest_user.id)
+    source_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
+    dest_patients = CQM::Patient.where(group_id:@dest_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -127,8 +132,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
 
-    source_patients = CQM::Patient.where(user_id:@source_user.id)
-    dest_patients = CQM::Patient.where(user_id:@dest_user.id)
+    source_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
+    dest_patients = CQM::Patient.where(group_id:@dest_user.current_group.id)
 
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
@@ -147,8 +152,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
-    source_patients = CQM::Patient.where(user_id:@source_user.id)
-    dest_patients = CQM::Patient.where(user_id:@dest_user.id)
+    source_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
+    dest_patients = CQM::Patient.where(group_id:@dest_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -164,8 +169,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal(4, source_patients.count)
     assert_equal(4, dest_patients.count)
 
-    source_patients = CQM::Patient.where(user_id:@source_user.id)
-    dest_patients = CQM::Patient.where(user_id:@dest_user.id)
+    source_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
+    dest_patients = CQM::Patient.where(group_id:@dest_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(4, dest_patients.count)
@@ -177,7 +182,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     source_patients = CQM::Patient.where(measure_ids:@source_set_id)
     dest_patients = CQM::Patient.where(measure_ids:@dest2_set_id)
-    user_patients = CQM::Patient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -191,7 +196,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     source_patients = CQM::Patient.where(measure_ids:@source_set_id)
     dest_patients = CQM::Patient.where(measure_ids:@dest2_set_id)
-    user_patients = CQM::Patient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
 
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
@@ -204,7 +209,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     source_patients = CQM::Patient.where(measure_ids:@source_set_id)
     dest_patients = CQM::Patient.where(measure_ids:@dest2_set_id)
-    user_patients = CQM::Patient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -214,18 +219,18 @@ class BonniePatientsTest < ActiveSupport::TestCase
       # test 1 user not found failure
       "\e[#{31}m#{"[Error]"}\e[0m\t\ttest1@example.com not found\n" +
       # test 2 dest measure not found
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS903v0:LikeCMS32 found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS903v0:LikeCMS32 found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS903v0:LikeCMS32 to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
       # test 3 source measure not found
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:LikeCMS32 not found\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: test3:LikeCMS32 not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = CQM::Patient.where(measure_ids:@source_set_id)
     dest_patients = CQM::Patient.where(measure_ids:@dest2_set_id)
-    user_patients = CQM::Patient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -246,7 +251,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     source_patients = CQM::Patient.where(measure_ids:@source_set_id)
     dest_patients = CQM::Patient.where(measure_ids:@dest2_set_id)
-    user_patients = CQM::Patient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -269,7 +274,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     source_patients = CQM::Patient.where(measure_ids:@source_set_id)
     dest_patients = CQM::Patient.where(measure_ids:@dest2_set_id)
-    user_patients = CQM::Patient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -289,7 +294,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     source_patients = CQM::Patient.where(measure_ids:@source_set_id)
     dest_patients = CQM::Patient.where(measure_ids:@dest2_set_id)
-    user_patients = CQM::Patient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
 
     assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
@@ -303,7 +308,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     source_patients = CQM::Patient.where(measure_ids:@source_set_id)
     dest_patients = CQM::Patient.where(measure_ids:@dest2_set_id)
-    user_patients = CQM::Patient.where(user_id:@source_user.id)
+    user_patients = CQM::Patient.where(group_id:@source_user.current_group.id)
 
     assert_equal(0, source_patients.count)
     assert_equal(4, dest_patients.count)
@@ -344,7 +349,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['FILENAME'] = File.join('test','fixtures','patient_export','cms104v3_export_patients_test.json')
     Rake::Task['bonnie:patients:import_patients'].execute
     # Confirm that there are 4 patients now associated with this measure.
-    assert_equal 4, CQM::Patient.where(measure_ids: set_id, user_id: @source_user._id).count
+    assert_equal 4, CQM::Patient.where(measure_ids: set_id, group_id: @source_user.current_group.id).count
   end
 
 end

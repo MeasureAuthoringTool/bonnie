@@ -185,7 +185,7 @@ module MeasureHelper
     measure = extract_measure!(uploaded_file.tempfile, measure_details, value_set_loader)
     existing = CQM::Measure.by_user(user).where(set_id: measure.set_id).first
     raise MeasureLoadingMeasureAlreadyExists.new(measure.set_id) unless existing.nil?
-    save_and_post_process(measure, user)
+    save_and_post_process(measure, user.current_group)
     measure
   rescue StandardError => e
     measure&.delete
@@ -198,7 +198,6 @@ module MeasureHelper
     existing = CQM::Measure.by_user(user).where({:set_id=> target_id}).first
     raise MeasureUpdateMeasureNotFound.new if existing.nil?
     measure_details = extract_measure_details_from_measure(existing)
-    # original_year = existing.measure_period['low']['value'][0..3]
 
     measure = extract_measure!(uploaded_file.tempfile, measure_details, value_set_loader)
     raise MeasureLoadingUpdatingWithMismatchedMeasure.new if measure.set_id != existing.set_id
@@ -207,7 +206,7 @@ module MeasureHelper
     # measure.measure_period[:low][:value] = original_year + '01010000' # Jan 1, 00:00
     # measure.measure_period[:high][:value] = original_year + '12312359' # Dec 31, 23:59
     existing.delete
-    save_and_post_process(measure, user)
+    save_and_post_process(measure, user.current_group)
     measure
   rescue StandardError => e
     measure&.delete
@@ -279,9 +278,9 @@ module MeasureHelper
     end
   end
 
-  def update_related_patient_records(measure, current_user)
+  def update_related_patient_records(measure, group)
     # Ensure expected values on patient match those in the measure's populations
-    CQM::Patient.where(user_id: current_user.id, measure_ids: measure.set_id).each do |patient|
+    CQM::Patient.where(group_id: group.id, measure_ids: measure.set_id).each do |patient|
       patient.update_expected_value_structure!(measure)
     end
   end
@@ -304,10 +303,10 @@ module MeasureHelper
     raise convert_vsac_error_into_shared_error(e)
   end
 
-  def save_and_post_process(measure, user)
-    measure.group = user.current_group
+  def save_and_post_process(measure, group)
+    measure.group = group
     measure.save!
-    # update_related_patient_records(measures, user)
+    # update_related_patient_records(measures, group)
   end
 
   def log_measure_loading_error(error, uploaded_file, user)

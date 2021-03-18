@@ -14,7 +14,7 @@ include Devise::Test::ControllerHelpers
     load_measure_fixtures_from_folder(File.join('measures', 'CMS160v6'), @user)
     collection_fixtures(users_set, patients_set, strat_measure_patients_set)
     @user = User.by_email('bonnie@example.com').first
-    @user.create_personal_group
+    @user.init_personal_group
     @user.save
     associate_user_with_patients(@user, CQM::Patient.all)
     sign_in @user
@@ -71,7 +71,6 @@ include Devise::Test::ControllerHelpers
       assert_equal '21F5386A-AC56-4C4F-98A7-476B5078E626', measure.set_id
       assert_equal 'Discharged on Antithrombotic Therapy', measure.fhir_measure.title.value
       assert_equal 5, measure.libraries.size
-      assert_equal 48, measure.value_sets.count
 
       # delete measure
       delete :destroy, params: { id: measure.id.to_s }
@@ -104,10 +103,10 @@ include Devise::Test::ControllerHelpers
 
   test 'Upload & destroy FHIR Measure' do
     # assert_equal '1', '2'
+    APP_CONFIG['virus_scan']['enabled'] = false
     VCR.use_cassette('vsac_response_for_upload_CMS104', @vcr_options) do
       measure = CQM::Measure.where({set_id: '21F5386A-AC56-4C4F-98A7-476B5078E626'}).first
       assert_nil measure
-      # measure_file = fixture_file_upload(File.join('test', 'fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'), 'application/zip')
       measure_file = fixture_file_upload(File.join(Rails.root, 'test/fixtures/fhir_measures/CMS104/CMS104_v6_0_Artifacts.zip'), 'application/zip')
 
       post :create, params: {

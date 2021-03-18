@@ -8,7 +8,7 @@ class PatientsControllerTest < ActionController::TestCase
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set)
     @user = User.by_email('bonnie@example.com').first
-    @user.create_personal_group
+    @user.init_personal_group
     @user.save
 
     load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
@@ -43,7 +43,7 @@ class PatientsControllerTest < ActionController::TestCase
       'notes' => 'Boop-Oop-a-Doop',
       'qdmPatient' => qdm_patient,
       'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"],
-      'user_id' => @user.id
+      'group_id' => @user.current_group.id
     } }
 
     @fhir_patient_params = {
