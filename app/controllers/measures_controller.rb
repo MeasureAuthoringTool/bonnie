@@ -1,5 +1,6 @@
 class MeasuresController < ApplicationController
   include MeasureHelper
+  include VirusScanHelper
 
   skip_before_action :verify_authenticity_token, only: [:show]
 
@@ -29,8 +30,16 @@ class MeasuresController < ApplicationController
     end
 
     begin
+      scan_for_viruses(params[:measure_file])
       vsac_tgt = obtain_ticket_granting_ticket
+    rescue VirusFoundError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise MeasurePackageVirusFoundError.new
+    rescue VirusScannerError => e
+      logger.error "VIRSCAN: error message: #{e.message}"
+      raise MeasurePackageVirusScannerError.new
     rescue Util::VSAC::VSACError => e
+      logger.error "VSACError: error message: #{e.message}"
       raise convert_vsac_error_into_shared_error(e)
     end
 
