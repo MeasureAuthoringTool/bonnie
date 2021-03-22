@@ -19,15 +19,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby 2.4
+      - name: Set up Ruby 2.7.2
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.4
+          ruby-version: 2.7.2
           bundler-cache: true
 
       - name: Install bundler & bundle-audit
         run: |
-          gem install bundler -v 1.17.3
+          gem install bundler -v 2.1.4
           gem install bundle-audit
 
       - name: Install ruby gems
