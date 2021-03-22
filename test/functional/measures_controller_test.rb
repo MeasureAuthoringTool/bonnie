@@ -96,8 +96,8 @@ include Devise::Test::ControllerHelpers
       }
       assert_not_nil flash
       assert_equal 'Error Loading Measure', flash[:error][:title]
-      assert_equal 'The uploaded file is not a valid Measure Authoring Tool (MAT) export of a FHIR Based Measure.', flash[:error][:summary]
-      assert_equal 'Error: V100. Please re-package and re-export your FHIR based measure from the MAT and try again.', flash[:error][:body]
+      assert_equal 'The uploaded file is not a valid Measure Authoring Tool (MAT) export of a QDM Based Measure.', flash[:error][:summary]
+      assert_equal 'Error: V100. Please re-package and re-export your QDM based measure from the MAT and try again.', flash[:error][:body]
       assert_response :redirect
     end
   end
