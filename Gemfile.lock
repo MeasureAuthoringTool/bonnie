@@ -1,13 +1,6 @@
 GIT
-  remote: https://github.com/MeasureAuthoringTool/fhir-mongoid-models.git
-  revision: 2cd067d9c0c772cde557dbdc3e9ef5e6b36eda51
-  branch: develop
-  specs:
-    fhir-mongoid-models (0.0.3)
-
-GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: c6fe55ad3775fe26ff61b32ae92dcd15ce9a2992
+  revision: 27793d148922af75e2be6443da2109e4e14c151b
   branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
@@ -159,6 +152,7 @@ GEM
     eventmachine (1.2.7)
     execjs (2.7.0)
     ffi (1.15.0)
+    fhir-mongoid-models (0.0.4)
     foreman (0.87.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -395,7 +389,7 @@ DEPENDENCIES
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.2.0)
   exception_notification!
-  fhir-mongoid-models!
+  fhir-mongoid-models (~> 0.0.4)
   foreman
   handlebars_assets (= 0.16)
   jquery-rails
