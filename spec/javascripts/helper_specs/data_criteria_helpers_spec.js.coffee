@@ -317,8 +317,6 @@ describe 'DataCriteriaHelpers', ->
         type = cqm.models[de.fhir_resource?.getTypeName()]
         primaryCodePath = type?.primaryCodePath
         continue unless primaryCodePath?
-        expect(primaryCodePath).toBe('sss')
-        expect(type.name).toBe('ddd')
         fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
         expect(fieldInfo).toBe(true)
         expect(fieldInfo?.fieldTypeNames?.length).toEqual(1)
