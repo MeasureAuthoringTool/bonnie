@@ -314,6 +314,9 @@ describe 'DataCriteriaHelpers', ->
         de.fhir_resource = new cqm.models[res]()
         if skip.includes(res)
           continue
+        if !DataCriteriaHelpers.isPrimaryCodePathSupported(de)
+          expect(de.fhir_resource?.getTypeName()).toBe('something');
+
         expect(DataCriteriaHelpers.isPrimaryCodePathSupported(de)).toBe(true)
 
     it 'set/get primary codes works for Encounter', ->

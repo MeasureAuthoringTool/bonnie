@@ -219,7 +219,7 @@ Teaspoon.configure do |config|
   # Teaspoon pipes all console[log/debug/error] to $stdout. This is useful to
   # catch places where you've forgotten to remove them, but in verbose
   # applications this may not be desirable.
-  config.suppress_log = false
+  # config.suppress_log = false
 
   # COVERAGE REPORTS / THRESHOLD ASSERTIONS
   #
