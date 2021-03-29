@@ -320,6 +320,7 @@ describe 'DataCriteriaHelpers', ->
           type = cqm.models[de.fhir_resource?.getTypeName()]
           primaryCodePath = type?.primaryCodePath
           fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
+          expect(primaryCodePath).toBe('jj');
           expect(fieldInfo).toBe('jj');
 
     it 'set/get primary codes works for Encounter', ->
