@@ -318,7 +318,6 @@ describe 'DataCriteriaHelpers', ->
         primaryCodePath = type?.primaryCodePath
         continue unless primaryCodePath?
         fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
-        expect(fieldInfo).toBe(true)
         expect(fieldInfo?.fieldTypeNames?.length).toEqual(1)
         expect(fieldInfo?.fieldTypeNames?[0]).toBe(cqm.models.CodeableConcept.typeName)
 
