@@ -156,7 +156,7 @@
     primaryCodePath = type?.primaryCodePath
     return false unless primaryCodePath?
     fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
-    return fieldInfo?.fieldTypeNames?.length == 1 && cqm.models.CodeableConcept.typeName == fieldInfo?.fieldTypeNames?[0]?.typeName
+    return fieldInfo?.fieldTypeNames?.length == 1 && cqm.models.CodeableConcept.typeName == fieldInfo?.fieldTypeNames?[0]
 
   @getPrimaryCodes: (dataElement) ->
     return dataElement?.fhir_resource?.primaryCode?.coding || []
