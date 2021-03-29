@@ -30,6 +30,9 @@ jobs:
         with:
           node-version: 14.x
 
+      - name: Use latest npm
+        run: npm install -g npm
+
       - name: Install bundler & bundle-audit
         run: |
           gem install bundler -v 2.1.4
