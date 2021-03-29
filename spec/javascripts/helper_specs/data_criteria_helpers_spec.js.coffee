@@ -319,7 +319,8 @@ describe 'DataCriteriaHelpers', ->
         continue unless primaryCodePath?
         expect(primaryCodePath).toBe('sss')
         expect(type.name).toBe('ddd')
-        expect(type?.fieldInfo).toBe(true)
+        fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
+        expect(fieldInfo).toBe(true)
 
     it 'set/get primary codes works for Encounter', ->
       de = new cqm.models.DataElement()
