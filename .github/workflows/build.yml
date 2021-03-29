@@ -63,7 +63,7 @@ jobs:
           bundle exec overcommit --run
 
       - name: NPM install
-        run: npm install
+        run: npm ci
 
       - name: NPM audit
         run: npm audit --production --audit-level=high
