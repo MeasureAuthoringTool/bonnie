@@ -153,9 +153,13 @@
   @isPrimaryCodePathSupported: (dataElement) ->
     # Bonnie doesn't support choice types in primary code path
     type = cqm.models[dataElement.fhir_resource?.getTypeName()]
+    console.log('-----TypeName-------')
+    console.log(type?.typeName)
     primaryCodePath = type?.primaryCodePath
     return false unless primaryCodePath?
     fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
+    console.log('-----FieldInfo-------')
+    console.log(fieldInfo.fieldName)
     return fieldInfo?.fieldType?.length == 1 && cqm.models.CodeableConcept.typeName == fieldInfo?.fieldType?[0]?.typeName
 
   @getPrimaryCodes: (dataElement) ->
