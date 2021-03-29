@@ -314,10 +314,13 @@ describe 'DataCriteriaHelpers', ->
         de.fhir_resource = new cqm.models[res]()
         if skip.includes(res)
           continue
-        if !DataCriteriaHelpers.isPrimaryCodePathSupported(de)
+        if DataCriteriaHelpers.isPrimaryCodePathSupported(de) == false
           expect(de.fhir_resource?.getTypeName()).toBe('something');
-
-        expect(DataCriteriaHelpers.isPrimaryCodePathSupported(de)).toBe(true)
+          # Bonnie doesn't support choice types in primary code path
+          type = cqm.models[de.fhir_resource?.getTypeName()]
+          primaryCodePath = type?.primaryCodePath
+          expect(primaryCodePath).toBe('jj');
+          expect(type?.fieldInfo).toBe('kk');
 
     it 'set/get primary codes works for Encounter', ->
       de = new cqm.models.DataElement()
