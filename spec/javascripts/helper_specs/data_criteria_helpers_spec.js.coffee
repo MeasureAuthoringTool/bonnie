@@ -314,7 +314,14 @@ describe 'DataCriteriaHelpers', ->
         de.fhir_resource = new cqm.models[res]()
         if skip.includes(res)
           continue
-        expect(DataCriteriaHelpers.isPrimaryCodePathSupported(de)).toBe(true)
+        type = cqm.models[de.fhir_resource?.getTypeName()]
+        primaryCodePath = type?.primaryCodePath
+        continue unless primaryCodePath?
+        expect(primaryCodePath).toBe('sss')
+        expect(JSON.stringify(type)).toBe('ddd')
+        fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
+        expect(fieldInfo?.fieldTypeNames?.length).toBe(true)
+        expect(fieldInfo?.fieldTypeNames?[0]?.typeName).toBe(true)
 
     it 'set/get primary codes works for Encounter', ->
       de = new cqm.models.DataElement()
