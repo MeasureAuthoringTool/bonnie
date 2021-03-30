@@ -40,7 +40,7 @@ gem "doorkeeper-mongodb", '~> 4.2.0'
 group :test, :development, :ci do
   gem 'pry'
   # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
-  gem 'teaspoon', '1.1.5'
+  gem 'teaspoon', '1.2.2'
   gem "overcommit"
   gem 'rubocop'
   gem 'teaspoon-jasmine'
