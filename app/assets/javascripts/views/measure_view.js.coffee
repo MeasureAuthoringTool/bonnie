@@ -106,20 +106,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     importPatients.appendTo(@$el)
     importPatients.display()
 
-  exportQrdaPatients: (e) ->
-    @exportPatientsView.exporting()
-
-    @model.get('populations').whenDifferencesComputed =>
-      differences = []
-      @model.get('populations').each (population) ->
-        differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
-
-      $.fileDownload "patients/qrda_export?set_id=#{@model.get('cqmMeasure').set_id}",
-        successCallback: => @exportPatientsView.qrdaSuccess()
-        failCallback: => @exportPatientsView.fail()
-        httpMethod: "POST"
-        data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences}
-
   exportExcelPatients: (e) ->
     @exportPatientsView.exporting()
 

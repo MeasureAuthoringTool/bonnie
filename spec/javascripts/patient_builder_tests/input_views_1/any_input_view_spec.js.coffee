@@ -15,9 +15,21 @@ describe 'InputView', ->
       expect(@view.value).toBe null
       expect(@view.inputView).toBeUndefined()
 
+    it 'handles change to Boolean', ->
+      @view.$('select[name="type"] > option[value="Boolean"]').prop('selected', true).change()
+      expect(@view.inputView instanceof Thorax.Views.InputBooleanView).toBe true
+      expect(@view.hasValidValue()).toBe true
+      expect(@view.value?.value).toBe true
+
     it 'handles change to DateTime', ->
       @view.$('select[name="type"] > option[value="DateTime"]').prop('selected', true).change()
       expect(@view.inputView instanceof Thorax.Views.InputDateTimeView).toBe true
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
+
+    it 'handles change to Instant', ->
+      @view.$('select[name="type"] > option[value="Instant"]').prop('selected', true).change()
+      expect(@view.inputView instanceof Thorax.Views.InputInstantView).toBe true
       expect(@view.hasValidValue()).toBe false
       expect(@view.value).toBe null
 
@@ -29,6 +41,12 @@ describe 'InputView', ->
 
     it 'handles change to Quantity', ->
       @view.$('select[name="type"] > option[value="Quantity"]').prop('selected', true).change()
+      expect(@view.inputView instanceof Thorax.Views.InputQuantityView).toBe true
+      expect(@view.hasValidValue()).toBe false
+      expect(@view.value).toBe null
+
+    it 'handles change to SimpleQuantity', ->
+      @view.$('select[name="type"] > option[value="SimpleQuantity"]').prop('selected', true).change()
       expect(@view.inputView instanceof Thorax.Views.InputQuantityView).toBe true
       expect(@view.hasValidValue()).toBe false
       expect(@view.value).toBe null

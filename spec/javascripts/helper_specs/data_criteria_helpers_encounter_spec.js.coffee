@@ -143,6 +143,39 @@ describe 'DataCriteriaHelpers', ->
       expect(value).toBeDefined
       expect(value.reference.value).toBe 'Location/12345'
 
+    it 'should support Encounter.identifier', ->
+      attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Encounter']
+      expect(attrs).toBeDefined
+      attr = attrs.find (attr) -> attr.path is 'identifier'
+      expect(attr).toBeDefined
+      expect(attr.path).toBe 'identifier'
+      expect(attr.title).toBe 'identifier'
+      expect(attr.types.length).toBe 1
+      expect(attr.types[0]).toBe 'Identifier'
+
+      fhirResource = new cqm.models.Encounter()
+      expect(attr.getValue(fhirResource)).toBeUndefined
+
+      valueToSet = new cqm.models.Identifier()
+      valueToSet.use = cqm.models.IdentifierUse.parsePrimitive('xyz')
+      valueToSet.system = cqm.models.PrimitiveUri.parsePrimitive('someuri')
+      valueToSet.value = cqm.models.PrimitiveString.parsePrimitive('abs53dr585tm')
+      valueToSet.assigner = cqm.models.Reference.parse({display: 'SB'})
+      attr.setValue(fhirResource, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = attr.getValue(fhirResource.clone())
+      expect(value).toBeDefined
+      expect(value.use.value).toBe 'xyz'
+      expect(value.system.value).toBe 'someuri'
+      expect(value.value.value).toBe 'abs53dr585tm'
+      expect(value.assigner.display.value).toBe 'SB'
+
+      # null value test
+      attr.setValue(fhirResource, null)
+      value = attr.getValue(fhirResource)
+      expect(value).toBeUndefined()
+
     it 'should support Encounter.hospitalization.dischargeDisposition', ->
       DataCriteriaAsserts.assertCodeableConcept('Encounter', 'hospitalization.dischargeDisposition', 'hospitalization.dischargeDisposition')
 

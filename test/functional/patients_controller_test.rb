@@ -240,36 +240,6 @@ class PatientsControllerTest < ActionController::TestCase
     assert_equal 1, CQM::Patient.first.givenNames.length
   end
 
-  test "export patients" do
-    skip('Need to bring in new patient model and use cqm-reports')
-    records_set = File.join("cqm_patients", "CMS134v6")
-    collection_fixtures(records_set)
-    associate_user_with_patients(@user, CQM::Patient.all)
-    associate_measure_with_patients(@measure, CQM::Patient.all)
-    get :qrda_export, params: { set_id: @measure.set_id, isCQL: 'true' }
-    assert_response :success
-    assert_equal 'application/zip', response.header['Content-Type']
-    assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
-    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
-    assert_equal 'binary', response.header['Content-Transfer-Encoding']
-
-    Dir.mkdir(Rails.root.join('tmp')) unless Dir.exist?(Rails.root.join('tmp'))
-    zip_path = File.join('tmp', 'test.zip')
-    File.open(zip_path, 'wb') { |file| response.body_parts.each { |part| file.write(part) } }
-    Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 3, zip_file.glob(File.join('qrda', '**.xml')).length
-      html_files = zip_file.glob(File.join('html', '**.html'))
-      assert_equal 3, html_files.length
-      html_files.each do |html_file|
-        # search each HTML file to ensure alternate measure data is not included
-        doc = Nokogiri::HTML(html_file.get_input_stream.read)
-        xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
-        assert_equal 0, doc.xpath(xpath).length
-      end
-    end
-    File.delete(zip_path)
-  end
-
   test "excel export sheet names" do
     measure_set_id = "AD9F4340-93FE-406E-BB86-2AE6A1CA3422"
     calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))

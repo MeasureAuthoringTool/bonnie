@@ -105,9 +105,6 @@
       @cqlMeasureValueSetsView.remove()
       @measureView.remove()
 
-    xit 'has QRDA export button disabled', ->
-      expect(@measureView.$("button[data-call-method=exportQrdaPatients]")).toBeDisabled()
-
     xit 'does not show SDEs for older measure', ->
       expect(@measureView.$(".sde-defines")).not.toExist()
 
