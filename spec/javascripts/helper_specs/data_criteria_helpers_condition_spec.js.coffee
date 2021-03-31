@@ -79,14 +79,14 @@ describe 'DataCriteriaHelpers', ->
       abatement = conditionAttrs[3]
       expect(abatement.path).toEqual 'abatement'
       # Create DateTime & condition fhir resource
-      dateTime = new cqm.models.CQL.DateTime(2020, 10, 5, 8, 0, 0, 0, 0)
+      dateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-05T08:00:00.000+00:00')
       conditionResource = new cqm.models.Condition()
       # set abatement DateTime
       abatement.setValue(conditionResource, dateTime)
 
       abatementValue = abatement.getValue(conditionResource)
       # Verify after setting values
-      expect(abatementValue.value).toEqual dateTime.toString()
+      expect(abatementValue.value).toEqual '2020-10-05T08:00:00.000+00:00'
 
     it 'should set and get values for abatement if Choice type is Age', ->
       conditionAttrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['Condition']

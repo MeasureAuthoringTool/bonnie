@@ -15,10 +15,16 @@ class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
 
     if !@hasOwnProperty('allowNull')
       @allowNull = false
+    @invalidInput = false
 
   events:
     'change input': 'handleInputChange'
     'keyup input': 'handleInputChange'
+
+  # checks if an invalid value is entered
+  # hasInvalidInput is true when there is an entered value which is invalid or cannot be parsed
+  hasInvalidInput: ->
+    @invalidInput
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
@@ -35,4 +41,12 @@ class Thorax.Views.InputIntegerView extends Thorax.Views.BonnieView
         @value = cqm.models.PrimitiveInteger.parsePrimitive(parsed)
     else
       @value = null
+
+    if @value? || !inputValue
+      @$(e.target).parent().removeClass('has-error')
+      @invalidInput = false
+    else
+      @$(e.target).parent().addClass('has-error')
+      @invalidInput = true
+
     @trigger 'valueChanged', @

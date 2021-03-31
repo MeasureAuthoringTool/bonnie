@@ -125,6 +125,9 @@
   @getPrimitiveDateTimeForCqlDateTime: (dateTime) ->
     cqm.models.PrimitiveDateTime.parsePrimitive dateTime?.toString()
 
+  @getPrimitiveInstantForCqlDateTime: (dateTime) ->
+    cqm.models.PrimitiveInstant.parsePrimitive dateTime?.toString()
+
   @getPrimitiveDateTimeForStringDateTime: (dateTimeStr) ->
     cqm.models.PrimitiveDateTime.parsePrimitive dateTimeStr
 
@@ -148,12 +151,12 @@
     return cqm.models[dataElement.fhir_resource?.getTypeName()]?.primaryCodePath
 
   @isPrimaryCodePathSupported: (dataElement) ->
-    # Bonnie supports only  doesn't support choice types in primary code path or
+    # Bonnie doesn't support choice types in primary code path
     type = cqm.models[dataElement.fhir_resource?.getTypeName()]
     primaryCodePath = type?.primaryCodePath
     return false unless primaryCodePath?
     fieldInfo = type?.fieldInfo?.find((info) -> info.fieldName == primaryCodePath)
-    return fieldInfo?.fieldType?.length == 1 && cqm.models.CodeableConcept.typeName == fieldInfo?.fieldType?[0]?.typeName
+    return fieldInfo?.fieldTypeNames?.length == 1 && cqm.models.CodeableConcept.typeName == fieldInfo?.fieldTypeNames?[0]
 
   @getPrimaryCodes: (dataElement) ->
     return dataElement?.fhir_resource?.primaryCode?.coding || []
@@ -189,14 +192,15 @@
       codeSystemName = codeSystemMap?[type.system?.value] || type.system?.value
       return "#{codeSystemName}: #{type.code?.value}"
 
-    if cqm.models.PrimitiveCode.isPrimitiveCode(type)                ||
+    if type instanceof cqm.models.PrimitiveCode                      ||
         cqm.models.PrimitiveString.isPrimitiveString(type)           ||
         cqm.models.PrimitiveBoolean.isPrimitiveBoolean(type)         ||
         cqm.models.PrimitiveInteger.isPrimitiveInteger(type)         ||
         cqm.models.PrimitivePositiveInt.isPrimitivePositiveInt(type) ||
         cqm.models.PrimitiveUnsignedInt.isPrimitiveUnsignedInt(type) ||
         cqm.models.PrimitiveDecimal.isPrimitiveDecimal(type)         ||
-        cqm.models.PrimitiveId.isPrimitiveId(type)
+        cqm.models.PrimitiveId.isPrimitiveId(type)                   ||
+        cqm.models.PrimitiveUri.isPrimitiveUri(type)
       return "#{type.value}"
 
     if cqm.models.Duration.isDuration(type)  ||
@@ -230,7 +234,7 @@
         period = 'PM'
       return "#{hour}:#{minute} #{period}"
 
-    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)
+    if cqm.models.PrimitiveDateTime.isPrimitiveDateTime(type)  || cqm.models.PrimitiveInstant.isPrimitiveInstant(type)
       cqlValue = DataCriteriaHelpers.getCQLDateTimeFromString(type?.value)
       return moment.utc(cqlValue.toJSDate()).format('L LT')
 
@@ -246,6 +250,97 @@
               lower limit : #{@stringifyType(type.lowerLimit)} |
               upper limit : #{@stringifyType(type.upperLimit)} |
               data : #{@stringifyType(type.data)}"
+
+    if cqm.models.CodeableConcept.isCodeableConcept(type)
+      return "[" + type.coding.map( (coding) => "#{@stringifyType(coding, codeSystemMap)}" ).join(', ') + "]"
+
+    if cqm.models.Timing.isTiming(type)
+      attrs = []
+      if type?.event?[0]?
+        attrs.push("event : #{@stringifyType(type.event[0])}")
+      if type?.repeat?.bounds?
+        attrs.push("repeat.bounds : #{@stringifyType(type.repeat.bounds)}")
+      if type?.repeat?.count?
+        attrs.push("repeat.count : #{@stringifyType(type.repeat.count)}")
+      if type?.repeat?.countMax?
+        attrs.push("repeat.countMax : #{@stringifyType(type.repeat.countMax)}")
+      if type?.repeat?.duration?
+        attrs.push("repeat.duration : #{@stringifyType(type.repeat.duration)}")
+      if type?.repeat?.durationMax?
+        attrs.push("repeat.durationMax : #{@stringifyType(type.repeat.durationMax)}")
+      if type?.repeat?.durationUnit?
+        attrs.push("repeat.durationUnit : #{@stringifyType(type.repeat.durationUnit, codeSystemMap)}")
+      if type?.repeat?.frequency?
+        attrs.push("repeat.frequency : #{@stringifyType(type.repeat.frequency)}")
+      if type?.repeat?.frequencyMax?
+        attrs.push("repeat.frequencyMax : #{@stringifyType(type.repeat.frequencyMax)}")
+      if type?.repeat?.period?
+        attrs.push("repeat.period : #{@stringifyType(type.repeat.period)}")
+      if type?.repeat?.periodMax?
+        attrs.push("repeat.periodMax : #{@stringifyType(type.repeat.periodMax)}")
+      if type?.repeat?.periodUnit?
+        attrs.push("repeat.periodUnit : #{@stringifyType(type.repeat.periodUnit)}")
+      if type?.repeat?.dayOfWeek?[0]?
+        attrs.push("repeat.dayOfWeek : #{@stringifyType(type.repeat.dayOfWeek[0])}")
+      if type?.repeat?.timeOfDay?[0]?
+        attrs.push("repeat.timeOfDay : #{@stringifyType(type.repeat.timeOfDay[0])}")
+      if type?.repeat?.when?[0]?
+        attrs.push("repeat.when : #{@stringifyType(type.repeat.when[0])}")
+      if type?.repeat?.offset?
+        attrs.push("repeat.offset : #{@stringifyType(type.repeat.offset)}")
+      if type?.code?
+        attrs.push("code: #{@stringifyType(type.code, codeSystemMap)}")
+
+      return attrs.join(" | ")
+    if cqm.models.Dosage.isDosage(type)
+      attrs = []
+      if type.sequence?
+        attrs.push("sequence: #{@stringifyType(type.sequence)}")
+      if type.text?
+        attrs.push("text: #{@stringifyType(type.text)}")
+      if type.additionalInstruction?[0]?
+        attrs.push("additionalInstruction: #{@stringifyType(type.additionalInstruction[0], codeSystemMap)}")
+      if type.patientInstruction?
+        attrs.push("patientInstruction: #{@stringifyType(type.patientInstruction)}")
+      if type.timing?
+        attrs.push("timing: #{@stringifyType(type.timing)}")
+      if type.asNeeded?
+        attrs.push("asNeeded: #{@stringifyType(type.asNeeded, codeSystemMap)}")
+      if type.site?
+        attrs.push("site: #{@stringifyType(type.site, codeSystemMap)}")
+      if type.route?
+        attrs.push("route: #{@stringifyType(type.route, codeSystemMap)}")
+      if type.method?
+        attrs.push("method: #{@stringifyType(type.method, codeSystemMap)}")
+      if type.doseAndRate?[0]?.type?
+        attrs.push("doseAndRate.type: #{@stringifyType(type.doseAndRate[0].type, codeSystemMap)}")
+      if type.doseAndRate?[0]?.dose?
+        attrs.push("doseAndRate.dose: #{@stringifyType(type.doseAndRate[0].dose)}")
+      if type.doseAndRate?[0]?.rate?
+        attrs.push("doseAndRate.rate: #{@stringifyType(type.doseAndRate[0].rate)}")
+      if type?.maxDosePerPeriod?
+        attrs.push("maxDosePerPeriod: #{@stringifyType(type.maxDosePerPeriod)}")
+      if type?.maxDosePerAdministration?
+        attrs.push("maxDosePerAdministration: #{@stringifyType(type.maxDosePerAdministration)}")
+      if type?.maxDosePerLifetime?
+        attrs.push("maxDosePerLifetime: #{@stringifyType(type.maxDosePerLifetime)}")
+      return attrs.join(" | ")
+
+    if cqm.models.Identifier.isIdentifier(type)
+      attrs = []
+      if type.use?
+        attrs.push("use: #{@stringifyType(type.use, codeSystemMap)}")
+      if type.type?
+        attrs.push("type: #{@stringifyType(type.type, codeSystemMap)}")
+      if type.system?
+        attrs.push("system: #{@stringifyType(type.system)}")
+      if type.value?
+        attrs.push("value: #{@stringifyType(type.value)}")
+      if type.period?
+        attrs.push("period: #{@stringifyType(type.period)}")
+      if type.assigner?.display?
+        attrs.push("assigner: #{type.assigner.display.value}")
+      return attrs.join(" | ")
 
     return JSON.stringify(type)
 
@@ -281,13 +376,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
-            fhirResource.onset = value
-          else
-            fhirResource.onset = null
+          fhirResource.onset = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
@@ -330,13 +419,7 @@
         title: 'onset'
         getValue: (fhirResource) => fhirResource?.onset
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.onset = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Age' || attrType == 'Period' || attrType == 'Range'
-            fhirResource.onset = value
-          else
-            fhirResource.onset = null
+          fhirResource.onset = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
@@ -344,13 +427,7 @@
         title: 'abatement',
         getValue: (fhirResource) => fhirResource?.abatement
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.abatement = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Age' ||  attrType == 'Period' || attrType == 'Range'
-            fhirResource.abatement = value
-          else
-            fhirResource.abatement = null
+          fhirResource.abatement = value
         types: ['DateTime', 'Age', 'Period', 'Range']
       },
       {
@@ -397,13 +474,7 @@
         title: 'performed',
         getValue: (fhirResource) => fhirResource?.performed
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.performed = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Period'
-            fhirResource.performed = value
-          else
-            fhirResource.performed = null
+          fhirResource.performed = value
         types: ['DateTime', 'Period']
       },
       {
@@ -455,12 +526,30 @@
         title: 'effective',
         getValue: (fhirResource) => fhirResource.effective
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.effective = @getPrimitiveDateTimeForCqlDateTime(value)
-          else
-            fhirResource.effective = value
+          fhirResource.effective = value
         types: ['DateTime', 'Period']
+      },
+      {
+        path: 'encounter'
+        title: 'encounter'
+        getValue: (fhirResource) => fhirResource.encounter
+        setValue: (fhirResource, reference) =>
+          fhirResource.encounter = reference
+        types: ['Reference']
+        referenceTypes: ['Encounter']
+      },
+      {
+        path: 'category',
+        title: 'category',
+        getValue: (fhirResource) => fhirResource.category?[0]?.coding?[0]
+        setValue: (fhirResource, coding) =>
+          codeableConcept = @getCodeableConceptForCoding(coding)
+          fhirResource.category = if codeableConcept? then [codeableConcept] else codeableConcept
+        types: ['CodeableConcept'],
+        # Value Set from FHIR and QI Core DiagnosticReport Lab  http://hl7.org/fhir/ValueSet/diagnostic-service-sections
+        # Value Set from QI Core DiagnosticReport Note (http://hl7.org/fhir/us/qicore/StructureDefinition-qicore-diagnosticreport-note.html)
+        #     http://hl7.org/fhir/us/core/ValueSet/us-core-diagnosticreport-category
+        valueSets: () -> [ DiagnosticServiceSectionCodesValueSet.JSON, USCoreDiagnosticReportCategoryValueSet.JSON ]
       }
     ]
     ImagingStudy: []
@@ -487,9 +576,7 @@
             fhirResource?.value
         setValue: (fhirResource, value) =>
           attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.value = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Coding'
+          if attrType == 'Coding'
             fhirResource.value = @getCodeableConceptForCoding(value)
           else
             fhirResource?.value = value
@@ -512,11 +599,7 @@
         title: 'effective',
         getValue: (fhirResource) => fhirResource.effective
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.effective = @getPrimitiveDateTimeForCqlDateTime(value)
-          else
-            fhirResource.effective = value
+          fhirResource.effective = value
         types: ['DateTime', 'Period', 'Timing', 'Instant']
       },
       {
@@ -542,9 +625,7 @@
           attrType = value?.getTypeName?() || value?.constructor?.name
           unless fhirResource.component?
             fhirResource.component = [new cqm.models.ObservationComponent()]
-          if attrType == 'DateTime'
-            fhirResource.component[0].value = @getPrimitiveDateTimeForCqlDateTime(value)
-          else if attrType == 'Coding'
+          if attrType == 'Coding'
             fhirResource.component[0].value = @getCodeableConceptForCoding(value)
           else
             fhirResource.component[0].value = value
@@ -557,7 +638,6 @@
         title: 'encounter'
         getValue: (fhirResource) => fhirResource.encounter
         setValue: (fhirResource, reference) =>
-          fhirResource.encounter = new cqm.models.Encounter() unless fhirResource?.encounter?
           fhirResource.encounter = reference
         types: ['Reference']
         referenceTypes: ['Encounter']
@@ -604,18 +684,21 @@
         title: 'timing',
         getValue: (fhirResource) -> fhirResource.timing
         setValue: (fhirResource, value) =>
-          attrType = value?.getTypeName?() || value?.constructor?.name
-          if attrType == 'DateTime'
-            fhirResource.timing = @getPrimitiveDateTimeForCqlDateTime(value)
-          else
-            fhirResource.timing = value
-        types: ['DateTime', 'Period']
+          fhirResource.timing = value
+        types: ['DateTime', 'Period', 'Timing']
       }
     ]
     Location: []
     Device: []
     Substance: []
     Encounter: [
+      {
+        path: 'identifier'
+        title: 'identifier'
+        getValue: (fhirResource) -> fhirResource?.identifier?[0]
+        setValue: (fhirResource, value) -> fhirResource.identifier = if value? then [value] else  null
+        types: ['Identifier']
+      },
       {
         path: 'class'
         title: 'class'
@@ -858,6 +941,13 @@
         types: ['CodeableConcept', 'Reference']
         referenceTypes: ['Medication']
         valueSets: () -> [USCoreMedicationCodesValueSet.JSON]
+      },
+      {
+        path: 'dosageInstruction'
+        title: 'dosageInstruction'
+        getValue: (fhirResource) -> fhirResource?.dosageInstruction?[0]
+        setValue: (fhirResource, value) -> fhirResource.dosageInstruction = if value? then [value] else  null
+        types: ['Dosage']
       }
     ]
     MedicationRequest: [

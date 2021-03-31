@@ -138,25 +138,10 @@
               <% else %>
                 <%=record.familyName%>, <%=record.givenNames[0]%>
               <% end %>
-              <% unless qrda_errors[record.id] %>
-                <a class="btn" href="<%= File.join(".","qrda","#{index+1}_#{record.familyName}_#{record.givenNames[0]}.xml")%>">qrda</a>
-              <% end %>
             </h2>
           </td>
         </tr>
       </table>
-      <% if qrda_errors[record.id] %>
-        <div class="error">
-          <span class="important">There was an error exporting the QRDA for this patient record:</span>
-          <% data_criteria = qrda_errors[record.id].data_criteria rescue nil %>
-          <% if data_criteria %>
-            <span class="important">could not generate appropriate QRDA content for <%= data_criteria.description %></span>
-            <span class="secondary">(<%= qrda_errors[record.id].message %>)</span>
-          <% else %>
-            <%= qrda_errors[record.id].message %>
-          <% end %>
-        </div>
-      <% end %>
       <% if html_errors[record.id] %>
         <div class="error">
           <span class="important">There was an error exporting the HTML for this patient record:</span>
