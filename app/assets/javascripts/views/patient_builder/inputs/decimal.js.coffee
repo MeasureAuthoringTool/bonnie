@@ -15,10 +15,16 @@ class Thorax.Views.InputDecimalView extends Thorax.Views.BonnieView
 
     if !@hasOwnProperty('allowNull')
       @allowNull = true
+    @invalidInput = false
 
   events:
     'change input': 'handleInputChange'
     'keyup input': 'handleInputChange'
+
+  # checks if an invalid value is entered
+  # hasInvalidInput is true when there is an entered value which is invalid or cannot be parsed
+  hasInvalidInput: ->
+    @invalidInput
 
   # checks if the value in this view is valid. returns true or false. this is used by the attribute entry view to determine
   # if the add button should be active or not
@@ -27,7 +33,7 @@ class Thorax.Views.InputDecimalView extends Thorax.Views.BonnieView
 
   handleInputChange: (e) ->
     inputValue = @$(e.target).val()
-    if inputValue != ''
+    if /^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]+)?$/.test(inputValue)
       parsed = parseFloat(inputValue)
       if isNaN(parsed)
         @value = null
@@ -35,4 +41,12 @@ class Thorax.Views.InputDecimalView extends Thorax.Views.BonnieView
         @value = cqm.models.PrimitiveDecimal.parsePrimitive(parsed)
     else
       @value = null
+
+    if @value? || !inputValue
+      @$(e.target).parent().removeClass('has-error')
+      @invalidInput = false
+    else
+      @$(e.target).parent().addClass('has-error')
+      @invalidInput = true
+
     @trigger 'valueChanged', @

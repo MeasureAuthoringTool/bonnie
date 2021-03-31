@@ -6,10 +6,16 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
   #   attributeName - The name of the attribute. Required
   #   cqmValueSets - List of CQM Value sets. Required.
   #   defaultYear - Default year to use for Date/DateTime input views.
+  #   initialValue - optional
+  #   types - Optional - list of supported/displayed types. Must be a sub-set of the types from _createInputViewForType
   initialize: ->
-    @value = null
+    if @initialValue?
+      @value = @initialValue
+    else
+      @value = null
 
-    @types = ['Code', 'CodeableConcept', 'Quantity', 'Duration', 'DateTime', 'Ratio', 'Integer', 'Decimal', 'Time']
+    if !@types?
+      @types = ['Boolean', 'Code', 'CodeableConcept', 'Date', 'DateTime', 'Instant', 'Decimal', 'Integer', 'Quantity', 'SimpleQuantity', 'Duration', 'Range', 'Ratio', 'Time']
     @currentType = ''
 
   events:
@@ -53,15 +59,18 @@ class Thorax.Views.InputAnyView extends Thorax.Views.BonnieView
 
   _createInputViewForType: (type, placeholderText) ->
     return switch type
-      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets })
-      when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @cqmValueSets })
+      when 'Boolean' then new Thorax.Views.InputBooleanView()
+      when 'Code' then new Thorax.Views.InputCodeView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap })
+      when 'CodeableConcept' then new Thorax.Views.InputCodingView({ cqmValueSets: @cqmValueSets, codeSystemMap: @codeSystemMap  })
       when 'Date' then new Thorax.Views.InputDateView({ allowNull: false, defaultYear: @defaultYear })
       when 'DateTime' then new Thorax.Views.InputDateTimeView({ allowNull: false, defaultYear: @defaultYear })
+      when 'Instant' then new Thorax.Views.InputInstantView({ allowNull: false, defaultYear: @defaultYear })
       when 'Decimal' then new Thorax.Views.InputDecimalView({ allowNull: false, placeholder: placeholderText })
       when 'Integer', 'Number' then new Thorax.Views.InputIntegerView({ allowNull: false, placeholder: placeholderText })
-      when 'Quantity' then new Thorax.Views.InputQuantityView()
+      when 'Quantity', 'SimpleQuantity' then new Thorax.Views.InputQuantityView()
       when 'Duration' then new Thorax.Views.InputDurationView()
-      when 'Period' then new Thorax.Views.InputPeriodView()
+      when 'Range' then new Thorax.Views.InputRangeView()
+      when 'Period' then new Thorax.Views.InputPeriodView({ defaultYear: @defaultYear })
       when 'Ratio' then new Thorax.Views.InputRatioView()
       when 'Time' then new Thorax.Views.InputTimeView({ allowNull: false })
       else null

@@ -14,10 +14,10 @@ describe 'DataCriteriaHelpers', ->
       expect(attr.types).toEqual ['DateTime', 'Period']
 
       # set DateTime
-      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00')
       fhirResource = new cqm.models.DiagnosticReport()
       attr.setValue(fhirResource, valueDateTime)
-      expect(fhirResource.effective.value).toEqual valueDateTime.toString()
+      expect(fhirResource.effective.value).toEqual '2012-02-02T08:45:00'
 
       # set Period
       # Create condition fhir resource and Period
@@ -31,3 +31,28 @@ describe 'DataCriteriaHelpers', ->
       # Verify after setting values
       expect(actualPeriod.start.value).toEqual period.start.value
       expect(actualPeriod.end.value).toEqual period.end.value
+
+    it 'should support DiagnosticReport.category', ->
+      DataCriteriaAsserts.assertCodeableConcept('DiagnosticReport', 'category', 'category')
+
+    it 'should support DiagnosticReport.encounter', ->
+      encounterAttr = @attrs.find (attr) -> attr.path is 'encounter'
+      expect(encounterAttr).toBeDefined
+      expect(encounterAttr.path).toBe 'encounter'
+      expect(encounterAttr.title).toBe 'encounter'
+      expect(encounterAttr.types.length).toBe 1
+      expect(encounterAttr.types[0]).toBe 'Reference'
+      expect(encounterAttr.referenceTypes.length).toBe 1
+      expect(encounterAttr.referenceTypes[0]).toBe 'Encounter'
+
+      diagnosticReport = new cqm.models.DiagnosticReport()
+      expect(encounterAttr.getValue(diagnosticReport)).toBeUndefined
+
+      valueToSet = new cqm.models.Reference()
+      valueToSet.reference = cqm.models.PrimitiveString.parsePrimitive('Encounter/XYZ-12345')
+      encounterAttr.setValue(diagnosticReport, valueToSet)
+
+      # clone the resource to make sure setter/getter work with correct data type
+      value = encounterAttr.getValue(diagnosticReport.clone())
+      expect(value).toBeDefined
+      expect(value.reference.value).toBe 'Encounter/XYZ-12345'
