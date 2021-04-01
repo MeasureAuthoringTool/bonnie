@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/projecttacoma/bonnie.svg?branch=master)](https://travis-ci.com/projecttacoma/bonnie)
-![GitHub version](https://badge.fury.io/gh/projecttacoma%2Fbonnie.svg)
+[![Build Status](https://github.com/MeasureAuthoringTool/bonnie/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/MeasureAuthoringTool/bonnie/actions/workflows/build.yml/badge.svg?branch=bonnie-on-fhir)
+![GitHub version](https://img.shields.io/badge/dynamic/yaml?url=http://raw.githubusercontent.com/MeasureAuthoringTool/bonnie/master/config/bonnie.yml&label=version&query=defaults.version)
 
 
 
@@ -12,8 +12,8 @@ Bonnie has been designed to integrate with the nationally recognized data standa
 
 ## Prerequisties and Installation
 
-* Please see our [Installation instructions](https://github.com/projecttacoma/bonnie/wiki/Installation-Instructions)
-* For Development purposes on a Mac, see our [Mac installation instructions](https://github.com/projecttacoma/bonnie/wiki/Mac-Installation-Instructions)
+* Please see our [Installation instructions](https://github.com/MeasureAuthoringTool/bonnie/wiki/Installation-Instructions)
+* For Development purposes on a Mac, see our [Mac installation instructions](https://github.com/MeasureAuthoringTool/bonnie/wiki/Mac-Installation-Instructions)
 
 
 ## Running the tests
@@ -33,7 +33,7 @@ bundle exec rails test
 
 ## Reporting Issues
 
-To report issues with the Bonnie code, please submit tickets to [Github](https://github.com/projecttacoma/bonnie/issues). To report issues with the production release of Bonnie, please submit tickets to [JIRA](https://oncprojectracking.healthit.gov/support/projects/BONNIE/)
+To report issues with the Bonnie code, please submit tickets to [Github](https://github.com/MeasureAuthoringTool/bonnie/issues). To report issues with the production release of Bonnie, please submit tickets to [JIRA](https://oncprojectracking.healthit.gov/support/projects/BONNIE/)
 
 
 ## Built With
@@ -47,7 +47,7 @@ To report issues with the Bonnie code, please submit tickets to [Github](https:/
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see [tags on this repository](https://github.com/projecttacoma/bonnie/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see [tags on this repository](https://github.com/MeasureAuthoringTool/bonnie/tags).
 
 
 ## License

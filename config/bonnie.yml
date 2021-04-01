@@ -20,6 +20,12 @@ defaults: &defaults
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
   patient_conversion_service_url: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
 
+  virus_scan:
+    enabled: false
+    scan_url: 'http://localhost:5000/scan-file'
+    api_key: '1234567'
+    timeout: 30
+
 development:
   <<: *defaults
 
@@ -29,3 +35,8 @@ test:
 production:
   <<: *defaults
   patient_conversion_service_url: http://localhost:5050/patients/convertMany
+  virus_scan:
+    enabled: true
+    scan_url: 'http://localhost:5000/scan-file'
+    api_key: '1234567'
+    timeout: 30
