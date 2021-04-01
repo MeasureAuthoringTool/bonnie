@@ -15,19 +15,19 @@ describe 'DataCriteriaHelpers', ->
       DataCriteriaAsserts.assertCodeableConcept('Observation', 'component.code', 'component.code')
 
     it 'should support Observation.effective', ->
-      attr = @observationAttrs.find (attr) => attr.path is 'effective'
+      attr = @observationAttrs.find (attr) -> attr.path is 'effective'
       expect(attr.path).toEqual 'effective'
       expect(attr.title).toEqual 'effective'
       expect(attr.types).toEqual ['DateTime', 'Period', 'Timing', 'Instant']
 
       # set DateTime/Timing
-      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
       fhirResource = new cqm.models.Observation()
       attr.setValue(fhirResource, valueDateTime)
-      expect(fhirResource.effective.value).toEqual valueDateTime.toString()
+      expect(fhirResource.effective.value).toEqual '2012-02-02T08:45:00.000+00:00'
 
     it 'should support Observation.value', ->
-      value = @observationAttrs.find (attr) => attr.path is 'value'
+      value = @observationAttrs.find (attr) -> attr.path is 'value'
       expect(value.path).toEqual 'value'
       expect(value.title).toEqual 'value'
       expect(value.types).toEqual ['Boolean', 'CodeableConcept', 'DateTime', 'Integer', 'Period',
@@ -42,9 +42,9 @@ describe 'DataCriteriaHelpers', ->
       expect(attrValue.value).toEqual valueBoolean.value
 
       # set DateTime value
-      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
       value.setValue(fhirResource, valueDateTime)
-      expect(fhirResource.value.value).toEqual valueDateTime.toString()
+      expect(fhirResource.value.value).toEqual '2012-02-02T08:45:00.000+00:00'
 
       # set CodeableConcept value
       coding = cqm.models.Coding.parse({system: 'SNOMEDCT', code:'123456', version: 'version'})
@@ -55,7 +55,7 @@ describe 'DataCriteriaHelpers', ->
       expect(attrValue.version.value).toEqual coding.version.value
 
     it 'should support Observation.component.value', ->
-      attribute = @observationAttrs.find (attr) => attr.path is 'component.value'
+      attribute = @observationAttrs.find (attr) -> attr.path is 'component.value'
       expect(attribute.path).toEqual 'component.value'
       expect(attribute.title).toEqual 'component.value'
       expect(attribute.types).toEqual ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer',
@@ -69,10 +69,10 @@ describe 'DataCriteriaHelpers', ->
       expect(attrValue.value).toEqual valueBoolean.value
 
       # set DateTime value
-      valueDateTime = new cqm.models.CQL.DateTime(2012, 2, 2, 8, 45, 0, 0, 0)
+      valueDateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2012-02-02T08:45:00.000+00:00')
       attribute.setValue(fhirResource, valueDateTime)
       attrValue = attribute.getValue(fhirResource)
-      expect(attrValue.value).toEqual valueDateTime.toString()
+      expect(attrValue.value).toEqual '2012-02-02T08:45:00.000+00:00'
 
       # set CodeableConcept value
       coding = cqm.models.Coding.parse({system: 'SNOMEDCT', code:'123456', version: 'version'})
@@ -112,7 +112,7 @@ describe 'DataCriteriaHelpers', ->
       expect(attrValue.data).toEqual valueSampledData.data
 
     it 'should support Observation.encounter', ->
-      encounterAttr = @observationAttrs.find (attr) => attr.path is 'encounter'
+      encounterAttr = @observationAttrs.find (attr) -> attr.path is 'encounter'
       expect(encounterAttr).toBeDefined
       expect(encounterAttr.path).toBe 'encounter'
       expect(encounterAttr.title).toBe 'encounter'

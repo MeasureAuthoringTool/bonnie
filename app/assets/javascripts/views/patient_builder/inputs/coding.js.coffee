@@ -24,7 +24,7 @@ class Thorax.Views.InputCodingView extends Thorax.Views.BonnieView
       valueSet.compose?.include?.forEach (vsInclude) =>
         system = vsInclude.system
         if !@codeSystems.hasOwnProperty(system)
-          @codeSystems[system] = @codeSystemMap?[system]
+          @codeSystems[system] = @codeSystemMap?[system] || system
 
   events:
     'change input': 'handleCustomInputChange'

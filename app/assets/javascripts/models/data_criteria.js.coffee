@@ -81,11 +81,6 @@ class Thorax.Models.SourceDataCriteria extends Thorax.Model
     criteriaType = @get('dataElement')?.fhir_resource?.resourceType
     criteriaType
 
-  # TODO: update this while working on attribute story
-  # the attributes to skip in user attribute view and editing fields
-  # @SKIP_ATTRIBUTES = ['dataElementCodes', 'codeListId', 'description', 'id', 'qrdaOid', 'qdmTitle', 'hqmfOid', 'qdmCategory', 'qdmVersion', 'qdmStatus', 'negationRationale', '_type']
-  #  .concat(@PRIMARY_TIMING_ATTRIBUTES)
-
   # Use the mongoose schema to look at the fields for this element
   getPrimaryTimingAttribute: ->
     timingAttributes = @getPrimaryTimingAttributes()

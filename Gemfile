@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.4.4'
+gem 'rails', '5.2.4.5'
 
 gem 'sprockets'
 
@@ -11,12 +11,11 @@ gem 'sprockets-rails', '2.3.3'
 gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
-# gem 'cqm-reports', '~> 3.0.0.pre.alpha.1'
 
 # gem 'cqm-parsers', :path => '../cqm-parsers'
 # gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie-on-fhir'
-gem 'fhir-mongoid-models', git: 'https://github.com/MeasureAuthoringTool/fhir-mongoid-models.git', branch: 'develop'
+gem 'fhir-mongoid-models', '~> 0.0.4'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.3.0'
@@ -36,7 +35,7 @@ gem 'oj' # Faster JSON
 gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
-gem "doorkeeper-mongodb", '~> 4.1.0'
+gem "doorkeeper-mongodb", '~> 4.2.0'
 
 group :test, :development, :ci do
   gem 'pry'
@@ -48,7 +47,7 @@ group :test, :development, :ci do
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'rails_best_practices'
-  gem 'webmock', '~> 2.3.1'
+  gem 'webmock', '~> 3.11.3'
   gem 'vcr'
   gem 'bundler-audit'
   gem 'colorize'
@@ -60,7 +59,7 @@ end
 
 group :test, :development do
   gem 'pry-byebug'
-  gem 'thin', '~> 1.7.2'
+  gem 'thin', '~> 1.8.0'
   gem 'capistrano-rails'
   gem 'capistrano-npm'
   gem 'rvm1-capistrano3', require: false
