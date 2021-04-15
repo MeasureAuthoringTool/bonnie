@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install shared-mime-info
-        run: apt-get install shared-mime-info
+        run: sudo apt-get install -y shared-mime-info
       - name: Set up Ruby 2.7.2
         uses: ruby/setup-ruby@v1
         with:
