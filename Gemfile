@@ -12,9 +12,9 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-# gem 'cqm-parsers', :path => '../cqm-parsers'
+gem 'cqm-parsers', :path => '../cqm-parsers'
 # gem 'fhir-mongoid-models', :path => '../fhir-mongoid-models'
-gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie-on-fhir'
+#gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie-on-fhir'
 gem 'fhir-mongoid-models', '~> 0.0.4'
 
 # needed for HDS
