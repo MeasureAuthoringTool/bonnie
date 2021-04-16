@@ -189,7 +189,6 @@ module MeasureHelper
     measure
   rescue StandardError => e
     measure&.delete
-    e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, uploaded_file, user)
     raise e
   end
@@ -211,7 +210,6 @@ module MeasureHelper
     measure
   rescue StandardError => e
     measure&.delete
-    e = turn_exception_into_shared_error_if_needed(e)
     log_measure_loading_error(e, uploaded_file, user)
     raise e
   end
@@ -219,7 +217,7 @@ module MeasureHelper
   def turn_exception_into_shared_error_if_needed(error)
     return error if error.is_a?(SharedError)
     return MeasureLoadingBadPackage.new(error.inspect) if error.inspect.include? 'Verify the QDM version of the measure package is correct.'
-    return MeasureLoadingOther.new(Rails.env.development? ? error.inspect : nil)
+    return MeasureLoadingOther.new(error.message)
   end
 
   def extract_measure_details_from_measure(measure)
