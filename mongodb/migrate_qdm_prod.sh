@@ -7,4 +7,4 @@ connection=localhost:27017
 # dump source / restore to target
 mongodump --db=$source_schema --out=$dump_dir
 # run migration scripts
-mongo $connection/$target_schema migrate_fhir.js
+mongo $connection/$target_schema migrate_qdm.js
