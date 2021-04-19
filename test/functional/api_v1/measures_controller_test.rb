@@ -11,6 +11,8 @@ module ApiV1
       users_set = File.join('users', 'base_set')
       collection_fixtures(users_set)
       @user = User.by_email('bonnie@example.com').first
+      @user.init_personal_group
+      @user.save
       sign_in @user
       @token = StubToken.new
       @token.resource_owner_id = @user.id
@@ -145,8 +147,8 @@ module ApiV1
 
       measure = CQM::Measure.where({hqmf_set_id: '4DC3E7AA-8777-4749-A1E4-37E942036076'}).first
       assert_equal '40280382667FECC30167190FAE723AAE', measure['hqmf_id']
-      assert_equal @user.id, measure.user_id
-      measure.value_sets.each { |vs| assert_equal @user.id, vs.user_id }
+      assert_equal @user.current_group.id, measure.group_id
+      measure.value_sets.each { |vs| assert_equal @user.current_group.id, vs.group_id }
       assert_equal 'PATIENT', measure.calculation_method
     end
 

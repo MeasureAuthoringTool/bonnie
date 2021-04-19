@@ -7,7 +7,11 @@ class HomeControllerTest < ActionController::TestCase
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
     @user_unapproved = User.by_email('user_unapproved@example.com').first
+    @user_unapproved.init_personal_group
+    @user_unapproved.save
   end
 
   test "index" do

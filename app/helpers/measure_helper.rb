@@ -184,7 +184,7 @@ module MeasureHelper
     measures, main_hqmf_set_id = extract_measures!(uploaded_file.tempfile, measure_details, value_set_loader)
     existing = CQM::Measure.by_user(user).where(hqmf_set_id: main_hqmf_set_id).first
     raise MeasureLoadingMeasureAlreadyExists.new(main_hqmf_set_id) unless existing.nil?
-    save_and_post_process(measures, user)
+    save_and_post_process(measures, user.current_group)
     return measures, main_hqmf_set_id
   rescue StandardError => e
     measures&.each(&:delete_self_and_child_docs)
@@ -207,7 +207,7 @@ module MeasureHelper
       measure.measure_period[:high][:value] = original_year + '12312359' # Dec 31, 23:59
     end
     delete_for_update(existing, user)
-    save_and_post_process(measures, user)
+    save_and_post_process(measures, user.current_group)
     return measures, main_hqmf_set_id
   rescue StandardError => e
     measures&.each(&:delete_self_and_child_docs)
@@ -279,10 +279,10 @@ module MeasureHelper
     end
   end
 
-  def update_related_patient_records(measures, current_user)
+  def update_related_patient_records(measures, group)
     measures.each do |measure|
       # Ensure expected values on patient match those in the measure's populations
-      CQM::Patient.where(user_id: current_user.id, measure_ids: measure.hqmf_set_id).each do |patient|
+      CQM::Patient.where(group_id: group.id, measure_ids: measure.hqmf_set_id).each do |patient|
         patient.update_expected_value_structure!(measure)
       end
     end
@@ -307,12 +307,12 @@ module MeasureHelper
     raise convert_vsac_error_into_shared_error(e)
   end
 
-  def save_and_post_process(measures, user)
+  def save_and_post_process(measures, group)
     measures.each do |measure|
-      measure.associate_self_and_child_docs_to_user(user)
+      measure.associate_self_and_child_docs_to_group(group)
       measure.save_self_and_child_docs
     end
-    update_related_patient_records(measures, user)
+    update_related_patient_records(measures, group)
   end
 
   def log_measure_loading_error(error, uploaded_file, user)

@@ -10,6 +10,8 @@ class BonnieDbTest < ActiveSupport::TestCase
     collection_fixtures(users_set, patients_set)
     @email = 'bonnie@example.com'
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
 
     @hqmf_set_id_1 = '4DC3E7AA-8777-4749-A1E4-37E942036076'
     @hqmf_set_id_2 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
@@ -27,13 +29,13 @@ class BonnieDbTest < ActiveSupport::TestCase
     measure_1 = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1).first
     measure_2 = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_2).first
     measure_w_no_user = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_3).first
-    measure_w_no_user.user = nil
+    measure_w_no_user.group = nil
     measure_w_no_user.save!
 
     assert_output(
-      "Re-saving \"#{measure_1.title}\" [bonnie@example.com]\n" +
-      "Re-saving \"#{measure_2.title}\" [bonnie@example.com]\n" +
-      "Re-saving \"#{measure_w_no_user.title}\" [deleted user]\n"
+      "Re-saving \"#{measure_1.title}\" [personal group for bonnie@example.com]\n" +
+      "Re-saving \"#{measure_2.title}\" [personal group for bonnie@example.com]\n" +
+      "Re-saving \"#{measure_w_no_user.title}\" [deleted group]\n"
                  ) { Rake::Task['bonnie:db:resave_measures'].execute }
   end
 
@@ -66,7 +68,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['HQMF_SET_ID'] = nil
     ENV['CMS_ID'] = 'something'
 
-    assert_output("\e[31m[Error]\e[0m\t\tbonnie@example.com: something: not found\n" \
+    assert_output("\e[31m[Error]\e[0m\t\tpersonal group for bonnie@example.com: something: not found\n" \
                   "\e[31m[Error]\e[0m\t\tmeasure with CMS id something not found for account bonnie@example.com\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     # No cms id or hqmf set id variables
@@ -90,7 +92,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['HQMF_SET_ID'] = nil
     ENV['CMS_ID'] = 'CMS903v0'
 
-    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS903v0: found\n" \
+    assert_output("\e[32m[Success]\e[0m\tpersonal group for bonnie@example.com: CMS903v0: found\n" \
                   "\e[31m[Error]\e[0m\t\tNo package found for this measure.\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     # check package exists for uploaded package
@@ -114,7 +116,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['HQMF_SET_ID'] = nil
     ENV['CMS_ID'] = 'CMS160v6'
 
-    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS160v6: found\n" \
+    assert_output("\e[32m[Success]\e[0m\tpersonal group for bonnie@example.com: CMS160v6: found\n" \
                   "\e[32m[Success]\e[0m\tSuccessfully wrote CMS160v6_bonnie@example.com_2019-07-11.zip\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     assert(File.exist?('CMS160v6_bonnie@example.com_2019-07-11.zip'))

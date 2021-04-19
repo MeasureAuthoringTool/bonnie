@@ -23,10 +23,32 @@ class User
     super && is_approved?
   end
 
+
   # Send admins an email after a user account is created
   after_create :send_user_signup_email
   def send_user_signup_email
     UserMailer.user_signup_email(self).deliver_now
+  end
+
+  after_save do
+    if current_group.nil?
+      init_personal_group
+      save
+    end
+  end
+
+  # create user's personal group
+  def init_personal_group
+    group = Group.new(_id: id, is_personal:true, name: "personal group for #{email}")
+    group.save()
+
+    self.current_group = group
+    groups = []
+    groups << group
+  end
+
+  def find_personal_group
+    groups.where(id: id).first
   end
 
   ## Database authenticatable
@@ -63,8 +85,8 @@ class User
 
   field :crosswalk_enabled,  type:Boolean, default: false
 
-  has_many :cqm_measures, class_name: 'CQM::Measure'
-  has_many :patients, class_name: 'CQM::Patient'
+  belongs_to :current_group, inverse_of: false, optional: true, class_name: 'Group'
+  has_and_belongs_to_many :groups, inverse_of: false, class_name: 'Group'
 
   scope :by_email, ->(email) { where({email: email}) }
 
@@ -142,7 +164,7 @@ class User
   attr_writer :measure_count
 
   def measure_count
-    @measure_count || cqm_measures.count
+    @measure_count || current_group&.cqm_measures&.count || 0
   end
 
   attr_writer :patient_count

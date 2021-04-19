@@ -10,8 +10,8 @@ class Admin::UsersController < ApplicationController
     # Getting the count for user measures and patients via the DB is a 1+n problem, and a bit slow, so we grab
     # the counts separately via map reduce and plug them in
     users = User.asc(:email).all.to_a # Need to convert to array so counts stick
-    map = "function() { emit(this.user_id, 1); }"
-    reduce = "function(user_id, counts) { return Array.sum(counts); }"
+    map = "function() { emit(this.group_id, 1); }"
+    reduce = "function(group_id, counts) { return Array.sum(counts); }"
     measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     patient_counts = CQM::Patient.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     users.each do |u|
@@ -82,12 +82,12 @@ class Admin::UsersController < ApplicationController
 
   def patients
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(user.patients.map(&:as_document)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
+    send_data JSON.pretty_generate(user.current_group.patients.map(&:as_document)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
   end
 
   def measures
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(JSON.parse(user.cqm_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
+    send_data JSON.pretty_generate(JSON.parse(user.current_group.cqm_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
   end
 
   def log_in_as

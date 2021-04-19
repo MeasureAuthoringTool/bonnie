@@ -7,6 +7,7 @@ class CqlTest < ActiveSupport::TestCase
     @cql_mat_export = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip')
     @cql_mat_export_drc = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'CMS26v5_Artifacts_direct_reference_code.zip')
     @user = User.new(email: 'test@test.com', first: 'first' , last: 'last',password: 'Test1234!')
+    @user.init_personal_group
     @user.save!
     assert_equal 1, User.count
   end
@@ -144,6 +145,9 @@ class CqlTest < ActiveSupport::TestCase
     @hqmf_set_id_3 = '4DC3E7AA-8777-4749-A1E4-37E942036076'
 
     @second_user = User.by_email('bonnie@example.com').first
+    @second_user.init_personal_group
+    @second_user.save!
+
     associate_user_with_measures(@user, CQM::Measure.where(hqmf_set_id: @hqmf_set_id_1))
     associate_user_with_measures(@user, CQM::Measure.where(hqmf_set_id: @hqmf_set_id_2))
     associate_user_with_measures(@second_user, CQM::Measure.where(hqmf_set_id: @hqmf_set_id_3))
@@ -153,10 +157,10 @@ class CqlTest < ActiveSupport::TestCase
     measure_3 = CQM::Measure.where(hqmf_set_id: @hqmf_set_id_3).first
 
     assert_output(
-      "User: #{@user.email}\n" +
+      "Group: personal group for #{@user.email}\n" +
       "  CMS_ID: #{measure_1.cms_id}  TITLE: #{measure_1.title}\n" +
       "  CMS_ID: #{measure_2.cms_id}  TITLE: #{measure_2.title}\n" +
-      "User: #{@second_user.email}\n" +
+      "Group: personal group for #{@second_user.email}\n" +
       "  CMS_ID: #{measure_3.cms_id}  TITLE: #{measure_3.title}\n"
      ) { Rake::Task['bonnie:cql:cql_measure_stats'].execute }
   end
