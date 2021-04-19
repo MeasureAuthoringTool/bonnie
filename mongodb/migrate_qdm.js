@@ -10,7 +10,7 @@ db.users.find().forEach(function (user) {
     db.groups.insert({
         _id: user._id,
         is_personal: true,
-        name: "personal group for " + user.email,
+        name: user.email,
     });
     print("Adding user to the default group : " + user.email);
     db.users.update(
