@@ -29,6 +29,64 @@
       "recorded": true
     }
   ],
+  "home#index": [
+    {
+      "verb": "GET",
+      "path": "/",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Bonnie v4.2.1</title>\n    <link rel=\"stylesheet\" media=\"all\" href=\"/assets/application.css\" />\n    \n    <!--[if lt IE 9]>\n<script src=\"http://html5shim.googlecode.com/svn/trunk/html5.js\"></script>\n<![endif]-->\n    <style id=\"antiClickjack\">body{display:none !important;}</style>\n<script type=\"text/javascript\">\n   if (self === top) {\n       var antiClickjack = document.getElementById(\"antiClickjack\");\n       antiClickjack.parentNode.removeChild(antiClickjack);\n   } else {\n       top.location = self.location;\n   }\n</script>\n\n  </head>\n\n  <body>\n    <a href class=\"sr-only skip-content\">Skip to main content</a>\n      \n    <div class=\"container\">\n      <div class=\"navbar row\" role=\"navigation\">\n  <div class=\"navbar-brand\">\n    Bonnie\n  </div>\n  <ul class=\"nav navbar-nav pull-right\">\n\n      <li class=\"nav-dashboard active\"><a href=\"/#\"><i class=\"fa fa-bolt\" aria-hidden=\"true\"></i> Dashboard</a></li>\n\n    <li class=\"dropdown nav-account \">\n      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"\">\n        <i class=\"fa fa-user-circle-o\" aria-hidden=\"true\"></i>\n          bonnie bonnie\n        <b class=\"caret\"></b>\n      </a>\n      <ul class=\"dropdown-menu col-md-12 col-lg-12\">\n          <li>\n            <a href=\"/user/switch_group/501fdba3044a111b98000001\">\n                <i class=\"fa fa-check\" aria-hidden=\"true\"></i>&nbsp;\n              <span class=\"\">\n                  bonnie bonnie\n              </span>\n            </a>\n          </li>\n        <li>\n          <a href=\"/users/edit\">\n            <i class=\"fa fa-sign-in\" aria-hidden=\"true\"></i>\n            <span class=\"margin-left-6x\">View Profile</span>\n          </a>\n        </li>\n      </ul>\n    </li>\n\n    \n\n    <li class=\"dropdown\">\n      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"\">\n         <i class=\"fa fa-question-circle\" aria-hidden=\"true\"></i> Help <b class=\"caret\"></b>\n      </a>\n      <ul class=\"dropdown-menu\">\n        <li><a href=\"https://oncprojectracking.healthit.gov/support/projects/BONNIE\">Report Bug</a></li>\n        <li><a href=\"https://groups.google.com/forum/#!forum/bonnie\">User Group</a></li>\n        <li><a href=\"mailto:bonnie@example.com>\">Contact</a></li>\n        <li><a href=\"/resource/Bonnie_user_guide.pdf\">User Guide</a></li>\n        <li><a href=\"/resource/Bonnie_Integration_API_Guide_v1.pdf\">Integration API Guide</a></li>\n      </ul>\n    </li>\n\n    <li><a rel=\"nofollow\" data-method=\"delete\" href=\"/users/sign_out\"><i class=\"fa fa-sign-out\"></i> Logout</a></li>\n\n  </ul>\n</div>\n\n<div class=\"navbar row breadcrumb-container\"></div>\n\n      <div id=\"bonnie\" role=\"main\">\n        <div class=\"loading-indicator\">\n          <img src=\"/assets/loading.gif\" />\n          <div class=\"loading-text\">loading</div>\n        </div>\n      </div>\n      \n      <p id=\"ariaalerts\" class=\"sr-only\" role=\"log\" aria-live=\"polite\"></p>\n    </div>\n\n    <script src=\"/assets/application.js\"></script>\n    <script>\n      bonnie.isPortfolio = false;\n      bonnie.isDashboard = false;\n      bonnie.isAdmin = false;\n      bonnie.currentUserId = '501fdba3044a111b98000001';\n      $(document).ready(function() {\n        Backbone.history.start();\n        $('.skip-content').on('click', function(e) {\n          e.preventDefault();\n          $('#bonnie').attr('tabindex', -1).on('blur focusout', function() {\n            $(this).removeAttr('tabindex');\n          }).trigger('focus');\n        });\n      });\n      // prevent fetching directly from server after bootstrapping measures\n      bonnie.measures._fetched = true;\n    </script>\n  </body>\n</html>\n",
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "home#show": [
+    {
+      "verb": "GET",
+      "path": "/",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <title>Bonnie v4.2.1</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" media=\"all\" href=\"/assets/application.css\" />\n    <!--[if lt IE 9]>\n<script src=\"http://html5shim.googlecode.com/svn/trunk/html5.js\"></script>\n<![endif]-->\n    <style id=\"antiClickjack\">body{display:none !important;}</style>\n<script type=\"text/javascript\">\n   if (self === top) {\n       var antiClickjack = document.getElementById(\"antiClickjack\");\n       antiClickjack.parentNode.removeChild(antiClickjack);\n   } else {\n       top.location = self.location;\n   }\n</script>\n\n  </head>\n  <body>\n    <div class=\"landing-masthead\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-8\">\n            <h1 class=\"logo\">BONNIE</h1>\n            <p class=\"tagline\">A tool for testing electronic clinical quality measures</p>\n          </div>\n          <div class=\"login col-md-4\">\n            <a href=\"/users/sign_in\" class=\"btn-login\">login</a>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"landing-subhead\">\n      <div class=\"container\">\n        <a target=\"_blank\" href=\"/resource/Bonnie_user_guide.pdf\" class=\"btn btn-default\">User Guide</a>\n        <a target=\"_blank\" href=\"https://groups.google.com/forum/#!forum/bonnie\" class=\"btn btn-default\">User Group</a>\n        <a target=\"_blank\" href=\"/resource/Bonnie_Integration_API_Guide_v1.pdf\" class=\"btn btn-default\">API Guide</a>\n        <a target=\"_blank\" href=\"https://oncprojectracking.healthit.gov/support/projects/BONNIE\" class=\"btn btn-default\">Report Bug</a>\n      </div>\n    </div>\n    <div class=\"container\">\n      <section class=\"highlights row\">\n        <div class=\"col-md-4\">\n          <h2>streamlined and efficient</h2>\n          <i class=\"fa fa-fighter-jet lg\"></i>\n          <p>pretesting for eCQMs</p>\n        </div>\n        <div class=\"col-md-4\">\n          <h2>developer empowerment</h2>\n          <i class=\"fa fa-bolt lg\"></i>\n          <p>provides specific feedback on the behavior of the CQM logic</p>\n        </div>\n        <div class=\"col-md-4\">\n          <h2>quality<br/>reporting</h2>\n          <i class=\"fa fa-plus lg\"></i>\n          <p>supports the CMS Quality Reporting Programs</p>\n        </div>\n      </section>\n      <section>\n        <p class=\"lead\">Bonnie is a tool for testing electronic clinical quality measures (eCQMs) designed to support streamlined and efficient pre-testing of eCQMs, particularly those used in the CMS Quality Reporting Programs.</p>\n      </section>\n      <section class=\"row\">\n        <div class=\"col-md-6 section-heading\">\n          <h1 class=\"section-heading\">Current <span class=\"version-num\">Version 4.2.1</span></h1>\n          <p>The version 4.2.1 release of Bonnie adds support for testing measures using CQL 1.4 and the QDM 5.5 model</p>\n        </div>\n        <div class=\"col-md-6\">\n          <h1 class=\"section-heading\">Capabilities<span class=\"version-num\"> v4.2.1</span></h1>\n          <ul class=\"list-cap\">\n            <li>Composite Measure Support</li>\n            <li>Hybrid Measure Support</li>\n            <li>Display CQL Definition Results</li>\n            <li>VSAC Profile and Release Selection</li>\n            <li>Custom Measurement Period</li>\n            <li>Bonnie API</li>\n            <li>CQL 1.4 Support</li>\n            <li>QDM 5.5 Model Support</li>\n          </ul>\n        </div>\n      </section>\n      <section>\n        <center>\n<p class=\"redirect-msg\">\n  This version of Bonnie supports CQL 1.4, QDM 5.5 Based measures.<br/>\n  For CQL 1.3, QDM 5.4 Based measures, please use <a href=\"https://bonnie-prior.healthit.gov\">Bonnie-Prior</a>.\n</p>\n</center>\n\n      </section>\n    </div>\n    <footer>\n      <div class=\"container\">\n        <p>BONNIE is sponsored by the <a href=\"http://cms.hhs.gov/\">Centers for Medicare & Medicaid Services (CMS)</a> and <a href=\"http://healthit.gov\">Office of the National Coordinator for Health Information Technology (ONC)</a> and has been developed by <a href=\"http://www.mitre.org\">The MITRE Corporation</a></p>\n      </div>\n    </footer>\n  </body>\n</html>\n",
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "home#switch_group": [
+    {
+      "verb": "GET",
+      "path": "/user/switch_group/6081e2b9b789024bbee923a6",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<html><body>You are being <a href=\"http://test.host/\">redirected</a>.</body></html>",
+      "code": "302",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/user/switch_group/6081e2b9b789024bbee923a9",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<html><body>You are being <a href=\"http://test.host/\">redirected</a>.</body></html>",
+      "code": "302",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "measures#calculated_results": [
     {
       "verb": "GET",

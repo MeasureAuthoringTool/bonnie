@@ -18,6 +18,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # hook to make sure user logins to private group always
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(User)
+      resource.current_group = resource.find_personal_group
+      resource.save
+    end
+    super
+  end
+
   def after_sign_out_path_for(resource)
     "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
   end
