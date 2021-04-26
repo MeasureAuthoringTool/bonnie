@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.4.5'
+gem 'rails', '5.2.5'
 
 gem 'sprockets'
 
@@ -21,7 +21,7 @@ gem 'fhir-mongoid-models', '~> 0.0.4'
 gem 'rubyzip', '>= 1.3.0'
 gem 'zip-zip'
 
-gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
+gem 'caxlsx'
 gem 'mongoid', '~> 7.1'
 gem 'devise'
 gem 'systemu'
@@ -36,6 +36,7 @@ gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
 gem "doorkeeper-mongodb", '~> 4.2.0'
+gem "marcel", '>= 1.0.1'
 
 group :test, :development, :ci do
   gem 'pry'
