@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: ff27e680ce4148db91703dbb6f6883069dcc7fd6
+  revision: e25c896281ce7d27e87a08a401a67ab86580e5cd
   branch: bonnie-on-fhir
   specs:
     cqm-parsers (0.2.1.1)
@@ -77,7 +77,7 @@ GEM
     activestorage (5.2.4.5)
       actionpack (= 5.2.4.5)
       activerecord (= 5.2.4.5)
-      marcel (~> 0.3.1)
+      marcel (~> 1.0.1)
     activesupport (5.2.4.5)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
@@ -147,7 +147,7 @@ GEM
       doorkeeper (>= 4.4, < 5.0)
     erubi (1.10.0)
     erubis (2.7.0)
-    ethon (0.13.0)
+    ethon (0.14.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
     execjs (2.7.0)
@@ -167,7 +167,7 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (1.8.9)
+    i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     iniparse (1.5.0)
     jquery-rails (4.4.0)
