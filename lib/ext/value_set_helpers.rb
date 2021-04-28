@@ -2,7 +2,7 @@ module Measures
   module ValueSetHelpers
     class << self
 
-      def get_spreadsheet_location
+      def spreadsheet_location_config
         APP_CONFIG['spreadsheet_location']
       end
 
