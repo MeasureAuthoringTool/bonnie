@@ -92,7 +92,7 @@ class User
 
   scope :by_email, ->(email) { where({email: email}) }
 
-  validates :harp_id, uniqueness: { message: 'Id is already taken' }
+  validates :harp_id, uniqueness: { message: 'Id is already taken' }, if: :harp_id?
 
   ## Confirmable
   # field :confirmation_token,   :type => String

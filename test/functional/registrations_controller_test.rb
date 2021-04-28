@@ -20,7 +20,8 @@ class RegistrationsControllerTest < ActionController::TestCase
 
     post :create, params: {utf8:"✓", authenticity_token: "0n4OMnJb0zHfByZcHZdWBpQpxqW0YolmC/2Iig35tIk=",
       user: {first_name: "Foo", last_name: "Bar", email: "foobar@mitre.org", telephone: "555-555-5555",
-        password: "[FILTERED]", password_confirmation: "[FILTERED]"}, agree_license: "1", commit: "Register"}
+        password: "[FILTERED]", password_confirmation: "[FILTERED]"}, agree_license: "1", commit: "Register",
+        harp_id:'foo.bar'}
     assert_response :redirect
 
     assert_equal "You have signed up successfully. However, we could not sign "+
