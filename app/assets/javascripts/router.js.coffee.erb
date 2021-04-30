@@ -27,6 +27,7 @@
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
     'admin/users':                                     'renderUsers'
+    'admin/groups':                                     'renderGroups'
     # This will catch any unmatched hashes and route them to showPageNotFound
     '*path':                                            'showPageNotFound'
 
@@ -54,6 +55,12 @@
     @users = new Thorax.Collections.Users()
     usersView = new Thorax.Views.Users(collection: @users)
     @mainView.setView(usersView)
+
+  renderGroups: ->
+    @navigationSetup "Admin", "admin"
+    @groups = new Thorax.Collections.Groups()
+    groupsView = new Thorax.Views.GroupsView(collection: @groups)
+    @mainView.setView(groupsView)
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
     measure = _.find(@measures.models, (measure) -> measure.get('cqmMeasure').hqmf_set_id is measureHqmfSetId) if measureHqmfSetId
