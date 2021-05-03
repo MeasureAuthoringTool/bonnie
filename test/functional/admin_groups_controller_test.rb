@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::GroupsControllerTest  < ActionController::TestCase
+class Admin::GroupsControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   setup do
@@ -33,7 +33,6 @@ class Admin::GroupsControllerTest  < ActionController::TestCase
 
     load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
     associate_user_with_patients(@user, CQM::Patient.all)
-
   end
 
 
