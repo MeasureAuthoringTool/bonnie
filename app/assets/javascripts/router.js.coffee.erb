@@ -58,8 +58,8 @@
 
   renderGroups: ->
     @navigationSetup "Admin", "admin"
-    @groups = new Thorax.Collections.Groups()
-    groupsView = new Thorax.Views.GroupsView(collection: @groups)
+    groups = new Thorax.Collections.Groups()
+    groupsView = new Thorax.Views.GroupsView(collection: groups)
     @mainView.setView(groupsView)
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
