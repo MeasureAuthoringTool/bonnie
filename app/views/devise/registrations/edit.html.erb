@@ -45,6 +45,15 @@
       </div>
     </div>
   </div>
+  <div class="form-group row">
+    <div class="col-md-6">
+      <div class="input-group input-group-lg">
+        <label for="harp_id" class="sr-only">Harp Id</label>
+        <span class="input-group-addon"><i class="fa fa-id-card fa-lg fa-fw" aria-hidden="true"></i></span>
+        <%= f.text_field :harp_id, class: "form-control", placeholder: "Harp Id", readonly: true, 'aria-required': true %>
+      </div>
+    </div>
+  </div>
 
   <% if resource.is_portfolio? %>
     <div class="form-group row">
