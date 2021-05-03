@@ -21,6 +21,8 @@
     @applicationVersion = '<%=Bonnie::Version.current%>';
     @support_fhir_version = '<%=Bonnie::Version.fhir_ver%>';
 
+    $('a.switch-group-link').on 'click ', _.bind(@onSwitchRole, this)
+
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
@@ -107,3 +109,12 @@
   showPageNotFound: ->
     @mainView.setView new Thorax.Views.ErrorView
     @breadcrumb.clear()
+
+  onSwitchRole: (e) ->
+    target = $(e.target).closest('a')
+    if /^measures.+patients.+/.test(Backbone.history.fragment)
+      e.preventDefault()
+      href = target.attr('href')
+      switchRoleConfirmDialog = new Thorax.Views.SwitchRoleConfirmationDialog( href: href )
+      switchRoleConfirmDialog.appendTo('#bonnie')
+      switchRoleConfirmDialog.display()

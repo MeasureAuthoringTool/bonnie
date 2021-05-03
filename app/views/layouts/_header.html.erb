@@ -23,7 +23,7 @@
       <ul class="dropdown-menu col-md-12 col-lg-12">
         <% current_user.groups.each do |group| %>
           <li>
-            <a href="/user/switch_group/<%= group.id %>">
+            <a class="switch-group-link" href="/user/switch_group/<%= group.id %>">
               <% if group.id == current_user.current_group.id %>
                 <i class="fa fa-check" aria-hidden="true"></i>&nbsp;
               <% end %>
