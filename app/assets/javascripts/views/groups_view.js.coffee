@@ -1,4 +1,5 @@
 class Thorax.Views.GroupsView extends Thorax.Views.BonnieView
+  className: 'group-management'
   template: JST['users/groups']
 
   initialize: ->
