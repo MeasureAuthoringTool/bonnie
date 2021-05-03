@@ -35,7 +35,6 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     associate_user_with_patients(@user, CQM::Patient.all)
   end
 
-
   test "access groups page as a non admin" do
     sign_in @user_plain
     not_authorized = assert_raises(RuntimeError) do
