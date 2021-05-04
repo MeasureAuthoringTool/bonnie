@@ -10,7 +10,6 @@ class Thorax.Collections.Groups extends Thorax.Collection
     @on 'reset', @updateSummary
 
   updateSummary: ->
-    groups = new Thorax.Collection(@filter((g) -> g))
     @summary.set
       totalGroups: @length
       totalMeasures: @reduce(((sum, group) -> sum + group.get('measure_count')), 0)

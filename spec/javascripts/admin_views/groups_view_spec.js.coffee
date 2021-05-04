@@ -3,6 +3,7 @@ describe 'GroupsView', ->
     jasmine.getJSONFixtures().clearCache()
     group_index = getJSONFixture("ajax/groups.json")
     groups = new Thorax.Collections.Groups(group_index)
+    groups.trigger('reset', groups, {});
     @view = new Thorax.Views.GroupsView(collection: groups)
     @view.render()
 
@@ -19,3 +20,7 @@ describe 'GroupsView', ->
     patientCounts = @view.$('td.patient-count').toArray().map (e) ->
       e.innerText
     expect(patientCounts).toEqual ['10', '2', '0']
+    # overall patient & measure counts
+    counts = @view.$('th.centered').toArray().map (e) ->
+      e.innerText
+    expect(counts).toEqual ['Measures (3)', 'Patients (12)']
