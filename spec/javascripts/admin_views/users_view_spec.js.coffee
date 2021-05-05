@@ -4,6 +4,7 @@ describe 'UsersViews', ->
     jasmine.getJSONFixtures().clearCache()
     users_index = getJSONFixture("ajax/users.json")
     users = new Thorax.Collections.Users(users_index)
+    users.trigger('reset', users, {});
     @view = new Thorax.Views.Users(collection: users)
     @view.render()
 
