@@ -84,6 +84,18 @@ jobs:
       - name: Setup Istanbul
         run: sudo npm install -g istanbul
 
+# ------- Teaspoon tests for "admin_views" directory ----------
+      - name: Run teaspoon tests for admin_views
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=admin_views
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
+
 # ------- Teaspoon tests for "cqm_specs" directory ----------
       - name: Run teaspoon tests for cqm_specs
         uses: GabrielBB/xvfb-action@v1
