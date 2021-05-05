@@ -73,7 +73,7 @@ Bonnie::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :groups, :users do
+    resources :users do
       collection do
         post 'email_active'
         post 'email_all'
@@ -87,6 +87,7 @@ Bonnie::Application.routes.draw do
         post 'log_in_as'
       end
     end
+    resources :groups
   end
 
   namespace :api_v1 do
