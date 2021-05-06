@@ -9,7 +9,8 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
     @userSummaryView = new Thorax.View model: @collection.summary, template: JST['users/user_summary'], toggleStats: ->
       @$('.stats-panel').toggleClass('hidden')
       @$('.btn-toggle-stats').toggleClass('btn-default btn-primary')
-    @tableHeaderView = new Thorax.View model: @collection.summary, template: JST['users/table_header'], tagName: 'thead'
+    @tableHeaderView = new Thorax.View model: @collection.summary, template: JST['users/user_table_header'], tagName: 'thead'
+    @userGroupTabs = new Thorax.Views.UserGroupTabs({activeTab: 'users'})
 
   sortUsers: (e) ->
     attr = $(e.target).val()
@@ -111,7 +112,7 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
       selector: @bodyAreaSelector
       height: 400
       plugins: 'link lists'
-      toolbar: 'undo redo | formatselect | bold italic backcolor | ' + 
+      toolbar: 'undo redo | formatselect | bold italic backcolor | ' +
         'link unlink | numlist bullist outdent indent | ' +
         'alignleft aligncenter alignright | removeformat'
       menubar: false
