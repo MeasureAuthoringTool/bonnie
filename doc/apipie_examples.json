@@ -29,6 +29,36 @@
       "recorded": true
     }
   ],
+  "groups#index": [
+    {
+      "verb": "GET",
+      "path": "/admin/groups.json",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "_id": "60930d68b789026a19c7a652",
+          "is_personal": false,
+          "measure_count": 0,
+          "name": "CMS",
+          "patient_count": 0
+        },
+        {
+          "_id": "60930d68b789026a19c7a651",
+          "is_personal": false,
+          "measure_count": 1,
+          "name": "SB",
+          "patient_count": 4
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "home#index": [
     {
       "verb": "GET",
