@@ -29,7 +29,6 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
 
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
-  editTemplate: JST['users/edit_user']
   tagName: 'tr'
 
   context: ->
@@ -48,14 +47,28 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
   disable: -> @model.disable()
 
   edit: ->
-    @$el.html(@renderTemplate(@editTemplate))
-    @populate()
+    view = this
+    userEditDialog = new Thorax.Views.UserEditDialog(
+      model: @model,
+      cancelCallback: () -> view.cancel(),
+      submitCallback: () -> view.save()
+    )
+    userEditDialog.appendTo($(document.body))
+    userEditDialog.display()
 
   save: ->
-    @serialize()
+    approveChanged = @model.changed? && @model.changed.hasOwnProperty('approved')
+    approved = @model.changed? && @model.changed.approved
+    # should store the model first, then approve/disable, otherwsie the model gets refreshed from DB
     @model.save {}, success: => @$el.html(@renderTemplate(@template))
+    if approveChanged
+      if approved
+        @approve()
+      else
+        @disable()
 
-  cancel: -> @$el.html(@renderTemplate(@template))
+  cancel: ->
+    @$el.html(@renderTemplate(@template))
 
   showDelete: -> @$('.delete-user').toggleClass('hide')
 
