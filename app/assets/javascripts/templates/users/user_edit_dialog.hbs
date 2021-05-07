@@ -1,0 +1,44 @@
+<div class="modal fade" id="userEditDialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog"  role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="userEditModalTitle">Edit User</h1>
+      </div>
+      <div class="modal-body">
+{{!--         <div class="form-group"> --}}
+{{!--           <label for="first_name">First name:</label> --}}
+{{!--           <input type="text" class="form-control" id="first_name" name="first_name" aria-describedby="emailHelp" placeholder="Enter first name"> --}}
+{{!--         </div> --}}
+{{!--         <div class="form-group"> --}}
+{{!--           <label for="last_name">Last name:</label> --}}
+{{!--           <input type="text" class="form-control" id="last_name" name="last_name" aria-describedby="emailHelp" placeholder="Enter last name"> --}}
+{{!--         </div> --}}
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+        </div>
+{{!--         <div class="form-group"> --}}
+{{!--           <label for="harp_id">HARP ID:</label> --}}
+{{!--           <input type="text" class="form-control" id="harp_id" name="harp_id" aria-describedby="emailHelp" placeholder="Enter HARP ID"> --}}
+{{!--         </div> --}}
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="admin" name="admin">
+          <label class="form-check-label" for="admin">Admin?</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="portfolio" name="portfolio">
+          <label class="form-check-label" for="portfolio">Portfolio?</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="approved" name="approved">
+          <label class="form-check-label" for="approved">Approved?</label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="saveUserDialogOK" class="btn btn-primary">OK</button>
+        <button type="button" id="saveUserDialogCancel" class="btn btn-default">Cancel</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
