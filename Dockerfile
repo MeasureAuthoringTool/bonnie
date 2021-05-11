@@ -1,6 +1,6 @@
 FROM phusion/passenger-full
 
-ARG RUBY_VERSION=2.4.5
+ARG RUBY_VERSION=2.7.2
 
 ADD bonnie.conf /etc/nginx/sites-enabled/bonnie.conf
 
