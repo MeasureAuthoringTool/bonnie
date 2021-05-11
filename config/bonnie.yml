@@ -49,17 +49,10 @@ production:
   bonnie_email: <%= ENV["BONNIE_EMAIL"] %> 
   bonnie_error_email: <%= ENV["BONNIE_ERROR_EMAIL"] %> 
   virus_scan:
-<<<<<<< HEAD
     enabled: <%= ENV["VIRUS_SCAN_ENABLED"] %>
     scan_url: <%= ENV["VIRUS_SCAN_URL"] %>
     api_key: <%= ENV["VIRUS_SCAN_API_KEY"] %>
-=======
-    enabled: true
-    scan_url: 'http://localhost:5000/scan-file'
-    api_key: '1234567'
-    timeout: 30
   # PROD
   # https://docs.google.com/spreadsheets/d/1RJ2LV5yrTuL0wpQG2Op9lXIf6pP3ExCBF_XC_iTgo8k/edit#gid=0
   # https://spreadsheets.google.com/feeds/list/1RJ2LV5yrTuL0wpQG2Op9lXIf6pP3ExCBF_XC_iTgo8k/od6/public/values?alt=json
   spreadsheet_location: 'https://spreadsheets.google.com/feeds/list/1RJ2LV5yrTuL0wpQG2Op9lXIf6pP3ExCBF_XC_iTgo8k/od6/public/values?alt=json'
->>>>>>> bonnie-on-fhir
