@@ -227,6 +227,47 @@ describe 'DataCriteriaHelpers', ->
       stringValue = DataCriteriaHelpers.stringifyType(coding)
       expect(stringValue).toEqual "system: 5678910"
 
+    it 'stringify datetime', ->
+      dateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57')
+      stringValue = DataCriteriaHelpers.stringifyType(dateTime)
+      expect(stringValue).toEqual formatExpectedDate("09/02/2020 1:54 PM")
+
+    it 'stringify timing', ->
+      timing = new cqm.models.Timing()
+
+      coding = new cqm.models.Coding()
+      coding.system = cqm.models.PrimitiveUri.parsePrimitive('SNOMEDCT')
+      coding.code = cqm.models.PrimitiveCode.parsePrimitive('5678910')
+      coding.version = cqm.models.PrimitiveString.parsePrimitive('version')
+
+      duration = new cqm.models.Duration()
+      duration.unit = cqm.models.PrimitiveString.parsePrimitive('ml')
+      duration.value = cqm.models.PrimitiveDecimal.parsePrimitive(100)
+
+      timing.code = new cqm.models.CodeableConcept()
+      timing.code.coding = [ coding ]
+      timing.event = [ cqm.models.PrimitiveDateTime.parsePrimitive('2020-09-02T13:54:57') ]
+      timing.repeat = new cqm.models.TimingRepeat()
+      timing.repeat.bounds = duration
+      timing.repeat.count = cqm.models.PrimitivePositiveInt.parsePrimitive(1)
+      timing.repeat.countMax = cqm.models.PrimitivePositiveInt.parsePrimitive(1)
+      timing.repeat.duration = cqm.models.PrimitiveDecimal.parsePrimitive(11.1)
+      timing.repeat.durationMax = cqm.models.PrimitiveDecimal.parsePrimitive(13.1)
+      timing.repeat.durationUnit = cqm.models.UnitsOfTime.parsePrimitive('w')
+      timing.repeat.frequency = cqm.models.PrimitivePositiveInt.parsePrimitive(34)
+      timing.repeat.frequencyMax = cqm.models.PrimitivePositiveInt.parsePrimitive(134)
+      timing.repeat.period = cqm.models.PrimitiveDecimal.parsePrimitive(3)
+      timing.repeat.periodMax = cqm.models.PrimitiveDecimal.parsePrimitive(333)
+      timing.repeat.periodUnit = cqm.models.UnitsOfTime.parsePrimitive('s')
+      timing.repeat.dayOfWeek = [ cqm.models.DayOfWeek.parsePrimitive('mon') ]
+      timing.repeat.timeOfDay = [ cqm.models.PrimitiveTime.parsePrimitive('13:45') ]
+      timing.repeat.when = [ cqm.models.EventTiming.parsePrimitive('AM') ]
+      timing.repeat.offset = cqm.models.PrimitiveUnsignedInt.parsePrimitive('4')
+
+      stringValue = DataCriteriaHelpers.stringifyType(timing, {SNOMEDCT: 'SNOMEDCT', LOINC: 'LOINC'})
+      expect(stringValue).toEqual 'event : ' + formatExpectedDate("09/02/2020 1:54 PM") + ' | repeat.bounds : 100 \'ml\' | repeat.count : 1 | repeat.countMax : 1 | repeat.duration : 11.1 | repeat.durationMax : 13.1 | repeat.durationUnit : w | repeat.frequency : 34 | repeat.frequencyMax : 134 | repeat.period : 3 | repeat.periodMax : 333 | repeat.periodUnit : s | repeat.dayOfWeek : mon | repeat.timeOfDay : 1:45 PM | repeat.when : AM | repeat.offset : 4 | code: [SNOMEDCT: 5678910]'
+
+
   describe 'Primary code path', ->
     it 'returns undefined (unsupported) for an empty DataElement getPrimaryCodePath', ->
       expect(DataCriteriaHelpers.getPrimaryCodePath(new cqm.models.DataElement())).toBeUndefined

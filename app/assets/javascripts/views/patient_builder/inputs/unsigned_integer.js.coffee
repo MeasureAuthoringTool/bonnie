@@ -11,6 +11,7 @@ class Thorax.Views.InputUnsignedIntegerView extends Thorax.Views.BonnieView
       @value = @initialValue
     else
       @value = null
+    @invalidInput = false
 
   events:
     'change input': 'handleInputChange'
@@ -20,6 +21,11 @@ class Thorax.Views.InputUnsignedIntegerView extends Thorax.Views.BonnieView
   # if the add button should be active or not
   hasValidValue: ->
     @value?
+
+  # checks if an invalid value is entered
+  # hasInvalidInput is true when there is an entered value which is invalid or cannot be parsed
+  hasInvalidInput: ->
+    @invalidInput
 
   handleInputChange: (e) ->
     inputValue = @$(e.target).val()
@@ -31,4 +37,12 @@ class Thorax.Views.InputUnsignedIntegerView extends Thorax.Views.BonnieView
         @value = cqm.models.PrimitiveUnsignedInt.parsePrimitive(parsed)
     else
       @value = null
+
+    if @value? || !inputValue
+      @$(e.target).parent().removeClass('has-error')
+      @invalidInput = false
+    else
+      @$(e.target).parent().addClass('has-error')
+      @invalidInput = true
+
     @trigger 'valueChanged', @

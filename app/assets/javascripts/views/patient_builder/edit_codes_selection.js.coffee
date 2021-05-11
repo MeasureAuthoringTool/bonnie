@@ -88,5 +88,5 @@ class Thorax.Views.EditCodeSelectionView extends Thorax.Views.BuilderChildView
   updateCodeSystems: ->
     # Maps code system name to code system uri
     @codeSystemMap = @measure.codeSystemMap() unless @codeSystemMap
-    @codeSystems = _((@codeSystemMap[concept.system] || concept.system) for concept in @concepts || []).uniq()
+    @codeSystems = _((@codeSystemMap[concept.system] || concept.system) for concept in @concepts || []).uniq().sort()
     @render()

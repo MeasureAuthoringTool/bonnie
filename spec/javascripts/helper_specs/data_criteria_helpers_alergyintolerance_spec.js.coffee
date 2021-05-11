@@ -22,14 +22,15 @@ describe 'DataCriteriaHelpers', ->
       attr = attrs.find (attr) => attr.path is 'onset'
       expect(attr.path).toEqual 'onset'
       # Create DateTime & hir resource
-      dateTime = new cqm.models.CQL.DateTime(2020, 10, 5, 8, 0, 0, 0, 0)
+
+      dateTime = cqm.models.PrimitiveDateTime.parsePrimitive('2020-10-05T08:00:00.000+00:00')
       fhirResource = new cqm.models.AllergyIntolerance()
       # set DateTime
       attr.setValue(fhirResource, dateTime)
 
       value = attr.getValue(fhirResource)
       # Verify after setting values
-      expect(value.value).toEqual dateTime.toString()
+      expect(value.value).toEqual '2020-10-05T08:00:00.000+00:00'
 
     it 'should set and get values for onset if Choice type is Age', ->
       attrs = DataCriteriaHelpers.DATA_ELEMENT_ATTRIBUTES['AllergyIntolerance']
