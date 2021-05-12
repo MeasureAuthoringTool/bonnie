@@ -75,19 +75,19 @@ describe 'UserEditDialog', ->
     expect(@userEditDialog.$('#email').val()).toBe('bonnie_2@example.com')
 
     expect(@userEditDialog.$('#saveUserDialogOK').is(':disabled')).toBe(false)
-    expect(@userEditDialog.$('#email').parent.hasClass('has-error')).toBe(false)
+    expect(@userEditDialog.$('#email').parent().hasClass('has-error')).toBe(false)
 
     # Enter invalid email
     @userEditDialog.$('#email').val('').change()
     expect(@userEditDialog.$('#email').val()).toBe('')
 
     expect(@userEditDialog.$('#saveUserDialogOK').is(':disabled')).toBe(true)
-    expect(@userEditDialog.$('#email').parent.hasClass("has-error")).toBe(true)
+    expect(@userEditDialog.$('#email').parent().hasClass("has-error")).toBe(true)
 
     # Enter valid email
     @userEditDialog.$('#email').val('bonnie_2@example.com').change()
     expect(@userEditDialog.$('#email').val()).toBe('bonnie_2@example.com')
 
     expect(@userEditDialog.$('#saveUserDialogOK').is(':disabled')).toBe(false)
-    expect(@userEditDialog.$('#email').parent.hasClass("has-error")).toBe(false)
+    expect(@userEditDialog.$('#email').parent().hasClass("has-error")).toBe(false)
 
