@@ -39,9 +39,6 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
 
   events:
     'click .email-user': 'emailUser'
-    serialize: (attr) ->
-      attr.admin ?= false
-      attr.portfolio ?= false
 
   approve: -> @model.approve()
 
@@ -58,17 +55,42 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
     userEditDialog.display()
 
   save: ->
-    approveChanged = @model.changed? && @model.changed.hasOwnProperty('approved')
-    approved = @model.changed? && @model.changed.approved
-    # should store the model first, then approve/disable, otherwsie the model gets refreshed from DB
-    @model.save {}, success: => @$el.html(@renderTemplate(@template))
-    if approveChanged
-      if approved
-        @approve()
-      else
-        @disable()
+    view = this
+    changed = @model.changedAttributes()
+    prevAttributes = _.pick(@model.previousAttributes(), _.keys(changed))
+    approveChanged = @model.hasChanged('approved')
+    approved = changed? && @model.changed.approved
+
+    # should store the model first, then approve/disable, otherwsie the model gets refreshed from the DB
+    if changed
+      @model.save {},
+        success: =>
+          @$el.html(@renderTemplate(@template))
+          if approveChanged
+            @updateApprove(approved)
+        error: (model, response) =>
+          view.model.revert(prevAttributes)
+          view.showUserError(response)
+
+  showUserError: (response) ->
+    errorSummary = response?.statusText || 'Failed to save user '
+    # Object.entries(response.responseJSON.errors).map((a) => a.join(': ')).join('\n')
+    errorsText = Object.entries(response?.responseJSON?.errors)?.map((a) -> a.join(' - ')).join(', ')
+    bonnie.showError(
+      title: 'User save error',
+      summary: errorSummary
+      body: 'Errors: ' + errorsText)
+
+  updateApprove: (approved) ->
+    if approved
+      @approve()
+    else
+      @disable()
 
   cancel: ->
+    if @model.changedAttributes()
+      prevAttributes = _.pick(@model.previousAttributes(), _.keys(changed))
+      view.model.revert(prevAttributes)
     @$el.html(@renderTemplate(@template))
 
   showDelete: -> @$('.delete-user').toggleClass('hide')
