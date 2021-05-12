@@ -16,6 +16,7 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
       attr.portfolio ?= false
       attr.approved ?= false
     'keyup input': 'validate'
+    'change input': 'validate'
 
   display: ->
     @userEditDialog.modal(
