@@ -74,7 +74,6 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
 
   showUserError: (response) ->
     errorSummary = response?.statusText || 'Failed to save user '
-    # Object.entries(response.responseJSON.errors).map((a) => a.join(': ')).join('\n')
     errorsText = Object.entries(response?.responseJSON?.errors)?.map((a) -> a.join(' - ')).join(', ')
     bonnie.showError(
       title: 'User save error',
