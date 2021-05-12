@@ -3,6 +3,7 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
 
   setup: ->
     @userEditDialog = @$("#userEditDialog")
+    @validate()
 
   events:
     rendered: ->
@@ -14,6 +15,8 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
       attr.admin ?= false
       attr.portfolio ?= false
       attr.approved ?= false
+    'keyup input': 'validate'
+    'change input': 'validate'
 
   display: ->
     @userEditDialog.modal(
@@ -29,3 +32,17 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
   cancel: ->
     @userEditDialog.modal('hide')
     @cancelCallback?()
+
+  isValidEmail: (email) ->
+    re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    re.test(email)
+
+  validate: ->
+    emailInput = @$('input[name="email"]')
+    email = emailInput.val()
+    if !@isValidEmail(email)
+      emailInput.parent().addClass('has-error')
+      @$('#saveUserDialogOK').attr('disabled', 'disabled')
+    else
+      emailInput.parent().removeClass('has-error')
+      @$('#saveUserDialogOK').removeAttr('disabled')
