@@ -1,6 +1,7 @@
 FROM phusion/passenger-full
 
-ENV PASSENGER_APP_ENV=production
+ARG PASSENGER_APP_ENV=production
+ENV RAILS_ENV=$PASSENGER_APP_ENV
 
 ADD bonnie.conf /etc/nginx/sites-enabled/bonnie.conf
 
