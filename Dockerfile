@@ -16,12 +16,11 @@ RUN rm -f /etc/service/nginx/down \
     && curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest \
-    && apt-get install shared-mime-info -y \
-    && apt-get install ruby-font-awesome-rails -y
+    && apt-get install shared-mime-info -y
 
-RUN su - app -c 'cd /home/app/bonnie \
-		 && curl -O https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \
-		 && gem install bundler -v 2.1.4 \
-		 && bundle install \
-		 && npm install \
-		 && bundle exec rake assets:precompile'
+RUN su - app -c "cd /home/app/bonnie \
+                 && curl -O https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \
+                 && gem install bundler -v 2.1.4 \
+                 && bundle install \
+                 && npm install \
+                 && RAILS_ENV=${PASSENGER_APP_ENV} bundle exec rake assets:precompile"
