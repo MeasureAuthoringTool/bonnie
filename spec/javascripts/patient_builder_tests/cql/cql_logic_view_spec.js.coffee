@@ -131,7 +131,7 @@ describe 'CqlLogicView', ->
       populationLogicView.render()
       expect(populationLogicView.$el.html()).toContain 'This measure was written using an outdated version of QDM. Please re-package and re-export the measure from the MAT.'
 
-    it 'shows for QDM 5.5 measure', ->
+    it 'shows for QDM 5.6 measure', ->
       jasmine.getJSONFixtures().clearCache()
       measure = new Thorax.Models.Measure getJSONFixture('cqm_measure_data/CMS903v0/CMS903v0.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: measure)
