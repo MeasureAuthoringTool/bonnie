@@ -313,16 +313,19 @@ describe 'PatientBuilderView', ->
 
     it "toggles negations correctly", ->
       @patientBuilder.$('.criteria-data').children().toggleClass('hide')
-      expect(@patientBuilder.model.get('source_data_criteria').at(3).get('negation')).toBe false
-      expect(@patientBuilder.model.get('source_data_criteria').at(3).get('qdmDataElement').negationRationale).toBeNull()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe true
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toExist()
+      @patientBuilder.$('input[name=negation]:first').click()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe false
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toBeNull()
       @patientBuilder.$('input[name=negation]:first').click()
       @patientBuilder.$('select[name="valueset"]').val('drc-99a051cdb6879ebe3d81f5c15cecbf4157040a6e1c12c711bacb61246e5a0d61').change()
       # No need to select code for test, one is selected by default
-      expect(@patientBuilder.model.get('source_data_criteria').at(3).get('negation')).toBe true
-      expect(@patientBuilder.model.get('source_data_criteria').at(3).get('qdmDataElement').negationRationale).toExist()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe true
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toExist()
       @patientBuilder.$('input[name=negation]:first').click()
-      expect(@patientBuilder.model.get('source_data_criteria').at(3).get('negation')).toBe false
-      expect(@patientBuilder.model.get('source_data_criteria').at(3).get('qdmDataElement').negationRationale).toBeNull()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe false
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toBeNull()
 
     afterEach -> @patientBuilder.remove()
 
