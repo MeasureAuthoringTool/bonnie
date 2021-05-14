@@ -5,6 +5,7 @@ ARG PASSENGER_APP_ENV=production
 ENV RAILS_ENV=${PASSENGER_APP_ENV}
 
 ADD bonnie.conf /etc/nginx/sites-enabled/bonnie.conf
+#ADD mime.types /etc/nginx/mime.types
 
 COPY --chown=app:app . /home/app/bonnie
 
@@ -13,12 +14,11 @@ RUN bash -lc "rvm install ruby-${RUBY_VERSION} && rvm --default use ruby-${RUBY_
 RUN rm -f /etc/service/nginx/down \
     && rm -f /etc/nginx/sites-enabled/default \
     && apt update \
-    && apt-get install shared-mime-info -y \
-    && apt-get install ruby-font-awesome-rails -y
+    && apt-get install shared-mime-info -y 
 
 RUN su - app -c 'cd /home/app/bonnie \
 		 && curl -O https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \
 		 && gem install bundler -v 2.1.4 \
-		 && bundle install --deployment\
+		 && bundle install \
 		 && npm install \
-		 && bundle exec rake assets:precompile'
+		 && RAILS_ENV=production bundle exec rake assets:precompile'
