@@ -76,6 +76,7 @@ class User
   field :first_name,    :type => String
   field :last_name,    :type => String
   field :harp_id, :type => String
+  index({ harp_id: 1 }, { unique: true, name: "harp_id_index", sparse: true })
   field :telephone,    :type => String
   field :admin, type:Boolean, :default => false
   field :portfolio, type:Boolean, :default => false
