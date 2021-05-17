@@ -1,8 +1,8 @@
 FROM phusion/passenger-full
 
-ARG RUBY_VERSION=2.7.2
 ARG PASSENGER_APP_ENV=production
 ENV RAILS_ENV=${PASSENGER_APP_ENV}
+ENV RUBY_VERSION=2.7.2
 
 ADD bonnie.conf /etc/nginx/sites-enabled/bonnie.conf
 #ADD mime.types /etc/nginx/mime.types
