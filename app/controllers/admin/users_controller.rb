@@ -7,16 +7,22 @@ class Admin::UsersController < ApplicationController
   respond_to :json
 
   def index
-    # Getting the count for user measures and patients via the DB is a 1+n problem, and a bit slow, so we grab
-    # the counts separately via map reduce and plug them in
+    # aggregate pipeline stages
+    stages = [
+      {
+        "$group" => {
+          "_id" => "$group_id",
+          "count" => { "$sum" => 1 }
+        }
+      }
+    ]
+
+    measures = CQM::Measure.collection.aggregate(stages).as_json
+    patients = CQM::Patient.collection.aggregate(stages).as_json
     users = User.asc(:email).all.to_a # Need to convert to array so counts stick
-    map = "function() { emit(this.group_id, 1); }"
-    reduce = "function(group_id, counts) { return Array.sum(counts); }"
-    measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
-    patient_counts = CQM::Patient.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
-    users.each do |u|
-      u.measure_count = measure_counts[u.id] || 0
-      u.patient_count = patient_counts[u.id] || 0
+    users.each do |user|
+      user.measure_count = get_count_by_id(measures, user.id)
+      user.patient_count = get_count_by_id(patients, user.id)
     end
     users_json = MultiJson.encode(users.as_json(methods: [:measure_count, :patient_count, :last_sign_in_at]))
     respond_with users do |format|
