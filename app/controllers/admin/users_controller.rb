@@ -7,8 +7,7 @@ class Admin::UsersController < ApplicationController
   respond_to :json
 
   def index
-    # Getting the count for user measures and patients via the DB is a 1+n problem, and a bit slow, so we grab
-    # the counts separately via map reduce and plug them in
+    # aggregate pipeline stages
     stages = [
       {
         "$group" => {
