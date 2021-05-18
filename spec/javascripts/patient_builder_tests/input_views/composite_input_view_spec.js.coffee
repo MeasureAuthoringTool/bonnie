@@ -144,6 +144,15 @@ describe 'InputView', ->
       organizationEntityView.render()
       validateEntityOptionalInputs(organizationEntityView)
 
+      it 'allows for optional Location fields', ->
+      locationEntityView = new Thorax.Views.InputCompositeView
+        schema: cqm.models.LocationSchema,
+        typeName: 'Location',
+        codeSystemMap: @measure.codeSystemMap(),
+        cqmValueSets: @measure.get('cqmValueSets')
+      locationEntityView.render()
+      validateEntityOptionalInputs(locationEntityView)
+
     it 'allows for a Component to be added', ->
       expect(@view.value).toBeNull()
       # Both the valueset/code and the result must be valid to add a Component
