@@ -7,7 +7,7 @@ class Thorax.Views.InputCompositeView extends Thorax.Views.BonnieView
     'DiagnosisComponent': ['rank', 'presentOnAdmissionIndicator'],
     'PatientEntity': ['identifier'], # 'id' should also be here, but mongoid will autogenerate one so we require
     'CarePartner': ['identifier', 'relationship'], # 'id' same as above
-    'Location': ['identifier'], # 'id' same as above
+    'Location': ['identifier', 'locationType'], # 'id' same as above
     'Practitioner': ['identifier', 'role', 'specialty', 'qualification'], # 'id' same as above
     'Organization': ['identifier', 'organizationType'], # 'id' same as above
     'Identifier': ['namingSystem', 'value'],
