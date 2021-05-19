@@ -37,12 +37,32 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
     re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     re.test(email)
 
+  isValidHarp: (harpId) ->
+    re = /\s/
+    !re.test(harpId)
+
   validate: ->
     emailInput = @$('input[name="email"]')
     email = emailInput.val()
-    if !@isValidEmail(email)
-      emailInput.parent().addClass('has-error')
-      @$('#saveUserDialogOK').attr('disabled', 'disabled')
-    else
+
+    harpInput = @$('input[name="harp_id"]')
+    haprId = harpInput.val()
+
+    valid = true
+    if @isValidEmail(email)
       emailInput.parent().removeClass('has-error')
+    else
+      emailInput.parent().addClass('has-error')
+      valid = false
+
+    if haprId == "" || @isValidHarp(haprId)
+      harpInput.parent().removeClass('has-error')
+    else
+      harpInput.parent().addClass('has-error')
+      valid = false
+
+    if valid
       @$('#saveUserDialogOK').removeAttr('disabled')
+    else
+      @$('#saveUserDialogOK').attr('disabled', 'disabled')
+
