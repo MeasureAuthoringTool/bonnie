@@ -99,7 +99,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:email, :admin, :portfolio, :dashboard)
+    params.permit(:email, :admin, :portfolio, :dashboard, :harp_id)
   end
 
   def user_email_params
