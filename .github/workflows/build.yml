@@ -25,6 +25,14 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
 
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Use latest npm
+        run: npm install -g npm
+
       - name: Install bundler & bundle-audit
         run: |
           gem install bundler -v 2.1.4

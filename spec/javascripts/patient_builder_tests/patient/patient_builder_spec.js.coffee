@@ -296,9 +296,15 @@ describe 'PatientBuilderView', ->
       # 0th source_data_criteria is a diagnosis and therefore cannot have a negation and will not contain the negation
       expect(@patientBuilder.model.get('source_data_criteria').at(0).get('qdmDataElement').negationRationale).toEqual undefined
 
+    it "does not serialize negationRationale for encounter performed that cannot be negated", ->
+      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toEqual undefined
+
     it "serializes negationRationale to null for element that can be negated but isnt", ->
-      # 1st source_data_criteria is an encounter that is not negated
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toEqual null
+      # invert negation, since it's already negated
+      @patientBuilder.$('.criteria-data').children().toggleClass('hide')
+      @patientBuilder.$('input[name=negation]:first').click()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe false
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toBeNull()
 
     it "serializes negationRationale for element that is negated", ->
       # The 2nd source_data_criteria is an intervention with negationRationale set to 'Emergency Department Visit' code:
@@ -307,16 +313,19 @@ describe 'PatientBuilderView', ->
 
     it "toggles negations correctly", ->
       @patientBuilder.$('.criteria-data').children().toggleClass('hide')
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation')).toBe false
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toBeNull()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe true
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toExist()
+      @patientBuilder.$('input[name=negation]:first').click()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe false
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toBeNull()
       @patientBuilder.$('input[name=negation]:first').click()
       @patientBuilder.$('select[name="valueset"]').val('drc-99a051cdb6879ebe3d81f5c15cecbf4157040a6e1c12c711bacb61246e5a0d61').change()
       # No need to select code for test, one is selected by default
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation')).toBe true
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toExist()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe true
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toExist()
       @patientBuilder.$('input[name=negation]:first').click()
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('negation')).toBe false
-      expect(@patientBuilder.model.get('source_data_criteria').at(1).get('qdmDataElement').negationRationale).toBeNull()
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('negation')).toBe false
+      expect(@patientBuilder.model.get('source_data_criteria').at(2).get('qdmDataElement').negationRationale).toBeNull()
 
     afterEach -> @patientBuilder.remove()
 
