@@ -459,7 +459,6 @@ include Devise::Test::ControllerHelpers
   test 'measure destroy' do
     VCR.use_cassette('measure_destroy', @vcr_options) do
       measure_file1 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS903v0.zip'), 'application/zip')
-      measure_file2 = fixture_file_upload(File.join('test', 'fixtures', 'cqm_measure_exports', 'CMS134v8.zip'), 'application/zip')
 
       post :create, params: {
         vsac_query_type: 'profile',
@@ -471,27 +470,17 @@ include Devise::Test::ControllerHelpers
         measure_type: 'ep',
         calculation_type: 'patient'
       }
-      post :create, params: {
-        vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
-        vsac_query_include_draft: 'false',
-        vsac_query_measure_defined: 'true',
-        vsac_api_key: ENV['VSAC_API_KEY'],
-        measure_file: measure_file2,
-        measure_type: 'ep',
-        calculation_type: 'patient'
-      }
-
-      assert_equal 3, CQM::Measure.count
-      assert_equal 3, CQM::MeasurePackage.count
-      assert_equal 71, CQM::ValueSet.count
-
-      delete :destroy, params: {id: CQM::Measure.where({cms_id: 'CMS134v8'}).first.id}
-      assert_response :success
 
       assert_equal 2, CQM::Measure.count
       assert_equal 2, CQM::MeasurePackage.count
       assert_equal 26, CQM::ValueSet.count
+
+      delete :destroy, params: {id: CQM::Measure.where({cms_id: 'CMS903v0'}).first.id}
+      assert_response :success
+
+      assert_equal 1, CQM::Measure.count
+      assert_equal 1, CQM::MeasurePackage.count
+      assert_equal 16, CQM::ValueSet.count
     end
   end
 

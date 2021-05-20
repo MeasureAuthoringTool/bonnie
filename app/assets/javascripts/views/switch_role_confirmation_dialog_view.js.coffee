@@ -11,8 +11,7 @@ class Thorax.Views.SwitchRoleConfirmationDialog extends Thorax.Views.BonnieView
     'click #switchRoleCancel': 'cancel'
     'ready': 'setup'
     
-  display: (confirmCallback) ->
-    @confirmCallback = confirmCallback
+  display:  ->
     @switchRoleDialog.modal(
       "backdrop" : "static",
       "keyboard" : true,
