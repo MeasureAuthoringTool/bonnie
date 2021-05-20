@@ -255,4 +255,85 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  # ==> Configuration for :saml_authenticatable
+
+  # Create user if the user does not exist. (Default is false)
+  config.saml_create_user = false
+
+  # Update the attributes of the user after a successful login. (Default is false)
+  config.saml_update_user = true
+
+  # Set the default user key. The user will be looked up by this key. Make
+  # sure that the Authentication Response includes the attribute.
+  config.saml_default_user_key = :harp_id
+
+  # Optional. This stores the session index defined by the IDP during login.  If provided it will be used as a salt
+  # for the user's session to facilitate an IDP initiated logout request.
+  config.saml_session_index_key = :session_index
+
+  # You can set this value to use Subject or SAML assertation as info to which email will be compared.
+  # If you don't set it then email will be extracted from SAML assertation attributes.
+  config.saml_use_subject = true
+
+  # You can support multiple IdPs by setting this value to the name of a class that implements a ::settings method
+  # which takes an IdP entity id as an argument and returns a hash of idp settings for the corresponding IdP.
+  # config.idp_settings_adapter = "MyIdPSettingsAdapter"
+
+  # You provide you own method to find the idp_entity_id in a SAML message in the case of multiple IdPs
+  # by setting this to the name of a custom reader class, or use the default.
+  # config.idp_entity_id_reader = "DeviseSamlAuthenticatable::DefaultIdpEntityIdReader"
+
+  # You can set a handler object that takes the response for a failed SAML request and the strategy,
+  # and implements a #handle method. This method can then redirect the user, return error messages, etc.
+  # config.saml_failed_callback = nil
+
+  # You can customize the named routes generated in case of named route collisions with
+  # other Devise modules or libraries. Set the saml_route_helper_prefix to a string that will
+  # be appended to the named route.
+  # If saml_route_helper_prefix = 'saml' then the new_user_session route becomes new_saml_user_session
+  # config.saml_route_helper_prefix = 'saml'
+
+  # You can add allowance for clock drift between the sp and idp.
+  # This is a time in seconds.
+  # config.allowed_clock_drift_in_seconds = 0
+
+  config.warden do |manager|
+    manager.failure_app = CustomFailure
+  end
+
+  # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
+  config.saml_configure do |settings|
+
+
+    # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
+    settings.assertion_consumer_service_url     = "http://localhost:3000/users/saml/auth"
+    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    settings.idp_slo_service_url                = "https://dev-18092578.okta.com/app/dev-18092578_bonnie_1/exkop0apk3jLxQHBB5d6/slo/saml"
+    settings.idp_sso_service_url                = "https://dev-18092578.okta.com/app/dev-18092578_bonnie_1/exkop0apk3jLxQHBB5d6/sso/saml"
+    settings.issuer                             = "Bonnie"
+    # settings.idp_cert_fingerprint               = "00:A1:2B:3C:44:55:6F:A7:88:CC:DD:EE:22:33:44:55:D6:77:8F:99"
+    # settings.idp_cert_fingerprint_algorithm     = "http://www.w3.org/2000/09/xmldsig#sha1"
+    settings.idp_cert                           = "-----BEGIN CERTIFICATE-----
+MIIDqDCCApCgAwIBAgIGAXk34Jz9MA0GCSqGSIb3DQEBCwUAMIGUMQswCQYDVQQGEwJVUzETMBEG
+A1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEU
+MBIGA1UECwwLU1NPUHJvdmlkZXIxFTATBgNVBAMMDGRldi0xODA5MjU3ODEcMBoGCSqGSIb3DQEJ
+ARYNaW5mb0Bva3RhLmNvbTAeFw0yMTA1MDQxNDU0MzdaFw0zMTA1MDQxNDU1MzdaMIGUMQswCQYD
+VQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsG
+A1UECgwET2t0YTEUMBIGA1UECwwLU1NPUHJvdmlkZXIxFTATBgNVBAMMDGRldi0xODA5MjU3ODEc
+MBoGCSqGSIb3DQEJARYNaW5mb0Bva3RhLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+ggEBAKH+VFFJH+F22AV0/JswARlAsa0CjlDnllXYyRBhSnsGvJTLw8YOd74fyo84k0sM43bzhxw+
+JNa7kZapzRcj9UmQhd+sxiHeaNXEPjKctUfgicmmHdAel5KjJajW/q230bXIme6dR5g4+znVmCOO
+fvf0L+43VctyMG4uDLwxbM4d7yzRoKs+ScfjkzXl4R+aikKkKgw7jjPMyp5sEp6ca6S2IP3G6gFB
+NoT4lBUIaAQHWcGIGUw9KVuoyj0jTh3Ie3gGTG3fFmEDuXwxpigQDsc8p27sFDxRZaA/00+l6dow
+qzIyfePLpAmgJQAzdv3qZAd4ZcocBbAlW5dLRGoykkMCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEA
+QuxtOE8l75wn68d1aJBUHkydmTGE4TtwheAtxI4UPmPRluHuFIypUjR0aAXttyYVftko3v26vXEa
+GsO2iIdMVfZH3V2YA8ejJNpy8QbQhG8PHmMmwR0L+yAwbJLI+lVaQa+ClBmiolXnh9qwfkN+da6y
+xuaxRI0HpBdDWwMOfzwEaBUDGZ6Ohu5LiGv0wn/1aZFoOaBuq1aTqyIDGewBMPc8CpNjerM/6XD/
+3uW3F50OZlrCIgXeOe14pHyfLp4qOAsV4QChQRslIOOyckhuKPYuBeluWdD2deVvn6g+zqjNeIA/
+r/O2lefW146MA8X1OOSGyvFrZmoi+h0qmllRzQ==
+-----END CERTIFICATE-----"
+  end
 end
