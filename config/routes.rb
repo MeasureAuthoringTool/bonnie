@@ -33,6 +33,8 @@ Bonnie::Application.routes.draw do
   # to the backend.
   post '/application/client_error' => 'application#client_error'
 
+  get '/saml_error', to: 'home#saml_error'
+
   root to: 'home#index'
 
   resources :measures, defaults: { format: :json } do

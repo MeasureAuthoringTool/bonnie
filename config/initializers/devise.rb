@@ -298,6 +298,10 @@ Devise.setup do |config|
   # This is a time in seconds.
   # config.allowed_clock_drift_in_seconds = 0
 
+  config.warden do |manager|
+    manager.failure_app = CustomFailure
+  end
+
   # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
   config.saml_configure do |settings|
 
