@@ -311,29 +311,11 @@ Devise.setup do |config|
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    settings.idp_slo_service_url                = "https://dev-18092578.okta.com/app/dev-18092578_bonnie_1/exkop0apk3jLxQHBB5d6/slo/saml"
-    settings.idp_sso_service_url                = "https://dev-18092578.okta.com/app/dev-18092578_bonnie_1/exkop0apk3jLxQHBB5d6/sso/saml"
-    settings.issuer                             = "Bonnie"
+    settings.idp_slo_service_url                =  ENV["SAML_IDP_SLO_SERVICE_URL"] 
+    settings.idp_sso_service_url                =  ENV["SAML_IDP_SLO_SERVICE_URL"] 
+    settings.issuer                             =  ENV["SAML_ISSUER"] 
     # settings.idp_cert_fingerprint               = "00:A1:2B:3C:44:55:6F:A7:88:CC:DD:EE:22:33:44:55:D6:77:8F:99"
     # settings.idp_cert_fingerprint_algorithm     = "http://www.w3.org/2000/09/xmldsig#sha1"
-    settings.idp_cert                           = "-----BEGIN CERTIFICATE-----
-MIIDqDCCApCgAwIBAgIGAXk34Jz9MA0GCSqGSIb3DQEBCwUAMIGUMQswCQYDVQQGEwJVUzETMBEG
-A1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEU
-MBIGA1UECwwLU1NPUHJvdmlkZXIxFTATBgNVBAMMDGRldi0xODA5MjU3ODEcMBoGCSqGSIb3DQEJ
-ARYNaW5mb0Bva3RhLmNvbTAeFw0yMTA1MDQxNDU0MzdaFw0zMTA1MDQxNDU1MzdaMIGUMQswCQYD
-VQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsG
-A1UECgwET2t0YTEUMBIGA1UECwwLU1NPUHJvdmlkZXIxFTATBgNVBAMMDGRldi0xODA5MjU3ODEc
-MBoGCSqGSIb3DQEJARYNaW5mb0Bva3RhLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
-ggEBAKH+VFFJH+F22AV0/JswARlAsa0CjlDnllXYyRBhSnsGvJTLw8YOd74fyo84k0sM43bzhxw+
-JNa7kZapzRcj9UmQhd+sxiHeaNXEPjKctUfgicmmHdAel5KjJajW/q230bXIme6dR5g4+znVmCOO
-fvf0L+43VctyMG4uDLwxbM4d7yzRoKs+ScfjkzXl4R+aikKkKgw7jjPMyp5sEp6ca6S2IP3G6gFB
-NoT4lBUIaAQHWcGIGUw9KVuoyj0jTh3Ie3gGTG3fFmEDuXwxpigQDsc8p27sFDxRZaA/00+l6dow
-qzIyfePLpAmgJQAzdv3qZAd4ZcocBbAlW5dLRGoykkMCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEA
-QuxtOE8l75wn68d1aJBUHkydmTGE4TtwheAtxI4UPmPRluHuFIypUjR0aAXttyYVftko3v26vXEa
-GsO2iIdMVfZH3V2YA8ejJNpy8QbQhG8PHmMmwR0L+yAwbJLI+lVaQa+ClBmiolXnh9qwfkN+da6y
-xuaxRI0HpBdDWwMOfzwEaBUDGZ6Ohu5LiGv0wn/1aZFoOaBuq1aTqyIDGewBMPc8CpNjerM/6XD/
-3uW3F50OZlrCIgXeOe14pHyfLp4qOAsV4QChQRslIOOyckhuKPYuBeluWdD2deVvn6g+zqjNeIA/
-r/O2lefW146MA8X1OOSGyvFrZmoi+h0qmllRzQ==
------END CERTIFICATE-----"
+    settings.idp_cert                           =  ENV["SAML_IDP_CERT"] 
   end
 end
