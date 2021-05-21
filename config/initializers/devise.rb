@@ -307,7 +307,7 @@ Devise.setup do |config|
 
 
     # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
-    settings.assertion_consumer_service_url     = "http://localhost:3000/users/saml/auth"
+    settings.assertion_consumer_service_url     = ENV["SAML_ASSERTION_CONSUMER_SERVICE_URL"]
     settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
