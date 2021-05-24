@@ -7,6 +7,18 @@ class User
   devise :saml_authenticatable, :registerable, :lockable,
          :trackable, :validatable
 
+  before_save :normalize_harp_id
+  def normalize_harp_id
+    # For some reason Mongoid stores empty or nil harp_id as null
+    if harp_id.blank? || harp_id.nil?
+      deactivate
+    end
+  end
+
+  def deactivate
+    remove_attribute('harp_id')
+  end
+
   # Should devise allow this user to log in?
   def active_for_authentication?
     super && is_approved?
@@ -34,6 +46,11 @@ class User
 
   def find_personal_group
     groups.where(id: id).first
+  end
+
+  # don't require password
+  def password_required?
+    return false
   end
 
   # Send admins an email after a user account is created
@@ -77,7 +94,7 @@ class User
 
   scope :by_email, ->(email) { where({email: email}) }
 
-  validates :harp_id, uniqueness: { message: 'Id is already taken' }, if: :harp_id?
+  validates :harp_id, uniqueness: { message: 'This HARP ID is already associated with another Bonnie account' }, if: :harp_id?
 
   ## Confirmable
   # field :confirmation_token,   :type => String

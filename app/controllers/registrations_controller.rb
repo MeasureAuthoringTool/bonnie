@@ -10,7 +10,19 @@ class RegistrationsController < Devise::RegistrationsController
     return saved
   end
 
+  def create
+    build_resource(sign_up_params)
+    if resource.harp_id.nil? || resource.harp_id.blank?
+      resource.errors.add :base, "HARP ID is required"
+      respond_with resource
+    else
+      super
+    end
+  end
+
   def after_inactive_sign_up_path_for(resource)
+    resource.deactivate
+    resource.save
     set_flash_message :notice, :signed_up_but_inactive
     "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
   end
