@@ -6,23 +6,22 @@ class User
   devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Validate password complexity
-  validate :password_complexity
-  def password_complexity
-    if password.present?
-      # Passwords must have characters from at least two groups, identified by these regexes (last one is punctuation)
-      matches = [/[a-z]/, /[A-Z]/, /[0-9]/, /[^\w\s]/].select { |rx| rx.match(password) }.size
-      unless matches >= 2
-        errors.add :password, "must include characters from at least two groups (lower case, upper case, numbers, special characters)"
-      end
+  before_save :normalize_harp_id
+  def normalize_harp_id
+    # For some reason Mongoid stores empty or nil harp_id as null
+    if harp_id.blank? || harp_id.nil?
+      deactivate
     end
+  end
+
+  def deactivate
+    remove_attribute('harp_id')
   end
 
   # Should devise allow this user to log in?
   def active_for_authentication?
     super && is_approved?
   end
-
 
   # Send admins an email after a user account is created
   after_create :send_user_signup_email
@@ -48,6 +47,11 @@ class User
 
   def find_personal_group
     groups.where(id: id).first
+  end
+
+  # don't require password
+  def password_required?
+    return false
   end
 
   ## Database authenticatable
@@ -91,7 +95,7 @@ class User
 
   scope :by_email, ->(email) { where({email: email}) }
 
-  validates :harp_id, uniqueness: { message: 'Id is already taken' }, if: :harp_id?
+  validates :harp_id, uniqueness: { message: 'This HARP ID is already associated with another Bonnie account' }, if: :harp_id?
 
   ## Confirmable
   # field :confirmation_token,   :type => String
