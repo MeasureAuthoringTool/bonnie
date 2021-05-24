@@ -18,15 +18,25 @@ class RegistrationsControllerTest < ActionController::TestCase
 
   test "after_inactive_sign_up_path_for" do
 
+    # password is not required
     post :create, params: {utf8:"✓", authenticity_token: "0n4OMnJb0zHfByZcHZdWBpQpxqW0YolmC/2Iig35tIk=",
       user: {first_name: "Foo", last_name: "Bar", email: "foobar@mitre.org", telephone: "555-555-5555",
-        password: "[FILTERED]", password_confirmation: "[FILTERED]"}, agree_license: "1", commit: "Register",
-        harp_id:'foo.bar'}
+             harp_id:'foo.bar'},
+        agree_license: "1", commit: "Register"}
     assert_response :redirect
 
     assert_equal "You have signed up successfully. However, we could not sign "+
     "you in because your account is not yet approved.  You will receive an email"+
     " once your account has been approved.", flash[:notice]
+  end
+
+  test 'harp_id is required for registration' do
+    post :create, params: {utf8:"✓", authenticity_token: "0n4OMnJb0zHfByZcHZdWBpQpxqW0YolmC/2Iig35tIk=",
+       user: {first_name: "Foo", last_name: "Bar", email: "foobar@mitre.org", telephone: "555-555-5555"},
+      agree_license: "1", commit: "Register"}
+    assert_response :success
+    assert_match "1 error prohibited this user from being saved", response.body
+    assert_match "HARP ID is required", response.body
   end
 
   test "destroy with valid password" do
