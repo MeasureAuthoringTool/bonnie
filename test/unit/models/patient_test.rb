@@ -9,7 +9,7 @@ class RecordTest < ActiveSupport::TestCase
     patients_set = File.join('cqm_patients', 'expected_values_set')
     @measure_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
     @measure = CQM::Measure.where(hqmf_set_id: @measure_set_id).first
-    @user = User.create(email: 'bonnie@example.com', password: 'b0nn13p455', approved: true, admin: true)
+    @user = User.create(email: 'bonnie@example.com', approved: true, admin: true)
     if @user.current_group.nil?
       init_personal_group
       save
