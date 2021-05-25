@@ -24,8 +24,10 @@ class User
     super && is_approved?
   end
 
-  after_create do
-    send_user_signup_email
+  # Send admins an email after a user account is created
+  after_create :send_user_signup_email
+  def send_user_signup_email
+    UserMailer.user_signup_email(self).deliver_now
   end
 
   after_save do
@@ -51,11 +53,6 @@ class User
   # don't require password
   def password_required?
     return false
-  end
-
-  # Send admins an email after a user account is created
-  def send_user_signup_email
-    UserMailer.user_signup_email(self).deliver_now
   end
 
   ## Database authenticatable
