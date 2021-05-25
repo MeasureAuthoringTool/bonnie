@@ -58,8 +58,8 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
     view = this
     changed = @model.changedAttributes()
     prevAttributes = _.pick(@model.previousAttributes(), _.keys(changed))
-    approveChanged = @model.hasChanged('approved')
-    approved = changed? && @model.changed.approved
+    approveChanged = @model.hasChanged('harp_id') && !(prevAttributes.harp_id && @model.changed.harp_id)
+    approved = changed? && @model.changed.harp_id
 
     # should store the model first, then approve/disable, otherwsie the model gets refreshed from the DB
     if changed
