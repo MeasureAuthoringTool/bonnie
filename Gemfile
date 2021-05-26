@@ -8,7 +8,7 @@ gem 'sprockets'
 # Pinning sprockets-rails to 2.3.3 so that everything doesn't blow up. It might be time to start thinking about webpack.
 gem 'sprockets-rails', '2.3.3'
 # We need less-rails outside of the assets group so that assets will build in production
-gem 'less-rails'
+gem 'less-rails', '>= 5.0.0'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
@@ -23,19 +23,19 @@ gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
 gem 'mongoid', '~> 6.4.2'
-gem 'devise'
+gem 'devise', '>= 4.8.0'
 gem 'systemu'
 gem 'multi_json'
 gem 'rest-client'
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
-gem 'roo', '~> 2.7'
+gem 'roo', '~> 2.8', '>= 2.8.3'
 
 
 gem 'oj' # Faster JSON
-gem 'apipie-rails'
+gem 'apipie-rails', '>= 0.5.18'
 gem 'maruku' # enable Markup for API documentation
-gem 'doorkeeper', '~> 4.4.0'
-gem "doorkeeper-mongodb", '~> 4.1.0'
+gem 'doorkeeper', '~> 4.4.3'
+gem "doorkeeper-mongodb", "~> 4.1.0"
 
 group :test, :development, :ci do
   gem 'pry'
@@ -44,7 +44,7 @@ group :test, :development, :ci do
   gem "overcommit"
   gem 'rubocop', '~> 0.88.0'
   gem 'rubocop-ast', '~> 0.3.0'
-  gem 'teaspoon-jasmine'
+  gem 'teaspoon-jasmine', '>= 2.3.4'
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'rails_best_practices'
@@ -55,7 +55,7 @@ group :test, :development, :ci do
   gem 'brakeman'
   gem 'selenium-webdriver'
   gem 'codecov', :require => false
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', '>= 1.0.5'
 end
 
 group :test, :development do
@@ -74,7 +74,7 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'coffee-rails'
+  gem 'coffee-rails', '>= 5.0.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
@@ -85,10 +85,10 @@ end
 gem 'foreman'
 
 gem 'handlebars_assets', '0.16'
-gem 'jquery-rails'
+gem 'jquery-rails', '>= 4.4.0'
 
 # Browser Detection
 gem 'browser'
 
-gem "reverse_markdown", "~> 2.0"
-gem "tinymce-rails"
+gem "reverse_markdown", "~> 2.0", ">= 2.0.0"
+gem "tinymce-rails", ">= 5.8.0"
