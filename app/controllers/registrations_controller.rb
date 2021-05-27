@@ -24,7 +24,7 @@ class RegistrationsController < Devise::RegistrationsController
     resource.deactivate
     resource.save
     set_flash_message :notice, :signed_up_but_inactive
-    "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
+    "#{(respond_to?(:root_path) ? root_path : "/")}"
   end
 
   def destroy
