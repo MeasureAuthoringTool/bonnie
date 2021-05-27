@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource)
-    "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
+    "#{(respond_to?(:root_path) ? root_path : "/")}users/saml/sign_in"
   end
 
   def page_not_found

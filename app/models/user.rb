@@ -5,7 +5,7 @@ class User
   # :database_authenticatable, :recoverable, :rememberable,
   # :confirmable, :timeoutable and :omniauthable
   devise :saml_authenticatable, :registerable, :lockable,
-         :rememberable, :trackable, :validatable
+          :trackable, :validatable
 
   before_save :normalize_harp_id
   def normalize_harp_id
@@ -57,7 +57,6 @@ class User
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
-  field :encrypted_password, :type => String, :default => ""
 
   ## Rememberable
   field :remember_created_at, :type => Time
