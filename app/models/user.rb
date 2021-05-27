@@ -5,7 +5,7 @@ class User
   # :database_authenticatable, :recoverable, :rememberable,
   # :confirmable, :timeoutable and :omniauthable
   devise :saml_authenticatable, :registerable, :lockable,
-         :trackable, :validatable
+          :trackable, :validatable
 
   before_save :normalize_harp_id
   def normalize_harp_id
