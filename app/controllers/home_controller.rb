@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, :except => [:show]
+  before_action :authenticate_user!, :except => [:show, :saml_error]
 
   def index
     @measures = CQM::Measure.by_user(current_user).only(:id)
@@ -8,6 +8,10 @@ class HomeController < ApplicationController
 
   def show
     render :show, layout: false
+  end
+
+  def saml_error
+    render json: {status: "error", messages: "User is not activated."}, status: :not_found
   end
 
   # switch user group
