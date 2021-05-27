@@ -28,12 +28,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    if current_user.valid_password? params[:user][:current_password]
-      super
-    else
-      flash[:error] = "Incorrect password supplied, account not deleted"
-      redirect_to edit_user_registration_url
-    end
+    super
   end
 
   protected
