@@ -312,11 +312,13 @@ Devise.setup do |config|
     settings.single_logout_service_binding      = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     settings.name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    settings.idp_slo_service_url                =  ENV["SAML_IDP_SLO_SERVICE_URL"]
-    settings.idp_sso_service_url                =  ENV["SAML_IDP_SSO_SERVICE_URL"]
-    settings.issuer                             =  ENV["SAML_ISSUER"]
-    # settings.idp_cert_fingerprint               = "00:A1:2B:3C:44:55:6F:A7:88:CC:DD:EE:22:33:44:55:D6:77:8F:99"
-    # settings.idp_cert_fingerprint_algorithm     = "http://www.w3.org/2000/09/xmldsig#sha1"
-    settings.idp_cert                           =  ENV["SAML_IDP_CERT"]
+    settings.idp_slo_service_url                = ENV["SAML_IDP_SLO_SERVICE_URL"] 
+    settings.idp_sso_service_url                = ENV["SAML_IDP_SSO_SERVICE_URL"] 
+    settings.issuer                             = ENV["SAML_ISSUER"] 
+    # settings.idp_cert_fingerprint              = "00:A1:2B:3C:44:55:6F:A7:88:CC:DD:EE:22:33:44:55:D6:77:8F:99"
+    # settings.idp_cert_fingerprint_algorithm    = "http://www.w3.org/2000/09/xmldsig#sha1"
+    settings.idp_cert                           = ENV["SAML_IDP_CERT"] 
+    settings.certificate                        = ENV["SAML_SP_CERT"]
+    settings.private_key                        = ENV["SAML_SP_KEY"]
   end
 end
