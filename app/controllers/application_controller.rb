@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
 
   def log_additional_data
     request.env["exception_notifier.exception_data"] = {
-      :current_user => current_user
+      #:current_user => current_user
     }
   end
 
