@@ -23,6 +23,9 @@ RUN su - app -c "cd /home/app/bonnie \
                  && curl -O https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \
                  && gem install bundler -v 2.1.4 \
                  && bundle update \
+		 && bundle exec rake assets:clean \
+		 && bundle exec rake tmp:cache:clear \
+		 && bundle exec rake assets:clobber \
                  && bundle install \
                  && npm install \
                  && RAILS_ENV=${PASSENGER_APP_ENV} bundle exec rake assets:precompile"
