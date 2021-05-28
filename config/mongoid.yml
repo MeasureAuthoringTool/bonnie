@@ -28,3 +28,7 @@ production:
       app_name: Bonnie
       options:
         ssl_ca_cert: "/home/app/bonnie/rds-combined-ca-bundle.pem"
+  options:
+    raise_not_found_error: false
+
+
