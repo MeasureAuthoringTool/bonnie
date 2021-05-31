@@ -320,5 +320,16 @@ Devise.setup do |config|
     settings.idp_cert                           = ENV["SAML_IDP_CERT"] 
     settings.certificate                        = ENV["SAML_SP_CERT"]
     settings.private_key                        = ENV["SAML_SP_KEY"]
+
+    settings.security[:digest_method]    = XMLSecurity::Document::SHA256
+    settings.security[:signature_method] = XMLSecurity::Document::RSA_SHA256
+    settings.security[:embed_sign] = false
+    settings.security[:check_idp_cert_expiration] = false   
+    settings.security[:check_sp_cert_expiration] = false
+    settings.security[:authn_requests_signed]   = true     
+    settings.security[:logout_requests_signed]  = true    
+    settings.security[:logout_responses_signed] = true   
+    settings.security[:want_assertions_signed]  = true  
+    settings.security[:metadata_signed]         = true 
   end
 end
