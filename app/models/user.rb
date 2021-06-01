@@ -4,8 +4,7 @@ class User
   # Include default devise modules. Others available are:
   # :database_authenticatable, :recoverable, :rememberable,
   # :confirmable, :timeoutable and :omniauthable
-  devise :saml_authenticatable, :registerable, :lockable,
-          :trackable, :validatable
+  devise :saml_authenticatable,:registerable, :trackable, :validatable
 
   before_save :normalize_harp_id
   def normalize_harp_id
@@ -21,6 +20,8 @@ class User
 
   # Should devise allow this user to log in?
   def active_for_authentication?
+    # User is approved when harp_id is assigned.
+    # Approved flag is set programmatically when harp_id is set by an admin.
     super && is_approved?
   end
 
@@ -68,11 +69,6 @@ class User
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
 
-  ## Lockable
-  field :failed_attempts,    :type => Integer, :default => 0
-  field :unlock_token,       :type => String
-  field :locked_at,          :type => Time
-
   field :first_name,    :type => String
   field :last_name,    :type => String
   field :harp_id, :type => String
@@ -82,6 +78,8 @@ class User
   field :portfolio, type:Boolean, :default => false
   field :dashboard, type:Boolean, :default => false
   field :dashboard_set, type:Boolean, :default => false
+  # Approved flag is set programmatically when harp_id is set by an admin
+  # Used in queries.
   field :approved, type:Boolean, :default => false
 
   field :crosswalk_enabled,  type:Boolean, default: false
@@ -92,20 +90,6 @@ class User
   scope :by_email, ->(email) { where({email: email}) }
 
   validates :harp_id, uniqueness: { message: 'This HARP ID is already associated with another Bonnie account' }, if: :harp_id?
-
-  ## Confirmable
-  # field :confirmation_token,   :type => String
-  # field :confirmed_at,         :type => Time
-  # field :confirmation_sent_at, :type => Time
-  # field :unconfirmed_email,    :type => String # Only if using reconfirmable
-
-  ## Lockable
-  # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
-  # field :locked_at,       :type => Time
-
-  ## Token authenticatable
-  # field :authentication_token, :type => String
 
   def is_admin?
     admin || false
