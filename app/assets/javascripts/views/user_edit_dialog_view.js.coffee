@@ -33,10 +33,6 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
     @userEditDialog.modal('hide')
     @cancelCallback?()
 
-  isValidEmail: (email) ->
-    re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    re.test(email)
-
   isValidHarp: (harpId) ->
     re = /\s/
     !re.test(harpId)
@@ -49,7 +45,7 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
     haprId = harpInput.val()
 
     valid = true
-    if @isValidEmail(email)
+    if UserGroupHelpers.isValidEmail(email)
       emailInput.parent().removeClass('has-error')
     else
       emailInput.parent().addClass('has-error')
