@@ -86,6 +86,38 @@ class Admin::UsersController < ApplicationController
     render json: {}
   end
 
+  def user_by_email
+    user = {}
+    if params[:email]
+      user = User.where(email: params[:email]).only(:first_name, :last_name, :email).first
+    end
+    render json: user
+  end
+
+  def users_by_group
+    users = []
+    if params[:id]
+      users = User.where(group_ids: { '$in' => [params[:id]] }).only(:first_name, :last_name, :email).to_a
+    end
+    render json: users
+  end
+
+  def update_group_and_users
+    group = Group.find(params[:group_id])
+    group.name = params[:group_name]
+    group.save
+    params[:users_to_add]&.each do |id|
+      user = User.find(id)
+      user.groups << group
+      user.save
+    end
+    params[:users_to_remove]&.each do |id|
+      user = User.find(id)
+      user.groups = user.groups.select { |g| g.id != group.id }
+      user.save
+    end
+  end
+
   def patients
     user = User.find(params[:id])
     send_data JSON.pretty_generate(user.current_group.patients.map(&:as_document)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
