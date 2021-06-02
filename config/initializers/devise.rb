@@ -270,7 +270,11 @@ Devise.setup do |config|
 
   # Optional. This stores the session index defined by the IDP during login.  If provided it will be used as a salt
   # for the user's session to facilitate an IDP initiated logout request.
+<<<<<<< HEAD
   #config.saml_session_index_key = :session_index
+=======
+  # config.saml_session_index_key = :session_index
+>>>>>>> master
 
   # You can set this value to use Subject or SAML assertation as info to which email will be compared.
   # If you don't set it then email will be extracted from SAML assertation attributes.
