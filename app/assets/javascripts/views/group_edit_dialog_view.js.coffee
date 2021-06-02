@@ -5,6 +5,7 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
     @displayUsersModel.set
       usersToAdd: []
       usersToRemove: []
+      name: @model.get('name')
     @displayGroupUsersView = new Thorax.Views.DisplayGroupUsersView(model: @displayUsersModel)
 
   events:
@@ -27,6 +28,10 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
     view.$('#error_div').hide()
     email = @$("input#email").val()
     return unless email
+    # check if user already exists in group
+    index = view.displayUsersModel.get('users').findIndex((user) -> user.email == email)
+    # return if users already exists in group
+    return if index != -1
     $.ajax
       url: "admin/users/user_by_email?email=#{email}"
       type: 'GET'
@@ -86,12 +91,16 @@ class Thorax.Views.DisplayGroupUsersView extends Thorax.Views.BonnieView
   tagName: 'div'
 
   confirmRemoveUser: (e) ->
-    userId = $(e.target).data('user-id')
     view = this
-    confirmationMessage = "Are you sure you want to remove $user from #{@model.get('name')}?"
+    userId = $(e.target).data('user-id')
+    userName = $(e.target).data('user-name')
+    # confirmtion message
+    confirmationMessage = "Are you sure you want to remove #{userName} from #{@model.get('name')}?"
+    # confirmtion dialog
     confirmationDialog = new Thorax.Views.ConfirmationDialog(
       message: confirmationMessage
-      continueCallback: () -> view.removeUser(userId))
+      continueCallback: () -> view.removeUser(userId)
+    )
     confirmationDialog.appendTo($('#bonnie'))
     confirmationDialog.display()
 

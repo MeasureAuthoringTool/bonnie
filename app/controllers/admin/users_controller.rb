@@ -104,7 +104,7 @@ class Admin::UsersController < ApplicationController
 
   def update_group_and_users
     group = Group.find(params[:group_id])
-    group.name = params[:group_name]
+    group.name = params[:group_name] if params[:group_name]
     group.save
     params[:users_to_add]&.each do |id|
       user = User.find(id)
@@ -116,6 +116,7 @@ class Admin::UsersController < ApplicationController
       user.groups = user.groups.select { |g| g.id != group.id }
       user.save
     end
+    render json: group
   end
 
   def patients
