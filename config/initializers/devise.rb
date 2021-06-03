@@ -317,7 +317,7 @@ Devise.setup do |config|
 
     settings.assertion_consumer_service_url     = ENV["SAML_ASSERTION_CONSUMER_SERVICE_URL"]
     settings.sp_entity_id                   = ENV["SAML_SP_ENTITY_ID"]
-    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"
+    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
     # Optional for most SAML IdPs
     settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
 
