@@ -305,31 +305,37 @@ Devise.setup do |config|
   # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
   config.saml_configure do |settings|
 
+    idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
+    validate_cert = true
+    if ENV["SAML_IDP_METADATA"]
+      idp_metadata_parser.parse_remote(
+                ENV["SAML_IDP_METADATA"],
+                validate_cert,
+                settings: settings
+              )
+    end
 
-    # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
     settings.assertion_consumer_service_url     = ENV["SAML_ASSERTION_CONSUMER_SERVICE_URL"]
-    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-    settings.single_logout_service_binding      = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
-    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
-    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    settings.idp_slo_service_url                = ENV["SAML_IDP_SLO_SERVICE_URL"]
-    settings.idp_sso_service_url                = ENV["SAML_IDP_SSO_SERVICE_URL"]
-    settings.issuer                             = ENV["SAML_ISSUER"]
-    # settings.idp_cert_fingerprint              = "00:A1:2B:3C:44:55:6F:A7:88:CC:DD:EE:22:33:44:55:D6:77:8F:99"
-    # settings.idp_cert_fingerprint_algorithm    = "http://www.w3.org/2000/09/xmldsig#sha1"
-    settings.idp_cert                           = ENV["SAML_IDP_CERT"]
+    settings.sp_entity_id                   = ENV["SAML_SP_ENTITY_ID"]
+    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    # Optional for most SAML IdPs
+    settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+
     settings.certificate                        = ENV["SAML_SP_CERT"]
     settings.private_key                        = ENV["SAML_SP_KEY"]
 
+    settings.security[:authn_requests_signed]   = true     # Enable or not signature on AuthNRequest
+    settings.security[:logout_requests_signed]  = true     # Enable or not signature on Logout Request
+    settings.security[:logout_responses_signed] = true     # Enable or not signature on Logout Response
+    settings.security[:want_assertions_signed]  = true     # Enable or not the requirement of signed assertion
+    settings.security[:metadata_signed]         = true     # Enable or not signature on Metadata
+
     settings.security[:digest_method]    = XMLSecurity::Document::SHA256
     settings.security[:signature_method] = XMLSecurity::Document::RSA_SHA256
+
     settings.security[:embed_sign] = false
-    settings.security[:check_idp_cert_expiration] = false
-    settings.security[:check_sp_cert_expiration] = false
-    settings.security[:authn_requests_signed]   = true
-    settings.security[:logout_requests_signed]  = true
-    settings.security[:logout_responses_signed] = true
-    settings.security[:want_assertions_signed]  = true
-    settings.security[:metadata_signed]         = true
+    settings.security[:check_idp_cert_expiration] = false   # Enable or not IdP x509 cert expiration check
+    settings.security[:check_sp_cert_expiration] = false   # Enable or not SP x509 cert expiration check
+
   end
 end
