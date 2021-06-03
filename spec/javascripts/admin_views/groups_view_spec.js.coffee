@@ -25,7 +25,7 @@ describe 'GroupsView', ->
       e.innerText
     expect(counts).toEqual ['Measures (3)', 'Patients (12)', 'Edit']
 
-  it "opens up the edit grouppopup", ->
+  it 'opens up the edit group popup', ->
     data = [
       {id: 0,  first_name: 'A', last_name: 'B', email: 'a.b@ab.com'},
       {id: 1,  first_name: 'C', last_name: 'D', email: 'a.b@cd.com'},
