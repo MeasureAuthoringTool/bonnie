@@ -97,12 +97,12 @@ class Thorax.Views.DisplayGroupUsersView extends Thorax.Views.BonnieView
     # confirmtion message
     confirmationMessage = "Are you sure you want to remove #{userName} from #{@model.get('name')}?"
     # confirmtion dialog
-    confirmationDialog = new Thorax.Views.ConfirmationDialog(
+    @confirmationDialog = new Thorax.Views.ConfirmationDialog(
       message: confirmationMessage
       continueCallback: () -> view.removeUser(userId)
     )
-    confirmationDialog.appendTo($('#bonnie'))
-    confirmationDialog.display()
+    @confirmationDialog.appendTo($('#bonnie'))
+    @confirmationDialog.display()
 
   removeUser: (userId) ->
     @model.get('usersToRemove').push(userId)
