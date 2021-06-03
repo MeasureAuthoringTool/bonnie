@@ -11,6 +11,7 @@ class Thorax.Views.GroupView extends Thorax.Views.BonnieView
   template: JST['users/group']
   tagName: 'tr'
 
+  # Get the users for a group and display in popup
   edit: ->
     view = this
     $.ajax
