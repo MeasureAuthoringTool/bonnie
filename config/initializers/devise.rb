@@ -330,8 +330,8 @@ Devise.setup do |config|
     settings.security[:want_assertions_signed]  = true     # Enable or not the requirement of signed assertion
     settings.security[:metadata_signed]         = true     # Enable or not signature on Metadata
 
-    settings.security[:digest_method]    = XMLSecurity::Document::SHA1
-    settings.security[:signature_method] = XMLSecurity::Document::RSA_SHA1
+    settings.security[:digest_method]    = XMLSecurity::Document::SHA256
+    settings.security[:signature_method] = XMLSecurity::Document::RSA_SHA256
 
     settings.security[:embed_sign] = false
     settings.security[:check_idp_cert_expiration] = false   # Enable or not IdP x509 cert expiration check
