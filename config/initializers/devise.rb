@@ -255,4 +255,68 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  # ==> Configuration for :saml_authenticatable
+
+  # Create user if the user does not exist. (Default is false)
+  config.saml_create_user = false
+
+  # Update the attributes of the user after a successful login. (Default is false)
+  config.saml_update_user = true
+
+  # Set the default user key. The user will be looked up by this key. Make
+  # sure that the Authentication Response includes the attribute.
+  config.saml_default_user_key = :harp_id
+
+  # Optional. This stores the session index defined by the IDP during login.  If provided it will be used as a salt
+  # for the user's session to facilitate an IDP initiated logout request.
+  # config.saml_session_index_key = :session_index
+
+  # You can set this value to use Subject or SAML assertation as info to which email will be compared.
+  # If you don't set it then email will be extracted from SAML assertation attributes.
+  config.saml_use_subject = true
+
+  # You can support multiple IdPs by setting this value to the name of a class that implements a ::settings method
+  # which takes an IdP entity id as an argument and returns a hash of idp settings for the corresponding IdP.
+  # config.idp_settings_adapter = "MyIdPSettingsAdapter"
+
+  # You provide you own method to find the idp_entity_id in a SAML message in the case of multiple IdPs
+  # by setting this to the name of a custom reader class, or use the default.
+  # config.idp_entity_id_reader = "DeviseSamlAuthenticatable::DefaultIdpEntityIdReader"
+
+  # You can set a handler object that takes the response for a failed SAML request and the strategy,
+  # and implements a #handle method. This method can then redirect the user, return error messages, etc.
+  # config.saml_failed_callback = nil
+
+  # You can customize the named routes generated in case of named route collisions with
+  # other Devise modules or libraries. Set the saml_route_helper_prefix to a string that will
+  # be appended to the named route.
+  # If saml_route_helper_prefix = 'saml' then the new_user_session route becomes new_saml_user_session
+  # config.saml_route_helper_prefix = 'saml'
+
+  # You can add allowance for clock drift between the sp and idp.
+  # This is a time in seconds.
+  # config.allowed_clock_drift_in_seconds = 0
+
+  config.warden do |manager|
+    manager.failure_app = CustomFailure
+  end
+
+  # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
+  config.saml_configure do |settings|
+
+
+    # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
+    settings.assertion_consumer_service_url     = ENV["SAML_ASSERTION_CONSUMER_SERVICE_URL"]
+    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.single_logout_service_binding      = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    settings.idp_slo_service_url                =  ENV["SAML_IDP_SLO_SERVICE_URL"]
+    settings.idp_sso_service_url                =  ENV["SAML_IDP_SSO_SERVICE_URL"]
+    settings.issuer                             =  ENV["SAML_ISSUER"]
+    # settings.idp_cert_fingerprint               = "00:A1:2B:3C:44:55:6F:A7:88:CC:DD:EE:22:33:44:55:D6:77:8F:99"
+    # settings.idp_cert_fingerprint_algorithm     = "http://www.w3.org/2000/09/xmldsig#sha1"
+    settings.idp_cert                           =  ENV["SAML_IDP_CERT"]
+  end
 end

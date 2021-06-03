@@ -144,7 +144,7 @@ describe 'InputView', ->
       organizationEntityView.render()
       validateEntityOptionalInputs(organizationEntityView)
 
-      it 'allows for optional Location fields', ->
+    it 'allows for optional Location fields', ->
       locationEntityView = new Thorax.Views.InputCompositeView
         schema: cqm.models.LocationSchema,
         typeName: 'Location',

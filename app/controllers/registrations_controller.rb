@@ -24,22 +24,17 @@ class RegistrationsController < Devise::RegistrationsController
     resource.deactivate
     resource.save
     set_flash_message :notice, :signed_up_but_inactive
-    "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
+    "#{(respond_to?(:root_path) ? root_path : "/")}"
   end
 
   def destroy
-    if current_user.valid_password? params[:user][:current_password]
-      super
-    else
-      flash[:error] = "Incorrect password supplied, account not deleted"
-      redirect_to edit_user_registration_url
-    end
+    super
   end
 
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update, keys: [:crosswalk_enabled, :first_name, :last_name, :harp_id, :telephone])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:crosswalk_enabled, :harp_id])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :harp_id, :telephone])
   end
 

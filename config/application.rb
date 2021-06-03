@@ -67,5 +67,7 @@ module Bonnie
 
     # This lets us define our own routes for error pages
     config.exceptions_app = self.routes
+
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
