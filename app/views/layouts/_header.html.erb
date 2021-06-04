@@ -23,7 +23,7 @@
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu">
-        <% sort_groups(current_user.groups).each do |group| %>
+        <% GroupHelper.sort_groups(current_user.groups).each do |group| %>
           <li>
             <a class="switch-group-link" href="/user/switch_group/<%= group.id %>">
               <% if group.id == current_user.current_group.id %>
