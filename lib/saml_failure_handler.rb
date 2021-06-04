@@ -25,7 +25,7 @@ class SamlFailureHandler < Devise::FailureApp
                           body: msg }
           redirect_to "/users/saml/sign_in##{params[:redirect_route]}"
         else
-          # Redirect to the post register page (post register page)
+          # Redirect to the post register page
           redirect_to "/user/registered_not_active"
         end
       end
