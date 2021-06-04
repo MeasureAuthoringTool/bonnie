@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bonnie v<%=Bonnie::Version.current()%></title>
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <%= stylesheet_link_tag :application %>
+  <%= javascript_include_tag :application %>
+  <%= csrf_meta_tag %>
+  <%= render 'layouts/framebreaker' %>
+</head>
+
+<body>
+<%= render 'layouts/ie_alert' %>
+
+<div class="auth container">
+  <div class="navbar row" role="navigation">
+    <div class="navbar-brand">
+      <a href="/#">Bonnie</a>
+    </div>
+  </div>
+
+  <h1>Successfully Registered</h1>
+  <div class="registered_inactive_text">
+    You have registered for a Bonnie account. The Bonnie admin team is looking at your account and will approve it shortly. Please refrain from logging in to Bonnie until you have received confirmation your account is approved. In the meantime, you can view <a target="_blank" href="/resource/Bonnie_user_guide.pdf">the user guide</a>. If you have received an email your account has been activated you can login <a href="/users/saml/sign_in">here</a>.
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
