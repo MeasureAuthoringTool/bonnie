@@ -27,6 +27,8 @@ include Devise::Test::ControllerHelpers
     load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
     associate_user_with_patients(@user, CQM::Patient.all)
 
+    @public_group = Group.new(name: "SemanticBits", is_personal: false)
+    @public_group.save
   end
 
 
@@ -222,5 +224,52 @@ include Devise::Test::ControllerHelpers
       post :email_single, params: {target_email: @user.email, subject: expected_subject, body: expected_body}, as: :json
       mock.verify
     end
+  end
+
+  test "find user by email" do
+    sign_in @user_admin
+    get :user_by_email, params: {email: @user_admin[:email]}, as: :json
+    assert_response :success
+    assert_equal response.body, "{\"_id\":\"501fdba3044a111b98000002\",\"email\":\"user_admin@example.com\",\"first_name\":\"admin\",\"last_name\":\"admin\"}"
+    # empty params
+    get :user_by_email, params: {}
+    assert_response :success
+    assert_equal response.body, "{}"
+  end
+
+  test "find users by group" do
+    sign_in @user_admin
+    get :users_by_group, params: {id: @user_admin.current_group[:id]}
+    assert_response :success
+    assert_equal response.body, "[{\"_id\":\"501fdba3044a111b98000002\",\"email\":\"user_admin@example.com\",\"first_name\":\"admin\",\"last_name\":\"admin\"}]"
+    # empty params
+    get :users_by_group, params: {}
+    assert_response :success
+    assert_equal response.body, "[]"
+  end
+
+  test "update group and users" do
+    sign_in @user_admin
+    # add user to group
+    get :update_group_and_users, params: {
+      group_name: 'CMS',
+      group_id: @public_group.id,
+      users_to_add: [@user_admin.id],
+      users_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 2, user.groups.length
+
+    # remove user from group
+    get :update_group_and_users, params: {
+      group_id: @public_group.id,
+      users_to_remove: [@user_admin.id],
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    group = Group.find(@public_group.id)
+    assert_equal 1, user.groups.length
+    assert_equal 'CMS', group.name
   end
 end

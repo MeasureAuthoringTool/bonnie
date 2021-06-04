@@ -81,6 +81,9 @@ Bonnie::Application.routes.draw do
         post 'email_active'
         post 'email_all'
         post 'email_single'
+        get 'user_by_email'
+        get 'users_by_group'
+        post 'update_group_and_users'
       end
       member do
         post 'approve'
