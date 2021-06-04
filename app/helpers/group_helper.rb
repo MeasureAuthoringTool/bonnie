@@ -1,10 +1,9 @@
 module GroupHelper
-  def sort_groups(groups)
+  def self.sort_groups(groups)
     personal_group = nil
     shared_groups = []
 
     groups.each do |group|
-      #noinspection RubyResolve
       if group.is_personal
         personal_group = group
       else
