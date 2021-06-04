@@ -23,6 +23,9 @@ class ApplicationController < ActionController::Base
     if resource.is_a?(User)
       resource.current_group = resource.find_personal_group
       resource.save
+      # preserve flash messages on redirection
+      # used for harp account linking
+      flash.keep
     end
     super
   end
