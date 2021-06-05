@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CqlToElmHelperTest < ActiveSupport::TestCase
+class GroupHelperTest < ActiveSupport::TestCase
   setup do
     @groups = [
       Group.new(:name => "Personal", :is_personal => true),
