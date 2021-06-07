@@ -30,6 +30,11 @@ class GroupHelperTest < ActiveSupport::TestCase
     assert_equal 'CMS', sorted_groups[1].name
     assert_equal 'SemanticBits', sorted_groups[2].name
   end
+
+  test 'verify empty array' do
+    sorted_groups = GroupHelper.sort_groups([])
+    assert_equal 0, sorted_groups.length
+  end
 end
 
 
