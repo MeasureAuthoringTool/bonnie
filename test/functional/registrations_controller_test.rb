@@ -49,7 +49,7 @@ class RegistrationsControllerTest < ActionController::TestCase
   end
 
   test "destroy with invalid password" do
-    skip("Not implmented yet")
+    skip("Not implemented yet")
     sign_in @user
     # Supply incorrect passwordin call to delete account
     delete :destroy, params: {user:{users_email: @user.email} , current_password: "wrongpass" }
