@@ -35,6 +35,8 @@ Bonnie::Application.routes.draw do
 
   get '/saml_error', to: 'home#saml_error'
 
+  get 'user/registered_not_active', to: 'home#registered_not_active'
+
   root to: 'home#index'
 
   resources :measures, defaults: { format: :json } do
