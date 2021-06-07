@@ -53,9 +53,12 @@ class SamlFailureHandlerTest < ActionController::TestCase
   test "link user not found" do
     flash = Hash.new
     handler = SamlFailureHandler.new
-    redirected = handler.link_user('unknonwn_user@example.com', 'unknonwn_user', flash)
+    redirected = handler.link_user('unknonwn_user@example.com', 'unknown_user', flash)
     @user = User.by_email('bonnie@example.com').first
-    assert_match('/saml_error', redirected)
-    assert_empty(flash)
+    assert_match('/users/sign_up', redirected)
+    assert_equal('No Bonnie Account', flash[:msg][:title])
+    assert_equal('No Bonnie Account', flash[:msg][:summary])
+    expected_msg = 'You don\'t currently have a Bonnie account with this HARP Account. Please register for a new Bonnie account or reach out to the help desk for assistance with linking an existing Bonnie account with this HARP Account.'
+    assert_equal(expected_msg, flash[:msg][:body])
   end
 end
