@@ -56,16 +56,11 @@ describe 'UserEditDialog', ->
     expect(@model.attributes.portfolio).toBe(true)
 
   it 'isValidEmail', ->
-    @userEditDialog = new Thorax.Views.UserEditDialog(
-      model: @model,
-      cancelCallback: () -> {},
-      submitCallback: () -> {}
-    )
-    expect(@userEditDialog.isValidEmail('someone@google.com')).toBe(true)
-    expect(@userEditDialog.isValidEmail('wrong email@google.com')).toBe(false)
-    expect(@userEditDialog.isValidEmail('')).toBe(false)
-    expect(@userEditDialog.isValidEmail(' ')).toBe(false)
-    expect(@userEditDialog.isValidEmail('a@google')).toBe(false)
+    expect(UserGroupHelpers.isValidEmail('someone@google.com')).toBe(true)
+    expect(UserGroupHelpers.isValidEmail('wrong email@google.com')).toBe(false)
+    expect(UserGroupHelpers.isValidEmail('')).toBe(false)
+    expect(UserGroupHelpers.isValidEmail(' ')).toBe(false)
+    expect(UserGroupHelpers.isValidEmail('a@google')).toBe(false)
 
   it 'isValidHarp', ->
     @userEditDialog = new Thorax.Views.UserEditDialog(
