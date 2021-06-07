@@ -11,26 +11,33 @@ class SamlFailureHandler < Devise::FailureApp
       puts 'Email: ' + email
       puts '-------------------------------------'
 
-      user = User.find_by email: email
-      if user.nil?
-        redirect_to "/saml_error"
-      else
-        if user.is_approved?
-          user.harp_id = harp_id
-          user.save
-          title = 'HARP Account Linked'
-          msg = 'Your HARP Account with %{harp_id} and Bonnie account with %{email} have been automatically linked. If you need further assistance please reach out to the Bonnie Help Desk.' % {harp_id:harp_id, email:email}
-          flash[:msg] = { title: title,
-                          summary: title,
-                          body: msg }
-          redirect_to "/users/saml/sign_in##{params[:redirect_route]}"
-        else
-          # Redirect to the post register page
-          redirect_to "/user/registered_not_active"
-        end
-      end
+      redirect_to link_user(email, harp_id, flash)
     else
       super
     end
   end
+
+  def link_user(email, harp_id, flash)
+    user = User.find_by email: email
+    if user.nil?
+      "/saml_error"
+    else
+      if user.is_approved?
+        user.harp_id = harp_id
+        user.save
+        title = 'HARP Account Linked'
+        msg = 'Your HARP Account with %{harp_id} and Bonnie account with %{email} have been automatically linked. '\
+        'If you need further assistance please reach out to the Bonnie Help Desk.' % {harp_id: harp_id, email: email}
+        flash[:msg] = {title: title,
+                       summary: title,
+                       body: msg}
+        "/users/saml/sign_in"
+      else
+        # Redirect to the post register page
+        "/user/registered_not_active"
+      end
+    end
+  end
+
+
 end
