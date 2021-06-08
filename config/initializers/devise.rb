@@ -299,7 +299,7 @@ Devise.setup do |config|
   # config.allowed_clock_drift_in_seconds = 0
 
   config.warden do |manager|
-    manager.failure_app = CustomFailure
+    manager.failure_app = SamlFailureHandler
   end
 
   # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).

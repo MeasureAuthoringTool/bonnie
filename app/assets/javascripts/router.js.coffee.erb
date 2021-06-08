@@ -103,6 +103,15 @@
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display()
 
+  showMsg: (msg) ->
+    return if $('.msgDialog').length > @maxErrorCount
+    if $('.msgDialog').length == @maxMsgCount
+      msg.title = "Multiple Messages: #{msg.title}"
+      msg.summary = "This page has generated multiple messages... additional messages will be suppressed. #{msg.summary}"
+    msgDialogView = new Thorax.Views.MsgDialog msg: msg
+    msgDialogView.appendTo('#bonnie')
+    msgDialogView.display()
+
   showPageNotFound: ->
     @mainView.setView new Thorax.Views.ErrorView
     @breadcrumb.clear()
