@@ -33,14 +33,14 @@ Bonnie::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   #config.force_ssl = true
 
-  # Set log level to info
-  config.log_level = :info
+  # Set log level 
+  config.log_level = :warn
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+  config.logger = Logger.new(STDOUT)
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
