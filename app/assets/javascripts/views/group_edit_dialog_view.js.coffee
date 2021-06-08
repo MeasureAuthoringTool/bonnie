@@ -61,7 +61,7 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
           view.groupEditDialog.modal('hide')
           bonnie.showMsg(
             title: 'Success',
-            body: 'Changes to the Group has been successfully updated'
+            body: 'Requested changes have been made to group ' + view.$('#name').val() + '.'
           )
         error: (response) ->
           bonnie.showError(
