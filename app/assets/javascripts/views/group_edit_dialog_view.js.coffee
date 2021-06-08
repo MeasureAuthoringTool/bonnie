@@ -46,19 +46,24 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
 
   submit: ->
     view = this
+    group_name = view.$('#name').val()
     if @validateGroupName() && @validateEmail()
       $.ajax
         url: "admin/users/update_group_and_users"
         type: 'POST'
         data: {
           group_id: view.model.get('_id'),
-          group_name: view.$('#name').val()
+          group_name: group_name
           users_to_add: view.displayUsersModel.get('usersToAdd')
           users_to_remove: view.displayUsersModel.get('usersToRemove')
         }
         success: (response) ->
-          view.model.set(name: view.$("#name").val())
+          view.model.set(name: group_name)
           view.groupEditDialog.modal('hide')
+          bonnie.showMsg(
+            title: 'Success',
+            body: "Requested changes have been made to the group #{group_name}."
+          )
         error: (response) ->
           bonnie.showError(
             title: 'Error',
