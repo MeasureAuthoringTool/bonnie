@@ -33,8 +33,6 @@ Bonnie::Application.routes.draw do
   # to the backend.
   post '/application/client_error' => 'application#client_error'
 
-  get '/saml_error', to: 'home#saml_error'
-
   get 'user/registered_not_active', to: 'home#registered_not_active'
 
   root to: 'home#index'

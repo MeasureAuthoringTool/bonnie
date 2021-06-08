@@ -10,10 +10,6 @@ class HomeController < ApplicationController
     render :show, layout: false
   end
 
-  def saml_error
-    render json: {status: "error", messages: "User is not activated."}, status: :not_found
-  end
-
   def registered_not_active
     render :registered_not_active, layout: false
   end
