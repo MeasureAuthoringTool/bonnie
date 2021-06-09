@@ -24,6 +24,11 @@ class RegistrationsController < Devise::RegistrationsController
     resource.deactivate
     resource.save
     set_flash_message :notice, :signed_up_but_inactive
+
+    if (resource.is_a?(User))
+      Rails.logger.info "New user created with full name: #{resource.full_name}."
+    end
+
     "#{(respond_to?(:root_path) ? root_path : "/")}user/registered_not_active"
   end
 
