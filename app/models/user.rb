@@ -53,7 +53,7 @@ class User
 
   # don't require password
   def password_required?
-    return false
+    false
   end
 
   ## Database authenticatable
@@ -160,5 +160,9 @@ class User
 
   def is_assigned_group(group)
     groups.detect { |g| g.id == group.id }
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 end

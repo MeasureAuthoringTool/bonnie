@@ -62,6 +62,7 @@ class Admin::UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     user.update(user_params)
+    Rails.logger.info "#{current_user.full_name} modified user #{user.full_name}"
     respond_with user
   end
 
@@ -70,19 +71,22 @@ class Admin::UsersController < ApplicationController
     user.approved = true
     user.save
     UserMailer.account_activation_email(user).deliver_now
+    Rails.logger.info "#{current_user.full_name} approved user #{user.full_name}"
     render json: user
   end
 
-  def disable
+  def disable 
     user = User.find(params[:id])
     user.approved = false
     user.save
+    Rails.logger.info "#{current_user.full_name} disabled user #{user.full_name}"
     render json: user
   end
 
-  def destroy
+  def destroy 
     user = User.find(params[:id])
     user.destroy
+    Rails.logger.info "#{current_user.full_name} deleted user #{user.full_name}"
     render json: {}
   end
 
