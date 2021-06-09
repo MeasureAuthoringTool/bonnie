@@ -20,7 +20,13 @@ class SamlFailureHandler < Devise::FailureApp
   def link_user(email, harp_id, flash)
     user = User.find_by email: email
     if user.nil?
-      "/saml_error"
+      title = 'No Bonnie Account'
+      msg = 'You don\'t currently have a Bonnie account with this HARP Account. '\
+      'Please register for a new Bonnie account or reach out to the help desk for assistance with linking an existing Bonnie account with this HARP Account.'
+      flash[:msg] = {title: title,
+                     summary: title,
+                     body: msg}
+      "/users/sign_up"
     else
       if user.is_approved?
         user.harp_id = harp_id

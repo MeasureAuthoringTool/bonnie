@@ -81,6 +81,33 @@
 
 <% end -%>
 
+<% flash.each do |message_type, message| %>
+  <% if flash[:msg] %>
+    <div class="modal fade in msgDialog" id="msgDialog" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 id="modalTitle"><%= flash[:msg][:title] %></h1>
+          </div>
+          <div class="modal-body">
+            <% if flash[:msg][:summary] %>
+            <div>
+              <h4><%= flash[:msg][:summary] %></h4>
+            </div>
+            <% end %>
+            <p>
+              <%= flash[:msg][:body] %>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
 <script>
   $(function() {
     $('#agree_license').on('change', function(e) {
@@ -91,5 +118,6 @@
     });
 
     $('.field_with_errors').parent().removeClass('required').addClass('has-error'); //allows icon to change color appropriately for validation
+    $('.modal').modal('show');
   });
 </script>
