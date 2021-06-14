@@ -75,7 +75,7 @@ class Admin::UsersController < ApplicationController
     render json: user
   end
 
-  def disable 
+  def disable
     user = User.find(params[:id])
     user.approved = false
     user.save
@@ -83,7 +83,7 @@ class Admin::UsersController < ApplicationController
     render json: user
   end
 
-  def destroy 
+  def destroy
     user = User.find(params[:id])
     user.destroy
     Rails.logger.info "#{current_user.full_name} deleted user #{user.full_name}"
@@ -120,6 +120,18 @@ class Admin::UsersController < ApplicationController
       user.groups = user.groups.select { |g| g.id != group.id }
       user.save
     end
+    render json: group
+  end
+
+  def create_group
+    group_name = params[:group_name]
+
+    existing_group = Group.where(name: /^#{group_name}$/i).first # regex case insensitive search
+    raise ActionController::BadRequest, "Group name #{group_name} is already used." if existing_group
+
+    group = Group.new
+    group.name = group_name
+    group.save
     render json: group
   end
 
