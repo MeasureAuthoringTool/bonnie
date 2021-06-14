@@ -23,6 +23,38 @@
 
     $('a.switch-group-link').on 'click ', _.bind(@onSwitchRole, this)
 
+    showWarningInactiveMs = parseInt('<%= APP_CONFIG['show_warning_inactive_ms'] %>', 10)
+    logoutInactiveMs = parseInt('<%= APP_CONFIG['logout_inactive_ms'] %>', 10)
+    @registerUserSessionAutoLogout(showWarningInactiveMs, logoutInactiveMs)
+
+#   User inactivity auto-logout
+  registerUserSessionAutoLogout: (showWarningInactiveMs, logoutInactiveMs) ->
+    logoutInactiveAfterWarningMs = logoutInactiveMs - showWarningInactiveMs
+    # List of events should be consistend with the events used in the warning dialog
+    userEvents = rxjs.merge(
+        # Add an initial (stub) event, it's needed to trigger a timeout in case of no user interactions since the app is loaded.
+        # EMPTY doesn't trigger an event, only a completion.
+        rxjs.of({type: 'initial'}),
+        rxjs.fromEvent(document, 'click'),
+#        rxjs.fromEvent(document, 'mousemove'),
+        rxjs.fromEvent(document, 'keydown')
+    )
+    userEvents.pipe(rxjs.operators.debounceTime(showWarningInactiveMs)).subscribe((x) =>
+      @showInactiveWarning(logoutInactiveAfterWarningMs)
+    )
+    userEvents.pipe(rxjs.operators.debounceTime(logoutInactiveMs)).subscribe((x) =>
+      @logout()
+    )
+
+  logout: ->
+    # Ajax DELETE doesn't work as expected. It terminates bonnie's session, but not the SAML one.
+    logoutLink = document.createElement('a')
+    logoutLink.id = 'autoLogoutLink'
+    logoutLink.href = '/users/sign_out'
+    logoutLink.setAttribute('data-method', 'delete')
+    document.body.appendChild(logoutLink)
+    logoutLink.click()
+
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
@@ -112,6 +144,13 @@
     msgDialogView = new Thorax.Views.MsgDialog msg: msg
     msgDialogView.appendTo('#bonnie')
     msgDialogView.display()
+
+  showInactiveWarning: (countdownMs) ->
+    # Make sure only one inactive session warning is show
+    return if $('#inactiveWarningDialog').length > 0
+    wrn = new Thorax.Views.InactiveWarningDialog(countdownMs: countdownMs)
+    wrn.appendTo(document.body)
+    wrn.display()
 
   showPageNotFound: ->
     @mainView.setView new Thorax.Views.ErrorView
