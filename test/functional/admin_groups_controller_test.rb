@@ -62,5 +62,32 @@ module Admin
       assert_equal 1, index_json[1]['measure_count']
       assert_equal 4, index_json[1]['patient_count']
     end
+
+    test "create group name exists" do
+      sign_in @user_admin
+
+      # this will test the reg-ex case insensitive query in controller
+      begin
+        post :create_group, params: {
+          group_name: "CmS"
+        }
+      rescue Exception => e
+        assert_equal e.to_s, "Group name CmS is already used."
+      end
+    end
+
+    test "create group success" do
+      sign_in @user_admin
+      my_group = "MyGroup"
+
+      post :create_group, params: {
+        group_name: my_group
+      }
+
+      assert_response :success
+      group = Group.where(name: my_group).first
+      assert_equal false, group.is_personal
+    end
+
   end
 end

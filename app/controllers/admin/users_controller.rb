@@ -75,7 +75,7 @@ class Admin::UsersController < ApplicationController
     render json: user
   end
 
-  def disable 
+  def disable
     user = User.find(params[:id])
     user.approved = false
     user.save
@@ -83,7 +83,7 @@ class Admin::UsersController < ApplicationController
     render json: user
   end
 
-  def destroy 
+  def destroy
     user = User.find(params[:id])
     user.destroy
     Rails.logger.info "#{current_user.full_name} deleted user #{user.full_name}"
