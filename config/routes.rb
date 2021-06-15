@@ -9,7 +9,7 @@ Bonnie::Application.routes.draw do
   post '/oauth/authorize/change_user' => 'doorkeeper_override/authorizations#change_user'
 
   apipie
-  devise_for :users,:controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => { :registrations => "registrations" }
 
   devise_scope :user do
     get "/needs_approval" => "registrations#needs_approval"
@@ -91,7 +91,11 @@ Bonnie::Application.routes.draw do
         post 'log_in_as'
       end
     end
-    resources :groups
+    resources :groups do
+      collection do
+        post 'create_group'
+      end
+    end
   end
 
   namespace :api_v1 do
