@@ -25,15 +25,12 @@ class Thorax.Views.NewGroupDialog extends Thorax.Views.BonnieView
           group_name: group_name
         }
         success: (response) ->
-          console.log(JSON.stringify(response))
           view.newGroupDialog.modal('hide')
 
           bonnie.showMsg(
             title: 'Success',
             body: "#{group_name} has been successfully created. Reresh page to see results"
           )
-
-          #window.location.reload()
 
         error: (response) ->
           error_message = "";
