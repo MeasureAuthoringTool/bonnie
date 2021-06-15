@@ -23,9 +23,10 @@
 
     $('a.switch-group-link').on 'click ', _.bind(@onSwitchRole, this)
 
-    showWarningInactiveMs = parseInt('<%= APP_CONFIG['show_warning_inactive_ms'] %>', 10)
-    logoutInactiveMs = parseInt('<%= APP_CONFIG['logout_inactive_ms'] %>', 10)
-    @registerUserSessionAutoLogout(showWarningInactiveMs, logoutInactiveMs)
+    if !window.disableSessionManagement
+      showWarningInactiveMs = parseInt('<%= APP_CONFIG['show_warning_inactive_ms'] %>', 10)
+      logoutInactiveMs = parseInt('<%= APP_CONFIG['logout_inactive_ms'] %>', 10)
+      @registerUserSessionAutoLogout(showWarningInactiveMs, logoutInactiveMs)
 
 #   User inactivity auto-logout
   registerUserSessionAutoLogout: (showWarningInactiveMs, logoutInactiveMs) ->
@@ -40,10 +41,12 @@
         rxjs.fromEvent(document, 'keydown')
     )
     userEvents.pipe(rxjs.operators.debounceTime(showWarningInactiveMs)).subscribe((x) =>
-      @showInactiveWarning(logoutInactiveAfterWarningMs)
+      if !window.disableSessionManagement
+        @showInactiveWarning(logoutInactiveAfterWarningMs)
     )
     userEvents.pipe(rxjs.operators.debounceTime(logoutInactiveMs)).subscribe((x) =>
-      @logout()
+      if !window.disableSessionManagement
+        @logout()
     )
 
   logout: ->
