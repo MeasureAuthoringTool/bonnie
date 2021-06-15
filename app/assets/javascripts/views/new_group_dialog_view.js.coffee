@@ -19,7 +19,7 @@ class Thorax.Views.NewGroupDialog extends Thorax.Views.BonnieView
     group_name = view.$('#name').val()
     if @validateGroupName()
       $.ajax
-        url: "admin/users/create_group"
+        url: "admin/groups/create_group"
         type: 'POST'
         data: {
           group_name: group_name

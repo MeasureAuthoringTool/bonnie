@@ -123,18 +123,6 @@ class Admin::UsersController < ApplicationController
     render json: group
   end
 
-  def create_group
-    group_name = params[:group_name]
-
-    existing_group = Group.where(name: /^#{group_name}$/i).first # regex case insensitive search
-    raise ActionController::BadRequest, "Group name #{group_name} is already used." if existing_group
-
-    group = Group.new
-    group.name = group_name
-    group.save
-    render json: group
-  end
-
   def patients
     user = User.find(params[:id])
     send_data JSON.pretty_generate(user.current_group.patients.map(&:as_document)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
