@@ -19,7 +19,7 @@ class Thorax.Views.InactiveWarningDialog extends Thorax.Views.BonnieView
   events:
     rendered: -> 
       @$el.on 'hidden.bs.modal', -> @remove()
-# List of events should be consistend with the events used watch for user inactivity
+# List of the events should be consistent with the events used watch for user inactivity
     'click': 'close'
     'keydown': 'close'
 #    'mousemove': 'close'
