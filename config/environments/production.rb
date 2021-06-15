@@ -34,7 +34,7 @@ Bonnie::Application.configure do
   #config.force_ssl = true
 
   # Set log level 
-  config.log_level = :warn
+  config.log_level = :info
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
