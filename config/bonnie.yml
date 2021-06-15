@@ -24,6 +24,11 @@ defaults: &defaults
   bonnie_email: bonnie@example.com # For standard notifications
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
   patient_conversion_service_url: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
+  ## --- Session auto-logout ---
+  # Show inactive session warning MS, default is 600000 (10 min)
+  show_warning_inactive_ms: 600000
+  # Logout inactive session MS, default is 900000 (15 min)
+  logout_inactive_ms: 900000
 
   virus_scan:
     enabled: false
