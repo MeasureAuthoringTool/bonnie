@@ -60,7 +60,7 @@ function updateEntityCardinalities(dataElement) {
   });
 }
 
-db.getCollection('cqm_patients').find().forEach(function (patient) {
+db.getCollection('cqm_patients').find().forEach((patient) => {
   print(`------------Updating patient : ${patient._id} ---------------` );
   const dataElements = patient.qdmPatient.dataElements;
   // empty patient, not possible but if in case
@@ -107,7 +107,7 @@ db.getCollection('cqm_patients').find().forEach(function (patient) {
 
 // update measures to remove QDM::DeviceApplied retired data element
 print(`------------Updating measures---------------` );
-db.getCollection('cqm_measures').find().forEach(function (measure) {
+db.getCollection('cqm_measures').find().forEach((measure) => {
   const sourceDataCriteria = measure.source_data_criteria
   if (!sourceDataCriteria) {
     return;
