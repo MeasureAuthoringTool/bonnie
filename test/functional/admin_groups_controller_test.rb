@@ -21,6 +21,8 @@ module Admin
       @user_plain.init_personal_group
       @user_plain.save
 
+      Group.create_indexes
+
       # public group associated with user
       sb = Group.new(name: 'SB')
       sb.save!
