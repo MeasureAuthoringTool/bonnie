@@ -1,13 +1,13 @@
 print("Conversion started...");
 // Update statistics
 const updateStat = {
-  deviceApplied: 0,
-  numberEnc: 0,
-  numberParticipationRecorder: 0,
-  procPerformedPriority: 0,
-  organizationUpdate: 0,
-  cardinalities: 0,
-  numberOfMeasures: 0
+  deviceApplied: 0, //number of Device Applied deleted
+  numberEnc: 0, //number of EncounterPerformed.negationRationale deleted
+  numberParticipationRecorder: 0, //number of Participation.recorder deleted
+  procPerformedPriority: 0, //number of ProcedurePerformed.priority deleted
+  organizationUpdate: 0, //number of Organisation updated
+  cardinalities: 0, //number of cardinalities changed
+  numberOfMeasures: 0 //number of measures updated(remove Device, Applied element)
 };
 
 const qdm_version = '5.6';
