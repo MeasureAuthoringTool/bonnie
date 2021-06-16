@@ -10,7 +10,7 @@ const updateStat = {
   numberOfMeasures: 0 //number of measures updated(remove Device, Applied element)
 };
 
-const qdm_version = '5.6';
+const qdmVersion = '5.6';
 
 // remove EncounterPerformed.negationRationale
 function removeEncPerformedNegation(encPerformed) {
@@ -52,7 +52,7 @@ function updateEntityCardinalities(dataElement) {
         updateStat.organizationUpdate += 1;
       }
       // update qdm version of an entity
-      dataElement[entity].qdmVersion = qdm_version;
+      dataElement[entity].qdmVersion = qdmVersion;
       // cardinality change, make it an array
       dataElement[entity] = [dataElement[entity]];
       updateStat.cardinalities += 1;
@@ -67,10 +67,10 @@ db.getCollection('cqm_patients').find().forEach(function (patient) {
   if (!dataElements) {
     return;
   }
-  patient.qdmPatient.dataElements = dataElements.filter(dataElement => {
+  patient.qdmPatient.dataElements = dataElements.filter((dataElement) => {
     print(`Data element: ${dataElement._type}`);
     // update data element qdm version
-    dataElement.qdmVersion = qdm_version;
+    dataElement.qdmVersion = qdmVersion;
     // no need to update patient characteristics
     if(dataElement.qdmCategory === 'patient_characteristic') {
       return true;
@@ -97,7 +97,7 @@ db.getCollection('cqm_patients').find().forEach(function (patient) {
   });
 
   // update qdm version of a patient
-  patient.qdmPatient.qdmVersion = qdm_version;
+  patient.qdmPatient.qdmVersion = qdmVersion;
   db.getCollection('cqm_patients').update(
     { _id: patient._id},
     patient,
