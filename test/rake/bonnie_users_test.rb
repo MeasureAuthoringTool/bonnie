@@ -3,7 +3,7 @@ require 'test_helper'
 class BonnieUsersTest < ActiveSupport::TestCase
   setup do
     dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
+    @user = User.new(email: 'test@test.com', first: 'first', last: 'last')
     @user.save!
 
   end
@@ -93,7 +93,13 @@ class BonnieUsersTest < ActiveSupport::TestCase
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set, patients_set)
     source_user = User.by_email('bonnie@example.com').first
+    source_user.init_personal_group
+    source_user.save
+
     dest_user = User.by_email('user_admin@example.com').first
+    dest_user.init_personal_group
+    dest_user.save
+
     load_measure_fixtures_from_folder(File.join("measures", "CMS903v0"), source_user)
     # these patients are already associated with the source measure in the json file
     associate_user_with_patients(source_user, CQM::Patient.all)
@@ -102,10 +108,10 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     # confirm base state
 
-    source_measures = CQM::Measure.where(user_id:source_user.id)
-    dest_measures = CQM::Measure.where(user_id:dest_user.id)
-    source_patients = CQM::Patient.where(user_id:source_user.id)
-    dest_patients = CQM::Patient.where(user_id:dest_user.id)
+    source_measures = CQM::Measure.where(group_id:source_user.current_group.id)
+    dest_measures = CQM::Measure.where(group_id:dest_user.current_group.id)
+    source_patients = CQM::Patient.where(group_id:source_user.current_group.id)
+    dest_patients = CQM::Patient.where(group_id:dest_user.current_group.id)
 
     assert_equal(1, source_measures.count)
     assert_equal(measure._id, source_measures.first._id)
@@ -154,16 +160,16 @@ class BonnieUsersTest < ActiveSupport::TestCase
     ENV['CMS_ID'] = "CMS903v0"
 
     vs_count_measure = measure.value_sets.count
-    vs_count_user = CQM::ValueSet.where(user_id: source_user).count
+    vs_count_user = CQM::ValueSet.where(group_id: source_user.current_group.id).count
     refute_equal(0, vs_count_measure)
     refute_equal(0, vs_count_user)
 
     Rake::Task['bonnie:users:move_measure'].execute
 
-    source_measures = CQM::Measure.where(user_id:source_user.id)
-    dest_measures = CQM::Measure.where(user_id:dest_user.id)
-    source_patients = CQM::Patient.where(user_id:source_user.id)
-    dest_patients = CQM::Patient.where(user_id:dest_user.id)
+    source_measures = CQM::Measure.where(group_id:source_user.current_group.id)
+    dest_measures = CQM::Measure.where(group_id:dest_user.current_group.id)
+    source_patients = CQM::Patient.where(group_id:source_user.current_group.id)
+    dest_patients = CQM::Patient.where(group_id:dest_user.current_group.id)
 
     assert_equal(0, source_measures.count)
     assert_equal(1, dest_measures.count)
@@ -173,8 +179,8 @@ class BonnieUsersTest < ActiveSupport::TestCase
     assert_equal(4, dest_patients.count)
 
     assert_equal(vs_count_measure, dest_measures.first.value_sets.count)
-    assert_equal(vs_count_user, CQM::ValueSet.where(user_id: dest_user).count)
-    assert_equal(0, CQM::ValueSet.where(user_id: source_user).count)
+    assert_equal(vs_count_user, CQM::ValueSet.where(group_id: dest_user.current_group.id).count)
+    assert_equal(0, CQM::ValueSet.where(group_id: source_user.current_group.id).count)
   end
 
 end

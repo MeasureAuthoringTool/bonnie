@@ -1,5 +1,5 @@
 defaults: &defaults
-  version: 4.2.1
+  version: 5.0.0
   enable_logging: true
   enable_rationale: true
   check_crosswalk: false
@@ -12,13 +12,23 @@ defaults: &defaults
     default_release: eCQM Update 2020-05-07
   enable_client_error_email: true
   # oldest version of QDM that can be loaded
-  support_qdm_version: 5.5
+  support_qdm_version: 5.6
+  # the harp instance that we use for authentication
+  harp_idp_url: https://harp.cms.gov/login
   # Place holder email addresses for email alerts. This email is not valid.
   # This email should be configured in a '<root>/config/email.yml' file
   # for deployments.
+  smtp_hostname: "localhost"
+  smtp_port: 25
+  smtp_tls: false
   bonnie_email: bonnie@example.com # For standard notifications
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
   patient_conversion_service_url: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
+  ## --- Session auto-logout ---
+  # Show inactive session warning MS, default is 600000 (10 min)
+  show_warning_inactive_ms: 600000
+  # Logout inactive session MS, default is 900000 (15 min)
+  logout_inactive_ms: 900000
 
   virus_scan:
     enabled: false
@@ -34,9 +44,16 @@ test:
 
 production:
   <<: *defaults
-  patient_conversion_service_url: http://localhost:5050/patients/convertMany
+  patient_conversion_service_url: <%= ENV["BONNIE_PATIENT_CONV_URL"] %>
+  hostname: <%= ENV["BONNIE_HOSTNAME"] %>
+  smtp_hostname: <%= ENV["BONNIE_SMTP_HOSTNAME"] %>
+  smtp_port: <%= ENV["BONNIE_SMTP_PORT"] %>
+  smtp_username: <%= ENV["BONNIE_SMTP_USERNAME"] %>
+  smtp_password: <%= ENV["BONNIE_SMTP_PASSWORD"] %>
+  smtp_tls: <%= ENV["BONNIE_SMTP_TLS"] %>
+  bonnie_email: <%= ENV["BONNIE_EMAIL"] %> 
+  bonnie_error_email: <%= ENV["BONNIE_ERROR_EMAIL"] %> 
   virus_scan:
-    enabled: true
-    scan_url: 'http://localhost:5000/scan-file'
-    api_key: '1234567'
-    timeout: 30
+    enabled: <%= ENV["VIRUS_SCAN_ENABLED"] %>
+    scan_url: <%= ENV["VIRUS_SCAN_URL"] %>
+    api_key: <%= ENV["VIRUS_SCAN_API_KEY"] %>

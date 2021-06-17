@@ -96,7 +96,6 @@
           "value": 3,
           "unit": "days"
         },
-        "negationRationale": null,
         "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
@@ -169,7 +168,6 @@
           "value": 0,
           "unit": "days"
         },
-        "negationRationale": null,
         "priority": null,
         "qdmCategory": "encounter",
         "qdmStatus": "performed",
@@ -277,7 +275,7 @@
     "extendedData": null,
     "qdmVersion": "5.5"
   },
-  "user_id": {
+  "group_id": {
     "$oid": "501fdba3044a111b98000001"
   }
 }

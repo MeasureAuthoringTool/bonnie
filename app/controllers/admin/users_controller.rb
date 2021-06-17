@@ -7,16 +7,22 @@ class Admin::UsersController < ApplicationController
   respond_to :json
 
   def index
-    # Getting the count for user measures and patients via the DB is a 1+n problem, and a bit slow, so we grab
-    # the counts separately via map reduce and plug them in
+    # aggregate pipeline stages
+    stages = [
+      {
+        "$group" => {
+          "_id" => "$group_id",
+          "count" => { "$sum" => 1 }
+        }
+      }
+    ]
+
+    measures = CQM::Measure.collection.aggregate(stages).as_json
+    patients = CQM::Patient.collection.aggregate(stages).as_json
     users = User.asc(:email).all.to_a # Need to convert to array so counts stick
-    map = "function() { emit(this.user_id, 1); }"
-    reduce = "function(user_id, counts) { return Array.sum(counts); }"
-    measure_counts = CQM::Measure.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
-    patient_counts = CQM::Patient.map_reduce(map, reduce).out(inline: 1).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
-    users.each do |u|
-      u.measure_count = measure_counts[u.id] || 0
-      u.patient_count = patient_counts[u.id] || 0
+    users.each do |user|
+      user.measure_count = get_count_by_id(measures, user.id)
+      user.patient_count = get_count_by_id(patients, user.id)
     end
     users_json = MultiJson.encode(users.as_json(methods: [:measure_count, :patient_count, :last_sign_in_at]))
     respond_with users do |format|
@@ -56,6 +62,7 @@ class Admin::UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     user.update(user_params)
+    Rails.logger.info "#{current_user.full_name} modified user #{user.full_name}"
     respond_with user
   end
 
@@ -64,6 +71,7 @@ class Admin::UsersController < ApplicationController
     user.approved = true
     user.save
     UserMailer.account_activation_email(user).deliver_now
+    Rails.logger.info "#{current_user.full_name} approved user #{user.full_name}"
     render json: user
   end
 
@@ -71,23 +79,58 @@ class Admin::UsersController < ApplicationController
     user = User.find(params[:id])
     user.approved = false
     user.save
+    Rails.logger.info "#{current_user.full_name} disabled user #{user.full_name}"
     render json: user
   end
 
   def destroy
     user = User.find(params[:id])
     user.destroy
+    Rails.logger.info "#{current_user.full_name} deleted user #{user.full_name}"
     render json: {}
+  end
+
+  def user_by_email
+    user = {}
+    if params[:email]
+      user = User.where(email: params[:email]).only(:first_name, :last_name, :email).first
+    end
+    render json: user
+  end
+
+  def users_by_group
+    users = []
+    if params[:id]
+      users = User.where(group_ids: { '$in' => [params[:id]] }).only(:first_name, :last_name, :email).to_a
+    end
+    render json: users
+  end
+
+  def update_group_and_users
+    group = Group.find(params[:group_id])
+    group.name = params[:group_name] if params[:group_name]
+    group.save
+    params[:users_to_add]&.each do |id|
+      user = User.find(id)
+      user.groups << group
+      user.save
+    end
+    params[:users_to_remove]&.each do |id|
+      user = User.find(id)
+      user.groups = user.groups.select { |g| g.id != group.id }
+      user.save
+    end
+    render json: group
   end
 
   def patients
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(user.patients.map(&:as_document)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
+    send_data JSON.pretty_generate(user.current_group.patients.map(&:as_document)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
   end
 
   def measures
     user = User.find(params[:id])
-    send_data JSON.pretty_generate(JSON.parse(user.cqm_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
+    send_data JSON.pretty_generate(JSON.parse(user.current_group.cqm_measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
   end
 
   def log_in_as
@@ -99,7 +142,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:email, :admin, :portfolio, :dashboard)
+    params.permit(:email, :admin, :portfolio, :dashboard, :harp_id)
   end
 
   def user_email_params

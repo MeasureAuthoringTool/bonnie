@@ -9,7 +9,8 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
     @userSummaryView = new Thorax.View model: @collection.summary, template: JST['users/user_summary'], toggleStats: ->
       @$('.stats-panel').toggleClass('hidden')
       @$('.btn-toggle-stats').toggleClass('btn-default btn-primary')
-    @tableHeaderView = new Thorax.View model: @collection.summary, template: JST['users/table_header'], tagName: 'thead'
+    @tableHeaderView = new Thorax.View model: @collection.summary, template: JST['users/user_table_header'], tagName: 'thead'
+    @userGroupTabs = new Thorax.Views.UserGroupTabs({activeTab: 'users'})
 
   sortUsers: (e) ->
     attr = $(e.target).val()
@@ -29,7 +30,6 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
 
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
-  editTemplate: JST['users/edit_user']
   tagName: 'tr'
 
   context: ->
@@ -39,23 +39,59 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
 
   events:
     'click .email-user': 'emailUser'
-    serialize: (attr) ->
-      attr.admin ?= false
-      attr.portfolio ?= false
 
   approve: -> @model.approve()
 
   disable: -> @model.disable()
 
   edit: ->
-    @$el.html(@renderTemplate(@editTemplate))
-    @populate()
+    view = this
+    userEditDialog = new Thorax.Views.UserEditDialog(
+      model: @model,
+      cancelCallback: () -> view.cancel(),
+      submitCallback: () -> view.save()
+    )
+    userEditDialog.appendTo($(document.body))
+    userEditDialog.display()
 
   save: ->
-    @serialize()
-    @model.save {}, success: => @$el.html(@renderTemplate(@template))
+    view = this
+    changed = @model.changedAttributes()
+    prevAttributes = _.pick(@model.previousAttributes(), _.keys(changed))
+    approveChanged = @model.hasChanged('harp_id') && !(prevAttributes.harp_id && @model.changed.harp_id)
+    approved = changed? && @model.changed.harp_id
 
-  cancel: -> @$el.html(@renderTemplate(@template))
+    # should store the model first, then approve/disable, otherwsie the model gets refreshed from the DB
+    if changed
+      @model.save {},
+        success: =>
+          @$el.html(@renderTemplate(@template))
+          if approveChanged
+            @updateApprove(approved)
+        error: (model, response) =>
+          view.model.revert(prevAttributes)
+          view.showUserError(response)
+
+  showUserError: (response) ->
+    errorSummary = response?.statusText || 'Failed to save user '
+    errors = response?.responseJSON?.errors
+    errorsText = if errors then Object.entries(errors)?.map((a) -> a.join(' - ')).join(', ') else 'Unhandled server exception'
+    bonnie.showError(
+      title: 'User save error',
+      summary: errorSummary
+      body: 'Errors: ' + errorsText)
+
+  updateApprove: (approved) ->
+    if approved
+      @approve()
+    else
+      @disable()
+
+  cancel: ->
+    if @model.changedAttributes()
+      prevAttributes = _.pick(@model.previousAttributes(), _.keys(changed))
+      view.model.revert(prevAttributes)
+    @$el.html(@renderTemplate(@template))
 
   showDelete: -> @$('.delete-user').toggleClass('hide')
 
@@ -98,7 +134,7 @@ class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
       selector: @bodyAreaSelector
       height: 400
       plugins: 'link lists'
-      toolbar: 'undo redo | formatselect | bold italic backcolor | ' + 
+      toolbar: 'undo redo | formatselect | bold italic backcolor | ' +
         'link unlink | numlist bullist outdent indent | ' +
         'alignleft aligncenter alignright | removeformat'
       menubar: false

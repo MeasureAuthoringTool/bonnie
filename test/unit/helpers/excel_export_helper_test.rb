@@ -18,6 +18,8 @@ class ExcelExportHelperTest < ActionController::TestCase
 
     collection_fixtures(users_set, patients_set, simple_patients_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
     associate_user_with_patients(@user, CQM::Patient.all)
 
     load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
