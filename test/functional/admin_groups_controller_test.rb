@@ -89,5 +89,41 @@ module Admin
       assert_equal false, group.is_personal
     end
 
+    test "find group by name" do
+      sign_in @user_admin
+
+      get :find_group_by_name, params: {
+        group_name: @user_admin[:email]
+      }
+      assert_response :success
+      assert_equal "{\"_id\":\"501fdba3044a111b98000002\",\"is_personal\":true,\"name\":\"user_admin@example.com\"}", response.body
+
+      get :find_group_by_name, params: {}
+      assert_response :success
+      assert_equal "{}", response.body
+
+      get :find_group_by_name, params: {
+        group_name: ""
+      }
+      assert_response :success
+      assert_equal "null", response.body
+    end
+
+    test "get groups by group ids" do
+      sign_in @user_admin
+
+      post :get_groups_by_group_ids, params: {
+        group_ids: []
+      }
+      assert_response :success
+      assert_equal "", response.body
+
+      post :get_groups_by_group_ids, params: {
+        group_ids: [@user[:current_group], @user_admin.current_group[:id]]
+      }
+      assert_response :success
+      assert_equal 2, JSON.parse(response.body).length
+    end
+
   end
 end

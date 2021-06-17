@@ -271,4 +271,36 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_equal 1, user.groups.length
     assert_equal 'CMS', group.name
   end
+
+  test "update groups to a user" do
+    sign_in @user_admin
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [],
+      groups_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 1, user.groups.length
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [@public_group.id],
+      groups_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 2, user.groups.length
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [@public_group.id],
+      groups_to_remove: [@user_admin.id]
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 1, user.groups.length
+  end
+
 end

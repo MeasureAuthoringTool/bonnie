@@ -18,7 +18,7 @@ describe 'UserEditDialog', ->
     )
     @userEditDialog.appendTo($(document.body))
     @userEditDialog.display()
-    expect($('#userEditDialog')).toBeVisible()
+    expect($('#user-edit-dialog')).toBeVisible()
     @userEditDialog.$('#email').val('newemail@gmail.com');
     @userEditDialog.$('#harp_id').val('newharp');
     @userEditDialog.$('#approved').prop('checked', true);
@@ -41,7 +41,7 @@ describe 'UserEditDialog', ->
     )
     @userEditDialog.appendTo($(document.body))
     @userEditDialog.display()
-    expect($('#userEditDialog')).toBeVisible()
+    expect($('#user-edit-dialog')).toBeVisible()
     @userEditDialog.$('#email').val('newemail@gmail.com');
     @userEditDialog.$('#harp_id').val('newharp');
     @userEditDialog.$('#approved').prop('checked', true);
@@ -127,3 +127,51 @@ describe 'UserEditDialog', ->
     expect(@userEditDialog.$('#harp_id').val()).toBe('newharp')
     expect(@userEditDialog.$('#saveUserDialogOK').is(':disabled')).toBe(false)
     expect(@userEditDialog.$('#harp_id').parent().hasClass('has-error')).toBe(false)
+
+  fit 'add a group to user', ->
+
+		user = {
+			"_id": "5f402443c6a2dbf8d74bcd29",
+			"admin": true,
+			"approved": true,
+			"crosswalk_enabled": false,
+			"dashboard": false,
+			"dashboard_set": false,
+			"email": "bonnie@example.com",
+			"first_name": null,
+			"last_name": null,
+			"portfolio": false,
+			"telephone": null,
+			"measure_count": 2,
+			"patient_count": 0,
+			"last_sign_in_at": "2020-08-21T19:45:20.673Z"
+		}
+		testGroups = [
+			{_id: 0,  name: 'A', is_personal: false},
+			{_id: 1,  name: 'B', is_personal: false},
+		]
+		userGroupModel = new Thorax.Model(
+			{
+				groups: testGroups,
+				user: user
+			}
+		)
+#	  @model.set groups: testGroups
+		debugger
+		userEditDialog = new Thorax.Views.UserEditDialog(
+			model: userGroupModel,
+			cancelCallback: () -> {},
+			submitCallback: () -> {}
+		)
+		userEditDialog.appendTo($(document.body))
+		userEditDialog.display()
+
+
+#		expect($('#user-edit-dialog')).toBeVisible()
+		expect(userEditDialog.$('#email').val()).toEqual('abc')
+#		@userEditDialog.$('button[data-call-method="addGroup"]').click()
+
+#		expect(@userEditDialog.$('#error-message').val()).toBe('GroupName is require')
+#		expect(@userEditDialog.$('button[data-call-method="confirmRemoveGroup"]').val()).toBe('GroupName is require')
+
+
