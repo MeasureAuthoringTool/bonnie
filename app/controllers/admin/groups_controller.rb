@@ -20,8 +20,8 @@ module Admin
       measures = CQM::Measure.collection.aggregate(stages).as_json
       patients = CQM::Patient.collection.aggregate(stages).as_json
       groups.each do |group|
-        group[:measure_count] = get_count_for_group(measures, group)
-        group[:patient_count] = get_count_for_group(patients, group)
+        group[:measure_count] = get_count_by_id(measures, group.id)
+        group[:patient_count] = get_count_by_id(patients, group.id)
       end
       respond_with groups do |format|
         format.json { render json: groups.as_json }
@@ -44,15 +44,29 @@ module Admin
       render json: group
     end
 
+    def find_group_by_name
+      group = {}
+      if params[:group_name]
+        group = Group.where(name: params[:group_name]).first
+      end
+      render json: group
+    end
+
+    def get_groups_by_group_ids
+      groups = []
+      if params[:group_ids]
+        params[:group_ids].each do |groupId|
+          groups.push(Group.find(groupId))
+        end
+        render json: groups
+      end
+    end
+
     private
 
     def require_admin!
       raise "User #{current_user.email} requesting resource requiring admin access" unless current_user.admin?
     end
 
-    def get_count_for_group(group_objects, group)
-      count_obj = group_objects.detect { |group_object| group_object['_id'] == group.id.to_s }
-      count_obj ? count_obj['count'] : 0
-    end
   end
 end

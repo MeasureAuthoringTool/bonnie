@@ -83,6 +83,7 @@ Bonnie::Application.routes.draw do
         get 'user_by_email'
         get 'users_by_group'
         post 'update_group_and_users'
+        post 'update_groups_to_a_user'
       end
       member do
         post 'approve'
@@ -95,6 +96,8 @@ Bonnie::Application.routes.draw do
     resources :groups do
       collection do
         post 'create_group'
+        post 'get_groups_by_group_ids'
+        get 'find_group_by_name'
       end
     end
   end

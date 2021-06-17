@@ -170,7 +170,11 @@ class Admin::UsersControllerTest < ActionController::TestCase
     # Make sure each user's last sign in is greater than 6 months
     User.each do |user|
       user.last_sign_in_at = Date.today - 8.months
-      user.save!
+      # user.save!
+      # if user.current_group.nil?
+      #   user.init_personal_group
+      #   user.save!
+      # end
     end
     ActionMailer::Base.deliveries = [] # reset the list of email deliveries to ensure clean slate
     mail = ActionMailer::Base.deliveries
@@ -277,6 +281,38 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_equal 1, user.groups.length
     assert_equal 'CMS', group.name
   end
+
+  test "update groups to a user" do
+    sign_in @user_admin
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [],
+      groups_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 1, user.groups.length
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [@public_group.id],
+      groups_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 2, user.groups.length
+
+    post :update_groups_to_a_user, params: {
+      user_id: @user_admin.id,
+      groups_to_add: [@public_group.id],
+      groups_to_remove: [@user_admin.id]
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 1, user.groups.length
+  end
+
 
   test "update group to already existing name" do
     sign_in @user_admin

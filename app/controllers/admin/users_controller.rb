@@ -129,6 +129,21 @@ class Admin::UsersController < ApplicationController
     render json: group
   end
 
+  def update_groups_to_a_user
+    user = User.find(params[:user_id])
+    params[:groups_to_add]&.each do |groupId|
+      group = Group.find(groupId)
+      user.groups << group
+      user.save
+    end
+    params[:groups_to_remove]&.each do |groupId|
+      group = Group.find(groupId)
+      user.groups = user.groups.select { |g| g.id != group.id }
+    end
+    user.save
+    render json: user
+  end
+
   def patients
     user = User.find(params[:id])
     send_data JSON.pretty_generate(user.current_group.patients.map(&:as_json)), :type => 'application/json', :disposition => 'attachment', :filename => "patients_#{user.email}.json"
