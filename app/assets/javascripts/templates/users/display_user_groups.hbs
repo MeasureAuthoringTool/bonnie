@@ -1,0 +1,30 @@
+<table class="table table-condensed table-striped table-hover">
+  <thead>
+  <tr>
+    <th>Group Name</th>
+    <th>Is Private</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each groups}}
+    <tr>
+      <td>{{this.name}}</td>
+      <td class="centered check">
+        {{#if this.is_personal}}
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <span class="sr-only">checked</span>
+        {{/if}}
+        </td>
+      <td>
+        <button class="btn btn-danger" title="Remove {{this.name}}"
+          data-call-method="confirmRemoveGroup"
+          data-group-id="{{this._id}}"
+          data-group-name="{{this.name}}" >
+          Remove
+        </button>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

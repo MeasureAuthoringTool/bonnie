@@ -256,10 +256,10 @@ class Admin::UsersControllerTest < ActionController::TestCase
     sign_in @user_admin
     # add user to group
     get :update_group_and_users, params: {
-      group_name: 'CMS',
-      group_id: @public_group.id,
-      users_to_add: [@user_admin.id],
-      users_to_remove: []
+        group_name: 'CMS',
+        group_id: @public_group.id,
+        users_to_add: [@user_admin.id],
+        users_to_remove: []
     }
     assert_response :success
     user = User.find(@user_admin.id)
@@ -267,15 +267,46 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     # remove user from group
     get :update_group_and_users, params: {
-      group_name: 'CMS',
-      group_id: @public_group.id,
-      users_to_remove: [@user_admin.id],
+        group_name: 'CMS',
+        group_id: @public_group.id,
+        users_to_remove: [@user_admin.id],
     }
     assert_response :success
     user = User.find(@user_admin.id)
     group = Group.find(@public_group.id)
     assert_equal 1, user.groups.length
     assert_equal 'CMS', group.name
+  end
+
+  test "update groups to a user" do
+    sign_in @user_admin
+
+    post :update_groups_to_a_user, params: {
+        user_id: @user_admin.id,
+        groups_to_add: [],
+        groups_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 1, user.groups.length
+
+    post :update_groups_to_a_user, params: {
+        user_id: @user_admin.id,
+        groups_to_add: [@public_group.id],
+        groups_to_remove: []
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 2, user.groups.length
+
+    post :update_groups_to_a_user, params: {
+        user_id: @user_admin.id,
+        groups_to_add: [@public_group.id],
+        groups_to_remove: [@user_admin.id]
+    }
+    assert_response :success
+    user = User.find(@user_admin.id)
+    assert_equal 1, user.groups.length
   end
 
   test "update group to already existing name" do
@@ -286,10 +317,10 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     begin
       get :update_group_and_users, params: {
-        group_name: 'MYGROUP',  # test case insensitivity
-        group_id: @public_group.id,
-        users_to_add: [],
-        users_to_remove: []
+          group_name: 'MYGROUP',  # test case insensitivity
+          group_id: @public_group.id,
+          users_to_add: [],
+          users_to_remove: []
       }
     rescue Exception => e
       assert_equal e.to_s, "Group name MYGROUP is already used."
