@@ -88,5 +88,10 @@
         <p>BONNIE is sponsored by the <a href="http://cms.hhs.gov/">Centers for Medicare & Medicaid Services (CMS)</a> and <a href="http://healthit.gov">Office of the National Coordinator for Health Information Technology (ONC)</a> and has been developed by <a href="http://www.mitre.org">The MITRE Corporation</a></p>
       </div>
     </footer>
+<% if not user_signed_in? %>
+    <script>
+        window.disableSessionManagement = true;
+    </script>
+<% end %>
   </body>
 </html>
