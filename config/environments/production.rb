@@ -31,16 +31,16 @@ Bonnie::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  #config.force_ssl = true
 
-  # Set log level to info
+  # Set log level 
   config.log_level = :info
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = Logger.new(STDOUT)
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
@@ -74,8 +74,8 @@ Bonnie::Application.configure do
     user_name:            APP_CONFIG['smtp_username'],
     password:             APP_CONFIG['smtp_password'],
     authentication:       'plain',
-    enable_starttls_auto: true,
-    tls:                  true
+    enable_starttls_auto: APP_CONFIG['smtp_tls'],
+    tls:                  APP_CONFIG['smtp_tls']
   }
 
   # Send notification when application exceptions happen
