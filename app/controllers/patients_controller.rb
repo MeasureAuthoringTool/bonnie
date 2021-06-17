@@ -12,7 +12,7 @@ class PatientsController < ApplicationController
     end
     populate_measure_ids_if_composite_measures(updated_patient)
     updated_patient._id = old_patient._id if old_patient
-    updated_patient.user_id = current_user._id
+    updated_patient.group_id = current_user.current_group.id
     updated_patient.upsert
     render :json => updated_patient
   end
@@ -20,6 +20,7 @@ class PatientsController < ApplicationController
   def create
     begin
       patient = CQM::Patient.new(cqm_patient_params)
+      patient[:group_id] = current_user.current_group.id
     rescue Mongoid::Errors::UnknownAttribute
       render json: { status: "error", messages: "Patient not properly structured for creation." }, status: :internal_server_error
       return

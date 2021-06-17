@@ -49,7 +49,7 @@ def load_fixture_file(file, collection_name, user = nil)
     convert_times(fj)
     convert_mongoid_ids(fj)
     fix_binary_data(fj)
-    fj["user_id"] = user.id if user.present?
+    fj["group_id"] = user.current_group.id if user.present?
     begin
       Mongoid.default_client[collection_name].insert_one(fj)
       loaded_ids << fj["_id"]
@@ -114,21 +114,21 @@ end
 
 def associate_user_with_measures(user,measures)
   measures.each do |m|
-    m.user = user
+    m.group = user.current_group
     m.save
   end
 end
 
 def associate_user_with_patients(user,patients)
   patients.each do |p|
-    p.user = user
+    p.group = user.current_group
     p.save
   end
 end
 
 def associate_user_with_value_sets(user,value_sets)
   value_sets.each do |vs|
-    vs.user = user
+    vs.group = user.current_group
     vs.save
   end
 end

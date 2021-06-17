@@ -9,6 +9,8 @@ include Devise::Test::ControllerHelpers
     users_set = File.join("users", "base_set")
     collection_fixtures(users_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
 
     load_measure_fixtures_from_folder(File.join("measures", "CMS134v6"), @user)
     @measure = CQM::Measure.where({"cms_id" => "CMS134v6"}).first
@@ -42,7 +44,7 @@ include Devise::Test::ControllerHelpers
       'notes'=> 'Boop-Oop-a-Doop',
       'qdmPatient' => qdm_patient,
       'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC"],
-      'user_id' => @user.id
+      'group_id' => @user.current_group.id
     }}
   end
 
@@ -92,7 +94,7 @@ include Devise::Test::ControllerHelpers
       'familyName'=> 'Boop',
       'qdmPatient' => qdm_patient,
       'measure_ids' => ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C"],
-      'user_id' => @user.id}}
+      'group_id' => @user.current_group.id}}
 
     expected_measure_ids = ["244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&3000797E-11B1-4F62-A078-341A4002A11C",
                             "244B4F52-C9CA-45AA-8BDB-2F005DA05BFC&920D5B27-DF5A-4770-BD60-FC4EE251C4D2",
@@ -115,7 +117,7 @@ include Devise::Test::ControllerHelpers
   test "update" do
     assert_equal 0, CQM::Patient.count
     patient = CQM::Patient.new
-    patient.user = @user
+    patient.group = @user.current_group
     patient.save!
     assert_equal 1, CQM::Patient.count
     updated_patient = @patient
@@ -143,10 +145,10 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(records_set)
     associate_user_with_patients(@user, CQM::Patient.all)
     patient = CQM::Patient.first
-    assert_equal 3, @user.patients.count
+    assert_equal 3, @user.current_group.patients.count
     delete :destroy, params: {id: patient.id}
     assert_response :success
-    assert_equal 2, @user.patients.count
+    assert_equal 2, @user.current_group.patients.count
     patient = CQM::Patient.where({id: patient.id}).first
     assert_nil patient
   end
@@ -175,7 +177,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "export patients" do
-    # skip('Need to bring in new patient model and use cqm-reports')
+    skip('QRDA Export not supported for QDM5.6')
     records_set = File.join("cqm_patients", "CMS134v6")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, CQM::Patient.all)
@@ -422,7 +424,7 @@ include Devise::Test::ControllerHelpers
   test 'convert_patients success' do
     patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
     patient = CQM::Patient.new(patient_hash[0])
-    patient.user = @user
+    patient.group = @user.current_group
     patient.save!
     assert_equal 1, CQM::Patient.count
 
@@ -439,7 +441,7 @@ include Devise::Test::ControllerHelpers
   test 'convert_patients:RestException' do
     patient_hash = JSON.parse File.read(File.join(Rails.root, 'test/fixtures/patient_conversion/qdm_test_patient_to_convert.json'))
     patient = CQM::Patient.new(patient_hash[0])
-    patient.user = @user
+    patient.group = @user.current_group
     patient.save!
     assert_equal 1, CQM::Patient.count
 

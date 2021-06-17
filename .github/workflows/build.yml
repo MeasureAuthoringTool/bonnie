@@ -13,7 +13,7 @@ jobs:
 
     services:
       mongodb:
-        image: mongo:3.4.23
+        image: mongo:3.6.22
         ports:
           - 27017:27017
 
@@ -24,6 +24,14 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Use latest npm
+        run: npm install -g npm
 
       - name: Install bundler & bundle-audit
         run: |
@@ -75,6 +83,18 @@ jobs:
 
       - name: Setup Istanbul
         run: sudo npm install -g istanbul
+
+# ------- Teaspoon tests for "admin_views" directory ----------
+      - name: Run teaspoon tests for admin_views
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake teaspoon DIR=admin_views
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage-frontend/default/lcov.info
+          fail_ci_if_error: true
 
 # ------- Teaspoon tests for "cqm_specs" directory ----------
       - name: Run teaspoon tests for cqm_specs

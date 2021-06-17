@@ -1,143 +1,41 @@
-<h1>Change Account Information</h1>
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put, :name=>"register_form", class: "registration"}) do |f| %>
+<h1>HARP Account Information</h1>
+<p>
+  This information is pulled from HARP. If you need to change this information please go to <a href="<%= APP_CONFIG['harp_idp_url'] %>" target="_blank">HARP</a> website.
+</p>
 
-  <% if resource.errors.present? %>
-  <div class="alert alert-danger">
-    <%= devise_error_messages! %>
-  </div>
-  <% end %>
-
-  <% if flash[:error] %>
-    <div class="alert alert-danger">
-      <%= flash[:error] %>
-    </div>
-  <% end %>
-
-  <div class="form-group row">
-    <div class="col-md-6">
-      <div class="input-group input-group-lg required">
-        <label for="user_first_name" class="sr-only">First Name (required) </label>
-        <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.text_field :first_name, class: "form-control", placeholder: "first name*", required: true, 'aria-required': true %>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="input-group input-group-lg required">
-        <label for="user_last_name" class="sr-only">Last Name (required) </label>
-        <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.text_field :last_name, class: "form-control", placeholder: "last name*", required: true, 'aria-required': true %>
-      </div>
-    </div>
-  </div>
-  <div class="form-group row">
-    <div class="col-md-6">
-      <div class="input-group input-group-lg required">
-        <label for="user_email" class="sr-only">Email </label>
-        <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.email_field :email, class: "form-control", placeholder: "email@example.com*", required: true, 'aria-required': true %>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="input-group input-group-lg">
-        <label for="user_telephone" class="sr-only">Telephone </label>
-        <span class="input-group-addon"><i class="fa fa-mobile fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.text_field :telephone, class: "form-control", placeholder: "(000) 000-0000" %>
-      </div>
-    </div>
-  </div>
-
-  <% if resource.is_portfolio? %>
-    <div class="form-group row">
-      <div class="col-md-12">
-        <div class="input-group input-group-lg">
-          <div class="checkbox">
-            <%= f.check_box :crosswalk_enabled, checked: resource.crosswalk_enabled %>
-            <%= label_tag :crosswalk_enabled, "Enable cross walk checking", class: "control-label" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
-<h1>Change Password</h1>
-  <div class="form-group row">
-    <div class="col-md-6">
-      <div class="input-group input-group-lg">
-        <label for="user_password" class="sr-only">Password (required) </label>
-        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.password_field :password, class: "form-control", placeholder: "new password" %>
-      </div>
-      Must be at least 8 characters long and contain characters from at least two of: lowercase letters, uppercase letters, numbers, and special characters (leave blank if you don't want to change it).
-    </div>
-    <div class="col-md-6">
-      <div class="input-group input-group-lg">
-        <label for="user_password_confirmation" class="sr-only">confirm password (required) </label>
-        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm new password" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group row" style="margin-top: 30px">
-    <div class="col-md-6">
-      <div class="input-group input-group-lg required">
-        <label for="user_current_password" class="sr-only">current password (required) </label>
-        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.password_field :current_password, class: "form-control", placeholder: "current password*", required: true, 'aria-required': true %>
-      </div>
-      Your current password is needed to confirm your changes.
-    </div>
-
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-xs-6"><a class="btn btn-default btn-block btn-lg" href="/">Cancel</a></div>
-        <div class="col-xs-6"><%= f.submit "Save", class: "btn btn-primary btn-block btn-lg" %></div>
-      </div>
-    </div>
-  </div>
-
-<% end -%>
-
-<a href="#" data-toggle="modal" data-target="#deleteAccountDialog">Delete your account</a>
-
-<div class="modal fade" id="deleteAccountDialog" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1>Delete Your Account</h1>
-      </div>
-      <%= form_for resource, url: registration_path(resource_name), html: { method: :delete } do %>
-        <div class="modal-body">
-          <p>To delete your account, please supply your password and click the delete button. This action cannot be undone.</p>
-          <div class="input-group input-group-lg required" id="passwordInput">
-            <label for="user_current_password_delete" class="sr-only">current password</label>
-            <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-            <input id="user_current_password_delete" class="form-control" name="user[current_password]" placeholder="current password" type="password">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </div>
-      <% end %>
-    </div>
+<div class="form-group row">
+  <div class="col-md-12">
+    <label>First Name: </label>
+    <span> <%= resource[:first_name] %></span>
   </div>
 </div>
-
-
-<script>
-
-  // Don't allow enter key to submit password when confirming account deletion
-  $(document).ready(function() {
-    $("#passwordInput").keydown(function(event){
-      if(event.keyCode == 13) {
-        event.preventDefault();
-        return false;
-      }
-    });
-  });
-
-  $(function() {
-    $('.field_with_errors').parent().removeClass('required').addClass('has-error'); //allows icon to change color appropriately for validation
-  });
-</script>
+<div class="form-group row">
+  <div class="col-md-12">
+    <label>Last Name:</label>
+    <span> <%= resource[:last_name] %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <div class="col-md-12">
+    <label>Email:</label>
+    <span> <%= resource[:email] %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <div class="col-md-12">
+    <label>Telephone: </label>
+    <span> <%= resource[:telephone] %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <div class="col-md-12">
+    <label>Harp Id:</label>
+    <span>
+      <%if resource[:harp_id] %>
+        <%= resource[:harp_id] %>
+      <% else %>
+        <span style="color: #696969">Not Available</span>
+      <% end %>
+    </span>
+  </div>
+</div>

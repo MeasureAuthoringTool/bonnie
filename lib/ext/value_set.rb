@@ -1,7 +1,7 @@
 module CQM
   class ValueSet
-    belongs_to :user
-    scope :by_user, ->(user) { where user_id: user.id }
-    index 'user_id' => 1
+    belongs_to :group
+    scope :by_user, ->(user) { where group_id: user.current_group.id }
+    index 'group_id' => 1
   end
 end

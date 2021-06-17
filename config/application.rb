@@ -40,6 +40,14 @@ module Bonnie
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
+    Rails.logger = Logger.new(STDOUT)
+    Rails.logger.formatter = proc do |severity, datetime, progname, msg|
+      date_format = datetime.strftime("%Y-%m-%d %H:%M:%S")
+      "#{date_format} [#{severity}] - #{msg}'\n"
+    end
+
+    config.log_level = :info
+
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
     config.filter_parameters += [:vsac_api_key]
@@ -67,5 +75,7 @@ module Bonnie
 
     # This lets us define our own routes for error pages
     config.exceptions_app = self.routes
+
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

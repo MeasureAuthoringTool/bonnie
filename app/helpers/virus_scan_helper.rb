@@ -79,5 +79,4 @@ module VirusScanHelper
       super(front_end_version: front_end_version, back_end_version: back_end_version, operator_error: true)
     end
   end
-
 end
