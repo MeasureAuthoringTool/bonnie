@@ -39,11 +39,11 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
 		view.$('#error-message').hide()
 		groupName = @$("input#groupName").val()
 		unless groupName
-			view.$('#error-message').html("GroupName is required").show()
+			view.$('#error-message').html("Group name is required").show()
 			return
 		index = view.groupsModel.get('groups').findIndex((group) -> group.name == groupName)
 		if index != -1
-			view.$('#error-message').html("GroupName already exists").show()
+			view.$('#error-message').html("Group name already exists").show()
 			return
 		$.ajax
 			url: "admin/groups/find_group_by_name?group_name=#{groupName}"
