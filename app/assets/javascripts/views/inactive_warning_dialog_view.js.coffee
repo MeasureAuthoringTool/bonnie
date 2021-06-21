@@ -1,20 +1,17 @@
 class Thorax.Views.InactiveWarningDialog extends Thorax.Views.BonnieView
   template: JST['inactive_warning_dialog']
 
+  MS_IN_SEC = 1000
+
   display: ->
     @$('#inactiveWarningDialog').modal(
       "keyboard" : true,
       "show" : true)
-    MS_IN_SEC = 1000
     # inverval of 1 sec
-    timerInterval = rxjs.interval(MS_IN_SEC)
-    # number of intervals
-    times = @countdownMs / MS_IN_SEC
-    @updateCountDown(times)
-    countDown = timerInterval.pipe(rxjs.operators.take(times))
-    countDown.subscribe((val) =>
-      countDownSec = times - val
-      @updateCountDown(countDownSec)
+    @timerInterval = rxjs.interval(MS_IN_SEC)
+    @updateCountDown(@leftTimeToLogoutMs())
+    @timerInterval.subscribe(() =>
+      @updateCountDown(@leftTimeToLogoutMs())
     )
   events:
     rendered: -> 
@@ -24,17 +21,23 @@ class Thorax.Views.InactiveWarningDialog extends Thorax.Views.BonnieView
     'keydown': 'close'
 #    'mousemove': 'close'
 
-  updateCountDown: (sec) ->
-    @$('.inactivityCountDown').text(@formatSec(sec))
+  leftTimeToLogoutMs: () ->
+    leftTimeMs = @logoutAtMs - Date.now()
+    return leftTimeMs if leftTimeMs > 0
+    return 0
+
+  updateCountDown: (ms) ->
+    sec = ms / MS_IN_SEC
+    @$('.inactivityCountDown').text(@formatTime(sec))
 
   close: ->
     @$('#inactiveWarningDialog').modal('hide')
 
-  formatSec: (sec) ->
+  formatTime: (sec) ->
     @toMinutes(sec) + ':' + @toSeconds(sec)
 
   toMinutes: (sec) ->
-    Math.floor(sec / 60).toString(10).padStart(2, '0')
+    Math.trunc(Math.floor(sec / 60)).toString(10).padStart(2, '0')
 
   toSeconds: (sec) ->
-    (sec % 60).toString(10).padStart(2, '0')
+    Math.trunc((sec % 60)).toString(10).padStart(2, '0')
