@@ -41,12 +41,17 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [ :email ]
+  #
+  # Warning: If email and harp_id are listed, the system will be able to login
+  # users in a case-insensitive way, but it breaks LogOut functionality.
+  # Thus it's commented out.
+  # config.case_insensitive_keys = [ :email, :username, :harp_id ]
+  config.case_insensitive_keys = [ ]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [ :email ]
+  config.strip_whitespace_keys = [ :email, :username, :harp_id ]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
