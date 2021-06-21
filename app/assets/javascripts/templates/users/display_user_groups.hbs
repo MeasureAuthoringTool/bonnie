@@ -17,7 +17,8 @@
         {{/if}}
         </td>
       <td>
-        <button class="btn btn-danger" title="Remove {{this.name}}"
+        <button class="btn btn-danger" {{#if this.is_personal}}disabled{{/if}}
+          title="Remove {{this.name}}"
           data-call-method="confirmRemoveGroup"
           data-group-id="{{this._id}}"
           data-group-name="{{this.name}}" >
