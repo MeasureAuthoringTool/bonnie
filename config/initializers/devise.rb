@@ -270,7 +270,7 @@ Devise.setup do |config|
 
   # Optional. This stores the session index defined by the IDP during login.  If provided it will be used as a salt
   # for the user's session to facilitate an IDP initiated logout request.
-  # config.saml_session_index_key = :session_index
+  #config.saml_session_index_key = :session_index
 
   # You can set this value to use Subject or SAML assertation as info to which email will be compared.
   # If you don't set it then email will be extracted from SAML assertation attributes.
@@ -317,7 +317,7 @@ Devise.setup do |config|
 
     settings.assertion_consumer_service_url     = ENV["SAML_ASSERTION_CONSUMER_SERVICE_URL"]
     settings.sp_entity_id                   = ENV["SAML_SP_ENTITY_ID"]
-    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
     # Optional for most SAML IdPs
     settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
 

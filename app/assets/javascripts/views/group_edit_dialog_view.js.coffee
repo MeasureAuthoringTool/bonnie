@@ -19,9 +19,9 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
 
   display: ->
     @groupEditDialog.modal(
-      "backdrop" : "static",
-      "keyboard" : false,
-      "show" : true)
+      "backdrop": "static",
+      "keyboard": false,
+      "show": true)
 
   addUser: ->
     view = this
@@ -65,9 +65,16 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
             body: "#{group_name} has been successfully updated."
           )
         error: (response) ->
+          error_message = "";
+
+          if(response.status == 400)
+            error_message = "Error: Group name #{group_name} is already used."
+          else
+            error_message = 'Errors: ' + response.statusText
+
           bonnie.showError(
             title: 'Error',
-            body: 'Errors: ' + response.statusText)
+            body: error_message)
 
   validateEmail: ->
     email = @$('#email').val()

@@ -13,7 +13,7 @@ module GroupHelper
 
     return groups if shared_groups.length.zero?
 
-    sorted_groups = shared_groups.sort_by(&:name)
+    sorted_groups = shared_groups.sort_by { |g| g.name.downcase }
 
     sorted_groups.unshift(personal_group) unless personal_group.nil?
 

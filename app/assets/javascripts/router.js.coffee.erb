@@ -41,7 +41,9 @@
     )
     userEvents.pipe(rxjs.operators.debounceTime(showWarningInactiveMs)).subscribe((x) =>
       if !window.disableSessionManagement
-        @showInactiveWarning(logoutInactiveAfterWarningMs)
+        now = Date.now()
+        logoutAtMs = now + logoutInactiveAfterWarningMs
+        @showInactiveWarning(logoutAtMs)
     )
     userEvents.pipe(rxjs.operators.debounceTime(logoutInactiveMs)).subscribe((x) =>
       if !window.disableSessionManagement
@@ -147,10 +149,10 @@
     msgDialogView.appendTo('#bonnie')
     msgDialogView.display()
 
-  showInactiveWarning: (countdownMs) ->
+  showInactiveWarning: (logoutAtMs) ->
     # Make sure only one inactive session warning is show
     return if $('#inactiveWarningDialog').length > 0
-    wrn = new Thorax.Views.InactiveWarningDialog(countdownMs: countdownMs)
+    wrn = new Thorax.Views.InactiveWarningDialog(logoutAtMs: logoutAtMs)
     wrn.appendTo(document.body)
     wrn.display()
 

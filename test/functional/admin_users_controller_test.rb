@@ -8,6 +8,9 @@ class Admin::UsersControllerTest < ActionController::TestCase
     patients_set = File.join('cqm_patients', 'CMS903v0')
     users_set = File.join('users', 'base_set')
     collection_fixtures(users_set, patients_set)
+
+    User.create_indexes
+
     @user = User.by_email('bonnie@example.com').first
     @user.init_personal_group
     @user.save
@@ -26,6 +29,8 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
     associate_user_with_patients(@user, CQM::Patient.all)
+
+    Group.create_indexes
 
     @public_group = Group.new(name: "SemanticBits", is_personal: false)
     @public_group.save
@@ -303,4 +308,21 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_equal 1, user.groups.length
   end
 
+  test "update group to already existing name" do
+    sign_in @user_admin
+
+    my_group = Group.new(name: "MyGroup")
+    my_group.save
+
+    begin
+      get :update_group_and_users, params: {
+        group_name: 'MYGROUP',  # test case insensitivity
+        group_id: @public_group.id,
+        users_to_add: [],
+        users_to_remove: []
+      }
+    rescue Exception => e
+      assert_equal e.to_s, "Group name MYGROUP is already used."
+    end
+  end
 end

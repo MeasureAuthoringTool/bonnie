@@ -108,6 +108,11 @@
   <% end %>
 <% end %>
 
+<% if not user_signed_in? %>
+  <script>
+      window.disableSessionManagement = true;
+  </script>
+<% end %>
 <script>
   $(function() {
     $('#agree_license').on('change', function(e) {
