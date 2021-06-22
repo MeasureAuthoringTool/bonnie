@@ -25,7 +25,7 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
 
   addUser: ->
     view = this
-    view.$('#error_div').hide()
+    view.$('#error-message').hide()
     email = @$("input#email").val()
     return unless email
     # check if user already exists in group
@@ -42,7 +42,7 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
           view.displayGroupUsersView.render()
           view.$('#email').val("")
         else
-          view.$('#error_div').show()
+          view.$('#error-message').show()
 
   submit: ->
     view = this

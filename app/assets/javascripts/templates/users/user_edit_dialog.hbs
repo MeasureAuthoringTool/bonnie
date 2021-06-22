@@ -1,4 +1,4 @@
-<div class="modal fade" id="userEditDialog" tabindex="-1" aria-hidden="true">
+<div class="modal fade user-group-edit-dialog" id="user-edit-dialog" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog"  role="dialog" aria-labelledby="modalTitle">
     <div class="modal-content">
       <div class="modal-header">
@@ -23,11 +23,25 @@
           <input type="checkbox" class="form-check-input" id="portfolio" name="portfolio">
           <label class="form-check-label" for="portfolio">Portfolio?</label>
         </div>
+        <div class="form-group">
+          {{view displayUserGroupsView}}
+        </div>
+        <div class="form-group">
+          <label for="groupName">Add a new group to the user</label>
+          <div class="add-panel">
+            <input type="text" class="form-control" id="groupName" name="groupName"
+                placeholder="Group Name" title="Enter a Group Name">
+            <span id="error-message" class="error-message"></span>
+          </div>
+          <div>
+            {{#button "addGroup" class="btn btn-primary" title="Add Group"}}Add{{/button}}
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="saveUserDialogOK" class="btn btn-primary">OK</button>
-        <button type="button" id="saveUserDialogCancel" class="btn btn-default">Cancel</button>
+        <button type="button" id="saveUserDialogOK" class="btn btn-primary" title="OK">OK</button>
+        <button type="button" id="saveUserDialogCancel" class="btn btn-default" title="Cancel">Cancel</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div>
