@@ -6,7 +6,8 @@ module Admin
     respond_to :json
 
     def index
-      groups = Group.where(is_personal: false).order(:name.asc).to_a
+      groups = Group.where(is_personal: false).sort_by { |obj| obj.name.downcase }.to_a
+
       # pipeline stages for aggregation
       stages = [
         {
@@ -30,7 +31,7 @@ module Admin
     def create_group
       group_name = params[:group_name]
 
-      existing_group = Group.where(name: /^#{group_name}$/i).first # regex case insensitive search
+      existing_group = Group.where(name: group_name).collation({ locale: 'en', strength: 2 }).first
       raise ActionController::BadRequest, "Group name #{group_name} is already used." if existing_group
 
       group = Group.new

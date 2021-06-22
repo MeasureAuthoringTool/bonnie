@@ -40,7 +40,7 @@ module Bonnie
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    Rails.logger = Logger.new("log/#{Rails.env}.log")
+    Rails.logger = Logger.new(STDOUT)
     Rails.logger.formatter = proc do |severity, datetime, progname, msg|
       date_format = datetime.strftime("%Y-%m-%d %H:%M:%S")
       "#{date_format} [#{severity}] - #{msg}'\n"
