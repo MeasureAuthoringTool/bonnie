@@ -46,7 +46,7 @@ class SamlFailureHandler < Devise::FailureApp
   end
 
   def find_user_case_insensitive(email, harp_id)
-    user = User.find_by email: /email/i
+    user = User.find_by email: email
     # Find by harp_id case insensitive
     case_mismatch = false
     if user.nil?
