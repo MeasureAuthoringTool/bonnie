@@ -58,8 +58,8 @@ module Admin
         params[:group_ids].each do |groupId|
           groups.push(Group.find(groupId))
         end
-        render json: groups
       end
+      render json: groups
     end
 
     private
