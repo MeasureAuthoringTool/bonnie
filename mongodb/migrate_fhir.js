@@ -10,12 +10,12 @@ db.users.find().forEach(function (user) {
   db.groups.insert({
     _id: user._id,
     is_personal: true,
-    name: "personal group for " + user.email,
+    name: user.email,
   });
   print("Adding user to the default group : " + user.email);
   db.users.update(
     { _id: user._id },
-    { $set: { groups_ids: [user._id], current_group_id: user._id } }
+    { $set: { group_ids: [user._id], current_group_id: user._id } }
   );
 });
 // # Rename each measure.user_id field → measure.group_id

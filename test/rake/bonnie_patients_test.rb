@@ -219,12 +219,12 @@ class BonniePatientsTest < ActiveSupport::TestCase
       # test 1 user not found failure
       "\e[#{31}m#{"[Error]"}\e[0m\t\ttest1@example.com not found\n" +
       # test 2 dest measure not found
-      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS903v0:LikeCMS32 found\n" +
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS903v0:LikeCMS32 found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS903v0:LikeCMS32 to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
       # test 3 source measure not found
-      "\e[#{31}m#{"[Error]"}\e[0m\t\tpersonal group for bonnie@example.com: test3:LikeCMS32 not found\n" +
-      "\e[#{32}m#{"[Success]"}\e[0m\tpersonal group for bonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+      "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:LikeCMS32 not found\n" +
+      "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
       "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:LikeCMS32 to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
       ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
