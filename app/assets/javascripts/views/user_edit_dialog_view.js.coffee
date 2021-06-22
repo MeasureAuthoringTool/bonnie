@@ -46,8 +46,11 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
 			view.$('#error-message').html("Group name already exists").show()
 			return
 		$.ajax
-			url: "admin/groups/find_group_by_name?group_name=#{groupName}"
+			url: "admin/groups/find_group_by_name"
 			type: 'GET'
+			data: {
+				group_name: groupName
+			}
 			success: (data) ->
 				if(data)
 					if(!data.is_personal)
@@ -67,7 +70,7 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
 			type: 'POST'
 			data: {
 				user_id: view.model.get('_id'),
-				groups_to_add: view.groupsModel.get('groupsToAdd')
+				groups_to_add: view.groupsModel.get('groupsToAdd'),
 				groups_to_remove: view.groupsModel.get('groupsToRemove')
 			}
 			success: (response) ->
