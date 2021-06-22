@@ -282,8 +282,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     post :update_groups_to_a_user, params: {
       user_id: @user_admin.id,
-      groups_to_add: [],
-      groups_to_remove: []
+      group_ids: [@user_admin.current_group[:id]]
     }
     assert_response :success
     user = User.find(@user_admin.id)
@@ -291,8 +290,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     post :update_groups_to_a_user, params: {
       user_id: @user_admin.id,
-      groups_to_add: [@public_group.id],
-      groups_to_remove: []
+      group_ids: [@public_group.id, @user_admin.current_group[:id]]
     }
     assert_response :success
     user = User.find(@user_admin.id)
@@ -300,8 +298,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     post :update_groups_to_a_user, params: {
       user_id: @user_admin.id,
-      groups_to_add: [@public_group.id],
-      groups_to_remove: [@user_admin.id]
+      group_ids: [@user_admin.current_group[:id]]
     }
     assert_response :success
     user = User.find(@user_admin.id)

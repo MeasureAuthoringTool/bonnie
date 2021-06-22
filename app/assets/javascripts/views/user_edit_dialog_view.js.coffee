@@ -3,9 +3,6 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
 
   initialize: ->
     @groupsModel = new Thorax.Model groups: @model.get('groups') || []
-    @groupsModel.set
-      groupsToAdd: []
-      groupsToRemove: []
     @displayUserGroupsView = new Thorax.Views.DisplayUserGroupsView(
       model: @groupsModel
       userModel: @model
@@ -55,7 +52,6 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
         if(data)
           if(!data.is_personal)
             view.groupsModel.get('groups').push(data)
-            view.groupsModel.get('groupsToAdd').push(data._id)
             view.displayUserGroupsView.render()
             view.$('#groupName').val("")
           else
@@ -65,13 +61,13 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
 
   submit: ->
     view = this
+    debugger
     $.ajax
       url: "admin/users/update_groups_to_a_user"
       type: 'POST'
       data: {
         user_id: view.model.get('_id'),
-        groups_to_add: view.groupsModel.get('groupsToAdd'),
-        groups_to_remove: view.groupsModel.get('groupsToRemove')
+        group_ids: view.groupsModel.get('groups').map((group) -> group._id)
       }
       success: (response) ->
         view.userEditDialog.modal('hide')
@@ -138,7 +134,6 @@ class Thorax.Views.DisplayUserGroupsView extends Thorax.Views.BonnieView
     @confirmationDialog.display()
 
   removeGroupForUser: (groupId) ->
-    @model.get('groupsToRemove').push(groupId)
     index = @model.get('groups').findIndex((group) -> group._id == groupId)
     @model.get('groups').splice(index, 1)
     @render()
