@@ -10276,6 +10276,9 @@
       ],
       "query": null,
       "request_data": {
+        "group_ids": [
+          "501fdba3044a111b98000002"
+        ],
         "user_id": "501fdba3044a111b98000002"
       },
       "response_data": {
@@ -10311,49 +10314,8 @@
       ],
       "query": null,
       "request_data": {
-        "groups_to_add": [
-          "60ca6594072bbd2c34291036"
-        ],
-        "user_id": "501fdba3044a111b98000002"
-      },
-      "response_data": {
-        "_id": "501fdba3044a111b98000002",
-        "admin": true,
-        "agree_license": true,
-        "approved": true,
-        "company": "MITRE",
-        "company_url": "http://www.mitre.org/",
-        "crosswalk_enabled": false,
-        "current_group_id": "501fdba3044a111b98000002",
-        "dashboard": false,
-        "dashboard_set": false,
-        "email": "user_admin@example.com",
-        "first_name": "admin",
         "group_ids": [
-          "501fdba3044a111b98000002",
-          "60ca6594072bbd2c34291036"
-        ],
-        "harp_id": null,
-        "last_name": "admin",
-        "portfolio": false,
-        "telephone": null
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/admin/users/update_groups_to_a_user",
-      "versions": [
-
-      ],
-      "query": null,
-      "request_data": {
-        "groups_to_add": [
-          "60ca6594072bbd2c34291036"
-        ],
-        "groups_to_remove": [
+          "60d2495c072bbd9fd25d8123",
           "501fdba3044a111b98000002"
         ],
         "user_id": "501fdba3044a111b98000002"
@@ -10372,7 +10334,46 @@
         "email": "user_admin@example.com",
         "first_name": "admin",
         "group_ids": [
-          "60ca6594072bbd2c34291036"
+          "60d2495c072bbd9fd25d8123",
+          "501fdba3044a111b98000002"
+        ],
+        "harp_id": null,
+        "last_name": "admin",
+        "portfolio": false,
+        "telephone": null
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/admin/users/update_groups_to_a_user",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "group_ids": [
+          "501fdba3044a111b98000002"
+        ],
+        "user_id": "501fdba3044a111b98000002"
+      },
+      "response_data": {
+        "_id": "501fdba3044a111b98000002",
+        "admin": true,
+        "agree_license": true,
+        "approved": true,
+        "company": "MITRE",
+        "company_url": "http://www.mitre.org/",
+        "crosswalk_enabled": false,
+        "current_group_id": "501fdba3044a111b98000002",
+        "dashboard": false,
+        "dashboard_set": false,
+        "email": "user_admin@example.com",
+        "first_name": "admin",
+        "group_ids": [
+          "501fdba3044a111b98000002"
         ],
         "harp_id": null,
         "last_name": "admin",

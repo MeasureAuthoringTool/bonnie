@@ -194,7 +194,6 @@ describe 'UserEditDialog', ->
       @userEditDialog.$('button[data-call-method="addGroup"]').click()
       expect(ajax_spy).toHaveBeenCalled()
 
-      expect(@userEditDialog.groupsModel.get('groupsToAdd').length).toEqual(1)
       expect(@userEditDialog.displayUserGroupsView.model.get('groups').length).toEqual(3)
 
     it 'should not add private group to the list', ->
@@ -216,7 +215,6 @@ describe 'UserEditDialog', ->
       expect(ajax_spy).toHaveBeenCalled()
 
       expect(@userEditDialog.$('#error-message').html()).toBe("This is a private group")
-      expect(@userEditDialog.groupsModel.get('groupsToAdd').length).toEqual(0)
       expect(@userEditDialog.displayUserGroupsView.model.get('groups').length).toEqual(2)
 
     it 'should remove group for the user', ->
