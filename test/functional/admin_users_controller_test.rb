@@ -9,9 +9,20 @@ include Devise::Test::ControllerHelpers
     users_set = File.join('users', 'base_set')
     collection_fixtures(users_set, patients_set)
     @user = User.by_email('bonnie@example.com').first
+    @user.init_personal_group
+    @user.save
+
     @user_admin = User.by_email('user_admin@example.com').first
+    @user_admin.init_personal_group
+    @user_admin.save
+
     @user_plain = User.by_email('user_plain@example.com').first
+    @user_plain.init_personal_group
+    @user_plain.save
+
     @user_unapproved = User.by_email('user_unapproved@example.com').first
+    @user_unapproved.init_personal_group
+    @user_unapproved.save
 
     load_measure_fixtures_from_folder(File.join('measures', 'CMS903v0'), @user)
     associate_user_with_patients(@user, CQM::Patient.all)
