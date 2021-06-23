@@ -131,8 +131,10 @@
       "query": null,
       "request_data": {
       },
-      "response_data": null,
-      "code": "204",
+      "response_data": [
+
+      ],
+      "code": "200",
       "show_in_doc": 1,
       "recorded": true
     },
@@ -145,13 +147,13 @@
       "query": null,
       "request_data": {
         "group_ids": [
-          "60ca613a072bbd28a47a110d",
+          "60d356acb7b4da4cbe9518b4",
           "501fdba3044a111b98000002"
         ]
       },
       "response_data": [
         {
-          "_id": "60ca613a072bbd28a47a110d",
+          "_id": "60d356acb7b4da4cbe9518b4",
           "is_personal": false,
           "name": "SB"
         },

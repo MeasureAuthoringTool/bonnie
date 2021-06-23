@@ -118,7 +118,7 @@ module Admin
         group_ids: []
       }
       assert_response :success
-      assert_equal "", response.body
+      assert_equal "[]", response.body
 
       post :get_groups_by_group_ids, params: {
         group_ids: [@user[:current_group], @user_admin.current_group[:id]]
