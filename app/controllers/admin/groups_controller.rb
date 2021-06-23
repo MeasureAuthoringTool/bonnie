@@ -44,10 +44,29 @@ module Admin
       render json: group
     end
 
+    def find_group_by_name
+      group = {}
+      if params[:group_name]
+        group = Group.where(name: params[:group_name]).first
+      end
+      render json: group
+    end
+
+    def get_groups_by_group_ids
+      groups = []
+      if params[:group_ids]
+        params[:group_ids].each do |groupId|
+          groups.push(Group.find(groupId))
+        end
+      end
+      render json: groups
+    end
+
     private
 
     def require_admin!
       raise "User #{current_user.email} requesting resource requiring admin access" unless current_user.admin?
     end
+
   end
 end
