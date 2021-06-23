@@ -1,0 +1,14 @@
+<div style="margin-bottom: 20px;">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" {{#if isUsersActive}}class="active"{{/if}}>
+      {{#link "admin/users" class="admin-tabs" aria-controls="users" role="tab" expand-tokens=true}}
+        <span class="sr-only">Users</span>Users
+      {{/link}}
+    </li>
+    <li role="presentation" {{#if isGroupsActive}}class="active"{{/if}}>
+      {{#link "admin/groups" class="admin-tabs" aria-controls="groups" role="tab" expand-tokens=true}}
+        <span class="sr-only">Groups</span>Groups
+      {{/link}}
+    </li>
+  </ul>
+</div>
