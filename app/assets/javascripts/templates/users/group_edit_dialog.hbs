@@ -1,4 +1,4 @@
-<div class="modal fade group-edit-dialog" id="group_edit_dialog" tabindex="-1" aria-hidden="true">
+<div class="modal fade user-group-edit-dialog" id="group_edit_dialog" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog"  role="dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,9 +14,9 @@
         </div>
         <div class="form-group">
           <label for="email">Add new members (by email)</label>
-          <div class="add-user-pane">
+          <div class="add-panel">
             <input type="email" class="form-control" id="email" name="email" placeholder="User email address">
-            <span id="error_div" class="error-div">Not a valid user.</span>
+            <span id="error-message" class="error-message">Not a valid user.</span>
           </div>
           <div>
             {{#button "addUser" class="btn btn-primary"}}Add{{/button}}
