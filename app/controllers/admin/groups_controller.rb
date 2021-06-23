@@ -30,9 +30,13 @@ module Admin
 
     def create_group
       group_name = params[:group_name]
+      down_cased_name = group_name.downcase
 
-      existing_group = Group.where(name: group_name).collation({ locale: 'en', strength: 2 }).first
-      raise ActionController::BadRequest, "Group name #{group_name} is already used." if existing_group
+      non_personal_groups = Group.where(is_personal: false)
+
+      non_personal_groups.all.each do |g|
+        raise ActionController::BadRequest, "Group name #{group_name} is already used." if g.name.downcase == down_cased_name
+      end
 
       group = Group.new
       group.name = group_name
