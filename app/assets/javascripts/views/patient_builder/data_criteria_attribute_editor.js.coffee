@@ -125,7 +125,6 @@ class Thorax.Views.DataCriteriaAttributeEditorView extends Thorax.Views.BonnieVi
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
 
   _createCompositeInputViewForSchema: (schema, typeName) ->
-    debugger
     @showInputViewPlaceholder = false
     @inputView = new Thorax.Views.InputCompositeView(schema: schema, typeName: typeName, cqmValueSets: @parent.measure.get('cqmValueSets'), codeSystemMap: @parent.measure.codeSystemMap(), defaultYear: @parent.measure.getMeasurePeriodYear())
     @listenTo(@inputView, 'valueChanged', @updateAddButtonStatus) if @inputView?
