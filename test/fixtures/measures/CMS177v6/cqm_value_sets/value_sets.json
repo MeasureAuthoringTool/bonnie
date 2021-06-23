@@ -1,0 +1,2894 @@
+[
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a976"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a984"
+        },
+        "code": "F",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2016-07",
+        "display_name": "Female"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a985"
+        },
+        "code": "M",
+        "code_system_name": "AdministrativeGender",
+        "code_system_oid": "2.16.840.1.113883.5.1",
+        "code_system_version": "HL7V3.0_2016-07",
+        "display_name": "Male"
+      }
+    ],
+    "display_name": "ONC Administrative Sex",
+    "oid": "2.16.840.1.113762.1.4.1",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a977"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a986"
+        },
+        "code": "1002-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "American Indian or Alaska Native"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a987"
+        },
+        "code": "2028-9",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Asian"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a988"
+        },
+        "code": "2054-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Black or African American"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a989"
+        },
+        "code": "2076-8",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Native Hawaiian or Other Pacific Islander"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a98a"
+        },
+        "code": "2106-3",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "White"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a98b"
+        },
+        "code": "2131-1",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Other Race"
+      }
+    ],
+    "display_name": "Race",
+    "oid": "2.16.840.1.114222.4.11.836",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a978"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a98c"
+        },
+        "code": "2135-2",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Hispanic or Latino"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a98d"
+        },
+        "code": "2186-5",
+        "code_system_name": "CDC Race",
+        "code_system_oid": "2.16.840.1.113883.6.238",
+        "code_system_version": "1.1",
+        "display_name": "Not Hispanic or Latino"
+      }
+    ],
+    "display_name": "Ethnicity",
+    "oid": "2.16.840.1.114222.4.11.837",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a979"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a98e"
+        },
+        "code": "1",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "MEDICARE"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a98f"
+        },
+        "code": "11",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a990"
+        },
+        "code": "111",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a991"
+        },
+        "code": "112",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a992"
+        },
+        "code": "113",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare POS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a993"
+        },
+        "code": "119",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a994"
+        },
+        "code": "12",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare (Non-managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a995"
+        },
+        "code": "121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a996"
+        },
+        "code": "122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare Drug Benefit"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a997"
+        },
+        "code": "123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare Medical Savings Account (MSA)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a998"
+        },
+        "code": "129",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare Non-managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a999"
+        },
+        "code": "13",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare Hospice"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a99a"
+        },
+        "code": "14",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Dual Eligibility Medicare/Medicaid Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a99b"
+        },
+        "code": "19",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a99c"
+        },
+        "code": "191",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a99d"
+        },
+        "code": "2",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "MEDICAID"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a99e"
+        },
+        "code": "21",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid (Managed Care)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a99f"
+        },
+        "code": "211",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a0"
+        },
+        "code": "212",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a1"
+        },
+        "code": "213",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid PCCM (Primary Care Case Management)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a2"
+        },
+        "code": "219",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid Managed Care Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a3"
+        },
+        "code": "22",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid (Non-managed Care Plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a4"
+        },
+        "code": "23",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid/SCHIP"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a5"
+        },
+        "code": "24",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid Applicant"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a6"
+        },
+        "code": "25",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid - Out of State"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a7"
+        },
+        "code": "26",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid -- Long Term Care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a8"
+        },
+        "code": "29",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9a9"
+        },
+        "code": "291",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicaid Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9aa"
+        },
+        "code": "3",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ab"
+        },
+        "code": "31",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Department of Defense"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ac"
+        },
+        "code": "311",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "TRICARE (CHAMPUS)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ad"
+        },
+        "code": "3111",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "TRICARE Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ae"
+        },
+        "code": "3112",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "TRICARE Extra--PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9af"
+        },
+        "code": "3113",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "TRICARE Standard - Fee For Service"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b0"
+        },
+        "code": "3114",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "TRICARE For Life--Medicare Supplement"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b1"
+        },
+        "code": "3115",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "TRICARE Reserve Select"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b2"
+        },
+        "code": "3116",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b3"
+        },
+        "code": "3119",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Department of Defense - (other)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b4"
+        },
+        "code": "312",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Military Treatment Facility"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b5"
+        },
+        "code": "3121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Enrolled Prime--HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b6"
+        },
+        "code": "3122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Non-enrolled Space Available"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b7"
+        },
+        "code": "3123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "TRICARE For Life (TFL)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b8"
+        },
+        "code": "313",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Dental --Stand Alone"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9b9"
+        },
+        "code": "32",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Department of Veterans Affairs"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ba"
+        },
+        "code": "321",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Veteran care--Care provided to Veterans"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9bb"
+        },
+        "code": "3211",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Direct Care--Care provided in VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9bc"
+        },
+        "code": "3212",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Indirect Care--Care provided outside VA facilities"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9bd"
+        },
+        "code": "32121",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Fee Basis"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9be"
+        },
+        "code": "32122",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Foreign Fee/Foreign Medical Program(FMP)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9bf"
+        },
+        "code": "32123",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Contract Nursing Home/Community Nursing Home"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c0"
+        },
+        "code": "32124",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "State Veterans Home"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c1"
+        },
+        "code": "32125",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Sharing Agreements"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c2"
+        },
+        "code": "32126",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other Federal Agency"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c3"
+        },
+        "code": "322",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c4"
+        },
+        "code": "3221",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c5"
+        },
+        "code": "3222",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Spina Bifida Health Care Program (SB)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c6"
+        },
+        "code": "3223",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Children of Women Vietnam Veterans (CWVV)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c7"
+        },
+        "code": "3229",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other non-veteran care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c8"
+        },
+        "code": "33",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Indian Health Service or Tribe"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9c9"
+        },
+        "code": "331",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Indian Health Service -- Regular"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ca"
+        },
+        "code": "332",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Indian Health Service -- Contract"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9cb"
+        },
+        "code": "333",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Indian Health Service - Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9cc"
+        },
+        "code": "334",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Indian Tribe - Sponsored Coverage"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9cd"
+        },
+        "code": "34",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "HRSA Program"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ce"
+        },
+        "code": "341",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Title V (MCH Block Grant)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9cf"
+        },
+        "code": "342",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Migrant Health Program"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d0"
+        },
+        "code": "343",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Ryan White Act"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d1"
+        },
+        "code": "349",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d2"
+        },
+        "code": "35",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Black Lung"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d3"
+        },
+        "code": "36",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "State Government"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d4"
+        },
+        "code": "361",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "State SCHIP program (codes for individual states)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d5"
+        },
+        "code": "362",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Specific state programs (list/ local code)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d6"
+        },
+        "code": "369",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "State, not otherwise specified (other state)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d7"
+        },
+        "code": "37",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Local Government"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d8"
+        },
+        "code": "371",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Local - Managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9d9"
+        },
+        "code": "3711",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9da"
+        },
+        "code": "3712",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9db"
+        },
+        "code": "3713",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9dc"
+        },
+        "code": "372",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "FFS/Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9dd"
+        },
+        "code": "379",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Local, not otherwise specified (other local, county)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9de"
+        },
+        "code": "38",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other Government (Federal, State, Local not specified)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9df"
+        },
+        "code": "381",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Federal, State, Local not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e0"
+        },
+        "code": "3811",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Federal, State, Local not specified - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e1"
+        },
+        "code": "3812",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Federal, State, Local not specified - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e2"
+        },
+        "code": "3813",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Federal, State, Local not specified - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e3"
+        },
+        "code": "3819",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Federal, State, Local not specified - not specified managed care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e4"
+        },
+        "code": "382",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Federal, State, Local not specified - FFS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e5"
+        },
+        "code": "389",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Federal, State, Local not specified - Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e6"
+        },
+        "code": "39",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e7"
+        },
+        "code": "4",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "DEPARTMENTS OF CORRECTIONS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e8"
+        },
+        "code": "41",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Corrections Federal"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9e9"
+        },
+        "code": "42",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Corrections State"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ea"
+        },
+        "code": "43",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Corrections Local"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9eb"
+        },
+        "code": "44",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Corrections Unknown Level"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ec"
+        },
+        "code": "5",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "PRIVATE HEALTH INSURANCE"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ed"
+        },
+        "code": "51",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Managed Care (Private)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ee"
+        },
+        "code": "511",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Commercial Managed Care - HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ef"
+        },
+        "code": "512",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Commercial Managed Care - PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f0"
+        },
+        "code": "513",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Commercial Managed Care - POS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f1"
+        },
+        "code": "514",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Exclusive Provider Organization"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f2"
+        },
+        "code": "515",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Gatekeeper PPO (GPPO)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f3"
+        },
+        "code": "516",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Commercial Managed Care - Pharmacy Benefit Manager"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f4"
+        },
+        "code": "519",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Managed Care, Other (non HMO)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f5"
+        },
+        "code": "52",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Private Health Insurance - Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f6"
+        },
+        "code": "521",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f7"
+        },
+        "code": "522",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f8"
+        },
+        "code": "523",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Medicare supplemental policy (as second payer)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9f9"
+        },
+        "code": "529",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Private health insurance--other commercial Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9fa"
+        },
+        "code": "53",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9fb"
+        },
+        "code": "54",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Organized Delivery System"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9fc"
+        },
+        "code": "55",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Small Employer Purchasing Group"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9fd"
+        },
+        "code": "56",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Specialized Stand Alone Plan"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9fe"
+        },
+        "code": "561",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Dental"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006a9ff"
+        },
+        "code": "562",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Vision"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa00"
+        },
+        "code": "59",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other Private Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa01"
+        },
+        "code": "6",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BLUE CROSS/BLUE SHIELD"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa02"
+        },
+        "code": "61",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa03"
+        },
+        "code": "611",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC Managed Care -- HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa04"
+        },
+        "code": "612",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC Managed Care -- PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa05"
+        },
+        "code": "613",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC Managed Care -- POS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa06"
+        },
+        "code": "619",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC Managed Care -- Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa07"
+        },
+        "code": "62",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC Indemnity"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa08"
+        },
+        "code": "63",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC (Indemnity or Managed Care) - Out of State"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa09"
+        },
+        "code": "64",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC (Indemnity or Managed Care) - Unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa0a"
+        },
+        "code": "69",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "BC (Indemnity or Managed Care) - Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa0b"
+        },
+        "code": "7",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa0c"
+        },
+        "code": "71",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa0d"
+        },
+        "code": "72",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "PPO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa0e"
+        },
+        "code": "73",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "POS"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa0f"
+        },
+        "code": "79",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa10"
+        },
+        "code": "8",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa11"
+        },
+        "code": "81",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Self-pay"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa12"
+        },
+        "code": "82",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "No Charge"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa13"
+        },
+        "code": "821",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Charity"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa14"
+        },
+        "code": "822",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Professional Courtesy"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa15"
+        },
+        "code": "823",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Research/Clinical Trial"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa16"
+        },
+        "code": "83",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Refusal to Pay/Bad Debt"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa17"
+        },
+        "code": "84",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Hill Burton Free Care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa18"
+        },
+        "code": "85",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Research/Donor"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa19"
+        },
+        "code": "89",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "No Payment, Other"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa1a"
+        },
+        "code": "9",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "MISCELLANEOUS/OTHER"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa1b"
+        },
+        "code": "91",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Foreign National"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa1c"
+        },
+        "code": "92",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other (Non-government)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa1d"
+        },
+        "code": "93",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Disability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa1e"
+        },
+        "code": "94",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Long-term Care Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa1f"
+        },
+        "code": "95",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Worker's Compensation"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa20"
+        },
+        "code": "951",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Worker's Comp HMO"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa21"
+        },
+        "code": "953",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Worker's Comp Fee-for-Service"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa22"
+        },
+        "code": "954",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Worker's Comp Other Managed Care"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa23"
+        },
+        "code": "959",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Worker's Comp, Other unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa24"
+        },
+        "code": "96",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Auto Insurance (includes no fault)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa25"
+        },
+        "code": "97",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Legal Liability / Liability Insurance"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa26"
+        },
+        "code": "98",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa27"
+        },
+        "code": "99",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "No Typology Code available for payment source"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa28"
+        },
+        "code": "9999",
+        "code_system_name": "Source of Payment Typology",
+        "code_system_oid": "2.16.840.1.113883.3.221.5",
+        "code_system_version": "6.0",
+        "display_name": "Unavailable / No Payer Specified / Blank"
+      }
+    ],
+    "display_name": "Payer",
+    "oid": "2.16.840.1.114222.4.11.3591",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a97a"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa29"
+        },
+        "code": "12843005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Subsequent hospital visit by physician (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa2a"
+        },
+        "code": "18170008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Subsequent nursing facility visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa2b"
+        },
+        "code": "185349003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Encounter for check up (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa2c"
+        },
+        "code": "185463005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Visit out of hours (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa2d"
+        },
+        "code": "185465003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Weekend visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa2e"
+        },
+        "code": "19681004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Nursing evaluation of patient and report (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa2f"
+        },
+        "code": "207195004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "History and physical examination with evaluation and management of nursing facility patient (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa30"
+        },
+        "code": "270427003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Patient-initiated encounter (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa31"
+        },
+        "code": "270430005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Provider-initiated encounter (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa32"
+        },
+        "code": "308335008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Patient encounter procedure (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa33"
+        },
+        "code": "390906007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Follow-up encounter (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa34"
+        },
+        "code": "406547006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Urgent follow-up (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa35"
+        },
+        "code": "439708006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Home visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa36"
+        },
+        "code": "87790002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Follow-up inpatient consultation visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa37"
+        },
+        "code": "90526000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Initial evaluation and management of healthy individual (procedure)"
+      }
+    ],
+    "display_name": "Face-to-Face Interaction",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1048",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a97b"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa38"
+        },
+        "code": "90853",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Group psychotherapy (other than of a multiple-family group)"
+      }
+    ],
+    "display_name": "Group Psychotherapy",
+    "oid": "2.16.840.1.113883.3.526.3.1187",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a97c"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa39"
+        },
+        "code": "14183003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Chronic major depressive disorder, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa3a"
+        },
+        "code": "15193003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe recurrent major depression with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa3b"
+        },
+        "code": "15639000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Moderate major depression, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa3c"
+        },
+        "code": "18818009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Moderate recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa3d"
+        },
+        "code": "191610000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depressive episodes, mild (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa3e"
+        },
+        "code": "191611001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depressive episodes, moderate (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa3f"
+        },
+        "code": "191613003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depressive episodes, severe, with psychosis (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa40"
+        },
+        "code": "20250007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe major depression, single episode, with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa41"
+        },
+        "code": "25922000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Major depressive disorder, single episode with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa42"
+        },
+        "code": "2618002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Chronic recurrent major depressive disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa43"
+        },
+        "code": "268621008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depressive episodes (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa44"
+        },
+        "code": "28475009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe recurrent major depression with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa45"
+        },
+        "code": "296.20",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, single episode, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa46"
+        },
+        "code": "296.21",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, single episode, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa47"
+        },
+        "code": "296.22",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, single episode, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa48"
+        },
+        "code": "296.23",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, single episode, severe, without mention of psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa49"
+        },
+        "code": "296.24",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, single episode, severe, specified as with psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa4a"
+        },
+        "code": "296.30",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, recurrent episode, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa4b"
+        },
+        "code": "296.31",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, recurrent episode, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa4c"
+        },
+        "code": "296.32",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, recurrent episode, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa4d"
+        },
+        "code": "296.33",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, recurrent episode, severe, without mention of psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa4e"
+        },
+        "code": "296.34",
+        "code_system_name": "ICD-9-CM",
+        "code_system_oid": "2.16.840.1.113883.6.103",
+        "code_system_version": "2013",
+        "display_name": "Major depressive affective disorder, recurrent episode, severe, specified as with psychotic behavior"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa4f"
+        },
+        "code": "319768000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depressive disorder with melancholic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa50"
+        },
+        "code": "320751009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Major depression, melancholic type (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa51"
+        },
+        "code": "33078009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe recurrent major depression with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa52"
+        },
+        "code": "33736005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe major depression with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa53"
+        },
+        "code": "36474008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe recurrent major depression without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa54"
+        },
+        "code": "36923009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Major depression, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa55"
+        },
+        "code": "370143000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Major depressive disorder (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa56"
+        },
+        "code": "38694004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depressive disorder with atypical features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa57"
+        },
+        "code": "39809009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depressive disorder with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa58"
+        },
+        "code": "40379007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Mild recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa59"
+        },
+        "code": "42925002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Major depressive disorder, single episode with atypical features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa5a"
+        },
+        "code": "430852001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe major depression, single episode, with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa5b"
+        },
+        "code": "60099002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe major depression with psychotic features, mood-incongruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa5c"
+        },
+        "code": "63778009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Major depressive disorder, single episode with melancholic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa5d"
+        },
+        "code": "66344007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa5e"
+        },
+        "code": "69392006",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Major depressive disorder, single episode with catatonic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa5f"
+        },
+        "code": "71336009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Recurrent major depressive disorder with postpartum onset (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa60"
+        },
+        "code": "73867007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe major depression with psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa61"
+        },
+        "code": "75084000",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe major depression without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa62"
+        },
+        "code": "76441001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe major depression, single episode, without psychotic features (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa63"
+        },
+        "code": "77911002",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Severe major depression, single episode, with psychotic features, mood-congruent (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa64"
+        },
+        "code": "79298009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Mild major depression, single episode (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa65"
+        },
+        "code": "832007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Moderate major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa66"
+        },
+        "code": "87512008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Mild major depression (disorder)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa67"
+        },
+        "code": "F32.0",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, single episode, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa68"
+        },
+        "code": "F32.1",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, single episode, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa69"
+        },
+        "code": "F32.2",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, single episode, severe without psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa6a"
+        },
+        "code": "F32.3",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, single episode, severe with psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa6b"
+        },
+        "code": "F32.89",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Other specified depressive episodes"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa6c"
+        },
+        "code": "F32.9",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, single episode, unspecified"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa6d"
+        },
+        "code": "F33.0",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, recurrent, mild"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa6e"
+        },
+        "code": "F33.1",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, recurrent, moderate"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa6f"
+        },
+        "code": "F33.2",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, recurrent severe without psychotic features"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa70"
+        },
+        "code": "F33.3",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, recurrent, severe with psychotic symptoms"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa71"
+        },
+        "code": "F33.9",
+        "code_system_name": "ICD-10-CM",
+        "code_system_oid": "2.16.840.1.113883.6.90",
+        "code_system_version": "2018",
+        "display_name": "Major depressive disorder, recurrent, unspecified"
+      }
+    ],
+    "display_name": "Major Depressive Disorder-Active",
+    "oid": "2.16.840.1.113883.3.526.3.1491",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a97d"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa72"
+        },
+        "code": "185463005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Visit out of hours (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa73"
+        },
+        "code": "185464004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Out of hours visit - not night visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa74"
+        },
+        "code": "185465003",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Weekend visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa75"
+        },
+        "code": "30346009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Evaluation and management of established outpatient in office or other outpatient facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa76"
+        },
+        "code": "3391000175108",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Office visit for pediatric care and assessment (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa77"
+        },
+        "code": "37894004",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Evaluation and management of new outpatient in office or other outpatient facility (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa78"
+        },
+        "code": "439740005",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Postoperative follow-up visit (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa79"
+        },
+        "code": "99201",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa7a"
+        },
+        "code": "99202",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 20 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa7b"
+        },
+        "code": "99203",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa7c"
+        },
+        "code": "99204",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa7d"
+        },
+        "code": "99205",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa7e"
+        },
+        "code": "99212",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa7f"
+        },
+        "code": "99213",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 15 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa80"
+        },
+        "code": "99214",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 25 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa81"
+        },
+        "code": "99215",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent face-to-face with the patient and/or family."
+      }
+    ],
+    "display_name": "Office Visit",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1001",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a97e"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa82"
+        },
+        "code": "17436001",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Medical consultation with outpatient (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa83"
+        },
+        "code": "281036007",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Follow-up consultation (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa84"
+        },
+        "code": "77406008",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Confirmatory medical consultation (procedure)"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa85"
+        },
+        "code": "99241",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 15 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa86"
+        },
+        "code": "99242",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 30 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa87"
+        },
+        "code": "99243",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 40 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa88"
+        },
+        "code": "99244",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family."
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa89"
+        },
+        "code": "99245",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Office consultation for a new or established patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 80 minutes are spent face-to-face with the patient and/or family."
+      }
+    ],
+    "display_name": "Outpatient Consultation",
+    "oid": "2.16.840.1.113883.3.464.1003.101.12.1008",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a97f"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa8a"
+        },
+        "code": "90791",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Psychiatric diagnostic evaluation"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa8b"
+        },
+        "code": "90792",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Psychiatric diagnostic evaluation with medical services"
+      }
+    ],
+    "display_name": "Psych Visit - Diagnostic Evaluation",
+    "oid": "2.16.840.1.113883.3.526.3.1492",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a980"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa8c"
+        },
+        "code": "90846",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Family psychotherapy (without the patient present), 50 minutes"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa8d"
+        },
+        "code": "90847",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Family psychotherapy (conjoint psychotherapy) (with patient present), 50 minutes"
+      }
+    ],
+    "display_name": "Psych Visit - Family Psychotherapy",
+    "oid": "2.16.840.1.113883.3.526.3.1018",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a981"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa8e"
+        },
+        "code": "90832",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Psychotherapy, 30 minutes with patient"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa8f"
+        },
+        "code": "90834",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Psychotherapy, 45 minutes with patient"
+      },
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa90"
+        },
+        "code": "90837",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Psychotherapy, 60 minutes with patient"
+      }
+    ],
+    "display_name": "Psych Visit - Psychotherapy",
+    "oid": "2.16.840.1.113883.3.526.3.1496",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a982"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa91"
+        },
+        "code": "90845",
+        "code_system_name": "CPT",
+        "code_system_oid": "2.16.840.1.113883.6.12",
+        "code_system_version": "2017",
+        "display_name": "Psychoanalysis"
+      }
+    ],
+    "display_name": "Psychoanalysis",
+    "oid": "2.16.840.1.113883.3.526.3.1141",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  },
+  {
+    "_id": {
+      "$oid": "5d27840931fe5f6eb006a983"
+    },
+    "concepts": [
+      {
+        "_id": {
+          "$oid": "5d27840931fe5f6eb006aa92"
+        },
+        "code": "225337009",
+        "code_system_name": "SNOMED-CT",
+        "code_system_oid": "2.16.840.1.113883.6.96",
+        "code_system_version": "2017-03",
+        "display_name": "Suicide risk assessment (procedure)"
+      }
+    ],
+    "display_name": "Suicide Risk Assessment",
+    "oid": "2.16.840.1.113883.3.526.3.1484",
+    "group_id": {
+      "$oid": "501fdba3044a111b98000001"
+    },
+    "version": "Draft-848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"
+  }
+]

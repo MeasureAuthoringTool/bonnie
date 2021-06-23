@@ -1,26 +1,22 @@
   describe 'Expected vs  Actual Comparisons', ->
-    beforeEach ->
+    beforeAll ->
       jasmine.getJSONFixtures().clearCache()
-      @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS890/value_sets.json')
       bonnie.measures = new Thorax.Collections.Measures()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS890/CMS890v0.json'), parse: true
+      @cqlMeasure = loadMeasureWithValueSets 'cqm_measure_data/CMS890v0/CMS890v0.json', 'cqm_measure_data/CMS890v0/value_sets.json'
       @population = @cqlMeasure.get('populations').at(0)
-      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS890/patients.json'), parse: true
-      @cqlMeasure.set('patients',@cqlPatients)
+      observationDecimal = getJSONFixture 'patients/CMS890v0/Observation_Decimal.json'
+      @cqlPatients = new Thorax.Collections.Patients [observationDecimal], parse: true
+      @cqlMeasure.set('patients', @cqlPatients)
       @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
-      bonnie.measures.add @cqlMeasure      
+      bonnie.measures.add @cqlMeasure
       @measureView.appendTo 'body'
 
-    afterEach ->
-      bonnie.valueSetsByOid = @universalValueSetsByOid
+    afterAll ->
       @measureView.remove()
 
     it 'compares actual vs expected to only 8 decimal places', ->
-      pt1_passes = $("div.patient-name:contains('doe jon')").closest('.panel-heading').next().find('.pass').length
-      pt2_passes = $("div.patient-name:contains('smith jane')").closest('.panel-heading').next().find('.pass').length
-      expect(pt1_passes).toEqual 4
-      expect(pt2_passes).toEqual 4
+      passes = $("div.patient-name:contains('Decimal Observation')").closest('.panel-heading').next().find('.pass').length
+      expect(passes).toEqual 4
 
     it 'displays actual and expected to only 8 decimal places', ->
       observ_td = $("td:contains('OBSERV_1')")

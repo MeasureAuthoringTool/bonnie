@@ -1,0 +1,93 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:8080/cql/translator
+    body:
+      encoding: ASCII-8BIT
+      string: "------RubyFormBoundaryr1QhfplPkuyyGR0t\r\nContent-Disposition: form-data;
+        name=\"file\"\r\n\r\n\r\n------RubyFormBoundaryr1QhfplPkuyyGR0t--\r\n"
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin18.2.0 x86_64) ruby/2.4.5p335
+      Content-Length:
+      - '131'
+      Content-Type:
+      - multipart/form-data; boundary=----RubyFormBoundaryr1QhfplPkuyyGR0t
+      Host:
+      - localhost:8080
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Mime-Version:
+      - '1.0'
+      Content-Type:
+      - multipart/form-data;boundary=Boundary_1_1319070128_1559327439533
+      Date:
+      - Fri, 31 May 2019 18:30:39 GMT
+      Content-Length:
+      - '471'
+    body:
+      encoding: UTF-8
+      string: "--Boundary_1_1319070128_1559327439533\r\nContent-Type: application/elm+json\r\nContent-Disposition:
+        form-data; name=\"file\"\r\n\r\n{\n   \"library\" : {\n      \"identifier\"
+        : {\n      },\n      \"schemaIdentifier\" : {\n         \"id\" : \"urn:hl7-org:elm\",\n
+        \        \"version\" : \"r1\"\n      },\n      \"usings\" : {\n         \"def\"
+        : [ {\n            \"localIdentifier\" : \"System\",\n            \"uri\"
+        : \"urn:hl7-org:elm-types:r1\"\n         } ]\n      }\n   }\n}\r\n--Boundary_1_1319070128_1559327439533--\r\n"
+    http_version: 
+  recorded_at: Fri, 31 May 2019 18:30:39 GMT
+- request:
+    method: post
+    uri: http://localhost:8080/cql/translator
+    body:
+      encoding: ASCII-8BIT
+      string: "------RubyFormBoundary8ZQgVySKMvecQAv7\r\nContent-Disposition: form-data;
+        name=\"file\"\r\n\r\n\r\n------RubyFormBoundary8ZQgVySKMvecQAv7--\r\n"
+    headers:
+      Accept:
+      - multipart/form-data
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin18.2.0 x86_64) ruby/2.4.5p335
+      X-Targetformat:
+      - application/elm+xml
+      Content-Length:
+      - '131'
+      Content-Type:
+      - multipart/form-data; boundary=----RubyFormBoundary8ZQgVySKMvecQAv7
+      Host:
+      - localhost:8080
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Mime-Version:
+      - '1.0'
+      Content-Type:
+      - multipart/form-data;boundary=Boundary_2_467154806_1559327439627
+      Date:
+      - Fri, 31 May 2019 18:30:39 GMT
+      Content-Length:
+      - '705'
+    body:
+      encoding: UTF-8
+      string: "--Boundary_2_467154806_1559327439627\r\nContent-Type: application/elm+xml\r\nContent-Disposition:
+        form-data; name=\"file\"\r\n\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<library
+        xmlns=\"urn:hl7-org:elm:r1\" xmlns:t=\"urn:hl7-org:elm-types:r1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:fhir=\"http://hl7.org/fhir\"
+        xmlns:qdm43=\"urn:healthit-gov:qdm:v4_3\" xmlns:qdm53=\"urn:healthit-gov:qdm:v5_3\"
+        xmlns:a=\"urn:hl7-org:cql-annotations:r1\">\n   <identifier/>\n   <schemaIdentifier
+        id=\"urn:hl7-org:elm\" version=\"r1\"/>\n   <usings>\n      <def localIdentifier=\"System\"
+        uri=\"urn:hl7-org:elm-types:r1\"/>\n   </usings>\n</library>\n\r\n--Boundary_2_467154806_1559327439627--\r\n"
+    http_version: 
+  recorded_at: Fri, 31 May 2019 18:30:39 GMT
+recorded_with: VCR 4.0.0

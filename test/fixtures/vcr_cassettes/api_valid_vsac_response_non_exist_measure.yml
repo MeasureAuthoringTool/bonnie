@@ -1,0 +1,102 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: US-ASCII
+      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '65'
+      Date:
+      - Tue, 16 Jul 2019 11:59:48 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!ASxMDnuoZ8iOdcTNtNHn4GsLooFbUxHnJXfNJQ3cmykJClHa3FICj3kqknt+jloc/sVBWsyK3y+JzLk=;
+        expires=Tue, 16-Jul-2019 13:59:48 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: TGT-229792-vaQWUba1FcYreJsEW3vZpLrae9U6vObfqnC6mcysoa7obbL5zg-cas
+    http_version:
+  recorded_at: Tue, 16 Jul 2019 11:59:48 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM%20and%20Hybrid%20Measure/latest%20profile
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '72'
+      Date:
+      - Tue, 16 Jul 2019 11:59:48 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!iZZaqEFSmuMBEB3NtNHn4GsLooFbUww31mPPHwHT8i4bWdWPAUBu9JzIypVUUL/sbanBA/gfEZz1mPo=;
+        expires=Tue, 16-Jul-2019 13:59:48 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"name":"eCQM Update 2019-05-10","requestTime":"2019-07-16 07:59:48
+        AM"}'
+    http_version:
+  recorded_at: Tue, 16 Jul 2019 11:59:48 GMT
+recorded_with: VCR 4.0.0

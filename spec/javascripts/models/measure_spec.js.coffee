@@ -1,27 +1,24 @@
 describe 'Measure', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
-    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
-
-  afterEach ->
-    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
+    @measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
 
   it 'has basic attributes available', ->
-    expect(@measure.get('hqmf_set_id')).toEqual 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
-    expect(@measure.get('title')).toEqual 'Depression Utilization of the PHQ-9 Tool'
+    expect(@measure.get('cqmMeasure').hqmf_set_id).toEqual 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    expect(@measure.get('cqmMeasure').get('title')).toEqual 'Depression Utilization of the PHQ-9 Tool'
 
   it 'has the expected number of populations', ->
     expect(@measure.get('populations').length).toEqual 3
 
-  it 'has set itself as parent on measure_data_criteria', ->
-    expect(@measure.get("source_data_criteria").get('parent') == @measure)
+  it 'has set itself as parent on source_data_criteria', ->
+    expect(@measure.get('cqmMeasure').get('parent') == @measure)
 
-  it 'can calulate results for a patient', ->
-    collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
-    patient = collection.findWhere(first: 'Pass', last: 'NUM2')
+  it 'can calulate results for a patient using second population', ->
+    expiredDenex = getJSONFixture 'patients/CMS160v6/Expired_DENEX.json'
+    passNum2 = getJSONFixture 'patients/CMS160v6/Pass_NUM2.json'
+    collection = new Thorax.Collections.Patients [expiredDenex, passNum2], parse: true
+    patient = collection.at(1) # Pass NUM2
     results = @measure.get('populations').at(1).calculate(patient)
     expect(results.get('DENEX')).toEqual 0
     expect(results.get('DENOM')).toEqual 1

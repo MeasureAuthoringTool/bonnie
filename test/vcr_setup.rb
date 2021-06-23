@@ -1,4 +1,5 @@
 require 'vcr'
+require 'addressable'
 # VCR records HTTP interactions to cassettes that can be replayed during unit tests
 # allowing for faster, more predictible web interactions
 VCR.configure do |c|
@@ -12,7 +13,21 @@ VCR.configure do |c|
   ENV['VSAC_API_KEY'] = "vcrpass" unless ENV['VSAC_API_KEY']
 
   # Ensure plain text passwords do not show up during logging
-  c.filter_sensitive_data('<VSAC_API_KEY>') {URI.escape(ENV['VSAC_API_KEY'])}
+  c.filter_sensitive_data('<VSAC_API_KEY>') {Addressable::URI.encode(ENV['VSAC_API_KEY'])}
   c.default_cassette_options = {record: :once }
 
+  # Add a custom matcher for use with the bulk request by typheous, so we can ignore service ticket
+  c.register_request_matcher :uri_no_st do |req1, req2|
+    remove_service_ticket_from_uri(req1.uri) == remove_service_ticket_from_uri(req2.uri)
+  end
+end
+
+def remove_service_ticket_from_uri(uri)
+  uri = String.new(uri)
+  service_ticket = uri[/(&ticket=.*)&|(&ticket=.*)$/,0]
+  if service_ticket.present?
+    service_ticket.chop! if service_ticket.end_with? '&'
+    uri[service_ticket] = ''
+  end
+  return uri
 end

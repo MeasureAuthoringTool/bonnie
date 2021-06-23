@@ -2,7 +2,10 @@
   "_id": {
     "$oid": "5a57eba0942c6d1e61d33b6a"
   },
-  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "bundle_id": {
+    "$oid": "5a57e977942c6d1e61d32f14"
+  },
+  "calculate_sdes": null,
   "category": "Miscellaneous",
   "cms_id": "CMS177v6",
   "complexity": {
@@ -45,6 +48,11 @@
       }
     ]
   },
+  "component": false,
+  "component_hqmf_set_ids": [
+
+  ],
+  "composite": false,
   "continuous_variable": false,
   "cql": [
     "library ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment version '6.0.002'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Face-to-Face Interaction\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1048'\r\nvalueset \"Group Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1187'\r\nvalueset \"Major Depressive Disorder-Active\": 'urn:oid:2.16.840.1.113883.3.526.3.1491'\r\nvalueset \"Office Visit\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1001'\r\nvalueset \"Outpatient Consultation\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1008'\r\nvalueset \"Psych Visit - Diagnostic Evaluation\": 'urn:oid:2.16.840.1.113883.3.526.3.1492'\r\nvalueset \"Psych Visit - Family Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1018'\r\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'\r\nvalueset \"Psychoanalysis\": 'urn:oid:2.16.840.1.113883.3.526.3.1141'\r\nvalueset \"Suicide Risk Assessment\": 'urn:oid:2.16.840.1.113883.3.526.3.1484'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\t\"Encounter with Major Depressive Disorder Diagnosis\" Enc\r\n\t\twith [\"Intervention, Performed\": \"Suicide Risk Assessment\"] Intervention\r\n\t\t\tsuch that Intervention.relevantPeriod during Enc.relevantPeriod\r\n\r\ndefine \"Encounter with Major Depressive Disorder Diagnosis\":\r\n\t( [\"Encounter, Performed\": \"Office Visit\"]\r\n\t\tunion [\"Encounter, Performed\": \"Outpatient Consultation\"]\r\n\t\tunion [\"Encounter, Performed\": \"Face-to-Face Interaction\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Diagnostic Evaluation\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Family Psychotherapy\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psych Visit - Psychotherapy\"]\r\n\t\tunion [\"Encounter, Performed\": \"Psychoanalysis\"]\r\n\t\tunion [\"Encounter, Performed\": \"Group Psychotherapy\"] ) Enc\r\n\t\twhere exists ( Enc.diagnoses Diagnosis\r\n\t\t\t\twhere Diagnosis in \"Major Depressive Disorder-Active\"\r\n\t\t)\r\n\t\t\tand Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Initial Population\":\r\n\t\"Encounter with Major Depressive Disorder Diagnosis\" Enc\r\n\t\twhere AgeInYearsAt(start of \"Measurement Period\")>= 6\r\n\t\t\tand AgeInYearsAt(start of \"Measurement Period\")< 17\r\n"
@@ -3455,7 +3463,9 @@
   "hqmf_id": "40280382-5FA6-FE85-0160-0498BA791EE8",
   "hqmf_set_id": "848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3",
   "hqmf_version_number": 0,
-  "id": "5a57eba0942c6d1e61d33b6a",
+  "id": {
+    "$oid": "5a57eba0942c6d1e61d33b6a"
+  },
   "main_cql_library": "ChildandAdolescentMajorDepressiveDisorderMDDSuicideRiskAssessment",
   "measure_attributes": [
     {
@@ -4335,7 +4345,9 @@
   "title": "Child and Adolescent Major Depressive Disorder (MDD): Suicide Risk Assessment",
   "type": "ep",
   "updated_at": "2018-01-11T22:56:32.118Z",
-  "user_id": "501fdba3044a111b98000001",
+  "user_id": {
+    "$oid": "501fdba3044a111b98000001"
+  },
   "value_set_oid_version_objects": [
     {
       "oid": "2.16.840.1.113762.1.4.1",

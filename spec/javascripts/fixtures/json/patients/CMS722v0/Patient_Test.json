@@ -1,0 +1,336 @@
+{
+  "_id": "5d278bd931fe5f6f3e4b77b9",
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "familyName": "Test",
+  "givenNames": [
+    "Patient"
+  ],
+  "measure_ids": [
+    "189C1035-C86E-419B-A034-AE55FA4C04F9"
+  ],
+  "notes": "",
+  "provider_ids": [
+
+  ],
+  "qdmPatient": {
+    "_id": "5d278bd931fe5f6f3e4b77ba",
+    "birthDatetime": "1970-01-01T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": "5d278bd931fe5f6f3e4b77bb",
+        "anatomicalLocationSite": null,
+        "authorDatetime": "2012-03-22T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113762.1.4.1046.6",
+        "dataElementCodes": [
+          {
+            "code": "17561000119102",
+            "system": "2.16.840.1.113883.6.96"
+          },
+          {
+            "code": "Z38.00",
+            "system": "2.16.840.1.113883.6.90"
+          }
+        ],
+        "description": "Diagnosis: Live Birth Newborn Born in Hospital",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+        "id": "5d278bd931fe5f6f3e4b77bb",
+        "prevalencePeriod": {
+          "low": "2012-03-22T08:00:00.000Z",
+          "high": "2012-03-22T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "qdmCategory": "condition",
+        "qdmTitle": "Diagnosis",
+        "qdmVersion": "5.5",
+        "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+        "recorder": null,
+        "severity": null,
+        "_type": "QDM::Diagnosis"
+      },
+      {
+        "_id": "5d278bd931fe5f6f3e4b77bd",
+        "admissionSource": null,
+        "authorDatetime": "2012-03-22T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.666.5.307",
+        "dataElementCodes": [
+          {
+            "code": "183452005",
+            "system": "2.16.840.1.113883.6.96"
+          }
+        ],
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "diagnoses": [
+
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+
+        ],
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d278bd931fe5f6f3e4b77bd",
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "participant": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-03-22T08:00:00.000Z",
+          "high": "2012-03-22T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5d278bd931fe5f6f3e4b77bf",
+        "authorDatetime": "2012-03-22T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.114222.4.1.214079.1.1.4",
+        "components": [
+
+        ],
+        "dataElementCodes": [
+          {
+            "code": "54109-4",
+            "system": "2.16.840.1.113883.6.1"
+          }
+        ],
+        "description": "Diagnostic Study, Performed: Newborn Hearing Screen Right",
+        "facilityLocation": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.23",
+        "id": "5d278bd931fe5f6f3e4b77bf",
+        "method": null,
+        "negationRationale": null,
+        "performer": null,
+        "qdmCategory": "diagnostic_study",
+        "qdmStatus": "performed",
+        "qdmTitle": "Diagnostic Study, Performed",
+        "qdmVersion": "5.5",
+        "reason": null,
+        "relevantDatetime": null,
+        "relevantPeriod": {
+          "low": "2012-03-22T08:00:00.000Z",
+          "high": "2012-03-22T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "result": null,
+        "resultDatetime": null,
+        "status": null,
+        "_type": "QDM::DiagnosticStudyPerformed"
+      },
+      {
+        "_id": "5d278bd931fe5f6f3e4b77b5",
+        "birthDatetime": "1970-01-01T08:00:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+        "id": "5d278bd931fe5f6f3e4b77b5",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": "5d278bd931fe5f6f3e4b77b6",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+        "id": "5d278bd931fe5f6f3e4b77b6",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": "5d278bd931fe5f6f3e4b77b7",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+        "id": "5d278bd931fe5f6f3e4b77b7",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": "5d278bd931fe5f6f3e4b77b8",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "M",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "M",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+        "id": "5d278bd931fe5f6f3e4b77b8",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "diagnostic_study",
+          "status": "performed",
+          "title": "Newborn Hearing Screen Right",
+          "description": "Diagnostic Study, Performed: Newborn Hearing Screen Right",
+          "code_list_id": "2.16.840.1.114222.4.1.214079.1.1.4",
+          "type": "diagnostic_studies",
+          "id": "NewbornHearingScreenRight_DiagnosticStudyPerformed_4d13fe89_db63_4397_9080_4168c8c8d26c_source",
+          "start_date": 1332403200000,
+          "end_date": 1332404100000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+          "cms_id": "CMS722v0",
+          "criteria_id": "1624e31e6618u",
+          "codes": {
+            "LOINC": [
+              "54109-4"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "5aeb77f2b848463d625b6dc0",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "Encounter Inpatient",
+          "description": "Encounter, Performed: Encounter Inpatient",
+          "code_list_id": "2.16.840.1.113883.3.666.5.307",
+          "type": "encounters",
+          "id": "EncounterInpatient_EncounterPerformed_7b37876d_70f3_4879_a168_6dd822107f1c_source",
+          "start_date": 1332403200000,
+          "end_date": 1332404100000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+          "cms_id": "CMS722v0",
+          "criteria_id": "1624e3236f27z",
+          "codes": {
+            "SNOMED-CT": [
+              "183452005"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "5aeb77f2b848463d625b6dbf",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "diagnosis",
+          "title": "Live Birth Newborn Born in Hospital",
+          "description": "Diagnosis: Live Birth Newborn Born in Hospital",
+          "code_list_id": "2.16.840.1.113762.1.4.1046.6",
+          "type": "conditions",
+          "id": "LiveBirthNewbornBorninHospital_Diagnosis_d7f4c89d_3a0d_4426_80d8_ca1a5b92df24_source",
+          "start_date": 1332403200000,
+          "end_date": 1332404100000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+          "cms_id": "CMS722v0",
+          "criteria_id": "1624e32724a3o",
+          "codes": {
+            "SNOMED-CT": [
+              "17561000119102"
+            ],
+            "ICD-10-CM": [
+              "Z38.00"
+            ]
+          },
+          "coded_entry_id": "5aeb77f2b848463d625b6dbe",
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "5ebc5fc9b1b269147bfb156f278ec48504ee98f9949659eadf256f9c955c9bdf",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[]"
+    },
+    "qdmVersion": "5.5"
+  },
+  "user_id": "501fdba3044a111b98000001"
+}

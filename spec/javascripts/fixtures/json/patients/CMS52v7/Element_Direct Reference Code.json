@@ -1,0 +1,520 @@
+{
+  "_id": "5d278bea31fe5f6f3e4b7d82",
+  "bundleId": "5a57e977942c6d1e61d32f14",
+  "expectedValues": [
+    {
+      "measure_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+      "population_index": 2,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "familyName": "Direct Reference Code",
+  "givenNames": [
+    "Element"
+  ],
+  "measure_ids": [
+    "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2"
+  ],
+  "notes": "",
+  "provider_ids": [
+
+  ],
+  "qdmPatient": {
+    "_id": "5d278bea31fe5f6f3e4b7d83",
+    "birthDatetime": "1970-01-01T08:00:00.000+00:00",
+    "dataElements": [
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d84",
+        "anatomicalLocationSite": null,
+        "authorDatetime": "2012-03-30T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.464.1003.120.12.1004",
+        "dataElementCodes": [
+          {
+            "code": "042",
+            "system": "2.16.840.1.113883.6.103"
+          },
+          {
+            "code": "111880001",
+            "system": "2.16.840.1.113883.6.96"
+          },
+          {
+            "code": "B20",
+            "system": "2.16.840.1.113883.6.90"
+          }
+        ],
+        "description": "Diagnosis: HIV 1",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.110",
+        "id": "5d278bea31fe5f6f3e4b7d84",
+        "prevalencePeriod": {
+          "low": "2012-03-30T08:00:00.000Z",
+          "high": "2012-03-30T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "qdmCategory": "condition",
+        "qdmTitle": "Diagnosis",
+        "qdmVersion": "5.5",
+        "qrdaOid": "2.16.840.1.113883.10.20.24.3.135",
+        "recorder": null,
+        "severity": null,
+        "_type": "QDM::Diagnosis"
+      },
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d86",
+        "admissionSource": null,
+        "authorDatetime": "2012-03-30T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "dataElementCodes": [
+          {
+            "code": "185463005",
+            "system": "2.16.840.1.113883.6.96"
+          },
+          {
+            "code": "99201",
+            "system": "2.16.840.1.113883.6.12"
+          }
+        ],
+        "description": "Encounter, Performed: Office Visit",
+        "diagnoses": [
+
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+
+        ],
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d278bea31fe5f6f3e4b7d86",
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "participant": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-03-30T08:00:00.000Z",
+          "high": "2012-03-30T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d88",
+        "admissionSource": null,
+        "authorDatetime": "2012-07-30T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "dataElementCodes": [
+          {
+            "code": "185463005",
+            "system": "2.16.840.1.113883.6.96"
+          },
+          {
+            "code": "99201",
+            "system": "2.16.840.1.113883.6.12"
+          }
+        ],
+        "description": "Encounter, Performed: Office Visit",
+        "diagnoses": [
+
+        ],
+        "dischargeDisposition": null,
+        "facilityLocations": [
+
+        ],
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.5",
+        "id": "5d278bea31fe5f6f3e4b7d88",
+        "lengthOfStay": {
+          "value": 0,
+          "unit": "days"
+        },
+        "negationRationale": null,
+        "participant": null,
+        "priority": null,
+        "qdmCategory": "encounter",
+        "qdmStatus": "performed",
+        "qdmTitle": "Encounter, Performed",
+        "qdmVersion": "5.5",
+        "relevantPeriod": {
+          "low": "2012-07-30T08:00:00.000Z",
+          "high": "2012-07-30T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "_type": "QDM::EncounterPerformed"
+      },
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d8a",
+        "authorDatetime": "2012-03-30T08:00:00.000+00:00",
+        "codeListId": "drc-e7bcd5fe05acffa0b0210240916ebdd5cb263ec9e30c7f943a055e4f406b38c4",
+        "dataElementCodes": [
+          {
+            "code": "105337",
+            "system": "2.16.840.1.113883.6.88"
+          }
+        ],
+        "daysSupplied": null,
+        "description": "Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet",
+        "dosage": null,
+        "frequency": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.51",
+        "id": "5d278bea31fe5f6f3e4b7d8a",
+        "negationRationale": null,
+        "prescriber": null,
+        "qdmCategory": "medication",
+        "qdmStatus": "order",
+        "qdmTitle": "Medication, Order",
+        "qdmVersion": "5.5",
+        "reason": null,
+        "refills": null,
+        "relevantPeriod": {
+          "low": "2012-03-30T08:00:00.000Z",
+          "high": "2012-03-30T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "route": null,
+        "setting": null,
+        "supply": null,
+        "_type": "QDM::MedicationOrder"
+      },
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d8c",
+        "authorDatetime": "2012-03-30T08:00:00.000+00:00",
+        "codeListId": "2.16.840.1.113883.3.464.1003.121.12.1004",
+        "components": [
+
+        ],
+        "dataElementCodes": [
+          {
+            "code": "24467-3",
+            "system": "2.16.840.1.113883.6.1"
+          }
+        ],
+        "description": "Laboratory Test, Performed: CD4+ Count",
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.42",
+        "id": "5d278bea31fe5f6f3e4b7d8c",
+        "method": null,
+        "negationRationale": null,
+        "performer": null,
+        "qdmCategory": "laboratory_test",
+        "qdmStatus": "performed",
+        "qdmTitle": "Laboratory Test, Performed",
+        "qdmVersion": "5.5",
+        "reason": null,
+        "referenceRange": null,
+        "relevantDatetime": null,
+        "relevantPeriod": {
+          "low": "2012-03-30T08:00:00.000Z",
+          "high": "2012-03-30T08:15:00.000Z",
+          "lowClosed": true,
+          "highClosed": true
+        },
+        "result": {
+          "unit": "/mm3",
+          "value": 199
+        },
+        "resultDatetime": null,
+        "status": null,
+        "_type": "QDM::LaboratoryTestPerformed"
+      },
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d7e",
+        "birthDatetime": "1970-01-01T08:00:00.000+00:00",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "21112-8",
+            "system": "2.16.840.1.113883.6.1",
+            "display": null,
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.54",
+        "id": "5d278bea31fe5f6f3e4b7d7e",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "birthdate",
+        "qdmTitle": "Patient Characteristic Birthdate",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicBirthdate"
+      },
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d7f",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "2186-5",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "Not Hispanic or Latino",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.56",
+        "id": "5d278bea31fe5f6f3e4b7d7f",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "ethnicity",
+        "qdmTitle": "Patient Characteristic Ethnicity",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicEthnicity"
+      },
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d80",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "1002-5",
+            "system": "2.16.840.1.113883.6.238",
+            "display": "American Indian or Alaska Native",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.59",
+        "id": "5d278bea31fe5f6f3e4b7d80",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "race",
+        "qdmTitle": "Patient Characteristic Race",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicRace"
+      },
+      {
+        "_id": "5d278bea31fe5f6f3e4b7d81",
+        "codeListId": null,
+        "dataElementCodes": [
+          {
+            "code": "M",
+            "system": "2.16.840.1.113883.5.1",
+            "display": "M",
+            "version": null,
+            "_type": "QDM::Code"
+          }
+        ],
+        "description": null,
+        "hqmfOid": "2.16.840.1.113883.10.20.28.4.55",
+        "id": "5d278bea31fe5f6f3e4b7d81",
+        "qdmCategory": "patient_characteristic",
+        "qdmStatus": "gender",
+        "qdmTitle": "Patient Characteristic Sex",
+        "qdmVersion": "5.5",
+        "_type": "QDM::PatientCharacteristicSex"
+      }
+    ],
+    "extendedData": {
+      "type": null,
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "medication",
+          "status": "ordered",
+          "title": "Medication, Order: Medication, Order",
+          "description": "Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet",
+          "code_list_id": "drc-e7bcd5fe05acffa0b0210240916ebdd5cb263ec9e30c7f943a055e4f406b38c4",
+          "type": "medications",
+          "id": "prefix_105337_MedicationOrder_0EC8DFB2_C7B5_4C69_92A3_F517CCD2FF8C_source",
+          "start_date": 1333094400000,
+          "end_date": 1333095300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+          "cms_id": "CMS52v7",
+          "criteria_id": "16287aa2af4G0",
+          "codes": {
+            "RxNorm": [
+              "105337"
+            ]
+          },
+          "fulfillments": null,
+          "administrations_value": "",
+          "frequency_value": "",
+          "frequency_unit": "min",
+          "negation_code_list_id": "",
+          "coded_entry_id": "5aeb77e6b848463d625b6681",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "diagnosis",
+          "title": "HIV1",
+          "description": "Diagnosis: HIV 1",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.120.12.1004",
+          "type": "conditions",
+          "id": "HIV1_Diagnosis_abf5cb1c_6014_4c16_9991_f0af2322bf3d_source",
+          "start_date": 1333094400000,
+          "end_date": 1333095300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+          "cms_id": "CMS52v7",
+          "criteria_id": "16287aa7788lA",
+          "codes": {
+            "ICD-9-CM": [
+              "042"
+            ],
+            "SNOMED-CT": [
+              "111880001"
+            ],
+            "ICD-10-CM": [
+              "B20"
+            ]
+          },
+          "coded_entry_id": "5aeb77e6b848463d625b667e",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "OfficeVisit",
+          "description": "Encounter, Performed: Office Visit",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+          "type": "encounters",
+          "id": "OfficeVisit_EncounterPerformed_53ac9eca_bdc8_4a25_bb93_f88e7282c0b0_source",
+          "start_date": 1333094400000,
+          "end_date": 1333095300000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+          "cms_id": "CMS52v7",
+          "criteria_id": "16287aaa0ecs1",
+          "codes": {
+            "SNOMED-CT": [
+              "185463005"
+            ],
+            "CPT": [
+              "99201"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "5aeb77e6b848463d625b667f",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "laboratory_test",
+          "status": "performed",
+          "title": "CD4+Count",
+          "description": "Laboratory Test, Performed: CD4+ Count",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.121.12.1004",
+          "type": "laboratory_tests",
+          "id": "CD4_Count_LaboratoryTestPerformed_fe396d84_5c2c_448e_84b9_e6c4b7064c0d_source",
+          "start_date": 1333094400000,
+          "end_date": 1333095300000,
+          "value": [
+            {
+              "type": "PQ",
+              "type_cmp": "CD",
+              "value": "199",
+              "unit": "/mm3"
+            }
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+          "cms_id": "CMS52v7",
+          "criteria_id": "16287aae234Db",
+          "codes": {
+            "LOINC": [
+              "24467-3"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "5aeb77e6b848463d625b6682",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "OfficeVisit",
+          "description": "Encounter, Performed: Office Visit",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+          "type": "encounters",
+          "id": "OfficeVisit_EncounterPerformed_53ac9eca_bdc8_4a25_bb93_f88e7282c0b0_source",
+          "start_date": 1343635200000,
+          "end_date": 1343636100000,
+          "value": [
+
+          ],
+          "references": null,
+          "field_values": {
+          },
+          "hqmf_set_id": "1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2",
+          "cms_id": "CMS52v7",
+          "criteria_id": "16287ab2336Cq",
+          "codes": {
+            "SNOMED-CT": [
+              "185463005"
+            ],
+            "CPT": [
+              "99201"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "5aeb77e6b848463d625b6680",
+          "code_source": "DEFAULT"
+        },
+        {
+          "id": "MeasurePeriod",
+          "start_date": 0,
+          "end_date": 0,
+          "references": null
+        }
+      ],
+      "is_shared": null,
+      "origin_data": [
+
+      ],
+      "test_id": null,
+      "medical_record_number": "7368f43d63c27db2e2516cc8cc97fdf89a58a9ed2318ca3ecc90fb0656657f6a",
+      "medical_record_assigner": "Bonnie",
+      "description": null,
+      "description_category": null,
+      "insurance_providers": "[]"
+    },
+    "qdmVersion": "5.5"
+  },
+  "user_id": "501fdba3044a111b98000001"
+}

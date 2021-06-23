@@ -1,10 +1,8 @@
 defaults: &defaults
-  version: 3.3.0
-  hqmfjs_libraries_version: 2.0.0
+  version: 4.2.1
   enable_logging: true
   enable_rationale: true
   check_crosswalk: false
-  measure_period_start: 1325376000
   vsac:
     auth_url: https://vsac.nlm.nih.gov/vsac/ws
     content_url: https://vsac.nlm.nih.gov/vsac/svs
@@ -14,12 +12,19 @@ defaults: &defaults
     default_release: eCQM Update 2020-05-07
   enable_client_error_email: true
   # oldest version of QDM that can be loaded
-  support_qdm_version: 5.4
+  support_qdm_version: 5.5
   # Place holder email addresses for email alerts. This email is not valid.
   # This email should be configured in a '<root>/config/email.yml' file
   # for deployments.
   bonnie_email: bonnie@example.com # For standard notifications
   bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
+  patient_conversion_service_url: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
+
+  virus_scan:
+    enabled: false
+    scan_url: 'http://localhost:5000/scan-file'
+    api_key: '1234567'
+    timeout: 30
 
 development:
   <<: *defaults
@@ -29,3 +34,9 @@ test:
 
 production:
   <<: *defaults
+  patient_conversion_service_url: http://localhost:5050/patients/convertMany
+  virus_scan:
+    enabled: true
+    scan_url: 'http://localhost:5000/scan-file'
+    api_key: '1234567'
+    timeout: 30

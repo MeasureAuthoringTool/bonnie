@@ -1,42 +1,37 @@
 describe 'Navigation', ->
 
-  beforeEach ->
+  beforeAll ->
     jasmine.getJSONFixtures().clearCache()
     @measures = new Thorax.Collections.Measures()
-    measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+    measure = loadMeasureWithValueSets 'cqm_measure_data/CMS160v6/CMS160v6.json', 'cqm_measure_data/CMS160v6/value_sets.json'
     @measures.add(measure)
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
-    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS160/value_sets.json')
-
-  afterEach ->
-    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
+    @patients = new Thorax.Collections.Patients [], parse: true
 
   describe 'navigating the measures list view', ->
 
-    beforeEach ->
+    beforeAll ->
       @measuresView = new Thorax.Views.Measures(collection: @measures)
       @measuresView.render()
 
-    afterEach ->
+    afterAll ->
       @measuresView.remove()
 
     it 'should link to the import measure view', ->
       expect($('button[data-call-method="importMeasure"]', @measuresView.el).length).toEqual(1)
 
     it 'should link to the measure view for a measure', ->
-      expect($('a[href="#measures/' + @measures.first().get('hqmf_set_id') + '"]', @measuresView.el).length).toEqual(1)
+      expect($('a[href="#measures/' + @measures.first().get('cqmMeasure').hqmf_set_id + '"]', @measuresView.el).length).toEqual(1)
 
     it 'should link to the update measure view', ->
       expect($('button[data-call-method="updateMeasure"]', @measuresView.el).length).toEqual(@measures.length)
 
   describe 'navigating each measure view', ->
 
-    beforeEach ->
+    beforeAll ->
       @measureView = new Thorax.Views.MeasureLayout(measure: @measures.first(), patients: @patients)
       @measureView = @measureView.showMeasure()
 
-    afterEach ->
+    afterAll ->
       @measureView.remove()
 
     it 'should link to the update measure view', ->

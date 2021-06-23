@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="form-group col-md-6 datetime-interval-start">
+    <div class="time-control-nullable">
+      <div class="col-md-2 time-null-toggle">
+        <label for="time_is_defined_{{cid}}" class="sr-only">time is defined</label>
+        <input type="checkbox" name="time_is_defined" id="time_is_defined_{{cid}}" value="true" {{#if time_is_defined}}checked{{/if}}/>
+      </div>
+
+      <div class="time-control-time">
+        <label for="time_{{cid}}" class="sr-only">time</label>
+        <input type="text" name="time" id="time_{{cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" {{#if time_is_defined}}value="{{time}}"{{else}}value="" disabled{{/if}}/>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,6 +18,15 @@ $.fn.bootstrapFileInput = function() {
 
     var $elem = $(elem);
 
+    // Add [processed] class to avoid double processing of input file element
+    if (typeof $elem.attr('data-bfi-processed-class') != 'undefined') {
+      // Check if the element already has the [processed] flag on it and skip it if it does
+      if ($elem.hasClass($elem.attr('data-bfi-processed-class'))) {
+          return;
+      }
+      $elem.addClass($elem.attr('data-bfi-processed-class'));
+    }
+
     // Maybe some fields don't need to be standardized.
     if (typeof $elem.attr('data-bfi-disabled') != 'undefined') {
       return;
@@ -47,7 +56,7 @@ $.fn.bootstrapFileInput = function() {
 
     // As the cursor moves over our new Bootstrap button we need to adjust the position of the invisible file input Browse button to be under the cursor.
     // This gives us the pointer cursor that FF denies us
-    $('.file-input-wrapper').mousemove(function(cursor) {
+    $('.file-input-wrapper').on('mousemove', function(cursor) {
 
       var input, wrapper,
         wrapperX, wrapperY,
@@ -91,25 +100,29 @@ $.fn.bootstrapFileInput = function() {
       // Remove any previous file names
       $(this).parent().next('.file-input-name').remove();
       if (!!$(this).prop('files') && $(this).prop('files').length > 1) {
-        fileName = $(this)[0].files.length+' files';
-        //$(this).parent().after('<span class="file-input-name">'+$(this)[0].files.length+' files</span>');
+        var filesLabel = $(this).data('files-label');
+        if (!filesLabel) {
+          filesLabel = 'files';
+        }
+        fileName = $(this)[0].files.length+' '+filesLabel;
       }
       else {
-        // var fakepath = 'C:\\fakepath\\';
-        // fileName = $(this).val().replace('C:\\fakepath\\','');
-        fileName = fileName.substring(fileName.lastIndexOf('\\')+1,fileName.length);
+        fileName = fileName.substring(fileName.lastIndexOf('\\') + 1, fileName.length);
       }
 
-      var selectedFileNamePlacement = $(this).data('filename-placement') || 'outside';
+      // Don't try to show the name if there is none
+      if (!fileName) {
+        return;
+      }
+
+      var selectedFileNamePlacement = $(this).data('filename-placement');
       if (selectedFileNamePlacement === 'inside') {
         // Print the fileName inside
         $(this).siblings('span').html(fileName);
         $(this).attr('title', fileName);
-      } else if (selectedFileNamePlacement === 'outside') {
+      } else {
         // Print the fileName aside (right after the the button)
         $(this).parent().after('<span class="file-input-name">'+fileName+'</span>');
-      } else {
-        console.log('Error in bootstrap-file-input plugin : unknown placement [' + selectedFileNamePlacement + '] for selected filename');
       }
     });
 

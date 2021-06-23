@@ -3,60 +3,80 @@ class Thorax.Models.Patient extends Thorax.Model
   urlRoot: '/patients'
 
   parse: (attrs) ->
-    dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
-    attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
+    thoraxPatient = {}
 
-    attrs.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
-
-    # This section is a bit unusual: we map from server side values to a more straight forward client
-    # side representation; the reverse mapping would usually happen in toJSON(), but in this case it
-    # happens on the server in the controller
-    # extract demographics from hash, or use extracted values when cloning
-    attrs.ethnicity = attrs.ethnicity?.code || attrs.ethnicity
-    attrs.race = attrs.race?.code || attrs.race
-    attrs.payer = attrs.insurance_providers?[0]?.type || 'OT'
-
-    attrs
+    # cqmPatient will already exist if we are cloning the thoraxModel
+    if attrs.cqmPatient?
+      thoraxPatient.cqmPatient = new cqm.models.Patient(attrs.cqmPatient)
+      thoraxPatient.cqmPatient.qdmPatient.extendedData = attrs.cqmPatient.qdmPatient.extendedData
+    else
+      thoraxPatient.cqmPatient = new cqm.models.Patient(attrs)
+    # TODO: look into adding this into cqmPatient construction
+    if !thoraxPatient.cqmPatient.qdmPatient
+      thoraxPatient.cqmPatient.qdmPatient = new cqm.models.QDMPatient()
+    thoraxPatient._id = attrs._id
+    thoraxPatient.expired = (thoraxPatient.cqmPatient.qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
+    thoraxPatient.source_data_criteria = new Thorax.Collections.SourceDataCriteria(thoraxPatient.cqmPatient.qdmPatient.dataElements, parent: this, parse: true)
+    thoraxPatient.expected_values = new Thorax.Collections.ExpectedValues(thoraxPatient.cqmPatient.expectedValues, parent: this, parse: true)
+    thoraxPatient
 
   # Create a deep clone of the patient, optionally omitting the id field
   deepClone: (options = {}) ->
-    # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
-    data = if options.omit_id then _(@toJSON()).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
+    clonedPatient = @.clone()
+    # clone the cqmPatient and make a new source_data_criteria collection for it
+    clonedPatient.set 'cqmPatient', new cqm.models.Patient(mongoose.utils.clone(clonedPatient.get('cqmPatient')))
+    if options.new_id then clonedPatient.get('cqmPatient')._id = new mongoose.Types.ObjectId()
+    clonedPatient.set '_id', clonedPatient.get('cqmPatient')._id.toString()
+    clonedPatient.set 'source_data_criteria', new Thorax.Collections.SourceDataCriteria(clonedPatient.get('cqmPatient').qdmPatient.dataElements, parent: clonedPatient, parse: true)
+    clonedPatient.set 'expected_values', new Thorax.Collections.ExpectedValues(clonedPatient.get('cqmPatient').expectedValues, parent: clonedPatient, parse: true)
     if options.dedupName
-       data['first'] = bonnie.patients.dedupName(data)
+      clonedPatient.get('cqmPatient')['givenNames'][0] = bonnie.patients.dedupName(clonedPatient)
+    clonedPatient.set 'expired', (clonedPatient.get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired').length > 0
+    clonedPatient
 
-    json = JSON.stringify data
-
-    new @constructor JSON.parse(json), parse: true
-
-  getBirthDate: -> new Date(@get('birthdate'))
-  getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
-    @get('measure_ids').map (m) ->
+    @get('cqmPatient')['measure_ids'].map (m) ->
       validIds[m] = {key: m, value: _.contains(measures.pluck('hqmf_set_id'), m)}
     validIds
   getEntrySections: ->
     s for s in Thorax.Models.Patient.sections when @has(s)
   ### Patient HTML Header values ###
+  getBirthDate: -> @printDate @get('cqmPatient').qdmPatient.birthDatetime
+  getBirthTime: -> @printTime @get('cqmPatient').qdmPatient.birthDatetime
+  getDeathDate: -> if @get('expired') then @printDate((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime)
+  getDeathTime: -> if @get('expired') then @printTime((@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0].expiredDatetime)
+
+  # Next 4 methods return the Code object since some calls to them need the code while others need the display name
   getGender: ->
-    if @get('gender') == 'M'
-      "Male"
-    else
-      "Female"
-  getBirthdate: -> @printDate @get('birthdate')
-  getExpirationDate: -> if @get('expired') then @printDate(@get('deathdate')) else ''
+    genderElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'gender')[0]
+    unless genderElement? then return {code: "Unknown", display: "Unknown"}
+    genderElement?.dataElementCodes[0]
   getRace: ->
-    unless @get('race')? then "Unknown"
-    else unless @get('race').name? then "CDC-RE: #{@get('race').code}"
-    else @get('race').name
+    raceElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'race')[0]
+    unless raceElement? then return {code: "Unknown", display: "Unknown"}
+    else unless raceElement.dataElementCodes[0].display? then "CDC-RE: #{raceElement.dataElementCodes[0].code}"
+    else raceElement.dataElementCodes[0]
   getEthnicity: ->
-    unless @get('ethnicity')? then "Unknown"
-    else unless @get('ethnicity').name? then "CDC-RE: #{@get('ethnicity').code}"
-    else @get('ethnicity').name
+    ethnicityElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'ethnicity')[0]
+    unless ethnicityElement? then return {code: "Unknown", display: "Unknown"}
+    else unless ethnicityElement.dataElementCodes[0].display? then "CDC-RE: #{ethnicityElement.dataElementCodes[0].code}"
+    else ethnicityElement.dataElementCodes[0]
+  getPayer: ->
+    payerElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'payer')[0]
+    unless payerElement? then return {code: "Unknown", display: "Unknown"}
+    else unless payerElement.dataElementCodes[0].display? then "CDC-RE: #{payerElement.dataElementCodes[0].code}"
+    else payerElement.dataElementCodes[0]
+
   getInsurance: ->
     insurances = @get('insurance_providers')?.map (ip) -> ip.name
     insurances?.join(", ") or ''
+  getFirstName: ->
+    @get('cqmPatient').givenNames[0]
+  getLastName: ->
+    @get('cqmPatient').familyName
+  getNotes: ->
+    @get('cqmPatient').notes
   getAddresses: ->
     address = ""
     if @get('addresses')
@@ -71,58 +91,109 @@ class Thorax.Models.Patient extends Thorax.Model
         address += telecom.value + "\n"
         if telecom.use
           address += telecom.use + "\n"
+  setCqmPatientFirstName: (firstName) ->
+    @get('cqmPatient').givenNames[0] = firstName
+  setCqmPatientLastName: (lastName) ->
+    @get('cqmPatient').familyName = lastName
+  setCqmPatientNotes: (notes) ->
+    @get('cqmPatient').notes = notes
+
+  setCqmPatientBirthDate: (birthdate, measure) ->
+    @get('cqmPatient').qdmPatient.birthDatetime = @createCQLDate(moment.utc(birthdate, 'L LT').toDate())
+    sourceElement = @removeElementAndGetNewCopy('birthdate', measure.get('cqmMeasure'))
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicBirthdate() # Patient characteristic birthdate was not found on the measure, so its created without a code
+    sourceElement.birthDatetime = @get('cqmPatient').qdmPatient.birthDatetime.copy()
+    if sourceElement.codeListId?
+      birthdateConcept = @getConceptsForDataElement('birthdate', measure)[0]
+      sourceElement.dataElementCodes[0] = @conceptToCode(birthdateConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientDeathDate: (deathdate, measure) ->
+    sourceElement = @removeElementAndGetNewCopy('expired', measure.get('cqmMeasure'))
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicExpired() # Patient characteristic expired was not found on the measure, so its created without a code
+    expiredElement = @get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired'
+    if expiredElement and expiredElement.expiredDatetime
+      sourceElement.expiredDatetime = expiredElement.expiredDatetime.copy()
+    if !sourceElement.expiredDatetime
+      sourceElement.expiredDatetime = @createCQLDate(moment.utc(deathdate, 'L LT').toDate())
+    if sourceElement.codeListId?
+      deathdateConcept = @getConceptsForDataElement('expired', measure)[0]
+      sourceElement.dataElementCodes[0] = @conceptToCode(deathdateConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientGender: (gender, measure) ->
+    sourceElement = @removeElementAndGetNewCopy('gender', measure.get('cqmMeasure'))
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicSex()
+    genderConcept = (@getConceptsForDataElement('gender', measure).filter (elem) -> elem.code == gender)[0]
+    sourceElement.dataElementCodes[0] = @conceptToCode(genderConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientRace: (race, measure) ->
+    sourceElement = @removeElementAndGetNewCopy('race', measure.get('cqmMeasure'))
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicRace()
+    raceConcept = (@getConceptsForDataElement('race', measure).filter (elem) -> elem.code == race)[0]
+    sourceElement.dataElementCodes[0] = @conceptToCode(raceConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+  setCqmPatientEthnicity: (ethnicity, measure) ->
+    sourceElement = @removeElementAndGetNewCopy('ethnicity', measure.get('cqmMeasure'))
+    if !sourceElement
+      sourceElement = new cqm.models.PatientCharacteristicEthnicity()
+    ethnicityConcept = (@getConceptsForDataElement('ethnicity', measure).filter (elem) -> elem.code == ethnicity)[0]
+    sourceElement.dataElementCodes[0] = @conceptToCode(ethnicityConcept)
+    @get('cqmPatient').qdmPatient.dataElements.push(sourceElement)
+
+  removeElementAndGetNewCopy: (elementType, cqmMeasure) ->
+    element = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == elementType)[0]
+    if element
+      elementIndex = @get('cqmPatient').qdmPatient.dataElements.indexOf(element)
+      @attributes.cqmPatient.qdmPatient.dataElements.splice(elementIndex, 1)
+    # return copy of dataElement off the measure if one exists
+    sdcDataElement = (cqmMeasure.source_data_criteria.filter (elem) -> elem.qdmStatus == elementType )[0]
+    if (sdcDataElement)
+      dataElementType = sdcDataElement._type.replace(/QDM::/, '')
+      return new cqm.models[dataElementType](mongoose.utils.clone(sdcDataElement))
+    else
+      return null
+
+  getConceptsForDataElement: (qdmStatus, measure) ->
+    dataCriteria = (measure.get('cqmMeasure').source_data_criteria.filter (elem) -> elem.qdmStatus == qdmStatus)[0]
+    return [] unless dataCriteria?
+    valueSet = (measure.valueSets()?.filter (elem) -> elem.oid == dataCriteria.codeListId)?[0]
+    valueSet?.concepts || []
+
+  createCQLDate: (date) ->
+    cqm.models.CQL.DateTime.fromJSDate(date, 0)
+
+  conceptToCode: (concept) ->
+    new cqm.models.CQL.Code(concept.code, concept.code_system_oid, null, concept.display_name || null)
+
   printDate: (date) ->
-    fullDate = new Date(date * 1000)
-    (fullDate.getMonth() + 1) + '/' + fullDate.getDay() + '/' + fullDate.getYear()
+    (date.month.toString().padStart(2, '0') + '/' + date.day.toString().padStart(2, '0') + '/' + date.year) if date
+
+  printTime: (dateTime) ->
+    moment(dateTime).format('h:mm A') if dateTime
 
   materialize: ->
-
-    # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
-    # "changed" functionality because that doesn't capture new sub-models
-    patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
-    return if @previousPatientJSON == patientJSON
-    @previousPatientJSON = patientJSON
-    
-    $.ajax
-      url:         "#{@urlRoot}/materialize"
-      type:        'POST'
-      dataType:    'json'
-      contentType: 'application/json'
-      data:        JSON.stringify @toJSON()
-      processData: false
-    .done (data) =>
-      # We only want to overwrite certain fields; if the server doesn't provide them, we want them emptied
-      defaults = {}
-      defaults[section] = [] for section in Thorax.Models.Patient.sections
-      @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
-      for criterium, i in @get('source_data_criteria').models
-        criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
-        # if we already have codes, then we know we're up to date; no change is necessary
-        if criterium.get('codes').isEmpty()
-          criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
-      @previousPatientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections) # Capture post-materialize changes too
-      @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
-      $('#ariaalerts').html "This patient has been updated" #tell SR something changed
-    .fail ->
-      bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
+    @trigger 'materialize'
 
   getExpectedValue: (population) ->
     measure = population.collection.parent
-    expectedValue = @get('expected_values').findWhere(measure_id: measure.get('hqmf_set_id'), population_index: population.index())
+    expectedValue = @get('expected_values').findWhere(measure_id: measure.get('cqmMeasure').hqmf_set_id, population_index: population.index())
     unless expectedValue
-      expectedValue = new Thorax.Models.ExpectedValue measure_id: measure.get('hqmf_set_id'), population_index: population.index()
+      expectedValue = new Thorax.Models.ExpectedValue measure_id: measure.get('cqmMeasure').hqmf_set_id, population_index: population.index()
       @get('expected_values').add expectedValue
     # We don't want to set a value for OBSERV, it should already exist or be created in the builder
     for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has(populationCriteria) and populationCriteria != 'OBSERV'
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
 
-    if !_(@get('measure_ids')).contains measure.get('hqmf_set_id') # if patient wasn't made for this measure
+    if !_(@get('cqmPatient')['measure_ids']).contains measure.get('cqmMeasure').hqmf_set_id # if patient wasn't made for this measure
       expectedValue.set _.object(_.keys(expectedValue.attributes), []) # make expectations undefined instead of 0/fail
 
     expectedValue
 
   getExpectedValues: (measure) ->
-    expectedValues = new Thorax.Collections.ExpectedValues()
+    expectedValues = new Thorax.Collections.ExpectedValues([], parent: this)
     measure.get('populations').each (population) =>
       expectedValues.add @getExpectedValue(population)
     expectedValues
@@ -136,46 +207,24 @@ class Thorax.Models.Patient extends Thorax.Model
 
   validate: ->
     errors = []
-    birthdate = if @get('birthdate') then moment(@get('birthdate'), 'X') else null
-    deathdate = if @get('deathdate') then moment(@get('deathdate'), 'X') else null
+    birthdate = if @get('cqmPatient').qdmPatient.birthDatetime then moment(@get('cqmPatient').qdmPatient.birthDatetime, 'X') else null
+    expiredElement = (@get('cqmPatient').qdmPatient.patient_characteristics().filter (elem) -> elem.qdmStatus == 'expired')[0]
+    deathdate = if @get('expired') && expiredElement?.expiredDatetime then moment(expiredElement.expiredDatetime, 'X') else null
 
-    unless @get('first').length > 0
+    unless @getFirstName()?.length > 0
       errors.push [@cid, 'first', 'Name fields cannot be blank']
-    unless @get('last').length > 0
+    unless @getLastName()?.length > 0
       errors.push [@cid, 'last', 'Name fields cannot be blank']
     unless birthdate
       errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
     if @get('expired') && !deathdate
       errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
-    if birthdate && birthdate.year() < 100
+    if birthdate && birthdate.year() < 1000
       errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
-    if deathdate && deathdate.year() < 100
+    if deathdate && deathdate.year() < 1000
       errors.push [@cid, 'deathdate', 'Date of death must have four digit year']
     if deathdate && birthdate && deathdate.isBefore birthdate
       errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
-
-    @get('source_data_criteria').each (sdc) =>
-      start_date = if sdc.get('start_date') then moment(sdc.get('start_date') / 1000, 'X') else null
-      end_date = if sdc.get('end_date') then moment(sdc.get('end_date') / 1000, 'X') else null
-      # Note that birth and death dates are stored in seconds, data criteria dates in milliseconds
-      unless start_date
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} must have start date"]
-      if end_date && start_date && end_date.isBefore start_date
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date cannot be before start date"]
-      if start_date && start_date.year() < 100
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must have four digit year"]
-      if end_date && end_date.year() < 100
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must have four digit year"]
-      # Start date *can* be before patient birth, if the encounter is when the patient is being born!
-      # if sdc.get('start_date') && @get('birthdate') && sdc.get('start_date') < @get('birthdate') * 1000
-      #   errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be after patient date of birth"]
-      if start_date && deathdate && start_date.isAfter deathdate
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be before patient date of death"]
-      if end_date && birthdate && end_date.isBefore birthdate
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be after patient date of birth"]
-      # Stop date *can* be after patient death, if the patient has died during an encounter or procedure
-      # if end_date && deathdate && end_date.isAfter deathdate
-      #   errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be before patient date of death"]
 
     return errors if errors.length > 0
 
@@ -183,18 +232,21 @@ class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'
   model: Thorax.Models.Patient
   dedupName: (patient) ->
-    return patient.first if !(patient.first && patient.last)
-    #matcher to find all of the records that have the same last name and the first name starts with the first name of the
-    #patient data being duplicated
+    # Can't use patient getters here since patient is not a thorax patient at this point
+    patientFirst = patient.getFirstName()
+    patientLast = patient.getLastName()
+    return patientFirst if !(patientFirst && patientLast)
+    # matcher to find all of the records that have the same last name and the first name starts with the first name of the
+    # patient data being duplicated
     matcher =  (record) ->
-      return false if !(record.get('first') && record.get('last')) || record.get('last') != patient.last
-      return record.get('first').substring( 0, patient.first.length ) == patient.first;
+      return false if !(record.getFirstName() && record.getLastName()) || record.getLastName() != patientLast
+      return record.getFirstName().substring( 0, patientFirst.length ) == patientFirst;
 
     matches = @.filter(matcher)
     index = 1
-    #increment the index for any copy index that may have been previously used
-    index++ while _.find(matches, (record) -> record.get("first") == patient.first + " ("+index+")")
-    patient.first + " (" + index + ")"
+    # increment the index for any copy index that may have been previously used
+    index++ while _.find(matches, (record) -> record.getFirstName() == patientFirst + " ("+index+")")
+    patientFirst + " (" + index + ")"
 
   toOids: ->
     patientToOids = {} # patient medical_record_number : valueSet oid

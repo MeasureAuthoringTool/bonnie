@@ -1,4 +1,4 @@
-class Thorax.Models.Population extends Thorax.Model
+class Thorax.Models.PopulationSet extends Thorax.Model
 
   index: -> @collection.indexOf(this)
 
@@ -6,7 +6,7 @@ class Thorax.Models.Population extends Thorax.Model
 
   measure: -> @collection.parent
 
-  displayName: -> "#{@measure().get('cms_id')}#{if @measure().get('populations').length > 1 then @get('sub_id') else ''}"
+  displayName: -> "#{@measure().get('cqmMeasure').cms_id}#{if @measure().get('populations').length > 1 then @get('sub_id') else ''}"
 
   populationCriteria: -> (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @has(criteria))
 
@@ -68,29 +68,29 @@ class Thorax.Models.Population extends Thorax.Model
       for precondition in child.preconditions
         occurrences = occurrences.concat @getDataCriteriaKeys(precondition,specificsOnly)
     else if child.reference
-      occurrences = occurrences.concat @getDataCriteriaKeys(@measure().get('data_criteria')[child.reference],specificsOnly)
+      occurrences = occurrences.concat @getDataCriteriaKeys(@measure().get('source_data_criteria')[child.reference],specificsOnly)
     else
       if child.type is 'derived' && child.children_criteria
         # add derived to DC list if it's a satisfies all/any or a variable
-        occurrences.push child.key if child.key && (child.specific_occurrence || !specificsOnly) && (child.definition in Thorax.Models.MeasureDataCriteria.satisfiesDefinitions || child.variable)
+        occurrences.push child.key if child.key && (child.specific_occurrence || !specificsOnly) && (child.definition in Thorax.Models.SourceDataCriteria.satisfiesDefinitions || child.variable)
         for dataCriteriaKey in child.children_criteria
-          dataCriteria = @measure().get('data_criteria')[dataCriteriaKey]
+          dataCriteria = @measure().get('source_data_criteria')[dataCriteriaKey]
           occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
       else
         if child.specific_occurrence || !specificsOnly
           occurrences.push child.key if child.key
       if (child.temporal_references?.length > 0)
         for temporal_reference in child.temporal_references
-          dataCriteria = @measure().get('data_criteria')[temporal_reference.reference]
+          dataCriteria = @measure().get('source_data_criteria')[temporal_reference.reference]
           occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
       if (child.references?)
         for type, reference of child.references
-          dataCriteria = @measure().get('data_criteria')[reference.reference]
+          dataCriteria = @measure().get('source_data_criteria')[reference.reference]
           occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
     return occurrences
 
-class Thorax.Collections.Population extends Thorax.Collection
-  model: Thorax.Models.Population
+class Thorax.Collections.PopulationSets extends Thorax.Collection
+  model: Thorax.Models.PopulationSet
   initialize: (models, options) -> @parent = options?.parent
   whenDifferencesComputed: (callback) ->
     @each (population) => population.differencesFromExpected().once 'complete', => callback(@) if @differencesComputed()

@@ -1,89 +1,68 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.11'
+gem 'rails', '5.2.4.6'
 
-# There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
-# https://github.com/capistrano/rails/issues/111
-gem 'sprockets', '~> 2.8'
+gem 'sprockets'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
-gem 'sprockets-rails'
+# Pinning sprockets-rails to 2.3.3 so that everything doesn't blow up. It might be time to start thinking about webpack.
+gem 'sprockets-rails', '2.3.3'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', '~> 4.3.5'
-gem 'cql_qdm_patientapi', '~> 1.3.2'
-gem 'simplexml_parser', '~> 1.0'
-gem 'hqmf2js', '~> 1.4'
-gem 'bonnie_bundler', git: 'https://github.com/projecttacoma/bonnie_bundler', branch: 'bonnie-prior-10-7-2020'
-gem 'quality-measure-engine', '~> 3.2'
-gem 'hquery-patient-api', '~> 1.1'
-gem 'cqm-converter', '~> 1.0.4'
+gem 'cqm-models', '~> 3.0.6'
+gem 'cqm-reports', '~> 3.1.2'
 
-# gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master_bonnie'
-# gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'bonnie-patch'
-# gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
-# gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
-# gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'bonnie-patch'
-# gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
-# gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
-# gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'bonnie-patch'
-gem 'cqm-reports', :git => 'https://github.com/projecttacoma/cqm-reports', :branch => 'bonnie_export'
-
-# gem 'health-data-standards', :path => '../health-data-standards'
-# gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
-# gem 'simplexml_parser', :path => '../simplexml_parser'
-# gem 'hqmf2js', path: '../hqmf2js'
-# gem 'bonnie_bundler', :path => '../bonnie_bundler'
-# gem 'quality-measure-engine', :path => '../quality-measure-engine'
-# gem 'hquery-patient-api', :path => '../patientapi'
-# gem 'cqm-converter', :path => '../cqm-converter'
+gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'qdm_55'
 
 # needed for HDS
-gem 'rubyzip', '>= 1.2.1'
+gem 'rubyzip', '>= 1.3.0'
 gem 'zip-zip'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
-gem 'mongoid'
-gem 'protected_attributes'
+gem 'mongoid', '~> 6.4.2'
 gem 'devise'
 gem 'systemu'
 gem 'multi_json'
-
+gem 'rest-client'
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
-gem 'roo'
+gem 'roo', '~> 2.7'
 
 
 gem 'oj' # Faster JSON
-gem 'apipie-rails', :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
+gem 'apipie-rails'
 gem 'maruku' # enable Markup for API documentation
 gem 'doorkeeper', '~> 4.4.0'
 gem "doorkeeper-mongodb", '~> 4.1.0'
 
 group :test, :development, :ci do
   gem 'pry'
-  gem 'teaspoon'
+  # Pinning teaspoon to 1.1.5 because of sprockets-rails 2.3.3
+  gem 'teaspoon', '1.1.5'
   gem "overcommit"
-  gem 'rubocop'
+  gem 'rubocop', '~> 0.88.0'
+  gem 'rubocop-ast', '~> 0.3.0'
   gem 'teaspoon-jasmine'
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'rails_best_practices'
-  gem 'reek'
-  gem 'webmock'
+  gem 'webmock', '~> 2.3.1'
   gem 'vcr'
   gem 'bundler-audit'
   gem 'colorize'
   gem 'brakeman'
   gem 'selenium-webdriver'
+  gem 'codecov', :require => false
+  gem 'rails-controller-testing'
 end
 
 group :test, :development do
   gem 'pry-byebug'
-  gem 'thin'
+  gem 'thin', '~> 1.7.2'
   gem 'capistrano-rails'
+  gem 'capistrano-npm'
   gem 'rvm1-capistrano3', require: false
 end
 
@@ -100,7 +79,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '~> 2.7.2'
+  gem 'uglifier', '~> 4.1.20'
 end
 
 gem 'foreman'
@@ -110,3 +89,6 @@ gem 'jquery-rails'
 
 # Browser Detection
 gem 'browser'
+
+gem "reverse_markdown", "~> 2.0"
+gem "tinymce-rails"

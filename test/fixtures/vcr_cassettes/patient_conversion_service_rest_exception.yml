@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://bonniedev-fhir.semanticbits.com/bonnie-patient-conversion/patients/convertMany
+    body:
+      encoding: UTF-8
+      string: '["_id":"5fce94e39c996400009695ba","bundleId":null,"expectedValues":[{"population_index":0,"measure_id":"AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC","IPP":1,"DENOM":1,"DENEX":0,"NUMER":0}],"familyName":"IPP_DENOM","givenNames":["Pass_Test"],"measure_ids":["AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC"],"notes":"","provider_ids":[],"qdmPatient":{"_id":"5fff6d56b78902e98d5987f2","birthDatetime":"1958-01-01T08:00:00.000+00:00","dataElements":[{"_id":"5fce95119c99640000969609","admissionSource":null,"authorDatetime":"2012-12-07T08:00:00.000+00:00","codeListId":"2.16.840.1.113883.3.464.1003.101.12.1001","dataElementCodes":[{"code":"185463005","system":"2.16.840.1.113883.6.96","version":null,"display":null}],"description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"hqmfOid":"2.16.840.1.113883.10.20.28.4.5","id":"5fce95119c99640000969609","lengthOfStay":null,"negationRationale":null,"priority":null,"qdmCategory":"encounter","qdmStatus":"performed","qdmTitle":"Encounter,
+        Performed","qdmVersion":"5.5","relevantPeriod":{"low":"2012-12-07T08:00:00.000Z","high":"2012-12-07T08:15:00.000Z","lowClosed":true,"highClosed":true},"_type":"QDM::EncounterPerformed"},{"_id":"5fce94c6b789027d3ae63d5e","codeListId":"2.16.840.1.113762.1.4.1","dataElementCodes":[{"code":"F","system":"2.16.840.1.113883.5.1","version":null,"display":"Female"}],"description":"Patient
+        Characteristic Sex: ONCAdministrativeSex","hqmfOid":"2.16.840.1.113883.10.20.28.4.55","id":"5fce94c6b789027d3ae63d5e","qdmCategory":"patient_characteristic","qdmStatus":"gender","qdmTitle":"Patient
+        Characteristic Sex","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicSex"},{"_id":"5fce94c6b789027d3ae63d80","birthDatetime":"1958-01-01T08:00:00.000+00:00","codeListId":"drc-c48426f721cede4d865df946157d5e2dc90bd32763ffcb982ca45b3bd97a29db","dataElementCodes":[{"code":"21112-8","system":"2.16.840.1.113883.6.1","version":null,"display":"Birth
+        date"}],"description":"Patient Characteristic Birthdate: Birth date","hqmfOid":"2.16.840.1.113883.10.20.28.4.54","id":"5fce94c6b789027d3ae63d80","qdmCategory":"patient_characteristic","qdmStatus":"birthdate","qdmTitle":"Patient
+        Characteristic Birthdate","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicBirthdate"},{"_id":"5fce94c6b789027d3ae63d6a","codeListId":"2.16.840.1.114222.4.11.836","dataElementCodes":[{"code":"1002-5","system":"2.16.840.1.113883.6.238","version":null,"display":"American
+        Indian or Alaska Native"}],"description":"Patient Characteristic Race: Race","hqmfOid":"2.16.840.1.113883.10.20.28.4.59","id":"5fce94c6b789027d3ae63d6a","qdmCategory":"patient_characteristic","qdmStatus":"race","qdmTitle":"Patient
+        Characteristic Race","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicRace"},{"_id":"5fce94c6b789027d3ae63d78","codeListId":"2.16.840.1.114222.4.11.837","dataElementCodes":[{"code":"2135-2","system":"2.16.840.1.113883.6.238","version":null,"display":"Hispanic
+        or Latino"}],"description":"Patient Characteristic Ethnicity: Ethnicity","hqmfOid":"2.16.840.1.113883.10.20.28.4.56","id":"5fce94c6b789027d3ae63d78","qdmCategory":"patient_characteristic","qdmStatus":"ethnicity","qdmTitle":"Patient
+        Characteristic Ethnicity","qdmVersion":"5.5","_type":"QDM::PatientCharacteristicEthnicity"}],"extendedData":null,"qdmVersion":"5.5"},"user_id":"501fdba3044a111b98000001"}]'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin18.7.0 x86_64) ruby/2.4.5p335
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '3356'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - bonniedev-fhir.semanticbits.com
+  response:
+    status:
+      code: 400
+      message: 'Bad Request'
+    headers:
+      Server:
+      - nginx/1.16.1
+      Date:
+      - Wed, 13 Jan 2021 21:59:50 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Wed, 13 Jan 2021 21:59:50 GMT
+recorded_with: VCR 6.0.0
