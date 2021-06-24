@@ -1,8 +1,15 @@
 class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
   template: JST['users/user_edit_dialog']
 
+  initialize: ->
+    @groupsModel = new Thorax.Model groups: @model.get('groups') || []
+    @displayUserGroupsView = new Thorax.Views.DisplayUserGroupsView(
+      model: @groupsModel
+      userModel: @model
+    )
+
   setup: ->
-    @userEditDialog = @$("#userEditDialog")
+    @userEditDialog = @$("#user-edit-dialog")
     @validate()
 
   events:
@@ -20,14 +27,61 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
 
   display: ->
     @userEditDialog.modal(
-      "backdrop" : "static",
-      "keyboard" : false,
-      "show" : true)
+      "backdrop": "static",
+      "keyboard": false,
+      "show": true)
+
+  addGroup: ->
+    view = this
+    view.$('#error-message').hide()
+    groupName = @$("input#groupName").val()
+    unless groupName
+      view.$('#error-message').html("Group name is required").show()
+      return
+    index = view.groupsModel.get('groups').findIndex((group) -> group.name == groupName)
+    if index != -1
+      view.$('#error-message').html("Group name already exists").show()
+      return
+    $.ajax
+      url: "admin/groups/find_group_by_name"
+      type: 'GET'
+      data: {
+        group_name: groupName
+      }
+      success: (data) ->
+        if(data)
+          if(!data.is_personal)
+            view.groupsModel.get('groups').push(data)
+            view.displayUserGroupsView.render()
+            view.$('#groupName').val("")
+          else
+            view.$('#error-message').html("This is a private group").show()
+        else
+          view.$('#error-message').html("Not a valid group").show()
 
   submit: ->
-    @serialize()
-    @userEditDialog.modal('hide')
-    @submitCallback?()
+    view = this
+    debugger
+    $.ajax
+      url: "admin/users/update_groups_to_a_user"
+      type: 'POST'
+      data: {
+        user_id: view.model.get('_id'),
+        group_ids: view.groupsModel.get('groups').map((group) -> group._id)
+      }
+      success: (response) ->
+        view.userEditDialog.modal('hide')
+        bonnie.showMsg(
+          title: 'Success',
+          body: "#{view.model.get('first_name')} #{view.model.get('last_name')} has been successfully updated."
+        )
+      error: (response) ->
+        bonnie.showError(
+          title: 'Error',
+          body: 'Errors: ' + response.statusText)
+      @serialize()
+      @userEditDialog.modal('hide')
+      @submitCallback?()
 
   cancel: ->
     @userEditDialog.modal('hide')
@@ -62,3 +116,24 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
     else
       @$('#saveUserDialogOK').attr('disabled', 'disabled')
 
+
+class Thorax.Views.DisplayUserGroupsView extends Thorax.Views.BonnieView
+  template: JST['users/display_user_groups']
+  tagName: 'div'
+
+  confirmRemoveGroup: (e) ->
+    view = this
+    groupId = $(e.target).data('group-id')
+    groupName = $(e.target).data('group-name')
+    confirmationMessage = "Are you sure you want to remove user #{@userModel.get('first_name')} #{@userModel.get('last_name')} from #{groupName} ?"
+    @confirmationDialog = new Thorax.Views.ConfirmationDialog(
+      message: confirmationMessage
+      continueCallback: () -> view.removeGroupForUser(groupId)
+    )
+    @confirmationDialog.appendTo($(document.body))
+    @confirmationDialog.display()
+
+  removeGroupForUser: (groupId) ->
+    index = @model.get('groups').findIndex((group) -> group._id == groupId)
+    @model.get('groups').splice(index, 1)
+    @render()

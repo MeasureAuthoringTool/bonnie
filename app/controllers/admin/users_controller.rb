@@ -92,23 +92,26 @@ class Admin::UsersController < ApplicationController
 
   def user_by_email
     user = {}
-    if params[:email]
-      user = User.where(email: params[:email]).only(:first_name, :last_name, :email).first
-    end
+    user = User.where(email: params[:email]).only(:first_name, :last_name, :email).first if params[:email]
     render json: user
   end
 
   def users_by_group
     users = []
-    if params[:id]
-      users = User.where(group_ids: { '$in' => [params[:id]] }).only(:first_name, :last_name, :email).to_a
-    end
+    users = User.where(group_ids: { '$in' => [params[:id]] }).only(:first_name, :last_name, :email).to_a if params[:id]
     render json: users
   end
 
   def update_group_and_users
     group = Group.find(params[:group_id])
-    group.name = params[:group_name] if params[:group_name]
+    params_group_name = params[:group_name]
+
+    if group.name != params_group_name
+      existing_group = Group.where(name: params_group_name).collation({ locale: 'en', strength: 2 }).first
+      raise ActionController::BadRequest, "Group name #{params_group_name} is already used." if existing_group
+    end
+
+    group.name = params_group_name if params_group_name
     group.save
     params[:users_to_add]&.each do |id|
       user = User.find(id)
@@ -117,10 +120,22 @@ class Admin::UsersController < ApplicationController
     end
     params[:users_to_remove]&.each do |id|
       user = User.find(id)
-      user.groups = user.groups.select { |g| g.id != group.id }
+      user.groups = user.groups.reject { |g| g.id == group.id }
       user.save
     end
     render json: group
+  end
+
+  def update_groups_to_a_user
+    user = User.find(params[:user_id])
+    user.groups.clear
+    if params[:group_ids]
+      params[:group_ids].each do |groupId|
+        user.groups.push(Group.find(groupId))
+      end
+      user.save
+    end
+    render json: user
   end
 
   def patients
