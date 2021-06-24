@@ -107,8 +107,11 @@ class Admin::UsersController < ApplicationController
     params_group_name = params[:group_name]
 
     if group.name != params_group_name
-      existing_group = Group.where(name: params_group_name).collation({ locale: 'en', strength: 2 }).first
-      raise ActionController::BadRequest, "Group name #{params_group_name} is already used." if existing_group
+      down_cased_name = params_group_name.downcase
+      non_personal_groups = Group.where(is_personal: false)
+      non_personal_groups.all.each do |g|
+        raise ActionController::BadRequest, "Group name #{params_group_name} is already used." if g.name.downcase == down_cased_name
+      end
     end
 
     group.name = params_group_name if params_group_name

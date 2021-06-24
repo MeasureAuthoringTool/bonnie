@@ -25,7 +25,6 @@ describe 'GroupEditDialog', ->
       e.error(response);
 
     @editDialog.$("#name").val(group_name).keyup()
-    # click add user button @editDialog.$('button[data-call-method="submit_new_group"]').click()
     @editDialog.$('button#save_new_group').click()
 
     expect($.ajax).toHaveBeenCalled()
@@ -38,7 +37,17 @@ describe 'GroupEditDialog', ->
       e.error(response);
 
     @editDialog.$("#name").val(group_name).keyup()
-    # click add user button @editDialog.$('button[data-call-method="submit_new_group"]').click()
     @editDialog.$('button#save_new_group').click()
 
     expect($.ajax).toHaveBeenCalled()
+
+  it 'add new group with at sign', ->
+    group_name = "MyGroup@"
+
+    spyOn($, "ajax");
+
+    @editDialog.$("#name").val(group_name).keyup()
+    @editDialog.$('button#save_new_group').click()
+
+    expect($.ajax).not.toHaveBeenCalled();
+

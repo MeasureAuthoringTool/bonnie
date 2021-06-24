@@ -267,6 +267,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     # remove user from group
     get :update_group_and_users, params: {
+      group_name: 'CMS',
       group_id: @public_group.id,
       users_to_remove: [@user_admin.id],
     }
