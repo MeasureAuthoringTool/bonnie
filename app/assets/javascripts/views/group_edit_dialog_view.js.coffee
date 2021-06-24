@@ -92,8 +92,8 @@ class Thorax.Views.GroupEditDialog extends Thorax.Views.BonnieView
     isValid = false
     name = @$('#name').val()
     if name && name.indexOf( "@" ) < 0
-        @.$('#name').parent().removeClass('has-error')
-        isValid = true
+      @.$('#name').parent().removeClass('has-error')
+      isValid = true
     else
       @.$('#name').parent().addClass('has-error')
     isValid
