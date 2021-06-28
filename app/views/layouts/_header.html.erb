@@ -12,22 +12,24 @@
 
     <li class="dropdown nav-account <% if current_page?(controller: 'registrations', action: 'edit') %>active<% end %>">
       <a class="dropdown-toggle" data-toggle="dropdown" href="">
-        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-        <%if current_user.current_group.is_personal%>
-          <%= "#{current_user.first_name} #{current_user.last_name}" %>
-        <% else %>
-          <%= current_user.current_group.name%>
-        <% end %>
-        <b class="caret"></b>
+        <span class="dropdown-text">
+          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+          <%if current_user.current_group.is_personal%>
+            <%= "#{current_user.first_name} #{current_user.last_name}" %>
+          <% else %>
+            <%= current_user.current_group.name%>
+          <% end %>
+        </span>
+        <span class="caret"></span>
       </a>
-      <ul class="dropdown-menu col-md-12 col-lg-12">
+      <ul class="dropdown-menu">
         <% current_user.groups.each do |group| %>
           <li>
             <a class="switch-group-link" href="/user/switch_group/<%= group.id %>">
               <% if group.id == current_user.current_group.id %>
                 <i class="fa fa-check" aria-hidden="true"></i>&nbsp;
               <% end %>
-              <span class="<% if group.id != current_user.current_group.id %>inactive-group<% end %>">
+              <span class="dropdown-text <% if group.id != current_user.current_group.id %>inactive-group<% end %>" >
                 <%if group.is_personal%>
                   <%= "#{current_user.first_name} #{current_user.last_name}" %>
                 <% else %>

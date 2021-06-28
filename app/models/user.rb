@@ -77,6 +77,8 @@ class User
 
   field :first_name,    :type => String
   field :last_name,    :type => String
+  field :harp_id, :type => String
+  index({ harp_id: 1 }, { unique: true, name: "harp_id_index", sparse: true })
   field :telephone,    :type => String
   field :admin, type:Boolean, :default => false
   field :portfolio, type:Boolean, :default => false
@@ -90,6 +92,8 @@ class User
   has_and_belongs_to_many :groups, inverse_of: nil, class_name: 'Group'
 
   scope :by_email, ->(email) { where({email: email}) }
+
+  validates :harp_id, uniqueness: { message: 'Id is already taken' }, if: :harp_id?
 
   ## Confirmable
   # field :confirmation_token,   :type => String

@@ -87,6 +87,7 @@ Bonnie::Application.routes.draw do
         post 'log_in_as'
       end
     end
+    resources :groups
   end
 
   namespace :api_v1 do
