@@ -26,6 +26,9 @@ Bonnie::Application.routes.draw do
   get '404', :to => 'application#page_not_found'
   get '500', :to => 'application#server_error'
 
+  # switch user group route
+  get '/user/switch_group/:group_id', to: 'home#switch_group'
+
   # The following route is for the reporting of front end (javascript) errors
   # to the backend.
   post '/application/client_error' => 'application#client_error'

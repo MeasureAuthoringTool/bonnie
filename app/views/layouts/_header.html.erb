@@ -10,11 +10,41 @@
       <li><a href="/#"><i class="fa fa-bolt" aria-hidden="true"></i> Dashboard</a></li>
     <% end %>
 
-    <% if current_page?(controller: 'registrations', action: 'edit') %>
-      <li class="nav-account active"><a href="/users/edit"><i class="fa fa-magic" aria-hidden="true"></i> Account</a></li>
-    <% else %>
-      <li><a href="/users/edit"><i class="fa fa-magic" aria-hidden="true"></i> Account</a></li>
-    <% end %>
+    <li class="dropdown nav-account <% if current_page?(controller: 'registrations', action: 'edit') %>active<% end %>">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="">
+        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+        <%if current_user.current_group.is_personal%>
+          <%= "#{current_user.first_name} #{current_user.last_name}" %>
+        <% else %>
+          <%= current_user.current_group.name%>
+        <% end %>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu col-md-12 col-lg-12">
+        <% current_user.groups.each do |group| %>
+          <li>
+            <a class="switch-group-link" href="/user/switch_group/<%= group.id %>">
+              <% if group.id == current_user.current_group.id %>
+                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;
+              <% end %>
+              <span class="<% if group.id != current_user.current_group.id %>inactive-group<% end %>">
+                <%if group.is_personal%>
+                  <%= "#{current_user.first_name} #{current_user.last_name}" %>
+                <% else %>
+                  <%= group.name %>
+                <% end %>
+              </span>
+            </a>
+          </li>
+        <% end %>
+        <li>
+          <a href="/users/edit">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>
+            <span class="margin-left-6x">View Profile</span>
+          </a>
+        </li>
+      </ul>
+    </li>
 
     <% if (current_user.is_admin?)%><li class="nav-admin"><a href="/#admin/users"><i class="fa fa-gears" aria-hidden="true"></i> Admin</a></li><% end %>
 

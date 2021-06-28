@@ -86,8 +86,8 @@ class User
 
   field :crosswalk_enabled,  type:Boolean, default: false
 
-  belongs_to :current_group, inverse_of: false, optional: true, class_name: 'Group'
-  has_and_belongs_to_many :groups, inverse_of: false, class_name: 'Group'
+  belongs_to :current_group, inverse_of: nil, optional: true, class_name: 'Group'
+  has_and_belongs_to_many :groups, inverse_of: nil, class_name: 'Group'
 
   scope :by_email, ->(email) { where({email: email}) }
 
@@ -172,4 +172,7 @@ class User
     @patient_count || records.count
   end
 
+  def is_assigned_group(group)
+    groups.detect { |g| g.id == group.id }
+  end
 end
