@@ -150,7 +150,8 @@ describe 'UserEditDialog', ->
         groups: [
           {_id: 0, name: 'Group1', is_personal: false},
           {_id: 1, name: 'Group2', is_personal: true},
-        ]
+        ],
+        group_ids: [new Object('1')]
       })
 
     it 'should require a group name', ->
