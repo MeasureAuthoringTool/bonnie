@@ -10,6 +10,9 @@ describe 'GroupEditDialog', ->
     @editDialog.appendTo($(document.body))
     @editDialog.display()
 
+  afterEach ->
+    @editDialog?.remove()
+
   it 'displays initial state of the Group', ->
     existing_users = @editDialog.$('td').toArray().map (e) ->
       e.innerText
