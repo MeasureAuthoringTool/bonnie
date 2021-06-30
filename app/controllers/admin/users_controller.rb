@@ -131,13 +131,16 @@ class Admin::UsersController < ApplicationController
 
   def update_groups_to_a_user
     user = User.find(params[:user_id])
-    user.groups.clear
-    if params[:group_ids]
-      params[:group_ids].each do |groupId|
-        user.groups.push(Group.find(groupId))
-      end
+    params[:groups_to_add]&.each do |groupId|
+      group = Group.find(groupId)
+      user.groups << group
       user.save
     end
+    params[:groups_to_remove]&.each do |groupId|
+      group = Group.find(groupId)
+      user.groups = user.groups.select { |g| g.id != group.id }
+    end
+    user.save
     render json: user
   end
 

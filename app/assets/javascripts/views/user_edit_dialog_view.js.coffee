@@ -2,7 +2,14 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
   template: JST['users/user_edit_dialog']
 
   initialize: ->
-    @displayUserGroupsView = new Thorax.Views.DisplayUserGroupsView( model: @model )
+    @groupsModel = new Thorax.Model groups: @model.get('groups') || []
+    @groupsModel.set
+      groupsToAdd: []
+      groupsToRemove: []
+    @displayUserGroupsView = new Thorax.Views.DisplayUserGroupsView(
+      model: @groupsModel
+      userModel: @model
+    )
 
   setup: ->
     @userEditDialog = @$("#user-edit-dialog")
@@ -47,8 +54,8 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
       success: (data) ->
         if(data)
           if(!data.is_personal)
-            view.model.get('groups').push(data)
-            view.model.get('group_ids').push(data._id)
+            view.groupsModel.get('groups').push(data)
+            view.groupsModel.get('groupsToAdd').push(data._id)
             view.displayUserGroupsView.render()
             view.$('#groupName').val("")
           else
@@ -63,9 +70,11 @@ class Thorax.Views.UserEditDialog extends Thorax.Views.BonnieView
       type: 'POST'
       data: {
         user_id: view.model.get('_id'),
-        group_ids: view.model.get('groups').map((group) -> group._id)
+        groups_to_add: view.groupsModel.get('groupsToAdd'),
+        groups_to_remove: view.groupsModel.get('groupsToRemove')
       }
       success: (response) ->
+        view.model.set group_ids: response.group_ids
         view.userEditDialog.modal('hide')
         bonnie.showMsg(
           title: 'Success',
@@ -121,7 +130,7 @@ class Thorax.Views.DisplayUserGroupsView extends Thorax.Views.BonnieView
     view = this
     groupId = $(e.target).data('group-id')
     groupName = $(e.target).data('group-name')
-    confirmationMessage = "Are you sure you want to remove user #{@model.get('first_name')} #{@model.get('last_name')} from #{groupName} ?"
+    confirmationMessage = "Are you sure you want to remove user #{@userModel.get('first_name')} #{@userModel.get('last_name')} from #{groupName} ?"
     @confirmationDialog = new Thorax.Views.ConfirmationDialog(
       message: confirmationMessage
       continueCallback: () -> view.removeGroupForUser(groupId)
@@ -130,8 +139,7 @@ class Thorax.Views.DisplayUserGroupsView extends Thorax.Views.BonnieView
     @confirmationDialog.display()
 
   removeGroupForUser: (groupId) ->
+    @model.get('groupsToRemove').push(groupId)
     index = @model.get('groups').findIndex((group) -> group._id == groupId)
-    group_id_index = @model.get('group_ids').findIndex((group) -> group._id == groupId)
     @model.get('groups').splice(index, 1)
-    @model.get('group_ids').splice(index, 1)
     @render()

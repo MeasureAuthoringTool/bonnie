@@ -191,7 +191,7 @@ describe 'UserEditDialog', ->
       @userEditDialog.appendTo($(document.body))
       @userEditDialog.display()
 
-      @userEditDialog.$('input#groupName').val('Group4').keyup()
+      @userEditDialog.$('input#groupName').val('Group3').keyup()
       @userEditDialog.$('button[data-call-method="addGroup"]').click()
       expect(ajax_spy).toHaveBeenCalled()
 
