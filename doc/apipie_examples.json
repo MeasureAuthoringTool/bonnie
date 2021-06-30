@@ -66583,9 +66583,6 @@
       ],
       "query": null,
       "request_data": {
-        "group_ids": [
-          "501fdba3044a111b98000002"
-        ],
         "user_id": "501fdba3044a111b98000002"
       },
       "response_data": {
@@ -66621,9 +66618,8 @@
       ],
       "query": null,
       "request_data": {
-        "group_ids": [
-          "60d2495c072bbd9fd25d8123",
-          "501fdba3044a111b98000002"
+        "groups_to_add": [
+          "60dca1db072bbdfe54f44beb"
         ],
         "user_id": "501fdba3044a111b98000002"
       },
@@ -66641,8 +66637,8 @@
         "email": "user_admin@example.com",
         "first_name": "admin",
         "group_ids": [
-          "60d2495c072bbd9fd25d8123",
-          "501fdba3044a111b98000002"
+          "501fdba3044a111b98000002",
+          "60dca1db072bbdfe54f44beb"
         ],
         "harp_id": null,
         "last_name": "admin",
@@ -66661,7 +66657,10 @@
       ],
       "query": null,
       "request_data": {
-        "group_ids": [
+        "groups_to_add": [
+          "60dca1db072bbdfe54f44beb"
+        ],
+        "groups_to_remove": [
           "501fdba3044a111b98000002"
         ],
         "user_id": "501fdba3044a111b98000002"
@@ -66680,7 +66679,7 @@
         "email": "user_admin@example.com",
         "first_name": "admin",
         "group_ids": [
-          "501fdba3044a111b98000002"
+          "60dca1db072bbdfe54f44beb"
         ],
         "harp_id": null,
         "last_name": "admin",

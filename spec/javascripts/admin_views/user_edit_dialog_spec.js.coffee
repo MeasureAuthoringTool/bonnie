@@ -150,7 +150,8 @@ describe 'UserEditDialog', ->
         groups: [
           {_id: 0, name: 'Group1', is_personal: false},
           {_id: 1, name: 'Group2', is_personal: true},
-        ]
+        ],
+        group_ids: [new Object('1')]
       })
 
     it 'should require a group name', ->
@@ -190,7 +191,7 @@ describe 'UserEditDialog', ->
       @userEditDialog.appendTo($(document.body))
       @userEditDialog.display()
 
-      @userEditDialog.$('input#groupName').val('Group4').keyup()
+      @userEditDialog.$('input#groupName').val('Group3').keyup()
       @userEditDialog.$('button[data-call-method="addGroup"]').click()
       expect(ajax_spy).toHaveBeenCalled()
 
