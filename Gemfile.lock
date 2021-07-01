@@ -135,6 +135,19 @@ GEM
     colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.1.9)
+    cqm-reports (3.1.4)
+      cqm-models (~> 3.0)
+      cqm-validators (~> 3.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (>= 1.8.5, < 1.12.0)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
+    cqm-validators (3.1.1)
+      nokogiri (>= 1.8.5, < 1.12.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -344,7 +357,7 @@ GEM
     systemu (2.6.5)
     teaspoon (1.1.5)
       railties (>= 3.2.5, < 6)
-    teaspoon-jasmine (2.9.1)
+    teaspoon-jasmine (2.3.4)
       teaspoon (>= 1.0.0)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
@@ -399,6 +412,7 @@ DEPENDENCIES
   colorize
   cqm-models!
   cqm-parsers!
+  cqm-reports (~> 3.1.4)
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
@@ -433,7 +447,7 @@ DEPENDENCIES
   sprockets-rails (= 2.3.3)
   systemu
   teaspoon (= 1.1.5)
-  teaspoon-jasmine
+  teaspoon-jasmine (= 2.3.4)
   therubyracer
   thin (~> 1.7.2)
   tinymce-rails

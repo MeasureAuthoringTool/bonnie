@@ -13,7 +13,7 @@ gem 'less-rails'
 gem "non-stupid-digest-assets"
 
 gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models.git', :branch => 'cqm_models_3_x'
-# gem 'cqm-reports', '~> 3.1.2'
+gem 'cqm-reports', '~> 3.1.4'
 
 gem 'cqm-parsers', :git => 'https://github.com/projecttacoma/cqm-parsers.git', :branch => 'bonnie-prior-version'
 
@@ -44,7 +44,7 @@ group :test, :development, :ci do
   gem "overcommit"
   gem 'rubocop', '~> 0.88.0'
   gem 'rubocop-ast', '~> 0.3.0'
-  gem 'teaspoon-jasmine'
+  gem 'teaspoon-jasmine', '2.3.4'
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'rails_best_practices'
