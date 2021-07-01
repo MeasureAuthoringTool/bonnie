@@ -10,24 +10,36 @@ class RegistrationsController < Devise::RegistrationsController
     return saved
   end
 
+  def create
+    build_resource(sign_up_params)
+    if resource.harp_id.nil? || resource.harp_id.blank?
+      resource.errors.add :base, "HARP ID is required"
+      respond_with resource
+    else
+      super
+    end
+  end
+
   def after_inactive_sign_up_path_for(resource)
+    resource.deactivate
+    resource.save
     set_flash_message :notice, :signed_up_but_inactive
-    "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
+
+    if (resource.is_a?(User))
+      Rails.logger.info "New user created with full name: #{resource.full_name}."
+    end
+
+    "#{(respond_to?(:root_path) ? root_path : "/")}user/registered_not_active"
   end
 
   def destroy
-    if current_user.valid_password? params[:user][:current_password]
-      super
-    else
-      flash[:error] = "Incorrect password supplied, account not deleted"
-      redirect_to edit_user_registration_url
-    end
+    super
   end
 
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update, keys: [:crosswalk_enabled, :first_name, :last_name, :harp_id, :telephone])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:crosswalk_enabled, :harp_id])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :harp_id, :telephone])
   end
 

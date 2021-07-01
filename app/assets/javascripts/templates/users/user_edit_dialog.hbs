@@ -1,25 +1,19 @@
-<div class="modal fade" id="userEditDialog" tabindex="-1" aria-hidden="true">
+<div class="modal fade user-group-edit-dialog" id="user-edit-dialog" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog"  role="dialog" aria-labelledby="modalTitle">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title" id="userEditModalTitle">Edit User</h1>
       </div>
       <div class="modal-body">
-{{!--         <div class="form-group"> --}}
-{{!--           <label for="first_name">First name:</label> --}}
-{{!--           <input type="text" class="form-control" id="first_name" name="first_name" aria-describedby="emailHelp" placeholder="Enter first name"> --}}
-{{!--         </div> --}}
-{{!--         <div class="form-group"> --}}
-{{!--           <label for="last_name">Last name:</label> --}}
-{{!--           <input type="text" class="form-control" id="last_name" name="last_name" aria-describedby="emailHelp" placeholder="Enter last name"> --}}
-{{!--         </div> --}}
         <div class="form-group">
           <label for="email">Email address:</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
         </div>
         <div class="form-group">
           <label for="harp_id">HARP ID:</label>
-          <input type="text" class="form-control" id="harp_id" name="harp_id" aria-describedby="emailHelp" placeholder="Enter HARP ID">
+          <input type="text" class="form-control" id="harp_id" name="harp_id" placeholder="Enter HARP ID">
+          <label for="approved" class="sr-only">approved</label>
+          <input type="checkbox" class="form-check-input" id="approved" name="approved" hidden>
         </div>
         <div class="form-group form-check">
           <input type="checkbox" class="form-check-input" id="admin" name="admin">
@@ -29,16 +23,25 @@
           <input type="checkbox" class="form-check-input" id="portfolio" name="portfolio">
           <label class="form-check-label" for="portfolio">Portfolio?</label>
         </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="approved" name="approved">
-          <label class="form-check-label" for="approved">Approved?</label>
+        <div class="form-group">
+          {{view displayUserGroupsView}}
         </div>
-
+        <div class="form-group">
+          <label for="groupName">Add a new group to the user</label>
+          <div class="add-panel">
+            <input type="text" class="form-control" id="groupName" name="groupName"
+                placeholder="Group Name" title="Enter a Group Name">
+            <span id="error-message" class="error-message"></span>
+          </div>
+          <div>
+            <button type="button" id="addGroup" class="btn btn-primary" title="Add Group">Add</button>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="saveUserDialogOK" class="btn btn-primary">OK</button>
-        <button type="button" id="saveUserDialogCancel" class="btn btn-default">Cancel</button>
+        <button type="button" id="saveUserDialogOK" class="btn btn-primary" title="OK">OK</button>
+        <button type="button" id="saveUserDialogCancel" class="btn btn-default" title="Cancel">Cancel</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div>

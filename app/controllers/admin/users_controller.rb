@@ -62,6 +62,7 @@ class Admin::UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     user.update(user_params)
+    Rails.logger.info "#{current_user.full_name} modified user #{user.full_name}"
     respond_with user
   end
 
@@ -70,6 +71,7 @@ class Admin::UsersController < ApplicationController
     user.approved = true
     user.save
     UserMailer.account_activation_email(user).deliver_now
+    Rails.logger.info "#{current_user.full_name} approved user #{user.full_name}"
     render json: user
   end
 
@@ -77,13 +79,69 @@ class Admin::UsersController < ApplicationController
     user = User.find(params[:id])
     user.approved = false
     user.save
+    Rails.logger.info "#{current_user.full_name} disabled user #{user.full_name}"
     render json: user
   end
 
   def destroy
     user = User.find(params[:id])
     user.destroy
+    Rails.logger.info "#{current_user.full_name} deleted user #{user.full_name}"
     render json: {}
+  end
+
+  def user_by_email
+    user = {}
+    user = User.where(email: params[:email]).only(:first_name, :last_name, :email).first if params[:email]
+    render json: user
+  end
+
+  def users_by_group
+    users = []
+    users = User.where(group_ids: { '$in' => [params[:id]] }).only(:first_name, :last_name, :email).to_a if params[:id]
+    render json: users
+  end
+
+  def update_group_and_users
+    group = Group.find(params[:group_id])
+    params_group_name = params[:group_name]
+
+    if group.name != params_group_name
+      down_cased_name = params_group_name.downcase
+      non_personal_groups = Group.where(is_personal: false)
+      non_personal_groups.all.each do |g|
+        raise ActionController::BadRequest, "Group name #{params_group_name} is already used." if g.name.downcase == down_cased_name
+      end
+    end
+
+    group.name = params_group_name if params_group_name
+    group.save
+    params[:users_to_add]&.each do |id|
+      user = User.find(id)
+      user.groups << group
+      user.save
+    end
+    params[:users_to_remove]&.each do |id|
+      user = User.find(id)
+      user.groups = user.groups.reject { |g| g.id == group.id }
+      user.save
+    end
+    render json: group
+  end
+
+  def update_groups_to_a_user
+    user = User.find(params[:user_id])
+    params[:groups_to_add]&.each do |groupId|
+      group = Group.find(groupId)
+      user.groups << group
+      user.save
+    end
+    params[:groups_to_remove]&.each do |groupId|
+      group = Group.find(groupId)
+      user.groups = user.groups.select { |g| g.id != group.id }
+    end
+    user.save
+    render json: user
   end
 
   def patients

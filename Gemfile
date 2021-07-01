@@ -92,3 +92,5 @@ gem 'browser'
 
 gem "reverse_markdown", "~> 2.0"
 gem "tinymce-rails"
+
+gem "devise_saml_authenticatable"

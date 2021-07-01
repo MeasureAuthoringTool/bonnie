@@ -2,29 +2,33 @@ class User
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   # Include default devise modules. Others available are:
+  # :database_authenticatable, :recoverable, :rememberable,
   # :confirmable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :lockable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :saml_authenticatable,:registerable, :trackable, :validatable
 
-  # Validate password complexity
-  validate :password_complexity
-  def password_complexity
-    if password.present?
-      # Passwords must have characters from at least two groups, identified by these regexes (last one is punctuation)
-      matches = [/[a-z]/, /[A-Z]/, /[0-9]/, /[^\w\s]/].select { |rx| rx.match(password) }.size
-      unless matches >= 2
-        errors.add :password, "must include characters from at least two groups (lower case, upper case, numbers, special characters)"
-      end
+  before_save :normalize_harp_id
+  def normalize_harp_id
+    # For some reason Mongoid stores empty or nil harp_id as null
+    if harp_id.blank? || harp_id.nil?
+      deactivate
     end
+  end
+
+  def deactivate
+    remove_attribute('harp_id')
   end
 
   # Should devise allow this user to log in?
   def active_for_authentication?
+    # User is approved when harp_id is assigned.
+    # Approved flag is set programmatically when harp_id is set by an admin.
     super && is_approved?
   end
 
-  after_create do
-    send_user_signup_email
+  # Send admins an email after a user account is created
+  after_create :send_user_signup_email
+  def send_user_signup_email
+    UserMailer.user_signup_email(self).deliver_now
   end
 
   after_save do
@@ -47,18 +51,13 @@ class User
     groups.where(id: id).first
   end
 
-  # Send admins an email after a user account is created
-  def send_user_signup_email
-    UserMailer.user_signup_email(self).deliver_now
+  # don't require password
+  def password_required?
+    false
   end
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
-  field :encrypted_password, :type => String, :default => ""
-
-  ## Recoverable
-  field :reset_password_token,   :type => String
-  field :reset_password_sent_at, :type => Time
 
   ## Rememberable
   field :remember_created_at, :type => Time
@@ -70,11 +69,6 @@ class User
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
 
-  ## Lockable
-  field :failed_attempts,    :type => Integer, :default => 0
-  field :unlock_token,       :type => String
-  field :locked_at,          :type => Time
-
   field :first_name,    :type => String
   field :last_name,    :type => String
   field :harp_id, :type => String
@@ -84,6 +78,8 @@ class User
   field :portfolio, type:Boolean, :default => false
   field :dashboard, type:Boolean, :default => false
   field :dashboard_set, type:Boolean, :default => false
+  # Approved flag is set programmatically when harp_id is set by an admin
+  # Used in queries.
   field :approved, type:Boolean, :default => false
 
   field :crosswalk_enabled,  type:Boolean, default: false
@@ -93,21 +89,7 @@ class User
 
   scope :by_email, ->(email) { where({email: email}) }
 
-  validates :harp_id, uniqueness: { message: 'Id is already taken' }, if: :harp_id?
-
-  ## Confirmable
-  # field :confirmation_token,   :type => String
-  # field :confirmed_at,         :type => Time
-  # field :confirmation_sent_at, :type => Time
-  # field :unconfirmed_email,    :type => String # Only if using reconfirmable
-
-  ## Lockable
-  # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
-  # field :locked_at,       :type => Time
-
-  ## Token authenticatable
-  # field :authentication_token, :type => String
+  validates :harp_id, uniqueness: { message: 'This HARP ID is already associated with another Bonnie account' }, if: :harp_id?
 
   def is_admin?
     admin || false
@@ -178,5 +160,9 @@ class User
 
   def is_assigned_group(group)
     groups.detect { |g| g.id == group.id }
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 end
